@@ -1,2 +1,4 @@
 .DS_Store
-!.gitignore
+node_modules
+dist/js/*
+dist/css/*
