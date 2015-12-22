@@ -1,0 +1,49 @@
+/**
+ * Widget structure
+ */
+.widget-content, {
+    color: #fff;
+    font-size: 12pt;
+
+    .widget-title,
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 10px;
+        font-size: 15pt;
+        font-weight: 500;
+        line-height: 120%;
+        //word-break: break-word;
+        //hyphens: auto;
+
+        .fa {
+            margin-right: 5px;
+            position: relative;
+            top: -1px;
+        }
+    }
+
+    p > a {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+/**
+ * Widget content holder
+ */
+.widget-content-holder {
+    padding: $widget-padding;
+}
+
+
+[class^="sidebar-"] .widget > .box-content {
+    padding-top: 0 !important;
+}
+
+[class^="sidebar-"] .widget_helsingborgpostinheritwidget img {
+    width: 100%;
+    height: auto;
+}

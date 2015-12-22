@@ -1,0 +1,228 @@
+.search {
+    .search-label {
+        display: none;
+    }
+
+    .btn-submit .fa {
+        display: none;
+    }
+}
+
+.sidebar-left {
+    .search {
+        margin-bottom: 20px;
+
+        input {
+            padding: 10px;
+        }
+
+        .btn-submit {
+            padding: 9px 14px;
+        }
+
+        .search-web-archive {
+            text-align: left;
+
+            a {
+                font-size: $search-sidebar-web-archive-font-size;
+                color: $palette-red-4;
+
+                .fa {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
+
+.is-front-page .nav-topmenu .search {
+    display: none;
+
+    @media screen and (max-width: 850px) {
+        display: block;
+    }
+
+    .hbg-loading,
+    .search-web-archive {
+        display: none;
+    }
+
+    .input-group {
+        width: 248px;
+        margin: 0 auto;
+    }
+}
+
+.nav-topmenu .search {
+    float: right;
+    margin-left: 15px;
+
+    .input-group {
+        position: relative;
+        box-shadow: 0 2px 2px $creamy;
+
+        &::before {
+            @include hbg-icon($icon-search);
+            position: absolute;
+            top: 7.5px;
+            left: 10px;
+            z-index: 2;
+            font-size: $search-topmenu-icon-font-size;
+            color: darken($creamy-darker, 20%);
+        }
+    }
+
+    input[type="text"],
+    input[type="search"] {
+        padding: 4.5px 8px 4.5px 28px;
+        border-radius: 3px 0 0 3px;
+        border: 1px solid $creamy-darker;
+        border-right: 0;
+        color: $text-default;
+        font-size: $search-topmenu-input-font-size;
+        font-weight: 400;
+        width: 200px;
+    }
+
+    .btn-submit {
+        padding: 4px 10px;
+        font-size: $search-topmenu-submit-font-size;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .search-web-archive {
+        a {
+            font-size: $search-topmenu-web-archive-font-size;
+            color: #999;
+
+            .fa {
+                display: none;
+            }
+
+            &:hover {
+                color: darken(#999, 10%);
+            }
+        }
+    }
+
+    @media screen and (max-width: 555px) {
+        float: none;
+        display: inline-block;
+        margin-left: 0;
+    }
+}
+
+.section-featured .search {
+    margin: 0;
+
+    input[type="search"] {
+        padding: 20px;
+        font-size: $search-hero-input-font-size;
+        border: 1px solid $form-control-border-color;
+        border-right: 0;
+    }
+
+    .btn-submit {
+        padding: 18px 14px;
+        font-size: $search-hero-input-font-size;
+    }
+
+    .form-element:nth-child(2) {
+        width: 100px;
+    }
+
+    .search-web-archive {
+        margin-top: 5px;
+
+        a {
+            font-size: 11pt;
+            color: $palette-red-4;
+
+            .fa {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+// Search results page
+
+.search-hits-info {
+    margin-top: 10px;
+
+    span {
+        font-weight: bold;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+.search-result {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-result-item {
+    padding: 20px 0;
+
+    &.row {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    h3 {
+        margin-bottom: 5px;
+    }
+
+    a {
+        color: $palette-red-4;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    p {
+        max-width: 750px;
+    }
+
+    br {
+        display: none;
+    }
+
+    & + .search-result-item {
+        border-top: 1px solid $creamy;
+    }
+
+    b {
+        background-color: lighten($palette-red-4, 55%);
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.search-result-item-info,
+.search-result-item-date {
+    margin-top: 5px;
+    font-size: 11pt;
+    font-weight: normal;
+    color: $text-gray-light;
+
+    a {
+        color: $text-gray-light;
+    }
+}
+
+.search-result-item-date {
+    display: block;
+    margin-top: 0;
+}

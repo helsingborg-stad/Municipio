@@ -1,0 +1,43 @@
+// Headlines
+//
+// Markup:
+// <h1>H1</h1>
+// <h2>H2</h2>
+// <h3>H3</h3>
+// <h4>H4</h4>
+// <h5>H5</h5>
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+h2 {
+    letter-spacing: .5px;
+}
+
+h3 {
+    letter-spacing: .25px;
+}
+
+// Paragraphs
+
+p {
+    margin: 0;
+
+    & + p {
+        margin-top: 15px;
+    }
+
+    & + h1,
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5 {
+        margin-top: 20px;
+    }
+}

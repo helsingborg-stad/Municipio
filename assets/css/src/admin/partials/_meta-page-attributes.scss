@@ -1,0 +1,14 @@
+
+	#pageparentdiv {
+		
+		//Remove all unneccesary p-tags 
+		p:not(:first-child) {
+			display: none; 
+		}
+		
+		//Widen template selector 
+		select#page_template {
+			width: 100%; 
+		}
+		
+	}

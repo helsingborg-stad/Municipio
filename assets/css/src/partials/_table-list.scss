@@ -1,0 +1,202 @@
+$gray-3: #ddd;
+$headline-color: #333;
+
+.table-list-filter {
+    background-color: $creamy;
+    border: 1px solid $creamy-darker;
+    padding: 10px 15px 15px 15px;
+}
+
+.table-list {
+    width: 100%;
+    letter-spacing: .5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+    /**
+     * Table head
+     */
+    thead {
+        background: $palette-red-2;
+        border: 1px solid $palette-red-2;
+
+        @media print {
+            border-color: $creamy-darker;
+            display: none;
+        }
+
+        th:first-child {
+            display: none;
+        }
+
+        td, th {
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: .5px;
+            font-size: $table-thead-font-size;
+            line-height: 100%;
+            padding: 10px 15px;
+            text-align: left;
+        }
+
+        // Sorting arrows
+        .header {
+            cursor: pointer;
+            padding-right: 25px;
+
+            &::before {
+                @include hbg-icon($icon-sort);
+                margin-right: 5px;
+            }
+
+            &.sorting-asc {
+                &::before {
+                    @include hbg-icon($icon-sort-asc);
+                }
+            }
+
+            &.sorting-desc {
+                &::before {
+                    @include hbg-icon($icon-sort-desc);
+                }
+            }
+
+            &:last-child {
+                background-position: 95% center;
+            }
+        }
+    }
+
+    /**
+     * Table body
+     */
+    tbody {
+        font-size: $table-tbody-font-size;
+        border: 1px solid $creamy-darker;
+
+        &:nth-child(odd) {
+            //background-color: scale-color($gray-3, $lightness: 70%);
+        }
+
+        .table-item td {
+            border-bottom: 1px solid $creamy-darker;
+        }
+
+        tbody tr th {
+            display: none;
+        }
+    }
+
+    /**
+     * List item
+     */
+    .table-item {
+        @media print {
+            display: none;
+        }
+
+        td:first-child {
+            font-weight: bold;
+        }
+
+        td {
+            padding: 10px 15px;
+            vertical-align: top;
+        }
+
+        // Expand icon last row column
+        td:last-child {
+            position: relative;
+            padding-right: 50px;
+
+            &::after {
+                position: absolute;
+                right: 10px;
+                top: 12px;
+                @include hbg-icon($icon-plus-square);
+                color: $palette-red-2;
+                font-size: 1rem;
+
+                @media print {
+                    display: none;
+                }
+            }
+        }
+
+        // Hover state
+        &:hover {
+            cursor: pointer;
+            //background-color: scale-color($gray-3, $lightness: 40%);
+        }
+
+        // Active state
+        &.active {
+            background-color: lighten($palette-red-2, 57%);
+
+            td:last-child {
+                &::after {
+                    @include hbg-icon($icon-minus-square);
+                }
+            }
+        }
+    }
+
+    /**
+     * Expandeble content style
+     */
+    .table-content {
+        background-color: $creamy;
+
+        td {
+            display: none;
+            padding: 15px 20px;
+            border-top: 1px solid $creamy-darker;
+            box-shadow: inset 0 5px 6px $creamy-darker;
+
+            .article-body {
+                margin-bottom: 0;
+            }
+
+            @media print {
+                display: table-cell;
+            }
+        }
+
+        &.open td {
+            display: table-cell;
+        }
+
+        p {
+            margin: 0;
+
+            & + p {
+                margin-top: 15px;
+            }
+        }
+    }
+}
+
+@media #{$medium-down} {
+    .table-list {
+        .table-item, thead {
+            td,
+            th {
+                display: none;
+            }
+
+            td:first-child,
+            th:nth-child(2) {
+                display: block;
+            }
+        }
+    }
+}
+
+.filter-search {
+    @include input-placeholder(#999);
+
+    input[type="text"] {
+        max-width: 400px;
+        width: 100%;
+    }
+}

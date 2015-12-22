@@ -1,0 +1,124 @@
+// Index item
+//
+// .index-item-filled           - Filled index item
+//
+// Markup:
+// <a class="index-item" href="#">
+//     <img src="...">
+//     <span class="index-container">
+//         <span class="index-caption">Headline</span>
+//         <span class="index-description">Description</span>
+//     </span>
+// </a>
+
+.index-item {
+    display: block;
+    position: relative;
+    background-color: #fff;
+    color: $text-default;
+    text-decoration: none;
+    letter-spacing: .5px;
+    font-weight: bold;
+    //box-shadow: 0 5px 5px $creamy;
+    border: 1px solid $creamy-darker;
+    padding: 5px;
+
+    @media #{$small-up} {
+        margin-bottom: $column-gutter;
+    }
+
+    &:hover {
+        background-color: $creamy;
+    }
+
+    img + .index-container {
+        border-top: 0;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    @media print {
+        border: 0;
+        margin-bottom: 20px;
+        
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.index-container {
+    display: block;
+    position: relative;
+    padding: $widget-padding;
+
+    @media print {
+        border: 1px solid $creamy-darker !important;
+    }
+}
+
+@media print {
+    img + .index-container {
+        border-top: 0;
+    }
+}
+
+.index-description {
+    display: block;
+    margin-top: 5px;
+    font-weight: 300;
+    font-size: $index-description-font-size;
+    white-space: break-word;
+}
+
+.index-caption {
+    display: block;
+    line-height: 130%;
+    color: $palette-red-4;
+
+    @media print {
+        &.link-item {
+            &::before {
+                color: rgba(#000, .8);
+            }
+        }
+    }
+}
+
+.index-item-filled {
+    background-color: $palette-red-2;
+    color: #fff;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+
+    &:hover {
+        background-color: darken($palette-red-2, 5%);
+    }
+
+    .index-container {
+        border: none;
+    }
+
+    .index-caption {
+        color: #fff;
+    }
+}
+
+.index-horizontal {
+    .index-item {
+        img {
+            float: left;
+            margin-right: $widget-padding;
+            width: auto;
+            height: 100%;
+        }
+
+        .index-description {
+            font-size: $index-horizontal-description-font-size;
+        }
+    }
+}

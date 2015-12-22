@@ -1,0 +1,55 @@
+@mixin input-placeholder($color: #ddd, $opacity: 1, $font-weight: normal) {
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: $color;
+        opacity: $opacity;
+        font-weight: $font-weight;
+    }
+
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: $color;
+        opacity: $opacity;
+        font-weight: $font-weight;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: $color;
+        opacity: $opacity;
+        font-weight: $font-weight;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: $color;
+        opacity: $opacity;
+        font-weight: $font-weight;
+    }
+}
+
+@mixin hbg-icon($icon: $home, $iconset: #{'FontAwesome'}) {
+    font-family: $iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: $icon;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin gradient($from, $to) {
+    background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+    background: -moz-linear-gradient(top,  $from, $to);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}
+
+@mixin word-wrap($hypens: none) {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: $hypens;
+    -moz-hyphens: $hypens;
+    -webkit-hyphens: $hypens;
+    hyphens: $hypens;
+}

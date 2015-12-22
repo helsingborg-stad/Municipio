@@ -1,0 +1,39 @@
+/**
+ * Style the "My sites" dropdown
+ */
+ 
+#wpadminbar {
+	
+	/* Hidden items */ 
+	#wp-admin-bar-comments,
+	#wp-admin-bar-all-in-one-seo-pack {
+		display: none; 
+	}
+	
+	#wp-admin-bar-my-sites {
+		
+		.ab-sub-wrapper {
+		    max-height: 500px;
+		    overflow-y: auto;
+		    width: 400px; 
+		    
+			.ab-sub-wrapper {
+				box-shadow: none; 
+			}
+		}
+	
+	}
+	
+	#wp-admin-bar-my-sites-super-admin {
+	    background: #32373c !important;
+	}
+	 
+	#wp-admin-bar-network-admin-default {
+	    background: #32373c !important;
+	}
+	
+	#wp-admin-bar-my-sites .ab-sub-wrapper > ul {
+	    width: 200px;
+	}
+
+}

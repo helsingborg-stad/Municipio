@@ -1,0 +1,268 @@
+$palette-purple-1: #d35098;
+$palette-purple-2: #712082;
+$palette-purple-3: #a84c98;
+$palette-purple-4: #7b075e;
+$palette-purple-5: #a61380;
+
+body[data-theme="purple"] {
+
+    // Brand stripe
+    .stripe {
+        @include stripe($palette-purple-1, $palette-purple-2, $palette-purple-3, $palette-purple-4, $palette-purple-5);
+    }
+
+    .nav-mainmenu-container {
+        background-color: $palette-purple-2;
+    }
+
+
+    // Top segmented controller for switching to sub site/self service
+    .navbar-topmenu li.highlight-red a {
+        color: $palette-purple-5;
+    }
+
+    // Sidebar nav
+    .navbar-aside a:hover,
+    .navbar-aside .current > a {
+        color: $palette-purple-2;
+    }
+
+    .navbar-aside .sub-menu .current > a::before {
+        background-color: $palette-purple-2;
+    }
+
+    // Mobile nav
+    .mobile-menu-wrapper {
+        background-color: $palette-purple-2;
+
+        ul:not(.sub-menu) > .current > a {
+            background-color: $palette-purple-4;
+            color: #fff;
+        }
+    }
+
+    .nav-mobilemenu > ul > li > a:hover {
+        background-color: darken($palette-purple-2, 10%);
+        color: #fff;
+    }
+
+    .nav-mobilemenu .current-ancestor:not(.current-node) > a {
+        color: $palette-purple-2;
+    }
+
+    .nav-mobilemenu .current-node > a {
+        background-color: $palette-purple-5;
+    }
+
+    .nav-mobilemenu .sub-menu {
+        background-color: #fff;
+
+        a:hover {
+            background-color: lighten($palette-purple-2, 56%);
+        }
+    }
+
+    .btn.btn-mobile-menu {
+        color: $palette-purple-2;
+    }
+
+    .hbg-hamburger::after, .hbg-hamburger::before, .hbg-hamburger {
+        background-color: $palette-purple-2;
+    }
+
+    // Article
+    .section-article {
+        border-color: $palette-purple-2;
+    }
+
+    .article-header h1 {
+        color: $palette-purple-2;
+    }
+
+    // Hero search label
+    .hero .search .search-label.search-label-alt {
+        background-color: $palette-purple-2;
+    }
+
+    // Footer
+    .site-footer-content {
+        background-color: $palette-purple-4;
+    }
+
+    // Footer nav
+    .nav-footer-menu a {
+        background-color: darken($palette-purple-4, 5%);
+    }
+
+    #google-translate-element {
+        background-color: darken($palette-purple-4, 5%);
+    }
+
+    #google-translate-element .goog-logo-link,
+    #google-translate-element .goog-te-gadget {
+        color: #fff;
+    }
+
+    // Index
+    .index-item-filled {
+        background-color: $palette-purple-2;
+    }
+
+    .index-item:not(.index-item-filled) .index-caption {
+        color: $palette-purple-2;
+    }
+
+    // List
+    .box:not(.box-filled) .list a:not(.icon-link) {
+        color: $palette-purple-3;
+    }
+
+    // Box title
+    .box-title,
+    [class^="sidebar-"] .widget_text h2 {
+        background-color: $palette-purple-4;
+    }
+
+    // Box Outlined Title
+    .box-outlined .box-title,
+    .box-outlined [class^="sidebar-"] .widget_text h2,
+    #widget-content-area .widget_text .widgettitle,
+    #widget-content-area-bottom .widget_text .widgettitle,
+    .section-news .widget_text .widgettitle,
+    [class^="sidebar-"] .widget_text .box-outlined h2 {
+        background-color: transparent;
+        color: $palette-purple-2;
+        border-color: $palette-purple-2;
+    }
+
+    .box-filled .box-title,
+    .box-filled h2 {
+        background-color: transparent !important;
+    }
+
+    .section-featured .list .featured .link-item {
+        color: $palette-purple-3;
+    }
+
+    // Event list
+    #widget-content-area .widget_text .section-featured .list .featured .widgettitle,
+    #widget-content-area-bottom .widget_text .section-featured .list .featured .widgettitle,
+    .section-featured .list .featured #widget-content-area .widget_text .widgettitle,
+    .section-featured .list .featured #widget-content-area-bottom .widget_text .widgettitle,
+    .section-featured .list .featured .section-news .widget_text .widgettitle, .section-featured .list .featured [class^="sidebar-"] .widget_text h2,
+    .section-featured .list .featured h3, .section-news .widget_text .section-featured .list .featured .widgettitle,
+    [class^="sidebar-"] .widget_text .section-featured .list .featured h2 {
+        color: $palette-purple-2;
+    }
+
+    .section-featured .list .featured .lead {
+        color: $text-default;
+    }
+
+    // Highlighted text
+    .text-highlight {
+        color: $palette-purple-2;
+    }
+
+    // Buttons
+    .btn-plain {
+        color: $palette-purple-3;
+
+        &:hover {
+            color: darken($palette-purple-3, 10%);
+        }
+    }
+
+    // Share
+    .box-share .share-icons li a {
+        background-color: $palette-purple-4;
+        border-color: $palette-purple-4;
+    }
+
+    .box-share .share-icons::before {
+        background-color: $palette-purple-4;
+    }
+
+    .box-share .share-icons li a:focus, .box-share .share-icons li a:hover {
+        background-color: $palette-purple-5;
+    }
+
+    // Breadcrumb
+    .breadcrumbs a {
+        color: $palette-purple-2;
+    }
+
+    // Table list
+    .table-list thead {
+        background-color: $palette-purple-2;
+        border-color: $palette-purple-2;
+    }
+
+    .table-list .table-item td:last-child::after {
+        color: $palette-purple-1;
+    }
+
+    .table-list .table-item.active {
+        background-color: lighten($palette-purple-2, 60%);
+    }
+
+    .btn-submit {
+        background-color: $palette-purple-1;
+
+        &:hover {
+            background-color: darken($palette-purple-1, 5%);
+        }
+    }
+
+    // Widget colors
+    .sidebar-right,
+    .sidebar-left {
+        .widget {
+            &:nth-child(1n) {
+                .box-filled {
+                    background: $palette-purple-1;
+                }
+            }
+
+            &:nth-child(2n) {
+                .box-filled {
+                    background: $palette-purple-2;
+                }
+            }
+
+            &:nth-child(3n) {
+                .box-filled {
+                    background: $palette-purple-3;
+                }
+            }
+
+            &:nth-child(4n) {
+                .box-filled {
+                    background: $palette-purple-4;
+                }
+            }
+
+            &:nth-child(5n) {
+                .box-filled {
+                    background: $palette-purple-5;
+                }
+            }
+        }
+    }
+
+    // Pagination
+    .pagination {
+        .current a,
+        .current-pager a {
+            background-color: $palette-purple-2;
+            border-color: $palette-purple-2;
+            color: #fff;
+        }
+    }
+
+    // Search result item
+    .search-result-item a {
+        color: $palette-purple-4;
+    }
+
+}

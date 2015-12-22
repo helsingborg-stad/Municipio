@@ -1,0 +1,17 @@
+
+ul#adminmenu {
+	
+	li {
+	
+		&.wp-menu-separator {
+			
+			margin-top: 6px; 
+			
+			.separator {
+				background-color: rgba(0,0,0,0.2); 
+			}
+		}
+		
+	}
+	
+}

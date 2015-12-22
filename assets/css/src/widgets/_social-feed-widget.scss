@@ -1,0 +1,205 @@
+.hbg-social-feed {
+    @extend .padding-x1;
+
+    ul, li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    &.hbg-social-feed-instagram,
+    &.hbg-social-feed-pinterest {
+        .columns {
+            padding: 5px;
+
+            a {
+                display: block;
+                position: relative;
+                background-size: 100%;
+                background-position: center center;
+                border-radius: 5px;
+                overflow: hidden;
+
+                .zoom-icon {
+                    $icon-size: 1px;
+                    position: absolute;
+                    z-index: 10;
+                    top: 50%;
+                    left: 50%;
+                    margin-left: -$icon-size/2;
+                    margin-top: -$icon-size/2;
+                    font-size: $icon-size;
+                    width: $icon-size;
+                    height: $icon-size;
+                    color: #fff;
+                    opacity: 0;
+                    text-shadow: 0 0 50px #000;
+                    transition: .2s all;
+                    text-decoration: none;
+                }
+
+                .hbg-social-feed-instagram-likes {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 20px 8px 5px 8px;
+                    color: #fff;
+                    font-size: 9pt;
+                    @include gradient(rgba(0, 0, 0, 0), rgba(0,0,0,.9));
+
+                    .fa {
+                        color: #E20613;
+                    }
+                }
+
+                &:hover {
+                    text-decoration: none;
+
+                    .zoom-icon {
+                        $icon-size: 50px;
+                        font-size: $icon-size;
+                        margin-left: -$icon-size/2;
+                        margin-top: -$icon-size/2;
+                        width: $icon-size;
+                        height: $icon-size;
+                        opacity: 1;
+                    }
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .instagram-image {
+            visibility: hidden;
+            border-radius: 5px;
+        }
+    }
+
+    &.hbg-social-feed-pinterest {
+        .columns {
+            a {
+                padding-bottom: 100%;
+            }
+        }
+    }
+
+    &.hbg-social-feed-facebook,
+    &.hbg-social-feed-twitter {
+
+        ul {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: rem-calc(10);
+        }
+
+        li {
+            position: relative;
+            min-height: 54px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            & + li {
+                margin-top: 5px;
+            }
+        }
+
+        .hbg-social-feed-image {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 3px;
+            background-size: cover;
+            background-position: center center;
+            border: 1px solid $creamy-darker;
+        }
+
+        .hbg-social-feed-post-content {
+            margin-left: 60px;
+            font-size: 10pt;
+            line-height: 140%;
+
+            article {
+                word-wrap: break-word;
+                hyphens: none;
+                //@include word-wrap();
+            }
+        }
+
+        .hbg-social-feed-post-attachment {
+            display: block;
+        }
+
+        .hbg-social-feed-post-date {
+            font-weight: bold;
+            font-size: 9pt;
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .read-more {
+            color: #fff;
+        }
+
+        .hbg-social-feed-post-attachment {
+            border: 1px solid rgba(#fff, .5);
+            border-radius: 3px;
+            padding: 5px 8px;
+            font-size: 8pt;
+            line-height: 140%;
+            margin-top: 8px;
+            color: #fff;
+            text-decoration: none;
+
+            &:hover {
+                border-color: #fff;
+            }
+
+            .hbg-social-feed-post-attachment-title {
+                color: #fff;
+                font-weight: bold;
+                display: block;
+            }
+
+            .hbg-social-feed-post-attachment-description {
+                display: none;
+            }
+
+            .hbg-social-feed-post-attachment-caption {
+                font-size: 7pt;
+                color: rgba(#fff, .8);
+            }
+        }
+    }
+
+    &.hbg-social-feed-twitter {
+        .hbg-social-feed-post-content {
+            margin-left: 0;
+        }
+    }
+
+    .hbg-social-feed-actions {
+        margin: -10px;
+        margin-top: 10px;
+
+        a {
+            border-top: 1px solid $creamy-darker;
+        }
+    }
+}
+
+.widget {
+    &.hbg-social-feed-facebook,
+    &.hbg-social-feed-twitter {
+        margin: rem-calc(-10);
+        margin-bottom: rem-calc(-11);
+    }
+}

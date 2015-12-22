@@ -1,0 +1,250 @@
+// Box
+//
+// .box-outlined            - Outlined box
+// .box-filled              - Filled box
+// .box-creamy              - Creamy box
+//
+// Markup:
+// <div class="box {{modified_class}}">
+//     <h3 class="box-title">Title</h3>
+//     <div class="box-content">
+//          The box content
+//     </div>
+// </div>
+
+.box {
+
+}
+
+// Box title
+//
+// Markup:
+// <h3 class="box-title">The title</h3>
+
+.box-title {
+    padding: 10px 15px;
+    margin: 0;
+    background-color: $palette-red-4;
+    color: #fff;
+    font-weight: bold;
+
+    .fa {
+        margin-right: 5px;
+    }
+
+    .link-rss {
+        float: right;
+        color: #fff;
+
+        .fa {
+            margin-right: 0;
+        }
+    }
+
+    @media print {
+        border: 1px solid $creamy-darker;
+    }
+}
+
+// Box content
+//
+// Markup:
+// <div class="box-content">The content</div>
+
+.box-content {
+    background: #fff;
+    border-top: 1px solid $creamy-darker;
+    border-bottom: 1px solid $creamy-darker;
+    border-left: 1px solid $creamy-darker;
+    border-right: 1px solid $creamy-darker;
+}
+
+.box-content-no-title-margin {
+    margin-top: 35px;
+}
+
+.box-title + .box-content {
+    border-top: none;
+}
+
+// Box Outlined
+
+.box-outlined {
+    .box-title {
+        padding: 0;
+        padding-bottom: 5px;
+        border-bottom: 4px solid $palette-red-2;
+        background-color: transparent;
+        color: $palette-red-2;
+
+        @media print {
+            padding: 10px 15px;
+        }
+    }
+}
+
+// Box Filled
+
+.box-filled {
+    position: relative;
+    padding-left: $box-filled-stripe-width;
+
+    .box-title {
+        background-color: transparent;
+
+        @media print {
+            border-bottom: 0;
+        }
+    }
+
+    .box-content {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+
+        @media print {
+            border: 1px solid $creamy-darker;
+            border-top: 0;
+        }
+    }
+
+    .box-title + [class*="padding-x"] {
+        padding-top: 0;
+    }
+}
+
+// Box creamy
+
+.box-creamy {
+    padding: 15px;
+    background: $creamy;
+    border: 1px solid $creamy-darker;
+
+    .box-title {
+        background-color: transparent;
+        display: none;
+        color: $text-default;
+        padding: 0;
+        margin-bottom: 4px;
+    }
+
+    .box-content {
+        background: transparent;
+        border: none;
+    }
+}
+
+// Box share
+
+.box-share {
+    width: 100%;
+    margin-top: 30px;
+    line-height: 100%;
+    display: table;
+
+    @media print {
+        display: none;
+    }
+
+    .box-title {
+        display: block;
+        font-size: $box-share-title-font-size;
+        padding: 0;
+        padding-bottom: 4px;
+    }
+
+    .share-image {
+        display: table-cell;
+        width: 100px;
+        height: 100px;
+        border-radius: 3px;
+        background-size: cover;
+    }
+
+    .share-image + .share-content {
+        padding-left: 20px;
+    }
+
+    .share-content {
+        display: table-cell;
+        vertical-align: middle;
+        padding-left: 3px;
+        padding-right: 3px;
+
+        h5 {
+            margin: 0;
+            padding: 0;
+
+            span {
+                font-weight: normal;
+            }
+        }
+    }
+
+    .share-url {
+        position: relative;
+        top: -2px;
+        font-size: $box-share-url-font-size;
+        color: $text-gray-dark;
+    }
+
+    .share-icons {
+        position: relative;
+        list-style-type: none;
+        margin: 0;
+        margin-top: 5px;
+        padding: 0;
+        font-size: 20px;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 13px;
+            left: 10px;
+            width: 100px;
+            height: 10px;
+            background-color: $palette-red-2;
+        }
+
+        li {
+            display: inline-block;
+
+            a {
+                display: block;
+                position: relative;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: $palette-red-2;
+                border: 3px solid $palette-red-2;
+                color: #fff;
+
+                &:hover,
+                &:focus {
+                    background-color: darken($palette-red-2, 20%);
+                }
+
+                .fa {
+                    @extend .center-in-parent;
+                }
+
+                [class*="fa-twitter"],
+                [class*="fa-linkedin"] {
+                    margin-top: -1px;
+                }
+
+                [class*="fa-linkedin"] {
+                    margin-top: -2px;
+                    margin-left: 1px;
+                }
+
+                [class*="fa-facebook"] {
+                    margin-left: 0;
+                }
+
+            }
+        }
+    }
+}
+

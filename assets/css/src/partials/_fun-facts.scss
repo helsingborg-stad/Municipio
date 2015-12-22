@@ -1,0 +1,18 @@
+// Fun facts
+
+.fun-fact-title {
+    font-size: $fun-facts-title-font-size;
+    font-weight: 900;
+    line-height: 120%;
+    color: $palette-red-4;
+
+    .fa {
+        color: $text-gray-light;
+    }
+}
+
+.fun-fact-caption {
+    font-size: $fun-facts-caption-font-size;
+    line-height: 140%;
+    color: $text-gray-light;
+}

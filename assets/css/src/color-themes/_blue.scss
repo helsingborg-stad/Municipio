@@ -1,0 +1,268 @@
+$palette-blue-1: #4db4e7;
+$palette-blue-2: #0069b4;
+$palette-blue-3: #5ba1d8;
+$palette-blue-4: #005c86;
+$palette-blue-5: #0095db;
+
+body[data-theme="blue"] {
+
+    // Brand stripe
+    .stripe {
+        @include stripe($palette-blue-1, $palette-blue-2, $palette-blue-3, $palette-blue-4, $palette-blue-5);
+    }
+
+    .nav-mainmenu-container {
+        background-color: $palette-blue-4;
+    }
+
+    // Top segmented controller for switching to sub site/self service
+    .navbar-topmenu li.highlight-red a {
+        color: $palette-blue-5;
+    }
+
+    // Sidebar nav
+    .navbar-aside a:hover,
+    .navbar-aside .current > a {
+        color: $palette-blue-2;
+    }
+
+    .navbar-aside .sub-menu .current > a::before {
+        background-color: $palette-blue-2;
+    }
+
+    // Mobile nav
+    .mobile-menu-wrapper {
+        background-color: $palette-blue-2;
+
+        ul:not(.sub-menu) > .current > a {
+            background-color: $palette-blue-4;
+            color: #fff;
+        }
+    }
+
+    .nav-mobilemenu > ul > li > a:hover {
+        background-color: darken($palette-blue-2, 10%);
+        color: #fff;
+    }
+
+    .nav-mobilemenu .current-ancestor:not(.current-node) > a {
+        color: $palette-blue-2;
+    }
+
+    .nav-mobilemenu .current-node > a {
+        background-color: $palette-blue-5;
+    }
+
+    .nav-mobilemenu .sub-menu {
+        background-color: #fff;
+
+        a:hover {
+            background-color: lighten($palette-blue-2, 56%);
+        }
+    }
+
+    .btn.btn-mobile-menu {
+        color: $palette-blue-2;
+    }
+
+    .hbg-hamburger::after, .hbg-hamburger::before, .hbg-hamburger {
+        background-color: $palette-blue-2;
+    }
+
+    // Article
+    .section-article {
+        border-color: $palette-blue-2;
+    }
+
+    .article-header h1 {
+        color: $palette-blue-2;
+    }
+
+    // Hero search label
+    .hero .search .search-label.search-label-alt {
+        background-color: $palette-blue-2;
+    }
+
+    // Footer
+    .site-footer-content {
+        background-color: $palette-blue-4;
+    }
+
+    // Footer nav
+    .nav-footer-menu a {
+        background-color: darken($palette-blue-4, 5%);
+    }
+
+    #google-translate-element {
+        background-color: darken($palette-blue-4, 5%);
+    }
+
+    #google-translate-element .goog-logo-link,
+    #google-translate-element .goog-te-gadget {
+        color: #fff;
+    }
+
+    // Index
+    .index-item-filled {
+        background-color: $palette-blue-2;
+    }
+
+    .index-item:not(.index-item-filled) .index-caption {
+        color: $palette-blue-2;
+    }
+
+    // List
+    .box:not(.box-filled) .list a:not(.icon-link) {
+        color: $palette-blue-3;
+    }
+
+    // Box title
+    .box-title,
+    [class^="sidebar-"] .widget_text h2 {
+        background-color: $palette-blue-4;
+    }
+
+    // Box Outlined Title
+    .box-outlined .box-title,
+    .box-outlined [class^="sidebar-"] .widget_text h2,
+    #widget-content-area .widget_text .widgettitle,
+    #widget-content-area-bottom .widget_text .widgettitle,
+    .section-news .widget_text .widgettitle,
+    [class^="sidebar-"] .widget_text .box-outlined h2 {
+        background-color: transparent;
+        color: $palette-blue-2;
+        border-color: $palette-blue-2;
+    }
+
+    .box-filled .box-title,
+    .box-filled h2 {
+        background-color: transparent !important;
+    }
+
+    .section-featured .list .featured .link-item {
+        color: $palette-blue-3;
+    }
+
+    // Event list
+    #widget-content-area .widget_text .section-featured .list .featured .widgettitle,
+    #widget-content-area-bottom .widget_text .section-featured .list .featured .widgettitle,
+    .section-featured .list .featured #widget-content-area .widget_text .widgettitle,
+    .section-featured .list .featured #widget-content-area-bottom .widget_text .widgettitle,
+    .section-featured .list .featured .section-news .widget_text .widgettitle, .section-featured .list .featured [class^="sidebar-"] .widget_text h2,
+    .section-featured .list .featured h3, .section-news .widget_text .section-featured .list .featured .widgettitle,
+    [class^="sidebar-"] .widget_text .section-featured .list .featured h2 {
+        color: $palette-blue-2;
+    }
+
+    .section-featured .list .featured .lead {
+        color: $text-default;
+    }
+
+    // Highlighted text
+    .text-highlight {
+        color: $palette-blue-2;
+    }
+
+    // Buttons
+    .btn-plain {
+        color: $palette-blue-3;
+
+        &:hover {
+            color: darken($palette-blue-3, 10%);
+        }
+    }
+
+    // Share
+    .box-share .share-icons li a {
+        background-color: $palette-blue-4;
+        border-color: $palette-blue-4;
+    }
+
+    .box-share .share-icons::before {
+        background-color: $palette-blue-4;
+    }
+
+    .box-share .share-icons li a:focus, .box-share .share-icons li a:hover {
+        background-color: $palette-blue-5;
+    }
+
+    // Breadcrumb
+    .breadcrumbs a {
+        color: $palette-blue-2;
+    }
+
+    // Table list
+    .table-list thead {
+        background-color: $palette-blue-2;
+        border-color: $palette-blue-2;
+    }
+
+    .table-list .table-item td:last-child::after {
+        color: $palette-blue-1;
+    }
+
+    .table-list .table-item.active {
+        background-color: lighten($palette-blue-2, 60%);
+    }
+
+    .btn-submit {
+        background-color: $palette-blue-2;
+
+        &:hover {
+            background-color: darken($palette-blue-2, 5%);
+        }
+    }
+
+    // Widget colors
+    .sidebar-right,
+    .sidebar-left {
+        .widget {
+            &:nth-child(1n) {
+                .box-filled {
+                    background: $palette-blue-1;
+                }
+            }
+
+            &:nth-child(2n) {
+                .box-filled {
+                    background: $palette-blue-2;
+                }
+            }
+
+            &:nth-child(3n) {
+                .box-filled {
+                    background: $palette-blue-3;
+                }
+            }
+
+            &:nth-child(4n) {
+                .box-filled {
+                    background: $palette-blue-4;
+                }
+            }
+
+            &:nth-child(5n) {
+                .box-filled {
+                    background: $palette-blue-5;
+                }
+            }
+        }
+    }
+
+    // Pagination
+    
+    .pagination {
+        .current a,
+        .current-pager a {
+            background-color: $palette-blue-2;
+            border-color: $palette-blue-2;
+            color: #fff;
+        }
+    }
+
+    // Search result item
+    .search-result-item a {
+        color: $palette-blue-4;
+    }
+
+}

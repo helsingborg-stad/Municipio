@@ -1,0 +1,18 @@
+@import 'admin/multiple-select';
+
+/* Partials - global */ 
+@import 'admin/partials/admin-bar';
+@import 'admin/partials/admin-menu';
+
+/* Partials - Metas */ 
+@import 'admin/partials/meta-publish';
+@import 'admin/partials/meta-page-attributes';
+
+/* Partials - Plugins */  
+@import 'admin/partials/meta-post-expire';
+@import 'admin/partials/meta-page-widgets';
+@import 'admin/partials/plugin-tablepress';
+
+/* Partials - Js plugins */
+@import 'admin/partials/js-plugin-select2';
+

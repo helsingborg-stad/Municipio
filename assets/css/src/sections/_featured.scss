@@ -1,0 +1,14 @@
+.section-featured {
+
+}
+
+.section-featured-search {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media #{$small-only} {
+    .section-featured .columns + .columns {
+        margin-top: 20px;
+    }
+}

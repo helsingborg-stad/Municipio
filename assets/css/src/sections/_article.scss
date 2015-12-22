@@ -1,0 +1,24 @@
+.section-article {
+    padding-bottom: 60px;
+
+    @media print {
+        border-top: 0;
+    }
+}
+
+.section-article-full {
+    padding-top: 40px;
+}
+
+.section-article-search {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#widget-content-area {
+    margin-top: 0;
+}
+
+#widget-content-area .widget + .widget {
+    margin-top: 20px;
+}

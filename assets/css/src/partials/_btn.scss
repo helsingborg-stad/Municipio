@@ -1,0 +1,130 @@
+// Button in different styles
+//
+// .btn-plain       - Text only button
+// .btn-submit      - Orange button to use for submit
+// .btn-alert-close - Btn for closing alerts
+// .btn-block       - Block level button
+// .btn-default     - Default button style
+// .btn-offcanvas   - Button outside the canvas (moves in on tab focus)
+//
+// Markup:
+// <button class="btn {{modifier_class}}">Button</button>
+// <a href="#" class="btn {{modifier_class}}">Button</a>
+
+.btn,
+a.btn {
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-submit,
+a.btn-submit {
+    background-color: $palette-red-3;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+
+    &:hover {
+        background: darken($palette-red-3, 5%);
+    }
+}
+
+.btn-warning,
+a.btn-warning {
+    background-color: $palette-red-5;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+
+    &:hover {
+        background: darken($palette-red-5, 5%);
+    }
+}
+
+.btn-plain,
+.btn-alert-close {
+    background-color: transparent;
+    color: $palette-red-4 !important;
+    padding: 0;
+
+    &:hover {
+        color: darken($palette-red-4, 10%);
+    }
+}
+
+.btn-plain:hover {
+    text-decoration: underline;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.btn-default {
+    background-color: $palette-red-4;
+    color: #fff;
+}
+
+.btn-offcanvas {
+    position: absolute;
+    left: -100%;
+    z-index: $level-top;
+
+    &:focus {
+        left: 0;
+    }
+}
+
+[class*="btn-transparent-dark-"] {
+    background-color: rgba(#000, .5);
+
+    &.btn-transparent-dark-x1 {
+        background-color: rgba(#000, .1);
+
+        &:hover {
+            background-color: rgba(#000, .3);
+        }
+    }
+
+    &.btn-transparent-dark-x2 {
+        background-color: rgba(#000, .2);
+
+        &:hover {
+            background-color: rgba(#000, .4);
+        }
+    }
+
+    &.btn-transparent-dark-x3 {
+        background-color: rgba(#000, .3);
+
+        &:hover {
+            background-color: rgba(#000, .5);
+        }
+    }
+
+    &.btn-transparent-dark-x4 {
+        background-color: rgba(#000, .4);
+
+        &:hover {
+            background-color: rgba(#000, .6);
+        }
+    }
+
+    &.btn-transparent-dark-x5 {
+        background-color: rgba(#000, .5);
+
+        &:hover {
+            background-color: rgba(#000, .7);
+        }
+    }
+}
+
