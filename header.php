@@ -48,7 +48,7 @@
     <div class="container">
         <div class="grid">
             <div class="grid-lg-12">
-                <a href="<?php echo home_url(); ?>" class="logotype">
+                <a href="<?php echo home_url(); ?>" class="pull-left logotype">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" width="239" height="68">
                 </a>
 
@@ -62,4 +62,22 @@
             </div>
         </div>
     </div>
+
+    <nav class="navbar navbar-mainmenu">
+        <div class="container">
+            <div class="grid">
+                <div class="grid-sm-12">
+                    <ul class="nav nav-justify">
+                        <li><a href="#">Arbete</a></li>
+                        <li><a href="#">Bo, bygga och miljö</a></li>
+                        <li><a href="#">Förskola och utbildning</a></li>
+                        <li><a href="#">Kommun och politik</a></li>
+                        <li><a href="#">Omsorg och stöd</a></li>
+                        <li><a href="#">Trafik och stadsplanering</a></li>
+                        <li><a href="#">Uppleva och göra</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>
