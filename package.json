@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/helsingborg-stad/Bootstrap-Theme/issues"
   },
-  "homepage": "https://github.com/helsingborg-stad/Bootstrap-Theme"
+  "homepage": "https://github.com/helsingborg-stad/Bootstrap-Theme",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-minify-css": "^0.5.1",
+    "gulp-plumber": "^0.6.6",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-uglify": "^1.1.0"
+  }
 }
