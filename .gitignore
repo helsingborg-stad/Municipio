@@ -1,4 +1,6 @@
+assets/dist/*
 node_modules
+
 
 ##########################
 ## OS generated files
