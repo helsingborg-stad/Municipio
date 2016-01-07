@@ -6,17 +6,48 @@ class Enqueue
 {
     public function __construct()
     {
+        // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'style'));
         add_action('wp_enqueue_scripts', array($this, 'script'));
+
+        // Removes version querystring from scripts and styles
+        add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
+        add_filter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
+
+        // Removes generator tag
+        add_filter('the_generator', create_function('', 'return "";'));
     }
 
+    /**
+     * Enqueue styles
+     * @return void
+     */
     public function style()
     {
-        wp_register_style('hbg-prime', 'http://helsingborg-stad.github.io/styleguide-web/css/hbg-prime.min.css', '', '1.0.0');
+        wp_register_style('hbg-prime', 'http://helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime.min.css', '', '1.0.0');
         wp_enqueue_style('hbg-prime');
     }
 
+    /**
+     * Enqueue scripts
+     * @return void
+     */
     public function script()
     {
+    }
+
+    /**
+     * Removes querystring from any scripts/styles loaded from "helsingborg" or "localhost"
+     * @param  string $src The soruce path
+     * @return string      The source path without any querystring
+     */
+    public function removeScriptVersion($src)
+    {
+        $parts = explode('?', $src);
+        if (strpos($parts[0], 'helsingborg') > -1 || strpos($parts[0], 'localhost') > -1) {
+            return $parts[0];
+        } else {
+            return $src;
+        }
     }
 }

@@ -41,4 +41,25 @@
 
     <?php wp_head(); ?>
 </head>
-<body>
+<body <?php body_class(); ?>>
+<div id="wrapper">
+
+<header id="site-header">
+    <div class="container">
+        <div class="grid">
+            <div class="grid-lg-12">
+                <a href="<?php echo home_url(); ?>" class="logotype">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" width="239" height="68">
+                </a>
+
+                <nav class="pull-right clearfix">
+                    <ul class="nav nav-tabs">
+                        <li><a href="#">Besökare</a></li>
+                        <li><a href="#">Företagare</a></li>
+                        <li><a href="#">Självservice</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
