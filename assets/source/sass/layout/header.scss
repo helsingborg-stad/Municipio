@@ -5,3 +5,22 @@
         display: block;
     }
 }
+
+.hero {
+    position: relative;
+
+    .search {
+        @include center();
+        width: 30%;
+
+        label {
+            display: inline-block;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        input[type="search"] {
+            border: none;
+        }
+    }
+}
