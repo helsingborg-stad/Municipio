@@ -12,6 +12,7 @@
     .search {
         @include center();
         width: 30%;
+        min-width: 300px;
 
         label {
             display: inline-block;
