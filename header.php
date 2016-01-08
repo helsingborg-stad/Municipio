@@ -47,12 +47,13 @@
 <header id="site-header">
     <div class="container">
         <div class="grid">
-            <div class="grid-lg-12">
-                <a href="<?php echo home_url(); ?>" class="pull-left logotype">
+            <div class="grid-md-6 text-center-xs text-center-sm">
+                <a href="<?php echo home_url(); ?>" class="logotype">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" width="239" height="68">
                 </a>
-
-                <nav class="pull-right clearfix">
+            </div>
+            <div class="grid-md-6 text-center-sm text-center-xs text-right">
+                <nav>
                     <ul class="nav nav-tabs">
                         <li><a href="#">Besökare</a></li>
                         <li><a href="#">Företagare</a></li>
