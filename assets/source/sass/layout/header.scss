@@ -3,6 +3,16 @@
 
     .logotype {
         display: inline-block;
+
+        &[data-tooltip] {
+            &:hover {
+                &::after,
+                &::before {
+                    bottom: 10px;
+                    left: 60%;
+                }
+            }
+        }
     }
 }
 

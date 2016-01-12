@@ -48,7 +48,7 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-6 text-center-xs text-center-sm">
-                <a href="<?php echo home_url(); ?>" class="logotype">
+                <a href="<?php echo home_url(); ?>" class="logotype" data-tooltip="Gå till startsidan">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" width="239" height="68">
                 </a>
             </div>
