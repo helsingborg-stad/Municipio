@@ -8,5 +8,6 @@ class App
     {
         new \Municipio\Theme\Enqueue();
         new \Municipio\Theme\Support();
+        new \Municipio\Theme\Sidebars();
     }
 }

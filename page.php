@@ -12,22 +12,7 @@
     </div>
 
     <div class="grid no-margin-top">
-        <nav class="grid-md-4 grid-lg-3">
-            <a href="#menu-open" id="menu-open" class="hidden-sm hidden-md hidden-lg menu-trigger"><span class="menu-icon"></span></a>
-            <ul class="nav-aside hidden-xs">
-                <li><a href="#">Link 1</a></li>
-                <li class="has-children"><a href="#">Link 2</a></li>
-                <li class="current-node has-children">
-                    <a href="#">Link 3</a>
-                    <ul class="sub-menu">
-                        <li><a href="#">Sublink 1</a></li>
-                        <li class="current"><a href="#">Sublink 2</a></li>
-                        <li><a href="#">Sublink 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Link 4</a></li>
-            </ul>
-        </nav>
+        <?php get_template_part('templates/partials/sidebar', 'left'); ?>
 
         <article class="grid-md-8 grid-lg-6">
             <h1>Våra värderingar</h1>
@@ -48,16 +33,7 @@
             </p>
         </article>
 
-        <aside class="grid-lg-3 grid-md-12">
-            <div class="box box-filled-3">
-                <div class="box-content">
-                    <h4>Kontakt</h4>
-                    <p><strong>HR-avdelningens support</strong></p>
-                    <p><strong>Besök oss</strong><br>Järnvägsgatan 14</p>
-                    <p><strong>Telefonnummer</strong><br>042-10 40 00</p>
-                </div>
-            </div>
-        </aside>
+        <?php get_template_part('templates/partials/sidebar', 'right'); ?>
     </div>
 </div>
 
