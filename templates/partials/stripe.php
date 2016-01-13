@@ -1,4 +1,4 @@
-<div class="stripe stripe-red">
+<div class="stripe">
     <div></div>
     <div></div>
     <div></div>
