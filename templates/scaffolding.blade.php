@@ -42,49 +42,14 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<div id="wrapper">
+    <div id="wrapper">
+        @include('templates.partials.header')
 
-<header id="site-header">
-    <div class="container">
-        <div class="grid">
-            <div class="grid-md-6 text-center-xs text-center-sm">
-                <a href="<?php echo home_url(); ?>" class="logotype" data-tooltip="Gå till startsidan">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" width="239" height="68">
-                </a>
-            </div>
-            <div class="grid-md-6 text-center-sm text-center-xs text-right">
-                <nav>
-                    <ul class="nav nav-tabs">
-                        <li><a href="#">Besökare</a></li>
-                        <li><a href="#">Företagare</a></li>
-                        <li><a href="#">Självservice</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+        @yield('content')
 
-    <nav class="navbar navbar-mainmenu">
-        <div class="container">
-            <div class="grid">
-                <div class="grid-sm-12">
-                    <ul class="nav nav-justify">
-                        <li><a href="#">Arbete</a></li>
-                        <li><a href="#">Bo, bygga och miljö</a></li>
-                        <li><a href="#">Förskola och utbildning</a></li>
-                        <li><a href="#">Kommun och politik</a></li>
-                        <li><a href="#">Omsorg och stöd</a></li>
-                        <li><a href="#">Trafik och stadsplanering</a></li>
-                        <li><a href="#">Uppleva och göra</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+        @include('templates.partials.footer')
+     </div>
+    <?php wp_footer(); ?>
 
-    <?php
-    if (is_front_page()) {
-        get_template_part('templates/partials/hero');
-    }
-    ?>
-</header>
+</body>
+</html>

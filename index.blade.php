@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+@extends('templates.scaffolding')
+
+@section('content')
 
 <section class="creamy creamy-border-bottom gutter-xl gutter-vertical">
     <div class="container">
@@ -137,4 +139,4 @@
     </div>
 </div>
 
-<?php get_footer(); ?>
+@stop

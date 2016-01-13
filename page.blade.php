@@ -1,18 +1,12 @@
-<?php get_header(); ?>
+@extends('templates.scaffolding')
+
+@section('content')
 
 <div class="container">
-    <div class="grid">
-        <div class="grid-lg-12">
-            <ul class="breadcrumbs">
-                <li><a href="#">Parent node</a></li>
-                <li><a href="#">First child node</a></li>
-                <li>Current node</li>
-            </ul>
-        </div>
-    </div>
+    @include('templates.partials.breadcrumbs')
 
     <div class="grid no-margin-top">
-        <?php get_template_part('templates/partials/sidebar', 'left'); ?>
+        @include('templates.partials.sidebar-left')
 
         <article class="grid-md-8 grid-lg-6">
             <h1>Våra värderingar</h1>
@@ -33,8 +27,8 @@
             </p>
         </article>
 
-        <?php get_template_part('templates/partials/sidebar', 'right'); ?>
+        @include('templates.partials.sidebar-right')
     </div>
 </div>
 
-<?php get_footer(); ?>
+@stop
