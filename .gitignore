@@ -1,5 +1,6 @@
-assets/dist/*
-node_modules
+/vendor/
+/assets/dist/*
+/node_modules/
 
 
 ##########################
