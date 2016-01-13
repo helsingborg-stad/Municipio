@@ -20,11 +20,18 @@ $loader->addPrefix('Municipio', MUNICIPIO_PATH . 'source/php/');
 $loader->register();
 
 /**
- * Other dependencies
+ * Bladerunner
  */
 if (file_exists(MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php')) {
     new Municipio\Theme\BladerunnerSettings();
     require_once MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php';
+}
+
+/**
+ * ACF
+ */
+if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php')) {
+    require_once MUNICIPIO_PATH . 'vendor/acf/acf.php';
 }
 
 /**
