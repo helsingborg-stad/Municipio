@@ -10,12 +10,12 @@ class Acf
         add_filter('acf/settings/dir', array($this, 'settingsDir'));
     }
 
-    public function settingsPath()
+    public function settingsPath($dir)
     {
         return get_stylesheet_directory() . '/acf/';
     }
 
-    public function settingsDir()
+    public function settingsDir($dir)
     {
         return get_stylesheet_directory() . '/acf/';
     }
