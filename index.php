@@ -1,3 +1,1 @@
-<?php get_header(); ?>
-
-<?php get_footer(); ?>
+<?php /* Use the index.blade.php instead */
