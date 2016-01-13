@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "29dc1e88457a4144ddbeb6bb22a098d9",
-    "content-hash": "0e4b05b808b81ecc2a9d9ca5ebb5ab6d",
+    "hash": "325a20cef85ba19c42be3e49fe43a694",
+    "content-hash": "5af00be9ecad2a994e4f88ba6e85d69f",
     "packages": [
         {
             "name": "composer/installers",
@@ -171,6 +171,49 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "ekandreas/bladerunner",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ekandreas/bladerunner.git",
+                "reference": "b6f2a19f3e8be39d0cd8c97bfd000e7f23e299ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ekandreas/bladerunner/zipball/b6f2a19f3e8be39d0cd8c97bfd000e7f23e299ba",
+                "reference": "b6f2a19f3e8be39d0cd8c97bfd000e7f23e299ba",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/events": "5.2.*",
+                "illuminate/view": "5.2.*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "deployer/deployer": "*",
+                "ekandreas/testrunner": "dev-master",
+                "frozzare/wp-test-suite": "^1.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Ek",
+                    "email": "andreas@aekab.se"
+                }
+            ],
+            "description": "WordPress Blade L5 template engine",
+            "keywords": [
+                "blade",
+                "laravel",
+                "wordpress"
+            ],
+            "time": "2016-01-11 22:08:29"
         },
         {
             "name": "illuminate/container",
