@@ -4,7 +4,7 @@
 ?>
 <form class="search" method="get" action="/">
     <?php if (is_front_page()) : ?>
-    <label class="label label-lg label-red-4" for="searchkeyword-<?php echo $searchFormNode; ?>">Sök på Helsingborg.se</label>
+    <label class="label label-lg label-theme" for="searchkeyword-<?php echo $searchFormNode; ?>">Sök på Helsingborg.se</label>
     <?php else : ?>
     <label for="searchkeyword-<?php echo $searchFormNode; ?>" class="sr-only">Sök på Helsingborg.se</label>
     <?php endif; ?>
