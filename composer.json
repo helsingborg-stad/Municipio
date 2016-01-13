@@ -8,5 +8,15 @@
             "email": "kristoffer.svanmark@lexiconitkonsult.se"
         }
     ],
-    "require": {}
+    "require": {
+        "composer/installers": "^1.0",
+        "illuminate/view": "^5.2",
+        "illuminate/events": "^5.2",
+        "johnshopkins/acf": "^5.0"
+    },
+    "extra" : {
+        "installer-paths" : {
+            "vendor/{$name}/": ["type:wordpress-plugin"]
+        }
+    }
 }
