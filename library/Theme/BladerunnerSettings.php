@@ -22,6 +22,7 @@ class BladerunnerSettings
     public function getPostTemplate($template)
     {
         global $post;
+        $templateAfter = $template;
 
         // Custom page templates
         if (get_page_template_slug($post->ID)) {
