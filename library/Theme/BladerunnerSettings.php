@@ -9,8 +9,25 @@ class BladerunnerSettings
         $this->createCacheFolder();
 
         add_filter('bladerunner/template_types', array($this, 'templateTypes'));
+        add_filter('bladerunner/get_post_template', array($this, 'getPostTemplate'));
         add_filter('bladerunner/cache_path', array($this, 'cachePath'));
         add_filter('bladerunner/cache', array($this, 'cachePath'));
+    }
+
+    /**
+     * Gets the post's/page's template
+     * @param  string $template The default template
+     * @return string           The template to use
+     */
+    public function getPostTemplate($template)
+    {
+        global $post;
+
+        if (get_page_template_slug($post->ID)) {
+            return get_page_template_slug($post->ID);
+        }
+
+        return $template;
     }
 
     /**
@@ -45,7 +62,7 @@ class BladerunnerSettings
      */
     public function cachePath()
     {
-        return WP_CONTENT_DIR . '/uploads/blade-cache';
+        return WP_CONTENT_DIR . '/uploads/cache/blade-cache';
     }
 
     /**
