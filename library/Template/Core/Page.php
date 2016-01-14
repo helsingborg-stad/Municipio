@@ -2,10 +2,7 @@
 
 namespace Municipio\Template\Core;
 
-class Page
+class Page extends \Municipio\Template\CoreBase
 {
-    public function __construct()
-    {
 
-    }
 }

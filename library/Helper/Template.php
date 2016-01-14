@@ -4,8 +4,9 @@ namespace Municipio\Helper;
 
 class Template
 {
-    public function __construct() {
-        add_action('template_redirect', array($this, ''));
+    public function __construct()
+    {
+        add_action('template_redirect', array($this, 'loadTemplateClass'));
     }
 
     /**
@@ -14,14 +15,15 @@ class Template
      */
     public function loadTemplateClass()
     {
-        $template = basename(get_page_template(), '.blade.php');
+        $template = get_page_template();
+        $class = basename($template, '.blade.php');
 
-        if (!file_exists(MUNICIPIO_PATH . 'library/Template/Core/' . $template . '.php')) {
+        if (!file_exists(MUNICIPIO_PATH . 'library/Template/Core/' . $class . '.php')) {
             return false;
         }
 
-        $class = '\Municipio\Template\Core\\' . $template;
-        return new $class;
+        $class = '\Municipio\Template\Core\\' . $class;
+        return new $class($template);
     }
 
     /**
