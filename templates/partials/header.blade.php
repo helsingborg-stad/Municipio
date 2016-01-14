@@ -68,6 +68,7 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
+                    <!--
                     <ul class="nav nav-justify">
                         <li><a href="#">Arbete</a></li>
                         <li><a href="#">Bo, bygga och miljö</a></li>
@@ -77,6 +78,24 @@
                         <li><a href="#">Trafik och stadsplanering</a></li>
                         <li><a href="#">Uppleva och göra</a></li>
                     </ul>
+                    -->
+                    {!!
+                        wp_nav_menu(array(
+                            'theme_location' => 'main-menu',
+                            'container' => false,
+                            'container_class' => 'menu-{menu-slug}-container',
+                            'container_id' => '',
+                            'menu_class' => 'nav nav-justify',
+                            'menu_id' => 'main-menu',
+                            'echo' => false,
+                            'before' => '',
+                            'after' => '',
+                            'link_before' => '',
+                            'link_after' => '',
+                            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                            'depth' => 1,
+                        ));
+                    !!}
                 </div>
             </div>
         </div>

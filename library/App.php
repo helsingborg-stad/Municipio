@@ -9,6 +9,7 @@ class App
         new \Municipio\Theme\Enqueue();
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
+        new \Municipio\Theme\Navigation();
 
         $this->loadTemplateClasses();
     }
