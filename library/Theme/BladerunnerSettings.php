@@ -23,19 +23,29 @@ class BladerunnerSettings
     {
         global $post;
 
+        // Custom page templates
         if (get_page_template_slug($post->ID)) {
-            return get_page_template_slug($post->ID);
+            $templateAfter = get_page_template_slug($post->ID);
         }
 
-        return $template;
+        // Taxonomy templates
+        $object = get_queried_object();
+        if (is_a($object, 'WP_Term')) {
+            $templateAfter = locate_template('taxonomy-' . $object->taxonomy . '.blade.php');
+            if (empty($templateAfter)) {
+                $templateAfter = $template;
+            }
+        }
+
+        return apply_filters('municipio/template_slug', $templateAfter);
     }
 
     /**
      * Filter of template types
      */
-    public function templateTypes()
+    public function templateTypes($types)
     {
-        return array(
+        return array_merge(array(
             'index'      => 'index.blade.php',
             'home'       => 'index.blade.php',
             'single'     => 'single.blade.php',
@@ -52,8 +62,8 @@ class BladerunnerSettings
             'search'     => 'search.blade.php',
             'single'     => 'single.blade.php',
             'singular'   => 'singular.blade.php',
-            'attachment' => 'attachment.blade.php',
-        );
+            'attachment' => 'attachment.blade.php'
+        ), $types);
     }
 
     /**
