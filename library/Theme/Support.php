@@ -18,6 +18,9 @@ class Support
         // Remove rest api links from head
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
+
+        // Add categories to "page" post type
+        add_action('init', array($this, 'addPageTaxonomy'));
     }
 
     /**
@@ -154,5 +157,33 @@ class Support
     public function srmMaxRedirects()
     {
         return 400;
+    }
+
+    public function addPageTaxonomy($args)
+    {
+        $labels = array(
+            'name'              => _x('Department', 'taxonomy general name'),
+            'singular_name'     => _x('Departments', 'taxonomy singular name'),
+            'search_items'      => __('Search Departments'),
+            'all_items'         => __('All Departments'),
+            'parent_item'       => __('Parent Department'),
+            'parent_item_colon' => __('Parent Department:'),
+            'edit_item'         => __('Edit Department'),
+            'update_item'       => __('Update Department'),
+            'add_new_item'      => __('Add New Department'),
+            'new_item_name'     => __('New Department Name'),
+            'menu_name'         => __('Departments'),
+        );
+
+        $args = array(
+            'hierarchical'      => true,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => array('slug' => 'department'),
+        );
+
+        register_taxonomy('department', array('page'), $args);
     }
 }
