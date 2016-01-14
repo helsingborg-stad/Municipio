@@ -20,9 +20,9 @@ class App
         foreach (@glob($directory . "*.php") as $file) {
             $class = '\Municipio\Template\\' . basename($file, '.php');
 
-           // if (class_exists($class)) {
+            if (class_exists($class)) {
                 new $class;
-            //}
+            }
         }
     }
 }
