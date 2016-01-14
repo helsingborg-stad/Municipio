@@ -30,8 +30,13 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php')) {
 /**
  * ACF
  */
-if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php')) {
-    require_once MUNICIPIO_PATH . 'vendor/acf/acf.php';
+include_once ABSPATH . 'wp-admin/includes/plugin.php';
+if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php') && !is_plugin_active('advanced-custom-fields-pro/acf.php')) {
+    new \Municipio\Acf();
+
+    if (!class_exists('acf')) {
+        require_once MUNICIPIO_PATH . 'vendor/acf/acf.php';
+    }
 }
 
 /**
