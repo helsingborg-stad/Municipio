@@ -4,6 +4,26 @@ namespace Municipio\Helper;
 
 class Template
 {
+    public function __construct() {
+        add_action('template_redirect', array($this, ''));
+    }
+
+    /**
+     * Initializes helper classes for core template files
+     * @return void
+     */
+    public function loadTemplateClass()
+    {
+        $template = basename(get_page_template(), '.blade.php');
+
+        if (!file_exists(MUNICIPIO_PATH . 'library/Template/Core/' . $template . '.php')) {
+            return false;
+        }
+
+        $class = '\Municipio\Template\Core\\' . $template;
+        return new $class;
+    }
+
     /**
      * Add a template
      * @param string $templateName Template name

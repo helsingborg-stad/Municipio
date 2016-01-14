@@ -6,6 +6,7 @@ class App
 {
     public function __construct()
     {
+        new \Municipio\Helper\Template();
         new \Municipio\Theme\Enqueue();
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
@@ -16,10 +17,10 @@ class App
 
     private function loadTemplateClasses()
     {
-        $directory = MUNICIPIO_PATH . 'library/Template/';
+        $directory = MUNICIPIO_PATH . 'library/Template/Custom/';
 
         foreach (@glob($directory . "*.php") as $file) {
-            $class = '\Municipio\Template\\' . basename($file, '.php');
+            $class = '\Municipio\Template\Custom\\' . basename($file, '.php');
 
             if (class_exists($class)) {
                 new $class;
