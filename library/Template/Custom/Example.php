@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Template;
+namespace Municipio\Template\Custom;
 
 class Example
 {
