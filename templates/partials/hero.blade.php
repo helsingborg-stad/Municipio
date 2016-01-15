@@ -3,5 +3,5 @@
         @include('templates.partials.stripe')
     @endif
 
-    <?php get_search_form(); ?>
+    {{ get_search_form() }}
 </div>
