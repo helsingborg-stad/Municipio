@@ -21,7 +21,7 @@ class Template
         $class = str_replace('-', '', $class);
 
         if (!file_exists(MUNICIPIO_PATH . 'library/Template/Core/' . $class . '.php')) {
-            return false;
+            return $template;
         }
 
         $class = '\Municipio\Template\Core\\' . $class;
