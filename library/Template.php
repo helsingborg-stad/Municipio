@@ -23,10 +23,40 @@ class Template
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
     }
 
+    /**
+     * Check if and where template exists
+     * @param  string $template        Template file name
+     * @param  array  $additionalPaths Additional search paths
+     * @return bool                    False if not found else path to template file
+     */
+    public static function locateTemplate($template, $additionalPaths = array())
+    {
+        $defaultPaths = array(
+            get_stylesheet_directory() . '/views',
+            get_stylesheet_directory(),
+            get_template_directory() . '/views',
+            get_template_directory()
+        );
+
+        $searchPaths = array_merge($defaultPaths, $additionalPaths);
+
+        foreach ($searchPaths as $path) {
+            $file = $path . '/' . str_replace('.blade.php', '', basename($template)) . '.blade.php';
+
+            if (!file_exists($file)) {
+                continue;
+            }
+
+            return $file;
+        }
+
+        return false;
+    }
+
     public function load($template)
     {
         $search = basename($template);
-        $view = locate_template($search);
+        $view = self::locateTemplate($search);
 
         // Template not found, throw exception
         if (!$view) {
@@ -38,11 +68,11 @@ class Template
 
         // Handle taxonomy templates with specified type
         if (is_a($object, 'WP_Term')) {
-            $view = locate_template('taxonomy-' . $object->taxonomy . '.blade.php');
+            $view = $this->locateTemplate('taxonomy-' . $object->taxonomy . '.blade.php');
         }
 
         // Clean the view path
-        $view = str_replace(get_stylesheet_directory() . '/', '', $view);
+        $view = str_replace($this->VIEWS_PATH . '/', '', $view);
         $view = str_replace('.blade.php', '', $view);
 
         // Load view controller
@@ -132,7 +162,7 @@ class Template
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
                 add_filter($key . '_template', function ($original) use ($type) {
-                    if (locate_template(array($type), false)) {
+                    if (\Municipio\Template::locateTemplate($type)) {
                         return $type;
                     }
 
