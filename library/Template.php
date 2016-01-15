@@ -14,6 +14,7 @@ class Template
     {
         add_filter('template_redirect', array($this, 'addTemplateFilters'));
         add_filter('template_include', array($this, 'load'));
+        add_filter('get_search_form', array($this, 'getSearchForm'));
 
         /**
          * Set paths
@@ -21,6 +22,16 @@ class Template
         $this->VIEWS_PATH = get_stylesheet_directory();
         $this->CONTROLLER_PATH = get_stylesheet_directory() . '/library/Controller';
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
+    }
+
+    public function getSearchForm($searchform)
+    {
+        if (self::locateTemplate('searchform.blade.php')) {
+            $this->load('searchform.blade.php');
+            return false;
+        }
+
+        return $searchform;
     }
 
     /**
@@ -53,6 +64,11 @@ class Template
         return false;
     }
 
+    /**
+     * Load controller and view
+     * @param  string $template Template
+     * @return mixed            Exception or false, false to make sure no standard template file from wordpres is beeing included
+     */
     public function load($template)
     {
         $search = basename($template);
