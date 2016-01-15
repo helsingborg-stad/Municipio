@@ -1,7 +1,3 @@
-@extends('templates.scaffolding')
-
-@section('content')
-
 <?php
     global $searchFormNode;
     $searchFormNode = ($searchFormNode) ? $searchFormNode+1 : 1;
@@ -20,5 +16,3 @@
         </span>
     </div>
 </form>
-
-@stop
