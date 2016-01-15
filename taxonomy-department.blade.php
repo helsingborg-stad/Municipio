@@ -7,7 +7,7 @@
 
     <div class="grid no-margin-top">
         <div class="grid-lg-12">
-            <h1>{{ $term['name'] }}</h1>
+            <h1>{{ $term }}</h1>
         </div>
     </div>
 

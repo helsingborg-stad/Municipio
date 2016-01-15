@@ -28,37 +28,62 @@ class Template
         $search = basename($template);
         $view = locate_template($search);
 
-        /**
-         * Template not found. Return the original template path.
-         */
+        // Template not found, throw exception
         if (!$view) {
-            return $template;
+            return new \Exception('Template not found');
         }
 
-        /**
-         * Clean the view path
-         */
+        // Get queryed object
+        $object = get_queried_object();
+
+        // Handle taxonomy templates with specified type
+        if (is_a($object, 'WP_Term')) {
+            $view = locate_template('taxonomy-' . $object->taxonomy . '.blade.php');
+        }
+
+        // Clean the view path
         $view = str_replace(get_stylesheet_directory() . '/', '', $view);
         $view = str_replace('.blade.php', '', $view);
 
-        /**
-         * Template found
-         * 1. Initialize controller (if exists)
-         * 2. Fetch the data (with filter)
-         * 3. Render the view
-         */
-        if (file_exists($this->CONTROLLER_PATH . '/' . basename($view) . '.php')) {
-            $class = '\Municipio\Controller\\' . basename($view);
-            new $class;
+        // Load view controller
+        $this->loadController($view);
+
+        // Render the view
+        $this->render($view);
+
+        return false;
+    }
+
+    /**
+     * Loads a view controller
+     * @param  string $view The view name
+     * @return bool False if nothing found, else returns the class object
+     */
+    public function loadController($view)
+    {
+        $class = ucwords($view, '-');
+        $class = str_replace('-', '', $class);
+
+        if (!file_exists($this->CONTROLLER_PATH . '/' . basename($class) . '.php')) {
+            return false;
         }
 
+        $class = '\Municipio\Controller\\' . basename($class);
+        return new $class;
+    }
+
+    /**
+     * Render a view
+     * @param  string $view The view path
+     * @return void
+     */
+    public function render($view)
+    {
         $data = array();
         $data = apply_filters('HbgBlade/data', $data);
 
         $blade = new Blade($this->VIEWS_PATH, $this->CACHE_PATH);
         echo $blade->view()->make($view, $data)->render();
-
-        return false;
     }
 
     /**
