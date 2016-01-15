@@ -7,6 +7,7 @@ class App
     public function __construct()
     {
         new \Municipio\Helper\Template();
+
         new \Municipio\Theme\Enqueue();
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();

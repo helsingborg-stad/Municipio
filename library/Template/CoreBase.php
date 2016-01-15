@@ -13,5 +13,11 @@ class CoreBase
     public function __construct($template)
     {
         $this->template = $template;
+        $this->init();
+    }
+
+    public function init()
+    {
+        return false;
     }
 }

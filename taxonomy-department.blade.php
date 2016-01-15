@@ -1,5 +1,3 @@
-<?php $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy')); ?>
-
 @extends('templates.scaffolding')
 
 @section('content')
@@ -9,7 +7,7 @@
 
     <div class="grid no-margin-top">
         <div class="grid-lg-12">
-            <h1>{{ $term->name }}</h1>
+            <h1>{{ $term['name'] }}</h1>
         </div>
     </div>
 
