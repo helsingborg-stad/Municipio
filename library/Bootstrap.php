@@ -23,8 +23,8 @@ $loader->register();
  * Bladerunner
  */
 if (file_exists(MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php')) {
-    new Municipio\Theme\BladerunnerSettings();
     require_once MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php';
+    new Municipio\Bladerunner\Settings();
 }
 
 /**

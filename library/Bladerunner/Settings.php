@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Theme;
+namespace Municipio\Bladerunner;
 
-class BladerunnerSettings
+class Settings
 {
     public function __construct()
     {
