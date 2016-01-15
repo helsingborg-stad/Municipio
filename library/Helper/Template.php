@@ -22,4 +22,34 @@ class Template
             'path' => $templatePath
         );
     }
+
+    /**
+     * Check if and where template exists
+     * @param  string $template        Template file name
+     * @param  array  $additionalPaths Additional search paths
+     * @return bool                    False if not found else path to template file
+     */
+    public static function locateTemplate($template, $additionalPaths = array())
+    {
+        $defaultPaths = array(
+            get_stylesheet_directory() . '/views',
+            get_stylesheet_directory(),
+            get_template_directory() . '/views',
+            get_template_directory()
+        );
+
+        $searchPaths = array_merge($defaultPaths, $additionalPaths);
+
+        foreach ($searchPaths as $path) {
+            $file = $path . '/' . str_replace('.blade.php', '', basename($template)) . '.blade.php';
+
+            if (!file_exists($file)) {
+                continue;
+            }
+
+            return $file;
+        }
+
+        return false;
+    }
 }

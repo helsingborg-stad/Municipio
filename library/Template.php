@@ -26,42 +26,12 @@ class Template
 
     public function getSearchForm($searchform)
     {
-        if (self::locateTemplate('searchform.blade.php')) {
+        if (\Municipio\Helper\Template::locateTemplate('searchform.blade.php')) {
             $this->load('searchform.blade.php');
             return false;
         }
 
         return $searchform;
-    }
-
-    /**
-     * Check if and where template exists
-     * @param  string $template        Template file name
-     * @param  array  $additionalPaths Additional search paths
-     * @return bool                    False if not found else path to template file
-     */
-    public static function locateTemplate($template, $additionalPaths = array())
-    {
-        $defaultPaths = array(
-            get_stylesheet_directory() . '/views',
-            get_stylesheet_directory(),
-            get_template_directory() . '/views',
-            get_template_directory()
-        );
-
-        $searchPaths = array_merge($defaultPaths, $additionalPaths);
-
-        foreach ($searchPaths as $path) {
-            $file = $path . '/' . str_replace('.blade.php', '', basename($template)) . '.blade.php';
-
-            if (!file_exists($file)) {
-                continue;
-            }
-
-            return $file;
-        }
-
-        return false;
     }
 
     /**
@@ -72,7 +42,7 @@ class Template
     public function load($template)
     {
         $search = basename($template);
-        $view = self::locateTemplate($search);
+        $view = \Municipio\Helper\Template::locateTemplate($search);
 
         // Template not found, throw exception
         if (!$view) {
@@ -84,7 +54,7 @@ class Template
 
         // Handle taxonomy templates with specified type
         if (is_a($object, 'WP_Term')) {
-            $view = $this->locateTemplate('taxonomy-' . $object->taxonomy . '.blade.php');
+            $view = \Municipio\Helper\Template::locateTemplate('taxonomy-' . $object->taxonomy . '.blade.php');
         }
 
         // Clean the view path
@@ -178,7 +148,7 @@ class Template
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
                 add_filter($key . '_template', function ($original) use ($type) {
-                    if (\Municipio\Template::locateTemplate($type)) {
+                    if (\Municipio\Helper\Template::locateTemplate($type)) {
                         return $type;
                     }
 
