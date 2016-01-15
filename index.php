@@ -1,1 +1,1 @@
-<?php /* Use the index.blade.php instead */
+<?php // The template files can be found in the /views/ folder
