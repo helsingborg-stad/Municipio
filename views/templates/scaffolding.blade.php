@@ -44,14 +44,14 @@
 <body <?php body_class(); ?>>
     <div id="wrapper">
         @if ($notice)
-            @include('templates.partials.notice')
+            @include('views.partials.notice')
         @endif
 
-        @include('templates.partials.header')
+        @include('views.partials.header')
 
         @yield('content')
 
-        @include('templates.partials.footer')
+        @include('views.partials.footer')
      </div>
     <?php wp_footer(); ?>
 

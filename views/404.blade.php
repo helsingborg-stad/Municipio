@@ -1,9 +1,9 @@
-@extends('templates.scaffolding')
+@extends('views.templates.scaffolding')
 
 @section('content')
 
 <div class="container">
-    @include('templates.partials.breadcrumbs')
+    @include('views.partials.breadcrumbs')
 
     <div class="grid no-margin-top">
         <article class="grid-md-12">

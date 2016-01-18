@@ -102,6 +102,6 @@
     </nav>
 
     @if (is_front_page())
-        @include('templates.partials.hero')
+        @include('views.partials.hero')
     @endif
 </header>
