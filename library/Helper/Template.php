@@ -6,6 +6,7 @@ class Template
 {
     /**
      * Add a template
+     * \Municipio\Helper\Template::add($templateName, $templatePath);
      * @param string $templateName Template name
      * @param string $templatePath Template path (relative to theme path)
      */

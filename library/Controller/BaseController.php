@@ -16,6 +16,11 @@ class BaseController
         $this->init();
     }
 
+    public function init()
+    {
+        // Method body
+    }
+
     /**
      * Returns the data
      * @return array Data

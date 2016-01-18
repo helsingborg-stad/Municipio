@@ -16,6 +16,8 @@ class Template
         add_filter('template_include', array($this, 'load'));
         add_filter('get_search_form', array($this, 'getSearchForm'));
 
+        $this->initCustomTemplates();
+
         /**
          * Set paths
          */
@@ -24,10 +26,43 @@ class Template
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
     }
 
+    /**
+     * Initializes custom templates
+     * @return void
+     */
+    public function initCustomTemplates()
+    {
+        $directory = MUNICIPIO_PATH . 'library/Controller/';
+
+        foreach (@glob($directory . "*.php") as $file) {
+            $class = '\Municipio\Controller\\' . basename($file, '.php');
+
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            $class = new $class;
+
+            if (!method_exists($class, 'registerTemplate')) {
+                continue;
+            }
+
+            $class->registerTemplate();
+            unset($class);
+        }
+    }
+
+    /**
+     * Get searchform template
+     * @param  string $searchform Original markup
+     * @return mixed
+     */
     public function getSearchForm($searchform)
     {
-        if (\Municipio\Helper\Template::locateTemplate('searchform.blade.php')) {
-            $this->load('searchform.blade.php');
+        if ($view = \Municipio\Helper\Template::locateTemplate('searchform.blade.php')) {
+            $view = $this->cleanViewPath($view);
+            $this->loadController($view);
+            $this->render($view);
             return false;
         }
 
@@ -37,10 +72,15 @@ class Template
     /**
      * Load controller and view
      * @param  string $template Template
-     * @return mixed            Exception or false, false to make sure no standard template file from wordpres is beeing included
+     * @return mixed            Exception or false, false to make sure no
+     *                          standard template file from wordpres is beeing included
      */
     public function load($template)
     {
+        if (get_page_template_slug() != $template) {
+            $template = get_page_template_slug();
+        }
+
         $search = basename($template);
         $view = \Municipio\Helper\Template::locateTemplate($search);
 
@@ -58,8 +98,7 @@ class Template
         }
 
         // Clean the view path
-        $view = str_replace($this->VIEWS_PATH . '/', '', $view);
-        $view = str_replace('.blade.php', '', $view);
+        $view = $this->cleanViewPath($view);
 
         // Load view controller
         $this->loadController($view);
@@ -156,5 +195,12 @@ class Template
                 });
             }
         }
+    }
+
+    public function cleanViewPath($view)
+    {
+        $view = str_replace($this->VIEWS_PATH . '/', '', $view);
+        $view = str_replace('.blade.php', '', $view);
+        return $view;
     }
 }
