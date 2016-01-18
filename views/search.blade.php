@@ -1,4 +1,4 @@
-@extends('views.templates.scaffolding')
+@extends('views.templates.master')
 
 @section('content')
 
