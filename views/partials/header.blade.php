@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon-precomposed" href="{{ get_template_directory_uri() }}/assets/images/icons/apple-touch-icon-precomposed.png">
 
     <script>
-        var ajaxurl = '{{ admin_url('admin-ajax.php') }}';
+        var ajaxurl = '{!! admin_url('admin-ajax.php') !!}';
     </script>
 
     <!--[if lt IE 9]>
@@ -39,9 +39,9 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <![endif]-->
 
-    <?php wp_head(); ?>
+    {!! wp_head() !!}
 </head>
-<body <?php body_class(); ?>>
+<body {!! body_class() !!}>
 <div id="wrapper">
 
 <header id="site-header">
@@ -68,17 +68,6 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
-                    <!--
-                    <ul class="nav nav-justify">
-                        <li><a href="#">Arbete</a></li>
-                        <li><a href="#">Bo, bygga och miljö</a></li>
-                        <li><a href="#">Förskola och utbildning</a></li>
-                        <li><a href="#">Kommun och politik</a></li>
-                        <li><a href="#">Omsorg och stöd</a></li>
-                        <li><a href="#">Trafik och stadsplanering</a></li>
-                        <li><a href="#">Uppleva och göra</a></li>
-                    </ul>
-                    -->
                     {!!
                         wp_nav_menu(array(
                             'theme_location' => 'main-menu',
