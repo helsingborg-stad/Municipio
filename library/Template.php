@@ -77,7 +77,7 @@ class Template
      */
     public function load($template)
     {
-        if (get_page_template_slug() != $template) {
+        if (!empty(get_page_template_slug()) && get_page_template_slug() != $template) {
             $template = get_page_template_slug();
         }
 
@@ -86,7 +86,8 @@ class Template
 
         // Template not found, throw exception
         if (!$view) {
-            return new \Exception('Template not found');
+            \Municipio\Helper\Notice::add('View [' . $search . '] was not found. Defaulting to [page.blade.php].');
+            $view = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
         }
 
         // Get queryed object

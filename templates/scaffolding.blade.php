@@ -43,6 +43,10 @@
 </head>
 <body <?php body_class(); ?>>
     <div id="wrapper">
+        @if ($notice)
+            @include('templates.partials.notice')
+        @endif
+
         @include('templates.partials.header')
 
         @yield('content')
