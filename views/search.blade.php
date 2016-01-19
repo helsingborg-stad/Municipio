@@ -6,7 +6,7 @@
     <div class="container">
         <div class="gid">
             <div class="grid-lg-12">
-                <?php get_search_form(); ?>
+                {!! get_search_form() !!}
             </div>
         </div>
     </div>

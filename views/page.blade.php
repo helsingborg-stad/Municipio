@@ -10,7 +10,7 @@
 
         <div class="grid-md-8 grid-lg-6">
             @while(have_posts())
-                {{ the_post() }}
+                {!! the_post() !!}
 
                 @include('views.partials.article')
             @endwhile
