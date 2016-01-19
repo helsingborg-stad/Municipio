@@ -13,6 +13,6 @@ class App
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\Navigation();
 
-        new \Municipio\Module\Card();
+        new \Municipio\Module\Index();
     }
 }

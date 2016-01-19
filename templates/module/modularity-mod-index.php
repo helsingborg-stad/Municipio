@@ -1,6 +1,7 @@
 <?php
     global $post;
-    $cards = get_field('card', $module->ID);
+    $cards = get_field('index', $module->ID);
+    var_dump($cards);
 ?>
 <div class="grid" data-equal-container>
     <?php foreach ($cards as $card) : $post = $card['page']; setup_postdata($post); ?>
