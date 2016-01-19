@@ -5,7 +5,7 @@
 <div class="grid" data-equal-container>
     <?php foreach ($cards as $card) : $post = $card['page']; setup_postdata($post); ?>
     <div class="grid-md-6">
-        <a href="#" class="box box-index" data-equal-item>
+        <a href="<?php the_permalink(); ?>" class="box box-index" data-equal-item>
             <?php if ($thumbnail = get_thumbnail_source()) : ?>
             <img class="box-image" src="<?php echo $thumbnail; ?>">
             <?php endif; ?>
