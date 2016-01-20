@@ -41,13 +41,11 @@ class Template
                 continue;
             }
 
-            $class = new $class;
-
             if (!method_exists($class, 'registerTemplate')) {
                 continue;
             }
 
-            $class->registerTemplate();
+            $class::registerTemplate();
             unset($class);
         }
     }
