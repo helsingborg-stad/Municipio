@@ -16,8 +16,8 @@ class Google
 
     public function __construct($keyword, $startingIndex = 1)
     {
-        $this->apiKey = get_option('google_search_api_key');
-        $this->apiCx = get_option('google_search_api_secret');
+        $this->apiKey = get_field('google_search_api_key', 'option');
+        $this->apiCx = get_field('google_search_api_secret', 'option');
 
         $this->keyword = $keyword;
         $this->results = $this->search($this->keyword, $startingIndex);
