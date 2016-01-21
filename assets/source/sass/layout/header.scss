@@ -4,6 +4,7 @@
     .logotype {
         display: inline-block;
 
+        /*
         &[data-tooltip] {
             &:hover {
                 &::after,
@@ -13,6 +14,7 @@
                 }
             }
         }
+        */
     }
 }
 
