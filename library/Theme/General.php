@@ -14,7 +14,7 @@ class General
         $color = get_field('color_scheme', 'option');
 
         if (!$color) {
-            return;
+            return $classes;
         }
 
         $classes[] = 'theme-' . $color;
