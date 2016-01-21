@@ -21,8 +21,8 @@ class Template
         /**
          * Set paths
          */
-        $this->VIEWS_PATH = get_stylesheet_directory();
-        $this->CONTROLLER_PATH = get_stylesheet_directory() . '/library/Controller';
+        $this->VIEWS_PATH = get_template_directory();
+        $this->CONTROLLER_PATH = get_template_directory() . '/library/Controller';
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
     }
 
