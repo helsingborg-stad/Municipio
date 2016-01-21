@@ -15,9 +15,22 @@ class Support
         add_action('template_redirect', array($this, 'blockAuthorPages'), 5);
         add_action('init', array($this, 'removePostPostType'), 11);
 
+        add_filter('upload_mimes', array($this, 'mimes'));
+
         // Remove rest api links from head
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
+    }
+
+    /**
+     * Append to list of supported mime types
+     * @param  array $mimes Original mimes
+     * @return array
+     */
+    public function mimes($mimes)
+    {
+        $mimes['svg'] = 'image/svg+xml';
+        return $mimes;
     }
 
     /**
