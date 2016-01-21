@@ -37,7 +37,7 @@ class Enqueue
      */
     public function script()
     {
-        wp_register_script('hbg-prime', 'http://hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
+        wp_register_script('hbg-prime', 'http://helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
         wp_enqueue_script('hbg-prime');
     }
 
