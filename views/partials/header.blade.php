@@ -48,8 +48,12 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-6 text-center-xs text-center-sm">
-                <a href="<?php echo home_url(); ?>" class="logotype" data-tooltip="Gå till startsidan">
-                    <img src="{{ get_template_directory_uri() }}/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" width="239" height="68">
+                <a href="{{ home_url() }}" class="logotype" data-tooltip="Gå till startsidan">
+                    @if (isset($logotype['standard']['url']))
+                    <img src="{{ $logotype['standard']['url'] }}" alt="Helsingborg Stad" width="239" height="68">
+                    @else
+                    {{ bloginfo('name') }}
+                    @endif
                 </a>
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
