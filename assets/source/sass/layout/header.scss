@@ -1,0 +1,37 @@
+#site-header {
+    padding-top: 15px;
+
+    .logotype {
+        display: inline-block;
+
+        &[data-tooltip] {
+            &:hover {
+                &::after,
+                &::before {
+                    bottom: 10px;
+                    left: 60%;
+                }
+            }
+        }
+    }
+}
+
+.hero {
+    position: relative;
+
+    .search {
+        @include center();
+        width: 30%;
+        min-width: 300px;
+
+        label {
+            display: inline-block;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        input[type="search"] {
+            border: none;
+        }
+    }
+}
