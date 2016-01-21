@@ -1,12 +1,12 @@
 <?php
 
-define('MUNICIPIO_PATH', dirname(dirname(__FILE__)) . '/');
+define('MUNICIPIO_PATH', get_template_directory() . '/');
 
 /**
  * Composer autoloader
  */
-if (file_exists(MUNICIPIO_PATH . '/vendor/autoload.php')) {
-    require_once MUNICIPIO_PATH . '/vendor/autoload.php';
+if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
+    require_once MUNICIPIO_PATH . 'vendor/autoload.php';
 }
 
 /**
