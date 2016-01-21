@@ -23,6 +23,7 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\Navigation();
+        new \Municipio\Theme\General();
 
         /**
          * Admin
