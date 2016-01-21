@@ -46,6 +46,10 @@ class MainMenu extends \Walker
         $parent_field       = $this->db_fields['parent'];
         $child_of           = null;
 
+        if (empty(get_post_ancestors($post->ID))) {
+            return $output;
+        }
+
         if (array_reverse(get_post_ancestors($post->ID))[1]) {
             $child_of = array_reverse(get_post_ancestors($post->ID))[1];
         } else {
