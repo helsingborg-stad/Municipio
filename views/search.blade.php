@@ -17,11 +17,11 @@
 
 @if (!$results->items)
 
-<div class="container gutter gutter-lg gutter-vertical">
-    <div class="grid">
+<div class="container gutter gutter-lg gutter-top">
+    <div class="grid gutter gutter-lg gutter-top">
         <div class="grid-lg-12">
-            <div class="notice notice-warning">
-                Inga sökträffar…
+            <div class="notice info">
+                <i class="fa fa-info-circle"></i> Inga sökträffar…
             </div>
         </div>
     </div>
