@@ -52,7 +52,7 @@
                     @if (isset($logotype['standard']['url']))
                     <img src="{{ $logotype['standard']['url'] }}" alt="Helsingborg Stad" width="239" height="68">
                     @else
-                    {{ bloginfo('name') }}
+                    <h1 class="no-margin">{{ bloginfo('name') }}</h1>
                     @endif
                 </a>
             </div>
