@@ -6,6 +6,10 @@
         {
             "name": "Kristoffer Svanmark",
             "email": "kristoffer.svanmark@lexiconitkonsult.se"
+        },
+        {
+            "name": "Sebastian Thulin",
+            "email": "sebastian.thulin@helsingborg.se"
         }
     ],
     "require": {
