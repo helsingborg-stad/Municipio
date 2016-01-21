@@ -9,7 +9,7 @@ class FrontPage extends \Municipio\Controller\BaseController
 
     }
 
-    public static function registerTemplate()
+    public function registerTemplate()
     {
         \Municipio\Helper\Template::add('Front page', 'front-page.blade.php');
     }

@@ -45,7 +45,7 @@ class Template
                 continue;
             }
 
-            $class::registerTemplate();
+            $class->registerTemplate();
             unset($class);
         }
     }
