@@ -1,7 +1,0 @@
-@media print {
-    @for $i from 1 through $total-columns {
-        .print-#{$i} {
-            width: grid-calc($i, $total-columns);
-        }
-    }
-}
