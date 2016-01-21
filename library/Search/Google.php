@@ -156,7 +156,7 @@ class Google
         if (isset($query->previousPage)) {
             $previousPage = $query->previousPage[0];
 
-            $markup[] = '<li><a href="?s=' . urlencode(stripslashes($this->keyword)) .
+            $markup[] = '<li><a class="previous" href="?s=' . urlencode(stripslashes($this->keyword)) .
                         '&amp;index=' . $previousPage->startIndex .
                         '">&laquo; Föregående</a></li>';
         }
@@ -195,7 +195,7 @@ class Google
                     $current = 'current';
                 }
 
-                $markup[] = '<li class="' . $current . '"><a href="?s=' . urlencode(stripslashes($this->keyword)) .
+                $markup[] = '<li><a class="page ' . $current . '" href="?s=' . urlencode(stripslashes($this->keyword)) .
                             '&amp;index=' . $thisIndex . '">' . $i . '</a></li>';
             }
         }
@@ -204,7 +204,7 @@ class Google
         $nextPage = null;
         if (isset($query->nextPage)) {
             $nextPage = $query->nextPage[0];
-            $markup[] = '<li><a href="?s=' . urlencode(stripslashes($this->keyword)) .
+            $markup[] = '<li><a class="next" href="?s=' . urlencode(stripslashes($this->keyword)) .
                         '&amp;index=' . $nextPage->startIndex . '">Nästa &raquo;</a></li>';
         }
 

@@ -7,6 +7,7 @@ class Search extends \Municipio\Controller\BaseController
     public function init()
     {
         $search = new \Municipio\Search\Google($this->getQuery(), $this->getIndex());
+        $this->data['search'] = $search;
         $this->data['results'] = $search->results;
     }
 
