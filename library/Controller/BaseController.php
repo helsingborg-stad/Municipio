@@ -12,7 +12,6 @@ class BaseController
 
     public function __construct()
     {
-        add_filter('HbgBlade/data', array($this, 'getData'));
         $this->init();
     }
 
@@ -27,6 +26,6 @@ class BaseController
      */
     public function getData()
     {
-        return $this->data;
+        return apply_filters('HbgBlade/data', $this->data);
     }
 }

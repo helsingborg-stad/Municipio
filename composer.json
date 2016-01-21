@@ -2,10 +2,15 @@
     "name": "helsingborg-stad/bootstrap-theme",
     "description": "A bootstrap theme for creating municipality sites.",
     "license": "GNU",
+    "type": "wordpress-theme",
     "authors": [
         {
             "name": "Kristoffer Svanmark",
             "email": "kristoffer.svanmark@lexiconitkonsult.se"
+        },
+        {
+            "name": "Sebastian Thulin",
+            "email": "sebastian.thulin@helsingborg.se"
         }
     ],
     "require": {

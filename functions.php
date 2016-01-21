@@ -1,6 +1,6 @@
 <?php
 
-require_once 'library/Bootstrap.php';
+require_once get_template_directory() . '/library/Bootstrap.php';
 
 if (!function_exists('get_thumbnail_url')) {
     /**
