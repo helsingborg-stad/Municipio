@@ -43,7 +43,7 @@
 </head>
 <body <?php body_class(); ?>>
     <div id="wrapper">
-        @if ($notice)
+        @if (isset($notice) && !empty($notice))
             @include('views.partials.notice')
         @endif
 
