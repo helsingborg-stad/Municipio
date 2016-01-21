@@ -5,11 +5,35 @@
         "fields": [
             {
                 "key": "field_56a0f1fdbf847",
-                "label": "Logotype",
+                "label": "Standard logotype",
                 "name": "logotype",
                 "type": "image",
-                "instructions": "Please upload a brand logo in the format .svg.",
+                "instructions": "Only .svg-files are supported.",
                 "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "uploadedTo",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": "svg"
+            },
+            {
+                "key": "field_56a0f5e3b4720",
+                "label": "Negative logotype",
+                "name": "logotype_negative",
+                "type": "image",
+                "instructions": "Please upload a brand logo in the format .svg. The negative logo refers to a 100% white logotype that can be used on dark backgrounds.",
+                "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
