@@ -12,6 +12,11 @@ class BaseController
 
     public function __construct()
     {
+        $this->data['logotype'] = array(
+            'standard' => get_field('logotype', 'option'),
+            'negative' => get_field('logotype_negative', 'option')
+        );
+
         $this->init();
     }
 

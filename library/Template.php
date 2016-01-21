@@ -100,10 +100,10 @@ class Template
         $view = $this->cleanViewPath($view);
 
         // Load view controller
-        $this->loadController($view);
+        $controller = $this->loadController($view);
 
         // Render the view
-        $this->render($view);
+        $this->render($view, $controller->getData());
 
         return false;
     }
@@ -118,12 +118,14 @@ class Template
         $class = ucwords($view, '-');
         $class = str_replace('-', '', $class);
 
-        if (!file_exists($this->CONTROLLER_PATH . '/' . basename($class) . '.php')) {
-            return false;
+        $classInit = '\Municipio\Controller\BaseController';
+
+        if (file_exists($this->CONTROLLER_PATH . '/' . basename($class) . '.php')) {
+            $classInit = '\Municipio\Controller\\' . basename($class);
         }
 
-        $class = '\Municipio\Controller\\' . basename($class);
-        return new $class;
+
+        return new $classInit;
     }
 
     /**
@@ -131,9 +133,8 @@ class Template
      * @param  string $view The view path
      * @return void
      */
-    public function render($view)
+    public function render($view, $data = array())
     {
-        $data = array();
         $data = apply_filters('HbgBlade/data', $data);
 
         $blade = new Blade($this->VIEWS_PATH, $this->CACHE_PATH);
