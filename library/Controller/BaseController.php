@@ -15,9 +15,22 @@ class BaseController
         $this->init();
     }
 
+    /**
+     * Runs after construct
+     * @return void
+     */
     public function init()
     {
         // Method body
+    }
+
+    /**
+     * Bind to a custom template file
+     * @return void
+     */
+    public static function registerTemplate()
+    {
+        // \Municipio\Helper\Template::add('Front page', 'front-page.blade.php');
     }
 
     /**

@@ -173,7 +173,7 @@ class Template
             'tag'        => 'tag.blade.php',
             'taxonomy'   => 'taxonomy.blade.php',
             'date'       => 'date.blade.php',
-            'front-page' => 'front-page.blade.php',
+            'front-page' => 'index.blade.php',
             'paged'      => 'paged.blade.php',
             'search'     => 'search.blade.php',
             'single'     => 'single.blade.php',
