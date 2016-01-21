@@ -4,13 +4,7 @@
   "description": "The official website of Helsingborg Stad",
   "main": "Gulpfile.js",
   "dependencies": {
-    "gulp-sass": "^2.0.1",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-plumber": "^1.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.2.0"
+
   },
   "devDependencies": {
     "gulp": "^3.9.0",
