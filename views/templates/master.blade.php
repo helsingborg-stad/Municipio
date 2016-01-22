@@ -48,7 +48,7 @@
             @include('views.partials.notice')
         @endif
 
-        @include('views.partials.header')
+        @include($headerLayout)
 
         @yield('content')
 

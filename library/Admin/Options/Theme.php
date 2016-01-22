@@ -17,6 +17,12 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title'    => 'Header',
+                'menu_title'    => 'Header',
+                'parent_slug'   => 'theme-settings',
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title'    => 'Search',
                 'menu_title'    => 'Search',
                 'parent_slug'   => 'theme-settings',
