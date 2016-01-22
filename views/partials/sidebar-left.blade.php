@@ -1,9 +1,11 @@
 <div class="grid-md-4 grid-lg-3">
     <?php
+    global $post;
     $menu = wp_list_pages(array(
         'title_li' => '',
         'echo'     => 0,
         'walker'   => new \Municipio\Walker\MainMenu(),
+        'include'  => \Municipio\Helper\Navigation::getSidebarNavigationPages($post, 'csv')
     ));
 
     if ($menu) : ?>
