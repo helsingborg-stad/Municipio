@@ -4,13 +4,37 @@
         "title": "Google Search",
         "fields": [
             {
+                "key": "field_56a227e7a7b31",
+                "label": "Enable",
+                "name": "use_google_search",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Use Google Site Search",
+                "default_value": 1
+            },
+            {
                 "key": "field_569fa7fffa53e",
                 "label": "Google API Key",
                 "name": "google_search_api_key",
                 "type": "text",
                 "instructions": "",
                 "required": 1,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56a227e7a7b31",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
@@ -31,7 +55,15 @@
                 "type": "text",
                 "instructions": "",
                 "required": 1,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56a227e7a7b31",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
@@ -51,7 +83,7 @@
                 {
                     "param": "options_page",
                     "operator": "==",
-                    "value": "acf-options-google-search"
+                    "value": "acf-options-search"
                 }
             ]
         ],

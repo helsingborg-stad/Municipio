@@ -6,6 +6,13 @@ class Search extends \Municipio\Controller\BaseController
 {
     public function init()
     {
+        if (get_field('use_google_search', 'option') === true) {
+            $this->googleSearch();
+        }
+    }
+
+    public function googleSearch()
+    {
         $search = new \Municipio\Search\Google($this->getQuery(), $this->getIndex());
         $this->data['search'] = $search;
         $this->data['results'] = $search->results;
