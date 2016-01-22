@@ -4,7 +4,7 @@ namespace Municipio\Helper;
 
 class Navigation
 {
-    public static function getSidebarNavigationPages($post, $format = 'array')
+    public static function getNavigationPages($post, $format = 'array')
     {
         $include = array();
 
