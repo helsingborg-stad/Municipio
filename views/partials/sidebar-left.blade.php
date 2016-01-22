@@ -5,6 +5,8 @@
     $menu = wp_list_pages(array(
         'title_li' => '',
         'child_of' => $childOf,
+        'sort_column' => 'post_title',
+        'sort_order' => 'asc',
         'echo'     => 0,
         'walker'   => new \Municipio\Walker\Navigation(),
         'include'  => \Municipio\Helper\Navigation::getNavigationPages($post, 'csv')
