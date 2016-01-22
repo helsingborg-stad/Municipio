@@ -186,7 +186,11 @@ class Template
 
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
-                add_filter($key . '_template', function ($original) use ($type) {
+                add_filter($key . '_template', function ($original) use ($type, $types) {
+                    if (empty($original) && is_front_page()) {
+                        $type = $types['index'];
+                    }
+
                     if (\Municipio\Helper\Template::locateTemplate($type)) {
                         return $type;
                     }
