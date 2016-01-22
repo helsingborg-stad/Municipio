@@ -135,7 +135,7 @@ class Template
      */
     public function render($view, $data = array())
     {
-        $data = apply_filters('HbgBlade/data', $data);
+        $data = apply_filters('Municipio/blade/data', $data);
 
         $blade = new Blade($this->VIEWS_PATH, $this->CACHE_PATH);
         echo $blade->view()->make($view, $data)->render();
@@ -182,7 +182,7 @@ class Template
             'attachment' => 'attachment.blade.php',
         );
 
-        $types = apply_filters('HbgBlade/template_types', $types);
+        $types = apply_filters('Municipio/blade/template_types', $types);
 
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
