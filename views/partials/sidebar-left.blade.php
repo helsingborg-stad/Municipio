@@ -3,8 +3,9 @@
     global $post;
     $menu = wp_list_pages(array(
         'title_li' => '',
+        'child_of' => array_reverse(get_post_ancestors($post))[1],
         'echo'     => 0,
-        'walker'   => new \Municipio\Walker\MainMenu(),
+        'walker'   => new \Municipio\Walker\SideBarMenu(),
         'include'  => \Municipio\Helper\Navigation::getSidebarNavigationPages($post, 'csv')
     ));
 
