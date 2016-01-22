@@ -7,6 +7,7 @@ class General
     public function __construct()
     {
         add_filter('body_class', array($this, 'colorScheme'));
+        add_filter('body_class', array($this, 'isChildTheme'));
     }
 
     public function colorScheme($classes)
