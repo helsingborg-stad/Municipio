@@ -13,6 +13,9 @@
             }
         }
         */ }
+    #site-header .logotype img {
+      min-height: 70px;
+      width: auto; }
 
 .hero {
   position: relative; }
