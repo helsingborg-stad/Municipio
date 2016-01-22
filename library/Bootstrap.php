@@ -14,6 +14,8 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
  */
 require_once MUNICIPIO_PATH . 'library/Vendor/Psr4ClassLoader.php';
 
+require_once MUNICIPIO_PATH . 'library/Public.php';
+
 $loader = new Municipio\Vendor\Psr4ClassLoader();
 $loader->addPrefix('Municipio', MUNICIPIO_PATH . 'library');
 $loader->addPrefix('Municipio', MUNICIPIO_PATH . 'source/php/');
