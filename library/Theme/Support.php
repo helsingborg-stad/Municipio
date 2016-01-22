@@ -10,6 +10,8 @@ class Support
         self::addActions();
         self::addFilters();
         self::removeTheGenerator();
+        self::removeXmlRpc();
+        self::removeDashboardMetaboxes(); 
 
         add_filter('srm_max_redirects', array($this, 'srmMaxRedirects'));
         add_action('template_redirect', array($this, 'blockAuthorPages'), 5);
@@ -20,6 +22,8 @@ class Support
         // Remove rest api links from head
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
+
+        add_action('wp_dashboard_setup', 
     }
 
     /**
@@ -144,6 +148,23 @@ class Support
     public static function removeXmlRpc() 
     {
         add_filter('xmlrpc_enabled', '__return_false');
+    }
+
+    public static function removeDashboardMetaboxes() {
+    
+        global $wp_meta_boxes;
+        
+        // Remove wordpress dashboards 
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+        
+        // Remove yoast seo
+        unset($wp_meta_boxes['dashboard']['normal']['core']['yoast_db_widget']);
+        
     }
 
     /**
