@@ -12,12 +12,32 @@ class BaseController
 
     public function __construct()
     {
+        $this->getLogotype();
+        $this->getHeaderLayout();
+
+
+        $this->init();
+    }
+
+    public function getLogotype()
+    {
         $this->data['logotype'] = array(
             'standard' => get_field('logotype', 'option'),
             'negative' => get_field('logotype_negative', 'option')
         );
+    }
 
-        $this->init();
+    public function getHeaderLayout()
+    {
+        switch (get_field('header_layout', 'option')) {
+            case 'casual':
+                $this->data['headerLayout'] = 'views.partials.header.casual';
+                break;
+
+            default:
+                $this->data['headerLayout'] = 'views.partials.header.business';
+                break;
+        }
     }
 
     /**
