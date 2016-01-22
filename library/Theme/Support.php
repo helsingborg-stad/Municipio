@@ -130,11 +130,20 @@ class Support
     }
 
     /**
-     * Removes the generator meta tag from <head>.
+     * Removes the generator meta tag from <head> & admin-footer.
      */
     public static function removeTheGenerator()
     {
         add_filter('the_generator', create_function('', 'return "";'));
+        remove_filter( 'update_footer', 'core_update_footer' ); 
+    }
+
+    /**
+     * Removes old xmlrpc (always use API)
+     */
+    public static function removeXmlRpc() 
+    {
+        add_filter('xmlrpc_enabled', '__return_false');
     }
 
     /**
