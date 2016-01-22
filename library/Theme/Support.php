@@ -11,7 +11,6 @@ class Support
         self::addFilters();
         self::removeTheGenerator();
         self::removeXmlRpc();
-        self::removeDashboardMetaboxes(); 
 
         add_filter('srm_max_redirects', array($this, 'srmMaxRedirects'));
         add_action('template_redirect', array($this, 'blockAuthorPages'), 5);
@@ -23,7 +22,8 @@ class Support
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
 
-        add_action('wp_dashboard_setup', 
+        //Remove dashboard stuff
+        add_action('wp_dashboard_setup', array($this,'removeDashboardMetaboxes')); 
     }
 
     /**
