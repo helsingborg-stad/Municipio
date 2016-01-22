@@ -4,6 +4,11 @@
     .logotype {
         display: inline-block;
 
+        img {
+            min-height: 70px;
+            width: auto;
+        }
+
         /*
         &[data-tooltip] {
             &:hover {
