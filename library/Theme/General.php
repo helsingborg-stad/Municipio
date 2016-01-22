@@ -20,4 +20,15 @@ class General
         $classes[] = 'theme-' . $color;
         return $classes;
     }
+
+    public function isChildTheme($classes) {
+        
+        if (is_child_theme()) {
+            $classes[] = "is-child-theme"; 
+        } 
+
+        return $classes;
+
+    }
+
 }
