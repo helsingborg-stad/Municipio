@@ -2,7 +2,7 @@
 
 namespace Municipio\Walker;
 
-class SideBarMenu extends \Walker
+class Navigation extends \Walker
 {
     public $tree_type = 'sidebar-menu';
 
