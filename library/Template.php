@@ -79,25 +79,20 @@ class Template
             $template = get_page_template_slug();
         }
 
-        $search = basename($template);
-        $view = \Municipio\Helper\Template::locateTemplate($search);
+        if (!\Municipio\Helper\Template::isBlade($template)) {
+            $path = get_template_directory() . '/' . $template;
 
-        // Template not found, throw exception
-        if (!$view) {
-            \Municipio\Helper\Notice::add('View [' . $search . '] was not found. Defaulting to [page.blade.php].');
-            $view = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
-        }
-
-        // Get queryed object
-        $object = get_queried_object();
-
-        // Handle taxonomy templates with specified type
-        if (is_a($object, 'WP_Term')) {
-            $view = \Municipio\Helper\Template::locateTemplate('taxonomy-' . $object->taxonomy . '.blade.php');
+            // Return path if file exists, else default to page.blade.php
+            if (file_exists($path)) {
+                return $path;
+            } else {
+                \Municipio\Helper\Notice::add('View [' . $template . '] was not found. Defaulting to [page.blade.php].');
+                $template = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
+            }
         }
 
         // Clean the view path
-        $view = $this->cleanViewPath($view);
+        $view = $this->cleanViewPath($template);
 
         // Load view controller
         $controller = $this->loadController($view);
@@ -191,8 +186,8 @@ class Template
                         $type = $types['index'];
                     }
 
-                    if (\Municipio\Helper\Template::locateTemplate($type)) {
-                        return $type;
+                    if ($templatePath = \Municipio\Helper\Template::locateTemplate($type)) {
+                        return $templatePath;
                     }
 
                     return $original;

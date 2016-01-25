@@ -53,4 +53,18 @@ class Template
 
         return false;
     }
+
+    /**
+     * Check if template has blade.php extension
+     * @param  string  $template Template path
+     * @return boolean
+     */
+    public static function isBlade($template)
+    {
+        if (!preg_match('/(blade.php)$/i', $template)) {
+            return false;
+        }
+
+        return true;
+    }
 }
