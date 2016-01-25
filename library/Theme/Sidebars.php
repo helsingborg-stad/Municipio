@@ -31,9 +31,8 @@ class Sidebars
             'id'            => 'slider-area',
             'name'          => __('Hero', 'municipio'),
             'description'   => __('The hero area', 'municipio'),
-            'before_widget' => '<div class="large-12 medium-12 small-12 print-12 columns widget">' .
-                               '<div class="box %2$s">',
-            'after_widget'  => '</div></div>',
+            'before_widget' => '<div class="widget">',
+            'after_widget'  => '</div>',
             'before_title'  => '<h3>',
             'after_title'   => '</h3>'
         ));
