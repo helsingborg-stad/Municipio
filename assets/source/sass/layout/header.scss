@@ -26,8 +26,18 @@
 .hero {
     position: relative;
 
+    .widget {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
     .search {
         @include center();
+        z-index: 99;
         width: 30%;
         min-width: 300px;
 
