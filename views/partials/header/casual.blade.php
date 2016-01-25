@@ -29,8 +29,8 @@
             </div>
         </div>
     </nav>
-
-    @if (is_front_page())
-        @include('views.partials.hero')
-    @endif
 </header>
+
+@if (is_front_page())
+    @include('views.partials.hero')
+@endif
