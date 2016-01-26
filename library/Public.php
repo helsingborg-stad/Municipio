@@ -29,6 +29,10 @@ if (!function_exists('municipio_get_thumbnail_source')) {
 if (!function_exists('municipio_get_logotype')) {
     function municipio_get_logotype($type = 'standard', $tooltip = false)
     {
+        if ($type == '') {
+            $type = 'standard';
+        }
+
         $siteName = apply_filters('Municipio/logotype_text', get_bloginfo('name'));
 
         $logotype = array(

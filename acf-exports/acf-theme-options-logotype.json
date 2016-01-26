@@ -71,6 +71,28 @@
                 "maxlength": "",
                 "readonly": 0,
                 "disabled": 0
+            },
+            {
+                "key": "field_56a738a9c8b74",
+                "label": "Logotype to use in header",
+                "name": "header_logotype",
+                "type": "radio",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "standard": "Standard",
+                    "negative": "Negative"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "standard",
+                "layout": "horizontal"
             }
         ],
         "location": [

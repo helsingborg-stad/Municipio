@@ -3,7 +3,7 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
-                    {!! municipio_get_logotype('negative', get_field('logotype_tooltip', 'option')) !!}
+                    {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option')) !!}
 
                     {!!
                         wp_nav_menu(array(
