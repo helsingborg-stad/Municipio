@@ -2,7 +2,7 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-6 text-center-xs text-center-sm">
-                {!! municipio_get_logotype('standard', get_field('logotype_tooltip', 'option')) !!}
+                {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option')) !!}
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
                 <nav>
