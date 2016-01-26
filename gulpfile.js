@@ -9,7 +9,7 @@ var minifycss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
-var imagemin = require('gulp-imagemin');
+//var imagemin = require('gulp-imagemin');
 //var pngquant = require('imagemin-pngquant'); // $ npm i -D imagemin-pngquant
 
 // Compile Our Sass
