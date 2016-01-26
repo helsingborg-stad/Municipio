@@ -17,6 +17,7 @@
                     "id": ""
                 },
                 "choices": {
+                    "gray": "Gray",
                     "red": "Red",
                     "blue": "Blue",
                     "green": "Green",
@@ -24,7 +25,7 @@
                 },
                 "other_choice": 0,
                 "save_other_choice": 0,
-                "default_value": "red",
+                "default_value": "gray",
                 "layout": "vertical"
             }
         ],
