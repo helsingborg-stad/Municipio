@@ -3,28 +3,25 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
-                    <div class="pull-left">
-                        {!! municipio_get_logotype('negative', get_field('logotype_tooltip', 'option')) !!}
-                    </div>
-                    <div class="pull-right">
-                        {!!
-                            wp_nav_menu(array(
-                                'theme_location' => 'main-menu',
-                                'container' => false,
-                                'container_class' => 'menu-{menu-slug}-container',
-                                'container_id' => '',
-                                'menu_class' => 'nav nav-horizontal',
-                                'menu_id' => 'main-menu',
-                                'echo' => false,
-                                'before' => '',
-                                'after' => '',
-                                'link_before' => '',
-                                'link_after' => '',
-                                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                                'depth' => 1,
-                            ));
-                        !!}
-                    </div>
+                    {!! municipio_get_logotype('negative', get_field('logotype_tooltip', 'option')) !!}
+
+                    {!!
+                        wp_nav_menu(array(
+                            'theme_location' => 'main-menu',
+                            'container' => false,
+                            'container_class' => 'menu-{menu-slug}-container',
+                            'container_id' => '',
+                            'menu_class' => 'nav nav-horizontal',
+                            'menu_id' => 'main-menu',
+                            'echo' => false,
+                            'before' => '',
+                            'after' => '',
+                            'link_before' => '',
+                            'link_after' => '',
+                            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                            'depth' => 1,
+                        ));
+                    !!}
                 </div>
             </div>
         </div>
