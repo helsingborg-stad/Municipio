@@ -13,6 +13,11 @@ class Navigation
          * @var array
          */
         $ancestors = array_reverse(get_post_ancestors($post));
+
+        if (!isset($ancestors[0])) {
+            return false;
+        }
+
         if ($ancestors[0] == get_option('page_on_front')) {
             unset($ancestors[0]);
             $ancestors = array_values($ancestors);
