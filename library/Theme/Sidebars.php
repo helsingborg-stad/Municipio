@@ -42,7 +42,7 @@ class Sidebars
          */
         register_sidebar(array(
             'id'            => 'content-area',
-            'name'          => __('Below content', 'municipio'),
+            'name'          => __('Content area', 'municipio'),
             'description'   => __('The area below the content', 'municipio'),
             'before_widget' => '<div class="box box-outlined widget %2$s">',
             'after_widget'  => '</div>'
@@ -53,7 +53,7 @@ class Sidebars
          */
         register_sidebar(array(
             'id'            => 'content-area-bottom',
-            'name'          => __('Below main container', 'municipio'),
+            'name'          => __('Main container bottom', 'municipio'),
             'description'   => __('The area below the main container', 'municipio'),
             'before_widget' => '<div class="large-12 medium-12 small-12 print-12 columns widget">' .
                                '<div class="box box-outlined %2$s">',
