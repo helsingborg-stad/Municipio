@@ -15,7 +15,6 @@ class BaseController
         $this->getLogotype();
         $this->getHeaderLayout();
 
-
         $this->init();
     }
 

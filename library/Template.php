@@ -98,29 +98,39 @@ class Template
         $controller = $this->loadController($view);
 
         // Render the view
-        $this->render($view, $controller->getData());
+        $data = null;
+        if ($controller) {
+            $data = $controller->getData();
+        }
+
+        $this->render($view, $data);
 
         return false;
     }
 
     /**
-     * Loads a view controller
-     * @param  string $view The view name
-     * @return bool False if nothing found, else returns the class object
+     * Loads controller for view template
+     * @param  string $template Path to template
+     * @return bool             True if controller loaded, else false
      */
-    public function loadController($view)
+    public function loadController($template)
     {
-        $class = ucwords($view, '-');
-        $class = str_replace('-', '', $class);
+        $template = basename($template) . '.php';
 
-        $classInit = '\Municipio\Controller\BaseController';
+        do_action('Municipio/blade/before_load_controller');
+        $controller = \Municipio\Helper\Controller::locateController($template);
 
-        if (file_exists($this->CONTROLLER_PATH . '/' . basename($class) . '.php')) {
-            $classInit = '\Municipio\Controller\\' . basename($class);
+        if (!$controller) {
+            $controller = get_template_directory() . '/library/Controller/BaseController.php';
         }
 
+        require_once $controller;
+        $namespace = \Municipio\Helper\Controller::getNamespace($controller);
+        $class = '\\' . $namespace . '\\' . basename($controller, '.php');
 
-        return new $classInit;
+        do_action('Municipio/blade/after_load_controller');
+
+        return new $class();
     }
 
     /**
