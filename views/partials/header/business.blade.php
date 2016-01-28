@@ -44,5 +44,5 @@
 </header>
 
 @if (is_front_page())
-    @include('views.partials.hero')
+    @include($wp_current_theme . '.views.partials.hero')
 @endif

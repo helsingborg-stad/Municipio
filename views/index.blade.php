@@ -1,4 +1,4 @@
-@extends('views.templates.master')
+@extends($wp_current_theme . '.views.templates.master')
 
 @section('content')
 
