@@ -1,12 +1,12 @@
-@extends('views.templates.master')
+@extends($wp_parent_theme . '.views.templates.master')
 
 @section('content')
 
 <div class="container">
-    @include('views.partials.breadcrumbs')
+    @include($wp_parent_theme . '.views.partials.breadcrumbs')
 
     <div class="grid no-margin-top">
-        @include('views.partials.sidebar-left')
+        @include($wp_parent_theme . '.views.partials.sidebar-left')
 
         <div class="grid-md-8 grid-lg-6">
             @while(have_posts())
