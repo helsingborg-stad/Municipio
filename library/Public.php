@@ -27,7 +27,7 @@ if (!function_exists('municipio_get_thumbnail_source')) {
  * @return string           HTML markup
  */
 if (!function_exists('municipio_get_logotype')) {
-    function municipio_get_logotype($type = 'standard', $tooltip = false)
+    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true)
     {
         if ($type == '') {
             $type = 'standard';
@@ -42,11 +42,19 @@ if (!function_exists('municipio_get_logotype')) {
 
         // Get the symbol to use (blog name or image)
         $symbol = '<h1 class="no-margin">' . $siteName . '</h1>';
-        if (isset($logotype[$type]['url'])) {
+
+        if (isset($logotype[$type]['url']) && $logo_include === false) {
             $symbol = sprintf(
                 '<img src="%s" alt="%s">',
                 $logotype[$type]['url'],
                 $siteName
+            );
+        }
+
+        // Get the symbol to use (by file include)
+        if (isset($logotype[$type]['id']) && $logo_include === true) {
+            $symbol = file_get_contents(
+                get_attached_file($logotype[$type]['id'])
             );
         }
 
