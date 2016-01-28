@@ -1,9 +1,9 @@
-@extends('views.templates.master')
+@extends($wp_parent_theme . '.views.templates.master')
 
 @section('content')
 
 <div class="container">
-    @include('views.partials.breadcrumbs')
+    @include($wp_parent_theme . '.views.partials.breadcrumbs')
 
     <div class="grid no-margin-top">
         <article class="grid-md-12">

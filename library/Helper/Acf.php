@@ -7,6 +7,10 @@ class Acf
     public function __construct()
     {
         add_filter('acf/settings/load_json', array($this, 'jsonLoadPath'));
+
+        if (!file_exists(WP_CONTENT_DIR . '/mu-plugins/AcfImportCleaner.php')) {
+            require_once MUNICIPIO_PATH . 'library/Helper/AcfImportCleaner.php';
+        }
     }
 
     /**

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Helsingborg stad</title>
+    <title>{{ get_bloginfo('name') }}</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,14 +45,14 @@
 
     <div id="wrapper">
         @if (isset($notice) && !empty($notice))
-            @include('views.partials.notice')
+            @include($wp_parent_theme . '.views.partials.notice')
         @endif
 
-        @include($headerLayout)
+        @include($wp_parent_theme . '.' . $headerLayout)
 
         @yield('content')
 
-        @include('views.partials.footer')
+        @include($wp_parent_theme . '.views.partials.footer')
      </div>
 
     {!! wp_footer() !!}

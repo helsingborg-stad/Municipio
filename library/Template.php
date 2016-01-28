@@ -21,7 +21,7 @@ class Template
         /**
          * Set paths
          */
-        $this->VIEWS_PATH = get_template_directory();
+        $this->VIEWS_PATH = WP_CONTENT_DIR . '/themes';
         $this->CONTROLLER_PATH = get_template_directory() . '/library/Controller';
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
     }
@@ -131,6 +131,10 @@ class Template
     public function render($view, $data = array())
     {
         $data = apply_filters('Municipio/blade/data', $data);
+
+        // Adds current theme and parent theme folder names to data
+        $data['wp_current_theme'] = basename(get_stylesheet_directory());
+        $data['wp_parent_theme'] = basename(get_template_directory());
 
         $blade = new Blade($this->VIEWS_PATH, $this->CACHE_PATH);
         echo $blade->view()->make($view, $data)->render();
