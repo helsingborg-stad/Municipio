@@ -3,7 +3,7 @@
         {{ dynamic_sidebar('slider-area') }}
     @endif
 
-    @include($wp_current_theme . '.views.partials.stripe')
+    @include($wp_parent_theme . '.views.partials.stripe')
 
     @if (is_front_page() && get_field('front_page_hero_search', 'option') === true)
         {{ get_search_form() }}

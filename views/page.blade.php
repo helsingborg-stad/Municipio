@@ -12,13 +12,13 @@
             @while(have_posts())
                 {!! the_post() !!}
 
-                @include('views.partials.article')
+                @include($wp_parent_theme . '.views.partials.article')
             @endwhile
 
             {!! dynamic_sidebar('content-area') !!}
         </div>
 
-        @include('views.partials.sidebar-right')
+        @include($wp_parent_theme . '.views.partials.sidebar-right')
     </div>
 </div>
 
