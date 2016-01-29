@@ -1,4 +1,4 @@
-@extends($wp_parent_theme . '.views.templates.master')
+@extends('templates.master')
 
 @section('content')
 
@@ -69,7 +69,7 @@
                 @endif
             </div>
 
-            @include($wp_parent_theme . '.views.partials.sidebar-right')
+            @include('partials.sidebar-right')
         </div>
     </div>
 </section>

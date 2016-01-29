@@ -45,14 +45,14 @@
 
     <div id="wrapper">
         @if (isset($notice) && !empty($notice))
-            @include($wp_parent_theme . '.views.partials.notice')
+            @include('partials.notice')
         @endif
 
-        @include($wp_parent_theme . '.' . $headerLayout)
+        @include($headerLayout)
 
         @yield('content')
 
-        @include($wp_parent_theme . '.views.partials.footer')
+        @include('partials.footer')
      </div>
 
     {!! wp_footer() !!}

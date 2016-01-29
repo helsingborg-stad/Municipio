@@ -1,24 +1,24 @@
-@extends($wp_parent_theme . '.views.templates.master')
+@extends('templates.master')
 
 @section('content')
 
 <div class="container">
-    @include($wp_parent_theme . '.views.partials.breadcrumbs')
+    @include('partials.breadcrumbs')
 
     <div class="grid no-margin-top">
-        @include($wp_parent_theme . '.views.partials.sidebar-left')
+        @include('partials.sidebar-left')
 
         <div class="grid-md-8 grid-lg-6">
             @while(have_posts())
                 {!! the_post() !!}
 
-                @include($wp_parent_theme . '.views.partials.article')
+                @include('partials.article')
             @endwhile
 
             {!! dynamic_sidebar('content-area') !!}
         </div>
 
-        @include($wp_parent_theme . '.views.partials.sidebar-right')
+        @include('partials.sidebar-right')
     </div>
 </div>
 

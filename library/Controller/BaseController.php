@@ -30,11 +30,11 @@ class BaseController
     {
         switch (get_field('header_layout', 'option')) {
             case 'casual':
-                $this->data['headerLayout'] = 'views.partials.header.casual';
+                $this->data['headerLayout'] = 'partials.header.casual';
                 break;
 
             default:
-                $this->data['headerLayout'] = 'views.partials.header.business';
+                $this->data['headerLayout'] = 'partials.header.business';
                 break;
         }
     }

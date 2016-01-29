@@ -6,7 +6,7 @@ use Philo\Blade\Blade as Blade;
 
 class Template
 {
-    private $VIEWS_PATH;
+    private $VIEWS_PATHS;
     private $CONTROLLER_PATH;
     private $CACHE_PATH;
 
@@ -21,8 +21,15 @@ class Template
         /**
          * Set paths
          */
-        $this->VIEWS_PATH = WP_CONTENT_DIR . '/themes';
+        $this->VIEWS_PATHS = apply_filters('Municipio/blade/view_paths', array(
+            get_stylesheet_directory() . '/views',
+            get_template_directory() . '/views'
+        ));
+
+        $this->VIEWS_PATHS = array_unique($this->VIEWS_PATHS);
+
         $this->CONTROLLER_PATH = get_template_directory() . '/library/Controller';
+
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
     }
 
@@ -142,11 +149,7 @@ class Template
     {
         $data = apply_filters('Municipio/blade/data', $data);
 
-        // Adds current theme and parent theme folder names to data
-        $data['wp_current_theme'] = basename(get_stylesheet_directory());
-        $data['wp_parent_theme'] = basename(get_template_directory());
-
-        $blade = new Blade($this->VIEWS_PATH, $this->CACHE_PATH);
+        $blade = new Blade($this->VIEWS_PATHS, $this->CACHE_PATH);
         echo $blade->view()->make($view, $data)->render();
     }
 
@@ -212,7 +215,10 @@ class Template
 
     public function cleanViewPath($view)
     {
-        $view = str_replace($this->VIEWS_PATH . '/', '', $view);
+        foreach ($this->VIEWS_PATHS as $path) {
+            $view = str_replace($path . '/', '', $view);
+        }
+
         $view = str_replace('.blade.php', '', $view);
         return $view;
     }
