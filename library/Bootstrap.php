@@ -42,6 +42,15 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php') && !is_plugin_active('adv
 }
 
 /**
+ * ACF Addon
+ */
+include_once ABSPATH . 'wp-admin/includes/plugin.php';
+if (file_exists(MUNICIPIO_PATH . 'vendor/advanced-custom-fields-font-awesome/acf-font-awesome.php')) {
+    require_once MUNICIPIO_PATH . 'vendor/advanced-custom-fields-font-awesome/acf-font-awesome.php';
+}
+
+
+/**
  * Initialize app
  */
 new Municipio\App();
