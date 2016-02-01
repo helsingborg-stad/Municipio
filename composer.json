@@ -13,7 +13,6 @@
             "email": "sebastian.thulin@helsingborg.se"
         }
     ],
-    "minimum-stability": "dev",
     "repositories":[
         {
             "type":"composer",
