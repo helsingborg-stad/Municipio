@@ -33,7 +33,7 @@
             @if(have_rows('footer_icons_repeater', 'option'))
                 <div class="grid">
                     <div class="grid-xs-12">
-                        <ul class="icons-list text-center gutter-margin">
+                        <ul class="icons-list text-center gutter-margin text-xl">
                             @foreach(get_field('footer_icons_repeater', 'option') as $link)
                                 <li>
                                     <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
