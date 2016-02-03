@@ -30,5 +30,11 @@ class App
          * Admin
          */
         new \Municipio\Admin\Options\Theme();
+
+        add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
+            $paths[] = get_stylesheet_directory() . '/views';
+            $paths[] = get_template_directory() . '/views';
+            return $paths;
+        });
     }
 }

@@ -198,12 +198,25 @@ class Template
 
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
-                add_filter($key . '_template', function ($original) use ($type, $types) {
+                add_filter($key . '_template', function ($original) use ($key, $type, $types) {
                     if (empty($original) && is_front_page()) {
                         $type = $types['index'];
                     }
 
-                    if ($templatePath = \Municipio\Helper\Template::locateTemplate($type)) {
+                    $templatePath = \Municipio\Helper\Template::locateTemplate($type);
+
+                    // Look for post type archive
+                    global $wp_query;
+                    if (is_post_type_archive() && isset($wp_query->query['post_type'])) {
+                        $search = 'archive-' . $wp_query->query['post_type'] . '.blade.php';
+                        $found = \Municipio\Helper\Template::locateTemplate($search);
+
+                        if ($found) {
+                            $templatePath = $found;
+                        }
+                    }
+
+                    if ($templatePath) {
                         return $templatePath;
                     }
 
