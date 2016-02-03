@@ -208,7 +208,11 @@ class Template
                     // Look for post type archive
                     if ($key == 'archive') {
                         $search = 'archive-' . get_post_type() . '.blade.php';
-                        $templatePath = \Municipio\Helper\Template::locateTemplate($search);
+                        $found = \Municipio\Helper\Template::locateTemplate($search);
+
+                        if ($found) {
+                            $templatePath = $found;
+                        }
                     }
 
                     if ($templatePath) {
