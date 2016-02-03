@@ -206,8 +206,9 @@ class Template
                     $templatePath = \Municipio\Helper\Template::locateTemplate($type);
 
                     // Look for post type archive
-                    if ($key == 'archive') {
-                        $search = 'archive-' . get_post_type() . '.blade.php';
+                    global $wp_query;
+                    if (is_post_type_archive() && isset($wp_query->query['post_type'])) {
+                        $search = 'archive-' . $wp_query->query['post_type'] . '.blade.php';
                         $found = \Municipio\Helper\Template::locateTemplate($search);
 
                         if ($found) {
