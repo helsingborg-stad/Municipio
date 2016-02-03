@@ -24,6 +24,7 @@ class App
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\Navigation();
         new \Municipio\Theme\General();
+        new \Municipio\Theme\OnTheFlyImages();
 
         /**
          * Admin
