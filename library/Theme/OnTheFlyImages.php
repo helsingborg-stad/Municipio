@@ -102,10 +102,11 @@ class OnTheFlyImages
         return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
     }
 }
-
+/*
 add_action('loop_start', function () {
     foreach (array(50, 100, 150, 200, 250, 300, 350, 400, 450, 500) as $key => $value) {
         $image = wp_get_attachment_image_src(10, array($value, $value*2), false);
         echo '<img src="'.$image[0].'"/>';
     }
 });
+*/

@@ -27,6 +27,11 @@ class App
         new \Municipio\Theme\OnTheFlyImages();
 
         /**
+         * Content
+         */
+        new \Municipio\Content\CustomPostType();
+
+        /**
          * Admin
          */
         new \Municipio\Admin\Options\Theme();

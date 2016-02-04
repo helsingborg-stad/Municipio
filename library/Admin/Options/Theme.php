@@ -33,6 +33,12 @@ class Theme
                 'menu_title'    => 'Search',
                 'parent_slug'   => 'theme-settings',
             ));
+
+            acf_add_options_sub_page(array(
+                'page_title'    => 'Custom Post Types',
+                'menu_title'    => 'Post Types',
+                'parent_slug'   => 'theme-settings',
+            ));
         }
     }
 }
