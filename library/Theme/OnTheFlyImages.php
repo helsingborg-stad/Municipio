@@ -6,7 +6,8 @@ class OnTheFlyImages
 {
     public function __construct()
     {
-        add_filter('image_downsize', array($this,'runResizeImage'), 5, 3 );
+        add_filter('image_downsize', array($this, 'runResizeImage'), 5, 3);
+        add_filter('image_resize_dimensions', array($this, 'upscaleThumbnail'), 10, 6);
     }
 
     /* Hook to image resize function
@@ -20,7 +21,7 @@ class OnTheFlyImages
 
     public function runResizeImage($downsize, $id, $size)
     {
-        if (is_array($size)) {
+        if (is_array($size) && count($size) == 2) {
             return array(
                 $this->resizeImage($id, $size[0], $size[1], true),
                 $size[0],
@@ -72,10 +73,39 @@ class OnTheFlyImages
         return "{$upload_url}{$rel_path}.{$ext}";
     }
 
+    /* Upscale images when thhey are to small
+     *
+     * @param  int     $orig_w        Original width
+     * @param  int     $orig_h        Original height
+     * @param  int     $new_w         New width
+     * @param  int     $new_h         New height
+     * @param  bool    $crop          Crop or not
+     *
+     * @return Array                  Array with new dimension
+     */
+
+    public function upscaleThumbnail($orig_w, $orig_h, $new_w, $new_h, $crop)
+    {
+        if (!$crop) {
+            return null;
+        }
+
+        $aspect_ratio = $orig_w / $orig_h;
+        $size_ratio = max($new_w / $orig_w, $new_h / $orig_h);
+
+        $crop_w = round($new_w / $size_ratio);
+        $crop_h = round($new_h / $size_ratio);
+
+        $s_x = floor(($orig_w - $crop_w) / 2);
+        $s_y = floor(($orig_h - $crop_h) / 2);
+
+        return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
+    }
 }
 
-/* Test code
-add_action('loop_start',function(){
-    $image = wp_get_attachment_image_src(10,array(500,500),false);
-    echo '<img src="'.$image[0].'"/>';
-});*/
+add_action('loop_start', function () {
+    foreach (array(50, 100, 150, 200, 250, 300, 350, 400, 450, 500) as $key => $value) {
+        $image = wp_get_attachment_image_src(10, array($value, $value*2), false);
+        echo '<img src="'.$image[0].'"/>';
+    }
+});
