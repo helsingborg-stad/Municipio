@@ -10,7 +10,9 @@
 
         <!-- Widgets -->
         <div class="grid">
-            {!! dynamic_sidebar('footer-area'); !!}
+            @if (is_active_sidebar('footer-area'))
+                <?php dynamic_sidebar('footer-area'); //Blade not working here? ?>
+            @endif
         </div>
 
         <!-- Footer links -->
