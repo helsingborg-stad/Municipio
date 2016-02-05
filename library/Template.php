@@ -216,6 +216,16 @@ class Template
                         }
                     }
 
+                    // Look for post type single page
+                    if (is_single() && isset($wp_query->query['post_type'])) {
+                        $search = 'single-' . $wp_query->query['post_type'] . '.blade.php';
+                        $found = \Municipio\Helper\Template::locateTemplate($search);
+
+                        if ($found) {
+                            $templatePath = $found;
+                        }
+                    }
+
                     if ($templatePath) {
                         return $templatePath;
                     }
