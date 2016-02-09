@@ -9,6 +9,11 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
     require_once MUNICIPIO_PATH . 'vendor/autoload.php';
 }
 
+//Include vendor files
+if (file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
+    require_once dirname(ABSPATH) . '/vendor/autoload.php';
+}
+
 /**
  * Psr4ClassLoader
  */
@@ -20,14 +25,6 @@ $loader = new Municipio\Vendor\Psr4ClassLoader();
 $loader->addPrefix('Municipio', MUNICIPIO_PATH . 'library');
 $loader->addPrefix('Municipio', MUNICIPIO_PATH . 'source/php/');
 $loader->register();
-
-/**
- * Bladerunner
- */
-if (file_exists(MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php')) {
-    require_once MUNICIPIO_PATH . 'vendor/bladerunner/bladerunner.php';
-    new Municipio\Bladerunner\Settings();
-}
 
 /**
  * ACF
