@@ -16,10 +16,10 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-mainmenu">
+    <nav class="navbar navbar-mainmenu hidden-xs hidden-sm">
         <div class="container">
             <div class="grid">
-                <div class="grid-sm-12">
+                <div class="grid-sm-12 ">
                     {!!
                         wp_nav_menu(array(
                             'theme_location' => 'main-menu',
