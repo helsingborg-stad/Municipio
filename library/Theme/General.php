@@ -8,6 +8,13 @@ class General
     {
         add_filter('body_class', array($this, 'colorScheme'));
         add_filter('body_class', array($this, 'isChildTheme'));
+
+        add_filter('the_lead', array($this, 'theLead'));
+    }
+
+    public function theLead($text)
+    {
+        return '<p class="lead">' . $text . '</p>';
     }
 
     public function colorScheme($classes)
@@ -22,14 +29,12 @@ class General
         return $classes;
     }
 
-    public function isChildTheme($classes) {
-        
+    public function isChildTheme($classes)
+    {
         if (is_child_theme()) {
-            $classes[] = "is-child-theme"; 
-        } 
+            $classes[] = "is-child-theme";
+        }
 
         return $classes;
-
     }
-
 }
