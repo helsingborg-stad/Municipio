@@ -14,8 +14,7 @@
 
     if ($menu) : ?>
     <nav>
-        <a href="#menu-open" id="menu-open" class="hidden-sm hidden-md hidden-lg menu-trigger"><span class="menu-icon"></span></a>
-        <ul class="nav-aside hidden-xs">
+        <ul class="nav-aside hidden-xs hidden-sm">
             <?php echo $menu; ?>
         </ul>
     </nav>
