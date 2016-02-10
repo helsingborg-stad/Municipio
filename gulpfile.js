@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var minifycss = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
@@ -19,7 +19,7 @@ gulp.task('sass-dist', function() {
             .pipe(sass())
             .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
             .pipe(rename({suffix: '.min'}))
-            .pipe(minifycss())
+            .pipe(cssnano())
             .pipe(gulp.dest('assets/dist/css'));
 });
 
