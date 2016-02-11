@@ -23,6 +23,16 @@ $ gulp
 
 ## Filters
 
+#### Municipio/header_grid_size
+Applied to classes string for header sizes.
+
+- ```@param string $classes``` - 
+
+```php
+apply_filters('Municipio/header_grid_size', $classes);
+```
+
+
 #### Municipio/mobile_menu_breakpoint
 Applied to classes string for mobile hamburger menu breakpoint. 
 
