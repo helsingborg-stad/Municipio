@@ -43,7 +43,7 @@
         </div>
     </nav>
 
-    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle hidden-md hidden-lg">
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand hidden-md hidden-lg">
         {!!
             wp_nav_menu(array(
                 'theme_location' => 'main-menu',
