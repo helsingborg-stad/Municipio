@@ -72,6 +72,36 @@
                 "maxlength": "",
                 "readonly": 0,
                 "disabled": 0
+            },
+            {
+                "key": "field_56bc91a1aad5c",
+                "label": "Placement",
+                "name": "cookie_consent_placement",
+                "type": "radio",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56bc6b7837da1",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "top": "At the top of the page",
+                    "bottom-fixed": "Fixed to bottom of window"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "",
+                "layout": "vertical"
             }
         ],
         "location": [
