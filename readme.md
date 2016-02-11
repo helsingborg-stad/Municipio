@@ -23,6 +23,16 @@ $ gulp
 
 ## Filters
 
+#### Municipio/mobile_menu_breakpoint
+Applied to classes string for mobile hamburger menu breakpoint. 
+
+- ```@param string $classes``` - The default site name
+
+```php
+apply_filters('Municipio/mobile_menu_breakpoint', $classes);
+```
+
+
 #### Municipio/logotype_text
 Applied to the text that displays as the logo when now logotype image is uploaded in theme options.
 

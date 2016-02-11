@@ -24,7 +24,7 @@
                     !!}
                 </div>
                 <div class="grid-xs-2 hidden-md hidden-lg text-right">
-                    <a href="#mobile-menu" class="hidden-md hidden-lg menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span></a>
+                    <a href="#menu-open" id="menu-open" class="{!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} menu-trigger"><span class="menu-icon"></span></a>
                 </div>
             </div>
         </div>
