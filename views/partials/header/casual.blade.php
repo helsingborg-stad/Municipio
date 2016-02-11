@@ -11,7 +11,7 @@
                             'container' => false,
                             'container_class' => 'menu-{menu-slug}-container',
                             'container_id' => '',
-                            'menu_class' => 'nav nav-horizontal hidden-xs hidden-sm',
+                            'menu_class' => 'nav nav-horizontal ' . apply_filters('Municipio/mobile_menu_breakpoint', 'hidden-xs hidden-sm'),
                             'menu_id' => 'main-menu',
                             'echo' => false,
                             'before' => '',
