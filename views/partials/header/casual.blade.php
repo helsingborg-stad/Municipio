@@ -32,7 +32,7 @@
         </div>
     </nav>
 
-    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle hidden">
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle">
         {!!
             wp_nav_menu(array(
                 'theme_location' => 'main-menu',
