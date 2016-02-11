@@ -2,6 +2,7 @@
   padding-top: 15px; }
   #site-header .logotype {
     display: inline-block;
+    vertical-align: middle;
     /*
         &[data-tooltip] {
             &:hover {
@@ -44,3 +45,7 @@
 
 .navbar-mainmenu {
   margin-top: 8px; }
+
+[id*="site-header"] .menu-trigger {
+  margin-left: 50px;
+  vertical-align: middle; }

@@ -44,6 +44,13 @@ class Enqueue
         //Custom
         //wp_register_script('hbg-prime', 'http://helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
         wp_register_script('hbg-prime', 'http://hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
+        wp_localize_script('hbg-prime', 'HbgPrimeLang', array(
+            'cookieConsent' => array(
+                'show'    => get_field('cookie_consent_active', 'option'),
+                'message' => get_field('cookie_consent_message', 'option'),
+                'button'  => get_field('cookie_consent_button', 'option')
+            )
+        ));
         wp_enqueue_script('hbg-prime');
     }
 

@@ -22,7 +22,7 @@
             <div class="grid-lg-6">
                 <div class="box box-panel">
                     <h4 class="box-title">Evenemang</h4>
-                    <table class="table-bordered">
+                    <table class="table table-bordered">
                         <tbody>
                             <tr>
                                 <td width="80" class="text-center text-sm">
