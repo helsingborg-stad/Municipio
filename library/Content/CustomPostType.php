@@ -42,8 +42,20 @@ class CustomPostType
                         'capability_type'    => 'post',
                         'hierarchical'       => $type_definition['hierarchical'],
                         'menu_position'      => $type_definition['menu_position'],
-                        'supports'           => array_merge($type_definition['supports'], array('title'))
+                        'supports'           => array_merge($type_definition['supports'], array('title')),
+                        'menu_position'      => $type_definition['menu_position'],
                     );
+
+                    //Get custom menu icon
+                    if (isset($type_definition['menu_icon']) && isset($type_definition['menu_icon']['id']) && is_numeric($type_definition['menu_icon']['id'])) {
+                        $image_filepath = get_attached_file($type_definition['menu_icon']['id']);
+
+                        if (file_exists($image_filepath)) {
+                            echo $args['menu_icon'] = 'data:image/svg+xml;base64,'. base64_encode(
+                                file_get_contents($image_filepath)
+                            );
+                        }
+                    }
 
                     register_post_type(sanitize_title(substr($type_definition['post_type_name'], 0, 19)), $args);
                 }
