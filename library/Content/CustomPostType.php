@@ -51,7 +51,7 @@ class CustomPostType
                         $image_filepath = get_attached_file($type_definition['menu_icon']['id']);
 
                         if (file_exists($image_filepath)) {
-                            echo $args['menu_icon'] = 'data:image/svg+xml;base64,'. base64_encode(
+                            $args['menu_icon'] = 'data:image/svg+xml;base64,'. base64_encode(
                                 file_get_contents($image_filepath)
                             );
                         }
