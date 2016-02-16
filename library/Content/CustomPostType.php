@@ -6,8 +6,36 @@ class CustomPostType
 {
     public function __construct()
     {
+        //Registration of Custom Post Types
         add_action('init', array($this, 'registerCustomPostTypes'));
+
+        //Flush rewrite-rules on data update & sanitize post type name
+        add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
+            flush_rewrite_rules(true);
+            return $value;
+        }, 10, 3);
+
+        //Sanitize permalinks
+        add_filter('acf/update_value/key=field_56b36c01e0619', function ($value, $post_id, $field) {
+            return sanitize_title($value, $value);
+        }, 10, 3);
+
+        //Disable filled fields
+        add_action('admin_head', function () {
+            echo '<script>';
+                echo '
+                    jQuery(function(){
+                        jQuery(".acf-field-56b3619c5defc").each(function(index,item){
+                            if(jQuery("input",item).val() != "" ) {
+                                jQuery("input",item).attr("readonly","readonly");
+                            }
+                        })
+                    });
+                ';
+            echo '</script>';
+        });
     }
+
 
     public function registerCustomPostTypes()
     {
@@ -15,7 +43,8 @@ class CustomPostType
             $type_definitions = get_field('avabile_dynamic_post_types', 'option');
 
             if (is_array($type_definitions) && !empty($type_definitions)) {
-                foreach ($type_definitions as $type_definition) {
+                foreach ($type_definitions as $type_definition_key => $type_definition) {
+
                     $labels = array(
                         'name'               => $type_definition['post_type_name'],
                         'singular_name'      => $type_definition['post_type_name'],
@@ -41,9 +70,8 @@ class CustomPostType
                         'rewrite'            => array( 'slug' => sanitize_title($type_definition['slug']) ),
                         'capability_type'    => 'post',
                         'hierarchical'       => $type_definition['hierarchical'],
-                        'menu_position'      => $type_definition['menu_position'],
                         'supports'           => array_merge($type_definition['supports'], array('title')),
-                        'menu_position'      => $type_definition['menu_position'],
+                        'menu_position'      => (int) $type_definition['menu_position']
                     );
 
                     //Get custom menu icon
