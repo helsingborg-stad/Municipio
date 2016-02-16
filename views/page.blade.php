@@ -16,9 +16,13 @@
             @endwhile
 
             @if (is_active_sidebar('content-area'))
-            <div class="grid">
-                {!! dynamic_sidebar('content-area') !!}
-            </div>
+                <div class="grid">
+                    {!! dynamic_sidebar('content-area') !!}
+                </div>
+            @endif
+
+            @if (get_field('show_share', get_the_id()) != 'false')
+                @include('partials.social-share')
             @endif
         </div>
 
