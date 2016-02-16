@@ -15,7 +15,11 @@
                 @include('partials.article')
             @endwhile
 
-            {!! dynamic_sidebar('content-area') !!}
+            @if (is_active_sidebar('content-area'))
+            <div class="grid">
+                {!! dynamic_sidebar('content-area') !!}
+            </div>
+            @endif
         </div>
 
         @include('partials.sidebar-right')
