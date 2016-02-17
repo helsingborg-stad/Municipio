@@ -21,9 +21,7 @@
                 </div>
             @endif
 
-            @if (get_field('show_share', get_the_id()) != 'false')
-                @include('partials.social-share')
-            @endif
+            @include('partials.page-footer')
         </div>
 
         @include('partials.sidebar-right')
