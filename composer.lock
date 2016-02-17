@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cfe9853a5251b949ed7a026dc0442b6f",
-    "content-hash": "df919d05c89db2e97bc5f2c1f81c4a55",
+    "hash": "6136030805b0d3365b2c55719bec70b6",
+    "content-hash": "e70f07c1b98f7e12fe41a9971dbd3795",
     "packages": [
         {
             "name": "composer/installers",
@@ -585,6 +585,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/advanced-custom-fields-font-awesome/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-editor-widget",
+            "version": "0.5.5",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/wp-editor-widget/",
+                "reference": "tags/0.5.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-editor-widget.0.5.5.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-editor-widget/"
         }
     ],
     "packages-dev": [],

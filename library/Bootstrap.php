@@ -46,7 +46,6 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/advanced-custom-fields-font-awesome/acf
     require_once MUNICIPIO_PATH . 'vendor/advanced-custom-fields-font-awesome/acf-font-awesome.php';
 }
 
-
 /**
  * Initialize app
  */
