@@ -71,7 +71,8 @@ class CustomPostType
                         'capability_type'    => 'post',
                         'hierarchical'       => $type_definition['hierarchical'],
                         'supports'           => array_merge($type_definition['supports'], array('title')),
-                        'menu_position'      => (int) $type_definition['menu_position']
+                        'menu_position'      => (int) $type_definition['menu_position'],
+                        'has_archive'        => true,
                     );
 
                     //Get custom menu icon
