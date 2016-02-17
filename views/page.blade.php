@@ -16,10 +16,12 @@
             @endwhile
 
             @if (is_active_sidebar('content-area'))
-            <div class="grid">
-                {!! dynamic_sidebar('content-area') !!}
-            </div>
+                <div class="grid">
+                    {!! dynamic_sidebar('content-area') !!}
+                </div>
             @endif
+
+            @include('partials.page-footer')
         </div>
 
         @include('partials.sidebar-right')

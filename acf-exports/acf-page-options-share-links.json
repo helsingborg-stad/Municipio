@@ -1,0 +1,52 @@
+    {
+        "key": "group_56c33cf1470dc",
+        "title": "Share",
+        "fields": [
+            {
+                "key": "field_56c33d008efe3",
+                "label": "Social media share buttons",
+                "name": "show_share",
+                "type": "radio",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "true": "Enable",
+                    "false": "Disable"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "true",
+                "layout": "vertical"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "post"
+                }
+            ],
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "page"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }
