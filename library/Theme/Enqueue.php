@@ -10,6 +10,8 @@ class Enqueue
         add_action('wp_enqueue_scripts', array($this, 'style'));
         add_action('wp_enqueue_scripts', array($this, 'script'));
 
+        add_action('wp_enqueue_scripts', array($this, 'googleAnalytics'), 999);
+
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
         add_filter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -53,6 +55,31 @@ class Enqueue
             )
         ));
         wp_enqueue_script('hbg-prime');
+    }
+
+    public function googleAnalytics()
+    {
+        $gaUser = get_field('google_analytics_ua', 'option');
+
+        if (!$gaUser) {
+            return;
+        }
+
+        wp_register_script('google-analytics', 'https://www.google-analytics.com/analytics.js', '', '1.0.0', true);
+        wp_enqueue_script('google-analytics');
+
+        add_filter('script_loader_tag', function ($tag, $handle) use ($gaUser) {
+            if ($handle != 'google-analytics') {
+                return;
+            }
+
+            $ga = "<script>
+                        window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+                        ga('create','" . $gaUser . "','auto');ga('send','pageview')
+                    </script>";
+
+            return $ga . str_replace(' src', ' async defer src', $tag);
+        }, 10, 2);
     }
 
     /**

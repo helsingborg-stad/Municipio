@@ -41,6 +41,12 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title'    => 'Google Analytics',
+                'menu_title'    => 'Google Analytics',
+                'parent_slug'   => 'theme-settings',
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title'    => 'Custom Post Types',
                 'menu_title'    => 'Post Types',
                 'parent_slug'   => 'theme-settings',
