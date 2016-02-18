@@ -2,11 +2,13 @@
     <div class="container">
 
         <!-- Logotype -->
+        @if (get_field('footer_logotype_vertical_position', 'option') == 'top' || get_field('footer_logotype_vertical_position', 'option') == '' || get_field('footer_logotype_vertical_position', 'option') == false)
         <div class="grid">
-            <div class="grid-lg-12">
+            <div class="grid-lg-12 {{ ($pos = get_field('footer_logotype_horizontal_position', 'option')) ? 'text-' . $pos : '' }}">
                 {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
             </div>
         </div>
+        @endif
 
         <!-- Widgets -->
         <div class="grid">
@@ -32,6 +34,14 @@
                     </div>
                 </div>
             @endif
+        @endif
+
+        @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
+        <div class="grid">
+            <div class="grid-lg-12 {{ ($pos = get_field('footer_logotype_horizontal_position', 'option')) ? 'text-' . $pos : '' }}">
+                {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
+            </div>
+        </div>
         @endif
 
     </div>

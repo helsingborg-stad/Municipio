@@ -1,0 +1,90 @@
+    {
+        "key": "group_56c5d41852a31",
+        "title": "Footer logotype",
+        "fields": [
+            {
+                "key": "field_56c5d41ed3f9f",
+                "label": "Logotype to use in footer",
+                "name": "footer_logotype",
+                "type": "radio",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "standard": "Standard",
+                    "negative": "Negative"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "standard",
+                "layout": "vertical"
+            },
+            {
+                "key": "field_56c5d4a666eb5",
+                "label": "Horizontal position",
+                "name": "footer_logotype_horizontal_position",
+                "type": "radio",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "left": "Left",
+                    "center": "Center",
+                    "right": "Right"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "left",
+                "layout": "vertical"
+            },
+            {
+                "key": "field_56c5d57ae8167",
+                "label": "Vertical position",
+                "name": "footer_logotype_vertical_position",
+                "type": "radio",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "top": "Above footer content",
+                    "bottom": "Below footer content"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "top",
+                "layout": "vertical"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-footer"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }

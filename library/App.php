@@ -33,6 +33,16 @@ class App
         new \Municipio\Content\CustomTaxonomy();
 
         /**
+         * Widget
+         */
+        new \Municipio\Widget\RichEditor();
+        new \Municipio\Widget\Contact();
+
+        add_action('widgets_init', function () {
+            register_widget('\Municipio\Widget\Contact');
+        });
+
+        /**
          * Admin
          */
         new \Municipio\Admin\Options\Theme();
