@@ -25,7 +25,10 @@ class Contact extends \WP_Widget
     {
         extract($args);
 
-        var_dump("WIDGET");
+        $contacts = get_field('contacts', 'widget_' . $this->id);
+        var_dump($contacts);
+
+        include MUNICIPIO_PATH . '/templates/widget/contact.php';
     }
 
     /**
