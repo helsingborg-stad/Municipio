@@ -49,49 +49,6 @@
                 "max_height": "",
                 "max_size": "",
                 "mime_types": "svg"
-            },
-            {
-                "key": "field_56a220de904c4",
-                "label": "Header logotype tooltip",
-                "name": "logotype_tooltip",
-                "type": "text",
-                "instructions": "Tooltip text when hovering over the logotype in the header. The logo links to the front page. Leave empty if you don't want to show anything.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "G\u00e5 till startsidan",
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "maxlength": "",
-                "readonly": 0,
-                "disabled": 0
-            },
-            {
-                "key": "field_56a738a9c8b74",
-                "label": "Logotype to use in header",
-                "name": "header_logotype",
-                "type": "radio",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "choices": {
-                    "standard": "Standard",
-                    "negative": "Negative"
-                },
-                "other_choice": 0,
-                "save_other_choice": 0,
-                "default_value": "standard",
-                "layout": "horizontal"
             }
         ],
         "location": [
