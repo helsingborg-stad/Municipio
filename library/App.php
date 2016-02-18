@@ -32,6 +32,14 @@ class App
         new \Municipio\Content\CustomPostType();
 
         /**
+         * Widget
+         */
+        new \Municipio\Widget\Contact();
+        add_action('widgets_init', function () {
+            register_widget('\Municipio\Widget\Contact');
+        });
+
+        /**
          * Admin
          */
         new \Municipio\Admin\Options\Theme();
