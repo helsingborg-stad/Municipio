@@ -34,7 +34,9 @@ class App
         /**
          * Widget
          */
+        new \Municipio\Widget\RichEditor();
         new \Municipio\Widget\Contact();
+
         add_action('widgets_init', function () {
             register_widget('\Municipio\Widget\Contact');
         });

@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Helper;
+namespace Municipio\Widget;
 
 class RichEditor
 {
