@@ -70,7 +70,7 @@ class Enqueue
 
         add_filter('script_loader_tag', function ($tag, $handle) use ($gaUser) {
             if ($handle != 'google-analytics') {
-                return;
+                return $tag;
             }
 
             $ga = "<script>
