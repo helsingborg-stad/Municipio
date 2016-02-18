@@ -30,6 +30,7 @@ class App
          * Content
          */
         new \Municipio\Content\CustomPostType();
+        new \Municipio\Content\CustomTaxonomy();
 
         /**
          * Admin

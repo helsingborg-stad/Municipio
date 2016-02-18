@@ -1,0 +1,168 @@
+    {
+        "key": "group_56c5e23aa271c",
+        "title": "Manage taxonomies",
+        "fields": [
+            {
+                "key": "field_56c5e243a1c79",
+                "label": "Avabile dynamic taxonomies",
+                "name": "avabile_dynamic_taxonomies",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_56c5e5d43eb50",
+                "min": "",
+                "max": "",
+                "layout": "block",
+                "button_label": "Add taxonomy",
+                "sub_fields": [
+                    {
+                        "key": "field_56c5e5d43eb50",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "<span style=\"color: #ff0000;\">Once you have published a post type the name cannot be changed!<\/span>",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": 50,
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "readonly": 0,
+                        "disabled": 0
+                    },
+                    {
+                        "key": "field_56c5e580621be",
+                        "label": "Permal\u00e4nk",
+                        "name": "slug",
+                        "type": "text",
+                        "instructions": "Only applies if you enable the option to publish your taxonomy.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": 50,
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "readonly": 0,
+                        "disabled": 0
+                    },
+                    {
+                        "key": "field_56c5e44ea1c7d",
+                        "label": "Type of taxonomy",
+                        "name": "hierarchical",
+                        "type": "radio",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": 50,
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": [
+                            "Tags",
+                            "Categories"
+                        ],
+                        "other_choice": 0,
+                        "save_other_choice": 0,
+                        "default_value": 1,
+                        "layout": "horizontal"
+                    },
+                    {
+                        "key": "field_56c5e67222b8b",
+                        "label": "Connect to post type(s)",
+                        "name": "connected_post_types",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": 50,
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "post": "post",
+                            "page": "page",
+                            "my-first-custom-pos": "my-first-custom-pos",
+                            "henriks-post-typdaw": "henriks-post-typdaw"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 1,
+                        "ui": 1,
+                        "ajax": 0,
+                        "placeholder": "",
+                        "disabled": 0,
+                        "readonly": 0
+                    },
+                    {
+                        "key": "field_56c5e2c4a1c7a",
+                        "label": "Offentlig",
+                        "name": "public",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": 50,
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "Enable visitors to browse this taxonomy",
+                        "default_value": 1
+                    },
+                    {
+                        "key": "field_56c5e2d3a1c7b",
+                        "label": "Admin user interface",
+                        "name": "show_ui",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": 50,
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "Enable administration UI",
+                        "default_value": 1
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-taxonomies"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "field",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }

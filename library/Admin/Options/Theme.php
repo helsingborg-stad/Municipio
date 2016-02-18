@@ -45,6 +45,13 @@ class Theme
                 'menu_title'    => 'Post Types',
                 'parent_slug'   => 'theme-settings',
             ));
+
+            acf_add_options_sub_page(array(
+                'page_title'    => 'Custom Taxonomies',
+                'menu_title'    => 'Taxonomies',
+                'parent_slug'   => 'theme-settings',
+            ));
+
         }
     }
 }

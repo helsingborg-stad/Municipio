@@ -44,7 +44,6 @@ class CustomPostType
 
             if (is_array($type_definitions) && !empty($type_definitions)) {
                 foreach ($type_definitions as $type_definition_key => $type_definition) {
-
                     $labels = array(
                         'name'               => $type_definition['post_type_name'],
                         'singular_name'      => $type_definition['post_type_name'],
@@ -91,4 +90,5 @@ class CustomPostType
             }
         }
     }
+
 }
