@@ -8,8 +8,8 @@ class Theme
     {
         if (function_exists('acf_add_options_page')) {
             acf_add_options_page(array(
-                'page_title'    => 'Theme Options',
-                'menu_title'    => 'Theme Options',
+                'page_title'    => __('Theme Options', 'municipio'),
+                'menu_title'    => __('Theme Options', 'municipio'),
                 'menu_slug'     => 'theme-settings',
                 'capability'    => 'manage_options',
                 'redirect'      => false,
@@ -17,26 +17,32 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Header',
-                'menu_title'    => 'Header',
+                'page_title'    => __('Header'),
+                'menu_title'    => __('Header'),
                 'parent_slug'   => 'theme-settings',
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Content',
-                'menu_title'    => 'Content',
+                'page_title'    => __('Content'),
+                'menu_title'    => __('Content'),
                 'parent_slug'   => 'theme-settings',
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Footer',
-                'menu_title'    => 'Footer',
+                'page_title'    => __('Footer'),
+                'menu_title'    => __('Footer'),
                 'parent_slug'   => 'theme-settings',
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Search',
-                'menu_title'    => 'Search',
+                'page_title'    => __('Search'),
+                'menu_title'    => __('Search'),
+                'parent_slug'   => 'theme-settings',
+            ));
+
+            acf_add_options_sub_page(array(
+                'page_title'    => __('Blog'),
+                'menu_title'    => __('Blog'),
                 'parent_slug'   => 'theme-settings',
             ));
 
@@ -47,14 +53,14 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Custom Post Types',
-                'menu_title'    => 'Post Types',
+                'page_title'    => __('Custom Post Types', 'minicipio'),
+                'menu_title'    => __('Post Types', 'minicipio'),
                 'parent_slug'   => 'theme-settings',
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Custom Taxonomies',
-                'menu_title'    => 'Taxonomies',
+                'page_title'    => __('Custom Taxonomies', 'municipio'),
+                'menu_title'    => __('Taxonomies'),
                 'parent_slug'   => 'theme-settings',
             ));
 
