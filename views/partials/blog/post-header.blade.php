@@ -1,5 +1,5 @@
 <header class="post-header">
-    <h1>{{ the_title() }}</h1>
+    <h1><a href="{{ the_permalink() }}">{{ the_title() }}</a></h1>
 
     <ul>
         @if (get_field('blog_show_author', 'option'))
