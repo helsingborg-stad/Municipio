@@ -1,4 +1,4 @@
-<footer class="post-footer grid-table grid-va-middle">
+<footer class="post-footer grid-table grid-va-top">
     <div class="grid-md-6">
         @include('partials.blog.post-tags')
     </div>
