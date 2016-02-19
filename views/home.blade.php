@@ -12,7 +12,13 @@
                     @while(have_posts())
                         {!! the_post() !!}
 
-                        @include('partials.post')
+                        @if (get_field('blog_feed_post_style', 'option') == 'full' || !get_field('blog_feed_post_style', 'option'))
+                            @include('partials.blog.type.post')
+                        @elseif(get_field('blog_feed_post_style', 'option') == 'collapsed')
+                            @include('partials.blog.type.post-collapsed')
+                        @elseif(get_field('blog_feed_post_style', 'option') == 'compressed')
+                            @include('partials.blog.type.post-compressed')
+                        @endif
                     @endwhile
                 </div>
             </div>
