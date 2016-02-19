@@ -23,7 +23,7 @@ class Support
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
 
         //Remove dashboard stuff
-        add_action('wp_dashboard_setup', array($this,'removeDashboardMetaboxes')); 
+        add_action('wp_dashboard_setup', array($this, 'removeDashboardMetaboxes'));
     }
 
     /**
@@ -38,24 +38,38 @@ class Support
     }
 
     /**
-     * Removes the post type "post"
-     * @return boolean
+     * Removes the post type "post/page" from admin
+     * @return NULL
      */
     public function removePostPostType()
     {
         global $wp_post_types;
 
         if (isset($wp_post_types['post'])) {
-            if (!defined("WP_ENABLE_POSTS") || (defined("WP_ENABLE_POSTS") && WP_ENABLE_POSTS !== true)) {
+            if (function_exists('get_field') && get_field('disable_default_blog_post_type')) {
                 add_action('admin_menu', function () {
                     remove_menu_page('edit.php');
                 });
+                add_action('wp_before_admin_bar_render', function () {
+                    global $wp_admin_bar;
+                    $wp_admin_bar->remove_menu('new-post');
+                });
             }
-
-            return true;
         }
 
-        return false;
+        if (isset($wp_post_types['page'])) {
+            if (function_exists('get_field') && get_field('disable_default_page_post_type')) {
+                add_action('admin_menu', function () {
+                    remove_menu_page('edit.php?post_type=page');
+                });
+                add_action('wp_before_admin_bar_render', function () {
+                    global $wp_admin_bar;
+                    $wp_admin_bar->remove_menu('new-page');
+                });
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -139,32 +153,31 @@ class Support
     public static function removeTheGenerator()
     {
         add_filter('the_generator', create_function('', 'return "";'));
-        remove_filter( 'update_footer', 'core_update_footer' ); 
+        remove_filter('update_footer', 'core_update_footer');
     }
 
     /**
      * Removes old xmlrpc (always use API)
      */
-    public static function removeXmlRpc() 
+    public static function removeXmlRpc()
     {
         add_filter('xmlrpc_enabled', '__return_false');
     }
 
-    public static function removeDashboardMetaboxes() {
-    
+    public static function removeDashboardMetaboxes()
+    {
         global $wp_meta_boxes;
-        
-        // Remove wordpress dashboards 
+
+        // Remove wordpress dashboards
         unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
         unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
         unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
         unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
         unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
         unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
-        
+
         // Remove yoast seo
         unset($wp_meta_boxes['dashboard']['normal']['core']['yoast_db_widget']);
-        
     }
 
     /**
