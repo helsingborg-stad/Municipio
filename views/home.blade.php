@@ -15,11 +15,15 @@
                 @endwhile
             </div>
 
-            @if (is_active_sidebar('content-area'))
-                <div class="grid">
-                    {!! dynamic_sidebar('content-area') !!}
+            <div class="grid">
+                <div class="grid-sm-12 text-center">
+                    {!!
+                        paginate_links(array(
+                            'type' => 'list'
+                        ))
+                    !!}
                 </div>
-            @endif
+            </div>
         </div>
 
         @include('partials.sidebar-right')
