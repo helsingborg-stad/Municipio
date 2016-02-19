@@ -5,7 +5,7 @@
 <div class="container">
     @include('partials.breadcrumbs')
 
-    <div class="grid no-margin-top">
+    <div class="grid">
         <div class="grid-md-8 grid-lg-8">
             <div class="grid">
                 <div class="grid-sm-12">
