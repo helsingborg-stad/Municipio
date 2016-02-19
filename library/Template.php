@@ -176,7 +176,7 @@ class Template
     {
         $types = array(
             'index'      => 'index.blade.php',
-            'home'       => 'index.blade.php',
+            'home'       => 'home.blade.php',
             'single'     => 'single.blade.php',
             'page'       => 'page.blade.php',
             '404'        => '404.blade.php',
@@ -186,7 +186,7 @@ class Template
             'tag'        => 'tag.blade.php',
             'taxonomy'   => 'taxonomy.blade.php',
             'date'       => 'date.blade.php',
-            'front-page' => 'index.blade.php',
+            'front-page' => 'front-page.blade.php',
             'paged'      => 'paged.blade.php',
             'search'     => 'search.blade.php',
             'single'     => 'single.blade.php',
@@ -200,7 +200,7 @@ class Template
             foreach ($types as $key => $type) {
                 add_filter($key . '_template', function ($original) use ($key, $type, $types) {
                     if (empty($original) && is_front_page()) {
-                        $type = $types['index'];
+                        $type = $types['front-page'];
                     }
 
                     $templatePath = \Municipio\Helper\Template::locateTemplate($type);
