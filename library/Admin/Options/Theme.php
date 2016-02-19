@@ -29,8 +29,8 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Footer'),
-                'menu_title'    => __('Footer'),
+                'page_title'    => __('Footer', 'municipio'),
+                'menu_title'    => __('Footer', 'municipio'),
                 'parent_slug'   => 'theme-settings',
             ));
 
@@ -41,8 +41,8 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Blog'),
-                'menu_title'    => __('Blog'),
+                'page_title'    => __('Blog', 'municipio'),
+                'menu_title'    => __('Blog', 'municipio'),
                 'parent_slug'   => 'theme-settings',
             ));
 

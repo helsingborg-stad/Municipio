@@ -1,0 +1,47 @@
+    {
+        "key": "group_56c714b46105e",
+        "title": "User profile picture",
+        "fields": [
+            {
+                "key": "field_56c714f8d0a42",
+                "label": "Author picture",
+                "name": "user_profile_picture",
+                "type": "image",
+                "instructions": "Picture that show in author information for posts published by you",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "min_width": 500,
+                "min_height": 500,
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": "jpg, png"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "user_form",
+                    "operator": "==",
+                    "value": "all"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "seamless",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }
