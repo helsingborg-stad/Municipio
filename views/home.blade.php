@@ -8,11 +8,13 @@
     <div class="grid no-margin-top">
         <div class="grid-md-8 grid-lg-8">
             <div class="grid">
-                @while(have_posts())
-                    {!! the_post() !!}
+                <div class="grid-sm-12">
+                    @while(have_posts())
+                        {!! the_post() !!}
 
-                    @include('partials.post')
-                @endwhile
+                        @include('partials.post')
+                    @endwhile
+                </div>
             </div>
 
             <div class="grid">
