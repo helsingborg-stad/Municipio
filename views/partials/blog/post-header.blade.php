@@ -16,7 +16,7 @@
         </li>
         @endif
         <li class="post-date">
-            {{ the_time(get_option('date_format')) }} {{ the_time(get_option('time_format')) }}
+            <time>{{ the_time(get_option('date_format')) }} {{ the_time(get_option('time_format')) }}</time>
         </li>
 
         @if (comments_open())
