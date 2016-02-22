@@ -1,9 +1,9 @@
 @if (get_the_modified_time() != get_the_time())
 
-    @if( !in_array(get_post_type(get_the_id()),get_field('show_date_updated','option')) && !in_array(get_post_type(get_the_id()),get_field('show_date_published','option')))
+    @if(!is_null(get_field('show_date_updated','option')) && !is_null(get_field('show_date_published','option')) && !in_array(get_post_type(get_the_id()), get_field('show_date_updated','option')) && !in_array(get_post_type(get_the_id()), get_field('show_date_published','option')))
         <ul class="article-timestamps">
 
-            @if(in_array(get_post_type(get_the_id()),get_field('show_date_published','option')))
+            @if(!is_null(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()),get_field('show_date_published','option')))
             <li>
                 <strong>Publicerad:</strong>
                 <time datetime="<?php echo the_time('Y-m-d H:i'); ?>">
@@ -12,7 +12,7 @@
             </li>
             @endif
 
-            @if(in_array(get_post_type(get_the_id()),get_field('show_date_updated','option')))
+            @if(!is_null(get_field('show_date_updated','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_updated','option')))
             <li>
                 <strong>Senast ändrad:</strong>
                 <time datetime="<?php echo the_modified_time('Y-m-d H:i'); ?>">
@@ -26,7 +26,7 @@
 
 @else
 
-    @if(in_array(get_post_type(get_the_id()),get_field('show_date_published','option')))
+    @if(!is_null(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_published','option')))
         <ul class="article-timestamps">
             <li>
                 <strong>Publicerad:</strong>
