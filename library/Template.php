@@ -125,6 +125,11 @@ class Template
         $template = basename($template) . '.php';
 
         do_action('Municipio/blade/before_load_controller');
+
+        if (basename($template) == '404.php') {
+            $template = 'e404.php';
+        }
+
         $controller = \Municipio\Helper\Controller::locateController($template);
 
         if (!$controller) {
