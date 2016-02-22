@@ -46,6 +46,7 @@ class App
          * Admin
          */
         new \Municipio\Admin\Options\Theme();
+        new \Municipio\Admin\Options\Timestamp();
 
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views';
