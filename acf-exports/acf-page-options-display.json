@@ -5,7 +5,7 @@
             {
                 "key": "field_56c33d008efe3",
                 "label": "Share",
-                "name": "show_share",
+                "name": "post_show_share",
                 "type": "true_false",
                 "instructions": "",
                 "required": 0,
@@ -21,7 +21,7 @@
             {
                 "key": "field_56cadc4e0480b",
                 "label": "Author",
-                "name": "show_author",
+                "name": "post_show_author",
                 "type": "true_false",
                 "instructions": "",
                 "required": 0,
@@ -37,7 +37,7 @@
             {
                 "key": "field_56cadc7b0480c",
                 "label": "Author image",
-                "name": "show_author_image",
+                "name": "post_show_author_image",
                 "type": "true_false",
                 "instructions": "",
                 "required": 0,
