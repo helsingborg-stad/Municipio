@@ -1,5 +1,5 @@
 <?php global $post; ?>
-<div class="post post-full">
+<div class="post post-single">
     @include('partials.blog.post-header')
 
     <article>
