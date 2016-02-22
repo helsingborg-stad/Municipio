@@ -17,7 +17,7 @@
             </p>
 
             <p>
-                <a href="javascript:history.go(-1);" class="btn btn-primary">Gå tillbaka till föregående sida</a>
+                <a href="javascript:history.go(-1);" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left"></i> Gå tillbaka till föregående sida</a>
             </p>
         </div>
     </div>
