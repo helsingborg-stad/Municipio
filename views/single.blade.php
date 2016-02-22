@@ -22,6 +22,11 @@
                             @include('partials.blog.comments-form')
                         </div>
                     </div>
+                    <div class="grid">
+                        <div class="grid-sm-12">
+                            @include('partials.blog.comments')
+                        </div>
+                    </div>
                 @endif
             @endwhile
         </div>
