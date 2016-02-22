@@ -20,48 +20,56 @@ class Theme
                 'page_title'    => __('Header'),
                 'menu_title'    => __('Header'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-header'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Content'),
                 'menu_title'    => __('Content'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-content'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Footer', 'municipio'),
                 'menu_title'    => __('Footer', 'municipio'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-footer'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Search'),
                 'menu_title'    => __('Search'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-search'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Blog', 'municipio'),
                 'menu_title'    => __('Blog', 'municipio'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-blog'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => 'Google Analytics',
                 'menu_title'    => 'Google Analytics',
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-google-analytics'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Custom Post Types', 'minicipio'),
                 'menu_title'    => __('Post Types', 'minicipio'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-post-types'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Custom Taxonomies', 'municipio'),
                 'menu_title'    => __('Taxonomies'),
                 'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-taxonomies'
             ));
 
         }
