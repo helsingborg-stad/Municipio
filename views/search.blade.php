@@ -48,7 +48,7 @@
                             <li>
                                 <div class="search-result-item">
                                     <span class="search-result-date">{{ $search->getModifiedDate($item) }}</span>
-                                    <h3><a href="{{ $item->link }}" class="{{ $search->getFiletypeClass($item->fileFormat) }}">{!! $item->htmlTitle !!}</a></h3>
+                                    <h3><a href="{{ $item->link }}" class="{{ (isset($item->fileFormat)) ? $search->getFiletypeClass($item->fileFormat) : '' }}">{!! $item->htmlTitle !!}</a></h3>
                                     <p>{!! trim($item->snippet) !!}</p>
                                     <div class="search-result-info">
                                         <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ $item->link }}">{!! $item->htmlFormattedUrl !!}</a></span>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                @if (strlen($query) > 0)
+                @if (count($results->items) > 0)
                 <div class="grid">
                     <div class="grid-lg-12">
                         {!! $search->pagination() !!}
