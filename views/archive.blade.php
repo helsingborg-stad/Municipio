@@ -6,22 +6,26 @@
     @include('partials.breadcrumbs')
 
     <div class="grid no-margin-top">
-        @include('partials.sidebar-left')
+        <div class="grid-md-8 grid-lg-8">
+            <div class="grid">
+                <div class="grid-sm-12">
+                    @while(have_posts())
+                        {!! the_post() !!}
 
-        <div class="grid-md-8 grid-lg-6">
-            @while(have_posts())
-                {!! the_post() !!}
-
-                @include('partials.article')
-            @endwhile
-
-            @if (is_active_sidebar('content-area'))
-                <div class="grid">
-                    {!! dynamic_sidebar('content-area') !!}
+                        @include('partials.blog.type.post')
+                    @endwhile
                 </div>
-            @endif
+            </div>
 
-            @include('partials.page-footer')
+            <div class="grid">
+                <div class="grid-sm-12 text-center">
+                    {!!
+                        paginate_links(array(
+                            'type' => 'list'
+                        ))
+                    !!}
+                </div>
+            </div>
         </div>
 
         @include('partials.sidebar-right')
