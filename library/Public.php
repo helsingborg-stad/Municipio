@@ -73,3 +73,10 @@ if (!function_exists('municipio_get_logotype')) {
         return $markup;
     }
 }
+
+if (!function_exists('municipio_human_datediff')) {
+    function municipio_human_datediff($date) {
+        $diff = human_time_diff(strtotime($date), current_time('timestamp'));
+        return $diff;
+    }
+}
