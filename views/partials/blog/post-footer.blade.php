@@ -9,7 +9,7 @@
         @endif
     </div>
 
-    @if (get_field('post_show_share', get_the_id()) !== false && get_field('show_share_master', 'option') !== false)
+    @if (get_field('post_show_share', get_the_id()) !== false && get_field('page_show_share', 'option') !== false)
     <div class="grid-md-2 text-right">
         @include('partials.social-share')
     </div>
