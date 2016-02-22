@@ -8,12 +8,12 @@
             <h1>404 <em>Sidan kunde inte hittas</em></h1>
 
             <ul class="actions">
-                <li><a href="{{ home_url() }}?s={{ $keyword }}" class="link-item link-item-light">Sök efter <strong>"{{ $keyword }}"</strong> på Helsingborg.se</a></li>
+                <li><a rel="nofollow" href="{{ home_url() }}?s={{ $keyword }}" class="link-item link-item-light">Sök efter <strong>"{{ $keyword }}"</strong> på Helsingborg.se</a></li>
                 <li><a href="{{ home_url() }}" class="link-item link-item-light">Gå till Helsingborg.se</a></li>
             </ul>
 
             <p>
-                Om du behöver ytterligare vägledning så kan du ringa till Helsingborg stads kontaktcenter på telefonnummer <a href="tel:042105000">042-10 50 00</a>
+                Om du behöver ytterligare vägledning så kan du ringa till Helsingborg stads kontaktcenter på telefonnummer <a rel="nofollow" href="tel:042105000">042-10 50 00</a>
             </p>
 
             <p>
