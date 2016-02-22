@@ -5,21 +5,33 @@
 <div class="container">
     @include('partials.breadcrumbs')
 
-    <div class="grid no-margin-top">
+    <div class="grid">
         <div class="grid-md-8 grid-lg-8">
             <div class="grid">
-                @while(have_posts())
-                    {!! the_post() !!}
+                <div class="grid-sm-12">
+                    @while(have_posts())
+                        {!! the_post() !!}
 
-                    @include('partials.post')
-                @endwhile
+                        @if (get_field('blog_feed_post_style', 'option') == 'full' || !get_field('blog_feed_post_style', 'option'))
+                            @include('partials.blog.type.post')
+                        @elseif(get_field('blog_feed_post_style', 'option') == 'collapsed')
+                            @include('partials.blog.type.post-collapsed')
+                        @elseif(get_field('blog_feed_post_style', 'option') == 'compressed')
+                            @include('partials.blog.type.post-compressed')
+                        @endif
+                    @endwhile
+                </div>
             </div>
 
-            @if (is_active_sidebar('content-area'))
-                <div class="grid">
-                    {!! dynamic_sidebar('content-area') !!}
+            <div class="grid">
+                <div class="grid-sm-12 text-center">
+                    {!!
+                        paginate_links(array(
+                            'type' => 'list'
+                        ))
+                    !!}
                 </div>
-            @endif
+            </div>
         </div>
 
         @include('partials.sidebar-right')

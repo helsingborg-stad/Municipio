@@ -1,4 +1,4 @@
-<footer class="grid">
+<footer class="page-footer grid">
     <div class="grid-md-6">
         @include('partials.timestamps')
     </div>
