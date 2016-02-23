@@ -50,6 +50,10 @@
             @include('partials.notice')
         @endif
 
+        @if (get_field('show_google_translate', 'option') !== false && get_field('show_google_translate', 'option') != 'false')
+            @include('partials.translate')
+        @endif
+
         @include($headerLayout)
 
         @yield('content')

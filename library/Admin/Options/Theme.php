@@ -59,6 +59,13 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title'    => 'Google Translate',
+                'menu_title'    => 'Google Translate',
+                'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-google-translate'
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title'    => __('Custom Post Types', 'minicipio'),
                 'menu_title'    => __('Post Types', 'minicipio'),
                 'parent_slug'   => 'theme-settings',

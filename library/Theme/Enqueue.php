@@ -52,9 +52,21 @@ class Enqueue
                 'message'   => get_field('cookie_consent_message', 'option'),
                 'button'    => get_field('cookie_consent_button', 'option'),
                 'placement' => get_field('cookie_consent_placement', 'option')
+            ),
+            'googleTranslate' => array(
+                'gaTrack' => get_field('google_translate_ga_track', 'option'),
+                'gaUA'    => get_field('google_analytics_ua', 'option')
             )
         ));
         wp_enqueue_script('hbg-prime');
+
+        wp_register_script('bootstrap-theme', get_template_directory_uri() . '/assets/dist/js/packaged.min.js');
+        wp_enqueue_script('bootstrap-theme');
+
+        if (get_field('show_google_translate', 'option') !== false && get_field('show_google_translate', 'option') != 'false') {
+            wp_register_script('google-translate', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', '', '1.0.0', true);
+            wp_enqueue_script('google-translate');
+        }
     }
 
     public function googleAnalytics()

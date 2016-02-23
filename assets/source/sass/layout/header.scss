@@ -1,4 +1,4 @@
-#site-header {
+.site-header {
     padding-top: 15px;
 
     .logotype {
@@ -52,4 +52,8 @@
             border: none;
         }
     }
+}
+
+.nav-help {
+    margin-bottom: 5px;
 }

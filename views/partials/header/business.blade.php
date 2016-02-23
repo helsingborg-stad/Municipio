@@ -1,4 +1,4 @@
-<header id="site-header">
+<header class="site-header">
     <div class="container">
         <div class="grid">
             <div class="grid-md-6 text-center-xs text-center-sm">
@@ -6,6 +6,15 @@
                 <a href="#mobile-menu" class="hidden-md hidden-lg menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
+                <nav>
+                    <ul class="nav nav-help nav-horizontal">
+                        @if (get_field('show_google_translate', 'option') == 'help-menu')
+                            <li><a href="#translate">Translate</a></li>
+                        @endif
+
+                        <li><a href="#">Om webbplatsen</a></li>
+                    </ul>
+                </nav>
                 <nav>
                     <ul class="nav nav-tabs">
                         <li><a href="#">Besökare</a></li>

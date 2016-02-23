@@ -1,6 +1,6 @@
-#site-header {
+.site-header {
   padding-top: 15px; }
-  #site-header .logotype {
+  .site-header .logotype {
     display: inline-block;
     vertical-align: middle;
     /*
@@ -14,7 +14,7 @@
             }
         }
         */ }
-    #site-header .logotype img, #site-header .logotype svg {
+    .site-header .logotype img, .site-header .logotype svg {
       height: 70px;
       width: auto; }
 
@@ -42,6 +42,9 @@
       letter-spacing: 1px; }
     .hero .search input[type="search"] {
       border: none; }
+
+.nav-help {
+  margin-bottom: 5px; }
 
 .navbar-mainmenu {
   margin-top: 8px; }
