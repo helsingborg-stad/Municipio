@@ -14,6 +14,10 @@ class Favicon
     {
         $icons = get_field('favicons', 'option');
 
+        if (!is_array($icons)) {
+            return;
+        }
+
         foreach ($icons as $icon) {
             $tag = $this->getTag($icon);
             echo apply_filters('Municipio/favicon_tag', $tag, $icon) . "\n";
