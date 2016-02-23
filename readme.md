@@ -23,6 +23,25 @@ $ gulp
 
 ## Filters
 
+#### Municipio/favicon_sizes
+Add sizes to theme options for favicon
+
+- ```@param array $sizes``` - Default favicon sizes
+
+```php
+apply_filters('Municipio/favicon_sizes', $sizes);
+```
+
+#### Municipio/favicon_tag
+Add sizes to theme options for favicon
+
+- ```@param string $tag``` - The HTML tag(s)
+- ```@param array $icon``` - The icon data
+
+```php
+apply_filters('Municipio/favicon_tag', $tag, $icon);
+```
+
 #### Municipio/header_grid_size
 Applied to classes string for header sizes.
 

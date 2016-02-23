@@ -47,6 +47,7 @@ class App
          */
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
+        new \Municipio\Admin\Options\Favicon();
 
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views';
