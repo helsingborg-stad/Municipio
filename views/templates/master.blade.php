@@ -50,7 +50,7 @@
             @include('partials.notice')
         @endif
 
-        @if (get_field('show_google_translate', 'option') !== false && get_field('show_google_translate', 'option') != 'false')
+        @if (get_field('show_google_translate', 'option') == 'header')
             @include('partials.translate')
         @endif
 
@@ -59,6 +59,10 @@
         @yield('content')
 
         @include('partials.footer')
+
+        @if (get_field('show_google_translate', 'option') == 'footer')
+            @include('partials.translate')
+        @endif
      </div>
 
     {!! wp_footer() !!}
