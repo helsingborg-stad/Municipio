@@ -12,7 +12,8 @@ class Navigation
     public function registerMenus()
     {
         register_nav_menus(array(
-            'main-menu' => __('Main menu', 'municipio')
+            'main-menu' => __('Main menu', 'municipio'),
+            'help-menu' => __('Help menu', 'municipio')
         ));
     }
 
