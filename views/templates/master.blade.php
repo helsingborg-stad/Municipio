@@ -9,11 +9,8 @@
     <title>{{ get_bloginfo('name') }}</title>
 
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="pubdate" content="{{ the_time('d M Y') }}">
     <meta name="moddate" content="{{ the_modified_time('d M Y') }}">
-
-    <meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12">
 
     <script>
         var ajaxurl = '{!! admin_url('admin-ajax.php') !!}';
