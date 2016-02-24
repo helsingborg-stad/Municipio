@@ -1,4 +1,4 @@
-<header class="site-header header-casual">
+<header id="site-header" class="site-header header-casual">
     <nav class="navbar navbar-mainmenu">
         <div class="container">
             <div class="grid">

@@ -1,4 +1,4 @@
-<header class="site-header">
+<header id="site-header" class="site-header">
     <div class="container">
         <div class="grid">
             <div class="grid-md-6 text-center-xs text-center-sm">
