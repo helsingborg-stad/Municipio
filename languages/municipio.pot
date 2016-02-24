@@ -1,0 +1,195 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Municipio\n"
+"POT-Creation-Date: 2016-02-24 09:18+0100\n"
+"PO-Revision-Date: 2016-02-24 09:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: library/Admin/Options/Theme.php:11 library/Admin/Options/Theme.php:12
+msgid "Theme Options"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:20 library/Admin/Options/Theme.php:21
+msgid "Header"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:27 library/Admin/Options/Theme.php:28
+msgid "Content"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:34 library/Admin/Options/Theme.php:35
+#: library/Theme/Sidebars.php:19
+msgid "Footer"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:41 library/Admin/Options/Theme.php:42
+#: library/Content/CustomPostType.php:58
+msgid "Search"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:48 library/Admin/Options/Theme.php:49
+msgid "Blog"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:69
+msgid "Custom Post Types"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:70
+msgid "Post Types"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:76
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:77
+msgid "Taxonomies"
+msgstr ""
+
+#: library/Content/CustomPostType.php:52
+msgctxt "municipio-cpts"
+msgid "Add New"
+msgstr ""
+
+#: library/Content/CustomPostType.php:53
+msgid "Add New"
+msgstr ""
+
+#: library/Content/CustomPostType.php:54
+msgid "New"
+msgstr ""
+
+#: library/Content/CustomPostType.php:55
+msgid "Edit"
+msgstr ""
+
+#: library/Content/CustomPostType.php:56
+msgid "View"
+msgstr ""
+
+#: library/Content/CustomPostType.php:57
+msgid "All"
+msgstr ""
+
+#: library/Content/CustomPostType.php:59
+msgid "Parent"
+msgstr ""
+
+#: library/Content/CustomPostType.php:60 library/Content/CustomPostType.php:61
+msgid "No"
+msgstr ""
+
+#: library/Content/CustomPostType.php:66
+msgid "Auto generated cpt from user iterface."
+msgstr ""
+
+#: library/Theme/Navigation.php:15
+msgid "Main menu"
+msgstr ""
+
+#: library/Theme/Navigation.php:16
+msgid "Help menu"
+msgstr ""
+
+#: library/Theme/Sidebars.php:20
+msgid "The footer area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:32
+msgid "Hero"
+msgstr ""
+
+#: library/Theme/Sidebars.php:33
+msgid "The hero area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:45
+msgid "Content area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:46
+msgid "The area below the content"
+msgstr ""
+
+#: library/Theme/Sidebars.php:56
+msgid "Main container bottom"
+msgstr ""
+
+#: library/Theme/Sidebars.php:57
+msgid "The area below the main container"
+msgstr ""
+
+#: library/Theme/Sidebars.php:67
+msgid "Left sidebar"
+msgstr ""
+
+#: library/Theme/Sidebars.php:68
+msgid "The left sidebar area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:80
+msgid "Left sidebar bottom"
+msgstr ""
+
+#: library/Theme/Sidebars.php:81
+msgid "The area below the left sidebar content"
+msgstr ""
+
+#: library/Theme/Sidebars.php:93
+msgid "Right sidebar"
+msgstr ""
+
+#: library/Theme/Sidebars.php:94
+msgid "The right sidebar area"
+msgstr ""
+
+#: library/Theme/Support.php:144
+msgid "Article"
+msgstr ""
+
+#: library/Widget/Contact.php:11
+msgid "Contact"
+msgstr ""
+
+#: library/Widget/Contact.php:13
+msgid "Displays the contact information given."
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Municipio"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/Bootstrap-Theme/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A bootstrap theme for creating municipality sites. Works veary webb with "
+"Modularity Plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid ""
+"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.helsingborg.se"
+msgstr ""

@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Municipio\n"
+"POT-Creation-Date: 2016-02-24 09:18+0100\n"
+"PO-Revision-Date: 2016-02-24 09:18+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: library/Admin/Options/Theme.php:11 library/Admin/Options/Theme.php:12
+msgid "Theme Options"
+msgstr "Temainställningar"
+
+#: library/Admin/Options/Theme.php:20 library/Admin/Options/Theme.php:21
+msgid "Header"
+msgstr "Sidhuvud"
+
+#: library/Admin/Options/Theme.php:27 library/Admin/Options/Theme.php:28
+msgid "Content"
+msgstr "Innehåll"
+
+#: library/Admin/Options/Theme.php:34 library/Admin/Options/Theme.php:35
+#: library/Theme/Sidebars.php:19
+msgid "Footer"
+msgstr "Sidfot"
+
+#: library/Admin/Options/Theme.php:41 library/Admin/Options/Theme.php:42
+#: library/Content/CustomPostType.php:58
+msgid "Search"
+msgstr "Sök"
+
+#: library/Admin/Options/Theme.php:48 library/Admin/Options/Theme.php:49
+msgid "Blog"
+msgstr "Blogg"
+
+#: library/Admin/Options/Theme.php:69
+msgid "Custom Post Types"
+msgstr "Egna posttyper"
+
+#: library/Admin/Options/Theme.php:70
+msgid "Post Types"
+msgstr "Posttyper"
+
+#: library/Admin/Options/Theme.php:76
+msgid "Custom Taxonomies"
+msgstr "Egna taxonomies"
+
+#: library/Admin/Options/Theme.php:77
+msgid "Taxonomies"
+msgstr "Taxonomies"
+
+#: library/Content/CustomPostType.php:52
+msgctxt "municipio-cpts"
+msgid "Add New"
+msgstr "Skapa nytt"
+
+#: library/Content/CustomPostType.php:53
+msgid "Add New"
+msgstr "Skapa ny"
+
+#: library/Content/CustomPostType.php:54
+msgid "New"
+msgstr "Ny"
+
+#: library/Content/CustomPostType.php:55
+msgid "Edit"
+msgstr "Redigera"
+
+#: library/Content/CustomPostType.php:56
+msgid "View"
+msgstr "Visa"
+
+#: library/Content/CustomPostType.php:57
+msgid "All"
+msgstr "Alla"
+
+#: library/Content/CustomPostType.php:59
+msgid "Parent"
+msgstr "Förälder"
+
+#: library/Content/CustomPostType.php:60 library/Content/CustomPostType.php:61
+msgid "No"
+msgstr "Inga"
+
+#: library/Content/CustomPostType.php:66
+msgid "Auto generated cpt from user iterface."
+msgstr "Automatiskt genererade posttyper från inställningspanel"
+
+#: library/Theme/Navigation.php:15
+msgid "Main menu"
+msgstr "Huvudmeny"
+
+#: library/Theme/Navigation.php:16
+msgid "Help menu"
+msgstr "Hjälpmeny"
+
+#: library/Theme/Sidebars.php:20
+msgid "The footer area"
+msgstr "Footer-arean"
+
+#: library/Theme/Sidebars.php:32
+msgid "Hero"
+msgstr "Hero"
+
+#: library/Theme/Sidebars.php:33
+msgid "The hero area"
+msgstr "Hero-arean"
+
+#: library/Theme/Sidebars.php:45
+msgid "Content area"
+msgstr "Innehållsarea"
+
+#: library/Theme/Sidebars.php:46
+msgid "The area below the content"
+msgstr "Arean under innehållet"
+
+#: library/Theme/Sidebars.php:56
+msgid "Main container bottom"
+msgstr "Main container bottom"
+
+#: library/Theme/Sidebars.php:57
+msgid "The area below the main container"
+msgstr "Arean under main container"
+
+#: library/Theme/Sidebars.php:67
+msgid "Left sidebar"
+msgstr "Vänster sidebar"
+
+#: library/Theme/Sidebars.php:68
+msgid "The left sidebar area"
+msgstr "Sidebar till vänster"
+
+#: library/Theme/Sidebars.php:80
+msgid "Left sidebar bottom"
+msgstr "Vänster sidebar bottom"
+
+#: library/Theme/Sidebars.php:81
+msgid "The area below the left sidebar content"
+msgstr "Sidebar vänster botten"
+
+#: library/Theme/Sidebars.php:93
+msgid "Right sidebar"
+msgstr "Höger sidebar"
+
+#: library/Theme/Sidebars.php:94
+msgid "The right sidebar area"
+msgstr "Sidebar till höger"
+
+#: library/Theme/Support.php:144
+msgid "Article"
+msgstr "Artikel"
+
+#: library/Widget/Contact.php:11
+msgid "Contact"
+msgstr "Kontakt"
+
+#: library/Widget/Contact.php:13
+msgid "Displays the contact information given."
+msgstr "Visar den angivna kontaktinformationen"
+
+#. Theme Name of the plugin/theme
+msgid "Municipio"
+msgstr "Municipio"
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/Bootstrap-Theme/"
+msgstr "https://github.com/helsingborg-stad/Bootstrap-Theme/"
+
+#. Description of the plugin/theme
+msgid ""
+"A bootstrap theme for creating municipality sites. Works veary webb with "
+"Modularity Plugin."
+msgstr "Ett bootstrap-tema för att skapa hemsidor för kommuner."
+
+#. Author of the plugin/theme
+msgid ""
+"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
+msgstr ""
+"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
+
+#. Author URI of the plugin/theme
+msgid "http://www.helsingborg.se"
+msgstr "http://www.helsingborg.se"
