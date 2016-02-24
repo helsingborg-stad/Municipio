@@ -49,16 +49,16 @@ class CustomPostType
                         'singular_name'      => $type_definition['post_type_name'],
                         'menu_name'          => $type_definition['post_type_name'],
                         'name_admin_bar'     => $type_definition['post_type_name'],
-                        'add_new'            => _x('Add New', 'municipio-cpts'),
-                        'add_new_item'       => __('Add New', 'municipio-cpts') . " " . $type_definition['post_type_name'],
-                        'new_item'           => __('New', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'edit_item'          => __('Edit', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'view_item'          => __('View', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'all_items'          => __('All', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'search_items'       => __('Search', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'parent_item_colon'  => __('Parent', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'not_found'          => __('No', 'municipio-cpts'). " ". $type_definition['post_type_name'],
-                        'not_found_in_trash' => __('No', 'municipio-cpts'). " ". $type_definition['post_type_name']
+                        'add_new'            => __('Add new', 'municipio'),
+                        'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $type_definition['post_type_name']),
+                        'new_item'           => sprintf(__('New %s', 'municipio'), $type_definition['post_type_name']),
+                        'edit_item'          => sprintf(__('Edit %s', 'municipio'), $type_definition['post_type_name']),
+                        'view_item'          => sprintf(__('View %s', 'municipio'), $type_definition['post_type_name']),
+                        'all_items'          => sprintf(__('All %s', 'municipio'), $type_definition['post_type_name']),
+                        'search_items'       => sprintf(__('Search %s', 'municipio'), $type_definition['post_type_name']),
+                        'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $type_definition['post_type_name']),
+                        'not_found'          => sprintf(__('No %s found', 'municipio'), $type_definition['post_type_name']),
+                        'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $type_definition['post_type_name'])
                     );
 
                     $args = array(
@@ -90,5 +90,4 @@ class CustomPostType
             }
         }
     }
-
 }
