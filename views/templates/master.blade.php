@@ -12,6 +12,11 @@
     <meta name="pubdate" content="{{ the_time('d M Y') }}">
     <meta name="moddate" content="{{ the_modified_time('d M Y') }}">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content = "telephone=yes">
+    <meta name="HandheldFriendly" content="true" />
+
     <script>
         var ajaxurl = '{!! admin_url('admin-ajax.php') !!}';
     </script>
