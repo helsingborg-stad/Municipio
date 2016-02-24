@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-02-24 09:18+0100\n"
+"POT-Creation-Date: 2016-02-24 09:59+0100\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -38,7 +38,6 @@ msgid "Footer"
 msgstr ""
 
 #: library/Admin/Options/Theme.php:41 library/Admin/Options/Theme.php:42
-#: library/Content/CustomPostType.php:58
 msgid "Search"
 msgstr ""
 
@@ -63,36 +62,52 @@ msgid "Taxonomies"
 msgstr ""
 
 #: library/Content/CustomPostType.php:52
-msgctxt "municipio-cpts"
-msgid "Add New"
+msgid "Add new"
 msgstr ""
 
 #: library/Content/CustomPostType.php:53
-msgid "Add New"
+#, php-format
+msgid "Add new %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:54
-msgid "New"
+#, php-format
+msgid "New %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:55
-msgid "Edit"
+#, php-format
+msgid "Edit %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:56
-msgid "View"
+#, php-format
+msgid "View %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:57
-msgid "All"
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:58
+#, php-format
+msgid "Search %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:59
-msgid "Parent"
+#, php-format
+msgid "Parent %s"
 msgstr ""
 
-#: library/Content/CustomPostType.php:60 library/Content/CustomPostType.php:61
-msgid "No"
+#: library/Content/CustomPostType.php:60
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: library/Content/CustomPostType.php:61
+#, php-format
+msgid "No %s found in trash"
 msgstr ""
 
 #: library/Content/CustomPostType.php:66

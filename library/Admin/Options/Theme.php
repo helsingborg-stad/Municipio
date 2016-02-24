@@ -17,15 +17,15 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Header'),
-                'menu_title'    => __('Header'),
+                'page_title'    => __('Header', 'municipio'),
+                'menu_title'    => __('Header', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'menu_slug'     => 'acf-options-header'
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Content'),
-                'menu_title'    => __('Content'),
+                'page_title'    => __('Content', 'municipio'),
+                'menu_title'    => __('Content', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'menu_slug'     => 'acf-options-content'
             ));
@@ -38,8 +38,8 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Search'),
-                'menu_title'    => __('Search'),
+                'page_title'    => __('Search', 'municipio'),
+                'menu_title'    => __('Search', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'menu_slug'     => 'acf-options-search'
             ));
@@ -66,15 +66,15 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Custom Post Types', 'minicipio'),
-                'menu_title'    => __('Post Types', 'minicipio'),
+                'page_title'    => __('Custom Post Types', 'municipio'),
+                'menu_title'    => __('Post Types', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'menu_slug'     => 'acf-options-post-types'
             ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => __('Custom Taxonomies', 'municipio'),
-                'menu_title'    => __('Taxonomies'),
+                'menu_title'    => __('Taxonomies', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'menu_slug'     => 'acf-options-taxonomies'
             ));
