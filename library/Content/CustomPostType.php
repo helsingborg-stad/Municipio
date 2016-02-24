@@ -63,7 +63,7 @@ class CustomPostType
 
                     $args = array(
                         'labels'             => $labels,
-                        'description'        => __('Auto generated cpt from user iterface.', 'municipio-cpts'),
+                        'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
                         'public'             => $type_definition['public'],
                         'show_in_menu'       => $type_definition['show_in_nav_menus'],
                         'rewrite'            => array( 'slug' => sanitize_title($type_definition['slug']) ),
