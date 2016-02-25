@@ -20,5 +20,5 @@
     </nav>
     <?php endif; ?>
 
-    <?php dynamic_sidebar('left-sidebar'); ?>
+    {{ dynamic_sidebar('left-sidebar') }}
 </aside>
