@@ -49,7 +49,7 @@
 .navbar-mainmenu {
   margin-top: 8px; }
 
-.main-container .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
   margin-top: 60px; }
 
 [id*="site-header"] .menu-trigger {

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container main-container">
     <div class="grid">
         <div class="grid-lg-6 grid-md-8 grid-sm-12">
             <h1>404 <em>Sidan kunde inte hittas</em></h1>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container main-container">
     @include('partials.breadcrumbs')
 
     <div class="grid">
