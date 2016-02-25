@@ -2,10 +2,11 @@
 
 @section('content')
 
-<div class="container">
+<div class="container main-container">
+
     @include('partials.breadcrumbs')
 
-    <div class="grid no-margin-top">
+    <div class="grid @if (wp_get_post_parent_id(get_the_id()) != 0) no-margin-top @endif">
         @include('partials.sidebar-left')
 
         <main class="grid-md-8 grid-lg-6" id="readspeaker-read">

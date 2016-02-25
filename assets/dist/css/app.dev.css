@@ -49,6 +49,9 @@
 .navbar-mainmenu {
   margin-top: 8px; }
 
+.main-container .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+  margin-top: 60px; }
+
 [id*="site-header"] .menu-trigger {
   margin-left: 50px;
   vertical-align: middle; }
