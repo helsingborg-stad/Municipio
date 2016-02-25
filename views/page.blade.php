@@ -8,7 +8,7 @@
     <div class="grid no-margin-top">
         @include('partials.sidebar-left')
 
-        <div class="grid-md-8 grid-lg-6">
+        <main class="grid-md-8 grid-lg-6" id="readspeaker-read">
             @while(have_posts())
                 {!! the_post() !!}
 
@@ -22,7 +22,7 @@
             @endif
 
             @include('partials.page-footer')
-        </div>
+        </main>
 
         @include('partials.sidebar-right')
     </div>
