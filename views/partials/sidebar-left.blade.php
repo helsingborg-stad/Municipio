@@ -1,4 +1,4 @@
-<div class="grid-md-4 grid-lg-3">
+<aside class="grid-md-4 grid-lg-3">
     <?php
     global $post;
     $childOf = isset(array_reverse(get_post_ancestors($post))[1]) ? array_reverse(get_post_ancestors($post))[1] : get_option('page_on_front');
@@ -21,4 +21,4 @@
     <?php endif; ?>
 
     <?php dynamic_sidebar('left-sidebar'); ?>
-</div>
+</aside>
