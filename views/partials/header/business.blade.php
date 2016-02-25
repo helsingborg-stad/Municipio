@@ -91,6 +91,4 @@
     </nav>
 </header>
 
-@if (is_front_page())
-    @include('partials.hero')
-@endif
+@include('partials.hero')

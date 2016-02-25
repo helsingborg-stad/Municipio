@@ -15,12 +15,6 @@
 @if (is_active_sidebar('content-area-bottom'))
 <div class="container gutter-xl gutter-vertical">
     <div class="grid">
-        <div class="grid-lg-12">
-            <h1 class="text-highlight">Aktuellt i Helsingborgs stad</h1>
-        </div>
-    </div>
-
-    <div class="grid">
         {{ dynamic_sidebar('content-area-bottom') }}
     </div>
 </div>
