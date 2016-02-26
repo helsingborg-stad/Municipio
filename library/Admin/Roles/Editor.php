@@ -36,6 +36,12 @@ class Editor
             //Remove ACF
             $this->removeFromAdminMenu('edit.php?post_type=acf-field-group');
 
+            //Remove All in one SEO settings
+            $this->removeFromAdminMenu('admin.php?page=all-in-one-seo-pack%2Faioseop_class.php');
+
+            //Remove Stream
+            $this->removeFromAdminMenu('admin.php?page=wp_stream_settings');
+
         });
     }
 
