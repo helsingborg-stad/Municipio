@@ -14,11 +14,28 @@ class Editor
         add_action('load-themes.php', array($this, 'redirectToDashboard'));
         add_action('load-customize.php', array($this, 'redirectToDashboard'));
 
+        add_action('load-options-media.php', array($this, 'redirectToDashboard'));
+        add_action('load-options-permalink.php', array($this, 'redirectToDashboard'));
+        add_action('load-options-discussion.php', array($this, 'redirectToDashboard'));
+        add_action('load-options-writing.php', array($this, 'redirectToDashboard'));
+
         //Hide above pages
         add_action('admin_menu', function () {
+
+            //Edit theme options limitations
             $this->removeFromAdminMenu('tools.php');
             $this->removeFromAdminMenu('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
             $this->removeFromAdminMenu('themes.php', 'themes.php');
+
+            //Edit settings limitations
+            $this->removeFromAdminMenu('options-general.php','options-writing.php');
+            $this->removeFromAdminMenu('options-general.php','options-discussion.php');
+            $this->removeFromAdminMenu('options-general.php','options-media.php');
+            $this->removeFromAdminMenu('options-general.php','options-permalink.php');
+
+            //Remove ACF
+            $this->removeFromAdminMenu('edit.php?post_type=acf-field-group');
+
         });
     }
 
@@ -26,6 +43,7 @@ class Editor
     {
         $role = get_role('editor');
         $role->add_cap('edit_theme_options');
+        $role->add_cap('manage_options');
     }
 
     public function redirectToDashboard()
