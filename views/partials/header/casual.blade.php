@@ -1,3 +1,13 @@
+<div class="search-top">
+    <div class="container">
+        <div class="grid">
+            <div class="grid-sm-12">
+                {{ get_search_form() }}
+            </div>
+        </div>
+    </div>
+</div>
+
 <header id="site-header" class="site-header header-casual">
     <nav class="navbar navbar-mainmenu">
         <div class="container">
