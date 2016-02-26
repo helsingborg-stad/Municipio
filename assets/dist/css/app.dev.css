@@ -51,6 +51,9 @@
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
   margin-top: 60px; }
+  @media screen and (max-width: 960px) {
+    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+      margin-top: 10px; } }
 
 [id*="site-header"] .menu-trigger {
   margin-left: 50px;
