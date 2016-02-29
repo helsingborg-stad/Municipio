@@ -69,6 +69,10 @@ class Enqueue
         }
     }
 
+    /**
+     * Enqueue Google Analytics
+     * @return void
+     */
     public function googleAnalytics()
     {
         $gaUser = get_field('google_analytics_ua', 'option');

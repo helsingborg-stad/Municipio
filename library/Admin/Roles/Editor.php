@@ -37,10 +37,10 @@ class Editor
             $this->removeFromAdminMenu('themes.php', 'themes.php');
 
             //Edit settings limitations
-            $this->removeFromAdminMenu('options-general.php','options-writing.php');
-            $this->removeFromAdminMenu('options-general.php','options-discussion.php');
-            $this->removeFromAdminMenu('options-general.php','options-media.php');
-            $this->removeFromAdminMenu('options-general.php','options-permalink.php');
+            $this->removeFromAdminMenu('options-general.php', 'options-writing.php');
+            $this->removeFromAdminMenu('options-general.php', 'options-discussion.php');
+            $this->removeFromAdminMenu('options-general.php', 'options-media.php');
+            $this->removeFromAdminMenu('options-general.php', 'options-permalink.php');
 
             //Remove ACF
             $this->removeFromAdminMenu('edit.php?post_type=acf-field-group');

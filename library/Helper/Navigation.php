@@ -32,12 +32,6 @@ class Navigation
                 'post_parent' => $ancestor
             ));
 
-            /*
-            usort($children, function ($a, $b) {
-                return $a->post_title > $b->post_title;
-            });
-            */
-
             foreach ($children as $child) {
                 array_push($include, $child->ID);
             }

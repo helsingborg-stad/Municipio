@@ -11,8 +11,8 @@ class General
 
     public function removeUnusedRoles()
     {
-        remove_role( 'subscriber' );
-        remove_role( 'author' );
-        remove_role( 'contributor' );
+        remove_role('subscriber');
+        remove_role('author');
+        remove_role('contributor');
     }
 }

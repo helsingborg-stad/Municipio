@@ -40,6 +40,10 @@ class CustomTaxonomy
 
     }
 
+    /**
+     * Registers taxonomy
+     * @return void
+     */
     public function registerTaxonomy()
     {
         if (function_exists('get_field')) {
@@ -64,6 +68,11 @@ class CustomTaxonomy
         }
     }
 
+    /**
+     * Adds value to acf post type filed
+     * @param  array $field Acf field
+     * @return void
+     */
     public function populatePostTypeSelect($field)
     {
         $choices = array_map('trim', get_post_types());

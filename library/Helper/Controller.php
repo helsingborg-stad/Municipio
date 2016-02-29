@@ -47,6 +47,11 @@ class Controller
         return @preg_replace('/(?:^|-)(.?)/e', "strtoupper('$1')", $string);
     }
 
+    /**
+     * Get a class's namespace
+     * @param  string $classPath Path to the class php file
+     * @return string            Namespace or null
+     */
     public static function getNamespace($classPath)
     {
         $src = file_get_contents($classPath);

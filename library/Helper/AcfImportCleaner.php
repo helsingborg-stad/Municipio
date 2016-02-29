@@ -16,6 +16,11 @@ class AcfImportCleaner
         add_filter('acf/settings/load_json', array($this, 'acfLoadClean'), 99999999);
     }
 
+    /**
+     * Checks and cleans the formatting of the acf export files
+     * @param  array $paths
+     * @return array
+     */
     public function acfLoadClean($paths)
     {
         $paths = array_unique($paths);

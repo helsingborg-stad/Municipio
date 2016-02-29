@@ -10,9 +10,9 @@ class FileUploads
     }
 
     /**
-     * Santitize file names. 
-     * @param  array $file with parameters for uploaded file. 
-     * @return string      Array with file specifications 
+     * Santitize file names
+     * @param  array $file with parameters for uploaded file
+     * @return string      Array with file specifications
      */
     public function santitizeFileNames($file)
     {
@@ -21,5 +21,4 @@ class FileUploads
         $file['name']   = sanitize_title($new_filename) . '.' . $path['extension'];
         return $file;
     }
-
 }

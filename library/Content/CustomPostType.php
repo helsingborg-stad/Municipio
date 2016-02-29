@@ -36,7 +36,10 @@ class CustomPostType
         });
     }
 
-
+    /**
+     * Registers post type
+     * @return void
+     */
     public function registerCustomPostTypes()
     {
         if (function_exists('get_field')) {

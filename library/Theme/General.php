@@ -12,11 +12,21 @@ class General
         add_filter('the_lead', array($this, 'theLead'));
     }
 
+    /**
+     * Creates a lead paragraph
+     * @param  string $text Text
+     * @return string       Markup
+     */
     public function theLead($text)
     {
         return '<p class="lead">' . $text . '</p>';
     }
 
+    /**
+     * Color scheme body class
+     * @param  array $classes Default classes
+     * @return array          Modified classes
+     */
     public function colorScheme($classes)
     {
         $color = get_field('color_scheme', 'option');
@@ -29,6 +39,11 @@ class General
         return $classes;
     }
 
+    /**
+     * is-child-theme body class
+     * @param  array  $classes Default classes
+     * @return array           Modified calsses
+     */
     public function isChildTheme($classes)
     {
         if (is_child_theme()) {

@@ -13,6 +13,10 @@ class Search extends \Municipio\Controller\BaseController
         }
     }
 
+    /**
+     * Default wordpress search
+     * @return void
+     */
     public function wpSearch()
     {
         global $wp_query;

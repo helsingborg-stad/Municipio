@@ -18,7 +18,6 @@ class OnTheFlyImages
      *
      * @return string|bool            URL of resized image, false if error
      */
-
     public function runResizeImage($downsize, $id, $size)
     {
         if (is_array($size) && count($size) == 2) {
@@ -42,7 +41,6 @@ class OnTheFlyImages
      *
      * @return string|bool            URL of resized image, false if error
      */
-
     public function resizeImage($attachment_id, $width, $height, $crop = true)
     {
         // Get upload directory info
@@ -83,33 +81,33 @@ class OnTheFlyImages
      *
      * @return Array                  Array with new dimension
      */
-
     public function upscaleThumbnail($default, $orig_w, $orig_h, $new_w, $new_h, $crop)
     {
-        if(!$crop)
-            return null; // let the wordpress default function handle this
+        if (!$crop) {
+            return null;
+        } // let the wordpress default function handle this
 
         $size_ratio = max($new_w / $orig_w, $new_h / $orig_h);
 
         $crop_w = round($new_w / $size_ratio);
         $crop_h = round($new_h / $size_ratio);
 
-        $s_x = floor( ($orig_w - $crop_w) / 2 );
-        $s_y = floor( ($orig_h - $crop_h) / 2 );
+        $s_x = floor(($orig_w - $crop_w) / 2);
+        $s_y = floor(($orig_h - $crop_h) / 2);
 
-        if(is_array($crop)) {
+        if (is_array($crop)) {
 
             //Handles left, right and center (no change)
-            if($crop[ 0 ] === 'left') {
+            if ($crop[ 0 ] === 'left') {
                 $s_x = 0;
-            } else if($crop[ 0 ] === 'right') {
+            } elseif ($crop[ 0 ] === 'right') {
                 $s_x = $orig_w - $crop_w;
             }
 
             //Handles top, bottom and center (no change)
-            if($crop[ 1 ] === 'top') {
+            if ($crop[ 1 ] === 'top') {
                 $s_y = 0;
-            } else if($crop[ 1 ] === 'bottom') {
+            } elseif ($crop[ 1 ] === 'bottom') {
                 $s_y = $orig_h - $crop_h;
             }
         }
