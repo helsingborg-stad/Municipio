@@ -36,7 +36,7 @@
 
     {!! wp_head() !!}
 </head>
-<body {!! body_class('no-js') !!}>
+<body {!! body_class() !!}>
     <!--[if lt IE 9]>
         <div class="notice info browserupgrade">
             <div class="container"><div class="grid-table grid-va-middle">
