@@ -4,15 +4,15 @@
 ?>
 <form class="search" method="get" action="/">
     @if (is_front_page())
-        <label class="label label-lg label-theme" for="searchkeyword-{{ $searchFormNode }}">{{ get_field('search_label_text', 'option') }}</label>
+        <label class="label label-lg label-theme" for="searchkeyword-{{ $searchFormNode }}">{{ get_field('search_label_text', 'option') or 'Search' }}</label>
     @else
-        <label for="searchkeyword-{{ $searchFormNode }}" class="sr-only">{{ get_field('search_label_text', 'option') }}</label>
+        <label for="searchkeyword-{{ $searchFormNode }}" class="sr-only">{{ get_field('search_label_text', 'option') or 'Search' }}</label>
     @endif
 
     <div class="input-group input-group-lg">
-        <input id="searchkeyword-{{ $searchFormNode }}" autocomplete="off" class="form-control form-control-lg" type="search" name="s" placeholder="{{ get_field('search_placeholder_text', 'option') }}" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
+        <input id="searchkeyword-{{ $searchFormNode }}" autocomplete="off" class="form-control form-control-lg" type="search" name="s" placeholder="{{ get_field('search_placeholder_text', 'option') or 'What are you looking for?' }}" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
         <span class="input-group-addon-btn">
-            <input type="submit" class="btn btn-primary btn-lg" value="{{ get_field('search_button_text', 'option') }}">
+            <input type="submit" class="btn btn-primary btn-lg" value="{{ get_field('search_button_text', 'option') or 'Search' }}">
         </span>
     </div>
 </form>
