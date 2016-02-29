@@ -52,6 +52,13 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title'    => '404',
+                'menu_title'    => '404',
+                'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-404'
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title'    => 'Google Analytics',
                 'menu_title'    => 'Google Analytics',
                 'parent_slug'   => 'theme-settings',
@@ -78,7 +85,6 @@ class Theme
                 'parent_slug'   => 'theme-settings',
                 'menu_slug'     => 'acf-options-taxonomies'
             ));
-
         }
     }
 }
