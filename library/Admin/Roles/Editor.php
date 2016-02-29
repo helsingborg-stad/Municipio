@@ -6,6 +6,15 @@ class Editor
 {
     public function __construct()
     {
+        add_action('admin_init', array($this, 'init'));
+    }
+
+    public function init()
+    {
+        if (\Municipio\Helper\User::hasRole('editor')) {
+            return false;
+        }
+
         //Add capability
         add_action('admin_init', array($this, 'addCapabilities'));
 
