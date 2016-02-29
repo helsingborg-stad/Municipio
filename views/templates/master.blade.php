@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?>>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 
@@ -36,7 +36,7 @@
 
     {!! wp_head() !!}
 </head>
-<body {!! body_class() !!}>
+<body {!! body_class('no-js') !!}>
     <!--[if lt IE 9]>
         <div class="notice info browserupgrade">
             <div class="container"><div class="grid-table grid-va-middle">
