@@ -1,9 +1,7 @@
-.site-header {
-  padding-top: 15px; }
-  .site-header .logotype {
-    display: inline-block;
-    vertical-align: middle;
-    /*
+.site-header .logotype {
+  display: inline-block;
+  vertical-align: middle;
+  /*
         &[data-tooltip] {
             &:hover {
                 &::after,
@@ -14,9 +12,12 @@
             }
         }
         */ }
-    .site-header .logotype img, .site-header .logotype svg {
-      height: 70px;
-      width: auto; }
+  .site-header .logotype img, .site-header .logotype svg {
+    height: 70px;
+    width: auto; }
+
+.site-header:not(.header-casual) {
+  padding-top: 15px; }
 
 .hero {
   position: relative; }

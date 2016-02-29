@@ -1,6 +1,4 @@
 .site-header {
-    padding-top: 15px;
-
     .logotype {
         display: inline-block;
         vertical-align: middle;
@@ -22,6 +20,10 @@
         }
         */
     }
+}
+
+.site-header:not(.header-casual) {
+    padding-top: 15px;
 }
 
 .hero {
