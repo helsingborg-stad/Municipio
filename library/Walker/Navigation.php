@@ -13,6 +13,13 @@ class Navigation extends \Walker
 
     public function walk($elements, $max_depth)
     {
+        global $post;
+        global $childOf;
+
+        if ($childOf === $post->ID) {
+            $max_depth = 1;
+        }
+
         $args = array_slice(func_get_args(), 2);
         $output = '';
 

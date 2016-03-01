@@ -14,16 +14,13 @@ class Navigation
          */
         $ancestors = array_reverse(get_post_ancestors($post));
 
-        if (!isset($ancestors[0])) {
+        if (empty($ancestors)) {
             return false;
         }
 
-        if ($ancestors[0] == get_option('page_on_front')) {
-            unset($ancestors[0]);
-            $ancestors = array_values($ancestors);
-        }
-
         $ancestors[] = $post->ID;
+
+        array_unique($ancestors);
 
         foreach ($ancestors as $ancestor) {
             $children = get_children(array(
