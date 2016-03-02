@@ -71,23 +71,7 @@
     </nav>
 
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand hidden-md hidden-lg">
-        {!!
-            wp_nav_menu(array(
-                'theme_location' => 'main-menu',
-                'container' => false,
-                'container_class' => 'menu-{menu-slug}-container',
-                'container_id' => '',
-                'menu_class' => 'nav-mobile',
-                'menu_id' => '',
-                'echo' => false,
-                'before' => '',
-                'after' => '',
-                'link_before' => '',
-                'link_after' => '',
-                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                'depth' => -1,
-            ));
-        !!}
+        @include('partials.mobile-menu')
     </nav>
 </header>
 
