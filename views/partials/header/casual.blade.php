@@ -41,23 +41,30 @@
     </nav>
 
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle">
-        {!!
-            wp_nav_menu(array(
-                'theme_location' => 'main-menu',
-                'container' => false,
-                'container_class' => 'menu-{menu-slug}-container',
-                'container_id' => '',
-                'menu_class' => 'nav-mobile',
-                'menu_id' => '',
-                'echo' => false,
-                'before' => '',
-                'after' => '',
-                'link_before' => '',
-                'link_after' => '',
-                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                'depth' => 0,
+        <ul class="nav-mobile">
+        <?php
+            global $post;
+            global $childOf;
+
+            $childOf = isset(array_reverse(get_post_ancestors($post))[0]) ? array_reverse(get_post_ancestors($post))[0] : $post->ID;
+
+            if ($childOf == get_option('page_on_front')) {
+                $childOf = null;
+            }
+
+            //List pages
+            $menu = wp_list_pages(array(
+                'title_li' => '',
+                'sort_column' => 'menu_order, post_title',
+                'sort_order' => 'asc',
+                'echo'     => 0,
+                'walker'   => new \Municipio\Walker\NavigationMobile(),
+                'include'  => \Municipio\Helper\Navigation::getNavigationPages($childOf, 'csv')
             ));
-        !!}
+
+            echo $menu;
+        ?>
+        </ul>
     </nav>
 </header>
 

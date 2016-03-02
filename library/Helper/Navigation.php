@@ -8,6 +8,12 @@ class Navigation
     {
         $include = array();
 
+        if (is_numeric($post)) {
+            $post = get_post($post);
+        } elseif (is_null($post)) {
+            return '';
+        }
+
         /**
          * Get ancestors
          * @var array
@@ -15,7 +21,7 @@ class Navigation
         $ancestors = array_reverse(get_post_ancestors($post));
 
         if (empty($ancestors)) {
-            return false;
+            return '';
         }
 
         $ancestors[] = $post->ID;
