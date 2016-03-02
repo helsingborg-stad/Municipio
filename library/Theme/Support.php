@@ -50,6 +50,7 @@ class Support
                 add_action('admin_menu', function () {
                     remove_menu_page('edit.php');
                 });
+
                 add_action('wp_before_admin_bar_render', function () {
                     global $wp_admin_bar;
                     $wp_admin_bar->remove_menu('new-post');
@@ -62,6 +63,7 @@ class Support
                 add_action('admin_menu', function () {
                     remove_menu_page('edit.php?post_type=page');
                 });
+
                 add_action('wp_before_admin_bar_render', function () {
                     global $wp_admin_bar;
                     $wp_admin_bar->remove_menu('new-page');
@@ -107,6 +109,7 @@ class Support
     {
         add_theme_support('menus');
         add_theme_support('post-thumbnails');
+        add_theme_support('html5');
         add_theme_support(
             'post-formats',
             array(
