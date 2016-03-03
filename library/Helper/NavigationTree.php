@@ -76,8 +76,6 @@ class NavigationTree
      */
     protected function item($page, $classes = array())
     {
-        $this->itemCount++;
-
         $children = $this->getChildren($page->ID);
 
         if (count($children) > 0) {
@@ -162,6 +160,8 @@ class NavigationTree
         if (!$this->args['include_top_level'] && $item->post_parent === 0) {
             return;
         }
+
+        $this->itemCount++;
 
         $classes[] = 'page-' . $item->ID;
 
