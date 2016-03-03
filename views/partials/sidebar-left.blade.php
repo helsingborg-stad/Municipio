@@ -18,7 +18,7 @@
     ));
 
     if ($menu) : ?>
-    <nav>
+    <nav id="sidebar-menu">
         <ul class="nav-aside hidden-xs hidden-sm">
             <?php echo $menu; ?>
         </ul>

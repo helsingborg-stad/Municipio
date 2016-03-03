@@ -50,6 +50,9 @@
         </div>
     <![endif]-->
 
+    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1"><?php _e('Jump to the main menu', 'municipio'); ?></a>
+    <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2"><?php _e('Jump to the main content', 'municipio'); ?></a>
+
     <div id="wrapper">
         @if (isset($notice) && !empty($notice))
             @include('partials.notice')
@@ -61,7 +64,9 @@
 
         @include($headerLayout)
 
-        @yield('content')
+        <main id="main-content">
+            @yield('content')
+        </main>
 
         @include('partials.footer')
 
