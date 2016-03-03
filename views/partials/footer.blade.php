@@ -63,7 +63,7 @@
                             @foreach(get_field('footer_icons_repeater', 'option') as $link)
                                 <li>
                                     <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
-                                        {!! $link['link_icon'] !!}
+                                        {!! $link['link_icon'] !!} <span class="sr-only">{{ $link['link_title'] }}</span>
                                     </a>
                                 </li>
                             @endforeach
