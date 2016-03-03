@@ -169,7 +169,7 @@ class NavigationTree
             '<li class="%1$s"><a href="%2$s">%3$s</a>',
             $classes = implode(' ', $classes),
             $href = get_permalink($item->ID),
-            $title = $item->post_title
+            $title = !empty(get_field('custom_menu_title', $item->ID)) ? get_field('custom_menu_title', $item->ID) : $item->post_title
         ));
     }
 
