@@ -25,8 +25,8 @@ class NavigationTree
         $this->currentPage = $this->getCurrentPage();
         $this->ancestors = $this->getAncestors();
 
-        $this->topLevelPages = get_pages(array(
-            'parent' => 0,
+        $this->topLevelPages = get_posts(array(
+            'post_parent' => 0,
             'post_type' => 'page',
             'post_status' => 'publish',
             'sort_column' => 'menu_order, post_title',
@@ -110,8 +110,8 @@ class NavigationTree
      */
     protected function getChildren($parent)
     {
-        return get_pages(array(
-            'parent' => $parent,
+        return get_posts(array(
+            'post_parent' => $parent,
             'post_type' => 'page',
             'post_status' => 'publish',
             'sort_column' => 'menu_order, post_title',
@@ -157,7 +157,7 @@ class NavigationTree
      */
     protected function startItem($item, $classes = array())
     {
-        if (!$this->args['include_top_level'] && $item->post_parent === 0) {
+        if ($this->shouldBeIncluded($item)) {
             return;
         }
 
@@ -180,7 +180,7 @@ class NavigationTree
      */
     protected function endItem($item)
     {
-        if (!$this->args['include_top_level'] && $item->post_parent === 0) {
+        if ($this->shouldBeIncluded($item)) {
             return;
         }
 
@@ -193,7 +193,7 @@ class NavigationTree
      */
     protected function startSubmenu($item)
     {
-        if (!$this->args['include_top_level'] && $item->post_parent === 0) {
+        if ($this->shouldBeIncluded($item)) {
             return;
         }
 
@@ -206,11 +206,22 @@ class NavigationTree
      */
     protected function endSubmenu($item)
     {
-        if (!$this->args['include_top_level'] && $item->post_parent === 0) {
+        if ($this->shouldBeIncluded($item)) {
             return;
         }
 
         $this->addOutput('</ul>');
+    }
+
+    /**
+     * Datermines if page should be included in the menu or not
+     * @param  integer $id The page ID
+     * @return boolean
+     */
+    public function shouldBeIncluded($item)
+    {
+        $hide = get_field('hide_in_menu', $item->ID);
+        return (!$this->args['include_top_level'] && $item->post_parent === 0) || $hide;
     }
 
 
