@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-02-24 09:59+0100\n"
+"POT-Creation-Date: 2016-03-03 10:15+0100\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -38,6 +38,7 @@ msgid "Footer"
 msgstr ""
 
 #: library/Admin/Options/Theme.php:41 library/Admin/Options/Theme.php:42
+#: library/Theme/Navigation.php:35
 msgid "Search"
 msgstr ""
 
@@ -45,80 +46,80 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:69
+#: library/Admin/Options/Theme.php:76
 msgid "Custom Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:70
+#: library/Admin/Options/Theme.php:77
 msgid "Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:76
+#: library/Admin/Options/Theme.php:83
 msgid "Custom Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:77
+#: library/Admin/Options/Theme.php:84
 msgid "Taxonomies"
 msgstr ""
 
-#: library/Content/CustomPostType.php:52
-msgid "Add new"
-msgstr ""
-
-#: library/Content/CustomPostType.php:53
-#, php-format
-msgid "Add new %s"
-msgstr ""
-
-#: library/Content/CustomPostType.php:54
-#, php-format
-msgid "New %s"
-msgstr ""
-
 #: library/Content/CustomPostType.php:55
-#, php-format
-msgid "Edit %s"
+msgid "Add new"
 msgstr ""
 
 #: library/Content/CustomPostType.php:56
 #, php-format
-msgid "View %s"
+msgid "Add new %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:57
 #, php-format
-msgid "All %s"
+msgid "New %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:58
 #, php-format
-msgid "Search %s"
+msgid "Edit %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:59
 #, php-format
-msgid "Parent %s"
+msgid "View %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:60
 #, php-format
-msgid "No %s found"
+msgid "All %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:61
 #, php-format
+msgid "Search %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:62
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:63
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: library/Content/CustomPostType.php:64
+#, php-format
 msgid "No %s found in trash"
 msgstr ""
 
-#: library/Content/CustomPostType.php:66
+#: library/Content/CustomPostType.php:69
 msgid "Auto generated cpt from user iterface."
 msgstr ""
 
-#: library/Theme/Navigation.php:15
+#: library/Theme/Navigation.php:19
 msgid "Main menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:16
+#: library/Theme/Navigation.php:20
 msgid "Help menu"
 msgstr ""
 
@@ -174,7 +175,7 @@ msgstr ""
 msgid "The right sidebar area"
 msgstr ""
 
-#: library/Theme/Support.php:144
+#: library/Theme/Support.php:147
 msgid "Article"
 msgstr ""
 
@@ -184,6 +185,14 @@ msgstr ""
 
 #: library/Widget/Contact.php:13
 msgid "Displays the contact information given."
+msgstr ""
+
+#: views/templates/master.blade.php:53
+msgid "Jump to the main menu"
+msgstr ""
+
+#: views/templates/master.blade.php:54
+msgid "Jump to the main content"
 msgstr ""
 
 #. Theme Name of the plugin/theme

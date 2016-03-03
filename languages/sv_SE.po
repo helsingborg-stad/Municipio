@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-02-24 09:59+0100\n"
-"PO-Revision-Date: 2016-02-24 10:00+0100\n"
+"POT-Creation-Date: 2016-03-03 10:15+0100\n"
+"PO-Revision-Date: 2016-03-03 10:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -38,6 +38,7 @@ msgid "Footer"
 msgstr "Sidfot"
 
 #: library/Admin/Options/Theme.php:41 library/Admin/Options/Theme.php:42
+#: library/Theme/Navigation.php:35
 msgid "Search"
 msgstr "Sök"
 
@@ -45,80 +46,80 @@ msgstr "Sök"
 msgid "Blog"
 msgstr "Blogg"
 
-#: library/Admin/Options/Theme.php:69
+#: library/Admin/Options/Theme.php:76
 msgid "Custom Post Types"
 msgstr "Egna posttyper"
 
-#: library/Admin/Options/Theme.php:70
+#: library/Admin/Options/Theme.php:77
 msgid "Post Types"
 msgstr "Posttyper"
 
-#: library/Admin/Options/Theme.php:76
+#: library/Admin/Options/Theme.php:83
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:77
+#: library/Admin/Options/Theme.php:84
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Content/CustomPostType.php:52
+#: library/Content/CustomPostType.php:55
 msgid "Add new"
 msgstr "Skapa ny"
 
-#: library/Content/CustomPostType.php:53
+#: library/Content/CustomPostType.php:56
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/Content/CustomPostType.php:54
+#: library/Content/CustomPostType.php:57
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/Content/CustomPostType.php:55
+#: library/Content/CustomPostType.php:58
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/Content/CustomPostType.php:56
+#: library/Content/CustomPostType.php:59
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/Content/CustomPostType.php:57
+#: library/Content/CustomPostType.php:60
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/Content/CustomPostType.php:58
+#: library/Content/CustomPostType.php:61
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/Content/CustomPostType.php:59
+#: library/Content/CustomPostType.php:62
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/Content/CustomPostType.php:60
+#: library/Content/CustomPostType.php:63
 #, php-format
 msgid "No %s found"
 msgstr "Inga %s hittades"
 
-#: library/Content/CustomPostType.php:61
+#: library/Content/CustomPostType.php:64
 #, php-format
 msgid "No %s found in trash"
 msgstr "Inga %s hittades i papperskorgen"
 
-#: library/Content/CustomPostType.php:66
+#: library/Content/CustomPostType.php:69
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
-#: library/Theme/Navigation.php:15
+#: library/Theme/Navigation.php:19
 msgid "Main menu"
 msgstr "Huvudmeny"
 
-#: library/Theme/Navigation.php:16
+#: library/Theme/Navigation.php:20
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
@@ -174,7 +175,7 @@ msgstr "Höger sidebar"
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Support.php:144
+#: library/Theme/Support.php:147
 msgid "Article"
 msgstr "Artikel"
 
@@ -185,6 +186,14 @@ msgstr "Kontakt"
 #: library/Widget/Contact.php:13
 msgid "Displays the contact information given."
 msgstr "Visar den angivna kontaktinformationen"
+
+#: views/templates/master.blade.php:53
+msgid "Jump to the main menu"
+msgstr "Hoppa till huvudmenyn"
+
+#: views/templates/master.blade.php:54
+msgid "Jump to the main content"
+msgstr "Hoppa till innehåll"
 
 #. Theme Name of the plugin/theme
 msgid "Municipio"

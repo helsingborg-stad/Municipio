@@ -32,7 +32,7 @@ class Navigation
             return $items;
         }
 
-        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Sök') . '"><i class="fa fa-search"></i></a></li>';
+        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><i class="fa fa-search"></i></a></li>';
 
         $items .= $search;
         return $items;
