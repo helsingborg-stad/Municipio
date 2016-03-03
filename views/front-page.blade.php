@@ -6,7 +6,7 @@
 <section class="creamy creamy-border-bottom gutter-xl gutter-vertical">
     <div class="container">
         <div class="grid">
-            {!! dynamic_sidebar('content-area') !!}
+            <?php dynamic_sidebar('content-area'); ?>
         </div>
     </div>
 </section>
@@ -15,7 +15,7 @@
 @if (is_active_sidebar('content-area-bottom'))
 <div class="container gutter-xl gutter-vertical">
     <div class="grid">
-        {!! dynamic_sidebar('content-area-bottom') !!}
+        <?php dynamic_sidebar('content-area-bottom'); ?>
     </div>
 </div>
 @endif

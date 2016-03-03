@@ -1,6 +1,6 @@
 @if (is_active_sidebar('slider-area') === true )
     <div class="hero hidden-xs hidden-sm">
-        {{ dynamic_sidebar('slider-area') }}
+        <?php dynamic_sidebar('slider-area'); ?>
 
         @include('partials.stripe')
 

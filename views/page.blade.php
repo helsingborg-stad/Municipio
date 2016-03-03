@@ -18,7 +18,7 @@
 
             @if (is_active_sidebar('content-area'))
                 <div class="grid">
-                    {!! dynamic_sidebar('content-area') !!}
+                    <?php dynamic_sidebar('content-area'); ?>
                 </div>
             @endif
 
