@@ -50,7 +50,7 @@
         <!-- Widgets -->
         <div class="grid">
             @if (is_active_sidebar('footer-area'))
-                {!! dynamic_sidebar('footer-area') !!}
+                <?php dynamic_sidebar('footer-area'); ?>
             @endif
         </div>
 
@@ -63,7 +63,10 @@
                             @foreach(get_field('footer_icons_repeater', 'option') as $link)
                                 <li>
                                     <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
-                                        {!! $link['link_icon'] !!} <span class="sr-only">{{ $link['link_title'] }}</span>
+                                        {!! $link['link_icon'] !!}
+                                        @if (isset($link['link_title']))
+                                        <span class="sr-only">{{ $link['link_title'] }}</span>
+                                        @endif
                                     </a>
                                 </li>
                             @endforeach
