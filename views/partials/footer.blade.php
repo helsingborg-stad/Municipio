@@ -50,7 +50,7 @@
         <!-- Widgets -->
         <div class="grid">
             @if (is_active_sidebar('footer-area'))
-                <?php dynamic_sidebar('footer-area'); //Blade not working here? ?>
+                {!! dynamic_sidebar('footer-area') !!}
             @endif
         </div>
 

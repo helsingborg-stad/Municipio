@@ -6,7 +6,7 @@
 
     @include('partials.breadcrumbs')
 
-    <div class="grid @if (wp_get_post_parent_id(get_the_id()) != 0) no-margin-top @endif">
+    <div class="grid {{ (wp_get_post_parent_id(get_the_id()) != 0) ? 'no-margin-top' : '' }}">
         @include('partials.sidebar-left')
 
         <main class="grid-md-8 grid-lg-6" id="readspeaker-read">
