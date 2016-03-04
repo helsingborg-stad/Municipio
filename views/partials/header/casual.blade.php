@@ -40,7 +40,7 @@
         </div>
     </nav>
 
-    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle">
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
         @include('partials.mobile-menu')
     </nav>
 </header>
