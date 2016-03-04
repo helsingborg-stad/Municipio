@@ -1,5 +1,5 @@
 <header id="site-header" class="site-header header-casual">
-    <div class="search-top {!! apply_filters('Municipio/top_search_hide_breakpoint','hidden-sm'); !!}" id="search">
+    <div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!}" id="search">
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
