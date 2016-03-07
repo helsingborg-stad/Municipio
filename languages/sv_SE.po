@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-03-03 10:38+0100\n"
-"PO-Revision-Date: 2016-03-03 10:39+0100\n"
+"POT-Creation-Date: 2016-03-07 14:35+0100\n"
+"PO-Revision-Date: 2016-03-07 14:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -203,6 +203,15 @@ msgstr "Taggar"
 #: views/partials/social-share.blade.php:17
 msgid "Share on"
 msgstr "Dela på"
+
+#: views/partials/timestamps.blade.php:24
+#: views/partials/timestamps.blade.php:45
+msgid "Published"
+msgstr "Publicerad"
+
+#: views/partials/timestamps.blade.php:33
+msgid "Last updated"
+msgstr "Senast uppdaterad"
 
 #: views/templates/master.blade.php:53
 msgid "Jump to the main menu"

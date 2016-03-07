@@ -21,7 +21,7 @@
         @if (is_array(get_field('show_date_updated','option')) && is_array(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_updated','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_published','option')))
             @if(is_array(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()),get_field('show_date_published','option')))
             <li>
-                <strong>{!! __("Published", 'municipio'); !!}:</strong>
+                <strong><?php _e("Published", 'municipio'); ?>:</strong>
                 <time datetime="<?php echo the_time('Y-m-d H:i'); ?>">
                     <?php the_time('j F Y'); ?> kl. <?php the_time('H:i'); ?>
                 </time>
@@ -30,7 +30,7 @@
 
             @if(is_array(get_field('show_date_updated','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_updated','option')))
             <li>
-                <strong>{!! __("Last updated", 'municipio'); !!}:</strong>
+                <strong><?php _e("Last updated", 'municipio'); ?>:</strong>
                 <time datetime="<?php echo the_modified_time('Y-m-d H:i'); ?>">
                     <?php the_modified_time('j F Y'); ?> kl. <?php the_modified_time('H:i'); ?>
                 </time>
@@ -42,7 +42,7 @@
 
         @if (is_array(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_published','option')))
             <li>
-                <strong>{!! __("Published", 'municipio'); !!}:</strong>
+                <strong><?php _e("Published", 'municipio'); ?>:</strong>
                 <time datetime="<?php echo the_time('Y-m-d H:i'); ?>">
                     <?php the_time('j F Y'); ?> {!! __("at", 'municipio'); !!} <?php the_time('H:i'); ?>
                 </time>

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-03-03 10:38+0100\n"
+"POT-Creation-Date: 2016-03-07 14:35+0100\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -202,6 +202,15 @@ msgstr ""
 #: views/partials/social-share.blade.php:15
 #: views/partials/social-share.blade.php:17
 msgid "Share on"
+msgstr ""
+
+#: views/partials/timestamps.blade.php:24
+#: views/partials/timestamps.blade.php:45
+msgid "Published"
+msgstr ""
+
+#: views/partials/timestamps.blade.php:33
+msgid "Last updated"
 msgstr ""
 
 #: views/templates/master.blade.php:53
