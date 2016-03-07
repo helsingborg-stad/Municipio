@@ -64,7 +64,7 @@
 
         @include($headerLayout)
 
-        <main id="main-content">
+        <main id="main-content" class="clearfix">
             @yield('content')
         </main>
 
