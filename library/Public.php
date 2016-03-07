@@ -63,7 +63,6 @@ if (!function_exists('municipio_get_logotype')) {
             if (class_exists('DOMDocument')) {
                 $doc = new DOMDocument();
                 if ($doc->loadXML($symbol) === true) {
-                    $doc->loadXML($symbol);
                     try {
                         $doc->getElementsByTagName('svg');
 
