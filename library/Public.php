@@ -53,9 +53,33 @@ if (!function_exists('municipio_get_logotype')) {
 
         // Get the symbol to use (by file include)
         if (isset($logotype[$type]['id']) && $logo_include === true) {
+
+            //Get file contents
             $symbol = file_get_contents(
                 get_attached_file($logotype[$type]['id'])
             );
+
+            //Get by dom method
+            if (class_exists('DOMDocument')) {
+                $doc = new DOMDocument();
+                if ($doc->loadXML($symbol) === true) {
+                    $doc->loadXML($symbol);
+                    try {
+                        $doc->getElementsByTagName('svg');
+
+                        $svg = $doc->getElementsByTagName('svg');
+                        if ($svg->item(0)->C14N() !== null) {
+                            $symbol = $svg->item(0)->C14N();
+                        }
+                    } catch (exception $e) {
+                        error_log("Error loading SVG file to header or footer.");
+                    }
+                }
+            }
+
+            //Filter tags & comments (if above not applicated)
+            $symbol = preg_replace('/<\?xml.*?\/>/im', '', $symbol); //Remove XML
+            $symbol = preg_replace('/<!--(.*)-->/Uis', '', $symbol); //Remove comments & javascript
         }
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));
@@ -75,7 +99,8 @@ if (!function_exists('municipio_get_logotype')) {
 }
 
 if (!function_exists('municipio_human_datediff')) {
-    function municipio_human_datediff($date) {
+    function municipio_human_datediff($date)
+    {
         $diff = human_time_diff(strtotime($date), current_time('timestamp'));
         return $diff;
     }
