@@ -50,12 +50,13 @@
 .navbar-mainmenu {
   margin-top: 8px; }
 
-.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:after {
+.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
   content: "";
   position: relative;
-  height: 60px; }
+  height: 60px;
+  display: block; }
   @media screen and (max-width: 960px) {
-    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:after {
+    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
       height: 20px; } }
 
 [id*="site-header"] .menu-trigger {
