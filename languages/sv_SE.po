@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-03-07 14:35+0100\n"
-"PO-Revision-Date: 2016-03-07 14:35+0100\n"
+"POT-Creation-Date: 2016-03-07 16:14+0100\n"
+"PO-Revision-Date: 2016-03-07 16:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -20,13 +20,512 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
+#: acf-exports/translate-reference.php:2
+#: acf-exports/translate-reference.php:108
+msgid "Display settings"
+msgstr "Visningsinställningar"
+
+#: acf-exports/translate-reference.php:3
+#: acf-exports/translate-reference.php:120
+msgid "Share"
+msgstr "Dela"
+
+#: acf-exports/translate-reference.php:4
+msgid "Show social media share buttons"
+msgstr "Visa delningsikoner"
+
+#: acf-exports/translate-reference.php:5 acf-exports/translate-reference.php:33
+#: acf-exports/translate-reference.php:41
+msgid "Author"
+msgstr "Författare"
+
+#: acf-exports/translate-reference.php:6 acf-exports/translate-reference.php:34
+msgid "Show author"
+msgstr "Visa författare"
+
+#: acf-exports/translate-reference.php:7 acf-exports/translate-reference.php:43
+msgid "Author image"
+msgstr "Författarbild"
+
+#: acf-exports/translate-reference.php:8
+msgid "Show author's image"
+msgstr "Visa författarens bild"
+
+#: acf-exports/translate-reference.php:9
+msgid "Navigation settings"
+msgstr "Navigationsinställningar"
+
+#: acf-exports/translate-reference.php:10
+msgid "Hide from sidebar menu"
+msgstr "Dölj från sidebar-menyn"
+
+#: acf-exports/translate-reference.php:11
+msgid "Hide"
+msgstr "Dölj"
+
+#: acf-exports/translate-reference.php:12
+msgid "Menu title"
+msgstr "Menytitel"
+
+#: acf-exports/translate-reference.php:13
+msgid ""
+"If you want to use another title for this page in the sidebar navigation "
+"fill it in here. If you want to use the page title just leave this field "
+"empty."
+msgstr ""
+"Om du vill använda en annan titel för denna sidan i sidebar-menyn så kan du "
+"ange den här. Om du vill använda sidans titel så lämnar du fältet tomt."
+
+#: acf-exports/translate-reference.php:14
+msgid "Default post types"
+msgstr "Standard-inläggstyper"
+
+#: acf-exports/translate-reference.php:15
+msgid "Disable blog"
+msgstr "Inaktivera blogg"
+
+#: acf-exports/translate-reference.php:16
+msgid "Yes, disable posts."
+msgstr "Ja, inaktivera inlägg"
+
+#: acf-exports/translate-reference.php:17
+msgid "Disable pages"
+msgstr "Inaktivera sidor"
+
+#: acf-exports/translate-reference.php:18
+msgid "Yes, disable pages."
+msgstr "Ja, inaktivera sidor"
+
+#: acf-exports/translate-reference.php:19
+msgid "404"
+msgstr "404"
+
+#: acf-exports/translate-reference.php:20
+msgid "Error message"
+msgstr "Felmeddelande"
+
+#: acf-exports/translate-reference.php:21
+msgid "The message that will be displayed underneeth the 404-error code"
+msgstr "Meddelandet som visas precis under 404-felkoden"
+
+#: acf-exports/translate-reference.php:22
+msgid "The page could not be found"
+msgstr "Sidan kunde inte visas"
+
+#: acf-exports/translate-reference.php:23
+msgid "Error info"
+msgstr "Felinformation"
+
+#: acf-exports/translate-reference.php:24
+msgid "Additional information about the error or other information"
+msgstr "Utökad information"
+
+#: acf-exports/translate-reference.php:25
+msgid "Display"
+msgstr "Visa"
+
+#: acf-exports/translate-reference.php:26
+msgid "Home link text"
+msgstr "Text på hem-knapp"
+
+#: acf-exports/translate-reference.php:27
+msgid "Back to home"
+msgstr "Gå till startsidan"
+
+#: acf-exports/translate-reference.php:28
+msgid "Back button text"
+msgstr "Text på bakåt-knapp"
+
+#: acf-exports/translate-reference.php:29
+msgid "Go back"
+msgstr "Gå bakåt"
+
+#: acf-exports/translate-reference.php:30
+msgid "Search link text"
+msgstr "Text på sök-knapp"
+
+#: acf-exports/translate-reference.php:31
+#, php-format
+msgid "Use %s to output suggested search query"
+msgstr "Använd %s för att skriva ut föreslagen söksträng"
+
+#: acf-exports/translate-reference.php:32
+#, php-format
+msgid "Search for \\\"%s\\\""
+msgstr "Sök efter \\”%s\\”"
+
+#: acf-exports/translate-reference.php:35
+#: acf-exports/translate-reference.php:37
+#: acf-exports/translate-reference.php:88
+#: acf-exports/translate-reference.php:116
+#: acf-exports/translate-reference.php:123
+msgid "Enable"
+msgstr "Aktiv"
+
+#: acf-exports/translate-reference.php:36
+msgid "Show author image"
+msgstr "Visa författarens bild"
+
+#: acf-exports/translate-reference.php:38
+msgid "Blog post display settings"
+msgstr "Visningsinställingar för blogginlägg"
+
+#: acf-exports/translate-reference.php:39
+msgid "Feed post style"
+msgstr "Inläggets utseende"
+
+#: acf-exports/translate-reference.php:40
+msgid "collapsed"
+msgstr "Infälld"
+
+#: acf-exports/translate-reference.php:42
+msgid "Show post author"
+msgstr "Visa författare"
+
+#: acf-exports/translate-reference.php:44
+msgid "Show author's profile picture"
+msgstr "Visa författarens bild"
+
+#: acf-exports/translate-reference.php:45
+#: views/partials/blog/post-tags.blade.php:3
+msgid "Tags"
+msgstr "Taggar"
+
+#: acf-exports/translate-reference.php:46
+msgid "Show post tags"
+msgstr "Visa taggar"
+
+#: acf-exports/translate-reference.php:47
+#: views/partials/blog/post-categories.blade.php:3
+msgid "Categories"
+msgstr "Kategorier"
+
+#: acf-exports/translate-reference.php:48
+msgid "Show post categories"
+msgstr "Visa kategorier"
+
+#: acf-exports/translate-reference.php:49
+#: acf-exports/translate-reference.php:50
+msgid "Color scheme"
+msgstr "Färgtema"
+
+#: acf-exports/translate-reference.php:51
+msgid "gray"
+msgstr "Grå"
+
+#: acf-exports/translate-reference.php:52
+msgid "Cookie consent"
+msgstr "Cookie-medgivande"
+
+#: acf-exports/translate-reference.php:53
+msgid "Active"
+msgstr "Aktiv"
+
+#: acf-exports/translate-reference.php:54
+msgid "Show cookie consent to users if not already accepted"
+msgstr "Visa cookie-medgivande om besökaren inte accepterat sedan tidigare"
+
+#: acf-exports/translate-reference.php:55
+msgid "Message"
+msgstr "Meddelande"
+
+#: acf-exports/translate-reference.php:56
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website."
+msgstr ""
+"Denna hemsida använder cookies för att erbjuda en så bra upplevelse som "
+"möjligt för ditt besök."
+
+#: acf-exports/translate-reference.php:57
+msgid "Button"
+msgstr "Knapp"
+
+#: acf-exports/translate-reference.php:58
+msgid "Got it!"
+msgstr "Jag förstår"
+
+#: acf-exports/translate-reference.php:59
+msgid "Placement"
+msgstr "Placering"
+
+#: acf-exports/translate-reference.php:60
+#: acf-exports/translate-reference.php:64
+#: acf-exports/translate-reference.php:101
+msgid "Manage post types"
+msgstr "Inläggstyper"
+
+#: acf-exports/translate-reference.php:61
+#: acf-exports/translate-reference.php:65
+#: acf-exports/translate-reference.php:102
+msgid "Avabile post types"
+msgstr "Tillgängliga posttyper"
+
+#: acf-exports/translate-reference.php:62
+msgid "Manage taxonomies"
+msgstr "Taxonomies"
+
+#: acf-exports/translate-reference.php:63
+msgid "Avabile dynamic taxonomies"
+msgstr "Tillgängliga dynamiska taxonomier"
+
+#: acf-exports/translate-reference.php:66
+msgid "Favicon"
+msgstr "Favoritikoner"
+
+#: acf-exports/translate-reference.php:67
+msgid "Favicons"
+msgstr "Favoritikoner"
+
+#: acf-exports/translate-reference.php:68
+msgid ""
+"Add favicons in various sizes. If a size has multiple icons specified only "
+"the latest specified icon will be used."
+msgstr ""
+"Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden "
+"kommer bara den senast specificerade att användas."
+
+#: acf-exports/translate-reference.php:69
+msgid "Footer Icons"
+msgstr "Sidfotsikoner"
+
+#: acf-exports/translate-reference.php:70
+msgid "Footer icons repeater"
+msgstr "Ikoner i sidfoten"
+
+#: acf-exports/translate-reference.php:71
+msgid ""
+"Add icons to the footer of your site. Link to external resources link "
+"facebook, twitter and linkedin! <style>.acf-field-font-awesome .fa-live-"
+"preview {display:none;}</style>"
+msgstr ""
+"Lägg till ikoner i sidfoten. Länka till externa resurser som till exempel "
+"Facebook, Twitter och LinkedIn.<style>.acf-field-font-awesome .fa-live-"
+"preview {display:none;}</style>"
+
+#: acf-exports/translate-reference.php:72
+msgid "Footer logotype"
+msgstr "Logotyp i sidfot"
+
+#: acf-exports/translate-reference.php:73
+msgid "Logotype to use in footer"
+msgstr "Logotyp att använda i sidfot"
+
+#: acf-exports/translate-reference.php:74
+msgid "standard"
+msgstr "Standard"
+
+#: acf-exports/translate-reference.php:75
+msgid "Horizontal position"
+msgstr "Horisontell positionering"
+
+#: acf-exports/translate-reference.php:76
+msgid "left"
+msgstr "Vänster"
+
+#: acf-exports/translate-reference.php:77
+msgid "Vertical position"
+msgstr "Vertikal positionering"
+
+#: acf-exports/translate-reference.php:78
+msgid "top"
+msgstr "Topp"
+
+#: acf-exports/translate-reference.php:79
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: acf-exports/translate-reference.php:80
+msgid "Google Analytics UA"
+msgstr "Google Analytics UA"
+
+#: acf-exports/translate-reference.php:81
+msgid ""
+"To activate Google Analytics please insert your Google Analytics UA.\r\n"
+"Usally a string like this: UA-XXXXX-Y"
+msgstr ""
+"To activate Google Analytics please insert your Google Analytics UA.\r\n"
+"Usally a string like this: UA-XXXXX-Y"
+
+#: acf-exports/translate-reference.php:83
+msgid "Google Translate"
+msgstr "Google Translate"
+
+#: acf-exports/translate-reference.php:84
+msgid "Where to show Google Translate"
+msgstr "Var Google Translate ska visas"
+
+#: acf-exports/translate-reference.php:86
+msgid "Track usage with Google Analytics"
+msgstr "Analysera användandet av webbplatsen med Google Analytics"
+
+#: acf-exports/translate-reference.php:87
+msgid ""
+"If set to enabled, Google Translate usage will be tracked in Google "
+"Analytics (to the account specified under the Google Analytics settings)"
+msgstr ""
+"Om funktionen är aktiverad kommer Google Translate användandet att spåras i "
+"Google Analytucs (till det Google Analytics kontot som är speicificerat "
+"under Google Analytics tabben)"
+
+#: acf-exports/translate-reference.php:89
+msgid "Header logotype"
+msgstr "Logotyp i sidhuvud"
+
+#: acf-exports/translate-reference.php:90
+msgid "Logotype to use in header"
+msgstr "Logotyp att använda i sidhuvudet"
+
+#: acf-exports/translate-reference.php:91
+msgid "Logotype tooltip"
+msgstr "Inforuta vid logotypen"
+
+#: acf-exports/translate-reference.php:92
+msgid ""
+"Tooltip text when hovering over the logotype in the header. The logo links "
+"to the front page. Leave empty if you don't want to show anything."
+msgstr ""
+"Inforuta som dyker upp när du håller musen ovanpå logotypen i sidhuvudet. "
+"Logotypen länkar till startsidan. Lämna tomt om du inte vill visa någon "
+"inforuta."
+
+#: acf-exports/translate-reference.php:93 library/Admin/Options/Theme.php:20
+#: library/Admin/Options/Theme.php:21
+msgid "Header"
+msgstr "Sidhuvud"
+
+#: acf-exports/translate-reference.php:94
+msgid "Layout"
+msgstr "Layout"
+
+#: acf-exports/translate-reference.php:95
+msgid "business"
+msgstr "business"
+
+#: acf-exports/translate-reference.php:96
+msgid "Logotype"
+msgstr "Logotyp"
+
+#: acf-exports/translate-reference.php:97
+msgid "Standard logotype"
+msgstr "Standardlogotyp"
+
+#: acf-exports/translate-reference.php:98
+msgid "Only .svg-files are supported."
+msgstr "Accepterar enbart .svg-filer"
+
+#: acf-exports/translate-reference.php:99
+msgid "Negative logotype"
+msgstr "Negativ (vit) logotyp"
+
+#: acf-exports/translate-reference.php:100
+msgid ""
+"Please upload a brand logo in the format .svg. The negative logo refers to a "
+"100% white logotype that can be used on dark backgrounds."
+msgstr ""
+"Vänligen ladda upp en logotyp i .svg-format. Den negativa logotypen är en "
+"100% vit version av din logotyp som kan användas på mörka bakgrunden."
+
+#: acf-exports/translate-reference.php:103
+msgid "Timestamp"
+msgstr "Tidstämplar"
+
+#: acf-exports/translate-reference.php:104
+msgid "Post footer timestamps"
+msgstr "Tidstämplar under inlägg"
+
+#: acf-exports/translate-reference.php:105
+msgid ""
+"Check boxes to enable timestamps for post types. Will be displayed after the "
+"content area, if applicable."
+msgstr ""
+"Klicka i kryssrutorna för att aktivera tidsstämplar för inläggstyper. "
+"Tidstämplarna visas under brödtexten, om möjligt."
+
+#: acf-exports/translate-reference.php:106
+msgid "Date published"
+msgstr "Publiceringsdatum"
+
+#: acf-exports/translate-reference.php:107
+msgid "Date updated"
+msgstr "Senast uppdaterad"
+
+#: acf-exports/translate-reference.php:109
+msgid "Front page"
+msgstr "Startsida"
+
+#: acf-exports/translate-reference.php:110
+msgid "Show hero search on front page"
+msgstr "Visa sök-ruta i heron på startsidan"
+
+#: acf-exports/translate-reference.php:111
+msgid "Label text"
+msgstr "Märkning"
+
+#: acf-exports/translate-reference.php:112
+msgid "Placeholder text"
+msgstr "Platshållare"
+
+#: acf-exports/translate-reference.php:113
+msgid "Button text"
+msgstr "Knapptext"
+
+#: acf-exports/translate-reference.php:114 library/Admin/Options/Theme.php:41
+#: library/Admin/Options/Theme.php:42 library/Theme/Navigation.php:35
+msgid "Search"
+msgstr "Sök"
+
+#: acf-exports/translate-reference.php:115
+msgid "Google Search"
+msgstr "Google Sök"
+
+#: acf-exports/translate-reference.php:117
+msgid "Use Google Site Search"
+msgstr "Använd Google Site Search"
+
+#: acf-exports/translate-reference.php:118
+msgid "Google API Key"
+msgstr "Google API Key"
+
+#: acf-exports/translate-reference.php:119
+msgid "Google Api CX"
+msgstr "Google Api CX"
+
+#: acf-exports/translate-reference.php:121
+msgid "Show share icons"
+msgstr "Visa delningsikoner"
+
+#: acf-exports/translate-reference.php:122
+msgid ""
+"This is a master control which will enable/disable the social share icons "
+"for each and all posts and pages."
+msgstr ""
+"Detta är en master-kontroll som inaktiverar/aktiverar delningsikoner för "
+"alla sidor och inlägg."
+
+#: acf-exports/translate-reference.php:124
+msgid "User profile picture"
+msgstr "Profilbild"
+
+#: acf-exports/translate-reference.php:125
+msgid "Author picture"
+msgstr "Bild på författare"
+
+#: acf-exports/translate-reference.php:126
+msgid "Picture that show in author information for posts published by you"
+msgstr "Bild som kan visas i byline."
+
+#: acf-exports/translate-reference.php:127
+msgid "Contact widget"
+msgstr "Kontaktwidget"
+
+#: acf-exports/translate-reference.php:128
+msgid "Contacts"
+msgstr "Kontakter"
+
 #: library/Admin/Options/Theme.php:11 library/Admin/Options/Theme.php:12
 msgid "Theme Options"
 msgstr "Temainställningar"
-
-#: library/Admin/Options/Theme.php:20 library/Admin/Options/Theme.php:21
-msgid "Header"
-msgstr "Sidhuvud"
 
 #: library/Admin/Options/Theme.php:27 library/Admin/Options/Theme.php:28
 msgid "Content"
@@ -36,11 +535,6 @@ msgstr "Innehåll"
 #: library/Theme/Sidebars.php:19
 msgid "Footer"
 msgstr "Sidfot"
-
-#: library/Admin/Options/Theme.php:41 library/Admin/Options/Theme.php:42
-#: library/Theme/Navigation.php:35
-msgid "Search"
-msgstr "Sök"
 
 #: library/Admin/Options/Theme.php:48 library/Admin/Options/Theme.php:49
 msgid "Blog"
@@ -187,14 +681,6 @@ msgstr "Kontakt"
 msgid "Displays the contact information given."
 msgstr "Visar den angivna kontaktinformationen"
 
-#: views/partials/blog/post-categories.blade.php:3
-msgid "Categories"
-msgstr "Kategorier"
-
-#: views/partials/blog/post-tags.blade.php:3
-msgid "Tags"
-msgstr "Taggar"
-
 #: views/partials/social-share.blade.php:3
 #: views/partials/social-share.blade.php:5
 #: views/partials/social-share.blade.php:9
@@ -244,6 +730,13 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid ""
+#~ "To activate Google Analytics please insert your Google Analytics UA.\n"
+#~ "Usally a string like this: UA-XXXXX-Y"
+#~ msgstr ""
+#~ "För att aktivera Google Analytics anger du ditt Google Analytics UA.\n"
+#~ " Vanligtvis i förljande formattering: UA-XXXXX-Y"
 
 #~ msgctxt "municipio-cpts"
 #~ msgid "Add New"
