@@ -1,8 +1,10 @@
 
-.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
-    padding-top: 60px;
+.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:after {
+    content: "";
+    position: relative;
+    height: 60px;
 
     @media screen and (max-width: 960px) {
-        padding-top: 20px;
+        height: 20px;
     }
 }
