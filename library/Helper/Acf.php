@@ -37,25 +37,31 @@ class Acf
      */
     public function translateField($field)
     {
-        if (isset($field['label']) && !empty($field['label'])) {
+        if (isset($field['label']) && !empty($field['label']) && is_string($field['label'])) {
             $field['label'] = __($field['label'], 'municipio');
         }
 
-        if (isset($field['instructions']) && !empty($field['instructions'])) {
+        if (isset($field['instructions']) && !empty($field['instructions']) && is_string($field['instructions'])) {
             $field['instructions'] = __($field['instructions'], 'municipio');
         }
 
-        if (isset($field['message']) && !empty($field['message'])) {
+        if (isset($field['message']) && !empty($field['message']) && is_string($field['message'])) {
             $field['message'] = __($field['message'], 'municipio');
         }
 
-        if (isset($field['default_value']) && !empty($field['default_value'])) {
+        if (isset($field['default_value']) && !empty($field['default_value']) && is_string($field['default_value'])) {
             $field['default_value'] = __($field['default_value'], 'municipio');
         }
 
-        if (isset($field['choices']) && is_array($field['choices'])) {
+        if (isset($field['button_label']) && !empty($field['button_label']) && is_string($field['button_label'])) {
+            $field['button_label'] = __($field['button_label'], 'municipio');
+        }
+
+        if (isset($field['choices']) && is_array($field['choices']) && !empty($field['choices'])) {
             foreach ($field['choices'] as $key => &$value) {
-                $value = __($value, 'municipio');
+                if (!empty($value) && is_string($value)) {
+                    $value = __($value, 'municipio');
+                }
             }
         }
 
@@ -79,6 +85,16 @@ class Acf
         return $paths;
     }
 
+    public function addSlashes($string)
+    {
+        if (!is_string($string)) {
+            return '';
+        }
+
+        $string = addslashes(nl2br(trim($string), false));
+        return preg_replace('/\s\s+/', ' ', $string);
+    }
+
     public function makeTranslationReference($paths)
     {
         $outputFile = MUNICIPIO_PATH . 'acf-exports/translate-reference.php';
@@ -91,40 +107,17 @@ class Acf
 
                 // Field group title
                 if (strlen($data->title) > 0) {
-                    $content .= '$t[] = __(\'' . addslashes($data->title) . '\', \'municipio\');' . "\n";
+                    $content .= '$t[\'field_group_title\'][] = __(\'' . $this->addSlashes($data->title) . '\', \'municipio\');' . "\n";
                 }
 
                 foreach ($data->fields as $field) {
-                    // Field label
-                    if (isset($field->label) && !empty($field->label) && !is_numeric($field->label)) {
-                        $content .= '$t[] = __(\'' . addslashes($field->label) . '\', \'municipio\');' . "\n";
-                    }
-
-                    // Field instructions
-                    if (isset($field->instructions) && !empty($field->instructions) && !is_numeric($field->instructions)) {
-                        $content .= '$t[] = __(\'' . addslashes($field->instructions) . '\', \'municipio\');' . "\n";
-                    }
-
-                    // Field message
-                    if (isset($field->message) && !empty($field->message) && !is_numeric($field->message)) {
-                        $content .= '$t[] = __(\'' . addslashes($field->message) . '\', \'municipio\');' . "\n";
-                    }
-
-                    // Field default value
-                    if (isset($field->default_value) && !empty($field->default_value) && !is_numeric($field->default_value)) {
-                        $content .= '$t[] = __(\'' . addslashes($field->default_value) . '\', \'municipio\');' . "\n";
-                    }
-
-                    // Field choises
-                    if (isset($field->choices) && is_array($field->choices)) {
-                        foreach ($field->choices as $key => &$value) {
-                            if (is_numeric($value)) {
-                                continue;
-                            }
-
-                            $content .= '$t[] = __(\'' . addslashes($value) . '\', \'municipio\');' . "\n";
+                    if (isset($field->sub_fields)) {
+                        foreach ($field->sub_fields as $subfield) {
+                            $content .= $this->appendStringTranslation($subfield);
                         }
                     }
+
+                    $content .= $this->appendStringTranslation($field);
                 }
             }
         }
@@ -133,5 +126,48 @@ class Acf
         file_put_contents($outputFile, $content);
 
         return true;
+    }
+
+    public function appendStringTranslation($field)
+    {
+        $content = '';
+
+        // Field label
+        if (isset($field->label) && !empty($field->label) && !is_numeric($field->label)) {
+            $content .= '$t[\'label\'][] = __(\'' . $this->addSlashes($field->label) . '\', \'municipio\');' . "\n";
+        }
+
+        // Field instructions
+        if (isset($field->instructions) && !empty($field->instructions) && !is_numeric($field->instructions)) {
+            $content .= '$t[\'instructions\'][] = __(\'' . $this->addSlashes($field->instructions) . '\', \'municipio\');' . "\n";
+        }
+
+        // Field message
+        if (isset($field->message) && !empty($field->message) && !is_numeric($field->message)) {
+            $content .= '$t[\'message\'][] = __(\'' . $this->addSlashes($field->message) . '\', \'municipio\');' . "\n";
+        }
+
+        // Field default value
+        if (isset($field->default_value) && !empty($field->default_value) && !is_numeric($field->default_value) && !is_array($field->default_value)) {
+            $content .= '$t[\'default_value\'][] = __(\'' . $this->addSlashes($field->default_value) . '\', \'municipio\');' . "\n";
+        }
+
+        // Field button label
+        if (isset($field->button_label) && !empty($field->button_label) && !is_numeric($field->button_label)) {
+            $content .= '$t[\'button_label\'][] = __(\'' . $this->addSlashes($field->button_label) . '\', \'municipio\');' . "\n";
+        }
+
+        // Field choises
+        if (isset($field->choices) && count($field->choices) > 0) {
+            foreach ($field->choices as $key => &$value) {
+                if (is_numeric($value)) {
+                    continue;
+                }
+
+                $content .= '$t[\'choise\'][] = __(\'' . $this->addSlashes($value) . '\', \'municipio\');' . "\n";
+            }
+        }
+
+        return $content;
     }
 }
