@@ -38,29 +38,29 @@ class Acf
     public function translateField($field)
     {
         if (isset($field['label']) && !empty($field['label']) && is_string($field['label'])) {
-            $field['label'] = __($field['label'], 'municipio');
+            $field['label'] = stripslashes(__($this->addSlashes($field['label']), 'municipio'));
         }
 
         if (isset($field['instructions']) && !empty($field['instructions']) && is_string($field['instructions'])) {
-            $field['instructions'] = __($field['instructions'], 'municipio');
+            $field['instructions'] = stripslashes(__($this->addSlashes($field['instructions']), 'municipio'));
         }
 
         if (isset($field['message']) && !empty($field['message']) && is_string($field['message'])) {
-            $field['message'] = __($field['message'], 'municipio');
+            $field['message'] = stripslashes(__($this->addSlashes($field['message']), 'municipio'));
         }
 
         if (isset($field['default_value']) && !empty($field['default_value']) && is_string($field['default_value'])) {
-            $field['default_value'] = __($field['default_value'], 'municipio');
+            $field['default_value'] = stripslashes(__($this->addSlashes($field['default_value']), 'municipio'));
         }
 
         if (isset($field['button_label']) && !empty($field['button_label']) && is_string($field['button_label'])) {
-            $field['button_label'] = __($field['button_label'], 'municipio');
+            $field['button_label'] = stripslashes(__($this->addSlashes($field['button_label']), 'municipio'));
         }
 
         if (isset($field['choices']) && is_array($field['choices']) && !empty($field['choices'])) {
             foreach ($field['choices'] as $key => &$value) {
                 if (!empty($value) && is_string($value)) {
-                    $value = __($value, 'municipio');
+                    $value = stripslashes(__($this->addSlashes($value), 'municipio'));
                 }
             }
         }
