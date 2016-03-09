@@ -106,3 +106,7 @@ Applied to the list of Blade template types.
 ```php
 apply_filters('Municipio/blade/template_types', $types);
 ```
+
+
+
+To load assets from local styleguide. Set contant DEV_MODE to "true"
