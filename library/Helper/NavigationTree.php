@@ -29,8 +29,8 @@ class NavigationTree
             'post_parent' => 0,
             'post_type' => 'page',
             'post_status' => 'publish',
-            'sort_column' => 'menu_order, post_title',
-            'sort_order' => 'asc',
+            'orderby' => 'menu_order post_title',
+            'order' => 'asc',
             'numberposts' => -1
         ));
 
@@ -114,8 +114,8 @@ class NavigationTree
             'post_parent' => $parent,
             'post_type' => 'page',
             'post_status' => 'publish',
-            'sort_column' => 'menu_order, post_title',
-            'sort_order' => 'asc',
+            'orderby' => 'menu_order post_title',
+            'order' => 'asc',
             'numberposts' => -1
         ), 'OBJECT');
     }
