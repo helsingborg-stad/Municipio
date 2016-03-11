@@ -23,6 +23,11 @@ class Acf
      */
     public function translateFieldGroup($fieldGroups)
     {
+        global $post;
+        if (!is_null($post) && substr($post->post_type, 0, 4) == 'acf-') {
+            return $field;
+        }
+
         foreach ($fieldGroups as &$group) {
             $group['title'] = __($group['title'], 'municipio');
         }
@@ -37,6 +42,11 @@ class Acf
      */
     public function translateField($field)
     {
+        global $post;
+        if (!is_null($post) && substr($post->post_type, 0, 4) == 'acf-') {
+            return $field;
+        }
+
         if (isset($field['label']) && !empty($field['label']) && is_string($field['label'])) {
             $field['label'] = stripslashes(__($this->addSlashes($field['label']), 'municipio'));
         }
