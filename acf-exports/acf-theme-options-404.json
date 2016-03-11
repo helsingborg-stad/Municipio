@@ -3,11 +3,11 @@
         "title": 404,
         "fields": [
             {
-                "key": "field_56d41dcfc4ec9",
-                "label": "Error message",
-                "name": "404_error_message",
-                "type": "textarea",
-                "instructions": "The message that will be displayed underneeth the 404-error code",
+                "key": "field_56e2b45f1b947",
+                "label": "Logotyp",
+                "name": "404_error_logotype",
+                "type": "radio",
+                "instructions": "",
                 "required": 1,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -15,7 +15,29 @@
                     "class": "",
                     "id": ""
                 },
-                "default_value": "The page could not be found",
+                "choices": {
+                    "standard": "Standard",
+                    "negative": "Negativ"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "Standard",
+                "layout": "horizontal"
+            },
+            {
+                "key": "field_56d41dcfc4ec9",
+                "label": "Felmeddelande",
+                "name": "404_error_message",
+                "type": "textarea",
+                "instructions": "Meddelandet som visas precis under 404-felkoden",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Sidan kunde inte visas",
                 "placeholder": "",
                 "maxlength": "",
                 "rows": "",
@@ -25,10 +47,10 @@
             },
             {
                 "key": "field_56d421e96fa4a",
-                "label": "Error info",
+                "label": "Felinformation",
                 "name": "404_error_info",
                 "type": "wysiwyg",
-                "instructions": "Additional information about the error or other information",
+                "instructions": "Ut\u00f6kad information",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -43,7 +65,7 @@
             },
             {
                 "key": "field_56d41df8c4eca",
-                "label": "Display",
+                "label": "Visa",
                 "name": "404_display",
                 "type": "checkbox",
                 "instructions": "",
@@ -55,9 +77,9 @@
                     "id": ""
                 },
                 "choices": {
-                    "home": "Link to home",
-                    "search": "Link to search",
-                    "back": "Back button (previous page in browser history)"
+                    "home": "L\u00e4nk till startsidan",
+                    "search": "L\u00e4nk till s\u00f6ksida",
+                    "back": "Tillbaka-knapp (f\u00f6reg\u00e5ende sida i webbl\u00e4sarhistoriken)"
                 },
                 "default_value": [],
                 "layout": "horizontal",
@@ -65,7 +87,7 @@
             },
             {
                 "key": "field_56d41ebfc4ecb",
-                "label": "Home link text",
+                "label": "Text p\u00e5 hem-knapp",
                 "name": "404_home_link_text",
                 "type": "text",
                 "instructions": "",
@@ -80,11 +102,11 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "33.3333",
                     "class": "",
                     "id": ""
                 },
-                "default_value": "Back to home",
+                "default_value": "G\u00e5 till startsidan",
                 "placeholder": "",
                 "prepend": "",
                 "append": "",
@@ -94,7 +116,7 @@
             },
             {
                 "key": "field_56d41edec4ecc",
-                "label": "Back button text",
+                "label": "Text p\u00e5 bak\u00e5t-knapp",
                 "name": "404_back_button_text",
                 "type": "text",
                 "instructions": "",
@@ -109,11 +131,11 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "33.3333",
                     "class": "",
                     "id": ""
                 },
-                "default_value": "Go back",
+                "default_value": "G\u00e5 bak\u00e5t",
                 "placeholder": "",
                 "prepend": "",
                 "append": "",
@@ -123,10 +145,10 @@
             },
             {
                 "key": "field_56d41f18c4ecd",
-                "label": "Search link text",
+                "label": "Text p\u00e5 s\u00f6k-knapp",
                 "name": "404_search_link_text",
                 "type": "text",
-                "instructions": "Use %s to output suggested search query",
+                "instructions": "Anv\u00e4nd %s f\u00f6r att skriva ut f\u00f6reslagen s\u00f6kstr\u00e4ng",
                 "required": 1,
                 "conditional_logic": [
                     [
@@ -138,11 +160,11 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "33.3333",
                     "class": "",
                     "id": ""
                 },
-                "default_value": "Search for \"%s\"",
+                "default_value": "S\u00f6k efter \u201d%s\u201d",
                 "placeholder": "",
                 "prepend": "",
                 "append": "",

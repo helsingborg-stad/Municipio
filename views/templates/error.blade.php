@@ -63,7 +63,7 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
-                    {!! municipio_get_logotype('negative') !!}
+                    {!! municipio_get_logotype(!empty(get_field('404_error_logotype', 'options')) ? get_field('404_error_logotype', 'options') : 'standard')  !!}
                 </div>
             </div>
         </div>
