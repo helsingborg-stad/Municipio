@@ -116,7 +116,19 @@ class NavigationTree
             'post_status' => 'publish',
             'orderby' => 'menu_order post_title',
             'order' => 'asc',
-            'numberposts' => -1
+            'numberposts' => -1,
+            'meta_query'    => array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'hide_in_menu',
+                    'compare' => 'NOT EXISTS'
+                ),
+                array(
+                    'key'   => 'hide_in_menu',
+                    'value' => '0',
+                    'compare' => '='
+                )
+            )
         ), 'OBJECT');
     }
 
