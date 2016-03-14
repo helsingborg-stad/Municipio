@@ -10,6 +10,7 @@ class App
          * Helpers
          */
         new \Municipio\Helper\Acf();
+        new \Municipio\Helper\GravityForm();
 
         /**
          * Template
