@@ -4,7 +4,7 @@
         "fields": [
             {
                 "key": "field_56b347f3ffb6c",
-                "label": "Avabile post types",
+                "label": "Available post types",
                 "name": "avabile_dynamic_post_types",
                 "type": "repeater",
                 "instructions": "",

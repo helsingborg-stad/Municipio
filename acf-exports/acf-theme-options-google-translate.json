@@ -4,7 +4,7 @@
         "fields": [
             {
                 "key": "field_56cc6f9bd36e2",
-                "label": "Var Google Translate ska visas",
+                "label": "Where to show Google Translate",
                 "name": "show_google_translate",
                 "type": "select",
                 "instructions": "",
@@ -16,7 +16,7 @@
                     "id": ""
                 },
                 "choices": {
-                    "false": "Visa inte",
+                    "false": "Do not show",
                     "header": "Above header",
                     "footer": "Below footer"
                 },
@@ -72,7 +72,7 @@
                 },
                 "choices": {
                     "text": "Text",
-                    "icon": "Ikon",
+                    "icon": "Icon",
                     "combined": "Icon and text"
                 },
                 "other_choice": 0,
@@ -82,10 +82,10 @@
             },
             {
                 "key": "field_56cc7592fcc40",
-                "label": "Analysera anv\u00e4ndandet av webbplatsen med Google Analytics",
+                "label": "Track usage with Google Analytics",
                 "name": "google_translate_ga_track",
                 "type": "true_false",
-                "instructions": "Om funktionen \u00e4r aktiverad kommer Google Translate anv\u00e4ndandet att sp\u00e5ras i Google Analytucs (till det Google Analytics kontot som \u00e4r speicificerat under Google Analytics tabben)",
+                "instructions": "If set to enabled, Google Translate usage will be tracked in Google Analytics (to the account specified under the Google Analytics settings)",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -93,7 +93,7 @@
                     "class": "",
                     "id": ""
                 },
-                "message": "Aktiv",
+                "message": "Enable",
                 "default_value": 1
             }
         ],

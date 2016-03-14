@@ -4,7 +4,7 @@
         "fields": [
             {
                 "key": "field_56c5e243a1c79",
-                "label": "Avabile dynamic taxonomies",
+                "label": "Available dynamic taxonomies",
                 "name": "avabile_dynamic_taxonomies",
                 "type": "repeater",
                 "instructions": "",

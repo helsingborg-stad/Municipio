@@ -43,7 +43,11 @@ class Acf
     public function translateField($field)
     {
         global $post;
-        if (!is_null($post) && substr($post->post_type, 0, 4) == 'acf-') {
+        if (
+            (!is_null($post) && substr($post->post_type, 0, 4) == 'acf-')
+            ||
+            (isset($_GET['page']) && substr($_GET['page'], 0, 4) == 'acf-')
+        ) {
             return $field;
         }
 
@@ -116,7 +120,7 @@ class Acf
                 $data = json_decode(file_get_contents($file));
 
                 // Field group title
-                if (strlen($data->title) > 0) {
+                if (is_string($data->title)) {
                     $content .= '$t[\'field_group_title\'][] = __(\'' . $this->addSlashes($data->title) . '\', \'municipio\');' . "\n";
                 }
 
@@ -133,6 +137,9 @@ class Acf
         }
 
         $content = '<?php' . "\n" . $content;
+
+        $content = str_replace('\r', '', $content);
+
         file_put_contents($outputFile, $content);
 
         return true;
@@ -143,34 +150,34 @@ class Acf
         $content = '';
 
         // Field label
-        if (isset($field->label) && !empty($field->label) && !is_numeric($field->label)) {
+        if (isset($field->label) && !empty($field->label) && is_string($field->label)) {
             $content .= '$t[\'label\'][] = __(\'' . $this->addSlashes($field->label) . '\', \'municipio\');' . "\n";
         }
 
         // Field instructions
-        if (isset($field->instructions) && !empty($field->instructions) && !is_numeric($field->instructions)) {
+        if (isset($field->instructions) && !empty($field->instructions) && is_string($field->instructions)) {
             $content .= '$t[\'instructions\'][] = __(\'' . $this->addSlashes($field->instructions) . '\', \'municipio\');' . "\n";
         }
 
         // Field message
-        if (isset($field->message) && !empty($field->message) && !is_numeric($field->message)) {
+        if (isset($field->message) && !empty($field->message) && is_string($field->message)) {
             $content .= '$t[\'message\'][] = __(\'' . $this->addSlashes($field->message) . '\', \'municipio\');' . "\n";
         }
 
         // Field default value
-        if (isset($field->default_value) && !empty($field->default_value) && !is_numeric($field->default_value) && !is_array($field->default_value)) {
+        if (isset($field->default_value) && !empty($field->default_value) && is_string($field->default_value)) {
             $content .= '$t[\'default_value\'][] = __(\'' . $this->addSlashes($field->default_value) . '\', \'municipio\');' . "\n";
         }
 
         // Field button label
-        if (isset($field->button_label) && !empty($field->button_label) && !is_numeric($field->button_label)) {
+        if (isset($field->button_label) && !empty($field->button_label) && is_string($field->button_label)) {
             $content .= '$t[\'button_label\'][] = __(\'' . $this->addSlashes($field->button_label) . '\', \'municipio\');' . "\n";
         }
 
         // Field choises
         if (isset($field->choices) && count($field->choices) > 0) {
             foreach ($field->choices as $key => &$value) {
-                if (is_numeric($value)) {
+                if (!is_string($value)) {
                     continue;
                 }
 
