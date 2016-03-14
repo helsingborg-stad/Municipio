@@ -39,9 +39,9 @@ class Navigation
 
         $label = 'Translate';
         if (get_field('google_translate_show_as', 'option') == 'icon') {
-            $label = '<span data-tooltip="Translate">' . \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate') . '</span>';
+            $label = '<span data-tooltip="Translate"><i class="fa fa-globe"></i></span>';
         } elseif (get_field('google_translate_show_as', 'option') == 'combined') {
-            $label = \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate') . ' Translate';
+            $label = '<i class="fa fa-globe"></i> Translate';
         }
 
         $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
