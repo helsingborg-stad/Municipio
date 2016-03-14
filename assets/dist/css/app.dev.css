@@ -71,3 +71,49 @@
 [id*="site-header"] .menu-trigger {
   margin-left: 50px;
   vertical-align: middle; }
+
+.gform_wrapper {
+  /* Basic form */
+  /* Step by step guide */
+  /* Validate error */
+  /* Description */ }
+  .gform_wrapper form {
+    margin: 30px 0; }
+    .gform_wrapper form .gform_fields {
+      list-style: none;
+      padding: 0; }
+      .gform_wrapper form .gform_fields li:before {
+        display: none; }
+    .gform_wrapper form .gfield {
+      margin-bottom: 15px;
+      overflow: hidden; }
+  .gform_wrapper .gf_step {
+    float: left;
+    margin-right: 10px; }
+  .gform_wrapper .gf_step:last-of-type {
+    margin-right: 0; }
+  .gform_wrapper .gf_step_number {
+    font-weight: normal; }
+  .gform_wrapper .gf_step_active .gf_step_number {
+    font-weight: bold; }
+  .gform_wrapper .gf_step_pending .gf_step_number {
+    opacity: 0.4; }
+  .gform_wrapper .validation_error {
+    display: block;
+    padding: .5em .8em;
+    background-color: #FFC5C5;
+    margin: .4em 0 1em 0; }
+  .gform_wrapper .gfield_error input,
+  .gform_wrapper .gfield_error textarea {
+    background-color: #FFF4F4; }
+  .gform_wrapper .gfield_description,
+  .gform_wrapper .validation_message {
+    text-align: right;
+    opacity: .8;
+    font-size: .8em;
+    width: 50%;
+    float: right; }
+  .gform_wrapper .validation_message {
+    color: #ff0000;
+    opacity: 1;
+    text-align: left; }
