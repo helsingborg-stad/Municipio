@@ -4,24 +4,24 @@
         "fields": [
             {
                 "key": "field_56cc6f9bd36e2",
-                "label": "Where to show Google Translate",
+                "label": "Var Google Translate ska visas",
                 "name": "show_google_translate",
                 "type": "select",
                 "instructions": "",
                 "required": 1,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 50,
                     "class": "",
                     "id": ""
                 },
                 "choices": {
-                    "false": "Do not show",
-                    "help-menu": "Help menu",
-                    "footer": "Footer"
+                    "false": "Visa inte",
+                    "header": "Above header",
+                    "footer": "Below footer"
                 },
                 "default_value": [
-                    "false"
+                    0
                 ],
                 "allow_null": 0,
                 "multiple": 0,
@@ -32,11 +32,60 @@
                 "readonly": 0
             },
             {
+                "key": "field_56e6750855442",
+                "label": "Menu to show translate link in",
+                "name": "google_translate_menu",
+                "type": "select",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": 50,
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "main-menu": "Main menu",
+                    "help-menu": "Help menu"
+                },
+                "default_value": [],
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "disabled": 0,
+                "readonly": 0
+            },
+            {
+                "key": "field_56e67f82e4f5e",
+                "label": "Show as",
+                "name": "google_translate_show_as",
+                "type": "radio",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "text": "Text",
+                    "icon": "Ikon",
+                    "combined": "Icon and text"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "text",
+                "layout": "horizontal"
+            },
+            {
                 "key": "field_56cc7592fcc40",
-                "label": "Track usage with Google Analytics",
+                "label": "Analysera anv\u00e4ndandet av webbplatsen med Google Analytics",
                 "name": "google_translate_ga_track",
                 "type": "true_false",
-                "instructions": "If set to enabled, Google Translate usage will be tracked in Google Analytics (to the account specified under the Google Analytics settings)",
+                "instructions": "Om funktionen \u00e4r aktiverad kommer Google Translate anv\u00e4ndandet att sp\u00e5ras i Google Analytucs (till det Google Analytics kontot som \u00e4r speicificerat under Google Analytics tabben)",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -44,7 +93,7 @@
                     "class": "",
                     "id": ""
                 },
-                "message": "Enable",
+                "message": "Aktiv",
                 "default_value": 1
             }
         ],

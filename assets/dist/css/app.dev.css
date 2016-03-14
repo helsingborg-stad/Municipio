@@ -49,6 +49,15 @@
 
 .navbar-mainmenu {
   margin-top: 8px; }
+  .navbar-mainmenu a svg {
+    display: inline-block;
+    vertical-align: middle;
+    fill: #fff;
+    width: 35px;
+    height: auto;
+    opacity: .7; }
+  .navbar-mainmenu a:hover svg {
+    opacity: 1; }
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
   content: "";

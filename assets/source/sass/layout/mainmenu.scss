@@ -1,3 +1,20 @@
 .navbar-mainmenu {
     margin-top: 8px;
+
+    a {
+        svg {
+            display: inline-block;
+            vertical-align: middle;
+            fill: #fff;
+            width: 35px;
+            height: auto;
+            opacity: .7;
+        }
+
+        &:hover {
+            svg {
+                opacity: 1;
+            }
+        }
+    }
 }

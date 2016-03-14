@@ -53,32 +53,7 @@ if (!function_exists('municipio_get_logotype')) {
 
         // Get the symbol to use (by file include)
         if (isset($logotype[$type]['id']) && $logo_include === true) {
-
-            //Get file contents
-            $symbol = file_get_contents(
-                get_attached_file($logotype[$type]['id'])
-            );
-
-            //Get by dom method
-            if (class_exists('DOMDocument')) {
-                $doc = new DOMDocument();
-                if ($doc->loadXML($symbol) === true) {
-                    try {
-                        $doc->getElementsByTagName('svg');
-
-                        $svg = $doc->getElementsByTagName('svg');
-                        if ($svg->item(0)->C14N() !== null) {
-                            $symbol = $svg->item(0)->C14N();
-                        }
-                    } catch (exception $e) {
-                        error_log("Error loading SVG file to header or footer.");
-                    }
-                }
-            }
-
-            //Filter tags & comments (if above not applicated)
-            $symbol = preg_replace('/<\?xml.*?\/>/im', '', $symbol); //Remove XML
-            $symbol = preg_replace('/<!--(.*)-->/Uis', '', $symbol); //Remove comments & javascript
+            $symbol = \Municipio\Helper\Svg::extract(get_attached_file($logotype[$type]['id']));
         }
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));

@@ -11,6 +11,10 @@ class Navigation
         if (get_field('header_layout', 'option') == 'casual') {
             add_filter('wp_nav_menu_items', array($this, 'addSearchMagnifier'), 10, 2);
         }
+
+        if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
+            add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
+        }
     }
 
     public function registerMenus()
@@ -19,6 +23,30 @@ class Navigation
             'main-menu' => __('Main menu', 'municipio'),
             'help-menu' => __('Help menu', 'municipio')
         ));
+    }
+
+    /**
+     * Appends translate icon to menu
+     * @param  string $items  Items html
+     * @param  array  $args   Menu args
+     * @return string         Items html
+     */
+    public function addTranslate($items, $args)
+    {
+        if ($args->theme_location != get_field('google_translate_menu', 'option')) {
+            return $items;
+        }
+
+        $label = 'Translate';
+        if (get_field('google_translate_show_as', 'option') == 'icon') {
+            $label = \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate');
+        } elseif (get_field('google_translate_show_as', 'option') == 'combined') {
+            $label = \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate') . ' Translate';
+        }
+
+        $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
+
+        return $items;
     }
 
     /**

@@ -13,10 +13,6 @@
             <div class="grid-md-6 {{ (get_field('footer_logotype_horizontal_position', 'option') == 'left') ? 'text-right' : '' }}">
                 <nav>
                     <ul class="nav nav-help nav-horizontal">
-                        @if (get_field('show_google_translate', 'option') == 'footer')
-                            <li><a href="#translate">Translate</a></li>
-                        @endif
-
                         {!!
                             wp_nav_menu(array(
                                 'theme_location' => 'help-menu',

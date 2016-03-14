@@ -8,10 +8,6 @@
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
                 <nav>
                     <ul class="nav nav-help nav-horizontal">
-                        @if (get_field('show_google_translate', 'option') == 'header')
-                            <li><a href="#translate">Translate</a></li>
-                        @endif
-
                         {!!
                             wp_nav_menu(array(
                                 'theme_location' => 'help-menu',
