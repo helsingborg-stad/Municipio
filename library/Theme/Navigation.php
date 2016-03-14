@@ -44,7 +44,7 @@ class Navigation
             $label = \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate') . ' Translate';
         }
 
-        $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate" data-tooltip="Translate">' . $label . '</a></li>';
+        $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate"><span data-tooltip="Translate">' . $label . '</span></a></li>';
 
         return $items;
     }
@@ -60,7 +60,7 @@ class Navigation
             return $items;
         }
 
-        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '" data-tooltip="' . __('Search', 'municipio') . '"><i class="fa fa-search"></i></a></li>';
+        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><i class="fa fa-search" data-tooltip="' . __('Search', 'municipio') . '"></i></a></li>';
 
         $items .= $search;
         return $items;
