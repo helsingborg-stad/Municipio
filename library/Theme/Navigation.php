@@ -60,7 +60,7 @@ class Navigation
             return $items;
         }
 
-        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><i class="fa fa-search" data-tooltip="' . __('Search', 'municipio') . '"></i></a></li>';
+        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="fa fa-search"></i></span></a></li>';
 
         $items .= $search;
         return $items;
