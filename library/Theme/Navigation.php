@@ -39,12 +39,12 @@ class Navigation
 
         $label = 'Translate';
         if (get_field('google_translate_show_as', 'option') == 'icon') {
-            $label = \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate');
+            $label = '<span data-tooltip="Translate">' . \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate') . '</span>';
         } elseif (get_field('google_translate_show_as', 'option') == 'combined') {
             $label = \Municipio\Helper\Svg::extract(get_template_directory_uri() . '/assets/dist/images/icons/translate.svg', 'hbg-icon hbg-icon-translate') . ' Translate';
         }
 
-        $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate"><span data-tooltip="Translate">' . $label . '</span></a></li>';
+        $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
 
         return $items;
     }
