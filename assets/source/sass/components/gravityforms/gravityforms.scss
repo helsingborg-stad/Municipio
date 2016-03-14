@@ -1,0 +1,71 @@
+
+.gform_wrapper {
+
+    /* Basic form */
+    form {
+        margin: 30px 0;
+
+        .gform_fields {
+            list-style: none;
+            padding: 0;
+
+            li:before {
+                display: none;
+            }
+        }
+
+        .gfield {
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+    }
+
+    /* Step by step guide */
+    .gf_step {
+        float: left;
+        margin-right: 10px;
+    }
+    .gf_step:last-of-type {
+        margin-right: 0;
+    }
+    .gf_step_number {
+        font-weight: normal;
+    }
+    .gf_step_active .gf_step_number {
+        font-weight: bold;
+    }
+    .gf_step_pending .gf_step_number {
+        opacity: 0.4;
+    }
+
+    /* Validate error */
+    .validation_error {
+        display: block;
+        padding: .5em .8em;
+        background-color: #FFC5C5;
+        margin: .4em 0 1em 0;
+    }
+
+    .gfield_error input,
+    .gfield_error textarea {
+        background-color: #FFF4F4;
+    }
+
+    /* Description */
+    .gfield_description,
+    .validation_message {
+        text-align: right;
+        opacity: .8;
+        font-size: .8em;
+        width: 50%;
+        float: right;
+    }
+
+    .validation_message {
+        color: #ff0000;
+        opacity: 1;
+        text-align: left;
+    }
+
+}
