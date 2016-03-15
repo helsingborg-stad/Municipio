@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ get_bloginfo('name') }}</title>
+    <title>{{ wp_title('|', false, 'right') }}{{ get_bloginfo('name') }}</title>
 
     <meta name="description" content="">
     <meta name="pubdate" content="{{ the_time('d M Y') }}">
