@@ -17,6 +17,13 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title'    => __('Navigation', 'municipio'),
+                'menu_title'    => __('Navigation', 'municipio'),
+                'parent_slug'   => 'theme-settings',
+                'menu_slug'     => 'acf-options-navigation'
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title'    => __('Header', 'municipio'),
                 'menu_title'    => __('Header', 'municipio'),
                 'parent_slug'   => 'theme-settings',
