@@ -47,6 +47,7 @@
         </div>
     </div>
 
+    @if (get_field('nav_primary_enable', 'option') === true)
     <nav class="navbar navbar-mainmenu hidden-xs hidden-sm">
         <div class="container">
             <div class="grid">
@@ -65,7 +66,6 @@
                             'link_before' => '',
                             'link_after' => '',
                             'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                            'depth' => 1,
                             'fallback_cb' => '__return_false'
                         ));
                     !!}
@@ -77,6 +77,7 @@
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand hidden-md hidden-lg">
         @include('partials.mobile-menu')
     </nav>
+    @endif
 </header>
 
 @include('partials.hero')

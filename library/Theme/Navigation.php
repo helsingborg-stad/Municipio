@@ -19,11 +19,16 @@ class Navigation
 
     public function registerMenus()
     {
-        register_nav_menus(array(
-            'main-menu' => __('Main menu', 'municipio'),
+        $menus = array(
             'help-menu' => __('Help menu', 'municipio'),
             'header-tabs-menu' => __('Header tabs menu', 'municipio')
-        ));
+        );
+
+        if (get_field('nav_primary_enable', 'option') === true) {
+            $menus['main-menu'] = __('Main menu', 'municipio');
+        }
+
+        register_nav_menus($menus);
     }
 
     /**
