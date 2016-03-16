@@ -49,6 +49,36 @@
                 "layout": "vertical"
             },
             {
+                "key": "field_56e93ce4914ea",
+                "label": "Automatically generated menu",
+                "name": "",
+                "type": "message",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938cc40ac1",
+                            "operator": "==",
+                            "value": "auto"
+                        },
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "The automatically generated menu type will include all published pages from top level pages and down to the below specified depth level. The automatically generated menu is a heavy procedure for the system to run. The deeper it should go the longer loading time.",
+                "new_lines": "wpautop",
+                "esc_html": 0
+            },
+            {
                 "key": "field_56e938f740ac2",
                 "label": "Menu depth",
                 "name": "nav_primary_depth",
