@@ -81,12 +81,15 @@
                             'render' => get_field('nav_primary_render', 'option'),
                             'depth' => get_field('nav_primary_depth', 'option')
                         ));
+
+                        if (isset($menu) && $menu->itemCount() > 0) :
                         ?>
                         <nav>
                             <ul class="nav nav-justify">
                                 <?php echo $menu->render(); ?>
                             </ul>
                         </nav>
+                        <?php endif; ?>
                     @endif
                 </div>
             </div>

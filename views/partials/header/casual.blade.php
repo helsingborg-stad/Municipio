@@ -45,12 +45,15 @@
                                 'render' => get_field('nav_primary_render', 'option'),
                                 'depth' => get_field('nav_primary_depth', 'option')
                             ));
+
+                            if (isset($menu) && $menu->itemCount() > 0) :
                             ?>
                             <nav>
                                 <ul class="nav nav-horizontal <?php echo apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'); ?>">
                                     <?php echo $menu->render(); ?>
                                 </ul>
                             </nav>
+                            <?php endif; ?>
                         @endif
 
                         <a href="#mobile-menu" data-target="#mobile-menu" class="{!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} menu-trigger"><span class="menu-icon"></span></a>
