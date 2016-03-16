@@ -28,6 +28,10 @@ class Navigation
             $menus['main-menu'] = __('Main menu', 'municipio');
         }
 
+        if (get_field('nav_sub_enable', 'option') === true) {
+            $menus['sidebar-menu'] = __('Sidebar menu', 'municipio');
+        }
+
         register_nav_menus($menus);
     }
 
