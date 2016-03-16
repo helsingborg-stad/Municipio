@@ -17,23 +17,25 @@
                     {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option')) !!}
 
                     @if (get_field('nav_primary_enable', 'option') === true)
-                        {!!
-                            wp_nav_menu(array(
-                                'theme_location' => 'main-menu',
-                                'container' => false,
-                                'container_class' => 'menu-{menu-slug}-container',
-                                'container_id' => '',
-                                'menu_class' => 'nav nav-horizontal ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
-                                'menu_id' => 'main-menu',
-                                'echo' => false,
-                                'before' => '',
-                                'after' => '',
-                                'link_before' => '',
-                                'link_after' => '',
-                                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                                'depth' => 1,
-                            ));
-                        !!}
+                        @if (get_field('nav_primary_type', 'option') === 'wp')
+                            {!!
+                                wp_nav_menu(array(
+                                    'theme_location' => 'main-menu',
+                                    'container' => false,
+                                    'container_class' => 'menu-{menu-slug}-container',
+                                    'container_id' => '',
+                                    'menu_class' => 'nav nav-horizontal ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
+                                    'menu_id' => 'main-menu',
+                                    'echo' => false,
+                                    'before' => '',
+                                    'after' => '',
+                                    'link_before' => '',
+                                    'link_after' => '',
+                                    'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                                    'depth' => 1,
+                                ));
+                            !!}
+                        @endif
 
                         <a href="#mobile-menu" data-target="#mobile-menu" class="{!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} menu-trigger"><span class="menu-icon"></span></a>
                     @endif

@@ -52,23 +52,42 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
-                    {!!
-                        wp_nav_menu(array(
-                            'theme_location' => 'main-menu',
-                            'container' => false,
-                            'container_class' => 'menu-{menu-slug}-container',
-                            'container_id' => '',
-                            'menu_class' => 'nav nav-justify',
-                            'menu_id' => 'main-menu',
-                            'echo' => false,
-                            'before' => '',
-                            'after' => '',
-                            'link_before' => '',
-                            'link_after' => '',
-                            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                            'fallback_cb' => '__return_false'
+                    {{-- WP navigation --}}
+                    @if (get_field('nav_primary_type', 'option') === 'wp')
+                        {!!
+                            wp_nav_menu(array(
+                                'theme_location' => 'main-menu',
+                                'container' => false,
+                                'container_class' => 'menu-{menu-slug}-container',
+                                'container_id' => '',
+                                'menu_class' => 'nav nav-justify',
+                                'menu_id' => 'main-menu',
+                                'echo' => false,
+                                'before' => '',
+                                'after' => '',
+                                'link_before' => '',
+                                'link_after' => '',
+                                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                                'fallback_cb' => '__return_false'
+                            ));
+                        !!}
+                    @endif
+
+                    {{-- Automatically generated navigation --}}
+                    @if (get_field('nav_primary_type', 'option') === 'auto')
+                        <?php
+                        $menu = new \Municipio\Helper\NavigationTree(array(
+                            'include_top_level' => true,
+                            'render' => 'all',
+                            'depth' => get_field('nav_primary_depth', 'option')
                         ));
-                    !!}
+                        ?>
+                        <nav>
+                            <ul class="nav nav-justify">
+                                <?php echo $menu->render(); ?>
+                            </ul>
+                        </nav>
+                    @endif
                 </div>
             </div>
         </div>
