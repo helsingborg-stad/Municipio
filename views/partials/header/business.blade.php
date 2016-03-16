@@ -78,7 +78,7 @@
                         <?php
                         $menu = new \Municipio\Helper\NavigationTree(array(
                             'include_top_level' => true,
-                            'render' => 'all',
+                            'render' => get_field('nav_primary_render', 'option'),
                             'depth' => get_field('nav_primary_depth', 'option')
                         ));
                         ?>

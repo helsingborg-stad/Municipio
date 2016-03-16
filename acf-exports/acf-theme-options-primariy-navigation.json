@@ -100,7 +100,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": 50,
                     "class": "",
                     "id": ""
                 },
@@ -113,6 +113,47 @@
                 "step": "",
                 "readonly": 0,
                 "disabled": 0
+            },
+            {
+                "key": "field_56e94a6a96f90",
+                "label": "Render",
+                "name": "nav_primary_render",
+                "type": "select",
+                "instructions": "How to render the items",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_56e938cc40ac1",
+                            "operator": "==",
+                            "value": "auto"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": 50,
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "all": "All levels",
+                    "active": "Only sub levels of active top level item"
+                },
+                "default_value": [
+                    "all"
+                ],
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "disabled": 0,
+                "readonly": 0
             }
         ],
         "location": [

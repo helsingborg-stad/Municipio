@@ -37,6 +37,22 @@
                             !!}
                         @endif
 
+                        {{-- Automatically generated navigation --}}
+                        @if (get_field('nav_primary_type', 'option') === 'auto')
+                            <?php
+                            $menu = new \Municipio\Helper\NavigationTree(array(
+                                'include_top_level' => true,
+                                'render' => get_field('nav_primary_render', 'option'),
+                                'depth' => get_field('nav_primary_depth', 'option')
+                            ));
+                            ?>
+                            <nav>
+                                <ul class="nav nav-horizontal <?php echo apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'); ?>">
+                                    <?php echo $menu->render(); ?>
+                                </ul>
+                            </nav>
+                        @endif
+
                         <a href="#mobile-menu" data-target="#mobile-menu" class="{!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} menu-trigger"><span class="menu-icon"></span></a>
                     @endif
                 </div>
