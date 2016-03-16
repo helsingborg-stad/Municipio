@@ -21,7 +21,8 @@ class Navigation
     {
         register_nav_menus(array(
             'main-menu' => __('Main menu', 'municipio'),
-            'help-menu' => __('Help menu', 'municipio')
+            'help-menu' => __('Help menu', 'municipio'),
+            'header-tabs-menu' => __('Header tabs menu', 'municipio')
         ));
     }
 

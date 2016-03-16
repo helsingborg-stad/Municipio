@@ -6,35 +6,43 @@
                 <a href="#mobile-menu" class="hidden-md hidden-lg menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
-                <nav>
-                    <ul class="nav nav-help nav-horizontal">
-                        {!!
-                            wp_nav_menu(array(
-                                'theme_location' => 'help-menu',
-                                'container' => false,
-                                'container_class' => 'menu-{menu-slug}-container',
-                                'container_id' => '',
-                                'menu_class' => '',
-                                'menu_id' => 'help-menu-top',
-                                'echo' => false,
-                                'before' => '',
-                                'after' => '',
-                                'link_before' => '',
-                                'link_after' => '',
-                                'items_wrap' => '%3$s',
-                                'depth' => 1,
-                                'fallback_cb' => '__return_false'
-                            ));
-                        !!}
-                    </ul>
-                </nav>
-                <nav>
-                    <ul class="nav nav-tabs">
-                        <li><a href="#">Besökare</a></li>
-                        <li><a href="#">Företagare</a></li>
-                        <li><a href="#">Självservice</a></li>
-                    </ul>
-                </nav>
+                {!!
+                    wp_nav_menu(array(
+                        'theme_location' => 'help-menu',
+                        'container' => 'nav',
+                        'container_class' => 'menu-help',
+                        'container_id' => '',
+                        'menu_class' => 'nav nav-help nav-horizontal',
+                        'menu_id' => 'help-menu-top',
+                        'echo' => 'echo',
+                        'before' => '',
+                        'after' => '',
+                        'link_before' => '',
+                        'link_after' => '',
+                        'items_wrap' => '<ul class="%2$s">%3$s</ul>',
+                        'depth' => 1,
+                        'fallback_cb' => '__return_false'
+                    ));
+                !!}
+
+                {!!
+                    wp_nav_menu(array(
+                        'theme_location' => 'header-tabs-menu',
+                        'container' => 'nav',
+                        'container_class' => 'menu-header-tabs',
+                        'container_id' => '',
+                        'menu_class' => 'nav nav-tabs',
+                        'menu_id' => 'help-menu-top',
+                        'echo' => 'echo',
+                        'before' => '',
+                        'after' => '',
+                        'link_before' => '',
+                        'link_after' => '',
+                        'items_wrap' => '<ul class="%2$s">%3$s</ul>',
+                        'depth' => 1,
+                        'fallback_cb' => '__return_false'
+                    ));
+                !!}
             </div>
         </div>
     </div>
