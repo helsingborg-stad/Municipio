@@ -27,10 +27,12 @@ class Template
         ));
 
         $this->VIEWS_PATHS = array_unique($this->VIEWS_PATHS);
-
         $this->CONTROLLER_PATH = get_template_directory() . '/library/Controller';
-
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
+
+        if (!file_exists($this->CACHE_PATH)) {
+            mkdir($this->CACHE_PATH, 0777);
+        }
     }
 
     /**

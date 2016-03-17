@@ -11,6 +11,8 @@ class Controller
      */
     public static function locateController($controller)
     {
+        $controller = ucfirst($controller);
+
         $searchPaths = array(
             get_stylesheet_directory() . '/library/Controller',
             get_template_directory() . '/library/Controller',
@@ -44,7 +46,13 @@ class Controller
      */
     public static function camelCase($string)
     {
-        return @preg_replace('/(?:^|-)(.?)/e', "strtoupper('$1')", $string);
+        $cc = @preg_replace('/(?:^|-)(.?)/e', "strtoupper('$1')", $string);
+
+        if (!empty($cc)) {
+            return $cc;
+        }
+
+        return $string;
     }
 
     /**

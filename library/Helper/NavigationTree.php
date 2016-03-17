@@ -11,6 +11,7 @@ class NavigationTree
     protected $topLevelPages = null;
 
     protected $itemCount = 0;
+    protected $depth = 0;
 
     protected $output = '';
 
@@ -18,7 +19,9 @@ class NavigationTree
     {
         // Merge args
         $this->args = array_merge(array(
-            'include_top_level' => false
+            'include_top_level' => false,
+            'render' => 'active',
+            'depth' => -1
         ), $args);
 
         // Get valuable page information
@@ -31,7 +34,19 @@ class NavigationTree
             'post_status' => 'publish',
             'orderby' => 'menu_order post_title',
             'order' => 'asc',
-            'numberposts' => -1
+            'numberposts' => -1,
+            'meta_query'    => array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'hide_in_menu',
+                    'compare' => 'NOT EXISTS'
+                ),
+                array(
+                    'key'   => 'hide_in_menu',
+                    'value' => '0',
+                    'compare' => '='
+                )
+            )
         ));
 
         if ($this->args['include_top_level']) {
@@ -49,6 +64,8 @@ class NavigationTree
      */
     protected function walk($pages)
     {
+        $this->depth++;
+
         foreach ($pages as $page) {
             $classes = array();
 
@@ -84,7 +101,7 @@ class NavigationTree
 
         $this->startItem($page, $classes);
 
-        if ($this->isActiveItem($page->ID) && count($children) > 0) {
+        if ($this->isActiveItem($page->ID) && count($children) > 0 && ($this->args['depth'] <= 0 || $this->depth < $this->args['depth'])) {
             $this->startSubmenu($page);
             $this->walk($children);
             $this->endSubmenu($page);
@@ -158,6 +175,10 @@ class NavigationTree
      */
     protected function isActiveItem($id)
     {
+        if ($this->args['render'] == 'all') {
+            return true;
+        }
+
         return $this->isAncestors($id) || $id === $this->currentPage->ID;
     }
 

@@ -50,12 +50,12 @@
             @endif
         </div>
 
-        <!-- Footer links -->
-        @if(function_exists('have_rows'))
-            @if(have_rows('footer_icons_repeater', 'option'))
-                <div class="grid">
-                    <div class="grid-xs-12">
-                        <ul class="icons-list text-center gutter-margin text-xl">
+        <div class="grid grid-table">
+
+            @if(function_exists('have_rows'))
+                @if(have_rows('footer_icons_repeater', 'option'))
+                    <div class="{{ !get_field('footer_signature_show', 'option') ? 'grid-md-12' : 'grid-md-9' }}">
+                        <ul class="icons-list gutter-margin text-xl {{ !get_field('footer_signature_show', 'option') ? 'text-center' : '' }}">
                             @foreach(get_field('footer_icons_repeater', 'option') as $link)
                                 <li>
                                     <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
@@ -68,9 +68,16 @@
                             @endforeach
                         </ul>
                     </div>
+                @endif
+            @endif
+
+            @if (get_field('footer_signature_show', 'option'))
+                <div class="grid-md-3 text-right">
+                    {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se"><img src="' . get_template_directory_uri() . '/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" class="footer-signature"></a>') !!}
                 </div>
             @endif
-        @endif
+
+        </div>
 
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
         <div class="grid">

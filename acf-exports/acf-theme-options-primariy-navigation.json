@@ -1,0 +1,176 @@
+    {
+        "key": "group_56e935ea546ce",
+        "title": "Primary navigation",
+        "fields": [
+            {
+                "key": "field_56e938a940ac0",
+                "label": "Enable",
+                "name": "nav_primary_enable",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Enable primary navigation",
+                "default_value": 0
+            },
+            {
+                "key": "field_56e938cc40ac1",
+                "label": "Menu type",
+                "name": "nav_primary_type",
+                "type": "radio",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "auto": "Automatically generated",
+                    "wp": "WP Menu"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "auto",
+                "layout": "vertical"
+            },
+            {
+                "key": "field_56e93ce4914ea",
+                "label": "Automatically generated menu",
+                "name": "",
+                "type": "message",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938cc40ac1",
+                            "operator": "==",
+                            "value": "auto"
+                        },
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "The automatically generated menu type will include all published pages from top level pages and down to the below specified depth level. The automatically generated menu is a heavy procedure for the system to run. The deeper it should go the longer loading time.",
+                "new_lines": "wpautop",
+                "esc_html": 0
+            },
+            {
+                "key": "field_56e938f740ac2",
+                "label": "Menu depth",
+                "name": "nav_primary_depth",
+                "type": "number",
+                "instructions": "Set to -1 to disable depth limit",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_56e938cc40ac1",
+                            "operator": "==",
+                            "value": "auto"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": 50,
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "min": -1,
+                "max": "",
+                "step": "",
+                "readonly": 0,
+                "disabled": 0
+            },
+            {
+                "key": "field_56e94a6a96f90",
+                "label": "Render",
+                "name": "nav_primary_render",
+                "type": "select",
+                "instructions": "How to render the items",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_56e938cc40ac1",
+                            "operator": "==",
+                            "value": "auto"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": 50,
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "all": "All levels",
+                    "active": "Only sub levels of active top level item"
+                },
+                "default_value": [
+                    "all"
+                ],
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "disabled": 0,
+                "readonly": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-navigation"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }

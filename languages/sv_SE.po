@@ -1,15 +1,13 @@
 msgid ""
 msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-03-14 15:30+0100\n"
-"PO-Revision-Date: 2016-03-14 15:31+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2016-03-16 09:03+0100\n"
+"PO-Revision-Date: 2016-03-16 09:24+0100\n"
 "Language-Team: \n"
-"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -17,6 +15,8 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: sv_SE\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -32,7 +32,7 @@ msgstr "Dela"
 
 #: acf-exports/translate-reference.php:4
 msgid "Show social media share buttons"
-msgstr "Visa delningsikoner"
+msgstr "Visa delningsknappar"
 
 #: acf-exports/translate-reference.php:5 acf-exports/translate-reference.php:39
 #: acf-exports/translate-reference.php:50
@@ -45,11 +45,11 @@ msgstr "Visa författare"
 
 #: acf-exports/translate-reference.php:7 acf-exports/translate-reference.php:52
 msgid "Author image"
-msgstr "Författarbild"
+msgstr "Bild på författare"
 
 #: acf-exports/translate-reference.php:8
 msgid "Show author's image"
-msgstr "Visa författarens bild"
+msgstr "Visa bild på författare"
 
 #: acf-exports/translate-reference.php:9
 msgid "Navigation settings"
@@ -73,12 +73,12 @@ msgid ""
 "fill it in here. If you want to use the page title just leave this field "
 "empty."
 msgstr ""
-"Om du vill använda en annan titel för denna sidan i sidebar-menyn så kan du "
-"ange den här. Om du vill använda sidans titel så lämnar du fältet tomt."
+"Om du vill använda en annan titel för denna sidan i menyn, fyll i den här. "
+"Om du vill använda den vanliga sidtiteln så lämnar du detta fältet tomt."
 
 #: acf-exports/translate-reference.php:14
 msgid "Default post types"
-msgstr "Standard-inläggstyper"
+msgstr "Standardinläggstyper"
 
 #: acf-exports/translate-reference.php:15
 msgid "Disable blog"
@@ -86,7 +86,7 @@ msgstr "Inaktivera blogg"
 
 #: acf-exports/translate-reference.php:16
 msgid "Yes, disable posts."
-msgstr "Ja, inaktivera inlägg"
+msgstr "Ja, inaktivera blogg"
 
 #: acf-exports/translate-reference.php:17
 msgid "Disable pages"
@@ -104,7 +104,7 @@ msgstr "Logotyp"
 #: acf-exports/translate-reference.php:20
 #: acf-exports/translate-reference.php:197
 msgid "standard"
-msgstr "Standard"
+msgstr "standard"
 
 #: acf-exports/translate-reference.php:21
 #: acf-exports/translate-reference.php:198
@@ -124,11 +124,11 @@ msgstr "Felmeddelande"
 
 #: acf-exports/translate-reference.php:24
 msgid "The message that will be displayed underneeth the 404-error code"
-msgstr "Meddelandet som visas precis under 404-felkoden"
+msgstr "Meddelandet kommer att visas under 404-felkoden"
 
 #: acf-exports/translate-reference.php:25
 msgid "The page could not be found"
-msgstr "Sidan kunde inte visas"
+msgstr "Sidan kunde inte hittas"
 
 #: acf-exports/translate-reference.php:26
 msgid "Error info"
@@ -136,7 +136,7 @@ msgstr "Felinformation"
 
 #: acf-exports/translate-reference.php:27
 msgid "Additional information about the error or other information"
-msgstr "Utökad information"
+msgstr "Utökada information om felet"
 
 #: acf-exports/translate-reference.php:28
 msgid "Display"
@@ -148,23 +148,23 @@ msgstr "Länk till startsidan"
 
 #: acf-exports/translate-reference.php:30
 msgid "Link to search"
-msgstr "Länk till söksida"
+msgstr "Länk till sök"
 
 #: acf-exports/translate-reference.php:31
 msgid "Back button (previous page in browser history)"
-msgstr "Tillbaka-knapp (föregående sida i webbläsarhistoriken)"
+msgstr "Tillbaka-knapp (bakåt i webbläsarens historik)"
 
 #: acf-exports/translate-reference.php:32
 msgid "Home link text"
-msgstr "Text på hem-knapp"
+msgstr "Text på hemknapp"
 
 #: acf-exports/translate-reference.php:33
 msgid "Back to home"
-msgstr "Gå till startsidan"
+msgstr "Tillbaka till startsidan"
 
 #: acf-exports/translate-reference.php:34
 msgid "Back button text"
-msgstr "Text på bakåt-knapp"
+msgstr "Text på tillbaka-knapp"
 
 #: acf-exports/translate-reference.php:35
 msgid "Go back"
@@ -177,12 +177,12 @@ msgstr "Text på sök-knapp"
 #: acf-exports/translate-reference.php:37
 #, php-format
 msgid "Use %s to output suggested search query"
-msgstr "Använd %s för att skriva ut föreslagen söksträng"
+msgstr "Använd %s för att skriva ut föreslagen sökfras"
 
 #: acf-exports/translate-reference.php:38
 #, php-format
 msgid "Search for \\\"%s\\\""
-msgstr "Sök efter \\”%s\\”"
+msgstr "Sök efter \\\"%s\\\""
 
 #: acf-exports/translate-reference.php:41
 #: acf-exports/translate-reference.php:43
@@ -190,23 +190,23 @@ msgstr "Sök efter \\”%s\\”"
 #: acf-exports/translate-reference.php:299
 #: acf-exports/translate-reference.php:306
 msgid "Enable"
-msgstr "Aktiv"
+msgstr "Aktivera"
 
 #: acf-exports/translate-reference.php:42
 msgid "Show author image"
-msgstr "Visa författarens bild"
+msgstr "Visa bild på författare"
 
 #: acf-exports/translate-reference.php:44
 msgid "Blog post display settings"
-msgstr "Visningsinställingar för blogginlägg"
+msgstr "Visningsinställningar för blogginlägg"
 
 #: acf-exports/translate-reference.php:45
 msgid "Feed post style"
-msgstr "Inläggets utseende"
+msgstr "Stil på inlägg"
 
 #: acf-exports/translate-reference.php:46
 msgid "collapsed"
-msgstr "Infälld"
+msgstr "infälld"
 
 #: acf-exports/translate-reference.php:47
 msgid "Full"
@@ -226,7 +226,7 @@ msgstr "Visa författare"
 
 #: acf-exports/translate-reference.php:53
 msgid "Show author's profile picture"
-msgstr "Visa författarens bild"
+msgstr "Visa bild på författare"
 
 #: acf-exports/translate-reference.php:54
 #: acf-exports/translate-reference.php:120
@@ -251,11 +251,11 @@ msgstr "Visa kategorier"
 #: acf-exports/translate-reference.php:58
 #: acf-exports/translate-reference.php:59
 msgid "Color scheme"
-msgstr "Färgtema"
+msgstr "Färgschema"
 
 #: acf-exports/translate-reference.php:60
 msgid "gray"
-msgstr "Grå"
+msgstr "grå"
 
 #: acf-exports/translate-reference.php:61
 msgid "Gray"
@@ -283,11 +283,11 @@ msgstr "Cookie-medgivande"
 
 #: acf-exports/translate-reference.php:67
 msgid "Active"
-msgstr "Aktiv"
+msgstr "Aktivera"
 
 #: acf-exports/translate-reference.php:68
 msgid "Show cookie consent to users if not already accepted"
-msgstr "Visa cookie-medgivande om besökaren inte accepterat sedan tidigare"
+msgstr "Visa cookie-medgivande för nya användare"
 
 #: acf-exports/translate-reference.php:69
 msgid "Message"
@@ -408,7 +408,7 @@ msgstr "Under kommentarer"
 #: acf-exports/translate-reference.php:146
 #: acf-exports/translate-reference.php:257
 msgid "Below first separator"
-msgstr "Under första avgränsaren"
+msgstr "Under första avgränsningen"
 
 #: acf-exports/translate-reference.php:90
 #: acf-exports/translate-reference.php:147
@@ -438,19 +438,19 @@ msgstr "Under inställningar"
 #: acf-exports/translate-reference.php:151
 #: acf-exports/translate-reference.php:262
 msgid "Below second separator"
-msgstr "Under andra avgränsaren"
+msgstr "Under andra avgränsningen"
 
 #: acf-exports/translate-reference.php:95
 #: acf-exports/translate-reference.php:152
 #: acf-exports/translate-reference.php:263
 msgid "Public?"
-msgstr "Publik"
+msgstr "Publik?"
 
 #: acf-exports/translate-reference.php:96
 #: acf-exports/translate-reference.php:153
 #: acf-exports/translate-reference.php:264
 msgid "Controls how the type is visible to authors"
-msgstr "Är inläggen publika eller privata?"
+msgstr "Kontrollerar inläggstypens tillgänglighet"
 
 #: acf-exports/translate-reference.php:97
 #: acf-exports/translate-reference.php:154
@@ -746,7 +746,7 @@ msgstr "Horisontell positionering"
 
 #: acf-exports/translate-reference.php:201
 msgid "left"
-msgstr "Vänster"
+msgstr "vänster"
 
 #: acf-exports/translate-reference.php:202
 msgid "Left"
@@ -766,7 +766,7 @@ msgstr "Vertikal positionering"
 
 #: acf-exports/translate-reference.php:206
 msgid "top"
-msgstr "Topp"
+msgstr "Toppen"
 
 #: acf-exports/translate-reference.php:207
 msgid "Above footer content"
@@ -1061,11 +1061,11 @@ msgstr "Blogg"
 
 #: library/Admin/Options/Theme.php:76
 msgid "Custom Post Types"
-msgstr "Egna posttyper"
+msgstr "Egna inläggstyper"
 
 #: library/Admin/Options/Theme.php:77
 msgid "Post Types"
-msgstr "Posttyper"
+msgstr "Inläggstyper"
 
 #: library/Admin/Options/Theme.php:83
 msgid "Custom Taxonomies"
@@ -1245,54 +1245,3 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
-
-#~ msgid "Logotyp"
-#~ msgstr "Logotyp"
-
-#~ msgid "Avabile post types"
-#~ msgstr "Tillgängliga posttyper"
-
-#~ msgid "Avabile dynamic taxonomies"
-#~ msgstr "Tillgängliga dynamiska taxonomier"
-
-#~ msgid "404"
-#~ msgstr "404"
-
-#~ msgid ""
-#~ "To activate Google Analytics please insert your Google Analytics UA.\r\n"
-#~ "Usally a string like this: UA-XXXXX-Y"
-#~ msgstr ""
-#~ "To activate Google Analytics please insert your Google Analytics UA.\r\n"
-#~ "Usally a string like this: UA-XXXXX-Y"
-
-#~ msgid ""
-#~ "To activate Google Analytics please insert your Google Analytics UA.\n"
-#~ "Usally a string like this: UA-XXXXX-Y"
-#~ msgstr ""
-#~ "För att aktivera Google Analytics anger du ditt Google Analytics UA.\n"
-#~ " Vanligtvis i förljande formattering: UA-XXXXX-Y"
-
-#~ msgctxt "municipio-cpts"
-#~ msgid "Add New"
-#~ msgstr "Skapa nytt"
-
-#~ msgid "Add New"
-#~ msgstr "Skapa ny"
-
-#~ msgid "New"
-#~ msgstr "Ny"
-
-#~ msgid "Edit"
-#~ msgstr "Redigera"
-
-#~ msgid "View"
-#~ msgstr "Visa"
-
-#~ msgid "All"
-#~ msgstr "Alla"
-
-#~ msgid "Parent"
-#~ msgstr "Förälder"
-
-#~ msgid "No"
-#~ msgstr "Inga"
