@@ -7,8 +7,33 @@ class Sidebars
     public function __construct()
     {
         add_action('widgets_init', array($this, 'register'));
+        add_action('dynamic_sidebar_before', array($this, 'beforeSidebar'));
+        add_action('dynamic_sidebar_after', array($this, 'afterSidebar'));
     }
 
+    /**
+     * Add sidebar wrapper
+     * @param  string $index Sidebar index
+     * @return void
+     */
+    public function beforeSidebar($index)
+    {
+        echo '<div class="sidebar ' . $index . '">';
+    }
+
+    /**
+     * End sidebar wrapper
+     * @return void
+     */
+    public function afterSidebar()
+    {
+        echo '</div>';
+    }
+
+    /**
+     * Register sidebars
+     * @return void
+     */
     public function register()
     {
         /**
