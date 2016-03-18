@@ -1,5 +1,5 @@
 @if (get_field('nav_sub_enable', 'option') === true)
-<aside class="grid-md-4 grid-lg-3">
+<aside class="grid-md-4 grid-lg-3 sidebar-left-sidebar">
     {{-- WP navigation --}}
     @if (get_field('nav_sub_type', 'option') === 'wp')
         {!!
