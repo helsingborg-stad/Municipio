@@ -3,22 +3,11 @@
         display: inline-block;
         vertical-align: middle;
 
-        img,svg {
+        img,
+        svg {
             height: 70px;
             width: auto;
         }
-
-        /*
-        &[data-tooltip] {
-            &:hover {
-                &::after,
-                &::before {
-                    bottom: 10px;
-                    left: 60%;
-                }
-            }
-        }
-        */
     }
 }
 

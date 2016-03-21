@@ -1,18 +1,8 @@
 .site-header .logotype {
   display: inline-block;
-  vertical-align: middle;
-  /*
-        &[data-tooltip] {
-            &:hover {
-                &::after,
-                &::before {
-                    bottom: 10px;
-                    left: 60%;
-                }
-            }
-        }
-        */ }
-  .site-header .logotype img, .site-header .logotype svg {
+  vertical-align: middle; }
+  .site-header .logotype img,
+  .site-header .logotype svg {
     height: 70px;
     width: auto; }
 
@@ -49,15 +39,21 @@
 
 .navbar-mainmenu {
   margin-top: 8px; }
-  .navbar-mainmenu a svg {
+  .navbar-mainmenu a:not(.logotype) svg {
     display: inline-block;
     vertical-align: middle;
     fill: #fff;
     width: 35px;
-    height: auto;
+    height: auto; }
+  .navbar-mainmenu a:not(.logotype) svg,
+  .navbar-mainmenu a:not(.logotype) .fa {
     opacity: .7; }
-  .navbar-mainmenu a:hover svg {
+  .navbar-mainmenu a:not(.logotype):hover svg,
+  .navbar-mainmenu a:not(.logotype):hover .fa {
     opacity: 1; }
+
+.header-casual .navbar-mainmenu {
+  padding-top: 15px; }
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
   content: "";

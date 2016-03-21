@@ -1,20 +1,31 @@
 .navbar-mainmenu {
     margin-top: 8px;
 
-    a {
+    a:not(.logotype) {
         svg {
             display: inline-block;
             vertical-align: middle;
             fill: #fff;
             width: 35px;
             height: auto;
+        }
+
+        svg,
+        .fa {
             opacity: .7;
         }
 
         &:hover {
-            svg {
+            svg,
+            .fa {
                 opacity: 1;
             }
         }
+    }
+}
+
+.header-casual {
+    .navbar-mainmenu {
+        padding-top: 15px;
     }
 }
