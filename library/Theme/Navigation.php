@@ -54,7 +54,7 @@ class Navigation
             $label = '<i class="fa fa-globe"></i> Translate';
         }
 
-        $items .= '<li><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
+        $items .= '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
 
         return $items;
     }
@@ -70,7 +70,7 @@ class Navigation
             return $items;
         }
 
-        $search = '<li><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="fa fa-search"></i></span></a></li>';
+        $search = '<li class="menu-item-search"><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="fa fa-search"></i></span></a></li>';
 
         $items .= $search;
         return $items;
