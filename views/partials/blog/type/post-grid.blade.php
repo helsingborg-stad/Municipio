@@ -1,8 +1,8 @@
-<?php global $post; ?>
+<?php global $post; $thumbnail = municipio_get_thumbnail_source($post->ID, array(400, 300)); ?>
 <div class="{{ !empty(get_field('blog_grid_columns', 'option')) ? get_field('blog_grid_columns', 'option') : 'grid-md-6' }}">
     <a href="{{ the_permalink() }}" class="box box-post-brick">
-        @if (municipio_get_thumbnail_source())
-        <div class="box-image" {!! municipio_get_thumbnail_source() ? 'style="background-image:url(' . municipio_get_thumbnail_source() . ');"' : '' !!}>
+        @if ($thumbnail)
+        <div class="box-image" {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
             <img src="{{ municipio_get_thumbnail_source() }}" alt="{{ the_title() }}">
         </div>
         @endif
