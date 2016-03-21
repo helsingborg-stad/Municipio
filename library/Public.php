@@ -9,7 +9,8 @@ if (!function_exists('municipio_get_thumbnail_source')) {
     function municipio_get_thumbnail_source($post_id = null)
     {
         $id = get_post_thumbnail_id($post_id);
-        $src = wp_get_attachment_image_srcset($id, 'medium', true);
+        $src = wp_get_attachment_image_src($id, 'medium');
+        $src = isset($src[0]) ? $src[0] : false;
 
         if (!$src) {
             $src = wp_get_attachment_url($id);
