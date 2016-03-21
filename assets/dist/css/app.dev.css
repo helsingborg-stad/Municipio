@@ -55,6 +55,10 @@
 .header-casual .navbar-mainmenu {
   padding-top: 15px; }
 
+.header-casual .menu-item-search,
+.header-casual .menu-item-translate {
+  float: right; }
+
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
   content: "";
   position: relative;
