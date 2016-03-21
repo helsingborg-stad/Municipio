@@ -6,14 +6,14 @@ class Editor
 {
     public function __construct()
     {
-        add_action('admin_init', array($this, 'init'));
+        if (\Municipio\Helper\User::hasRole('editor')) {
+            add_action('admin_init', array($this, 'adminRedirects'), 1);
+            add_action('admin_menu', array($this, 'adminMenus'), 900);
+        }
     }
 
-    public function init()
+    public function adminRedirects()
     {
-        if (\Municipio\Helper\User::hasRole('editor')) {
-            return false;
-        }
 
         //Add capability
         add_action('admin_init', array($this, 'addCapabilities'));
@@ -27,31 +27,30 @@ class Editor
         add_action('load-options-permalink.php', array($this, 'redirectToDashboard'));
         add_action('load-options-discussion.php', array($this, 'redirectToDashboard'));
         add_action('load-options-writing.php', array($this, 'redirectToDashboard'));
+    }
 
-        //Hide above pages
-        add_action('admin_menu', function () {
+    public function adminMenus()
+    {
 
-            //Edit theme options limitations
-            $this->removeFromAdminMenu('tools.php');
-            $this->removeFromAdminMenu('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
-            $this->removeFromAdminMenu('themes.php', 'themes.php');
+        //Edit theme options limitations
+        $this->removeFromAdminMenu('tools.php');
+        $this->removeFromAdminMenu('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
+        $this->removeFromAdminMenu('themes.php', 'themes.php');
 
-            //Edit settings limitations
-            $this->removeFromAdminMenu('options-general.php', 'options-writing.php');
-            $this->removeFromAdminMenu('options-general.php', 'options-discussion.php');
-            $this->removeFromAdminMenu('options-general.php', 'options-media.php');
-            $this->removeFromAdminMenu('options-general.php', 'options-permalink.php');
+        //Edit settings limitations
+        $this->removeFromAdminMenu('options-general.php', 'options-writing.php');
+        $this->removeFromAdminMenu('options-general.php', 'options-discussion.php');
+        $this->removeFromAdminMenu('options-general.php', 'options-media.php');
+        $this->removeFromAdminMenu('options-general.php', 'options-permalink.php');
 
-            //Remove ACF
-            $this->removeFromAdminMenu('edit.php?post_type=acf-field-group');
+        //Remove ACF
+        $this->removeFromAdminMenu('edit.php?post_type=acf-field-group');
 
-            //Remove All in one SEO settings
-            $this->removeFromAdminMenu('admin.php?page=all-in-one-seo-pack%2Faioseop_class.php');
+        //Remove All in one SEO settings
+        $this->removeFromAdminMenu('admin.php?page=all-in-one-seo-pack%2Faioseop_class.php');
 
-            //Remove Stream
-            $this->removeFromAdminMenu('admin.php?page=wp_stream_settings');
-
-        });
+        //Remove Stream
+        $this->removeFromAdminMenu('admin.php?page=wp_stream_settings');
     }
 
     public function addCapabilities()
@@ -63,9 +62,11 @@ class Editor
 
     public function redirectToDashboard()
     {
-        if (current_user_can('editor') === true) {
+        if (\Municipio\Helper\User::hasRole('editor')) {
             wp_redirect(admin_url());
             exit;
+        } else {
+            header('Theme auth-system: Yay! Admins are permitted to do this.');
         }
     }
 
