@@ -18,7 +18,7 @@
                 "collapsed": "field_56b3619c5defc",
                 "min": "",
                 "max": "",
-                "layout": "table",
+                "layout": "row",
                 "button_label": "Add post type",
                 "sub_fields": [
                     {
