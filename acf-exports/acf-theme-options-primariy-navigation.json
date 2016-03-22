@@ -154,6 +154,30 @@
                 "placeholder": "",
                 "disabled": 0,
                 "readonly": 0
+            },
+            {
+                "key": "field_56f10f0df95e3",
+                "label": "Menu items alignment",
+                "name": "nav_primary_align",
+                "type": "radio",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "left": "Left",
+                    "center": "Center",
+                    "right": "Right",
+                    "justify": "Justify"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "justify",
+                "layout": "horizontal"
             }
         ],
         "location": [
