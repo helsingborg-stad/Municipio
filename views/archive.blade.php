@@ -5,16 +5,18 @@
 <div class="container main-container">
     @include('partials.breadcrumbs')
 
-    <div class="grid no-margin-top">
+    <div class="grid">
         <div class="grid-md-8 grid-lg-8">
             <div class="grid">
-                <div class="grid-sm-12">
-                    @while(have_posts())
-                        {!! the_post() !!}
+                @while(have_posts())
+                    {!! the_post() !!}
 
+                    @if ($template == 'full')
                         @include('partials.blog.type.post')
-                    @endwhile
-                </div>
+                    @else
+                        @include('partials.blog.type.post-' . $template)
+                    @endif
+                @endwhile
             </div>
 
             <div class="grid">
