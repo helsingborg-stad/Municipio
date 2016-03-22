@@ -9,7 +9,7 @@ class ImageSizeFilter
         add_filter('modularity/image/slider', array($this, 'filterHeroImageSize'), 100, 2);
     }
 
-    public function filterHeroImageSize($orginal_size, $args)
+    public static function filterHeroImageSize($orginal_size, $args)
     {
 
         //If slider is shown in top area
