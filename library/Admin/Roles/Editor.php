@@ -82,7 +82,7 @@ class Editor
     public function removeFromAdminMenu($slug, $subMenuSlug = null)
     {
         if (is_null($subMenuSlug)) {
-            remove_menu_page($slug, $subMenuSlug);
+            remove_menu_page($slug);
         } else {
             remove_submenu_page($slug, $subMenuSlug);
         }
