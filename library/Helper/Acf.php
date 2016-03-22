@@ -43,10 +43,11 @@ class Acf
     public function translateField($field)
     {
         global $post;
+
         if (
-            (!is_null($post) && substr($post->post_type, 0, 4) == 'acf-')
+            (!is_null($post) && substr($post->post_type, 0, 4) != 'acf-')
             ||
-            (isset($_GET['page']) && substr($_GET['page'], 0, 4) == 'acf-')
+            (isset($_GET['page']) && substr($_GET['page'], 0, 4) != 'acf-')
         ) {
             return $field;
         }
