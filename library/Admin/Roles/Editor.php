@@ -51,6 +51,14 @@ class Editor
 
         //Remove Stream
         $this->removeFromAdminMenu('admin.php?page=wp_stream_settings');
+
+        //Remove gravityforms admin pages
+        $this->removeFromAdminMenu('admin.php?page=gf_settings');
+        $this->removeFromAdminMenu('admin.php?page=gf_export');
+        $this->removeFromAdminMenu('admin.php?page=gf_update');
+        $this->removeFromAdminMenu('admin.php?page=gf_addons');
+        $this->removeFromAdminMenu('admin.php?page=gf_help');
+
     }
 
     public function addCapabilities()
@@ -58,6 +66,7 @@ class Editor
         $role = get_role('editor');
         $role->add_cap('edit_theme_options');
         $role->add_cap('manage_options');
+        $role->add_cap('gform_full_access');
     }
 
     public function redirectToDashboard()
