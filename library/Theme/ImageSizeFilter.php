@@ -13,7 +13,7 @@ class ImageSizeFilter
     {
 
         //If slider is shown in top area
-        if ($args['id'] == "sidebar-slider-area") {
+        if ($args['id'] == "slider-area") {
             return array(1800,350);
         }
 
@@ -21,7 +21,7 @@ class ImageSizeFilter
         return $orginal_size;
     }
 
-    public function removeFilter($hook_name = '', $method_name = '', $priority = 0)
+    public static function removeFilter($hook_name = '', $method_name = '', $priority = 0)
     {
         global $wp_filter;
 
