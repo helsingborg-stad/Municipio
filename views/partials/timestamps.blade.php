@@ -1,7 +1,7 @@
 <ul class="article-timestamps">
     @if (get_field('page_show_author', 'option') !== false && get_field('post_show_author', get_the_id()) !== false)
         <li>
-            <strong>{!! __("Published by", 'municipio'); !!}:</strong>
+            <strong><?php _e('Published by', 'municipio'); ?>:</strong>
             <span class="post-author post-author-margin-left">
                 @if (get_field('page_show_author_image', 'option') !== false && get_field('post_show_author_image', get_the_id()) !== false && is_array(get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))))
                     <span class="post-author-image" style="background-image:url('{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))['sizes']['thumbnail'] }}');"><img src="{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))['sizes']['thumbnail'] }}" alt="{{ (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name'))) ? get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')  : get_the_author() }}"></span>
