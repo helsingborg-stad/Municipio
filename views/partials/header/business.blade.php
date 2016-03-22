@@ -54,13 +54,16 @@
                 <div class="grid-sm-12">
                     {{-- WP navigation --}}
                     @if (get_field('nav_primary_type', 'option') === 'wp')
+                        <?php
+                            $navAlign = !empty(get_field('nav_primary_align', 'option')) ? get_field('nav_primary_align', 'option') : 'justify';
+                        ?>
                         {!!
                             wp_nav_menu(array(
                                 'theme_location' => 'main-menu',
                                 'container' => false,
                                 'container_class' => 'menu-{menu-slug}-container',
                                 'container_id' => '',
-                                'menu_class' => 'nav nav-justify',
+                                'menu_class' => 'nav nav-' . $navAlign,
                                 'menu_id' => 'main-menu',
                                 'echo' => false,
                                 'before' => '',

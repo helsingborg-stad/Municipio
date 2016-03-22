@@ -40,6 +40,10 @@
         <?php endif; ?>
     @endif
 
-    <?php dynamic_sidebar('left-sidebar'); ?>
+    @if (is_active_sidebar('left-sidebar'))
+        <div class="grid">
+            <?php dynamic_sidebar('left-sidebar'); ?>
+        </div>
+    @endif
 </aside>
 @endif
