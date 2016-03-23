@@ -6,8 +6,17 @@
     height: 70px;
     width: auto; }
 
-.site-header:not(.header-casual) {
-  padding-top: 15px; }
+.site-header:not(.header-casual) > .container {
+  position: relative;
+  padding: 15px 0; }
+  @media screen and (min-width: 768px) {
+    .site-header:not(.header-casual) > .container > .grid {
+      display: table;
+      width: 100%; }
+      .site-header:not(.header-casual) > .container > .grid [class*="grid-"] {
+        display: table-cell;
+        vertical-align: middle;
+        float: none; } }
 
 .hero {
   position: relative; }

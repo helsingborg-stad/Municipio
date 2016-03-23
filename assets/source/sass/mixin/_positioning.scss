@@ -4,8 +4,8 @@
 // *** @param bool $horizontal
 // *** @param bool $vertical
 // ***************************************************************
-@mixin center($horizontal: true, $vertical: true) {
-    position: absolute;
+@mixin center($horizontal: true, $vertical: true, $position: absolute) {
+    position: $position;
 
     @if ($horizontal and $vertical) {
         top: 50%;
