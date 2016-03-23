@@ -2,7 +2,7 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-6 text-center-xs text-center-sm">
-                {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option')) !!}
+                {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option'), true, get_field('header_tagline_enable', 'option')) !!}
                 <a href="#mobile-menu" class="hidden-md hidden-lg menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">

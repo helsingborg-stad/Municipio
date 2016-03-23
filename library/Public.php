@@ -38,7 +38,7 @@ if (!function_exists('municipio_get_thumbnail_source')) {
  * @return string           HTML markup
  */
 if (!function_exists('municipio_get_logotype')) {
-    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true)
+    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true, $tagline = false)
     {
         if ($type == '') {
             $type = 'standard';
@@ -69,16 +69,16 @@ if (!function_exists('municipio_get_logotype')) {
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));
         $tooltip = apply_filters('Municipio/logotype_tooltip', $tooltip);
-        $tagline = '';
+        $taglineHtml = '';
 
-        if (get_field('header_tagline_enable', 'option') === true) {
+        if ($tagline === true) {
             $taglineText = get_bloginfo('description');
 
             if (get_field('header_tagline_type', 'option') == 'custom') {
                 $taglineText = get_field('header_tagline_text', 'option');
             }
 
-            $tagline = '<span class="tagline">' . $taglineText . '</span>';
+            $taglineHtml = '<span class="tagline">' . $taglineText . '</span>';
         }
 
         // Build the markup
@@ -88,7 +88,7 @@ if (!function_exists('municipio_get_logotype')) {
             implode(' ', $classes),
             ($tooltip !== false && !empty($tooltip)) ? 'data-tooltip="' . $tooltip . '"' : '',
             $symbol,
-            $tagline
+            $taglineHtml
         );
 
         return $markup;

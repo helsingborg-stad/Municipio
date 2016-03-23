@@ -1,6 +1,7 @@
 @charset "UTF-8";
 .site-header .logotype {
   display: inline-block;
+  text-align: left;
   vertical-align: middle; }
   .site-header .logotype img,
   .site-header .logotype svg {
@@ -113,6 +114,9 @@
 
 .nav-help {
   margin-bottom: 5px; }
+
+.main-footer .logotype {
+  text-align: left; }
 
 .navbar-mainmenu {
   margin-top: 8px; }
