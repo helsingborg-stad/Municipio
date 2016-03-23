@@ -4,7 +4,7 @@
 
         @include('partials.stripe')
 
-        @if (is_front_page() && get_field('front_page_hero_search', 'option') === true)
+        @if (is_front_page() && is_array(get_field('search_display', 'option')) && in_array('hero', get_field('search_display', 'option')))
             {{ get_search_form() }}
         @endif
     </div>

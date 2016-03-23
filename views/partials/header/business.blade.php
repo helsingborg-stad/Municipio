@@ -25,7 +25,9 @@
                             'fallback_cb' => '__return_false'
                         ));
                     !!}
-                    @include('partials.search.top-search')
+                    @if ( (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))) )
+                        @include('partials.search.top-search')
+                    @endif
                 </div>
 
                 {!!
