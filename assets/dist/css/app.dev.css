@@ -18,6 +18,9 @@
         vertical-align: middle;
         float: none; } }
 
+.site-header.header-casual .logotype, .site-header.header-casual h1 {
+  color: #fff; }
+
 .hero {
   position: relative; }
   .hero .widget {
