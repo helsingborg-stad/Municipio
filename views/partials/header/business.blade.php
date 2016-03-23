@@ -6,6 +6,28 @@
                 <a href="#mobile-menu" class="hidden-md hidden-lg menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
+                <div>
+                    {!!
+                        wp_nav_menu(array(
+                            'theme_location' => 'header-tabs-menu',
+                            'container' => 'nav',
+                            'container_class' => 'menu-header-tabs',
+                            'container_id' => '',
+                            'menu_class' => 'nav nav-tabs',
+                            'menu_id' => 'help-menu-top',
+                            'echo' => 'echo',
+                            'before' => '',
+                            'after' => '',
+                            'link_before' => '',
+                            'link_after' => '',
+                            'items_wrap' => '<ul class="%2$s">%3$s</ul>',
+                            'depth' => 1,
+                            'fallback_cb' => '__return_false'
+                        ));
+                    !!}
+                    @include('partials.search.top-search')
+                </div>
+
                 {!!
                     wp_nav_menu(array(
                         'theme_location' => 'help-menu',
@@ -13,25 +35,6 @@
                         'container_class' => 'menu-help',
                         'container_id' => '',
                         'menu_class' => 'nav nav-help nav-horizontal',
-                        'menu_id' => 'help-menu-top',
-                        'echo' => 'echo',
-                        'before' => '',
-                        'after' => '',
-                        'link_before' => '',
-                        'link_after' => '',
-                        'items_wrap' => '<ul class="%2$s">%3$s</ul>',
-                        'depth' => 1,
-                        'fallback_cb' => '__return_false'
-                    ));
-                !!}
-
-                {!!
-                    wp_nav_menu(array(
-                        'theme_location' => 'header-tabs-menu',
-                        'container' => 'nav',
-                        'container_class' => 'menu-header-tabs',
-                        'container_id' => '',
-                        'menu_class' => 'nav nav-tabs',
                         'menu_id' => 'help-menu-top',
                         'echo' => 'echo',
                         'before' => '',
