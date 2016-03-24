@@ -15,6 +15,19 @@ class Navigation
         if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
             add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
         }
+
+        add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
+            if ($args->menu_id != 'main-menu' || $depth != 1) {
+                return $classes;
+            }
+
+            $classes = array_merge($classes, array(
+                'grid-md-6',
+                'grid-lg-3'
+            ));
+
+            return $classes;
+        }, 10, 4);
     }
 
     public function registerMenus()
