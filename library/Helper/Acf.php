@@ -8,8 +8,16 @@ class Acf
     {
         add_filter('acf/settings/load_json', array($this, 'jsonLoadPath'));
 
-        add_filter('acf/load_field', array($this, 'translateField'), 9999);
-        add_filter('acf/get_field_groups', array($this, 'translateFieldGroup'), 9999);
+        add_action('admin_init', function () {
+            if (isset($_GET['post'])) {
+                $posttype = get_post_type($_GET['post']);
+                if (!is_null($posttype) && substr($posttype, 0, 4) == 'acf-') {
+                    return;
+                }
+            }
+            add_filter('acf/load_field', array($this, 'translateField'), 9999);
+            add_filter('acf/get_field_groups', array($this, 'translateFieldGroup'), 9999);
+        });
 
         if (!file_exists(WP_CONTENT_DIR . '/mu-plugins/AcfImportCleaner.php')) {
             require_once MUNICIPIO_PATH . 'library/Helper/AcfImportCleaner.php';
