@@ -1,10 +1,11 @@
 @charset "UTF-8";
 .site-header .logotype {
   display: inline-block;
-  text-align: left;
-  vertical-align: middle; }
+  vertical-align: middle;
+  text-align: left; }
   .site-header .logotype img,
   .site-header .logotype svg {
+    display: block;
     height: 70px;
     width: auto; }
 
@@ -112,26 +113,23 @@
     .hero .search input[type="search"] {
       border: none; }
 
-.nav-help {
-  margin-bottom: 5px; }
-
 .main-footer .logotype {
   text-align: left; }
 
-.navbar-mainmenu {
-  margin-top: 8px; }
-  .navbar-mainmenu a:not(.logotype) svg {
-    display: inline-block;
-    vertical-align: middle;
-    fill: #fff;
-    width: 35px;
-    height: auto; }
-  .navbar-mainmenu a:not(.logotype) svg,
-  .navbar-mainmenu a:not(.logotype) .fa {
-    opacity: .7; }
-  .navbar-mainmenu a:not(.logotype):hover svg,
-  .navbar-mainmenu a:not(.logotype):hover .fa {
-    opacity: 1; }
+.navbar-mainmenu a:not(.logotype) svg {
+  display: inline-block;
+  vertical-align: middle;
+  fill: #fff;
+  width: 35px;
+  height: auto; }
+
+.navbar-mainmenu a:not(.logotype) svg,
+.navbar-mainmenu a:not(.logotype) .fa {
+  opacity: .7; }
+
+.navbar-mainmenu a:not(.logotype):hover svg,
+.navbar-mainmenu a:not(.logotype):hover .fa {
+  opacity: 1; }
 
 .header-casual .navbar-mainmenu {
   padding-top: 15px; }

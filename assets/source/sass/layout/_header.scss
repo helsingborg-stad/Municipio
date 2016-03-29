@@ -1,11 +1,12 @@
 .site-header {
     .logotype {
         display: inline-block;
-        text-align: left;
         vertical-align: middle;
+        text-align: left;
 
         img,
         svg {
+            display: block;
             height: 70px;
             width: auto;
         }
@@ -110,8 +111,4 @@
             border: none;
         }
     }
-}
-
-.nav-help {
-    margin-bottom: 5px;
 }
