@@ -1,7 +1,7 @@
 @if (get_field('nav_sub_enable', 'option') === true)
 <aside class="grid-md-4 grid-lg-3 sidebar-left-sidebar">
     {{-- Sub navigation --}}
-    @if (get_field('nav_sub_type', 'option') === 'sub')
+    @if (get_field('nav_primary_type', 'option') === 'wp' && get_field('nav_sub_type', 'option') === 'sub')
         {!!
             wp_nav_menu(array(
                 'theme_location' => 'main-menu',
@@ -20,10 +20,7 @@
                 'walker' => new \Municipio\Walker\SidebarMenu()
             ));
         !!}
-    @endif
-
-    {{-- WP navigation --}}
-    @if (get_field('nav_sub_type', 'option') === 'wp')
+    @elseif (get_field('nav_sub_type', 'option') === 'wp')
         {!!
             wp_nav_menu(array(
                 'theme_location' => 'sidebar-menu',
@@ -41,10 +38,7 @@
                 'fallback_cb' => '__return_false'
             ));
         !!}
-    @endif
-
-    {{-- Automatically generated navigation --}}
-    @if (get_field('nav_sub_type', 'option') === 'auto')
+    @else
         <?php
         $menu = new \Municipio\Helper\NavigationTree(array(
             'include_top_level' => !empty(get_field('nav_sub_include_top_level', 'option')) ? get_field('nav_sub_include_top_level', 'option') : false,

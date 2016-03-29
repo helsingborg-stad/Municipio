@@ -58,11 +58,14 @@ class SidebarMenu extends \Walker_Nav_Menu
          */
         if (($max_depth == 0) && count($children_elements) > 0) {
             $empty_array = array();
-            foreach ($children_elements as $orphans) {
+            $orphans = isset($children_elements[$child_of]) ? $children_elements[$child_of] : false;
+
+            if ($orphans) {
                 foreach ($orphans as $op) {
                     $this->display_element($op, $empty_array, 1, 0, $args, $output);
                 }
             }
+
         }
 
         return $output;

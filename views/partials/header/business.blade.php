@@ -80,10 +80,7 @@
                                 'fallback_cb' => '__return_false'
                             ));
                         !!}
-                    @endif
-
-                    {{-- Automatically generated navigation --}}
-                    @if (get_field('nav_primary_type', 'option') === 'auto')
+                    @else
                         <?php
                         $menu = new \Municipio\Helper\NavigationTree(array(
                             'include_top_level' => true,
