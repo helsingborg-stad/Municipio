@@ -64,7 +64,7 @@
                         ?>
                         {!!
                             wp_nav_menu(array(
-                                'depth' => get_field('nav_sub_type', 'option') == 'sub' ? 1 : 0,
+                                'depth' => 1,
                                 'theme_location' => 'main-menu',
                                 'container' => false,
                                 'container_class' => 'menu-{menu-slug}-container',
