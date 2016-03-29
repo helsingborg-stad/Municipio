@@ -1,5 +1,27 @@
 @if (get_field('nav_sub_enable', 'option') === true)
 <aside class="grid-md-4 grid-lg-3 sidebar-left-sidebar">
+    {{-- Sub navigation --}}
+    @if (get_field('nav_sub_type', 'option') === 'sub')
+        {!!
+            wp_nav_menu(array(
+                'theme_location' => 'main-menu',
+                'container' => 'nav',
+                'container_class' => 'sidebar-menu',
+                'container_id' => 'sidebar-menu',
+                'menu_class' => 'nav-aside hidden-xs hidden-sm',
+                'menu_id' => '',
+                'echo' => false,
+                'before' => '',
+                'after' => '',
+                'link_before' => '',
+                'link_after' => '',
+                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'fallback_cb' => '__return_false',
+                'walker' => new \Municipio\Walker\SidebarMenu()
+            ));
+        !!}
+    @endif
+
     {{-- WP navigation --}}
     @if (get_field('nav_sub_type', 'option') === 'wp')
         {!!

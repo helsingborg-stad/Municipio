@@ -32,8 +32,14 @@ class Acf
     public function translateFieldGroup($fieldGroups)
     {
         global $post;
-        if (!is_null($post) && substr($post->post_type, 0, 4) == 'acf-') {
-            return $field;
+        if (
+            (!is_null($post) && substr($post->post_type, 0, 4) != 'acf-')
+            ||
+            (isset($_GET['page']) && substr($_GET['page'], 0, 4) != 'acf-')
+            ||
+            (isset($_GET['page']) && $_GET['page'] == 'acf-settings-tools')
+        ) {
+            return $fieldGroups;
         }
 
         foreach ($fieldGroups as &$group) {
@@ -56,6 +62,8 @@ class Acf
             (!is_null($post) && substr($post->post_type, 0, 4) != 'acf-')
             ||
             (isset($_GET['page']) && substr($_GET['page'], 0, 4) != 'acf-')
+            ||
+            (isset($_GET['page']) && $_GET['page'] == 'acf-settings-tools')
         ) {
             return $field;
         }
