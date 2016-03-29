@@ -64,7 +64,7 @@
                         ?>
                         {!!
                             wp_nav_menu(array(
-                                'depth' => 1,
+                                'depth' => get_field('nav_primariy_dropdown', 'option') === true && intval(get_field('nav_primary_depth', 'option')) > -1 ? intval(get_field('nav_primary_depth', 'option')) : 1,
                                 'theme_location' => 'main-menu',
                                 'container' => false,
                                 'container_class' => 'menu-{menu-slug}-container',
