@@ -73,18 +73,6 @@
     .site-header .top-search .input-group input[type="submit"] {
       border-radius: 0 3px 3px 0; }
 
-.site-header:not(.header-casual) > .container {
-  position: relative;
-  padding: 15px 0; }
-  @media screen and (min-width: 768px) {
-    .site-header:not(.header-casual) > .container > .grid {
-      display: table;
-      width: 100%; }
-      .site-header:not(.header-casual) > .container > .grid [class*="grid-"] {
-        display: table-cell;
-        vertical-align: middle;
-        float: none; } }
-
 .site-header.header-casual .logotype, .site-header.header-casual h1 {
   color: #fff; }
 

@@ -59,24 +59,6 @@
     }
 }
 
-.site-header:not(.header-casual) > .container {
-    position: relative;
-    padding: 15px 0;
-
-    @media screen and (min-width: 768px) {
-        > .grid {
-            display: table;
-            width: 100%;
-
-            [class*="grid-"] {
-                display: table-cell;
-                vertical-align: middle;
-                float: none;
-            }
-        }
-    }
-}
-
 .site-header.header-casual {
     .logotype, h1 {
         color: #fff;

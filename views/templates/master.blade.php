@@ -62,7 +62,7 @@
             @include('partials.translate')
         @endif
 
-        @include($headerLayout)
+        @include('partials.header')
 
         <main id="main-content" class="clearfix">
             @yield('content')
