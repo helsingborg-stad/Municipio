@@ -20,7 +20,7 @@ class Sidebars
     public function moduleClasses($classes, $moduleType, $sidebarArgs)
     {
         // Box panel in content area and content area bottom
-        if (in_array($sidebarArgs['id'], array('content-area', 'content-area-bottom')) && in_array('box-panel', $classes)) {
+        if (in_array($sidebarArgs['id'], array('content-area', 'content-area-bottom')) && in_array('box-panel', $classes) && !is_front_page()) {
             $classes[] = 'box-panel-secondary';
         }
 
