@@ -6,7 +6,7 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        <div class="grid-md-8 grid-lg-8">
+        <div class="grid-md-9 grid-lg-9">
             <div class="grid" data-equalize-container>
                 @while(have_posts())
                     {!! the_post() !!}
