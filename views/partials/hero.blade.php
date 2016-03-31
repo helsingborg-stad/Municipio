@@ -1,6 +1,8 @@
 @if (is_active_sidebar('slider-area') === true )
     <div class="hero has-stripe hidden-xs hidden-sm sidebar-slider-area">
-        <?php dynamic_sidebar('slider-area'); ?>
+        <div class="grid no-gutter">
+            <?php dynamic_sidebar('slider-area'); ?>
+        </div>
 
         @include('partials.stripe')
 
