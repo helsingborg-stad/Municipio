@@ -16,7 +16,7 @@
             </div>
             @endif
 
-            <div class="{{ get_field('footer_logotype_horizontal_position', 'option') == 'center' ? 'grid-xs-12 text-center' : 'grid-md-6' }} {{ (get_field('footer_logotype_horizontal_position', 'option') == 'left') ? 'text-right' : '' }}">
+            <div class="{{ get_field('footer_logotype_horizontal_position', 'option') == 'center' ? 'grid-xs-12 text-center' : 'grid-md-6' }} {{ (get_field('footer_logotype_horizontal_position', 'option') == 'left') ? 'text-right-md text-right-lg' : '' }}">
                 <nav>
                     <ul class="nav nav-help nav-horizontal">
                         {!!
