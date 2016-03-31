@@ -12,14 +12,6 @@
 </section>
 @endif
 
-@if (is_active_sidebar('content-area-bottom'))
-<div class="container gutter-xl gutter-vertical sidebar-content-area-bottom">
-    <div class="grid">
-        <?php dynamic_sidebar('content-area-bottom'); ?>
-    </div>
-</div>
-@endif
-
 @if (!is_active_sidebar('content-area') && !is_active_sidebar('content-area-bottom') && current_user_can('edit_posts'))
 <section class="gutter-xl gutter-vertical">
 <div class="notice warning text-center">
