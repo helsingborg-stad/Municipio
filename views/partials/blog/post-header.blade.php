@@ -15,9 +15,20 @@
             @endif
         </li>
         @endif
+
+        @if ((!is_single() && get_field('blog_feed_show_date', 'option') != 'false') || (is_single() && get_field('blog_show_date', 'option') != 'false'))
         <li class="post-date">
-            <time>{{ the_time(get_option('date_format')) }} {{ the_time(get_option('time_format')) }}</time>
+            <time>
+                @if (is_single())
+                    {{ in_array(get_field('blog_show_date', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
+                    {{ in_array(get_field('blog_show_date', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
+                @else
+                    {{ in_array(get_field('blog_feed_show_date', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
+                    {{ in_array(get_field('blog_feed_show_date', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
+                @endif
+            </time>
         </li>
+        @endif
 
         @if (comments_open())
         <li class="post-comments">

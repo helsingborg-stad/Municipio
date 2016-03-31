@@ -8,9 +8,15 @@
         @endif
 
         <div class="box-content">
+            @if (get_field('blog_feed_show_date', 'option') != 'false')
             <span class="box-post-brick-date">
-                <time>{{ the_time(get_option('date_format')) }} {{ the_time(get_option('time_format')) }}</time>
+                <time>
+                    {{ in_array(get_field('blog_feed_show_date', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
+                    {{ in_array(get_field('blog_feed_show_date', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
+                </time>
             </span>
+            @endif
+
             <h3 class="post-title">{{ the_title() }}</h3>
         </div>
         <div class="box-post-brick-lead">
