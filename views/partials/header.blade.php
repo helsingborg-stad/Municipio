@@ -41,6 +41,7 @@
                             'fallback_cb' => '__return_false'
                         ));
                     !!}
+
                     @if ( (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))) )
                         @include('partials.search.top-search')
                     @endif
@@ -69,58 +70,21 @@
     </div>
 
     @if (get_field('nav_primary_enable', 'option') === true)
-    <nav class="navbar navbar-mainmenu hidden-xs hidden-sm">
-        <div class="container">
-            <div class="grid">
-                <div class="grid-sm-12">
-                    {{-- WP navigation --}}
-                    @if (get_field('nav_primary_type', 'option') === 'wp')
-                        <?php
-                            $navAlign = !empty(get_field('nav_primary_align', 'option')) ? get_field('nav_primary_align', 'option') : 'justify';
-                        ?>
-                        {!!
-                            wp_nav_menu(array(
-                                'depth' => get_field('nav_primariy_dropdown', 'option') === true && intval(get_field('nav_primary_depth', 'option')) > -1 ? intval(get_field('nav_primary_depth', 'option')) : 1,
-                                'theme_location' => 'main-menu',
-                                'container' => false,
-                                'container_class' => 'menu-{menu-slug}-container',
-                                'container_id' => '',
-                                'menu_class' => 'nav nav-' . $navAlign . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
-                                'menu_id' => 'main-menu',
-                                'echo' => false,
-                                'before' => '',
-                                'after' => '',
-                                'link_before' => '',
-                                'link_after' => '',
-                                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                                'fallback_cb' => '__return_false'
-                            ));
-                        !!}
-                    @else
-                        <?php
-                        $menu = new \Municipio\Helper\NavigationTree(array(
-                            'include_top_level' => true,
-                            'render' => get_field('nav_primary_render', 'option'),
-                            'depth' => get_field('nav_primary_depth', 'option')
-                        ));
-
-                        if (isset($menu) && $menu->itemCount() > 0) :
-                        ?>
-                        <nav>
-                            <ul class="nav nav-justify">
-                                <?php echo $menu->render(); ?>
-                            </ul>
-                        </nav>
-                        <?php endif; ?>
-                    @endif
+        <nav class="navbar navbar-mainmenu hidden-xs hidden-sm">
+            <div class="container">
+                <div class="grid">
+                    <div class="grid-sm-12">
+                        {!! $navigation['mainMenu'] !!}
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
-        @include('partials.mobile-menu')
-    </nav>
+        @if (strlen($navigation['mobileMenu']) > 0)
+            <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
+                @include('partials.mobile-menu')
+            </nav>
+        @endif
     @endif
 </header>
 

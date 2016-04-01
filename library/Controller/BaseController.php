@@ -14,8 +14,16 @@ class BaseController
     {
         $this->getLogotype();
         $this->getHeaderLayout();
+        $this->getNavigationMenus();
 
         $this->init();
+    }
+
+    public function getNavigationMenus()
+    {
+        $navigation = new \Municipio\Helper\Navigation();
+        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
     }
 
     public function getLogotype()

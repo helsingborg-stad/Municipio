@@ -10,11 +10,5 @@
 </form>
 
 <ul class="nav-mobile">
-    <?php
-        $menu = new \Municipio\Helper\NavigationTree(array(
-            'include_top_level' => true
-        ));
-
-        echo $menu->render();
-    ?>
+    {!! $navigation['mobileMenu'] !!}
 </ul>
