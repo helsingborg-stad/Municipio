@@ -116,7 +116,7 @@ class Navigation
             return '';
         }
 
-        return '<ul class="nav-mobile">' . $menu->render(false) . '</div>';
+        return '<ul class="nav-mobile">' . $menu->render(false) . '</ul>';
     }
 
     /**
