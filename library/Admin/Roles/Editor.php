@@ -59,7 +59,6 @@ class Editor
         $this->removeFromAdminMenu('admin.php?page=gf_update');
         $this->removeFromAdminMenu('admin.php?page=gf_addons');
         $this->removeFromAdminMenu('admin.php?page=gf_help');
-
     }
 
     public function addCapabilities()
@@ -83,7 +82,15 @@ class Editor
     public function removeFromAdminMenu($slug, $subMenuSlug = null)
     {
         if (is_null($subMenuSlug)) {
+
+            //Full remove
             remove_menu_page($slug);
+
+            //Fall back on css hidden
+            add_action('admin_head', function () use (&$slug) {
+                echo '<style>a[href="'.$slug.'"] {display:none !important;}</style>'."\n";
+                echo '<style>a[href="'.$slug.'"] + ul.wp-submenu {display:none !important;}</style>'."\n";
+            });
         } else {
             remove_submenu_page($slug, $subMenuSlug);
         }
