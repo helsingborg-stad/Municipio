@@ -17,7 +17,7 @@
     <div class="grid gutter gutter-lg gutter-top">
         <div class="grid-lg-12">
             <div class="notice info">
-                <i class="fa fa-info-circle"></i> Inga sökträffar…
+                <i class="fa fa-info-circle"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
             </div>
         </div>
     </div>
@@ -44,11 +44,11 @@
                             @foreach ($results->items as $item)
                             <li>
                                 <div class="search-result-item">
-                                    <span class="search-result-date">{{ $search->getModifiedDate($item) }}</span>
-                                    <h3><a href="{{ $item->link }}" class="{{ (isset($item->fileFormat)) ? $search->getFiletypeClass($item->fileFormat) : '' }}">{!! $item->htmlTitle !!}</a></h3>
-                                    <p>{!! trim($item->snippet) !!}</p>
+                                    <span class="search-result-date">{{ apply_filters('Municipio/search_result/date', $search->getModifiedDate($item), false) }}</span>
+                                    <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}" class="{{ (isset($item->fileFormat)) ? $search->getFiletypeClass($item->fileFormat) : '' }}">{!! apply_filters('Municipio/search_result/title', $item->htmlTitle, false) !!}</a></h3>
+                                    <p>{!! apply_filters('Municipio/search_result/excerpt', trim($item->snippet), false) !!}</p>
                                     <div class="search-result-info">
-                                        <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ $item->link }}">{!! $item->htmlFormattedUrl !!}</a></span>
+                                        <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}">{!! apply_filters('Municipio/search_result/permalink_text', $item->htmlFormattedUrl, false) !!}</a></span>
                                     </div>
                                 </div>
                             </li>

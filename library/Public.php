@@ -38,7 +38,7 @@ if (!function_exists('municipio_get_thumbnail_source')) {
  * @return string           HTML markup
  */
 if (!function_exists('municipio_get_logotype')) {
-    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true)
+    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true, $tagline = false)
     {
         if ($type == '') {
             $type = 'standard';
@@ -52,7 +52,7 @@ if (!function_exists('municipio_get_logotype')) {
         );
 
         // Get the symbol to use (blog name or image)
-        $symbol = '<h1 class="no-margin">' . $siteName . '</h1>';
+        $symbol = '<h1 class="no-margin no-padding">' . $siteName . '</h1>';
 
         if (isset($logotype[$type]['url']) && $logo_include === false) {
             $symbol = sprintf(
@@ -69,14 +69,26 @@ if (!function_exists('municipio_get_logotype')) {
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));
         $tooltip = apply_filters('Municipio/logotype_tooltip', $tooltip);
+        $taglineHtml = '';
+
+        if ($tagline === true) {
+            $taglineText = get_bloginfo('description');
+
+            if (get_field('header_tagline_type', 'option') == 'custom') {
+                $taglineText = get_field('header_tagline_text', 'option');
+            }
+
+            $taglineHtml = '<span class="tagline">' . $taglineText . '</span>';
+        }
 
         // Build the markup
         $markup = sprintf(
-            '<a href="%s" class="%s" %s>%s</a>',
+            '<a href="%s" class="%s" %s>%s%s</a>',
             home_url(),
             implode(' ', $classes),
             ($tooltip !== false && !empty($tooltip)) ? 'data-tooltip="' . $tooltip . '"' : '',
-            $symbol
+            $symbol,
+            $taglineHtml
         );
 
         return $markup;

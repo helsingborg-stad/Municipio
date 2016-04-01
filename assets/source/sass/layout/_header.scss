@@ -2,17 +2,67 @@
     .logotype {
         display: inline-block;
         vertical-align: middle;
+        text-align: left;
 
         img,
         svg {
+            display: block;
             height: 70px;
             width: auto;
         }
     }
+
+    .menu-header-tabs {
+        display: inline-block;
+    }
+
+    .top-search {
+        display: inline-block;
+        box-shadow: 0 2px 2px $creamy;
+        margin-left: 5px;
+
+        @include input-placeholder($gray, 1);
+
+        .input-group {
+            position: relative;
+            height: 30px;
+            overflow: hidden;
+            width: 250px;
+
+            &::after {
+                display: block;
+                position: absolute;
+                left: 8px;
+                z-index: 9;
+                font-size: .9em;
+                color: $gray-dark;
+                @include center(false, true);
+                @include hbg-icon('\f002');
+            }
+
+            .input-group-addon-btn,
+            input[type="search"].form-control {
+                height: 30px;
+            }
+
+            input[type="search"].form-control {
+                padding: 0 8px 0 26px;
+                border-radius: 3px 0 0 3px;
+                box-shadow: none;
+                font-weight: normal;
+            }
+
+            input[type="submit"] {
+                border-radius: 0 3px 3px 0;
+            }
+        }
+    }
 }
 
-.site-header:not(.header-casual) {
-    padding-top: 15px;
+.site-header.header-casual {
+    .logotype, h1 {
+        color: #fff;
+    }
 }
 
 .hero {
@@ -43,8 +93,4 @@
             border: none;
         }
     }
-}
-
-.nav-help {
-    margin-bottom: 5px;
 }

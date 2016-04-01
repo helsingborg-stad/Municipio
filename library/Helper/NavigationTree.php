@@ -10,7 +10,7 @@ class NavigationTree
     protected $ancestors = null;
     protected $topLevelPages = null;
 
-    protected $itemCount = 0;
+    public $itemCount = 0;
     protected $depth = 0;
 
     protected $output = '';
@@ -271,9 +271,14 @@ class NavigationTree
      * Echos the output
      * @return void
      */
-    public function render()
+    public function render($echo = true)
     {
-        echo $this->output;
+        if ($echo) {
+            echo $this->output;
+            return true;
+        }
+
+        return $this->output;
     }
 
     /**

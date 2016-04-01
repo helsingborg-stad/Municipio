@@ -4,9 +4,9 @@
         "fields": [
             {
                 "key": "field_56a72f9b645b7",
-                "label": "Front page",
-                "name": "front_page_hero_search",
-                "type": "true_false",
+                "label": "Display search",
+                "name": "search_display",
+                "type": "checkbox",
                 "instructions": "",
                 "required": 0,
                 "conditional_logic": 0,
@@ -15,12 +15,18 @@
                     "class": "",
                     "id": ""
                 },
-                "message": "Show hero search on front page",
-                "default_value": 1
+                "choices": {
+                    "hero": "In front-page hero\/slider",
+                    "header_sub": "In the header of all pages but front page",
+                    "header": "In the header of all pages"
+                },
+                "default_value": [],
+                "layout": "vertical",
+                "toggle": 0
             },
             {
                 "key": "field_56d3fa48a53d6",
-                "label": "Label text",
+                "label": "Search field label",
                 "name": "search_label_text",
                 "type": "text",
                 "instructions": "",
@@ -41,7 +47,7 @@
             },
             {
                 "key": "field_56d3fa67a53d7",
-                "label": "Placeholder text",
+                "label": "Search field placeholder",
                 "name": "search_placeholder_text",
                 "type": "text",
                 "instructions": "",
@@ -62,7 +68,7 @@
             },
             {
                 "key": "field_56d3fa82a53d8",
-                "label": "Button text",
+                "label": "Search button text",
                 "name": "search_button_text",
                 "type": "text",
                 "instructions": "",
@@ -73,7 +79,7 @@
                     "class": "",
                     "id": ""
                 },
-                "default_value": "Search",
+                "default_value": "S\u00f6k",
                 "placeholder": "",
                 "prepend": "",
                 "append": "",

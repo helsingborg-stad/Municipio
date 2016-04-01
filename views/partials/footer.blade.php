@@ -10,7 +10,13 @@
             </div>
             @endif
 
-            <div class="grid-md-6 {{ (get_field('footer_logotype_horizontal_position', 'option') == 'left') ? 'text-right' : '' }}">
+            @if (get_field('footer_logotype_horizontal_position', 'option') == 'center')
+            <div class="grid-md-12 text-center">
+                {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
+            </div>
+            @endif
+
+            <div class="{{ get_field('footer_logotype_horizontal_position', 'option') == 'center' ? 'grid-xs-12 text-center' : 'grid-md-6' }} {{ (get_field('footer_logotype_horizontal_position', 'option') == 'left') ? 'text-right-md text-right-lg' : '' }}">
                 <nav>
                     <ul class="nav nav-help nav-horizontal">
                         {!!
@@ -36,7 +42,7 @@
             </div>
 
             @if (get_field('footer_logotype_horizontal_position', 'option') == 'right')
-            <div class="grid-md-6">
+            <div class="grid-md-6 pull-right text-right">
                 {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
             </div>
             @endif

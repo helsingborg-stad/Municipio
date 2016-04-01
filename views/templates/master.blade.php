@@ -62,10 +62,18 @@
             @include('partials.translate')
         @endif
 
-        @include($headerLayout)
+        @include('partials.header')
 
         <main id="main-content" class="clearfix">
             @yield('content')
+
+            @if (is_active_sidebar('content-area-bottom'))
+            <div class="container gutter-xl gutter-vertical sidebar-content-area-bottom">
+                <div class="grid">
+                    <?php dynamic_sidebar('content-area-bottom'); ?>
+                </div>
+            </div>
+            @endif
         </main>
 
         @include('partials.footer')

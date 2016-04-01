@@ -100,9 +100,7 @@
                         },
                         "choices": {
                             "post": "post",
-                            "page": "page",
-                            "my-first-custom-pos": "my-first-custom-pos",
-                            "henriks-post-typdaw": "henriks-post-typdaw"
+                            "page": "page"
                         },
                         "default_value": [],
                         "allow_null": 0,

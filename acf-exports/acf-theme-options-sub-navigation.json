@@ -40,12 +40,13 @@
                     "id": ""
                 },
                 "choices": {
+                    "sub": "Act as sub menu to the primary menu",
                     "auto": "Automatically generated",
                     "wp": "WP Menu"
                 },
                 "other_choice": 0,
                 "save_other_choice": 0,
-                "default_value": "auto",
+                "default_value": "sub",
                 "layout": "vertical"
             },
             {
@@ -112,7 +113,7 @@
                 "label": "Menu depth",
                 "name": "nav_sub_depth",
                 "type": "number",
-                "instructions": "Set to -1 to disable depth limit",
+                "instructions": "Set to 0 to show all levels",
                 "required": 1,
                 "conditional_logic": [
                     [
@@ -133,11 +134,11 @@
                     "class": "",
                     "id": ""
                 },
-                "default_value": -1,
+                "default_value": 0,
                 "placeholder": "",
                 "prepend": "",
                 "append": "",
-                "min": -1,
+                "min": 0,
                 "max": "",
                 "step": "",
                 "readonly": 0,
@@ -174,7 +175,7 @@
                     "active": "Only active level's subitems"
                 },
                 "default_value": [
-                    "all"
+                    0
                 ],
                 "allow_null": 0,
                 "multiple": 0,

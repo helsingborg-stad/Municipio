@@ -14,8 +14,17 @@ class BaseController
     {
         $this->getLogotype();
         $this->getHeaderLayout();
+        $this->getNavigationMenus();
 
         $this->init();
+    }
+
+    public function getNavigationMenus()
+    {
+        $navigation = new \Municipio\Helper\Navigation();
+        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+        $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
     }
 
     public function getLogotype()
@@ -30,11 +39,11 @@ class BaseController
     {
         switch (get_field('header_layout', 'option')) {
             case 'casual':
-                $this->data['headerLayout'] = 'partials.header.casual';
+                $this->data['headerLayout'] = 'header-casual';
                 break;
 
             default:
-                $this->data['headerLayout'] = 'partials.header.business';
+                $this->data['headerLayout'] = 'header-business';
                 break;
         }
     }

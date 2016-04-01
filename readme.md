@@ -6,7 +6,7 @@ To get started you'll need to install the required npm packages. To install thes
 ```
 $ cd [THEME-DIR]
 $ npm install
-$ bower install
+$ composer install
 ```
 
 ## Coding standards
@@ -107,6 +107,20 @@ Applied to the list of Blade template types.
 apply_filters('Municipio/blade/template_types', $types);
 ```
 
+#### Municipio/search_result/…
+Multiple filters applied to the contents of a search result
 
+```php
+apply_filters('Municipio/search_result/date', $date, $post);
+apply_filters('Municipio/search_result/title', $date, $post);
+apply_filters('Municipio/search_result/excerpt', $date, $post);
+apply_filters('Municipio/search_result/permalink_url', $date, $post);
+apply_filters('Municipio/search_result/permalink_text', $date, $post);
+```
 
+## Dev mode
 To load assets from local styleguide. Set contant DEV_MODE to "true"
+
+```php
+define('DEV_MODE', true);
+```

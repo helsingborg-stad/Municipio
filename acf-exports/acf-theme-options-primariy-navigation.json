@@ -49,6 +49,60 @@
                 "layout": "vertical"
             },
             {
+                "key": "field_56fa6428939ab",
+                "label": "Dropdown sub-menus",
+                "name": "nav_primariy_dropdown",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Yes, display sub-menus as dropdowns",
+                "default_value": 0
+            },
+            {
+                "key": "field_56fa66f201aee",
+                "label": "Menu depth",
+                "name": "",
+                "type": "message",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56fa6428939ab",
+                            "operator": "!=",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "When \"dropdown sub-menus\" is inacticated only the top level menu items will be displayed in the main menu. To display the submenu items in the sidebar menu you should set the \"secondary menu\" settings to \"Act as sub menu to the primary menu\".",
+                "new_lines": "wpautop",
+                "esc_html": 0
+            },
+            {
                 "key": "field_56e93ce4914ea",
                 "label": "Automatically generated menu",
                 "name": "",
@@ -83,9 +137,26 @@
                 "label": "Menu depth",
                 "name": "nav_primary_depth",
                 "type": "number",
-                "instructions": "Set to -1 to disable depth limit",
+                "instructions": "Set to 0 to show all levels",
                 "required": 1,
                 "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        },
+                        {
+                            "field": "field_56e938cc40ac1",
+                            "operator": "==",
+                            "value": "wp"
+                        },
+                        {
+                            "field": "field_56fa6428939ab",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ],
                     [
                         {
                             "field": "field_56e938a940ac0",
@@ -104,11 +175,11 @@
                     "class": "",
                     "id": ""
                 },
-                "default_value": 1,
+                "default_value": 0,
                 "placeholder": "",
                 "prepend": "",
                 "append": "",
-                "min": -1,
+                "min": 0,
                 "max": "",
                 "step": "",
                 "readonly": 0,
