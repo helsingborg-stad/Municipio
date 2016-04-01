@@ -24,6 +24,7 @@ class BaseController
         $navigation = new \Municipio\Helper\Navigation();
         $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
         $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+        $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
     }
 
     public function getLogotype()

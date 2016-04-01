@@ -21,6 +21,34 @@ class Navigation
         }
     }
 
+    public function sidebarMenu()
+    {
+        if (get_field('nav_primary_type', 'option') == 'wp' && in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp'))) {
+            return $this->sidebarMenuWP();
+        } else {
+            return $this->sidebarMenuAuto();
+        }
+
+        return '';
+    }
+
+    /**
+     * Get the mobile menu
+     * @return string Mobile menu html
+     */
+    public function mobileMenu()
+    {
+        switch (get_field('nav_primary_type', 'option')) {
+            case 'wp':
+                return $this->mobileMenuWP();
+                break;
+
+            default:
+                return $this->mobileMenuAuto();
+                break;
+        }
+    }
+
     /**
      * Get WP main menu
      * @return string Markuo
@@ -75,10 +103,10 @@ class Navigation
     }
 
     /**
-     * Get the mobile menu
-     * @return string Mobile menu html
+     * Get navigation tree mobile menu
+     * @return [type] [description]
      */
-    public function mobileMenu()
+    public function mobileMenuAuto()
     {
         $menu = new \Municipio\Helper\NavigationTree(array(
             'include_top_level' => true
@@ -88,6 +116,83 @@ class Navigation
             return '';
         }
 
-        return $menu->render(false);
+        return '<ul class="nav-mobile">' . $menu->render(false) . '</div>';
+    }
+
+    public function mobileMenuWP()
+    {
+        return wp_nav_menu(array(
+            'echo' => false,
+            'depth' =>  0,
+            'theme_location' => 'main-menu',
+            'container' => false,
+            'container_class' => '',
+            'container_id' => '',
+            'menu_class' => 'nav-mobile',
+            'menu_id' => '',
+            'before' => '',
+            'after' => '',
+            'link_before' => '',
+            'link_after' => '',
+            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            'fallback_cb' => '__return_false'
+        ));
+    }
+
+    public function sidebarMenuWP()
+    {
+        if (get_field('nav_sub_type', 'option') == 'sub') {
+            return wp_nav_menu(array(
+                'theme_location' => 'main-menu',
+                'container' => 'nav',
+                'container_class' => 'sidebar-menu',
+                'container_id' => 'sidebar-menu',
+                'menu_class' => 'nav-aside hidden-xs hidden-sm',
+                'menu_id' => '',
+                'echo' => false,
+                'before' => '',
+                'after' => '',
+                'link_before' => '',
+                'link_after' => '',
+                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'fallback_cb' => '__return_false',
+                'walker' => new \Municipio\Walker\SidebarMenu()
+            ));
+        }
+
+        return wp_nav_menu(array(
+            'theme_location' => 'sidebar-menu',
+            'container' => 'nav',
+            'container_class' => 'sidebar-menu',
+            'container_id' => 'sidebar-menu',
+            'menu_class' => 'nav-aside hidden-xs hidden-sm',
+            'menu_id' => '',
+            'echo' => false,
+            'before' => '',
+            'after' => '',
+            'link_before' => '',
+            'link_after' => '',
+            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            'fallback_cb' => '__return_false'
+        ));
+    }
+
+    public function sidebarMenuAuto()
+    {
+        $menu = new \Municipio\Helper\NavigationTree(array(
+            'include_top_level' => !empty(get_field('nav_sub_include_top_level', 'option')) ? get_field('nav_sub_include_top_level', 'option') : false,
+            'render' => get_field('nav_sub_render', 'option'),
+            'depth' => get_field('nav_sub_depth', 'option')
+        ));
+
+        if (isset($menu) && $menu->itemCount() > 0) {
+            return '<nav id="sidebar-menu">
+                <ul class="nav-aside hidden-xs hidden-sm">
+                    ' . $menu->render(false) . '
+                </ul>
+            </nav>';
+        }
+
+        return '';
     }
 }
