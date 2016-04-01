@@ -10,6 +10,10 @@ class Navigation
      */
     public function mainMenu()
     {
+        if (get_field('nav_primary_enable', 'option') === false) {
+            return '';
+        }
+
         switch (get_field('nav_primary_type', 'option')) {
             case 'wp':
                 return $this->mainMenuWP();
@@ -27,6 +31,10 @@ class Navigation
      */
     public function sidebarMenu()
     {
+        if (get_field('nav_sub_enable', 'option') === false) {
+            return '';
+        }
+
         if (get_field('nav_primary_type', 'option') == 'wp' && in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp'))) {
             return $this->sidebarMenuWP();
         } else {
@@ -42,6 +50,10 @@ class Navigation
      */
     public function mobileMenu()
     {
+        if (get_field('nav_primary_enable', 'option') === false && get_field('nav_sub_enable', 'option') === false) {
+            return '';
+        }
+
         if (get_field('nav_primary_type', 'option') == 'wp' && in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp'))) {
             return $this->mobileMenuWP();
         } else {
