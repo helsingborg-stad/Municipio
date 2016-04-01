@@ -51,6 +51,7 @@ class Editor
 
         //Remove Stream
         $this->removeFromAdminMenu('admin.php?page=wp_stream_settings');
+        $this->removeFromAdminMenu('admin.php?page=wp_stream');
 
         //Remove gravityforms admin pages
         $this->removeFromAdminMenu('admin.php?page=gf_settings');
