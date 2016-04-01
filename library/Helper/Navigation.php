@@ -21,6 +21,10 @@ class Navigation
         }
     }
 
+    /**
+     * Finds out which type of menu to use for the sidebar menu
+     * @return mixed
+     */
     public function sidebarMenu()
     {
         if (get_field('nav_primary_type', 'option') == 'wp' && in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp'))) {
@@ -38,14 +42,10 @@ class Navigation
      */
     public function mobileMenu()
     {
-        switch (get_field('nav_primary_type', 'option')) {
-            case 'wp':
-                return $this->mobileMenuWP();
-                break;
-
-            default:
-                return $this->mobileMenuAuto();
-                break;
+        if (get_field('nav_primary_type', 'option') == 'wp' && in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp'))) {
+            return $this->mobileMenuWP();
+        } else {
+            return $this->mobileMenuAuto();
         }
     }
 
@@ -109,7 +109,7 @@ class Navigation
     public function mobileMenuAuto()
     {
         $menu = new \Municipio\Helper\NavigationTree(array(
-            'include_top_level' => true
+            'include_top_level' => true,
         ));
 
         if ($menu->itemCount === 0) {
@@ -119,12 +119,35 @@ class Navigation
         return '<ul class="nav-mobile">' . $menu->render(false) . '</div>';
     }
 
+    /**
+     * Get WP mobile menu
+     * @return string Markuo
+     */
     public function mobileMenuWP()
     {
+        if (get_field('nav_sub_type', 'option') == 'sub') {
+            return wp_nav_menu(array(
+                'echo' => false,
+                'depth' =>  0,
+                'theme_location' => 'main-menu',
+                'container' => false,
+                'container_class' => '',
+                'container_id' => '',
+                'menu_class' => 'nav-mobile',
+                'menu_id' => '',
+                'before' => '',
+                'after' => '',
+                'link_before' => '',
+                'link_after' => '',
+                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'fallback_cb' => '__return_false'
+            ));
+        }
+
         return wp_nav_menu(array(
             'echo' => false,
             'depth' =>  0,
-            'theme_location' => 'main-menu',
+            'theme_location' => 'sidebar-menu',
             'container' => false,
             'container_class' => '',
             'container_id' => '',
@@ -139,6 +162,10 @@ class Navigation
         ));
     }
 
+    /**
+     * Get WP or sub sidebar menu
+     * @return string Markuo
+     */
     public function sidebarMenuWP()
     {
         if (get_field('nav_sub_type', 'option') == 'sub') {
@@ -177,6 +204,10 @@ class Navigation
         ));
     }
 
+    /**
+     * Get navigation tree sidebar menu
+     * @return [type] [description]
+     */
     public function sidebarMenuAuto()
     {
         $menu = new \Municipio\Helper\NavigationTree(array(
@@ -185,14 +216,14 @@ class Navigation
             'depth' => get_field('nav_sub_depth', 'option')
         ));
 
-        if (isset($menu) && $menu->itemCount() > 0) {
-            return '<nav id="sidebar-menu">
-                <ul class="nav-aside hidden-xs hidden-sm">
-                    ' . $menu->render(false) . '
-                </ul>
-            </nav>';
+        if ($menu->itemCount === 0) {
+            return '';
         }
 
-        return '';
+        return '<nav id="sidebar-menu">
+            <ul class="nav-aside hidden-xs hidden-sm">
+                ' . $menu->render(false) . '
+            </ul>
+        </nav>';
     }
 }
