@@ -9,6 +9,5 @@
     </div>
 </form>
 
-<ul class="nav-mobile">
-    {!! $navigation['mobileMenu'] !!}
-</ul>
+
+{!! $navigation['mobileMenu'] !!}
