@@ -73,8 +73,8 @@ class Sidebars
             'id'            => 'content-area',
             'name'          => __('Content area', 'municipio'),
             'description'   => __('The area below the content', 'municipio'),
-            'before_widget' => '<div class="grid-sm-12 %2$s">',
-            'after_widget'  => '</div>'
+            'before_widget' => '<div class="grid-sm-12"><div class="%2$s">',
+            'after_widget'  => '</div></div>'
         ));
 
         /**
