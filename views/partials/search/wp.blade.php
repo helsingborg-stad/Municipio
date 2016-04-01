@@ -17,7 +17,7 @@
     <div class="grid gutter gutter-lg gutter-top">
         <div class="grid-lg-12">
             <div class="notice info">
-                <i class="fa fa-info-circle"></i> Inga sökträffar…
+                <i class="fa fa-info-circle"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
             </div>
         </div>
     </div>
@@ -49,11 +49,11 @@
                                 {!! the_post() !!}
                                 <li>
                                     <div class="search-result-item">
-                                        <span class="search-result-date">{{ the_modified_date() }}</span>
-                                        <h3><a href="{{ get_permalink() }}">{{ the_title() }}</a></h3>
-                                        <p>{{ the_excerpt() }}</p>
+                                        <span class="search-result-date">{{ apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post()) }}</span>
+                                        <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post()) }}">{{ apply_filters('Municipio/search_result/title', get_the_title(), get_post()) }}</a></h3>
+                                        <p>{{ apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post()) }}</p>
                                         <div class="search-result-info">
-                                            <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ get_permalink() }}">{{ get_permalink() }}</a></span>
+                                            <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post()) }}">{{ apply_filters('Municipio/search_result/permalink_text', get_permalink(), get_post()) }}</a></span>
                                         </div>
                                     </div>
                                 </li>
