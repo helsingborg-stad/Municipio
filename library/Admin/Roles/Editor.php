@@ -8,7 +8,7 @@ class Editor
     {
         if (\Municipio\Helper\User::hasRole('editor')) {
             add_action('admin_init', array($this, 'adminRedirects'), 1);
-            add_action('admin_menu', array($this, 'adminMenus'), 900);
+            add_action('admin_menu', array($this, 'adminMenus'), 9000);
         }
     }
 
