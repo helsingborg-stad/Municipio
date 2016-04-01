@@ -16,9 +16,11 @@
                     <div class="grid-xs-8 grid-sm-8 grid-md-12">
                         {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option'), true, get_field('header_tagline_enable', 'option')) !!}
                     </div>
-                    <div class="grid-xs-4 grid-sm-4 {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
-                        <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
-                    </div>
+                    @if (strlen($navigation['mobileMenu']) > 0)
+                        <div class="grid-xs-4 grid-sm-4 {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
+                            <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="grid-md-6 text-center-sm text-center-xs text-right">
