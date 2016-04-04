@@ -31,7 +31,6 @@ class Editor
 
     public function adminMenus()
     {
-
         //Edit theme options limitations
         $this->removeFromAdminMenu('tools.php');
         $this->removeFromAdminMenu('themes.php', 'customize.php?return=' . urlencode($_SERVER['REQUEST_URI']));
@@ -50,8 +49,8 @@ class Editor
         $this->removeFromAdminMenu('admin.php?page=all-in-one-seo-pack%2Faioseop_class.php');
 
         //Remove Stream
-        $this->removeFromAdminMenu('admin.php?page=wp_stream_settings');
-        $this->removeFromAdminMenu('admin.php?page=wp_stream');
+        $this->removeFromAdminMenuAdvanced('admin.php?page=wp_stream_settings');
+        $this->removeFromAdminMenuAdvanced('admin.php?page=wp_stream');
 
         //Remove gravityforms admin pages
         $this->removeFromAdminMenu('admin.php?page=gf_settings');
@@ -82,17 +81,23 @@ class Editor
     public function removeFromAdminMenu($slug, $subMenuSlug = null)
     {
         if (is_null($subMenuSlug)) {
-
-            //Full remove
             remove_menu_page($slug);
-
-            //Fall back on css hidden
-            add_action('admin_head', function () use (&$slug) {
-                echo '<style>a[href="'.$slug.'"] {display:none !important;}</style>'."\n";
-                echo '<style>a[href="'.$slug.'"] + ul.wp-submenu {display:none !important;}</style>'."\n";
-            });
         } else {
             remove_submenu_page($slug, $subMenuSlug);
         }
+    }
+
+    public function removeFromAdminMenuAdvanced($slug)
+    {
+        global $menu;
+        global $submenu;
+
+        $slug = str_replace('admin.php?page=', '', $slug);
+
+        if (!isset($submenu[$slug])) {
+            return;
+        }
+
+        unset($submenu[$slug]);
     }
 }
