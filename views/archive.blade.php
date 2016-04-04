@@ -6,7 +6,7 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        <div class="grid-md-9 grid-lg-9">
+        <div class="{{ is_active_sidebar('right-sidebar') ? 'grid-md-9' : 'grid-md-12' }}">
             <div class="grid">
                 @while(have_posts())
                     {!! the_post() !!}
@@ -30,7 +30,9 @@
             </div>
         </div>
 
+        @if (is_active_sidebar('right-sidebar'))
         @include('partials.sidebar-right')
+        @endif
     </div>
 </div>
 
