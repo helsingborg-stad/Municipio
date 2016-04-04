@@ -15,8 +15,14 @@ class BaseController
         $this->getLogotype();
         $this->getHeaderLayout();
         $this->getNavigationMenus();
+        $this->getHelperVariables();
 
         $this->init();
+    }
+
+    public function getHelperVariables()
+    {
+        $this->data['hasLeftSidebar'] = (isset($this->data['navigation']['sidebarMenu']) && strlen($this->data['navigation']['sidebarMenu']) > 0) || is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom');
     }
 
     public function getNavigationMenus()
