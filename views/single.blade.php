@@ -6,7 +6,7 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        <div class="grid-md-8 grid-lg-8">
+        <div class="grid-md-12 grid-lg-9">
             @while(have_posts())
                 <div class="grid">
                     <div class="grid-sm-12">
