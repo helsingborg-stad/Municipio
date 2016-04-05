@@ -14,7 +14,6 @@ class Editor
 
     public function adminRedirects()
     {
-
         //Add capability
         add_action('admin_init', array($this, 'addCapabilities'));
 
