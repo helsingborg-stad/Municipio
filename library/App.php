@@ -56,6 +56,8 @@ class App
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
 
+        new \Municipio\Admin\UI\VarnishPurge();
+
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views';
             $paths[] = get_template_directory() . '/views';
