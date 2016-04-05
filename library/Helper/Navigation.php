@@ -108,7 +108,7 @@ class Navigation
         ));
 
         if (isset($menu) && $menu->itemCount() > 0) {
-            return $menu;
+            return $menu->render(false);
         }
 
         return '';
@@ -120,9 +120,15 @@ class Navigation
      */
     public function mobileMenuAuto()
     {
-        $menu = new \Municipio\Helper\NavigationTree(array(
-            'include_top_level' => true,
-        ));
+        $mobileMenuArgs = array(
+            'include_top_level' => true
+        );
+
+        if (get_field('nav_primary_type', 'option') == 'wp') {
+            $mobileMenuArgs['top_level_type'] = 'mobile';
+        }
+
+        $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
         if ($menu->itemCount === 0) {
             return '';

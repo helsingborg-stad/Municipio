@@ -20,6 +20,7 @@ class NavigationTree
         // Merge args
         $this->args = array_merge(array(
             'include_top_level' => false,
+            'top_level_type' => 'tree',
             'render' => 'active',
             'depth' => -1
         ), $args);
@@ -28,26 +29,37 @@ class NavigationTree
         $this->currentPage = $this->getCurrentPage();
         $this->ancestors = $this->getAncestors();
 
-        $this->topLevelPages = get_posts(array(
-            'post_parent' => 0,
-            'post_type' => 'page',
-            'post_status' => 'publish',
-            'orderby' => 'menu_order post_title',
-            'order' => 'asc',
-            'numberposts' => -1,
-            'meta_query'    => array(
-                'relation' => 'OR',
-                array(
-                    'key' => 'hide_in_menu',
-                    'compare' => 'NOT EXISTS'
-                ),
-                array(
-                    'key'   => 'hide_in_menu',
-                    'value' => '0',
-                    'compare' => '='
+        if ($this->args['top_level_type'] == 'mobile') {
+            $themeLocations = get_nav_menu_locations();
+            $this->topLevelPages = wp_get_nav_menu_items($themeLocations['main-menu'], array(
+                'menu_item_parent' => 0
+            ));
+
+            $this->topLevelPages = array_filter($this->topLevelPages, function ($item) {
+                return intval($item->menu_item_parent) === 0;
+            });
+        } else {
+            $this->topLevelPages = get_posts(array(
+                'post_parent' => 0,
+                'post_type' => 'page',
+                'post_status' => 'publish',
+                'orderby' => 'menu_order post_title',
+                'order' => 'asc',
+                'numberposts' => -1,
+                'meta_query'    => array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'hide_in_menu',
+                        'compare' => 'NOT EXISTS'
+                    ),
+                    array(
+                        'key'   => 'hide_in_menu',
+                        'value' => '0',
+                        'compare' => '='
+                    )
                 )
-            )
-        ));
+            ));
+        }
 
         if ($this->args['include_top_level']) {
             $this->walk($this->topLevelPages);
@@ -67,17 +79,18 @@ class NavigationTree
         $this->depth++;
 
         foreach ($pages as $page) {
+            $pageId = $this->getPageId($page);
             $classes = array();
 
             if (is_numeric($page)) {
                 $page = get_page($page);
             }
 
-            if ($this->isAncestors($page->ID)) {
+            if ($this->isAncestors($pageId)) {
                 $classes[] = 'current-node';
             }
 
-            if ($this->currentPage->ID == $page->ID) {
+            if ($this->getPageId($this->currentPage) == $pageId) {
                 $classes[] = 'current';
             }
 
@@ -93,7 +106,8 @@ class NavigationTree
      */
     protected function item($page, $classes = array())
     {
-        $children = $this->getChildren($page->ID);
+        $pageId = $this->getPageId($page);
+        $children = $this->getChildren($pageId);
 
         if (count($children) > 0) {
             $classes[] = 'has-children';
@@ -101,7 +115,7 @@ class NavigationTree
 
         $this->startItem($page, $classes);
 
-        if ($this->isActiveItem($page->ID) && count($children) > 0 && ($this->args['depth'] <= 0 || $this->depth < $this->args['depth'])) {
+        if ($this->isActiveItem($pageId) && count($children) > 0 && ($this->args['depth'] <= 0 || $this->depth < $this->args['depth'])) {
             $this->startSubmenu($page);
             $this->walk($children);
             $this->endSubmenu($page);
@@ -198,11 +212,22 @@ class NavigationTree
 
         $classes[] = 'page-' . $item->ID;
 
+        $title = $item->post_title;
+        $objId = $this->getPageId($item);
+
+        if ($item->post_type == 'nav_menu_item') {
+            $title = $item->title;
+        }
+
+        if (!empty(get_field('custom_menu_title', $objId))) {
+            $title = get_field('custom_menu_title', $objId);
+        }
+
         $this->addOutput(sprintf(
             '<li class="%1$s"><a href="%2$s">%3$s</a>',
             $classes = implode(' ', $classes),
-            $href = get_permalink($item->ID),
-            $title = !empty(get_field('custom_menu_title', $item->ID)) ? get_field('custom_menu_title', $item->ID) : $item->post_title
+            $href = get_permalink($objId),
+            $title
         ));
     }
 
@@ -226,9 +251,11 @@ class NavigationTree
      */
     protected function startSubmenu($item)
     {
+        /*
         if ($this->shouldBeIncluded($item)) {
             return;
         }
+        */
 
         $this->addOutput('<ul class="sub-menu">');
     }
@@ -239,9 +266,11 @@ class NavigationTree
      */
     protected function endSubmenu($item)
     {
+        /*
         if ($this->shouldBeIncluded($item)) {
             return;
         }
+        */
 
         $this->addOutput('</ul>');
     }
@@ -253,7 +282,8 @@ class NavigationTree
      */
     public function shouldBeIncluded($item)
     {
-        $hide = get_field('hide_in_menu', $item->ID);
+        $pageId = $this->getPageId($item);
+        $hide = get_field('hide_in_menu', $pageId);
         return (!$this->args['include_top_level'] && $item->post_parent === 0) || $hide;
     }
 
@@ -288,5 +318,18 @@ class NavigationTree
     public function itemCount()
     {
         return $this->itemCount;
+    }
+
+    public function getPageId($page)
+    {
+        if (!is_object($page)) {
+            $page = get_page($page);
+        }
+
+        if ($page->post_type == 'nav_menu_item') {
+            return intval($page->object_id);
+        }
+
+        return $page->ID;
     }
 }
