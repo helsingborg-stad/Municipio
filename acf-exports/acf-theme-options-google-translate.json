@@ -18,7 +18,8 @@
                 "choices": {
                     "false": "Do not show",
                     "header": "Above header",
-                    "footer": "Below footer"
+                    "footer": "Below footer",
+                    "fold": "Fixed to right edge"
                 },
                 "default_value": [
                     0
@@ -45,8 +46,10 @@
                     "id": ""
                 },
                 "choices": {
+                    "help-menu": "Help menu",
+                    "header-tabs-menu": "Header tabs menu",
                     "main-menu": "Main menu",
-                    "help-menu": "Help menu"
+                    "sidebar-menu": "Sidebar menu"
                 },
                 "default_value": [],
                 "allow_null": 0,

@@ -1,4 +1,4 @@
-<div id="translate" class="google-translate creamy creamy-border-bottom gutter gutter-padding gutter-vertical target-toggle">
+<div id="translate" class="google-translate {{ get_field('show_google_translate', 'option') != 'fold' ? 'creamy creamy-border-bottom gutter gutter-padding gutter-vertical' : 'google-translate-fold' }} target-toggle">
     <div class="container">
         <div class="grid">
             <div class="grid-sm-12">

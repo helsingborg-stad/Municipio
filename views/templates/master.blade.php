@@ -78,7 +78,7 @@
 
         @include('partials.footer')
 
-        @if (get_field('show_google_translate', 'option') == 'footer')
+        @if (in_array(get_field('show_google_translate', 'option'), array('footer', 'fold')))
             @include('partials.translate')
         @endif
      </div>
