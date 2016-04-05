@@ -131,6 +131,10 @@ class NavigationTree
     protected function getCurrentPage()
     {
         global $post;
+        if (!is_object($post)) {
+            return get_queried_object();
+        }
+
         return $post;
     }
 
@@ -204,7 +208,7 @@ class NavigationTree
      */
     protected function startItem($item, $classes = array())
     {
-        if ($this->shouldBeIncluded($item)) {
+        if (!$this->shouldBeIncluded($item)) {
             return;
         }
 
@@ -212,10 +216,10 @@ class NavigationTree
 
         $classes[] = 'page-' . $item->ID;
 
-        $title = $item->post_title;
+        $title = isset($item->post_title) ? $item->post_title : '';
         $objId = $this->getPageId($item);
 
-        if ($item->post_type == 'nav_menu_item') {
+        if (isset($item->post_type) && $item->post_type == 'nav_menu_item') {
             $title = $item->title;
         }
 
@@ -223,10 +227,15 @@ class NavigationTree
             $title = get_field('custom_menu_title', $objId);
         }
 
+        $href = get_permalink($objId);
+        if (isset($item->type) && $item->type == 'custom') {
+            $href = $item->url;
+        }
+
         $this->addOutput(sprintf(
             '<li class="%1$s"><a href="%2$s">%3$s</a>',
             $classes = implode(' ', $classes),
-            $href = get_permalink($objId),
+            $href,
             $title
         ));
     }
@@ -238,7 +247,7 @@ class NavigationTree
      */
     protected function endItem($item)
     {
-        if ($this->shouldBeIncluded($item)) {
+        if (!$this->shouldBeIncluded($item)) {
             return;
         }
 
@@ -251,11 +260,9 @@ class NavigationTree
      */
     protected function startSubmenu($item)
     {
-        /*
-        if ($this->shouldBeIncluded($item)) {
+        if (!$this->shouldBeIncluded($item)) {
             return;
         }
-        */
 
         $this->addOutput('<ul class="sub-menu">');
     }
@@ -266,11 +273,9 @@ class NavigationTree
      */
     protected function endSubmenu($item)
     {
-        /*
-        if ($this->shouldBeIncluded($item)) {
+        if (!$this->shouldBeIncluded($item)) {
             return;
         }
-        */
 
         $this->addOutput('</ul>');
     }
@@ -283,8 +288,8 @@ class NavigationTree
     public function shouldBeIncluded($item)
     {
         $pageId = $this->getPageId($item);
-        $hide = get_field('hide_in_menu', $pageId);
-        return (!$this->args['include_top_level'] && $item->post_parent === 0) || $hide;
+        $hide = get_field('hide_in_menu', $pageId) ? get_field('hide_in_menu', $pageId) : false;
+        return !(isset($item->post_parent) && !$this->args['include_top_level'] && $item->post_parent === 0) || $hide;
     }
 
 
@@ -322,11 +327,15 @@ class NavigationTree
 
     public function getPageId($page)
     {
+        if (is_null($page)) {
+            return false;
+        }
+
         if (!is_object($page)) {
             $page = get_page($page);
         }
 
-        if ($page->post_type == 'nav_menu_item') {
+        if (isset($page->post_type) && $page->post_type == 'nav_menu_item') {
             return intval($page->object_id);
         }
 
