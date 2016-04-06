@@ -7,6 +7,8 @@ class VarnishPurge
     public function __construct()
     {
         add_action('admin_bar_menu', array($this, 'varnishAdminbar'), 100);
+        add_action('admin_bar_menu', array($this, 'translatePurgeButton'), 200);
+
         add_action('wp', array($this, 'purgeUrl'));
         add_action('admin_init', array($this, 'purgeUrl'));
 
@@ -64,11 +66,25 @@ class VarnishPurge
         ));
     }
 
+    public function translatePurgeButton($adminBar)
+    {
+        $default = $adminBar->get_node('purge-varnish-cache-all');
+
+        if ($default) {
+            $adminBar->remove_node('purge-varnish-cache-all');
+            $adminBar->add_menu(array(
+                'id' => 'purge-varnish-cache-all',
+                'title' => __('Purge Varnish', 'varnish-http-purge'),
+                'href' => $default->href
+            ));
+        }
+    }
+
     public function varnishTranslation($mofile, $domain)
     {
         if ('varnish-http-purge' == $domain) {
-            if (file_exists(MUNICIPIO_PATH . '/language/plugins/' . basename($mofile))) {
-                $mofile = MUNICIPIO_PATH . '/language/plugins/' . basename($mofile);
+            if (file_exists(MUNICIPIO_PATH . 'languages/plugins/' . basename($mofile))) {
+                $mofile = MUNICIPIO_PATH . 'languages/plugins/' . basename($mofile);
             }
         }
 
