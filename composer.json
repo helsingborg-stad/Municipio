@@ -13,17 +13,10 @@
             "email": "sebastian.thulin@helsingborg.se"
         }
     ],
-    "repositories":[
-        {
-            "type":"composer",
-            "url":"http://wpackagist.org"
-        }
-    ],
     "require": {
         "composer/installers": "^1.0",
         "johnshopkins/acf": "^5.0",
         "philo/laravel-blade": "^3.1",
-        "wpackagist-plugin/advanced-custom-fields-font-awesome": "1.7.2",
         "symfony/debug": "^3.0"
     },
     "extra" : {

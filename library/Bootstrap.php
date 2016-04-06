@@ -18,7 +18,6 @@ if (file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
  * Psr4ClassLoader
  */
 require_once MUNICIPIO_PATH . 'library/Vendor/Psr4ClassLoader.php';
-
 require_once MUNICIPIO_PATH . 'library/Public.php';
 
 $loader = new Municipio\Vendor\Psr4ClassLoader();
@@ -29,7 +28,7 @@ $loader->register();
 /**
  * ACF
  */
-include_once ABSPATH . 'wp-admin/includes/plugin.php';
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
 if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php') && !is_plugin_active('advanced-custom-fields-pro/acf.php')) {
     new \Municipio\Acf();
 
@@ -41,9 +40,9 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php') && !is_plugin_active('adv
 /**
  * ACF Addon
  */
-include_once ABSPATH . 'wp-admin/includes/plugin.php';
-if (file_exists(MUNICIPIO_PATH . 'vendor/advanced-custom-fields-font-awesome/acf-font-awesome.php')) {
-    require_once MUNICIPIO_PATH . 'vendor/advanced-custom-fields-font-awesome/acf-font-awesome.php';
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
+if (file_exists(MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/acf-font-awesome.php')) {
+    require_once MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/acf-font-awesome.php';
 }
 
 /**

@@ -1,0 +1,60 @@
+/**
+ * Better Font Awesome admin styles
+ *
+ * @package   Better Font Awesome Library
+ * @author    MIGHTYminnow & Mickey Kay <mickey@mickeykaycreative.com>
+ * @license   GPL-2.0+
+ * @link      https://github.com/MickeyKay/better-font-awesome-library
+ * @copyright 2014 MIGHTYminnow & Mickey Kay
+ */
+
+/**
+ * TinyMCE Button & Popup
+ */
+
+.bfa-iconpicker .iconpicker-popover {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	list-style: none;
+	font-size: 14px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0,0,0,.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	background-clip: padding-box;
+}
+
+.bfa-iconpicker .iconpicker-popover .arrow {
+	display: none !important;
+}
+
+.bfa-iconpicker .iconpicker-item {
+	/* Override some unfortunate WP default admin mobile styles */
+	width: 14px !important;
+	height: 14px !important;
+	padding: 14px !important;
+	font-size: 14px !important;
+	line-height: 1 !important;
+	box-shadow: 0 0 0 1px #ddd !important;
+}
+
+.bfa-iconpicker input[type="search"] {
+	width: 100%;
+}
+
+.bfa-iconpicker .iconpicker-popover.popover {
+	width: 253px;
+}
+
+.bfa-iconpicker .iconpicker-component i {
+	display: none;
+}
