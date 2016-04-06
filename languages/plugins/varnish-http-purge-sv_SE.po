@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Varnish HTTP Purge\n"
+"POT-Creation-Date: 2014-03-07 15:15-0800\n"
+"PO-Revision-Date: 2016-04-05 15:50+0200\n"
+"Language-Team: DreamHost\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: sv_SE\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: varnish-http-purge.php:68
+msgid "Varnish purge flushed!"
+msgstr "Varnish cachen tömdes!"
+
+#: varnish-http-purge.php:72
+msgid ""
+"Varnish HTTP Purge requires you to use custom permalinks. Please go to the "
+"<a href=\"options-permalink.php\">Permalinks Options Page</a> to configure "
+"them."
+msgstr ""
+"För att kunna använda pluginet för att tömma Varnish Cachen måste du använda "
+"”custom permalinks”. Gå till <a href=\"options-permalink.php\">Permalinks "
+"Options Page</a> för att konfigurera permalänkarna."
+
+#: varnish-http-purge.php:81 varnish-http-purge.php:118
+msgid "Purge Varnish"
+msgstr "Töm Varnish cache"
+
+#: varnish-http-purge.php:90
+#, php-format
+msgid ""
+"<a href=\"%1$s\">Varnish HTTP Purge</a> automatically purges your posts when "
+"published or updated. Sometimes you need a manual flush."
+msgstr ""
+"<a href=\"%1$s\">Varnish HTTP Purge</a> tömmer automatiskt Varnish cachen "
+"när ett inlägg publiceras eller uppdateras. Ibland behöver man ändå tömma "
+"Varnish cachen manuellt."
+
+#: varnish-http-purge.php:91
+msgid "Press the button below to force it to purge your entire cache."
+msgstr ""
+"Tryck på knappen nedan för att tvinga en tömning av hela Varnish cachen."
+
+#: varnish-http-purge.php:93
+msgid "Purge Varnish Cache"
+msgstr "Töm Varnish Cache"
+
+#: varnish-http-purge.php:95
+msgid ""
+"You do not have permission to purge the cache for the whole site. Please "
+"contact your adminstrator."
+msgstr "Du har inte rättigheter att tömma cachen för hela siten."

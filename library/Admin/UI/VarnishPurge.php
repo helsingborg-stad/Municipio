@@ -15,7 +15,7 @@ class VarnishPurge
 
     public function purgeUrl()
     {
-        if (!current_user_can('edit_post')) {
+        if (!current_user_can('edit_posts')) {
             return;
         }
 
@@ -42,7 +42,7 @@ class VarnishPurge
 
     public function varnishAdminbar($adminBar)
     {
-        if (!current_user_can('edit_post')) {
+        if (!current_user_can('edit_posts')) {
             return;
         }
 
@@ -50,6 +50,10 @@ class VarnishPurge
         global $purger;
 
         if (!isset($post) || !is_object($post) || !isset($purger)) {
+            return;
+        }
+
+        if (!isset($_GET['post'])) {
             return;
         }
 
@@ -63,8 +67,8 @@ class VarnishPurge
     public function varnishTranslation($mofile, $domain)
     {
         if ('varnish-http-purge' == $domain) {
-            if (file_exists(WP_LANG_DIR . '/plugins/' . basename($mofile))) {
-                $mofile = WP_LANG_DIR . '/plugins/' . basename($mofile);
+            if (file_exists(MUNICIPIO_PATH . '/language/plugins/' . basename($mofile))) {
+                $mofile = MUNICIPIO_PATH . '/language/plugins/' . basename($mofile);
             }
         }
 
