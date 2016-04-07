@@ -107,8 +107,13 @@ class Navigation
             'depth' => get_field('nav_primary_depth', 'option')
         ));
 
+        $navAlign = 'justify';
+        if (!empty(get_field('nav_primary_align', 'option'))) {
+            $navAlign = get_field('nav_primary_align', 'option');
+        }
+
         if (isset($menu) && $menu->itemCount() > 0) {
-            return $menu->render(false);
+            return '<ul class="' . implode(' ', apply_filters('Municipio/main_menu_classes', array('nav', 'nav-' . $navAlign))) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">' . $menu->render(false) . '</ul>';
         }
 
         return '';
