@@ -193,7 +193,7 @@ class NavigationTree
      */
     protected function isActiveItem($id)
     {
-        if ($this->args['render'] == 'all') {
+        if ($this->args['render'] == 'all' || !is_object($this->currentPage)) {
             return true;
         }
 
@@ -208,7 +208,7 @@ class NavigationTree
      */
     protected function startItem($item, $classes = array())
     {
-        if (!$this->shouldBeIncluded($item)) {
+        if (!$this->shouldBeIncluded($item) || !is_object($item)) {
             return;
         }
 
