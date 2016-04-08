@@ -19,6 +19,8 @@
                         @include('partials.blog.type.post-compressed')
                     @elseif(get_field('blog_feed_post_style', 'option') == 'grid')
                         @include('partials.blog.type.post-grid')
+                    @elseif(get_field('blog_feed_post_style', 'option') == 'cards')
+                        @include('partials.blog.type.post-cards')
                     @endif
                 @endwhile
             </div>

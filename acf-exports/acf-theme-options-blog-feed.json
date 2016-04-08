@@ -19,6 +19,7 @@
                     "full": "Full",
                     "collapsed": "Collapsed",
                     "compressed": "Compressed",
+                    "cards": "Cards",
                     "grid": "Grid"
                 },
                 "default_value": [],
@@ -43,6 +44,13 @@
                             "field": "field_56fcc5b8edbc2",
                             "operator": "==",
                             "value": "grid"
+                        }
+                    ],
+                    [
+                        {
+                            "field": "field_56fcc5b8edbc2",
+                            "operator": "==",
+                            "value": "cards"
                         }
                     ]
                 ],
