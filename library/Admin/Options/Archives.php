@@ -17,7 +17,7 @@ class Archives
 
         $posttypes = get_post_types();
         $posttypes = array_filter($posttypes, function ($value) {
-            if (substr($value, 0, 4) === 'mod-' || substr($value, 0, 4) === 'acf-' || in_array($value, array('attachment', 'revision', 'nav_menu_item', 'event'))) {
+            if (substr($value, 0, 4) === 'mod-' || substr($value, 0, 4) === 'acf-' || in_array($value, array('attachment', 'revision', 'nav_menu_item', 'event', 'page', 'custom-short-link'))) {
                 return apply_filters('Municipio/archives/canChangeStyle', false, $value);
             }
 
@@ -27,8 +27,10 @@ class Archives
         foreach ($posttypes as $posttype) {
             acf_add_local_field_group(array (
                 'key' => 'group_' . md5($posttype),
-                'title' => ucwords($posttype) . ' ' . __('archive', 'municipio'),
+                'title' => __('Archive for', 'municipio') . ': ' . ucwords($posttype),
                 'fields' => array (
+
+                    // Post style
                     array (
                         'key' => 'field_56f00fe21f918_' . md5($posttype),
                         'label' => 'Post style',
@@ -59,6 +61,8 @@ class Archives
                         'disabled' => 0,
                         'readonly' => 0,
                     ),
+
+                    // Grid columns
                     array (
                         'key' => 'field_56f1045257121_' . md5($posttype),
                         'label' => 'Grid columns',
@@ -97,6 +101,31 @@ class Archives
                         'disabled' => 0,
                         'readonly' => 0,
                     ),
+
+                    // Post filters
+                    array (
+                        'key' => 'field_570ba0c87756c' . md5($posttype),
+                        'label' => 'Post filters',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_post_filters',
+                        'type' => 'checkbox',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => array (
+                            'text_search' => 'Text search',
+                            'date_range' => 'Date range',
+                        ),
+                        'default_value' => array (
+                        ),
+                        'layout' => 'horizontal',
+                        'toggle' => 0,
+                    ),
+
                 ),
                 'location' => array (
                     array (
