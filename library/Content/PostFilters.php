@@ -11,6 +11,8 @@ class PostFilters
 
     public function doPostFiltering($where)
     {
+        global $wpdb;
+
         $from = null;
         $to = null;
 
@@ -23,11 +25,11 @@ class PostFilters
         }
 
         if (!is_null($from) && !is_null($to)) {
-            $where .= " AND (wp_posts.post_date >= '$from' AND wp_posts.post_date <= '$to')";
+            $where .= " AND ($wpdb->posts.post_date >= '$from' AND $wpdb->posts.post_date <= '$to')";
         } elseif (!is_null($from) && is_null($to)) {
-            $where .= " AND (wp_posts.post_date >= '$from')";
+            $where .= " AND ($wpdb->posts.post_date >= '$from')";
         } elseif (is_null($from) && !is_null($to)) {
-            $where .= " AND (wp_posts.post_date <= '$to')";
+            $where .= " AND ($wpdb->posts.post_date <= '$to')";
         }
 
         return $where;
