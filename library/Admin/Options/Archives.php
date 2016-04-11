@@ -25,6 +25,15 @@ class Archives
         });
 
         foreach ($posttypes as $posttype) {
+
+            // Get posttype taxonommies
+            $taxonomies = array();
+            $taxonomiesRaw = get_object_taxonomies($posttype);
+
+            foreach ($taxonomiesRaw as $taxonomy) {
+                $taxonomies[$taxonomy] = $taxonomy;
+            }
+
             acf_add_local_field_group(array (
                 'key' => 'group_' . md5($posttype),
                 'title' => __('Archive for', 'municipio') . ': ' . ucwords($posttype),
@@ -129,7 +138,7 @@ class Archives
                     // Post filters sidebar
                     array (
                         'key' => 'field_570ba0c8erg434' . md5($posttype),
-                        'label' => 'Post filters',
+                        'label' => 'Taxonomy filters',
                         'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_sidebar',
                         'type' => 'checkbox',
                         'instructions' => '',
@@ -140,9 +149,7 @@ class Archives
                             'class' => '',
                             'id' => '',
                         ),
-                        'choices' => array (
-                            'taxonomy' => 'Taxonomy'
-                        ),
+                        'choices' => $taxonomies,
                         'default_value' => array (
                         ),
                         'layout' => 'horizontal',
