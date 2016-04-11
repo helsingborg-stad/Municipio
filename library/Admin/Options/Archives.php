@@ -102,11 +102,11 @@ class Archives
                         'readonly' => 0,
                     ),
 
-                    // Post filters
+                    // Post filters header
                     array (
                         'key' => 'field_570ba0c87756c' . md5($posttype),
                         'label' => 'Post filters',
-                        'name' => 'archive_' . sanitize_title($posttype) . '_post_filters',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_header',
                         'type' => 'checkbox',
                         'instructions' => '',
                         'required' => 0,
@@ -118,7 +118,30 @@ class Archives
                         ),
                         'choices' => array (
                             'text_search' => 'Text search',
-                            'date_range' => 'Date range',
+                            'date_range' => 'Date range'
+                        ),
+                        'default_value' => array (
+                        ),
+                        'layout' => 'horizontal',
+                        'toggle' => 0,
+                    ),
+
+                    // Post filters sidebar
+                    array (
+                        'key' => 'field_570ba0c8erg434' . md5($posttype),
+                        'label' => 'Post filters',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_sidebar',
+                        'type' => 'checkbox',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => array (
+                            'taxonomy' => 'Taxonomy'
                         ),
                         'default_value' => array (
                         ),

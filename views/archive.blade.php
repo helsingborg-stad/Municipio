@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('partials.archive-filters')
+
 <div class="container main-container">
     @include('partials.breadcrumbs')
 

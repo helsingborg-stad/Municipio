@@ -1,9 +1,9 @@
-@if (!empty($enabledFilters))
+@if (!empty($enabledHeaderFilters))
 <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area">
     <form method="get" action="" class="container" id="archive-filter">
         <div class="grid">
-            @if (in_array('text_search', $enabledFilters))
-            <div class="grid-md-{{ 10/count($enabledFilters) }}">
+            @if (in_array('text_search', $enabledHeaderFilters))
+            <div class="grid-md-{{ 10/count($enabledHeaderFilters) }}">
                 <label for="filter-keyword" class="text-sm"><strong><?php _e('Title', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -12,8 +12,8 @@
             </div>
             @endif
 
-            @if (in_array('date_range', $enabledFilters))
-            <div class="grid-md-{{ 10/count($enabledFilters) }}">
+            @if (in_array('date_range', $enabledHeaderFilters))
+            <div class="grid-md-{{ 10/count($enabledHeaderFilters) }}">
                 <label for="filter-date-from" class="text-sm"><strong><?php _e('Date published', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon"><?php _e('From', 'municipio'); ?>:</span>
