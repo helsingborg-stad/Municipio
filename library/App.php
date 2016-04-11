@@ -33,6 +33,7 @@ class App
          */
         new \Municipio\Content\CustomPostType();
         new \Municipio\Content\CustomTaxonomy();
+        new \Municipio\Content\PostFilters();
 
         /**
          * Widget
