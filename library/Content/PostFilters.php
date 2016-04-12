@@ -6,8 +6,19 @@ class PostFilters
 {
     public function __construct()
     {
-        add_filter('posts_where', array($this, 'doPostFiltering'));
+        add_filter('posts_where', array($this, 'doPostDateFiltering'));
+        add_filter('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_filter('pre_get_posts', array($this, 'doPostOrdering'));
+    }
+
+    public function doPostTaxonomyFiltering($query)
+    {
+        // Do not execute this in admin view
+        if (is_admin() || !(is_archive() || is_home()) || !$query->is_main_query()) {
+            return $query;
+        }
+
+        return $query;
     }
 
     /**
@@ -15,7 +26,7 @@ class PostFilters
      * @param  string $where Original where clause
      * @return string        Modified where clause
      */
-    public function doPostFiltering($where)
+    public function doPostDateFiltering($where)
     {
         global $wpdb;
 
@@ -41,11 +52,16 @@ class PostFilters
         return $where;
     }
 
+    /**
+     * Do post ordering for archives
+     * @param  object $query Query
+     * @return object        Modified query
+     */
     public function doPostOrdering($query)
     {
         // Do not execute this in admin view
-        if (is_admin() || !is_archive() || !$query->is_main_query()) {
-            return;
+        if (is_admin() || !(is_archive() || is_home()) || !$query->is_main_query()) {
+            return $query;
         }
 
         $isMetaQuery = false;
