@@ -78,6 +78,7 @@ class Archives
                     'collapsed' => 'Collapsed',
                     'compressed' => 'Compressed',
                     'grid' => 'Grid',
+                    'cards' => 'Post cards'
                 ),
                 'default_value' => array (
                     0 => 'full',
@@ -105,6 +106,13 @@ class Archives
                             'field' => 'field_56f00fe21f918_' . md5($posttype),
                             'operator' => '==',
                             'value' => 'grid',
+                        ),
+                    ),
+                    array (
+                        array (
+                            'field' => 'field_56f00fe21f918_' . md5($posttype),
+                            'operator' => '==',
+                            'value' => 'cards',
                         ),
                     ),
                 ),

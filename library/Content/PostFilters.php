@@ -18,6 +18,24 @@ class PostFilters
             return $query;
         }
 
+        // Bail if tax or term is empty
+        if (!isset($_GET['tax']) || empty($_GET['tax']) || !isset($_GET['term']) || empty($_GET['term'])) {
+            return $query;
+        }
+
+        $tax = sanitize_text_field($_GET['tax']);
+        $term = sanitize_text_field($_GET['term']);
+
+        $query->set('tax_query', array(
+            'relation' => 'OR',
+            array(
+                'taxonomy' => $tax,
+                'field' => 'slug',
+                'terms' => $term,
+                'operator' => 'IN'
+            )
+        ));
+
         return $query;
     }
 
