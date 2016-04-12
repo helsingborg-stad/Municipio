@@ -95,7 +95,10 @@ class Template
             if (file_exists($path)) {
                 return $path;
             } else {
-                \Municipio\Helper\Notice::add('View [' . $template . '] was not found. Defaulting to [page.blade.php].');
+                if (current_user_can('administrator')) {
+                    \Municipio\Helper\Notice::add('<i class="fa fa-warning"></i><strong>' . __('Admin notice', 'municipio') . ':</strong> ' . sprintf(__('View [%s] was not found. Defaulting to [page.blade.php].', 'municipio'), $template));
+                }
+
                 $template = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
             }
         }
