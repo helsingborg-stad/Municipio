@@ -6,9 +6,20 @@ class PostFilters
 {
     public function __construct()
     {
+        add_filter('template_include', array($this, 'enablePostTypeArchiveSearch'), 1);
+
         add_filter('posts_where', array($this, 'doPostDateFiltering'));
         add_filter('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_filter('pre_get_posts', array($this, 'doPostOrdering'));
+    }
+
+    public function enablePostTypeArchiveSearch($template)
+    {
+        if (is_post_type_archive()) {
+            $template = \Municipio\Helper\Template::locateTemplate('archive.blade.php');
+        }
+
+        return $template;
     }
 
     public function doPostTaxonomyFiltering($query)
