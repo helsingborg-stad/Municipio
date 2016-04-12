@@ -1,5 +1,5 @@
 <aside class="grid-lg-3 grid-md-12 sidebar-right-sidebar">
-    @if (isset($enabledSidebarFilters) && is_array($enabledSidebarFilters))
+    @if (is_active_sidebar('right-sidebar') || (isset($enabledSidebarFilters) && is_array($enabledSidebarFilters)))
     <div class="grid">
         @foreach ($enabledSidebarFilters as $taxonomy)
         <?php $taxs = get_terms($taxonomy); ?>
@@ -18,11 +18,7 @@
         </div>
         @endif
         @endforeach
-    </div>
-    @endif
 
-    @if (is_active_sidebar('right-sidebar'))
-    <div class="grid">
         <?php dynamic_sidebar('right-sidebar'); ?>
     </div>
     @endif

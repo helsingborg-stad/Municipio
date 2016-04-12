@@ -9,6 +9,11 @@ class PostFilters
         add_filter('posts_where', array($this, 'doPostFiltering'));
     }
 
+    /**
+     * Add where clause to post query based on active filters
+     * @param  string $where Original where clause
+     * @return string        Modified where clause
+     */
     public function doPostFiltering($where)
     {
         global $wpdb;
