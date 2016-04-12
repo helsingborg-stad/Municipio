@@ -5,12 +5,12 @@
             @if (municipio_get_thumbnail_source())
             <div class="box-image" style="background-image:url('{{ municipio_get_thumbnail_source() }}');">
                 <img src="{{ municipio_get_thumbnail_source() }}">
-                @if (isset(get_the_category()[0]->name))
+                @if (get_field('blog_feed_show_category', 'option') && isset(get_the_category()[0]->name))
                 <span class="box-card-post-category label label-theme">{{ get_the_category()[0]->name }}</span>
                 @endif
             </div>
             @else
-                @if (isset(get_the_category()[0]->name))
+                @if (get_field('blog_feed_show_category', 'option') && isset(get_the_category()[0]->name))
                 <span class="box-card-post-category label label-theme">{{ get_the_category()[0]->name }}</span>
                 @endif
             @endif

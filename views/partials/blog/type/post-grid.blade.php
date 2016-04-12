@@ -8,6 +8,10 @@
         @endif
 
         <div class="box-content">
+            @if (get_field('blog_feed_show_category', 'option') && isset(get_the_category()[0]->name))
+            <span class="box-post-brick-category">{{ get_the_category()[0]->name }}</span>
+            @endif
+
             @if (get_field('blog_feed_show_date', 'option') != 'false')
             <span class="box-post-brick-date">
                 <time>
