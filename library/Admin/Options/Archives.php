@@ -9,6 +9,9 @@ class Archives
         add_action('admin_init', array($this, 'addArchiveOptions'));
     }
 
+    /**
+     * Adds archive options fields
+     */
     public function addArchiveOptions()
     {
         if (!function_exists('acf_add_local_field_group')) {
@@ -130,15 +133,16 @@ class Archives
 
             // Post sorting
             $metaKeys = array(
-                'post_title' => 'Title',
                 'post_date'  => 'Date published',
                 'post_modified' => 'Date modified',
+                'post_title' => 'Title',
             );
+
             $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($posttype);
+
             foreach ($metaKeysRaw as $metaKey) {
                 $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
             }
-
 
             $fieldArgs['fields'][] = array(
                 'key' => 'field_56f64546rref918_' . md5($posttype),
@@ -153,7 +157,7 @@ class Archives
                     'class' => '',
                     'id' => '',
                 ),
-                'choices' => $metaKeys,
+                'choices' => apply_filters('Municipio/archive/sort_keys', $metaKeys, $posttype),
                 'default_value' => array (
                     0 => 'post_date',
                 ),
@@ -241,7 +245,6 @@ class Archives
                     'toggle' => 0,
                 );
             }
-
 
             acf_add_local_field_group($fieldArgs);
         }

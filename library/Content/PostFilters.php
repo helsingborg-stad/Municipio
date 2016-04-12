@@ -7,6 +7,7 @@ class PostFilters
     public function __construct()
     {
         add_filter('posts_where', array($this, 'doPostFiltering'));
+        add_filter('pre_get_posts', array($this, 'doPostOrdering'));
     }
 
     /**
@@ -38,5 +39,67 @@ class PostFilters
         }
 
         return $where;
+    }
+
+    public function doPostOrdering($query)
+    {
+        // Do not execute this in admin view
+        if (is_admin() || !is_archive() || !$query->is_main_query()) {
+            return;
+        }
+
+        $isMetaQuery = false;
+
+        $posttype = $query->get('post_type');
+        if (empty($posttype)) {
+            $posttype = 'post';
+        }
+
+        // Get orderby key, default to post_date
+        $orderby = get_field('archive_' . sanitize_title($posttype) . '_sort_key', 'option');
+        if (empty($orderby)) {
+            $orderby = 'post_date';
+        }
+
+        if (in_array($orderby, array('post_date', 'post_modified', 'post_title'))) {
+            $orderby = str_replace('post_', '', $orderby);
+        } else {
+            $isMetaQuery = true;
+        }
+
+        // Get orderby order, default to desc
+        $order = get_field('archive_' . sanitize_title($posttype) . '_sort_order', 'option');
+        if (empty($order)) {
+            $order = 'desc';
+        }
+
+        $query->set('order', $order);
+
+        // Return if not meta query
+        if (!$isMetaQuery) {
+            $query->set('orderby', $orderby);
+
+            return $query;
+        }
+
+        // Continue if meta query
+        $query->set(
+            'meta_query',
+            array(
+                'relation' => 'OR',
+                array(
+                    'key' => $orderby,
+                    'compare' => 'EXISTS'
+                ),
+                array(
+                    'key' => $orderby,
+                    'compare' => 'NOT EXISTS'
+                )
+            )
+        );
+
+        $query->set('orderby', 'meta_key');
+
+        return $query;
     }
 }
