@@ -194,7 +194,7 @@ class Acf
         // Field choises
         if (isset($field->choices) && count($field->choices) > 0) {
             foreach ($field->choices as $key => &$value) {
-                if (!is_string($value)) {
+                if (!is_string($value) || strpos($value, '; fa-') > -1) {
                     continue;
                 }
 
