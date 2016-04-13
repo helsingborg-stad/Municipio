@@ -7,23 +7,26 @@
 <div class="container main-container">
     @include('partials.breadcrumbs')
 
+    <?php
+        $cols = 'grid-md-12';
+        if (is_active_sidebar('right-sidebar') && get_field('archive_post_show_sidebar_navigation', 'option')) {
+            $cols = 'grid-md-8 grid-lg-6';
+        } elseif (is_active_sidebar('right-sidebar') || get_field('archive_post_show_sidebar_navigation', 'option')) {
+            $cols = 'grid-md-12 grid-lg-9';
+        }
+    ?>
+
     <div class="grid">
-        <div class="{{ is_active_sidebar('right-sidebar') ? 'grid-md-12 grid-lg-9' : 'grid-md-12' }}">
+        <div class="{{ $cols }}">
             <div class="grid" data-equalize-container>
                 @if (have_posts())
                     @while(have_posts())
                         {!! the_post() !!}
 
-                        @if (get_field('blog_feed_post_style', 'option') == 'full' || !get_field('blog_feed_post_style', 'option'))
+                        @if ($template == 'full')
                             @include('partials.blog.type.post')
-                        @elseif(get_field('blog_feed_post_style', 'option') == 'collapsed')
-                            @include('partials.blog.type.post-collapsed')
-                        @elseif(get_field('blog_feed_post_style', 'option') == 'compressed')
-                            @include('partials.blog.type.post-compressed')
-                        @elseif(get_field('blog_feed_post_style', 'option') == 'grid')
-                            @include('partials.blog.type.post-grid')
-                        @elseif(get_field('blog_feed_post_style', 'option') == 'cards')
-                            @include('partials.blog.type.post-cards')
+                        @else
+                            @include('partials.blog.type.post-' . $template)
                         @endif
                     @endwhile
                 @else

@@ -1,10 +1,10 @@
 <footer class="post-footer grid-table grid-va-top">
     <div class="grid-md-6">
-        @if (get_field('blog_show_tags', 'option'))
+        @if (in_array('tags', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
             @include('partials.blog.post-tags')
         @endif
 
-        @if (get_field('blog_show_categories', 'option'))
+        @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
             @include('partials.blog.post-categories')
         @endif
     </div>

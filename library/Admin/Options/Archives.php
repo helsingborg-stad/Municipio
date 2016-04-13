@@ -59,6 +59,25 @@ class Archives
                 'description' => '',
             );
 
+            // Feed display label
+            $fieldArgs['fields'][] = array (
+                'key' => 'field_570e104caf1b2_' . md5($posttype),
+                'label' => 'Archive feed display settings',
+                'name' => 'archive_' . sanitize_title($posttype) . '_feed_display_settings',
+                'type' => 'message',
+                'instructions' => 'The below settings will apply for the archive feed.',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array (
+                    'width' => '',
+                    'class' => 'municipio-theme-options-label',
+                    'id' => '',
+                ),
+                'message' => '',
+                'new_lines' => 'wpautop',
+                'esc_html' => 0,
+            );
+
             // Post style
             $fieldArgs['fields'][] = array(
                 'key' => 'field_56f00fe21f918_' . md5($posttype),
@@ -254,11 +273,99 @@ class Archives
                 );
             }
 
-            $fieldArgs['fields'][] = array (
-                'key' => 'field_570ded8a47206' . md5($posttype),
+            // Publish date
+            $fieldArgs['fields'][] = array(
+                'key' => 'field_56fcc6914296b_' . md5($posttype),
+                'label' => 'Date published',
+                'name' => 'archive_' . sanitize_title($posttype) . '_feed_date_published',
+                'type' => 'radio',
+                'instructions' => '',
+                'required' => 1,
+                'conditional_logic' => 0,
+                'wrapper' => array (
+                    'width' => '50%',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'choices' => array (
+                    'false' => 'Do not show',
+                    'datetime' => 'Date and time',
+                    'date' => 'Date only',
+                    'time' => 'Time only',
+                ),
+                'other_choice' => 0,
+                'save_other_choice' => 0,
+                'default_value' => 'datetime',
+                'layout' => 'horizontal',
+            );
+
+            // Sidebar navigation
+            $fieldArgs['fields'][] = array(
+                'key' => 'field_570ded8a47206_' . md5($posttype),
                 'label' => 'Sidebar navigation',
                 'name' => 'archive_' . sanitize_title($posttype) . '_show_sidebar_navigation',
                 'type' => 'true_false',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array (
+                    'width' => '50%',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'message' => 'Yes, show the sidebar navigation',
+                'default_value' => 0,
+            );
+
+            // Post display label
+            $fieldArgs['fields'][] = array (
+                'key' => 'field_570e104caf1b3_' . md5($posttype),
+                'label' => 'Post display settings',
+                'name' => 'archive_' . sanitize_title($posttype) . '_post_display_settings',
+                'type' => 'message',
+                'instructions' => 'The below settings will apply for single post view.',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array (
+                    'width' => '',
+                    'class' => 'municipio-theme-options-label',
+                    'id' => '',
+                ),
+                'message' => '',
+                'new_lines' => 'wpautop',
+                'esc_html' => 0,
+            );
+
+            $fieldArgs['fields'][] = array(
+                'key' => 'field_56fcc6914296c_' . md5($posttype),
+                'label' => 'Date published',
+                'name' => 'archive_' . sanitize_title($posttype) . '_post_date_published',
+                'type' => 'radio',
+                'instructions' => '',
+                'required' => 1,
+                'conditional_logic' => 0,
+                'wrapper' => array (
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'choices' => array (
+                    'false' => 'Do not show',
+                    'datetime' => 'Date and time',
+                    'date' => 'Date only',
+                    'time' => 'Time only',
+                ),
+                'other_choice' => 0,
+                'save_other_choice' => 0,
+                'default_value' => 'datetime',
+                'layout' => 'horizontal',
+            );
+
+            $fieldArgs['fields'][] = array (
+                'key' => 'field_56fcc62b8ab02_' . md5($posttype),
+                'label' => 'Info to display',
+                'name' => 'archive_' . sanitize_title($posttype) . '_post_display_info',
+                'type' => 'checkbox',
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
@@ -267,9 +374,18 @@ class Archives
                     'class' => '',
                     'id' => '',
                 ),
-                'message' => 'Yes, show the sidebar navigation',
-                'default_value' => 0,
+                'choices' => array (
+                    'category' => 'Show category',
+                    'tags' => 'Show tags',
+                    'author' => 'Show author',
+                    'author_image' => 'Show autor image (only if show author)',
+                ),
+                'other_choice' => 0,
+                'save_other_choice' => 0,
+                'default_value' => '',
+                'layout' => 'horizontal',
             );
+
 
             acf_add_local_field_group($fieldArgs);
         }

@@ -59,16 +59,8 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Blog', 'municipio'),
-                'menu_title'    => __('Blog', 'municipio'),
-                'parent_slug'   => 'theme-settings',
-                'capability'    => $themeOptionsCapability,
-                'menu_slug'     => 'acf-options-blog'
-            ));
-
-            acf_add_options_sub_page(array(
-                'page_title'    => __('Archives', 'municipio'),
-                'menu_title'    => __('Archives', 'municipio'),
+                'page_title'    => __('Blog & Archives', 'municipio'),
+                'menu_title'    => __('Blog & Archives', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'capability'    => $themeOptionsCapability,
                 'menu_slug'     => 'acf-options-archives'

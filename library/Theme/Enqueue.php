@@ -10,6 +10,9 @@ class Enqueue
         add_action('wp_enqueue_scripts', array($this, 'style'));
         add_action('wp_enqueue_scripts', array($this, 'script'));
 
+        // Admin style
+        add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
+
         add_action('wp_enqueue_scripts', array($this, 'googleAnalytics'), 999);
 
         // Removes version querystring from scripts and styles
@@ -18,6 +21,12 @@ class Enqueue
 
         // Removes generator tag
         add_filter('the_generator', create_function('', 'return "";'));
+    }
+
+    public function adminStyle()
+    {
+        wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', filemtime(get_stylesheet_directory() . '/assets/dist/css/admin.min.css'));
+        wp_enqueue_style('helsingborg-se-admin');
     }
 
     /**

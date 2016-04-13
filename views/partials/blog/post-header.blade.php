@@ -2,9 +2,9 @@
     <h1><a href="{{ the_permalink() }}">{{ the_title() }}</a></h1>
 
     <ul>
-        @if (get_field('blog_show_author', 'option'))
+        @if (in_array('author', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
         <li class="post-author">
-            @if (get_field('blog_show_author_image', 'option') && is_array(get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))))
+            @if (in_array('author_image', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && is_array(get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))))
                 <span class="post-author-image" style="background-image:url('{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))['url'] }}');"><img src="{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))['url'] }}" alt="{{ (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name'))) ? get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')  : get_the_author() }}"></span>
             @endif
 
@@ -16,15 +16,15 @@
         </li>
         @endif
 
-        @if ((!is_single() && get_field('blog_feed_show_date', 'option') != 'false') || (is_single() && get_field('blog_show_date', 'option') != 'false'))
+        @if ((!is_single() && get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false') || (is_single() && get_field('archive_' . sanitize_title(get_post_type()) . '_post_date_published', 'option') != 'false'))
         <li class="post-date">
             <time>
                 @if (is_single())
-                    {{ in_array(get_field('blog_show_date', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
-                    {{ in_array(get_field('blog_show_date', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
+                    {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_post_date_published', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
+                    {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_post_date_published', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
                 @else
-                    {{ in_array(get_field('blog_feed_show_date', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
-                    {{ in_array(get_field('blog_feed_show_date', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
+                    {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
+                    {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
                 @endif
             </time>
         </li>
