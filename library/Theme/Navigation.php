@@ -8,7 +8,7 @@ class Navigation
     {
         $this->registerMenus();
 
-        if (get_field('header_layout', 'option') == 'casual') {
+        if (in_array('mainmenu', (array)get_field('search_display', 'option'))) {
             add_filter('wp_nav_menu_items', array($this, 'addSearchMagnifier'), 10, 2);
         }
 

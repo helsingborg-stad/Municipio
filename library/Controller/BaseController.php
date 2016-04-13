@@ -22,7 +22,21 @@ class BaseController
 
     public function getHelperVariables()
     {
+        $this->data['hasRightSidebar'] = get_field('right_sidebar_always', 'option') || is_active_sidebar('right-sidebar');
         $this->data['hasLeftSidebar'] = (isset($this->data['navigation']['sidebarMenu']) && strlen($this->data['navigation']['sidebarMenu']) > 0) || is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom');
+
+        $contentGridSize = 'grid-xs-12';
+
+        if ($this->data['hasLeftSidebar'] && $this->data['hasRightSidebar']) {
+            $contentGridSize = 'grid-md-8 grid-lg-6';
+        } elseif (!$this->data['hasLeftSidebar'] && $this->data['hasRightSidebar']) {
+            $contentGridSize = 'grid-md-8 grid-lg-9';
+        } elseif ($this->data['hasLeftSidebar'] && !$this->data['hasRightSidebar']) {
+            $contentGridSize = 'grid-md-8 grid-lg-9';
+        }
+
+
+        $this->data['contentGridSize'] = $contentGridSize;
     }
 
     public function getNavigationMenus()

@@ -9,7 +9,7 @@
     <div class="grid {{ (wp_get_post_parent_id(get_the_id()) != 0) ? 'no-margin-top' : '' }}">
         @include('partials.sidebar-left')
 
-        <div class="{{ $hasLeftSidebar ? 'grid-md-8 grid-lg-6' : 'grid-md-12 grid-lg-9' }}" id="readspeaker-read">
+        <div class="{{ $contentGridSize }}" id="readspeaker-read">
             @while(have_posts())
                 {!! the_post() !!}
 
@@ -24,6 +24,7 @@
 
             @include('partials.page-footer')
         </div>
+
 
         @include('partials.sidebar-right')
     </div>

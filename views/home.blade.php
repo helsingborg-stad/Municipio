@@ -45,9 +45,7 @@
             </div>
         </div>
 
-        @if (is_active_sidebar('right-sidebar'))
         @include('partials.sidebar-right')
-        @endif
     </div>
 </div>
 
