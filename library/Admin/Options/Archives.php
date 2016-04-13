@@ -254,6 +254,23 @@ class Archives
                 );
             }
 
+            $fieldArgs['fields'][] = array (
+                'key' => 'field_570ded8a47206' . md5($posttype),
+                'label' => 'Sidebar navigation',
+                'name' => 'archive_' . sanitize_title($posttype) . '_show_sidebar_navigation',
+                'type' => 'true_false',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array (
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'message' => 'Yes, show the sidebar navigation',
+                'default_value' => 0,
+            );
+
             acf_add_local_field_group($fieldArgs);
         }
     }

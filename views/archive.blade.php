@@ -8,7 +8,20 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        <div class="{{ is_active_sidebar('right-sidebar') ? 'grid-md-9' : 'grid-md-12' }}">
+        @if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option'))
+            @include('partials.sidebar-left')
+        @endif
+
+        <?php
+            $cols = 'grid-md-12';
+            if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option')) {
+                $cols = 'grid-md-8 grid-lg-6';
+            } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option')) {
+                $cols = 'grid-md-12 grid-lg-9';
+            }
+        ?>
+
+        <div class="{{ $cols }}">
             <div class="grid">
                 @while(have_posts())
                     {!! the_post() !!}
