@@ -97,7 +97,8 @@ class Archives
                     'collapsed' => 'Collapsed',
                     'compressed' => 'Compressed',
                     'grid' => 'Grid',
-                    'cards' => 'Post cards'
+                    'cards' => 'Post cards',
+                    'newsitem' => 'News items'
                 ),
                 'default_value' => array (
                     0 => 'full',
