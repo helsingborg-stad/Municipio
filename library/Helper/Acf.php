@@ -110,7 +110,7 @@ class Acf
         $paths[] = get_template_directory() . '/acf-exports';
 
         if (isset($_GET['make-translation-reference'])) {
-            $this->makeTranslationReference([get_stylesheet_directory() . '/acf-exports']);
+            $this->makeTranslationReference(array(get_stylesheet_directory() . '/acf-exports'));
         }
 
         return $paths;
