@@ -14,6 +14,7 @@ class BaseController
     {
         $this->getLogotype();
         $this->getHeaderLayout();
+        $this->getFooterLayout();
         $this->getNavigationMenus();
         $this->getHelperVariables();
 
@@ -64,6 +65,19 @@ class BaseController
 
             default:
                 $this->data['headerLayout'] = 'header-business';
+                break;
+        }
+    }
+
+    public function getFooterLayout()
+    {
+        switch (get_field('footer_layout', 'option')) {
+            case 'compressed':
+                $this->data['footerLayout'] = 'compressed';
+                break;
+
+            default:
+                $this->data['footerLayout'] = 'default';
                 break;
         }
     }

@@ -43,11 +43,12 @@ class Sidebars
         /**
          * Footer Area
          */
+        $footerBeforeWidgetClass = get_field('footer_layout', 'option') == 'compressed' ? 'grid-lg-6' : 'grid-lg-4';
         register_sidebar(array(
             'id'            => 'footer-area',
             'name'          => __('Footer', 'municipio'),
             'description'   => __('The footer area', 'municipio'),
-            'before_widget' => '<div class="grid-lg-4"><div class="%2$s">',
+            'before_widget' => '<div class="' . $footerBeforeWidgetClass . '"><div class="%2$s">',
             'after_widget'  => '</div></div>',
             'before_title'  => '<h2 class="footer-title">',
             'after_title'   => '</h2>'

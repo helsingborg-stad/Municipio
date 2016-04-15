@@ -1,10 +1,38 @@
     {
         "key": "group_56e804931bd1e",
-        "title": "Footer signature",
+        "title": "Footer layout",
         "fields": [
             {
+                "key": "field_5710cd81d4a19",
+                "label": "Footer layout",
+                "name": "footer_layout",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "default": "Default style",
+                    "compressed": "Compressed"
+                },
+                "default_value": [
+                    "default"
+                ],
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "disabled": 0,
+                "readonly": 0
+            },
+            {
                 "key": "field_56e8050730333",
-                "label": "Enable",
+                "label": "Footer signature",
                 "name": "footer_signature_show",
                 "type": "true_false",
                 "instructions": "If enabled a predefined footer signature logo will be appended to the footer.",
@@ -28,7 +56,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": -100,
         "position": "normal",
         "style": "default",
         "label_placement": "top",
