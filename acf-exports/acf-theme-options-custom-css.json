@@ -1,0 +1,44 @@
+    {
+        "key": "group_57148a9b42fd5",
+        "title": "Custom CSS",
+        "fields": [
+            {
+                "key": "field_57148ac826e9d",
+                "label": "Css input",
+                "name": "custom_css_input",
+                "type": "textarea",
+                "instructions": "Enter your CSS-code here. It will be wrapped with \"style\" tags, and included on all pages. ",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 20,
+                "new_lines": "",
+                "readonly": 0,
+                "disabled": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-css"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }
