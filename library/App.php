@@ -27,6 +27,7 @@ class App
         new \Municipio\Theme\General();
         new \Municipio\Theme\OnTheFlyImages();
         new \Municipio\Theme\ImageSizeFilter();
+        new \Municipio\Theme\CustomCss();
 
         /**
          * Content
