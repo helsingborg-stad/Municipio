@@ -104,6 +104,11 @@
 .main-footer .logotype {
   text-align: left; }
 
+.main-footer .icons-list {
+  text-align: center; }
+  .main-footer .icons-list li a {
+    font-size: 3em; }
+
 .navbar-mainmenu a:not(.logotype) svg {
   display: inline-block;
   vertical-align: middle;
