@@ -25,7 +25,7 @@ class Enqueue
 
     public function adminStyle()
     {
-        wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', filemtime(get_stylesheet_directory() . '/assets/dist/css/admin.min.css'));
+        wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', filemtime(get_template_directory_uri() . '/assets/dist/css/admin.min.css'));
         wp_enqueue_style('helsingborg-se-admin');
     }
 
@@ -43,7 +43,7 @@ class Enqueue
 
         wp_enqueue_style('hbg-prime');
 
-        wp_register_style('helsingborg-se', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', filemtime(get_stylesheet_directory() . '/assets/dist/css/app.min.css'));
+        wp_register_style('helsingborg-se', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
         wp_enqueue_style('helsingborg-se');
     }
 
