@@ -82,7 +82,7 @@
                     </div>
                     <div class="grid-md-6">
                         @if(have_rows('footer_icons_repeater', 'option'))
-                            <ul class="icons-list pull-right">
+                            <ul class="icons-list">
                                 @foreach(get_field('footer_icons_repeater', 'option') as $link)
                                     <li>
                                         <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
