@@ -6,7 +6,7 @@ class ImageSizeFilter
 {
     public function __construct()
     {
-        add_filter('modularity/image/slider', array($this, 'filterHeroImageSize'), 100, 2);
+        add_filter('Modularity/image/slider', array($this, 'filterHeroImageSize'), 100, 2);
     }
 
     public function filterHeroImageSize($orginal_size, $args)
