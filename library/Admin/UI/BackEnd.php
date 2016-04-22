@@ -52,7 +52,7 @@ class BackEnd
 
     public function isLocal()
     {
-        return $_SERVER['SERVER_ADDR'] == '127.0.0.1';
+        return $_SERVER['SERVER_ADDR'] == '127.0.0.1' && !isset($_SERVER['HTTP_X_VARNISH']);
     }
 
     public function isTest()
