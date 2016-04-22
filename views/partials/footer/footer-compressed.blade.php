@@ -2,7 +2,9 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-3">
+                @if (get_field('footer_logotype', 'option') != 'hide')
                 {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
+                @endif
 
                 <nav class="{{ !get_field('footer_signature_show', 'option') ? 'pull-right' : '' }}">
                     <ul class="nav nav-help nav-horizontal">

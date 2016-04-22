@@ -109,6 +109,9 @@
   .main-footer .icons-list li a {
     font-size: 3em; }
 
+.main-footer.main-footer-compressed .icons-list {
+  text-align: left; }
+
 .navbar-mainmenu a:not(.logotype) svg {
   display: inline-block;
   vertical-align: middle;

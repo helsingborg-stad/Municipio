@@ -4,7 +4,12 @@
 
 .main-footer .icons-list {
     text-align: center;
+
     li a {
         font-size: 3em;
     }
+}
+
+.main-footer.main-footer-compressed .icons-list {
+    text-align: left;
 }

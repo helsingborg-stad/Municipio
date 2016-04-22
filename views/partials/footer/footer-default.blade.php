@@ -37,7 +37,9 @@
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'top' || !get_field('footer_logotype_vertical_position', 'option'))
                 <div class="grid">
                     <div class="grid-md-12">
+                        @if (get_field('footer_logotype', 'option') != 'hide')
                         {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
+                        @endif
 
                         <nav class="{{ !get_field('footer_signature_show', 'option') ? 'pull-right' : '' }}">
                             <ul class="nav nav-help nav-horizontal">
@@ -75,7 +77,7 @@
                 {{-- ## Footer widget area end ## --}}
 
                 {{-- ## Footer header begin ## --}}
-                @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
+                @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom' && get_field('footer_logotype', 'option') != 'hide')
                 <div class="grid no-margin-top">
                     <div class="grid-md-6">
                         {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
