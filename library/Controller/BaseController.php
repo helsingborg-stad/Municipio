@@ -63,6 +63,10 @@ class BaseController
                 $this->data['headerLayout'] = 'header-casual';
                 break;
 
+            case 'jumbo':
+                $this->data['headerLayout'] = 'header-jumbo';
+                break;
+
             default:
                 $this->data['headerLayout'] = 'header-business';
                 break;

@@ -77,6 +77,11 @@ class Navigation
             $depth = intval(get_field('nav_primary_depth', 'option'));
         }
 
+        $classes = '';
+        if (get_field('nav_primary_group_overflow', 'option')) {
+            $classes = 'nav-group-overflow';
+        }
+
         return wp_nav_menu(array(
             'echo' => false,
             'depth' =>  $depth,
@@ -84,7 +89,7 @@ class Navigation
             'container' => false,
             'container_class' => 'menu-{menu-slug}-container',
             'container_id' => '',
-            'menu_class' => 'nav nav-' . $navAlign . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
+            'menu_class' => 'nav nav-' . $navAlign . ' ' . $classes . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
             'menu_id' => 'main-menu',
             'before' => '',
             'after' => '',
@@ -112,8 +117,13 @@ class Navigation
             $navAlign = get_field('nav_primary_align', 'option');
         }
 
+        $classes = '';
+        if (get_field('nav_primary_group_overflow', 'option')) {
+            $classes = 'nav-group-overflow';
+        }
+
         if (isset($menu) && $menu->itemCount() > 0) {
-            return '<ul class="' . implode(' ', apply_filters('Municipio/main_menu_classes', array('nav', 'nav-' . $navAlign))) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">' . $menu->render(false) . '</ul>';
+            return '<ul class="' . implode(' ', apply_filters('Municipio/main_menu_classes', array('nav', 'nav-' . $navAlign))) . ' ' . $classes . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">' . $menu->render(false) . '</ul>';
         }
 
         return '';
