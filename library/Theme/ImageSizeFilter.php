@@ -7,6 +7,16 @@ class ImageSizeFilter
     public function __construct()
     {
         add_filter('Modularity/slider/image', array($this, 'filterHeroImageSize'), 100, 2);
+        add_filter('Modularity/Module/Classes', array($this, 'addVideoSizeClass'), 100, 3);
+    }
+
+    public function addVideoSizeClass($default_class, $post_type, $args)
+    {
+        if ($post_type == "mod-slider" && isset($args['id']) && $args['id'] != "sidebar-slider-area") {
+            $default_class .= " ratio-16-9";
+        }
+
+        return $default_class;
     }
 
     public function filterHeroImageSize($orginal_size, $args)
