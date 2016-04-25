@@ -129,11 +129,11 @@
 .header-casual .menu-item-translate {
   float: right; }
 
-.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
   display: block;
   padding-top: 60px; }
   @media screen and (max-width: 960px) {
-    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
       padding-top: 20px; } }
 
 .sidebar-left-sidebar {
