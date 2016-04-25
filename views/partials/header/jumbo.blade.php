@@ -33,7 +33,7 @@
 </nav>
 
 @if (strlen($navigation['mobileMenu']) > 0)
-    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle-expand nav-toggle {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
         @include('partials.mobile-menu')
     </nav>
 @endif
