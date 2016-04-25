@@ -1,4 +1,5 @@
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+    display: block;
     padding-top: 60px;
 
     @media screen and (max-width: 960px) {
