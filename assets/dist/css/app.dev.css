@@ -129,11 +129,12 @@
 .header-casual .menu-item-translate {
   float: right; }
 
-.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
+.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
   display: block;
-  padding-top: 60px; }
+  padding-top: 60px;
+  width: 100%; }
   @media screen and (max-width: 960px) {
-    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child:before {
+    .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
       padding-top: 20px; } }
 
 .sidebar-left-sidebar {
