@@ -12,8 +12,8 @@ class ImageSizeFilter
 
     public function addVideoSizeClass($default_class, $post_type, $args)
     {
-        if ($post_type == "mod-slider" && isset($args['id']) && $args['id'] != "slider-area") {
-            $default_class .= " ratio-16-9";
+        if ($post_type == "mod-slider" && isset($args['id']) && $args['id'] != "slider-area" && is_array($default_class)) {
+            $default_class[] = "ratio-16-9";
         }
 
         return $default_class;
