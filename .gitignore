@@ -1,0 +1,32 @@
+# Config
+/config/database.php
+/config/salts.php
+/config/developer.php
+/config/multisite.php
+
+# Plugins
+/wp-content/plugins/*
+
+# Themes
+/wp-content/themes/*
+!/wp-content/themes/boost-hbg
+/wp-content/themes/boost-hbg/node_modules/
+!/wp-content/themes/boost-hbg/assets/dist/*/*
+
+# Upload
+/wp-content/uploads/*
+/wp-content/uploads/cache/*
+/wp-content/uploads/cache/blade-cache/*
+!/wp-content/uploads/
+!/wp-content/uploads/cache/
+!/wp-content/uploads/blade-cache/
+
+# Vendor directories
+/vendor
+/wp
+
+# Composer generated files
+composer.lock
+
+# Operating system files
+.DS_Store

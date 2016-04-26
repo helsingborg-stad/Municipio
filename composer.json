@@ -1,0 +1,60 @@
+{
+    "name": "helsingborg-stad/dunkerskulturhus.se",
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Helsingborg Stad",
+            "email": "webbredaktionen@helsingborg.se"
+        }
+    ],
+    "minimum-stability" : "stable",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/Modularity.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/Bootstrap-Theme.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/lix-calculator.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/xcap-import.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/custom-short-links.git"
+        },
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+
+    "require": {
+        "composer/installers": "~1.0",
+        "johnpbloch/wordpress": "4.5.0",
+        "helsingborg-stad/Modularity": "^1.0.0",
+        "helsingborg-stad/Bootstrap-Theme": ">=1.0.0",
+        "helsingborg-stad/lix-calculator": ">=1.0.1",
+        "wpackagist-plugin/wp-editor-widget": "^0.5.5",
+        "wpackagist-plugin/all-in-one-seo-pack": "^2.2.7.5",
+        "wpackagist-plugin/varnish-http-purge": "^3.7.2",
+        "wpackagist-plugin/stream": "^3.0.4",
+        "wpackagist-plugin/wp-nested-pages": "^1.5.4",
+        "helsingborg-stad/xcap-import": ">=1.0.0",
+        "helsingborg-stad/custom-short-links": ">=1.0.0"
+    },
+
+    "extra": {
+        "wordpress-install-dir": "wp",
+        "installer-paths": {
+            "wp-content/plugins/{$name}": ["type:wordpress-plugin"],
+            "wp-content/themes/{$name}": ["type:wordpress-theme"]
+        }
+    }
+}
