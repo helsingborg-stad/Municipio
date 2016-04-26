@@ -48,4 +48,18 @@ if (file_exists(MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/ac
 /**
  * Initialize app
  */
-new Municipio\App();
+if (function_exists('get_field')) {
+    new Municipio\App();
+} else {
+
+    //Be shure to enable ACF
+    if (!is_admin()) {
+        wp_redirect(admin_url('plugins.php'));
+        exit;
+    } else {
+        add_action('admin_notices', function () {
+            echo '<div class="notice notice-success is-dismissible"><p>Please active ACF (PRO) to proceed.</p></div>';
+        });
+    }
+
+}
