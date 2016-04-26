@@ -54,8 +54,12 @@ if (function_exists('get_field')) {
 
     //Be shure to enable ACF
     if (!is_admin()) {
-        wp_redirect(admin_url('plugins.php'));
-        exit;
+        if(is_user_logged_in()) {
+            wp_redirect(admin_url('plugins.php'));
+            exit;
+        } else {
+            auth_redirect();
+        }
     } else {
         add_action('admin_notices', function () {
             echo '<div class="notice notice-error"><p>Please active ACF (PRO) to proceed.</p></div>';
