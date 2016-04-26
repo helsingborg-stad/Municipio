@@ -31,7 +31,9 @@ class Template
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
         if (!file_exists($this->CACHE_PATH)) {
-            mkdir($this->CACHE_PATH, 0777, ture);
+            if (!mkdir($this->CACHE_PATH, 0777, true)) {
+                die("Could not create cache folder: " . $this->CACHE_PATH);
+            }
         }
     }
 
