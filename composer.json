@@ -1,5 +1,5 @@
 {
-    "name": "helsingborg-stad/dunkerskulturhus.se",
+    "name": "helsingborg-stad/intranat.se",
     "license": "GNU",
     "authors": [
         {
@@ -23,10 +23,6 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/helsingborg-stad/xcap-import.git"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/custom-short-links.git"
         },
         {
@@ -41,13 +37,12 @@
         "helsingborg-stad/Modularity": "^1.0.0",
         "helsingborg-stad/Bootstrap-Theme": ">=1.0.0",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
+        "helsingborg-stad/custom-short-links": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
-        "wpackagist-plugin/all-in-one-seo-pack": "^2.2.7.5",
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
-        "helsingborg-stad/xcap-import": ">=1.0.0",
-        "helsingborg-stad/custom-short-links": ">=1.0.0"
+        "wpackagist-plugin/simple-ldap-login": "1.6.0"
     },
 
     "extra": {
