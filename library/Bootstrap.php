@@ -45,25 +45,26 @@ if (file_exists(MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/ac
     require_once MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/acf-font-awesome.php';
 }
 
+
 /**
  * Initialize app
  */
 if (function_exists('get_field')) {
     new Municipio\App();
 } else {
-
     //Be shure to enable ACF
     if (!is_admin()) {
         if(is_user_logged_in()) {
             wp_redirect(admin_url('plugins.php'));
             exit;
         } else {
-            auth_redirect();
+            if(!in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'))) {
+                auth_redirect();
+            }
         }
     } else {
         add_action('admin_notices', function () {
             echo '<div class="notice notice-error"><p>Please active ACF (PRO) to proceed.</p></div>';
         });
     }
-
 }
