@@ -58,7 +58,7 @@ if (function_exists('get_field')) {
         exit;
     } else {
         add_action('admin_notices', function () {
-            echo '<div class="notice notice-success is-dismissible"><p>Please active ACF (PRO) to proceed.</p></div>';
+            echo '<div class="notice notice-error"><p>Please active ACF (PRO) to proceed.</p></div>';
         });
     }
 
