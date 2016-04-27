@@ -1,4 +1,4 @@
-<ul class="share share-social share-social-icon-lg share-horizontal share-no-labels">
+<ul class="share share-social share-social-icon-lg share-horizontal share-no-labels hidden-print">
     <li>
         <a class="share-social-facebook" data-action="share-popup" href="https://www.facebook.com/sharer/sharer.php?u={{ get_the_permalink() }}" data-tooltip="<?php _e('Share on', 'municipio'); ?> Facebook">
             <i class="fa fa-facebook-square"></i>

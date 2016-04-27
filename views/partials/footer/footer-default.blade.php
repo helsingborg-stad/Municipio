@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer hidden-print">
     <div class="container">
 
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')

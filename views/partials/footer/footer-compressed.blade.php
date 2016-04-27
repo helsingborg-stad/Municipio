@@ -1,4 +1,4 @@
-<footer class="main-footer main-footer-compressed">
+<footer class="main-footer main-footer-compressed hidden-print">
     <div class="container">
         <div class="grid">
             <div class="grid-md-3">

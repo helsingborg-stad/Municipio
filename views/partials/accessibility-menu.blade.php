@@ -1,5 +1,5 @@
 @if (function_exists('ReadSpeakerHelper_playButton'))
-<ul class="nav nav-pills nav-horizontal gutter gutter-bottom">
+<ul class="nav nav-pills nav-horizontal gutter gutter-bottom hidden-print">
     @if (function_exists('ReadSpeakerHelper_playButton'))
     <li>
         {!! ReadSpeakerHelper_playButton() !!}

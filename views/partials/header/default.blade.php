@@ -1,4 +1,4 @@
-<div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!}" id="search">
+<div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!} hidden-print" id="search">
     <div class="container">
         <div class="grid">
             <div class="grid-sm-12">
@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container hidden-print">
     <div class="grid">
         <div class="grid-md-6 text-center-xs text-center-sm">
             <div class="grid grid-table grid-va-middle no-padding">
@@ -71,7 +71,7 @@
 </div>
 
 @if (get_field('nav_primary_enable', 'option') === true)
-    <nav class="navbar navbar-mainmenu hidden-xs hidden-sm">
+    <nav class="navbar navbar-mainmenu hidden-xs hidden-sm hidden-print">
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
@@ -82,7 +82,7 @@
     </nav>
 
     @if (strlen($navigation['mobileMenu']) > 0)
-        <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
+        <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
             @include('partials.mobile-menu')
         </nav>
     @endif
