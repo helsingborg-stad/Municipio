@@ -13,8 +13,8 @@
     </li>
     <li>
         <a class="share-social-linkedin" data-action="share-popup" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ get_the_permalink() }}&amp;title={{ get_the_title() }}&amp;summary={{ get_the_excerpt() }}&amp;source={{ bloginfo('site_name') }}" data-tooltip="<?php _e('Share on', 'municipio'); ?> LinkedIn">
-                <i class="fa fa-linkedin-square"></i>
-                <span><?php _e('Share on', 'municipio'); ?> LinkedIn</span>
-            </a>
+            <i class="fa fa-linkedin-square"></i>
+            <span><?php _e('Share on', 'municipio'); ?> LinkedIn</span>
+        </a>
     </li>
 </ul>
