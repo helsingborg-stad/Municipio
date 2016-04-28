@@ -13,17 +13,17 @@ class BackEnd
     {
         // Editor testing zone
         if ($this->isLocal()) {
-            echo '<div class="hosting-enviroment hosting-yellow"><strong>' . __("Notice") . ": </strong>" . __("You're on a local server.") . '</div>';
+            echo '<div class="hosting-enviroment hosting-yellow"><strong>' . __('Notice', 'municipio') . ": </strong>" . __('You\'re on a local server.', 'municipio') . '</div>';
         }
 
         // Editor testing zone
         if ($this->isTest()) {
-            echo '<div class="hosting-enviroment hosting-yellow"><strong>' . __("Notice") . ": </strong>" . __("This it the test-environment. Your content will not be published.") . '</div>';
+            echo '<div class="hosting-enviroment hosting-yellow"><strong>' . __('Notice', 'municipio') . ": </strong>" . __('This it the test-environment. Your content will not be published.', 'municipio') . '</div>';
         }
 
         // Developer
         if ($this->isBeta()) {
-            echo '<div class="hosting-enviroment hosting-red"><strong>' . __("Notice") . ": </strong>" . __("This it the beta-environment. All functionality is not guaranteed.") . '</div>';
+            echo '<div class="hosting-enviroment hosting-red"><strong>' . __('Notice', 'municipio') . ": </strong>" . __('This it the beta-environment. All functionality is not guaranteed.', 'municipio') . '</div>';
         }
 
         // Css
