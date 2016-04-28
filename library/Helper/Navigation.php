@@ -67,14 +67,16 @@ class Navigation
      */
     public function mainMenuWP()
     {
-        $navAlign = 'justify';
+        $classes = array('nav');
+
         if (!empty(get_field('nav_primary_align', 'option'))) {
-            $navAlign = get_field('nav_primary_align', 'option');
+            $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
         }
 
         $depth = 1;
         if (get_field('nav_primariy_dropdown', 'option') === true && intval(get_field('nav_primary_depth', 'option')) > -1) {
             $depth = intval(get_field('nav_primary_depth', 'option'));
+            $classes[] = 'nav-dropdown';
         }
 
         return wp_nav_menu(array(
@@ -84,7 +86,7 @@ class Navigation
             'container' => false,
             'container_class' => 'menu-{menu-slug}-container',
             'container_id' => '',
-            'menu_class' => 'nav nav-' . $navAlign . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
+            'menu_class' => implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
             'menu_id' => 'main-menu',
             'before' => '',
             'after' => '',
@@ -101,19 +103,24 @@ class Navigation
      */
     public function mainMenuAuto()
     {
+        $classes = array('nav');
+
         $menu = new \Municipio\Helper\NavigationTree(array(
             'include_top_level' => true,
             'render' => get_field('nav_primary_render', 'option'),
             'depth' => get_field('nav_primary_depth', 'option')
         ));
 
-        $navAlign = 'justify';
         if (!empty(get_field('nav_primary_align', 'option'))) {
-            $navAlign = get_field('nav_primary_align', 'option');
+            $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
+        }
+
+        if (get_field('nav_primariy_dropdown', 'option') === true) {
+            $classes[] = 'nav-dropdown';
         }
 
         if (isset($menu) && $menu->itemCount() > 0) {
-            return '<ul id="main-menu" class="' . implode(' ', apply_filters('Municipio/main_menu_classes', array('nav', 'nav-' . $navAlign))) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">' . $menu->render(false) . '</ul>';
+            return '<ul id="main-menu" class="' . implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">' . $menu->render(false) . '</ul>';
         }
 
         return '';
