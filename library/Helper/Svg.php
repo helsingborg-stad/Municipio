@@ -4,6 +4,12 @@ namespace Municipio\Helper;
 
 class Svg
 {
+    /**
+     * Extracts svg-code from svg-file
+     * @param  string $symbol  Path to symbol (.svg)
+     * @param  string $classes Classes to add to svg-element
+     * @return string          Svg element markup
+     */
     public static function extract($symbol, $classes = '')
     {
         $symbol = file_get_contents($symbol);

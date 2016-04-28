@@ -4,11 +4,6 @@ namespace Municipio\Helper;
 
 class Post
 {
-    public function __construct()
-    {
-
-    }
-
     /**
      * Lists all meta-keys existing for the given posttype
      *
