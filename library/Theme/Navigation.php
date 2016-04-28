@@ -10,6 +10,7 @@ class Navigation
 
         if (in_array('mainmenu', (array)get_field('search_display', 'option'))) {
             add_filter('wp_nav_menu_items', array($this, 'addSearchMagnifier'), 10, 2);
+            add_filter('Municipio/main_menu/items', array($this, 'addSearchMagnifier'), 10, 2);
         }
 
         if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
@@ -41,7 +42,7 @@ class Navigation
      * @param  array  $args   Menu args
      * @return string         Items html
      */
-    public function addTranslate($items, $args)
+    public function addTranslate($items, $args = null)
     {
         if ($args->theme_location != get_field('google_translate_menu', 'option')) {
             return $items;
@@ -64,9 +65,9 @@ class Navigation
      * @param string $items Menu items html markup
      * @param object $args  Menu args
      */
-    public function addSearchMagnifier($items, $args)
+    public function addSearchMagnifier($items, $args = null)
     {
-        if ($args->theme_location != apply_filters('Municipio/main_menu_theme_location', 'main-menu')) {
+        if ($args && $args->theme_location != apply_filters('Municipio/main_menu_theme_location', 'main-menu')) {
             return $items;
         }
 

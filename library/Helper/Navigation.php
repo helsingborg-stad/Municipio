@@ -120,7 +120,11 @@ class Navigation
         }
 
         if (isset($menu) && $menu->itemCount() > 0) {
-            return '<ul id="main-menu" class="' . implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">' . $menu->render(false) . '</ul>';
+            $markup = '<ul id="main-menu" class="' . implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">';
+            $markup .= apply_filters('Municipio/main_menu/items', $menu->render(false));
+            $markup .= '</ul>';
+
+            return $markup;
         }
 
         return '';
