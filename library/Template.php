@@ -35,6 +35,25 @@ class Template
                 die("Could not create cache folder: " . $this->CACHE_PATH);
             }
         }
+
+        add_action('load-post.php', array($this, 'adminFrontPageTemplates'));
+    }
+
+    public function adminFrontPageTemplates()
+    {
+        if (!is_admin() || !isset($_GET['post']) || $_GET['post'] != get_option('page_on_front')) {
+            return;
+        }
+
+        \Municipio\Helper\Template::add(__('Page', 'municipio'), \Municipio\Helper\Template::locateTemplate('page.blade.php'));
+
+        add_filter('gettext', function ($translation, $text, $domain) {
+            if ($text == 'Default Template') {
+                return __('Front page', 'municipio');
+            }
+
+            return $translation;
+        }, 10, 3);
     }
 
     /**
@@ -163,25 +182,6 @@ class Template
 
         $blade = new Blade($this->VIEWS_PATHS, $this->CACHE_PATH);
         echo $blade->view()->make($view, $data)->render();
-    }
-
-    /**
-     * Add a custom template
-     * @param string $templateName Template name
-     * @param string $templatePath Template path (relative to theme path)
-     */
-    public static function add($templateName, $templatePath)
-    {
-        add_filter('theme_page_templates', function ($templates) use ($templatePath, $templateName) {
-            return array_merge(array(
-                $templatePath => $templateName
-            ), $templates);
-        });
-
-        return (object) array(
-            'name' => $templateName,
-            'path' => $templatePath
-        );
     }
 
     public function addTemplateFilters()

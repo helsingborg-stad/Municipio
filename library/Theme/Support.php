@@ -99,7 +99,7 @@ class Support
     private static function addFilters()
     {
         add_filter('intermediate_image_sizes_advanced', '\Municipio\Theme\Support::filterThumbnailSizes');
-        add_filter('gettext', '\Municipio\Theme\Support::changeDefaultTemplateName', 10, 3);
+        //add_filter('gettext', '\Municipio\Theme\Support::changeDefaultTemplateName', 10, 3);
     }
 
     /**
