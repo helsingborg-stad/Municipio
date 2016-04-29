@@ -21,7 +21,7 @@
                         <nav class="nav-group-overflow" data-btn-width="100">
                             {!! $navigation['mainMenu'] !!}
                             <span class="dropdown">
-                                <span class="btn btn-primary dropdown-toggle hidden">Mer</span>
+                                <span class="btn btn-primary dropdown-toggle hidden"><?php _e('More', 'municipio'); ?></span>
                                 <ul class="dropdown-menu nav-grouped-overflow hidden"></ul>
                             </span>
                         </nav>
