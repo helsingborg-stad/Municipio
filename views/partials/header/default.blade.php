@@ -17,7 +17,7 @@
                 </div>
                 @if (strlen($navigation['mobileMenu']) > 0)
                     <div class="grid-xs-4 grid-sm-4 text-right-sm text-right-xs {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
-                        <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> Meny</a>
+                        <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> <?php _e("Menu",'municipio'); ?></a>
                     </div>
                 @endif
             </div>
