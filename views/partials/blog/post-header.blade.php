@@ -16,7 +16,7 @@
         </li>
         @endif
 
-        @if ((!is_single() && get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false') || (is_single() && get_field('archive_' . sanitize_title(get_post_type()) . '_post_date_published', 'option') != 'false'))
+        @if ((!is_single() && get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false' && !empty(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'))) || (is_single() && get_field('archive_' . sanitize_title(get_post_type()) . '_post_date_published', 'option') != 'false') && !empty(get_field('archive_' . sanitize_title(get_post_type()) . '_post_date_published', 'option')))
         <li class="post-date">
             <time>
                 @if (is_single())
