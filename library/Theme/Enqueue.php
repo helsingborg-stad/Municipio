@@ -43,8 +43,8 @@ class Enqueue
 
         wp_enqueue_style('hbg-prime');
 
-        wp_register_style('helsingborg-se', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
-        wp_enqueue_style('helsingborg-se');
+        wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
+        wp_enqueue_style('municipio');
     }
 
     /**
@@ -77,8 +77,8 @@ class Enqueue
         ));
         wp_enqueue_script('hbg-prime');
 
-        wp_register_script('bootstrap-theme', get_template_directory_uri() . '/assets/dist/js/packaged.min.js');
-        wp_enqueue_script('bootstrap-theme');
+        wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js');
+        wp_enqueue_script('municipio');
 
         if (get_field('show_google_translate', 'option') !== false && get_field('show_google_translate', 'option') != 'false') {
             wp_register_script('google-translate', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', '', '1.0.0', true);
