@@ -32,7 +32,10 @@
 
         @if (comments_open())
         <li class="post-comments">
-            <a href="{{ comments_link() }}">Kommentarer ({{ comments_number('0', '1', '%') }})</a>
+            <a href="{{ comments_link() }}">
+                <i class="fa fa-lg fa-comments hidden-md hidden-lg"></i>
+                <span class="hidden-xs hidden-sm"><?php _e('Comments'); ?> ({{ comments_number('0', '1', '%') }})</span>
+            </a>
         </li>
         @endif
     </ul>
