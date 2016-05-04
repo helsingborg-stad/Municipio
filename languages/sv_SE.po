@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-04-29 09:50+0200\n"
-"PO-Revision-Date: 2016-04-29 09:50+0200\n"
+"POT-Creation-Date: 2016-05-04 09:30+0200\n"
+"PO-Revision-Date: 2016-05-04 09:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1379,11 +1379,19 @@ msgstr "Automatiskt genererade posttyper från inställningspanel"
 msgid "Submit"
 msgstr "Skicka"
 
-#: library/Template.php:101
+#: library/Template.php:48
+msgid "Page"
+msgstr "Sida"
+
+#: library/Template.php:52
+msgid "Front page"
+msgstr "Startsida"
+
+#: library/Template.php:120
 msgid "Admin notice"
 msgstr "Administratörsnotis"
 
-#: library/Template.php:101
+#: library/Template.php:120
 #, php-format
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
@@ -1480,6 +1488,10 @@ msgstr "Filter"
 msgid "Show all"
 msgstr "Visa alla"
 
+#: views/partials/header/default.blade.php:20
+msgid "Menu"
+msgstr "Meny"
+
 #: views/partials/header/jumbo.blade.php:24
 msgid "More"
 msgstr "Mer"
@@ -1524,8 +1536,8 @@ msgid "Municipio"
 msgstr "Municipio"
 
 #. Theme URI of the plugin/theme
-msgid "https://github.com/helsingborg-stad/Bootstrap-Theme/"
-msgstr "https://github.com/helsingborg-stad/Bootstrap-Theme/"
+msgid "https://github.com/helsingborg-stad/Municipio"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
@@ -1542,6 +1554,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "https://github.com/helsingborg-stad/Bootstrap-Theme/"
+#~ msgstr "https://github.com/helsingborg-stad/Bootstrap-Theme/"
 
 #~ msgid "Feed post style"
 #~ msgstr "Stil på inlägg"
@@ -1617,9 +1632,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Set to -1 to disable depth limit"
 #~ msgstr "Sätt till -1 för att inaktivera djup"
-
-#~ msgid "Front page"
-#~ msgstr "Startsida"
 
 #~ msgid "Show hero search on front page"
 #~ msgstr "Visa sök-ruta i heron på startsidan"

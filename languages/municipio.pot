@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-04-29 09:50+0200\n"
+"POT-Creation-Date: 2016-05-04 09:29+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1337,11 +1337,19 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: library/Template.php:101
+#: library/Template.php:48
+msgid "Page"
+msgstr ""
+
+#: library/Template.php:52
+msgid "Front page"
+msgstr ""
+
+#: library/Template.php:120
 msgid "Admin notice"
 msgstr ""
 
-#: library/Template.php:101
+#: library/Template.php:120
 #, php-format
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr ""
@@ -1438,6 +1446,10 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
+#: views/partials/header/default.blade.php:20
+msgid "Menu"
+msgstr ""
+
 #: views/partials/header/jumbo.blade.php:24
 msgid "More"
 msgstr ""
@@ -1482,7 +1494,7 @@ msgid "Municipio"
 msgstr ""
 
 #. Theme URI of the plugin/theme
-msgid "https://github.com/helsingborg-stad/Bootstrap-Theme/"
+msgid "https://github.com/helsingborg-stad/Municipio"
 msgstr ""
 
 #. Description of the plugin/theme
