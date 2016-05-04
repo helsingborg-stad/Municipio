@@ -12,7 +12,6 @@ class Support
         self::removeTheGenerator();
         self::removeXmlRpc();
 
-        add_filter('srm_max_redirects', array($this, 'srmMaxRedirects'));
         add_action('template_redirect', array($this, 'blockAuthorPages'), 5);
         add_action('init', array($this, 'removePostPostType'), 11);
 
@@ -205,13 +204,5 @@ class Support
                 $wp_query->is_feed = false;
             }
         }
-    }
-
-    /**
-     * Update the default maximum number of redirects to 400.
-     */
-    public function srmMaxRedirects()
-    {
-        return 400;
     }
 }
