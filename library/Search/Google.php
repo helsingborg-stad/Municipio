@@ -144,9 +144,9 @@ class Google
 
         // Get current page
         $currentPage = 1;
-        if (isset($_GET['index']) && $_GET['index'] > 1) {
-            $this->currentIndex = $_GET['index'];
-            $this->currentPage = (($_GET['index']-1) / $this->resultsPerPage)+1;
+        if (isset($_GET['index']) && $_GET['index'] > 1 && is_numeric(sanitize_text_field($_GET['index']))) {
+            $this->currentIndex = sanitize_text_field($_GET['index']);
+            $this->currentPage = (($this->currentIndex-1) / $this->resultsPerPage)+1;
         }
 
         $markup[] = '<ul class="pagination" role="menubar" arial-label="pagination">';

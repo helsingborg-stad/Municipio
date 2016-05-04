@@ -25,8 +25,8 @@ class VarnishPurge
             global $post;
             global $purger;
 
-            if (!isset($post) && isset($_GET['post']) && $_GET['post'] > 0) {
-                $post = get_post($_GET['post']);
+            if (!isset($post) && isset($_GET['post']) && is_numeric($_GET['post']) && $_GET['post'] > 0) {
+                $post = get_post(sanitize_text_field($_GET['post']));
             }
 
             if (!isset($post) || !is_object($post) || !isset($purger)) {

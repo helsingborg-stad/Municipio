@@ -51,6 +51,6 @@ class Search extends \Municipio\Controller\BaseController
      */
     public function getIndex()
     {
-        return isset($_GET['index']) && is_numeric($_GET['index']) ? $_GET['index'] : 1;
+        return isset($_GET['index']) && is_numeric($_GET['index']) ? sanitize_text_field($_GET['index']) : 1;
     }
 }
