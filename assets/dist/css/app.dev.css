@@ -6,8 +6,8 @@
   .site-header .logotype img,
   .site-header .logotype svg {
     display: block;
-    height: 70px;
-    width: auto; }
+    max-width: 250px;
+    width: 100%; }
 
 .site-header .menu-header-tabs {
   display: inline-block; }
@@ -145,7 +145,6 @@
   min-height: 1px; }
 
 [id*="site-header"] .menu-trigger {
-  margin-left: 50px;
   vertical-align: middle; }
 
 .gform_wrapper {
