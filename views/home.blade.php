@@ -7,31 +7,33 @@
 <div class="container main-container">
     @include('partials.breadcrumbs')
 
-    <?php
-        $cols = 'grid-md-12';
-        if (is_active_sidebar('right-sidebar') && get_field('archive_post_show_sidebar_navigation', 'option')) {
-            $cols = 'grid-md-8 grid-lg-6';
-        } elseif (is_active_sidebar('right-sidebar') || get_field('archive_post_show_sidebar_navigation', 'option')) {
-            $cols = 'grid-md-12 grid-lg-9';
-        }
-    ?>
-
     <div class="grid">
-        <div class="{{ $cols }}">
-            <div class="grid" data-equalize-container>
-                @if (have_posts())
-                    @while(have_posts())
-                        {!! the_post() !!}
+        @if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option'))
+            @include('partials.sidebar-left')
+        @endif
 
-                        @if ($template == 'full')
-                            @include('partials.blog.type.post')
-                        @else
+        <?php
+            $cols = 'grid-md-12';
+            if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option')) {
+                $cols = 'grid-md-8 grid-lg-6';
+            } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option')) {
+                $cols = 'grid-md-12 grid-lg-9';
+            }
+        ?>
+
+        <div class="{{ $cols }}">
+            <div class="grid">
+                @while(have_posts())
+                    {!! the_post() !!}
+
+                    @if (in_array($template, array('full', 'compressed', 'collapsed')))
+                        <div class="grid-xs-12 post">
                             @include('partials.blog.type.post-' . $template)
-                        @endif
-                    @endwhile
-                @else
-                    <div class="grid-sm-12"><i class="fa fa-frown-o"></i> <?php _e('No posts found…', 'municipio'); ?></div>
-                @endif
+                        </div>
+                    @else
+                        @include('partials.blog.type.post-' . $template)
+                    @endif
+                @endwhile
             </div>
 
             <div class="grid">

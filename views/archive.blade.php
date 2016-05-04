@@ -26,8 +26,10 @@
                 @while(have_posts())
                     {!! the_post() !!}
 
-                    @if ($template == 'full')
-                        @include('partials.blog.type.post')
+                    @if (in_array($template, array('full', 'compressed', 'collapsed')))
+                        <div class="grid-xs-12">
+                            @include('partials.blog.type.post-' . $template)
+                        </div>
                     @else
                         @include('partials.blog.type.post-' . $template)
                     @endif
