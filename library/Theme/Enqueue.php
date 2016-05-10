@@ -14,6 +14,7 @@ class Enqueue
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
 
         add_action('wp_enqueue_scripts', array($this, 'googleAnalytics'), 999);
+        add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -23,6 +24,10 @@ class Enqueue
         add_filter('the_generator', create_function('', 'return "";'));
     }
 
+    /**
+     * Enqueue admin style
+     * @return void
+     */
     public function adminStyle()
     {
         wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/admin.min.css'));
@@ -94,7 +99,7 @@ class Enqueue
     {
         $gaUser = get_field('google_analytics_ua', 'option');
 
-        if (!$gaUser) {
+        if (empty($gaUser)) {
             return;
         }
 
@@ -113,6 +118,31 @@ class Enqueue
 
             return $ga . str_replace(' src', ' async defer src', $tag);
         }, 10, 2);
+    }
+
+    /**
+     * Enqueues Google Tag Manager
+     * @return void
+     */
+    public function googleTagManager()
+    {
+        $user = get_field('google_tag_manager_id', 'option');
+
+        if (empty($user)) {
+            return;
+        }
+
+        add_action('wp_footer', function () use ($user) {
+            echo "<noscript><iframe src=\"//www.googletagmanager.com/ns.html?id={$user}\"
+                    height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>
+                <script>
+                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','{$user}');
+                </script>";
+        }, 999);
     }
 
     /**
