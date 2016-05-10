@@ -1,13 +1,14 @@
+[
     {
-        "key": "group_57148a9b42fd5",
-        "title": "Custom CSS",
+        "key": "group_573184999aa2c",
+        "title": "Custom JS",
         "fields": [
             {
-                "key": "field_57148ac826e9d",
-                "label": "CSS input",
-                "name": "custom_css_input",
+                "key": "field_5731849ed0729",
+                "label": "JavaScript",
+                "name": "custom_js_input",
                 "type": "textarea",
-                "instructions": "Enter your CSS-code here. It will be wrapped with \"style\" tags, and included on all pages.",
+                "instructions": "Enter your JS-code here. It will be wrapped with \"script\" tags and included on all pages.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -42,3 +43,4 @@
         "active": 1,
         "description": ""
     }
+]
