@@ -51,17 +51,6 @@ gulp.task('scripts-dist', function() {
             .pipe(gulp.dest('assets/dist/js'));
 });
 
-// Compress images
-//gulp.task('imagemin', function () {
-//    return gulp.src('assets/source/images/**/*')
-//        .pipe(imagemin({
-//            progressive: true,
-//            svgoPlugins: [{removeViewBox: false}],
-//            use: [pngquant()]
-//        }))
-//        .pipe(gulp.dest('assets/dist/images'));
-//});
-
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('assets/source/js/**/*.js', ['scripts-dist']);
