@@ -107,8 +107,8 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => __('Custom CSS Editor', 'municipio'),
-                'menu_title'    => __('Custom CSS', 'municipio'),
+                'page_title'    => __('Custom CSS/JS Editor', 'municipio'),
+                'menu_title'    => __('Custom CSS/JS', 'municipio'),
                 'parent_slug'   => 'theme-settings',
                 'capability'    => $themeOptionsCapability,
                 'menu_slug'     => 'acf-options-css'
