@@ -58,7 +58,7 @@ class BaseController
 
     public function getHeaderLayout()
     {
-        if (empty(get_field('header_layout', 'option'))) {
+        if (empty(get_field('header_layout', 'option')) || in_array(get_field('header_layout', 'option'), array('business', 'casual'))) {
             $this->data['headerLayout'] = array(
                 'class'    => 'header-business',
                 'template' => 'default'
