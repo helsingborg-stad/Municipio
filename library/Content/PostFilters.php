@@ -15,7 +15,9 @@ class PostFilters
 
     public function enablePostTypeArchiveSearch($template)
     {
-        if (is_post_type_archive() && is_search()) {
+        $template = \Municipio\Helper\Template::locateTemplate($template);
+
+        if (!$template && is_post_type_archive() && is_search()) {
             $template = \Municipio\Helper\Template::locateTemplate('archive.blade.php');
         }
 
