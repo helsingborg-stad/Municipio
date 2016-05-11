@@ -78,6 +78,8 @@ class PostFilters
             $where .= " AND ($wpdb->posts.post_date <= '$to')";
         }
 
+        $where = apply_filters('Municipio/archive/date_filter', $where, $from, $to);
+
         return $where;
     }
 

@@ -131,6 +131,17 @@ Modify the avaiable sorting keys for archives
 apply_filters('Municipio/archive/sort_keys', $keys, $postType);
 ```
 
+#### Municipio/archive/date_filter
+Modify the date filter WHERE clause
+
+- ```@param string $where``` - The sql WHERE clause
+- ```@param string $from``` - The "from" date from querystring
+- ```@param string $to``` - The "to" date from querystring
+
+```php
+apply_filters('Municipio/archive/date_filter', $where, $from, $to);
+```
+
 ## Dev mode
 To load assets from local styleguide. Set contant DEV_MODE to "true"
 
