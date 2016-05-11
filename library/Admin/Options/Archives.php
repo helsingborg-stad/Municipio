@@ -20,7 +20,7 @@ class Archives
 
         $posttypes = get_post_types();
         $posttypes = array_filter($posttypes, function ($value) {
-            if (substr($value, 0, 4) === 'mod-' || substr($value, 0, 4) === 'acf-' || in_array($value, array('attachment', 'revision', 'nav_menu_item', 'event', 'page', 'custom-short-link'))) {
+            if (substr($value, 0, 4) === 'mod-' || substr($value, 0, 4) === 'acf-' || in_array($value, array('attachment', 'revision', 'nav_menu_item', 'page', 'custom-short-link'))) {
                 return apply_filters('Municipio/archives/canChangeStyle', false, $value);
             }
 
