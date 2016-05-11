@@ -7,8 +7,7 @@
         </div>
     </div>
 
-        @include('partials.header.' . $headerLayout['template'])
-    @endif
+    @include('partials.header.' . $headerLayout['template'])
 </header>
 
 @include('partials.hero')
