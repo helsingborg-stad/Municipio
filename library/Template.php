@@ -162,6 +162,8 @@ class Template
             $controller = get_template_directory() . '/library/Controller/BaseController.php';
         }
 
+        $controller = apply_filters('Municipio/blade/controller', $controller);
+
         require_once $controller;
         $namespace = \Municipio\Helper\Controller::getNamespace($controller);
         $class = '\\' . $namespace . '\\' . basename($controller, '.php');
