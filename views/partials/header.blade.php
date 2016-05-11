@@ -1,4 +1,4 @@
-<header id="site-header" class="site-header {{ $headerLayout }}">
+<header id="site-header" class="site-header {{ $headerLayout['class'] }}">
     <div class="print-only container">
         <div class="grid">
             <div class="grid-sm-12">
@@ -7,10 +7,7 @@
         </div>
     </div>
 
-    @if ($headerLayout == 'header-jumbo')
-        @include('partials.header.jumbo')
-    @else
-        @include('partials.header.default')
+        @include('partials.header.' . $headerLayout['template'])
     @endif
 </header>
 

@@ -60,15 +60,24 @@ class BaseController
     {
         switch (get_field('header_layout', 'option')) {
             case 'casual':
-                $this->data['headerLayout'] = 'header-casual';
+                $this->data['headerLayout'] = array(
+                    'class'    => 'header-casual',
+                    'template' => 'default'
+                );
                 break;
 
             case 'jumbo':
-                $this->data['headerLayout'] = 'header-jumbo';
+                $this->data['headerLayout'] = array(
+                    'class'    => 'header-jumbo',
+                    'template' => 'jumbo'
+                );
                 break;
 
             default:
-                $this->data['headerLayout'] = 'header-business';
+                $this->data['headerLayout'] = array(
+                    'class'    => 'header-business',
+                    'template' => 'default'
+                );
                 break;
         }
     }
