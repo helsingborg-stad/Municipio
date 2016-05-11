@@ -58,28 +58,21 @@ class BaseController
 
     public function getHeaderLayout()
     {
-        switch (get_field('header_layout', 'option')) {
-            case 'casual':
-                $this->data['headerLayout'] = array(
-                    'class'    => 'header-casual',
-                    'template' => 'default'
-                );
-                break;
+        if (empty(get_field('header_layout', 'option'))) {
+            $this->data['headerLayout'] = array(
+                'class'    => 'header-business',
+                'template' => 'default'
+            );
 
-            case 'jumbo':
-                $this->data['headerLayout'] = array(
-                    'class'    => 'header-jumbo',
-                    'template' => 'jumbo'
-                );
-                break;
-
-            default:
-                $this->data['headerLayout'] = array(
-                    'class'    => 'header-business',
-                    'template' => 'default'
-                );
-                break;
+            return true;
         }
+
+        $this->data['headerLayout'] = array(
+            'class'    => 'header-' . get_field('header_layout', 'option'),
+            'template' => get_field('header_layout', 'option')
+        );
+
+        return true;
     }
 
     public function getFooterLayout()
