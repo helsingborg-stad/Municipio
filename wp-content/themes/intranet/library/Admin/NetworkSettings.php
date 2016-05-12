@@ -10,6 +10,10 @@ class NetworkSettings
         add_action('wpmu_update_blog_options', array($this, 'saveForceSubscriptionField'));
     }
 
+    /**
+     * Add forece subscription checkbox to site settings
+     * @param integer $blogId The current blog id
+     */
     public function addForceSubscriptionField($blogId)
     {
         $checked = get_blog_option($blogId, 'intranet_force_subscription');
@@ -21,6 +25,11 @@ class NetworkSettings
         </tr>';
     }
 
+    /**
+     * Save the force subscription checkbox
+     * @param  integer $blogId The current blog id
+     * @return boolean         Always true
+     */
     public function saveForceSubscriptionField($blogId)
     {
         $res = false;
