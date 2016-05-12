@@ -10,7 +10,7 @@ define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content');
  * Use municipio as default theme.
  * @var string
  */
- define('WP_DEFAULT_THEME', 'municipio');
+ define('WP_DEFAULT_THEME', 'intranet');
 
 /**
  * Limit number of post revisions per post
