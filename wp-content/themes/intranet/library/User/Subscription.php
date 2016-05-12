@@ -11,6 +11,30 @@ class Subscription
     }
 
     /**
+     * Get forced subscriptions
+     * @return array Blog id's of forced subscriptions
+     */
+    public static function getForcedSubscriptions()
+    {
+        $sites = wp_get_sites();
+
+        foreach ($sites as $key => $site) {
+            $force = !!get_blog_option($site['blog_id'], 'intranet_force_subscription');
+
+            if (!$force) {
+                unset($sites[$key]);
+                continue;
+            }
+
+            switch_to_blog($site['blog_id']);
+            $sites[$key]['name'] = get_bloginfo();
+            restore_current_blog();
+        }
+
+        return $sites;
+    }
+
+    /**
      * Gets a user's subscriptions
      * @param  integer $userId User id
      * @return array           Subscriptions (blog id:s)
@@ -21,11 +45,23 @@ class Subscription
             $userId = get_current_user_id();
         }
 
+        $sites = wp_get_sites();
+
         $subscriptions = get_user_meta($userId, 'intranet_subscriptions', true);
         $subscriptions = json_decode($subscriptions);
 
         if (!is_array($subscriptions)) {
             $subscriptions = array();
+        }
+
+        $subscriptions = array_filter($sites, function ($site) use ($subscriptions) {
+            return in_array($site['blog_id'], $subscriptions);
+        });
+
+        foreach ($subscriptions as $key => $site) {
+            switch_to_blog($site['blog_id']);
+            $subscriptions[$key]['name'] = get_bloginfo();
+            restore_current_blog();
         }
 
         return $subscriptions;
@@ -45,7 +81,7 @@ class Subscription
 
         $subscriptions = self::getSubscriptions($userId);
         $matches = array_filter($subscriptions, function ($subscription) use ($blogId) {
-            return $subscription == $blogId;
+            return $subscription['blog_id'] == $blogId;
         });
 
         return count($matches) > 0;
@@ -136,7 +172,7 @@ class Subscription
     {
         $subscriptions = self::getSubscriptions($userId);
         $subscriptions = array_filter($subscriptions, function ($subscription) use ($blogId) {
-            return $subscription != $blogId;
+            return $subscription['blog_id'] != $blogId;
         });
 
         $this->update($userId, $subscriptions);

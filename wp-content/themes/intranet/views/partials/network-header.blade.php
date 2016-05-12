@@ -1,5 +1,3 @@
-<?php $mainSite = \Intranet\Helper\Multisite::getMainSiteBloginfo(); ?>
-
 <div class="creamy creamy-border-bottom">
     <div class="container">
         <div class="grid gutter gutter-lg gutter-vertical">
@@ -22,10 +20,12 @@
 
                         <div class="network-search-results">
                             <ul>
-                                <li><a href="{{ $mainSite['path'] }}">{{ $mainSite['name'] }}</a></li>
+                                @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
+                                <li><a href="{{ $site['path'] }}">{{ $site['name'] }}</a></li>
+                                @endforeach
 
                                 <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
-                                @foreach (\Intranet\Helper\Multisite::getSitesList(false) as $site)
+                                @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
                                 <li class="network-title"><a href="{{ $site['path'] }}">{{ $site['name'] }}</a></li>
                                 @endforeach
                             </ul>
