@@ -13,11 +13,11 @@ class ComposerNetworkAdmin
 {
     public function __construct()
     {
-        if (is_multisite()) {
+        if (is_multisite() && defined(SUBDOMAIN_INSTALL) && SUBDOMAIN_INSTALL) {
             add_filter('network_admin_url', array($this, 'sanitizeNetworkAdminUrl'), 50, 2);
+            add_filter('admin_url', array($this, 'sanitizeAdminUrl'), 50, 3);
         }
 
-        add_filter('admin_url', array($this, 'sanitizeAdminUrl'), 50, 3);
         //add_filter('login_url', array($this, 'sanitizeLoginUrl'), 10, 2);
     }
 
