@@ -19,7 +19,8 @@
         @include input-placeholder(#fff, .5);
 
         .form-control {
-            background-color: $palette-gray-4;
+            background-color: darken($palette-gray-4, 10%);
+            color: #fff;
             border: none;
             box-shadow: none;
 
@@ -35,6 +36,8 @@
         }
 
         button.btn {
+            background-color: darken($palette-gray-4, 10%);
+            color: #fff;
             padding-top: 12px;
 
             @if ($includeThemes == true) {

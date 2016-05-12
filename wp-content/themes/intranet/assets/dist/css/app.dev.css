@@ -32,7 +32,8 @@
     opacity: 0.5;
     font-weight: normal; }
   #site-header .search .form-control {
-    background-color: #777;
+    background-color: #5e5e5e;
+    color: #fff;
     border: none;
     box-shadow: none; }
     .theme-red #site-header .search .form-control {
@@ -48,6 +49,8 @@
       background-color: #4b0439;
       color: #fff; }
   #site-header .search button.btn {
+    background-color: #5e5e5e;
+    color: #fff;
     padding-top: 12px; }
     .theme-red #site-header .search button.btn {
       background-color: #7c0804;
