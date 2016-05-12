@@ -1,10 +1,12 @@
+<?php $mainSite = \Intranet\Helper\Multisite::getMainSiteBloginfo(); ?>
+
 <div class="creamy creamy-border-bottom">
     <div class="container">
         <div class="grid gutter gutter-lg gutter-vertical">
             <div class="grid-md-6">
                 <div class="network">
                     <button class="current-network network-title" data-dropdown=".dropdown">
-                        SLF <em>Stadsledningsförvaltningen</em>
+                        {{ get_bloginfo() }}
                     </button>
                     <div class="dropdown">
                         <form class="network-search" method="get" action="/">
@@ -20,12 +22,12 @@
 
                         <div class="network-search-results">
                             <ul>
-                                <li><a href="#"><?php _e('Dashboard', 'municipio-intranet'); ?></a></li>
+                                <li><a href="{{ $mainSite['path'] }}">{{ $mainSite['name'] }}</a></li>
+
                                 <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
-                                <li class="network-title"><a href="#">SLF <em>Stadsledningsförvaltningen</em></a></li>
-                                <li class="network-title"><a href="#">AMF <em>Arbetsmarknadsförvaltningen</em></a></li>
-                                <li class="network-title"><a href="#">KF <em>Kulturförvaltningen</em></a></li>
-                                <li class="network-title"><a href="#">Biblioteksnätverket</a></li>
+                                @foreach (\Intranet\Helper\Multisite::getSitesList(false) as $site)
+                                <li class="network-title"><a href="{{ $site['path'] }}">{{ $site['name'] }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
 
@@ -35,7 +37,7 @@
             </div>
 
             <div class="grid-md-6 text-right">
-                <a href="#" class="btn btn-primary"><i class="fa fa-share-alt"></i> <?php _e('Follow', 'municipio-intranet'); ?></a>
+                <a href="#" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php _e('Follow', 'municipio-intranet'); ?></a>
             </div>
         </div>
     </div>
