@@ -14,3 +14,5 @@ $loader->addPrefix('Intranet', INTRANET_PATH . 'source/php/');
 $loader->register();
 
 new Intranet\App();
+
+require_once INTRANET_PATH . 'library/Public.php';

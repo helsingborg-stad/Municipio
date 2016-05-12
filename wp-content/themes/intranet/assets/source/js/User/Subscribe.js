@@ -1,5 +1,3 @@
-var Intranet;
-
 Intranet = Intranet || {};
 Intranet.User = Intranet.User || {};
 

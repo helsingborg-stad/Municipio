@@ -37,7 +37,13 @@
             </div>
 
             <div class="grid-md-6 text-right">
-                <a href="#" class="btn btn-primary"><i class="fa fa-plus-circle"></i> <?php _e('Follow', 'municipio-intranet'); ?></a>
+                <button class="btn btn-primary" data-subscribe="{{ get_current_blog_id() }}">
+                    @if (!intranet_has_subscribed(get_current_blog_id()))
+                    <i class="fa fa-plus-circle"></i> <?php _e('Subscribe', 'municipio-intranet'); ?>
+                    @else
+                    <i class="fa fa-minus-circle"></i> <?php _e('Unsubscribe', 'municipio-intranet'); ?>
+                    @endif
+                </button>
             </div>
         </div>
     </div>
