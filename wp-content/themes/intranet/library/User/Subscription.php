@@ -31,15 +31,25 @@ class Subscription
             restore_current_blog();
         }
 
+        // Sort alphabetically but always put main site first
+        uasort($sites, function ($a, $b) {
+            if (is_main_site($a['blog_id'])) {
+                return -1;
+            }
+
+            return $a['name'] > $b['name'];
+        });
+
         return $sites;
     }
 
     /**
      * Gets a user's subscriptions
-     * @param  integer $userId User id
-     * @return array           Subscriptions (blog id:s)
+     * @param  integer $userId      User id
+     * @param  boolean $onlyBlogId  True to only return blog ids
+     * @return array                Subscriptions (blog id:s)
      */
-    public static function getSubscriptions($userId = null)
+    public static function getSubscriptions($userId = null, $onlyBlogId = false)
     {
         if (is_null($userId)) {
             $userId = get_current_user_id();
@@ -47,6 +57,7 @@ class Subscription
 
         $sites = wp_get_sites();
 
+        $subscriptionsIds = array();
         $subscriptions = get_user_meta($userId, 'intranet_subscriptions', true);
         $subscriptions = json_decode($subscriptions);
 
@@ -60,9 +71,20 @@ class Subscription
 
         foreach ($subscriptions as $key => $site) {
             switch_to_blog($site['blog_id']);
+
+            $subscriptionsIds[] = $site['blog_id'];
             $subscriptions[$key]['name'] = get_bloginfo();
+
             restore_current_blog();
         }
+
+        if ($onlyBlogId) {
+            return $subscriptionsIds;
+        }
+
+        uasort($subscriptions, function ($a, $b) {
+            return $a['name'] > $b['name'];
+        });
 
         return $subscriptions;
     }
@@ -79,9 +101,9 @@ class Subscription
             $userId = get_current_user_id();
         }
 
-        $subscriptions = self::getSubscriptions($userId);
+        $subscriptions = self::getSubscriptions($userId, true);
         $matches = array_filter($subscriptions, function ($subscription) use ($blogId) {
-            return $subscription['blog_id'] == $blogId;
+            return $subscription == $blogId;
         });
 
         return count($matches) > 0;
@@ -142,6 +164,7 @@ class Subscription
      */
     private function update($userId, $subscriptions)
     {
+        $subscriptions = array_values($subscriptions);
         $subscriptions = json_encode($subscriptions);
         return update_user_meta($userId, 'intranet_subscriptions', $subscriptions);
     }
@@ -154,7 +177,7 @@ class Subscription
      */
     public function subscribe($userId, $blogId)
     {
-        $subscriptions = self::getSubscriptions($userId);
+        $subscriptions = self::getSubscriptions($userId, true);
         $subscriptions[] = $blogId;
 
         $this->update($userId, $subscriptions);
@@ -170,9 +193,9 @@ class Subscription
      */
     public function unsubscribe($userId, $blogId)
     {
-        $subscriptions = self::getSubscriptions($userId);
+        $subscriptions = self::getSubscriptions($userId, true);
         $subscriptions = array_filter($subscriptions, function ($subscription) use ($blogId) {
-            return $subscription['blog_id'] != $blogId;
+            return $subscription != $blogId;
         });
 
         $this->update($userId, $subscriptions);
