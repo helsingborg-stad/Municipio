@@ -34,8 +34,8 @@
     "require": {
         "composer/installers": "~1.0",
         "johnpbloch/wordpress": "^4.5.0",
-        "helsingborg-stad/Modularity": "^1.0.0",
-        "helsingborg-stad/Municipio": ">=1.0.0",
+        "helsingborg-stad/Modularity": ">=1.0.0",
+        "helsingborg-stad/Municipio": "dev-develop",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
         "helsingborg-stad/custom-short-links": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
