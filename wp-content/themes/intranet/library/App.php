@@ -7,5 +7,7 @@ class App
     {
         new \Intranet\Theme\Enqueue();
         new \Intranet\Theme\Header();
+
+        new \Intranet\User\Subscription();
     }
 }
