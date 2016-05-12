@@ -20,6 +20,7 @@
 
                         <div class="network-search-results">
                             <ul>
+                                <li class="title"><?php _e('Public networks', 'municipio-intranet'); ?></li>
                                 @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
                                 <li><a href="{{ $site['path'] }}">{{ $site['name'] }}</a></li>
                                 @endforeach
