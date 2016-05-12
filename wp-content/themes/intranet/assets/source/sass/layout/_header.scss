@@ -1,5 +1,51 @@
 #site-header {
+
     .site-title {
-        color: #fff;
+        display: block;
+        margin-right: 30px;
+        padding-top: 7px;
+
+        h1 {
+            font-size: .9em;
+            letter-spacing: .5px;
+            color: #fff;
+        }
     }
+
+    .search {
+        display: block;
+        float: left;
+
+        @include input-placeholder(#fff, .5);
+
+        .form-control {
+            background-color: $palette-gray-4;
+            border: none;
+            box-shadow: none;
+
+            // Color theme styles
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: darken(map-get($color, fourthSafe), 10%);
+                        color: map-get($color, fourthTextColor);
+                    }
+                }
+            }
+        }
+
+        button.btn {
+            padding-top: 12px;
+
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: darken(map-get($color, fourthSafe), 10%);
+                        color: map-get($color, fourthTextColor);
+                    }
+                }
+            }
+        }
+    }
+
 }

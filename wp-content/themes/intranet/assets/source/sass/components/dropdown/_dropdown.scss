@@ -1,0 +1,20 @@
+.dropdown {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+    box-shadow: 0 0 20px rgba(#000, .2);
+
+    .show-all {
+        display: block;
+        background-color: $creamy;
+        border-top: 1px solid $creamy-darker;
+        padding: 10px 20px;
+        color: $base-font-color;
+    }
+}

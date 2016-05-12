@@ -3,13 +3,24 @@
         <div class="grid">
             <div class="grid-xs-12 {!! apply_filters('Municipio/header_grid_size','grid-md-12'); !!}">
                 <div class="grid">
-                    <div class="grid-sm-12 grid-md-4">
-                        <a href="{{ network_home_url() }}" class="site-title"><h1 class="no-margin no-padding">Helsingborg Stads Intranät</h1></a>
-                    </div>
-                    <div class="grid-md-8 text-right">
-                        <nav class="nav nav-horizontal">
-                            <ul>
+                    <div class="grid-xs-12">
+                        <a href="{{ network_home_url() }}" class="site-title pull-left"><h1 class="no-margin no-padding">Helsingborg Stads Intranät</h1></a>
+
+                        <form class="search" method="get" action="/">
+                            <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
+
+                            <div class="input-group">
+                                <input id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="{{ get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : 'What are you looking for?' }}" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
+                                <span class="input-group-addon-btn">
+                                    <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+
+                        <nav class="pull-right">
+                            <ul class="nav nav-horizontal">
                                 <li><a href="#">A-Ö</a></li>
+                                <li><a href="#">Kristoffer Svanmark</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -18,3 +29,5 @@
         </div>
     </div>
 </nav>
+
+@include('partials.network-header')

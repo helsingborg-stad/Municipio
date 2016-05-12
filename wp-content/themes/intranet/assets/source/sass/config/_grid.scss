@@ -1,0 +1,57 @@
+// *
+// * 1. Breakpoints
+// * 2. Media Queries
+// * 3. Gutter
+// * 4. Grid columns
+// *
+
+// ***************************************************************
+// *** 1. Breakpoints
+// ***************************************************************
+
+$screen-xs-min: 0;
+$screen-xs-max: 468px;
+
+$screen-sm-min: $screen-xs-max + 1;
+$screen-sm-max: 768px;
+
+$screen-md-min: $screen-sm-max + 1;
+$screen-md-max: 960px;
+
+$screen-lg-min: $screen-md-max + 1;
+$screen-lg-max: 1280px;
+
+// ***************************************************************
+// *** 2. Media Queries
+// ***************************************************************
+
+$screen-xs: "(min-width: #{$screen-xs-min}) and (max-width: #{$screen-xs-max})";
+$screen-xs-up: "(min-width: #{$screen-xs-min})";
+$screen-below-xs: "(max-width: #{$screen-xs-min})";
+
+$screen-sm: "(min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max})";
+$screen-sm-up: "(min-width: #{$screen-sm-min})";
+$screen-below-sm: "(max-width: #{$screen-sm-min})";
+
+$screen-md: "(min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max})";
+$screen-md-up: "(min-width: #{$screen-md-min})";
+$screen-below-md: "(max-width: #{$screen-md-min})";
+
+$screen-lg: "(min-width: #{$screen-lg-min})";
+$screen-lg-up: "(min-width: #{$screen-lg-min})";
+$screen-below-lg: "(max-width: #{$screen-lg-min})";
+
+// ***************************************************************
+// *** 3. Gutter
+// ***************************************************************
+
+$grid-gutter-xs: 10px;
+$grid-gutter-sm: 10px;
+$grid-gutter-md: 30px;
+$grid-gutter-lg: 30px;
+
+// ***************************************************************
+// *** 4. Grid columns
+// ***************************************************************
+
+$grid-column-count: 12;

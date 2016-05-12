@@ -1,0 +1,91 @@
+$includeThemes: true;
+
+$themes: (
+    red: (
+        first: $palette-red-1,
+        firstTextColor: #000,
+        firstSafe: $palette-red-4,
+
+        second: $palette-red-2,
+        secondTextColor: #fff,
+        secondSafe: $palette-red-2,
+
+        third: $palette-red-3,
+        thirdTextColor: #000,
+        thirdSafe: $palette-red-5,
+
+        fourth: $palette-red-4,
+        fourthTextColor: #fff,
+        fourthSafe: $palette-red-4,
+
+        fifth: $palette-red-5,
+        fifthTextColor: #fff,
+        fifthSafe: $palette-red-5
+    ),
+
+    blue: (
+        first: $palette-blue-1,
+        firstTextColor: #000,
+        firstSafe: $palette-blue-4,
+
+        second: $palette-blue-2,
+        secondTextColor: #fff,
+        secondSafe: $palette-blue-2,
+
+        third: $palette-blue-3,
+        thirdTextColor: #000,
+        thirdSafe: $palette-blue-4,
+
+        fourth: $palette-blue-4,
+        fourthTextColor: #fff,
+        fourthSafe: $palette-blue-4,
+
+        fifth: $palette-blue-5,
+        fifthTextColor: #000,
+        fifthSafe: $palette-blue-2
+    ),
+
+    green: (
+        first: $palette-green-1,
+        firstTextColor: #000,
+        firstSafe: $palette-green-4,
+
+        second: $palette-green-2,
+        secondTextColor: #000,
+        secondSafe: $palette-green-4,
+
+        third: $palette-green-3,
+        thirdTextColor: #000,
+        thirdSafe: $palette-green-4,
+
+        fourth: $palette-green-4,
+        fourthTextColor: #fff,
+        fourthSafe: $palette-green-4,
+
+        fifth: $palette-green-5,
+        fifthTextColor: #000,
+        fifthSafe: $palette-green-4
+    ),
+
+    purple: (
+        first: $palette-purple-1,
+        firstTextColor: #000,
+        firstSafe: $palette-purple-3,
+
+        second: $palette-purple-2,
+        secondTextColor: #fff,
+        secondSafe: $palette-purple-2,
+
+        third: $palette-purple-3,
+        thirdTextColor: #fff,
+        thirdSafe: $palette-purple-3,
+
+        fourth: $palette-purple-4,
+        fourthTextColor: #fff,
+        fourthSafe: $palette-purple-4,
+
+        fifth: $palette-purple-5,
+        fifthTextColor: #fff,
+        fifthSafe: $palette-purple-5
+    )
+);
