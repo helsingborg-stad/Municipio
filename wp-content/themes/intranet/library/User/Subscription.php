@@ -8,7 +8,6 @@ class Subscription
     {
         add_action('wp_ajax_toggle_subscription', array($this, 'toggleSubscription'));
         add_action('wp_ajax_nopriv_toggle_subscription', array($this, 'toggleSubscription'));
-        //$this->unsubscribe(1, 1);
     }
 
     /**
