@@ -16,8 +16,12 @@ class Subscription
      * @param  integer $userId User id
      * @return array           Subscriptions (blog id:s)
      */
-    public function getSubscriptions($userId)
+    public static function getSubscriptions($userId = null)
     {
+        if (is_null($userId)) {
+            $userId = get_current_user_id();
+        }
+
         $subscriptions = get_user_meta($userId, 'intranet_subscriptions', true);
         $subscriptions = json_decode($subscriptions);
 
@@ -34,9 +38,13 @@ class Subscription
      * @param  integer  $blogId Blog id
      * @return boolean
      */
-    public function hasSubscribed($userId, $blogId)
+    public static function hasSubscribed($blogId, $userId = null)
     {
-        $subscriptions = $this->getSubscriptions($userId);
+        if (is_null($userId)) {
+            $userId = get_current_user_id();
+        }
+
+        $subscriptions = self::getSubscriptions($userId);
         $matches = array_filter($subscriptions, function ($subscription) use ($blogId) {
             return $subscription == $blogId;
         });
@@ -69,7 +77,7 @@ class Subscription
         }
 
         // Check if blogid is subscribed
-        if ($this->hasSubscribed($userId, $blogId)) {
+        if (self::hasSubscribed($blogId)) {
             $this->unsubscribe($userId, $blogId);
 
             if (defined('DOING_AJAX') && DOING_AJAX) {
@@ -109,9 +117,9 @@ class Subscription
      * @param  integer $blogId Blog id
      * @return array           All subscriptions of the user
      */
-    public function subscribe($blogId, $userId)
+    public function subscribe($userId, $blogId)
     {
-        $subscriptions = $this->getSubscriptions($userId);
+        $subscriptions = self::getSubscriptions($userId);
         $subscriptions[] = $blogId;
 
         $this->update($userId, $subscriptions);
@@ -127,7 +135,7 @@ class Subscription
      */
     public function unsubscribe($userId, $blogId)
     {
-        $subscriptions = $this->getSubscriptions($userId);
+        $subscriptions = self::getSubscriptions($userId);
         $subscriptions = array_filter($subscriptions, function ($subscription) use ($blogId) {
             return $subscription != $blogId;
         });
