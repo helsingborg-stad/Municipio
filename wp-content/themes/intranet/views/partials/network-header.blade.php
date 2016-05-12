@@ -37,6 +37,7 @@
             </div>
 
             <div class="grid-md-6 text-right">
+                @if (get_blog_option(get_current_blog_id(), 'intranet_force_subscription') != 'true')
                 <button class="btn btn-primary" data-subscribe="{{ get_current_blog_id() }}">
                     @if (!\Intranet\User\Subscription::hasSubscribed(get_current_blog_id()))
                     <i class="fa fa-plus-circle"></i> <?php _e('Subscribe', 'municipio-intranet'); ?>
@@ -44,6 +45,7 @@
                     <i class="fa fa-minus-circle"></i> <?php _e('Unsubscribe', 'municipio-intranet'); ?>
                     @endif
                 </button>
+                @endif
             </div>
         </div>
     </div>
