@@ -9,5 +9,7 @@ class App
         new \Intranet\Theme\Header();
 
         new \Intranet\User\Subscription();
+
+        new \Intranet\Admin\NetworkSettings();
     }
 }
