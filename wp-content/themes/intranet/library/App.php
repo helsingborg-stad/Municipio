@@ -7,6 +7,7 @@ class App
     {
         new \Intranet\Theme\Enqueue();
         new \Intranet\Theme\Header();
+        new \Intranet\Theme\ProtectedPosts();
 
         new \Intranet\User\Subscription();
 
