@@ -19,7 +19,7 @@ class Post
         $metaKeys = $wpdb->get_results("
             SELECT DISTINCT {$wpdb->postmeta}.meta_key
             FROM {$wpdb->postmeta}
-            LEFT JOIN wp_posts ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
+            LEFT JOIN {$wpdb->posts} ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
             WHERE
                 {$wpdb->posts}.post_type = '$posttype'
                 AND NOT LEFT({$wpdb->postmeta}.meta_key, 1) = '_'
