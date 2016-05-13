@@ -32,7 +32,7 @@
                             </ul>
                         </div>
 
-                        <a href="#" class="show-all"><span class="link-item"><?php _e('Show all networks', 'municipio-intranet'); ?></span></a>
+                        <a href="{{ home_url('network-sites') }}" class="show-all"><span class="link-item"><?php _e('Show all networks', 'municipio-intranet'); ?></span></a>
                     </div>
                 </div>
             </div>
