@@ -19,15 +19,16 @@ class Subscription
         $sites = wp_get_sites();
 
         foreach ($sites as $key => $site) {
-            $force = !!get_blog_option($site['blog_id'], 'intranet_force_subscription');
+            $force = get_blog_option($site['blog_id'], 'intranet_force_subscription');
 
-            if (!$force) {
+            if (!$force || $force == 'false') {
                 unset($sites[$key]);
                 continue;
             }
 
             switch_to_blog($site['blog_id']);
             $sites[$key]['name'] = get_bloginfo();
+            $sites[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
             restore_current_blog();
         }
 
@@ -74,6 +75,7 @@ class Subscription
 
             $subscriptionsIds[] = $site['blog_id'];
             $subscriptions[$key]['name'] = get_bloginfo();
+            $subscriptions[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
 
             restore_current_blog();
         }

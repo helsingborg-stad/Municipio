@@ -1,0 +1,17 @@
+th.intranet-settings-wrapper {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 0;
+  font-weight: normal; }
+  th.intranet-settings-wrapper .intranet-settings-title {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd; }
+  th.intranet-settings-wrapper p {
+    padding: 15px; }
+  th.intranet-settings-wrapper p + p {
+    border-top: 1px solid #ddd; }
+  th.intranet-settings-wrapper label {
+    font-weight: bold; }
+  th.intranet-settings-wrapper .checkbox label {
+    font-weight: normal; }

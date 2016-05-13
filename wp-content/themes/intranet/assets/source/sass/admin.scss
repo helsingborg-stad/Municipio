@@ -1,0 +1,28 @@
+th.intranet-settings-wrapper {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 0;
+    font-weight: normal;
+
+    .intranet-settings-title {
+        display: block;
+        padding: 10px 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    p {
+        padding: 15px;
+    }
+
+    p + p {
+        border-top: 1px solid #ddd;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .checkbox label {
+        font-weight: normal;
+    }
+}

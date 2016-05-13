@@ -4,7 +4,7 @@
             <div class="grid-md-6">
                 <div class="network">
                     <button class="current-network network-title" data-dropdown=".dropdown">
-                        {{ get_bloginfo() }}
+                        {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
                     </button>
                     <div class="dropdown">
                         <form class="network-search" method="get" action="/">
@@ -22,12 +22,12 @@
                             <ul>
                                 <li class="title"><?php _e('Public networks', 'municipio-intranet'); ?></li>
                                 @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
-                                <li><a href="{{ $site['path'] }}">{{ $site['name'] }}</a></li>
+                                    <li><a href="{{ $site['path'] }}">{!! $site['name'] !!}</a></li>
                                 @endforeach
 
                                 <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
                                 @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
-                                <li class="network-title"><a href="{{ $site['path'] }}">{{ $site['name'] }}</a></li>
+                                    <li class="network-title"><a href="{{ $site['path'] }}">{!! ($site['short_name']) ? $site['short_name'] . ' <em>' . $site['name'] . '</em>' : $site['name'] !!}</a></li>
                                 @endforeach
                             </ul>
                         </div>
