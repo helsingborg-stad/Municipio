@@ -31,6 +31,30 @@ class Multisite
     }
 
     /**
+     * Search for sites with name
+     * @param  string $keyword The keyword
+     * @return array           Matching sites
+     */
+    public static function searchSites($keyword = null)
+    {
+        if (is_null($keyword) && isset($_POST['s'])) {
+            $keyword = $_POST['s'];
+        }
+
+        $sites = self::getSitesList(true);
+        foreach ($sites as $key => $site) {
+            if (stripos($site['name'], $keyword) === false) {
+                unset($sites[$key]);
+            }
+        }
+
+        $sites = array_values($sites);
+
+        return $sites;
+
+    }
+
+    /**
      * Returns a list of all sites in the network with their basic settings
      * @param  boolean $includeMainSite Wheather to inclide the main page or not
      * @return array                    List of sites in network
