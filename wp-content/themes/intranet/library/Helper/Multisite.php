@@ -38,6 +38,10 @@ class Multisite
     public static function getSitesList($includeMainSite = true)
     {
         $sites = wp_get_sites();
+        $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
+        $forcedSubscriptions = \Intranet\User\Subscription::getForcedSubscriptions(true);
+
+        $subscriptions = array_merge($subscriptions, $forcedSubscriptions);
 
         foreach ($sites as $key => $site) {
             if (is_main_site($site['blog_id']) && !$includeMainSite) {
@@ -48,6 +52,17 @@ class Multisite
             switch_to_blog($site['blog_id']);
 
             $sites[$key]['name'] = get_bloginfo();
+            $sites[$key]['description'] = get_bloginfo('description');
+            $sites[$key]['subscribed'] = false;
+            $sites[$key]['forced_subscription'] = false;
+
+            if (in_array($site['blog_id'], $subscriptions)) {
+                $sites[$key]['subscribed'] = true;
+            }
+
+            if (in_array($site['blog_id'], $forcedSubscriptions)) {
+                $sites[$key]['forced_subscription'] = true;
+            }
 
             restore_current_blog();
         }

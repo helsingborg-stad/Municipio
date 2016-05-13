@@ -14,9 +14,10 @@ class Subscription
      * Get forced subscriptions
      * @return array Blog id's of forced subscriptions
      */
-    public static function getForcedSubscriptions()
+    public static function getForcedSubscriptions($onlyBlogId = false)
     {
         $sites = wp_get_sites();
+        $forcedIds = array();
 
         foreach ($sites as $key => $site) {
             $force = get_blog_option($site['blog_id'], 'intranet_force_subscription');
@@ -30,6 +31,12 @@ class Subscription
             $sites[$key]['name'] = get_bloginfo();
             $sites[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
             restore_current_blog();
+
+            $forcedIds[] = $site['blog_id'];
+        }
+
+        if ($onlyBlogId) {
+            return $forcedIds;
         }
 
         // Sort alphabetically but always put main site first
