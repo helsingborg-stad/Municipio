@@ -1,3 +1,5 @@
+<?php $currentUser = wp_get_current_user(); ?>
+
 <nav class="navbar navbar-sm hidden-print">
     <div class="container">
         <div class="grid">
@@ -20,7 +22,14 @@
                         <nav class="pull-right">
                             <ul class="nav nav-horizontal">
                                 <li><a href="#">A-Ö</a></li>
-                                <li><a href="#">Kristoffer Svanmark</a></li>
+
+                                @if ($currentUser)
+                                    @if ( (isset($currentUser->first_name) && !empty($currentUser->first_name)) || (isset($currentUser->last_name) && !empty($currentUser->last_name)) )
+                                        <li><a href="#">{{ isset($currentUser->first_name) ? $currentUser->first_name : '' }} {{ isset($currentUser->last_name) ? $currentUser->last_name : '' }}</a></li>
+                                    @else
+                                        <li><a href="#"><?php _e('Your profile', 'municipio-intranet'); ?></a></li>
+                                    @endif
+                                @endif
                             </ul>
                         </nav>
                     </div>
