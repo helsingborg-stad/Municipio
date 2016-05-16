@@ -190,6 +190,10 @@ class Support
     {
         global $wp_query;
 
+        if (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES) {
+            return;
+        }
+
         if (is_author() || is_attachment()) {
             $wp_query->set_404();
         }

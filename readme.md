@@ -21,6 +21,15 @@ To compile both js and sass and start the "watch" task run the following command
 $ gulp
 ```
 
+## Constants
+
+#### Block author pages
+Author pages is blocked by default. To "unblock" add the following constant to wp-config (or other suitable place).
+
+```
+define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
+```
+
 ## Filters
 
 #### Municipio/favicon_sizes
