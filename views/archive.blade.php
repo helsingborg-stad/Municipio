@@ -27,7 +27,7 @@
                     {!! the_post() !!}
 
                     @if (in_array($template, array('full', 'compressed', 'collapsed')))
-                        <div class="grid-xs-12">
+                        <div class="grid-xs-12 post">
                             @include('partials.blog.type.post-' . $template)
                         </div>
                     @else
