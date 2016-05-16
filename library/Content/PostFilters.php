@@ -105,7 +105,7 @@ class PostFilters
         }
 
         // Get orderby key, default to post_date
-        $orderby = get_field('archive_' . sanitize_title($posttype) . '_sort_key', 'option');
+        $orderby = (isset($_GET['orderby']) && !empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : get_field('archive_' . sanitize_title($posttype) . '_sort_key', 'option');
         if (empty($orderby)) {
             $orderby = 'post_date';
         }
@@ -117,8 +117,8 @@ class PostFilters
         }
 
         // Get orderby order, default to desc
-        $order = get_field('archive_' . sanitize_title($posttype) . '_sort_order', 'option');
-        if (empty($order)) {
+        $order = (isset($_GET['order']) && !empty($_GET['order'])) ? sanitize_text_field($_GET['order']) : get_field('archive_' . sanitize_title($posttype) . '_sort_order', 'option');
+        if (empty($order) || !in_array(strtolower($order), array('asc', 'desc'))) {
             $order = 'desc';
         }
 
@@ -127,11 +127,15 @@ class PostFilters
         // Return if not meta query
         if (!$isMetaQuery) {
             $query->set('orderby', $orderby);
-
             return $query;
         }
 
+        if (isset($_GET['orderby']) && $_GET['orderby'] == 'meta_key' && isset($_GET['meta_key']) && !empty($_GET['meta_key'])) {
+            $orderby = sanitize_text_field($_GET['meta_key']);
+        }
+
         // Continue if meta query
+        $query->set('meta_key', $orderby);
         $query->set(
             'meta_query',
             array(
