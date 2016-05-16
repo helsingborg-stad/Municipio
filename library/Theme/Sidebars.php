@@ -13,7 +13,7 @@ class Sidebars
 
     public function wpWidgetBefore($before, $sidebarArgs, $module)
     {
-        if ($module->post_type) {
+        if (get_field('mod_standard_widget_type', $module->ID) == 'search') {
             return '<div>';
         }
 
