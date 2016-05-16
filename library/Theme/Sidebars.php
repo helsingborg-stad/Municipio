@@ -8,6 +8,26 @@ class Sidebars
     {
         add_action('widgets_init', array($this, 'register'));
         add_filter('Modularity/Module/Classes', array($this, 'moduleClasses'), 10, 3);
+        add_filter('Modularity/Module/WpWidget/before', array($this, 'wpWidgetBefore'), 10, 3);
+    }
+
+    public function wpWidgetBefore($before, $sidebarArgs, $module)
+    {
+        if ($module->post_type) {
+            return '<div>';
+        }
+
+        // Box panel in content area and content area bottom
+        if (in_array($sidebarArgs['id'], array('content-area', 'content-area-bottom')) && !is_front_page()) {
+            $before = '<div class="box box-panel box-panel-secondary">';
+        }
+
+        // Sidebar boxes (should be filled)
+        if (in_array($sidebarArgs['id'], array('left-sidebar-bottom', 'left-sidebar', 'right-sidebar'))) {
+            $before = '<div class="box box-filled">';
+        }
+
+        return $before;
     }
 
     /**
