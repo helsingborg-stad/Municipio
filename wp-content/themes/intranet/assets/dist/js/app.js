@@ -105,10 +105,14 @@ Intranet.Search.Sites = (function ($) {
         };
 
         $.post(ajaxurl, data, function (res) {
+            if (res.length === 0) {
+                return;
+            }
+
             $.each(res, function (index, item) {
                 this.emptyResults();
 
-                if (redirectToPerfectMatch && keyword.toLowerCase() == item.name.toLowerCase() || keyword.toLowerCase() == item.short_name.toLowerCase()) {
+                if (redirectToPerfectMatch && keyword.toLowerCase() == item.name.toLowerCase() || (item.short_name.length && keyword.toLowerCase() == item.short_name.toLowerCase())) {
 
                     window.location = item.path;
                     return;
@@ -137,7 +141,7 @@ Intranet.Search.Sites = (function ($) {
             $('.network-search-results').append('<ul class="network-search-results-items"></ul>');
         }
 
-        if (typeof shortname != 'undefined' || shortname != null) {
+        if (shortname) {
             $('.network-search-results-items').append('<li class="network-title"><a href="' + domain + path + '">' + shortname + ' <em>' + name +  '</em></a></li>');
             return;
         }
