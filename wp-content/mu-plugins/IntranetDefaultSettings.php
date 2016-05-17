@@ -46,5 +46,7 @@ class IntranetDefaultSettings
     }
 }
 
-new \IntranetDefaultSettings\IntranetDefaultSettings();
+if (defined('MULTISITE') && MULTISITE) {
+    new \IntranetDefaultSettings\IntranetDefaultSettings();
+}
 
