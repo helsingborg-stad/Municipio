@@ -31,3 +31,8 @@ define('AUTOSAVE_INTERVAL', 120);
  * @var integer
  */
 define('EMPTY_TRASH_DAYS', 30);
+
+/**
+ * Do not block author pages
+ */
+define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
