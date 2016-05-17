@@ -23,7 +23,7 @@
                             <ul class="nav nav-horizontal">
                                 <li><a href="#">A-Ö</a></li>
 
-                                @if ($currentUser)
+                                @if ($currentUser->ID > 0)
                                     @if ( (isset($currentUser->first_name) && !empty($currentUser->first_name)) || (isset($currentUser->last_name) && !empty($currentUser->last_name)) )
                                         <li><a href="#">{{ isset($currentUser->first_name) ? $currentUser->first_name : '' }} {{ isset($currentUser->last_name) ? $currentUser->last_name : '' }}</a></li>
                                     @else

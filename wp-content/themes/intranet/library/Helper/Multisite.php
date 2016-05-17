@@ -31,24 +31,32 @@ class Multisite
     }
 
     /**
-     * Search for sites with name
+     * Search for sites by name
      * @param  string $keyword The keyword
      * @return array           Matching sites
      */
     public static function searchSites($keyword = null)
     {
-        if (is_null($keyword) && isset($_POST['s'])) {
+        // If this is an ajax request find the keyword in the POST array
+        if (defined('DOING_AJAX') && DOING_AJAX && isset($_POST['s']) && !empty($_POST['s'])) {
             $keyword = $_POST['s'];
         }
 
         $sites = self::getSitesList(true);
+
         foreach ($sites as $key => $site) {
-            if (stripos($site['name'], $keyword) === false) {
+            if (stripos($site['name'], $keyword) === false && stripos($site['short_name'], $keyword) === false) {
                 unset($sites[$key]);
             }
         }
 
         $sites = array_values($sites);
+
+        // Echo result as json if ajax request, else return array
+        if (defined('DOING_AJAX') && DOING_AJAX) {
+            echo json_encode($sites);
+            wp_die();
+        }
 
         return $sites;
 
@@ -76,6 +84,7 @@ class Multisite
             switch_to_blog($site['blog_id']);
 
             $sites[$key]['name'] = get_bloginfo();
+            $sites[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
             $sites[$key]['description'] = get_bloginfo('description');
             $sites[$key]['subscribed'] = false;
             $sites[$key]['forced_subscription'] = false;

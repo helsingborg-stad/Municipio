@@ -7,11 +7,11 @@
                         {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
                     </button>
                     <div class="dropdown">
-                        <form class="network-search" method="get" action="/">
+                        <form class="network-search" method="get" action="">
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">
-                                <input id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="{{ get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : 'Search networks…' }}" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
+                                <input data-dropdown-focus id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="{{ get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : 'Search networks…' }}" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
                                 <span class="input-group-addon-btn">
                                     <button type="submit" class="btn"><i class="fa fa-search"></i></button>
                                 </span>
@@ -19,16 +19,17 @@
                         </form>
 
                         <div class="network-search-results">
-                            <ul>
-                                <li class="title"><?php _e('Public networks', 'municipio-intranet'); ?></li>
+                            <ul class="my-networks">
                                 @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
                                     <li><a href="{{ $site['path'] }}">{!! $site['name'] !!}</a></li>
                                 @endforeach
 
-                                <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
-                                @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
-                                    <li class="network-title"><a href="{{ $site['path'] }}">{!! ($site['short_name']) ? $site['short_name'] . ' <em>' . $site['name'] . '</em>' : $site['name'] !!}</a></li>
-                                @endforeach
+                                @if (is_user_logged_in())
+                                    <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
+                                    @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
+                                        <li class="network-title"><a href="{{ $site['path'] }}">{!! ($site['short_name']) ? $site['short_name'] . ' <em>' . $site['name'] . '</em>' : $site['name'] !!}</a></li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
 

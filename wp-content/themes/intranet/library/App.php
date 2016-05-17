@@ -10,6 +10,7 @@ class App
         new \Intranet\Theme\ProtectedPosts();
 
         new \Intranet\User\Subscription();
+        new \Intranet\User\Profile();
 
         new \Intranet\Admin\NetworkSettings();
     }
