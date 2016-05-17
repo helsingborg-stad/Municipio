@@ -18,13 +18,14 @@
                             </div>
                         </form>
 
+                        @if (\Intranet\User\Subscription::getSubscriptions() || \Intranet\User\Subscription::getForcedSubscriptions())
                         <div class="network-search-results">
                             <ul class="my-networks">
                                 @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
                                     <li><a href="{{ $site['path'] }}">{!! $site['name'] !!}</a></li>
                                 @endforeach
 
-                                @if (is_user_logged_in())
+                                @if (is_user_logged_in() && \Intranet\User\Subscription::getSubscriptions())
                                     <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
                                     @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
                                         <li class="network-title"><a href="{{ $site['path'] }}">{!! ($site['short_name']) ? $site['short_name'] . ' <em>' . $site['name'] . '</em>' : $site['name'] !!}</a></li>
@@ -32,6 +33,7 @@
                                 @endif
                             </ul>
                         </div>
+                        @endif
 
                         <a href="{{ network_site_url('network-sites') }}" class="show-all"><span class="link-item"><?php _e('Show all networks', 'municipio-intranet'); ?></span></a>
                     </div>
