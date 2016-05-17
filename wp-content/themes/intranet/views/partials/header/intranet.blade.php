@@ -29,6 +29,15 @@
                                     @else
                                         <li><a href="#"><?php _e('Your profile', 'municipio-intranet'); ?></a></li>
                                     @endif
+                                @else
+                                    <li>
+                                        <a href="#" data-dropdown=".login-dropdown"><?php _e('Log in'); ?></a>
+                                        <div class="dropdown login-dropdown">
+                                            <div class="gutter">
+                                                @include('partials.user.loginform')
+                                            </div>
+                                        </div>
+                                    </li>
                                 @endif
                             </ul>
                         </nav>

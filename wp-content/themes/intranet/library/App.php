@@ -9,6 +9,7 @@ class App
         new \Intranet\Theme\Header();
         new \Intranet\Theme\ProtectedPosts();
 
+        new \Intranet\User\Login();
         new \Intranet\User\Subscription();
         new \Intranet\User\Profile();
 

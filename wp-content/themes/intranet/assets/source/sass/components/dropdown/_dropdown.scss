@@ -18,3 +18,11 @@
         color: $base-font-color;
     }
 }
+
+.login-dropdown {
+    min-width: 250px;
+    left: auto;
+    right: -1px;
+    top: 100%;
+    border-top: none;
+}

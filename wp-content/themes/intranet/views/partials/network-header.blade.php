@@ -3,10 +3,10 @@
         <div class="grid gutter gutter-lg gutter-vertical">
             <div class="grid-md-6">
                 <div class="network">
-                    <button class="current-network network-title" data-dropdown=".dropdown">
+                    <button class="current-network network-title" data-dropdown=".network-search-dropdown">
                         {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
                     </button>
-                    <div class="dropdown">
+                    <div class="dropdown network-search-dropdown">
                         <form class="network-search" method="get" action="">
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
