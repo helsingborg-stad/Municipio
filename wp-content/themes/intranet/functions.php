@@ -11,6 +11,7 @@ require_once INTRANET_PATH . 'library/Vendor/Psr4ClassLoader.php';
 $loader = new Intranet\Vendor\Psr4ClassLoader();
 $loader->addPrefix('Intranet', INTRANET_PATH . 'library');
 $loader->addPrefix('Intranet', INTRANET_PATH . 'source/php/');
+$loader->addPrefix('Intranet', INTRANET_PATH . 'modules');
 $loader->register();
 
 new Intranet\App();
