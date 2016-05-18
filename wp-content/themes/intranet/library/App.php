@@ -5,14 +5,17 @@ class App
 {
     public function __construct()
     {
+        // Basic theme functionality
         new \Intranet\Theme\Enqueue();
         new \Intranet\Theme\Header();
         new \Intranet\Theme\ProtectedPosts();
 
-        new \Intranet\User\Login();
-        new \Intranet\User\Subscription();
-        new \Intranet\User\Profile();
-
+        // Admin functionality
         new \Intranet\Admin\NetworkSettings();
+
+        // User services
+        new \Intranet\User\Login();
+        new \Intranet\User\Profile();
+        new \Intranet\User\Subscription();
     }
 }
