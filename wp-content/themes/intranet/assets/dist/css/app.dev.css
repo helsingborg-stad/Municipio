@@ -70,6 +70,7 @@
   overflow: hidden;
   border-bottom: 1px solid #e7e5e1; }
   .profile-header .profile-header-content {
+    position: relative;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -109,11 +110,18 @@
     -webkit-flex: 1 0 auto;
         -ms-flex: 1 0 auto;
             flex: 1 0 auto; }
+  .profile-header .profile-actions {
+    position: absolute;
+    top: 30px;
+    right: 0; }
   .profile-header .profile-fullname {
     padding: 0; }
   .profile-header .profile-title,
   .profile-header .profile-department {
     display: block; }
+
+.btn-edit-profile {
+  margin-top: 20px; }
 
 .profile-image {
   border-radius: 3px; }

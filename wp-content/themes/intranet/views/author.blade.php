@@ -2,6 +2,16 @@
 
 @section('content')
 
+<?php
+global $wp_query;
+global $authordata;
+$user = get_user_by('slug', $wp_query->query['author_name']);
+
+if ($user) {
+    $authordata = $user;
+}
+?>
+
 <header class="profile-header">
     <div class="profile-header-background" style="background-image:url('https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c0.44.160.160/p160x160/562742_10151832711869931_1531739462_n.jpg?oh=fe481388488ff1ccf21e0ee1099b8ff6&oe=57A0A2A5');"></div>
 
@@ -15,6 +25,12 @@
                         <span class="profile-title">Konsult Lexicon, webbutvecklare</span>
                         <span class="profile-department">Webbenheten</span>
                     </div>
+
+                    @if (get_current_user_id() == get_the_author_meta('ID'))
+                    <ul class="profile-actions">
+                        <li><a href="#" class="btn btn-primary"><i class="fa fa-wrench"></i> Redigera profil</a></li>
+                    </ul>
+                    @endif
                 </div>
             </div>
         </div>
@@ -26,7 +42,6 @@
         <div class="grid-md-8">
             <article>
                 <h2>Om mig</h2>
-
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies aliquam dolor et tristique.
                     Aenean nec velit vel sapien scelerisque luctus in quis erat. In lacinia massa vitae congue scelerisque.
@@ -46,7 +61,7 @@
             <div class="grid">
                 <div class="grid-xs-12">
                     <div class="gutter gutter-bottom">
-                        <div class="notice warning"><i class="fa fa-warning"></i> Kristoffer är pappaledig till 2016-06-14</div>
+                        <div class="notice warning"><i class="fa fa-warning"></i> {{ get_the_author_meta('first_name') }} är pappaledig till 2016-06-14</div>
                     </div>
                 </div>
                 <div class="grid-xs-12">
@@ -55,7 +70,7 @@
                         <div class="box-content">
                             <p>
                                 <strong>E-postadress</strong><br>
-                                <a href="mailto:kristoffer.svanmark@lexiconitkonsult.se">kristoffer.svanmark@lexiconitkonsult.se</a>
+                                <a href="mailto:{{ get_the_author_meta('email') }}">{{ get_the_author_meta('email') }}</a>
                             </p>
                             <p>
                                 <strong>Telefonnummer</strong><br>
