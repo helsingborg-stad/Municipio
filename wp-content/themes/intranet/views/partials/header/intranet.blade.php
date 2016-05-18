@@ -6,7 +6,7 @@
             <div class="grid-xs-12 {!! apply_filters('Municipio/header_grid_size','grid-md-12'); !!}">
                 <div class="grid">
                     <div class="grid-xs-12">
-                        <a href="{{ network_home_url() }}" class="site-title pull-left"><h1 class="no-margin no-padding">Helsingborg Stads Intranät</h1></a>
+                        <a href="{{ network_home_url() }}" class="site-title pull-left"><h1 class="no-margin no-padding">Helsingborg stads intranät</h1></a>
 
                         <form class="search" method="get" action="/">
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
@@ -31,7 +31,7 @@
                                     @endif
                                 @else
                                     <li>
-                                        <a href="#" data-dropdown=".login-dropdown"><?php _e('Log in'); ?></a>
+                                        <a href="#" data-dropdown=".login-dropdown"><?php _e('Log in'); ?> <i class="fa fa-caret-down"></i></a>
                                         <div class="dropdown login-dropdown">
                                             <div class="gutter">
                                                 @include('partials.user.loginform')
