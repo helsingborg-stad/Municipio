@@ -4,12 +4,19 @@ namespace Intranet\User;
 
 class Profile
 {
+    protected $urlBase = 'user';
+
     public function __construct()
     {
-        add_action('init', array($this, 'changeUrlRewrite'));
-        add_action('template_redirect', array($this, 'accessControl'), 5);
+        $this->urlBase = __('user', 'municipio-intranet');
 
+        // View profile
+        add_action('init', array($this, 'profileUrlRewrite'));
+        add_action('template_redirect', array($this, 'accessControl'), 5);
         add_filter('wp_title', array($this, 'setProfileTitle'), 11, 3);
+
+        // Edit profile
+        add_action('init', array($this, 'editProfileUrlRewrite'));
     }
 
     /**
@@ -19,8 +26,13 @@ class Profile
     public function accessControl()
     {
         global $wp_query;
+        $currentUser = wp_get_current_user();
 
         if (is_author() && !is_user_logged_in()) {
+            $wp_query->set_404();
+        }
+
+        if (isset($wp_query->query['editprofile']) && $wp_query->query['editprofile'] && (!is_super_admin() && $currentUser->user_login != $wp_query->query['author_name'])) {
             $wp_query->set_404();
         }
     }
@@ -29,12 +41,12 @@ class Profile
      * Change the url base for the author pages to /user
      * @return void
      */
-    public function changeUrlRewrite()
+    public function profileUrlRewrite()
     {
         global $wp_rewrite;
 
-        if ($wp_rewrite->author_base != __('user', 'municipio-intranet')) {
-            $wp_rewrite->author_base = __('user', 'municipio-intranet');
+        if ($wp_rewrite->author_base != $this->urlBase) {
+            $wp_rewrite->author_base = $this->urlBase;
             $wp_rewrite->author_structure = '/' . $wp_rewrite->author_base . '/%author%';
 
             flush_rewrite_rules();
@@ -64,5 +76,17 @@ class Profile
         }
 
         return $title;
+    }
+
+    /**
+     * Adds edit page
+     * @return void
+     */
+    public function editProfileUrlRewrite()
+    {
+        add_rewrite_rule('^' . $this->urlBase .'\/([a-zA-Z0-9_-]+)\/edit', 'index.php?author_name=$matches[1]&editprofile=true', 'top');
+        add_rewrite_tag('%editprofile%', 'true');
+
+        flush_rewrite_rules();
     }
 }

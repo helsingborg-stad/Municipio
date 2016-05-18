@@ -23,12 +23,12 @@ if ($user) {
                     <div class="profile-basics">
                         <h1 class="profile-fullname">{{ get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name') }}</h1>
                         <span class="profile-title">Konsult Lexicon, webbutvecklare</span>
-                        <span class="profile-department">Webbenheten</span>
+                        <span class="profile-department">Stadsledningsförvaltningen, Webbenheten</span>
                     </div>
 
-                    @if (get_current_user_id() == get_the_author_meta('ID'))
+                    @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
-                        <li><a href="#" class="btn btn-primary"><i class="fa fa-wrench"></i> Redigera profil</a></li>
+                        <li><a href="{{ home_url('user/' . get_the_author_meta('user_login') . '/edit') }}" class="btn btn-primary"><i class="fa fa-wrench"></i> Redigera profil</a></li>
                     </ul>
                     @endif
                 </div>
