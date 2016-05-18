@@ -14,6 +14,7 @@ class App
         new \Intranet\Admin\NetworkSettings();
 
         // User services
+        new \Intranet\User\RecursiveRegistration();
         new \Intranet\User\Login();
         new \Intranet\User\Profile();
         new \Intranet\User\Subscription();
