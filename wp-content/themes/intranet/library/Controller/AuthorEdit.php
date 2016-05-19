@@ -22,6 +22,17 @@ class AuthorEdit extends \Municipio\Controller\BaseController
 
         $this->data['currentUser'] = $currentUser;
         $this->data['user'] = $user;
+        $this->data['administrationUnits'] = apply_filters('MunicipioIntranet/administration_units', array(
+            'Arbetsmarknadsförvaltningen',
+            'Fastighetsförvaltningen',
+            'Kulturförvaltningen',
+            'Miljöförvaltningen',
+            'Skol- och fritidsförvaltningen',
+            'Socialförvaltningen',
+            'Stadsbyggnadsförvaltningen',
+            'Stadsledningsförvaltningen',
+            'Vård- och omsorgsförvaltningen'
+        ));
     }
 
     private function saveForm()

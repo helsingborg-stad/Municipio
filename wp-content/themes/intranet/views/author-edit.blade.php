@@ -54,21 +54,30 @@
                         </div>
 
                         <div class="grid">
-                            <div class="grid-md-6">
+                            <div class="grid-md-12">
                                 <div class="form-group">
                                     <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?></label>
-                                    <input type="text" id="user_administration_unit" name="user_administration_unit" value="{{ get_the_author_meta('user_administration_unit') }}">
+                                    <div class="grid">
+                                        <div class="grid-md-6">
+                                            <label class="checkbox"><input type="radio" name="user_administration_unit" value="" {{ checked('', get_the_author_meta('user_administration_unit')) }}> <?php _e('N/A', 'municipio-intranet'); ?></label>
+                                        </div>
+                                        @foreach ($administrationUnits as $unit)
+                                        <div class="grid-md-6">
+                                            <label class="checkbox"><input type="radio" name="user_administration_unit" value="{{ $unit }}" {{ checked($unit, get_the_author_meta('user_administration_unit')) }}> {{ $unit }}</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="grid">
                             <div class="grid-md-6">
                                 <div class="form-group">
                                     <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?></label>
                                     <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="grid">
                             <div class="grid-md-6">
                                 <div class="form-group">
                                     <label for="user_phone"><?php _e('Phone number', 'municipio-intranet'); ?></label>
@@ -116,10 +125,10 @@
             <div class="grid">
                 <div class="grid-xs-12">
                     <div class="box box-filled">
-                        <h4 class="box-title">Redigera dina inställningar</h4>
+                        <h4 class="box-title"><?php _e('Edit your settings', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
-                            <p>Här redigerar du dina inställningar.</p>
-                            <p>Många av dina inställningar syns på din profil för andra inloggade användare.</p>
+                            <p><?php _e('This is where you edit your personal settings.', 'municipio-intranet'); ?></p>
+                            <p><?php _e('Some of your settings is displayed on your profile to other logged in users.', 'municipio-intranet'); ?></p>
                         </div>
                     </div>
                 </div>
