@@ -50,11 +50,39 @@ class AuthorEdit extends \Municipio\Controller\BaseController
             return;
         }
 
+        if (isset($_POST['image_uploader_file'][0]) && !empty($_POST['image_uploader_file'][0])) {
+            $this->uploadProfileImage($_POST['image_uploader_file'][0], $user);
+        }
+
         update_user_meta($user->ID, 'user_work_title', sanitize_text_field($_POST['user_work_title']));
         update_user_meta($user->ID, 'user_phone', sanitize_text_field($_POST['user_phone']));
         update_user_meta($user->ID, 'user_administration_unit', sanitize_text_field($_POST['user_administration_unit']));
         update_user_meta($user->ID, 'user_department', sanitize_text_field($_POST['user_department']));
 
         return true;
+    }
+
+    public function uploadProfileImage($imageDataUri, $user)
+    {
+        global $current_site;
+
+        // Decode the imageDataUri
+        $imageDataUri = str_replace(' ', '+', $imageDataUri);
+        $decodedImage = base64_decode($imageDataUri);
+
+        switch_to_blog($current_site->blog_id);
+
+        $uploadDir = wp_upload_dir();
+        $uploadDirUrl = $uploadDir['baseurl'];
+        $uploadDir = $uploadDir['basedir'];
+        $uploadDir = $uploadDir . '/profile-images';
+
+        var_dump($uploadDir);
+
+        restore_current_blog();
+
+        //file_put_contents(wp_upload_dir(), data)
+        //var_dump($user);
+        exit;
     }
 }
