@@ -17,6 +17,20 @@ class Profile
 
         // Edit profile
         add_action('init', array($this, 'editProfileUrlRewrite'));
+        add_filter('template_include', array($this, 'editProfileTemplate'), 10);
+    }
+
+    public function editProfileTemplate($template)
+    {
+        global $wp_query;
+
+        // Bail if not on edit page
+        if (!isset($wp_query->query['author_name']) || empty($wp_query->query['author_name']) || !isset($wp_query->query['editprofile']) || !$wp_query->query['editprofile'] || $wp_query->query['editprofile'] == 'false') {
+            return $template;
+        }
+
+        $template = \Municipio\Helper\Template::locateTemplate('author-edit');
+        return $template;
     }
 
     /**
