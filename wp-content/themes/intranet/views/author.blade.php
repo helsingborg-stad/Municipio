@@ -27,7 +27,7 @@
     </div>
 </header>
 
-<div class="container gutter gutter-xl gutter-vertical">
+<div class="container main-container">
     <div class="grid">
         <div class="grid-md-8">
             <article>
