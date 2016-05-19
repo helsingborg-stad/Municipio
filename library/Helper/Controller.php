@@ -51,8 +51,6 @@ class Controller
         $cc = preg_replace_callback('/(?:^|-|_|\s)(.?)/', array('self', 'camelCaseParts'), $string);
 
         if (!empty($cc)) {
-            var_dump($cc);
-            exit;
             return $cc;
         }
 
