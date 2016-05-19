@@ -29,6 +29,10 @@ class Profile
     {
         global $wp_query;
 
+        if ($wp_query->is_404()) {
+            return get_404_template();
+        }
+
         // Bail if not on edit page
         if (!isset($wp_query->query['author_name']) || empty($wp_query->query['author_name']) || !isset($wp_query->query['editprofile']) || !$wp_query->query['editprofile'] || $wp_query->query['editprofile'] == 'false') {
             return $template;
