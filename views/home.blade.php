@@ -22,6 +22,14 @@
         ?>
 
         <div class="{{ $cols }}">
+
+            @if (!is_single() && is_active_sidebar('content-area-top'))
+                <div class="grid sidebar-content-area sidebar-content-area-top">
+                    <?php dynamic_sidebar('content-area-top'); ?>
+                </div>
+            @endif
+
+
             <div class="grid">
                 @while(have_posts())
                     {!! the_post() !!}
@@ -35,6 +43,12 @@
                     @endif
                 @endwhile
             </div>
+
+            @if (!is_single() && is_active_sidebar('content-area'))
+                <div class="grid sidebar-content-area sidebar-content-area">
+                    <?php dynamic_sidebar('content-area'); ?>
+                </div>
+            @endif
 
             <div class="grid">
                 <div class="grid-sm-12 text-center">
