@@ -18,17 +18,19 @@
             <div class="grid">
                 <div class="grid-xs-12">
                     <form action="" method="post">
+                        {!! wp_nonce_field('user_settings_update_' . $user->ID) !!}
+
                         <div class="grid">
                             <div class="grid-md-6">
                                 <div class="form-group">
-                                    <label>E-postadress <small>(Går ej att ändra)</small></label>
-                                    <input type="email" name="user_phone" value="{{ get_the_author_meta('email') }}" disabled>
+                                    <label for="user_first_name"><?php _e('First name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                    <input type="email" id="user_first_name" name="user_first_name" value="{{ get_the_author_meta('first_name') }}" disabled>
                                 </div>
                             </div>
                             <div class="grid-md-6">
                                 <div class="form-group">
-                                    <label>Telefonnummer</label>
-                                    <input type="tel" name="user_phone">
+                                    <label for="user_last_name"><?php _e('Last name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                    <input type="email" id="user_last_name" name="user_last_name" value="{{ get_the_author_meta('last_name') }}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -36,14 +38,72 @@
                         <div class="grid">
                             <div class="grid-md-6">
                                 <div class="form-group">
-                                    <label>Förvaltning</label>
-                                    <input type="text" name="user_administration">
+                                    <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                    <input type="email" id="user_email" name="user_email" value="{{ get_the_author_meta('email') }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="grid-md-6">
+                                <div class="form-group">
+                                    <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?></label>
+                                    <input type="text" id="user_work_title" name="user_work_title" value="{{ get_the_author_meta('user_work_title') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="grid-md-6">
+                                <div class="form-group">
+                                    <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?></label>
+                                    <input type="text" id="user_administration_unit" name="user_administration_unit" value="{{ get_the_author_meta('user_administration_unit') }}">
                                 </div>
                             </div>
                             <div class="grid-md-6">
                                 <div class="form-group">
-                                    <label>Avdelning</label>
-                                    <input type="text" name="user_department">
+                                    <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?></label>
+                                    <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="grid-md-6">
+                                <div class="form-group">
+                                    <label for="user_phone"><?php _e('Phone number', 'municipio-intranet'); ?></label>
+                                    <input type="tel" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="grid-md-12">
+                                <div class="form-group">
+                                    <label for=""><?php _e('Profile image', 'municipio-intranet'); ?></label>
+                                    <div class="image-upload">
+                                        <div class="placeholder">
+                                            <span class="fa-stack fa-2x">
+                                                <i class="fa fa-picture-o fa-stack-2x"></i>
+                                                <i class="fa fa-plus-circle fa-stack-1x"></i>
+                                            </span>
+                                            <div class="placeholder-text">
+                                                <span class="placeholder-text-drag"><?php _e('Drag a photo here', 'municipio-intranet'); ?></span>
+                                                <span class="placeholder-text-browse">
+                                                    <em class="placeholder-text-or"><?php _e('or', 'municipio-intranet'); ?></em>
+                                                    <button class="btn btn-secondary"><?php _e('Select a photo', 'municipio-intranet'); ?></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="grid-xs-12">
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="submit" value="<?php _e('Save settings', 'municipio-intranet'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -56,9 +116,10 @@
             <div class="grid">
                 <div class="grid-xs-12">
                     <div class="box box-filled">
-                        <h4 class="box-title">Redigera din profil</h4>
+                        <h4 class="box-title">Redigera dina inställningar</h4>
                         <div class="box-content">
-
+                            <p>Här redigerar du dina inställningar.</p>
+                            <p>Många av dina inställningar syns på din profil för andra inloggade användare.</p>
                         </div>
                     </div>
                 </div>
