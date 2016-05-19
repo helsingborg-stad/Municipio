@@ -234,53 +234,6 @@
     background-color: #f6f5f2;
     text-decoration: none; }
 
-.image-upload {
-  position: relative;
-  padding: 30px 20px;
-  background-color: #f6f5f2;
-  border: 2px dashed #e7e5e1;
-  border-radius: 5px; }
-  .image-upload .placeholder {
-    text-align: center;
-    width: 90%; }
-    .image-upload .placeholder .placeholder-text-drag,
-    .image-upload .placeholder .placeholder-text-browse {
-      display: block; }
-    .image-upload .placeholder .placeholder-text span:first-child {
-      font-size: 1.3em;
-      font-weight: bold;
-      margin-bottom: 5px; }
-    @media (max-width: 769px) {
-      .image-upload .placeholder .placeholder-text-drag,
-      .image-upload .placeholder .placeholder-text-or {
-        display: none; }
-      .image-upload .placeholder .placeholder-text-browse {
-        margin-top: 8px; } }
-    .image-upload .placeholder .fa-plus-circle {
-      position: relative;
-      color: #11a636;
-      left: 1.1em;
-      top: -0.8em; }
-      .image-upload .placeholder .fa-plus-circle::after {
-        display: block;
-        content: '';
-        background-color: #fff;
-        width: 30%;
-        height: 30%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-        z-index: 0; }
-      .image-upload .placeholder .fa-plus-circle::before {
-        position: relative;
-        z-index: 3; }
-    .image-upload .placeholder .fa-picture-o {
-      color: #464646; }
-    .image-upload .placeholder button {
-      margin-left: 5px; }
-
 .dropdown {
   display: none;
   position: absolute;
