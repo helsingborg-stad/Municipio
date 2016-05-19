@@ -16,6 +16,12 @@
                     </div>
                 </div>
 
+                @if (is_active_sidebar('content-area'))
+                    <div class="grid sidebar-content-area">
+                        <?php dynamic_sidebar('content-area'); ?>
+                    </div>
+                @endif
+
                 @if (is_single() && comments_open())
                     <div class="grid">
                         <div class="grid-sm-12">
