@@ -20,6 +20,11 @@ class Profile
         add_filter('template_include', array($this, 'editProfileTemplate'), 10);
     }
 
+    /**
+     * Use correct template for the profile edit page
+     * @param  string $template Default template
+     * @return string           Template to use
+     */
     public function editProfileTemplate($template)
     {
         global $wp_query;
@@ -27,6 +32,11 @@ class Profile
         // Bail if not on edit page
         if (!isset($wp_query->query['author_name']) || empty($wp_query->query['author_name']) || !isset($wp_query->query['editprofile']) || !$wp_query->query['editprofile'] || $wp_query->query['editprofile'] == 'false') {
             return $template;
+        }
+
+        if (!get_user_by('slug', $wp_query->query['author_name'])) {
+            $wp_query->set404();
+            return get_404_template();
         }
 
         $template = \Municipio\Helper\Template::locateTemplate('author-edit');
