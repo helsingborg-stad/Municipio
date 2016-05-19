@@ -22,6 +22,13 @@
         ?>
 
         <div class="{{ $cols }}">
+
+            @if (is_active_sidebar('content-area'))
+                <div class="grid sidebar-content-area">
+                    <?php dynamic_sidebar('content-area'); ?>
+                </div>
+            @endif
+
             <div class="grid">
                 @while(have_posts())
                     {!! the_post() !!}
