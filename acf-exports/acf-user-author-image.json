@@ -4,10 +4,10 @@
         "fields": [
             {
                 "key": "field_56c714f8d0a42",
-                "label": "Author picture",
+                "label": "Profile picture",
                 "name": "user_profile_picture",
                 "type": "image",
-                "instructions": "Picture that show in author information for posts published by you",
+                "instructions": "",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
