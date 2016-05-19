@@ -1,0 +1,65 @@
+.image-upload {
+    position: relative;
+    padding: 30px 20px;
+
+    background-color: $creamy;
+    border: 2px dashed $creamy-darker;
+    border-radius: 5px;
+
+    .placeholder {
+        text-align: center;
+        width: 90%;
+
+        .placeholder-text-drag,
+        .placeholder-text-browse {
+            display: block;
+        }
+
+        .placeholder-text span:first-child {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        @media #{$screen-below-md} {
+            .placeholder-text-drag,
+            .placeholder-text-or {
+                display: none;
+            }
+
+            .placeholder-text-browse {
+                margin-top: 8px;
+            }
+        }
+
+        .fa-plus-circle {
+            position: relative;
+            color: $palette-green-2;
+            left: 1.1em;
+            top: -0.8em;
+
+            &::after {
+                display: block;
+                content: '';
+                background-color: #fff;
+                width: 30%;
+                height: 30%;
+                @include center();
+                z-index: 0;
+            }
+
+            &::before {
+                position: relative;
+                z-index: 3;
+            }
+        }
+
+        .fa-picture-o {
+            color: $gray-dark;
+        }
+
+        button {
+            margin-left: 5px;
+        }
+    }
+}
