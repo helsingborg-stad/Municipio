@@ -2,16 +2,6 @@
 
 @section('content')
 
-<?php
-global $wp_query;
-global $authordata;
-$user = get_user_by('slug', $wp_query->query['author_name']);
-
-if ($user) {
-    $authordata = $user;
-}
-?>
-
 <header class="profile-header">
     <div class="profile-header-background" style="background-image:url('https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c0.44.160.160/p160x160/562742_10151832711869931_1531739462_n.jpg?oh=fe481388488ff1ccf21e0ee1099b8ff6&oe=57A0A2A5');"></div>
 
