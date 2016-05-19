@@ -27,7 +27,7 @@
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
-                        <li><a href="{{ home_url('user/' . get_the_author_meta('user_login') . '/edit') }}" class="btn btn-primary"><i class="fa fa-wrench"></i> Redigera profil</a></li>
+                        <li><a href="{{ home_url('user/' . get_the_author_meta('user_login') . '/edit') }}" class="btn btn-primary"><i class="fa fa-wrench"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
                     </ul>
                     @endif
                 </div>
@@ -40,7 +40,7 @@
     <div class="grid">
         <div class="grid-md-8">
             <article>
-                <h2>Om mig</h2>
+                <h2><?php _e('About', 'municipio-intranet'); ?></h2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies aliquam dolor et tristique.
                     Aenean nec velit vel sapien scelerisque luctus in quis erat. In lacinia massa vitae congue scelerisque.
@@ -65,22 +65,22 @@
                 </div>
                 <div class="grid-xs-12">
                     <div class="box box-filled">
-                        <h4 class="box-title">Kontaktinformation</h4>
+                        <h4 class="box-title"><?php _e('Contact information', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <p>
-                                <strong>E-postadress</strong><br>
+                                <strong><?php _e('Email', 'municipio-intranet'); ?></strong><br>
                                 <a href="mailto:{{ get_the_author_meta('email') }}">{{ get_the_author_meta('email') }}</a>
                             </p>
                             <p>
-                                <strong>Telefonnummer</strong><br>
+                                <strong><?php _e('Phone number', 'municipio-intranet'); ?></strong><br>
                                 @if (!empty(get_the_author_meta('user_phone')))
                                 <a href="tel:{{ get_the_author_meta('user_phone') }}">{{ get_the_author_meta('user_phone') }}</a>
                                 @else
-                                Inget telefonnummer angivet
+                                <?php _e('No phone number given', 'municipio-intranet'); ?>
                                 @endif
                             </p>
                             <p>
-                                <strong>Kontor</strong><br>
+                                <strong><?php _e('Office', 'municipio-intranet'); ?></strong><br>
                                 Kontaktcenter
                             </p>
                         </div>
