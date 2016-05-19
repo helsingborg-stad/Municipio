@@ -12,8 +12,17 @@
                     <div class="profile-image" style="background-image:url('https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c0.44.160.160/p160x160/562742_10151832711869931_1531739462_n.jpg?oh=fe481388488ff1ccf21e0ee1099b8ff6&oe=57A0A2A5');"></div>
                     <div class="profile-basics">
                         <h1 class="profile-fullname">{{ get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name') }}</h1>
-                        <span class="profile-title">Konsult Lexicon, webbutvecklare</span>
-                        <span class="profile-department">Stadsledningsförvaltningen, Webbenheten</span>
+
+                        @if (!empty(get_the_author_meta('user_work_title')))
+                            <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
+                        @endif
+
+                        @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
+                            <span class="profile-department">
+                                {{ !empty(get_the_author_meta('user_administration_unit')) ? get_the_author_meta('user_administration_unit') : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
+                                {{ !empty(get_the_author_meta('user_department')) ? get_the_author_meta('user_department') : '' }}
+                            </span>
+                        @endif
                     </div>
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
@@ -64,7 +73,11 @@
                             </p>
                             <p>
                                 <strong>Telefonnummer</strong><br>
-                                <a href="tel:0704426420">070 - 442 64 20</a>
+                                @if (!empty(get_the_author_meta('user_phone')))
+                                <a href="tel:{{ get_the_author_meta('user_phone') }}">{{ get_the_author_meta('user_phone') }}</a>
+                                @else
+                                Inget telefonnummer angivet
+                                @endif
                             </p>
                             <p>
                                 <strong>Kontor</strong><br>
