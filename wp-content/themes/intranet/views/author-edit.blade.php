@@ -90,7 +90,7 @@
                             <div class="grid-md-12">
                                 <div class="form-group">
                                     <label for=""><?php _e('Profile image', 'municipio-intranet'); ?></label>
-                                    <div class="image-upload">
+                                    <div class="image-upload" data-max-files="1" data-max-size="500">
                                         <div class="placeholder">
                                             <span class="fa-stack fa-2x">
                                                 <i class="fa fa-picture-o fa-stack-2x"></i>
@@ -100,10 +100,19 @@
                                                 <span class="placeholder-text-drag"><?php _e('Drag a photo here', 'municipio-intranet'); ?></span>
                                                 <span class="placeholder-text-browse">
                                                     <em class="placeholder-text-or"><?php _e('or', 'municipio-intranet'); ?></em>
-                                                    <button class="btn btn-secondary"><?php _e('Select a photo', 'municipio-intranet'); ?></button>
+                                                    <label for="user_profile_image" class="btn btn-secondary btn-select-file"><?php _e('Select a photo', 'municipio-intranet'); ?></label>
                                                 </span>
                                             </div>
                                         </div>
+                                        <div class="placeholder placeholder-is-dragover">
+                                            <span>Drop it like it's hot</span>
+                                        </div>
+                                        <div class="selected-file">
+                                            <ul>
+                                                <li class="empty"><?php _e('No file selected…', 'municipio-intranet'); ?></li>
+                                            </ul>
+                                        </div>
+                                        <input type="file" id="user_profile_image" name="user_profile_image" class="hidden">
                                     </div>
                                 </div>
                             </div>
