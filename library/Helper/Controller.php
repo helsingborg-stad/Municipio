@@ -39,20 +39,29 @@ class Controller
     }
 
     /**
-     * Hyphen slug to camel case
+     * String (words or slug) to camel case
      * e.g taxonomy-department -> TaxonomyDepartment
+     * e.g taxonomy_department -> TaxonomyDepartment
+     * e.g taxonomy department -> TaxonomyDepartment
      * @param  string $string Hyphen string
      * @return string         Camel cased string
      */
     public static function camelCase($string)
     {
-        $cc = @preg_replace('/(?:^|-)(.?)/e', "strtoupper('$1')", $string);
+        $cc = preg_replace_callback('/(?:^|-|_|\s)(.?)/', array('self', 'camelCaseParts'), $string);
 
         if (!empty($cc)) {
+            var_dump($cc);
+            exit;
             return $cc;
         }
 
         return $string;
+    }
+
+    public static function camelCaseParts($parts)
+    {
+        return strtoupper($parts[1]);
     }
 
     /**
