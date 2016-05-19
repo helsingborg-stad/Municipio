@@ -8,6 +8,13 @@
     <div class="grid">
         <div class="grid-md-12 grid-lg-9">
             @while(have_posts())
+
+                @if (is_single() && is_active_sidebar('content-area-top'))
+                    <div class="grid sidebar-content-area sidebar-content-area-top">
+                        <?php dynamic_sidebar('content-area-top'); ?>
+                    </div>
+                @endif
+
                 <div class="grid">
                     <div class="grid-sm-12">
                             {!! the_post() !!}
@@ -17,7 +24,7 @@
                 </div>
 
                 @if (is_single() && is_active_sidebar('content-area'))
-                    <div class="grid sidebar-content-area">
+                    <div class="grid sidebar-content-area sidebar-content-area-bottom">
                         <?php dynamic_sidebar('content-area'); ?>
                     </div>
                 @endif

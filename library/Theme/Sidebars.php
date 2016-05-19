@@ -88,11 +88,22 @@ class Sidebars
         ));
 
         /**
+         * Content Area - Top
+         */
+        register_sidebar(array(
+            'id'            => 'content-area-top',
+            'name'          => __('Content area (top)', 'municipio'),
+            'description'   => __('The area above the content', 'municipio'),
+            'before_widget' => '<div class="grid-sm-12"><div class="%2$s">',
+            'after_widget'  => '</div></div>'
+        ));
+
+        /**
          * Content Area
          */
         register_sidebar(array(
             'id'            => 'content-area',
-            'name'          => __('Content area', 'municipio'),
+            'name'          => __('Content area (bottom)', 'municipio'),
             'description'   => __('The area below the content', 'municipio'),
             'before_widget' => '<div class="grid-sm-12"><div class="%2$s">',
             'after_widget'  => '</div></div>'
