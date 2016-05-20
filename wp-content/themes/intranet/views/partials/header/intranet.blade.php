@@ -1,5 +1,3 @@
-<?php $currentUser = wp_get_current_user(); ?>
-
 <nav class="navbar navbar-sm hidden-print">
     <div class="container">
         <div class="grid">
@@ -24,16 +22,31 @@
                                 <li><a href="#">A-Ö</a></li>
 
                                 @if ($currentUser->ID > 0)
-                                    @if ( (isset($currentUser->first_name) && !empty($currentUser->first_name)) || (isset($currentUser->last_name) && !empty($currentUser->last_name)) )
-                                        <li><a href="#">{{ isset($currentUser->first_name) ? $currentUser->first_name : '' }} {{ isset($currentUser->last_name) ? $currentUser->last_name : '' }}</a></li>
-                                    @else
-                                        <li><a href="#"><?php _e('Your profile', 'municipio-intranet'); ?></a></li>
-                                    @endif
+                                    <li>
+                                        @if ( (isset($currentUser->first_name) && !empty($currentUser->first_name)) || (isset($currentUser->last_name) && !empty($currentUser->last_name)) )
+                                            <a href="#" data-dropdown=".login-dropdown">{{ isset($currentUser->first_name) ? $currentUser->first_name : '' }} {{ isset($currentUser->last_name) ? $currentUser->last_name : '' }} <i class="fa fa-caret-down"></i></a>
+                                        @else
+                                            <a href="#" data-dropdown=".login-dropdown"><?php _e('Your profile', 'municipio-intranet'); ?> <i class="fa fa-caret-down"></i></a>
+                                        @endif
+
+                                        <div class="dropdown login-dropdown">
+                                            <ul class="nav">
+                                                <li><a href="{{ municipio_intranet_get_user_profile_url() }}"><?php _e('Your profile', 'municipio-intranet'); ?></a></li>
+                                                <li><a href="{{ municipio_intranet_get_user_profile_edit_url() }}"><?php _e('Settings'); ?></a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ wp_logout_url() }}"><?php _e('Log out'); ?></a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                 @else
                                     <li>
-                                        <a href="#" data-dropdown=".login-dropdown"><?php _e('Log in'); ?> <i class="fa fa-caret-down"></i></a>
-                                        <div class="dropdown login-dropdown">
+                                        <a href="#" data-dropdown=".login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'class="dropdown-open"' : '' !!}><?php _e('Log in'); ?> <i class="fa fa-caret-down"></i></a>
+                                        <div class="dropdown login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'style="display: block;"' : '' !!}>
                                             <div class="gutter">
+                                                @if (isset($_GET['login']) && $_GET['login'] == 'failed')
+                                                <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('Login failed. Please try again.', 'municipio-intranet'); ?></div></div>
+                                                @endif
+
                                                 @include('partials.user.loginform')
                                             </div>
                                         </div>

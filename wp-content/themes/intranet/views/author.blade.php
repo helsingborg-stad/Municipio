@@ -30,7 +30,7 @@
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
-                        <li><a href="{{ home_url('user/' . get_the_author_meta('user_login') . '/edit') }}" class="btn btn-primary"><i class="fa fa-wrench"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
+                        <li><a href="{{ municipio_intranet_get_user_profile_edit_url(get_the_author_meta('user_login')) }}" class="btn btn-primary"><i class="fa fa-wrench"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
                     </ul>
                     @endif
                 </div>
