@@ -1,9 +1,9 @@
 <?php global $post; ?>
 <div class="post post-compressed">
     <a href="{{ the_permalink() }}" class="box box-news box-news-horizontal">
-        @if (municipio_get_thumbnail_source())
+        @if (municipio_get_thumbnail_source(null,array(400,250)))
         <div class="box-image-container">
-            <img src="{{ municipio_get_thumbnail_source() }}">
+            <img src="{{ municipio_get_thumbnail_source(null,array(400,250)) }}">
         </div>
         @endif
 
