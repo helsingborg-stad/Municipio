@@ -3,13 +3,16 @@
 @section('content')
 
 <header class="profile-header">
-    <div class="profile-header-background" style="background-image:url('https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c0.44.160.160/p160x160/562742_10151832711869931_1531739462_n.jpg?oh=fe481388488ff1ccf21e0ee1099b8ff6&oe=57A0A2A5');"></div>
+    <div class="profile-header-background" style="background-image:url('{{ !empty(get_the_author_meta('user_profile_image')) ? get_the_author_meta('user_profile_image') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
 
     <div class="container">
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="profile-header-content">
-                    <div class="profile-image" style="background-image:url('https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c0.44.160.160/p160x160/562742_10151832711869931_1531739462_n.jpg?oh=fe481388488ff1ccf21e0ee1099b8ff6&oe=57A0A2A5');"></div>
+                    @if (!empty(get_the_author_meta('user_profile_image')))
+                    <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_image') }}');"></div>
+                    @endif
+
                     <div class="profile-basics">
                         <h1 class="profile-fullname">{{ get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name') }}</h1>
 
