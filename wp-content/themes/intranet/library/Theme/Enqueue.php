@@ -37,7 +37,11 @@ class Enqueue
      */
     public function script()
     {
-        wp_register_script('hbg-prime', 'http://hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
+        if (defined('HBG_PRIME_JS_URL') && strlen(HBG_PRIME_JS_URL) > 0) {
+            wp_register_script('hbg-prime', 'http://hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
+        } else {
+            wp_register_script('hbg-prime', 'http://helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
+        }
         wp_enqueue_script('hbg-prime');
 
         wp_enqueue_script('intranet', get_stylesheet_directory_uri(). '/assets/dist/js/app.min.js', '', filemtime(get_stylesheet_directory() . '/assets/dist/js/app.min.js'), true);
