@@ -17,8 +17,17 @@ class BaseController
         $this->getFooterLayout();
         $this->getNavigationMenus();
         $this->getHelperVariables();
+        $this->getFilterData();
 
         $this->init();
+    }
+
+    public function getFitlerData()
+    {
+        $this->data = array_merge(
+            $this->data,
+            apply_filters('Municipio/controller/base/view_data', array());
+        );
     }
 
     public function getHelperVariables()
