@@ -2,6 +2,7 @@
 /config/database.php
 /config/salts.php
 /config/developer.php
+/config/multisite.php
 
 # Plugins
 /wp-content/plugins/*
