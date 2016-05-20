@@ -19,10 +19,35 @@
     }
 }
 
+a.dropdown-open:focus {
+    text-decoration: none !important;
+}
+
 .login-dropdown {
+    color: $base-font-color;
     min-width: 250px;
     left: auto;
     right: -1px;
     top: 100%;
     border-top: none;
+
+    .nav {
+        padding: 5px 0;
+
+        a {
+            display: block;
+            color: $base-font-color;
+            padding: 5px 15px;
+
+            &:hover {
+                background-color: $creamy;
+            }
+        }
+
+        .divider {
+            margin: 5px 0;
+            height: 1px;
+            background-color: $creamy-darker;
+        }
+    }
 }

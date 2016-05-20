@@ -13,14 +13,12 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         $this->saveForm();
 
         // Get other data
-        $currentUser = wp_get_current_user();
         $user = get_user_by('slug', $wp_query->query['author_name']);
 
         if ($user) {
             $authordata = $user;
         }
 
-        $this->data['currentUser'] = $currentUser;
         $this->data['user'] = $user;
         $this->data['administrationUnits'] = apply_filters('MunicipioIntranet/administration_units', array(
             'Arbetsmarknadsförvaltningen',
@@ -52,6 +50,11 @@ class AuthorEdit extends \Municipio\Controller\BaseController
 
         if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'user_settings_update_' . $user->ID)) {
             return;
+        }
+
+        if (isset($_GET['remove_profile_image']) && $_GET['remove_profile_image'] == 'true') {
+            $this->removeProfileImage($user->ID);
+            return wp_redirect($_SERVER['HTTP_REFERER']);
         }
 
         if (isset($_POST['image_uploader_file'][0]) && !empty($_POST['image_uploader_file'][0])) {
@@ -168,6 +171,8 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
+
+        delete_user_meta($userId, 'user_profile_image', $imageUrl);
 
         return true;
     }

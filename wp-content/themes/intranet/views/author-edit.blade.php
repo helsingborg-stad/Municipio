@@ -90,7 +90,12 @@
                             <div class="grid-md-12">
                                 <div class="form-group">
                                     <label for=""><?php _e('Profile image', 'municipio-intranet'); ?></label>
-                                    <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_image') }}');"></div>
+                                    @if (!empty(get_the_author_meta('user_profile_image')))
+                                    <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_image') }}');">
+                                        <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" formaction="?remove_profile_image=true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
+                                    </div>
+                                    @endif
+
                                     <div class="image-upload inline-block" data-max-files="1" data-max-size="500" data-preview-image="true" style="width:250px;height:250px;">
                                         <div class="placeholder">
                                             <span class="fa-stack fa-2x">

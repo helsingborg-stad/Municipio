@@ -54,12 +54,18 @@
 }
 
 .profile-image {
+    vertical-align: top;
     width: 100px;
     height: 100px;
 
     background-size: cover;
     background-position: center center;
     border-radius: 3px;
+
+    button.btn {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
 }
 
 .profile-image-fill-height {

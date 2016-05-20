@@ -117,11 +117,15 @@
     display: block; }
 
 .profile-image {
+  vertical-align: top;
   width: 100px;
   height: 100px;
   background-size: cover;
   background-position: center center;
   border-radius: 3px; }
+  .profile-image button.btn {
+    margin-top: 10px;
+    margin-left: 10px; }
 
 .profile-image-fill-height {
   padding-left: 75%;
@@ -276,9 +280,25 @@
     padding: 10px 20px;
     color: #252525; }
 
+a.dropdown-open:focus {
+  text-decoration: none !important; }
+
 .login-dropdown {
+  color: #252525;
   min-width: 250px;
   left: auto;
   right: -1px;
   top: 100%;
   border-top: none; }
+  .login-dropdown .nav {
+    padding: 5px 0; }
+    .login-dropdown .nav a {
+      display: block;
+      color: #252525;
+      padding: 5px 15px; }
+      .login-dropdown .nav a:hover {
+        background-color: #f6f5f2; }
+    .login-dropdown .nav .divider {
+      margin: 5px 0;
+      height: 1px;
+      background-color: #e7e5e1; }
