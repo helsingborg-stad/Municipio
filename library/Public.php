@@ -24,7 +24,6 @@ if (!function_exists('municipio_get_thumbnail_source')) {
 
         if (!$src) {
             $src = wp_get_attachment_url($id);
-            $src = $src;
         }
 
         return $src;
