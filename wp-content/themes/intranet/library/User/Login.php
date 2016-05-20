@@ -20,7 +20,7 @@ class Login
 
         if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
             // let's append some information (loggedout=true) to the URL for the theme to use
-            wp_redirect(strstr($referrer, '?loggedout=true') ? $referrer : $referrer . '?loggedout=true');
+            wp_redirect($referer);
             exit;
         }
 
