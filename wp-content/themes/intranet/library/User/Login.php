@@ -19,12 +19,8 @@ class Login
         $referrer = $_SERVER['HTTP_REFERER'];
 
         if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
-            // let's append some information (loggedout=true) to the URL for the theme to use
             wp_redirect($referer);
-            exit;
         }
-
-        die($referrer);
     }
 
     /**
