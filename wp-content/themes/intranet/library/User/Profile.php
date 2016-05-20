@@ -18,6 +18,14 @@ class Profile
         // Edit profile
         add_action('init', array($this, 'editProfileUrlRewrite'));
         add_filter('template_include', array($this, 'editProfileTemplate'), 10);
+
+        add_filter('Municipio/controller/base/view_data', array($this, 'currentUserData'));
+    }
+
+    public function currentUserData($data)
+    {
+        $data['currentUser'] = wp_get_current_user();
+        return $data;
     }
 
     /**
