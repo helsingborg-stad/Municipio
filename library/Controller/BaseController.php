@@ -22,7 +22,7 @@ class BaseController
         $this->init();
     }
 
-    public function getFitlerData()
+    public function getFilterData()
     {
         $this->data = array_merge(
             $this->data,
