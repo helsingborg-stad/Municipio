@@ -90,7 +90,8 @@
                             <div class="grid-md-12">
                                 <div class="form-group">
                                     <label for=""><?php _e('Profile image', 'municipio-intranet'); ?></label>
-                                    <div class="image-upload" data-max-files="1" data-max-size="500">
+                                    <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_image') }}');"></div>
+                                    <div class="image-upload inline-block" data-max-files="1" data-max-size="500" data-preview-image="true" style="width:250px;height:250px;">
                                         <div class="placeholder">
                                             <span class="fa-stack fa-2x">
                                                 <i class="fa fa-picture-o fa-stack-2x"></i>
@@ -107,11 +108,7 @@
                                         <div class="placeholder placeholder-is-dragover">
                                             <span>Drop it like it's hot</span>
                                         </div>
-                                        <div class="selected-file">
-                                            <ul>
-                                                <li class="empty"><?php _e('No file selected…', 'municipio-intranet'); ?></li>
-                                            </ul>
-                                        </div>
+                                        <div class="selected-file"></div>
                                         <input type="file" id="user_profile_image" name="user_profile_image" class="hidden">
                                     </div>
                                 </div>

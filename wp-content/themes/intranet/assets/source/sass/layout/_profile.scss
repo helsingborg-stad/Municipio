@@ -30,13 +30,7 @@
 
     .profile-image {
         flex: 0 0 auto;
-
-        width: 100px;
-        height: 100px;
         margin-right: 25px;
-
-        background-size: cover;
-        background-position: center center;
     }
 
     .profile-basics {
@@ -59,10 +53,41 @@
     }
 }
 
+.profile-image {
+    width: 100px;
+    height: 100px;
+
+    background-size: cover;
+    background-position: center center;
+    border-radius: 3px;
+}
+
+.profile-image-fill-height {
+    padding-left: 75%;
+    height: 100%;
+}
+
+.profile-image-250 {
+    width: 250px;
+    height: 250px;
+}
+
 .btn-edit-profile {
     margin-top: 20px;
 }
 
-.profile-image {
-    border-radius: 3px;
+.placeholder-is-dragover {
+    background-image: url('https://media.giphy.com/media/ScZzMlETdv9mg/giphy.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    background-color: #EBEBEB;
+    line-height: 100%;
+    height: 100%;
+
+    span {
+        @include center();
+        color: #fff;
+        text-shadow: 0 0 20px #000;
+    }
 }

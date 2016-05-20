@@ -35,6 +35,10 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         ));
     }
 
+    /**
+     * Saves the user settings form
+     * @return boolean
+     */
     private function saveForm()
     {
         global $wp_query;
@@ -62,13 +66,20 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         return true;
     }
 
+    /**
+     * Uploads user profile image
+     * @param  string $imageDataUri The image data uri
+     * @param  object $user         User object
+     * @return array                Profile image url
+     */
     public function uploadProfileImage($imageDataUri, $user)
     {
         global $current_site;
 
         // Decode the imageDataUri
         $imageDataUri = str_replace(' ', '+', $imageDataUri);
-        $decodedImage = base64_decode($imageDataUri);
+        $imageDataUri = explode(',', $imageDataUri);
+        $decodedImage = base64_decode($imageDataUri[1]);
 
         switch_to_blog($current_site->blog_id);
 
@@ -77,12 +88,87 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         $uploadDir = $uploadDir['basedir'];
         $uploadDir = $uploadDir . '/profile-images';
 
-        var_dump($uploadDir);
+        $fileType = preg_match_all('/data:image\/(.*);/', $imageDataUri[0], $matches);
+        if (!isset($matches[1][0])) {
+            return;
+        }
 
+        $fileType = $matches[1][0];
+
+        switch ($fileType) {
+            case 'jpeg':
+                $fileType = 'jpg';
+                break;
+
+            default:
+                $fileType = $fileType;
+                break;
+        }
+
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0775, true);
+        }
+
+        $filePathWithName = $uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '.' . $fileType;
+
+        file_put_contents($filePathWithName, $decodedImage);
         restore_current_blog();
 
-        //file_put_contents(wp_upload_dir(), data)
-        //var_dump($user);
-        exit;
+        $croppedImagePath = $this->cropProfileImage($filePathWithName, 250, 250);
+        $profileImageUrl = $this->getProfileImageUrlFromPath($croppedImagePath);
+
+        $this->removeProfileImage($user->ID);
+
+        update_user_meta($user->ID, 'user_profile_image', $profileImageUrl);
+
+        return true;
+    }
+
+    public function cropProfileImage($path, $width, $height, $crop = true)
+    {
+        $image = wp_get_image_editor($path);
+
+        if (is_wp_error($image)) {
+            return;
+        }
+
+        $image->set_quality(80);
+        $image->resize($width, $height, $crop);
+        $image->save($path);
+
+        return $path;
+    }
+
+    public function getProfileImageUrlFromPath($path)
+    {
+        $path = explode('wp-content/', $path)[1];
+        $url = content_url($path);
+
+        return $url;
+    }
+
+    public function getProfileImagePathFromUrl($url)
+    {
+        $url = explode('wp-content/', $url)[1];
+        $path = WP_CONTENT_DIR . '/' . $url;
+
+        return $path;
+    }
+
+    public function removeProfileImage($userId)
+    {
+        $imageUrl = get_user_meta($userId, 'user_profile_image', true);
+
+        if (empty($imageUrl)) {
+            return true;
+        }
+
+        $imagePath = $this->getProfileImagePathFromUrl($imageUrl);
+
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        return true;
     }
 }
