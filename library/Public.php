@@ -8,22 +8,32 @@
 if (!function_exists('municipio_get_thumbnail_source')) {
     function municipio_get_thumbnail_source($post_id = null, $size = array())
     {
-        $id = get_post_thumbnail_id($post_id);
-        $src = false;
 
+        //Use current id as default
+        if (is_null($post_id)) {
+            $post_id = get_the_id();
+        }
+
+        //Get post thumbnail id (Default value for src)
+        $thumbnail_id   = get_post_thumbnail_id($post_id);
+        $src            = false;
+
+        //Get default vale
         if (isset($size[0]) && isset($size[1])) {
             $src = wp_get_attachment_image_src(
-                $post_id,
+                $thumbnail_id,
                 array($size[0], $size[1])
             );
         } else {
-            $src = wp_get_attachment_image_src($id, 'medium');
+            $src = wp_get_attachment_image_src($thumbnail_id, 'medium');
         }
 
+        //Get url from array
         $src = isset($src[0]) ? $src[0] : false;
 
+        //Force get attachment url (full size)
         if (!$src) {
-            $src = wp_get_attachment_url($id);
+            $src = wp_get_attachment_url($thumbnail_id);
         }
 
         return $src;
