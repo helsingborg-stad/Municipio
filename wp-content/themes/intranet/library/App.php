@@ -18,5 +18,8 @@ class App
         new \Intranet\User\Login();
         new \Intranet\User\Profile();
         new \Intranet\User\Subscription();
+
+        // Custom post types
+        new \Intranet\CustomPostType\News();
     }
 }
