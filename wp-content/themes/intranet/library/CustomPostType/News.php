@@ -100,7 +100,7 @@ class News
         $postStatuses = array('publish');
 
         if (is_user_logged_in()) {
-            $postStatuses[] = 'protected';
+            $postStatuses[] = 'private';
         }
 
         // Add quotes to each item

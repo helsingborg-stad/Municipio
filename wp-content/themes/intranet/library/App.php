@@ -8,7 +8,6 @@ class App
         // Basic theme functionality
         new \Intranet\Theme\Enqueue();
         new \Intranet\Theme\Header();
-        new \Intranet\Theme\ProtectedPosts();
 
         // Admin functionality
         new \Intranet\Admin\NetworkSettings();
