@@ -1,3 +1,6 @@
+/**
+ * Intranet site settings style
+ */
 th.intranet-settings-wrapper {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -27,9 +30,77 @@ th.intranet-settings-wrapper {
     }
 }
 
-.intranet-protected {
-    border-top: 1px solid #ddd;
-    padding: 11px;
-    margin-top: 0;
-    background-color: #fff;
+#misc-publishing-actions {
+    #visibility {
+        background-color: #F5F5F5;
+        border: 1px solid #DDDDDD;
+        padding: 10px;
+        padding-bottom: 5px;
+        margin: 0 12px;
+        border-radius: 3px;
+    }
+
+    #post-visibility-select {
+        display: block !important;
+        margin-top: 10px;
+
+        p:last-child {
+            display: none;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        label.selectit {
+            display: block;
+            text-align: center;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 3px;
+        }
+
+        input[type="radio"]:checked + label.selectit {
+            background-color: #00A0D2;
+            border-color: #036d91;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        input[type="radio"]:checked + label.selectit[for="visibility-radio-password"] {
+            padding-bottom: 8px;
+        }
+
+        br {
+            display: none;
+        }
+
+        #password-span {
+            background-color: #fff;
+            border: 1px solid #036d91;
+            margin-top: -8px;
+            padding: 10px 12px 15px 12px;
+            margin-bottom: 5px;
+            border-radius: 0 0 3px 3px;
+        }
+
+        #post_password {
+            width: 100%;
+        }
+
+        #visibility-radio-password:checked + .selectit + br + #password-span {
+            display: block;
+        }
+
+        #visibility-radio-private {
+            margin-bottom: 7px;
+        }
+    }
+
+    #password-span,
+    .edit-visibility {
+        display: none;
+    }
 }
