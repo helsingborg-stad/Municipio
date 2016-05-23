@@ -1,5 +1,17 @@
 <?php
-    $news = \Intranet\CustomPostType\News::getNews(10, 'all');
+    $news = false;
+
+    if (is_user_logged_in()) {
+        $subscriptions = array_merge(
+            \Intranet\User\Subscription::getForcedSubscriptions(true),
+            \Intranet\User\Subscription::getSubscriptions(null, true)
+        );
+
+        $news = \Intranet\CustomPostType\News::getNews(10, $subscriptions);
+    } else {
+        $news = \Intranet\CustomPostType\News::getNews(10, 'all');
+    }
+
     if (count($news) > 0) :
 
     $hasImages = false;
