@@ -19,6 +19,8 @@ class IntranetDefaultSettings
     {
         global $current_site;
 
+        switch_to_blog($current_site->blog_id);
+
         $pageTitle = 'Network sites';
         $exists = get_posts(array(
             's' => $pageTitle,
@@ -29,8 +31,6 @@ class IntranetDefaultSettings
         if ($exists) {
             return;
         }
-
-        switch_to_blog($current_site->blog_id);
 
         require_once get_template_directory() . '/library/Helper/Template.php';
         $inserted = wp_insert_post(array(
