@@ -67,9 +67,10 @@ class Multisite
      * @param  boolean $includeMainSite Wheather to inclide the main page or not
      * @return array                    List of sites in network
      */
-    public static function getSitesList($includeMainSite = true)
+    public static function getSitesList($includeMainSite = true, $onlyIds = false)
     {
         $sites = wp_get_sites();
+        $ids = array();
         $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
         $forcedSubscriptions = \Intranet\User\Subscription::getForcedSubscriptions(true);
 
@@ -78,6 +79,11 @@ class Multisite
         foreach ($sites as $key => $site) {
             if (is_main_site($site['blog_id']) && !$includeMainSite) {
                 unset($sites[$key]);
+                continue;
+            }
+
+            if ($onlyIds) {
+                $ids[] = $site['blog_id'];
                 continue;
             }
 
@@ -98,6 +104,10 @@ class Multisite
             }
 
             restore_current_blog();
+        }
+
+        if ($onlyIds) {
+            return $ids;
         }
 
         return $sites;
