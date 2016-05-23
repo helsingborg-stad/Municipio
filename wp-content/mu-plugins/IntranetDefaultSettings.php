@@ -12,7 +12,12 @@ class IntranetDefaultSettings
 
     public function setHeaderLayout($blogId)
     {
+        // Set the intranet header as default header style
         update_blog_option($blogId, 'options_header_layout', 'intranet');
+
+        // Show date published and date modified per default
+        update_blog_option($blogId, 'options_show_date_updated', array('post', 'page', 'intranet-news'));
+        update_blog_option($blogId, 'options_show_date_published', array('post', 'page', 'intranet-news'));
     }
 
     public function createSiteListPage()
