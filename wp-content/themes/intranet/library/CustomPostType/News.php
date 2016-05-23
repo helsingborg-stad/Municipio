@@ -80,6 +80,7 @@ class News
     public static function getNewsFromSites($sites = array(), $count = 10)
     {
         global $wpdb;
+
         $news = array();
         $i = 0;
         $sql = null;
@@ -104,6 +105,11 @@ class News
 
         foreach ($newsPosts as $item) {
             $news[] = get_blog_post($item->blog_id, $item->post_id);
+
+            end($news);
+            $key = key($news);
+
+            $news[$key]->blog_id = $item->blog_id;
         }
 
         return $news;
