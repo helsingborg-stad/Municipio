@@ -15,7 +15,7 @@
                     "class": "",
                     "id": ""
                 },
-                "return_format": "array",
+                "return_format": "url",
                 "preview_size": "thumbnail",
                 "library": "all",
                 "min_width": 500,
