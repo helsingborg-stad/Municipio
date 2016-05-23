@@ -60,6 +60,12 @@ class News
         register_post_type('intranet-news', $args);
     }
 
+    /**
+     * Get news
+     * @param  integer $count Number of posts to get
+     * @param  mixed   $site  'all' for all sites, array with blog ids or null for current
+     * @return array          News array
+     */
     public static function getNews($count = 10, $site = null)
     {
         if (is_null($site)) {
@@ -77,6 +83,12 @@ class News
         return $news;
     }
 
+    /**
+     * Combine news from multiple sites into one feed
+     * @param  array   $sites Array with blog ids
+     * @param  integer $count Number of posts to get
+     * @return array          Posts
+     */
     public static function getNewsFromSites($sites = array(), $count = 10)
     {
         global $wpdb;
@@ -84,6 +96,20 @@ class News
         $news = array();
         $i = 0;
         $sql = null;
+
+        $postStatuses = array('publish');
+
+        if (is_user_logged_in()) {
+            $postStatuses[] = 'protected';
+        }
+
+        // Add quotes to each item
+        $postStatuses = array_map(function ($item) {
+            return sprintf("'%s'", $item);
+        }, $postStatuses);
+
+        // Convert to comma separated string
+        $postStatuses = implode(',', $postStatuses);
 
         foreach ($sites as $site) {
             if ($i > 0) {
@@ -95,7 +121,7 @@ class News
                 $table = "{$wpdb->prefix}posts";
             }
 
-            $sql .= "(SELECT '{$site}' AS blog_id, ID AS post_id, post_date FROM $table WHERE post_type = 'intranet-news' AND post_status = 'publish')";
+            $sql .= "(SELECT '{$site}' AS blog_id, ID AS post_id, post_date FROM $table WHERE post_type = 'intranet-news' AND post_status IN ({$postStatuses}))";
 
             $i++;
         }

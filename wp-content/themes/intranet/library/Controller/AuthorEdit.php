@@ -122,7 +122,7 @@ class AuthorEdit extends \Municipio\Controller\BaseController
 
         $this->removeProfileImage($user->ID);
 
-        update_user_meta($user->ID, 'user_profile_image', $profileImageUrl);
+        update_user_meta($user->ID, 'user_profile_picture', $profileImageUrl);
 
         return true;
     }
@@ -160,7 +160,7 @@ class AuthorEdit extends \Municipio\Controller\BaseController
 
     public function removeProfileImage($userId)
     {
-        $imageUrl = get_user_meta($userId, 'user_profile_image', true);
+        $imageUrl = get_user_meta($userId, 'user_profile_picture', true);
 
         if (empty($imageUrl)) {
             return true;
@@ -172,7 +172,7 @@ class AuthorEdit extends \Municipio\Controller\BaseController
             unlink($imagePath);
         }
 
-        delete_user_meta($userId, 'user_profile_image', $imageUrl);
+        delete_user_meta($userId, 'user_profile_picture', $imageUrl);
 
         return true;
     }

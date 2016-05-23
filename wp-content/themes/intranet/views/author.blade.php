@@ -3,14 +3,14 @@
 @section('content')
 
 <header class="profile-header">
-    <div class="profile-header-background" style="background-image:url('{{ !empty(get_the_author_meta('user_profile_image')) ? get_the_author_meta('user_profile_image') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
+    <div class="profile-header-background" style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
 
     <div class="container">
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="profile-header-content">
-                    @if (!empty(get_the_author_meta('user_profile_image')))
-                    <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_image') }}');"></div>
+                    @if (!empty(get_the_author_meta('user_profile_picture')))
+                    <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');"></div>
                     @endif
 
                     <div class="profile-basics">
