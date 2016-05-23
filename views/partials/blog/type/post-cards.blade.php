@@ -4,7 +4,7 @@
         <div class="box-container">
             @if (municipio_get_thumbnail_source(null,array(400,250)))
             <div class="box-image" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(400,250)) }}');">
-                <img src="{{ municipio_get_thumbnail_source() }}">
+                <img src="{{ municipio_get_thumbnail_source(null,array(400,250)) }}">
                 @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && isset(get_the_category()[0]->name))
                 <span class="box-card-post-category label label-theme">{{ get_the_category()[0]->name }}</span>
                 @endif
