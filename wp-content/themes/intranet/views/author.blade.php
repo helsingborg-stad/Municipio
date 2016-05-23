@@ -44,18 +44,7 @@
         <div class="grid-md-8">
             <article>
                 <h2><?php _e('About', 'municipio-intranet'); ?></h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies aliquam dolor et tristique.
-                    Aenean nec velit vel sapien scelerisque luctus in quis erat. In lacinia massa vitae congue scelerisque.
-                    Phasellus ultricies vehicula ultrices. Maecenas a velit ligula. Maecenas vitae massa eget mi dapibus fermentum.
-                    In nec magna eros. Fusce nec semper libero, bibendum rhoncus dui. Mauris a ante eget felis porttitor aliquam id in orci.
-                </p>
-
-                <p>
-                    Fusce eget augue eget felis facilisis aliquam quis id odio. Aenean aliquam consectetur ipsum quis lobortis.
-                    Proin finibus a sem ac tincidunt. Cras sed imperdiet elit. Integer accumsan purus ut eros consectetur, nec congue quam posuere.
-                    Cras hendrerit risus odio, porta malesuada nibh elementum vel. Praesent commodo ex in congue tristique.
-                </p>
+                {!! wpautop(get_the_author_meta('user_about')) !!}
             </article>
         </div>
 

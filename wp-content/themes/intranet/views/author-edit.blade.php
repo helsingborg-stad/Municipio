@@ -123,6 +123,15 @@
                         <div class="grid">
                             <div class="grid-xs-12">
                                 <div class="form-group">
+                                    <label for="user_about"><?php _e('About me', 'municipio-intranet'); ?></label>
+                                    <textarea name="user_about" id="user_about" cols="30" rows="10">{{ get_the_author_meta('user_about') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="grid-xs-12">
+                                <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="<?php _e('Save settings', 'municipio-intranet'); ?>">
                                 </div>
                             </div>

@@ -65,6 +65,7 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         update_user_meta($user->ID, 'user_phone', sanitize_text_field($_POST['user_phone']));
         update_user_meta($user->ID, 'user_administration_unit', sanitize_text_field($_POST['user_administration_unit']));
         update_user_meta($user->ID, 'user_department', sanitize_text_field($_POST['user_department']));
+        update_user_meta($user->ID, 'user_about', implode("\n", array_map('sanitize_text_field', explode("\n", $_POST['user_about']))));
 
         return true;
     }
