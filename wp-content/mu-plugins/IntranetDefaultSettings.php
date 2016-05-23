@@ -29,6 +29,7 @@ class IntranetDefaultSettings
         ));
 
         if ($exists) {
+            restore_current_blog();
             return;
         }
 
