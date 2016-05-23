@@ -21,5 +21,8 @@ class App
 
         // Custom post types
         new \Intranet\CustomPostType\News();
+
+        // Modularity modules
+        new \Intranet\Module\News();
     }
 }
