@@ -13,11 +13,17 @@
             "email": "sebastian.thulin@helsingborg.se"
         }
     ],
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
     "require": {
         "composer/installers": "^1.0",
-        "johnshopkins/acf": "^5.0",
         "philo/laravel-blade": "^3.1",
-        "symfony/debug": "^3.0"
+        "symfony/debug": "^3.0",
+        "wpackagist-plugin/advanced-custom-fields": "^4.4.7"
     },
     "extra" : {
         "installer-paths" : {
