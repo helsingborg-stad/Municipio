@@ -1,0 +1,41 @@
+#major-publishing-actions {
+    box-sizing: border-box;
+    display: table;
+    width: 100%;
+
+    /* Publish */
+    #publishing-action {
+        display: table-header-group;
+        float: none;
+        position: relative;
+
+        #publish {
+            float: none;
+            width: 100%;
+            border-radius: 0;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 8px 0;
+            height: auto;
+            border-radius: 3px;
+        }
+
+        .spinner {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 1px solid #fff;
+            opacity: 1;
+            margin: 12px;
+        }
+    }
+
+    /* Delete */
+    #delete-action {
+        display: block;
+        float: none;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+}

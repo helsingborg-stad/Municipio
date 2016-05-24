@@ -7,3 +7,35 @@
     border-top: 1px solid #d8edf4; }
   .municipio-theme-options-label .acf-label {
     margin-bottom: 0; }
+
+#major-publishing-actions {
+  box-sizing: border-box;
+  display: table;
+  width: 100%;
+  /* Publish */
+  /* Delete */ }
+  #major-publishing-actions #publishing-action {
+    display: table-header-group;
+    float: none;
+    position: relative; }
+    #major-publishing-actions #publishing-action #publish {
+      float: none;
+      width: 100%;
+      border-radius: 0;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 8px 0;
+      height: auto;
+      border-radius: 3px; }
+    #major-publishing-actions #publishing-action .spinner {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      opacity: 1;
+      margin: 12px; }
+  #major-publishing-actions #delete-action {
+    display: block;
+    float: none;
+    text-align: center;
+    padding-top: 10px; }
