@@ -128,6 +128,14 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         return true;
     }
 
+    /**
+     * Resize/crop profile image to given size
+     * @param  string  $path      Path to original image
+     * @param  integer  $width    Width in pixels
+     * @param  integer  $height   Height in pixels
+     * @param  boolean $crop      Crop or just resize? true to crop
+     * @return string             The cropped image's path
+     */
     public function cropProfileImage($path, $width, $height, $crop = true)
     {
         $image = wp_get_image_editor($path);
@@ -143,6 +151,11 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         return $path;
     }
 
+    /**
+     * Rewrite profile image path to url
+     * @param  string $path   The path
+     * @return string         The url
+     */
     public function getProfileImageUrlFromPath($path)
     {
         $path = explode('wp-content/', $path)[1];
@@ -151,6 +164,11 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         return $url;
     }
 
+    /**
+     * Rewrite profile image to path
+     * @param  string $url The path
+     * @return string      The url
+     */
     public function getProfileImagePathFromUrl($url)
     {
         $url = explode('wp-content/', $url)[1];
@@ -159,6 +177,11 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         return $path;
     }
 
+    /**
+     * Removes a user's profile iamge
+     * @param  integer $userId The user's id
+     * @return boolean
+     */
     public function removeProfileImage($userId)
     {
         $imageUrl = get_user_meta($userId, 'user_profile_picture', true);
