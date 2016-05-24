@@ -22,6 +22,8 @@ class Enqueue
 
         // Removes generator tag
         add_filter('the_generator', create_function('', 'return "";'));
+
+        add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
     }
 
     /**
@@ -58,8 +60,9 @@ class Enqueue
      */
     public function script()
     {
-        //Bundled
-        wp_enqueue_script("jquery");
+        // Enqueue bundeled jquery to footer
+        wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.js'), false, null, true);
+
 
         //Custom
         if (defined('DEV_MODE') && DEV_MODE === true) {
@@ -82,13 +85,20 @@ class Enqueue
         ));
         wp_enqueue_script('hbg-prime');
 
-        wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js');
+        wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js', '', '1.0.0', true);
         wp_enqueue_script('municipio');
 
         if (get_field('show_google_translate', 'option') !== false && get_field('show_google_translate', 'option') != 'false') {
             wp_register_script('google-translate', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', '', '1.0.0', true);
             wp_enqueue_script('google-translate');
         }
+    }
+
+    public function moveScriptsToFooter()
+    {
+        global $wp_scripts;
+        $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
+        $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
     }
 
     /**
