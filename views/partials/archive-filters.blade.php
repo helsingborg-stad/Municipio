@@ -1,6 +1,6 @@
 @if (!empty($enabledHeaderFilters))
 <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
-    <form method="get" action="{{ get_post_type_archive_link(get_post_type()); }}" class="container" id="archive-filter">
+    <form method="get" action="{{ get_post_type_archive_link(get_post_type()) }}" class="container" id="archive-filter">
         <div class="grid">
             @if (in_array('text_search', $enabledHeaderFilters))
             <div class="grid-md-{{ 10/count($enabledHeaderFilters) }}">
