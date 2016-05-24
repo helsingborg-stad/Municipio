@@ -43,17 +43,24 @@ gulp.task('sass-dev', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts-dist', function() {
-    return gulp.src('assets/source/js/*.js')
-            .pipe(concat('packaged.js'))
-            .pipe(gulp.dest('assets/dist/js'))
-            .pipe(rename('packaged.min.js'))
+    gulp.src('assets/source/js/*.js')
+        .pipe(concat('packaged.js'))
+        .pipe(gulp.dest('assets/dist/js'))
+        .pipe(rename('packaged.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('assets/dist/js'));
+
+    return gulp.src('assets/source/mce-js/*.js')
             .pipe(uglify())
             .pipe(gulp.dest('assets/dist/js'));
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('assets/source/js/**/*.js', ['scripts-dist']);
+    gulp.watch([
+        'assets/source/js/**/*.js',
+        'assets/source/mce-js/**/*.js'
+        ], ['scripts-dist']);
     gulp.watch('assets/source/sass/**/*.scss', ['sass-dist', 'sass-dev']);
     //gulp.watch('assets/source/images/**/*', ['imagemin']);
 });
