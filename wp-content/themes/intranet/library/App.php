@@ -14,7 +14,7 @@ class App
         new \Intranet\Admin\AuthorMetaBox();
 
         // User services
-        new \Intranet\User\RecursiveRegistration();
+        new \Intranet\User\Registration();
         new \Intranet\User\Login();
         new \Intranet\User\Profile();
         new \Intranet\User\Subscription();
