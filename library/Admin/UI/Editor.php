@@ -7,15 +7,17 @@ class Editor
     public function __construct()
     {
         add_action('admin_init', array($this, 'init'));
-        add_action('admin_footer', array($this, 'getMetakeys'));
     }
 
     public function init()
     {
-        if (!current_user_can('edit_posts') || !current_user_can('edit_pages')) {
+        global $pagenow;
+
+        if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
             return;
         }
 
+        add_action('admin_footer', array($this, 'getMetakeys'));
         add_filter('mce_external_plugins', array($this, 'registerMcePlugin'));
         add_filter('mce_buttons', array($this, 'registerButtons'));
     }
