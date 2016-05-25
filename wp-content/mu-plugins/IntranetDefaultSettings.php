@@ -67,9 +67,10 @@ class IntranetDefaultSettings
 
         // Add new front page
         $frontPageId = wp_insert_post(array(
-            'post_type' => 'page',
+            'post_type'   => 'page',
             'post_status' => 'publish',
-            'post_title' => __('Front page')
+            'post_title'  => __('Front page'),
+            'menu_order'  => -1000
         ));
 
         update_blog_option($blogId, 'show_on_front', 'page');
