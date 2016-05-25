@@ -28,7 +28,7 @@
                                 @if (is_user_logged_in() && \Intranet\User\Subscription::getSubscriptions())
                                     <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
                                     @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
-                                        <li class="network-title"><a href="{{ $site['path'] }}">{!! ($site['short_name']) ? $site['short_name'] . ' <em>' . $site['name'] . '</em>' : $site['name'] !!}</a></li>
+                                        <li class="network-title"><a href="{{ $site['path'] }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
                                     @endforeach
                                 @endif
                             </ul>
