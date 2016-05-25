@@ -40,7 +40,10 @@ class IntranetDefaultSettings
              'options_nav_sub_type'              => 'auto',
              'options_nav_sub_depth'             => 0,
              'options_nav_sub_include_top_level' => 1,
-             'options_nav_sub_render'            => 'active'
+             'options_nav_sub_render'            => 'active',
+
+             // Show signature logo in footer
+             'options_footer_signature_show'     => 1
 
         );
 
