@@ -33,7 +33,7 @@ class AuthorMetaBox
     public function alwaysShowAuthorMetabox($hidden, $screen)
     {
         if ($screen->post_type != 'page') {
-            return;
+            return $hidden;
         }
 
         $hidden = array_filter($hidden, function ($item) {
