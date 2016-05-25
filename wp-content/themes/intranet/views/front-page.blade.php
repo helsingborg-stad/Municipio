@@ -17,6 +17,14 @@
                 </div>
             @endif
 
+            @if (have_posts())
+            @while(have_posts())
+                {!! the_post() !!}
+
+                @include('partials.article')
+            @endwhile
+            @endif
+
             @if (is_active_sidebar('content-area'))
                 <div class="grid sidebar-content-area sidebar-content-area-bottom">
                     <?php dynamic_sidebar('content-area'); ?>
