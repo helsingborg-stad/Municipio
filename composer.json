@@ -26,6 +26,10 @@
             "url": "https://github.com/helsingborg-stad/custom-short-links.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/Customer-feedback.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         }
@@ -38,6 +42,7 @@
         "helsingborg-stad/Municipio": "dev-develop",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
         "helsingborg-stad/custom-short-links": ">=1.0.0",
+        "helsingborg-stad/Customer-feedback": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
         "wpackagist-plugin/stream": "^3.0.4",
