@@ -39,10 +39,15 @@ class NavigationTree
                 return intval($item->menu_item_parent) === 0;
             });
         } else {
+            $postStatuses = array('publish');
+            if (is_user_logged_in()) {
+                $postStatuses[] = 'private';
+            }
+
             $this->topLevelPages = get_posts(array(
                 'post_parent' => 0,
                 'post_type' => 'page',
-                'post_status' => 'publish',
+                'post_status' => $postStatuses,
                 'orderby' => 'menu_order post_title',
                 'order' => 'asc',
                 'numberposts' => -1,
