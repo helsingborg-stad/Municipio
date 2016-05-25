@@ -51,11 +51,6 @@
         <div class="grid-md-4">
             <div class="grid">
                 <div class="grid-xs-12">
-                    <div class="gutter gutter-bottom">
-                        <div class="notice warning"><i class="fa fa-warning"></i> {{ get_the_author_meta('first_name') }} är pappaledig till 2016-06-14</div>
-                    </div>
-                </div>
-                <div class="grid-xs-12">
                     <div class="box box-filled">
                         <h4 class="box-title"><?php _e('Contact information', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
