@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-05-04 09:29+0200\n"
+"POT-Creation-Date: 2016-05-25 10:43+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Fixed to bottom of window"
 msgstr ""
 
-#: acf-exports/translate-reference.php:62 library/Admin/Options/Theme.php:111
+#: acf-exports/translate-reference.php:62
 msgid "Custom CSS"
 msgstr ""
 
@@ -487,6 +487,7 @@ msgstr ""
 #: acf-exports/translate-reference.php:98
 #: acf-exports/translate-reference.php:153
 #: acf-exports/translate-reference.php:280
+#: views/partials/blog/post-header.blade.php:37
 msgid "Comments"
 msgstr ""
 
@@ -875,8 +876,8 @@ msgstr ""
 msgid "Tagline text"
 msgstr ""
 
-#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:30
-#: library/Admin/Options/Theme.php:31
+#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:32
+#: library/Admin/Options/Theme.php:33
 msgid "Header"
 msgstr ""
 
@@ -1205,50 +1206,55 @@ msgstr ""
 msgid "Archive for"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:13 library/Admin/Options/Theme.php:14
-msgid "Theme Options"
+#: library/Admin/Options/Theme.php:9 library/Admin/Options/Theme.php:15
+#: library/Admin/Options/Theme.php:16
+msgid "Theme options"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:22 library/Admin/Options/Theme.php:23
+#: library/Admin/Options/Theme.php:24 library/Admin/Options/Theme.php:25
 msgid "Navigation"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:38 library/Admin/Options/Theme.php:39
+#: library/Admin/Options/Theme.php:40 library/Admin/Options/Theme.php:41
 msgid "Content"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:46 library/Admin/Options/Theme.php:47
-#: library/Theme/Sidebars.php:49
+#: library/Admin/Options/Theme.php:48 library/Admin/Options/Theme.php:49
+#: library/Theme/Sidebars.php:69
 msgid "Footer"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
+#: library/Admin/Options/Theme.php:56 library/Admin/Options/Theme.php:57
 #: library/Theme/Navigation.php:74
 msgid "Search"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:62 library/Admin/Options/Theme.php:63
+#: library/Admin/Options/Theme.php:64 library/Admin/Options/Theme.php:65
 msgid "Blog & Archives"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:94
+#: library/Admin/Options/Theme.php:96
 msgid "Custom Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:95
+#: library/Admin/Options/Theme.php:97
 msgid "Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:102
+#: library/Admin/Options/Theme.php:104
 msgid "Custom Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:103
+#: library/Admin/Options/Theme.php:105
 msgid "Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:110
-msgid "Custom CSS Editor"
+#: library/Admin/Options/Theme.php:112
+msgid "Custom CSS/JS Editor"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:113
+msgid "Custom CSS/JS"
 msgstr ""
 
 #: library/Admin/UI/BackEnd.php:16 library/Admin/UI/BackEnd.php:21
@@ -1354,59 +1360,67 @@ msgstr ""
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr ""
 
-#: library/Theme/Sidebars.php:50
+#: library/Theme/Sidebars.php:70
 msgid "The footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:62
+#: library/Theme/Sidebars.php:82
 msgid "Hero"
 msgstr ""
 
-#: library/Theme/Sidebars.php:63
+#: library/Theme/Sidebars.php:83
 msgid "The hero area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:75
-msgid "Content area"
+#: library/Theme/Sidebars.php:95
+msgid "Content area (above article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:76
+#: library/Theme/Sidebars.php:96
+msgid "The area above the content"
+msgstr ""
+
+#: library/Theme/Sidebars.php:106
+msgid "Content area (below article)"
+msgstr ""
+
+#: library/Theme/Sidebars.php:107
 msgid "The area below the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:86
+#: library/Theme/Sidebars.php:117
 msgid "Main container bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:87
+#: library/Theme/Sidebars.php:118
 msgid "The area below the main container"
 msgstr ""
 
-#: library/Theme/Sidebars.php:97
+#: library/Theme/Sidebars.php:128
 msgid "Left sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:98
+#: library/Theme/Sidebars.php:129
 msgid "The left sidebar area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:110
+#: library/Theme/Sidebars.php:141
 msgid "Left sidebar bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:111
+#: library/Theme/Sidebars.php:142
 msgid "The area below the left sidebar content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:123
+#: library/Theme/Sidebars.php:154
 msgid "Right sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:124
+#: library/Theme/Sidebars.php:155
 msgid "The right sidebar area"
 msgstr ""
 
-#: library/Theme/Support.php:147
+#: library/Theme/Support.php:146
 msgid "Article"
 msgstr ""
 
@@ -1416,10 +1430,6 @@ msgstr ""
 
 #: library/Widget/Contact.php:13
 msgid "Displays the contact information given."
-msgstr ""
-
-#: views/home.blade.php:33
-msgid "No posts found…"
 msgstr ""
 
 #: views/partials/archive-filters.blade.php:19
@@ -1446,7 +1456,7 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: views/partials/header/default.blade.php:20
+#: views/partials/header/default.blade.php:39
 msgid "Menu"
 msgstr ""
 

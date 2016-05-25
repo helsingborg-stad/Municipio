@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-05-04 09:30+0200\n"
-"PO-Revision-Date: 2016-05-11 10:37+0200\n"
+"POT-Creation-Date: 2016-05-25 10:43+0200\n"
+"PO-Revision-Date: 2016-05-25 10:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -270,7 +270,7 @@ msgstr "Toppen av sidan"
 msgid "Fixed to bottom of window"
 msgstr "Fixerad till botten av fönstret"
 
-#: acf-exports/translate-reference.php:62 library/Admin/Options/Theme.php:111
+#: acf-exports/translate-reference.php:62
 msgid "Custom CSS"
 msgstr "Egen CSS"
 
@@ -497,6 +497,7 @@ msgstr "Trackbacks"
 #: acf-exports/translate-reference.php:98
 #: acf-exports/translate-reference.php:153
 #: acf-exports/translate-reference.php:280
+#: views/partials/blog/post-header.blade.php:37
 msgid "Comments"
 msgstr "Kommentarer"
 
@@ -902,8 +903,8 @@ msgstr "Använd egen"
 msgid "Tagline text"
 msgstr "Slogantext"
 
-#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:30
-#: library/Admin/Options/Theme.php:31
+#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:32
+#: library/Admin/Options/Theme.php:33
 msgid "Header"
 msgstr "Sidhuvud"
 
@@ -1247,51 +1248,56 @@ msgstr "Kontakter"
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Theme.php:13 library/Admin/Options/Theme.php:14
-msgid "Theme Options"
+#: library/Admin/Options/Theme.php:9 library/Admin/Options/Theme.php:15
+#: library/Admin/Options/Theme.php:16
+msgid "Theme options"
 msgstr "Temainställningar"
 
-#: library/Admin/Options/Theme.php:22 library/Admin/Options/Theme.php:23
+#: library/Admin/Options/Theme.php:24 library/Admin/Options/Theme.php:25
 msgid "Navigation"
 msgstr "Navigering"
 
-#: library/Admin/Options/Theme.php:38 library/Admin/Options/Theme.php:39
+#: library/Admin/Options/Theme.php:40 library/Admin/Options/Theme.php:41
 msgid "Content"
 msgstr "Innehåll"
 
-#: library/Admin/Options/Theme.php:46 library/Admin/Options/Theme.php:47
-#: library/Theme/Sidebars.php:49
+#: library/Admin/Options/Theme.php:48 library/Admin/Options/Theme.php:49
+#: library/Theme/Sidebars.php:69
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
+#: library/Admin/Options/Theme.php:56 library/Admin/Options/Theme.php:57
 #: library/Theme/Navigation.php:74
 msgid "Search"
 msgstr "Sök"
 
-#: library/Admin/Options/Theme.php:62 library/Admin/Options/Theme.php:63
+#: library/Admin/Options/Theme.php:64 library/Admin/Options/Theme.php:65
 msgid "Blog & Archives"
 msgstr "Bloggar & Arkiv"
 
-#: library/Admin/Options/Theme.php:94
+#: library/Admin/Options/Theme.php:96
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:95
+#: library/Admin/Options/Theme.php:97
 msgid "Post Types"
 msgstr "Inläggstyper"
 
-#: library/Admin/Options/Theme.php:102
+#: library/Admin/Options/Theme.php:104
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:103
+#: library/Admin/Options/Theme.php:105
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:110
-msgid "Custom CSS Editor"
-msgstr "CSS Editor"
+#: library/Admin/Options/Theme.php:112
+msgid "Custom CSS/JS Editor"
+msgstr "Egen CSS/JS"
+
+#: library/Admin/Options/Theme.php:113
+msgid "Custom CSS/JS"
+msgstr "Egen CSS/JS"
 
 #: library/Admin/UI/BackEnd.php:16 library/Admin/UI/BackEnd.php:21
 #: library/Admin/UI/BackEnd.php:26
@@ -1396,59 +1402,67 @@ msgstr "Administratörsnotis"
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Sidebars.php:50
+#: library/Theme/Sidebars.php:70
 msgid "The footer area"
 msgstr "Footer-arean"
 
-#: library/Theme/Sidebars.php:62
+#: library/Theme/Sidebars.php:82
 msgid "Hero"
 msgstr "Hero"
 
-#: library/Theme/Sidebars.php:63
+#: library/Theme/Sidebars.php:83
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:75
-msgid "Content area"
-msgstr "Innehållsarea"
+#: library/Theme/Sidebars.php:95
+msgid "Content area (above article)"
+msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:76
+#: library/Theme/Sidebars.php:96
+msgid "The area above the content"
+msgstr "Arean ovanför huvudinnehållet"
+
+#: library/Theme/Sidebars.php:106
+msgid "Content area (below article)"
+msgstr "Innehållsarea (nedanför artikel)"
+
+#: library/Theme/Sidebars.php:107
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:86
+#: library/Theme/Sidebars.php:117
 msgid "Main container bottom"
 msgstr "Main container bottom"
 
-#: library/Theme/Sidebars.php:87
+#: library/Theme/Sidebars.php:118
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:97
+#: library/Theme/Sidebars.php:128
 msgid "Left sidebar"
 msgstr "Vänster sidebar"
 
-#: library/Theme/Sidebars.php:98
+#: library/Theme/Sidebars.php:129
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:110
+#: library/Theme/Sidebars.php:141
 msgid "Left sidebar bottom"
 msgstr "Vänster sidebar bottom"
 
-#: library/Theme/Sidebars.php:111
+#: library/Theme/Sidebars.php:142
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:123
+#: library/Theme/Sidebars.php:154
 msgid "Right sidebar"
 msgstr "Höger sidebar"
 
-#: library/Theme/Sidebars.php:124
+#: library/Theme/Sidebars.php:155
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Support.php:147
+#: library/Theme/Support.php:146
 msgid "Article"
 msgstr "Artikel"
 
@@ -1459,10 +1473,6 @@ msgstr "Kontakt"
 #: library/Widget/Contact.php:13
 msgid "Displays the contact information given."
 msgstr "Visar den angivna kontaktinformationen"
-
-#: views/home.blade.php:33
-msgid "No posts found…"
-msgstr "Inga inlägg hittades…"
 
 #: views/partials/archive-filters.blade.php:19
 msgid "From"
@@ -1488,7 +1498,7 @@ msgstr "Filtrera"
 msgid "Show all"
 msgstr "Visa alla"
 
-#: views/partials/header/default.blade.php:20
+#: views/partials/header/default.blade.php:39
 msgid "Menu"
 msgstr "Meny"
 
@@ -1554,6 +1564,18 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Theme Options"
+#~ msgstr "Temainställningar"
+
+#~ msgid "Custom CSS Editor"
+#~ msgstr "CSS Editor"
+
+#~ msgid "Content area"
+#~ msgstr "Innehållsarea"
+
+#~ msgid "No posts found…"
+#~ msgstr "Inga inlägg hittades…"
 
 #~ msgid "https://github.com/helsingborg-stad/Bootstrap-Theme/"
 #~ msgstr "https://github.com/helsingborg-stad/Bootstrap-Theme/"
