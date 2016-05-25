@@ -18,7 +18,7 @@
     <meta name="HandheldFriendly" content="true" />
 
     <script>
-        var ajaxurl = '{!! admin_url('admin-ajax.php') !!}';
+        var ajaxurl = '{!! apply_filters('Municipio/ajax_url_in_head', admin_url('admin-ajax.php')) !!}';
     </script>
 
     <!--[if lt IE 9]>

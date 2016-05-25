@@ -32,6 +32,15 @@ define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 
 ## Filters
 
+#### Municipio/ajax_url_in_head
+Set the ajax_url in the <head>
+
+- ```@param string $ajax_url``` - Default ajax url
+
+```php
+apply_filters('Municipio/ajax_url_in_head', $ajax_url);
+```
+
 #### Municipio/favicon_sizes
 Add sizes to theme options for favicon
 
