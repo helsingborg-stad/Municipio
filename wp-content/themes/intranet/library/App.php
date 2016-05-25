@@ -11,6 +11,7 @@ class App
 
         // Admin functionality
         new \Intranet\Admin\NetworkSettings();
+        new \Intranet\Admin\AuthorMetaBox();
 
         // User services
         new \Intranet\User\RecursiveRegistration();
