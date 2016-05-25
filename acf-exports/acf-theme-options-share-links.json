@@ -8,7 +8,7 @@
                 "name": "page_show_share",
                 "type": "true_false",
                 "instructions": "This is a master control which will enable\/disable the social share icons for each and all posts and pages.",
-                "required": 1,
+                "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
