@@ -6,8 +6,11 @@ class Subscription
 {
     public function __construct()
     {
-        add_action('wp_ajax_toggle_subscription', array($this, 'toggleSubscription'));
-        add_action('wp_ajax_nopriv_toggle_subscription', array($this, 'toggleSubscription'));
+        add_action('wp_ajax_toggle_subscription', '\Intranet\User\Subscription::toggleSubscription');
+        add_action('wp_ajax_nopriv_toggle_subscription', '\Intranet\User\Subscription::toggleSubscription');
+
+        add_action('init', array($this, 'addManageSubscriptionsPageRewrite'));
+        add_filter('template_include', array($this, 'manageSubscriptionsTemplate'), 10);
     }
 
     /**
@@ -123,7 +126,7 @@ class Subscription
      * @param  integer $blogId Blog id
      * @return string          "subscribed" or "unsibscribed"
      */
-    public function toggleSubscription($blogId = null)
+    public static function toggleSubscription($blogId = null)
     {
         $userId = get_current_user_id();
 
@@ -144,7 +147,7 @@ class Subscription
 
         // Check if blogid is subscribed
         if (self::hasSubscribed($blogId)) {
-            $this->unsubscribe($userId, $blogId);
+            self::unsubscribe($userId, $blogId);
 
             if (defined('DOING_AJAX') && DOING_AJAX) {
                 echo 'unsubscribed';
@@ -154,7 +157,7 @@ class Subscription
             return 'unsubscribed';
         }
 
-        $this->subscribe($userId, $blogId);
+        self::subscribe($userId, $blogId);
 
         if (defined('DOING_AJAX') && DOING_AJAX) {
             echo 'subscribed';
@@ -171,10 +174,11 @@ class Subscription
      * @param  array   $subscriptions Array with blog id's
      * @return boolean
      */
-    private function update($userId, $subscriptions)
+    public static function update($userId, $subscriptions)
     {
         $subscriptions = array_values($subscriptions);
         $subscriptions = json_encode($subscriptions);
+
         return update_user_meta($userId, 'intranet_subscriptions', $subscriptions);
     }
 
@@ -184,12 +188,12 @@ class Subscription
      * @param  integer $blogId Blog id
      * @return array           All subscriptions of the user
      */
-    public function subscribe($userId, $blogId)
+    public static function subscribe($userId, $blogId)
     {
         $subscriptions = self::getSubscriptions($userId, true);
         $subscriptions[] = $blogId;
 
-        $this->update($userId, $subscriptions);
+        self::update($userId, $subscriptions);
 
         return $subscriptions;
     }
@@ -200,15 +204,67 @@ class Subscription
      * @param  integer $blogId BLog id
      * @return array           All subscriptions of the user
      */
-    public function unsubscribe($userId, $blogId)
+    public static function unsubscribe($userId, $blogId)
     {
         $subscriptions = self::getSubscriptions($userId, true);
         $subscriptions = array_filter($subscriptions, function ($subscription) use ($blogId) {
             return $subscription != $blogId;
         });
 
-        $this->update($userId, $subscriptions);
+        self::update($userId, $subscriptions);
 
         return $subscriptions;
+    }
+
+    /**
+     * Adds rewrite rules for the manage subscriptions page
+     */
+    public function addManageSubscriptionsPageRewrite()
+    {
+        add_rewrite_rule('^subscriptions\/?([a-zA-Z0-9_-]+)?', 'index.php?subscriptions=$matches[1]', 'top');
+        add_rewrite_tag('%subscriptions%', '([^&]+)');
+
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Adds the template for manage subscriptions page
+     * @param  string $template Template path before
+     * @return string           Template path after
+     */
+    public function manageSubscriptionsTemplate($template)
+    {
+        global $wp_query;
+
+        if (!isset($wp_query->query['subscriptions'])) {
+            return $template;
+        }
+
+        if (!empty($wp_query->query['subscriptions']) && !get_user_by('slug', $wp_query->query['subscriptions'])) {
+            $wp_query->set404();
+            return get_404_template();
+        }
+
+        $template = \Municipio\Helper\Template::locateTemplate('subscriptions');
+        return $template;
+    }
+
+    /**
+     * Only show manage subscription page to logged in users
+     * @return void
+     */
+    public function manageSubscriptionsAccessControl()
+    {
+        global $wp_query;
+
+        if (!isset($wp_query->query['subscriptions'])) {
+            return;
+        }
+
+        $currentUser = wp_get_current_user();
+
+        if (!is_super_admin() || (!empty($wp_query->query['subscriptions']) && $currentUser->user_login != $wp_query->query['subscriptions'])) {
+            $wp_query->set_404();
+        }
     }
 }

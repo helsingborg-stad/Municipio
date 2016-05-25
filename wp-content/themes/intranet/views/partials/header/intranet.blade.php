@@ -33,6 +33,7 @@
                                             <ul class="nav">
                                                 <li><a href="{{ municipio_intranet_get_user_profile_url() }}"><?php _e('Your profile', 'municipio-intranet'); ?></a></li>
                                                 <li><a href="{{ municipio_intranet_get_user_profile_edit_url() }}"><?php _e('Settings'); ?></a></li>
+                                                <li><a href="{{ municipio_intranet_get_user_manage_subscriptions_url() }}"><?php _e('Manage subscriptions', 'municipio-intranet'); ?></a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="{{ wp_logout_url() }}"><?php _e('Log out'); ?></a></li>
                                             </ul>

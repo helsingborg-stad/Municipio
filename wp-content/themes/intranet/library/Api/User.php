@@ -30,3 +30,16 @@ if (!function_exists('municipio_intranet_get_user_profile_edit_url')) {
         return $url . '/edit';
     }
 }
+
+if (!function_exists('municipio_intranet_get_user_manage_subscriptions_url')) {
+    /**
+     * Get url to manage subscriptions page
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_intranet_get_user_manage_subscriptions_url($user = null) {
+        return network_site_url('subscriptions');
+    }
+}
+
+
