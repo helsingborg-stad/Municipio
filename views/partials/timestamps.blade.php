@@ -8,9 +8,9 @@
                 @endif
 
                 @if (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name')))
-                    <span class="post-author-name">{{ apply_filters('Municipio/author_display/name', get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')) }}</span>
+                    <span class="post-author-name">{!! apply_filters('Municipio/author_display/name', get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name'), get_the_author_meta('ID')) !!}</span>
                 @else
-                    <span class="post-author-name">{{ apply_filters('Municipio/author_display/name', get_the_author()) }}</span>
+                    <span class="post-author-name">{!! apply_filters('Municipio/author_display/name', get_the_author(), get_the_author_meta('ID')) !!}</span>
                 @endif
             </span>
         </li>
