@@ -130,6 +130,19 @@ class News
         $newsPosts = $wpdb->get_results($sql);
 
         foreach ($newsPosts as $item) {
+            $table = "{$wpdb->base_prefix}postmeta";
+            if ($item->blog_id > 1) {
+                $table = "{$wpdb->base_prefix}{$item->blog_id}_postmeta";
+            }
+
+            $query = "SELECT meta_value FROM {$table} WHERE post_id = {$item->post_id} AND meta_key = '_target_groups' ORDER BY meta_id DESC LIMIT 1";
+            $targetGroups = $wpdb->get_var($query);
+            $targetGroups = unserialize($targetGroups);
+
+            if (!\Intranet\User\TargetGroups::userInGroup($targetGroups)) {
+                continue;
+            }
+
             $news[] = get_blog_post($item->blog_id, $item->post_id);
 
             end($news);
