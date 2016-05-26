@@ -18,6 +18,8 @@ jQuery(document).ready(function ($) {
                 </div>\
             </div>\
         ');
+
+        $('[data-tag-input]').val('');
     });
 
     $(document).on('click', '.tag-manager-delete-tag', function (e) {

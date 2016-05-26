@@ -33,7 +33,15 @@
                     <div class="postbox">
                         <h2 class="hndle ui-sortable-handle" style="cursor:default;"><?php _e('Tags', 'municipio-intranet'); ?></h2>
                         <div class="inside tag-manager-tags">
-
+                            <?php foreach (\Intranet\User\TargetTags::getTags() as $tag) : ?>
+                                <div class="tag-manager-tag">
+                                    <?php echo $tag->tag; ?>
+                                    <input type="hidden" name="tag-manager-tags[]" value="<?php echo $tag->tag; ?>">
+                                    <div class="tag-manager-actions">
+                                        <button class="btn-plain tag-manager-delete-tag"><span class="dashicons dashicons-trash"></span></button>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
 

@@ -8,6 +8,8 @@ class TargetTags
     {
         add_action('init', array($this, 'createDatabaseTable'));
         add_action('network_admin_menu', array($this, 'createManageTargetTagsPage'));
+
+        add_action('admin_init', array($this, 'saveTags'));
     }
 
     public function createManageTargetTagsPage()
@@ -26,6 +28,61 @@ class TargetTags
     public function manageTagsForm()
     {
         include_once INTRANET_PATH . 'templates/admin/target-tags/form.php';
+    }
+
+    public function saveTags()
+    {
+        if (!isset($_POST['manage-target-tags-action'])) {
+            return;
+        }
+
+        global $wpdb;
+
+        $values = array();
+        $tags = self::getTags();
+        $postedTags = $_POST['tag-manager-tags'];
+
+        // Remove removed tags
+        $removeTags = array_filter($tags, function ($item) use ($postedTags) {
+            return !in_array($item->tag, $postedTags);
+        });
+
+        foreach ($removeTags as $tag) {
+            $wpdb->delete($wpdb->prefix . 'target_tags', array('id' => $tag->id));
+        }
+
+        // Add new tags
+        $addTags = array();
+        foreach ($tags as $tag) {
+            $addTags[] = $tag->tag;
+        }
+
+        $addTags = array_diff($postedTags, $addTags);
+
+        foreach ($addTags as $tag) {
+            $values[] = $wpdb->prepare("(%s)", $tag);
+        }
+
+        $query = "INSERT INTO {$wpdb->prefix}target_tags (tag) VALUES ";
+        $query .= implode( ",\n", $values);
+
+        $wpdb->query($query);
+
+        exit;
+    }
+
+    public static function getTags()
+    {
+        global $wpdb;
+        global $current_site;
+
+        switch_to_blog($current_site->blog_id);
+
+        $tags = $wpdb->get_results("SELECT id, tag FROM {$wpdb->prefix}target_tags ORDER BY tag ASC");
+
+        restore_current_blog();
+
+        return $tags;
     }
 
     /**
