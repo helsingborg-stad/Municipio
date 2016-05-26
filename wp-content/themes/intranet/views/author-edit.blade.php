@@ -72,6 +72,21 @@
                         </div>
 
                         <div class="grid">
+                            <div class="grid-md-12">
+                                <div class="form-group">
+                                    <label for="user_taget_groups"><?php _e('Target groups', 'municipio-intranet'); ?></label>
+                                    <div class="grid">
+                                        @foreach ($targetGroups as $group)
+                                        <div class="grid-md-6">
+                                            <label class="checkbox"><input type="checkbox" name="user_target_groups[]" value="{{ $group->id }}" {{ checked(true, in_array($group->id, (array)get_the_author_meta('user_target_groups'))) }}> {{ $group->tag }}</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
                             <div class="grid-md-6">
                                 <div class="form-group">
                                     <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?></label>
