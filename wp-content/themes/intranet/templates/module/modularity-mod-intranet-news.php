@@ -1,15 +1,30 @@
 <?php
     $news = false;
+    $display = get_field('display', $module->ID);
+    $limit = !empty(get_field('limit', $module->ID)) ? get_field('limit', $module->ID) : 10;
 
-    if (is_user_logged_in()) {
-        $subscriptions = array_merge(
-            \Intranet\User\Subscription::getForcedSubscriptions(true),
-            \Intranet\User\Subscription::getSubscriptions(null, true)
-        );
+    switch ($display) {
+        default:
+        case 'network_subscribed':
+            if (is_user_logged_in()) {
+                $subscriptions = array_merge(
+                    \Intranet\User\Subscription::getForcedSubscriptions(true),
+                    \Intranet\User\Subscription::getSubscriptions(null, true)
+                );
 
-        $news = \Intranet\CustomPostType\News::getNews(10, $subscriptions);
-    } else {
-        $news = \Intranet\CustomPostType\News::getNews(10, 'all');
+                $news = \Intranet\CustomPostType\News::getNews($limit, $subscriptions);
+            } else {
+                $news = \Intranet\CustomPostType\News::getNews($limit, 'all');
+            }
+            break;
+
+        case 'network':
+            $news = \Intranet\CustomPostType\News::getNews($limit, 'all');
+            break;
+
+        case 'blog':
+            $news = \Intranet\CustomPostType\News::getNews($limit, array(get_current_blog_id()));
+            break;
     }
 
     if (count($news) > 0) :
