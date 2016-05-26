@@ -39,7 +39,7 @@ class TargetTags
         global $wpdb;
 
         $values = array();
-        $tags = self::getTags();
+        $tags = self::getAvailableTags();
         $postedTags = $_POST['tag-manager-tags'];
 
         // Remove removed tags
@@ -71,7 +71,7 @@ class TargetTags
         exit;
     }
 
-    public static function getTags()
+    public static function getAvailableTags()
     {
         global $wpdb;
         global $current_site;
