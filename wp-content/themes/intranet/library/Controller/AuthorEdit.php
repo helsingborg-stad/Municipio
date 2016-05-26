@@ -32,7 +32,7 @@ class AuthorEdit extends \Municipio\Controller\BaseController
             'Vård- och omsorgsförvaltningen'
         ));
 
-        $this->data['targetGroups'] = \Intranet\User\TargetTags::getAvailableTags();
+        $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableTags();
     }
 
     /**

@@ -1,6 +1,6 @@
 <div class="wrap" id="modularity-options">
 
-    <h1><?php _e('Manage target tags', 'municipio-intranet'); ?></h1>
+    <h1><?php _e('Manage target groups', 'municipio-intranet'); ?></h1>
 
     <form method="post">
         <input type="hidden" name="manage-target-tags-action" value="save">
@@ -33,7 +33,7 @@
                     <div class="postbox">
                         <h2 class="hndle ui-sortable-handle" style="cursor:default;"><?php _e('Tags', 'municipio-intranet'); ?></h2>
                         <div class="inside tag-manager-tags">
-                            <?php foreach (\Intranet\User\TargetTags::getAvailableTags() as $tag) : ?>
+                            <?php foreach (\Intranet\User\TargetGroups::getAvailableTags() as $tag) : ?>
                                 <div class="tag-manager-tag">
                                     <?php echo $tag->tag; ?>
                                     <input type="hidden" name="tag-manager-tags[]" value="<?php echo $tag->tag; ?>">

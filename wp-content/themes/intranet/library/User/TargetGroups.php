@@ -2,8 +2,10 @@
 
 namespace Intranet\User;
 
-class TargetTags
+class TargetGroups
 {
+    public static $tableSuffix = 'target_groups';
+
     public function __construct()
     {
         add_action('init', array($this, 'createDatabaseTable'));
@@ -15,10 +17,10 @@ class TargetTags
     public function createManageTargetTagsPage()
     {
         add_menu_page(
-            __('Target tags', 'municipio-intranet'),
-            __('Target tags', 'municipio-intranet'),
+            __('Target groups', 'municipio-intranet'),
+            __('Target groups', 'municipio-intranet'),
             'manage_network',
-            'target-tags',
+            'target-groups',
             array($this, 'manageTagsForm'),
             'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODYuOTgyIDQ4Ni45ODIiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBkPSJNMTMxLjM1IDQyMi45N2MxNC42IDE0LjYgMzguMyAxNC42IDUyLjkgMGwxODEuMS0xODEuMWM1LjItNS4yIDkuMi0xMS40IDExLjgtMTggMTguMiA1LjEgMzUuOSA3LjggNTEuNSA3LjcgMzguNi0uMiA1MS40LTE3LjEgNTUuNi0yNy4yIDQuMi0xMCA3LjItMzEtMTkuOS01OC42bC0uOS0uOWMtMTYuOC0xNi44LTQxLjItMzIuMy02OC45LTQzLjgtNS4xLTIuMS0xMC4yLTQtMTUuMi01Ljh2LS4zYy0uMy0yMi4yLTE4LjItNDAuMS00MC40LTQwLjRsLTEwOC41LTEuNWMtMTQuNC0uMi0yOC4yIDUuNC0zOC4zIDE1LjZsLTE4MS4yIDE4MS4xYy0xNC42IDE0LjYtMTQuNiAzOC4zIDAgNTIuOWwxMjAuNCAxMjAuM3ptMTM5LjYtMzA1LjFjMTIuMS0xMi4xIDMxLjctMTIuMSA0My44IDAgNy4yIDcuMiAxMC4xIDE3LjEgOC43IDI2LjQgMTEuOSA4LjQgMjYuMSAxNi4yIDQxLjMgMjIuNSA1LjQgMi4yIDEwLjYgNC4yIDE1LjYgNS45bC0uNi00My42Yy45LjQgMS43LjcgMi42IDEuMSAyMy43IDkuOSA0NSAyMy4zIDU4LjcgMzdsLjYuNmMxMyAxMy4zIDE0LjQgMjEuOCAxMy4zIDI0LjQtMy40IDguMS0zOS45IDE1LjMtOTUuMy03LjgtMTYuMi02LjgtMzEuNC0xNS4yLTQzLjctMjQuMy0uNC41LS45IDEtMS4zIDEuNS0xMi4xIDEyLjEtMzEuNyAxMi4xLTQzLjggMC0xMi0xMi0xMi0zMS42LjEtNDMuN3oiIGZpbGw9IiNGRkYiLz48L3N2Zz4=',
             100
@@ -27,7 +29,7 @@ class TargetTags
 
     public function manageTagsForm()
     {
-        include_once INTRANET_PATH . 'templates/admin/target-tags/form.php';
+        include_once INTRANET_PATH . 'templates/admin/target-groups/form.php';
     }
 
     public function saveTags()
@@ -48,7 +50,7 @@ class TargetTags
         });
 
         foreach ($removeTags as $tag) {
-            $wpdb->delete($wpdb->prefix . 'target_tags', array('id' => $tag->id));
+            $wpdb->delete($wpdb->prefix . self::$tableSuffix, array('id' => $tag->id));
         }
 
         // Add new tags
@@ -63,12 +65,10 @@ class TargetTags
             $values[] = $wpdb->prepare("(%s)", $tag);
         }
 
-        $query = "INSERT INTO {$wpdb->prefix}target_tags (tag) VALUES ";
+        $query = "INSERT INTO {$wpdb->prefix}" . self::$tableSuffix . " (tag) VALUES ";
         $query .= implode( ",\n", $values);
 
         $wpdb->query($query);
-
-        exit;
     }
 
     public static function getAvailableTags()
@@ -78,7 +78,7 @@ class TargetTags
 
         switch_to_blog($current_site->blog_id);
 
-        $tags = $wpdb->get_results("SELECT id, tag FROM {$wpdb->prefix}target_tags ORDER BY tag ASC");
+        $tags = $wpdb->get_results("SELECT id, tag FROM {$wpdb->prefix}" . self::$tableSuffix . " ORDER BY tag ASC");
 
         restore_current_blog();
 
@@ -97,9 +97,9 @@ class TargetTags
         switch_to_blog($current_site->blog_id);
 
         $charsetCollation = $wpdb->get_charset_collate();
-        $tableName = $wpdb->prefix . 'target_tags';
+        $tableName = $wpdb->prefix . self::$tableSuffix;
 
-        if (!empty(get_site_option('taget-tags-db-version')) && $wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
+        if (!empty(get_site_option('taget-groups-db-version')) && $wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
             restore_current_blog();
             return;
         }
@@ -113,7 +113,7 @@ class TargetTags
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
 
-        update_site_option('taget-tags-db-version', '1.0.0');
+        update_site_option('taget-groups-db-version', '1.0.0');
 
         restore_current_blog();
     }
