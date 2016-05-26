@@ -6,6 +6,7 @@ class App
     public function __construct()
     {
         // Basic theme functionality
+        new \Intranet\Theme\General();
         new \Intranet\Theme\Enqueue();
         new \Intranet\Theme\Header();
 
