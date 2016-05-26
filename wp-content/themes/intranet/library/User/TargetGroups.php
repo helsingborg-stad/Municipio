@@ -71,7 +71,11 @@ class TargetGroups
         $wpdb->query($query);
     }
 
-    public static function getAvailableTags()
+    /**
+     * Get available groups
+     * @return array Groups
+     */
+    public static function getAvailableGroups()
     {
         global $wpdb;
         global $current_site;
