@@ -54,6 +54,6 @@ class Enqueue
     public function adminEnqueue()
     {
         wp_enqueue_style('intranet-admin', get_stylesheet_directory_uri(). '/assets/dist/css/admin.min.css', '', filemtime(get_stylesheet_directory() . '/assets/dist/css/admin.min.css'));
-
+        wp_enqueue_script('intranet-admin', get_stylesheet_directory_uri(). '/assets/dist/js/admin.min.js', '', filemtime(get_stylesheet_directory() . '/assets/dist/js/admin.min.js'));
     }
 }

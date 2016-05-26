@@ -43,3 +43,31 @@ th.intranet-settings-wrapper {
         }
     }
 }
+
+.tag-manager-tag {
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;
+    padding:10px 15px;
+    margin-top: 5px;
+
+    &:first-child {
+        margin-top: 10px;
+    }
+}
+
+.tag-manager-actions {
+    float: right;
+}
+
+.tag-manager-delete-tag {
+    color: #C80409;
+}
+
+.btn-plain {
+    apperance: none;
+    border: 0;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
