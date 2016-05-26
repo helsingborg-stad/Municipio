@@ -32,6 +32,24 @@ define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 
 ## Filters
 
+#### Municipio/author_display/name
+Set the name of the author display
+
+- ```@param string $name``` - Default title
+
+```php
+apply_filters('Municipio/author_display/name', $name);
+```
+
+#### Municipio/author_display/title
+Set the title label for the author name display
+
+- ```@param string $title``` - Default title
+
+```php
+apply_filters('Municipio/author_display/title', $title);
+```
+
 #### Municipio/ajax_url_in_head
 Set the ajax_url in the <head>
 
