@@ -8,6 +8,9 @@ Version 0.1.2 (not released)
 - Adds display options to the "intranet news" module
 - Link the "page manager" user to the user profile (if logged in)
 - Redirect user to referer on logout
+- Target groups manager for network admins
+- Metabox for settings tagrget group restrictions per post
+- Restrict content to target groups if set (not working across all plugins since there's no good hook to make it general)
 
 Version 0.1.1 (2016-05-25)
 ==========================
