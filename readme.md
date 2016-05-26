@@ -35,10 +35,11 @@ define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 #### Municipio/author_display/name
 Set the name of the author display
 
-- ```@param string $name``` - Default title
+- ```@param string $name``` - Default name
+- ```@param string $userId``` - The ID of the user
 
 ```php
-apply_filters('Municipio/author_display/name', $name);
+apply_filters('Municipio/author_display/name', $name, $userId);
 ```
 
 #### Municipio/author_display/title
