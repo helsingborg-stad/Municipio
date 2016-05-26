@@ -19,7 +19,8 @@ class Login
         $referrer = $_SERVER['HTTP_REFERER'];
 
         if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
-            wp_redirect($referer);
+            wp_redirect($referrer);
+            exit;
         }
     }
 

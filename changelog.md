@@ -3,6 +3,12 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.1.2 (not released)
+============================
+- Adds display options to the "intranet news" module
+- Link the "page manager" user to the user profile (if logged in)
+- Redirect user to referer on logout
+
 Version 0.1.1 (2016-05-25)
 ==========================
 - Fixes broken "session timeout" login modal
