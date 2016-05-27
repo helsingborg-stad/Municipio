@@ -15,6 +15,7 @@ class App
         new \Intranet\Admin\AuthorMetaBox();
 
         // User services
+        new \Intranet\User\General();
         new \Intranet\User\Registration();
         new \Intranet\User\Login();
         new \Intranet\User\Profile();

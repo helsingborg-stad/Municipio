@@ -24,7 +24,7 @@ class News
      */
     public function sortStickyPost($orderby, $query)
     {
-        if (is_admin() || $query->query_vars['post_type'] != self::$postTypeSlug || !$query->is_main_query()) {
+        if (is_admin() || !isset($query->query_vars['post_type']) || $query->query_vars['post_type'] != self::$postTypeSlug || !$query->is_main_query()) {
             return $orderby;
         }
 
@@ -41,7 +41,7 @@ class News
      */
     public function stickySorting($query)
     {
-        if (is_admin() || $query->query_vars['post_type'] != self::$postTypeSlug || !$query->is_main_query()) {
+        if (is_admin() || !isset($query->query_vars['post_type']) || $query->query_vars['post_type'] != self::$postTypeSlug || !$query->is_main_query()) {
             return;
         }
 
