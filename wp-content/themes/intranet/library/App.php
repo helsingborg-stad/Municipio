@@ -27,5 +27,6 @@ class App
 
         // Modularity modules
         new \Intranet\Module\News();
+        new \Intranet\Module\UserLinks();
     }
 }
