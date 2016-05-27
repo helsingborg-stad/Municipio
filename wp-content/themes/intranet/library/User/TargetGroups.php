@@ -92,6 +92,11 @@ class TargetGroups
      */
     public function addRestrictionMetabox()
     {
+        global $post;
+        if (!isset($post->ID)) {
+            return;
+        }
+
         add_meta_box(
             'target-group',
             __('Restrict to target groups', 'municipio-intranet'),
