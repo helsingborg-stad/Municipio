@@ -77,3 +77,22 @@ th.intranet-settings-wrapper {
     padding: 0;
     cursor: pointer;
 }
+
+#misc-publishing-actions label[for="intranet_news_is_sticky"]::before {
+    -moz-osx-font-smoothing: grayscale;
+    content: "";
+    display: inline-block;
+    font: 400 20px/1 dashicons;
+    left: -1px;
+    padding: 0 5px 0 0;
+    position: relative;
+    text-decoration: none !important;
+    top: -1px;
+    vertical-align: top;
+    color: #82878c;
+}
+
+label[for="intranet_news_is_sticky"] input[type="checkbox"] {
+    position: relative;
+    top: 1px;
+}
