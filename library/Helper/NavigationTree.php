@@ -92,11 +92,11 @@ class NavigationTree
             }
 
             if ($this->isAncestors($pageId)) {
-                $classes[] = 'current-node';
+                $classes[] = 'current-node current-menu-ancestor';
             }
 
             if ($this->getPageId($this->currentPage) == $pageId) {
-                $classes[] = 'current';
+                $classes[] = 'current current-menu-item';
             }
 
             $this->item($page, $classes);
