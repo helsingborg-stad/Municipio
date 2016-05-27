@@ -3,6 +3,10 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.1.3 (tbd)
+===================
+- Adds user links module for users to add their own links to
+
 Version 0.1.2 (2016-05-27)
 ==========================
 - Adds display options to the "intranet news" module
