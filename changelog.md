@@ -3,14 +3,17 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.1.2 (not released)
-============================
+Version 0.1.2 (2016-05-27)
+==========================
 - Adds display options to the "intranet news" module
 - Link the "page manager" user to the user profile (if logged in)
 - Redirect user to referer on logout
 - Target groups manager for network admins
 - Metabox for settings tagrget group restrictions per post
 - Restrict content to target groups if set (not working across all plugins since there's no good hook to make it general)
+- Option to pin news to top ("Intranet news" module and news)
+- Display date published for news
+- Users who cant edit_posts will no longer be able to visit wp_admin and will no longer see the adminbar
 
 Version 0.1.1 (2016-05-25)
 ==========================
