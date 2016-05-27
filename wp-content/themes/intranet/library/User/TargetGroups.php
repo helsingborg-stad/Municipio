@@ -93,6 +93,7 @@ class TargetGroups
     public function addRestrictionMetabox()
     {
         global $post;
+
         if (!isset($post->ID)) {
             return;
         }

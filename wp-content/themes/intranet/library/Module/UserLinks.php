@@ -17,7 +17,7 @@ class UserLinks extends \Modularity\Module
     public function __construct()
     {
         $this->args = array(
-            'id' => 'intranet-user-links',
+            'id' => 'intranet-u-links',
             'nameSingular' => __('User link', 'municipio-intranet'),
             'namePlural' => __('User links', 'municipio-intranet'),
             'description' => __('Shows a user\'s link list', 'municipio-intranet'),
@@ -43,14 +43,114 @@ class UserLinks extends \Modularity\Module
             $paths[] = INTRANET_PATH . 'templates/';
             return $paths;
         });
+
+        add_action('wp_ajax_add_user_link', array($this, 'addLink'));
+        add_action('wp_ajax_remove_user_link', array($this, 'removeLink'));
+    }
+
+    public static function getLinks()
+    {
+        if (!is_user_logged_in()) {
+            return;
+        }
+
+        $userId = get_current_user_id();
+        $links = (array)get_user_meta($userId, 'user_links', true);
+        $links = array_filter($links);
+
+        return $links;
+    }
+
+    public function removeLink()
+    {
+        // Do not contiue if user is not logged in
+        if (!is_user_logged_in()) {
+            if (defined('DOING_AJAX') && DOING_AJAX) {
+                echo 'Nope: 1';
+                wp_die();
+            }
+            return;
+        }
+
+        // Stop if any field is not set
+        if (!isset($_POST['url']) || empty($_POST['url'])) {
+            if (defined('DOING_AJAX') && DOING_AJAX) {
+                echo 'Nope: 2';
+                wp_die();
+            }
+            return;
+        }
+
+        $userId = get_current_user_id();
+        $links = get_user_meta($userId, 'user_links', true);
+
+        $foundKey = null;
+        foreach ($links as $key => $link) {
+            if ($link['url'] === sanitize_text_field($_POST['url'])) {
+                $foundKey = $key;
+            }
+        }
+
+        if ($foundKey !== false) {
+            unset($links[$foundKey]);
+            $links = array_values($links);
+        }
+
+        update_user_meta($userId, 'user_links', $links);
+
+        if (defined('DOING_AJAX') && DOING_AJAX) {
+            echo json_encode($links);
+            wp_die();
+        }
+        return $links;
     }
 
     /**
-     * Enqueue your scripts and/or styles with wp_enqueue_script / wp_enqueue_style
-     * @return
+     * Add a link to user's meta
      */
-    public function enqueueAssets()
+    public function addLink()
     {
+        // Do not contiue if user is not logged in
+        if (!is_user_logged_in()) {
+            if (defined('DOING_AJAX') && DOING_AJAX) {
+                echo 'Nope: 1';
+                wp_die();
+            }
+            return;
+        }
 
+        // Stop if any field is not set
+        if (!isset($_POST['title']) || empty($_POST['title']) || !isset($_POST['url']) || empty($_POST['url'])) {
+            if (defined('DOING_AJAX') && DOING_AJAX) {
+                echo 'Nope: 2';
+                wp_die();
+            }
+            return;
+        }
+
+        $userId = get_current_user_id();
+        $links = get_user_meta($userId, 'user_links', true);
+
+        if (empty($links)) {
+            $links = array();
+        }
+
+        // Check if duplicate url
+        $links = array_filter($links, function ($item) {
+            return $item['url'] !== sanitize_text_field($_POST['url']);
+        });
+
+        $links[] = array(
+            'title' => sanitize_text_field($_POST['title']),
+            'url' => sanitize_text_field($_POST['url'])
+        );
+
+        update_user_meta($userId, 'user_links', $links);
+
+        if (defined('DOING_AJAX') && DOING_AJAX) {
+            echo json_encode($links);
+            wp_die();
+        }
+        return $links;
     }
 }

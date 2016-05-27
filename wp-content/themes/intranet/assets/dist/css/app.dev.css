@@ -285,3 +285,36 @@ a.dropdown-open:focus {
       margin: 5px 0;
       height: 1px;
       background-color: #e7e5e1; }
+
+.modularity-mod-intranet-u-links .only-if-editing {
+  display: none; }
+
+.modularity-mod-intranet-u-links [data-user-link-edit] {
+  opacity: .8;
+  font-weight: normal;
+  font-size: .75em; }
+  .modularity-mod-intranet-u-links [data-user-link-edit]:hover, .modularity-mod-intranet-u-links [data-user-link-edit]:focus {
+    opacity: 1; }
+
+.modularity-mod-intranet-u-links button[data-user-link-remove] {
+  padding: 6px 9px 5px 9px;
+  position: relative;
+  top: -2px; }
+
+.modularity-mod-intranet-u-links .is-editing .only-if-editing {
+  display: block; }
+
+.modularity-mod-intranet-u-links .is-editing .links li {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 10px 10px 10px 13px;
+  border-radius: 3px; }
+  .modularity-mod-intranet-u-links .is-editing .links li + li {
+    margin-top: 3px; }
+  .modularity-mod-intranet-u-links .is-editing .links li a {
+    text-decoration: none !important; }
+
+.modularity-mod-intranet-u-links [data-user-link-add] {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  margin: -5px;
+  margin-top: 5px; }
