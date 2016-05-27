@@ -4,9 +4,50 @@ namespace Intranet\CustomPostType;
 
 class News
 {
+    public static $postTypeSlug = 'intranet-news';
+
     public function __construct()
     {
         add_action('init', array($this, 'registerCustomPostType'));
+        add_action('post_submitbox_misc_actions', array($this, 'stickyPostCheckbox'));
+        add_action('save_post', array($this, 'saveStickyPost'));
+    }
+
+    /**
+     * Adds checkbox to misc publishing actions for set post as sticky
+     * @return void
+     */
+    public function stickyPostCheckbox()
+    {
+        global $post;
+
+        if ($post->post_type != self::$postTypeSlug) {
+            return;
+        }
+
+        $checked = checked(true, get_post_meta($post->ID, 'is_sticky', true), false);
+
+        echo '<div class="misc-pub-section">';
+        echo '<label for="intranet_news_is_sticky"><input type="checkbox" name="intranet_news_is_sticky" value="true" id="intranet_news_is_sticky" ' . $checked .'> ' . __('Pin to top', 'municipio-intranet') . '</label>';
+        echo '</div>';
+    }
+
+    /**
+     * Saves the "sticky" setting
+     * @param  integer $postId The post id
+     * @return void
+     */
+    public function saveStickyPost($postId)
+    {
+        if (!isset($_POST['post_type']) || $_POST['post_type'] != self::$postTypeSlug) {
+            return;
+        }
+
+        if (isset($_POST['intranet_news_is_sticky']) && $_POST['intranet_news_is_sticky'] == 'true') {
+            update_post_meta($postId, 'is_sticky', true);
+        } else {
+            delete_post_meta($postId, 'is_sticky');
+        }
     }
 
     /**
@@ -57,7 +98,7 @@ class News
             'supports'             => array('title', 'revisions', 'editor', 'thumbnail')
         );
 
-        register_post_type('intranet-news', $args);
+        register_post_type(self::$postTypeSlug, $args);
     }
 
     /**
@@ -116,17 +157,30 @@ class News
                 $sql .= " UNION ";
             }
 
-            $table = "{$wpdb->prefix}{$site}_posts";
+            $postsTable = "{$wpdb->prefix}{$site}_posts";
+            $postMetaTable = "{$wpdb->prefix}{$site}_postmeta";
             if ($site == 1) {
-                $table = "{$wpdb->prefix}posts";
+                $postsTable = "{$wpdb->prefix}posts";
+                $postMetaTable = "{$wpdb->prefix}postmeta";
             }
 
-            $sql .= "(SELECT '{$site}' AS blog_id, ID AS post_id, post_date FROM $table WHERE post_type = 'intranet-news' AND post_status IN ({$postStatuses}))";
+            $sql .= "(
+                SELECT
+                    '{$site}' AS blog_id,
+                    posts.ID AS post_id,
+                    posts.post_date,
+                    MAX(CASE WHEN postmeta.meta_key = 'is_sticky' THEN postmeta.meta_value ELSE NULL END) AS is_sticky
+                FROM $postsTable posts
+                LEFT JOIN $postMetaTable postmeta ON posts.ID = postmeta.post_id
+                WHERE
+                    posts.post_type = '" . self::$postTypeSlug . "'
+                    AND posts.post_status IN ({$postStatuses})
+                )";
 
             $i++;
         }
 
-        $sql .= " ORDER BY post_date DESC LIMIT $count";
+        $sql .= " ORDER BY is_sticky DESC, post_date DESC LIMIT $count";
         $newsPosts = $wpdb->get_results($sql);
 
         foreach ($newsPosts as $item) {
@@ -149,6 +203,7 @@ class News
             $key = key($news);
 
             $news[$key]->blog_id = $item->blog_id;
+            $news[$key]->is_sticky = $item->is_sticky;
         }
 
         return $news;
