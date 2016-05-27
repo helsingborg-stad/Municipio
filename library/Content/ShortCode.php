@@ -23,10 +23,10 @@ class ShortCode
 
         //Get field with formatting if exits
         if (function_exists('get_field')) {
-            return get_field($key);
+            return (string) get_field($key);
         } else {
             global $post;
-            return get_post_meta($post->ID, $key);
+            return (string) get_post_meta($post->ID, $key);
         }
     }
 }
