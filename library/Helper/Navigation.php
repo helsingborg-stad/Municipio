@@ -217,7 +217,8 @@ class Navigation
                 'link_after' => '',
                 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                 'fallback_cb' => '__return_false',
-                'walker' => new \Municipio\Walker\SidebarMenu()
+                'walker' => new \Municipio\Walker\SidebarMenu(),
+                'child_menu' => true
             ));
         }
 

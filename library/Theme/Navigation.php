@@ -48,6 +48,11 @@ class Navigation
             return $items;
         }
 
+        //Not in child (if inherited from main)
+        if ($args && (isset($args->child_menu) && $args->child_menu == true) && $args->theme_location == "main-menu") {
+            return $items;
+        }
+
         $label = 'Translate';
         if (get_field('google_translate_show_as', 'option') == 'icon') {
             $label = '<span data-tooltip="Translate"><i class="fa fa-globe"></i></span>';
@@ -68,6 +73,11 @@ class Navigation
     public function addSearchMagnifier($items, $args = null)
     {
         if ($args && $args->theme_location != apply_filters('Municipio/main_menu_theme_location', 'main-menu')) {
+            return $items;
+        }
+
+        //Not in child (if inherited from main)
+        if ($args && (isset($args->child_menu) && $args->child_menu == true) && $args->theme_location == "main-menu") {
             return $items;
         }
 
