@@ -11,6 +11,55 @@ class News
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('post_submitbox_misc_actions', array($this, 'stickyPostCheckbox'));
         add_action('save_post', array($this, 'saveStickyPost'));
+
+        add_action('pre_get_posts', array($this, 'stickySorting'));
+        add_filter('posts_orderby', array($this, 'sortStickyPost'), 10, 2);
+    }
+
+    /**
+     * Add sorting on is_sticky
+     * @param  string $orderby Sort query
+     * @param  object $query   WP_Query
+     * @return string          New sort query
+     */
+    public function sortStickyPost($orderby, $query)
+    {
+        if (is_admin() || $query->query_vars['post_type'] != self::$postTypeSlug || !$query->is_main_query()) {
+            return $orderby;
+        }
+
+        global $wpdb;
+        $orderby = "mt3.meta_value DESC, " . $orderby;
+
+        return $orderby;
+    }
+
+    /**
+     * Step one of the sticky sorting
+     * @param  object $query  WP_Query
+     * @return void
+     */
+    public function stickySorting($query)
+    {
+        if (is_admin() || $query->query_vars['post_type'] != self::$postTypeSlug || !$query->is_main_query()) {
+            return;
+        }
+
+        $metaQuery = $query->get('meta_query');
+        $metaQuery[] = array(
+            'relation' => 'OR',
+            array(
+                'key' => 'is_sticky',
+                'value' => 1,
+                'compare' => 'NUMERIC',
+            ),
+            array(
+                'key' => 'is_sticky',
+                'compare' => 'NOT EXISTS'
+            )
+        );
+
+        $query->set('meta_query', $metaQuery);
     }
 
     /**

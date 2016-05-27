@@ -69,7 +69,9 @@ class TargetGroups
             $groups = array();
         }
 
-        $metaQuery = array(
+        $metaQuery = $query->get('meta_query');
+
+        $metaQuery[] = array(
             'relation' => 'OR',
             array(
                 'key' => '_target_groups',
