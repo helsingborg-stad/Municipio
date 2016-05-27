@@ -7,7 +7,7 @@ class General
     public function __construct()
     {
         add_action('admin_init', array($this, 'removeUnusedRoles'));
-        add_action('set_current_user', array($this, 'hideAdminBarForUsersWhoCantCreatePosts'));
+        add_action('set_current_user', array($this, 'hideAdminBarForUsersWhoCantEditPosts'));
     }
 
     public function hideAdminBarForUsersWhoCantEditPosts()
