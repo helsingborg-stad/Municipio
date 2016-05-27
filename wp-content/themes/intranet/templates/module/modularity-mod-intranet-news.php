@@ -49,7 +49,7 @@
             );
         ?>
         <div class="grid-lg-12">
-            <a href="<?php echo get_blog_permalink($item->blog_id, $item->ID); ?>" class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $module->post_type, $args)); ?>">
+            <a href="<?php echo get_blog_permalink($item->blog_id, $item->ID); ?>" class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $module->post_type, $args)); ?> <?php echo $item->is_sticky ? 'is-sticky' : ''; ?>">
                 <?php if ($hasImages) : ?>
                     <div class="box-image-container">
                         <?php if ($thumbnail_image) : ?>
@@ -61,6 +61,7 @@
                 <?php endif; ?>
                 <div class="box-content">
                     <h3 class="text-highlight"><?php echo apply_filters('the_title', $item->post_title); ?></h3>
+                    <time datetime="<?php the_time('Y-m-d H:i:s'); ?>"><?php the_time(get_option('date_format')); ?></time>
                     <p><?php echo isset(get_extended($item->post_content)['main']) ? get_extended($item->post_content)['main'] : ''; ?></p>
                     <p><span class="link-item"><?php _e('Read more', 'modularity'); ?></span></p>
                 </div>
