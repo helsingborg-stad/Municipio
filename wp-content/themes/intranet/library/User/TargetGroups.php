@@ -20,6 +20,26 @@ class TargetGroups
 
         // Limit access to posts based on groups
         add_action('pre_get_posts', array($this, 'doGroupRestriction'));
+
+        // Shortcode
+        add_shortcode('target', array($this, 'shortcodeTarget'));
+    }
+
+    /**
+     * Target parts of content to group with shortcode
+     * @param  array $args     Arguments
+     * @param  string $content The content
+     * @return string          Viewable content
+     */
+    public function shortcodeTarget($args, $content = null)
+    {
+        $groups = isset($args[0]) ? explode(',', $args[0]) : null;
+
+        if (\Intranet\User\TargetGroups::userInGroup($groups)) {
+            return $content;
+        }
+
+        return '';
     }
 
     /**
