@@ -23,6 +23,25 @@ class TargetGroups
 
         // Shortcode
         add_shortcode('target', array($this, 'shortcodeTarget'));
+
+        add_filter('Modularity/Display/Markup', array($this, 'restrictModules'), 10, 2);
+    }
+
+    /**
+     * Restrict access for modules
+     * @param  string $markup Module markup
+     * @param  object $module Module post object
+     * @return string         New markup
+     */
+    public function restrictModules($markup, $module)
+    {
+        $groups = get_post_meta($module->ID, '_target_groups', true);
+
+        if (!self::userInGroup($groups, get_current_user_id())) {
+            return '';
+        }
+
+        return $markup;
     }
 
     /**
