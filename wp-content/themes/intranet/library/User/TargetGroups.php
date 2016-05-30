@@ -21,10 +21,14 @@ class TargetGroups
         // Limit access to posts based on groups
         add_action('pre_get_posts', array($this, 'doGroupRestriction'));
 
+        // Restruct modules
+        add_filter('Modularity/Display/Markup', array($this, 'restrictModules'), 10, 2);
+
         // Shortcode
         add_shortcode('target', array($this, 'shortcodeTarget'));
 
-        add_filter('Modularity/Display/Markup', array($this, 'restrictModules'), 10, 2);
+        // Editor shortcode button
+        add_action('admin_init', array($this, 'initTargetedContentButton'));
     }
 
     /**
@@ -274,5 +278,42 @@ class TargetGroups
         update_site_option('taget-groups-db-version', '1.0.0');
 
         restore_current_blog();
+    }
+
+    public function initTargetedContentButton()
+    {
+        global $pagenow;
+
+        if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+            return;
+        }
+
+        add_action('admin_head', array($this, 'mceButtonHelp'));
+        add_filter('mce_external_plugins', array($this, 'registerMcePlugin'));
+        add_filter('mce_buttons', array($this, 'registerMceButton'));
+    }
+
+    public function registerMcePlugin($plugins)
+    {
+        $plugins['targeted_content'] = get_stylesheet_directory_uri() . '/assets/dist/js/mce-targeted-content.js';
+        return $plugins;
+    }
+
+    public function registerMceButton($buttons)
+    {
+        array_push($buttons, 'targeted_content');
+        return $buttons;
+    }
+
+    public function mceButtonHelp()
+    {
+        $groups = self::getAvailableGroups();
+        echo "<script>var mce_target_content_groups = [";
+
+            foreach ($groups as $group) {
+                echo "{id: {$group->id}, tag: '{$group->tag}'},";
+            }
+
+        echo "]</script>";
     }
 }

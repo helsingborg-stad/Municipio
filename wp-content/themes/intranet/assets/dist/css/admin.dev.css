@@ -71,3 +71,9 @@ th.intranet-settings-wrapper {
 label[for="intranet_news_is_sticky"] input[type="checkbox"] {
   position: relative;
   top: 1px; }
+
+.mce-i-fa-users::before {
+  font-family: 'FontAwesome';
+  content: '\f0c0';
+  position: relative;
+  top: -2px; }
