@@ -38,13 +38,17 @@ gulp.task('sass-dev', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts-dist', function() {
-    return gulp.src([
+            gulp.src([
                 'assets/source/js/**/*.js',
                 '!assets/source/js/admin.js'
             ])
             .pipe(concat('app.js'))
             .pipe(gulp.dest('assets/dist/js'))
             .pipe(rename('app.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('assets/dist/js'));
+
+    return gulp.src('assets/source/mce-js/*.js')
             .pipe(uglify())
             .pipe(gulp.dest('assets/dist/js'));
 });
@@ -62,7 +66,7 @@ gulp.task('scripts-dist-admin', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('assets/source/js/**/*.js', ['scripts-dist', 'scripts-dist-admin']);
+    gulp.watch(['assets/source/js/**/*.js', 'assets/source/mce-js/**/*.js'], ['scripts-dist', 'scripts-dist-admin']);
     gulp.watch('assets/source/sass/**/*.scss', ['sass-dist', 'sass-dev']);
 });
 
