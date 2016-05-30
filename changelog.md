@@ -6,6 +6,10 @@ The changelog aims to describe higher level changes for each version of the intr
 Version 0.1.3 (tbd)
 ===================
 - Adds user links module for users to add their own links to
+- Target user groups with modules
+- Target content to specific user groups
+- Add editor button for targeting post content to specific user groups
+- Alarms/malfunction plugin
 
 Version 0.1.2 (2016-05-27)
 ==========================
