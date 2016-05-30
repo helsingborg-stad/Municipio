@@ -46,6 +46,17 @@ class UserLinks extends \Modularity\Module
 
         add_action('wp_ajax_add_user_link', array($this, 'addLink'));
         add_action('wp_ajax_remove_user_link', array($this, 'removeLink'));
+
+        add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
+    }
+
+    public function restrictAccess($markup, $module)
+    {
+        if (!is_user_logged_in()) {
+            return '';
+        }
+
+        return $markup;
     }
 
     public static function getLinks()
