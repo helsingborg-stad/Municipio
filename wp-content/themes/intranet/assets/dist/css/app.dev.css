@@ -138,6 +138,15 @@
 .btn-edit-profile {
   margin-top: 20px; }
 
+.search-result-item h3 {
+  margin-bottom: 0;
+  padding-bottom: 0; }
+
+.search-result-item .network-title {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 0.1em 0.5em; }
+
 .navbar ul a {
   padding: 7.5px 10px;
   font-size: .9em; }
