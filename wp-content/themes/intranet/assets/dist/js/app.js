@@ -47,7 +47,7 @@ Intranet.Search.Sites = (function ($) {
 
             var keyword = $searchInput.val();
             this.search(keyword, true);
-        }.bind(this))
+        }.bind(this));
     }
 
     /**
@@ -103,11 +103,11 @@ Intranet.Search.Sites = (function ($) {
         }
 
         if (shortname) {
-            $('.network-search-results-items').append('<li class="network-title"><a href="' + domain + path + '">' + shortname + ' <em>' + name +  '</em></a></li>');
+            $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + shortname + ' <em>' + name +  '</em></a></li>');
             return;
         }
 
-        $('.network-search-results-items').append('<li class="network-title"><a href="' + domain + path + '">' + name +  '</a></li>');
+        $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + name +  '</a></li>');
     }
 
     /**
