@@ -112,4 +112,21 @@ class Multisite
 
         return $sites;
     }
+
+    /**
+     * Get a single site
+     * @param  integer $siteId The sites ID
+     * @return array           The site info
+     */
+    public static function getSite($siteId)
+    {
+        $sites = self::getSitesList();
+        $sites = array_filter($sites, function ($item) use ($siteId) {
+            return $item['blog_id'] == $siteId;
+        });
+
+        $sites = array_values($sites);
+
+        return $sites[0];
+    }
 }
