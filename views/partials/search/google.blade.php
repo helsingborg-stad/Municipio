@@ -4,7 +4,7 @@
             <div class="grid-lg-12">
                 {!! get_search_form() !!}
                 <div class="gutter gutter-sm gutter-top">
-                    <strong>{{ $results->searchInformation->formattedTotalResults }}</strong> träffar på <strong>"{{ urldecode(stripslashes($results->queries->request[0]->searchTerms)) }}"</strong> inom Helsingborg.se
+                    <strong>{{ $results->searchInformation->formattedTotalResults }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong> inom Helsingborg.se
                 </div>
             </div>
         </div>

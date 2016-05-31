@@ -21,7 +21,7 @@ class Search extends \Municipio\Controller\BaseController
     {
         global $wp_query;
         $this->data['resultCount'] = $wp_query->found_posts;
-        $this->data['keyword'] = $this->getQuery();
+        $this->data['keyword'] = get_search_query();
     }
 
     /**
@@ -33,16 +33,6 @@ class Search extends \Municipio\Controller\BaseController
         $search = new \Municipio\Search\Google($this->getQuery(), $this->getIndex());
         $this->data['search'] = $search;
         $this->data['results'] = $search->results;
-    }
-
-    /**
-     * Get the search keyword from get param
-     * @return string Query
-     */
-    public function getQuery()
-    {
-        global $s;
-        return $s;
     }
 
     /**

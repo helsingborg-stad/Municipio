@@ -4,7 +4,7 @@
             <div class="grid-lg-12">
                 {!! get_search_form() !!}
                 <div class="gutter gutter-sm gutter-top">
-                    <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ $keyword }}"</strong> inom {{ ucfirst(explode('//', home_url(), 2)[1]) }}
+                    <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong> inom {{ ucfirst(explode('//', home_url(), 2)[1]) }}
                 </div>
             </div>
         </div>
