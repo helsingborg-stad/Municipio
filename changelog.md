@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.1.3 (tbd)
-===================
+Version 0.1.3 (2016-05-31)
+==========================
 - Adds user links module for users to add their own links to
 - Target user groups with modules
 - Target content to specific user groups
