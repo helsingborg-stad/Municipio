@@ -232,6 +232,10 @@ class News
         $sql .= " ORDER BY is_sticky DESC, post_date DESC LIMIT $count";
         $newsPosts = $wpdb->get_results($sql);
 
+        $newsPosts = array_filter($newsPosts, function ($item) {
+            return !is_null($item->post_id);
+        });
+
         foreach ($newsPosts as $item) {
             $table = "{$wpdb->base_prefix}postmeta";
             if ($item->blog_id > 1) {
