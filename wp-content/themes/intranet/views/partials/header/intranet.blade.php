@@ -6,7 +6,7 @@
                     <div class="grid-xs-12">
                         <a href="{{ network_home_url() }}" class="site-title pull-left"><h1 class="no-margin no-padding">Helsingborg stads intranät</h1></a>
 
-                        <form class="search" method="get" action="/">
+                        <form class="search" method="get" action="{{ home_url() }}">
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">
