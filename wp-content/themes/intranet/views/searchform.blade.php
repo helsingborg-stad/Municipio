@@ -17,9 +17,20 @@
 
         @if (is_search())
         <div class="form-group">
-            <label class="checkbox inline-block"><input type="radio" name="level" value="subscriptions" {{ checked('subscriptions', $searchLevel) }}> <?php _e('Subscriptions', 'municipio-intranet'); ?></label>
-            <label class="checkbox inline-block"><input type="radio" name="level" value="all" {{ checked('all', $searchLevel) }}> <?php _e('All sites', 'municipio-intranet'); ?></label>
-            <label class="checkbox inline-block"><input type="radio" name="level" value="current" {{ checked('current', $searchLevel) }}> <?php _e('Current site', 'municipio-intranet'); ?></label>
+            <ul class="segmented-control">
+                <li>
+                    <input id="search-level-subscriptions" type="radio" name="level" value="subscriptions" {{ checked('subscriptions', $searchLevel) }}>
+                    <label for="search-level-subscriptions" class="checkbox inline-block"><?php _e('Subscriptions', 'municipio-intranet'); ?></label>
+                </li>
+                <li>
+                    <input id="search-level-all" type="radio" name="level" value="all" {{ checked('all', $searchLevel) }}>
+                    <label for="search-level-all" class="checkbox inline-block"><?php _e('All sites', 'municipio-intranet'); ?></label>
+                </li>
+                <li>
+                    <input id="search-level-current" type="radio" name="level" value="current" {{ checked('current', $searchLevel) }}>
+                    <label for="search-level-current" class="checkbox inline-block"><?php _e('Current site', 'municipio-intranet'); ?></label>
+                </li>
+            </ul>
         </div>
         @endif
 
