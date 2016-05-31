@@ -2,7 +2,7 @@
     <h4 class="box-title">
         <?php _e('Your links', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
-        <button class="btn btn-plain btn-sm pull-right" data-user-link-edit><i class="fa fa-edit"></i> Edit</button>
+        <button class="btn btn-plain btn-sm pull-right" data-user-link-edit><i class="fa fa-edit"></i> <?php _e('Edit', 'municipio-intranet'); ?></button>
         <?php endif; ?>
     </h4>
     <div class="box-content">
@@ -26,11 +26,11 @@
     <form action="" class="only-if-editing" data-user-link-add>
         <h5><?php _e('Add new link', 'municipio-intranet'); ?></h5>
         <div class="form-group">
-            <label for="user-link-title">Title</label>
+            <label for="user-link-title"><?php _e('Title', 'municipio-intranet'); ?></label>
             <input type="text" name="user-link-title" id="user-link-title">
         </div>
         <div class="form-group">
-            <label for="user-link-url">Url</label>
+            <label for="user-link-url"><?php _e('Url', 'municipio-intranet'); ?></label>
             <input type="text" name="user-link-url" id="user-link-url">
         </div>
         <div class="form-group">
