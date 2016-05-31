@@ -2,13 +2,14 @@
 
 @section('content')
 
-<section class="creamy gutter-vertical gutter-lg clearfix">
+<section class="creamy creamy-border-bottom gutter-vertical gutter-lg clearfix">
     <div class="container">
         <div class="gid">
             <div class="grid-lg-12">
                 {!! get_search_form() !!}
+
                 <div class="gutter gutter-sm gutter-top">
-                    <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong> inom {{ ucfirst(explode('//', home_url(), 2)[1]) }}
+                    <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong>
                 </div>
             </div>
         </div>
