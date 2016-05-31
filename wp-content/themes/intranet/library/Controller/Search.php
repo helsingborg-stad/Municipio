@@ -22,13 +22,6 @@ class Search extends \Municipio\Controller\BaseController
             $this->currentPage = sanitize_text_field($_GET['page']);
         }
 
-        foreach ($searchwp->results_weights as $key => $weight) {
-            $searchwp->results_weights[$key]['blog_id'] = get_current_blog_id();
-        }
-
-        // Store the results from the current site
-        $this->wpSearchResult = array_merge($this->wpSearchResult, $searchwp->results_weights);
-
         // Get results for the other sites
         $this->multisiteSearchWP();
         $this->orderResultsByWeight();
@@ -66,7 +59,29 @@ class Search extends \Municipio\Controller\BaseController
     public function multisiteSearchWP()
     {
         global $searchwp;
-        $sites = \Intranet\Helper\Multisite::getSitesList(false, true);
+        $sites = null;
+
+        $level = 'subscriptions';
+        if (isset($_GET['level']) && !empty($_GET['level'])) {
+            $level = sanitize_text_field($_GET['level']);
+        }
+
+        switch ($level) {
+            case 'current':
+                $sites = array(get_current_blog_id());
+                break;
+
+            case 'subscriptions':
+                $sites = array_merge(
+                    \Intranet\User\Subscription::getSubscriptions(get_current_user_id(), true),
+                    \Intranet\User\Subscription::getForcedSubscriptions(true)
+                );
+                break;
+
+            default:
+                $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
+                break;
+        }
 
         foreach ($sites as $siteId) {
             switch_to_blog($siteId);
@@ -93,6 +108,10 @@ class Search extends \Municipio\Controller\BaseController
         });
     }
 
+    /**
+     * Setup the pagination
+     * @return void
+     */
     public function setupPagination()
     {
         $markup = array();
@@ -111,9 +130,11 @@ class Search extends \Municipio\Controller\BaseController
         $previousPage = null;
         if ($currentPage > 1) {
             $previousPage = $currentPage -1;
+            $prevUrl = \Municipio\Helper\Url::getQueryString();
+            $prevUrl['page'] = $previousPage;
+            $prevUrl = home_url('?' . http_build_query($prevUrl));
 
-            $markup[] = '<li><a class="prev" href="?s=' . get_search_query() .
-                        '&amp;page=' . $previousPage . '">&laquo; ' . __('Previous', 'municipio-intranet') . '</a></li>';
+            $markup[] = '<li><a class="prev" href="' . $prevUrl . '">&laquo; ' . __('Previous', 'municipio-intranet') . '</a></li>';
         }
 
         // How many pages to show in the pager (excluding the current page)
@@ -144,15 +165,20 @@ class Search extends \Municipio\Controller\BaseController
 
             // Output pages
             for ($i = $startingPage; $i <= $endingPage; $i++) {
-                if ($i > $numPages) continue;
+                if ($i > $numPages) {
+                    continue;
+                }
 
                 $current = null;
                 if ($this->currentPage == $i) {
                     $current = 'current';
                 }
 
-                $markup[] = '<li><a class="page ' . $current . '" href="?s=' . get_search_query() .
-                            '&amp;page=' . $i . '">' . $i . '</a></li>';
+                $pageUrl = \Municipio\Helper\Url::getQueryString();
+                $pageUrl['page'] = $i;
+                $pageUrl = home_url('?' . http_build_query($pageUrl));
+
+                $markup[] = '<li><a class="page ' . $current . '" href="' . $pageUrl . '">' . $i . '</a></li>';
             }
         }
 
@@ -160,8 +186,11 @@ class Search extends \Municipio\Controller\BaseController
         $nextPage = null;
         if ($this->currentPage < $numPages) {
             $nextPage = $this->currentPage + 1;
-            $markup[] = '<li><a class="next" href="?s=' . get_search_query() .
-                        '&amp;index=' . $nextPage . '">' . __('Next', 'municipio-intranet') . ' &raquo;</a></li>';
+            $nextUrl = \Municipio\Helper\Url::getQueryString();
+            $nextUrl['page'] = $nextPage;
+            $nextUrl = home_url('?' . http_build_query($nextUrl));
+
+            $markup[] = '<li><a class="next" href="' . $nextUrl . '">' . __('Next', 'municipio-intranet') . ' &raquo;</a></li>';
         }
 
 
