@@ -111,3 +111,16 @@ if (!function_exists('municipio_human_datediff')) {
         return $diff;
     }
 }
+
+if (!function_exists('municipio_get_mime_link_item')) {
+    function municipio_get_mime_link_item($mime)
+    {
+        $mime = explode('/', $mime);
+
+        if (!isset($mime[0])) {
+            return '';
+        }
+
+        return 'link-item link-item-' . $mime[0];
+    }
+}
