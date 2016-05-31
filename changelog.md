@@ -10,6 +10,8 @@ Version 0.1.3 (tbd)
 - Target content to specific user groups
 - Add editor button for targeting post content to specific user groups
 - Alarms/malfunction plugin
+- Adds Search WP with multisite search modifications
+- Adds option to search all, subscribed or current site (subscribed by default)
 
 Version 0.1.2 (2016-05-27)
 ==========================
