@@ -6,6 +6,7 @@ The changelog aims to describe higher level changes for each version of the intr
 Version 0.1.4 (tbd)
 ===================
 - Fixes issue where "intranet news" module showed the "front page" as a news item
+- Added Swedish translation
 
 Version 0.1.3 (2016-05-31)
 ==========================

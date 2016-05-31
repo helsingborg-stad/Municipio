@@ -1,0 +1,390 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Intranet\n"
+"POT-Creation-Date: 2016-05-31 16:36+0200\n"
+"PO-Revision-Date: 2016-05-31 16:12+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: library/Admin/AuthorMetaBox.php:24 library/Theme/General.php:10
+msgid "Page manager"
+msgstr ""
+
+#: library/Admin/NetworkSettings.php:25
+msgid "Intranet settings"
+msgstr ""
+
+#: library/Admin/NetworkSettings.php:38
+msgid "Shortname for this site"
+msgstr ""
+
+#: library/Admin/NetworkSettings.php:58
+msgid "Forced subscription"
+msgstr ""
+
+#: library/Controller/Search.php:137
+msgid "Previous"
+msgstr ""
+
+#: library/Controller/Search.php:193
+msgid "Next"
+msgstr ""
+
+#: library/CustomPostType/News.php:80
+msgid "Pin to top"
+msgstr ""
+
+#: library/CustomPostType/News.php:118
+msgctxt "add new button"
+msgid "Add New"
+msgstr ""
+
+#: library/CustomPostType/News.php:119
+#, php-format
+msgid "Add new %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:120
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:121
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:122
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:123
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:124
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:125
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:126
+#, php-format
+msgid "No %s"
+msgstr ""
+
+#: library/CustomPostType/News.php:127
+#, php-format
+msgid "No %s in trash"
+msgstr ""
+
+#: library/CustomPostType/News.php:141
+msgid "news"
+msgstr ""
+
+#: library/Module/News.php:21 library/Module/News.php:22
+msgid "Intranet news"
+msgstr ""
+
+#: library/Module/News.php:23
+msgid ""
+"Shows news stories from the sites the current user is subscribing to (or "
+"from all if logged out)"
+msgstr ""
+
+#: library/Module/UserLinks.php:21
+msgid "User link"
+msgstr ""
+
+#: library/Module/UserLinks.php:22
+msgid "User links"
+msgstr ""
+
+#: library/Module/UserLinks.php:23
+msgid "Shows a user's link list"
+msgstr ""
+
+#: library/Theme/Enqueue.php:49
+#: templates/module/modularity-mod-intranet-u-links.php:21
+msgid "You have not added any links yet…"
+msgstr ""
+
+#: library/User/Profile.php:11
+msgid "user"
+msgstr ""
+
+#: library/User/Registration.php:33 views/author-edit.blade.php:26
+msgid "First name"
+msgstr ""
+
+#: library/User/Registration.php:37 views/author-edit.blade.php:32
+msgid "Last name"
+msgstr ""
+
+#: library/User/TargetGroups.php:146
+msgid "Restrict to target groups"
+msgstr ""
+
+#: library/User/TargetGroups.php:177 library/User/TargetGroups.php:178
+#: views/author-edit.blade.php:77
+msgid "Target groups"
+msgstr ""
+
+#: templates/admin/target-groups/form.php:3
+msgid "Manage target groups"
+msgstr ""
+
+#: templates/admin/target-groups/form.php:19
+#: templates/admin/target-groups/form.php:24
+#: templates/module/modularity-mod-intranet-u-links.php:37
+msgid "Save"
+msgstr ""
+
+#: templates/admin/target-groups/form.php:34
+msgid "Tags"
+msgstr ""
+
+#: templates/admin/target-groups/form.php:49
+msgid "Add tag"
+msgstr ""
+
+#: templates/module/modularity-mod-intranet-news.php:66
+msgid "Read more"
+msgstr ""
+
+#: templates/module/modularity-mod-intranet-u-links.php:3
+msgid "Your links"
+msgstr ""
+
+#: templates/module/modularity-mod-intranet-u-links.php:27
+msgid "Add new link"
+msgstr ""
+
+#: views/author-edit.blade.php:11
+msgid "Your settings"
+msgstr ""
+
+#: views/author-edit.blade.php:13
+#, php-format
+msgid "Settings of %s"
+msgstr ""
+
+#: views/author-edit.blade.php:26 views/author-edit.blade.php:32
+#: views/author-edit.blade.php:41
+msgid "Not editable"
+msgstr ""
+
+#: views/author-edit.blade.php:41 views/author.blade.php:58
+msgid "Email"
+msgstr ""
+
+#: views/author-edit.blade.php:50
+msgid "Work title"
+msgstr ""
+
+#: views/author-edit.blade.php:59
+msgid "Administration unit"
+msgstr ""
+
+#: views/author-edit.blade.php:62
+msgid "N/A"
+msgstr ""
+
+#: views/author-edit.blade.php:92
+msgid "Department"
+msgstr ""
+
+#: views/author-edit.blade.php:98 views/author.blade.php:62
+msgid "Phone number"
+msgstr ""
+
+#: views/author-edit.blade.php:107
+msgid "Profile image"
+msgstr ""
+
+#: views/author-edit.blade.php:110
+msgid "Are your sure you want to remove the profile image?"
+msgstr ""
+
+#: views/author-edit.blade.php:110
+msgid "Delete profile image"
+msgstr ""
+
+#: views/author-edit.blade.php:121
+msgid "Drag a photo here"
+msgstr ""
+
+#: views/author-edit.blade.php:123
+msgid "or"
+msgstr ""
+
+#: views/author-edit.blade.php:124
+msgid "Select a photo"
+msgstr ""
+
+#: views/author-edit.blade.php:141
+msgid "About me"
+msgstr ""
+
+#: views/author-edit.blade.php:150
+msgid "Save settings"
+msgstr ""
+
+#: views/author-edit.blade.php:163
+msgid "Edit your settings"
+msgstr ""
+
+#: views/author-edit.blade.php:165
+msgid "This is where you edit your personal settings."
+msgstr ""
+
+#: views/author-edit.blade.php:166
+msgid ""
+"Some of your settings is displayed on your profile to other logged in users."
+msgstr ""
+
+#: views/author.blade.php:33
+msgid "Edit settings"
+msgstr ""
+
+#: views/author.blade.php:46
+msgid "About"
+msgstr ""
+
+#: views/author.blade.php:55
+msgid "Contact information"
+msgstr ""
+
+#: views/author.blade.php:66
+msgid "No phone number given"
+msgstr ""
+
+#: views/author.blade.php:70
+msgid "Office"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:13
+msgid "What are you looking for?"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:29
+#: views/partials/header/intranet.blade.php:34
+msgid "Your profile"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:35
+msgid "Settings"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:36
+msgid "Manage subscriptions"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:38
+msgid "Log out"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:44
+msgid "Log in"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:48
+msgid "Login failed. Please try again."
+msgstr ""
+
+#: views/partials/network-header.blade.php:14
+msgid "Search networks…"
+msgstr ""
+
+#: views/partials/network-header.blade.php:29
+msgid "Networks you are following"
+msgstr ""
+
+#: views/partials/network-header.blade.php:38
+msgid "Show all networks"
+msgstr ""
+
+#: views/partials/network-header.blade.php:47
+msgid "Subscribe"
+msgstr ""
+
+#: views/partials/network-header.blade.php:49
+msgid "Unsubscribe"
+msgstr ""
+
+#: views/partials/user/loginform.blade.php:3
+msgid "Username"
+msgstr ""
+
+#: views/partials/user/loginform.blade.php:7
+msgid "Password"
+msgstr ""
+
+#: views/partials/user/loginform.blade.php:11
+msgid "Login"
+msgstr ""
+
+#: views/search.blade.php:25
+msgid "Found no matching results on your search…"
+msgstr ""
+
+#: views/searchform.blade.php:23
+msgid "Subscriptions"
+msgstr ""
+
+#: views/searchform.blade.php:27
+msgid "All sites"
+msgstr ""
+
+#: views/searchform.blade.php:31
+msgid "Current site"
+msgstr ""
+
+#: views/subscriptions.blade.php:11
+msgid "Manage your subscriptions"
+msgstr ""
+
+#: views/subscriptions.blade.php:13
+#, php-format
+msgid "Manage subscriptions of %s"
+msgstr ""
+
+#: views/subscriptions.blade.php:40
+msgid "Save subscriptions"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Intranet"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "An Intranet theme"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Kristoffer Svanmark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://github.com/helsingborg-stad"
+msgstr ""

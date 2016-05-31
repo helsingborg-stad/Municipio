@@ -8,6 +8,6 @@
         <input type="password" name="pwd" id="login-password">
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="<?php _e('Login'); ?>">
+        <input type="submit" class="btn btn-primary" value="<?php _e('Login', 'municipio-intranet'); ?>">
     </div>
 </form>

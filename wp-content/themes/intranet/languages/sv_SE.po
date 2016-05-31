@@ -1,0 +1,394 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Intranet\n"
+"POT-Creation-Date: 2016-05-31 16:37+0200\n"
+"PO-Revision-Date: 2016-05-31 16:37+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: library/Admin/AuthorMetaBox.php:24 library/Theme/General.php:10
+msgid "Page manager"
+msgstr "Sidansvarig"
+
+#: library/Admin/NetworkSettings.php:25
+msgid "Intranet settings"
+msgstr "Intranätsinställningar"
+
+#: library/Admin/NetworkSettings.php:38
+msgid "Shortname for this site"
+msgstr "Kortnamn för siten"
+
+#: library/Admin/NetworkSettings.php:58
+msgid "Forced subscription"
+msgstr "Tvinga prenumeration"
+
+#: library/Controller/Search.php:137
+msgid "Previous"
+msgstr "Föregående"
+
+#: library/Controller/Search.php:193
+msgid "Next"
+msgstr "Nästa"
+
+#: library/CustomPostType/News.php:80
+msgid "Pin to top"
+msgstr "Klistra till toppen"
+
+#: library/CustomPostType/News.php:118
+msgctxt "add new button"
+msgid "Add New"
+msgstr "Skapa ny"
+
+#: library/CustomPostType/News.php:119
+#, php-format
+msgid "Add new %s"
+msgstr "Skapa ny %s"
+
+#: library/CustomPostType/News.php:120
+#, php-format
+msgid "New %s"
+msgstr "Ny %s"
+
+#: library/CustomPostType/News.php:121
+#, php-format
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#: library/CustomPostType/News.php:122
+#, php-format
+msgid "View %s"
+msgstr "Visa %s"
+
+#: library/CustomPostType/News.php:123
+#, php-format
+msgid "All %s"
+msgstr "Alla %s"
+
+#: library/CustomPostType/News.php:124
+#, php-format
+msgid "Search %s"
+msgstr "Sök %s"
+
+#: library/CustomPostType/News.php:125
+#, php-format
+msgid "Parent %s"
+msgstr "Förälder %s"
+
+#: library/CustomPostType/News.php:126
+#, php-format
+msgid "No %s"
+msgstr "Inga %s"
+
+#: library/CustomPostType/News.php:127
+#, php-format
+msgid "No %s in trash"
+msgstr "Inga %s i papperskorgen"
+
+#: library/CustomPostType/News.php:141
+msgid "news"
+msgstr "nyheter"
+
+#: library/Module/News.php:21 library/Module/News.php:22
+msgid "Intranet news"
+msgstr "Intranätsnyheter"
+
+#: library/Module/News.php:23
+msgid ""
+"Shows news stories from the sites the current user is subscribing to (or "
+"from all if logged out)"
+msgstr ""
+"Visa nyheter från sidorna som den inloggade användaren prenumererar på "
+"(eller från alla om man är utloggad)."
+
+#: library/Module/UserLinks.php:21
+msgid "User link"
+msgstr "Användarlänk"
+
+#: library/Module/UserLinks.php:22
+msgid "User links"
+msgstr "Användarlänkar"
+
+#: library/Module/UserLinks.php:23
+msgid "Shows a user's link list"
+msgstr "Visar en användares länklista"
+
+#: library/Theme/Enqueue.php:49
+#: templates/module/modularity-mod-intranet-u-links.php:21
+msgid "You have not added any links yet…"
+msgstr "Du har inte lagt till några länkar än…"
+
+#: library/User/Profile.php:11
+msgid "user"
+msgstr "anvandare"
+
+#: library/User/Registration.php:33 views/author-edit.blade.php:26
+msgid "First name"
+msgstr "Förnamn"
+
+#: library/User/Registration.php:37 views/author-edit.blade.php:32
+msgid "Last name"
+msgstr "Efternamn"
+
+#: library/User/TargetGroups.php:146
+msgid "Restrict to target groups"
+msgstr "Begränsa till målgrupper"
+
+#: library/User/TargetGroups.php:177 library/User/TargetGroups.php:178
+#: views/author-edit.blade.php:77
+msgid "Target groups"
+msgstr "Målgrupper"
+
+#: templates/admin/target-groups/form.php:3
+msgid "Manage target groups"
+msgstr "Administrera målgrupper"
+
+#: templates/admin/target-groups/form.php:19
+#: templates/admin/target-groups/form.php:24
+#: templates/module/modularity-mod-intranet-u-links.php:37
+msgid "Save"
+msgstr "Spara"
+
+#: templates/admin/target-groups/form.php:34
+msgid "Tags"
+msgstr "Taggar"
+
+#: templates/admin/target-groups/form.php:49
+msgid "Add tag"
+msgstr "Lägg till tagg"
+
+#: templates/module/modularity-mod-intranet-news.php:66
+msgid "Read more"
+msgstr "Läs mer"
+
+#: templates/module/modularity-mod-intranet-u-links.php:3
+msgid "Your links"
+msgstr "Dina länkar"
+
+#: templates/module/modularity-mod-intranet-u-links.php:27
+msgid "Add new link"
+msgstr "Lägg till länk"
+
+#: views/author-edit.blade.php:11
+msgid "Your settings"
+msgstr "Dina inställningar"
+
+#: views/author-edit.blade.php:13
+#, php-format
+msgid "Settings of %s"
+msgstr "Inställningar för %s"
+
+#: views/author-edit.blade.php:26 views/author-edit.blade.php:32
+#: views/author-edit.blade.php:41
+msgid "Not editable"
+msgstr "Ej redigerbar"
+
+#: views/author-edit.blade.php:41 views/author.blade.php:58
+msgid "Email"
+msgstr "E-post"
+
+#: views/author-edit.blade.php:50
+msgid "Work title"
+msgstr "Titel"
+
+#: views/author-edit.blade.php:59
+msgid "Administration unit"
+msgstr "Förvaltning"
+
+#: views/author-edit.blade.php:62
+msgid "N/A"
+msgstr "Ej tillgänglig"
+
+#: views/author-edit.blade.php:92
+msgid "Department"
+msgstr "Avdelning"
+
+#: views/author-edit.blade.php:98 views/author.blade.php:62
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: views/author-edit.blade.php:107
+msgid "Profile image"
+msgstr "Profilbild"
+
+#: views/author-edit.blade.php:110
+msgid "Are your sure you want to remove the profile image?"
+msgstr "Är du säker på att du vill ta bort din profilbild?"
+
+#: views/author-edit.blade.php:110
+msgid "Delete profile image"
+msgstr "Ta bort profilbild"
+
+#: views/author-edit.blade.php:121
+msgid "Drag a photo here"
+msgstr "Dra ett bild hit"
+
+#: views/author-edit.blade.php:123
+msgid "or"
+msgstr "eller"
+
+#: views/author-edit.blade.php:124
+msgid "Select a photo"
+msgstr "Välj en bild"
+
+#: views/author-edit.blade.php:141
+msgid "About me"
+msgstr "Om mig"
+
+#: views/author-edit.blade.php:150
+msgid "Save settings"
+msgstr "Spara inställningar"
+
+#: views/author-edit.blade.php:163
+msgid "Edit your settings"
+msgstr "Redigera dina inställningar"
+
+#: views/author-edit.blade.php:165
+msgid "This is where you edit your personal settings."
+msgstr "Här kan du redigera dina personliga inställningar."
+
+#: views/author-edit.blade.php:166
+msgid ""
+"Some of your settings is displayed on your profile to other logged in users."
+msgstr ""
+"Några av dina inställningar visas på din profilsida för andra inloggade "
+"användare."
+
+#: views/author.blade.php:33
+msgid "Edit settings"
+msgstr "Redigera inställningar"
+
+#: views/author.blade.php:46
+msgid "About"
+msgstr "Om"
+
+#: views/author.blade.php:55
+msgid "Contact information"
+msgstr "Kontaktinformation"
+
+#: views/author.blade.php:66
+msgid "No phone number given"
+msgstr "Inget telefonnummer angivet"
+
+#: views/author.blade.php:70
+msgid "Office"
+msgstr "Kontor"
+
+#: views/partials/header/intranet.blade.php:13
+msgid "What are you looking for?"
+msgstr "Vad letar du efter?"
+
+#: views/partials/header/intranet.blade.php:29
+#: views/partials/header/intranet.blade.php:34
+msgid "Your profile"
+msgstr "Din profil"
+
+#: views/partials/header/intranet.blade.php:35
+msgid "Settings"
+msgstr "Inställningar"
+
+#: views/partials/header/intranet.blade.php:36
+msgid "Manage subscriptions"
+msgstr "Administrera prenumerationer"
+
+#: views/partials/header/intranet.blade.php:38
+msgid "Log out"
+msgstr "Logga ut"
+
+#: views/partials/header/intranet.blade.php:44
+msgid "Log in"
+msgstr "Logga in"
+
+#: views/partials/header/intranet.blade.php:48
+msgid "Login failed. Please try again."
+msgstr "Inloggningen misslyckades. Försök igen."
+
+#: views/partials/network-header.blade.php:14
+msgid "Search networks…"
+msgstr "Sök efter nätverk…"
+
+#: views/partials/network-header.blade.php:29
+msgid "Networks you are following"
+msgstr "Nätverk som du prenumererar på"
+
+#: views/partials/network-header.blade.php:38
+msgid "Show all networks"
+msgstr "Visa alla nätverk"
+
+#: views/partials/network-header.blade.php:47
+msgid "Subscribe"
+msgstr "Prenumerera"
+
+#: views/partials/network-header.blade.php:49
+msgid "Unsubscribe"
+msgstr "Sluta prenumerera"
+
+#: views/partials/user/loginform.blade.php:3
+msgid "Username"
+msgstr "Användarnamn"
+
+#: views/partials/user/loginform.blade.php:7
+msgid "Password"
+msgstr "Lösenord"
+
+#: views/partials/user/loginform.blade.php:11
+msgid "Login"
+msgstr "Logga in"
+
+#: views/search.blade.php:25
+msgid "Found no matching results on your search…"
+msgstr "Hittade inga matchande resultat för din sökning…"
+
+#: views/searchform.blade.php:23
+msgid "Subscriptions"
+msgstr "Prenumerationer"
+
+#: views/searchform.blade.php:27
+msgid "All sites"
+msgstr "Alla nätverk"
+
+#: views/searchform.blade.php:31
+msgid "Current site"
+msgstr "Nuvarande intranät"
+
+#: views/subscriptions.blade.php:11
+msgid "Manage your subscriptions"
+msgstr "Administrera dina prenumerationer"
+
+#: views/subscriptions.blade.php:13
+#, php-format
+msgid "Manage subscriptions of %s"
+msgstr "Administrera %s prenumerationer"
+
+#: views/subscriptions.blade.php:40
+msgid "Save subscriptions"
+msgstr "Spara prenumerationer"
+
+#. Theme Name of the plugin/theme
+msgid "Intranet"
+msgstr "Intranät"
+
+#. Description of the plugin/theme
+msgid "An Intranet theme"
+msgstr "Ett intranätstema"
+
+#. Author of the plugin/theme
+msgid "Kristoffer Svanmark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://github.com/helsingborg-stad"
+msgstr ""
