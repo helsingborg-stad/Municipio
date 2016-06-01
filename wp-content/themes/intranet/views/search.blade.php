@@ -59,7 +59,7 @@
                                             @endif
 
                                             <div class="profile-basics">
-                                                <h3><a href="{{ municipio_intranet_get_user_profile_url($item->ID) }}">{{ get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name') }}</a></h3>
+                                                <h3><a href="{{ municipio_intranet_get_user_profile_url($item->ID) }}">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</a></h3>
 
                                                 @if (!empty(get_the_author_meta('user_work_title')))
                                                     <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
