@@ -84,7 +84,7 @@ Intranet.Search.Sites = (function ($) {
                 $('form.network-search button[type="submit"]').html(btnBefore);
             }
         }.bind(this), 'JSON');
-    }
+    };
 
     /**
      * Adds a item to the result list
@@ -106,7 +106,7 @@ Intranet.Search.Sites = (function ($) {
         }
 
         $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + name +  '</a></li>');
-    }
+    };
 
     /**
      * Empties the result list
@@ -114,7 +114,7 @@ Intranet.Search.Sites = (function ($) {
      */
     Sites.prototype.emptyResults = function () {
         $('.network-search-results-items').empty();
-    }
+    };
 
     return new Sites();
 

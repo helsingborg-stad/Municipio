@@ -46,7 +46,9 @@ class Enqueue
 
         wp_register_script('intranet', get_stylesheet_directory_uri(). '/assets/dist/js/app.min.js', '', filemtime(get_stylesheet_directory() . '/assets/dist/js/app.min.js'), true);
         wp_localize_script('intranet', 'municipioIntranet', array(
-            'user_links_is_empty' => __('You have not added any links yet…', 'municipio-intranet')
+            'user_links_is_empty' => __('You have not added any links yet…', 'municipio-intranet'),
+            'subscribe' => __('Subscribe', 'municipio-intranet'),
+            'unsubscribe' => __('Unsubscribe', 'municipio-intranet')
         ));
 
         wp_enqueue_script('intranet');

@@ -26,12 +26,12 @@ Intranet.User.Subscribe = (function ($) {
 
         $.post(ajaxurl, postdata, function (res) {
             if (res == 'subscribed') {
-                buttonElement.html('<i class="fa fa-minus-circle"></i> Unsubscribe');
+                buttonElement.html('<i class="fa fa-minus-circle"></i> ' + municipioIntranet.unsubscribe);
             } else {
-                buttonElement.html('<i class="fa fa-plus-circle"></i> Subscribe');
+                buttonElement.html('<i class="fa fa-plus-circle"></i> '  + municipioIntranet.subscribe);
             }
         });
-    }
+    };
 
     return new Subscribe();
 

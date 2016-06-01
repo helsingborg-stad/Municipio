@@ -86,7 +86,7 @@ Intranet.Search.Sites = (function ($) {
                 $('form.network-search button[type="submit"]').html(btnBefore);
             }
         }.bind(this), 'JSON');
-    }
+    };
 
     /**
      * Adds a item to the result list
@@ -108,7 +108,7 @@ Intranet.Search.Sites = (function ($) {
         }
 
         $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + name +  '</a></li>');
-    }
+    };
 
     /**
      * Empties the result list
@@ -116,7 +116,7 @@ Intranet.Search.Sites = (function ($) {
      */
     Sites.prototype.emptyResults = function () {
         $('.network-search-results-items').empty();
-    }
+    };
 
     return new Sites();
 
@@ -263,12 +263,12 @@ Intranet.User.Subscribe = (function ($) {
 
         $.post(ajaxurl, postdata, function (res) {
             if (res == 'subscribed') {
-                buttonElement.html('<i class="fa fa-minus-circle"></i> Unsubscribe');
+                buttonElement.html('<i class="fa fa-minus-circle"></i> ' + municipioIntranet.unsubscribe);
             } else {
-                buttonElement.html('<i class="fa fa-plus-circle"></i> Subscribe');
+                buttonElement.html('<i class="fa fa-plus-circle"></i> '  + municipioIntranet.subscribe);
             }
         });
-    }
+    };
 
     return new Subscribe();
 
