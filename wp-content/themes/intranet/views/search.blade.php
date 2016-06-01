@@ -90,7 +90,7 @@
                                         @else
                                             <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($item->blog_id, $item->ID), get_post()) }}">{{ apply_filters('Municipio/search_result/title', get_the_title(), get_post()) }}</a></h3>
                                             <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id)) !!}</span>
-                                            <p>{{ apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post()) }}</p>
+                                            <p>{!! apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post()) !!}</p>
                                         @endif
 
                                         <div class="search-result-info">

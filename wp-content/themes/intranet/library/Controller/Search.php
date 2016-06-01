@@ -15,6 +15,8 @@ class Search extends \Municipio\Controller\BaseController
     {
         $this->searchUsers();
         $this->searchWp();
+
+        add_filter('Municipio/search_result/excerpt', array($this, 'highlightTerms'));
     }
 
     public function searchUsers()
@@ -215,5 +217,32 @@ class Search extends \Municipio\Controller\BaseController
         $markup[] = '</ul>';
 
         $this->data['pagination'] = implode('', $markup);
+    }
+
+    /**
+     * Highlight terms
+     * @param  string $originalExcerpt Original excerpt
+     * @return string                  Highlighted excerpt
+     */
+    public function highlightTerms($originalExcerpt)
+    {
+        global $post;
+
+        if (!is_search() || !function_exists('searchwp_term_highlight_get_the_excerpt_global')) {
+            return $originalExcerpt;
+        }
+
+        // prevent recursion
+        remove_filter('get_the_excerpt', array($this, 'highlightTerms'));
+        $excerpt = searchwp_term_highlight_get_the_excerpt_global($post->ID, null, get_search_query());
+        add_filter('get_the_excerpt', array($this, 'highlightTerms'));
+
+        $excerpt = preg_replace('/<span class=\'searchwp-highlight\'>(.*?)<\/span>/', '<mark class="mark-blue">$1</mark>', $excerpt);
+
+        if (empty($excerpt)) {
+            return $originalExcerpt;
+        }
+
+        return $excerpt;
     }
 }
