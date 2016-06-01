@@ -224,11 +224,11 @@ class News
             }
 
             $sql .= "(
-                SELECT
+                SELECT DISTINCT
                     '{$site}' AS blog_id,
                     posts.ID AS post_id,
                     posts.post_date,
-                    MAX(CASE WHEN postmeta.meta_key = 'is_sticky' THEN postmeta.meta_value ELSE NULL END) AS is_sticky
+                    CASE WHEN postmeta.meta_key = 'is_sticky' THEN postmeta.meta_value ELSE NULL END AS is_sticky
                 FROM $postsTable posts
                 LEFT JOIN $postMetaTable postmeta ON posts.ID = postmeta.post_id
                 WHERE
