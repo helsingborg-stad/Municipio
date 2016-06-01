@@ -160,7 +160,16 @@ class News
     {
         if (is_null($site)) {
             // Current site
-            $news = get_posts($args);
+            $postStatuses = array('publish');
+
+            if (is_user_logged_in()) {
+                $postStatuses[] = 'private';
+            }
+
+            $news = get_posts(array(
+                'post_type' => 'intranet-news',
+                'post_status' => $postStatuses
+            ));
         } elseif ($site == 'all') {
             // All sites
             $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
@@ -206,11 +215,12 @@ class News
                 $sql .= " UNION ";
             }
 
-            $postsTable = "{$wpdb->prefix}{$site}_posts";
-            $postMetaTable = "{$wpdb->prefix}{$site}_postmeta";
+            $postsTable = "{$wpdb->base_prefix}{$site}_posts";
+            $postMetaTable = "{$wpdb->base_prefix}{$site}_postmeta";
+
             if ($site == 1) {
-                $postsTable = "{$wpdb->prefix}posts";
-                $postMetaTable = "{$wpdb->prefix}postmeta";
+                $postsTable = "{$wpdb->base_prefix}posts";
+                $postMetaTable = "{$wpdb->base_prefix}postmeta";
             }
 
             $sql .= "(
