@@ -23,11 +23,7 @@
 
                                 @if ($currentUser->ID > 0)
                                     <li>
-                                        @if ( (isset($currentUser->first_name) && !empty($currentUser->first_name)) || (isset($currentUser->last_name) && !empty($currentUser->last_name)) )
-                                            <a href="#" data-dropdown=".login-dropdown">{{ isset($currentUser->first_name) ? $currentUser->first_name : '' }} {{ isset($currentUser->last_name) ? $currentUser->last_name : '' }} <i class="fa fa-caret-down"></i></a>
-                                        @else
-                                            <a href="#" data-dropdown=".login-dropdown"><?php _e('Your profile', 'municipio-intranet'); ?> <i class="fa fa-caret-down"></i></a>
-                                        @endif
+                                        <a href="#" data-dropdown=".login-dropdown">{{ municipio_intranet_get_user_full_name($currentUser->ID) }} <i class="fa fa-caret-down"></i></a>
 
                                         <div class="dropdown login-dropdown">
                                             <ul class="nav">

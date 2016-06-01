@@ -99,7 +99,7 @@ class Profile
     public function setProfileTitle($title, $sep, $seplocation)
     {
         if (is_author()) {
-            $title = get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name');
+            $title = municipio_intranet_get_user_full_name(get_the_author_meta('ID'));
 
             switch ($seplocation) {
                 case 'right':

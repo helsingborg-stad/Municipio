@@ -10,7 +10,7 @@
                     @if ($currentUser->ID === $user->ID)
                     <h1><?php _e('Manage your subscriptions', 'municipio-intranet'); ?></h1>
                     @else
-                    <h1><?php echo sprintf(__('Manage subscriptions of %s', 'municipio-intranet'), $user->first_name . ' ' . $user->last_name) ; ?></h1>
+                    <h1><?php echo sprintf(__('Manage subscriptions of %s', 'municipio-intranet'), municipio_intranet_get_user_full_name($user->ID)) ; ?></h1>
                     @endif
                 </div>
             </div>

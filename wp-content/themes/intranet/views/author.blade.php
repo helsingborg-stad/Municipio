@@ -14,7 +14,7 @@
                     @endif
 
                     <div class="profile-basics">
-                        <h1 class="profile-fullname">{{ get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name') }}</h1>
+                        <h1 class="profile-fullname">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</h1>
 
                         @if (!empty(get_the_author_meta('user_work_title')))
                             <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
