@@ -10,24 +10,6 @@
         padding: 30px 0;
     }
 
-    .profile-header-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: -1;
-
-        background-image: url('http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg');
-        background-size: cover;
-        background-position: center center;
-
-        opacity: .3;
-        filter: blur(10px);
-        transform: scale(1.2);
-
-    }
-
     .profile-image {
         flex: 0 0 auto;
         margin-right: 25px;
@@ -42,15 +24,32 @@
         top: 30px;
         right: 0;
     }
+}
 
-    .profile-fullname {
-        padding: 0;
-    }
+.profile-header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
 
-    .profile-title,
-    .profile-department {
-        display: block;
-    }
+    background-image: url('http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg');
+    background-size: cover;
+    background-position: center center;
+
+    opacity: .3;
+    filter: blur(10px);
+    transform: scale(1.2);
+}
+
+.profile-fullname {
+    padding: 0;
+}
+
+.profile-title,
+.profile-department {
+    display: block;
 }
 
 .profile-image {

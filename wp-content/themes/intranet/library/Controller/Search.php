@@ -13,6 +13,23 @@ class Search extends \Municipio\Controller\BaseController
 
     public function init()
     {
+        $this->searchUsers();
+        $this->searchWp();
+    }
+
+    public function searchUsers()
+    {
+        $keyword = get_search_query();
+        $users = \Intranet\User\General::searchUsers($keyword);
+        $this->results = array_merge($this->results, $users);
+    }
+
+    /**
+     * Search network wide with Search WP plugin
+     * @return void
+     */
+    public function searchWp()
+    {
         global $searchwp;
 
         $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
