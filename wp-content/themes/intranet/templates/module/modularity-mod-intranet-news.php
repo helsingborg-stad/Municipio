@@ -61,7 +61,7 @@
                 <?php endif; ?>
                 <div class="box-content">
                     <h3 class="text-highlight"><?php echo apply_filters('the_title', $item->post_title); ?></h3>
-                    <time datetime="<?php the_time('Y-m-d H:i:s'); ?>"><?php the_time(get_option('date_format')); ?></time>
+                    <time datetime="<?php echo date('Y-m-d H:i:s', strtotime($item->post_date)); ?>"><?php echo date(get_option('date_format'), strtotime($item->post_date)); ?></time>
                     <p><?php echo isset(get_extended($item->post_content)['main']) ? get_extended($item->post_content)['main'] : ''; ?></p>
                     <p><span class="link-item"><?php _e('Read more', 'modularity'); ?></span></p>
                 </div>
