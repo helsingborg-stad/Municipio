@@ -21,6 +21,7 @@ class App
         new \Intranet\User\Profile();
         new \Intranet\User\Subscription();
         new \Intranet\User\TargetGroups();
+        new \Intranet\User\Systems();
 
         // Custom post types
         new \Intranet\CustomPostType\News();
@@ -28,5 +29,6 @@ class App
         // Modularity modules
         new \Intranet\Module\News();
         new \Intranet\Module\UserLinks();
+        new \Intranet\Module\UserSystems();
     }
 }
