@@ -3,26 +3,52 @@
     overflow: hidden;
     border-bottom: 1px solid $creamy-darker;
 
+    @media #{$screen-xs} {
+        font-size: .9em;
+
+        h1 {
+            font-size: 1.5em;
+        }
+    }
+
     .profile-header-content {
         position: relative;
-        display: flex;
         align-items: center;
         padding: 30px 0;
+        text-align: center;
+
+        @media #{$screen-md-up} {
+            display: flex;
+            text-align: left;
+        }
     }
 
     .profile-image {
-        flex: 0 0 auto;
-        margin-right: 25px;
+        display: inline-block;
+        margin-bottom: 10px;
+
+        @media #{$screen-md-up} {
+            flex: 0 0 auto;
+            margin-right: 25px;
+            margin-bottom: 0;
+        }
     }
 
     .profile-basics {
-        flex: 1 0 auto;
+        @media #{$screen-md-up} {
+            flex: 1 0 auto;
+        }
     }
 
     .profile-actions {
-        position: absolute;
-        top: 30px;
-        right: 0;
+        margin-top: 15px;
+
+        @media #{$screen-md-up} {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            margin-top: 0;
+        }
     }
 }
 
