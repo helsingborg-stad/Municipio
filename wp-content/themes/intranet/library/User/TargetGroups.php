@@ -95,7 +95,7 @@ class TargetGroups
         return in_array($group, $userGroups);
     }
 
-        /**
+    /**
      * Do target group restrictions in the pre get posts hook
      * Be aware of that this hook will not fire on get_post, get_blog_post
      * @param  [type] $query [description]
@@ -267,7 +267,7 @@ class TargetGroups
         }
 
         $sql = "CREATE TABLE $tableName (
-            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            id bigint(20) NOT NULL AUTO_INCREMENT,
             tag varchar(55) DEFAULT '' NOT NULL,
             UNIQUE KEY id (id)
         ) $charsetCollation;";
