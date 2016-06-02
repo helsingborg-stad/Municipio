@@ -9,6 +9,7 @@ class IntranetDefaultSettings
         // Blogs
         add_action('wpmu_new_blog', array($this, 'createFrontPage'));
         add_action('wpmu_new_blog', array($this, 'setDefaultSiteSettings'));
+        add_action('wpmu_new_blog', array($this, 'searchWpSettings'));
 
         // Portal
         add_action('admin_init', array($this, 'createSiteListPage'));
@@ -112,6 +113,84 @@ class IntranetDefaultSettings
         ));
 
         restore_current_blog();
+    }
+
+    /**
+     * Adds default search engine to
+     * @param  [type] $blogId [description]
+     * @return [type]         [description]
+     */
+    public function searchWpSettings($blogId)
+    {
+        $defaultSearchWpOptions = array(
+            'engines' => array(
+                'default' => array(
+                    'post' => array(
+                        'enabled' => true,
+                        'weights' => array(
+                            'title' => 20,
+                            'content' => 2,
+                            'slug' => 10,
+                            'tax' => array(
+                                'category' => 5,
+                                'post_tag' => 5
+                            ),
+                            'excerpt' => 6,
+                            'comment' => 1
+                        ),
+                        'options' => array(
+                            'exclude' => '',
+                            'attribute_to' => ''
+                        )
+                    ),
+                    'page' => array(
+                        'enabled' => true,
+                        'weights' => array ('title' => 20,
+                            'content' => 2,
+                            'slug' => 10,
+                            'comment' => 1
+                        ),
+                        'options' => array(
+                            'exclude' => '',
+                            'attribute_to' => ''
+                        )
+                    ),
+                    'intranet-news' => array(
+                        'enabled' => true,
+                        'weights' => array (
+                            'title' => 20,
+                            'content' => 2,
+                            'slug' => 10
+                        ),
+                        'options' => array(
+                            'exclude' => '',
+                            'attribute_to' => ''
+                        )
+                    ),
+                    'attachment' => array(
+                        'enabled' => true,
+                        'weights' => array(
+                            'title' => 20,
+                            'content' => 2,
+                            'slug' => 10,
+                            'excerpt' => 6,
+                            'cf' => array (
+                                'swpp574c370c1655b' => array(
+                                    'metakey' => 'searchwp_content',
+                                    'weight' => 2
+                                )
+                            )
+                        ),
+                        'options' => array(
+                            'exclude' => ''
+                        )
+                    )
+                )
+            ),
+            'activated' => 0
+        );
+
+        update_blog_option($blogId, 'searchwp_settings', $defaultSearchWpOptions);
     }
 }
 
