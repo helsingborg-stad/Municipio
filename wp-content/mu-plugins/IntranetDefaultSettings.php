@@ -11,8 +11,9 @@ class IntranetDefaultSettings
         add_action('wpmu_new_blog', array($this, 'setDefaultSiteSettings'));
         add_action('wpmu_new_blog', array($this, 'searchWpSettings'));
 
-        // Portal
-        add_action('admin_init', array($this, 'createSiteListPage'));
+        // Site list
+        add_action('init', array($this, 'sitesListPageUrlRewrite'));
+        add_filter('template_include', array($this, 'sitesListPageTemplate'), 10);
     }
 
     /**
@@ -76,41 +77,6 @@ class IntranetDefaultSettings
 
         update_blog_option($blogId, 'show_on_front', 'page');
         update_blog_option($blogId, 'page_on_front', $frontPageId);
-
-        restore_current_blog();
-    }
-
-    /**
-     * Creates a page that holds a list of all sites in the network
-     * @return void
-     */
-    public function createSiteListPage()
-    {
-        global $current_site;
-
-        switch_to_blog($current_site->blog_id);
-
-        $pageTitle = 'Network sites';
-        $exists = get_posts(array(
-            's' => $pageTitle,
-            'post_status' => 'publish',
-            'post_type' => 'page'
-        ));
-
-        if ($exists) {
-            restore_current_blog();
-            return;
-        }
-
-        require_once get_template_directory() . '/library/Helper/Template.php';
-        $inserted = wp_insert_post(array(
-            'post_type' => 'page',
-            'post_title' => $pageTitle,
-            'post_status' => 'publish',
-            'meta_input' => array(
-                '_wp_page_template' => \Municipio\Helper\Template::locateTemplate('network-sites-list.blade.php')
-            )
-        ));
 
         restore_current_blog();
     }
@@ -191,6 +157,36 @@ class IntranetDefaultSettings
         );
 
         update_blog_option($blogId, 'searchwp_settings', $defaultSearchWpOptions);
+    }
+
+    /**
+     * Adds site list rewrite rules
+     * @return void
+     */
+    public function sitesListPageUrlRewrite()
+    {
+        add_rewrite_rule('^sites', 'index.php?site_list=all', 'top');
+        add_rewrite_rule('^sites/?([a-zA-Z0-9_-]+)?', 'index.php?site_list=$matches[1]', 'top');
+        add_rewrite_tag('%site_list%', '([^&]+)');
+
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Get the site list template
+     * @param  string $template Original template
+     * @return string           Template to use
+     */
+    public function sitesListPageTemplate($template)
+    {
+        global $wp_query;
+
+        if (!isset($wp_query->query['site_list'])) {
+            return $template;
+        }
+
+        $template = \Municipio\Helper\Template::locateTemplate('sites-list');
+        return $template;
     }
 }
 
