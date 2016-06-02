@@ -3,11 +3,6 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.1.5 (tbd)
-===================
-- Fixes issue where network search did not work for logged out users
-- 
-
 Version 0.1.4 (2016-06-02)
 ==========================
 - Fixes issue where "intranet news" module showed the "front page" as a news item
@@ -17,6 +12,9 @@ Version 0.1.4 (2016-06-02)
 - Adds Swedish keyword stemmer for Search WP
 - Fixes inconsistency with the top search field among different browsers
 - Made the top bar header responsive
+- Fixes issue where network search did not work for logged out users
+- Better listing of sites in network (no post object needed to create the page)
+- General improvements to UI responsiveness
 
 Version 0.1.3 (2016-05-31)
 ==========================
