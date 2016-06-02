@@ -10,7 +10,8 @@
 
 #site-header .search {
   display: block;
-  float: left; }
+  float: left;
+  max-width: 300px; }
   #site-header .search ::-webkit-input-placeholder {
     /* WebKit browsers */
     color: #fff;

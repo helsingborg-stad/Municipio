@@ -15,6 +15,7 @@
     .search {
         display: block;
         float: left;
+        max-width: 300px;
 
         @include input-placeholder(#fff, .5);
 
