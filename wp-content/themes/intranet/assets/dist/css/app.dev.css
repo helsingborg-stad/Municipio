@@ -233,6 +233,9 @@
     font-weight: normal;
     color: #979797;
     letter-spacing: .5px; }
+    @media (max-width: 769px) {
+      .network-title em {
+        letter-spacing: 0; } }
 
 .current-network {
   padding: 0;
@@ -240,13 +243,32 @@
   border: none;
   font-weight: bold;
   font-size: 1.8rem;
-  cursor: pointer; }
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden; }
   @media screen and (min-width: 0) and (max-width: 468px) {
     .current-network {
-      font-size: 1.6rem; } }
-  @media screen and (min-width: 469px) and (max-width: 768px) {
-    .current-network {
-      font-size: 1.5rem; } }
+      font-size: 1.4rem;
+      white-space: nowrap;
+      max-width: 100%;
+      width: 100%;
+      position: relative; }
+      .current-network::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 70px;
+        background: -webkit-linear-gradient(left, rgba(246, 245, 242, 0), #f6f5f2);
+        background: linear-gradient(to right, rgba(246, 245, 242, 0), #f6f5f2); }
+      .current-network::after {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%); } }
   .current-network::after {
     font-family: FontAwesome;
     speak: none;
@@ -264,6 +286,9 @@
     font-weight: 100;
     color: #979797;
     letter-spacing: 1px; }
+    @media (max-width: 769px) {
+      .current-network em {
+        letter-spacing: 0; } }
 
 .network-search {
   display: block;
@@ -315,6 +340,10 @@
   .network-search-results li a:hover {
     background-color: #f6f5f2;
     text-decoration: none; }
+
+@media (max-width: 769px) {
+  .btn-subscribe {
+    margin-top: 10px; } }
 
 .dropdown {
   display: none;

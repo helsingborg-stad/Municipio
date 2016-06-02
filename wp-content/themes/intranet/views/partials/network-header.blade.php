@@ -1,7 +1,7 @@
 <div class="creamy creamy-border-bottom">
     <div class="container">
         <div class="grid gutter gutter-lg gutter-vertical">
-            <div class="grid-md-6">
+            <div class="grid-md-8 text-center-xs text-center-sm">
                 <div class="network">
                     <button class="current-network network-title" data-dropdown=".network-search-dropdown">
                         {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
@@ -40,9 +40,10 @@
                 </div>
             </div>
 
-            <div class="grid-md-6 text-right">
+            @if (is_user_logged_in())
+            <div class="grid-md-4 text-center-xs text-center-sm text-right-md text-right-lg">
                 @if (!is_author() && get_blog_option(get_current_blog_id(), 'intranet_force_subscription') != 'true')
-                <button class="btn btn-primary" data-subscribe="{{ get_current_blog_id() }}">
+                <button class="btn btn-primary btn-subscribe" data-subscribe="{{ get_current_blog_id() }}">
                     @if (!\Intranet\User\Subscription::hasSubscribed(get_current_blog_id()))
                     <i class="fa fa-plus-circle"></i> <?php _e('Subscribe', 'municipio-intranet'); ?>
                     @else
@@ -51,6 +52,7 @@
                 </button>
                 @endif
             </div>
+            @endif
         </div>
     </div>
 </div>
