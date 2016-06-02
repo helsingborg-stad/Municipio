@@ -50,6 +50,12 @@ class UserLinks extends \Modularity\Module
         add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
     }
 
+    /**
+     * Restrict access for the module (only logged in users)
+     * @param  string $markup Markup
+     * @param  object $module Module post object
+     * @return string         Markup
+     */
     public function restrictAccess($markup, $module)
     {
         if (!is_user_logged_in()) {
@@ -59,6 +65,10 @@ class UserLinks extends \Modularity\Module
         return $markup;
     }
 
+    /**
+     * Get a users links
+     * @return array Links
+     */
     public static function getLinks()
     {
         if (!is_user_logged_in()) {
@@ -72,6 +82,10 @@ class UserLinks extends \Modularity\Module
         return $links;
     }
 
+    /**
+     * Removes a link
+     * @return void
+     */
     public function removeLink()
     {
         // Do not contiue if user is not logged in

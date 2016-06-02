@@ -1,6 +1,8 @@
 jQuery(document).ready(function ($) {
 
-
+    /**
+     * TAG MANAGER
+     */
     $('[data-action="tag-manager-add-tag"]').on('click', function (e) {
         e.preventDefault();
 
