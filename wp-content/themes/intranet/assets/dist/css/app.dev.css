@@ -1,4 +1,7 @@
 @charset "UTF-8";
+body.admin-bar {
+  position: static !important; }
+
 #site-header .site-title {
   display: block;
   margin-right: 30px;
@@ -327,19 +330,19 @@
     padding: 11px 20px;
     background-color: #fff; }
 
-.network-search-results ul {
-  padding: 15px 0 10px 0; }
-
-.network-search-results li.title {
-  padding: 0px 20px; }
-
-.network-search-results li a {
-  display: block;
-  color: #000;
-  padding: 5px 20px; }
-  .network-search-results li a:hover {
-    background-color: #f6f5f2;
-    text-decoration: none; }
+.network-search-results {
+  text-align: left; }
+  .network-search-results ul {
+    padding: 15px 0 10px 0; }
+  .network-search-results li.title {
+    padding: 0px 20px; }
+  .network-search-results li a {
+    display: block;
+    color: #000;
+    padding: 5px 20px; }
+    .network-search-results li a:hover {
+      background-color: #f6f5f2;
+      text-decoration: none; }
 
 @media (max-width: 769px) {
   .btn-subscribe {
