@@ -166,6 +166,7 @@ body.admin-bar {
   display: block; }
 
 .profile-image {
+  position: relative;
   vertical-align: top;
   width: 100px;
   height: 100px;
@@ -173,8 +174,9 @@ body.admin-bar {
   background-position: center center;
   border-radius: 3px; }
   .profile-image button.btn {
-    margin-top: 10px;
-    margin-left: 10px; }
+    position: absolute;
+    top: 10px;
+    left: 10px; }
 
 .profile-image-fill-height {
   padding-left: 75%;
@@ -186,6 +188,29 @@ body.admin-bar {
 
 .btn-edit-profile {
   margin-top: 20px; }
+
+@media screen and (max-width: 550px) {
+  .profile-image-upload {
+    width: 100%; }
+    .profile-image-upload .profile-image,
+    .profile-image-upload .image-upload {
+      display: block;
+      margin-left: 0;
+      width: 49%; }
+    .profile-image-upload .profile-image,
+    .profile-image-upload .image-upload {
+      height: auto !important;
+      padding-top: 50%;
+      padding-bottom: 0;
+      float: left; }
+    .profile-image-upload .image-upload {
+      padding-top: calc(50% - 4px);
+      width: 49% !important;
+      float: right; } }
+
+@media (min-width: 0) and (max-width: 468px) {
+  .profile-image-upload .image-upload .fa-2x {
+    font-size: 1.3em; } }
 
 .search-result-item h3 {
   margin-bottom: 0;
