@@ -4,12 +4,17 @@
         display: block;
         margin-right: 30px;
         padding-top: 7px;
+        float: left;
 
         h1 {
             font-size: .9em;
             letter-spacing: .5px;
             color: #fff;
         }
+    }
+
+    nav.subnav {
+        float: right;
     }
 
     .search {
@@ -49,6 +54,35 @@
                     }
                 }
             }
+        }
+    }
+
+    @media #{$screen-below-md} {
+        .site-title {
+            float: none;
+            margin-bottom: 7px;
+            margin-right: 0;
+            text-align: center;
+        }
+
+        .search {
+            float: none;
+            max-width: none;
+        }
+
+        nav.subnav {
+            text-align: center;
+            float: none;
+        }
+
+        ul.nav li {
+            position: static;
+        }
+
+        .login-dropdown {
+            left: 0;
+            right: 0;
+            text-align: left;
         }
     }
 

@@ -2,11 +2,15 @@
 #site-header .site-title {
   display: block;
   margin-right: 30px;
-  padding-top: 7px; }
+  padding-top: 7px;
+  float: left; }
   #site-header .site-title h1 {
     font-size: .9em;
     letter-spacing: .5px;
     color: #fff; }
+
+#site-header nav.subnav {
+  float: right; }
 
 #site-header .search {
   display: block;
@@ -65,6 +69,25 @@
     .theme-purple #site-header .search button.btn {
       background-color: #4b0439;
       color: #fff; }
+
+@media (max-width: 769px) {
+  #site-header .site-title {
+    float: none;
+    margin-bottom: 7px;
+    margin-right: 0;
+    text-align: center; }
+  #site-header .search {
+    float: none;
+    max-width: none; }
+  #site-header nav.subnav {
+    text-align: center;
+    float: none; }
+  #site-header ul.nav li {
+    position: static; }
+  #site-header .login-dropdown {
+    left: 0;
+    right: 0;
+    text-align: left; } }
 
 .profile-header {
   position: relative;
