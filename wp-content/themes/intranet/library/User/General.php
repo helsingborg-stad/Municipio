@@ -11,6 +11,10 @@ class General
 
     public function protectWpAdmin()
     {
+        if (defined('DOING_AJAX') && DOING_AJAX) {
+            return;
+        }
+
         if (!current_user_can('edit_posts')) {
             wp_redirect(home_url());
         }
