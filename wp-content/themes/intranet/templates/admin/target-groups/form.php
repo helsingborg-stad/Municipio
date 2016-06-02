@@ -50,7 +50,7 @@
                         <div class="inside">
                             <p>
                                 <input type="text" placeholder="Tag name…" data-tag-input>
-                                <button class="button button-primary" data-action="tag-manager-add-tag">Add</button>
+                                <button class="button button-primary" data-action="tag-manager-add-tag"><?php _e('Add', 'municipio-intranet'); ?></button>
                             </p>
                         </div>
                     </div>
