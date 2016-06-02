@@ -3,6 +3,10 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.1.5 (tdb)
+===================
+- Adds backend (admin) settings for "my systems" link list
+
 Version 0.1.4 (2016-06-02)
 ==========================
 - Fixes issue where "intranet news" module showed the "front page" as a news item
