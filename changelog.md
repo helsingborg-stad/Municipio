@@ -7,6 +7,9 @@ Version 0.1.4 (tbd)
 ===================
 - Fixes issue where "intranet news" module showed the "front page" as a news item
 - Added Swedish translation
+- Label that shows which network a news item is fetched from
+- User search
+- Adds Swedish keyword stemmer for Search WP
 
 Version 0.1.3 (2016-05-31)
 ==========================
