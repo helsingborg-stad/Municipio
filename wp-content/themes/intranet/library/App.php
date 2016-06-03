@@ -21,6 +21,7 @@ class App
         new \Intranet\User\Profile();
         new \Intranet\User\Subscription();
         new \Intranet\User\TargetGroups();
+        new \Intranet\User\AdministrationUnits();
         new \Intranet\User\Systems();
 
         // Custom post types
