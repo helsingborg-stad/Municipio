@@ -10,7 +10,7 @@
         <ul class="links">
             <?php foreach (\Intranet\Module\UserLinks::getLinks() as $link) : ?>
             <li>
-                <a href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a>
+                <a class="link-item link-item-light" href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a>
                 <?php if (is_user_logged_in()) : ?>
                 <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="<?php echo $link['url']; ?>">&times;</button>
                 <?php endif; ?>

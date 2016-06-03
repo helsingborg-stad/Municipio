@@ -201,7 +201,7 @@ Intranet.User.Links = (function ($) {
 
         $list.append('\
             <li>\
-                <a href="' + link.url + '">' + link.title + '</a>\
+                <a class="link-item link-item-light" href="' + link.url + '">' + link.title + '</a>\
                 <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="' + link.url + '">&times;</button>\
             </li>\
         ');
