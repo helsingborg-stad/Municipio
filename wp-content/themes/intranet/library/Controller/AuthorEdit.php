@@ -20,18 +20,7 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         }
 
         $this->data['user'] = $user;
-        $this->data['administrationUnits'] = apply_filters('MunicipioIntranet/administration_units', array(
-            'Arbetsmarknadsförvaltningen',
-            'Fastighetsförvaltningen',
-            'Kulturförvaltningen',
-            'Miljöförvaltningen',
-            'Skol- och fritidsförvaltningen',
-            'Socialförvaltningen',
-            'Stadsbyggnadsförvaltningen',
-            'Stadsledningsförvaltningen',
-            'Vård- och omsorgsförvaltningen'
-        ));
-
+        $this->data['administrationUnits'] = \Intranet\User\AdministrationUnits::getAdministrationUnits();
         $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups();
     }
 

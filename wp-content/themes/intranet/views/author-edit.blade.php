@@ -63,7 +63,7 @@
                                         </div>
                                         @foreach ($administrationUnits as $unit)
                                         <div class="grid-md-6">
-                                            <label class="checkbox"><input type="radio" name="user_administration_unit" value="{{ $unit }}" {{ checked($unit, get_the_author_meta('user_administration_unit')) }}> {{ $unit }}</label>
+                                            <label class="checkbox"><input type="radio" name="user_administration_unit" value="{{ $unit->name }}" {{ checked($unit->name, get_the_author_meta('user_administration_unit')) }}> {{ $unit->name }}</label>
                                         </div>
                                         @endforeach
                                     </div>
