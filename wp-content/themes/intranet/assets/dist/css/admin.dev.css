@@ -39,7 +39,8 @@ th.intranet-settings-wrapper {
 .tag-manager-actions {
   float: right; }
 
-.tag-manager-delete-tag {
+.tag-manager-delete-tag,
+.municipio-delete {
   color: #C80409; }
 
 .target-group-restrict-checkbox {
