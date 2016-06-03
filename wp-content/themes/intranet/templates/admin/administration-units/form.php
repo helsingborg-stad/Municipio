@@ -37,7 +37,7 @@
                                 <div class="tag-manager-tag">
                                     <?php echo $unit->name; ?>
                                     <div class="tag-manager-actions">
-                                        <a href="#" class="btn-plain tag-manager-delete-tag"><span class="dashicons dashicons-trash"></span></a>
+                                        <button type="submit" class="btn-plain" name="administration-unit-delete" value="<?php echo $unit->id; ?>" onclick="return confirm('<?php _e('Do you want to permanently remove the administration unit?', 'municipio-intranet'); ?>')"><span class="dashicons dashicons-trash"></span></button>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
