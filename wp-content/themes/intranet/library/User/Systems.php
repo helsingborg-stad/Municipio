@@ -34,6 +34,10 @@ class Systems
         );
     }
 
+    /**
+     * Save system options
+     * @return void
+     */
     public function saveSystems()
     {
         if (!isset($_POST['manage-user-systems-action']) || isset($_POST['system-manager-add-system'])) {
@@ -74,6 +78,9 @@ class Systems
         return $systems;
     }
 
+    /**
+     * Adds a system to list of available systems
+     */
     public function addSystem()
     {
         if (!isset($_POST['system-manager-add-system'])) {
