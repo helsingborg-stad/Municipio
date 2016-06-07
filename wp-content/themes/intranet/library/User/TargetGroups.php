@@ -135,9 +135,20 @@ class TargetGroups
      */
     public function addRestrictionMetabox()
     {
+        global $current_screen;
         global $post;
 
-        if (!isset($post->ID)) {
+        $action = $current_screen->action;
+        if (empty($action)) {
+            $action = (isset($_GET['action']) && !empty($_GET['action'])) ? $_GET['action'] : null;
+        }
+
+        $validAction = in_array($action, array(
+            'add',
+            'edit'
+        ));
+
+        if (!$validAction) {
             return;
         }
 
