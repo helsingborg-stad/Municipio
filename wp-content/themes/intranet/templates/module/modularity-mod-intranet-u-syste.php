@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div id="modal-select-systems" class="modal modal-backdrop-2 modal-medium" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-select-systems" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-content">
         <div class="modal-header">
             <a class="btn btn-close" href="#close"></a>
@@ -20,6 +20,34 @@
         </div>
         <div class="modal-body">
             <article>
+                <form action="" method="post">
+                    <p>
+                        <?php _e('Select the systems that you would like to show in your "My systems" area.', 'municipio-intranet'); ?>
+                    </p>
+
+                    <p>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><?php _e('Name', 'municipio-intranet'); ?></th>
+                                    <th><?php _e('Description', 'municipio-intranet'); ?></th>
+                                    <th><?php _e('Url', 'municipio-intranet'); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('selectable', 'forced')) as $system) : ?>
+                                <tr>
+                                    <td class="text-center"><input type="checkbox" name="system-selected[]" value="<?php echo $system->id; ?>"></td>
+                                    <td><?php echo $system->name; ?></td>
+                                    <td><?php echo $system->description; ?></td>
+                                    <td><?php echo $system->url; ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </p>
+                </form>
             </article>
         </div>
         <div class="modal-footer">

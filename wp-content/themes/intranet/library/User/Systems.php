@@ -44,9 +44,9 @@ class Systems
             return;
         }
 
-        update_option('user-systems-options', array(
-            'selectable' => $_POST['selectable'],
-            'forced' => $_POST['forced']
+        update_site_option('user-systems-options', array(
+            'selectable' => isset($_POST['selectable']) ? $_POST['selectable'] : array(),
+            'forced' => isset($_POST['forced']) ? $_POST['forced'] : array()
         ));
 
         return;
@@ -54,25 +54,59 @@ class Systems
 
     /**
      * Get a list of all systems in the database
-     * @return arry Systems
+     * @param  mixed (optional) $unitId        Unit id to get systems for
+     * @return array                           Systems
      */
-    public static function getAvailabelSystems()
+    public static function getAvailabelSystems($unitId = null, $filter = array())
     {
         global $wpdb;
         $systems = $wpdb->get_results("SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " ORDER BY name ASC");
 
-        $systemOptions = get_option('user-systems-options');
-
-        foreach ($systems as $system) {
-            $system->forced = false;
-            if (in_array($system->id, (array)$systemOptions['forced'])) {
-                $system->forced = true;
+        if ($unitId) {
+            switch ($unitId) {
+                case 'user':
+                    $unitId = get_user_meta(get_current_user_id(), 'user_administration_unit', true);
+                    break;
             }
 
-            $system->selectable = false;
-            if (in_array($system->id, (array)$systemOptions['selectable'])) {
-                $system->selectable = true;
+            $systemOptions = get_site_option('user-systems-options');
+
+            foreach ($systems as $system) {
+                $system->forced = false;
+
+                if (isset($systemOptions['forced'][$unitId]) && in_array($system->id, (array)$systemOptions['forced'][$unitId])) {
+                    $system->forced = true;
+                }
+
+                $system->selectable = false;
+                if (isset($systemOptions['selectable'][$unitId]) && in_array($system->id, (array)$systemOptions['selectable'][$unitId])) {
+                    $system->selectable = true;
+                }
             }
+        }
+
+        if (count($filter) === 0) {
+            return $systems;
+        }
+
+        // Filters
+        $allSystems = $systems;
+        $systems = array();
+
+        if (in_array('selectable', $filter)) {
+            $selectable = array_filter($allSystems, function ($item) {
+                return $item->selectable;
+            });
+
+            $systems = array_merge($systems, $selectable);
+        }
+
+        if (in_array('forced', $filter)) {
+            $selectable = array_filter($allSystems, function ($item) {
+                return $item->forced;
+            });
+
+            $systems = array_merge($systems, $selectable);
         }
 
         return $systems;
@@ -107,7 +141,7 @@ class Systems
             $wpdb->base_prefix . self::$tableSuffix,
             array(
                 'name' => $name,
-                'url' => $url,
+                'url' => rtrim($url, '/'),
                 'description' => $description
             ),
             array(
