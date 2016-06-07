@@ -19,7 +19,7 @@
 
                         <nav class="subnav">
                             <ul class="nav nav-horizontal">
-                                <li><a href="#">A-Ö</a></li>
+                                <li><a href="<?php echo network_home_url('table-of-contents'); ?>"><?php _e('Table of contents', 'municipio-intranet'); ?></a></li>
 
                                 @if ($currentUser->ID > 0)
                                     <li>
