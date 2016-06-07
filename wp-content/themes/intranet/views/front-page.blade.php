@@ -11,18 +11,14 @@
 
         <div class="{{ $contentGridSize }} print-grow" id="readspeaker-read">
 
+            @if (is_user_logged_in())
+            <h1 class="gutter gutter-bottom">{{ \Intranet\User\General::greet() }}</h1>
+            @endif
+
             @if (is_active_sidebar('content-area-top'))
                 <div class="grid sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
                 </div>
-            @endif
-
-            @if (have_posts())
-            @while(have_posts())
-                {!! the_post() !!}
-
-                @include('partials.article')
-            @endwhile
             @endif
 
             @if (is_active_sidebar('content-area'))
