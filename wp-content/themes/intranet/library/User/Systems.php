@@ -60,7 +60,9 @@ class Systems
     public static function getAvailabelSystems($unitId = null, $filter = array())
     {
         global $wpdb;
-        $systems = $wpdb->get_results("SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " ORDER BY name ASC");
+        $query = "SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " ORDER BY name ASC";
+
+        $systems = $wpdb->get_results($query);
 
         if ($unitId) {
             switch ($unitId) {
@@ -107,6 +109,13 @@ class Systems
             });
 
             $systems = array_merge($systems, $selectable);
+        }
+
+        if (in_array('only_selected', $filter)) {
+            $selected = (array)get_user_meta(get_current_user_id(), 'user_systems', true);
+            $systems = array_filter($allSystems, function ($item) use ($selected) {
+                return in_array($item->id, $selected);
+            });
         }
 
         return $systems;

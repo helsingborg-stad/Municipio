@@ -31,9 +31,18 @@ class UserSystems extends \Modularity\Module
             return $paths;
         });
 
-        //add_action('wp_ajax_add_user_link', array($this, 'addLink'));
-        //add_action('wp_ajax_remove_user_link', array($this, 'removeLink'));
+        add_action('init', array($this, 'saveUserSystems'));
+    }
 
-        //add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
+    public function saveUserSystems()
+    {
+        if (!isset($_REQUEST['select-systems']) || !wp_verify_nonce($_REQUEST['select-systems'], 'save')) {
+            return;
+        }
+
+        update_user_meta(get_current_user_id(), 'user_systems', isset($_POST['system-selected']) ? $_POST['system-selected'] : null);
+
+        wp_redirect($_SERVER['HTTP_REFERER']);
+        exit;
     }
 }
