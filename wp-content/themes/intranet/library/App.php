@@ -9,6 +9,7 @@ class App
         new \Intranet\Theme\General();
         new \Intranet\Theme\Enqueue();
         new \Intranet\Theme\Header();
+        new \Intranet\Theme\TableOfContents();
 
         // Admin functionality
         new \Intranet\Admin\NetworkSettings();
