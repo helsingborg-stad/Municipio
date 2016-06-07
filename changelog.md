@@ -6,6 +6,9 @@ The changelog aims to describe higher level changes for each version of the intr
 Version 0.1.5 (tdb)
 ===================
 - Adds backend (admin) settings for "my systems" link list
+- Adds frontend user administration for the "my systems" link list
+- Adds table of contents page (/table-of-contents)
+- Adds administration interface for administration units
 
 Version 0.1.4 (2016-06-02)
 ==========================
