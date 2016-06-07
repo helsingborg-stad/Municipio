@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-05-31 16:37+0200\n"
-"PO-Revision-Date: 2016-05-31 16:37+0200\n"
+"POT-Creation-Date: 2016-06-07 15:20+0200\n"
+"PO-Revision-Date: 2016-06-07 15:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -36,11 +36,11 @@ msgstr "Kortnamn för siten"
 msgid "Forced subscription"
 msgstr "Tvinga prenumeration"
 
-#: library/Controller/Search.php:137
+#: library/Controller/Search.php:156
 msgid "Previous"
 msgstr "Föregående"
 
-#: library/Controller/Search.php:193
+#: library/Controller/Search.php:212
 msgid "Next"
 msgstr "Nästa"
 
@@ -126,10 +126,138 @@ msgstr "Användarlänkar"
 msgid "Shows a user's link list"
 msgstr "Visar en användares länklista"
 
+#: library/Module/UserSystems.php:11 library/Module/UserSystems.php:12
+#: library/User/Systems.php:25 library/User/Systems.php:26
+msgid "User systems"
+msgstr "Användarsystem"
+
+#: library/Module/UserSystems.php:13
+msgid "Shows a users's system link list"
+msgstr "Visar en användares lista på system"
+
 #: library/Theme/Enqueue.php:49
 #: templates/module/modularity-mod-intranet-u-links.php:21
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
+
+#: library/Theme/Enqueue.php:50 views/partials/network-header.blade.php:48
+msgid "Subscribe"
+msgstr "Prenumerera"
+
+#: library/Theme/Enqueue.php:51 views/partials/network-header.blade.php:50
+msgid "Unsubscribe"
+msgstr "Sluta prenumerera"
+
+#: library/User/AdministrationUnits.php:21
+#: library/User/AdministrationUnits.php:22
+#: templates/admin/administration-units/form.php:3
+#: templates/admin/administration-units/form.php:34
+msgid "Administration units"
+msgstr "Förvaltningar"
+
+#: library/User/AdministrationUnits.php:72
+msgid "All fields must be filled in to add a new administration unit"
+msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
+
+#: library/User/General.php:74
+#, php-format
+msgid "Hi %s"
+msgstr "Hej %s"
+
+#: library/User/General.php:75
+#, php-format
+msgid "Hello %s"
+msgstr "Hallå där %s"
+
+#: library/User/General.php:76
+#, php-format
+msgid "How is it going %s?"
+msgstr "Hur går det %s?"
+
+#: library/User/General.php:77
+#, php-format
+msgid "Good to see you, %s"
+msgstr "Trevligt att se dig, %s"
+
+#: library/User/General.php:78
+#, php-format
+msgid "Howdy %s"
+msgstr "Tjena %s"
+
+#: library/User/General.php:83
+#, php-format
+msgid "Morning! A good day is on it's way, %s"
+msgstr "God morgon %s, ännu en underbar dag!"
+
+#: library/User/General.php:84
+#, php-format
+msgid "Good morning %s"
+msgstr "God morgon %s"
+
+#: library/User/General.php:85
+#, php-format
+msgid "What a lovely morning, %s"
+msgstr "Vilken härlig morgon %s"
+
+#: library/User/General.php:86
+#, php-format
+msgid "Wakey-wakey, rise and shine %s!"
+msgstr "Rise and shine %s"
+
+#: library/User/General.php:87 library/User/General.php:96
+#, php-format
+msgid "Have a great day %s"
+msgstr "Ha en fin dag %s"
+
+#: library/User/General.php:88
+#, php-format
+msgid "%s you up already?"
+msgstr "Är du redan vaken %s?"
+
+#: library/User/General.php:93
+#, php-format
+msgid "Good afternoon %s"
+msgstr "God eftermiddag %s"
+
+#: library/User/General.php:94
+#, php-format
+msgid "Greetings, %s"
+msgstr "Var hälsad %s"
+
+#: library/User/General.php:95
+#, php-format
+msgid "Keep going strong %s!"
+msgstr "Kör hårt %s"
+
+#: library/User/General.php:101
+#, php-format
+msgid "It's getting late, %s"
+msgstr "Det börjar bli sent nu %s"
+
+#: library/User/General.php:102
+#, php-format
+msgid "Good eavning %s"
+msgstr "God kväll %s"
+
+#: library/User/General.php:107
+#, php-format
+msgid "Good night %s"
+msgstr "God natt %s"
+
+#: library/User/General.php:108
+#, php-format
+msgid "Still going strong, %s?"
+msgstr "Är du fortfarande i farten %s?"
+
+#: library/User/General.php:134
+#, php-format
+msgid "Happy new year %s"
+msgstr "Gott nytt år %s!"
+
+#: library/User/General.php:139
+#, php-format
+msgid "Merry christmas %s"
+msgstr "God jul %s!"
 
 #: library/User/Profile.php:11
 msgid "user"
@@ -143,24 +271,95 @@ msgstr "Förnamn"
 msgid "Last name"
 msgstr "Efternamn"
 
+#: library/User/Systems.php:142
+msgid "All fields must be filled in to add a new system"
+msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
+
 #: library/User/TargetGroups.php:146
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
 #: library/User/TargetGroups.php:177 library/User/TargetGroups.php:178
-#: views/author-edit.blade.php:77
+#: views/author-edit.blade.php:83
 msgid "Target groups"
 msgstr "Målgrupper"
+
+#: templates/admin/administration-units/form.php:19
+#: templates/admin/administration-units/form.php:24
+#: templates/admin/systems/form.php:19 templates/admin/systems/form.php:24
+#: templates/admin/target-groups/form.php:19
+#: templates/admin/target-groups/form.php:24
+#: templates/module/modularity-mod-intranet-u-links.php:37
+#: templates/module/modularity-mod-intranet-u-syste.php:64
+msgid "Save"
+msgstr "Spara"
+
+#: templates/admin/administration-units/form.php:40
+msgid "Do you want to permanently remove the administration unit?"
+msgstr "Vill du ta bort förvaltningen permanent?"
+
+#: templates/admin/administration-units/form.php:48
+msgid "Add administration unit"
+msgstr "Lägg till förvaltning"
+
+#: templates/admin/administration-units/form.php:52
+msgid "Administration unit name"
+msgstr "Förvaltningens namn"
+
+#: templates/admin/administration-units/form.php:56
+#: templates/admin/systems/form.php:87
+#: templates/admin/target-groups/form.php:53
+msgid "Add"
+msgstr "Lägg till"
+
+#: templates/admin/systems/form.php:3
+msgid "Manage user systems"
+msgstr "Administrera användarsystem"
+
+#: templates/admin/systems/form.php:34
+msgid "Available systems"
+msgstr "Tillgängliga system"
+
+#: templates/admin/systems/form.php:44 templates/admin/systems/form.php:75
+#: templates/admin/systems/form.php:100
+#: templates/module/modularity-mod-intranet-u-syste.php:37
+msgid "Name"
+msgstr "Namn"
+
+#: templates/admin/systems/form.php:45 templates/admin/systems/form.php:83
+#: templates/admin/systems/form.php:101
+#: templates/module/modularity-mod-intranet-u-syste.php:38
+msgid "Description"
+msgstr "Beskrivning"
+
+#: templates/admin/systems/form.php:46 templates/admin/systems/form.php:79
+#: templates/admin/systems/form.php:102
+#: templates/module/modularity-mod-intranet-u-links.php:33
+#: templates/module/modularity-mod-intranet-u-syste.php:39
+msgid "Url"
+msgstr "Url"
+
+#: templates/admin/systems/form.php:48 templates/admin/systems/form.php:103
+msgid "Selectable"
+msgstr "Valbar"
+
+#: templates/admin/systems/form.php:49 templates/admin/systems/form.php:104
+#: templates/module/modularity-mod-intranet-u-syste.php:52
+msgid "Forced"
+msgstr "Obligatorisk"
+
+#: templates/admin/systems/form.php:72
+msgid "Add system"
+msgstr "Lägg till system"
+
+#: templates/admin/systems/form.php:94
+#, php-format
+msgid "Available systems for %s"
+msgstr "Tillgängliga system för %s"
 
 #: templates/admin/target-groups/form.php:3
 msgid "Manage target groups"
 msgstr "Administrera målgrupper"
-
-#: templates/admin/target-groups/form.php:19
-#: templates/admin/target-groups/form.php:24
-#: templates/module/modularity-mod-intranet-u-links.php:37
-msgid "Save"
-msgstr "Spara"
 
 #: templates/admin/target-groups/form.php:34
 msgid "Tags"
@@ -170,7 +369,7 @@ msgstr "Taggar"
 msgid "Add tag"
 msgstr "Lägg till tagg"
 
-#: templates/module/modularity-mod-intranet-news.php:66
+#: templates/module/modularity-mod-intranet-news.php:67
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -178,9 +377,35 @@ msgstr "Läs mer"
 msgid "Your links"
 msgstr "Dina länkar"
 
+#: templates/module/modularity-mod-intranet-u-links.php:5
+#: templates/module/modularity-mod-intranet-u-syste.php:5
+msgid "Edit"
+msgstr "Redigera"
+
 #: templates/module/modularity-mod-intranet-u-links.php:27
 msgid "Add new link"
 msgstr "Lägg till länk"
+
+#: templates/module/modularity-mod-intranet-u-links.php:29
+msgid "Title"
+msgstr "Titel"
+
+#: templates/module/modularity-mod-intranet-u-syste.php:3
+msgid "Your systems"
+msgstr "Dina system"
+
+#: templates/module/modularity-mod-intranet-u-syste.php:24
+msgid "Select systems"
+msgstr "Välj system"
+
+#: templates/module/modularity-mod-intranet-u-syste.php:29
+msgid ""
+"Select the systems that you would like to show in your \"My systems\" area."
+msgstr "Välj system som du vill visa i din lista över ”mina system”."
+
+#: templates/module/modularity-mod-intranet-u-syste.php:63
+msgid "Cancel"
+msgstr "Avbryt"
 
 #: views/author-edit.blade.php:11
 msgid "Your settings"
@@ -208,59 +433,59 @@ msgstr "Titel"
 msgid "Administration unit"
 msgstr "Förvaltning"
 
-#: views/author-edit.blade.php:62
+#: views/author-edit.blade.php:64
 msgid "N/A"
 msgstr "Ej tillgänglig"
 
-#: views/author-edit.blade.php:92
+#: views/author-edit.blade.php:98
 msgid "Department"
 msgstr "Avdelning"
 
-#: views/author-edit.blade.php:98 views/author.blade.php:62
+#: views/author-edit.blade.php:104 views/author.blade.php:62
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: views/author-edit.blade.php:107
+#: views/author-edit.blade.php:113
 msgid "Profile image"
 msgstr "Profilbild"
 
-#: views/author-edit.blade.php:110
+#: views/author-edit.blade.php:117
 msgid "Are your sure you want to remove the profile image?"
 msgstr "Är du säker på att du vill ta bort din profilbild?"
 
-#: views/author-edit.blade.php:110
+#: views/author-edit.blade.php:117
 msgid "Delete profile image"
 msgstr "Ta bort profilbild"
 
-#: views/author-edit.blade.php:121
+#: views/author-edit.blade.php:128
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
-#: views/author-edit.blade.php:123
+#: views/author-edit.blade.php:130
 msgid "or"
 msgstr "eller"
 
-#: views/author-edit.blade.php:124
+#: views/author-edit.blade.php:131
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:141
+#: views/author-edit.blade.php:149
 msgid "About me"
 msgstr "Om mig"
 
-#: views/author-edit.blade.php:150
+#: views/author-edit.blade.php:158
 msgid "Save settings"
 msgstr "Spara inställningar"
 
-#: views/author-edit.blade.php:163
+#: views/author-edit.blade.php:171
 msgid "Edit your settings"
 msgstr "Redigera dina inställningar"
 
-#: views/author-edit.blade.php:165
+#: views/author-edit.blade.php:173
 msgid "This is where you edit your personal settings."
 msgstr "Här kan du redigera dina personliga inställningar."
 
-#: views/author-edit.blade.php:166
+#: views/author-edit.blade.php:174
 msgid ""
 "Some of your settings is displayed on your profile to other logged in users."
 msgstr ""
@@ -291,28 +516,31 @@ msgstr "Kontor"
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/header/intranet.blade.php:29
-#: views/partials/header/intranet.blade.php:34
+#: views/partials/header/intranet.blade.php:22
+msgid "Table of contents"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:30
 msgid "Your profile"
 msgstr "Din profil"
 
-#: views/partials/header/intranet.blade.php:35
+#: views/partials/header/intranet.blade.php:31
 msgid "Settings"
 msgstr "Inställningar"
 
-#: views/partials/header/intranet.blade.php:36
+#: views/partials/header/intranet.blade.php:32
 msgid "Manage subscriptions"
 msgstr "Administrera prenumerationer"
 
-#: views/partials/header/intranet.blade.php:38
+#: views/partials/header/intranet.blade.php:34
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:44
+#: views/partials/header/intranet.blade.php:40
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:48
+#: views/partials/header/intranet.blade.php:44
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
@@ -327,14 +555,6 @@ msgstr "Nätverk som du prenumererar på"
 #: views/partials/network-header.blade.php:38
 msgid "Show all networks"
 msgstr "Visa alla nätverk"
-
-#: views/partials/network-header.blade.php:47
-msgid "Subscribe"
-msgstr "Prenumerera"
-
-#: views/partials/network-header.blade.php:49
-msgid "Unsubscribe"
-msgstr "Sluta prenumerera"
 
 #: views/partials/user/loginform.blade.php:3
 msgid "Username"
