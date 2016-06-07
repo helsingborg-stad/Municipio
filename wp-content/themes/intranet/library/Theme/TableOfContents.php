@@ -17,7 +17,7 @@ class TableOfContents
         flush_rewrite_rules();
     }
 
-    public function template()
+    public function template($template)
     {
         global $wp_query;
 
