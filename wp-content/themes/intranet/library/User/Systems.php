@@ -44,12 +44,54 @@ class Systems
             return;
         }
 
+        if (isset($_POST['add-local-url-pattern']) && $_POST['add-local-url-pattern'] == 'true') {
+            $this->savePattern();
+            return;
+        }
+
+        if (isset($_POST['remove-local-url-pattern']) && !empty($_POST['remove-local-url-pattern'])) {
+            $this->removePattern($_POST['remove-local-url-pattern']);
+            return;
+        }
+
         update_site_option('user-systems-options', array(
             'selectable' => isset($_POST['selectable']) ? $_POST['selectable'] : array(),
             'forced' => isset($_POST['forced']) ? $_POST['forced'] : array()
         ));
 
         return;
+    }
+
+    /**
+     * Saves patterns
+     * @return void
+     */
+    public function savePattern()
+    {
+        if (!isset($_POST['local-url-pattern']) || empty($_POST['local-url-pattern'])) {
+            return;
+        }
+
+        $patterns = get_site_option('user_systems_ip_patterns', array());
+        $patterns[] = sanitize_text_field($_POST['local-url-pattern']);
+
+        update_site_option('user_systems_ip_patterns', $patterns);
+    }
+
+    /**
+     * Removes a pattern
+     * @param  string $pattern Pattern
+     * @return void
+     */
+    public function removePattern($pattern)
+    {
+        $patterns = get_site_option('user_systems_ip_patterns', array());
+
+        $patterns = array_filter($patterns, function ($item) use ($pattern) {
+            return $item != stripslashes($pattern);
+        });
+
+        update_site_option('user_systems_ip_patterns', $patterns);
     }
 
     /**
