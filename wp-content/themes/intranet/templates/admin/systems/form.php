@@ -105,6 +105,9 @@
                                 <textarea name="system-description" id="system-description" class="widefat"></textarea>
                             </p>
                             <p>
+                                <label><input type="checkbox" name="system-is-local" value="true"> <?php _e('System is only available from a listed local IP pattern', 'municipio-intranet'); ?></label>
+                            </p>
+                            <p>
                                 <input type="submit" class="button button-primary" name="system-manager-add-system" value="<?php _e('Add', 'municipio-intranet'); ?>">
                             </p>
                         </div>

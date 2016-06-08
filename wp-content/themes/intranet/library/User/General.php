@@ -110,7 +110,7 @@ class General
 
         );
 
-        $greetingKey = 'day';
+        $greetingKey = array('day');
 
         if (date('H:i') >= '00:00' && date('H:i') <= '04:59') {
             $greetingKey = aray('day', 'night');

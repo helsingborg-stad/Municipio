@@ -160,6 +160,20 @@ class Systems
             });
         }
 
+        // Remove local urls/systems if not on a internal ip
+        $ipPatterns = get_site_option('user_systems_ip_patterns', array());
+        $ipPatterns = array_map('stripslashes', $ipPatterns);
+        $ipPatterns = '/' . implode('|', $ipPatterns) . '/';
+        $clientIp = $_SERVER['REMOTE_ADDR'];
+
+        if (preg_match($ipPatterns, $clientIp)) {
+            return $systems;
+        }
+
+        $systems = array_filter($systems, function ($system) {
+            return $system->is_local == 0;
+        });
+
         return $systems;
     }
 
@@ -177,6 +191,7 @@ class Systems
         $name = sanitize_text_field($_POST['system-name']);
         $url = sanitize_text_field($_POST['system-url']);
         $description = sanitize_text_field($_POST['system-description']);
+        $isLocal = isset($_POST['system-is-local']) ? 1 : 0;
 
         if (empty($name) || empty($url) || empty($description)) {
             add_action('admin_notices', function () {
@@ -193,12 +208,14 @@ class Systems
             array(
                 'name' => $name,
                 'url' => rtrim($url, '/'),
-                'description' => $description
+                'description' => $description,
+                'is_local' => $isLocal
             ),
             array(
                 '%s',
                 '%s',
-                '%s'
+                '%s',
+                '%d'
             )
         );
     }
@@ -227,6 +244,7 @@ class Systems
             name varchar(255) DEFAULT '' NOT NULL,
             url varchar(255) DEFAULT '' NOT NULL,
             description longtext DEFAULT NULL,
+            is_local smallint(1) DEFAULT 0,
             UNIQUE KEY id (id)
         ) $charsetCollation;";
 
