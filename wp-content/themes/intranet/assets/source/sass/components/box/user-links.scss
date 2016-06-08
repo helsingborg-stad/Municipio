@@ -1,9 +1,11 @@
-.modularity-mod-intranet-u-links {
+.modularity-mod-intranet-u-links,
+.modularity-mod-intranet-u-syste {
     .only-if-editing {
         display: none;
     }
 
-    [data-user-link-edit] {
+    [data-user-link-edit],
+    [data-user-systems-edit] {
         opacity: .8;
         font-weight: normal;
         font-size: .75em;
