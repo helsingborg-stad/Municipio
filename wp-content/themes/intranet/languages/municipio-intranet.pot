@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-06-07 15:20+0200\n"
+"POT-Creation-Date: 2016-06-09 15:32+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -269,15 +269,15 @@ msgstr ""
 msgid "Last name"
 msgstr ""
 
-#: library/User/Systems.php:142
+#: library/User/Systems.php:199
 msgid "All fields must be filled in to add a new system"
 msgstr ""
 
-#: library/User/TargetGroups.php:146
+#: library/User/TargetGroups.php:157
 msgid "Restrict to target groups"
 msgstr ""
 
-#: library/User/TargetGroups.php:177 library/User/TargetGroups.php:178
+#: library/User/TargetGroups.php:188 library/User/TargetGroups.php:189
 #: views/author-edit.blade.php:83
 msgid "Target groups"
 msgstr ""
@@ -305,7 +305,7 @@ msgid "Administration unit name"
 msgstr ""
 
 #: templates/admin/administration-units/form.php:56
-#: templates/admin/systems/form.php:87
+#: templates/admin/systems/form.php:111
 #: templates/admin/target-groups/form.php:53
 msgid "Add"
 msgstr ""
@@ -314,45 +314,81 @@ msgstr ""
 msgid "Manage user systems"
 msgstr ""
 
+#: templates/admin/systems/form.php:32
+msgid "Local url filtering"
+msgstr ""
+
 #: templates/admin/systems/form.php:34
+msgid ""
+"Only show systems with local url if visitor IP matches the following "
+"patterns."
+msgstr ""
+
+#: templates/admin/systems/form.php:40
+msgid "Do you want to permanently remove the pattern?"
+msgstr ""
+
+#: templates/admin/systems/form.php:51
+msgid ""
+"Example: <i>193\\.180\\.109\\.([0-9]+)$</i> matches all ip addresses "
+"193.180.109.[number]"
+msgstr ""
+
+#: templates/admin/systems/form.php:54
+msgid "Add pattern"
+msgstr ""
+
+#: templates/admin/systems/form.php:63
 msgid "Available systems"
 msgstr ""
 
-#: templates/admin/systems/form.php:44 templates/admin/systems/form.php:75
-#: templates/admin/systems/form.php:100
+#: templates/admin/systems/form.php:66
+msgid ""
+"List of available systems. To enable a system to be selectable inside a "
+"user's \"my system\" list you need to check the \"selectable\" checkbox.\n"
+"                                To force a system into all users \"my "
+"systems\" list you should check the \"forced\" checkbox"
+msgstr ""
+
+#: templates/admin/systems/form.php:73 templates/admin/systems/form.php:96
+#: templates/admin/systems/form.php:124
 #: templates/module/modularity-mod-intranet-u-syste.php:37
 msgid "Name"
 msgstr ""
 
-#: templates/admin/systems/form.php:45 templates/admin/systems/form.php:83
-#: templates/admin/systems/form.php:101
+#: templates/admin/systems/form.php:74 templates/admin/systems/form.php:104
+#: templates/admin/systems/form.php:125
 #: templates/module/modularity-mod-intranet-u-syste.php:38
 msgid "Description"
 msgstr ""
 
-#: templates/admin/systems/form.php:46 templates/admin/systems/form.php:79
-#: templates/admin/systems/form.php:102
+#: templates/admin/systems/form.php:75 templates/admin/systems/form.php:100
+#: templates/admin/systems/form.php:126
 #: templates/module/modularity-mod-intranet-u-links.php:33
 #: templates/module/modularity-mod-intranet-u-syste.php:39
 msgid "Url"
 msgstr ""
 
-#: templates/admin/systems/form.php:48 templates/admin/systems/form.php:103
-msgid "Selectable"
-msgstr ""
-
-#: templates/admin/systems/form.php:49 templates/admin/systems/form.php:104
-#: templates/module/modularity-mod-intranet-u-syste.php:52
-msgid "Forced"
-msgstr ""
-
-#: templates/admin/systems/form.php:72
+#: templates/admin/systems/form.php:93
 msgid "Add system"
 msgstr ""
 
-#: templates/admin/systems/form.php:94
+#: templates/admin/systems/form.php:108
+msgid "System is only available from a listed local IP pattern"
+msgstr ""
+
+#: templates/admin/systems/form.php:118
 #, php-format
 msgid "Available systems for %s"
+msgstr ""
+
+#: templates/admin/systems/form.php:127
+msgid "Selectable"
+msgstr ""
+
+#: templates/admin/systems/form.php:128
+#: templates/module/modularity-mod-intranet-u-syste.php:52
+msgid "Forced"
 msgstr ""
 
 #: templates/admin/target-groups/form.php:3

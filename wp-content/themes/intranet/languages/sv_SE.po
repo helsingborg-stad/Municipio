@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-06-07 15:20+0200\n"
-"PO-Revision-Date: 2016-06-07 15:26+0200\n"
+"POT-Creation-Date: 2016-06-09 15:32+0200\n"
+"PO-Revision-Date: 2016-06-09 15:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -271,15 +271,15 @@ msgstr "Förnamn"
 msgid "Last name"
 msgstr "Efternamn"
 
-#: library/User/Systems.php:142
+#: library/User/Systems.php:199
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
-#: library/User/TargetGroups.php:146
+#: library/User/TargetGroups.php:157
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
-#: library/User/TargetGroups.php:177 library/User/TargetGroups.php:178
+#: library/User/TargetGroups.php:188 library/User/TargetGroups.php:189
 #: views/author-edit.blade.php:83
 msgid "Target groups"
 msgstr "Målgrupper"
@@ -307,7 +307,7 @@ msgid "Administration unit name"
 msgstr "Förvaltningens namn"
 
 #: templates/admin/administration-units/form.php:56
-#: templates/admin/systems/form.php:87
+#: templates/admin/systems/form.php:111
 #: templates/admin/target-groups/form.php:53
 msgid "Add"
 msgstr "Lägg till"
@@ -316,46 +316,87 @@ msgstr "Lägg till"
 msgid "Manage user systems"
 msgstr "Administrera användarsystem"
 
+#: templates/admin/systems/form.php:32
+msgid "Local url filtering"
+msgstr "Filtrera lokala url:er"
+
 #: templates/admin/systems/form.php:34
+msgid ""
+"Only show systems with local url if visitor IP matches the following "
+"patterns."
+msgstr "Visa bara system med lokal url för besökare från matchande IP-adresser"
+
+#: templates/admin/systems/form.php:40
+msgid "Do you want to permanently remove the pattern?"
+msgstr "Vill du ta bort matchningsmönstret?"
+
+#: templates/admin/systems/form.php:51
+msgid ""
+"Example: <i>193\\.180\\.109\\.([0-9]+)$</i> matches all ip addresses "
+"193.180.109.[number]"
+msgstr ""
+"Exempel: <i>193\\.180\\.109\\.([0-9]+)$</i> matchar alla ip adresser med "
+"193.180.109.[number]"
+
+#: templates/admin/systems/form.php:54
+msgid "Add pattern"
+msgstr "Lägg till matchningsmönster"
+
+#: templates/admin/systems/form.php:63
 msgid "Available systems"
 msgstr "Tillgängliga system"
 
-#: templates/admin/systems/form.php:44 templates/admin/systems/form.php:75
-#: templates/admin/systems/form.php:100
+#: templates/admin/systems/form.php:66
+msgid ""
+"List of available systems. To enable a system to be selectable inside a "
+"user's \"my system\" list you need to check the \"selectable\" checkbox.\n"
+"                                To force a system into all users \"my systems"
+"\" list you should check the \"forced\" checkbox"
+msgstr ""
+"Lista med alla tillgängliga system. För att göra ett system valbart i "
+"”Använarsystem”-modulen så klicka i rutan ”valbar”. För att tvinga användare "
+"att lista ett system klicka i rutan ”tvingad”."
+
+#: templates/admin/systems/form.php:73 templates/admin/systems/form.php:96
+#: templates/admin/systems/form.php:124
 #: templates/module/modularity-mod-intranet-u-syste.php:37
 msgid "Name"
 msgstr "Namn"
 
-#: templates/admin/systems/form.php:45 templates/admin/systems/form.php:83
-#: templates/admin/systems/form.php:101
+#: templates/admin/systems/form.php:74 templates/admin/systems/form.php:104
+#: templates/admin/systems/form.php:125
 #: templates/module/modularity-mod-intranet-u-syste.php:38
 msgid "Description"
 msgstr "Beskrivning"
 
-#: templates/admin/systems/form.php:46 templates/admin/systems/form.php:79
-#: templates/admin/systems/form.php:102
+#: templates/admin/systems/form.php:75 templates/admin/systems/form.php:100
+#: templates/admin/systems/form.php:126
 #: templates/module/modularity-mod-intranet-u-links.php:33
 #: templates/module/modularity-mod-intranet-u-syste.php:39
 msgid "Url"
 msgstr "Url"
 
-#: templates/admin/systems/form.php:48 templates/admin/systems/form.php:103
-msgid "Selectable"
-msgstr "Valbar"
-
-#: templates/admin/systems/form.php:49 templates/admin/systems/form.php:104
-#: templates/module/modularity-mod-intranet-u-syste.php:52
-msgid "Forced"
-msgstr "Obligatorisk"
-
-#: templates/admin/systems/form.php:72
+#: templates/admin/systems/form.php:93
 msgid "Add system"
 msgstr "Lägg till system"
 
-#: templates/admin/systems/form.php:94
+#: templates/admin/systems/form.php:108
+msgid "System is only available from a listed local IP pattern"
+msgstr "Systemet är bara tillgängligt från lokal IP-adress"
+
+#: templates/admin/systems/form.php:118
 #, php-format
 msgid "Available systems for %s"
 msgstr "Tillgängliga system för %s"
+
+#: templates/admin/systems/form.php:127
+msgid "Selectable"
+msgstr "Valbar"
+
+#: templates/admin/systems/form.php:128
+#: templates/module/modularity-mod-intranet-u-syste.php:52
+msgid "Forced"
+msgstr "Obligatorisk"
 
 #: templates/admin/target-groups/form.php:3
 msgid "Manage target groups"
@@ -518,7 +559,7 @@ msgstr "Vad letar du efter?"
 
 #: views/partials/header/intranet.blade.php:22
 msgid "Table of contents"
-msgstr ""
+msgstr "Innehållsförteckning"
 
 #: views/partials/header/intranet.blade.php:30
 msgid "Your profile"
