@@ -35,8 +35,16 @@ class Unpublish
             return;
         }
 
+        $offset = get_option('gmt_offset');
+
+        if ($offset > -1) {
+            $offset = '-' . $offset;
+        } else {
+            $offset = '+' . (1 * abs($offset));
+        }
+
         $unpublishDate = $_POST['unpublish-aa'] . '-' . $_POST['unpublish-mm'] . '-' . $_POST['unpublish-jj'] . ' ' . $_POST['unpublish-hh'] . ':' . $_POST['unpublish-mn'] . ':00';
-        $unpublishTime = strtotime($unpublishDate);
+        $unpublishTime = strtotime($offset . ' hours', strtotime($unpublishDate));
 
         $unpubParts = array(
             'aa' => $_POST['unpublish-aa'],
