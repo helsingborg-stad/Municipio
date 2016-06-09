@@ -1,17 +1,18 @@
 Municipio = Municipio || {};
 Municipio.Admin = Municipio.Admin || {};
 
-Municipio.Admin.PublishDate = (function ($) {
+Municipio.Admin.Publish = (function ($) {
 
-    function PublishDate() {
+    function Publish() {
         this.initDatepicker();
     }
 
-    PublishDate.prototype.initDatepicker = function () {
+    Publish.prototype.initDatepicker = function () {
         $('#aa, #mm, #jj').hide();
-        var timestamp_wrap_text = $('.timestamp-wrap').html();
+
+        var timestamp_wrap_text = $('.misc-pub-curtime .timestamp-wrap').html();
         timestamp_wrap_text = timestamp_wrap_text.replace(/(,|@)/g, '');
-        $('.timestamp-wrap').html(timestamp_wrap_text);
+        $('.misc-pub-curtime .timestamp-wrap').html(timestamp_wrap_text);
 
         $('#hh').before('<span class="municipio-admin-datepicker-time dashicons dashicons-clock"></span>')
 
@@ -32,6 +33,6 @@ Municipio.Admin.PublishDate = (function ($) {
         $('#timestamp-datepicker').datepicker('setDate', initialDate);
     };
 
-    return new PublishDate();
+    return new Publish();
 
 })(jQuery);

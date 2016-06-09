@@ -1,0 +1,8 @@
+#unpublish-timestamp {
+    &::before {
+        @include hbg-icon('\f273');
+        font-size: 19px;
+        color: #82878C;
+        margin-right: 4px;
+    }
+}

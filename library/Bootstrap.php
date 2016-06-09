@@ -1,7 +1,5 @@
 <?php
 
-define('MUNICIPIO_PATH', get_template_directory() . '/');
-
 /**
  * Composer autoloader
  */

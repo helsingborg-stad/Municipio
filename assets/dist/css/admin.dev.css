@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .municipio-theme-options-label {
   padding: 5px 12px !important;
   background-color: #f0fbff;
@@ -170,6 +171,28 @@
       text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
       font-weight: bold; }
 
-.municipio-admin-datepicker ~ .timestamp-wrap #hh, .municipio-admin-datepicker ~ .timestamp-wrap #mn {
+.municipio-admin-datepicker ~ .timestamp-wrap #hh, .municipio-admin-datepicker ~ .timestamp-wrap #mn,
+.municipio-admin-datepicker ~ .timestamp-wrap #unpublish-hh, .municipio-admin-datepicker ~ .timestamp-wrap #unpublish-mn {
   font-size: 20px;
   text-align: center; }
+
+#unpublish-hh,
+#unpublish-jj,
+#unpublish-mn {
+  width: 2em;
+  padding: 1px; }
+
+#unpublish-timestamp::before {
+  font-family: FontAwesome;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  content: "";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 19px;
+  color: #82878C;
+  margin-right: 4px; }

@@ -90,8 +90,16 @@
 }
 
 .municipio-admin-datepicker ~ .timestamp-wrap {
-    #hh, #mn {
+    #hh, #mn,
+    #unpublish-hh, #unpublish-mn {
         font-size: 20px;
         text-align: center;
     }
+}
+
+#unpublish-hh,
+#unpublish-jj,
+#unpublish-mn {
+    width: 2em;
+    padding: 1px;
 }
