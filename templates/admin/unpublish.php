@@ -1,4 +1,8 @@
-<?php global $post; $unpubDate = get_post_meta($post->ID, 'unpublish-date', true); $action = get_post_meta($post->ID, 'unpublish-action') ? get_post_meta($post->ID, 'unpublish-action') : 'trash'; ?>
+<?php
+global $post;
+$unpubDate = get_post_meta($post->ID, 'unpublish-date', true);
+$action = get_post_meta($post->ID, 'unpublish-action', true) ? get_post_meta($post->ID, 'unpublish-action', true) : 'trash';
+?>
 <div class="misc-pub-section unpublish-pub-section">
     <span id="unpublish-timestamp">
         <?php _e('Unpublish', 'municipio'); ?>
