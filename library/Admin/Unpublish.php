@@ -8,15 +8,23 @@ class Unpublish
     {
         add_action('post_submitbox_misc_actions', array($this, 'setupUi'));
         add_action('save_post', array($this, 'saveUnpublish'));
-        add_action('unpublish_post', array($this, 'unpublishPost'));
+        add_action('unpublish_post', array($this, 'unpublishPost'), 10, 2);
     }
 
-    public function unpublishPost($postId)
+    public function unpublishPost($postId, $action = 'trash')
     {
-        wp_update_post(array(
-            'ID' => (int)$postId,
-            'post_status' => 'draft'
-        ));
+        switch ($action) {
+            case 'draft':
+                wp_update_post(array(
+                    'ID' => (int)$postId,
+                    'post_status' => 'draft'
+                ));
+                break;
+
+            default:
+                wp_trash_post($postId);
+                break;
+        }
 
         return true;
     }
@@ -31,6 +39,7 @@ class Unpublish
 
         if (!isset($_POST['unpublish-active']) || $_POST['unpublish-active'] != 'true') {
             delete_post_meta($postId, 'unpublish-date');
+            delete_post_meta($postId, 'unpublish-action');
 
             return;
         }
@@ -54,10 +63,14 @@ class Unpublish
             'mn' => $_POST['unpublish-mn']
         );
 
+        $action = isset($_POST['unpublish-action']) && !empty($_POST['unpublish-action']) ? $_POST['unpublish-action'] : 'trash';
+
         update_post_meta($postId, 'unpublish-date', $unpubParts);
+        update_post_meta($postId, 'unpublish-action', $action);
 
         wp_schedule_single_event($unpublishTime, 'unpublish_post', array(
-            'post_id' => $postId
+            'post_id' => $postId,
+            'action' => $action
         ));
     }
 

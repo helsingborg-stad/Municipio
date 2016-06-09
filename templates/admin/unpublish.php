@@ -1,4 +1,4 @@
-<?php global $post; $unpubDate = get_post_meta($post->ID, 'unpublish-date', true); ?>
+<?php global $post; $unpubDate = get_post_meta($post->ID, 'unpublish-date', true); $action = get_post_meta($post->ID, 'unpublish-action') ? get_post_meta($post->ID, 'unpublish-action') : 'trash'; ?>
 <div class="misc-pub-section unpublish-pub-section">
     <span id="unpublish-timestamp">
         <?php _e('Unpublish', 'municipio'); ?>
@@ -8,6 +8,13 @@
     <a href="#edit_unpublish-timestamp" class="edit-unpublish-timestamp hide-if-no-js"><span aria-hidden="true"><?php _e('Edit'); ?></span> <span class="screen-reader-text"><?php _e('Edit unpublish date and time'); ?></span></a>
 
     <fieldset id="unpublish-timestampdiv" style="padding-top: 5px;" class="hide-if-js">
+        <div id="unpublish-action">
+            <input type="radio" name="unpublish-action" value="trash" id="unpublish-action-trash" <?php checked('trash', $action); ?>>
+            <label for="unpublish-action-trash"><?php _e('Trash'); ?></label>
+
+            <input type="radio" name="unpublish-action" value="draft" id="unpublish-action-draft" <?php checked('draft', $action); ?>>
+            <label for="unpublish-action-draft"><?php _e('Draft'); ?></label>
+        </div>
         <div id="unpublish-timestamp-datepicker" class="municipio-admin-datepicker"></div>
         <div class="timestamp-wrap">
             <label>
