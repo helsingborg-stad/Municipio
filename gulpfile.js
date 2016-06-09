@@ -43,7 +43,10 @@ gulp.task('sass-dev', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts-dist', function() {
-    gulp.src('assets/source/js/*.js')
+    gulp.src([
+            'assets/source/js/**/*.js',
+            '!assets/source/js/admin/*.js'
+        ])
         .pipe(concat('packaged.js'))
         .pipe(gulp.dest('assets/dist/js'))
         .pipe(rename('packaged.min.js'))
@@ -55,16 +58,27 @@ gulp.task('scripts-dist', function() {
             .pipe(gulp.dest('assets/dist/js'));
 });
 
+gulp.task('scripts-dist-admin', function() {
+    return gulp.src([
+                'assets/source/js/admin/*.js'
+            ])
+            .pipe(concat('admin.js'))
+            .pipe(gulp.dest('assets/dist/js'))
+            .pipe(rename('admin.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('assets/dist/js'));
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch([
         'assets/source/js/**/*.js',
         'assets/source/mce-js/**/*.js'
-        ], ['scripts-dist']);
+        ], ['scripts-dist', 'scripts-dist-admin']);
     gulp.watch('assets/source/sass/**/*.scss', ['sass-dist', 'sass-dev']);
     //gulp.watch('assets/source/images/**/*', ['imagemin']);
 });
 
 // Default Task
-gulp.task('default', ['sass-dist', 'sass-dev', 'scripts-dist', 'watch']);
+gulp.task('default', ['sass-dist', 'sass-dev', 'scripts-dist', 'scripts-dist-admin', 'watch']);
 

@@ -1,3 +1,5 @@
+var Municipio = {};
+
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: "sv",

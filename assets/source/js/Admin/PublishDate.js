@@ -1,16 +1,3 @@
-var Municipio = {};
-
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: "sv",
-        autoDisplay: false,
-        gaTrack: HbgPrimeArgs.googleTranslate.gaTrack,
-        gaId: HbgPrimeArgs.googleTranslate.gaUA
-    }, "google-translate-element");
-}
-
-var Municipio = {};
-
 Municipio = Municipio || {};
 Municipio.Admin = Municipio.Admin || {};
 

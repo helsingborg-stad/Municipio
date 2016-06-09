@@ -34,6 +34,9 @@ class Enqueue
     {
         wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/admin.min.css'));
         wp_enqueue_style('helsingborg-se-admin');
+
+        wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/js/admin.min.js', '', @filemtime(get_template_directory_uri() . '/assets/dist/js/admin.min.js'), true);
+        wp_enqueue_script('helsingborg-se-admin');
     }
 
     /**

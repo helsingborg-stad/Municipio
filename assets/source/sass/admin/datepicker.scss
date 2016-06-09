@@ -1,0 +1,97 @@
+.municipio-admin-datepicker-time {
+    display: inline-block;
+    font-size: 20px;
+    color: #999;
+    margin-right: 5px;
+    margin-top: 6px;
+}
+
+.municipio-admin-datepicker {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    .ui-datepicker-calendar {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .ui-datepicker {
+        padding: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-bottom: 0;
+    }
+
+    .ui-datepicker-header {
+        padding: 5px;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+        display: block;
+        height: 100%;
+        text-align: center;
+        top: 6px;
+        padding: 0 5px;
+        cursor: pointer;
+        color: #000;
+
+        &:hover {
+            color: #2DC0F0;
+        }
+
+        &::after {
+            font-family: dashicons;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+
+
+    .ui-datepicker-prev {
+        &::after {
+            content: "\f340";
+        }
+    }
+
+    .ui-datepicker-next {
+        &::after {
+            content: "\f344";
+        }
+    }
+
+    .ui-datepicker th {
+        background-color: #F6F6F6;
+        border-bottom: 1px solid #ddd;
+        padding: 5px;
+    }
+
+    .ui-datepicker td {
+        border: 1px solid #ddd;
+    }
+
+    .ui-datepicker td span,
+    .ui-datepicker td a {
+        text-align: center;
+    }
+
+    .ui-datepicker-current-day {
+        background-color: #0085ba;
+
+        a, span {
+            color: #fff;
+            text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+            font-weight: bold;
+        }
+    }
+}
+
+.municipio-admin-datepicker ~ .timestamp-wrap {
+    #hh, #mn {
+        font-size: 20px;
+        text-align: center;
+    }
+}
