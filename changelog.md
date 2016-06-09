@@ -3,17 +3,19 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.0 (tdb)
-===================
+Version 0.2.0 (2016-06-09)
+==========================
 
 **BREAKING UPDATE:** This update will need a new database table structure for the "user system" functionality. To fix the issue remove the currently used table from the database and a new one will be created automatically. Also make sure to run the following sql query to remove old data. ```DELETE FROM intranet_usermeta WHERE meta_key = 'user_systems'```
 
 - Adds backend (admin) settings for "my systems" link list
 - Adds frontend user administration for the "my systems" link list
+- Adds filter for internal user systems (only show internal systems when visiting from specified IP addresses)
 - Adds table of contents page (/table-of-contents)
 - Adds administration interface for administration units
 - Adds file archive module
 - Filter internally only systems from beeing displayed outside specified IP patterns
+- Adds content scheduling plugin
 
 Version 0.1.4 (2016-06-02)
 ==========================
