@@ -31,6 +31,10 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/content-scheduler.git"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/larm.git"
         },
         {
@@ -47,6 +51,7 @@
         "helsingborg-stad/lix-calculator": ">=1.0.1",
         "helsingborg-stad/custom-short-links": ">=1.0.0",
         "helsingborg-stad/Customer-feedback": ">=1.0.0",
+        "helsingborg-stad/content-scheduler": ">=1.0.0",
         "helsingborg-stad/larm": "dev-master",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
