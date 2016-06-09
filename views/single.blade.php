@@ -6,7 +6,7 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        <div class="{{ $contentGridSize }} print-grow">
+        <div class="grid-md-12 grid-lg-9">
             @while(have_posts())
 
                 @if (is_single() && is_active_sidebar('content-area-top'))
