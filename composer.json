@@ -35,6 +35,10 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/modularity-dictionary.git"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/larm.git"
         },
         {
@@ -52,6 +56,7 @@
         "helsingborg-stad/custom-short-links": ">=1.0.0",
         "helsingborg-stad/Customer-feedback": ">=1.0.0",
         "helsingborg-stad/content-scheduler": ">=1.0.0",
+        "helsingborg-stad/modularity-dictionary": ">=1.0.0",
         "helsingborg-stad/larm": "dev-master",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
