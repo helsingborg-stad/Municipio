@@ -9,9 +9,7 @@
 
 # Themes
 /wp-content/themes/*
-!/wp-content/themes/boost-hbg
-/wp-content/themes/boost-hbg/node_modules/
-!/wp-content/themes/boost-hbg/assets/dist/*/*
+!/wp-content/themes/intranet
 
 # Upload
 /wp-content/uploads/*

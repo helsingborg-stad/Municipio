@@ -4,4 +4,4 @@
  * Turn of admin panel for ACF.
  * @var bool
  */
- define('ACF_LITE', true);
+ define('ACF_LITE', false);

@@ -33,7 +33,7 @@ require_once 'config/upload.php';
  * To enable this site as a multisite please rename the config/multisite-example.php file to
  * multisite.php, then go ahead and edit the configurations
  */
-if (file_exists('config/multisite.php')) {
+if (file_exists(__DIR__ . '/config/multisite.php')) {
     require_once 'config/multisite.php';
 }
 
@@ -43,7 +43,7 @@ if (file_exists('config/multisite.php')) {
  * You can create a file called "developer.php" in the config dir and
  * put your dev-stuff and overrides inside.
  */
-if (file_exists('config/developer.php')) {
+if (file_exists(__DIR__ . '/config/developer.php')) {
     require_once 'config/developer.php';
 }
 

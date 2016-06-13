@@ -15,7 +15,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/helsingborg-stad/Bootstrap-Theme.git"
+            "url": "https://github.com/helsingborg-stad/Municipio.git"
         },
         {
             "type": "vcs",
@@ -26,6 +26,18 @@
             "url": "https://github.com/helsingborg-stad/custom-short-links.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/Customer-feedback.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/content-scheduler.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/larm.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         }
@@ -33,17 +45,19 @@
 
     "require": {
         "composer/installers": "~1.0",
-        "johnpbloch/wordpress": "4.5.0",
-        "helsingborg-stad/Modularity": "^1.0.0",
-        "helsingborg-stad/Bootstrap-Theme": ">=1.0.0",
+        "johnpbloch/wordpress": "^4.5.0",
+        "helsingborg-stad/Modularity": "dev-develop",
+        "helsingborg-stad/Municipio": "dev-develop",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
         "helsingborg-stad/custom-short-links": ">=1.0.0",
+        "helsingborg-stad/Customer-feedback": ">=1.0.0",
+        "helsingborg-stad/content-scheduler": ">=1.0.0",
+        "helsingborg-stad/larm": "dev-master",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
-        "wpackagist-plugin/simple-ldap-login": "1.6.0",
-        "wpackagist-plugin/buddypress": "2.5.2"
+        "wpackagist-plugin/simple-ldap-login": "1.6.0"
     },
 
     "extra": {

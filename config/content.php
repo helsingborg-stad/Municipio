@@ -10,7 +10,7 @@ define('WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content');
  * Use municipio as default theme.
  * @var string
  */
- define('WP_DEFAULT_THEME', 'bootstrap-theme');
+ define('WP_DEFAULT_THEME', 'intranet');
 
 /**
  * Limit number of post revisions per post
@@ -31,3 +31,8 @@ define('AUTOSAVE_INTERVAL', 120);
  * @var integer
  */
 define('EMPTY_TRASH_DAYS', 30);
+
+/**
+ * Do not block author pages
+ */
+define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
