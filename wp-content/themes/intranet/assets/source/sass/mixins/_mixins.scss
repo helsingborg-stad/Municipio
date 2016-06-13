@@ -1,0 +1,33 @@
+@mixin hbg-icon($icon: $home, $iconset: #{'FontAwesome'}) {
+    font-family: $iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: $icon;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin center($horizontal: true, $vertical: true) {
+    position: absolute;
+
+    @if ($horizontal and $vertical) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } @else if ($horizontal) {
+        left: 50%;
+        transform: translate(-50%, 0);
+    } @else if ($vertical) {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+}
+
+@mixin gradient($from, $to, $direction: to bottom) {
+    background: linear-gradient($direction,  $from, $to);
+}
+

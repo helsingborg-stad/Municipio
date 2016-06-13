@@ -1,0 +1,142 @@
+<!doctype html>
+<html class="no-js" lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <title>Mce Target Content</title>
+
+    <link rel="stylesheet" href="http://intranat.dev/wp-content/themes/municipio/assets/dist/css/admin.min.css?ver=4.5.2">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 15px 10px;
+        }
+
+        #groups {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        #groups li {
+            display: inline-block;
+            padding: 5px;
+            margin: 0;
+            width: 50%;
+        }
+
+        #groups li label {
+            display: block;
+            background-color: #F5F5F5;
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-top: 1px solid #DDDDDD;
+            padding: 10px;
+        }
+
+        .button {
+            background: #f7f7f7 none repeat scroll 0 0;
+            border-color: #ccc;
+            box-shadow: 0 1px 0 #ccc;
+            color: #555;
+            vertical-align: top;
+
+            border-radius: 3px;
+            border-style: solid;
+            border-width: 1px;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 13px;
+            height: 28px;
+            line-height: 26px;
+            margin: 0;
+            padding: 0 10px 1px;
+            text-decoration: none;
+            white-space: nowrap;
+
+            background: #0085ba none repeat scroll 0 0;
+            border-color: #0073aa #006799 #006799;
+            box-shadow: 0 1px 0 #006799;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        p + p {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Select the groups that should be able to view the content
+    </p>
+
+    <ul id="groups"></ul>
+
+    <footer>
+        <button class="button" data-action="done">Ok</button>
+    </footer>
+
+    <script>
+        var args = top.tinymce.activeEditor.windowManager.getParams();
+        var list = document.getElementById('groups');
+        var btnDone = document.querySelector('[data-action="done"]');
+
+        args.groups.forEach(function (item, index, array) {
+            this.list.innerHTML += '<li><label>\
+                <input type="checkbox" name="group" value="' + item.id + '">\
+                ' + item.tag + '\
+            </label></li>';
+        }, this);
+
+        btnDone.addEventListener('click', function () {
+            var checkboxes = document.getElementsByName('group');
+            var selected = [];
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selected.push(checkboxes[i].value);
+                }
+            }
+
+            if (selected.length === 0) {
+                top.tinymce.activeEditor.windowManager.close();
+                return;
+            }
+
+            args.editor.selection.setContent('[target ' + selected.join(',') + ']' + args.editor.selection.getContent() + '[/target]');
+            top.tinymce.activeEditor.windowManager.close();
+
+            return;
+        });
+    </script>
+</body>
+</html>

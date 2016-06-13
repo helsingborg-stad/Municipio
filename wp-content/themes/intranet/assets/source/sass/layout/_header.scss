@@ -1,0 +1,93 @@
+body.admin-bar {
+    position: static !important;
+}
+
+#site-header {
+
+    .site-title {
+        display: block;
+        margin-right: 30px;
+        padding-top: 7px;
+        float: left;
+
+        h1 {
+            font-size: .9em;
+            letter-spacing: .5px;
+            color: #fff;
+        }
+    }
+
+    nav.subnav {
+        float: right;
+    }
+
+    .search {
+        display: block;
+        float: left;
+        max-width: 300px;
+
+        @include input-placeholder(#fff, .5);
+
+        .form-control {
+            background-color: darken($palette-gray-4, 10%);
+            color: #fff;
+            border: none;
+            box-shadow: none;
+
+            // Color theme styles
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: darken(map-get($color, fourthSafe), 10%);
+                        color: map-get($color, fourthTextColor);
+                    }
+                }
+            }
+        }
+
+        button.btn {
+            background-color: darken($palette-gray-4, 10%);
+            color: #fff;
+            padding-top: 12px;
+
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: darken(map-get($color, fourthSafe), 10%);
+                        color: map-get($color, fourthTextColor);
+                    }
+                }
+            }
+        }
+    }
+
+    @media #{$screen-below-md} {
+        .site-title {
+            float: none;
+            margin-bottom: 7px;
+            margin-right: 0;
+            text-align: center;
+        }
+
+        .search {
+            float: none;
+            max-width: none;
+        }
+
+        nav.subnav {
+            text-align: center;
+            float: none;
+        }
+
+        ul.nav li {
+            position: static;
+        }
+
+        .login-dropdown {
+            left: 0;
+            right: 0;
+            text-align: left;
+        }
+    }
+
+}

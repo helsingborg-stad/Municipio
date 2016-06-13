@@ -1,0 +1,22 @@
+.navbar ul a {
+    padding: 7.5px 10px;
+    font-size: .9em;
+}
+
+.header-intranet nav {
+    li {
+        position: relative;
+    }
+
+    li + li {
+        margin-left: 0;
+    }
+
+    .dropdown-open {
+        position: relative;
+        background-color: #fff;
+        z-index: 9999999;
+        color: $base-font-color;
+    }
+}
+

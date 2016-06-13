@@ -1,0 +1,43 @@
+.search-result-item h3 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.search-result-item .network-title {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 0.1em 0.5em;
+}
+
+
+.search-result-item-user {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    padding: 15px;
+    border: 1px solid $creamy-darker;
+    border-radius: 5px;
+
+    .profile-header-background {
+        opacity: .15;
+    }
+
+    .profile-image {
+        flex: 0 0 auto;
+        margin-right: 25px;
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-basics {
+        flex: 1 0 auto;
+    }
+
+    .profile-title,
+    .profile-department {
+        font-size: .8em;
+    }
+}

@@ -1,0 +1,51 @@
+.modularity-mod-intranet-u-links,
+.modularity-mod-intranet-u-syste {
+    .only-if-editing {
+        display: none;
+    }
+
+    [data-user-link-edit],
+    [data-user-systems-edit] {
+        opacity: .8;
+        font-weight: normal;
+        font-size: .75em;
+
+        &:hover,
+        &:focus {
+            opacity: 1;
+        }
+    }
+
+    button[data-user-link-remove] {
+        padding: 6px 9px 5px 9px;
+        position: relative;
+        top: -2px;
+    }
+
+    .is-editing {
+        .only-if-editing {
+            display: block;
+        }
+
+        .links li {
+            background-color: rgba(#fff, .3);
+            padding: 10px 10px 10px 13px;
+            border-radius: 3px;
+
+            & + li {
+                margin-top: 3px;
+            }
+
+            a {
+                text-decoration: none !important;
+            }
+        }
+    }
+
+    [data-user-link-add] {
+        background-color: rgba(#000, .3);
+        padding: 15px;
+        margin: -5px;
+        margin-top: 5px;
+    }
+}

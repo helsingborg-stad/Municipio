@@ -1,0 +1,114 @@
+/**
+ * Intranet site settings style
+ */
+th.intranet-settings-wrapper {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 0;
+    font-weight: normal;
+
+    .intranet-settings-title {
+        display: block;
+        padding: 10px 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    p {
+        padding: 15px;
+    }
+
+    p + p {
+        border-top: 1px solid #ddd;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .checkbox label {
+        font-weight: normal;
+    }
+}
+
+.edit-visibility {
+    display: none;
+}
+
+#misc-publishing-actions {
+    #post-visibility-select {
+        display: block !important;
+
+        p:last-child {
+            display: none;
+        }
+    }
+}
+
+.tag-manager-tag {
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;
+    padding:10px 15px;
+    margin-top: 5px;
+
+    &:first-child {
+        margin-top: 10px;
+    }
+}
+
+.tag-manager-actions {
+    float: right;
+}
+
+.tag-manager-delete-tag,
+.municipio-delete {
+    color: #C80409;
+}
+
+.target-group-restrict-checkbox {
+    display: inline-block;
+    width: 25%;
+    padding: 5px;
+}
+
+.btn-plain {
+    apperance: none;
+    border: 0;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/*
+#misc-publishing-actions label[for="intranet_news_is_sticky"]::before {
+    -moz-osx-font-smoothing: grayscale;
+    content: "";
+    display: inline-block;
+    font: 400 20px/1 dashicons;
+    left: -1px;
+    padding: 0 5px 0 0;
+    position: relative;
+    text-decoration: none !important;
+    top: -1px;
+    vertical-align: top;
+    color: #82878c;
+}
+*/
+
+label[for="intranet_news_is_sticky"] input[type="checkbox"] {
+    position: relative;
+    top: 1px;
+}
+
+.mce-i-fa-users::before {
+    font-family: 'FontAwesome';
+    content: '\f0c0';
+    position: relative;
+    top: -2px;
+}
+
+.ip-patterns {
+    .tag-manager-tag {
+        padding: 7px 8px;
+    }
+}

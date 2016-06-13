@@ -1,0 +1,125 @@
+.network {
+    position: relative;
+}
+
+.network-title {
+    font-weight: bold;
+
+    em {
+        font-weight: normal;
+        color: $gray;
+        letter-spacing: .5px;
+
+        @media #{$screen-below-md} {
+            letter-spacing: 0;
+        }
+    }
+}
+
+.current-network {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 1.8rem;
+    cursor: pointer;
+    text-align: left;
+    overflow: hidden;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1.4rem;
+        white-space: nowrap;
+        max-width: 100%;
+        width: 100%;
+        position: relative;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 70px;
+            @include gradient(rgba($creamy, 0), rgba($creamy, 1), to right);
+        }
+
+        &::after {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    &::after {
+        @include hbg-icon($icon-caret-down);
+        font-size: .7em;
+        margin-left: 10px;
+    }
+
+    em {
+        font-weight: 100;
+        color: $gray;
+        letter-spacing: 1px;
+
+        @media #{$screen-below-md} {
+            letter-spacing: 0;
+        }
+    }
+}
+
+.network-search {
+    display: block;
+    border-bottom: 1px solid $creamy-darker;
+
+    @include input-placeholder($gray, 1);
+
+    .input-group {
+        height: 50px;
+    }
+
+    .form-control {
+        background-color: #fff;
+        border: none;
+        box-shadow: none;
+        height: 50px;
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+
+    button.btn {
+        font-size: 1.2em;
+        padding: 11px 20px;
+        background-color: #fff;
+    }
+}
+
+.network-search-results {
+    text-align: left;
+
+    ul {
+        padding: 15px 0 10px 0;
+    }
+
+    li.title {
+        padding: 0px 20px;
+    }
+
+    li a {
+        display: block;
+        color: #000;
+        padding: 5px 20px;
+
+        &:hover {
+            background-color: $creamy;
+            text-decoration: none;
+        }
+    }
+}
+
+@media #{$screen-below-md} {
+    .btn-subscribe {
+        margin-top: 10px;
+    }
+}
