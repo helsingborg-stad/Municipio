@@ -62,7 +62,7 @@ class TableOfContents extends \Municipio\Controller\BaseController
         $pages = array_merge($topLevel, $secondLevel);
 
         foreach ($pages as $page) {
-            $key = strtolower(substr($page->post_title, 0, 1));
+            $key = strtolower(mb_substr($page->post_title, 0, 1));
             $alphaArray[$key][] = $page;
         }
 

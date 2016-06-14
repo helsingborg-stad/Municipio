@@ -32,6 +32,8 @@ class UserSystems extends \Modularity\Module
         });
 
         add_action('init', array($this, 'saveUserSystems'));
+
+        add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
     }
 
     public function saveUserSystems()
@@ -44,5 +46,20 @@ class UserSystems extends \Modularity\Module
 
         wp_redirect($_SERVER['HTTP_REFERER']);
         exit;
+    }
+
+    /**
+     * Restrict access for the module (only logged in users)
+     * @param  string $markup Markup
+     * @param  object $module Module post object
+     * @return string         Markup
+     */
+    public function restrictAccess($markup, $module)
+    {
+        if (!is_user_logged_in()) {
+            return '';
+        }
+
+        return $markup;
     }
 }
