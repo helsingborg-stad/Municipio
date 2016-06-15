@@ -1,4 +1,4 @@
-Changelog -test
+Changelog -test 2
 ---------
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
