@@ -25,27 +25,30 @@ class IntranetDefaultSettings
     {
         $defaultBlogOptions = array(
 
-             // Header style
-             'options_header_layout'             => 'intranet',
+            // Color scheme
+            'options_color_scheme'              => 'purple',
 
-             // Show date published and date modified per default
-             'options_show_date_updated'         => array('post', 'page', 'intranet-news'),
-             'options_show_date_published'       => array('post', 'page', 'intranet-news'),
+            // Header style
+            'options_header_layout'             => 'intranet',
 
-             // Show page author
-             'options_page_show_author'          => 1,
-             'options_page_show_author_image'    => 1,
+            // Show date published and date modified per default
+            'options_show_date_updated'         => array('post', 'page', 'intranet-news'),
+            'options_show_date_published'       => array('post', 'page', 'intranet-news'),
 
-             // Navigation settings (primary disabled, secondary enabled width settings)
-             'options_nav_primary_enable'        => 0,
-             'options_nav_sub_enable'            => 1,
-             'options_nav_sub_type'              => 'auto',
-             'options_nav_sub_depth'             => 0,
-             'options_nav_sub_include_top_level' => 1,
-             'options_nav_sub_render'            => 'active',
+            // Show page author
+            'options_page_show_author'          => 1,
+            'options_page_show_author_image'    => 1,
 
-             // Show signature logo in footer
-             'options_footer_signature_show'     => 1
+            // Navigation settings (primary disabled, secondary enabled width settings)
+            'options_nav_primary_enable'        => 0,
+            'options_nav_sub_enable'            => 1,
+            'options_nav_sub_type'              => 'auto',
+            'options_nav_sub_depth'             => 0,
+            'options_nav_sub_include_top_level' => 1,
+            'options_nav_sub_render'            => 'active',
+
+            // Show signature logo in footer
+            'options_footer_signature_show'     => 1
 
         );
 
