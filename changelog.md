@@ -6,7 +6,10 @@ The changelog aims to describe higher level changes for each version of the intr
 Version 0.2.1 (tbd)
 ===================
 - Fixes issue with special charachters in the "table of contents" list
-- Require Modularity Dictionary extension (hard to understand words list)
+- Require Modularity Dictionary extension (hard to understand words list)-
+- Option to set a private page as blog page
+- Google Plus support added to social media feed module
+- Set default color scheme to purple
 
 Version 0.2.0 (2016-06-09)
 ==========================
