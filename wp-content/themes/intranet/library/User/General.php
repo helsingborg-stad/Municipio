@@ -111,16 +111,17 @@ class General
         );
 
         $greetingKey = array('day');
+        $time = current_time('H:i');
 
-        if (date('H:i') >= '00:00' && date('H:i') <= '04:59') {
+        if ($time >= '00:00' && $time <= '04:59') {
             $greetingKey = aray('day', 'night');
-        } elseif (date('H:i') >= '05:00' && date('H:i') <= '09:29') {
+        } elseif ($time >= '05:00' && $time <= '08:59') {
             $greetingKey = array('morning');
-        } elseif (date('H:i') >= '12:30' && date('H:i') <= '17:59') {
+        } elseif ($time >= '12:30' && $time <= '17:59') {
             $greetingKey = array('day', 'afternoon');
-        } elseif (date('H:i') >= '18:00' && date('H:i') <= '21:59') {
+        } elseif ($time >= '18:00' && $time <= '21:59') {
             $greetingKey = array('day', 'eavning');
-        } elseif (date('H:i') >= '22:00' && date('H:i') <= '23:59') {
+        } elseif ($time >= '22:00' && $time <= '23:59') {
             $greetingKey = array('day', 'night');
         }
 
