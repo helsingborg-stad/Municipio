@@ -10,6 +10,7 @@ Version 0.2.1 (tbd)
 - Option to set a private page as blog page
 - Google Plus support added to social media feed module
 - Set default color scheme to purple
+- Logged in user can choose personal color theme in settings
 
 Version 0.2.0 (2016-06-09)
 ==========================
