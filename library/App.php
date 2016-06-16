@@ -28,6 +28,7 @@ class App
         new \Municipio\Theme\OnTheFlyImages();
         new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
+        new \Municipio\Theme\Blog();
 
         /**
          * Content
@@ -50,6 +51,8 @@ class App
         /**
          * Admin
          */
+        new \Municipio\Admin\General();
+
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\Favicon();
