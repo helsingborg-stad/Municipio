@@ -122,6 +122,16 @@ class Subscription
     }
 
     /**
+     * Check if a specific blog id is a forced subscription
+     * @param  integer  $blogId Blog id to check
+     * @return boolean
+     */
+    public static function isForcedSubscription($blogId)
+    {
+        return in_array($blogId, self::getForcedSubscriptions(true));
+    }
+
+    /**
      * Toggle subscription on/off for the current user
      * @param  integer $blogId Blog id
      * @return string          "subscribed" or "unsibscribed"

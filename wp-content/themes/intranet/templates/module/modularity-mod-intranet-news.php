@@ -61,7 +61,10 @@
                 <?php endif; ?>
                 <div class="box-content">
                     <h3 class="text-highlight"><?php echo apply_filters('the_title', $item->post_title); ?></h3>
-                    <span class="network-title label label-sm label-creamy"><?php echo municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id)); ?></span>
+                    <span class="network-title-format label label-sm label-creamy"><?php echo municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id)); ?></span>
+                    <?php if (is_super_admin()) : ?>
+                        <span class="label label-sm label-creamy"><strong>Rank:</strong> <?php echo round($item->rank_percent, 3); ?>%</span>
+                    <?php endif; ?>
                     <time datetime="<?php echo date('Y-m-d H:i:s', strtotime($item->post_date)); ?>"><?php echo date(get_option('date_format'), strtotime($item->post_date)); ?></time>
                     <p><?php echo isset(get_extended($item->post_content)['main']) ? wp_strip_all_tags(get_extended($item->post_content)['main']) : ''; ?></p>
                     <p><span class="link-item"><?php _e('Read more', 'modularity'); ?></span></p>

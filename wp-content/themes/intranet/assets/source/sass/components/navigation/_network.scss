@@ -16,6 +16,15 @@
     }
 }
 
+.network-title-format {
+    font-weight: bold;
+
+    em {
+        font-weight: normal;
+        color: $gray;
+    }
+}
+
 .current-network {
     padding: 0;
     background-color: transparent;

@@ -144,7 +144,7 @@ class News
             'hierarchical'         => false,
             'exclude_from_search'  => false,
             'taxonomies'           => array(),
-            'supports'             => array('title', 'revisions', 'editor', 'thumbnail')
+            'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author')
         );
 
         register_post_type(self::$postTypeSlug, $args);
@@ -228,9 +228,13 @@ class News
                     '{$site}' AS blog_id,
                     posts.ID AS post_id,
                     posts.post_date,
-                    CASE WHEN postmeta.meta_key = 'is_sticky' THEN postmeta.meta_value ELSE NULL END AS is_sticky
+                    CASE WHEN postmeta1.meta_value THEN postmeta1.meta_value ELSE 0 END AS is_sticky,
+                    CASE WHEN postmeta2.meta_value THEN postmeta2.meta_value ELSE 0 END AS page_views,
+                    postmeta3.meta_value AS user_views
                 FROM $postsTable posts
-                LEFT JOIN $postMetaTable postmeta ON posts.ID = postmeta.post_id
+                LEFT JOIN $postMetaTable postmeta1 ON posts.ID = postmeta1.post_id AND postmeta1.meta_key = 'is_sticky'
+                LEFT JOIN $postMetaTable postmeta2 ON posts.ID = postmeta2.post_id AND postmeta2.meta_key = '_page_views'
+                LEFT JOIN $postMetaTable postmeta3 ON posts.ID = postmeta3.post_id AND postmeta3.meta_key = '_user_page_viewed'
                 WHERE
                     posts.post_type = '" . self::$postTypeSlug . "'
                     AND posts.post_status IN ({$postStatuses})
@@ -261,12 +265,29 @@ class News
             }
 
             $news[] = get_blog_post($item->blog_id, $item->post_id);
-
             end($news);
             $key = key($news);
 
             $news[$key]->blog_id = $item->blog_id;
             $news[$key]->is_sticky = $item->is_sticky;
+            $news[$key]->page_views = (int) $item->page_views;
+            $news[$key]->user_views = is_serialized($item->user_views) ? count(unserialize($item->user_views)) : 0;
+
+            $news[$key]->rank = \Intranet\Helper\PostRank::rank($news[$key]);
+        }
+
+        // Sort on rank
+        uasort($news, function ($a, $b) {
+            return $a->rank < $b->rank;
+        });
+
+        $rankTotal = 0;
+        foreach ($news as $key => $post) {
+            $rankTotal += $post->rank;
+        }
+
+        foreach ($news as $key => $post) {
+            $news[$key]->rank_percent = ($post->rank / $rankTotal) * 100;
         }
 
         return $news;
