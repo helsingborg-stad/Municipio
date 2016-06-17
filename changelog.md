@@ -3,14 +3,15 @@ Changelog -test 4
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.1 (tbd)
-===================
+Version 0.2.1 (2016-06-17)
+==========================
 - Fixes issue with special charachters in the "table of contents" list
 - Require Modularity Dictionary extension (hard to understand words list)-
 - Option to set a private page as blog page
 - Google Plus support added to social media feed module
 - Set default color scheme to purple
 - Logged in user can choose personal color theme in settings
+- Sort news based on news ranking algorithm
 
 Version 0.2.0 (2016-06-09)
 ==========================
