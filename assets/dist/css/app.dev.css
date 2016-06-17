@@ -7,7 +7,7 @@
   .site-header .logotype svg {
     display: block;
     max-width: 250px;
-    width: auto; }
+    width: 100%; }
 
 .site-header .menu-header-tabs {
   display: inline-block; }
