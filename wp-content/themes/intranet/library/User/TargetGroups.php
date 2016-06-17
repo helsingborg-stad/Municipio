@@ -172,6 +172,7 @@ class TargetGroups
     public function saveGroupRestrictions($postId)
     {
         if (!isset($_POST['target_groups']) || !is_array($_POST['target_groups'])) {
+            delete_post_meta($postId, '_target_groups');
             return;
         }
 
