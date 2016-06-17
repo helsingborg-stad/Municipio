@@ -8,6 +8,10 @@ class Systems
 
     public function __construct()
     {
+        if (!defined('MULTISITE') || !MULTISITE) {
+            return;
+        }
+
         add_action('init', array($this, 'createDatabaseTable'));
 
         add_action('admin_menu', array($this, 'createManageSystemsPage'));
