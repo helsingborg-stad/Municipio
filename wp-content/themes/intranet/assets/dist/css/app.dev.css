@@ -284,6 +284,12 @@ body.admin-bar {
       .network-title em {
         letter-spacing: 0; } }
 
+.network-title-format {
+  font-weight: bold; }
+  .network-title-format em {
+    font-weight: normal;
+    color: #979797; }
+
 .current-network {
   padding: 0;
   background-color: transparent;
