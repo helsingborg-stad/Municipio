@@ -8,6 +8,10 @@ class TargetGroups
 
     public function __construct()
     {
+        if (!defined('MULTISITE') || !MULTISITE) {
+            return;
+        }
+
         add_action('init', array($this, 'createDatabaseTable'));
 
         // Manage target groups (admin)
