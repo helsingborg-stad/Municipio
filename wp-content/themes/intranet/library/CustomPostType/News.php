@@ -267,8 +267,16 @@ class News
 
             $news[$key]->blog_id = $item->blog_id;
             $news[$key]->is_sticky = $item->is_sticky;
+
+            $news[$key]->rank = self::rank($news[$key]);
         }
 
         return $news;
+    }
+
+    public static function rank($post)
+    {
+        var_dump($post);
+        exit;
     }
 }
