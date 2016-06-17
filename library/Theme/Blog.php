@@ -19,7 +19,7 @@ class Blog
 
         $blogPage = get_page($blogPage);
 
-        if ($blogPage->post_status === 'private' && !is_user_logged_in()) {
+        if (is_home() && $blogPage->post_status === 'private' && !is_user_logged_in()) {
             global $wp_query;
             $wp_query->set_404();
             status_header(404);
