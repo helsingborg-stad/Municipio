@@ -29,8 +29,10 @@ class App
         new \Intranet\CustomPostType\News();
 
         // Modularity modules
-        new \Intranet\Module\News();
-        new \Intranet\Module\UserLinks();
-        new \Intranet\Module\UserSystems();
+        if (class_exists('\Modularity\Module')) {
+            new \Intranet\Module\News();
+            new \Intranet\Module\UserLinks();
+            new \Intranet\Module\UserSystems();
+        }
     }
 }
