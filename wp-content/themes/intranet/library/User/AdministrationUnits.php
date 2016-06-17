@@ -8,6 +8,10 @@ class AdministrationUnits
 
     public function __construct()
     {
+        if (!defined('MULTISITE') || !MULTISITE) {
+            return;
+        }
+
         add_action('init', array($this, 'createDatabaseTable'));
 
         add_action('network_admin_menu', array($this, 'createAdministrationUnitsAdminPage'));
