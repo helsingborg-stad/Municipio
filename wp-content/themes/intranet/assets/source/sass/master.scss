@@ -1,0 +1,7 @@
+.easter-egg div {
+    transition: 100ms transform ease-in-out;
+
+    &:hover {
+        transform: scale(1.5, 1);
+    }
+}
