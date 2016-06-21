@@ -5,6 +5,7 @@ The changelog aims to describe higher level changes for each version of the intr
 
 Version 0.2.2 (tbd)
 ===================
+- Adds Broken Link Detector plugin
 
 Version 0.2.1 (2016-06-17)
 ==========================
