@@ -12,3 +12,27 @@
         margin-bottom: 0;
     }
 }
+
+#screen-options-show-lathund-wrap {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: #fff none repeat scroll 0 0;
+    border-color: -moz-use-text-color #ddd #ddd;
+    border-image: none;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+    float: right;
+    height: 28px;
+    margin: 0 0 0 6px;
+}
+
+#screen-options-show-lathund-wrap .show-settings {
+    padding-right: 15px;
+}
+
+#screen-options-show-lathund-wrap .show-settings::after {
+    display: none;
+}
