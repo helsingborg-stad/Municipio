@@ -1,3 +1,5 @@
+<?php global $wp_query; ?>
+
 <section class="creamy gutter-vertical gutter-lg clearfix">
     <div class="container">
         <div class="gid">
@@ -29,7 +31,7 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-12 grid-lg-9">
-                @if ($resultCount > 0)
+                @if ($wp_query->max_num_pages > 1)
                 <div class="grid">
                     <div class="grid-lg-12">
                         {!!
@@ -63,7 +65,7 @@
                     </div>
                 </div>
 
-                @if ($resultCount > 0)
+                @if ($wp_query->max_num_pages > 1)
                 <div class="grid">
                     <div class="grid-lg-12">
                         {!!

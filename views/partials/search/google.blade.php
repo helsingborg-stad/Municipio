@@ -1,3 +1,5 @@
+<?php $pagination = $search->pagination(); ?>
+
 <section class="creamy gutter-vertical gutter-lg clearfix">
     <div class="container">
         <div class="gid">
@@ -29,10 +31,10 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-12 grid-lg-9">
-                @if (count($results->items) > 0)
+                @if ($pagination)
                 <div class="grid">
                     <div class="grid-lg-12">
-                        {!! $search->pagination() !!}
+                        {!! $pagination !!}
                     </div>
                 </div>
                 @endif
@@ -58,10 +60,10 @@
                     </div>
                 </div>
 
-                @if (count($results->items) > 0)
+                @if ($pagination)
                 <div class="grid">
                     <div class="grid-lg-12">
-                        {!! $search->pagination() !!}
+                        {!! $pagination !!}
                     </div>
                 </div>
                 @endif

@@ -142,6 +142,10 @@ class Google
         // Get results per page count
         $this->resultsPerPage = 10;
 
+        if (intval($results->searchInformation->totalResults) <= $this->resultsPerPage) {
+            return;
+        }
+
         // Get current page
         $currentPage = 1;
         if (isset($_GET['index']) && $_GET['index'] > 1 && is_numeric(sanitize_text_field($_GET['index']))) {
@@ -214,6 +218,7 @@ class Google
 
         if ($echo === true) {
             echo $markup;
+            return;
         } else {
             return $markup;
         }
