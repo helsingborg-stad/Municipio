@@ -30,6 +30,8 @@ class App
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
 
+        new \Municipio\Search\General();
+
         /**
          * Content
          */
