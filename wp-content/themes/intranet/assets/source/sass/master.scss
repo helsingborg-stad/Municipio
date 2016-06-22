@@ -1,5 +1,6 @@
 .easter-egg div {
     transition: 100ms transform ease-in-out;
+    transform-origin: 0 50%;
 
     &:hover {
         transform: scale(1.5, 1);

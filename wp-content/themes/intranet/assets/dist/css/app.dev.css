@@ -1,7 +1,9 @@
 @charset "UTF-8";
 .easter-egg div {
   -webkit-transition: 100ms -webkit-transform ease-in-out;
-          transition: 100ms transform ease-in-out; }
+          transition: 100ms transform ease-in-out;
+  -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%; }
   .easter-egg div:hover {
     -webkit-transform: scale(1.5, 1);
             transform: scale(1.5, 1); }
