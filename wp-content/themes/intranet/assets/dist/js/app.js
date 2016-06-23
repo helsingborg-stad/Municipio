@@ -1,22 +1,24 @@
 Intranet = Intranet || {};
 Intranet.Stripe = (function ($) {
 
+    var playLog = [];
+    var magicFour = [0, 1, 2, 3];
+
+    var activeInstrument = 'piano';
+    var sounds = [
+        municipioIntranet.themeUrl + '/assets/sound/' + activeInstrument + '/1.mp3',
+        municipioIntranet.themeUrl + '/assets/sound/' + activeInstrument + '/2.mp3',
+        municipioIntranet.themeUrl + '/assets/sound/' + activeInstrument + '/3.mp3',
+        municipioIntranet.themeUrl + '/assets/sound/' + activeInstrument + '/4.mp3',
+        municipioIntranet.themeUrl + '/assets/sound/' + activeInstrument + '/5.mp3'
+    ];
+
     /**
      * Constructor
      * Should be named as the class itself
      */
     function Stripe() {
-        var sounds = null;
-
         if ($('.stripe').length > 0) {
-            sounds = [
-                municipioIntranet.themeUrl + '/assets/sound/a.mp3',
-                municipioIntranet.themeUrl + '/assets/sound/b.mp3',
-                municipioIntranet.themeUrl + '/assets/sound/c.mp3',
-                municipioIntranet.themeUrl + '/assets/sound/e.mp3',
-                municipioIntranet.themeUrl + '/assets/sound/g.mp3'
-            ];
-
             $.each(sounds, function (index, item) {
                 new Audio(item);
             });
@@ -25,145 +27,48 @@ Intranet.Stripe = (function ($) {
         }
 
         $('.stripe div').on('click', function (e) {
-            var soundIndex = $(this).index();
-            var audio = new Audio(sounds[soundIndex]);
-
-            audio.play();
-
-            audio.addEventListener('ended', function () {
-                this.remove();
-            });
-        });
+            var soundIndex = $(e.target).closest('div').index();
+            this.play(soundIndex);
+            this.playLog(soundIndex);
+        }.bind(this));
     }
 
+    /**
+     * Play sound at index
+     * @param  {integer} soundIndex Sound index
+     * @return {void}
+     */
+    Stripe.prototype.play = function(soundIndex) {
+        var audio = new Audio(sounds[soundIndex]);
+
+        audio.play();
+
+        audio.addEventListener('ended', function () {
+            this.remove();
+        });
+    };
+
+    /**
+     * Log strokes in the playLog
+     * @param  {integer} soundIndex Sound index
+     * @return {mixed}
+     */
+    Stripe.prototype.playLog = function(soundIndex) {
+        playLog.push(soundIndex);
+        var lastFour = playLog.slice(Math.max(playLog.length - 4, 0));
+
+        if (lastFour.join('') != magicFour.join('')) {
+            return;
+        }
+
+        // OPEN THE INSTRUMENT DRAWER
+    };
 
     return new Stripe();
 
 })(jQuery);
 
 var Intranet;
-
-Intranet = Intranet || {};
-Intranet.Search = Intranet.Search || {};
-
-Intranet.Search.Sites = (function ($) {
-
-    var typeTimer = false;
-    var btnBefore = false;
-
-    /**
-     * Handle events for triggering a search
-     */
-    function Sites() {
-        btnBefore = $('form.network-search button[type="submit"]').html();
-
-        // While typing in input
-        $('form.network-search input[type="search"]').on('input', function (e) {
-            clearTimeout(typeTimer);
-
-            $searchInput = $(e.target).closest('input[type="search"]');
-            var keyword = $searchInput.val();
-
-            if (keyword.length < 2) {
-                $('form.network-search button[type="submit"]').html(btnBefore);
-                $('.network-search-results-items').remove();
-                $('.network-search-results .my-networks').show();
-
-                return;
-            }
-
-            $('form.network-search button[type="submit"]').html('<i class="loading-dots loading-dots-highight"></i>');
-
-            typeTimer = setTimeout(function () {
-                this.search(keyword);
-            }.bind(this), 1000);
-
-        }.bind(this));
-
-        // Submit button
-        $('form.network-search').on('submit', function (e) {
-            e.preventDefault();
-            clearTimeout(typeTimer);
-
-            $('form.network-search button[type="submit"]').html('<i class="loading-dots loading-dots-highight"></i>');
-            $searchInput = $(e.target).find('input[type="search"]');
-
-            var keyword = $searchInput.val();
-            this.search(keyword, true);
-        }.bind(this));
-    }
-
-    /**
-     * Performs an ajax post to the search script
-     * @param  {string} keyword The search keyword
-     * @return {void}
-     */
-    Sites.prototype.search = function (keyword, redirectToPerfectMatch) {
-        if (typeof redirectToPerfectMatch == 'undefined') {
-            redirectToPerfectMatch = false;
-        }
-
-        var data = {
-            action: 'search_sites',
-            s: keyword
-        };
-
-        $.post(ajaxurl, data, function (res) {
-            if (res.length === 0) {
-                return;
-            }
-
-            $.each(res, function (index, item) {
-                this.emptyResults();
-
-                if (redirectToPerfectMatch && keyword.toLowerCase() == item.name.toLowerCase() || (item.short_name.length && keyword.toLowerCase() == item.short_name.toLowerCase())) {
-
-                    window.location = item.path;
-                    return;
-                }
-
-                this.addResult(item.domain, item.path, item.name, item.short_name);
-            }.bind(this));
-
-            if (btnBefore) {
-                $('form.network-search button[type="submit"]').html(btnBefore);
-            }
-        }.bind(this), 'JSON');
-    };
-
-    /**
-     * Adds a item to the result list
-     * @param {string} domain    The domain of the url
-     * @param {string} path      The path of the url
-     * @param {string} name      The name of the network site
-     * @param {string} shortname The short name of the network site
-     */
-    Sites.prototype.addResult = function (domain, path, name, shortname) {
-        $('.network-search-results .my-networks').hide();
-
-        if ($('.network-search-results-items').length === 0) {
-            $('.network-search-results').append('<ul class="network-search-results-items"></ul>');
-        }
-
-        if (shortname) {
-            $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + shortname + ' <em>' + name +  '</em></a></li>');
-            return;
-        }
-
-        $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + name +  '</a></li>');
-    };
-
-    /**
-     * Empties the result list
-     * @return {void}
-     */
-    Sites.prototype.emptyResults = function () {
-        $('.network-search-results-items').empty();
-    };
-
-    return new Sites();
-
-})(jQuery);
 
 Intranet = Intranet || {};
 Intranet.User = Intranet.User || {};
@@ -314,5 +219,127 @@ Intranet.User.Subscribe = (function ($) {
     };
 
     return new Subscribe();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.Search = Intranet.Search || {};
+
+Intranet.Search.Sites = (function ($) {
+
+    var typeTimer = false;
+    var btnBefore = false;
+
+    /**
+     * Handle events for triggering a search
+     */
+    function Sites() {
+        btnBefore = $('form.network-search button[type="submit"]').html();
+
+        // While typing in input
+        $('form.network-search input[type="search"]').on('input', function (e) {
+            clearTimeout(typeTimer);
+
+            $searchInput = $(e.target).closest('input[type="search"]');
+            var keyword = $searchInput.val();
+
+            if (keyword.length < 2) {
+                $('form.network-search button[type="submit"]').html(btnBefore);
+                $('.network-search-results-items').remove();
+                $('.network-search-results .my-networks').show();
+
+                return;
+            }
+
+            $('form.network-search button[type="submit"]').html('<i class="loading-dots loading-dots-highight"></i>');
+
+            typeTimer = setTimeout(function () {
+                this.search(keyword);
+            }.bind(this), 1000);
+
+        }.bind(this));
+
+        // Submit button
+        $('form.network-search').on('submit', function (e) {
+            e.preventDefault();
+            clearTimeout(typeTimer);
+
+            $('form.network-search button[type="submit"]').html('<i class="loading-dots loading-dots-highight"></i>');
+            $searchInput = $(e.target).find('input[type="search"]');
+
+            var keyword = $searchInput.val();
+            this.search(keyword, true);
+        }.bind(this));
+    }
+
+    /**
+     * Performs an ajax post to the search script
+     * @param  {string} keyword The search keyword
+     * @return {void}
+     */
+    Sites.prototype.search = function (keyword, redirectToPerfectMatch) {
+        if (typeof redirectToPerfectMatch == 'undefined') {
+            redirectToPerfectMatch = false;
+        }
+
+        var data = {
+            action: 'search_sites',
+            s: keyword
+        };
+
+        $.post(ajaxurl, data, function (res) {
+            if (res.length === 0) {
+                return;
+            }
+
+            $.each(res, function (index, item) {
+                this.emptyResults();
+
+                if (redirectToPerfectMatch && keyword.toLowerCase() == item.name.toLowerCase() || (item.short_name.length && keyword.toLowerCase() == item.short_name.toLowerCase())) {
+
+                    window.location = item.path;
+                    return;
+                }
+
+                this.addResult(item.domain, item.path, item.name, item.short_name);
+            }.bind(this));
+
+            if (btnBefore) {
+                $('form.network-search button[type="submit"]').html(btnBefore);
+            }
+        }.bind(this), 'JSON');
+    };
+
+    /**
+     * Adds a item to the result list
+     * @param {string} domain    The domain of the url
+     * @param {string} path      The path of the url
+     * @param {string} name      The name of the network site
+     * @param {string} shortname The short name of the network site
+     */
+    Sites.prototype.addResult = function (domain, path, name, shortname) {
+        $('.network-search-results .my-networks').hide();
+
+        if ($('.network-search-results-items').length === 0) {
+            $('.network-search-results').append('<ul class="network-search-results-items"></ul>');
+        }
+
+        if (shortname) {
+            $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + shortname + ' <em>' + name +  '</em></a></li>');
+            return;
+        }
+
+        $('.network-search-results-items').append('<li class="network-title"><a href="//' + domain + path + '">' + name +  '</a></li>');
+    };
+
+    /**
+     * Empties the result list
+     * @return {void}
+     */
+    Sites.prototype.emptyResults = function () {
+        $('.network-search-results-items').empty();
+    };
+
+    return new Sites();
 
 })(jQuery);
