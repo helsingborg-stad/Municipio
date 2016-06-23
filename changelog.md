@@ -5,6 +5,9 @@ The changelog aims to describe higher level changes for each version of the intr
 
 Version 0.2.2 (tbd)
 ===================
+- Adds Broken Link Detector plugin
+- Do not show search pagination of there's only one page
+- Add left sidebar menu to search result page
 
 Version 0.2.1 (2016-06-17)
 ==========================

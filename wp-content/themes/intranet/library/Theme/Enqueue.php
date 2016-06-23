@@ -40,7 +40,8 @@ class Enqueue
         wp_localize_script('intranet', 'municipioIntranet', array(
             'user_links_is_empty' => __('You have not added any links yet…', 'municipio-intranet'),
             'subscribe' => __('Subscribe', 'municipio-intranet'),
-            'unsubscribe' => __('Unsubscribe', 'municipio-intranet')
+            'unsubscribe' => __('Unsubscribe', 'municipio-intranet'),
+            'themeUrl' => get_stylesheet_directory_uri()
         ));
 
         wp_enqueue_script('intranet');
