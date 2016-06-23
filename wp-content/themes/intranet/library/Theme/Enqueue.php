@@ -7,8 +7,8 @@ class Enqueue
     public function __construct()
     {
         // Enqueue scripts and styles
-        add_action('wp_enqueue_scripts', array($this, 'style'));
-        add_action('wp_enqueue_scripts', array($this, 'script'));
+        add_action('wp_enqueue_scripts', array($this, 'style'), 11);
+        add_action('wp_enqueue_scripts', array($this, 'script'), 11);
 
         // Enqueue admin
         add_action('admin_enqueue_scripts', array($this, 'adminEnqueue'));
@@ -20,14 +20,6 @@ class Enqueue
      */
     public function style()
     {
-        if (defined('HBG_PRIME_CSS_URL') && strlen(HBG_PRIME_CSS_URL) > 0) {
-            wp_register_style('hbg-prime', HBG_PRIME_CSS_URL, '', '1.0.0');
-        } else {
-            wp_register_style('hbg-prime', 'http://helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/css/hbg-prime.min.css', '', '1.0.0');
-        }
-
-        wp_enqueue_style('hbg-prime');
-
         wp_enqueue_style('intranet', get_stylesheet_directory_uri(). '/assets/dist/css/app.min.css', '', filemtime(get_stylesheet_directory() . '/assets/dist/css/app.min.css'));
     }
 
