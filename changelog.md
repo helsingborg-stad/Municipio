@@ -11,6 +11,7 @@ Version 0.2.2 (tbd)
 - Search level depending on is_main_site
 - Perform search when switching search level/depth tabs
 - Gravity Forms css
+- Table of content filtering
 - And a funny surprise!
 
 Version 0.2.1 (2016-06-17)
