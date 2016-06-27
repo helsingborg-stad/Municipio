@@ -1,4 +1,5 @@
 .easter-egg div {
+    position: relative;
     transition: 100ms transform ease-in-out;
     transform-origin: 0 50%;
 
@@ -46,6 +47,15 @@
             background-color: #ddd;
         }
 
+        &.active {
+            background-color: #ff0000;
+            animation: 2000ms disco infinite;
+
+            img {
+                filter: invert(100%);
+            }
+        }
+
         img {
             @include center();
             width: 60%;
@@ -55,5 +65,27 @@
         span {
             display: none;
         }
+    }
+}
+
+@keyframes disco {
+    10% {
+        background-color: #ff0000;
+    }
+
+    30% {
+        background-color: #00fff0;
+    }
+
+    50% {
+        background-color: #2aff00;
+    }
+
+    70% {
+        background-color: #ff00d2;
+    }
+
+    90% {
+        background-color: #ff0000;
     }
 }
