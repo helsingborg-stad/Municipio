@@ -68,7 +68,8 @@ body.admin-bar {
   #site-header .search button.btn {
     background-color: #5e5e5e;
     color: #fff;
-    padding-top: 12px; }
+    padding-top: 12px;
+    border: none; }
     .theme-red #site-header .search button.btn {
       background-color: #7c0804;
       color: #fff; }
