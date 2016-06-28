@@ -37,6 +37,7 @@ class Template
         }
 
         add_action('load-post.php', array($this, 'adminFrontPageTemplates'));
+        add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
     }
 
     public function adminFrontPageTemplates()
@@ -54,6 +55,15 @@ class Template
 
             return $translation;
         }, 10, 3);
+    }
+
+    public function adminFrontPageTemplatesSave($postId)
+    {
+        if (!isset($_POST['page_template']) || empty($_POST['page_template'])) {
+            return;
+        }
+
+        update_post_meta($postId, '_wp_page_template', $_POST['page_template']);
     }
 
     /**
