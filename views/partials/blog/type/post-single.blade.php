@@ -18,4 +18,4 @@
     </div>
 </div>
 
-@include('partials.page-footer')
+@include('partials.blog.post-footer')
