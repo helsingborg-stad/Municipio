@@ -7,6 +7,8 @@ class TableOfContents extends \Municipio\Controller\BaseController
     public function init()
     {
         $this->data['tableOfContents'] = $this->getTableOfContents();
+        $this->data['selectedDepartment'] = isset($_GET['department']) && !empty($_GET['department']) ? $_GET['department'] : null;
+        $this->data['titleQuery'] = isset($_GET['title']) && !empty($_GET['title']) ? $_GET['title'] : null;
     }
 
     public function getTableOfContents()
@@ -60,6 +62,18 @@ class TableOfContents extends \Municipio\Controller\BaseController
         }
 
         $pages = array_merge($topLevel, $secondLevel);
+
+        if (isset($_GET['department']) && !empty($_GET['department'])) {
+            $pages = array_filter($pages, function ($item) {
+                return $item->blog_id == $_GET['department'];
+            });
+        }
+
+        if (isset($_GET['title']) && !empty($_GET['title'])) {
+            $pages = array_filter($pages, function ($item) {
+                return stripos($item->post_title, $_GET['title']) > -1;
+            });
+        }
 
         foreach ($pages as $page) {
             $key = strtolower(mb_substr($page->post_title, 0, 1));

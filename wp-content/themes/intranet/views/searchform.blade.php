@@ -1,7 +1,20 @@
 <?php
     global $searchFormNode;
     $searchFormNode = ($searchFormNode) ? $searchFormNode+1 : 1;
-    $searchLevel = isset($_GET['level']) && !empty($_GET['level']) ? sanitize_text_field($_GET['level']) : 'subscriptions';
+    $searchLevel = isset($_GET['level']) && !empty($_GET['level']) ? sanitize_text_field($_GET['level']) : null;
+
+    // Set default searchLevel variable if not set in qet params
+    if (!$searchLevel) {
+        if (is_main_site()) {
+            if (is_user_logged_in()) {
+                $searchLevel = 'subscriptions';
+            } else {
+                $searchLevel = 'all';
+            }
+        } else {
+            $searchLevel = 'current';
+        }
+    }
 ?>
 <div class="search" itemscope itemtype="http://schema.org/WebSite">
     <meta itemprop="url" content="{{ home_url() }}">

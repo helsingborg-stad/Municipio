@@ -49,6 +49,7 @@ body.admin-bar {
             background-color: darken($palette-gray-4, 10%);
             color: #fff;
             padding-top: 12px;
+            border: none;
 
             @if ($includeThemes == true) {
                 @each $theme, $color in $themes {

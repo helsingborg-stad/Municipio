@@ -1,5 +1,6 @@
 @charset "UTF-8";
 .easter-egg div {
+  position: relative;
   -webkit-transition: 100ms -webkit-transform ease-in-out;
           transition: 100ms transform ease-in-out;
   -webkit-transform-origin: 0 50%;
@@ -7,6 +8,80 @@
   .easter-egg div:hover {
     -webkit-transform: scale(1.5, 1);
             transform: scale(1.5, 1); }
+
+.easter-egg .stripe-instruments {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: auto;
+  white-space: nowrap;
+  background-color: #000;
+  padding: 5px;
+  border-radius: 0 50px 50px 0;
+  -webkit-transform: translateY(-50%) translateX(-150%);
+          transform: translateY(-50%) translateX(-150%);
+  -webkit-transition: 1s -webkit-transform;
+          transition: 1s transform;
+  z-index: -1; }
+  .easter-egg .stripe-instruments.show {
+    -webkit-transform: translateY(-50%) translateX(0%);
+            transform: translateY(-50%) translateX(0%); }
+  .easter-egg .stripe-instruments li {
+    display: inline-block; }
+    .easter-egg .stripe-instruments li + li {
+      margin-left: 5px; }
+  .easter-egg .stripe-instruments button {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer; }
+    .easter-egg .stripe-instruments button:hover {
+      background-color: #ddd; }
+    .easter-egg .stripe-instruments button.active {
+      background-color: #ff0000;
+      -webkit-animation: 2000ms disco infinite;
+              animation: 2000ms disco infinite; }
+      .easter-egg .stripe-instruments button.active img {
+        -webkit-filter: invert(100%);
+                filter: invert(100%); }
+    .easter-egg .stripe-instruments button img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+      width: 60%;
+      height: auto; }
+    .easter-egg .stripe-instruments button span {
+      display: none; }
+
+@-webkit-keyframes disco {
+  10% {
+    background-color: #ff0000; }
+  30% {
+    background-color: #00fff0; }
+  50% {
+    background-color: #2aff00; }
+  70% {
+    background-color: #ff00d2; }
+  90% {
+    background-color: #ff0000; } }
+
+@keyframes disco {
+  10% {
+    background-color: #ff0000; }
+  30% {
+    background-color: #00fff0; }
+  50% {
+    background-color: #2aff00; }
+  70% {
+    background-color: #ff00d2; }
+  90% {
+    background-color: #ff0000; } }
 
 body.admin-bar {
   position: static !important; }
@@ -68,7 +143,8 @@ body.admin-bar {
   #site-header .search button.btn {
     background-color: #5e5e5e;
     color: #fff;
-    padding-top: 12px; }
+    padding-top: 12px;
+    border: none; }
     .theme-red #site-header .search button.btn {
       background-color: #7c0804;
       color: #fff; }
