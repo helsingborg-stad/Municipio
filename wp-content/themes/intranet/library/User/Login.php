@@ -31,6 +31,11 @@ class Login
             update_user_meta($userId, 'user_department', get_the_author_meta('ad_department', $userId));
         }
 
+        // Map phone number
+        if (!empty(get_the_author_meta('ad_telephone', $userId))) {
+            update_user_meta($userId, 'user_phone', \Intranet\Helper\DataCleaner::phoneNumber(get_the_author_meta('ad_telephone', $userId)));
+        }
+
         return;
     }
 
