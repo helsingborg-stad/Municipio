@@ -67,7 +67,7 @@
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
-        "wpackagist-plugin/simple-ldap-login": "1.6.0"
+        "wpackagist-plugin/active-directory-integration": ">=1.1.8"
     },
 
     "extra": {
