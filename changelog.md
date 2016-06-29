@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.2 (tbd)
-===================
+Version 0.2.2 (2016-06-29)
+==========================
 - Adds Broken Link Detector plugin
 - Do not show search pagination of there's only one page
 - Add left sidebar menu to search result page
