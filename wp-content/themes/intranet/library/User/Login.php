@@ -40,12 +40,8 @@ class Login
      */
     public function frontendLogout()
     {
-        $referrer = $_SERVER['HTTP_REFERER'];
-
-        if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
-            wp_redirect($referrer);
-            exit;
-        }
+        wp_redirect(home_url('/'));
+        exit;
     }
 
     /**
