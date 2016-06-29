@@ -58,6 +58,17 @@ class AdministrationUnits
     }
 
     /**
+     * Get a list of all systems in the database
+     * @return arry Systems
+     */
+    public static function getAdministrationUnit($id)
+    {
+        global $wpdb;
+        $query = $wpdb->prepare("SELECT name FROM {$wpdb->base_prefix}" . self::$tableSuffix . " WHERE id = %s ORDER BY name ASC", array($id));
+        return $wpdb->get_var($query);
+    }
+
+    /**
      * Adds a system to list of available systems
      */
     public function addAdministrationUnit()
