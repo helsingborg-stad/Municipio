@@ -5,6 +5,7 @@ The changelog aims to describe higher level changes for each version of the intr
 
 Version 0.2.3
 =============
+- Require Active Directory Integration (AD1) plugin
 
 Version 0.2.2 (2016-06-29)
 ==========================
