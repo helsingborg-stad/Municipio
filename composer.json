@@ -54,6 +54,7 @@
     "require": {
         "composer/installers": "~1.0",
         "johnpbloch/wordpress": "^4.5.0",
+        "giggsey/libphonenumber-for-php": "^7.4",
         "helsingborg-stad/Modularity": "dev-develop",
         "helsingborg-stad/Municipio": "dev-develop",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
