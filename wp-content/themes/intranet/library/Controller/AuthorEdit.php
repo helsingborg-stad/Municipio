@@ -52,7 +52,10 @@ class AuthorEdit extends \Municipio\Controller\BaseController
             $this->uploadProfileImage($_POST['image_uploader_file'][0], $user);
         }
 
-        update_user_meta($user->ID, 'user_work_title', sanitize_text_field($_POST['user_work_title']));
+        if (isset($_POST['user_work_title'])) {
+            update_user_meta($user->ID, 'user_work_title', sanitize_text_field($_POST['user_work_title']));
+        }
+
         update_user_meta($user->ID, 'user_phone', sanitize_text_field($_POST['user_phone']));
         update_user_meta($user->ID, 'user_administration_unit', $_POST['user_administration_unit']);
         update_user_meta($user->ID, 'user_department', sanitize_text_field($_POST['user_department']));
