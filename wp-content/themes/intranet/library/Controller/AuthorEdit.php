@@ -20,7 +20,8 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         }
 
         $this->data['user'] = $user;
-        $this->data['userResponsibilities'] = get_the_author_meta('user_responsibilities', $user->ID);
+        $this->data['userResponsibilities'] = is_array(get_the_author_meta('user_responsibilities', $user->ID)) ? get_the_author_meta('user_responsibilities', $user->ID) : array();
+        $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
         $this->data['administrationUnits'] = \Intranet\User\AdministrationUnits::getAdministrationUnits();
         $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups();
     }
@@ -69,6 +70,10 @@ class AuthorEdit extends \Municipio\Controller\BaseController
 
         if (isset($_POST['responsibilities'])) {
             update_user_meta($user->ID, 'user_responsibilities', $_POST['responsibilities']);
+        }
+
+        if (isset($_POST['skills'])) {
+            update_user_meta($user->ID, 'user_skills', $_POST['skills']);
         }
 
         return true;

@@ -141,6 +141,7 @@
                             </div>
                         </section>
 
+                        <!-- Responsibilities -->
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="work-responsibilities">
                             <label class="accordion-toggle" for="work-responsibilities">
@@ -172,6 +173,49 @@
                                                             <button class="btn btn-plain" data-action="remove">&times;</button>
                                                             {{ $item }}
                                                             <input type="hidden" name="responsibilities[]" value="{{ $item }}">
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Skills -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="skills">
+                            <label class="accordion-toggle" for="skills">
+                                <h4><?php _e('Skills', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <p><?php _e('Please add your skills. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <label for="responsibility-autocomplete"><?php _e('Skill', 'municipio-intranet'); ?></label>
+                                            <div class="tag-manager responsibility-select" data-input-name="skills">
+                                                <div class="tag-manager-input">
+                                                    <div class="input-group">
+                                                        <input type="text" name="tag" class="form-control" placeholder="<?php _e('Add skill', 'municipio-intranet'); ?>…" autocomplete="off">
+                                                        <span class="input-group-addon-btn"><button name="add-tag" class="btn"><?php _e('Add', 'municipio-intranet'); ?></button></span>
+                                                    </div>
+                                                </div>
+                                                <div class="tag-manager-selected">
+                                                    <label class="label-sm"><?php _e('Added skills', 'municipio-intranet'); ?></label>
+                                                    <ul>
+                                                        @foreach ($userSkills as $item)
+                                                        <li class="label">
+                                                            <button class="btn btn-plain" data-action="remove">&times;</button>
+                                                            {{ $item }}
+                                                            <input type="hidden" name="skills[]" value="{{ $item }}">
                                                         </li>
                                                         @endforeach
                                                     </ul>
