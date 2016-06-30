@@ -17,6 +17,8 @@ class Systems
         add_action('admin_menu', array($this, 'createManageSystemsPage'));
         add_action('admin_init', array($this, 'addSystem'));
         add_action('admin_init', array($this, 'saveSystems'));
+        add_action('admin_init', array($this, 'editSystem'));
+        add_action('admin_init', array($this, 'removeSystem'));
     }
 
     /**
@@ -31,11 +33,37 @@ class Systems
             'manage_systems',
             'user-systems',
             function () {
+                $isEdit = false;
+                if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
+                    $isEdit = self::getSystem($_GET['edit']);
+                }
+
                 include INTRANET_PATH . 'templates/admin/systems/form.php';
             },
             'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgOTU2LjY5OSA5NTYuNjk5Ij48cGF0aCBkPSJNNzgyLjcgNDEzLjJoLS41Yy03LjctMTIxLjctMTA4LjktMjE4LTIzMi41LTIxOC0xMTQuMSAwLTIwOSA4Mi0yMjkuMSAxOTAuMi0yLjYtLjEtNS4zLS4yLTcuOS0uMi04NSAwLTE1Ni43IDU2LjMtMTgwLjEgMTMzLjYtMy42LS4zLTcuMy0uNS0xMS0uNUM1NC41IDUxOC4zIDAgNTcyLjcgMCA2MzkuOWMwIDY3LjIgNTQuNCAxMjEuNiAxMjEuNSAxMjEuNmg2NjEuMWM5Ni4yIDAgMTc0LjEtNzggMTc0LjEtMTc0LjEwMiAwLTk2LjEtNzcuOC0xNzQuMi0xNzQtMTc0LjJ6IiBmaWxsPSIjRkZGIi8+PC9zdmc+',
             200
         );
+    }
+
+    /**
+     * Removes a system when clicking the trash button
+     * @return boolean
+     */
+    public function removeSystem()
+    {
+        if (!isset($_POST['manage-user-systems-remove']) || empty($_POST['manage-user-systems-remove'])) {
+            return false;
+        }
+
+        $systemId = isset($_POST['manage-user-systems-remove']) ? sanitize_text_field($_POST['manage-user-systems-remove']) : null;
+        if (!$systemId) {
+            return false;
+        }
+
+        global $wpdb;
+        $wpdb->delete($wpdb->base_prefix . self::$tableSuffix, array('id' => $systemId), array('%d'));
+
+        return true;
     }
 
     /**
@@ -96,6 +124,13 @@ class Systems
         });
 
         update_site_option('user_systems_ip_patterns', $patterns);
+    }
+
+    public static function getSystem($id)
+    {
+        global $wpdb;
+        $query = $wpdb->prepare("SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " WHERE id = %d", array($id));
+        return $wpdb->get_row($query);
     }
 
     /**
@@ -222,6 +257,45 @@ class Systems
                 '%d'
             )
         );
+    }
+
+    public function editSystem()
+    {
+        if (!isset($_POST['system-manager-edit-system']) || !is_numeric($_POST['system-manager-edit-system'])) {
+            return false;
+        }
+
+        $systemId = sanitize_text_field($_POST['system-manager-edit-system']);
+
+        $data = array();
+
+        if (isset($_POST['system-name']) && !empty($_POST['system-name'])) {
+            $data['name'] = sanitize_text_field($_POST['system-name']);
+        }
+
+        if (isset($_POST['system-url']) && !empty($_POST['system-url'])) {
+            $data['url'] = sanitize_text_field($_POST['system-url']);
+        }
+
+        if (isset($_POST['system-description']) && !empty($_POST['system-description'])) {
+            $data['description'] = sanitize_text_field($_POST['system-description']);
+        }
+
+        $isLocal = isset($_POST['system-is-local']) ? 1 : 0;
+        $data['is_local'] = $isLocal;
+
+        global $wpdb;
+
+        $wpdb->update(
+            $wpdb->base_prefix . self::$tableSuffix,
+            $data,
+            array(
+                'id' => $systemId
+            )
+        );
+
+        wp_redirect(admin_url('admin.php?page=user-systems'));
+        exit;
     }
 
     /**
