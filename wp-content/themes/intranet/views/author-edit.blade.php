@@ -33,7 +33,7 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="personal-information">
                             <label class="accordion-toggle" for="personal-information">
-                                <h3><?php _e('Personal information', 'municipio-intranet'); ?></h3>
+                                <h4><?php _e('Personal information', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
@@ -72,7 +72,7 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="user-about">
                             <label class="accordion-toggle" for="user-about">
-                                <h3><?php _e('About me', 'municipio-intranet'); ?></h3>
+                                <h4><?php _e('About me', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content no-padding">
                                 <div class="grid">
@@ -90,7 +90,7 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="work-information">
                             <label class="accordion-toggle" for="work-information">
-                                <h3><?php _e('Work information', 'municipio-intranet'); ?></h3>
+                                <h4><?php _e('Work information', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
@@ -145,7 +145,7 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="profile-image">
                             <label class="accordion-toggle" for="profile-image">
-                                <h3><?php _e('Profile image', 'municipio-intranet'); ?></h3>
+                                <h4><?php _e('Profile image', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
@@ -189,7 +189,7 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="target-groups">
                             <label class="accordion-toggle" for="target-groups">
-                                <h3><?php _e('Target groups', 'municipio-intranet'); ?></h3>
+                                <h4><?php _e('Target groups', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
@@ -212,7 +212,7 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="user-personalization">
                             <label class="accordion-toggle" for="user-personalization">
-                                <h3><?php _e('Personalization', 'municipio-intranet'); ?></h3>
+                                <h4><?php _e('Personalization', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">

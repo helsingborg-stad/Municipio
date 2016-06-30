@@ -9,6 +9,7 @@ Version 0.2.3 (tbd)
 - Adds "edit" and "remove" actions to the user systems admin
 - Added shortcode "explain" to Municipio-theme for inserting questionmarks with tooltips in post_content
 - Adds metabox to pages for setting custom table of contents title
+- Split user edit page into sections
 
 Version 0.2.2 (2016-06-29)
 ==========================
