@@ -141,6 +141,42 @@
                             </div>
                         </section>
 
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="work-responsibilities">
+                            <label class="accordion-toggle" for="work-responsibilities">
+                                <h4><?php _e('Area of responsibility', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <p><?php _e('Please add your areas of responsibility. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <label for="responsibility-autocomplete"><?php _e('Responsibility', 'municipio-intranet'); ?></label>
+                                            <div class="tag-manager responsibility-select">
+                                                <div class="tag-manager-input">
+                                                    <div class="input-group">
+                                                        <input type="text" name="tag" class="form-control" placeholder="<?php _e('Add area of responsibility', 'municipio-intranet'); ?>…" autocomplete="off">
+                                                        <span class="input-group-addon-btn"><button name="add-tag" class="btn"><?php _e('Add', 'municipio-intranet'); ?></button></span>
+                                                    </div>
+                                                </div>
+                                                <div class="tag-manager-selected">
+                                                    <label class="label-sm"><?php _e('Added responsibilities', 'municipio-intranet'); ?></label>
+                                                    <ul>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         <!-- Profile iamge -->
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="profile-image">
