@@ -157,7 +157,7 @@
                                     <div class="grid-md-12">
                                         <div class="form-group">
                                             <label for="responsibility-autocomplete"><?php _e('Responsibility', 'municipio-intranet'); ?></label>
-                                            <div class="tag-manager responsibility-select">
+                                            <div class="tag-manager responsibility-select" data-input-name="responsibilities">
                                                 <div class="tag-manager-input">
                                                     <div class="input-group">
                                                         <input type="text" name="tag" class="form-control" placeholder="<?php _e('Add area of responsibility', 'municipio-intranet'); ?>…" autocomplete="off">
@@ -167,7 +167,13 @@
                                                 <div class="tag-manager-selected">
                                                     <label class="label-sm"><?php _e('Added responsibilities', 'municipio-intranet'); ?></label>
                                                     <ul>
-
+                                                        @foreach ($userResponsibilities as $item)
+                                                        <li class="label">
+                                                            <button class="btn btn-plain" data-action="remove">&times;</button>
+                                                            {{ $item }}
+                                                            <input type="hidden" name="responsibilities[]" value="{{ $item }}">
+                                                        </li>
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
