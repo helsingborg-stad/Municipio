@@ -27,12 +27,12 @@ class Login
         }
 
         // Map department
-        if (!empty(get_the_author_meta('ad_department', $userId))) {
+        if (!empty(get_the_author_meta('ad_department', $userId)) && empty(get_the_author_meta('user_department', $userId))) {
             update_user_meta($userId, 'user_department', get_the_author_meta('ad_department', $userId));
         }
 
         // Map phone number
-        if (!empty(get_the_author_meta('ad_telephone', $userId))) {
+        if (!empty(get_the_author_meta('ad_telephone', $userId)) && empty(get_the_author_meta('user_phone', $userId))) {
             update_user_meta($userId, 'user_phone', \Intranet\Helper\DataCleaner::phoneNumber(get_the_author_meta('ad_telephone', $userId)));
         }
 
