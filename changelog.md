@@ -3,9 +3,11 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.3
-=============
+Version 0.2.3 (tbd)
+===================
 - Require Active Directory Integration (AD1) plugin
+- Adds "edit" and "remove" actions to the user systems admin
+- 
 
 Version 0.2.2 (2016-06-29)
 ==========================
