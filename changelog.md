@@ -10,6 +10,8 @@ Version 0.2.3 (tbd)
 - Added shortcode "explain" to Municipio-theme for inserting questionmarks with tooltips in post_content
 - Adds metabox to pages for setting custom table of contents title
 - Split user edit page into sections
+- User can now add skills to profile (search implementation needed)
+- User can now add responsibilities to profile (search implementation needed)
 
 Version 0.2.2 (2016-06-29)
 ==========================
