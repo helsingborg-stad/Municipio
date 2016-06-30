@@ -50,7 +50,7 @@
             </article>
         </div>
 
-        <div class="grid-md-4">
+        <aside class="grid-md-4 sidebar-right-sidebar">
             <div class="grid">
                 <div class="grid-xs-12">
                     <div class="box box-filled">
@@ -75,8 +75,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="grid-xs-12">
+                    <div class="box box-filled">
+                        <h4 class="box-title"><?php _e('Skills', 'municipio-intranet'); ?></h4>
+                        <div class="box-content">
+                            <ul class="tags">
+                                @foreach ($userSkills as $item)
+                                <li>{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-xs-12">
+                    <div class="box box-filled">
+                        <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
+                        <div class="box-content">
+                            <ul class="tags">
+                                @foreach ($userResponsibilities as $item)
+                                <li>{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </aside>
     </div>
 </div>
 

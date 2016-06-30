@@ -15,5 +15,8 @@ class Author extends \Municipio\Controller\BaseController
         if ($user) {
             $authordata = $user;
         }
+
+        $this->data['userResponsibilities'] = is_array(get_the_author_meta('user_responsibilities', $user->ID)) ? get_the_author_meta('user_responsibilities', $user->ID) : array();
+        $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
     }
 }

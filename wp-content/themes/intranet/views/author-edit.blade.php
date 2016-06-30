@@ -167,9 +167,9 @@
                                                 </div>
                                                 <div class="tag-manager-selected">
                                                     <label class="label-sm"><?php _e('Added responsibilities', 'municipio-intranet'); ?></label>
-                                                    <ul>
+                                                    <ul class="tags">
                                                         @foreach ($userResponsibilities as $item)
-                                                        <li class="label">
+                                                        <li>
                                                             <button class="btn btn-plain" data-action="remove">&times;</button>
                                                             {{ $item }}
                                                             <input type="hidden" name="responsibilities[]" value="{{ $item }}">
@@ -210,9 +210,9 @@
                                                 </div>
                                                 <div class="tag-manager-selected">
                                                     <label class="label-sm"><?php _e('Added skills', 'municipio-intranet'); ?></label>
-                                                    <ul>
+                                                    <ul class="tags">
                                                         @foreach ($userSkills as $item)
-                                                        <li class="label">
+                                                        <li>
                                                             <button class="btn btn-plain" data-action="remove">&times;</button>
                                                             {{ $item }}
                                                             <input type="hidden" name="skills[]" value="{{ $item }}">
