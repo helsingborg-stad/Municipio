@@ -69,6 +69,13 @@ class TableOfContents extends \Municipio\Controller\BaseController
             });
         }
 
+        foreach ($pages as $page) {
+            $title = get_post_meta($page->ID, 'table_of_contents_title', true);
+            if (!empty($title)) {
+                $page->post_title = $title;
+            }
+        }
+
         if (isset($_GET['title']) && !empty($_GET['title'])) {
             $pages = array_filter($pages, function ($item) {
                 return stripos($item->post_title, $_GET['title']) > -1;
