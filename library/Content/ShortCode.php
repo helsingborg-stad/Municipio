@@ -12,8 +12,15 @@ class ShortCode
     public function registerShortCode()
     {
         add_shortcode('meta', array($this,'displayMetaValue'));
+        add_shortcode('explain', array($this, 'explain'));
     }
 
+    /**
+     * Shortcode function for "meta"
+     * @param  array $atts     Attributes
+     * @param  string $content The content of the shortcode
+     * @return mixed
+     */
     public function displayMetaValue($atts, $content = "")
     {
         //Default value
@@ -28,5 +35,17 @@ class ShortCode
             global $post;
             return (string) get_post_meta($post->ID, $key);
         }
+    }
+
+    public function explain($atts, $content = '')
+    {
+        extract(shortcode_atts(array(
+            'tooltip' => ''
+        ), $atts));
+
+        return '<span class="explain">
+            <em>' . $content . '</em>
+            <span data-tooltip="' . $tooltip . '"><i class="fa fa-question-circle"></i></span>
+        </span>';
     }
 }
