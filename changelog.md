@@ -12,6 +12,7 @@ Version 0.2.3 (tbd)
 - Split user edit page into sections
 - User can now add skills to profile (search implementation needed)
 - User can now add responsibilities to profile (search implementation needed)
+- Updated translations
 
 Version 0.2.2 (2016-06-29)
 ==========================
