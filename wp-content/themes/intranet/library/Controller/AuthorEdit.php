@@ -70,10 +70,14 @@ class AuthorEdit extends \Municipio\Controller\BaseController
 
         if (isset($_POST['responsibilities'])) {
             update_user_meta($user->ID, 'user_responsibilities', $_POST['responsibilities']);
+        } else {
+            delete_user_meta($user->ID, 'user_responsibilities');
         }
 
         if (isset($_POST['skills'])) {
             update_user_meta($user->ID, 'user_skills', $_POST['skills']);
+        } else {
+            delete_user_meta($user->ID, 'user_skills');
         }
 
         return true;
