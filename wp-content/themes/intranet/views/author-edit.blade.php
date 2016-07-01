@@ -158,7 +158,7 @@
                                     <div class="grid-md-12">
                                         <div class="form-group">
                                             <label for="responsibility-autocomplete"><?php _e('Responsibility', 'municipio-intranet'); ?></label>
-                                            <div class="tag-manager responsibility-select" data-input-name="responsibilities">
+                                            <div class="tag-manager" data-input-name="responsibilities" data-wp-ajax-action="autocomplete_responsibilities">
                                                 <div class="tag-manager-input">
                                                     <div class="input-group">
                                                         <input type="text" name="tag" class="form-control" placeholder="<?php _e('Add area of responsibility', 'municipio-intranet'); ?>…" autocomplete="off">
@@ -201,7 +201,7 @@
                                     <div class="grid-md-12">
                                         <div class="form-group">
                                             <label for="responsibility-autocomplete"><?php _e('Skill', 'municipio-intranet'); ?></label>
-                                            <div class="tag-manager responsibility-select" data-input-name="skills">
+                                            <div class="tag-manager" data-input-name="skills" data-wp-ajax-action="autocomplete_skills">
                                                 <div class="tag-manager-input">
                                                     <div class="input-group">
                                                         <input type="text" name="tag" class="form-control" placeholder="<?php _e('Add skill', 'municipio-intranet'); ?>…" autocomplete="off">

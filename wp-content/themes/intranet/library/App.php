@@ -24,6 +24,8 @@ class App
         new \Intranet\User\TargetGroups();
         new \Intranet\User\AdministrationUnits();
         new \Intranet\User\Systems();
+        new \Intranet\User\Responsibilities();
+        new \Intranet\User\Skills();
 
         // Custom post types
         new \Intranet\CustomPostType\News();
