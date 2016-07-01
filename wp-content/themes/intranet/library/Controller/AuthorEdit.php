@@ -59,7 +59,9 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         }
 
         $phone = sanitize_text_field($_POST['user_phone']);
-        $phone = \Intranet\Helper\DataCleaner::phoneNumber($phone);
+        if (!empty($phone)) {
+            $phone = \Intranet\Helper\DataCleaner::phoneNumber($phone);
+        }
 
         update_user_meta($user->ID, 'user_phone', $phone);
         update_user_meta($user->ID, 'user_administration_unit', $_POST['user_administration_unit']);
