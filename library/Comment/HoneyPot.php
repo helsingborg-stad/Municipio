@@ -21,13 +21,20 @@ class HoneyPot
 
         //Cactch fields
         add_filter('preprocess_comment', array($this, 'honeyPotValidateFieldContent'));
+
+        //Add styling to hide field
+        add_filter('comment_form', array($this, 'printFakeHideBox'));
+    }
+
+    public function printFakeHideBox() {
+        echo '<style>.fake-hide {width: 1px; height: 1px; opacity: 0.0001; position: absolute;}</style>';
     }
 
     public function addHoneyPotFieldFilled($fields)
     {
         if (is_array($fields)) {
             $fields = array(
-                md5($this->field_name.'_fi') => '<input class="hidden" name="'.$this->field_name.'_fi" type="text" value="'.$this->field_content.'" size="30"/>'
+                md5($this->field_name.'_fi') => '<div class="fake-hide"><input name="'.$this->field_name.'_fi" type="text" value="'.$this->field_content.'" size="30"/></div>'
             ) + $fields;
         }
         return $fields;
@@ -37,7 +44,7 @@ class HoneyPot
     {
         if (is_array($fields)) {
             $fields = array(
-                md5($this->field_name.'_bl') => '<input class="hidden" name="'.$this->field_name.'_bl" type="text" value="" size="30"/>'
+                md5($this->field_name.'_bl') => '<div class="fake-hide"><input class="hidden" name="'.$this->field_name.'_bl" type="text" value="" size="30"/></div>'
             ) + $fields;
         }
         return $fields;
