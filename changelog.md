@@ -13,6 +13,7 @@ Version 0.2.3 (tbd)
 - User can now add skills to profile (search implementation needed)
 - User can now add responsibilities to profile (search implementation needed)
 - Updated translations
+- Use network site title as "logotype"
 
 Version 0.2.2 (2016-06-29)
 ==========================
