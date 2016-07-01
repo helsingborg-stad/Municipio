@@ -1,5 +1,7 @@
 <?php
     global $searchFormNode;
+    global $counts;
+
     $searchFormNode = ($searchFormNode) ? $searchFormNode+1 : 1;
     $searchLevel = isset($_GET['level']) && !empty($_GET['level']) ? sanitize_text_field($_GET['level']) : null;
 
@@ -42,6 +44,19 @@
                 <li>
                     <input id="search-level-current" type="radio" name="level" value="current" {{ checked('current', $searchLevel) }}>
                     <label for="search-level-current" class="checkbox inline-block"><?php _e('Current site', 'municipio-intranet'); ?></label>
+                </li>
+            </ul>
+
+            <ul class="segmented-control">
+                <li>
+                    <input id="search-level-users" type="radio" name="level" value="users" {{ checked('users', $searchLevel) }}>
+                    <label for="search-level-users" class="checkbox inline-block">
+                        <?php _e('Users', 'municipio-intranet'); ?>
+
+                        @if (isset($counts['users']) && $counts['users'] > 0)
+                        <span class="label label-sm label-theme label-rounded">{{ $counts['users'] }}</span>
+                        @endif
+                    </label>
                 </li>
             </ul>
         </div>

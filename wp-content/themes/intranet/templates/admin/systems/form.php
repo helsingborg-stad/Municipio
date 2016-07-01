@@ -1,5 +1,4 @@
 <div class="wrap" id="modularity-options">
-
     <h1><?php _e('Manage user systems', 'municipio-intranet'); ?></h1>
 
     <form method="post" action="">
@@ -73,6 +72,7 @@
                                             <th><?php _e('Name', 'municipio-intranet'); ?></th>
                                             <th><?php _e('Description', 'municipio-intranet'); ?></th>
                                             <th><?php _e('Url', 'municipio-intranet'); ?></th>
+                                            <th width="50"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,6 +81,10 @@
                                             <td><?php echo $system->name; ?></td>
                                             <td><?php echo $system->description; ?></td>
                                             <td><?php echo $system->url; ?></td>
+                                            <td class="text-right">
+                                                <a title="<?php _e('Edit'); ?>" href="<?php echo admin_url('admin.php?page=user-systems&edit=' . $system->id); ?>" class="btn-plain municipio-edit"><span class="dashicons dashicons-edit"></span></a>
+                                                <button title="<?php _e('Remove'); ?>"  onclick="return confirm('<?php _e('Are you sure you want to remove the system?', 'municipio-intranet'); ?>');" type="submit" name="manage-user-systems-remove" value="<?php echo $system->id; ?>" class="btn-plain municipio-delete"><span class="dashicons dashicons-trash"></span></button>
+                                            </td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -90,25 +94,37 @@
                     </div>
 
                     <div class="postbox">
-                        <h2 class="hndle ui-sortable-handle" style="cursor:default;"><?php _e('Add system', 'municipio-intranet'); ?></h2>
+                        <h2 class="hndle ui-sortable-handle" style="cursor:default;">
+                            <?php
+                            if (!$isEdit) {
+                                _e('Add system', 'municipio-intranet');
+                            } else {
+                                _e('Edit system', 'municipio-intranet');
+                            }
+                            ?>
+                        </h2>
                         <div class="inside">
                             <p>
                                 <label for="system-name"><?php _e('Name', 'municipio-intranet'); ?></label>
-                                <input type="text" name="system-name" class="widefat" id="system-name">
+                                <input type="text" name="system-name" class="widefat" id="system-name" <?php if ($isEdit) : ?>value="<?php echo $isEdit->name; ?>"<?php endif; ?>>
                             </p>
                             <p>
                                 <label for="system-url"><?php _e('Url', 'municipio-intranet'); ?></label>
-                                <input type="text" name="system-url" class="widefat" id="system-url">
+                                <input type="text" name="system-url" class="widefat" id="system-url" <?php if ($isEdit) : ?>value="<?php echo $isEdit->url; ?>"<?php endif; ?>>
                             </p>
                             <p>
                                 <label for="system-description"><?php _e('Description', 'municipio-intranet'); ?></label>
-                                <textarea name="system-description" id="system-description" class="widefat"></textarea>
+                                <textarea name="system-description" id="system-description" class="widefat"><?php echo $isEdit ? $isEdit->description : ''; ?></textarea>
                             </p>
                             <p>
-                                <label><input type="checkbox" name="system-is-local" value="true"> <?php _e('System is only available from a listed local IP pattern', 'municipio-intranet'); ?></label>
+                                <label><input type="checkbox" name="system-is-local" value="true" <?php checked(true, $isEdit && $isEdit->is_local ? true : false); ?>> <?php _e('System is only available from a listed local IP pattern', 'municipio-intranet'); ?></label>
                             </p>
                             <p>
+                                <?php if ($isEdit) : ?>
+                                <button type="submit" class="button button-primary" name="system-manager-edit-system" value="<?php echo $isEdit->id; ?>"><?php _e('Save', 'municipio-intranet'); ?></button>
+                                <?php else : ?>
                                 <input type="submit" class="button button-primary" name="system-manager-add-system" value="<?php _e('Add', 'municipio-intranet'); ?>">
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>

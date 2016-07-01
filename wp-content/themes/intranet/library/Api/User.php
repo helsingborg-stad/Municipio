@@ -68,3 +68,15 @@ if (!function_exists('municipio_intranet_get_user_full_name')) {
         return $user->user_login;
     }
 }
+
+if (!function_exists('municipio_intranet_get_administration_unit_name')) {
+    /**
+     * Get url to manage subscriptions page
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_intranet_get_administration_unit_name($id)
+    {
+        return \Intranet\User\AdministrationUnits::getAdministrationUnit($id);
+    }
+}

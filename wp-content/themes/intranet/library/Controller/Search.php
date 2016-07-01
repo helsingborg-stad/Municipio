@@ -11,19 +11,76 @@ class Search extends \Municipio\Controller\BaseController
     public $currentIndex = 1;
     public $resultsPerPage = null;
 
+    public $level = 'subscriptions';
+
+    public $users = array();
+    public $levelResultsCount = array(
+        'subscriptions' =>null,
+        'all' => null,
+        'current' => null,
+        'users' => null
+    );
+
+    /**
+     * Performs the search
+     * @return void
+     */
     public function init()
     {
-        $this->searchUsers();
-        $this->searchWp();
+        $this->getLevel();
+
+        $this->users = $this->searchUsers();
+        $content = $this->searchWp();
+
+        switch ($this->level) {
+            case 'users':
+                $this->results = $this->users;
+                break;
+
+            default:
+                $this->results = $content;
+                break;
+        }
+
+        $this->renderResult();
 
         add_filter('Municipio/search_result/excerpt', array($this, 'highlightTerms'));
+    }
+
+    public function getLevel()
+    {
+        if (!isset($_GET['level']) || empty($_GET['level'])) {
+            return;
+        }
+
+        $this->level = sanitize_text_field($_GET['level']);
+    }
+
+    public function renderResult()
+    {
+        $this->setupPagination();
+
+        $offset = 0;
+        if ($this->currentPage > 1) {
+            $offset = ($this->currentPage-1) * $this->resultsPerPage;
+        }
+
+        $this->pageResults = array_slice($this->results, $offset, $this->resultsPerPage);
+
+        $this->data['keyword'] = get_search_query();
+        $this->data['resultCount'] = count($this->results);
+        $this->data['results'] = $this->pageResults;
+
+        global $counts;
+        $counts = array(
+            'users' => count($this->users)
+        );
     }
 
     public function searchUsers()
     {
         $keyword = get_search_query();
-        $users = \Intranet\User\General::searchUsers($keyword);
-        $this->results = array_merge($this->results, $users);
+        return \Intranet\User\General::searchUsers($keyword);
     }
 
     /**
@@ -44,12 +101,9 @@ class Search extends \Municipio\Controller\BaseController
         // Get results for the other sites
         $this->multisiteSearchWP();
         $this->orderResultsByWeight();
-        $this->getPostsFromResult();
-        $this->setupPagination();
+        $results = $this->getPostsFromResult();
 
-        $this->data['keyword'] = get_search_query();
-        $this->data['resultCount'] = count($this->results);
-        $this->data['results'] = $this->pageResults;
+        return $results;
     }
 
     /**
@@ -58,17 +112,14 @@ class Search extends \Municipio\Controller\BaseController
      */
     public function getPostsFromResult()
     {
+        $results = array();
+
         foreach ($this->wpSearchResult as $item) {
-            $this->results[$item['post_id']] = get_blog_post($item['blog_id'], $item['post_id']);
-            $this->results[$item['post_id']]->blog_id = $item['blog_id'];
+            $results[$item['post_id']] = get_blog_post($item['blog_id'], $item['post_id']);
+            $results[$item['post_id']]->blog_id = $item['blog_id'];
         }
 
-        $offset = 0;
-        if ($this->currentPage > 1) {
-            $offset = ($this->currentPage-1) * $this->resultsPerPage;
-        }
-
-        $this->pageResults = array_slice($this->results, $offset, $this->resultsPerPage);
+        return $results;
     }
 
     /**
@@ -80,10 +131,7 @@ class Search extends \Municipio\Controller\BaseController
         global $searchwp;
         $sites = null;
 
-        $level = 'subscriptions';
-        if (isset($_GET['level']) && !empty($_GET['level'])) {
-            $level = sanitize_text_field($_GET['level']);
-        }
+        $level = $this->level;
 
         switch ($level) {
             case 'current':

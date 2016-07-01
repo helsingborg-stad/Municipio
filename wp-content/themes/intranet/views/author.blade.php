@@ -16,13 +16,15 @@
                     <div class="profile-basics">
                         <h1 class="profile-fullname">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</h1>
 
-                        @if (!empty(get_the_author_meta('user_work_title')))
+                        @if (!empty(get_the_author_meta('ad_title')))
+                             <span class="profile-title">{{ get_the_author_meta('ad_title') }}</span>
+                        @elseif (!empty(get_the_author_meta('user_work_title')))
                             <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
                         @endif
 
                         @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
                             <span class="profile-department">
-                                {{ !empty(get_the_author_meta('user_administration_unit')) ? get_the_author_meta('user_administration_unit') : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
+                                {{ !empty(get_the_author_meta('user_administration_unit')) ? municipio_intranet_get_administration_unit_name(get_the_author_meta('user_administration_unit')) : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
                                 {{ !empty(get_the_author_meta('user_department')) ? get_the_author_meta('user_department') : '' }}
                             </span>
                         @endif
@@ -48,7 +50,7 @@
             </article>
         </div>
 
-        <div class="grid-md-4">
+        <aside class="grid-md-4 sidebar-right-sidebar">
             <div class="grid">
                 <div class="grid-xs-12">
                     <div class="box box-filled">
@@ -73,8 +75,38 @@
                         </div>
                     </div>
                 </div>
+
+                @if (count($userSkills) > 0)
+                <div class="grid-xs-12">
+                    <div class="box box-filled">
+                        <h4 class="box-title"><?php _e('Skills', 'municipio-intranet'); ?></h4>
+                        <div class="box-content">
+                            <ul class="tags">
+                                @foreach ($userSkills as $item)
+                                <li>{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                @if (count($userResponsibilities) > 0)
+                <div class="grid-xs-12">
+                    <div class="box box-filled">
+                        <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
+                        <div class="box-content">
+                            <ul class="tags">
+                                @foreach ($userResponsibilities as $item)
+                                <li>{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
-        </div>
+        </aside>
     </div>
 </div>
 

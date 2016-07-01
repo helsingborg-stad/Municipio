@@ -58,6 +58,25 @@ class AdministrationUnits
     }
 
     /**
+     * Get a list of all systems in the database
+     * @return arry Systems
+     */
+    public static function getAdministrationUnit($id)
+    {
+        global $wpdb;
+        $query = $wpdb->prepare("SELECT name FROM {$wpdb->base_prefix}" . self::$tableSuffix . " WHERE id = %d ORDER BY name ASC", array($id));
+        return $wpdb->get_var($query);
+    }
+
+    public static function getAdministrationUnitIdFromString($string)
+    {
+        global $wpdb;
+        $string = strtolower($string);
+        $query = $wpdb->prepare("SELECT id FROM {$wpdb->base_prefix}" . self::$tableSuffix . " WHERE LCASE(name) = %s ORDER BY name ASC", array($string));
+        return $wpdb->get_var($query);
+    }
+
+    /**
      * Adds a system to list of available systems
      */
     public function addAdministrationUnit()
@@ -80,11 +99,21 @@ class AdministrationUnits
             return;
         }
 
+        self::insertAdministrationUnit($name);
+    }
+
+    public static function insertAdministrationUnit($name)
+    {
+        global $wpdb;
+
         $query = $wpdb->prepare("
             INSERT IGNORE INTO " . $wpdb->base_prefix . self::$tableSuffix . "
             (name) VALUES (%s)
         ", $name);
+
         $wpdb->query($query);
+
+        return $wpdb->insert_id;
     }
 
     /**

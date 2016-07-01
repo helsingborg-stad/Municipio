@@ -20,6 +20,8 @@ class AuthorEdit extends \Municipio\Controller\BaseController
         }
 
         $this->data['user'] = $user;
+        $this->data['userResponsibilities'] = is_array(get_the_author_meta('user_responsibilities', $user->ID)) ? get_the_author_meta('user_responsibilities', $user->ID) : array();
+        $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
         $this->data['administrationUnits'] = \Intranet\User\AdministrationUnits::getAdministrationUnits();
         $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups();
     }
@@ -52,13 +54,31 @@ class AuthorEdit extends \Municipio\Controller\BaseController
             $this->uploadProfileImage($_POST['image_uploader_file'][0], $user);
         }
 
-        update_user_meta($user->ID, 'user_work_title', sanitize_text_field($_POST['user_work_title']));
-        update_user_meta($user->ID, 'user_phone', sanitize_text_field($_POST['user_phone']));
+        if (isset($_POST['user_work_title'])) {
+            update_user_meta($user->ID, 'user_work_title', sanitize_text_field($_POST['user_work_title']));
+        }
+
+        $phone = sanitize_text_field($_POST['user_phone']);
+        $phone = \Intranet\Helper\DataCleaner::phoneNumber($phone);
+
+        update_user_meta($user->ID, 'user_phone', $phone);
         update_user_meta($user->ID, 'user_administration_unit', $_POST['user_administration_unit']);
         update_user_meta($user->ID, 'user_department', sanitize_text_field($_POST['user_department']));
         update_user_meta($user->ID, 'user_about', implode("\n", array_map('sanitize_text_field', explode("\n", $_POST['user_about']))));
         update_user_meta($user->ID, 'user_target_groups', isset($_POST['user_target_groups']) ? array_map('sanitize_text_field', $_POST['user_target_groups']) : array());
         update_user_meta($user->ID, 'user_color_scheme', isset($_POST['color_scheme']) ? sanitize_text_field($_POST['color_scheme']) : 'purple');
+
+        if (isset($_POST['responsibilities'])) {
+            update_user_meta($user->ID, 'user_responsibilities', $_POST['responsibilities']);
+        } else {
+            delete_user_meta($user->ID, 'user_responsibilities');
+        }
+
+        if (isset($_POST['skills'])) {
+            update_user_meta($user->ID, 'user_skills', $_POST['skills']);
+        } else {
+            delete_user_meta($user->ID, 'user_skills');
+        }
 
         return true;
     }

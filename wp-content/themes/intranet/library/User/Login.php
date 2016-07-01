@@ -6,8 +6,37 @@ class Login
 {
     public function __construct()
     {
+        add_action('wp_login', array($this, 'adMapping'), 10, 2);
         add_action('wp_login_failed', array($this, 'frontendLoginFailed'));
         add_action('wp_logout', array($this, 'frontendLogout'));
+    }
+
+    public function adMapping($username, $user)
+    {
+        $userId = $user->data->ID;
+
+        // Map the administration unit
+        if (!empty(get_the_author_meta('ad_company', $userId))) {
+            $departmentId = \Intranet\User\AdministrationUnits::getAdministrationUnitIdFromString(get_the_author_meta('ad_company', $userId));
+
+            if (!$departmentId) {
+                $departmentId = \Intranet\User\AdministrationUnits::insertAdministrationUnit(get_the_author_meta('ad_company', $userId));
+            }
+
+            update_user_meta($userId, 'user_administration_unit', $departmentId);
+        }
+
+        // Map department
+        if (!empty(get_the_author_meta('ad_department', $userId)) && empty(get_the_author_meta('user_department', $userId))) {
+            update_user_meta($userId, 'user_department', get_the_author_meta('ad_department', $userId));
+        }
+
+        // Map phone number
+        if (!empty(get_the_author_meta('ad_telephone', $userId)) && empty(get_the_author_meta('user_phone', $userId))) {
+            update_user_meta($userId, 'user_phone', \Intranet\Helper\DataCleaner::phoneNumber(get_the_author_meta('ad_telephone', $userId)));
+        }
+
+        return;
     }
 
     /**
@@ -16,12 +45,8 @@ class Login
      */
     public function frontendLogout()
     {
-        $referrer = $_SERVER['HTTP_REFERER'];
-
-        if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
-            wp_redirect($referrer);
-            exit;
-        }
+        wp_redirect(home_url('/'));
+        exit;
     }
 
     /**

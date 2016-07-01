@@ -3,6 +3,18 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.3 (tbd)
+===================
+- Require Active Directory Integration (AD1) plugin
+- Adds "edit" and "remove" actions to the user systems admin
+- Added shortcode "explain" to Municipio-theme for inserting questionmarks with tooltips in post_content
+- Adds metabox to pages for setting custom table of contents title
+- Split user edit page into sections
+- User can now add skills to profile (search implementation needed)
+- User can now add responsibilities to profile (search implementation needed)
+- Updated translations
+- Use network site title as "logotype"
+
 Version 0.2.2 (2016-06-29)
 ==========================
 - Adds Broken Link Detector plugin
