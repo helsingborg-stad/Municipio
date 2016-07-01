@@ -32,7 +32,6 @@ class General
         ));
 
         $userMetaSearch = new \WP_User_Query(array(
-            //'search' => $keyword,
             'meta_query' => array(
                 'relation' => 'OR',
                 array(
@@ -42,6 +41,16 @@ class General
                 ),
                 array(
                     'key' => 'last_name',
+                    'value' => $keyword,
+                    'compare' => 'LIKE'
+                ),
+                array(
+                    'key' => 'user_responsibilities',
+                    'value' => $keyword,
+                    'compare' => 'LIKE'
+                ),
+                array(
+                    'key' => 'user_skills',
                     'value' => $keyword,
                     'compare' => 'LIKE'
                 )
