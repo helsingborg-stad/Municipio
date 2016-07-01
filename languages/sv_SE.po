@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-05-25 10:43+0200\n"
-"PO-Revision-Date: 2016-05-25 10:44+0200\n"
+"POT-Creation-Date: 2016-07-01 09:57+0200\n"
+"PO-Revision-Date: 2016-07-01 09:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -903,8 +903,8 @@ msgstr "Använd egen"
 msgid "Tagline text"
 msgstr "Slogantext"
 
-#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:32
-#: library/Admin/Options/Theme.php:33
+#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:30
+#: library/Admin/Options/Theme.php:31
 msgid "Header"
 msgstr "Sidhuvud"
 
@@ -1244,58 +1244,61 @@ msgstr "Adress"
 msgid "Contacts"
 msgstr "Kontakter"
 
+#: library/Admin/General.php:62
+msgid "Private"
+msgstr "Privat"
+
 #: library/Admin/Options/Archives.php:41
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Theme.php:9 library/Admin/Options/Theme.php:15
-#: library/Admin/Options/Theme.php:16
-msgid "Theme options"
+#: library/Admin/Options/Theme.php:13 library/Admin/Options/Theme.php:14
+msgid "Theme Options"
 msgstr "Temainställningar"
 
-#: library/Admin/Options/Theme.php:24 library/Admin/Options/Theme.php:25
+#: library/Admin/Options/Theme.php:22 library/Admin/Options/Theme.php:23
 msgid "Navigation"
 msgstr "Navigering"
 
-#: library/Admin/Options/Theme.php:40 library/Admin/Options/Theme.php:41
+#: library/Admin/Options/Theme.php:38 library/Admin/Options/Theme.php:39
 msgid "Content"
 msgstr "Innehåll"
 
-#: library/Admin/Options/Theme.php:48 library/Admin/Options/Theme.php:49
+#: library/Admin/Options/Theme.php:46 library/Admin/Options/Theme.php:47
 #: library/Theme/Sidebars.php:69
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Admin/Options/Theme.php:56 library/Admin/Options/Theme.php:57
-#: library/Theme/Navigation.php:74
+#: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
+#: library/Theme/Navigation.php:84
 msgid "Search"
 msgstr "Sök"
 
-#: library/Admin/Options/Theme.php:64 library/Admin/Options/Theme.php:65
+#: library/Admin/Options/Theme.php:62 library/Admin/Options/Theme.php:63
 msgid "Blog & Archives"
 msgstr "Bloggar & Arkiv"
 
-#: library/Admin/Options/Theme.php:96
+#: library/Admin/Options/Theme.php:94
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:97
+#: library/Admin/Options/Theme.php:95
 msgid "Post Types"
 msgstr "Inläggstyper"
 
-#: library/Admin/Options/Theme.php:104
+#: library/Admin/Options/Theme.php:102
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:105
+#: library/Admin/Options/Theme.php:103
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:112
+#: library/Admin/Options/Theme.php:110
 msgid "Custom CSS/JS Editor"
 msgstr "Egen CSS/JS"
 
-#: library/Admin/Options/Theme.php:113
+#: library/Admin/Options/Theme.php:111
 msgid "Custom CSS/JS"
 msgstr "Egen CSS/JS"
 
@@ -1385,19 +1388,19 @@ msgstr "Automatiskt genererade posttyper från inställningspanel"
 msgid "Submit"
 msgstr "Skicka"
 
-#: library/Template.php:48
+#: library/Template.php:49
 msgid "Page"
 msgstr "Sida"
 
-#: library/Template.php:52
+#: library/Template.php:53
 msgid "Front page"
 msgstr "Startsida"
 
-#: library/Template.php:120
+#: library/Template.php:130
 msgid "Admin notice"
 msgstr "Administratörsnotis"
 
-#: library/Template.php:120
+#: library/Template.php:130
 #, php-format
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
@@ -1494,6 +1497,11 @@ msgstr "Till datum"
 msgid "Filter"
 msgstr "Filtrera"
 
+#: views/partials/blog/post-footer.blade.php:14
+#: views/partials/timestamps.blade.php:4
+msgid "Published by"
+msgstr "Publicerad av"
+
 #: views/partials/blog/taxonomy-filters.blade.php:10
 msgid "Show all"
 msgstr "Visa alla"
@@ -1506,8 +1514,8 @@ msgstr "Meny"
 msgid "More"
 msgstr "Mer"
 
-#: views/partials/search/google.blade.php:20
-#: views/partials/search/wp.blade.php:20
+#: views/partials/search/google.blade.php:22
+#: views/partials/search/wp.blade.php:22
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
@@ -1520,10 +1528,6 @@ msgstr "Hittade inga matchande resultat för din sökning…"
 msgid "Share on"
 msgstr "Dela på"
 
-#: views/partials/timestamps.blade.php:4
-msgid "Published by"
-msgstr "Publicerad av"
-
 #: views/partials/timestamps.blade.php:24
 #: views/partials/timestamps.blade.php:45
 msgid "Published"
@@ -1533,11 +1537,11 @@ msgstr "Publicerad"
 msgid "Last updated"
 msgstr "Senast uppdaterad"
 
-#: views/templates/master.blade.php:53
+#: views/templates/master.blade.php:52
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: views/templates/master.blade.php:54
+#: views/templates/master.blade.php:53
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
@@ -1565,7 +1569,7 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
 
-#~ msgid "Theme Options"
+#~ msgid "Theme options"
 #~ msgstr "Temainställningar"
 
 #~ msgid "Custom CSS Editor"
