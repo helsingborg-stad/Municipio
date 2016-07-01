@@ -75,6 +75,8 @@
                         </div>
                     </div>
                 </div>
+
+                @if (count($userSkills) > 0)
                 <div class="grid-xs-12">
                     <div class="box box-filled">
                         <h4 class="box-title"><?php _e('Skills', 'municipio-intranet'); ?></h4>
@@ -87,6 +89,9 @@
                         </div>
                     </div>
                 </div>
+                @endif
+
+                @if (count($userResponsibilities) > 0)
                 <div class="grid-xs-12">
                     <div class="box box-filled">
                         <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
@@ -99,6 +104,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </aside>
     </div>
