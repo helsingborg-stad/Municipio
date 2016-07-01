@@ -298,13 +298,13 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="user-personalization">
                             <label class="accordion-toggle" for="user-personalization">
-                                <h4><?php _e('Personalization', 'municipio-intranet'); ?></h4>
+                                <h4><?php _e('Theme', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
                                     <div class="grid-xs-12">
                                         <div class="form-group">
-                                            <label>Color scheme</label>
+                                            <label><?php _e('Color scheme', 'municipio-intranet'); ?></label>
                                             <label class="checkbox"><input type="radio" name="color_scheme" value="red" {{ checked(get_the_author_meta('user_color_scheme'), 'red') }}> <?php _e('Red', 'municipio-intranet'); ?></label>
                                             <label class="checkbox"><input type="radio" name="color_scheme" value="blue" {{ checked(get_the_author_meta('user_color_scheme'), 'blue') }}> <?php _e('Blue', 'municipio-intranet'); ?></label>
                                             <label class="checkbox"><input type="radio" name="color_scheme" value="green" {{ checked(get_the_author_meta('user_color_scheme'), 'green') }}> <?php _e('Green', 'municipio-intranet'); ?></label>

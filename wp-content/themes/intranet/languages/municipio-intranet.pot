@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-06-09 15:32+0200\n"
+"POT-Creation-Date: 2016-07-01 09:50+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -125,7 +125,7 @@ msgid "Shows a user's link list"
 msgstr ""
 
 #: library/Module/UserSystems.php:11 library/Module/UserSystems.php:12
-#: library/User/Systems.php:25 library/User/Systems.php:26
+#: library/User/Systems.php:31 library/User/Systems.php:32
 msgid "User systems"
 msgstr ""
 
@@ -133,27 +133,27 @@ msgstr ""
 msgid "Shows a users's system link list"
 msgstr ""
 
-#: library/Theme/Enqueue.php:49
+#: library/Theme/Enqueue.php:41
 #: templates/module/modularity-mod-intranet-u-links.php:21
 msgid "You have not added any links yet…"
 msgstr ""
 
-#: library/Theme/Enqueue.php:50 views/partials/network-header.blade.php:48
+#: library/Theme/Enqueue.php:42 views/partials/network-header.blade.php:48
 msgid "Subscribe"
 msgstr ""
 
-#: library/Theme/Enqueue.php:51 views/partials/network-header.blade.php:50
+#: library/Theme/Enqueue.php:43 views/partials/network-header.blade.php:50
 msgid "Unsubscribe"
 msgstr ""
 
-#: library/User/AdministrationUnits.php:21
-#: library/User/AdministrationUnits.php:22
+#: library/User/AdministrationUnits.php:25
+#: library/User/AdministrationUnits.php:26
 #: templates/admin/administration-units/form.php:3
 #: templates/admin/administration-units/form.php:34
 msgid "Administration units"
 msgstr ""
 
-#: library/User/AdministrationUnits.php:72
+#: library/User/AdministrationUnits.php:95
 msgid "All fields must be filled in to add a new administration unit"
 msgstr ""
 
@@ -247,12 +247,12 @@ msgstr ""
 msgid "Still going strong, %s?"
 msgstr ""
 
-#: library/User/General.php:134
+#: library/User/General.php:135
 #, php-format
 msgid "Happy new year %s"
 msgstr ""
 
-#: library/User/General.php:139
+#: library/User/General.php:140
 #, php-format
 msgid "Merry christmas %s"
 msgstr ""
@@ -261,30 +261,31 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: library/User/Registration.php:33 views/author-edit.blade.php:26
+#: library/User/Registration.php:33 views/author-edit.blade.php:42
 msgid "First name"
 msgstr ""
 
-#: library/User/Registration.php:37 views/author-edit.blade.php:32
+#: library/User/Registration.php:37 views/author-edit.blade.php:48
 msgid "Last name"
 msgstr ""
 
-#: library/User/Systems.php:199
+#: library/User/Systems.php:238
 msgid "All fields must be filled in to add a new system"
 msgstr ""
 
-#: library/User/TargetGroups.php:157
+#: library/User/TargetGroups.php:161
 msgid "Restrict to target groups"
 msgstr ""
 
-#: library/User/TargetGroups.php:188 library/User/TargetGroups.php:189
-#: views/author-edit.blade.php:83
+#: library/User/TargetGroups.php:193 library/User/TargetGroups.php:194
+#: views/author-edit.blade.php:278
 msgid "Target groups"
 msgstr ""
 
 #: templates/admin/administration-units/form.php:19
 #: templates/admin/administration-units/form.php:24
-#: templates/admin/systems/form.php:19 templates/admin/systems/form.php:24
+#: templates/admin/systems/form.php:18 templates/admin/systems/form.php:23
+#: templates/admin/systems/form.php:124
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
 #: templates/module/modularity-mod-intranet-u-links.php:37
@@ -305,44 +306,45 @@ msgid "Administration unit name"
 msgstr ""
 
 #: templates/admin/administration-units/form.php:56
-#: templates/admin/systems/form.php:111
-#: templates/admin/target-groups/form.php:53
+#: templates/admin/systems/form.php:126
+#: templates/admin/target-groups/form.php:53 views/author-edit.blade.php:165
+#: views/author-edit.blade.php:208
 msgid "Add"
 msgstr ""
 
-#: templates/admin/systems/form.php:3
+#: templates/admin/systems/form.php:2
 msgid "Manage user systems"
 msgstr ""
 
-#: templates/admin/systems/form.php:32
+#: templates/admin/systems/form.php:31
 msgid "Local url filtering"
 msgstr ""
 
-#: templates/admin/systems/form.php:34
+#: templates/admin/systems/form.php:33
 msgid ""
 "Only show systems with local url if visitor IP matches the following "
 "patterns."
 msgstr ""
 
-#: templates/admin/systems/form.php:40
+#: templates/admin/systems/form.php:39
 msgid "Do you want to permanently remove the pattern?"
 msgstr ""
 
-#: templates/admin/systems/form.php:51
+#: templates/admin/systems/form.php:50
 msgid ""
 "Example: <i>193\\.180\\.109\\.([0-9]+)$</i> matches all ip addresses "
 "193.180.109.[number]"
 msgstr ""
 
-#: templates/admin/systems/form.php:54
+#: templates/admin/systems/form.php:53
 msgid "Add pattern"
 msgstr ""
 
-#: templates/admin/systems/form.php:63
+#: templates/admin/systems/form.php:62
 msgid "Available systems"
 msgstr ""
 
-#: templates/admin/systems/form.php:66
+#: templates/admin/systems/form.php:65
 msgid ""
 "List of available systems. To enable a system to be selectable inside a "
 "user's \"my system\" list you need to check the \"selectable\" checkbox.\n"
@@ -350,43 +352,61 @@ msgid ""
 "systems\" list you should check the \"forced\" checkbox"
 msgstr ""
 
-#: templates/admin/systems/form.php:73 templates/admin/systems/form.php:96
-#: templates/admin/systems/form.php:124
+#: templates/admin/systems/form.php:72 templates/admin/systems/form.php:108
+#: templates/admin/systems/form.php:140
 #: templates/module/modularity-mod-intranet-u-syste.php:37
 msgid "Name"
 msgstr ""
 
-#: templates/admin/systems/form.php:74 templates/admin/systems/form.php:104
-#: templates/admin/systems/form.php:125
+#: templates/admin/systems/form.php:73 templates/admin/systems/form.php:116
+#: templates/admin/systems/form.php:141
 #: templates/module/modularity-mod-intranet-u-syste.php:38
 msgid "Description"
 msgstr ""
 
-#: templates/admin/systems/form.php:75 templates/admin/systems/form.php:100
-#: templates/admin/systems/form.php:126
+#: templates/admin/systems/form.php:74 templates/admin/systems/form.php:112
+#: templates/admin/systems/form.php:142
 #: templates/module/modularity-mod-intranet-u-links.php:33
 #: templates/module/modularity-mod-intranet-u-syste.php:39
 msgid "Url"
 msgstr ""
 
-#: templates/admin/systems/form.php:93
+#: templates/admin/systems/form.php:85
+#: templates/module/modularity-mod-intranet-u-links.php:5
+#: templates/module/modularity-mod-intranet-u-syste.php:5
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/systems/form.php:86
+msgid "Remove"
+msgstr ""
+
+#: templates/admin/systems/form.php:86
+msgid "Are you sure you want to remove the system?"
+msgstr ""
+
+#: templates/admin/systems/form.php:100
 msgid "Add system"
 msgstr ""
 
-#: templates/admin/systems/form.php:108
+#: templates/admin/systems/form.php:102
+msgid "Edit system"
+msgstr ""
+
+#: templates/admin/systems/form.php:120
 msgid "System is only available from a listed local IP pattern"
 msgstr ""
 
-#: templates/admin/systems/form.php:118
+#: templates/admin/systems/form.php:134
 #, php-format
 msgid "Available systems for %s"
 msgstr ""
 
-#: templates/admin/systems/form.php:127
+#: templates/admin/systems/form.php:143
 msgid "Selectable"
 msgstr ""
 
-#: templates/admin/systems/form.php:128
+#: templates/admin/systems/form.php:144
 #: templates/module/modularity-mod-intranet-u-syste.php:52
 msgid "Forced"
 msgstr ""
@@ -403,17 +423,12 @@ msgstr ""
 msgid "Add tag"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:67
+#: templates/module/modularity-mod-intranet-news.php:70
 msgid "Read more"
 msgstr ""
 
 #: templates/module/modularity-mod-intranet-u-links.php:3
 msgid "Your links"
-msgstr ""
-
-#: templates/module/modularity-mod-intranet-u-links.php:5
-#: templates/module/modularity-mod-intranet-u-syste.php:5
-msgid "Edit"
 msgstr ""
 
 #: templates/module/modularity-mod-intranet-u-links.php:27
@@ -441,107 +456,194 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: views/author-edit.blade.php:11
+#: views/author-edit.blade.php:15
 msgid "Your settings"
 msgstr ""
 
-#: views/author-edit.blade.php:13
+#: views/author-edit.blade.php:17
 #, php-format
 msgid "Settings of %s"
 msgstr ""
 
-#: views/author-edit.blade.php:26 views/author-edit.blade.php:32
-#: views/author-edit.blade.php:41
+#: views/author-edit.blade.php:21
+msgid "Click on a section to view and edit your settings."
+msgstr ""
+
+#: views/author-edit.blade.php:36
+msgid "Personal information"
+msgstr ""
+
+#: views/author-edit.blade.php:42 views/author-edit.blade.php:48
+#: views/author-edit.blade.php:57 views/author-edit.blade.php:99
 msgid "Not editable"
 msgstr ""
 
-#: views/author-edit.blade.php:41 views/author.blade.php:58
+#: views/author-edit.blade.php:57 views/author.blade.php:60
 msgid "Email"
 msgstr ""
 
-#: views/author-edit.blade.php:50
-msgid "Work title"
-msgstr ""
-
-#: views/author-edit.blade.php:59
-msgid "Administration unit"
-msgstr ""
-
-#: views/author-edit.blade.php:64
-msgid "N/A"
-msgstr ""
-
-#: views/author-edit.blade.php:98
-msgid "Department"
-msgstr ""
-
-#: views/author-edit.blade.php:104 views/author.blade.php:62
+#: views/author-edit.blade.php:63 views/author.blade.php:64
 msgid "Phone number"
 msgstr ""
 
-#: views/author-edit.blade.php:113
-msgid "Profile image"
-msgstr ""
-
-#: views/author-edit.blade.php:117
-msgid "Are your sure you want to remove the profile image?"
-msgstr ""
-
-#: views/author-edit.blade.php:117
-msgid "Delete profile image"
-msgstr ""
-
-#: views/author-edit.blade.php:128
-msgid "Drag a photo here"
-msgstr ""
-
-#: views/author-edit.blade.php:130
-msgid "or"
-msgstr ""
-
-#: views/author-edit.blade.php:131
-msgid "Select a photo"
-msgstr ""
-
-#: views/author-edit.blade.php:149
+#: views/author-edit.blade.php:75 views/author-edit.blade.php:81
 msgid "About me"
 msgstr ""
 
-#: views/author-edit.blade.php:158
+#: views/author-edit.blade.php:82
+msgid "Write a little something about yourself…"
+msgstr ""
+
+#: views/author-edit.blade.php:93
+msgid "Work information"
+msgstr ""
+
+#: views/author-edit.blade.php:99
+msgid "Work title"
+msgstr ""
+
+#: views/author-edit.blade.php:112
+msgid "Administration unit"
+msgstr ""
+
+#: views/author-edit.blade.php:117
+msgid "N/A"
+msgstr ""
+
+#: views/author-edit.blade.php:136 views/table-of-contents.blade.php:16
+msgid "Department"
+msgstr ""
+
+#: views/author-edit.blade.php:148
+msgid "Area of responsibility"
+msgstr ""
+
+#: views/author-edit.blade.php:153
+msgid ""
+"Please add your areas of responsibility. This will make it easier to find "
+"you when searching."
+msgstr ""
+
+#: views/author-edit.blade.php:160
+msgid "Responsibility"
+msgstr ""
+
+#: views/author-edit.blade.php:164
+msgid "Add area of responsibility"
+msgstr ""
+
+#: views/author-edit.blade.php:169
+msgid "Added responsibilities"
+msgstr ""
+
+#: views/author-edit.blade.php:191 views/author.blade.php:80
+msgid "Skills"
+msgstr ""
+
+#: views/author-edit.blade.php:196
+msgid ""
+"Please add your skills. This will make it easier to find you when searching."
+msgstr ""
+
+#: views/author-edit.blade.php:203
+msgid "Skill"
+msgstr ""
+
+#: views/author-edit.blade.php:207
+msgid "Add skill"
+msgstr ""
+
+#: views/author-edit.blade.php:212
+msgid "Added skills"
+msgstr ""
+
+#: views/author-edit.blade.php:234
+msgid "Profile image"
+msgstr ""
+
+#: views/author-edit.blade.php:243
+msgid "Are your sure you want to remove the profile image?"
+msgstr ""
+
+#: views/author-edit.blade.php:243
+msgid "Delete profile image"
+msgstr ""
+
+#: views/author-edit.blade.php:254
+msgid "Drag a photo here"
+msgstr ""
+
+#: views/author-edit.blade.php:256
+msgid "or"
+msgstr ""
+
+#: views/author-edit.blade.php:257
+msgid "Select a photo"
+msgstr ""
+
+#: views/author-edit.blade.php:301
+msgid "Theme"
+msgstr ""
+
+#: views/author-edit.blade.php:307
+msgid "Color scheme"
+msgstr ""
+
+#: views/author-edit.blade.php:308
+msgid "Red"
+msgstr ""
+
+#: views/author-edit.blade.php:309
+msgid "Blue"
+msgstr ""
+
+#: views/author-edit.blade.php:310
+msgid "Green"
+msgstr ""
+
+#: views/author-edit.blade.php:311
+msgid "Purple"
+msgstr ""
+
+#: views/author-edit.blade.php:324
 msgid "Save settings"
 msgstr ""
 
-#: views/author-edit.blade.php:171
+#: views/author-edit.blade.php:334
 msgid "Edit your settings"
 msgstr ""
 
-#: views/author-edit.blade.php:173
+#: views/author-edit.blade.php:336
 msgid "This is where you edit your personal settings."
 msgstr ""
 
-#: views/author-edit.blade.php:174
+#: views/author-edit.blade.php:337
 msgid ""
 "Some of your settings is displayed on your profile to other logged in users."
 msgstr ""
 
-#: views/author.blade.php:33
+#: views/author.blade.php:35
 msgid "Edit settings"
 msgstr ""
 
-#: views/author.blade.php:46
+#: views/author.blade.php:48
 msgid "About"
 msgstr ""
 
-#: views/author.blade.php:55
+#: views/author.blade.php:57
 msgid "Contact information"
 msgstr ""
 
-#: views/author.blade.php:66
+#: views/author.blade.php:68
 msgid "No phone number given"
 msgstr ""
 
-#: views/author.blade.php:70
+#: views/author.blade.php:72
 msgid "Office"
+msgstr ""
+
+#: views/author.blade.php:92
+msgid "Responsibilities"
 msgstr ""
 
 #: views/partials/header/intranet.blade.php:13
@@ -600,19 +702,19 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: views/search.blade.php:25
+#: views/search.blade.php:27
 msgid "Found no matching results on your search…"
 msgstr ""
 
-#: views/searchform.blade.php:23
+#: views/searchform.blade.php:36
 msgid "Subscriptions"
 msgstr ""
 
-#: views/searchform.blade.php:27
+#: views/searchform.blade.php:40
 msgid "All sites"
 msgstr ""
 
-#: views/searchform.blade.php:31
+#: views/searchform.blade.php:44
 msgid "Current site"
 msgstr ""
 
@@ -627,6 +729,18 @@ msgstr ""
 
 #: views/subscriptions.blade.php:40
 msgid "Save subscriptions"
+msgstr ""
+
+#: views/table-of-contents.blade.php:18
+msgid "All"
+msgstr ""
+
+#: views/table-of-contents.blade.php:27
+msgid "Text search"
+msgstr ""
+
+#: views/table-of-contents.blade.php:32
+msgid "Search"
 msgstr ""
 
 #. Theme Name of the plugin/theme
