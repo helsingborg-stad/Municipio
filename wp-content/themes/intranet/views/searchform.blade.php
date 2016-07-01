@@ -44,6 +44,13 @@
                     <label for="search-level-current" class="checkbox inline-block"><?php _e('Current site', 'municipio-intranet'); ?></label>
                 </li>
             </ul>
+
+            <ul class="segmented-control">
+                <li>
+                    <input id="search-level-users" type="radio" name="level" value="users" {{ checked('users', $searchLevel) }}>
+                    <label for="search-level-users" class="checkbox inline-block"><?php _e('Users', 'municipio-intranet'); ?></label>
+                </li>
+            </ul>
         </div>
         @endif
 

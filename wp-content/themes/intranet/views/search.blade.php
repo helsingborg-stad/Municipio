@@ -22,7 +22,9 @@
 
 <div class="container gutter gutter-lg gutter-top">
     <div class="grid gutter gutter-lg gutter-top">
-        <div class="grid-lg-12">
+        @include('partials.sidebar-left')
+
+        <div class="{{ $contentGridSize }}">
             <div class="notice info">
                 <i class="fa fa-info-circle"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
             </div>
@@ -65,13 +67,15 @@
                                             <div class="profile-basics">
                                                 <h3><a href="{{ municipio_intranet_get_user_profile_url($item->ID) }}">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</a></h3>
 
-                                                @if (!empty(get_the_author_meta('user_work_title')))
+                                                @if (!empty(get_the_author_meta('ad_title')))
+                                                     <span class="profile-title">{{ get_the_author_meta('ad_title') }}</span>
+                                                @elseif (!empty(get_the_author_meta('user_work_title')))
                                                     <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
                                                 @endif
 
                                                 @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
                                                     <span class="profile-department">
-                                                        {{ !empty(get_the_author_meta('user_administration_unit')) ? get_the_author_meta('user_administration_unit') : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
+                                                        {{ !empty(get_the_author_meta('user_administration_unit')) ? municipio_intranet_get_administration_unit_name(get_the_author_meta('user_administration_unit')) : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
                                                         {{ !empty(get_the_author_meta('user_department')) ? get_the_author_meta('user_department') : '' }}
                                                     </span>
                                                 @endif
