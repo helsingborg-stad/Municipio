@@ -51,7 +51,7 @@ class General
             return $classes;
         }
 
-        $classes[] = 'theme-' . $color;
+        $classes['color_scheme'] = 'theme-' . $color;
         return $classes;
     }
 

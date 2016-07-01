@@ -1,3 +1,5 @@
+<?php do_action('customer-feedback'); ?>
+
 <footer class="page-footer grid">
     <div class="grid-md-8">
         @include('partials.timestamps')

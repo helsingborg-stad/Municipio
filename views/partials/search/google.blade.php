@@ -1,3 +1,5 @@
+<?php $pagination = $search->pagination(); ?>
+
 <section class="creamy gutter-vertical gutter-lg clearfix">
     <div class="container">
         <div class="gid">
@@ -29,10 +31,10 @@
     <div class="container">
         <div class="grid">
             <div class="grid-md-12 grid-lg-9">
-                @if (count($results->items) > 0)
+                @if ($pagination)
                 <div class="grid">
                     <div class="grid-lg-12">
-                        {!! $search->pagination() !!}
+                        {!! $pagination !!}
                     </div>
                 </div>
                 @endif
@@ -45,7 +47,7 @@
                             <li>
                                 <div class="search-result-item">
                                     <span class="search-result-date">{{ apply_filters('Municipio/search_result/date', $search->getModifiedDate($item), false) }}</span>
-                                    <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}" class="{{ (isset($item->fileFormat)) ? $search->getFiletypeClass($item->fileFormat) : '' }}">{!! apply_filters('Municipio/search_result/title', $item->htmlTitle, false) !!}</a></h3>
+                                    <h3><a class="link-item" href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}" class="{{ (isset($item->fileFormat)) ? $search->getFiletypeClass($item->fileFormat) : '' }}">{!! apply_filters('Municipio/search_result/title', $item->htmlTitle, false) !!}</a></h3>
                                     <p>{!! apply_filters('Municipio/search_result/excerpt', trim($item->snippet), false) !!}</p>
                                     <div class="search-result-info">
                                         <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}">{!! apply_filters('Municipio/search_result/permalink_text', $item->htmlFormattedUrl, false) !!}</a></span>
@@ -58,10 +60,10 @@
                     </div>
                 </div>
 
-                @if (count($results->items) > 0)
+                @if ($pagination)
                 <div class="grid">
                     <div class="grid-lg-12">
-                        {!! $search->pagination() !!}
+                        {!! $pagination !!}
                     </div>
                 </div>
                 @endif

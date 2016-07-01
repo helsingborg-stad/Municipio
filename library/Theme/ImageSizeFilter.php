@@ -6,8 +6,16 @@ class ImageSizeFilter
 {
     public function __construct()
     {
+        add_filter('jpeg_quality', array($this, 'setImageQuality'));
+        add_filter('wp_editor_set_quality', array($this, 'setImageQuality'));
+
         add_filter('Modularity/slider/image', array($this, 'filterHeroImageSize'), 100, 2);
         add_filter('Modularity/Module/Classes', array($this, 'addVideoSizeClass'), 100, 3);
+    }
+
+    public function setImageQuality($quaility)
+    {
+        return 100;
     }
 
     public function addVideoSizeClass($default_class, $post_type, $args)

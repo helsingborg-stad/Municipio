@@ -30,7 +30,7 @@ class Search extends \Municipio\Controller\BaseController
      */
     public function googleSearch()
     {
-        $search = new \Municipio\Search\Google($this->getQuery(), $this->getIndex());
+        $search = new \Municipio\Search\Google(get_search_query(), $this->getIndex());
         $this->data['search'] = $search;
         $this->data['results'] = $search->results;
     }
