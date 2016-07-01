@@ -13,17 +13,32 @@ class Search extends \Municipio\Controller\BaseController
 
     public $level = 'subscriptions';
 
+    public $users = array();
+    public $levelResultsCount = array(
+        'subscriptions' =>null,
+        'all' => null,
+        'current' => null,
+        'users' => null
+    );
+
+    /**
+     * Performs the search
+     * @return void
+     */
     public function init()
     {
         $this->getLevel();
 
+        $this->users = $this->searchUsers();
+        $content = $this->searchWp();
+
         switch ($this->level) {
             case 'users':
-                $this->searchUsers();
+                $this->results = $this->users;
                 break;
 
             default:
-                $this->searchWp();
+                $this->results = $content;
                 break;
         }
 
@@ -43,6 +58,8 @@ class Search extends \Municipio\Controller\BaseController
 
     public function renderResult()
     {
+        $this->setupPagination();
+
         $offset = 0;
         if ($this->currentPage > 1) {
             $offset = ($this->currentPage-1) * $this->resultsPerPage;
@@ -53,14 +70,17 @@ class Search extends \Municipio\Controller\BaseController
         $this->data['keyword'] = get_search_query();
         $this->data['resultCount'] = count($this->results);
         $this->data['results'] = $this->pageResults;
+
+        global $counts;
+        $counts = array(
+            'users' => count($this->users)
+        );
     }
 
     public function searchUsers()
     {
         $keyword = get_search_query();
-        $users = \Intranet\User\General::searchUsers($keyword);
-
-        $this->results = $users;
+        return \Intranet\User\General::searchUsers($keyword);
     }
 
     /**
@@ -81,8 +101,9 @@ class Search extends \Municipio\Controller\BaseController
         // Get results for the other sites
         $this->multisiteSearchWP();
         $this->orderResultsByWeight();
-        $this->getPostsFromResult();
-        $this->setupPagination();
+        $results = $this->getPostsFromResult();
+
+        return $results;
     }
 
     /**
@@ -91,10 +112,14 @@ class Search extends \Municipio\Controller\BaseController
      */
     public function getPostsFromResult()
     {
+        $results = array();
+
         foreach ($this->wpSearchResult as $item) {
-            $this->results[$item['post_id']] = get_blog_post($item['blog_id'], $item['post_id']);
-            $this->results[$item['post_id']]->blog_id = $item['blog_id'];
+            $results[$item['post_id']] = get_blog_post($item['blog_id'], $item['post_id']);
+            $results[$item['post_id']]->blog_id = $item['blog_id'];
         }
+
+        return $results;
     }
 
     /**
