@@ -17,7 +17,8 @@ class Data
     public static $suggestedMetaFields = array(
         'user_phone'            => 'user_phone',
         'user_skills'           => 'user_skills',
-        'user_responsibilities' => 'user_responsibilities'
+        'user_responsibilities' => 'user_responsibilities',
+        'user_profile_picture'    => 'user_profile_picture'
     );
 
     public function __construct()
@@ -48,6 +49,10 @@ class Data
                     $this->updateUserData($key, $value);
                     break;
 
+                case 'image_uploader_file':
+                    $this->uploadProfileImage($key, $value);
+                    break;
+
                 default:
                     $this->updateUserMeta($key, $value);
                     break;
@@ -57,6 +62,16 @@ class Data
         $referer = $_SERVER['HTTP_REFERER'];
         wp_redirect($referer);
         exit;
+    }
+
+    public function uploadProfileImage($key, $value)
+    {
+        if (!isset($value[0]) || empty($value[0])) {
+            return;
+        }
+
+        $profileImage = new \Intranet\User\ProfileImage();
+        $profileImage->uploadProfileImage($value[0], wp_get_current_user());
     }
 
     public function updateUserData($key, $value)
