@@ -18,7 +18,8 @@ class Data
         'user_phone'            => 'user_phone',
         'user_skills'           => 'user_skills',
         'user_responsibilities' => 'user_responsibilities',
-        'user_profile_picture'    => 'user_profile_picture'
+        'user_profile_picture'  => 'user_profile_picture',
+        'user_about'            => 'user_about'
     );
 
     public function __construct()
