@@ -4,17 +4,20 @@ namespace Intranet\User;
 
 class Data
 {
+    // key => template
     public static $requiredUserData = array(
-        'user_email'
+        'user_email' => 'user_email'
     );
 
     public static $requiredMetaFields = array(
-
+        'user_administration_unit' => 'user_department',
+        'user_department'          => 'user_department'
     );
 
     public static $suggestedMetaFields = array(
-        'user_skills',
-        'user_responsibilities'
+        'user_phone'            => 'user_phone',
+        'user_skills'           => 'user_skills',
+        'user_responsibilities' => 'user_responsibilities'
     );
 
     public function __construct()
@@ -50,6 +53,10 @@ class Data
                     break;
             }
         }
+
+        $referer = $_SERVER['HTTP_REFERER'];
+        wp_redirect($referer);
+        exit;
     }
 
     public function updateUserData($key, $value)
@@ -85,12 +92,12 @@ class Data
         $fields = array();
         $userData = get_userdata($userId)->data;
 
-        foreach (self::$requiredUserData as $field) {
+        foreach (self::$requiredUserData as $field => $template) {
             if (!empty($userData->$field)) {
                 continue;
             }
 
-            $fields[] = $field;
+            $fields[$field] = $template;
         }
 
         return $fields;
@@ -109,12 +116,12 @@ class Data
 
         $fields = array();
 
-        foreach (self::$suggestedMetaFields as $field) {
+        foreach (self::$requiredMetaFields as $field => $template) {
             if (!empty(get_the_author_meta($field, $userId))) {
                 continue;
             }
 
-            $fields[] = $field;
+            $fields[$field] = $template;
         }
 
         return $fields;
@@ -133,12 +140,12 @@ class Data
 
         $fields = array();
 
-        foreach (self::$suggestedMetaFields as $field) {
+        foreach (self::$suggestedMetaFields as $field => $template) {
             if (!empty(get_the_author_meta($field, $userId))) {
                 continue;
             }
 
-            $fields[] = $field;
+            $fields[$field] = $template;
         }
 
         return $fields;
