@@ -27,6 +27,10 @@ class Data
         add_action('wp', array($this, 'saveMissingDataForm'));
     }
 
+    /**
+     * Saves missing data from the user startup guide
+     * @return void
+     */
     public function saveMissingDataForm()
     {
         if (!isset($_POST['_wpnonce']) || !isset($_POST['user_missing_data'])) {
@@ -65,6 +69,12 @@ class Data
         exit;
     }
 
+    /**
+     * Upload profile image
+     * @param  string $key   Array key (field)
+     * @param  mixed  $value Array value
+     * @return void
+     */
     public function uploadProfileImage($key, $value)
     {
         if (!isset($value[0]) || empty($value[0])) {
@@ -75,6 +85,12 @@ class Data
         $profileImage->uploadProfileImage($value[0], wp_get_current_user());
     }
 
+    /**
+     * Updates user data table
+     * @param  string $key   Key
+     * @param  string $value Value
+     * @return void
+     */
     public function updateUserData($key, $value)
     {
         $data = array();
@@ -89,6 +105,12 @@ class Data
         wp_update_user($data);
     }
 
+    /**
+     * Updates user meta
+     * @param  string $key   Key
+     * @param  string $value Value
+     * @return void
+     */
     public function updateUserMeta($key, $value)
     {
         update_user_meta(get_current_user_id(), $key, $value);
