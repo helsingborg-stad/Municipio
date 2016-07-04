@@ -46,6 +46,11 @@ class App
         new \Municipio\Widget\RichEditor();
         new \Municipio\Widget\Contact();
 
+        /**
+         * Comments
+         */
+        new \Municipio\Comment\HoneyPot();
+
         add_action('widgets_init', function () {
             register_widget('\Municipio\Widget\Contact');
         });
