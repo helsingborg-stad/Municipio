@@ -26,6 +26,7 @@ class App
         new \Intranet\User\Systems();
         new \Intranet\User\Responsibilities();
         new \Intranet\User\Skills();
+        new \Intranet\User\Data();
 
         // Custom post types
         new \Intranet\CustomPostType\News();
