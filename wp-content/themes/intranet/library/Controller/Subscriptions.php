@@ -2,7 +2,7 @@
 
 namespace Intranet\Controller;
 
-class Subscriptions extends \Municipio\Controller\BaseController
+class Subscriptions extends \Intranet\Controller\BaseController
 {
     public function init()
     {

@@ -2,7 +2,7 @@
 
 namespace Intranet\Controller;
 
-class AuthorEdit extends \Municipio\Controller\BaseController
+class AuthorEdit extends \Intranet\Controller\BaseController
 {
     public function init()
     {

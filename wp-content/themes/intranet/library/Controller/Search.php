@@ -2,7 +2,7 @@
 
 namespace Intranet\Controller;
 
-class Search extends \Municipio\Controller\BaseController
+class Search extends \Intranet\Controller\BaseController
 {
     public $wpSearchResult = array();
     public $results = array();
