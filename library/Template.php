@@ -169,7 +169,8 @@ class Template
         $controller = \Municipio\Helper\Controller::locateController($template);
 
         if (!$controller) {
-            $controller = get_template_directory() . '/library/Controller/BaseController.php';
+            //$controller = get_template_directory() . '/library/Controller/BaseController.php';
+            $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
 
         $controller = apply_filters('Municipio/blade/controller', $controller);
