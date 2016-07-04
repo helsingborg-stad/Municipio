@@ -1,5 +1,5 @@
 <section class="accordion-section">
-    <input type="radio" name="active-section" id="accordion-missing-{{ $i }}" {{ $i === 1 ? 'checked' : '' }}>
+    <input type="radio" name="active-section" id="accordion-missing-{{ $i }}">
     <span class="accordion-toggle">
         <h3><span class="label label-number"><em>{{ $i }}</em></span> <?php _e('Area of responsibility', 'municipio-intranet'); ?></h3>
     </span>

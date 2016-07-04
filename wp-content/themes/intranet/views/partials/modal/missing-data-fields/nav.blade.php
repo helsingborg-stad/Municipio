@@ -1,4 +1,8 @@
 <div class="accordion-nav clearfix">
+    <?php if ($i === 1) : ?>
+        <label class="btn btn-md pull-left" data-guide-nav="prev" for="accordion-missing-instruction"><i class="fa fa-caret-left"></i> <?php _e('Previous', 'modularity-guides'); ?></label>
+    <?php endif; ?>
+
     <?php if ($i > 1) : ?>
         <label class="btn btn-md pull-left" data-guide-nav="prev" for="accordion-missing-{{ $i-1 }}"><i class="fa fa-caret-left"></i> <?php _e('Previous', 'modularity-guides'); ?></label>
     <?php endif; ?>

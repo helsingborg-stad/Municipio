@@ -166,21 +166,6 @@ Intranet.Stripe = (function ($) {
 
 var Intranet;
 
-//
-// @name Modal
-// @description  Show accodrion dropdown, make linkable by updating adress bar
-//
-Intranet = Intranet || {};
-Intranet.ResponsibilitySelect = (function ($) {
-
-    function ResponsibilitySelect() {
-
-    }
-
-    return new ResponsibilitySelect();
-
-})(jQuery);
-
 Intranet = Intranet || {};
 Intranet.Search = Intranet.Search || {};
 
