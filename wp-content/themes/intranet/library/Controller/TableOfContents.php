@@ -2,7 +2,7 @@
 
 namespace Intranet\Controller;
 
-class TableOfContents extends \Municipio\Controller\BaseController
+class TableOfContents extends \Intranet\Controller\BaseController
 {
     public function init()
     {

@@ -8,6 +8,20 @@ class General
     {
         add_filter('searchwp_common_words', array($this, 'commonWords'));
         add_filter('searchwp_custom_stemmer', array($this, 'stem'));
+
+        add_action('wp_ajax_search_autocomplete', array($this, 'ajaxSearch'));
+        add_action('wp_ajax_nopriv_search_autocomplete', array($this, 'ajaxSearch'));
+    }
+
+    public function ajaxSearch()
+    {
+        global $wp_query;
+        $wp_query->set('s', sanitize_text_field($_REQUEST['s']));
+
+        $search = new \Intranet\SearchWp\Search();
+        echo json_encode($search->results);
+
+        wp_die();
     }
 
     /**

@@ -40,13 +40,13 @@
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_first_name"><?php _e('First name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
-                                            <input type="email" id="user_first_name" name="user_first_name" value="{{ get_the_author_meta('first_name') }}" disabled>
+                                            <input type="text" id="user_first_name" name="user_first_name" value="{{ get_the_author_meta('first_name') }}" disabled>
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_last_name"><?php _e('Last name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
-                                            <input type="email" id="user_last_name" name="user_last_name" value="{{ get_the_author_meta('last_name') }}" disabled>
+                                            <input type="text" id="user_last_name" name="user_last_name" value="{{ get_the_author_meta('last_name') }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -111,12 +111,6 @@
                                         <div class="form-group">
                                             <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?></label>
                                             <div class="grid">
-                                                <div class="grid-md-6">
-                                                    <label class="checkbox">
-                                                        <input type="radio" name="user_administration_unit" value="" {{ checked('', get_the_author_meta('user_administration_unit')) }}>
-                                                        <?php _e('N/A', 'municipio-intranet'); ?>
-                                                    </label>
-                                                </div>
                                                 @foreach ($administrationUnits as $unit)
                                                 <div class="grid-md-6">
                                                     <label class="checkbox">

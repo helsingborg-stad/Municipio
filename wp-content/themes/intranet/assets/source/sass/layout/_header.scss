@@ -22,9 +22,9 @@ body.admin-bar {
     }
 
     .search {
+        position: relative;
         display: block;
         float: left;
-        max-width: 300px;
 
         @include input-placeholder(#fff, .5);
 
@@ -33,6 +33,7 @@ body.admin-bar {
             color: #fff;
             border: none;
             box-shadow: none;
+            width: 343px;
 
             // Color theme styles
             @if ($includeThemes == true) {

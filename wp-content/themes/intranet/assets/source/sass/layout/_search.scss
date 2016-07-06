@@ -41,3 +41,88 @@
         font-size: .8em;
     }
 }
+
+.search-autocomplete-nothing-found {
+    display: block;
+    padding: 7.5px 10px;
+    font-style: italic;
+}
+
+.search-autocomplete {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+    box-shadow: 0 0 20px rgba(#000, .1);
+    border-radius: 0 0 2px 2px;
+    font-size: 1em;
+
+    li {
+        font-size: .9em;
+    }
+
+    .read-more {
+        background-color: $palette-gray-2;
+        color: #fff !important;
+        border: none;
+        border-radius: 0;
+        margin: 0 -1px -1px -1px;
+        width: calc(100% + 2px);
+
+        // Color theme styles
+        @if ($includeThemes == true) {
+            @each $theme, $color in $themes {
+                .theme-#{$theme} & {
+                    background-color: map-get($color, secondSafe);
+                    color: map-get($color, secondTextColor)
+                }
+            }
+        }
+
+        &:hover {
+            background-color: lighten($palette-gray-2, 10%);
+
+            // Color theme styles
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: lighten(map-get($color, secondSafe), 10%);
+                    }
+                }
+            }
+        }
+    }
+
+    li.title {
+        background-color: $creamy;
+        border-bottom: 1px solid $creamy-darker;
+        border-top: 1px solid $creamy-darker;
+        color: $base-font-color;
+        padding: 3px 10px;
+        font-size: .8em;
+    }
+
+    li a {
+        display: block;
+        color: $base-font-color;
+        padding: 7.5em 10px;
+
+        &:hover {
+            background-color: rgba($palette-gray-2, .1);
+            text-decoration: none;
+
+            // Color theme styles
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: rgba(map-get($color, second), .1);
+                    }
+                }
+            }
+        }
+    }
+}

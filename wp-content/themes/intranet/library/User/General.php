@@ -60,6 +60,8 @@ class General
         $users = array();
         foreach ($userSearch->get_results() as $user) {
             $users[$user->ID] = $user->data;
+            $users[$user->ID]->name = municipio_intranet_get_user_full_name($user->ID);
+            $users[$user->ID]->profileUrl = municipio_intranet_get_user_profile_url($user->ID);
         }
 
         foreach ($userMetaSearch->get_results() as $user) {
