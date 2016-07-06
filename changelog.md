@@ -3,7 +3,7 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.3 (2016-07-06)
+Version 0.2.4 (2016-07-06)
 ==========================
 - Require Active Directory Integration (AD1) plugin
 - Adds "edit" and "remove" actions to the user systems admin
@@ -19,7 +19,7 @@ Version 0.2.3 (2016-07-06)
 - Show forced user systems in the systems module
 - Linking images in the image module
 
-Version 0.2.2 (2016-06-29)
+Version 0.2.3 (2016-06-29)
 ==========================
 - Adds Broken Link Detector plugin
 - Do not show search pagination of there's only one page
