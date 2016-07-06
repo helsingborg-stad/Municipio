@@ -117,9 +117,17 @@ class Search
         $results = array();
 
         foreach ($this->wpSearchResult as $item) {
-            $results[$item['post_id']] = get_blog_post($item['blog_id'], $item['post_id']);
+            $post = get_blog_post($item['blog_id'], $item['post_id']);
+            $results[$item['post_id']] = $post;
             $results[$item['post_id']]->blog_id = $item['blog_id'];
-            $results[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
+            $results[$item['post_id']]->is_file = false;
+
+            if (!$post->post_mime_type) {
+                $results[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
+            } else {
+                $results[$item['post_id']]->permalink = esc_url($post->guid);
+                $results[$item['post_id']]->is_file = true;
+            }
         }
 
         return $results;

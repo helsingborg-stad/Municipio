@@ -14,6 +14,8 @@ Version 0.2.3 (tbd)
 - User can now add responsibilities to profile (search implementation needed)
 - Updated translations
 - Use network site title as "logotype"
+- User profile compleation guide if missing profile information
+- Search autocomplete
 
 Version 0.2.2 (2016-06-29)
 ==========================
