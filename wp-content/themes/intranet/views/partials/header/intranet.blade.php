@@ -60,6 +60,6 @@
 
 @include('partials.network-header')
 
-@if ($show_userdata_guide)
+@if (isset($show_userdata_guide) && $show_userdata_guide)
     @include('partials.modal.missing-data')
 @endif

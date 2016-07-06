@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if ($show_userdata_notice)
+@if (isset($show_userdata_notice) && $show_userdata_notice)
 @include('partials.modal.missing-data')
 @endif
 
@@ -10,7 +10,7 @@
 
     @include('partials.breadcrumbs')
 
-    @if ($show_userdata_notice)
+    @if (isset($show_userdata_notice) && $show_userdata_notice)
     <div class="grid grid-xs-12">
         <div class="notice notice-sm info">
             <div class="grid no-padding grid-table-md grid-va-middle">
