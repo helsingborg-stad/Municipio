@@ -54,7 +54,10 @@ class Search
         add_filter('Municipio/search_result/excerpt', array($this, 'highlightTerms'));
     }
 
-
+    /**
+     * Get the search level
+     * @return void
+     */
     public function getLevel()
     {
         if (!isset($_REQUEST['level']) || empty($_REQUEST['level'])) {
@@ -64,6 +67,10 @@ class Search
         $this->level = sanitize_text_field($_REQUEST['level']);
     }
 
+    /**
+     * Render the search result
+     * @return void
+     */
     public function renderResult()
     {
         $this->setupPagination();
@@ -81,6 +88,10 @@ class Search
         );
     }
 
+    /**
+     * Search users
+     * @return array Users
+     */
     public function searchUsers()
     {
         $keyword = get_search_query();
