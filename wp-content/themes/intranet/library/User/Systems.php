@@ -199,11 +199,24 @@ class Systems
             });
         }
 
+        if (in_array('user', $filter)) {
+            $selected = (array)get_user_meta(get_current_user_id(), 'user_systems', true);
+            $systems = array_filter($allSystems, function ($item) use ($selected) {
+                return in_array($item->id, $selected);
+            });
+
+            $systems = array_merge($systems, self::getAvailabelSystems($unitId, array('forced')));
+        }
+
         // Remove local urls/systems if not on a internal ip
         $ipPatterns = get_site_option('user_systems_ip_patterns', array());
         $ipPatterns = array_map('stripslashes', $ipPatterns);
         $ipPatterns = '/' . implode('|', $ipPatterns) . '/';
         $clientIp = $_SERVER['REMOTE_ADDR'];
+
+        uasort($systems, function ($a, $b) {
+            return $a->name > $b->name;
+        });
 
         if (preg_match($ipPatterns, $clientIp)) {
             return $systems;
