@@ -28,6 +28,8 @@ class App
         new \Intranet\User\Skills();
         new \Intranet\User\Data();
 
+        new \Intranet\SearchWp\General();
+
         // Custom post types
         new \Intranet\CustomPostType\News();
 

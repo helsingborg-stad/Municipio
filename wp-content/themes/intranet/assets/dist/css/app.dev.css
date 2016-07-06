@@ -100,9 +100,9 @@ body.admin-bar {
   float: right; }
 
 #site-header .search {
+  position: relative;
   display: block;
-  float: left;
-  max-width: 300px; }
+  float: left; }
   #site-header .search ::-webkit-input-placeholder {
     /* WebKit browsers */
     color: #fff;
@@ -127,7 +127,8 @@ body.admin-bar {
     background-color: #5e5e5e;
     color: #fff;
     border: none;
-    box-shadow: none; }
+    box-shadow: none;
+    width: 343px; }
     .theme-red #site-header .search .form-control {
       background-color: #7c0804;
       color: #fff; }
@@ -339,6 +340,77 @@ body.admin-bar {
   .search-result-item-user .profile-title,
   .search-result-item-user .profile-department {
     font-size: .8em; }
+
+.search-autocomplete-nothing-found {
+  display: block;
+  padding: 7.5px 10px;
+  font-style: italic; }
+
+.search-autocomplete {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: #fff;
+  border: 1px solid #e7e5e1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 2px 2px;
+  font-size: 1em; }
+  .search-autocomplete li {
+    font-size: .9em; }
+  .search-autocomplete .read-more {
+    background-color: #333;
+    color: #fff !important;
+    border: none;
+    border-radius: 0;
+    margin: 0 -1px -1px -1px;
+    width: calc(100% + 2px); }
+    .theme-red .search-autocomplete .read-more {
+      background-color: #cb0050;
+      color: #fff; }
+    .theme-blue .search-autocomplete .read-more {
+      background-color: #0069b4;
+      color: #fff; }
+    .theme-green .search-autocomplete .read-more {
+      background-color: #50811b;
+      color: #000; }
+    .theme-purple .search-autocomplete .read-more {
+      background-color: #712082;
+      color: #fff; }
+    .search-autocomplete .read-more:hover {
+      background-color: #4d4d4d; }
+      .theme-red .search-autocomplete .read-more:hover {
+        background-color: #fe0064; }
+      .theme-blue .search-autocomplete .read-more:hover {
+        background-color: #0087e7; }
+      .theme-green .search-autocomplete .read-more:hover {
+        background-color: #6aab24; }
+      .theme-purple .search-autocomplete .read-more:hover {
+        background-color: #952aab; }
+  .search-autocomplete li.title {
+    background-color: #f6f5f2;
+    border-bottom: 1px solid #e7e5e1;
+    border-top: 1px solid #e7e5e1;
+    color: #252525;
+    padding: 3px 10px;
+    font-size: .8em; }
+  .search-autocomplete li a {
+    display: block;
+    color: #252525;
+    padding: 7.5em 10px; }
+    .search-autocomplete li a:hover {
+      background-color: rgba(51, 51, 51, 0.1);
+      text-decoration: none; }
+      .theme-red .search-autocomplete li a:hover {
+        background-color: rgba(203, 0, 80, 0.1); }
+      .theme-blue .search-autocomplete li a:hover {
+        background-color: rgba(0, 105, 180, 0.1); }
+      .theme-green .search-autocomplete li a:hover {
+        background-color: rgba(17, 166, 54, 0.1); }
+      .theme-purple .search-autocomplete li a:hover {
+        background-color: rgba(113, 32, 130, 0.1); }
 
 .navbar ul a {
   padding: 7.5px 10px;
