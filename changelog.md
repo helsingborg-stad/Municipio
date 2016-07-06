@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.3 (tbd)
-===================
+Version 0.2.3 (2016-07-06)
+==========================
 - Require Active Directory Integration (AD1) plugin
 - Adds "edit" and "remove" actions to the user systems admin
 - Added shortcode "explain" to Municipio-theme for inserting questionmarks with tooltips in post_content
@@ -16,6 +16,8 @@ Version 0.2.3 (tbd)
 - Use network site title as "logotype"
 - User profile compleation guide if missing profile information
 - Search autocomplete
+- Show forced user systems in the systems module
+- Linking images in the image module
 
 Version 0.2.2 (2016-06-29)
 ==========================
