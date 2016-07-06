@@ -54,7 +54,10 @@ class Search
         add_filter('Municipio/search_result/excerpt', array($this, 'highlightTerms'));
     }
 
-
+    /**
+     * Get the search level
+     * @return void
+     */
     public function getLevel()
     {
         if (!isset($_REQUEST['level']) || empty($_REQUEST['level'])) {
@@ -64,6 +67,10 @@ class Search
         $this->level = sanitize_text_field($_REQUEST['level']);
     }
 
+    /**
+     * Render the search result
+     * @return void
+     */
     public function renderResult()
     {
         $this->setupPagination();
@@ -81,6 +88,10 @@ class Search
         );
     }
 
+    /**
+     * Search users
+     * @return array Users
+     */
     public function searchUsers()
     {
         $keyword = get_search_query();
@@ -117,9 +128,17 @@ class Search
         $results = array();
 
         foreach ($this->wpSearchResult as $item) {
-            $results[$item['post_id']] = get_blog_post($item['blog_id'], $item['post_id']);
+            $post = get_blog_post($item['blog_id'], $item['post_id']);
+            $results[$item['post_id']] = $post;
             $results[$item['post_id']]->blog_id = $item['blog_id'];
-            $results[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
+            $results[$item['post_id']]->is_file = false;
+
+            if (!$post->post_mime_type) {
+                $results[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
+            } else {
+                $results[$item['post_id']]->permalink = esc_url($post->guid);
+                $results[$item['post_id']]->is_file = true;
+            }
         }
 
         return $results;

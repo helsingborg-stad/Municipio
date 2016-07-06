@@ -1,4 +1,4 @@
-<div class="creamy creamy-border-bottom">
+<div class="creamy creamy-border-bottom hidden-print">
     <div class="container">
         <div class="grid gutter gutter-lg gutter-vertical">
             <div class="grid-md-8 text-center-xs text-center-sm">

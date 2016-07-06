@@ -212,6 +212,7 @@ Intranet.Search.General = (function ($) {
         };
 
         $.post(ajaxurl, data, function (res) {
+            $element.find('.search-autocomplete').remove();
             this.outputAutocomplete(element, res);
         }.bind(this), 'JSON');
     };
@@ -220,8 +221,8 @@ Intranet.Search.General = (function ($) {
         var $element = $(element);
         var $autocomplete = $('<div class="search-autocomplete"></div>');
 
-        var $users = $('<ul class="search-autocomplete-users"><li class="title"><i class="fa fa-user"></i> Personer</li></ul>');
-        var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="fa fa-file-text-o"></i> Innehåll</li></ul>');
+        var $users = $('<ul class="search-autocomplete-users"><li class="title"><i class="fa fa-user"></i> ' + municipioIntranet.searchAutocomplete.persons + '</li></ul>');
+        var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="fa fa-file-text-o"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
 
         // Users
         $.each(res.users, function (index, user) {
@@ -229,8 +230,12 @@ Intranet.Search.General = (function ($) {
         });
 
         // Content
-        $.each(res.content, function (index, user) {
-            $content.append('<li><a href="' + user.permalink + '">' + user.post_title + '</a></li>');
+        $.each(res.content, function (index, post) {
+            if (post.is_file) {
+                $content.append('<li><a class="link-item-before" href="' + post.permalink + '" target="_blank">' + post.post_title + '</a></li>');
+            } else {
+                $content.append('<li><a href="' + post.permalink + '">' + post.post_title + '</a></li>');
+            }
         });
 
         if ($users.find('li').length < 2) {
@@ -244,7 +249,7 @@ Intranet.Search.General = (function ($) {
         $content.appendTo($autocomplete);
         $users.appendTo($autocomplete);
 
-        $autocomplete.append('<button type="submit" class="read-more block-level">Visa alla resultat</a>');
+        $autocomplete.append('<button type="submit" class="read-more block-level">' + municipioIntranet.searchAutocomplete.viewAll + '</a>');
 
         $autocomplete.appendTo($element).show();
     };

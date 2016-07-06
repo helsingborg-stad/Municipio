@@ -41,7 +41,12 @@ class Enqueue
             'user_links_is_empty' => __('You have not added any links yet…', 'municipio-intranet'),
             'subscribe' => __('Subscribe', 'municipio-intranet'),
             'unsubscribe' => __('Unsubscribe', 'municipio-intranet'),
-            'themeUrl' => get_stylesheet_directory_uri()
+            'themeUrl' => get_stylesheet_directory_uri(),
+            'searchAutocomplete' => array(
+                'persons' => __('Persons', 'municipio-intranet'),
+                'content' => __('Content', 'municipio-intranet'),
+                'viewAll' => __('View all results', 'municipio-intranet')
+            )
         ));
 
         wp_enqueue_script('intranet');

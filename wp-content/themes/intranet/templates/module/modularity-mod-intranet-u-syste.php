@@ -7,7 +7,7 @@
     </h4>
     <div class="box-content">
         <ul class="links">
-            <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('only_selected')) as $system) : ?>
+            <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
             <li><a href="<?php echo $system->url; ?>" class="link-item link-item-light"><?php echo $system->name; ?></a></li>
             <?php endforeach; ?>
         </ul>
