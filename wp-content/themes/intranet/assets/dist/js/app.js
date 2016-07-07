@@ -205,9 +205,10 @@ Intranet.Search.General = (function ($) {
             }.bind(this), 300);
         }.bind(this));
 
-        $input.on('blur', function (e) {
-            $element.find('.search-autocomplete').remove();
-            return;
+        $(document).on('click', function (e) {
+            if (!$(e.taret).closest('.search-autocomplete').length) {
+                $('.search-autocomplete').remove();
+            }
         });
 
         $input.on('focus', function (e) {
