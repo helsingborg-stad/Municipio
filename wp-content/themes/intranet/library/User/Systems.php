@@ -208,6 +208,8 @@ class Systems
             $systems = array_merge($systems, self::getAvailabelSystems($unitId, array('forced')));
         }
 
+        $systems = array_map('unserialize', array_unique(array_map('serialize', $systems)));
+
         // Remove local urls/systems if not on a internal ip
         $ipPatterns = get_site_option('user_systems_ip_patterns', array());
         $ipPatterns = array_map('stripslashes', $ipPatterns);
