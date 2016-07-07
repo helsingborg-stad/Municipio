@@ -30,13 +30,12 @@
                     </p>
 
                     <p>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-va-top">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th><?php _e('Name', 'municipio-intranet'); ?></th>
                                     <th><?php _e('Description', 'municipio-intranet'); ?></th>
-                                    <th><?php _e('Url', 'municipio-intranet'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,7 +50,6 @@
                                     </td>
                                     <td><?php echo $system->name; ?> <?php echo $system->forced ? '(' . __('Forced', 'municipio-intranet') . ')' : ''; ?></td>
                                     <td><?php echo $system->description; ?></td>
-                                    <td><?php echo $system->url; ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
