@@ -61,7 +61,7 @@ if (!function_exists('municipio_get_logotype')) {
         );
 
         // Get the symbol to use (blog name or image)
-        $symbol = '<h1 class="no-margin no-padding">' . $siteName . '</h1>';
+        $symbol = '<span class="h1 no-margin no-padding">' . $siteName . '</span>';
 
         if (isset($logotype[$type]['url']) && $logo_include === false) {
             $symbol = sprintf(
