@@ -453,6 +453,14 @@ body.admin-bar {
     .theme-purple .search-autocomplete li.selected a {
       background-color: rgba(113, 32, 130, 0.1); }
 
+.search-autocomplete-image {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  border-radius: 2px; }
+
 .navbar ul a {
   padding: 7.5px 10px;
   font-size: .9em; }

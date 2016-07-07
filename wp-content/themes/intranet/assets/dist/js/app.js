@@ -322,7 +322,12 @@ Intranet.Search.General = (function ($) {
         // Users
         if (res.users !== null && res.users.length > 0) {
             $.each(res.users, function (index, user) {
-                $users.append('<li><a href="' + user.profileUrl + '">' + user.name + '</a></li>');
+                if (user.profile_image.length) {
+                    $users.append('<li><a href="' + user.profile_url + '"><img src="' + user.profile_image + '" class="search-autocomplete-image"> ' + user.name + '</a></li>');
+                    return;
+                }
+
+                $users.append('<li><a href="' + user.profile_url + '">' + user.name + '</a></li>');
             });
         } else {
             $users = $('');

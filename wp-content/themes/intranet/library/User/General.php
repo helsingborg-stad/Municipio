@@ -72,7 +72,8 @@ class General
 
         foreach ($users as $user) {
             $users[$user->ID]->name = municipio_intranet_get_user_full_name($user->ID);
-            $users[$user->ID]->profileUrl = municipio_intranet_get_user_profile_url($user->ID);
+            $users[$user->ID]->profile_url = municipio_intranet_get_user_profile_url($user->ID);
+            $users[$user->ID]->profile_image = get_the_author_meta('user_profile_picture', $user->ID);
         }
 
         return $users;
