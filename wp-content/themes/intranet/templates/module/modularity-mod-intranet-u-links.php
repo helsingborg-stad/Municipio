@@ -23,7 +23,7 @@
     </div>
 
     <?php if (is_user_logged_in()) : ?>
-    <form action="" class="only-if-editing" data-user-link-add>
+    <form action="<?php echo municipio_intranet_current_url(); ?>" class="only-if-editing" data-user-link-add>
         <h5><?php _e('Add new link', 'municipio-intranet'); ?></h5>
         <div class="form-group">
             <label for="user-link-title"><?php _e('Title', 'municipio-intranet'); ?></label>

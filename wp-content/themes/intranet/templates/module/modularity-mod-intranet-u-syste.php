@@ -15,7 +15,7 @@
 </div>
 
 <div id="modal-select-systems" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
-    <form action="" method="post">
+    <form action="<?php echo municipio_intranet_current_url(); ?>" method="post">
         <?php wp_nonce_field('save', 'select-systems'); ?>
 
         <div class="modal-content">

@@ -7,7 +7,7 @@
                         {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
                     </button>
                     <div class="dropdown network-search-dropdown">
-                        <form class="network-search" method="get" action="">
+                        <form class="network-search" method="get" action="{{ home_url() }}">
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">

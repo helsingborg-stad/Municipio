@@ -4,13 +4,13 @@
             <div class="grid-xs-12 {!! apply_filters('Municipio/header_grid_size','grid-md-12'); !!}">
                 <div class="grid">
                     <div class="grid-xs-12">
-                        <a href="{{ network_home_url() }}" class="site-title"><h1 class="no-margin no-padding">{{ get_site_option('site_name') }}</h1></a>
+                        <a href="{{ network_home_url() }}" class="site-title"><span class="h1 no-margin no-padding">{{ get_site_option('site_name') }}</span></a>
 
                         <form class="search" method="get" action="{{ home_url() }}">
-                            <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
+                            <label for="searchkeyword-top" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">
-                                <input id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('What are you looking for?', 'municipio-intranet'); ?>" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
+                                <input id="searchkeyword-top" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('What are you looking for?', 'municipio-intranet'); ?>" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
                                 <span class="input-group-addon-btn">
                                     <button type="submit" class="btn" data-label="{{ __('Search', 'municipio') }}"><i class="fa fa-search"></i></button>
                                 </span>

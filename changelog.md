@@ -9,6 +9,7 @@ Version 0.2.5 (tbd)
 - Adds search autocomplete keyboard navigation
 - Adds profile image to users in search autocomplete
 - Disable user search if logged out
+- Do not show restricted content in search if user do not have permission
 
 Version 0.2.4 (2016-07-06)
 ==========================
