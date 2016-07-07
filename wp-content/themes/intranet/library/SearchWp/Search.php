@@ -138,12 +138,20 @@ class Search
             $results[$item['post_id']] = $post;
             $results[$item['post_id']]->blog_id = $item['blog_id'];
             $results[$item['post_id']]->is_file = false;
+            $results[$item['post_id']]->target_group = get_post_meta($item['post_id'], '_target_groups', true);
 
             if (!$post->post_mime_type) {
                 $results[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
             } else {
                 $results[$item['post_id']]->permalink = esc_url($post->guid);
                 $results[$item['post_id']]->is_file = true;
+            }
+        }
+
+        // Unset if user is not in any of the page's target groups, unset it
+        foreach ($results as $key => $post) {
+            if (!\Intranet\User\TargetGroups::userInGroup($post->target_group)) {
+                unset($results[$key]);
             }
         }
 
