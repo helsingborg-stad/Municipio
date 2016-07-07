@@ -125,29 +125,49 @@ body.admin-bar {
       color: #fff;
       opacity: 0.5;
       font-weight: normal; }
-    #site-header .search .form-control {
+    #site-header .search input[type="search"].form-control {
       background-color: #5e5e5e;
       color: #fff;
       border: none;
       box-shadow: none;
       width: 100%; }
-      .theme-red #site-header .search .form-control {
+      .theme-red #site-header .search input[type="search"].form-control {
         background-color: #7c0804;
         color: #fff; }
-      .theme-blue #site-header .search .form-control {
+      .theme-blue #site-header .search input[type="search"].form-control {
         background-color: #003953;
         color: #fff; }
-      .theme-green #site-header .search .form-control {
+      .theme-green #site-header .search input[type="search"].form-control {
         background-color: #365712;
         color: #fff; }
-      .theme-purple #site-header .search .form-control {
+      .theme-purple #site-header .search input[type="search"].form-control {
         background-color: #4b0439;
         color: #fff; }
+    #site-header .search input[type="search"].form-control:focus + .input-group-addon-btn .btn {
+      background-color: #4c4c4c; }
+      .theme-red #site-header .search input[type="search"].form-control:focus + .input-group-addon-btn .btn {
+        background-color: #5a0603;
+        color: #fff; }
+      .theme-blue #site-header .search input[type="search"].form-control:focus + .input-group-addon-btn .btn {
+        background-color: #00202f;
+        color: #fff; }
+      .theme-green #site-header .search input[type="search"].form-control:focus + .input-group-addon-btn .btn {
+        background-color: #24390c;
+        color: #fff; }
+      .theme-purple #site-header .search input[type="search"].form-control:focus + .input-group-addon-btn .btn {
+        background-color: #29021f;
+        color: #fff; }
+      #site-header .search input[type="search"].form-control:focus + .input-group-addon-btn .btn::after {
+        opacity: 1;
+        margin-right: 0; }
     #site-header .search button.btn {
       background-color: #5e5e5e;
       color: #fff;
       padding-top: 12px;
-      border: none; }
+      border: none;
+      -webkit-transition: 200ms all;
+              transition: 200ms all;
+      overflow: hidden; }
       .theme-red #site-header .search button.btn {
         background-color: #7c0804;
         color: #fff; }
@@ -160,6 +180,16 @@ body.admin-bar {
       .theme-purple #site-header .search button.btn {
         background-color: #4b0439;
         color: #fff; }
+      #site-header .search button.btn::after {
+        display: inline-block;
+        vertical-align: middle;
+        white-space: nowrap;
+        content: attr(data-label);
+        margin-left: .5em;
+        opacity: 0;
+        -webkit-transition: 200ms all;
+                transition: 200ms all;
+        margin-right: -30px; }
   @media (max-width: 769px) {
     #site-header .site-title {
       float: none;

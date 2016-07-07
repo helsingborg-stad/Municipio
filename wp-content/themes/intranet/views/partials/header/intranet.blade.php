@@ -12,7 +12,7 @@
                             <div class="input-group">
                                 <input id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('What are you looking for?', 'municipio-intranet'); ?>" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
                                 <span class="input-group-addon-btn">
-                                    <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                                    <button type="submit" class="btn" data-label="{{ __('Search', 'municipio') }}"><i class="fa fa-search"></i></button>
                                 </span>
                             </div>
                         </form>

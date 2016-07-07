@@ -31,7 +31,7 @@ body.admin-bar {
 
         @include input-placeholder(#fff, .5);
 
-        .form-control {
+        input[type="search"].form-control {
             background-color: darken($palette-gray-4, 10%);
             color: #fff;
             border: none;
@@ -49,11 +49,31 @@ body.admin-bar {
             }
         }
 
+        input[type="search"].form-control:focus + .input-group-addon-btn .btn {
+            background-color: darken($palette-gray-4, 17%);
+
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        background-color: darken(map-get($color, fourthSafe), 17%);
+                        color: map-get($color, fourthTextColor);
+                    }
+                }
+            }
+
+            &::after {
+                opacity: 1;
+                margin-right: 0;
+            }
+        }
+
         button.btn {
             background-color: darken($palette-gray-4, 10%);
             color: #fff;
             padding-top: 12px;
             border: none;
+            transition: 200ms all;
+            overflow: hidden;
 
             @if ($includeThemes == true) {
                 @each $theme, $color in $themes {
@@ -62,6 +82,17 @@ body.admin-bar {
                         color: map-get($color, fourthTextColor);
                     }
                 }
+            }
+
+            &::after {
+                display: inline-block;
+                vertical-align: middle;
+                white-space: nowrap;
+                content: attr(data-label);
+                margin-left: .5em;
+                opacity: 0;
+                transition: 200ms all;
+                margin-right: -30px;
             }
         }
     }
