@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-07-04 15:18+0200\n"
-"PO-Revision-Date: 2016-07-04 15:21+0200\n"
+"POT-Creation-Date: 2016-07-07 11:31+0200\n"
+"PO-Revision-Date: 2016-07-07 11:31+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -35,18 +35,6 @@ msgstr "Kortnamn för siten"
 #: library/Admin/NetworkSettings.php:58
 msgid "Forced subscription"
 msgstr "Tvinga prenumeration"
-
-#: library/Controller/Search.php:204
-#: views/partials/modal/missing-data-fields/nav.blade.php:3
-#: views/partials/modal/missing-data-fields/nav.blade.php:7
-msgid "Previous"
-msgstr "Föregående"
-
-#: library/Controller/Search.php:260
-#: views/partials/modal/missing-data-fields/nav.blade.php:11
-#: views/partials/modal/missing-data.blade.php:36
-msgid "Next"
-msgstr "Nästa"
 
 #: library/CustomPostType/News.php:80
 msgid "Pin to top"
@@ -139,6 +127,18 @@ msgstr "Användarsystem"
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
+#: library/SearchWp/Search.php:234
+#: views/partials/modal/missing-data-fields/nav.blade.php:3
+#: views/partials/modal/missing-data-fields/nav.blade.php:7
+msgid "Previous"
+msgstr "Föregående"
+
+#: library/SearchWp/Search.php:290
+#: views/partials/modal/missing-data-fields/nav.blade.php:11
+#: views/partials/modal/missing-data.blade.php:36
+msgid "Next"
+msgstr "Nästa"
+
 #: library/Theme/Enqueue.php:41
 #: templates/module/modularity-mod-intranet-u-links.php:21
 msgid "You have not added any links yet…"
@@ -152,6 +152,18 @@ msgstr "Prenumerera"
 msgid "Unsubscribe"
 msgstr "Sluta prenumerera"
 
+#: library/Theme/Enqueue.php:46 views/searchform.blade.php:58
+msgid "Persons"
+msgstr "Personer"
+
+#: library/Theme/Enqueue.php:47
+msgid "Content"
+msgstr "Innehåll"
+
+#: library/Theme/Enqueue.php:48
+msgid "View all results"
+msgstr "Visa alla resultat"
+
 #: library/User/AdministrationUnits.php:25
 #: library/User/AdministrationUnits.php:26
 #: templates/admin/administration-units/form.php:3
@@ -163,102 +175,102 @@ msgstr "Förvaltningar"
 msgid "All fields must be filled in to add a new administration unit"
 msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
 
-#: library/User/General.php:83
+#: library/User/General.php:85
 #, php-format
 msgid "Hi %s"
 msgstr "Hej %s"
 
-#: library/User/General.php:84
+#: library/User/General.php:86
 #, php-format
 msgid "Hello %s"
 msgstr "Hallå där %s"
 
-#: library/User/General.php:85
+#: library/User/General.php:87
 #, php-format
 msgid "How is it going %s?"
 msgstr "Hur går det %s?"
 
-#: library/User/General.php:86
+#: library/User/General.php:88
 #, php-format
 msgid "Good to see you, %s"
 msgstr "Trevligt att se dig, %s"
 
-#: library/User/General.php:87
+#: library/User/General.php:89
 #, php-format
 msgid "Howdy %s"
 msgstr "Tjena %s"
 
-#: library/User/General.php:92
+#: library/User/General.php:94
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr "God morgon %s, ännu en underbar dag!"
 
-#: library/User/General.php:93
+#: library/User/General.php:95
 #, php-format
 msgid "Good morning %s"
 msgstr "God morgon %s"
 
-#: library/User/General.php:94
+#: library/User/General.php:96
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr "Vilken härlig morgon %s"
 
-#: library/User/General.php:95
+#: library/User/General.php:97
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr "Rise and shine %s"
 
-#: library/User/General.php:96 library/User/General.php:105
+#: library/User/General.php:98 library/User/General.php:107
 #, php-format
 msgid "Have a great day %s"
 msgstr "Ha en fin dag %s"
 
-#: library/User/General.php:97
+#: library/User/General.php:99
 #, php-format
 msgid "%s you up already?"
 msgstr "Är du redan vaken %s?"
 
-#: library/User/General.php:102
+#: library/User/General.php:104
 #, php-format
 msgid "Good afternoon %s"
 msgstr "God eftermiddag %s"
 
-#: library/User/General.php:103
+#: library/User/General.php:105
 #, php-format
 msgid "Greetings, %s"
 msgstr "Var hälsad %s"
 
-#: library/User/General.php:104
+#: library/User/General.php:106
 #, php-format
 msgid "Keep going strong %s!"
 msgstr "Kör hårt %s"
 
-#: library/User/General.php:110
+#: library/User/General.php:112
 #, php-format
 msgid "It's getting late, %s"
 msgstr "Det börjar bli sent nu %s"
 
-#: library/User/General.php:111
+#: library/User/General.php:113
 #, php-format
 msgid "Good eavning %s"
 msgstr "God kväll %s"
 
-#: library/User/General.php:116
+#: library/User/General.php:118
 #, php-format
 msgid "Good night %s"
 msgstr "God natt %s"
 
-#: library/User/General.php:117
+#: library/User/General.php:119
 #, php-format
 msgid "Still going strong, %s?"
 msgstr "Är du fortfarande i farten %s?"
 
-#: library/User/General.php:144
+#: library/User/General.php:146
 #, php-format
 msgid "Happy new year %s"
 msgstr "Gott nytt år %s!"
 
-#: library/User/General.php:149
+#: library/User/General.php:151
 #, php-format
 msgid "Merry christmas %s"
 msgstr "God jul %s!"
@@ -275,7 +287,7 @@ msgstr "Förnamn"
 msgid "Last name"
 msgstr "Efternamn"
 
-#: library/User/Systems.php:238
+#: library/User/Systems.php:251
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
@@ -504,10 +516,13 @@ msgid "Phone number"
 msgstr "Telefonnummer"
 
 #: views/author-edit.blade.php:75 views/author-edit.blade.php:81
+#: views/partials/modal/missing-data-fields/user_about.blade.php:4
+#: views/partials/modal/missing-data-fields/user_about.blade.php:10
 msgid "About me"
 msgstr "Om mig"
 
 #: views/author-edit.blade.php:82
+#: views/partials/modal/missing-data-fields/user_about.blade.php:11
 msgid "Write a little something about yourself…"
 msgstr "Skriv något om dig själv…"
 
@@ -589,26 +604,32 @@ msgid "Added skills"
 msgstr "Dina kompetenser"
 
 #: views/author-edit.blade.php:228
+#: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:4
 msgid "Profile image"
 msgstr "Profilbild"
 
 #: views/author-edit.blade.php:237
+#: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr "Är du säker på att du vill ta bort din profilbild?"
 
 #: views/author-edit.blade.php:237
+#: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Delete profile image"
 msgstr "Ta bort profilbild"
 
 #: views/author-edit.blade.php:248
+#: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
 #: views/author-edit.blade.php:250
+#: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr "eller"
 
 #: views/author-edit.blade.php:251
+#: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr "Välj en bild"
 
@@ -804,21 +825,17 @@ msgstr "Logga in"
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
-#: views/searchform.blade.php:38
+#: views/searchform.blade.php:39
 msgid "Subscriptions"
 msgstr "Prenumerationer"
 
-#: views/searchform.blade.php:42
+#: views/searchform.blade.php:45
 msgid "All sites"
 msgstr "Alla nätverk"
 
-#: views/searchform.blade.php:46
+#: views/searchform.blade.php:49
 msgid "Current site"
 msgstr "Nuvarande intranät"
-
-#: views/searchform.blade.php:54
-msgid "Users"
-msgstr "Användare"
 
 #: views/subscriptions.blade.php:11
 msgid "Manage your subscriptions"
@@ -860,6 +877,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Users"
+#~ msgstr "Användare"
 
 #~ msgid "N/A"
 #~ msgstr "Ej tillgänglig"
