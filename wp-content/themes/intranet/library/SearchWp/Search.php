@@ -35,8 +35,8 @@ class Search
 
             case 'ajax':
                 $this->results = array(
-                    'users' => $this->users,
-                    'content' => $content
+                    'users' => array_slice($this->users, 0, 5),
+                    'content' => array_slice($content, 0, 5)
                 );
                 break;
 

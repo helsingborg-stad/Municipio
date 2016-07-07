@@ -3,6 +3,7 @@ body.admin-bar {
 }
 
 #site-header {
+    display: block;
 
     .site-title {
         display: block;
@@ -25,6 +26,8 @@ body.admin-bar {
         position: relative;
         display: block;
         float: left;
+        max-width: 350px;
+        width: 100%;
 
         @include input-placeholder(#fff, .5);
 
@@ -33,7 +36,7 @@ body.admin-bar {
             color: #fff;
             border: none;
             box-shadow: none;
-            width: 343px;
+            width: 100%;
 
             // Color theme styles
             @if ($includeThemes == true) {

@@ -27,6 +27,11 @@ Intranet.Search.General = (function ($) {
         $input.on('keyup', function (e) {
             clearTimeout(typingTimer);
 
+            if ($input.val().length < 3) {
+                $element.find('.search-autocomplete').remove();
+                return;
+            }
+
             typingTimer = setTimeout(function () {
                 this.autocompleteQuery(element);
             }.bind(this), 300);
