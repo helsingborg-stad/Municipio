@@ -33,10 +33,13 @@
         @if (is_search())
         <div class="form-group">
             <ul class="segmented-control">
+                @if (is_user_logged_in())
                 <li>
                     <input id="search-level-subscriptions" type="radio" name="level" value="subscriptions" {{ checked('subscriptions', $searchLevel) }}>
                     <label for="search-level-subscriptions" class="checkbox inline-block"><?php _e('Subscriptions', 'municipio-intranet'); ?></label>
                 </li>
+                @endif
+
                 <li>
                     <input id="search-level-all" type="radio" name="level" value="all" {{ checked('all', $searchLevel) }}>
                     <label for="search-level-all" class="checkbox inline-block"><?php _e('All sites', 'municipio-intranet'); ?></label>
@@ -47,6 +50,7 @@
                 </li>
             </ul>
 
+            @if (is_user_logged_in())
             <ul class="segmented-control">
                 <li>
                     <input id="search-level-users" type="radio" name="level" value="users" {{ checked('users', $searchLevel) }}>
@@ -59,6 +63,7 @@
                     </label>
                 </li>
             </ul>
+            @endif
         </div>
         @endif
 

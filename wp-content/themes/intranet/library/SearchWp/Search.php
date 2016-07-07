@@ -60,11 +60,13 @@ class Search
      */
     public function getLevel()
     {
-        if (!isset($_REQUEST['level']) || empty($_REQUEST['level'])) {
-            return;
+        if (!is_user_logged_in()) {
+            $this->level = 'all';
         }
 
-        $this->level = sanitize_text_field($_REQUEST['level']);
+        if (isset($_REQUEST['level']) && !empty($_REQUEST['level'])) {
+            $this->level = sanitize_text_field($_REQUEST['level']);
+        }
     }
 
     /**
@@ -94,6 +96,10 @@ class Search
      */
     public function searchUsers()
     {
+        if (!is_user_logged_in()) {
+            return array();
+        }
+
         $keyword = get_search_query();
         return \Intranet\User\General::searchUsers($keyword);
     }
