@@ -230,25 +230,30 @@ Intranet.Search.General = (function ($) {
         var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="fa fa-file-text-o"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
 
         // Users
-        $.each(res.users, function (index, user) {
-            $users.append('<li><a href="' + user.profileUrl + '">' + user.name + '</a></li>');
-        });
-
-        // Content
-        $.each(res.content, function (index, post) {
-            if (post.is_file) {
-                $content.append('<li><a class="link-item-before" href="' + post.permalink + '" target="_blank">' + post.post_title + '</a></li>');
-            } else {
-                $content.append('<li><a href="' + post.permalink + '">' + post.post_title + '</a></li>');
-            }
-        });
-
-        if ($users.find('li').length < 2) {
-            $users.append('<li class="search-autocomplete-nothing-found">Inga träffar…</li>');
+        if (res.users !== null && res.users.length > 0) {
+            $.each(res.users, function (index, user) {
+                $users.append('<li><a href="' + user.profileUrl + '">' + user.name + '</a></li>');
+            });
+        } else {
+            $users = $('');
         }
 
-        if ($content.find('li').length < 2) {
-            $content.append('<li class="search-autocomplete-nothing-found">Inga träffar…</li>');
+        // Content
+        if (res.content !== null && res.content.length > 0) {
+            $.each(res.content, function (index, post) {
+                if (post.is_file) {
+                    $content.append('<li><a class="link-item-before" href="' + post.permalink + '" target="_blank">' + post.post_title + '</a></li>');
+                } else {
+                    $content.append('<li><a href="' + post.permalink + '">' + post.post_title + '</a></li>');
+                }
+            });
+        } else {
+            $content = $('');
+        }
+
+        if ((res.content === null || res.content.length === 0) && (res.users === null || res.users.length === 0)) {
+            // $autocomplete.append('<ul><li class="search-autocomplete-nothing-found">Inga träffar…</li></ul>');
+            return;
         }
 
         $content.appendTo($autocomplete);
