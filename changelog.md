@@ -3,6 +3,13 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.5 (tbd)
+===================
+- Fixes some search autocomplete issues
+- Adds search autocomplete keyboard navigation
+- Adds profile image to users in search autocomplete
+- Disable user search if logged out
+
 Version 0.2.4 (2016-07-06)
 ==========================
 - Require Active Directory Integration (AD1) plugin
