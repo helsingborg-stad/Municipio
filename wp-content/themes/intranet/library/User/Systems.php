@@ -126,6 +126,11 @@ class Systems
         update_site_option('user_systems_ip_patterns', $patterns);
     }
 
+    /**
+     * Get a system
+     * @param  integer    $id The system ID
+     * @return stdObject      System data
+     */
     public static function getSystem($id)
     {
         global $wpdb;
