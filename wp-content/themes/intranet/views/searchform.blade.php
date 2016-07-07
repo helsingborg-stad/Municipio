@@ -55,7 +55,7 @@
                 <li>
                     <input id="search-level-users" type="radio" name="level" value="users" {{ checked('users', $searchLevel) }}>
                     <label for="search-level-users" class="checkbox inline-block">
-                        <?php _e('Users', 'municipio-intranet'); ?>
+                        <?php _e('Persons', 'municipio-intranet'); ?>
 
                         @if (isset($counts['users']) && $counts['users'] > 0)
                         <span class="label label-sm label-theme label-rounded">{{ $counts['users'] }}</span>

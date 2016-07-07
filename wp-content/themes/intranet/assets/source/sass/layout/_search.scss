@@ -125,4 +125,17 @@
             }
         }
     }
+
+    li.selected a {
+        background-color: rgba($palette-gray-2, .1);
+
+        // Color theme styles
+        @if ($includeThemes == true) {
+            @each $theme, $color in $themes {
+                .theme-#{$theme} & {
+                    background-color: rgba(map-get($color, second), .1);
+                }
+            }
+        }
+    }
 }

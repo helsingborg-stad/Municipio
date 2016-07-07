@@ -24,7 +24,20 @@ Intranet.Search.General = (function ($) {
         var $element = $(element);
         var $input = $element.find('input[type="search"]');
 
-        $input.on('keyup', function (e) {
+        $input.on('keydown', function (e) {
+            switch (e.which) {
+                case 40:
+                    this.autocompleteKeyboardNavNext(element);
+                    return false;
+
+                case 38:
+                    this.autocompleteKeyboardNavPrev(element);
+                    return false;
+
+                case 13:
+                    return this.autocompleteSubmit(element);
+            }
+
             clearTimeout(typingTimer);
 
             if ($input.val().length < 3) {
@@ -50,6 +63,69 @@ Intranet.Search.General = (function ($) {
 
             this.autocompleteQuery(element);
         }.bind(this));
+    };
+
+    General.prototype.autocompleteSubmit = function(element) {
+        var $element = $(element);
+        var $autocomplete = $element.find('.search-autocomplete');
+        var $selected = $autocomplete.find('.selected');
+
+        if (!$selected.length) {
+            return true;
+        }
+
+        var url = $selected.find('a').attr('href');
+        location.href = url;
+
+        return false;
+    };
+
+    General.prototype.autocompleteKeyboardNavNext = function(element) {
+        var $element = $(element);
+        var $autocomplete = $element.find('.search-autocomplete');
+
+        var $selected = $autocomplete.find('.selected');
+        var $next = null;
+
+        if (!$selected.length) {
+            $next = $autocomplete.find('li:not(.title):first');
+        } else {
+            $next = $selected.next('li:not(.title):first');
+        }
+
+        if (!$next.length) {
+            var $nextUl = $selected.parents('ul').next('ul');
+            if ($nextUl.length) {
+                $next = $nextUl.find('li:not(.title):first');
+            }
+        }
+
+        $selected.removeClass('selected');
+        $next.addClass('selected');
+    };
+
+    General.prototype.autocompleteKeyboardNavPrev = function(element) {
+        var $element = $(element);
+        var $autocomplete = $element.find('.search-autocomplete');
+
+        var $selected = $autocomplete.find('.selected');
+        var $prev = null;
+
+        if (!$selected.length) {
+            $prev = $autocomplete.find('li:not(.title):last');
+        } else {
+            $prev = $selected.prev('li:not(.title)');
+        }
+
+        if (!$prev.length) {
+            var $prevUl = $selected.parents('ul').prev('ul');
+            if ($prevUl.length) {
+                $prev = $prevUl.find('li:not(.title):last');
+            }
+        }
+
+        $selected.removeClass('selected');
+        $prev.addClass('selected');
     };
 
     General.prototype.autocompleteQuery = function(element) {

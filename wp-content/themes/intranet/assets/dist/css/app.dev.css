@@ -412,6 +412,16 @@ body.admin-bar {
         background-color: rgba(17, 166, 54, 0.1); }
       .theme-purple .search-autocomplete li a:hover {
         background-color: rgba(113, 32, 130, 0.1); }
+  .search-autocomplete li.selected a {
+    background-color: rgba(51, 51, 51, 0.1); }
+    .theme-red .search-autocomplete li.selected a {
+      background-color: rgba(203, 0, 80, 0.1); }
+    .theme-blue .search-autocomplete li.selected a {
+      background-color: rgba(0, 105, 180, 0.1); }
+    .theme-green .search-autocomplete li.selected a {
+      background-color: rgba(17, 166, 54, 0.1); }
+    .theme-purple .search-autocomplete li.selected a {
+      background-color: rgba(113, 32, 130, 0.1); }
 
 .navbar ul a {
   padding: 7.5px 10px;
