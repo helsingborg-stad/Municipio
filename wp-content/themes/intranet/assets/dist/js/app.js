@@ -204,6 +204,19 @@ Intranet.Search.General = (function ($) {
                 this.autocompleteQuery(element);
             }.bind(this), 300);
         }.bind(this));
+
+        $input.on('blur', function (e) {
+            $element.find('.search-autocomplete').remove();
+            return;
+        });
+
+        $input.on('focus', function (e) {
+            if ($input.val().length < 3) {
+                return;
+            }
+
+            this.autocompleteQuery(element);
+        }.bind(this));
     };
 
     General.prototype.autocompleteQuery = function(element) {
