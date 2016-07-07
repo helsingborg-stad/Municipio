@@ -10,6 +10,7 @@ Version 0.2.5 (tbd)
 - Adds profile image to users in search autocomplete
 - Disable user search if logged out
 - Do not show restricted content in search if user do not have permission
+- Search input gets clearer search button when focusing input
 
 Version 0.2.4 (2016-07-06)
 ==========================
