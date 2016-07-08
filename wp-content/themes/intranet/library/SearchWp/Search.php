@@ -66,6 +66,15 @@ class Search
 
         if (isset($_REQUEST['level']) && !empty($_REQUEST['level'])) {
             $this->level = sanitize_text_field($_REQUEST['level']);
+            return;
+        }
+
+        if (is_user_logged_in() && is_main_site()) {
+            $this->level = 'subscriptions';
+        } elseif (!is_user_logged_in() && is_main_site()) {
+            $this->level = 'all';
+        } elseif (!is_main_site()) {
+            $this->level = 'current';
         }
     }
 
