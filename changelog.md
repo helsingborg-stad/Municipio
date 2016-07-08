@@ -3,14 +3,16 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.5 (tbd)
-===================
+Version 0.2.5 (2016-07-08)
+==========================
 - Fixes some search autocomplete issues
 - Adds search autocomplete keyboard navigation
 - Adds profile image to users in search autocomplete
 - Disable user search if logged out
 - Do not show restricted content in search if user do not have permission
 - Search input gets clearer search button when focusing input
+- New layout for search tabs (search depth level)
+- Show user matches right sidebar box in search
 
 Version 0.2.4 (2016-07-06)
 ==========================
