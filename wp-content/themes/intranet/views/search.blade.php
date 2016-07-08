@@ -60,9 +60,9 @@
 @else
 
 <section>
-    <div class="container gutter gutter-lg gutter-top">
+    <div class="container gutter gutter-xl gutter-top">
         <div class="grid">
-            <div class="grid-xs-12">
+            <div class="grid-md-9">
                 @if ($wp_query->max_num_pages > 1)
                 <div class="grid">
                     <div class="grid-lg-12">
@@ -145,6 +145,35 @@
                 </div>
                 @endif
             </div>
+
+            <aside class="grid-lg-3 grid-md-12 sidebar-right-sidebar">
+                <div class="grid">
+                    @if ($level !== 'users' && count($users) > 0)
+                    <div class="grid-xs-12">
+                        <div class="box box-filled">
+                            <h3 class="box-title">Personer</h3>
+                            <div class="box-content">
+                                <p>Vi hittade också personer som matchar din sökning.</p>
+                                <ul class="search-user-matches gutter gutter-vertical">
+                                    @foreach (array_slice($users, 0, 3) as $user)
+                                    <li>
+                                        <a href="{{ $user->profile_url }}" style="text-decoration:none;">
+                                            <span class="profile-image" style="background-image:url('{{ $user->profile_image }}');"></span>
+
+                                            {{ $user->name }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+
+                                <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=users" class="read-more">Visa alla personträffar</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                </div>
+            </aside>
         </div>
     </div>
 </section>

@@ -461,6 +461,28 @@ body.admin-bar {
   margin-right: 5px;
   border-radius: 2px; }
 
+.search-user-matches li + li {
+  margin-top: 5px; }
+
+.search-user-matches li a {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 5px;
+  line-height: 1;
+  min-height: 35px; }
+  .search-user-matches li a:hover {
+    background-color: rgba(0, 0, 0, 0.2); }
+
+.search-user-matches .profile-image {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px !important;
+  border-radius: 2px;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.2); }
+
 .search-level {
   border-bottom: 1px solid #e7e5e1; }
   .search-level .nav a {
