@@ -35,9 +35,6 @@
                         <li class="{{ $level == 'users' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=users">
                                 <?php _e('Persons', 'municipio-intranet'); ?>
-                                @if (isset($counts['users']) && $counts['users'] > 0)
-                                <span class="label label-sm label-theme label-rounded">{{ $counts['users'] }}</span>
-                                @endif
                             </a>
                         </li>
                         @endif
@@ -52,9 +49,7 @@
 
 <div class="container gutter gutter-lg gutter-top">
     <div class="grid gutter gutter-lg gutter-top">
-        @include('partials.sidebar-left')
-
-        <div class="{{ $contentGridSize }}">
+        <div class="grid-xs-12">
             <div class="notice info">
                 <i class="fa fa-info-circle"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
             </div>
@@ -65,7 +60,7 @@
 @else
 
 <section>
-    <div class="container">
+    <div class="container gutter gutter-lg gutter-top">
         <div class="grid">
             <div class="grid-xs-12">
                 @if ($wp_query->max_num_pages > 1)

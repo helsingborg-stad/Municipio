@@ -462,8 +462,7 @@ body.admin-bar {
   border-radius: 2px; }
 
 .search-level {
-  border-bottom: 1px solid #e7e5e1;
-  margin-bottom: 40px; }
+  border-bottom: 1px solid #e7e5e1; }
   .search-level .nav a {
     display: block;
     padding: 10px 0;
