@@ -148,3 +148,28 @@
     margin-right: 5px;
     border-radius: 2px;
 }
+
+.search-level {
+    border-bottom: 1px solid $creamy-darker;
+    margin-bottom: 40px;
+
+    .nav a {
+        display: block;
+        padding: 10px 0;
+        color: $gray;
+    }
+
+    .nav li.active a {
+        color: $palette-gray-2;
+        font-weight: bold;
+
+        // Color theme styles
+        @if ($includeThemes == true) {
+            @each $theme, $color in $themes {
+                .theme-#{$theme} & {
+                    color: map-get($color, second);
+                }
+            }
+        }
+    }
+}

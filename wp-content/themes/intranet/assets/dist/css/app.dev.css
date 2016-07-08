@@ -461,6 +461,25 @@ body.admin-bar {
   margin-right: 5px;
   border-radius: 2px; }
 
+.search-level {
+  border-bottom: 1px solid #e7e5e1;
+  margin-bottom: 40px; }
+  .search-level .nav a {
+    display: block;
+    padding: 10px 0;
+    color: #979797; }
+  .search-level .nav li.active a {
+    color: #333;
+    font-weight: bold; }
+    .theme-red .search-level .nav li.active a {
+      color: #cb0050; }
+    .theme-blue .search-level .nav li.active a {
+      color: #0069b4; }
+    .theme-green .search-level .nav li.active a {
+      color: #11a636; }
+    .theme-purple .search-level .nav li.active a {
+      color: #712082; }
+
 .navbar ul a {
   padding: 7.5px 10px;
   font-size: .9em; }

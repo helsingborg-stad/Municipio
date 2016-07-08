@@ -18,6 +18,36 @@
     </div>
 </section>
 
+<div class="search-level">
+    <div class="container">
+        <div class="grid">
+            <div class="grid-xs-12">
+                <nav>
+                    <ul class="nav nav-horizontal">
+                        @if (is_user_logged_in())
+                        <li class="{{ $level == 'subscriptions' ? 'active' : '' }}"><a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=subscriptions"><?php _e('Subscriptions', 'municipio-intranet'); ?></a></li>
+                        @endif
+
+                        <li class="{{ $level == 'all' ? 'active' : '' }}"><a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=all"><?php _e('All sites', 'municipio-intranet'); ?></a></li>
+                        <li class="{{ $level == 'current' ? 'active' : '' }}"><a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=current"><?php _e('Current site', 'municipio-intranet'); ?></a></li>
+
+                        @if (is_user_logged_in())
+                        <li class="{{ $level == 'users' ? 'active' : '' }}">
+                            <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=users">
+                                <?php _e('Persons', 'municipio-intranet'); ?>
+                                @if (isset($counts['users']) && $counts['users'] > 0)
+                                <span class="label label-sm label-theme label-rounded">{{ $counts['users'] }}</span>
+                                @endif
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
 @if ($resultCount === 0)
 
 <div class="container gutter gutter-lg gutter-top">
@@ -37,9 +67,7 @@
 <section>
     <div class="container">
         <div class="grid">
-            @include('partials.sidebar-left')
-
-            <div class="{{ $contentGridSize }}">
+            <div class="grid-xs-12">
                 @if ($wp_query->max_num_pages > 1)
                 <div class="grid">
                     <div class="grid-lg-12">
@@ -122,8 +150,6 @@
                 </div>
                 @endif
             </div>
-
-            @include('partials.sidebar-right')
         </div>
     </div>
 </section>
