@@ -23,11 +23,11 @@ class BaseController extends \Municipio\Controller\BaseController
         );
 
         $this->data['show_userdata_guide'] = false;
-        if (!empty($this->data['missing'])) {
+        if (is_array($this->data['missing']) && count($this->data['missing']) > 0) {
             $this->data['show_userdata_guide'] = true;
         }
 
-        $this->data['missing'] = array_merge(\Intranet\User\Data::missingSuggestedFields());
+        $this->data['missing'] = array_merge($this->data['missing'], \Intranet\User\Data::missingSuggestedFields());
 
         $this->data['show_userdata_notice'] = false;
         if (!empty($this->data['missing']) && !$this->data['show_userdata_guide']) {
