@@ -238,7 +238,7 @@
                                                 </div>
                                                 @endif
 
-                                                <div class="image-upload inline-block" data-max-files="1" data-max-size="500" data-preview-image="true" style="width:250px;height:250px;">
+                                                <div class="image-upload inline-block" data-max-files="1" data-max-size="2000" data-preview-image="true" style="width:250px;height:250px;">
                                                     <div class="placeholder">
                                                         <span class="fa-stack fa-2x">
                                                             <i class="fa fa-picture-o fa-stack-2x"></i>
