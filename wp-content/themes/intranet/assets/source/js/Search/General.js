@@ -51,7 +51,7 @@ Intranet.Search.General = (function ($) {
         }.bind(this));
 
         $(document).on('click', function (e) {
-            if (!$(e.taret).closest('.search-autocomplete').length) {
+            if (!$(e.target).closest('.search-autocomplete').length) {
                 $('.search-autocomplete').remove();
             }
         });
