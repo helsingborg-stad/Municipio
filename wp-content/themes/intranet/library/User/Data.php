@@ -58,6 +58,10 @@ class Data
                     $this->uploadProfileImage($key, $value);
                     break;
 
+                case 'user_phone':
+                    $this->updateUserPhone($key, $value);
+                    break;
+
                 default:
                     $this->updateUserMeta($key, $value);
                     break;
@@ -67,6 +71,23 @@ class Data
         $referer = $_SERVER['HTTP_REFERER'];
         wp_redirect($referer);
         exit;
+    }
+
+    /**
+     * Formats and updates user phone
+     * @param  string $key   Meta key
+     * @param  string $value Phone number (unformatted)
+     * @return void
+     */
+    public function updateUserPhone($key, $value)
+    {
+        $phone = '';
+
+        if (!empty($value)) {
+            $phone = \Intranet\Helper\DataCleaner::phoneNumber($value);
+        }
+
+        update_user_meta(get_current_user_id(), $key, $phone);
     }
 
     /**
