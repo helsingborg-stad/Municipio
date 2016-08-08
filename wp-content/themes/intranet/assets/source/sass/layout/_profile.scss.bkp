@@ -1,0 +1,144 @@
+.profile-header {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid $creamy-darker;
+
+    @media #{$screen-xs} {
+        font-size: .9em;
+
+        h1 {
+            font-size: 1.5em;
+        }
+    }
+
+    .profile-header-content {
+        position: relative;
+        align-items: center;
+        padding: 30px 0;
+        text-align: center;
+
+        @media #{$screen-md-up} {
+            display: flex;
+            text-align: left;
+        }
+    }
+
+    .profile-image {
+        display: inline-block;
+        margin-bottom: 10px;
+
+        @media #{$screen-md-up} {
+            flex: 0 0 auto;
+            margin-right: 25px;
+            margin-bottom: 0;
+        }
+    }
+
+    .profile-basics {
+        @media #{$screen-md-up} {
+            flex: 1 0 auto;
+        }
+    }
+
+    .profile-actions {
+        margin-top: 15px;
+
+        @media #{$screen-md-up} {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            margin-top: 0;
+        }
+    }
+}
+
+.profile-header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+
+    background-image: url('http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg');
+    background-size: cover;
+    background-position: center center;
+
+    opacity: .3;
+    filter: blur(10px);
+    transform: scale(1.2);
+}
+
+.profile-fullname {
+    padding: 0;
+}
+
+.profile-title,
+.profile-department {
+    display: block;
+}
+
+.profile-image {
+    position: relative;
+    vertical-align: top;
+    width: 100px;
+    height: 100px;
+
+    background-size: cover;
+    background-position: center center;
+    border-radius: 3px;
+
+    button.btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+}
+
+.profile-image-fill-height {
+    padding-left: 75%;
+    height: 100%;
+}
+
+.profile-image-250 {
+    width: 250px;
+    height: 250px;
+}
+
+.btn-edit-profile {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 550px) {
+    .profile-image-upload {
+        width: 100%;
+
+        .profile-image,
+        .image-upload {
+            display: block;
+            margin-left: 0;
+            width: 49%;
+        }
+
+        .profile-image,
+        .image-upload {
+            //width: 100%;
+            height: auto !important;
+            padding-top: 50%;
+            padding-bottom: 0;
+            float: left;
+        }
+
+        .image-upload {
+            padding-top: calc(50% - 4px);
+            width: 49% !important;
+            float: right;
+        }
+    }
+}
+
+@media #{$screen-xs} {
+    .profile-image-upload .image-upload .fa-2x {
+        font-size: 1.3em;
+    }
+}
