@@ -79,13 +79,13 @@
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_facebook_url"><?php _e('Facebook profile url', 'municipio-intranet'); ?></label>
-                                            <input type="text" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}">
+                                            <input type="url" pattern="https?://.+" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}" oninvalid="this.setCustomValidity('<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>')">
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_linkedin_url"><?php _e('Linkedin profile url', 'municipio-intranet'); ?></label>
-                                            <input type="text" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}">
+                                            <input type="url" pattern="https?://.+" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}" oninvalid="this.setCustomValidity('<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>')">
                                         </div>
                                     </div>
                                 </div>
