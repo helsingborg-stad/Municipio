@@ -68,6 +68,45 @@
                             </div>
                         </section>
 
+                        <!-- Social media -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="social-media">
+                            <label class="accordion-toggle" for="social-media">
+                                <h4><?php _e('Social media', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_facebook_url"><?php _e('Facebook profile url', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}">
+                                        </div>
+                                    </div>
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_linkedin_url"><?php _e('Linkedin profile url', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_instagram_username"><?php _e('Instagram username', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_instagram_username" name="user_instagram_username" value="{{ get_the_author_meta('user_instagram_username') }}">
+                                        </div>
+                                    </div>
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_twitter_username"><?php _e('Twitter username', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_twitter_username" name="user_twitter_username" value="{{ get_the_author_meta('user_twitter_username') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         <!-- About me -->
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="user-about">
