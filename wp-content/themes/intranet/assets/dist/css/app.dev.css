@@ -212,44 +212,17 @@ body.admin-bar {
 .profile-header {
   position: relative;
   overflow: hidden;
+  text-align: center;
   border-bottom: 1px solid #e7e5e1; }
-  @media (min-width: 0) and (max-width: 468px) {
-    .profile-header {
-      font-size: .9em; }
-      .profile-header h1 {
-        font-size: 1.5em; } }
   .profile-header .profile-header-content {
     position: relative;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 30px 0;
-    text-align: center; }
-    @media (min-width: 769px) {
-      .profile-header .profile-header-content {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        text-align: left; } }
+    padding: 30px 0; }
   .profile-header .profile-image {
-    display: inline-block;
+    margin: auto;
+    border-radius: 50%;
     margin-bottom: 10px; }
-    @media (min-width: 769px) {
-      .profile-header .profile-image {
-        -webkit-box-flex: 0;
-        -webkit-flex: 0 0 auto;
-            -ms-flex: 0 0 auto;
-                flex: 0 0 auto;
-        margin-right: 25px;
-        margin-bottom: 0; } }
-  @media (min-width: 769px) {
-    .profile-header .profile-basics {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1 0 auto;
-          -ms-flex: 1 0 auto;
-              flex: 1 0 auto; } }
+  .profile-header .profile-department {
+    font-size: .8em; }
   .profile-header .profile-actions {
     margin-top: 15px; }
     @media (min-width: 769px) {
@@ -258,6 +231,86 @@ body.admin-bar {
         top: 30px;
         right: 0;
         margin-top: 0; } }
+
+.profile-contact {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-top: 1px solid #e7e5e1;
+  font-size: 0; }
+  .profile-contact li {
+    font-size: 1rem;
+    text-align: center; }
+    .profile-contact li + li {
+      margin-left: 0; }
+  .profile-contact a {
+    display: block;
+    padding: 10px 30px;
+    cursor: pointer; }
+    .profile-contact a:hover {
+      background-color: #333;
+      color: #fff;
+      text-decoration: none; }
+      .profile-contact a:hover .value,
+      .profile-contact a:hover .value .value-label {
+        color: #fff; }
+      .theme-red .profile-contact a:hover {
+        background-color: #cb0050; }
+      .theme-blue .profile-contact a:hover {
+        background-color: #0069b4; }
+      .theme-green .profile-contact a:hover {
+        background-color: #11a636; }
+      .theme-purple .profile-contact a:hover {
+        background-color: #712082; }
+  .profile-contact a > i.fa {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    position: relative; }
+  .profile-contact .value {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.2em;
+    line-height: 1.3;
+    color: #252525; }
+    .profile-contact .value .value-label {
+      display: block;
+      font-size: .7em;
+      color: #464646; }
+      .profile-contact .value .value-label i.fa {
+        display: none; }
+  @media (max-width: 961px) {
+    .profile-contact li {
+      display: block; }
+      .profile-contact li + li {
+        border-top: 1px solid #e7e5e1; }
+    .profile-contact a > i.fa {
+      display: none; }
+    .profile-contact .value {
+      text-align: center; }
+    .profile-contact .value .value-label {
+      font-size: .8em;
+      color: #7b075e; }
+    .profile-contact .value .value-label i.fa {
+      display: inline-block; } }
+  @media (max-width: 769px) {
+    .profile-contact li {
+      font-size: .9rem; } }
+
+.profile-social-networks {
+  margin-top: 20px; }
+  .profile-social-networks a {
+    color: #979797;
+    font-size: 1.2em; }
+    .profile-social-networks a:hover {
+      color: #fff; }
+      .theme-red .profile-social-networks a:hover {
+        color: #f7a600; }
+      .theme-blue .profile-social-networks a:hover {
+        color: #4db4e7; }
+      .theme-green .profile-social-networks a:hover {
+        color: #afca05; }
+      .theme-purple .profile-social-networks a:hover {
+        color: #d35098; }
 
 .profile-header-background {
   position: absolute;
@@ -269,7 +322,7 @@ body.admin-bar {
   background-image: url("http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg");
   background-size: cover;
   background-position: center center;
-  opacity: .3;
+  opacity: .2;
   -webkit-filter: blur(10px);
           filter: blur(10px);
   -webkit-transform: scale(1.2);
