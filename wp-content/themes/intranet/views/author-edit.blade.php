@@ -131,6 +131,13 @@
                                             <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
                                         </div>
                                     </div>
+
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_workplace"><?php _e('Workplace', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_workplace" name="user_workplace" value="{{ get_the_author_meta('user_workplace') }}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>

@@ -69,15 +69,17 @@
         </li>
         @endif
 
+        @if (!empty(get_the_author_meta('user_workplace')))
         <li>
             <a href="mailto:{{ get_the_author_meta('email') }}">
                 <i class="fa fa-map-marker fa-2x"></i>
                 <span class="value">
-                    Kontaktcenter
-                    <span class="value-label"><i class="fa fa-map-marker"></i> <?php _e('Office', 'municipio-intranet'); ?></span>
+                    {{ get_the_author_meta('user_workplace') }}
+                    <span class="value-label"><i class="fa fa-map-marker"></i> <?php _e('Workplace', 'municipio-intranet'); ?></span>
                 </span>
             </a>
         </li>
+        @endif
     </ul>
 </header>
 
