@@ -63,9 +63,10 @@ class Enqueue
      */
     public function script()
     {
-        // Enqueue bundeled jquery to footer
-        wp_enqueue_script('jquery', includes_url('/js/jquery/jquery.js'), false, null, true);
-
+        //Remove jQuery
+        if (!is_admin()) {
+            wp_dequeue_script('jquery');
+        }
 
         //Custom
         if (defined('DEV_MODE') && DEV_MODE === true) {
