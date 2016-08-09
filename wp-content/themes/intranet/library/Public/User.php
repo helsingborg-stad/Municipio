@@ -16,6 +16,10 @@ if (!function_exists('municipio_intranet_get_user_profile_url')) {
             $user = get_user_by('slug', $user);
         }
 
+        if (!is_a($user, 'WP_User')) {
+            return null;
+        }
+
         return network_site_url('user/' . $user->data->user_login);
     }
 }
