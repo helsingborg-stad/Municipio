@@ -67,10 +67,17 @@ class AuthorEdit extends \Intranet\Controller\BaseController
 
         update_user_meta($user->ID, 'user_phone', $phone);
         update_user_meta($user->ID, 'user_administration_unit', $_POST['user_administration_unit']);
-        update_user_meta($user->ID, 'user_department', sanitize_text_field($_POST['user_department']));
+        update_user_meta($user->ID, 'user_department', $_POST['user_department']);
+        update_user_meta($user->ID, 'user_workplace', $_POST['user_workplace']);
+
+        update_user_meta($user->ID, 'user_facebook_url', $_POST['user_facebook_url']);
+        update_user_meta($user->ID, 'user_linkedin_url', $_POST['user_linkedin_url']);
+        update_user_meta($user->ID, 'user_instagram_username', $_POST['user_instagram_username']);
+        update_user_meta($user->ID, 'user_twitter_username', $_POST['user_twitter_username']);
+
         update_user_meta($user->ID, 'user_about', implode("\n", array_map('sanitize_text_field', explode("\n", $_POST['user_about']))));
         update_user_meta($user->ID, 'user_target_groups', isset($_POST['user_target_groups']) ? array_map('sanitize_text_field', $_POST['user_target_groups']) : array());
-        update_user_meta($user->ID, 'user_color_scheme', isset($_POST['color_scheme']) ? sanitize_text_field($_POST['color_scheme']) : 'purple');
+        update_user_meta($user->ID, 'user_color_scheme', isset($_POST['color_scheme']) ? $_POST['color_scheme'] : 'purple');
 
         if (isset($_POST['responsibilities'])) {
             update_user_meta($user->ID, 'user_responsibilities', $_POST['responsibilities']);

@@ -212,44 +212,35 @@ body.admin-bar {
 .profile-header {
   position: relative;
   overflow: hidden;
+  text-align: center;
   border-bottom: 1px solid #e7e5e1; }
-  @media (min-width: 0) and (max-width: 468px) {
-    .profile-header {
-      font-size: .9em; }
-      .profile-header h1 {
-        font-size: 1.5em; } }
+  .profile-header .profile-fullname {
+    color: #fff; }
   .profile-header .profile-header-content {
     position: relative;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
     padding: 30px 0;
-    text-align: center; }
-    @media (min-width: 769px) {
-      .profile-header .profile-header-content {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        text-align: left; } }
+    color: #fff; }
   .profile-header .profile-image {
-    display: inline-block;
-    margin-bottom: 10px; }
-    @media (min-width: 769px) {
-      .profile-header .profile-image {
-        -webkit-box-flex: 0;
-        -webkit-flex: 0 0 auto;
-            -ms-flex: 0 0 auto;
-                flex: 0 0 auto;
-        margin-right: 25px;
-        margin-bottom: 0; } }
-  @media (min-width: 769px) {
-    .profile-header .profile-basics {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1 0 auto;
-          -ms-flex: 1 0 auto;
-              flex: 1 0 auto; } }
+    position: relative;
+    margin: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    width: 110px;
+    height: 110px; }
+    .profile-header .profile-image::before {
+      content: '';
+      position: absolute;
+      bottom: -8%;
+      left: 0;
+      height: 10%;
+      width: 100%;
+      background-color: #000;
+      border-radius: 50%;
+      -webkit-filter: blur(5px);
+              filter: blur(5px);
+      z-index: -1; }
+  .profile-header .profile-department {
+    font-size: .8em; }
   .profile-header .profile-actions {
     margin-top: 15px; }
     @media (min-width: 769px) {
@@ -258,6 +249,91 @@ body.admin-bar {
         top: 30px;
         right: 0;
         margin-top: 0; } }
+
+.profile-contact {
+  background-color: rgba(51, 51, 51, 0.5);
+  font-size: 0; }
+  .theme-red .profile-contact {
+    background-color: rgba(203, 0, 80, 0.5); }
+  .theme-blue .profile-contact {
+    background-color: rgba(0, 105, 180, 0.5); }
+  .theme-green .profile-contact {
+    background-color: rgba(17, 166, 54, 0.5); }
+  .theme-purple .profile-contact {
+    background-color: rgba(113, 32, 130, 0.5); }
+  .profile-contact li {
+    font-size: 1rem;
+    text-align: center; }
+    .profile-contact li + li {
+      margin-left: 0; }
+  .profile-contact a {
+    display: block;
+    padding: 10px 30px;
+    cursor: pointer;
+    color: #fff; }
+    .profile-contact a:hover {
+      background-color: #333;
+      color: #fff;
+      text-decoration: none; }
+      .profile-contact a:hover .value,
+      .profile-contact a:hover .value .value-label {
+        color: #fff; }
+      .theme-red .profile-contact a:hover {
+        background-color: #cb0050; }
+      .theme-blue .profile-contact a:hover {
+        background-color: #0069b4; }
+      .theme-green .profile-contact a:hover {
+        background-color: #11a636; }
+      .theme-purple .profile-contact a:hover {
+        background-color: #712082; }
+  .profile-contact a > i.fa {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    position: relative; }
+  .profile-contact .value {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.2em;
+    line-height: 1.3;
+    color: #fff; }
+    .profile-contact .value .value-label {
+      display: block;
+      font-size: .7em;
+      color: #fff; }
+      .profile-contact .value .value-label i.fa {
+        display: none; }
+  @media (max-width: 961px) {
+    .profile-contact li {
+      display: block; }
+      .profile-contact li + li {
+        border-top: 1px solid rgba(255, 255, 255, 0.1); }
+    .profile-contact a > i.fa {
+      display: none; }
+    .profile-contact .value {
+      text-align: center; }
+    .profile-contact .value .value-label i.fa {
+      display: inline-block; } }
+  @media (max-width: 769px) {
+    .profile-contact li {
+      font-size: .9rem; } }
+
+.profile-social-networks {
+  margin-top: 20px; }
+  .profile-social-networks a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2em; }
+    .profile-social-networks a:hover {
+      color: #fff; }
+    .profile-social-networks a::after {
+      background-color: #fff !important;
+      color: #252525 !important; }
+    .profile-social-networks a::before {
+      border-top: none !important;
+      border-right: 5px solid transparent !important;
+      border-bottom: 5px solid #fff !important;
+      border-left: 5px solid transparent !important; }
 
 .profile-header-background {
   position: absolute;
@@ -269,11 +345,19 @@ body.admin-bar {
   background-image: url("http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg");
   background-size: cover;
   background-position: center center;
-  opacity: .3;
+  opacity: 1;
   -webkit-filter: blur(10px);
           filter: blur(10px);
   -webkit-transform: scale(1.2);
           transform: scale(1.2); }
+  .profile-header-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); }
 
 .profile-fullname {
   padding: 0; }

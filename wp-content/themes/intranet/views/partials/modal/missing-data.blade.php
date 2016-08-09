@@ -33,7 +33,7 @@
                                     </div>
 
                                     <div class="accordion-nav clearfix">
-                                        <label class="btn btn-md btn-primary pull-right" data-guide-nav="next" for="accordion-missing-1"><?php _e('Next', 'modularity-guides'); ?> <i class="fa fa-caret-right"></i></label>
+                                        <label class="btn btn-md btn-primary pull-right" data-guide-nav="next" for="accordion-missing-1"><?php _e('Next', 'municipio-intranet'); ?> <i class="fa fa-caret-right"></i></label>
                                     </div>
                                 </div>
                             </section>
