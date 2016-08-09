@@ -79,7 +79,7 @@
 
         @if (!empty(get_the_author_meta('user_workplace')))
         <li>
-            <a href="mailto:{{ get_the_author_meta('email') }}">
+            <a href="#">
                 <i class="fa fa-map-marker fa-2x"></i>
                 <span class="value">
                     {{ get_the_author_meta('user_workplace') }}
