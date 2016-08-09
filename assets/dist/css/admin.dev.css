@@ -15,8 +15,9 @@
   -moz-border-top-colors: none;
   background: #fff none repeat scroll 0 0;
   border-color: -moz-use-text-color #ddd #ddd;
-  -o-border-image: none;
-     border-image: none;
+  -webkit-border-image: none;
+       -o-border-image: none;
+          border-image: none;
   border-style: none solid solid;
   border-width: medium 1px 1px;
   box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
