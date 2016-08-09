@@ -3,7 +3,7 @@
 @section('content')
 
 <header class="profile-header">
-    <div class="profile-header-background hidden" style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
+    <div class="profile-header-background" style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
 
     <div class="container">
         <div class="grid">
@@ -44,7 +44,7 @@
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
-                        <li><a href="{{ municipio_intranet_get_user_profile_edit_url(get_the_author_meta('user_login')) }}"><i class="fa fa-wrench"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
+                        <li><a href="{{ municipio_intranet_get_user_profile_edit_url(get_the_author_meta('user_login')) }}" class="btn btn-sm"><i class="fa fa-wrench"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
                     </ul>
                     @endif
                 </div>
