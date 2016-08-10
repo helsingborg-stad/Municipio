@@ -27,6 +27,7 @@
                         </span>
                     @endif
 
+                    @if (!empty(get_the_author_meta('user_facebook_url')) || !empty(get_the_author_meta('user_linkedin_url')) || !empty(get_the_author_meta('user_instagram_username')) || !empty(get_the_author_meta('user_twitter_username')))
                     <ul class="profile-social-networks nav-horizontal">
                         @if (!empty(get_the_author_meta('user_facebook_url')))
                         <li><a href="{{ get_the_author_meta('user_facebook_url') }}" data-tooltip="<?php _e('My profile on Facebook', 'municipio-intranet'); ?>"><i class="fa fa-facebook"></i><span class="sr-only"><?php _e('My profile on Facebook', 'municipio-intranet'); ?></span></a></li>
@@ -41,6 +42,7 @@
                         <li><a href="https://twitter.com/{{ get_the_author_meta('user_twitter_username') }}" data-tooltip="<?php _e('My profile on Twitter', 'municipio-intranet'); ?>"><i class="fa fa-twitter"></i><span class="sr-only"><?php _e('My profile on Snapchat', 'municipio-intranet'); ?></span></a></li>
                         @endif
                     </ul>
+                    @endif
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
@@ -93,23 +95,27 @@
 
 <div class="container main-container">
     <div class="grid">
-        <div class="grid-md-8">
-            <article>
-                <h2><?php _e('About', 'municipio-intranet'); ?></h2>
-                {!! wpautop(get_the_author_meta('user_about')) !!}
-            </article>
-        </div>
+        <div class="grid-md-12">
+            @if (get_the_author_meta('user_about'))
+            <div class="grid">
+                <div class="grid-md-12">
+                    <article>
+                        {!! wpautop(get_the_author_meta('user_about')) !!}
+                    </article>
+                </div>
+            </div>
+            @endif
 
-        <aside class="grid-md-4 sidebar-right-sidebar">
+            @if (count($userSkills) > 0 || count($userResponsibilities) > 0)
             <div class="grid">
                 @if (count($userSkills) > 0)
-                <div class="grid-xs-12">
-                    <div class="box box-filled">
+                <div class="grid-md-6">
+                    <div class="box box-panel box-panel-secondary">
                         <h4 class="box-title"><?php _e('Skills', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <ul class="tags">
                                 @foreach ($userSkills as $item)
-                                <li>{{ $item }}</li>
+                                <li><div class="tag">{{ $item }}</div></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -118,13 +124,13 @@
                 @endif
 
                 @if (count($userResponsibilities) > 0)
-                <div class="grid-xs-12">
-                    <div class="box box-filled">
+                <div class="grid-md-6">
+                    <div class="box box-panel box-panel-secondary">
                         <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <ul class="tags">
                                 @foreach ($userResponsibilities as $item)
-                                <li>{{ $item }}</li>
+                                <li><div class="tag">{{ $item }}</div></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -132,7 +138,9 @@
                 </div>
                 @endif
             </div>
-        </aside>
+            @endif
+
+        </div>
     </div>
 </div>
 

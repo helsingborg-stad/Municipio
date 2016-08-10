@@ -210,8 +210,10 @@
                                                     <ul class="tags">
                                                         @foreach ($userResponsibilities as $item)
                                                         <li>
-                                                            <button class="btn btn-plain" data-action="remove">&times;</button>
-                                                            {{ $item }}
+                                                            <span class="tag">
+                                                                <button class="btn btn-plain" data-action="remove">&times;</button>
+                                                                {{ $item }}
+                                                            </span>
                                                             <input type="hidden" name="responsibilities[]" value="{{ $item }}">
                                                         </li>
                                                         @endforeach
@@ -253,8 +255,10 @@
                                                     <ul class="tags">
                                                         @foreach ($userSkills as $item)
                                                         <li>
-                                                            <button class="btn btn-plain" data-action="remove">&times;</button>
-                                                            {{ $item }}
+                                                            <span class="tag">
+                                                                <button class="btn btn-plain" data-action="remove">&times;</button>
+                                                                {{ $item }}
+                                                            </span>
                                                             <input type="hidden" name="skills[]" value="{{ $item }}">
                                                         </li>
                                                         @endforeach

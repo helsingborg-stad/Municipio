@@ -1,0 +1,17 @@
+.table-of-contents {
+    .network-title {
+        float: right;
+    }
+
+    @media #{$screen-below-md} {
+        .network-title {
+            display: block;
+            float: left;
+            clear: both;
+            margin-top: 3px;
+            background-color: transparent !important;
+            border: none;
+            padding: 0;
+        }
+    }
+}
