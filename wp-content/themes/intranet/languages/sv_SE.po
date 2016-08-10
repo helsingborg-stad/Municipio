@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
-"PO-Revision-Date: 2016-08-08 16:00+0200\n"
+"POT-Creation-Date: 2016-08-10 16:15+0200\n"
+"PO-Revision-Date: 2016-08-10 16:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -296,7 +296,7 @@ msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
 #: library/User/TargetGroups.php:193 library/User/TargetGroups.php:194
-#: views/author-edit.blade.php:318
+#: views/author-edit.blade.php:322
 msgid "Target groups"
 msgstr "Målgrupper"
 
@@ -326,7 +326,7 @@ msgstr "Förvaltningens namn"
 #: templates/admin/administration-units/form.php:56
 #: templates/admin/systems/form.php:126
 #: templates/admin/target-groups/form.php:53 views/author-edit.blade.php:205
-#: views/author-edit.blade.php:248
+#: views/author-edit.blade.php:250
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:21
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:21
 msgid "Add"
@@ -502,13 +502,13 @@ msgstr "Personlig information"
 msgid "Not editable"
 msgstr "Ej redigerbar"
 
-#: views/author-edit.blade.php:57 views/author.blade.php:74
+#: views/author-edit.blade.php:57 views/author.blade.php:76
 #: views/partials/modal/missing-data-fields/user_email.blade.php:4
 #: views/partials/modal/missing-data-fields/user_email.blade.php:16
 msgid "Email"
 msgstr "E-post"
 
-#: views/author-edit.blade.php:63 views/author.blade.php:62
+#: views/author-edit.blade.php:63 views/author.blade.php:64
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:4
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:16
 msgid "Phone number"
@@ -577,7 +577,7 @@ msgstr "Förvaltning"
 msgid "Department"
 msgstr "Avdelning"
 
-#: views/author-edit.blade.php:176 views/author.blade.php:86
+#: views/author-edit.blade.php:176 views/author.blade.php:88
 msgid "Workplace"
 msgstr "Arbetsplats"
 
@@ -610,12 +610,12 @@ msgstr "Lägg till ansvarsområde"
 msgid "Added responsibilities"
 msgstr "Dina ansvarsområden"
 
-#: views/author-edit.blade.php:231 views/author.blade.php:108
+#: views/author-edit.blade.php:233 views/author.blade.php:114
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
 msgid "Skills"
 msgstr "Kompetenser"
 
-#: views/author-edit.blade.php:236
+#: views/author-edit.blade.php:238
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:9
 msgid ""
 "Please add your skills. This will make it easier to find you when searching."
@@ -623,123 +623,119 @@ msgstr ""
 "Lägg till dina kompetenser. Detta gör det lättare för andra att hitta dig "
 "med hjälp av sökfunktionen."
 
-#: views/author-edit.blade.php:243
+#: views/author-edit.blade.php:245
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:16
 msgid "Skill"
 msgstr "Kompetens"
 
-#: views/author-edit.blade.php:247
+#: views/author-edit.blade.php:249
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:20
 msgid "Add skill"
 msgstr "Lägg till kompetens"
 
-#: views/author-edit.blade.php:252
+#: views/author-edit.blade.php:254
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:25
 msgid "Added skills"
 msgstr "Dina kompetenser"
 
-#: views/author-edit.blade.php:274
+#: views/author-edit.blade.php:278
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:4
 msgid "Profile image"
 msgstr "Profilbild"
 
-#: views/author-edit.blade.php:283
+#: views/author-edit.blade.php:287
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr "Är du säker på att du vill ta bort din profilbild?"
 
-#: views/author-edit.blade.php:283
+#: views/author-edit.blade.php:287
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Delete profile image"
 msgstr "Ta bort profilbild"
 
-#: views/author-edit.blade.php:294
+#: views/author-edit.blade.php:298
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
-#: views/author-edit.blade.php:296
+#: views/author-edit.blade.php:300
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr "eller"
 
-#: views/author-edit.blade.php:297
+#: views/author-edit.blade.php:301
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:341
+#: views/author-edit.blade.php:345
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:347
+#: views/author-edit.blade.php:351
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:348
+#: views/author-edit.blade.php:352
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:349
+#: views/author-edit.blade.php:353
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:350
+#: views/author-edit.blade.php:354
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:351
+#: views/author-edit.blade.php:355
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:364
+#: views/author-edit.blade.php:368
 msgid "Save settings"
 msgstr "Spara inställningar"
 
-#: views/author-edit.blade.php:374
+#: views/author-edit.blade.php:378
 msgid "Edit your settings"
 msgstr "Redigera dina inställningar"
 
-#: views/author-edit.blade.php:376
+#: views/author-edit.blade.php:380
 msgid "This is where you edit your personal settings."
 msgstr "Här kan du redigera dina personliga inställningar."
 
-#: views/author-edit.blade.php:377
+#: views/author-edit.blade.php:381
 msgid ""
 "Some of your settings is displayed on your profile to other logged in users."
 msgstr ""
 "Några av dina inställningar visas på din profilsida för andra inloggade "
 "användare."
 
-#: views/author.blade.php:32
+#: views/author.blade.php:33
 msgid "My profile on Facebook"
 msgstr "Min profil på Facebook"
 
-#: views/author.blade.php:35
+#: views/author.blade.php:36
 msgid "My profile on LinkedIn"
 msgstr "Min profil på LinkedIn"
 
-#: views/author.blade.php:35 views/author.blade.php:38
+#: views/author.blade.php:36 views/author.blade.php:39
 msgid "My profile on Instagram"
 msgstr "Min profil på Instagram"
 
-#: views/author.blade.php:38 views/author.blade.php:41
+#: views/author.blade.php:39 views/author.blade.php:42
 msgid "My profile on Twitter"
 msgstr "Min profil på Twitter"
 
-#: views/author.blade.php:41
+#: views/author.blade.php:42
 msgid "My profile on Snapchat"
 msgstr "Min profil på Snapchat"
 
-#: views/author.blade.php:47
+#: views/author.blade.php:49
 msgid "Edit settings"
 msgstr "Redigera inställningar"
 
-#: views/author.blade.php:98
-msgid "About"
-msgstr "Om"
-
-#: views/author.blade.php:123
+#: views/author.blade.php:129
 msgid "Responsibilities"
 msgstr "Ansvarsområden"
 
@@ -760,8 +756,9 @@ msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
 #: views/partials/header/intranet.blade.php:22
-msgid "Table of contents"
-msgstr "Innehållsförteckning"
+#: views/table-of-contents.blade.php:8
+msgid "A-Z"
+msgstr "A-Ö"
 
 #: views/partials/header/intranet.blade.php:30
 msgid "Your profile"
@@ -779,13 +776,17 @@ msgstr "Administrera prenumerationer"
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:40
+#: views/partials/header/intranet.blade.php:41
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:44
+#: views/partials/header/intranet.blade.php:46
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
+
+#: views/partials/header/intranet.blade.php:57
+msgid "Menu"
+msgstr "Meny"
 
 #: views/partials/modal/missing-data-fields/nav.blade.php:15
 msgid "Save and continue"
@@ -920,6 +921,12 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "About"
+#~ msgstr "Om"
+
+#~ msgid "Table of contents"
+#~ msgstr "Innehållsförteckning"
 
 #~ msgid "Contact information"
 #~ msgstr "Kontaktinformation"

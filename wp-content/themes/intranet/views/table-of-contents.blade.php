@@ -5,7 +5,7 @@
 <div class="container main-container">
     <div class="grid">
         <div class="grid-xs-12">
-            <h1>A-Ö</h1>
+            <h1><?php _e('A-Z', 'municipio-intranet'); ?></h1>
 
             <div class="grid">
                 <div class="grid-xs-12">
