@@ -93,23 +93,24 @@
 
 <div class="container main-container">
     <div class="grid">
-        <div class="grid-md-8">
-            <article>
-                <h2><?php _e('About', 'municipio-intranet'); ?></h2>
-                {!! wpautop(get_the_author_meta('user_about')) !!}
-            </article>
-        </div>
+        <div class="grid-md-12">
+            <div class="grid">
+                <div class="grid-md-12">
+                    <article>
+                        {!! wpautop(get_the_author_meta('user_about')) !!}
+                    </article>
+                </div>
+            </div>
 
-        <aside class="grid-md-4 sidebar-right-sidebar">
             <div class="grid">
                 @if (count($userSkills) > 0)
-                <div class="grid-xs-12">
-                    <div class="box box-filled">
+                <div class="grid-md-6">
+                    <div class="box box-panel box-panel-secondary">
                         <h4 class="box-title"><?php _e('Skills', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <ul class="tags">
                                 @foreach ($userSkills as $item)
-                                <li>{{ $item }}</li>
+                                <li><div class="tag">{{ $item }}</div></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -118,13 +119,13 @@
                 @endif
 
                 @if (count($userResponsibilities) > 0)
-                <div class="grid-xs-12">
-                    <div class="box box-filled">
+                <div class="grid-md-6">
+                    <div class="box box-panel box-panel-secondary">
                         <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <ul class="tags">
                                 @foreach ($userResponsibilities as $item)
-                                <li>{{ $item }}</li>
+                                <li><div class="tag">{{ $item }}</div></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -132,7 +133,7 @@
                 </div>
                 @endif
             </div>
-        </aside>
+        </div>
     </div>
 </div>
 
