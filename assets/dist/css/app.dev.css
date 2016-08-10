@@ -8,6 +8,8 @@
     display: block;
     max-width: 250px;
     width: 100%; }
+  .site-header .logotype .h1 {
+    color: #fff; }
 
 .site-header .menu-header-tabs {
   display: inline-block; }
