@@ -27,6 +27,7 @@
                         </span>
                     @endif
 
+                    @if (!empty(get_the_author_meta('user_facebook_url')) || !empty(get_the_author_meta('user_linkedin_url')) || !empty(get_the_author_meta('user_instagram_username')) || !empty(get_the_author_meta('user_twitter_username')))
                     <ul class="profile-social-networks nav-horizontal">
                         @if (!empty(get_the_author_meta('user_facebook_url')))
                         <li><a href="{{ get_the_author_meta('user_facebook_url') }}" data-tooltip="<?php _e('My profile on Facebook', 'municipio-intranet'); ?>"><i class="fa fa-facebook"></i><span class="sr-only"><?php _e('My profile on Facebook', 'municipio-intranet'); ?></span></a></li>
@@ -41,6 +42,7 @@
                         <li><a href="https://twitter.com/{{ get_the_author_meta('user_twitter_username') }}" data-tooltip="<?php _e('My profile on Twitter', 'municipio-intranet'); ?>"><i class="fa fa-twitter"></i><span class="sr-only"><?php _e('My profile on Snapchat', 'municipio-intranet'); ?></span></a></li>
                         @endif
                     </ul>
+                    @endif
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
