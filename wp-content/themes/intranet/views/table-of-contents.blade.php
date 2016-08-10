@@ -43,7 +43,13 @@
                         <ul class="pagination pagination-lg">
                         @foreach ($tableOfContents as $key => $pages)
                              <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
-                        @endforeach;
+                        @endforeach
+                        @foreach ($tableOfContents as $key => $pages)
+                             <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
+                        @endforeach
+                        @foreach ($tableOfContents as $key => $pages)
+                             <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
+                        @endforeach
                         </ul>
                     </div>
                 </div>
@@ -54,11 +60,11 @@
                 <div class="grid-md-12">
                     <div class="box box-panel box-panel-secondary" id="index-{{ $key }}">
                         <h2 class="box-title">{{ strtoupper($key) }}</h2>
-                        <ul>
+                        <ul class="table-of-contents">
                             @foreach ($pages as $page)
                             <li class="clearfix">
                                 <a href="{{ get_blog_permalink($page->blog_id, $page->ID) }}" class="link-item pull-left">{{ $page->post_title }}</a>
-                                <span class="network-title label label-sm label-creamy pull-right">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($page->blog_id)) !!}</span>
+                                <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($page->blog_id)) !!}</span>
                             </li>
                             @endforeach
                         </ul>

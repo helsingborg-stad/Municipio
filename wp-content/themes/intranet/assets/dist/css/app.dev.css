@@ -821,3 +821,16 @@ a.dropdown-open:focus {
 .box-news .network-title {
   margin: 0 5px 10px 0;
   display: inline-block; }
+
+.table-of-contents .network-title {
+  float: right; }
+
+@media (max-width: 769px) {
+  .table-of-contents .network-title {
+    display: block;
+    float: left;
+    clear: both;
+    margin-top: 3px;
+    background-color: transparent !important;
+    border: none;
+    padding: 0; } }
