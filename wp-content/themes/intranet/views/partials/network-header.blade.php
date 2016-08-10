@@ -1,6 +1,6 @@
 <div class="creamy creamy-border-bottom hidden-print">
     <div class="container">
-        <div class="grid gutter gutter-lg gutter-vertical">
+        <div class="grid network-header-container">
             <div class="grid-md-8 text-center-xs text-center-sm">
                 <div class="network">
                     <button class="current-network network-title" data-dropdown=".network-search-dropdown">

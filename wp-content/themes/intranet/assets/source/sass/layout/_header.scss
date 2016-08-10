@@ -22,7 +22,7 @@ body.admin-bar {
         float: right;
     }
 
-    .search {
+    .search.search-main {
         position: relative;
         display: block;
         float: left;
@@ -123,6 +123,58 @@ body.admin-bar {
             left: 0;
             right: 0;
             text-align: left;
+        }
+
+        .subnav {
+            background-color: rgba(#000, .3);
+            padding: 0 5px;
+
+            li {
+                float: left;
+
+                &:last-child {
+                    float: right;
+                }
+            }
+        }
+
+        .navbar .container {
+            margin: 0;
+
+            [class*="grid-"] {
+                padding: 0;
+                margin: 0;
+            }
+
+            .grid {
+                margin: 0;
+            }
+        }
+
+        .menu-trigger {
+            color: #fff;
+            position: relative;
+
+            .menu-icon {
+                background-color: #fff;
+                margin-right: 3px;
+
+                &::before,
+                &::after {
+                    background-color: #fff;
+                }
+            }
+
+            &:target,
+            &.open {
+                .menu-icon {
+                    background: transparent;
+                }
+            }
+
+            &:focus {
+                text-decoration: none;
+            }
         }
     }
 

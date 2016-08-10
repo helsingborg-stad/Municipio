@@ -2,6 +2,18 @@
     position: relative;
 }
 
+.network-header-container {
+    padding: 10px 0;
+
+    @media #{$screen-sm-up} {
+        padding: 15px 0;
+    }
+
+    @media #{$screen-lg-up} {
+        padding: 22.5px 0;
+    }
+}
+
 .network-title {
     font-weight: bold;
 

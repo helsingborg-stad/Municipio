@@ -6,7 +6,7 @@
                     <div class="grid-xs-12">
                         <a href="{{ network_home_url() }}" class="site-title"><span class="h1 no-margin no-padding">{{ get_site_option('site_name') }}</span></a>
 
-                        <form class="search" method="get" action="{{ home_url() }}">
+                        <form class="search search-main hidden-xs hidden-sm" method="get" action="{{ home_url() }}">
                             <label for="searchkeyword-top" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">
@@ -17,9 +17,9 @@
                             </div>
                         </form>
 
-                        <nav class="subnav">
+                        <nav class="subnav clearfix">
                             <ul class="nav nav-horizontal">
-                                <li><a href="{{ municipio_table_of_contents_url() }}"><?php _e('Table of contents', 'municipio-intranet'); ?></a></li>
+                                <li><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
 
                                 @if ($currentUser->ID > 0)
                                     <li>
@@ -37,7 +37,9 @@
                                     </li>
                                 @else
                                     <li>
-                                        <a href="#" data-dropdown=".login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'class="dropdown-open"' : '' !!}><?php _e('Log in'); ?> <i class="fa fa-caret-down"></i></a>
+                                        <a href="#" data-dropdown=".login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'class="dropdown-open"' : '' !!}>
+                                            <?php _e('Log in'); ?> <i class="fa fa-caret-down"></i>
+                                        </a>
                                         <div class="dropdown login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'style="display: block;"' : '' !!}>
                                             <div class="gutter">
                                                 @if (isset($_GET['login']) && $_GET['login'] == 'failed')
@@ -49,6 +51,12 @@
                                         </div>
                                     </li>
                                 @endif
+
+                                <li class="{!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
+                                    @if (strlen($navigation['mobileMenu']) > 0)
+                                        <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> <?php _e('Menu', 'municipio'); ?></a>
+                                    @endif
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -57,6 +65,12 @@
         </div>
     </div>
 </nav>
+
+@if (strlen($navigation['mobileMenu']) > 0)
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
+        @include('partials.mobile-menu')
+    </nav>
+@endif
 
 @include('partials.network-header')
 
