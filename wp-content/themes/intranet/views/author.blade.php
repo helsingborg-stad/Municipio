@@ -94,6 +94,7 @@
 <div class="container main-container">
     <div class="grid">
         <div class="grid-md-12">
+            @if (get_the_author_meta('user_about'))
             <div class="grid">
                 <div class="grid-md-12">
                     <article>
@@ -101,7 +102,9 @@
                     </article>
                 </div>
             </div>
+            @endif
 
+            @if (count($userSkills) > 0 || count($userResponsibilities) > 0)
             <div class="grid">
                 @if (count($userSkills) > 0)
                 <div class="grid-md-6">
@@ -133,6 +136,8 @@
                 </div>
                 @endif
             </div>
+            @endif
+
         </div>
     </div>
 </div>
