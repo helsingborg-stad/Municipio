@@ -316,8 +316,8 @@ Intranet.Search.General = (function ($) {
         var $element = $(element);
         var $autocomplete = $('<div class="search-autocomplete"></div>');
 
-        var $users = $('<ul class="search-autocomplete-users"><li class="title"><i class="fa fa-user"></i> ' + municipioIntranet.searchAutocomplete.persons + '</li></ul>');
-        var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="fa fa-file-text-o"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
+        var $users = $('<ul class="search-autocomplete-users"><li class="title"><i class="pricon pricon-user-o"></i> ' + municipioIntranet.searchAutocomplete.persons + '</li></ul>');
+        var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="pricon pricon-file-text"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
 
         // Users
         if (res.users !== null && res.users.length > 0) {
@@ -526,12 +526,12 @@ Intranet.User.Links = (function ($) {
 
         if ($box.hasClass('is-editing')) {
             $box.removeClass('is-editing');
-            $target.html('<i class="fa fa-edit"></i> Edit');
+            $target.html('<i class="pricon pricon-edit"></i> ' + municipioIntranet.edit);
             return;
         }
 
         $box.addClass('is-editing');
-        $target.html('<i class="fa fa-check"></i> Done');
+        $target.html('<i class="pricon pricon-check"></i> ' + municipioIntranet.done);
     }
 
     Links.prototype.addLink = function (title, link, element) {
@@ -626,9 +626,9 @@ Intranet.User.Subscribe = (function ($) {
 
         $.post(ajaxurl, postdata, function (res) {
             if (res == 'subscribed') {
-                buttonElement.html('<i class="fa fa-minus-circle"></i> ' + municipioIntranet.unsubscribe);
+                buttonElement.html('<i class="pricon pricon-minus-o"></i> ' + municipioIntranet.unsubscribe);
             } else {
-                buttonElement.html('<i class="fa fa-plus-circle"></i> '  + municipioIntranet.subscribe);
+                buttonElement.html('<i class="pricon pricon-plus-o"></i> '  + municipioIntranet.subscribe);
             }
         });
     };

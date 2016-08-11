@@ -2,7 +2,7 @@
     <h4 class="box-title">
         <?php _e('Your systems', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
-        <a href="#modal-select-systems" class="btn btn-plain btn-sm pull-right" data-user-systems-edit><i class="fa fa-edit"></i> <?php _e('Edit', 'municipio-intranet'); ?></a>
+        <a href="#modal-select-systems" class="btn btn-plain btn-sm pull-right" data-user-systems-edit><i class="pricon pricon-edit"></i> <?php _e('Edit', 'municipio-intranet'); ?></a>
         <?php endif; ?>
     </h4>
     <div class="box-content">

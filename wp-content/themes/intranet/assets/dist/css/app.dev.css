@@ -163,7 +163,7 @@ body.admin-bar {
     #site-header .search.search-main button.btn {
       background-color: #5e5e5e;
       color: #fff;
-      padding-top: 12px;
+      padding-top: 7px;
       border: none;
       -webkit-transition: 200ms all;
               transition: 200ms all;
@@ -312,7 +312,8 @@ body.admin-bar {
         background-color: #11a636; }
       .theme-purple .profile-contact a:hover {
         background-color: #712082; }
-  .profile-contact a > i.fa {
+  .profile-contact a > i.fa,
+  .profile-contact a > i.pricon {
     display: inline-block;
     vertical-align: middle;
     margin-right: 8px;
@@ -328,7 +329,8 @@ body.admin-bar {
       display: block;
       font-size: .7em;
       color: #fff; }
-      .profile-contact .value .value-label i.fa {
+      .profile-contact .value .value-label i.fa,
+      .profile-contact .value .value-label i.pricon {
         display: none; }
   @media (max-width: 961px) {
     .profile-contact li {
@@ -339,7 +341,8 @@ body.admin-bar {
       display: none; }
     .profile-contact .value {
       text-align: center; }
-    .profile-contact .value .value-label i.fa {
+    .profile-contact .value .value-label i.fa,
+    .profile-contact .value .value-label i.pricon {
       display: inline-block; } }
   @media (max-width: 769px) {
     .profile-contact li {

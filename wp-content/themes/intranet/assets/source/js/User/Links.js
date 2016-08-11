@@ -39,12 +39,12 @@ Intranet.User.Links = (function ($) {
 
         if ($box.hasClass('is-editing')) {
             $box.removeClass('is-editing');
-            $target.html('<i class="fa fa-edit"></i> Edit');
+            $target.html('<i class="pricon pricon-edit"></i> ' + municipioIntranet.edit);
             return;
         }
 
         $box.addClass('is-editing');
-        $target.html('<i class="fa fa-check"></i> Done');
+        $target.html('<i class="pricon pricon-check"></i> ' + municipioIntranet.done);
     }
 
     Links.prototype.addLink = function (title, link, element) {
