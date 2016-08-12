@@ -5,7 +5,7 @@
     </li>
     @endif
     <li>
-        <a href="#" onclick="window.print();return false;" class=""><i class="fa fa-print"></i> Skriv ut</a>
+        <a href="#" onclick="window.print();return false;" class=""><i class="pricon pricon-print"></i> Skriv ut</a>
     </li>
 </ul>
 
