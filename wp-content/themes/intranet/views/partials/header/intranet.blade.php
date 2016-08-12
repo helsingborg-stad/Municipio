@@ -23,7 +23,7 @@
 
                                 @if ($currentUser->ID > 0)
                                     <li>
-                                        <a href="#" data-dropdown=".login-dropdown">{{ municipio_intranet_get_user_full_name($currentUser->ID) }} <i class="fa fa-caret-down"></i></a>
+                                        <a href="#" data-dropdown=".login-dropdown">{{ municipio_intranet_get_user_full_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i></a>
 
                                         <div class="dropdown login-dropdown">
                                             <ul class="nav">

@@ -691,18 +691,16 @@ body.admin-bar {
         -webkit-transform: translateY(-50%);
                 transform: translateY(-50%); } }
   .current-network::after {
-    font-family: FontAwesome;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
+    font-family: hbg-pricons;
     line-height: 1;
-    content: "";
+    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: .7em;
-    margin-left: 10px; }
+    vertical-align: -15%;
+    content: "";
+    font-size: .4em;
+    margin-left: 10px;
+    vertical-align: 15%; }
   .current-network em {
     font-weight: 100;
     color: #979797;

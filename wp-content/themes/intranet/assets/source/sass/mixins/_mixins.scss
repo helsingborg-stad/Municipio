@@ -11,6 +11,16 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+@mixin pricon($icon, $vertical-align: -15%) {
+    font-family: hbg-pricons;
+    line-height: 1;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: $vertical-align;
+    content: $icon;
+}
+
 @mixin center($horizontal: true, $vertical: true) {
     position: absolute;
 

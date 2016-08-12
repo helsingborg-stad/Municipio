@@ -13,7 +13,7 @@
                             <div class="input-group">
                                 <input data-dropdown-focus id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('Search networks…', 'municipio-intranet'); ?>">
                                 <span class="input-group-addon-btn">
-                                    <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                                    <button type="submit" class="btn"><i class="pricon pricon-search"></i></button>
                                 </span>
                             </div>
                         </form>
@@ -45,9 +45,9 @@
                 @if (!is_author() && get_blog_option(get_current_blog_id(), 'intranet_force_subscription') != 'true')
                 <button class="btn btn-primary btn-subscribe" data-subscribe="{{ get_current_blog_id() }}">
                     @if (!\Intranet\User\Subscription::hasSubscribed(get_current_blog_id()))
-                    <i class="fa fa-plus-circle"></i> <?php _e('Subscribe', 'municipio-intranet'); ?>
+                    <i class="pricon pricon-plus-o"></i> <?php _e('Subscribe', 'municipio-intranet'); ?>
                     @else
-                    <i class="fa fa-minus-circle"></i> <?php _e('Unsubscribe', 'municipio-intranet'); ?>
+                    <i class="pricon pricon-minus-o"></i> <?php _e('Unsubscribe', 'municipio-intranet'); ?>
                     @endif
                 </button>
                 @endif
