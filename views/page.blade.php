@@ -9,7 +9,7 @@
     <div class="grid {{ (wp_get_post_parent_id(get_the_id()) != 0) ? 'no-margin-top' : '' }}">
         @include('partials.sidebar-left')
 
-        <div class="{{ $contentGridSize }} print-grow" id="readspeaker-read">
+        <div class="{{ $contentGridSize }} grid-print-12" id="readspeaker-read">
 
             @if (is_active_sidebar('content-area-top'))
                 <div class="grid sidebar-content-area sidebar-content-area-top">

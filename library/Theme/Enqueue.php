@@ -23,7 +23,11 @@ class Enqueue
         // Removes generator tag
         add_filter('the_generator', create_function('', 'return "";'));
 
+        //Move scripts to footer
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
+
+        //Enable defered loading
+        add_action('clean_url', array($this, 'deferedLoadingJavascript'));
     }
 
     /**
@@ -174,5 +178,18 @@ class Enqueue
         } else {
             return $src;
         }
+    }
+
+    /**
+     * Making deffered loading of scripts a posibillity (remnoves unwanted renderblocking js)
+     * @param  string $src The soruce path
+     * @return string      The source path without any querystring
+     */
+    public function deferedLoadingJavascript($url)
+    {
+        if (false === strpos($url, '.js')) {
+            return $url;
+        }
+        return $url."' defer='defer";
     }
 }
