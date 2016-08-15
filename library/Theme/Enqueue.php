@@ -187,9 +187,10 @@ class Enqueue
      */
     public function deferedLoadingJavascript($url)
     {
-        if (false === strpos($url, '.js')) {
+        if (is_admin() || false === strpos($url, '.js')) {
             return $url;
         }
-        return $url."' defer='defer";
+
+        return $url . "' defer='defer";
     }
 }
