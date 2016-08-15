@@ -55,9 +55,9 @@ class Navigation
 
         $label = 'Translate';
         if (get_field('google_translate_show_as', 'option') == 'icon') {
-            $label = '<span data-tooltip="Translate"><i class="fa fa-globe"></i></span>';
+            $label = '<span data-tooltip="Translate"><i class="pricon pricon-language pricon-lg"></i></span>';
         } elseif (get_field('google_translate_show_as', 'option') == 'combined') {
-            $label = '<i class="fa fa-globe"></i> Translate';
+            $label = '<i class="pricon pricon-language pricon-lg"></i> Translate';
         }
 
         $items .= '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
@@ -81,7 +81,7 @@ class Navigation
             return $items;
         }
 
-        $search = '<li class="menu-item-search"><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="fa fa-search"></i></span></a></li>';
+        $search = '<li class="menu-item-search"><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="pricon pricon-search"></i></span></a></li>';
 
         $items .= $search;
         return $items;
