@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-10 16:15+0200\n"
+"POT-Creation-Date: 2016-08-15 11:28+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -160,6 +160,16 @@ msgstr ""
 
 #: library/Theme/Enqueue.php:41
 msgid "View all results"
+msgstr ""
+
+#: library/Theme/Enqueue.php:43 templates/admin/systems/form.php:85
+#: templates/module/modularity-mod-intranet-u-links.php:5
+#: templates/module/modularity-mod-intranet-u-syste.php:5
+msgid "Edit"
+msgstr ""
+
+#: library/Theme/Enqueue.php:44
+msgid "Done"
 msgstr ""
 
 #: library/User/AdministrationUnits.php:25
@@ -386,12 +396,6 @@ msgstr ""
 #: templates/admin/systems/form.php:142
 #: templates/module/modularity-mod-intranet-u-links.php:33
 msgid "Url"
-msgstr ""
-
-#: templates/admin/systems/form.php:85
-#: templates/module/modularity-mod-intranet-u-links.php:5
-#: templates/module/modularity-mod-intranet-u-syste.php:5
-msgid "Edit"
 msgstr ""
 
 #: templates/admin/systems/form.php:86
@@ -773,6 +777,16 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+#: views/partials/header/intranet.blade.php:73
+#: views/partials/user/loginform.blade.php:9
+msgid "Forgot your password?"
+msgstr ""
+
+#: views/partials/header/intranet.blade.php:88
+#: views/partials/modal/missing-data.blade.php:5
+msgid "Close"
+msgstr ""
+
 #: views/partials/modal/missing-data-fields/nav.blade.php:15
 msgid "Save and continue"
 msgstr ""
@@ -793,10 +807,6 @@ msgstr ""
 
 #: views/partials/modal/missing-data.blade.php:4
 msgid "We're missing some information about you"
-msgstr ""
-
-#: views/partials/modal/missing-data.blade.php:5
-msgid "Close"
 msgstr ""
 
 #: views/partials/modal/missing-data.blade.php:18
@@ -841,7 +851,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: views/partials/user/loginform.blade.php:11
+#: views/partials/user/loginform.blade.php:12
 msgid "Login"
 msgstr ""
 
