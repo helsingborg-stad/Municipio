@@ -84,6 +84,9 @@
                 </ol>
             </article>
         </div>
+        <div class="modal-footer">
+            <a href="#close" class="btn btn-default"><?php _e('Close', 'municipio-intranet'); ?></a>
+        </div>
     </div>
     <a href="#close" class="backdrop"></a>
 </div>
