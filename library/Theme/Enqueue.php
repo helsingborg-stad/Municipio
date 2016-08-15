@@ -187,7 +187,7 @@ class Enqueue
      */
     public function deferedLoadingJavascript($url)
     {
-        if (is_admin() || false === strpos($url, '.js')) {
+        if (is_admin() || false !== strpos($url, 'readspeaker.com') || false === strpos($url, '.js')) {
             return $url;
         }
 

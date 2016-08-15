@@ -12,3 +12,37 @@
 .sidebar-left-sidebar {
     min-height: 1px;
 }
+
+.nav-accessibility {
+    li + li::before {
+        display: none;
+    }
+
+    li + li {
+        margin-left: 20px;
+    }
+
+    a {
+        font-size: .9rem;
+        font-weight: 200;
+        color: $gray-dark;
+
+        &:hover {
+            text-decoration: none;
+            color: $palette-gray-2;
+
+            // Color theme styles
+            @if ($includeThemes == true) {
+                @each $theme, $color in $themes {
+                    .theme-#{$theme} & {
+                        color: map-get($color, secondSafe);
+                    }
+                }
+            }
+        }
+
+        .pricon {
+            margin-right: .2em;
+        }
+    }
+}

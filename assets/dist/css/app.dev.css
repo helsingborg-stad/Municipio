@@ -146,6 +146,30 @@
 .sidebar-left-sidebar {
   min-height: 1px; }
 
+.nav-accessibility li + li::before {
+  display: none; }
+
+.nav-accessibility li + li {
+  margin-left: 20px; }
+
+.nav-accessibility a {
+  font-size: .9rem;
+  font-weight: 200;
+  color: #464646; }
+  .nav-accessibility a:hover {
+    text-decoration: none;
+    color: #333; }
+    .theme-red .nav-accessibility a:hover {
+      color: #cb0050; }
+    .theme-blue .nav-accessibility a:hover {
+      color: #0069b4; }
+    .theme-green .nav-accessibility a:hover {
+      color: #50811b; }
+    .theme-purple .nav-accessibility a:hover {
+      color: #712082; }
+  .nav-accessibility a .pricon {
+    margin-right: .2em; }
+
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
 

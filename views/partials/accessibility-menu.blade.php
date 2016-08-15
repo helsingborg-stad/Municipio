@@ -1,4 +1,4 @@
-<ul class="nav nav-pills nav-horizontal hidden-print">
+<ul class="nav nav-help nav-accessibility nav-horizontal hidden-print">
     @if (function_exists('ReadSpeakerHelper_playButton'))
     <li>
         {!! ReadSpeakerHelper_playButton() !!}
