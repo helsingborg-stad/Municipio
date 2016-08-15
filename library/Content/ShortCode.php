@@ -45,7 +45,7 @@ class ShortCode
 
         return '<span class="explain">
             <em>' . $content . '</em>
-            <span data-tooltip="' . $tooltip . '"><i class="fa fa-question-circle"></i></span>
+            <span data-tooltip="' . $tooltip . '"><i class="pricon pricon-question-o"></i></span>
         </span>';
     }
 }
