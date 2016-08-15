@@ -106,7 +106,7 @@
             </div>
             @endif
 
-            @if (count($userSkills) > 0 || count($userResponsibilities) > 0)
+            @if (count($userSkills) > 0 || count($userResponsibilities) > 0)
             <div class="grid">
                 @if (count($userSkills) > 0)
                 <div class="grid-md-6">
