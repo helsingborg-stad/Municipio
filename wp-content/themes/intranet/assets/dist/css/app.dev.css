@@ -235,6 +235,16 @@ body.admin-bar {
       #site-header .menu-trigger:focus {
         text-decoration: none; } }
 
+.login-form.login-form a[href="#forgot-password"] {
+  color: #979797;
+  padding: 0;
+  margin: 0;
+  margin-top: 5px;
+  font-size: .8em;
+  font-weight: normal; }
+  .login-form.login-form a[href="#forgot-password"]:hover {
+    text-decoration: underline; }
+
 .profile-header {
   position: relative;
   overflow: hidden;
@@ -627,7 +637,7 @@ body.admin-bar {
 .header-intranet nav .dropdown-open {
   position: relative;
   background-color: #fff;
-  z-index: 9999999;
+  z-index: 99999;
   color: #252525; }
 
 .network {

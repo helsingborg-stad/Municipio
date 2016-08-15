@@ -66,6 +66,28 @@
     </div>
 </nav>
 
+<div id="forgot-password" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <a class="btn btn-close" href="#close"></a>
+            <h2 class="modal-title"><?php _e('Forgot your password?', 'municipio-intranet'); ?></h2>
+        </div>
+        <div class="modal-body">
+            <article>
+                <p>
+                Gör såhär om du har glömt ditt lösenord:
+                </p>
+                <ol>
+                    <li>Första steget</li>
+                    <li>Andra steget</li>
+                    <li>Tredje steget</li>
+                </ol>
+            </article>
+        </div>
+    </div>
+    <a href="#close" class="backdrop"></a>
+</div>
+
 @if (strlen($navigation['mobileMenu']) > 0)
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
         @include('partials.mobile-menu')
