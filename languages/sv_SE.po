@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-07-01 09:57+0200\n"
-"PO-Revision-Date: 2016-07-01 09:57+0200\n"
+"POT-Creation-Date: 2016-08-16 09:50+0200\n"
+"PO-Revision-Date: 2016-08-16 09:52+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -550,12 +550,12 @@ msgid "Type of taxonomy"
 msgstr "Typ av taxonomy"
 
 #: acf-exports/translate-reference.php:109
-#: views/partials/blog/post-tags.blade.php:3
+#: views/partials/blog/post-tags.blade.php:2
 msgid "Tags"
 msgstr "Taggar"
 
 #: acf-exports/translate-reference.php:110
-#: views/partials/blog/post-categories.blade.php:3
+#: views/partials/blog/post-categories.blade.php:2
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -1331,6 +1331,20 @@ msgstr "Töm cache för sidan"
 msgid "Purge Varnish"
 msgstr "Töm varnish"
 
+#: library/Comment/HoneyPot.php:54
+msgid "Could not verify that you are human (image check)."
+msgstr "Kunde inte verifiera att du är mänsklig (bildkontroll)"
+
+#: library/Comment/HoneyPot.php:94
+msgid ""
+"Could not verify that you are human (some hidden form fields are "
+"manipulated)."
+msgstr "Kunde inte verifiera att du är mänsklig (ett dolt fält är manipulerat)"
+
+#: library/Comment/HoneyPot.php:97
+msgid "Could not verify that you are human (some form fields are missing)."
+msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
+
 #: library/Content/CustomPostType.php:55
 msgid "Add new"
 msgstr "Skapa ny"
@@ -1497,10 +1511,18 @@ msgstr "Till datum"
 msgid "Filter"
 msgstr "Filtrera"
 
+#: views/partials/blog/post-categories.blade.php:6
+msgid "No categories"
+msgstr "Inga kategorier"
+
 #: views/partials/blog/post-footer.blade.php:14
 #: views/partials/timestamps.blade.php:4
 msgid "Published by"
 msgstr "Publicerad av"
+
+#: views/partials/blog/post-tags.blade.php:8
+msgid "No tags"
+msgstr "Inga taggar"
 
 #: views/partials/blog/taxonomy-filters.blade.php:10
 msgid "Show all"
@@ -1513,6 +1535,10 @@ msgstr "Meny"
 #: views/partials/header/jumbo.blade.php:24
 msgid "More"
 msgstr "Mer"
+
+#: views/partials/page-footer.blade.php:12
+msgid "Share the page"
+msgstr "Dela sidan"
 
 #: views/partials/search/google.blade.php:22
 #: views/partials/search/wp.blade.php:22

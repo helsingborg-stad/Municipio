@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-07-01 09:57+0200\n"
+"POT-Creation-Date: 2016-08-16 09:50+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -538,12 +538,12 @@ msgid "Type of taxonomy"
 msgstr ""
 
 #: acf-exports/translate-reference.php:109
-#: views/partials/blog/post-tags.blade.php:3
+#: views/partials/blog/post-tags.blade.php:2
 msgid "Tags"
 msgstr ""
 
 #: acf-exports/translate-reference.php:110
-#: views/partials/blog/post-categories.blade.php:3
+#: views/partials/blog/post-categories.blade.php:2
 msgid "Categories"
 msgstr ""
 
@@ -1289,6 +1289,20 @@ msgstr ""
 msgid "Purge Varnish"
 msgstr ""
 
+#: library/Comment/HoneyPot.php:54
+msgid "Could not verify that you are human (image check)."
+msgstr ""
+
+#: library/Comment/HoneyPot.php:94
+msgid ""
+"Could not verify that you are human (some hidden form fields are "
+"manipulated)."
+msgstr ""
+
+#: library/Comment/HoneyPot.php:97
+msgid "Could not verify that you are human (some form fields are missing)."
+msgstr ""
+
 #: library/Content/CustomPostType.php:55
 msgid "Add new"
 msgstr ""
@@ -1455,9 +1469,17 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
+#: views/partials/blog/post-categories.blade.php:6
+msgid "No categories"
+msgstr ""
+
 #: views/partials/blog/post-footer.blade.php:14
 #: views/partials/timestamps.blade.php:4
 msgid "Published by"
+msgstr ""
+
+#: views/partials/blog/post-tags.blade.php:8
+msgid "No tags"
 msgstr ""
 
 #: views/partials/blog/taxonomy-filters.blade.php:10
@@ -1470,6 +1492,10 @@ msgstr ""
 
 #: views/partials/header/jumbo.blade.php:24
 msgid "More"
+msgstr ""
+
+#: views/partials/page-footer.blade.php:12
+msgid "Share the page"
 msgstr ""
 
 #: views/partials/search/google.blade.php:22
