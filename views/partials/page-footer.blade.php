@@ -2,7 +2,7 @@
 
 <footer class="page-footer">
     @if (get_field('show_share', get_the_id()) !== false && get_field('page_show_share', 'option') !== false)
-    <div class="grid">
+    <div class="grid hidden-print">
         <div class="grid-xs-12">
             <div class="box box-border gutter gutter-horizontal no-margin">
                 <div class="gutter gutter-vertical gutter-sm">
