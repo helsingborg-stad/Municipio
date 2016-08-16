@@ -11,6 +11,11 @@ class HoneyPot
     public function __construct()
     {
 
+        //Not in admin
+        if (is_admin()) {
+            return;
+        }
+
         //Verification values
         $this->field_content = substr(md5(NONCE_SALT+NONCE_KEY), 5, 15);
         $this->field_name = substr(md5(AUTH_KEY), 5, 15);
@@ -22,7 +27,7 @@ class HoneyPot
         //Print cookie method
         add_action('init', array($this, 'fakeImage'));
 
-        //Cactch fields
+        //Catch fields
         add_filter('preprocess_comment', array($this, 'honeyPotValidateFieldContent'));
         add_filter('preprocess_comment', array($this, 'fakeImageCookieCheck'));
 
