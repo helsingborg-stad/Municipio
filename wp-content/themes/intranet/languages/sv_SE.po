@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-10 16:15+0200\n"
-"PO-Revision-Date: 2016-08-10 16:16+0200\n"
+"POT-Creation-Date: 2016-08-15 11:28+0200\n"
+"PO-Revision-Date: 2016-08-15 11:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -163,6 +163,16 @@ msgstr "Innehåll"
 #: library/Theme/Enqueue.php:41
 msgid "View all results"
 msgstr "Visa alla resultat"
+
+#: library/Theme/Enqueue.php:43 templates/admin/systems/form.php:85
+#: templates/module/modularity-mod-intranet-u-links.php:5
+#: templates/module/modularity-mod-intranet-u-syste.php:5
+msgid "Edit"
+msgstr "Redigera"
+
+#: library/Theme/Enqueue.php:44
+msgid "Done"
+msgstr "Klar"
 
 #: library/User/AdministrationUnits.php:25
 #: library/User/AdministrationUnits.php:26
@@ -394,12 +404,6 @@ msgstr "Beskrivning"
 #: templates/module/modularity-mod-intranet-u-links.php:33
 msgid "Url"
 msgstr "Url"
-
-#: templates/admin/systems/form.php:85
-#: templates/module/modularity-mod-intranet-u-links.php:5
-#: templates/module/modularity-mod-intranet-u-syste.php:5
-msgid "Edit"
-msgstr "Redigera"
 
 #: templates/admin/systems/form.php:86
 msgid "Remove"
@@ -788,6 +792,16 @@ msgstr "Inloggningen misslyckades. Försök igen."
 msgid "Menu"
 msgstr "Meny"
 
+#: views/partials/header/intranet.blade.php:73
+#: views/partials/user/loginform.blade.php:9
+msgid "Forgot your password?"
+msgstr "Glömt ditt lösenord?"
+
+#: views/partials/header/intranet.blade.php:88
+#: views/partials/modal/missing-data.blade.php:5
+msgid "Close"
+msgstr "Stäng"
+
 #: views/partials/modal/missing-data-fields/nav.blade.php:15
 msgid "Save and continue"
 msgstr "Spara och fortsätt"
@@ -811,10 +825,6 @@ msgstr ""
 #: views/partials/modal/missing-data.blade.php:4
 msgid "We're missing some information about you"
 msgstr "Vi saknar information om dig."
-
-#: views/partials/modal/missing-data.blade.php:5
-msgid "Close"
-msgstr "Stäng"
 
 #: views/partials/modal/missing-data.blade.php:18
 msgid "Instructions"
@@ -861,7 +871,7 @@ msgstr "Användarnamn"
 msgid "Password"
 msgstr "Lösenord"
 
-#: views/partials/user/loginform.blade.php:11
+#: views/partials/user/loginform.blade.php:12
 msgid "Login"
 msgstr "Logga in"
 

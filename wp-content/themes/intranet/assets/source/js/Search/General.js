@@ -148,8 +148,8 @@ Intranet.Search.General = (function ($) {
         var $element = $(element);
         var $autocomplete = $('<div class="search-autocomplete"></div>');
 
-        var $users = $('<ul class="search-autocomplete-users"><li class="title"><i class="fa fa-user"></i> ' + municipioIntranet.searchAutocomplete.persons + '</li></ul>');
-        var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="fa fa-file-text-o"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
+        var $users = $('<ul class="search-autocomplete-users"><li class="title"><i class="pricon pricon-user-o"></i> ' + municipioIntranet.searchAutocomplete.persons + '</li></ul>');
+        var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="pricon pricon-file-text"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
 
         // Users
         if (res.users !== null && res.users.length > 0) {

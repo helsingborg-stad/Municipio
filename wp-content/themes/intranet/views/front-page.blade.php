@@ -14,7 +14,7 @@
     <div class="grid grid-xs-12">
         <div class="notice notice-sm info">
             <div class="grid no-padding grid-table-md grid-va-middle">
-                <div class="grid-col-icon" style="min-width:30px;"><i class="fa fa-user"></i></div>
+                <div class="grid-col-icon" style="min-width:30px;"><i class="pricon pricon-user-o"></i></div>
                 <div class="grid-md-8"><strong><?php _e('Your profile is not complete!', 'municipio-intranet'); ?></strong> <?php _e('We\'re missing some information about you.', 'municipio-intranet'); ?></div>
                 <div class="grid-md-4 text-right-md text-right-lg">
                     <a href="#modal-missing-info" class="btn btn-primary"><?php _e('Complete your profile', 'municipio-intranet'); ?></a>

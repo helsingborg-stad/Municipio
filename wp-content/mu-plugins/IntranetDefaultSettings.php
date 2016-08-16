@@ -48,8 +48,10 @@ class IntranetDefaultSettings
             'options_nav_sub_render'            => 'active',
 
             // Show signature logo in footer
-            'options_footer_signature_show'     => 1
+            'options_footer_signature_show'     => 1,
 
+            // Search
+            'options_search_placeholder_text'   => __('What are you looking for?', 'municipio-intranet')
         );
 
         foreach ($defaultBlogOptions as $key => $value) {

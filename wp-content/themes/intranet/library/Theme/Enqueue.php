@@ -39,7 +39,9 @@ class Enqueue
                 'persons' => __('Persons', 'municipio-intranet'),
                 'content' => __('Content', 'municipio-intranet'),
                 'viewAll' => __('View all results', 'municipio-intranet')
-            )
+            ),
+            'edit' => __('Edit', 'municipio-intranet'),
+            'done' => __('Done', 'municipio-intranet')
         ));
 
         wp_enqueue_script('intranet');

@@ -30,23 +30,23 @@
                     @if (!empty(get_the_author_meta('user_facebook_url')) || !empty(get_the_author_meta('user_linkedin_url')) || !empty(get_the_author_meta('user_instagram_username')) || !empty(get_the_author_meta('user_twitter_username')))
                     <ul class="profile-social-networks nav-horizontal">
                         @if (!empty(get_the_author_meta('user_facebook_url')))
-                        <li><a href="{{ get_the_author_meta('user_facebook_url') }}" data-tooltip="<?php _e('My profile on Facebook', 'municipio-intranet'); ?>"><i class="fa fa-facebook"></i><span class="sr-only"><?php _e('My profile on Facebook', 'municipio-intranet'); ?></span></a></li>
+                        <li><a href="{{ get_the_author_meta('user_facebook_url') }}" data-tooltip="<?php _e('My profile on Facebook', 'municipio-intranet'); ?>"><i class="pricon pricon-facebook"></i><span class="sr-only"><?php _e('My profile on Facebook', 'municipio-intranet'); ?></span></a></li>
                         @endif
                         @if (!empty(get_the_author_meta('user_linkedin_url')))
-                        <li><a href="{{ get_the_author_meta('user_linkedin_url') }}" data-tooltip="<?php _e('My profile on LinkedIn', 'municipio-intranet'); ?>"><i class="fa fa-linkedin"><span class="sr-only"><?php _e('My profile on Instagram', 'municipio-intranet'); ?></span></i></a></li>
+                        <li><a href="{{ get_the_author_meta('user_linkedin_url') }}" data-tooltip="<?php _e('My profile on LinkedIn', 'municipio-intranet'); ?>"><i class="pricon pricon-linkedin"><span class="sr-only"><?php _e('My profile on Instagram', 'municipio-intranet'); ?></span></i></a></li>
                         @endif
                         @if (!empty(get_the_author_meta('user_instagram_username')))
-                        <li><a href="https://instagram.com/{{ get_the_author_meta('user_instagram_username') }}" data-tooltip="<?php _e('My profile on Instagram', 'municipio-intranet'); ?>"><i class="fa fa-instagram"></i><span class="sr-only"><?php _e('My profile on Twitter', 'municipio-intranet'); ?></span></a></li>
+                        <li><a href="https://instagram.com/{{ get_the_author_meta('user_instagram_username') }}" data-tooltip="<?php _e('My profile on Instagram', 'municipio-intranet'); ?>"><i class="pricon pricon-instagram"></i><span class="sr-only"><?php _e('My profile on Twitter', 'municipio-intranet'); ?></span></a></li>
                         @endif
                         @if (!empty(get_the_author_meta('user_twitter_username')))
-                        <li><a href="https://twitter.com/{{ get_the_author_meta('user_twitter_username') }}" data-tooltip="<?php _e('My profile on Twitter', 'municipio-intranet'); ?>"><i class="fa fa-twitter"></i><span class="sr-only"><?php _e('My profile on Snapchat', 'municipio-intranet'); ?></span></a></li>
+                        <li><a href="https://twitter.com/{{ get_the_author_meta('user_twitter_username') }}" data-tooltip="<?php _e('My profile on Twitter', 'municipio-intranet'); ?>"><i class="pricon pricon-twitter"></i><span class="sr-only"><?php _e('My profile on Snapchat', 'municipio-intranet'); ?></span></a></li>
                         @endif
                     </ul>
                     @endif
 
                     @if (get_current_user_id() == get_the_author_meta('ID') || is_super_admin())
                     <ul class="profile-actions">
-                        <li><a href="{{ municipio_intranet_get_user_profile_edit_url(get_the_author_meta('user_login')) }}" class="btn btn-sm"><i class="fa fa-wrench"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
+                        <li><a href="{{ municipio_intranet_get_user_profile_edit_url(get_the_author_meta('user_login')) }}" class="btn btn-sm"><i class="pricon pricon-settings"></i> <?php _e('Edit settings', 'municipio-intranet'); ?></a></li>
                     </ul>
                     @endif
                 </div>
@@ -58,10 +58,10 @@
         @if (!empty(get_the_author_meta('user_phone')))
         <li>
             <a href="tel:{{ get_the_author_meta('user_phone') }}">
-                <i class="fa fa-phone fa-2x"></i>
+                <i class="pricon pricon-phone pricon-2x"></i>
                 <span class="value">
                     {{ get_the_author_meta('user_phone') }}
-                    <span class="value-label"><i class="fa fa-phone"></i> <?php _e('Phone number', 'municipio-intranet'); ?></span>
+                    <span class="value-label"><i class="pricon pricon-phone"></i> <?php _e('Phone number', 'municipio-intranet'); ?></span>
                 </span>
             </a>
         </li>
@@ -70,10 +70,10 @@
         @if (!empty(get_the_author_meta('user_phone')))
         <li>
             <a href="mailto:{{ get_the_author_meta('email') }}">
-                <i class="fa fa-envelope-o fa-2x"></i>
+                <i class="pricon pricon-email pricon-2x"></i>
                 <span class="value">
                     {{ get_the_author_meta('email') }}
-                    <span class="value-label"><i class="fa fa-envelope-o"></i> <?php _e('Email', 'municipio-intranet'); ?></span>
+                    <span class="value-label"><i class="pricon pricon-email"></i> <?php _e('Email', 'municipio-intranet'); ?></span>
                 </span>
             </a>
         </li>
@@ -82,10 +82,10 @@
         @if (!empty(get_the_author_meta('user_workplace')))
         <li>
             <a href="#">
-                <i class="fa fa-map-marker fa-2x"></i>
+                <i class="pricon pricon-location-pin pricon-2x"></i>
                 <span class="value">
                     {{ get_the_author_meta('user_workplace') }}
-                    <span class="value-label"><i class="fa fa-map-marker"></i> <?php _e('Workplace', 'municipio-intranet'); ?></span>
+                    <span class="value-label"><i class="pricon pricon-location-pin"></i> <?php _e('Workplace', 'municipio-intranet'); ?></span>
                 </span>
             </a>
         </li>
@@ -106,7 +106,7 @@
             </div>
             @endif
 
-            @if (count($userSkills) > 0 || count($userResponsibilities) > 0)
+            @if (count($userSkills) > 0 || count($userResponsibilities) > 0)
             <div class="grid">
                 @if (count($userSkills) > 0)
                 <div class="grid-md-6">
@@ -139,7 +139,6 @@
                 @endif
             </div>
             @endif
-
         </div>
     </div>
 </div>

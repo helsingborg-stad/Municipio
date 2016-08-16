@@ -12,7 +12,7 @@
                             <div class="input-group">
                                 <input id="searchkeyword-top" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('What are you looking for?', 'municipio-intranet'); ?>" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>">
                                 <span class="input-group-addon-btn">
-                                    <button type="submit" class="btn" data-label="{{ __('Search', 'municipio') }}"><i class="fa fa-search"></i></button>
+                                    <button type="submit" class="btn" data-label="{{ __('Search', 'municipio') }}"><i class="pricon pricon-search pricon-lg"></i></button>
                                 </span>
                             </div>
                         </form>
@@ -23,7 +23,12 @@
 
                                 @if ($currentUser->ID > 0)
                                     <li>
-                                        <a href="#" data-dropdown=".login-dropdown">{{ municipio_intranet_get_user_full_name($currentUser->ID) }} <i class="fa fa-caret-down"></i></a>
+                                        <a href="#" data-dropdown=".login-dropdown">
+                                            @if (get_the_author_meta('user_profile_picture', get_current_user_id()))
+                                            <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_picture', get_current_user_id()) }}');"></span>
+                                            @endif
+                                            {{ municipio_intranet_get_user_full_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i>
+                                        </a>
 
                                         <div class="dropdown login-dropdown">
                                             <ul class="nav">
@@ -65,6 +70,31 @@
         </div>
     </div>
 </nav>
+
+<div id="forgot-password" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <a class="btn btn-close" href="#close"></a>
+            <h2 class="modal-title"><?php _e('Forgot your password?', 'municipio-intranet'); ?></h2>
+        </div>
+        <div class="modal-body">
+            <article>
+                <p>
+                Gör såhär om du har glömt ditt lösenord:
+                </p>
+                <ol>
+                    <li>Första steget</li>
+                    <li>Andra steget</li>
+                    <li>Tredje steget</li>
+                </ol>
+            </article>
+        </div>
+        <div class="modal-footer">
+            <a href="#close" class="btn btn-default"><?php _e('Close', 'municipio-intranet'); ?></a>
+        </div>
+    </div>
+    <a href="#close" class="backdrop"></a>
+</div>
 
 @if (strlen($navigation['mobileMenu']) > 0)
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">

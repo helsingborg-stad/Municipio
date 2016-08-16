@@ -22,6 +22,17 @@ body.admin-bar {
         float: right;
     }
 
+    .subnav > ul > li > a:not(.dropdown-open):hover,
+    .subnav > ul > li > a:not(.dropdown-open):focus {
+        text-decoration: none;
+        background-color: rgba(0,0,0,.5);
+        color: #fff;
+    }
+
+    .subnav .profile-image-icon {
+        margin-right: 8px;
+    }
+
     .search.search-main {
         position: relative;
         display: block;
@@ -70,7 +81,7 @@ body.admin-bar {
         button.btn {
             background-color: darken($palette-gray-4, 10%);
             color: #fff;
-            padding-top: 12px;
+            padding-top: 7px;
             border: none;
             transition: 200ms all;
             overflow: hidden;
@@ -177,5 +188,19 @@ body.admin-bar {
             }
         }
     }
+}
 
+.login-form.login-form {
+    a[href="#forgot-password"] {
+        color: $gray;
+        padding: 0;
+        margin: 0;
+        margin-top: 5px;
+        font-size: .8em;
+        font-weight: normal;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }

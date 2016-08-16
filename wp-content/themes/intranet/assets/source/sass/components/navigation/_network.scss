@@ -74,9 +74,10 @@
     }
 
     &::after {
-        @include hbg-icon($icon-caret-down);
-        font-size: .7em;
+        @include pricon($pricon-caret-down);
+        font-size: .4em;
         margin-left: 10px;
+        vertical-align: 15%;
     }
 
     em {
