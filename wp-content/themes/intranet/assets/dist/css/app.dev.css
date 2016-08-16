@@ -99,6 +99,13 @@ body.admin-bar {
       color: #fff; }
   #site-header nav.subnav {
     float: right; }
+  #site-header .subnav > ul > li > a:not(.dropdown-open):hover,
+  #site-header .subnav > ul > li > a:not(.dropdown-open):focus {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff; }
+  #site-header .subnav .profile-image-icon {
+    margin-right: 8px; }
   #site-header .search.search-main {
     position: relative;
     display: block;
@@ -425,6 +432,10 @@ body.admin-bar {
 .profile-image-250 {
   width: 250px;
   height: 250px; }
+
+.profile-image-icon {
+  width: 25px;
+  height: 25px; }
 
 .btn-edit-profile {
   margin-top: 20px; }

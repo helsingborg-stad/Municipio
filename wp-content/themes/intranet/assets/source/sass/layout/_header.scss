@@ -22,6 +22,17 @@ body.admin-bar {
         float: right;
     }
 
+    .subnav > ul > li > a:not(.dropdown-open):hover,
+    .subnav > ul > li > a:not(.dropdown-open):focus {
+        text-decoration: none;
+        background-color: rgba(0,0,0,.5);
+        color: #fff;
+    }
+
+    .subnav .profile-image-icon {
+        margin-right: 8px;
+    }
+
     .search.search-main {
         position: relative;
         display: block;
