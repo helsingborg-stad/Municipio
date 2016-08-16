@@ -1,4 +1,4 @@
-<footer class="post-footer grid-table grid-table-autofit no-padding">
+<footer class="post-footer grid-table grid-table-autofit">
     <div class="grid-md-4">
         @if (in_array('tags', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
             @include('partials.blog.post-tags')
