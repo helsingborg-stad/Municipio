@@ -218,9 +218,9 @@ body.admin-bar {
     #site-header .subnav {
       background-color: rgba(0, 0, 0, 0.3);
       padding: 0 5px; }
-      #site-header .subnav li {
+      #site-header .subnav > .nav > li {
         float: left; }
-        #site-header .subnav li:last-child {
+        #site-header .subnav > .nav > li:last-child {
           float: right; }
     #site-header .navbar .container {
       margin: 0; }

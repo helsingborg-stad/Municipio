@@ -140,7 +140,7 @@ body.admin-bar {
             background-color: rgba(#000, .3);
             padding: 0 5px;
 
-            li {
+            > .nav > li {
                 float: left;
 
                 &:last-child {
