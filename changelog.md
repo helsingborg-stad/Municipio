@@ -13,6 +13,7 @@ Version 0.2.6 (2016-08-17)
 - Added mobile optimizied main menu
 - "Forgot password" modal with instructions how to reset password (instructions added via admin)
 - Depreacted function wp_get_sites() changed to get_sites()
+- Incidate number of search results in each search tab (users, subscriptions, all, current)
 
 Version 0.2.5 (2016-07-08)
 ==========================
