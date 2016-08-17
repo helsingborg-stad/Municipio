@@ -17,7 +17,7 @@
                                     <select id="table-of-contents-department" name="department">
                                         <option value=""><?php _e('All', 'municipio-intranet'); ?></option>
                                         @foreach (\Intranet\Helper\Multisite::getSitesList(true) as $site)
-                                            <option value="{{ $site['blog_id'] }}" {{ selected($selectedDepartment, $site['blog_id']) }}>{{ $site['name'] }}</option>
+                                            <option value="{{ $site->blog_id }}" {{ selected($selectedDepartment, $site->blog_id) }}>{{ $site->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
