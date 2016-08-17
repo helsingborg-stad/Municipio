@@ -19,23 +19,23 @@ class Subscription
      */
     public static function getForcedSubscriptions($onlyBlogId = false)
     {
-        $sites = wp_get_sites();
+        $sites = get_sites();
         $forcedIds = array();
 
         foreach ($sites as $key => $site) {
-            $force = get_blog_option($site['blog_id'], 'intranet_force_subscription');
+            $force = get_blog_option($site->blog_id, 'intranet_force_subscription');
 
             if (!$force || $force == 'false') {
                 unset($sites[$key]);
                 continue;
             }
 
-            switch_to_blog($site['blog_id']);
-            $sites[$key]['name'] = get_bloginfo();
-            $sites[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
+            switch_to_blog($site->blog_id);
+            $sites[$key]->name = get_bloginfo();
+            $sites[$key]->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
             restore_current_blog();
 
-            $forcedIds[] = $site['blog_id'];
+            $forcedIds[] = $site->blog_id;
         }
 
         if ($onlyBlogId) {
@@ -66,7 +66,7 @@ class Subscription
             $userId = get_current_user_id();
         }
 
-        $sites = wp_get_sites();
+        $sites = get_sites();
 
         $subscriptionsIds = array();
         $subscriptions = get_user_meta($userId, 'intranet_subscriptions', true);
@@ -77,15 +77,15 @@ class Subscription
         }
 
         $subscriptions = array_filter($sites, function ($site) use ($subscriptions) {
-            return in_array($site['blog_id'], $subscriptions);
+            return in_array($site->blog_id, $subscriptions);
         });
 
         foreach ($subscriptions as $key => $site) {
-            switch_to_blog($site['blog_id']);
+            switch_to_blog($site->blog_id);
 
-            $subscriptionsIds[] = $site['blog_id'];
-            $subscriptions[$key]['name'] = get_bloginfo();
-            $subscriptions[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
+            $subscriptionsIds[] = $site->blog_id;
+            $subscriptions[$key]->name = get_bloginfo();
+            $subscriptions[$key]->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
 
             restore_current_blog();
         }
@@ -95,7 +95,7 @@ class Subscription
         }
 
         uasort($subscriptions, function ($a, $b) {
-            return $a['name'] > $b['name'];
+            return $a->name > $b->name;
         });
 
         return $subscriptions;

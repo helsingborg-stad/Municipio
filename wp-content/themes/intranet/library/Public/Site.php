@@ -8,7 +8,7 @@ if (!function_exists('municipio_intranet_format_site_name')) {
      */
     function municipio_intranet_format_site_name($site)
     {
-        return ($site['short_name']) ? $site['short_name'] . ' <em>' . $site['name'] . '</em>' : $site['name'];
+        return ($site->short_name) ? $site->short_name . ' <em>' . $site->name . '</em>' : $site->name;
     }
 }
 

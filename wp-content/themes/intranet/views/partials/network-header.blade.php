@@ -22,13 +22,13 @@
                         <div class="network-search-results">
                             <ul class="my-networks">
                                 @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
-                                    <li><a href="{{ $site['path'] }}">{!! $site['name'] !!}</a></li>
+                                    <li><a href="{{ $site->path }}">{!! $site->name !!}</a></li>
                                 @endforeach
 
                                 @if (is_user_logged_in() && \Intranet\User\Subscription::getSubscriptions())
                                     <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
                                     @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
-                                        <li class="network-title"><a href="{{ $site['path'] }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
+                                        <li class="network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
                                     @endforeach
                                 @endif
                             </ul>

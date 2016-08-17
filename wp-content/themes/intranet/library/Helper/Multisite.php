@@ -14,7 +14,7 @@ class Multisite
 
         switch_to_blog($current_site->blog_id);
 
-        $mainSiteInfo = array_filter(wp_get_sites(), function ($site) use ($current_site) {
+        $mainSiteInfo = array_filter(get_sites(), function ($site) use ($current_site) {
             return $site['blog_id'] == $current_site->blog_id;
         });
 
@@ -69,7 +69,7 @@ class Multisite
      */
     public static function getSitesList($includeMainSite = true, $onlyIds = false)
     {
-        $sites = wp_get_sites();
+        $sites = get_sites();
         $ids = array();
         $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
         $forcedSubscriptions = \Intranet\User\Subscription::getForcedSubscriptions(true);
@@ -77,7 +77,7 @@ class Multisite
         $subscriptions = array_merge($subscriptions, $forcedSubscriptions);
 
         foreach ($sites as $key => $site) {
-            if (is_main_site($site['blog_id']) && !$includeMainSite) {
+            if (is_main_site($site->blog_id) && !$includeMainSite) {
                 unset($sites[$key]);
                 continue;
             }
@@ -87,20 +87,20 @@ class Multisite
                 continue;
             }
 
-            switch_to_blog($site['blog_id']);
+            switch_to_blog($site->blog_id);
 
-            $sites[$key]['name'] = get_bloginfo();
-            $sites[$key]['short_name'] = get_blog_option($site['blog_id'], 'intranet_short_name');
-            $sites[$key]['description'] = get_bloginfo('description');
-            $sites[$key]['subscribed'] = false;
-            $sites[$key]['forced_subscription'] = false;
+            $sites[$key]->name = get_bloginfo();
+            $sites[$key]->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
+            $sites[$key]->description = get_bloginfo('description');
+            $sites[$key]->subscribed = false;
+            $sites[$key]->forced_subscription = false;
 
-            if (in_array($site['blog_id'], $subscriptions)) {
-                $sites[$key]['subscribed'] = true;
+            if (in_array($site->blog_id, $subscriptions)) {
+                $sites[$key]->subscribed = true;
             }
 
-            if (in_array($site['blog_id'], $forcedSubscriptions)) {
-                $sites[$key]['forced_subscription'] = true;
+            if (in_array($site->blog_id, $forcedSubscriptions)) {
+                $sites[$key]->forced_subscription = true;
             }
 
             restore_current_blog();
@@ -122,7 +122,7 @@ class Multisite
     {
         $sites = self::getSitesList();
         $sites = array_filter($sites, function ($item) use ($siteId) {
-            return $item['blog_id'] == $siteId;
+            return $item->blog_id == $siteId;
         });
 
         $sites = array_values($sites);
