@@ -25,25 +25,21 @@ class Search
     {
         $this->getLevel();
 
-        $this->users = $this->searchUsers();
-        $content = $this->searchWp();
+        $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
 
-        switch ($this->level) {
-            case 'users':
-                $this->results = $this->users;
-                break;
-
-            case 'ajax':
-                $this->results = array(
-                    'users' => array_slice($this->users, 0, 5),
-                    'content' => array_slice($content, 0, 5)
-                );
-                break;
-
-            default:
-                $this->results = $content;
-                break;
+        if (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) {
+            $this->currentPage = sanitize_text_field($_REQUEST['page']);
         }
+
+        $this->doSearch($this->level);
+
+        global $resultCounts;
+        $resultCounts = array(
+            'subscriptions' => $this->countSearch('subscriptions', 'count'),
+            'all' => $this->countSearch('all', 'count'),
+            'current' => $this->countSearch('current', 'count'),
+            'users' => $this->countSearch('users', 'count')
+        );
 
         if (defined('DOING_AJAX') && DOING_AJAX) {
             return;
@@ -52,6 +48,44 @@ class Search
         $this->renderResult();
 
         add_filter('Municipio/search_result/excerpt', array($this, 'highlightTerms'));
+    }
+
+    public function doSearch($level)
+    {
+        $this->users = $this->searchUsers();
+
+        switch ($level) {
+            case 'users':
+                $this->results = $this->users;
+                break;
+
+            case 'ajax':
+                $this->results = array(
+                    'users' => array_slice($this->users, 0, 5),
+                    'content' => array_slice($this->searchWp(), 0, 5)
+                );
+                break;
+
+            default:
+                $this->results = $this->searchWp();
+                break;
+        }
+
+        return true;
+    }
+
+    public function countSearch($level)
+    {
+        switch ($level) {
+            case 'users':
+                return count($this->users);
+
+            case 'ajax':
+                return count($this->searchUsers($level)) + count($this->searchWp($level));
+
+            default:
+                return count($this->searchWp($level));
+        }
     }
 
     /**
@@ -117,19 +151,16 @@ class Search
      * Search network wide with Search WP plugin
      * @return void
      */
-    public function searchWp()
+    public function searchWp($level = null)
     {
-        $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
-        $this->resultsPerPage = 8;
-
-        if (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) {
-            $this->currentPage = sanitize_text_field($_REQUEST['page']);
+        if (!$level) {
+            $level = $this->level;
         }
 
         // Get results for the other sites
-        $this->multisiteSearchWP();
-        $this->orderResultsByWeight();
-        $results = $this->getPostsFromResult();
+        $results = $this->multisiteSearchWP($level);
+        $results = $this->orderResultsByWeight($results);
+        $results = $this->getPostsFromResult($results);
 
         return $results;
     }
@@ -138,45 +169,45 @@ class Search
      * Get the post objects
      * @return void
      */
-    public function getPostsFromResult()
+    public function getPostsFromResult($results)
     {
-        $results = array();
+        $resultsOut = array();
 
-        foreach ($this->wpSearchResult as $item) {
+        foreach ($results as $item) {
             $post = get_blog_post($item['blog_id'], $item['post_id']);
-            $results[$item['post_id']] = $post;
-            $results[$item['post_id']]->blog_id = $item['blog_id'];
-            $results[$item['post_id']]->is_file = false;
-            $results[$item['post_id']]->target_group = get_post_meta($item['post_id'], '_target_groups', true);
+            $resultsOut[$item['post_id']] = $post;
+            $resultsOut[$item['post_id']]->blog_id = $item['blog_id'];
+            $resultsOut[$item['post_id']]->is_file = false;
+            $resultsOut[$item['post_id']]->target_group = get_post_meta($item['post_id'], '_target_groups', true);
 
             if (!$post->post_mime_type) {
-                $results[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
+                $resultsOut[$item['post_id']]->permalink = get_blog_permalink($item['blog_id'], $item['post_id']);
             } else {
-                $results[$item['post_id']]->permalink = esc_url($post->guid);
-                $results[$item['post_id']]->is_file = true;
+                $resultsOut[$item['post_id']]->permalink = esc_url($post->guid);
+                $resultsOut[$item['post_id']]->is_file = true;
             }
         }
 
         // Unset if user is not in any of the page's target groups, unset it
-        foreach ($results as $key => $post) {
+        foreach ($resultsOut as $key => $post) {
             if (!\Intranet\User\TargetGroups::userInGroup($post->target_group)) {
-                unset($results[$key]);
+                unset($resultsOut[$key]);
             }
         }
 
-        return $results;
+        return $resultsOut;
     }
 
     /**
      * Search each site in the network
      * @return void
      */
-    public function multisiteSearchWP()
+    public function multisiteSearchWP($level)
     {
         global $searchwp;
         $sites = null;
 
-        $level = $this->level;
+        $results = array();
 
         switch ($level) {
             case 'current':
@@ -205,21 +236,25 @@ class Search
                 $searchwp->results_weights[$key]['blog_id'] = (int)$siteId;
             }
 
-            $this->wpSearchResult = array_merge($this->wpSearchResult, $searchwp->results_weights);
+            $results = array_merge($results, $searchwp->results_weights);
 
             restore_current_blog();
         }
+
+        return $results;
     }
 
     /**
      * Order the result by weight
      * @return void
      */
-    public function orderResultsByWeight()
+    public function orderResultsByWeight($results)
     {
-        return uasort($this->wpSearchResult, function ($a, $b) {
+        uasort($results, function ($a, $b) {
             return $a['weight'] < $b['weight'];
         });
+
+        return $results;
     }
 
     /**
