@@ -44,11 +44,11 @@ class Subscription
 
         // Sort alphabetically but always put main site first
         uasort($sites, function ($a, $b) {
-            if (is_main_site($a['blog_id'])) {
+            if (is_main_site($a->blog_id)) {
                 return -1;
             }
 
-            return $a['name'] > $b['name'];
+            return $a->name > $b->name;
         });
 
         return $sites;
