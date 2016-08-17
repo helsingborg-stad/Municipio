@@ -1,5 +1,5 @@
 <ul class="article-timestamps">
-    @if (get_field('page_show_author', 'option') !== false && get_field('post_show_author', get_the_id()) !== false)
+    @if (get_field('page_show_author', 'option') !== false && get_field('post_show_author', get_the_id()) !== false && get_the_author())
         <li>
             <strong><?php echo apply_filters('Municipio/author_display/title', __('Published by', 'municipio')); ?>:</strong>
             <span class="post-author post-author-margin-left">
