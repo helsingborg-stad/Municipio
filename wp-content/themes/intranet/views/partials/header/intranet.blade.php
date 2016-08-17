@@ -79,14 +79,7 @@
         </div>
         <div class="modal-body">
             <article>
-                <p>
-                Gör såhär om du har glömt ditt lösenord:
-                </p>
-                <ol>
-                    <li>Första steget</li>
-                    <li>Andra steget</li>
-                    <li>Tredje steget</li>
-                </ol>
+                {!! get_site_option('password-reset-instructions') !!}
             </article>
         </div>
         <div class="modal-footer">

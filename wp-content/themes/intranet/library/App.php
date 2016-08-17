@@ -14,6 +14,7 @@ class App
         // Admin functionality
         new \Intranet\Admin\NetworkSettings();
         new \Intranet\Admin\AuthorMetaBox();
+        new \Intranet\Admin\PasswordResetInstructions();
 
         // User services
         new \Intranet\User\General();

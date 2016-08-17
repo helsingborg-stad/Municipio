@@ -6,7 +6,10 @@
     <div class="form-group">
         <label for="login-password"><?php _e('Password'); ?></label>
         <input type="password" name="pwd" id="login-password">
+
+        @if (!empty(get_site_option('password-reset-instructions')))
         <a href="#forgot-password"><?php _e('Forgot your password?', 'municipio-intranet'); ?></a>
+        @endif
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="<?php _e('Login', 'municipio-intranet'); ?>">
