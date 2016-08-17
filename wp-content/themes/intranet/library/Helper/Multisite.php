@@ -15,7 +15,7 @@ class Multisite
         switch_to_blog($current_site->blog_id);
 
         $mainSiteInfo = array_filter(get_sites(), function ($site) use ($current_site) {
-            return $site['blog_id'] == $current_site->blog_id;
+            return $site->blog_id == $current_site->blog_id;
         });
 
         if (!is_array($mainSiteInfo) || !isset($mainSiteInfo[0])) {
@@ -23,7 +23,7 @@ class Multisite
         }
 
         $mainSiteInfo = $mainSiteInfo[0];
-        $mainSiteInfo['name'] = get_bloginfo();
+        $mainSiteInfo->name = get_bloginfo();
 
         restore_current_blog();
 
@@ -45,7 +45,7 @@ class Multisite
         $sites = self::getSitesList(true);
 
         foreach ($sites as $key => $site) {
-            if (stripos($site['name'], $keyword) === false && stripos($site['short_name'], $keyword) === false) {
+            if (stripos($site->name, $keyword) === false && stripos($site->short_name, $keyword) === false) {
                 unset($sites[$key]);
             }
         }
@@ -83,7 +83,7 @@ class Multisite
             }
 
             if ($onlyIds) {
-                $ids[] = $site['blog_id'];
+                $ids[] = $site->blog_id;
                 continue;
             }
 
