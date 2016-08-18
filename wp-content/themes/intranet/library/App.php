@@ -12,9 +12,10 @@ class App
         new \Intranet\Theme\TableOfContents();
 
         // Admin functionality
-        new \Intranet\Admin\NetworkSettings();
+        // new \Intranet\Admin\NetworkSettings();
         new \Intranet\Admin\AuthorMetaBox();
         new \Intranet\Admin\PasswordResetInstructions();
+        new \Intranet\Admin\Options();
 
         // User services
         new \Intranet\User\General();
