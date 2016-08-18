@@ -10,9 +10,9 @@ class News
     {
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('post_submitbox_misc_actions', array($this, 'stickyPostCheckbox'));
-        add_action('post_submitbox_misc_actions', array($this, 'pushToMainBlogCheckbox'));
+        add_action('post_submitbox_misc_actions', array($this, 'excludeFromMainBlogCheckbox'));
         add_action('save_post', array($this, 'saveStickyPost'));
-        add_action('save_post', array($this, 'savePushToMainBlog'));
+        add_action('save_post', array($this, 'saveExcludeFromMainBlog'));
 
         add_action('pre_get_posts', array($this, 'stickySorting'));
         add_filter('posts_orderby', array($this, 'sortStickyPost'), 10, 2);
@@ -105,18 +105,19 @@ class News
      * Checkbox for "push post to main blog"
      * @return [type] [description]
      */
-    public function pushToMainBlogCheckbox()
+    public function excludeFromMainBlogCheckbox()
     {
         global $post;
 
-        if ($post->post_type != self::$postTypeSlug) {
+        if ($post->post_type != self::$postTypeSlug || !\Intranet\User\Subscription::isForcedSubscription(get_current_blog_id())) {
             return;
         }
 
-        $checked = checked(1, get_post_meta($post->ID, 'intranet_news_push_to_main_site', true), false);
+        $current = get_post_meta($post->ID, 'intranet_news_exclude_from_main_site', true);
+        $checked = checked(true, $current, false);
 
         echo '<div class="misc-pub-section">';
-        echo '<label for="intranet_news_push_to_main_site"><input type="checkbox" name="intranet_news_push_to_main_site" value="true" id="intranet_news_push_to_main_site" ' . $checked .'> ' . __('Push post to main site', 'municipio-intranet') . '</label>';
+        echo '<label for="intranet_news_exclude_from_main_site"><input type="checkbox" name="intranet_news_exclude_from_main_site" value="true" id="intranet_news_exclude_from_main_site" ' . $checked .'> ' . __('Exclude from main news feed', 'municipio-intranet') . '</label>';
         echo '</div>';
     }
 
@@ -125,16 +126,16 @@ class News
      * @param  integer $postId The post id
      * @return void
      */
-    public function savePushToMainBlog($postId)
+    public function saveExcludeFromMainBlog($postId)
     {
         if (!isset($_POST['post_type']) || $_POST['post_type'] != self::$postTypeSlug) {
             return;
         }
 
-        if (isset($_POST['intranet_news_push_to_main_site']) && $_POST['intranet_news_push_to_main_site'] == 'true') {
-            update_post_meta($postId, 'intranet_news_push_to_main_site', true);
+        if (isset($_POST['intranet_news_exclude_from_main_site']) && $_POST['intranet_news_exclude_from_main_site'] == 'true') {
+            update_post_meta($postId, 'intranet_news_exclude_from_main_site', true);
         } else {
-            delete_post_meta($postId, 'intranet_news_push_to_main_site');
+            delete_post_meta($postId, 'intranet_news_exclude_from_main_site');
         }
     }
 
@@ -308,10 +309,10 @@ class News
             $key = key($news);
 
             if (is_main_site()) {
-                $query = "SELECT meta_value FROM {$table} WHERE post_id = {$item->post_id} AND meta_key = 'intranet_news_push_to_main_site' ORDER BY meta_id DESC LIMIT 1";
-                $pushToMain = (boolean) $wpdb->get_var($query);
+                $query = "SELECT meta_value FROM {$table} WHERE post_id = {$item->post_id} AND meta_key = 'intranet_news_exclude_from_main_site' ORDER BY meta_id DESC LIMIT 1";
+                $excludeFromMain = (boolean) $wpdb->get_var($query);
 
-                if (!$pushToMain) {
+                if ($excludeFromMain) {
                     unset($news[$key]);
                     continue;
                 }
