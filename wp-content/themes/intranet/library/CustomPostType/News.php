@@ -10,7 +10,9 @@ class News
     {
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('post_submitbox_misc_actions', array($this, 'stickyPostCheckbox'));
+        add_action('post_submitbox_misc_actions', array($this, 'pushToMainBlogCheckbox'));
         add_action('save_post', array($this, 'saveStickyPost'));
+        add_action('save_post', array($this, 'savePushToMainBlog'));
 
         add_action('pre_get_posts', array($this, 'stickySorting'));
         add_filter('posts_orderby', array($this, 'sortStickyPost'), 10, 2);
@@ -96,6 +98,43 @@ class News
             update_post_meta($postId, 'is_sticky', true);
         } else {
             delete_post_meta($postId, 'is_sticky');
+        }
+    }
+
+    /**
+     * Checkbox for "push post to main blog"
+     * @return [type] [description]
+     */
+    public function pushToMainBlogCheckbox()
+    {
+        global $post;
+
+        if ($post->post_type != self::$postTypeSlug) {
+            return;
+        }
+
+        $checked = checked(1, get_post_meta($post->ID, 'intranet_news_push_to_main_site', true), false);
+
+        echo '<div class="misc-pub-section">';
+        echo '<label for="intranet_news_push_to_main_site"><input type="checkbox" name="intranet_news_push_to_main_site" value="true" id="intranet_news_push_to_main_site" ' . $checked .'> ' . __('Push post to main site', 'municipio-intranet') . '</label>';
+        echo '</div>';
+    }
+
+    /**
+     * Saves the "sticky" setting
+     * @param  integer $postId The post id
+     * @return void
+     */
+    public function savePushToMainBlog($postId)
+    {
+        if (!isset($_POST['post_type']) || $_POST['post_type'] != self::$postTypeSlug) {
+            return;
+        }
+
+        if (isset($_POST['intranet_news_push_to_main_site']) && $_POST['intranet_news_push_to_main_site'] == 'true') {
+            update_post_meta($postId, 'intranet_news_push_to_main_site', true);
+        } else {
+            delete_post_meta($postId, 'intranet_news_push_to_main_site');
         }
     }
 
@@ -268,11 +307,20 @@ class News
             end($news);
             $key = key($news);
 
+            if (is_main_site()) {
+                $query = "SELECT meta_value FROM {$table} WHERE post_id = {$item->post_id} AND meta_key = 'intranet_news_push_to_main_site' ORDER BY meta_id DESC LIMIT 1";
+                $pushToMain = (boolean) $wpdb->get_var($query);
+
+                if (!$pushToMain) {
+                    unset($news[$key]);
+                    continue;
+                }
+            }
+
             $news[$key]->blog_id = $item->blog_id;
             $news[$key]->is_sticky = $item->is_sticky;
             $news[$key]->page_views = (int) $item->page_views;
             $news[$key]->user_views = is_serialized($item->user_views) ? count(unserialize($item->user_views)) : 0;
-
             $news[$key]->rank = \Intranet\Helper\PostRank::rank($news[$key]);
         }
 
