@@ -22,6 +22,33 @@ class General
 
         // Count pageviews
         add_action('wp', array($this, 'pageViewCounter'));
+
+        add_filter('the_sites', function ($sites) {
+            $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
+
+            foreach ($sites as $key => $site) {
+                $site->name = get_blog_option($site->blog_id, 'blogname');
+                $site->description = get_blog_option($site->blog_id, 'blogdescription');
+                $site->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
+                $site->is_forced = get_blog_option($site->blog_id, 'intranet_force_subscription') === 'true';
+                $site->is_hidden = (boolean) get_blog_option($site->blog_id, 'intranet_site_hidden');
+                $site->subscribed = false;
+
+                if ($site->is_forced || in_array($site->blog_id, $subscriptions)) {
+                    $site->subscribed = true;
+                }
+
+                if ($site->is_hidden) {
+                    switch_to_blog($site->blog_id);
+                    if (!current_user_can('administrator') && !current_user_can('editor')) {
+                        unset($sites[$key]);
+                    }
+                    restore_current_blog();
+                }
+            }
+
+            return $sites;
+        });
     }
 
     /**

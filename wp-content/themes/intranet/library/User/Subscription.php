@@ -23,17 +23,10 @@ class Subscription
         $forcedIds = array();
 
         foreach ($sites as $key => $site) {
-            $force = get_blog_option($site->blog_id, 'intranet_force_subscription');
-
-            if (!$force || $force == 'false') {
+            if (!$site->is_forced) {
                 unset($sites[$key]);
                 continue;
             }
-
-            switch_to_blog($site->blog_id);
-            $sites[$key]->name = get_bloginfo();
-            $sites[$key]->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
-            restore_current_blog();
 
             $forcedIds[] = $site->blog_id;
         }
@@ -66,11 +59,15 @@ class Subscription
             $userId = get_current_user_id();
         }
 
-        $sites = get_sites();
-
         $subscriptionsIds = array();
         $subscriptions = get_user_meta($userId, 'intranet_subscriptions', true);
         $subscriptions = json_decode($subscriptions);
+
+        if ($onlyBlogId) {
+            return $subscriptions;
+        }
+
+        $sites = get_sites();
 
         if (!is_array($subscriptions)) {
             $subscriptions = array();
@@ -79,20 +76,6 @@ class Subscription
         $subscriptions = array_filter($sites, function ($site) use ($subscriptions) {
             return in_array($site->blog_id, $subscriptions);
         });
-
-        foreach ($subscriptions as $key => $site) {
-            switch_to_blog($site->blog_id);
-
-            $subscriptionsIds[] = $site->blog_id;
-            $subscriptions[$key]->name = get_bloginfo();
-            $subscriptions[$key]->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
-
-            restore_current_blog();
-        }
-
-        if ($onlyBlogId) {
-            return $subscriptionsIds;
-        }
 
         uasort($subscriptions, function ($a, $b) {
             return $a->name > $b->name;
