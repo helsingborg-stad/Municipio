@@ -3,6 +3,10 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.7 (tbd)
+===================
+- "Workplace" changed into "Visiting address". Fields for specifying "visiting address" added to edit profile
+
 Version 0.2.6 (2016-08-17)
 ==========================
 - Lots of bug fixes
