@@ -6,6 +6,9 @@ The changelog aims to describe higher level changes for each version of the intr
 Version 0.2.7 (tbd)
 ===================
 - "Workplace" changed into "Visiting address". Fields for specifying "visiting address" added to edit profile
+- Intranet specific site options moved to the "Options -> General" section
+- Added intranet option to set a intranet as hidden (only visible to administrators and editors of the intranet)
+- Adds "Modularity Guides" plugin
 
 Version 0.2.6 (2016-08-17)
 ==========================
