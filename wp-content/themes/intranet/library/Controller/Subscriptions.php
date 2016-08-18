@@ -25,7 +25,7 @@ class Subscriptions extends \Intranet\Controller\BaseController
 
         // Sites excluding forced subscriptions
         $this->data['sites'] = array_filter(\Intranet\Helper\Multisite::getSitesList(true), function ($item) {
-            return !$item['forced_subscription'];
+            return !$item->forced_subscription;
         });
     }
 

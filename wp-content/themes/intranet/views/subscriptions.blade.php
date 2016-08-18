@@ -26,7 +26,7 @@
                                     <div class="grid">
                                         @foreach ($sites as $site)
                                         <div class="grid-md-6">
-                                            <label class="checkbox"><input type="checkbox" name="user_subscriptions[]" value="{{ $site['blog_id'] }}" {{ checked(true, $site['subscribed']) }}> {!! municipio_intranet_format_site_name($site) !!}</label>
+                                            <label class="checkbox"><input type="checkbox" name="user_subscriptions[]" value="{{ $site->blog_id }}" {{ checked(true, $site->subscribed) }}> {!! municipio_intranet_format_site_name($site) !!}</label>
                                         </div>
                                         @endforeach
                                     </div>
