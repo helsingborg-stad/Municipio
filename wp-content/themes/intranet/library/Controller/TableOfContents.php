@@ -69,12 +69,24 @@ class TableOfContents extends \Intranet\Controller\BaseController
             });
         }
 
-        foreach ($pages as $page) {
-            $title = get_post_meta($page->ID, 'table_of_contents_title', true);
-            if (!empty($title)) {
-                $page->post_title = $title;
+        foreach ($pages as $key => $page) {
+            switch_to_blog($page->blog_id);
+            $titles = get_field('table_of_contents_titles', $page->ID);
+
+            if (!is_array($titles)) {
+                continue;
             }
+
+            foreach ($titles as $title) {
+                $cloned = clone $page;
+                $cloned->post_title = $title['title'];
+                $pages[] = $cloned;
+            }
+
+            unset($pages[$key]);
         }
+
+        restore_current_blog();
 
         if (isset($_GET['title']) && !empty($_GET['title'])) {
             $pages = array_filter($pages, function ($item) {
