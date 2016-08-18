@@ -64,8 +64,10 @@ class FileUploads
         $mimes['ppam'] = 'application/vnd.ms-powerpoint.addin.macroEnabled.12';
         $mimes['sldx'] = 'application/vnd.openxmlformats-officedocument.presentationml.slide';
         $mimes['sldm'] = 'application/vnd.ms-powerpoint.slide.macroEnabled.12';
-        $mimes['dwg']  = 'application/dwg';
         $mimes['onetoc|onetoc2|onetmp|onepkg'] = 'application/onenote';
+
+        // Drawings
+        $mimes['dwg']  = 'application/dwg';
 
         return $mimes;
     }
