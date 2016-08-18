@@ -1,6 +1,5 @@
 .profile-header {
     position: relative;
-    overflow: hidden;
     text-align: center;
     border-bottom: 1px solid $creamy-darker;
 
@@ -67,6 +66,7 @@
     }
 
     li {
+        position: relative;
         font-size: 1rem;
         text-align: center;
 
@@ -75,7 +75,7 @@
         }
     }
 
-    a {
+    li > a {
         display: block;
         padding: 10px 30px;
         cursor: pointer;
@@ -100,14 +100,14 @@
                 }
             }
         }
-    }
 
-    a > i.fa,
-    a > i.pricon {
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 8px;
-        position: relative;
+        > i.fa,
+        > i.pricon {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            position: relative;
+        }
     }
 
     .value {
@@ -192,23 +192,27 @@
     bottom: 0;
     right: 0;
     z-index: -1;
+    overflow: hidden;
 
-    background-image: url('http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg');
-    background-size: cover;
-    background-position: center center;
+    div {
+        width: 100%;
+        height: 100%;
 
-    opacity: 1;
-    filter: blur(10px);
-    transform: scale(1.2);
+        background-image: url('http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg');
+        background-size: cover;
+        background-position: center center;
+        filter: blur(10px);
+        transform: scale(1.2);
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-color: rgba(#000, .5);
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(#000, .5);
+        }
     }
 }
 
@@ -255,6 +259,20 @@
 
 .btn-edit-profile {
     margin-top: 20px;
+}
+
+.visiting-address-dropdown {
+    display: none;
+    background-color: #fff;
+    color: $base-font-color;
+    padding: .8em 1.2em;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    box-shadow: 0 0 14px rgba(#000, .2);
+    text-align: left;
 }
 
 @media screen and (max-width: 550px) {

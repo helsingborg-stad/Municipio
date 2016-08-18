@@ -68,7 +68,6 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         update_user_meta($user->ID, 'user_phone', $phone);
         update_user_meta($user->ID, 'user_administration_unit', $_POST['user_administration_unit']);
         update_user_meta($user->ID, 'user_department', $_POST['user_department']);
-        update_user_meta($user->ID, 'user_workplace', $_POST['user_workplace']);
 
         update_user_meta($user->ID, 'user_facebook_url', $_POST['user_facebook_url']);
         update_user_meta($user->ID, 'user_linkedin_url', $_POST['user_linkedin_url']);
@@ -78,6 +77,14 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         update_user_meta($user->ID, 'user_about', implode("\n", array_map('sanitize_text_field', explode("\n", $_POST['user_about']))));
         update_user_meta($user->ID, 'user_target_groups', isset($_POST['user_target_groups']) ? array_map('sanitize_text_field', $_POST['user_target_groups']) : array());
         update_user_meta($user->ID, 'user_color_scheme', isset($_POST['color_scheme']) ? $_POST['color_scheme'] : 'purple');
+
+        // Visiting address components
+        $user_visiting_address = array(
+            'workplace' => isset($_POST['user_visiting_address']['workplace']) ? $_POST['user_visiting_address']['workplace'] : '',
+            'street'    => isset($_POST['user_visiting_address']['street']) ? $_POST['user_visiting_address']['street'] : '',
+            'city'      => isset($_POST['user_visiting_address']['city']) ? $_POST['user_visiting_address']['city'] : ''
+        );
+        update_user_meta($user->ID, 'user_visiting_address', $user_visiting_address);
 
         if (isset($_POST['responsibilities'])) {
             update_user_meta($user->ID, 'user_responsibilities', $_POST['responsibilities']);

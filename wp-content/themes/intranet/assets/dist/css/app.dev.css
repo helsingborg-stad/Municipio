@@ -254,7 +254,6 @@ body.admin-bar {
 
 .profile-header {
   position: relative;
-  overflow: hidden;
   text-align: center;
   border-bottom: 1px solid #e7e5e1; }
   .profile-header .profile-fullname {
@@ -305,36 +304,37 @@ body.admin-bar {
   .theme-purple .profile-contact {
     background-color: rgba(113, 32, 130, 0.5); }
   .profile-contact li {
+    position: relative;
     font-size: 1rem;
     text-align: center; }
     .profile-contact li + li {
       margin-left: 0; }
-  .profile-contact a {
+  .profile-contact li > a {
     display: block;
     padding: 10px 30px;
     cursor: pointer;
     color: #fff; }
-    .profile-contact a:hover {
+    .profile-contact li > a:hover {
       background-color: #333;
       color: #fff;
       text-decoration: none; }
-      .profile-contact a:hover .value,
-      .profile-contact a:hover .value .value-label {
+      .profile-contact li > a:hover .value,
+      .profile-contact li > a:hover .value .value-label {
         color: #fff; }
-      .theme-red .profile-contact a:hover {
+      .theme-red .profile-contact li > a:hover {
         background-color: #cb0050; }
-      .theme-blue .profile-contact a:hover {
+      .theme-blue .profile-contact li > a:hover {
         background-color: #0069b4; }
-      .theme-green .profile-contact a:hover {
+      .theme-green .profile-contact li > a:hover {
         background-color: #11a636; }
-      .theme-purple .profile-contact a:hover {
+      .theme-purple .profile-contact li > a:hover {
         background-color: #712082; }
-  .profile-contact a > i.fa,
-  .profile-contact a > i.pricon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
-    position: relative; }
+    .profile-contact li > a > i.fa,
+    .profile-contact li > a > i.pricon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+      position: relative; }
   .profile-contact .value {
     display: inline-block;
     text-align: left;
@@ -388,22 +388,25 @@ body.admin-bar {
   bottom: 0;
   right: 0;
   z-index: -1;
-  background-image: url("http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg");
-  background-size: cover;
-  background-position: center center;
-  opacity: 1;
-  -webkit-filter: blur(10px);
-          filter: blur(10px);
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2); }
-  .profile-header-background::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5); }
+  overflow: hidden; }
+  .profile-header-background div {
+    width: 100%;
+    height: 100%;
+    background-image: url("http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg");
+    background-size: cover;
+    background-position: center center;
+    -webkit-filter: blur(10px);
+            filter: blur(10px);
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2); }
+    .profile-header-background div::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5); }
 
 .profile-fullname {
   padding: 0; }
@@ -439,6 +442,18 @@ body.admin-bar {
 
 .btn-edit-profile {
   margin-top: 20px; }
+
+.visiting-address-dropdown {
+  display: none;
+  background-color: #fff;
+  color: #252525;
+  padding: .8em 1.2em;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+  text-align: left; }
 
 @media screen and (max-width: 550px) {
   .profile-image-upload {

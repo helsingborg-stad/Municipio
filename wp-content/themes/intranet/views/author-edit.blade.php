@@ -170,11 +170,33 @@
                                             <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="grid-md-6">
+                                <div class="grid">
+                                    <div class="grid-md-12">
                                         <div class="form-group">
-                                            <label for="user_workplace"><?php _e('Workplace', 'municipio-intranet'); ?></label>
-                                            <input type="text" id="user_workplace" name="user_workplace" value="{{ get_the_author_meta('user_workplace') }}">
+                                            <label><?php _e('Visiting address', 'municipio-intranet'); ?></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_visiting_address_place" style="font-weight:normal;"><?php _e('Workplace', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_visiting_address_place" name="user_visiting_address[workplace]" value="{{ isset(get_the_author_meta('user_visiting_address')['workplace']) ? get_the_author_meta('user_visiting_address')['workplace'] : '' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_visiting_address_street" style="font-weight:normal;"><?php _e('Street address', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_visiting_address_street" name="user_visiting_address[street]" value="{{ isset(get_the_author_meta('user_visiting_address')['street']) ? get_the_author_meta('user_visiting_address')['street'] : '' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_visiting_address_city" style="font-weight:normal;"><?php _e('City', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_visiting_address_city" name="user_visiting_address[city]" value="{{ isset(get_the_author_meta('user_visiting_address')['city']) ? get_the_author_meta('user_visiting_address')['city'] : '' }}">
                                         </div>
                                     </div>
                                 </div>

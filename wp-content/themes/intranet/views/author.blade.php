@@ -3,7 +3,9 @@
 @section('content')
 
 <header class="profile-header">
-    <div class="profile-header-background" style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
+    <div class="profile-header-background">
+        <div style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
+    </div>
 
     <div class="container">
         <div class="grid">
@@ -81,13 +83,22 @@
 
         @if (!empty(get_the_author_meta('user_workplace')))
         <li>
-            <a href="#">
+            @if (isset(get_the_author_meta('user_visiting_address')['street']) && isset(get_the_author_meta('user_visiting_address')['city']))
+            <a href="//www.google.com/maps?q={{ get_the_author_meta('user_visiting_address')['street'] }} {{ get_the_author_meta('user_visiting_address')['city'] }}">
+            @else
+            <a href="#" data-dropdown=".visiting-address-dropdown">
+            @endif
                 <i class="pricon pricon-location-pin pricon-2x"></i>
                 <span class="value">
-                    {{ get_the_author_meta('user_workplace') }}
-                    <span class="value-label"><i class="pricon pricon-location-pin"></i> <?php _e('Workplace', 'municipio-intranet'); ?></span>
+                    {{ isset(get_the_author_meta('user_visiting_address')['workplace']) ? get_the_author_meta('user_visiting_address')['workplace'] : '' }}
+                    <span class="value-label"><i class="pricon pricon-location-pin"></i> <?php _e('Visiting address', 'municipio-intranet'); ?></span>
                 </span>
             </a>
+            <div class="visiting-address-dropdown clearfix">
+                {{ isset(get_the_author_meta('user_visiting_address')['workplace']) ? get_the_author_meta('user_visiting_address')['workplace'] : '' }}<br>
+                {{ isset(get_the_author_meta('user_visiting_address')['street']) ? get_the_author_meta('user_visiting_address')['street'] : '' }}<br>
+                {{ isset(get_the_author_meta('user_visiting_address')['city']) ? get_the_author_meta('user_visiting_address')['city'] : '' }}
+            </div>
         </li>
         @endif
     </ul>
