@@ -2,7 +2,7 @@
     <div class="container">
         <div class="grid">
             <div class="grid-xs-12 {!! apply_filters('Municipio/header_grid_size','grid-md-12'); !!}">
-                <div class="grid grid-va-middle no-padding">
+                <div class="grid grid-table grid-va-middle no-padding">
                     <div class="grid-defined-width" style="width: 60px;">
                         <a href="{{ network_home_url() }}" class="logotype">
                             {!! \Municipio\Helper\Svg::extract(get_stylesheet_directory_uri() . '/assets/dist/images/helsingborg-logo.svg') !!}
