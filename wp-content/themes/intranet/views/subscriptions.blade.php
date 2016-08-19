@@ -5,6 +5,16 @@
 <div class="container main-container">
     <div class="grid">
         <div class="grid-lg-9 grid-md-12">
+            @if (isset($_POST['_wpnonce']))
+            <div class="grid">
+                <div class="grid-xs-12">
+                    <div class="notice success">
+                        <i class="pricon pricon-check"></i> <?php _e('Subscriptions saved', 'municipio-intranet'); ?>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <div class="grid">
                 <div class="grid-xs-12">
                     @if ($currentUser->ID === $user->ID)
