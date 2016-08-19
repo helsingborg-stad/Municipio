@@ -3,6 +3,11 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.8 (tbd)
+===================
+- Show confirmation notice when profile settings are saved
+- Show confirmation notice when subscriptions are saved
+
 Version 0.2.7 (2016-08-19)
 ==========================
 - "Workplace" changed into "Visiting address". Fields for specifying "visiting address" added to edit profile
