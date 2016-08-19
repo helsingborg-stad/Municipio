@@ -25,10 +25,11 @@ body.admin-bar {
     .logotype {
         display: block;
         margin-right: 30px;
-        width: 34px;
 
         svg, path {
             fill: #fff;
+            height: 52px;
+            width: 34px;
         }
     }
 
