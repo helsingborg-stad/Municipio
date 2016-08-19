@@ -3,12 +3,14 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.7 (tbd)
-===================
+Version 0.2.7 (2016-08-19)
+==========================
 - "Workplace" changed into "Visiting address". Fields for specifying "visiting address" added to edit profile
 - Intranet specific site options moved to the "Options -> General" section
 - Added intranet option to set a intranet as hidden (only visible to administrators and editors of the intranet)
 - Adds "Modularity Guides" plugin
+- Updated ui for topbar (logo, search and topnav)
+- Updated ui for network/intranet selector
 
 Version 0.2.6 (2016-08-17)
 ==========================
