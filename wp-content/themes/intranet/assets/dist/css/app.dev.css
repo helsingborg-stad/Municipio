@@ -635,20 +635,30 @@ body.admin-bar {
     font-weight: normal;
     color: #979797; }
 
+.current-network-label {
+  display: block;
+  margin-bottom: .2em;
+  font-size: .8em; }
+
 .current-network {
-  padding: 0;
-  background-color: transparent;
+  position: relative;
+  padding: .2em .4em;
+  background-color: #e7e5e1;
   border: none;
+  border-radius: 5px;
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   cursor: pointer;
   text-align: left;
-  overflow: hidden; }
+  overflow: hidden;
+  min-width: 350px;
+  padding-right: 1.5em; }
   @media screen and (min-width: 0) and (max-width: 468px) {
     .current-network {
       font-size: 1.4rem;
       white-space: nowrap;
       max-width: 100%;
+      min-width: auto;
       width: 100%;
       position: relative; }
       .current-network::before {
@@ -667,7 +677,16 @@ body.admin-bar {
         top: 50%;
         -webkit-transform: translateY(-50%);
                 transform: translateY(-50%); } }
+  @media screen and (min-width: 469px) and (max-width: 768px) {
+    .current-network {
+      min-width: auto;
+      width: 100%; } }
   .current-network::after {
+    position: absolute;
+    right: 1.5em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
     font-family: hbg-pricons;
     line-height: 1;
     text-rendering: auto;
@@ -676,8 +695,7 @@ body.admin-bar {
     vertical-align: -15%;
     content: "";
     font-size: .4em;
-    margin-left: 10px;
-    vertical-align: 15%; }
+    margin-left: 10px; }
   .current-network em {
     font-weight: 100;
     color: #979797;

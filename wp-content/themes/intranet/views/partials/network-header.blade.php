@@ -1,8 +1,9 @@
 <div class="creamy creamy-border-bottom hidden-print">
     <div class="container">
-        <div class="grid network-header-container">
+        <div class="grid grid-va-middle network-header-container">
             <div class="grid-md-8 text-center-xs text-center-sm">
                 <div class="network">
+                    <label class="current-network-label"><?php _e('Select intranet', 'municipio-intranet'); ?>:</label>
                     <button class="current-network network-title" data-dropdown=".network-search-dropdown">
                         {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
                     </button>
@@ -11,7 +12,7 @@
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">
-                                <input data-dropdown-focus id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('Search networks…', 'municipio-intranet'); ?>">
+                                <input data-dropdown-focus id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('What are you looking for?', 'municipio'); ?>">
                                 <span class="input-group-addon-btn">
                                     <button type="submit" class="btn"><i class="pricon pricon-search"></i></button>
                                 </span>

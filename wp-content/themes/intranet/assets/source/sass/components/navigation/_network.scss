@@ -37,20 +37,31 @@
     }
 }
 
+.current-network-label {
+    display: block;
+    margin-bottom: .2em;
+    font-size: .8em;
+}
+
 .current-network {
-    padding: 0;
-    background-color: transparent;
+    position: relative;
+    padding: .2em .4em;
+    background-color: $creamy-darker;
     border: none;
+    border-radius: 5px;
     font-weight: bold;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     cursor: pointer;
     text-align: left;
     overflow: hidden;
+    min-width: 350px;
+    padding-right: 1.5em;
 
     @media screen and #{$screen-xs} {
         font-size: 1.4rem;
         white-space: nowrap;
         max-width: 100%;
+        min-width: auto;
         width: 100%;
         position: relative;
 
@@ -73,11 +84,19 @@
         }
     }
 
+    @media screen and #{$screen-sm} {
+        min-width: auto;
+        width: 100%;
+    }
+
     &::after {
+        position: absolute;
+        right: 1.5em;
+        top: 50%;
+        transform: translateY(-50%);
         @include pricon($pricon-caret-down);
         font-size: .4em;
         margin-left: 10px;
-        vertical-align: 15%;
     }
 
     em {
