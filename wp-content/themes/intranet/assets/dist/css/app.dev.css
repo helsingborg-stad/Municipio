@@ -117,7 +117,7 @@ body.admin-bar {
         position: relative; } }
     #site-header .subnav > ul > li + li {
       margin-left: 15px; }
-  #site-header .dropdown ul a {
+  #site-header .subnav .dropdown ul a {
     padding: 2px 10px; }
   #site-header .search.search-main {
     position: relative;
