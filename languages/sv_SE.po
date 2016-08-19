@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-08-16 09:50+0200\n"
-"PO-Revision-Date: 2016-08-16 09:52+0200\n"
+"POT-Creation-Date: 2016-08-19 10:41+0200\n"
+"PO-Revision-Date: 2016-08-19 10:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1331,17 +1331,17 @@ msgstr "Töm cache för sidan"
 msgid "Purge Varnish"
 msgstr "Töm varnish"
 
-#: library/Comment/HoneyPot.php:54
+#: library/Comment/HoneyPot.php:59
 msgid "Could not verify that you are human (image check)."
 msgstr "Kunde inte verifiera att du är mänsklig (bildkontroll)"
 
-#: library/Comment/HoneyPot.php:94
+#: library/Comment/HoneyPot.php:99
 msgid ""
 "Could not verify that you are human (some hidden form fields are "
 "manipulated)."
 msgstr "Kunde inte verifiera att du är mänsklig (ett dolt fält är manipulerat)"
 
-#: library/Comment/HoneyPot.php:97
+#: library/Comment/HoneyPot.php:102
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
@@ -1536,7 +1536,11 @@ msgstr "Meny"
 msgid "More"
 msgstr "Mer"
 
-#: views/partials/page-footer.blade.php:12
+#: views/partials/mobile-menu.blade.php:5
+msgid "What are you looking for?"
+msgstr "Vad letar du efter?"
+
+#: views/partials/page-footer.blade.php:11
 msgid "Share the page"
 msgstr "Dela sidan"
 

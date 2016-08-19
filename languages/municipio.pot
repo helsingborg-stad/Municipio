@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-08-16 09:50+0200\n"
+"POT-Creation-Date: 2016-08-19 10:40+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1289,17 +1289,17 @@ msgstr ""
 msgid "Purge Varnish"
 msgstr ""
 
-#: library/Comment/HoneyPot.php:54
+#: library/Comment/HoneyPot.php:59
 msgid "Could not verify that you are human (image check)."
 msgstr ""
 
-#: library/Comment/HoneyPot.php:94
+#: library/Comment/HoneyPot.php:99
 msgid ""
 "Could not verify that you are human (some hidden form fields are "
 "manipulated)."
 msgstr ""
 
-#: library/Comment/HoneyPot.php:97
+#: library/Comment/HoneyPot.php:102
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr ""
 
@@ -1494,7 +1494,11 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: views/partials/page-footer.blade.php:12
+#: views/partials/mobile-menu.blade.php:5
+msgid "What are you looking for?"
+msgstr ""
+
+#: views/partials/page-footer.blade.php:11
 msgid "Share the page"
 msgstr ""
 
