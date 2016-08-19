@@ -10,6 +10,8 @@
     border: 1px solid $creamy-darker;
     box-shadow: 0 0 20px rgba(#000, .2);
 
+    border-radius: 3px;
+
     .show-all {
         display: block;
         background-color: $creamy;
@@ -27,9 +29,13 @@ a.dropdown-open:focus {
     color: $base-font-color;
     min-width: 250px;
     left: auto;
-    right: -1px;
+    right: 0;
     top: 100%;
     border-top: none;
+
+    @media #{$screen-below-md} {
+        left: 0;
+    }
 
     .nav {
         padding: 5px 0;

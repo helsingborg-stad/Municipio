@@ -2,10 +2,14 @@
     <div class="container">
         <div class="grid">
             <div class="grid-xs-12 {!! apply_filters('Municipio/header_grid_size','grid-md-12'); !!}">
-                <div class="grid">
-                    <div class="grid-xs-12">
-                        <a href="{{ network_home_url() }}" class="site-title"><span class="h1 no-margin no-padding">{{ get_site_option('site_name') }}</span></a>
+                <div class="grid grid-va-middle no-padding">
+                    <div class="grid-defined-width" style="width: 60px;">
+                        <a href="{{ network_home_url() }}" class="logotype">
+                            {!! \Municipio\Helper\Svg::extract(get_stylesheet_directory_uri() . '/assets/dist/images/helsingborg-logo.svg') !!}
+                        </a>
+                    </div>
 
+                    <div class="grid-auto">
                         <form class="search search-main hidden-xs hidden-sm" method="get" action="{{ home_url() }}">
                             <label for="searchkeyword-top" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
@@ -16,7 +20,9 @@
                                 </span>
                             </div>
                         </form>
+                    </div>
 
+                    <div class="grid-fit-content">
                         <nav class="subnav clearfix">
                             <ul class="nav nav-horizontal">
                                 <li><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
@@ -27,7 +33,7 @@
                                             @if (get_the_author_meta('user_profile_picture', get_current_user_id()))
                                             <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_picture', get_current_user_id()) }}');"></span>
                                             @endif
-                                            {{ municipio_intranet_get_user_full_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i>
+                                            <span class="hidden-sm hidden-xs">{{ municipio_intranet_get_first_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i></span>
                                         </a>
 
                                         <div class="dropdown login-dropdown">

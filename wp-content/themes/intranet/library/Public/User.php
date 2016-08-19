@@ -73,6 +73,30 @@ if (!function_exists('municipio_intranet_get_user_full_name')) {
     }
 }
 
+if (!function_exists('municipio_intranet_get_first_name')) {
+    /**
+     * Get url to manage subscriptions page
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_intranet_get_first_name($user = null)
+    {
+        if (is_null($user)) {
+            $user = wp_get_current_user();
+        } elseif (is_numeric($user)) {
+            $user = get_user_by('ID', $user);
+        } elseif (is_string($user)) {
+            $user = get_user_by('slug', $user);
+        }
+
+        if (!empty(get_user_meta($user->ID, 'first_name', true))) {
+            return get_user_meta($user->ID, 'first_name', true);
+        }
+
+        return $user->user_login;
+    }
+}
+
 if (!function_exists('municipio_intranet_get_administration_unit_name')) {
     /**
      * Get url to manage subscriptions page

@@ -88,6 +88,8 @@ body.admin-bar {
 
 #site-header {
   display: block; }
+  #site-header .navbar {
+    padding: 10px; }
   #site-header .site-title {
     display: block;
     margin-right: 30px;
@@ -97,61 +99,59 @@ body.admin-bar {
       font-size: .9em;
       letter-spacing: .5px;
       color: #fff; }
-  #site-header nav.subnav {
-    float: right; }
-  #site-header .subnav > ul > li > a:not(.dropdown-open):hover,
-  #site-header .subnav > ul > li > a:not(.dropdown-open):focus {
-    text-decoration: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff; }
+  #site-header .logotype {
+    display: block;
+    margin-right: 30px;
+    width: 34px; }
+    #site-header .logotype svg, #site-header .logotype path {
+      fill: #fff; }
   #site-header .subnav .profile-image-icon {
     margin-right: 8px; }
+  #site-header .subnav {
+    margin-top: -2px; }
+    #site-header .subnav a {
+      padding: 0;
+      font-size: .9em; }
+    @media (min-width: 769px) {
+      #site-header .subnav li {
+        position: relative; } }
+    #site-header .subnav > ul > li + li {
+      margin-left: 15px; }
+  #site-header .dropdown ul a {
+    padding: 2px 10px; }
   #site-header .search.search-main {
     position: relative;
     display: block;
-    float: left;
-    max-width: 350px;
     width: 100%; }
     #site-header .search.search-main ::-webkit-input-placeholder {
       /* WebKit browsers */
-      color: #fff;
+      color: #222;
       opacity: 0.5;
       font-weight: normal; }
     #site-header .search.search-main :-moz-placeholder {
       /* Mozilla Firefox 4 to 18 */
-      color: #fff;
+      color: #222;
       opacity: 0.5;
       font-weight: normal; }
     #site-header .search.search-main ::-moz-placeholder {
       /* Mozilla Firefox 19+ */
-      color: #fff;
+      color: #222;
       opacity: 0.5;
       font-weight: normal; }
     #site-header .search.search-main :-ms-input-placeholder {
       /* Internet Explorer 10+ */
-      color: #fff;
+      color: #222;
       opacity: 0.5;
       font-weight: normal; }
     #site-header .search.search-main input[type="search"].form-control {
-      background-color: #5e5e5e;
-      color: #fff;
+      background-color: #fff;
       border: none;
       box-shadow: none;
-      width: 100%; }
-      .theme-red #site-header .search.search-main input[type="search"].form-control {
-        background-color: #7c0804;
-        color: #fff; }
-      .theme-blue #site-header .search.search-main input[type="search"].form-control {
-        background-color: #003953;
-        color: #fff; }
-      .theme-green #site-header .search.search-main input[type="search"].form-control {
-        background-color: #365712;
-        color: #fff; }
-      .theme-purple #site-header .search.search-main input[type="search"].form-control {
-        background-color: #4b0439;
-        color: #fff; }
+      width: 100%;
+      border-radius: 3px 0 0 3px; }
     #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-      background-color: #4c4c4c; }
+      background-color: #4c4c4c;
+      padding: 7px 12px; }
       .theme-red #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
         background-color: #5a0603;
         color: #fff; }
@@ -168,25 +168,14 @@ body.admin-bar {
         opacity: 1;
         margin-right: 0; }
     #site-header .search.search-main button.btn {
-      background-color: #5e5e5e;
-      color: #fff;
-      padding-top: 7px;
+      background-color: #fff;
+      color: #979797;
+      padding: 7px;
       border: none;
       -webkit-transition: 200ms all;
               transition: 200ms all;
-      overflow: hidden; }
-      .theme-red #site-header .search.search-main button.btn {
-        background-color: #7c0804;
-        color: #fff; }
-      .theme-blue #site-header .search.search-main button.btn {
-        background-color: #003953;
-        color: #fff; }
-      .theme-green #site-header .search.search-main button.btn {
-        background-color: #365712;
-        color: #fff; }
-      .theme-purple #site-header .search.search-main button.btn {
-        background-color: #4b0439;
-        color: #fff; }
+      overflow: hidden;
+      border-radius: 0 3px 3px 0; }
       #site-header .search.search-main button.btn::after {
         display: inline-block;
         vertical-align: middle;
@@ -197,50 +186,18 @@ body.admin-bar {
         -webkit-transition: 200ms all;
                 transition: 200ms all;
         margin-right: -30px; }
-  @media (max-width: 769px) {
-    #site-header .site-title {
-      float: none;
-      margin-bottom: 7px;
-      margin-right: 0;
-      text-align: center; }
-    #site-header .search {
-      float: none;
-      max-width: none; }
-    #site-header nav.subnav {
-      text-align: center;
-      float: none; }
-    #site-header ul.nav li {
-      position: static; }
-    #site-header .login-dropdown {
-      left: 0;
-      right: 0;
-      text-align: left; }
-    #site-header .subnav {
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 0 5px; }
-      #site-header .subnav > .nav > li {
-        float: left; }
-        #site-header .subnav > .nav > li:last-child {
-          float: right; }
-    #site-header .navbar .container {
-      margin: 0; }
-      #site-header .navbar .container [class*="grid-"] {
-        padding: 0;
-        margin: 0; }
-      #site-header .navbar .container .grid {
-        margin: 0; }
-    #site-header .menu-trigger {
-      color: #fff;
-      position: relative; }
-      #site-header .menu-trigger .menu-icon {
-        background-color: #fff;
-        margin-right: 3px; }
-        #site-header .menu-trigger .menu-icon::before, #site-header .menu-trigger .menu-icon::after {
-          background-color: #fff; }
-      #site-header .menu-trigger:target .menu-icon, #site-header .menu-trigger.open .menu-icon {
-        background: transparent; }
-      #site-header .menu-trigger:focus {
-        text-decoration: none; } }
+  #site-header .menu-trigger {
+    color: #fff;
+    position: relative; }
+    #site-header .menu-trigger .menu-icon {
+      background-color: #fff;
+      margin-right: 3px; }
+      #site-header .menu-trigger .menu-icon::before, #site-header .menu-trigger .menu-icon::after {
+        background-color: #fff; }
+    #site-header .menu-trigger:target .menu-icon, #site-header .menu-trigger.open .menu-icon {
+      background: transparent; }
+    #site-header .menu-trigger:focus {
+      text-decoration: none; }
 
 .login-form.login-form a[href="#forgot-password"] {
   color: #979797;
@@ -529,14 +486,14 @@ body.admin-bar {
 .search-autocomplete {
   display: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 2px);
   left: 0;
   right: 0;
   z-index: 99;
   background-color: #fff;
-  border: 1px solid #e7e5e1;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 2px 2px;
+  border-radius: 3px;
+  overflow: hidden;
   font-size: 1em; }
   .search-autocomplete li {
     font-size: .9em; }
@@ -544,7 +501,7 @@ body.admin-bar {
     background-color: #333;
     color: #fff !important;
     border: none;
-    border-radius: 0;
+    border-radius: 0 !important;
     margin: 0 -1px -1px -1px;
     width: calc(100% + 2px); }
     .theme-red .search-autocomplete .read-more {
@@ -579,7 +536,7 @@ body.admin-bar {
   .search-autocomplete li a {
     display: block;
     color: #252525;
-    padding: 7.5em 10px; }
+    padding: 7.5px 10px; }
     .search-autocomplete li a:hover {
       background-color: rgba(51, 51, 51, 0.1);
       text-decoration: none; }
@@ -649,22 +606,6 @@ body.admin-bar {
       color: #11a636; }
     .theme-purple .search-level .nav li.active a {
       color: #712082; }
-
-.navbar ul a {
-  padding: 7.5px 10px;
-  font-size: .9em; }
-
-.header-intranet nav li {
-  position: relative; }
-
-.header-intranet nav li + li {
-  margin-left: 0; }
-
-.header-intranet nav .dropdown-open {
-  position: relative;
-  background-color: #fff;
-  z-index: 99999;
-  color: #252525; }
 
 .network {
   position: relative; }
@@ -810,7 +751,8 @@ body.admin-bar {
   right: 0;
   background-color: #fff;
   border: 1px solid #e7e5e1;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 3px; }
   .dropdown .show-all {
     display: block;
     background-color: #f6f5f2;
@@ -825,9 +767,12 @@ a.dropdown-open:focus {
   color: #252525;
   min-width: 250px;
   left: auto;
-  right: -1px;
+  right: 0;
   top: 100%;
   border-top: none; }
+  @media (max-width: 769px) {
+    .login-dropdown {
+      left: 0; } }
   .login-dropdown .nav {
     padding: 5px 0; }
     .login-dropdown .nav a {

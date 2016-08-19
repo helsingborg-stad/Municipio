@@ -5,6 +5,10 @@ body.admin-bar {
 #site-header {
     display: block;
 
+    .navbar {
+        padding: 10px;
+    }
+
     .site-title {
         display: block;
         margin-right: 30px;
@@ -18,50 +22,67 @@ body.admin-bar {
         }
     }
 
-    nav.subnav {
-        float: right;
-    }
+    .logotype {
+        display: block;
+        margin-right: 30px;
+        width: 34px;
 
-    .subnav > ul > li > a:not(.dropdown-open):hover,
-    .subnav > ul > li > a:not(.dropdown-open):focus {
-        text-decoration: none;
-        background-color: rgba(0,0,0,.5);
-        color: #fff;
+        svg, path {
+            fill: #fff;
+        }
     }
 
     .subnav .profile-image-icon {
         margin-right: 8px;
     }
 
+    .subnav {
+        margin-top: -2px;
+
+        a {
+            padding: 0;
+            font-size: .9em;
+        }
+
+        a.dropdown-open {
+
+        }
+
+        @media #{$screen-md-up} {
+            li {
+                position: relative;
+            }
+        }
+
+        > ul > li + li {
+            margin-left: 15px;
+        }
+    }
+
+    .dropdown ul {
+        a {
+            padding: 2px 10px;
+        }
+    }
+
     .search.search-main {
         position: relative;
         display: block;
-        float: left;
-        max-width: 350px;
         width: 100%;
 
-        @include input-placeholder(#fff, .5);
+        @include input-placeholder(#222, .5);
 
         input[type="search"].form-control {
-            background-color: darken($palette-gray-4, 10%);
-            color: #fff;
+            background-color: #fff;
             border: none;
             box-shadow: none;
             width: 100%;
-
-            // Color theme styles
-            @if ($includeThemes == true) {
-                @each $theme, $color in $themes {
-                    .theme-#{$theme} & {
-                        background-color: darken(map-get($color, fourthSafe), 10%);
-                        color: map-get($color, fourthTextColor);
-                    }
-                }
-            }
+            border-radius: 3px 0 0 3px;
         }
 
         input[type="search"].form-control:focus + .input-group-addon-btn .btn {
             background-color: darken($palette-gray-4, 17%);
+            padding: 7px 12px;
 
             @if ($includeThemes == true) {
                 @each $theme, $color in $themes {
@@ -79,21 +100,13 @@ body.admin-bar {
         }
 
         button.btn {
-            background-color: darken($palette-gray-4, 10%);
-            color: #fff;
-            padding-top: 7px;
+            background-color: #fff;
+            color: $gray;
+            padding: 7px;
             border: none;
             transition: 200ms all;
             overflow: hidden;
-
-            @if ($includeThemes == true) {
-                @each $theme, $color in $themes {
-                    .theme-#{$theme} & {
-                        background-color: darken(map-get($color, fourthSafe), 10%);
-                        color: map-get($color, fourthTextColor);
-                    }
-                }
-            }
+            border-radius: 0 3px 3px 0;
 
             &::after {
                 display: inline-block;
@@ -108,84 +121,29 @@ body.admin-bar {
         }
     }
 
-    @media #{$screen-below-md} {
-        .site-title {
-            float: none;
-            margin-bottom: 7px;
-            margin-right: 0;
-            text-align: center;
-        }
+    .menu-trigger {
+        color: #fff;
+        position: relative;
 
-        .search {
-            float: none;
-            max-width: none;
-        }
+        .menu-icon {
+            background-color: #fff;
+            margin-right: 3px;
 
-        nav.subnav {
-            text-align: center;
-            float: none;
-        }
-
-        ul.nav li {
-            position: static;
-        }
-
-        .login-dropdown {
-            left: 0;
-            right: 0;
-            text-align: left;
-        }
-
-        .subnav {
-            background-color: rgba(#000, .3);
-            padding: 0 5px;
-
-            > .nav > li {
-                float: left;
-
-                &:last-child {
-                    float: right;
-                }
-            }
-        }
-
-        .navbar .container {
-            margin: 0;
-
-            [class*="grid-"] {
-                padding: 0;
-                margin: 0;
-            }
-
-            .grid {
-                margin: 0;
-            }
-        }
-
-        .menu-trigger {
-            color: #fff;
-            position: relative;
-
-            .menu-icon {
+            &::before,
+            &::after {
                 background-color: #fff;
-                margin-right: 3px;
-
-                &::before,
-                &::after {
-                    background-color: #fff;
-                }
             }
+        }
 
-            &:target,
-            &.open {
-                .menu-icon {
-                    background: transparent;
-                }
+        &:target,
+        &.open {
+            .menu-icon {
+                background: transparent;
             }
+        }
 
-            &:focus {
-                text-decoration: none;
-            }
+        &:focus {
+            text-decoration: none;
         }
     }
 }
