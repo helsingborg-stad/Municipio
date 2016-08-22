@@ -31,6 +31,9 @@ class IntranetDefaultSettings
             // Header style
             'options_header_layout'             => 'intranet',
 
+            // Footer
+            'options_footer_logotype'           => 'hide',
+
             // Show date published and date modified per default
             'options_show_date_updated'         => array('post', 'page', 'intranet-news'),
             'options_show_date_published'       => array('post', 'page', 'intranet-news'),
