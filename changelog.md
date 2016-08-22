@@ -17,6 +17,7 @@ Version 0.2.8 (tbd)
 - Updated translations
 - Truncate news missing the more tag
 - Changed edit button style for modules "user systems" and "user links"
+- "Incident" post type and module
 
 Version 0.2.7 (2016-08-19)
 ==========================

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-22 11:46+0200\n"
-"PO-Revision-Date: 2016-08-22 11:47+0200\n"
+"POT-Creation-Date: 2016-08-22 16:13+0200\n"
+"PO-Revision-Date: 2016-08-22 16:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -70,6 +70,60 @@ msgstr "Intranätets kortnamn"
 msgid "Password"
 msgstr "Lösenord"
 
+#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:158
+msgctxt "add new button"
+msgid "Add New"
+msgstr "Skapa ny"
+
+#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:159
+#, php-format
+msgid "Add new %s"
+msgstr "Skapa ny %s"
+
+#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:160
+#, php-format
+msgid "New %s"
+msgstr "Ny %s"
+
+#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:161
+#, php-format
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:162
+#, php-format
+msgid "View %s"
+msgstr "Visa %s"
+
+#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:163
+#, php-format
+msgid "All %s"
+msgstr "Alla %s"
+
+#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:164
+#, php-format
+msgid "Search %s"
+msgstr "Sök %s"
+
+#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:165
+#, php-format
+msgid "Parent %s"
+msgstr "Förälder %s"
+
+#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:166
+#, php-format
+msgid "No %s"
+msgstr "Inga %s"
+
+#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:167
+#, php-format
+msgid "No %s in trash"
+msgstr "Inga %s i papperskorgen"
+
+#: library/CustomPostType/Incidents.php:54
+msgid "incidents"
+msgstr "driftstörningar"
+
 #: library/CustomPostType/News.php:82
 msgid "Pin to top"
 msgstr "Klistra till toppen"
@@ -78,59 +132,21 @@ msgstr "Klistra till toppen"
 msgid "Exclude from main news feed"
 msgstr "Exkludera från huvudsidans nyhetsflöde"
 
-#: library/CustomPostType/News.php:158
-msgctxt "add new button"
-msgid "Add New"
-msgstr "Skapa ny"
-
-#: library/CustomPostType/News.php:159
-#, php-format
-msgid "Add new %s"
-msgstr "Skapa ny %s"
-
-#: library/CustomPostType/News.php:160
-#, php-format
-msgid "New %s"
-msgstr "Ny %s"
-
-#: library/CustomPostType/News.php:161
-#, php-format
-msgid "Edit %s"
-msgstr "Redigera %s"
-
-#: library/CustomPostType/News.php:162
-#, php-format
-msgid "View %s"
-msgstr "Visa %s"
-
-#: library/CustomPostType/News.php:163
-#, php-format
-msgid "All %s"
-msgstr "Alla %s"
-
-#: library/CustomPostType/News.php:164
-#, php-format
-msgid "Search %s"
-msgstr "Sök %s"
-
-#: library/CustomPostType/News.php:165
-#, php-format
-msgid "Parent %s"
-msgstr "Förälder %s"
-
-#: library/CustomPostType/News.php:166
-#, php-format
-msgid "No %s"
-msgstr "Inga %s"
-
-#: library/CustomPostType/News.php:167
-#, php-format
-msgid "No %s in trash"
-msgstr "Inga %s i papperskorgen"
-
 #: library/CustomPostType/News.php:181
 msgid "news"
 msgstr "nyheter"
+
+#: library/Module/IncidentList.php:21
+msgid "Incident list"
+msgstr "Driftsstörningslista"
+
+#: library/Module/IncidentList.php:22
+msgid "Incident lists"
+msgstr "Driftsstörningslistor"
+
+#: library/Module/IncidentList.php:23
+msgid "Lists incidents"
+msgstr "Listar driftstörningar"
 
 #: library/Module/News.php:21 library/Module/News.php:22
 msgid "Intranet news"
@@ -499,11 +515,19 @@ msgstr "Taggar"
 msgid "Add tag"
 msgstr "Lägg till tagg"
 
-#: templates/module/modularity-mod-intranet-news.php:77
+#: templates/module/modularity-mod-intranet-inciden.php:9
+msgid "Incidents"
+msgstr "Driftstörningar"
+
+#: templates/module/modularity-mod-intranet-inciden.php:20
+msgid "Show all incidents"
+msgstr "Visa alla driftstörningar"
+
+#: templates/module/modularity-mod-intranet-news.php:73
 msgid "Read more"
 msgstr "Läs mer"
 
-#: templates/module/modularity-mod-intranet-news.php:91
+#: templates/module/modularity-mod-intranet-news.php:87
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -539,6 +563,18 @@ msgstr "Välj system som du vill visa i din lista över ”mina system”."
 #: templates/module/modularity-mod-intranet-u-syste.php:64
 msgid "Cancel"
 msgstr "Avbryt"
+
+#: views/archive-incidents.blade.php:25
+msgid "Duration"
+msgstr "Varaktighet"
+
+#: views/archive-incidents.blade.php:25
+msgid "to"
+msgstr "till"
+
+#: views/archive-incidents.blade.php:27
+msgid "Published"
+msgstr "Publicerad"
 
 #: views/author-edit.blade.php:15
 msgid "Settings saved"
@@ -967,7 +1003,7 @@ msgstr "Visa alla personträffar"
 
 #: views/subscriptions.blade.php:12
 msgid "Subscriptions saved"
-msgstr ""
+msgstr "Prenumerationer sparade"
 
 #: views/subscriptions.blade.php:21
 msgid "Manage your subscriptions"

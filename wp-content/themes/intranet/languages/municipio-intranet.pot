@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-22 11:45+0200\n"
+"POT-Creation-Date: 2016-08-22 16:13+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -70,6 +70,60 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:158
+msgctxt "add new button"
+msgid "Add New"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:159
+#, php-format
+msgid "Add new %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:160
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:161
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:162
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:163
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:164
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:165
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:166
+#, php-format
+msgid "No %s"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:167
+#, php-format
+msgid "No %s in trash"
+msgstr ""
+
+#: library/CustomPostType/Incidents.php:54
+msgid "incidents"
+msgstr ""
+
 #: library/CustomPostType/News.php:82
 msgid "Pin to top"
 msgstr ""
@@ -78,58 +132,20 @@ msgstr ""
 msgid "Exclude from main news feed"
 msgstr ""
 
-#: library/CustomPostType/News.php:158
-msgctxt "add new button"
-msgid "Add New"
-msgstr ""
-
-#: library/CustomPostType/News.php:159
-#, php-format
-msgid "Add new %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:160
-#, php-format
-msgid "New %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:161
-#, php-format
-msgid "Edit %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:162
-#, php-format
-msgid "View %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:163
-#, php-format
-msgid "All %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:164
-#, php-format
-msgid "Search %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:165
-#, php-format
-msgid "Parent %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:166
-#, php-format
-msgid "No %s"
-msgstr ""
-
-#: library/CustomPostType/News.php:167
-#, php-format
-msgid "No %s in trash"
-msgstr ""
-
 #: library/CustomPostType/News.php:181
 msgid "news"
+msgstr ""
+
+#: library/Module/IncidentList.php:21
+msgid "Incident list"
+msgstr ""
+
+#: library/Module/IncidentList.php:22
+msgid "Incident lists"
+msgstr ""
+
+#: library/Module/IncidentList.php:23
+msgid "Lists incidents"
 msgstr ""
 
 #: library/Module/News.php:21 library/Module/News.php:22
@@ -492,11 +508,19 @@ msgstr ""
 msgid "Add tag"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:77
+#: templates/module/modularity-mod-intranet-inciden.php:9
+msgid "Incidents"
+msgstr ""
+
+#: templates/module/modularity-mod-intranet-inciden.php:20
+msgid "Show all incidents"
+msgstr ""
+
+#: templates/module/modularity-mod-intranet-news.php:73
 msgid "Read more"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:91
+#: templates/module/modularity-mod-intranet-news.php:87
 msgid "Threre's no news stories to display"
 msgstr ""
 
@@ -531,6 +555,18 @@ msgstr ""
 
 #: templates/module/modularity-mod-intranet-u-syste.php:64
 msgid "Cancel"
+msgstr ""
+
+#: views/archive-incidents.blade.php:25
+msgid "Duration"
+msgstr ""
+
+#: views/archive-incidents.blade.php:25
+msgid "to"
+msgstr ""
+
+#: views/archive-incidents.blade.php:27
+msgid "Published"
 msgstr ""
 
 #: views/author-edit.blade.php:15
