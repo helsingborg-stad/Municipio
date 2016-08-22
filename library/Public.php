@@ -1,5 +1,13 @@
 <?php
 
+if (!function_exists('municipio_show_posts_pag')) {
+    function municipio_show_posts_pag()
+    {
+        global $wp_query;
+        return ($wp_query->max_num_pages > 1);
+    }
+}
+
 /**
  * Get a posts featured image thumbnail by post id
  * @param  int|null $post_id Post id or null
