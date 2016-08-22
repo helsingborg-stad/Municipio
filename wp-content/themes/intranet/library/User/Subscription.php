@@ -55,6 +55,10 @@ class Subscription
      */
     public static function getSubscriptions($userId = null, $onlyBlogId = false)
     {
+        if (!is_user_logged_in()) {
+            return array();
+        }
+
         if (is_null($userId)) {
             $userId = get_current_user_id();
         }
