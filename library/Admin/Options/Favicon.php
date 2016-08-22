@@ -13,6 +13,7 @@ class Favicon
     public function addFavIconsToHead()
     {
         $icons = get_field('favicons', 'option');
+        $icons = apply_filters('Municipio/favicons', $icons);
 
         if (!is_array($icons)) {
             return;
