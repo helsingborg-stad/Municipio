@@ -26,6 +26,7 @@
             $news = \Intranet\CustomPostType\News::getNews($limit, array(get_current_blog_id()));
             break;
     }
+    $news = null;
 
     if (count($news) > 0) :
 
@@ -38,6 +39,12 @@
     }
 ?>
 <div class="grid">
+    <?php if (!empty($module->post_title)) : ?>
+    <div class="grid-xs-12">
+        <h2><?php echo $module->post_title; ?></h2>
+    </div>
+    <?php endif; ?>
+
     <?php foreach ($news as $item) : ?>
         <?php
             $thumbnail_image = wp_get_attachment_image_src(
@@ -72,6 +79,17 @@
             </a>
         </div>
     <?php endforeach; ?>
+</div>
+<?php else : ?>
+<div class="grid">
+    <?php if (!empty($module->post_title)) : ?>
+    <div class="grid-xs-12">
+        <h2><?php echo $module->post_title; ?></h2>
+    </div>
+    <?php endif; ?>
+    <div class="grid-xs-12">
+        <?php _e('Threre\'s no news stories to display', 'municipio-intranet'); ?> <i class="pricon pricon-smiley-sad"></i>
+    </div>
 </div>
 <?php endif; ?>
 
