@@ -226,6 +226,10 @@ class Systems
             return $a->name > $b->name;
         });
 
+        if (preg_match($ipPatterns, $clientIp)) {
+            return $systems;
+        }
+
         foreach ($systems as $system) {
             if (!$system->is_local) {
                 continue;
