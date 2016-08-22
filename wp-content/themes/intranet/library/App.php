@@ -34,12 +34,14 @@ class App
 
         // Custom post types
         new \Intranet\CustomPostType\News();
+        new \Intranet\CustomPostType\Incidents();
 
         // Modularity modules
         if (class_exists('\Modularity\Module')) {
             new \Intranet\Module\News();
             new \Intranet\Module\UserLinks();
             new \Intranet\Module\UserSystems();
+            new \Intranet\Module\IncidentList();
         }
     }
 }

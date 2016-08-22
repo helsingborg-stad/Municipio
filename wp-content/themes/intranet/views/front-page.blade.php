@@ -12,7 +12,7 @@
 
     @if (isset($show_userdata_notice) && $show_userdata_notice)
     <div class="grid grid-xs-12">
-        <div class="notice notice-sm info">
+        <div class="notice info">
             <div class="grid no-padding grid-table-md grid-va-middle">
                 <div class="grid-col-icon" style="min-width:30px;"><i class="pricon pricon-user-o"></i></div>
                 <div class="grid-md-8"><strong><?php _e('Your profile is not complete!', 'municipio-intranet'); ?></strong> <?php _e('We\'re missing some information about you.', 'municipio-intranet'); ?></div>
