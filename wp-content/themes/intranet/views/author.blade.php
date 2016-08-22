@@ -81,7 +81,7 @@
         </li>
         @endif
 
-        @if (!empty(get_the_author_meta('user_workplace')))
+        @if ((isset(get_the_author_meta('user_visiting_address')['street']) && !empty(get_the_author_meta('user_visiting_address')['street'])) || (isset(get_the_author_meta('user_visiting_address')['city']) && !empty(get_the_author_meta('user_visiting_address')['city'])))
         <li>
             @if (isset(get_the_author_meta('user_visiting_address')['street']) && isset(get_the_author_meta('user_visiting_address')['city']))
             <a href="//www.google.com/maps?q={{ get_the_author_meta('user_visiting_address')['street'] }} {{ get_the_author_meta('user_visiting_address')['city'] }}">
