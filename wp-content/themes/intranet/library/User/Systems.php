@@ -161,6 +161,7 @@ class Systems
 
             foreach ($systems as $system) {
                 $system->forced = false;
+                $system->unavailable = false;
 
                 if (isset($systemOptions['forced'][$unitId]) && in_array($system->id, (array)$systemOptions['forced'][$unitId])) {
                     $system->forced = true;
@@ -225,12 +226,16 @@ class Systems
             return $a->name > $b->name;
         });
 
-        if (preg_match($ipPatterns, $clientIp)) {
-            return $systems;
+        foreach ($systems as $system) {
+            if (!$system->is_local) {
+                continue;
+            }
+
+            $system->unavailable = true;
         }
 
-        $systems = array_filter($systems, function ($system) {
-            return $system->is_local == 0;
+        uasort($systems, function ($a, $b) {
+            return $a->unavailable > $b->unavailable;
         });
 
         return $systems;
