@@ -806,9 +806,19 @@ a.dropdown-open:focus {
 .modularity-mod-intranet-u-links [data-user-systems-edit],
 .modularity-mod-intranet-u-syste [data-user-link-edit],
 .modularity-mod-intranet-u-syste [data-user-systems-edit] {
-  opacity: .8;
   font-weight: normal;
-  font-size: .75em; }
+  font-size: .7em;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 6px;
+  border-radius: 0 0 0 2px !important; }
+  .modularity-mod-intranet-u-links [data-user-link-edit]::before,
+  .modularity-mod-intranet-u-links [data-user-systems-edit]::before,
+  .modularity-mod-intranet-u-syste [data-user-link-edit]::before,
+  .modularity-mod-intranet-u-syste [data-user-systems-edit]::before {
+    vertical-align: -5%; }
   .modularity-mod-intranet-u-links [data-user-link-edit]:hover, .modularity-mod-intranet-u-links [data-user-link-edit]:focus,
   .modularity-mod-intranet-u-links [data-user-systems-edit]:hover,
   .modularity-mod-intranet-u-links [data-user-systems-edit]:focus,
@@ -816,7 +826,8 @@ a.dropdown-open:focus {
   .modularity-mod-intranet-u-syste [data-user-link-edit]:focus,
   .modularity-mod-intranet-u-syste [data-user-systems-edit]:hover,
   .modularity-mod-intranet-u-syste [data-user-systems-edit]:focus {
-    opacity: 1; }
+    background-color: rgba(0, 0, 0, 0.6);
+    text-decoration: underline; }
 
 .modularity-mod-intranet-u-links button[data-user-link-remove],
 .modularity-mod-intranet-u-syste button[data-user-link-remove] {

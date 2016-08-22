@@ -2,7 +2,7 @@
     <h4 class="box-title">
         <?php _e('Your links', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
-        <button class="btn btn-plain btn-sm pull-right" data-user-link-edit><i class="pricon pricon-edit"></i> <?php _e('Edit', 'municipio-intranet'); ?></button>
+        <button class="btn btn-plain btn-sm pricon-space-right pricon pricon-edit" data-user-link-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
         <?php endif; ?>
     </h4>
     <div class="box-content">

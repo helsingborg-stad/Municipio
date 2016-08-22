@@ -6,13 +6,24 @@
 
     [data-user-link-edit],
     [data-user-systems-edit] {
-        opacity: .8;
         font-weight: normal;
-        font-size: .75em;
+        font-size: .7em;
+
+        background-color: rgba(0,0,0,.4);
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px;
+        border-radius: 0 0 0 2px !important;
+
+        &::before {
+            vertical-align: -5%;
+        }
 
         &:hover,
         &:focus {
-            opacity: 1;
+            background-color: rgba(0,0,0,.6);
+            text-decoration: underline;
         }
     }
 

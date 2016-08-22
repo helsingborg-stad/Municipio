@@ -526,12 +526,12 @@ Intranet.User.Links = (function ($) {
 
         if ($box.hasClass('is-editing')) {
             $box.removeClass('is-editing');
-            $target.html('<i class="pricon pricon-edit"></i> ' + municipioIntranet.edit);
+            $target.html(municipioIntranet.edit).removeClass('pricon-check').addClass('pricon-edit');
             return;
         }
 
         $box.addClass('is-editing');
-        $target.html('<i class="pricon pricon-check"></i> ' + municipioIntranet.done);
+        $target.html(municipioIntranet.done).addClass('pricon-check').removeClass('pricon-edit');
     }
 
     Links.prototype.addLink = function (title, link, element) {
