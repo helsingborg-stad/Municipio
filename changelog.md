@@ -7,6 +7,16 @@ Version 0.2.8 (tbd)
 ===================
 - Show confirmation notice when profile settings are saved
 - Show confirmation notice when subscriptions are saved
+- Added icons for each profile settings section
+- Added icons for each topbar user menu link
+- Show unavailable user systems as "disabled"
+- Load favicon from main blog theme settings for all sites in network
+- Load logo from main blog theme settings for all sites in network
+- Show notice when there's no news to display
+- Hide vising address from profile page if not given
+- Updated translations
+- Truncate news missing the more tag
+- Changed edit button style for modules "user systems" and "user links"
 
 Version 0.2.7 (2016-08-19)
 ==========================
