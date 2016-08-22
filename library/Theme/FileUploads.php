@@ -8,6 +8,7 @@ class FileUploads
     {
         add_action('wp_handle_upload_prefilter', array($this, 'santitizeFileNames'));
         add_filter('mime_types', array($this, 'mimeTypes'));
+        add_filter('upload_mimes', array($this, 'mimeTypes'));
     }
 
     /**
