@@ -29,6 +29,7 @@ class App
         new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
+        new \Municipio\Theme\FileUploads();
 
         new \Municipio\Search\General();
 
