@@ -23,32 +23,52 @@ class General
         // Count pageviews
         add_action('wp', array($this, 'pageViewCounter'));
 
-        add_filter('the_sites', function ($sites) {
-            $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
+        // Get additional site options
+        add_filter('the_sites', array($this, 'getSiteOptions'));
 
-            foreach ($sites as $key => $site) {
-                $site->name = get_blog_option($site->blog_id, 'blogname');
-                $site->description = get_blog_option($site->blog_id, 'blogdescription');
-                $site->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
-                $site->is_forced = get_blog_option($site->blog_id, 'intranet_force_subscription') === 'true';
-                $site->is_hidden = (boolean) get_blog_option($site->blog_id, 'intranet_site_hidden');
-                $site->subscribed = false;
+        add_filter('Municipio/favicons', array($this, 'favicons'));
+    }
 
-                if ($site->is_forced || in_array($site->blog_id, $subscriptions)) {
-                    $site->subscribed = true;
-                }
+    public function favicons($icons)
+    {
+        switch_to_blog(BLOG_ID_CURRENT_SITE);
+        $icons = get_field('favicons', 'option');
+        restore_current_blog();
 
-                if ($site->is_hidden) {
-                    switch_to_blog($site->blog_id);
-                    if (!current_user_can('administrator') && !current_user_can('editor')) {
-                        unset($sites[$key]);
-                    }
-                    restore_current_blog();
-                }
+        return $icons;
+    }
+
+    /**
+     * Get additional options for sites on get_sites()
+     * @param  array $sites Sites
+     * @return array        Sites
+     */
+    public function getSiteOptions($sites)
+    {
+        $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
+
+        foreach ($sites as $key => $site) {
+            $site->name = get_blog_option($site->blog_id, 'blogname');
+            $site->description = get_blog_option($site->blog_id, 'blogdescription');
+            $site->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
+            $site->is_forced = get_blog_option($site->blog_id, 'intranet_force_subscription') === 'true';
+            $site->is_hidden = (boolean) get_blog_option($site->blog_id, 'intranet_site_hidden');
+            $site->subscribed = false;
+
+            if ($site->is_forced || in_array($site->blog_id, $subscriptions)) {
+                $site->subscribed = true;
             }
 
-            return $sites;
-        });
+            if ($site->is_hidden) {
+                switch_to_blog($site->blog_id);
+                if (!current_user_can('administrator') && !current_user_can('editor')) {
+                    unset($sites[$key]);
+                }
+                restore_current_blog();
+            }
+        }
+
+        return $sites;
     }
 
     /**
