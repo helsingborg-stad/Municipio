@@ -35,25 +35,11 @@ a.dropdown-open:focus {
 
     @media #{$screen-below-md} {
         left: 0;
-    }
+        margin-top: 0 !important;
 
-    .nav {
-        padding: 5px 0;
-
-        a {
-            display: block;
-            color: $base-font-color;
-            padding: 5px 15px;
-
-            &:hover {
-                background-color: $creamy;
-            }
-        }
-
-        .divider {
-            margin: 5px 0;
-            height: 1px;
-            background-color: $creamy-darker;
+        &::before,
+        &::after {
+            display: none !important;
         }
     }
 }

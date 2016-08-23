@@ -111,7 +111,7 @@ body.admin-bar {
   #site-header .subnav {
     margin-top: -2px;
     margin-left: 15px; }
-    #site-header .subnav a {
+    #site-header .subnav > ul > li > a {
       padding: 0;
       font-size: .9em; }
     @media (min-width: 769px) {
@@ -196,6 +196,11 @@ body.admin-bar {
       background: transparent; }
     #site-header .menu-trigger:focus {
       text-decoration: none; }
+
+.login-dropdown {
+  margin-top: 15px !important; }
+  .login-dropdown::before, .login-dropdown::after {
+    right: 25px !important; }
 
 .login-form.login-form a[href="#forgot-password"] {
   color: #979797;
@@ -784,19 +789,10 @@ a.dropdown-open:focus {
   border-top: none; }
   @media (max-width: 769px) {
     .login-dropdown {
-      left: 0; } }
-  .login-dropdown .nav {
-    padding: 5px 0; }
-    .login-dropdown .nav a {
-      display: block;
-      color: #252525;
-      padding: 5px 15px; }
-      .login-dropdown .nav a:hover {
-        background-color: #f6f5f2; }
-    .login-dropdown .nav .divider {
-      margin: 5px 0;
-      height: 1px;
-      background-color: #e7e5e1; }
+      left: 0;
+      margin-top: 0 !important; }
+      .login-dropdown::before, .login-dropdown::after {
+        display: none !important; } }
 
 .modularity-mod-intranet-u-links .only-if-editing,
 .modularity-mod-intranet-u-syste .only-if-editing {
