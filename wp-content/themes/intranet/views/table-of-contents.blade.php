@@ -44,12 +44,6 @@
                         @foreach ($tableOfContents as $key => $pages)
                              <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
                         @endforeach
-                        @foreach ($tableOfContents as $key => $pages)
-                             <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
-                        @endforeach
-                        @foreach ($tableOfContents as $key => $pages)
-                             <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
-                        @endforeach
                         </ul>
                     </div>
                 </div>
