@@ -3,11 +3,13 @@
         <div class="grid grid-va-middle network-header-container">
             <div class="grid-md-8 text-center-xs text-center-sm">
                 <div class="network">
+                    {!! municipio_intranet_walkthrough('Navigera mellan intranät', '<p>Här kan du välja vilket intranät du vill titta på.</p>') !!}
+
                     <label class="current-network-label"><?php _e('Select intranet', 'municipio-intranet'); ?>:</label>
                     <button class="current-network network-title" data-dropdown=".network-search-dropdown">
                         {!! (get_option('intranet_short_name')) ? get_option('intranet_short_name') . ' <em>' . get_bloginfo() . '</em>' : get_bloginfo() !!}
                     </button>
-                    <div class="dropdown network-search-dropdown">
+                    <div class="network-search-dropdown">
                         <form class="network-search" method="get" action="{{ home_url() }}">
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 

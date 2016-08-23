@@ -1,4 +1,4 @@
-.dropdown {
+.network-search-dropdown {
     display: none;
     position: absolute;
     z-index: 9999;
@@ -40,6 +40,24 @@ a.dropdown-open:focus {
         &::before,
         &::after {
             display: none !important;
+        }
+    }
+}
+
+.walk-through {
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    z-index: $level-top;
+
+    .dropdown-menu {
+        margin-left: -14px !important;
+        margin-top: 5px !important;
+        width: 350px;
+
+        @media #{$screen-below-md} {
+            width: 100vw;
         }
     }
 }
