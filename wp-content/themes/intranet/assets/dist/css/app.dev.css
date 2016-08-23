@@ -165,7 +165,7 @@ body.admin-bar {
       #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn::after {
         opacity: 1;
         margin-right: 0; }
-    #site-header .search.search-main button.btn {
+    #site-header .search.search-main button[type="submit"].btn {
       background-color: #fff;
       color: #979797;
       padding: 7px;
@@ -174,7 +174,7 @@ body.admin-bar {
               transition: 200ms all;
       overflow: hidden;
       border-radius: 0 3px 3px 0; }
-      #site-header .search.search-main button.btn::after {
+      #site-header .search.search-main button[type="submit"].btn::after {
         display: inline-block;
         vertical-align: middle;
         white-space: nowrap;
@@ -808,6 +808,14 @@ a.dropdown-open:focus {
     @media (max-width: 769px) {
       .walkthrough .dropdown-menu {
         width: 100vw; } }
+    .walkthrough .dropdown-menu footer {
+      margin-top: 10px; }
+    .walkthrough .dropdown-menu [data-action="walkthrough-cancel"] {
+      float: right;
+      padding: 7.5px 15px;
+      opacity: .6; }
+      .walkthrough .dropdown-menu [data-action="walkthrough-cancel"]:hover {
+        opacity: 1; }
 
 .modularity-mod-intranet-u-links .only-if-editing,
 .modularity-mod-intranet-u-syste .only-if-editing {

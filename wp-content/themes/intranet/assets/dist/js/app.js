@@ -179,6 +179,10 @@ Intranet.Helper.Walkthrough = (function ($) {
         $('.walkthrough [data-dropdown]').on('click', function (e) {
             this.highlightArea(e.target);
         }.bind(this));
+
+        $('[data-action="walkthrough-cancel"]').on('click', function (e) {
+            $(e.target).closest('[data-action="walkthrough-cancel"]').parents('.walkthrough').find('.blipper').trigger('click');
+        }.bind(this));
     }
 
     Walkthrough.prototype.highlightArea = function (element) {

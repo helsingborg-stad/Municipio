@@ -29,6 +29,11 @@ if (!function_exists('municipio_intranet_walkthrough')) {
                     <p>
                         ' . $html . '
                     </p>
+                    <footer>
+                        <button class="btn">Previous</button>
+                        <button class="btn">Next</button>
+                        <button class="btn btn-plain" data-action="walkthrough-cancel">Cancel</button>
+                    </footer>
                 </div>
             </div>
         ';

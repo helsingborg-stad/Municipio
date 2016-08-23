@@ -101,7 +101,7 @@ body.admin-bar {
             }
         }
 
-        button.btn {
+        button[type="submit"].btn {
             background-color: #fff;
             color: $gray;
             padding: 7px;

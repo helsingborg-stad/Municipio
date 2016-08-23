@@ -59,5 +59,19 @@ a.dropdown-open:focus {
         @media #{$screen-below-md} {
             width: 100vw;
         }
+
+        footer {
+            margin-top: 10px;
+        }
+
+        [data-action="walkthrough-cancel"] {
+            float: right;
+            padding: 7.5px 15px;
+            opacity: .6;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
 }
