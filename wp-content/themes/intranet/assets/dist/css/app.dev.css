@@ -794,19 +794,19 @@ a.dropdown-open:focus {
       .login-dropdown::before, .login-dropdown::after {
         display: none !important; } }
 
-.walk-through {
+.walkthrough {
   position: absolute;
   top: 50%;
   left: -10px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  z-index: 99999; }
-  .walk-through .dropdown-menu {
+  z-index: 9000; }
+  .walkthrough .dropdown-menu {
     margin-left: -14px !important;
     margin-top: 5px !important;
     width: 350px; }
     @media (max-width: 769px) {
-      .walk-through .dropdown-menu {
+      .walkthrough .dropdown-menu {
         width: 100vw; } }
 
 .modularity-mod-intranet-u-links .only-if-editing,

@@ -20,7 +20,13 @@
                                 </span>
                             </div>
 
-                            {!! municipio_intranet_walkthrough('Sök efter innehåll', '<p>Genom att fylla i en sökfras och klicka på sök så kan du söka efter innehåll i samtliga eller specifika intranät.</p>') !!}
+                            {!!
+                                municipio_intranet_walkthrough(
+                                    'Sök efter innehåll',
+                                    '<p>Genom att fylla i en sökfras och klicka på sök så kan du söka efter innehåll i samtliga eller specifika intranät.</p>',
+                                    '.search-main'
+                                )
+                            !!}
                         </form>
                     </div>
 
@@ -31,7 +37,13 @@
 
                                 @if ($currentUser->ID > 0)
                                     <li>
-                                        {!! municipio_intranet_walkthrough('Användare', '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>') !!}
+                                        {!!
+                                            municipio_intranet_walkthrough(
+                                                'Användare',
+                                                '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
+                                                '.subnav'
+                                            )
+                                        !!}
 
                                         <a href="#" data-dropdown=".login-dropdown">
                                             @if (get_the_author_meta('user_profile_picture', get_current_user_id()))

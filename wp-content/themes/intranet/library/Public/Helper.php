@@ -8,7 +8,7 @@ if (!function_exists('municipio_intranet_walkthrough')) {
      * @param  array $site The site to format name for
      * @return string
      */
-    function municipio_intranet_walkthrough($title, $html)
+    function municipio_intranet_walkthrough($title, $html, $highlightSelector = null)
     {
         if (!isset($_GET['walkthrough'])) {
             return;
@@ -17,8 +17,12 @@ if (!function_exists('municipio_intranet_walkthrough')) {
         global $municipio_intranet_walkthrough_counter;
         $municipio_intranet_walkthrough_counter++;
 
+        if ($highlightSelector) {
+            $highlightSelector = ' data-highlight="' . $highlightSelector . '"';
+        }
+
         return '
-            <div class="walk-through" data-step="' . $municipio_intranet_walkthrough_counter . '">
+            <div class="walkthrough" data-step="' . $municipio_intranet_walkthrough_counter . '"' . $highlightSelector . '>
                 <div class="blipper" data-dropdown=".blipper-' . $municipio_intranet_walkthrough_counter . '-dropdown"></div>
                 <div class="dropdown-menu dropdown-menu-arrow blipper-' . $municipio_intranet_walkthrough_counter . '-dropdown gutter">
                     <h4>' . $title . '</h4>

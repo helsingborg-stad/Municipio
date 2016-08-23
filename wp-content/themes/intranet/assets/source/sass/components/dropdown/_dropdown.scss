@@ -44,12 +44,12 @@ a.dropdown-open:focus {
     }
 }
 
-.walk-through {
+.walkthrough {
     position: absolute;
     top: 50%;
     left: -10px;
     transform: translateY(-50%);
-    z-index: $level-top;
+    z-index: $level-9;
 
     .dropdown-menu {
         margin-left: -14px !important;
