@@ -127,7 +127,7 @@ class Template
                 return $path;
             } else {
                 if (current_user_can('administrator')) {
-                    \Municipio\Helper\Notice::add('<i class="pricon pricon-notice-warning"></i><strong>' . __('Admin notice', 'municipio') . ':</strong> ' . sprintf(__('View [%s] was not found. Defaulting to [page.blade.php].', 'municipio'), $template));
+                    \Municipio\Helper\Notice::add('<strong>' . __('Admin notice', 'municipio') . ':</strong> ' . sprintf(__('View [%s] was not found. Defaulting to [page.blade.php].', 'municipio'), $template), 'warning', 'pricon pricon-notice-warning');
                 }
 
                 $template = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');

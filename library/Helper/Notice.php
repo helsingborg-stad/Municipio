@@ -9,12 +9,14 @@ class Notice
      * @param string $text  Notice text
      * @param string $class Notice html class
      */
-    public static function add($text, $class = 'warning')
+    public static function add($text, $class = 'warning', $icon = null, $buttons = null)
     {
-        add_filter('HbgBlade/data', function ($data) use ($text, $class) {
+        add_filter('HbgBlade/data', function ($data) use ($text, $class, $icon, $buttons) {
             $data['notice'] = array(
+                'class' => $class,
+                'icon' => $icon,
                 'text' => $text,
-                'class' => $class
+                'buttons' => $buttons
             );
 
             return $data;
