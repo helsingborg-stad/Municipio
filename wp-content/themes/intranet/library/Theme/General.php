@@ -27,6 +27,10 @@ class General
         add_filter('the_sites', array($this, 'getSiteOptions'));
 
         add_filter('Municipio/favicons', array($this, 'favicons'));
+
+        add_filter('get_search_query', function ($q) {
+            return urldecode($q);
+        });
     }
 
     public function favicons($icons)
