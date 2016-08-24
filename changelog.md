@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.8 (tbd)
-===================
+Version 0.2.8 (2016-08-24)
+==========================
 - Show confirmation notice when profile settings are saved
 - Show confirmation notice when subscriptions are saved
 - Added icons for each profile settings section
@@ -18,6 +18,8 @@ Version 0.2.8 (tbd)
 - Truncate news missing the more tag
 - Changed edit button style for modules "user systems" and "user links"
 - "Incident" post type and module
+- Walktrough mode
+- Fixes table of contents issue
 
 Version 0.2.7 (2016-08-19)
 ==========================
