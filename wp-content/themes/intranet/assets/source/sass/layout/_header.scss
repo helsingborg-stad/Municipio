@@ -46,6 +46,16 @@ body.admin-bar {
             font-size: .9em;
         }
 
+        .subnav-icon a {
+            .pricon {
+                opacity: .5;
+            }
+
+            &:hover .pricon {
+                opacity: 1;
+            }
+        }
+
         a.dropdown-open {
 
         }

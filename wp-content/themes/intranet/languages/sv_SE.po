@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
 "POT-Creation-Date: 2016-08-22 16:13+0200\n"
-"PO-Revision-Date: 2016-08-22 16:15+0200\n"
+"PO-Revision-Date: 2016-08-24 14:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -578,7 +578,7 @@ msgstr "Publicerad"
 
 #: views/author-edit.blade.php:15
 msgid "Settings saved"
-msgstr "Inställningarna sparares"
+msgstr "Inställningarna sparades"
 
 #: views/author-edit.blade.php:25
 msgid "Your settings"
@@ -591,7 +591,7 @@ msgstr "Inställningar för %s"
 
 #: views/author-edit.blade.php:31
 msgid "Click on a section to view and edit your settings."
-msgstr "Klicka på en sektion för att visa och redigera inställnignarna."
+msgstr "Klicka på en sektion för att visa och redigera inställningarna."
 
 #: views/author-edit.blade.php:46
 msgid "Personal information"

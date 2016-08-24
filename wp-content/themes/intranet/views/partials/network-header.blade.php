@@ -3,7 +3,15 @@
         <div class="grid grid-va-middle network-header-container">
             <div class="grid-md-8 text-center-xs text-center-sm">
                 <div class="network">
-                    {!! municipio_intranet_walkthrough('Navigera mellan intranät', '<p>Här kan du välja vilket intranät du vill titta på.</p>', '.network-selector-container') !!}
+                    {!!
+                        municipio_intranet_walkthrough(
+                            'Navigera mellan intranät',
+                            '<p>Här kan du välja vilket intranät du vill titta på.</p>',
+                            '.network-selector-container',
+                            'left',
+                            'left'
+                        )
+                    !!}
 
                     <label class="current-network-label"><?php _e('Select intranet', 'municipio-intranet'); ?>:</label>
                     <button class="current-network network-title" data-dropdown=".network-search-dropdown">
