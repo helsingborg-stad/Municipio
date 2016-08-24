@@ -108,11 +108,11 @@ class Registration
         $sites = \Intranet\Helper\Multisite::getSitesList(true);
 
         foreach ($sites as $site) {
-            if (is_user_member_of_blog($userId, $site['blog_id'])) {
+            if (is_user_member_of_blog($userId, $site->blog_id)) {
                 continue;
             }
 
-            add_user_to_blog($site['blog_id'], $userId, $this->defaultRole);
+            add_user_to_blog($site->blog_id, $userId, $this->defaultRole);
         }
 
         return true;
