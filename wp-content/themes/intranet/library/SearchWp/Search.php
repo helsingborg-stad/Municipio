@@ -281,7 +281,7 @@ class Search
             $previousPage = $currentPage -1;
             $prevUrl = \Municipio\Helper\Url::getQueryString();
             $prevUrl['page'] = $previousPage;
-            $prevUrl = home_url('?' . http_build_query($prevUrl));
+            $prevUrl = home_url('?' . urldecode(http_build_query($prevUrl)));
 
             $markup[] = '<li><a class="prev" href="' . $prevUrl . '">&laquo; ' . __('Previous', 'municipio-intranet') . '</a></li>';
         }
@@ -325,7 +325,7 @@ class Search
 
                 $pageUrl = \Municipio\Helper\Url::getQueryString();
                 $pageUrl['page'] = $i;
-                $pageUrl = home_url('?' . http_build_query($pageUrl));
+                $pageUrl = home_url('?' . urldecode(http_build_query($pageUrl)));
 
                 $markup[] = '<li><a class="page ' . $current . '" href="' . $pageUrl . '">' . $i . '</a></li>';
             }
@@ -337,16 +337,18 @@ class Search
             $nextPage = $this->currentPage + 1;
             $nextUrl = \Municipio\Helper\Url::getQueryString();
             $nextUrl['page'] = $nextPage;
-            $nextUrl = home_url('?' . http_build_query($nextUrl));
+            $nextUrl = home_url('?' . urldecode(http_build_query($nextUrl)));
 
             $markup[] = '<li><a class="next" href="' . $nextUrl . '">' . __('Next', 'municipio-intranet') . ' &raquo;</a></li>';
         }
 
-
         // End tag for ul
         $markup[] = '</ul>';
 
-        $this->data['pagination'] = implode('', $markup);
+        add_filter('HbgBlade/data', function ($data) use ($markup) {
+            $data['pagination'] = implode('', $markup);
+            return $data;
+        });
     }
 
     /**
