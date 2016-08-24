@@ -4,9 +4,14 @@ $municipio_intranet_walkthrough_counter = 0;
 
 if (!function_exists('municipio_intranet_walkthrough')) {
     /**
-     * Formats a site's name correctly from a site array
-     * @param  array $site The site to format name for
-     * @return string
+     * Creates a walkthrough step
+     * @param  string $title             The step headline/title
+     * @param  string $html              HTML content
+     * @param  string $highlightSelector Selector for element to highlight when step is active
+     * @param  string $position          The position of the blipper
+     * @param  string $dropdownPosition  The position of dropdown
+     * @param  array  $css               CSS rules ($key => $value)
+     * @return string                    Walkthrough markup
      */
     function municipio_intranet_walkthrough($title, $html, $highlightSelector = null, $position = 'center', $dropdownPosition = 'center', $css = array())
     {
