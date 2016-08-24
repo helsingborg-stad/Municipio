@@ -45,7 +45,7 @@ class General
      */
     public function getSiteOptions($sites)
     {
-        $subscriptions = \Intranet\User\Subscription::getSubscriptions(null, true);
+        $subscriptions = (array) \Intranet\User\Subscription::getSubscriptions(null, true);
 
         foreach ($sites as $key => $site) {
             $site->name = get_blog_option($site->blog_id, 'blogname');

@@ -3,6 +3,10 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.9 (tbd)
+===================
+
+
 Version 0.2.8 (2016-08-24)
 ==========================
 - Show confirmation notice when profile settings are saved
