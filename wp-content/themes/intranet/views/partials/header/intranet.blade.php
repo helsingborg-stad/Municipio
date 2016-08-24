@@ -66,7 +66,7 @@
                                         <a href="#" data-dropdown=".login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'class="dropdown-open"' : '' !!}>
                                             <?php _e('Log in'); ?> <i class="fa fa-caret-down"></i>
                                         </a>
-                                        <div class="dropdown login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'style="display: block;"' : '' !!}>
+                                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-arrow-right login-dropdown" {!! isset($_GET['login']) && $_GET['login'] == 'failed' ? 'style="display: block;"' : '' !!}>
                                             <div class="gutter">
                                                 @if (isset($_GET['login']) && $_GET['login'] == 'failed')
                                                 <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('Login failed. Please try again.', 'municipio-intranet'); ?></div></div>
