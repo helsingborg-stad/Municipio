@@ -9,11 +9,25 @@ Intranet.Helper.Walkthrough = (function ($) {
      */
     function Walkthrough() {
         $('.walkthrough [data-dropdown]').on('click', function (e) {
+            e.preventDefault();
             this.highlightArea(e.target);
         }.bind(this));
 
         $('[data-action="walkthrough-cancel"]').on('click', function (e) {
+            e.preventDefault();
             $(e.target).closest('[data-action="walkthrough-cancel"]').parents('.walkthrough').find('.blipper').trigger('click');
+        }.bind(this));
+
+        $('[data-action="walkthrough-next"]').on('click', function (e) {
+            e.preventDefault();
+            var currentStep = $(e.target).closest('[data-action="walkthrough-next"]').parents('.walkthrough');
+            this.next(currentStep);
+        }.bind(this));
+
+        $('[data-action="walkthrough-previous"]').on('click', function (e) {
+            e.preventDefault();
+            var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
+            this.previous(currentStep);
         }.bind(this));
     }
 
@@ -42,6 +56,36 @@ Intranet.Helper.Walkthrough = (function ($) {
         $element.addClass('is-highlighted');
 
         return true;
+    };
+
+    Walkthrough.prototype.next = function(current) {
+        var $current = current;
+
+        var currentIndex = $current.attr('data-step');
+        var nextIndex = parseInt(currentIndex) + 1;
+        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
+
+        if ($nextItem.length === 0) {
+            $nextItem = $('.walkthrough[data-step="1"]');
+        }
+
+        $current.find('.blipper').trigger('click');
+        $nextItem.find('.blipper').trigger('click');
+    };
+
+    Walkthrough.prototype.previous = function(current) {
+        var $current = current;
+
+        var currentIndex = $current.attr('data-step');
+        var nextIndex = parseInt(currentIndex) - 1;
+        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
+
+        if ($nextItem.length === 0) {
+            $nextItem = $('.walkthrough:last');
+        }
+
+        $current.find('.blipper').trigger('click');
+        $nextItem.find('.blipper').trigger('click');
     };
 
     return new Walkthrough();

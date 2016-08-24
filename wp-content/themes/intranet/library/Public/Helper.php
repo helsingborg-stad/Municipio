@@ -30,8 +30,8 @@ if (!function_exists('municipio_intranet_walkthrough')) {
                         ' . $html . '
                     </p>
                     <footer>
-                        <button class="btn">Previous</button>
-                        <button class="btn">Next</button>
+                        <button class="btn" data-action="walkthrough-previous">Previous</button>
+                        <button class="btn" data-action="walkthrough-next">Next</button>
                         <button class="btn btn-plain" data-action="walkthrough-cancel">Cancel</button>
                     </footer>
                 </div>
