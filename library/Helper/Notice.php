@@ -12,7 +12,7 @@ class Notice
     public static function add($text, $class = 'warning', $icon = null, $buttons = null)
     {
         add_filter('HbgBlade/data', function ($data) use ($text, $class, $icon, $buttons) {
-            $data['notice'] = array(
+            $data['notice'][] = array(
                 'class' => $class,
                 'icon' => $icon,
                 'text' => $text,
