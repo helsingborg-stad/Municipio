@@ -26,7 +26,7 @@
                     <ul class="nav nav-horizontal">
                         @if (is_user_logged_in())
                         <li class="{{ $level == 'subscriptions' ? 'active' : '' }}">
-                            <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=subscriptions">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=subscriptions">
                                 <?php _e('Subscriptions', 'municipio-intranet'); ?>
                                 <span class="label label-rounded label-sm">{{ $counts['subscriptions'] }}</span>
                             </a>
@@ -34,13 +34,13 @@
                         @endif
 
                         <li class="{{ $level == 'all' ? 'active' : '' }}">
-                            <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=all">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
                                 <?php _e('All sites', 'municipio-intranet'); ?>
                                 <span class="label label-rounded label-sm">{{ $counts['all'] }}</span>
                             </a>
                         </li>
                         <li class="{{ $level == 'current' ? 'active' : '' }}">
-                            <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=current">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=current">
                                 <?php _e('Current site', 'municipio-intranet'); ?>
                                 <span class="label label-rounded label-sm">{{ $counts['current'] }}</span>
                             </a>
@@ -48,7 +48,7 @@
 
                         @if (is_user_logged_in())
                         <li class="{{ $level == 'users' ? 'active' : '' }}">
-                            <a href="{{ home_url() }}?s={{ get_search_query() }}&amp;level=users">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=users">
                                 <?php _e('Persons', 'municipio-intranet'); ?>
                                 <span class="label label-rounded label-sm">{{ $counts['users'] }}</span>
                             </a>
