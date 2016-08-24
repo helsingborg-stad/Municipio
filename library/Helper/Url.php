@@ -47,7 +47,7 @@ class Url
      */
     public static function getQueryString()
     {
-        $querystringsDefault = explode('&', $_SERVER['QUERY_STRING']);
+        $querystringsDefault = explode('&', urldecode($_SERVER['QUERY_STRING']));
         $querystrings = array();
 
         foreach ($querystringsDefault as $querystring) {
