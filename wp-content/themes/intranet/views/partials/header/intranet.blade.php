@@ -42,6 +42,7 @@
                                                 'Användare',
                                                 '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
                                                 '.subnav',
+                                                'center',
                                                 'right'
                                             )
                                         !!}
