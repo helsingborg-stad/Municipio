@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-22 16:13+0200\n"
+"POT-Creation-Date: 2016-08-24 09:32+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -179,13 +179,13 @@ msgstr ""
 msgid "Shows a users's system link list"
 msgstr ""
 
-#: library/SearchWp/Search.php:286
+#: library/SearchWp/Search.php:286 library/Theme/Enqueue.php:46
 #: views/partials/modal/missing-data-fields/nav.blade.php:3
 #: views/partials/modal/missing-data-fields/nav.blade.php:7
 msgid "Previous"
 msgstr ""
 
-#: library/SearchWp/Search.php:342
+#: library/SearchWp/Search.php:342 library/Theme/Enqueue.php:45
 #: views/partials/modal/missing-data-fields/nav.blade.php:11
 #: views/partials/modal/missing-data.blade.php:36
 msgid "Next"
@@ -196,11 +196,11 @@ msgstr ""
 msgid "You have not added any links yet…"
 msgstr ""
 
-#: library/Theme/Enqueue.php:35 views/partials/network-header.blade.php:49
+#: library/Theme/Enqueue.php:35 views/partials/network-header.blade.php:51
 msgid "Subscribe"
 msgstr ""
 
-#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:51
+#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:53
 msgid "Unsubscribe"
 msgstr ""
 
@@ -225,6 +225,11 @@ msgstr ""
 
 #: library/Theme/Enqueue.php:44
 msgid "Done"
+msgstr ""
+
+#: library/Theme/Enqueue.php:47
+#: templates/module/modularity-mod-intranet-u-syste.php:64
+msgid "Cancel"
 msgstr ""
 
 #: library/User/AdministrationUnits.php:25
@@ -553,10 +558,6 @@ msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:64
-msgid "Cancel"
-msgstr ""
-
 #: views/archive-incidents.blade.php:25
 msgid "Duration"
 msgstr ""
@@ -849,49 +850,49 @@ msgid "Complete your profile"
 msgstr ""
 
 #: views/partials/header/intranet.blade.php:17
-#: views/partials/network-header.blade.php:15
+#: views/partials/network-header.blade.php:17
 msgid "What are you looking for?"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:28
+#: views/partials/header/intranet.blade.php:36
 #: views/table-of-contents.blade.php:8
 msgid "A-Z"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:41
+#: views/partials/header/intranet.blade.php:57
 msgid "Your profile"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:42
+#: views/partials/header/intranet.blade.php:58
 msgid "Settings"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:43 views/search.blade.php:30
+#: views/partials/header/intranet.blade.php:59 views/search.blade.php:30
 msgid "Subscriptions"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:45
+#: views/partials/header/intranet.blade.php:61
 msgid "Log out"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:52
+#: views/partials/header/intranet.blade.php:67
 msgid "Log in"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:57
+#: views/partials/header/intranet.blade.php:72
 msgid "Login failed. Please try again."
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:68
+#: views/partials/header/intranet.blade.php:83
 msgid "Menu"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:84
+#: views/partials/header/intranet.blade.php:99
 #: views/partials/user/loginform.blade.php:11
 msgid "Forgot your password?"
 msgstr ""
 
-#: views/partials/header/intranet.blade.php:92
+#: views/partials/header/intranet.blade.php:107
 #: views/partials/modal/missing-data.blade.php:5
 msgid "Close"
 msgstr ""
@@ -940,15 +941,15 @@ msgid ""
 "update your information."
 msgstr ""
 
-#: views/partials/network-header.blade.php:6
+#: views/partials/network-header.blade.php:8
 msgid "Select intranet"
 msgstr ""
 
-#: views/partials/network-header.blade.php:30
+#: views/partials/network-header.blade.php:32
 msgid "Networks you are following"
 msgstr ""
 
-#: views/partials/network-header.blade.php:39
+#: views/partials/network-header.blade.php:41
 msgid "Show all networks"
 msgstr ""
 

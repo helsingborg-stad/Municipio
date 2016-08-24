@@ -41,7 +41,8 @@
                                             municipio_intranet_walkthrough(
                                                 'Användare',
                                                 '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
-                                                '.subnav'
+                                                '.subnav',
+                                                'right'
                                             )
                                         !!}
 

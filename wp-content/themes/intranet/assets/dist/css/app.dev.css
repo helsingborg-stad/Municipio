@@ -817,6 +817,22 @@ a.dropdown-open:focus {
       .walkthrough .dropdown-menu [data-action="walkthrough-cancel"]:hover {
         opacity: 1; }
 
+.walkthrough-right .dropdown-menu {
+  left: auto;
+  right: -10px; }
+  .walkthrough-right .dropdown-menu::before, .walkthrough-right .dropdown-menu::after {
+    left: auto;
+    right: 6px; }
+
+.walkthrough-center .dropdown-menu {
+  left: calc(50% + 14px);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%); }
+  .walkthrough-center .dropdown-menu::before, .walkthrough-center .dropdown-menu::after {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%); }
+
 .modularity-mod-intranet-u-links .only-if-editing,
 .modularity-mod-intranet-u-syste .only-if-editing {
   display: none; }

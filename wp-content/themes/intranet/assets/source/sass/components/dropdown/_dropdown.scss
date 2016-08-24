@@ -75,3 +75,29 @@ a.dropdown-open:focus {
         }
     }
 }
+
+.walkthrough-right {
+    .dropdown-menu {
+        left: auto;
+        right: -10px;
+
+        &::before,
+        &::after {
+            left: auto;
+            right: 6px;
+        }
+    }
+}
+
+.walkthrough-center {
+    .dropdown-menu {
+        left: calc(50% + 14px);
+        transform: translateX(-50%);
+
+        &::before,
+        &::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}
