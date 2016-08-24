@@ -342,11 +342,13 @@ class Search
             $markup[] = '<li><a class="next" href="' . $nextUrl . '">' . __('Next', 'municipio-intranet') . ' &raquo;</a></li>';
         }
 
-
         // End tag for ul
         $markup[] = '</ul>';
 
-        $this->data['pagination'] = implode('', $markup);
+        add_filter('HbgBlade/data', function ($data) use ($markup) {
+            $data['pagination'] = implode('', $markup);
+            return $data;
+        });
     }
 
     /**
