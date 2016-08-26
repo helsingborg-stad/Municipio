@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-22 16:13+0200\n"
-"PO-Revision-Date: 2016-08-24 14:12+0200\n"
+"POT-Creation-Date: 2016-08-26 09:31+0200\n"
+"PO-Revision-Date: 2016-08-26 09:33+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -181,28 +181,33 @@ msgstr "Användarsystem"
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
-#: library/SearchWp/Search.php:286
+#: library/Public/Helper.php:75 library/SearchWp/Search.php:286
 #: views/partials/modal/missing-data-fields/nav.blade.php:3
 #: views/partials/modal/missing-data-fields/nav.blade.php:7
 msgid "Previous"
 msgstr "Föregående"
 
-#: library/SearchWp/Search.php:342
+#: library/Public/Helper.php:76 library/SearchWp/Search.php:342
 #: views/partials/modal/missing-data-fields/nav.blade.php:11
 #: views/partials/modal/missing-data.blade.php:36
 msgid "Next"
 msgstr "Nästa"
+
+#: library/Public/Helper.php:77
+#: templates/module/modularity-mod-intranet-u-syste.php:64
+msgid "Cancel"
+msgstr "Avbryt"
 
 #: library/Theme/Enqueue.php:34
 #: templates/module/modularity-mod-intranet-u-links.php:21
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
-#: library/Theme/Enqueue.php:35 views/partials/network-header.blade.php:49
+#: library/Theme/Enqueue.php:35 views/partials/network-header.blade.php:59
 msgid "Subscribe"
 msgstr "Prenumerera"
 
-#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:51
+#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:61
 msgid "Unsubscribe"
 msgstr "Sluta prenumerera"
 
@@ -228,6 +233,18 @@ msgstr "Redigera"
 #: library/Theme/Enqueue.php:44
 msgid "Done"
 msgstr "Klar"
+
+#: library/Theme/Walkthrough.php:23
+msgid ""
+"You are in <strong>Walkthrough mode</strong>. Click one of the flashing dots "
+"to get started."
+msgstr ""
+"Du är i kom-igång läget. Klicka på en av de blinkande prickarna för att få "
+"mer information om en funktion."
+
+#: library/Theme/Walkthrough.php:29
+msgid "Exit"
+msgstr "Avsluta"
 
 #: library/User/AdministrationUnits.php:25
 #: library/User/AdministrationUnits.php:26
@@ -560,10 +577,6 @@ msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr "Välj system som du vill visa i din lista över ”mina system”."
 
-#: templates/module/modularity-mod-intranet-u-syste.php:64
-msgid "Cancel"
-msgstr "Avbryt"
-
 #: views/archive-incidents.blade.php:25
 msgid "Duration"
 msgstr "Varaktighet"
@@ -864,49 +877,57 @@ msgid "Complete your profile"
 msgstr "Färdigställ profilen"
 
 #: views/partials/header/intranet.blade.php:17
-#: views/partials/network-header.blade.php:15
+#: views/partials/network-header.blade.php:25
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/header/intranet.blade.php:28
+#: views/partials/header/intranet.blade.php:36
+msgid "Start help walkthrough"
+msgstr "Starta kom-igång läge"
+
+#: views/partials/header/intranet.blade.php:36
+msgid "Help"
+msgstr "Hjälp"
+
+#: views/partials/header/intranet.blade.php:37
 #: views/table-of-contents.blade.php:8
 msgid "A-Z"
 msgstr "A-Ö"
 
-#: views/partials/header/intranet.blade.php:41
+#: views/partials/header/intranet.blade.php:59
 msgid "Your profile"
 msgstr "Din profil"
 
-#: views/partials/header/intranet.blade.php:42
+#: views/partials/header/intranet.blade.php:60
 msgid "Settings"
 msgstr "Inställningar"
 
-#: views/partials/header/intranet.blade.php:43 views/search.blade.php:30
+#: views/partials/header/intranet.blade.php:61 views/search.blade.php:30
 msgid "Subscriptions"
 msgstr "Prenumerationer"
 
-#: views/partials/header/intranet.blade.php:45
+#: views/partials/header/intranet.blade.php:63
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:52
+#: views/partials/header/intranet.blade.php:69
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:57
+#: views/partials/header/intranet.blade.php:74
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/intranet.blade.php:68
+#: views/partials/header/intranet.blade.php:85
 msgid "Menu"
 msgstr "Meny"
 
-#: views/partials/header/intranet.blade.php:84
+#: views/partials/header/intranet.blade.php:101
 #: views/partials/user/loginform.blade.php:11
 msgid "Forgot your password?"
 msgstr "Glömt ditt lösenord?"
 
-#: views/partials/header/intranet.blade.php:92
+#: views/partials/header/intranet.blade.php:109
 #: views/partials/modal/missing-data.blade.php:5
 msgid "Close"
 msgstr "Stäng"
@@ -960,15 +981,15 @@ msgid ""
 msgstr ""
 "Din profil är inte komplett. Följ guiden för att uppdatera din information."
 
-#: views/partials/network-header.blade.php:6
+#: views/partials/network-header.blade.php:16
 msgid "Select intranet"
 msgstr "Välj intranät"
 
-#: views/partials/network-header.blade.php:30
+#: views/partials/network-header.blade.php:40
 msgid "Networks you are following"
 msgstr "Nätverk som du prenumererar på"
 
-#: views/partials/network-header.blade.php:39
+#: views/partials/network-header.blade.php:49
 msgid "Show all networks"
 msgstr "Visa alla nätverk"
 
