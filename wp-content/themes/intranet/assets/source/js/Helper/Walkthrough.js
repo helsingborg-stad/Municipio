@@ -41,7 +41,6 @@ Intranet.Helper.Walkthrough = (function ($) {
         });
 
         $(window).on('resize load', function () {
-            console.log($('.walkthrough .is-highlighted:not(:visible)').length);
             if ($('.walkthrough .is-highlighted:not(:visible)').length) {
                 $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
             }
