@@ -47,10 +47,13 @@ a.dropdown-open:focus {
 .walkthrough {
     position: absolute;
     top: 100%;
+    left: 0;
+    right: 0;
     margin-top: -7px;
     z-index: $level-9;
 
     .dropdown-menu {
+        color: $base-font-color;
         margin-left: -14px !important;
         margin-top: 5px !important;
         width: 350px;
@@ -73,6 +76,11 @@ a.dropdown-open:focus {
             }
         }
     }
+}
+
+.walkthrough-highlight {
+    z-index: 999999999;
+    position: relative !important;
 }
 
 .walkthrough-center {

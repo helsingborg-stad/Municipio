@@ -36,23 +36,24 @@ Intranet.Helper.Walkthrough = (function ($) {
         var highlight = $element.parent('.walkthrough').attr('data-highlight');
 
         if ($element.hasClass('is-highlighted')) {
-            $(highlight).css('zIndex', $(highlight).data('zindex'));
-
             if ($(highlight).data('position')) {
                 $(highlight).css('position', $(highlight).data('position'));
             }
 
             $(highlight).prev('.backdrop').remove();
+            $(highlight).removeClass('walkthrough-highlight');
             $element.removeClass('is-highlighted');
+
             return false;
         }
 
-        $(highlight).before('<div class="backdrop"></div>').data('zindex', $(highlight).css('zIndex')).css('zIndex', '9999999');
+        $(highlight).before('<div class="backdrop"></div>');
 
         if ($(highlight).css('position') !== 'absolute' || $(highlight).css('position') !== 'relative') {
             $(highlight).data('position', $(highlight).css('position')).css('position', 'relative');
         }
 
+         $(highlight).addClass('walkthrough-highlight');
         $element.addClass('is-highlighted');
 
         return true;
