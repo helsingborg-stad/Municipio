@@ -827,9 +827,7 @@ a.dropdown-open:focus {
         border-right: none !important;
         border-radius: 0 !important; }
         .walkthrough .dropdown-menu::after, .walkthrough .dropdown-menu::before {
-          left: 50%;
-          -webkit-transform: translateX(-50%);
-                  transform: translateX(-50%); } }
+          display: none !important; } }
     .walkthrough .dropdown-menu footer {
       margin-top: 10px; }
     .walkthrough .dropdown-menu [data-action="walkthrough-cancel"] {

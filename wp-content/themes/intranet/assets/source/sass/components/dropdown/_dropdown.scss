@@ -72,8 +72,7 @@ a.dropdown-open:focus {
 
             &::after,
             &::before {
-                left: 50%;
-                transform: translateX(-50%);
+                display: none !important;
             }
         }
 

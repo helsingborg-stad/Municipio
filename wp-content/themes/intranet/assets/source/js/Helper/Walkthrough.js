@@ -39,6 +39,13 @@ Intranet.Helper.Walkthrough = (function ($) {
             $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
             return;
         });
+
+        $(window).on('resize load', function () {
+            console.log($('.walkthrough .is-highlighted:not(:visible)').length);
+            if ($('.walkthrough .is-highlighted:not(:visible)').length) {
+                $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
+            }
+        });
     }
 
     Walkthrough.prototype.highlightArea = function (element) {
