@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-26 14:13+0200\n"
-"PO-Revision-Date: 2016-08-26 14:14+0200\n"
+"POT-Creation-Date: 2016-08-26 14:15+0200\n"
+"PO-Revision-Date: 2016-08-26 14:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -710,24 +710,18 @@ msgstr "Gatuadress"
 msgid "City"
 msgstr "Stad"
 
-#: views/author-edit.blade.php:220
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:4
-msgid "Area of responsibility"
-msgstr "Ansvarsområden"
+#: views/author-edit.blade.php:220 views/author-edit.blade.php:232
+#: views/author.blade.php:140
+msgid "Work assignments"
+msgstr "Arbetsuppgifter"
 
 #: views/author-edit.blade.php:225
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:9
 msgid ""
-"Please add your areas of responsibility. This will make it easier to find "
-"you when searching."
+"Please add your work assignments. This will make it easier to find you when "
+"searching."
 msgstr ""
-"Lägg till ansvarsområden. Detta gör det lättare för andra att hitta dig med "
-"hjälp av sökfunktionen."
-
-#: views/author-edit.blade.php:232
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:16
-msgid "Responsibility"
-msgstr "Ansvar"
+"Lägg till dina arbetsuppgifter. Detta kommer göra det lättare för andra att "
+"hitta dig genom sök."
 
 #: views/author-edit.blade.php:236
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:20
@@ -863,10 +857,6 @@ msgstr "Min profil på Snapchat"
 msgid "Edit settings"
 msgstr "Redigera inställningar"
 
-#: views/author.blade.php:140
-msgid "Work assignments"
-msgstr "Arbetsuppgifter"
-
 #: views/front-page.blade.php:18
 msgid "Your profile is not complete!"
 msgstr "Din profil är inte komplett!"
@@ -954,6 +944,22 @@ msgid ""
 msgstr ""
 "Om du vill att andra användare ska kunna se ditt telefonnummer så behöver du "
 "lägga till det här nedan."
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:4
+msgid "Area of responsibility"
+msgstr "Ansvarsområden"
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:9
+msgid ""
+"Please add your areas of responsibility. This will make it easier to find "
+"you when searching."
+msgstr ""
+"Lägg till ansvarsområden. Detta gör det lättare för andra att hitta dig med "
+"hjälp av sökfunktionen."
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:16
+msgid "Responsibility"
+msgstr "Ansvar"
 
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
 msgid "Added responsibilities"

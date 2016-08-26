@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-26 14:13+0200\n"
+"POT-Creation-Date: 2016-08-26 14:15+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -699,21 +699,15 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: views/author-edit.blade.php:220
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:4
-msgid "Area of responsibility"
+#: views/author-edit.blade.php:220 views/author-edit.blade.php:232
+#: views/author.blade.php:140
+msgid "Work assignments"
 msgstr ""
 
 #: views/author-edit.blade.php:225
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:9
 msgid ""
-"Please add your areas of responsibility. This will make it easier to find "
-"you when searching."
-msgstr ""
-
-#: views/author-edit.blade.php:232
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:16
-msgid "Responsibility"
+"Please add your work assignments. This will make it easier to find you when "
+"searching."
 msgstr ""
 
 #: views/author-edit.blade.php:236
@@ -846,10 +840,6 @@ msgstr ""
 msgid "Edit settings"
 msgstr ""
 
-#: views/author.blade.php:140
-msgid "Work assignments"
-msgstr ""
-
 #: views/front-page.blade.php:18
 msgid "Your profile is not complete!"
 msgstr ""
@@ -934,6 +924,20 @@ msgstr ""
 msgid ""
 "If you want other users to be able to find your phone number on your "
 "profile you will need to add your phone number below."
+msgstr ""
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:4
+msgid "Area of responsibility"
+msgstr ""
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:9
+msgid ""
+"Please add your areas of responsibility. This will make it easier to find "
+"you when searching."
+msgstr ""
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:16
+msgid "Responsibility"
 msgstr ""
 
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
