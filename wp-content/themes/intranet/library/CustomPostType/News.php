@@ -16,6 +16,40 @@ class News
 
         add_action('pre_get_posts', array($this, 'stickySorting'));
         add_filter('posts_orderby', array($this, 'sortStickyPost'), 10, 2);
+
+        add_filter('the_content', array($this, 'oldNotice'));
+    }
+
+    /**
+     * Adds a notice to news (single page) older than 60 days
+     * @param  string $content Post content
+     * @return string          Post content with notice
+     */
+    public function oldNotice($content)
+    {
+        global $post;
+        if ($post->post_type !== 'intranet-news' || !is_single()) {
+            return $content;
+        }
+
+        $created = date_create($post->post_date);
+        $now = date_create();
+        $diff = date_diff($created, $now);
+
+        if ($diff->days < 61) {
+            return $content;
+        }
+
+        $content = '
+            <div class="notice notice-sm info">
+                <div class="grid grid-va-middle">
+                    <div class="grid-fit-content"><i class="pricon pricon-clock"></i></div>
+                    <div class="grid-auto no-padding">' . __('This post is more than 60 days old', 'municipio-intranet') . '</div>
+                </div>
+            </div>
+        ' . $content;
+
+        return $content;
     }
 
     /**
