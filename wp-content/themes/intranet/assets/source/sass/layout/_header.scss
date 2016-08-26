@@ -51,6 +51,10 @@ body.admin-bar {
             font-size: .9em;
         }
 
+        > ul > li {
+            position: relative;
+        }
+
         .subnav-icon a {
             .pricon {
                 opacity: .5;
