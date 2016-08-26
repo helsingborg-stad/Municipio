@@ -197,6 +197,16 @@ Intranet.Helper.Walkthrough = (function ($) {
             var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
             this.previous(currentStep);
         }.bind(this));
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough[data-step]:visible').length < 2) {
+                $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
+                return;
+            }
+
+            $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
+            return;
+        });
     }
 
     Walkthrough.prototype.highlightArea = function (element) {
@@ -221,7 +231,7 @@ Intranet.Helper.Walkthrough = (function ($) {
             $(highlight).data('position', $(highlight).css('position')).css('position', 'relative');
         }
 
-         $(highlight).addClass('walkthrough-highlight');
+        $(highlight).addClass('walkthrough-highlight');
         $element.addClass('is-highlighted');
 
         return true;
@@ -232,10 +242,22 @@ Intranet.Helper.Walkthrough = (function ($) {
 
         var currentIndex = $current.attr('data-step');
         var nextIndex = parseInt(currentIndex) + 1;
-        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
+        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
+
+        var whileInt = 0;
+        while ($nextItem.length === 0) {
+            whileInt++;
+
+            if (whileInt === 20) {
+                break;
+            }
+
+            nextIndex++;
+            $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
+        }
 
         if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough[data-step="1"]');
+            $nextItem = $('.walkthrough[data-step]:visible').first();
         }
 
         $current.find('.blipper').trigger('click');
