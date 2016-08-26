@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-26 09:31+0200\n"
-"PO-Revision-Date: 2016-08-26 09:33+0200\n"
+"POT-Creation-Date: 2016-08-26 14:13+0200\n"
+"PO-Revision-Date: 2016-08-26 14:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -70,52 +70,52 @@ msgstr "Intranätets kortnamn"
 msgid "Password"
 msgstr "Lösenord"
 
-#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:158
+#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:192
 msgctxt "add new button"
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:159
+#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:193
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:160
+#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:194
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:161
+#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:195
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:162
+#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:196
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:163
+#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:197
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:164
+#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:198
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:165
+#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:199
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:166
+#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:200
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:167
+#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:201
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
@@ -124,15 +124,19 @@ msgstr "Inga %s i papperskorgen"
 msgid "incidents"
 msgstr "driftstörningar"
 
-#: library/CustomPostType/News.php:82
+#: library/CustomPostType/News.php:47
+msgid "This post is more than 60 days old"
+msgstr "Inlägget är mer än 60 dagar gammalt"
+
+#: library/CustomPostType/News.php:116
 msgid "Pin to top"
 msgstr "Klistra till toppen"
 
-#: library/CustomPostType/News.php:120
+#: library/CustomPostType/News.php:154
 msgid "Exclude from main news feed"
 msgstr "Exkludera från huvudsidans nyhetsflöde"
 
-#: library/CustomPostType/News.php:181
+#: library/CustomPostType/News.php:215
 msgid "news"
 msgstr "nyheter"
 
@@ -731,9 +735,8 @@ msgid "Add area of responsibility"
 msgstr "Lägg till ansvarsområde"
 
 #: views/author-edit.blade.php:241
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
-msgid "Added responsibilities"
-msgstr "Dina ansvarsområden"
+msgid "Added work assignments"
+msgstr "Arbetsuppgifter som du lagt till"
 
 #: views/author-edit.blade.php:265 views/author.blade.php:125
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
@@ -861,8 +864,8 @@ msgid "Edit settings"
 msgstr "Redigera inställningar"
 
 #: views/author.blade.php:140
-msgid "Responsibilities"
-msgstr "Ansvarsområden"
+msgid "Work assignments"
+msgstr "Arbetsuppgifter"
 
 #: views/front-page.blade.php:18
 msgid "Your profile is not complete!"
@@ -951,6 +954,10 @@ msgid ""
 msgstr ""
 "Om du vill att andra användare ska kunna se ditt telefonnummer så behöver du "
 "lägga till det här nedan."
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
+msgid "Added responsibilities"
+msgstr "Dina ansvarsområden"
 
 #: views/partials/modal/missing-data.blade.php:4
 msgid "We're missing some information about you"
@@ -1066,6 +1073,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Responsibilities"
+#~ msgstr "Ansvarsområden"
 
 #~ msgid "Manage subscriptions"
 #~ msgstr "Administrera prenumerationer"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-26 09:31+0200\n"
+"POT-Creation-Date: 2016-08-26 14:13+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -70,52 +70,52 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:158
+#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:192
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:159
+#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:193
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:160
+#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:194
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:161
+#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:195
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:162
+#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:196
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:163
+#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:197
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:164
+#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:198
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:165
+#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:199
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:166
+#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:200
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:167
+#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:201
 #, php-format
 msgid "No %s in trash"
 msgstr ""
@@ -124,15 +124,19 @@ msgstr ""
 msgid "incidents"
 msgstr ""
 
-#: library/CustomPostType/News.php:82
+#: library/CustomPostType/News.php:47
+msgid "This post is more than 60 days old"
+msgstr ""
+
+#: library/CustomPostType/News.php:116
 msgid "Pin to top"
 msgstr ""
 
-#: library/CustomPostType/News.php:120
+#: library/CustomPostType/News.php:154
 msgid "Exclude from main news feed"
 msgstr ""
 
-#: library/CustomPostType/News.php:181
+#: library/CustomPostType/News.php:215
 msgid "news"
 msgstr ""
 
@@ -718,8 +722,7 @@ msgid "Add area of responsibility"
 msgstr ""
 
 #: views/author-edit.blade.php:241
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
-msgid "Added responsibilities"
+msgid "Added work assignments"
 msgstr ""
 
 #: views/author-edit.blade.php:265 views/author.blade.php:125
@@ -844,7 +847,7 @@ msgid "Edit settings"
 msgstr ""
 
 #: views/author.blade.php:140
-msgid "Responsibilities"
+msgid "Work assignments"
 msgstr ""
 
 #: views/front-page.blade.php:18
@@ -931,6 +934,10 @@ msgstr ""
 msgid ""
 "If you want other users to be able to find your phone number on your "
 "profile you will need to add your phone number below."
+msgstr ""
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
+msgid "Added responsibilities"
 msgstr ""
 
 #: views/partials/modal/missing-data.blade.php:4

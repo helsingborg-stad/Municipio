@@ -137,7 +137,7 @@
                 @if (count($userResponsibilities) > 0)
                 <div class="grid-md-6">
                     <div class="box box-panel box-panel-secondary">
-                        <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
+                        <h4 class="box-title"><?php _e('Work assignments', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <ul class="tags">
                                 @foreach ($userResponsibilities as $item)

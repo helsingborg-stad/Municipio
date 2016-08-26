@@ -238,7 +238,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="tag-manager-selected">
-                                                    <label class="label-sm"><?php _e('Added responsibilities', 'municipio-intranet'); ?></label>
+                                                    <label class="label-sm"><?php _e('Added work assignments', 'municipio-intranet'); ?></label>
                                                     <ul class="tags">
                                                         @foreach ($userResponsibilities as $item)
                                                         <li>
