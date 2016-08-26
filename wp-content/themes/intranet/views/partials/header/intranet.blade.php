@@ -33,26 +33,26 @@
                     <div class="grid-fit-content">
                         <nav class="subnav clearfix">
                             <ul class="nav nav-horizontal">
-                                <li class="subnav-icon"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
-                                <li><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
+                                <li class="subnav-icon hidden-xs"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
+                                <li class="hidden-xs"><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
 
                                 @if ($currentUser->ID > 0)
                                     <li>
-                                        {!!
-                                            municipio_intranet_walkthrough(
-                                                'Användare',
-                                                '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
-                                                '.subnav',
-                                                'center',
-                                                'right'
-                                            )
-                                        !!}
-
                                         <a href="#" data-dropdown=".login-dropdown">
                                             @if (get_the_author_meta('user_profile_picture', get_current_user_id()))
                                             <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_picture', get_current_user_id()) }}');"></span>
                                             @endif
                                             <span class="hidden-sm hidden-xs">{{ municipio_intranet_get_first_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i></span>
+
+                                            {!!
+                                                municipio_intranet_walkthrough(
+                                                    'Användare',
+                                                    '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
+                                                    '.subnav',
+                                                    'center',
+                                                    'right'
+                                                )
+                                            !!}
                                         </a>
 
                                         <ul class="dropdown-menu login-dropdown dropdown-menu-arrow dropdown-menu-arrow-right">
