@@ -30,6 +30,11 @@ body.admin-bar {
             fill: #fff;
             height: 52px;
             width: 34px;
+
+            @media #{$screen-below-sm} {
+                height: 37px;
+                width: 24px;
+            }
         }
     }
 
@@ -56,14 +61,8 @@ body.admin-bar {
             }
         }
 
-        a.dropdown-open {
-
-        }
-
-        @media #{$screen-md-up} {
-            li {
-                position: relative;
-            }
+        a[data-dropdown=".login-dropdown"] {
+            position: relative;
         }
 
         > ul > li + li {
