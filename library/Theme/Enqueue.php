@@ -7,8 +7,8 @@ class Enqueue
     public function __construct()
     {
         // Enqueue scripts and styles
-        add_action('wp_enqueue_scripts', array($this, 'style'));
-        add_action('wp_enqueue_scripts', array($this, 'script'));
+        add_action('wp_enqueue_scripts', array($this, 'style'), 5);
+        add_action('wp_enqueue_scripts', array($this, 'script'), 5);
 
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
@@ -79,6 +79,7 @@ class Enqueue
             wp_register_script('hbg-prime', '//helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
         }
 
+        //Localization
         wp_localize_script('hbg-prime', 'HbgPrimeArgs', array(
             'cookieConsent' => array(
                 'show'      => get_field('cookie_consent_active', 'option'),
@@ -95,7 +96,6 @@ class Enqueue
 
         wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js', '', '1.0.0', true);
         wp_enqueue_script('municipio');
-
     }
 
     public function moveScriptsToFooter()
