@@ -13,7 +13,7 @@
     <meta name="moddate" content="{{ the_modified_time('d M Y') }}">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="format-detection" content = "telephone=yes">
+    <meta name="format-detection" content="telephone=yes">
     <meta name="HandheldFriendly" content="true" />
 
     <script>
