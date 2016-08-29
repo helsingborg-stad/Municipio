@@ -10,24 +10,32 @@ class Login
         add_action('wp_login_failed', array($this, 'frontendLoginFailed'));
         add_action('wp_logout', array($this, 'frontendLogout'));
 
-        add_filter('HbgBlade/data', function ($data) {
-            if (!isset($_COOKIE['login_reminder'])) {
-                setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
-                $data['showLoginReminder'] = true;
-                return $data;
-            }
+        add_filter('HbgBlade/data', array($this, 'loginReminder'));
+    }
 
-            $lastReminder = date_create($_COOKIE['login_reminder']);
-            $now = date_create(date('Y-m-d H:i:s'));
-            $diff = date_diff($lastReminder, $now);
-
-            if ($diff->days > 6) {
-                setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
-                $data['showLoginReminder'] = true;
-            }
-
+    public function loginReminder($data)
+    {
+        if (is_user_logged_in()) {
+            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
             return $data;
-        });
+        }
+
+        if (!isset($_COOKIE['login_reminder'])) {
+            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+            $data['showLoginReminder'] = true;
+            return $data;
+        }
+
+        $lastReminder = date_create($_COOKIE['login_reminder']);
+        $now = date_create(date('Y-m-d H:i:s'));
+        $diff = date_diff($lastReminder, $now);
+
+        if ($diff->days > 6) {
+            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+            $data['showLoginReminder'] = true;
+        }
+
+        return $data;
     }
 
     public function adMapping($username, $user)
