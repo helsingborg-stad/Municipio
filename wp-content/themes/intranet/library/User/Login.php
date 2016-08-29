@@ -9,6 +9,25 @@ class Login
         add_action('wp_login', array($this, 'adMapping'), 10, 2);
         add_action('wp_login_failed', array($this, 'frontendLoginFailed'));
         add_action('wp_logout', array($this, 'frontendLogout'));
+
+        add_filter('HbgBlade/data', function ($data) {
+            if (!isset($_COOKIE['login_reminder'])) {
+                setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+                $data['showLoginReminder'] = true;
+                return $data;
+            }
+
+            $lastReminder = date_create($_COOKIE['login_reminder']);
+            $now = date_create(date('Y-m-d H:i:s'));
+            $diff = date_diff($lastReminder, $now);
+
+            if ($diff->days > 6) {
+                setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+                $data['showLoginReminder'] = true;
+            }
+
+            return $data;
+        });
     }
 
     public function adMapping($username, $user)

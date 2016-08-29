@@ -94,23 +94,8 @@
     </div>
 </nav>
 
-<div id="forgot-password" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="modal-header">
-            <a class="btn btn-close" href="#close"></a>
-            <h2 class="modal-title"><?php _e('Forgot your password?', 'municipio-intranet'); ?></h2>
-        </div>
-        <div class="modal-body">
-            <article>
-                {!! get_site_option('password-reset-instructions') !!}
-            </article>
-        </div>
-        <div class="modal-footer">
-            <a href="#close" class="btn btn-default"><?php _e('Close', 'municipio-intranet'); ?></a>
-        </div>
-    </div>
-    <a href="#close" class="backdrop"></a>
-</div>
+@include('partials.user.modal-login')
+@include('partials.user.modal-password')
 
 @if (strlen($navigation['mobileMenu']) > 0)
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
