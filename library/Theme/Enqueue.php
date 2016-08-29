@@ -96,12 +96,6 @@ class Enqueue
         wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js', '', '1.0.0', true);
         wp_enqueue_script('municipio');
 
-        /*
-        if (get_field('show_google_translate', 'option') !== false && get_field('show_google_translate', 'option') != 'false') {
-            wp_register_script('google-translate', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', '', '1.0.0', true);
-            wp_enqueue_script('google-translate');
-        }
-        */
     }
 
     public function moveScriptsToFooter()
