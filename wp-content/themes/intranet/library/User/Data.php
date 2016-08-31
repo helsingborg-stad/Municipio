@@ -17,11 +17,14 @@ class Data
     );
 
     public static $suggestedMetaFields = array(
-        'user_phone'            => 'user_phone',
-        'user_skills'           => 'user_skills',
-        'user_responsibilities' => 'user_responsibilities',
-        'user_profile_picture'  => 'user_profile_picture',
-        'user_about'            => 'user_about'
+        'user_phone'                        => 'user_phone',
+        'user_skills'                       => 'user_skills',
+        'user_responsibilities'             => 'user_responsibilities',
+        'user_profile_picture'              => 'user_profile_picture',
+        'user_about'                        => 'user_about',
+        'user_visiting_address[workplace]'  => 'user_visiting_address',
+        'user_visiting_address[street]'     => 'user_visiting_address',
+        'user_visiting_address[city]' => 'user_visiting_address'
     );
 
     public function __construct()
@@ -161,6 +164,8 @@ class Data
             $fields[$field] = $template;
         }
 
+        $fields = array_unique($fields);
+
         return $fields;
     }
 
@@ -178,12 +183,35 @@ class Data
         $fields = array();
 
         foreach (self::$requiredMetaFields as $field => $template) {
-            if (!empty(get_the_author_meta($field, $userId))) {
+            // Check if field has array key
+            preg_match_all('/\\[([a-z|A-Z|0-9|_|-]+)\]/i', $field, $matches);
+
+            // If field has array key, remove the keys from the $field variable
+            $matches = $matches[1];
+            if (!empty($matches)) {
+                $field = preg_replace('/\\[([a-z|A-Z|0-9|_|-]+)\]/i', '', $field);
+            }
+
+            // Get the "base" meta value
+            $metaValue = get_the_author_meta($field, $userId);
+
+            // Get array key meta value (if key exist in $matches)
+            if (!empty($matches)) {
+                foreach ($matches as $value) {
+                    $metaValue = $metaValue[$value];
+                }
+            }
+
+            // Return if non-empty value
+            if (!empty($metaValue)) {
                 continue;
             }
 
+            // Add to array of empty/missing fields
             $fields[$field] = $template;
         }
+
+        $fields = array_unique($fields);
 
         return $fields;
     }
@@ -202,12 +230,35 @@ class Data
         $fields = array();
 
         foreach (self::$suggestedMetaFields as $field => $template) {
-            if (!empty(get_the_author_meta($field, $userId))) {
+            // Check if field has array key
+            preg_match_all('/\\[([a-z|A-Z|0-9|_|-]+)\]/i', $field, $matches);
+
+            // If field has array key, remove the keys from the $field variable
+            $matches = $matches[1];
+            if (!empty($matches)) {
+                $field = preg_replace('/\\[([a-z|A-Z|0-9|_|-]+)\]/i', '', $field);
+            }
+
+            // Get the "base" meta value
+            $metaValue = get_the_author_meta($field, $userId);
+
+            // Get array key meta value (if key exist in $matches)
+            if (!empty($matches)) {
+                foreach ($matches as $value) {
+                    $metaValue = $metaValue[$value];
+                }
+            }
+
+            // Return if non-empty value
+            if (!empty($metaValue)) {
                 continue;
             }
 
+            // Add to array of empty/missing fields
             $fields[$field] = $template;
         }
+
+        $fields = array_unique($fields);
 
         return $fields;
     }
