@@ -118,8 +118,9 @@ body.admin-bar {
     #site-header .subnav > ul > li > a {
       padding: 0;
       font-size: .9em; }
-    #site-header .subnav > ul > li {
-      position: relative; }
+    @media (min-width: 769px) {
+      #site-header .subnav > ul > li {
+        position: relative; } }
     #site-header .subnav .subnav-icon a .pricon {
       opacity: .5; }
     #site-header .subnav .subnav-icon a:hover .pricon {

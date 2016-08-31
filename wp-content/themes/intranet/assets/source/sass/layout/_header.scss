@@ -51,8 +51,10 @@ body.admin-bar {
             font-size: .9em;
         }
 
-        > ul > li {
-            position: relative;
+        @media #{$screen-md-up} {
+            > ul > li {
+                position: relative;
+            }
         }
 
         .subnav-icon a {
