@@ -1,6 +1,9 @@
 Intranet = Intranet || {};
 Intranet.Stripe = (function ($) {
 
+    var targetSelector = '.hero .stripe';
+    var $targetElement = $(targetSelector);
+
     var playLog = [];
     var magicCode = [0, 1, 2, 3, 4];
     var magicHappend = false;
@@ -52,28 +55,28 @@ Intranet.Stripe = (function ($) {
      * Should be named as the class itself
      */
     function Stripe() {
-        if ($('.stripe').length > 0) {
+        if ($targetElement.length > 0) {
             $.each(sounds, function (index, item) {
                 new Audio(item);
             });
 
-            $('.stripe').addClass('easter-egg').append('<ul class="stripe-instruments"></ul>');
+            $targetElement.addClass('easter-egg').append('<ul class="stripe-instruments"></ul>');
 
             $.each(instruments, function (index, item) {
-                $('.stripe .stripe-instruments').append('<li><button data-instrument-key="' + index + '"><img src="' + item.icon + '"><span>' + item.name + '</span></button></li>');
+                $targetElement.find('.stripe-instruments').append('<li><button data-instrument-key="' + index + '"><img src="' + item.icon + '"><span>' + item.name + '</span></button></li>');
             });
         }
 
-        $('.stripe div').on('click', function (e) {
+        $targetElement.find('div').on('click', function (e) {
             var soundIndex = $(e.target).closest('div').index();
             this.play(soundIndex);
             this.playLog(soundIndex);
         }.bind(this));
 
-        $(document).on('click', '.stripe .stripe-instruments button',  function (e) {
+        $(document).on('click', '.hero .stripe .stripe-instruments button',  function (e) {
             var $btn = $(e.target).closest('button');
 
-            $('.stripe .stripe-instruments button.active').removeClass('active');
+            $targetElement.find('.stripe-instruments button.active').removeClass('active');
             $btn.addClass('active');
 
             var instrumentKey = $btn.attr('data-instrument-key');
@@ -82,8 +85,8 @@ Intranet.Stripe = (function ($) {
     }
 
     Stripe.prototype.setInstrument = function(instrumentKey) {
-        $('.stripe .stripe-instruments button.active').removeClass('active');
-        $('.stripe .stripe-instruments button[data-instrument-key="' + instrumentKey + '"]').addClass('active');
+        $targetElement.find('.stripe-instruments button.active').removeClass('active');
+        $targetElement.find('.stripe-instruments button[data-instrument-key="' + instrumentKey + '"]').addClass('active');
 
         activeInstrument = instruments[instrumentKey].path;
         sounds = [
@@ -131,7 +134,7 @@ Intranet.Stripe = (function ($) {
             return;
         }
 
-        $('.stripe .stripe-instruments').addClass('show');
+        $targetElement.find('.stripe-instruments').addClass('show');
         this.setInstrument(0);
         magicHappend = true;
 

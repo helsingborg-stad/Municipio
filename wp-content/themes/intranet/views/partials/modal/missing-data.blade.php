@@ -2,7 +2,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2 class="modal-title"><?php _e('We\'re missing some information about you', 'municipio-intranet'); ?></h2>
+
+            @if (!$show_userdata_guide)
             <a href="#close" class="modal-close btn btn-close" title="<?php _e('Close', 'municipio-intranet'); ?>"></a>
+            @endif
         </div>
         <div class="modal-body">
             <div class="grid">
@@ -50,5 +53,9 @@
         </div>
     </div>
 
+    @if (!$show_userdata_guide)
     <a href="#" class="backdrop"></a>
+    @else
+    <div class="backdrop"></div>
+    @endif
 </div>

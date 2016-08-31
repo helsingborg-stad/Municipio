@@ -1,14 +1,14 @@
 <div class="accordion-nav clearfix">
     <?php if ($i === 1) : ?>
-        <label class="btn btn-md pull-left" data-guide-nav="prev" for="accordion-missing-instruction"><i class="fa fa-caret-left"></i> <?php _e('Previous', 'modularity-guides'); ?></label>
+        <label class="btn btn-md pull-left" data-guide-nav="prev" for="accordion-missing-instruction"><i class="fa fa-caret-left"></i> <?php _e('Previous', 'municipio-intranet'); ?></label>
     <?php endif; ?>
 
     <?php if ($i > 1) : ?>
-        <label class="btn btn-md pull-left" data-guide-nav="prev" for="accordion-missing-{{ $i-1 }}"><i class="fa fa-caret-left"></i> <?php _e('Previous', 'modularity-guides'); ?></label>
+        <label class="btn btn-md pull-left" data-guide-nav="prev" for="accordion-missing-{{ $i-1 }}"><i class="fa fa-caret-left"></i> <?php _e('Previous', 'municipio-intranet'); ?></label>
     <?php endif; ?>
 
     <?php if (count($missing) > 1 && $i !== count($missing)) : ?>
-    <label class="btn btn-md btn-primary pull-right" data-guide-nav="next" for="accordion-missing-{{ $i+1 }}"><?php _e('Next', 'modularity-guides'); ?> <i class="fa fa-caret-right"></i></label>
+    <label class="btn btn-md btn-primary pull-right" data-guide-nav="next" for="accordion-missing-{{ $i+1 }}"><?php _e('Next', 'municipio-intranet'); ?> <i class="fa fa-caret-right"></i></label>
     <?php endif; ?>
 
     <?php if ($i === count($missing)) : ?>

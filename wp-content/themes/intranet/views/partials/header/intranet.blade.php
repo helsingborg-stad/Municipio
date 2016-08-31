@@ -33,26 +33,26 @@
                     <div class="grid-fit-content">
                         <nav class="subnav clearfix">
                             <ul class="nav nav-horizontal">
-                                <li class="subnav-icon"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
-                                <li><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
+                                <li class="subnav-icon hidden-xs"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
+                                <li class="hidden-xs hidden-sm"><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
 
                                 @if ($currentUser->ID > 0)
                                     <li>
-                                        {!!
-                                            municipio_intranet_walkthrough(
-                                                'Användare',
-                                                '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
-                                                '.subnav',
-                                                'center',
-                                                'right'
-                                            )
-                                        !!}
-
                                         <a href="#" data-dropdown=".login-dropdown">
                                             @if (get_the_author_meta('user_profile_picture', get_current_user_id()))
                                             <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_picture', get_current_user_id()) }}');"></span>
                                             @endif
                                             <span class="hidden-sm hidden-xs">{{ municipio_intranet_get_first_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i></span>
+
+                                            {!!
+                                                municipio_intranet_walkthrough(
+                                                    'Användare',
+                                                    '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
+                                                    '.subnav',
+                                                    'center',
+                                                    'right'
+                                                )
+                                            !!}
                                         </a>
 
                                         <ul class="dropdown-menu login-dropdown dropdown-menu-arrow dropdown-menu-arrow-right">
@@ -94,23 +94,8 @@
     </div>
 </nav>
 
-<div id="forgot-password" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-        <div class="modal-header">
-            <a class="btn btn-close" href="#close"></a>
-            <h2 class="modal-title"><?php _e('Forgot your password?', 'municipio-intranet'); ?></h2>
-        </div>
-        <div class="modal-body">
-            <article>
-                {!! get_site_option('password-reset-instructions') !!}
-            </article>
-        </div>
-        <div class="modal-footer">
-            <a href="#close" class="btn btn-default"><?php _e('Close', 'municipio-intranet'); ?></a>
-        </div>
-    </div>
-    <a href="#close" class="backdrop"></a>
-</div>
+@include('partials.user.modal-login')
+@include('partials.user.modal-password')
 
 @if (strlen($navigation['mobileMenu']) > 0)
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">

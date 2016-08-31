@@ -6,6 +6,8 @@ class General
 {
     public function __construct()
     {
+        add_filter('searchwp_and_logic', '__return_true');
+        add_filter('searchwp_keyword_stem_locale', '__return_true');
         add_filter('searchwp_common_words', array($this, 'commonWords'));
         add_filter('searchwp_custom_stemmer', array($this, 'stem'));
 

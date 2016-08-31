@@ -1,6 +1,9 @@
 Intranet = Intranet || {};
 Intranet.Stripe = (function ($) {
 
+    var targetSelector = '.hero .stripe';
+    var $targetElement = $(targetSelector);
+
     var playLog = [];
     var magicCode = [0, 1, 2, 3, 4];
     var magicHappend = false;
@@ -52,28 +55,28 @@ Intranet.Stripe = (function ($) {
      * Should be named as the class itself
      */
     function Stripe() {
-        if ($('.stripe').length > 0) {
+        if ($targetElement.length > 0) {
             $.each(sounds, function (index, item) {
                 new Audio(item);
             });
 
-            $('.stripe').addClass('easter-egg').append('<ul class="stripe-instruments"></ul>');
+            $targetElement.addClass('easter-egg').append('<ul class="stripe-instruments"></ul>');
 
             $.each(instruments, function (index, item) {
-                $('.stripe .stripe-instruments').append('<li><button data-instrument-key="' + index + '"><img src="' + item.icon + '"><span>' + item.name + '</span></button></li>');
+                $targetElement.find('.stripe-instruments').append('<li><button data-instrument-key="' + index + '"><img src="' + item.icon + '"><span>' + item.name + '</span></button></li>');
             });
         }
 
-        $('.stripe div').on('click', function (e) {
+        $targetElement.find('div').on('click', function (e) {
             var soundIndex = $(e.target).closest('div').index();
             this.play(soundIndex);
             this.playLog(soundIndex);
         }.bind(this));
 
-        $(document).on('click', '.stripe .stripe-instruments button',  function (e) {
+        $(document).on('click', '.hero .stripe .stripe-instruments button',  function (e) {
             var $btn = $(e.target).closest('button');
 
-            $('.stripe .stripe-instruments button.active').removeClass('active');
+            $targetElement.find('.stripe-instruments button.active').removeClass('active');
             $btn.addClass('active');
 
             var instrumentKey = $btn.attr('data-instrument-key');
@@ -82,8 +85,8 @@ Intranet.Stripe = (function ($) {
     }
 
     Stripe.prototype.setInstrument = function(instrumentKey) {
-        $('.stripe .stripe-instruments button.active').removeClass('active');
-        $('.stripe .stripe-instruments button[data-instrument-key="' + instrumentKey + '"]').addClass('active');
+        $targetElement.find('.stripe-instruments button.active').removeClass('active');
+        $targetElement.find('.stripe-instruments button[data-instrument-key="' + instrumentKey + '"]').addClass('active');
 
         activeInstrument = instruments[instrumentKey].path;
         sounds = [
@@ -131,7 +134,7 @@ Intranet.Stripe = (function ($) {
             return;
         }
 
-        $('.stripe .stripe-instruments').addClass('show');
+        $targetElement.find('.stripe-instruments').addClass('show');
         this.setInstrument(0);
         magicHappend = true;
 
@@ -197,6 +200,22 @@ Intranet.Helper.Walkthrough = (function ($) {
             var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
             this.previous(currentStep);
         }.bind(this));
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough[data-step]:visible').length < 2) {
+                $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
+                return;
+            }
+
+            $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
+            return;
+        });
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough .is-highlighted:not(:visible)').length) {
+                $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
+            }
+        });
     }
 
     Walkthrough.prototype.highlightArea = function (element) {
@@ -204,23 +223,24 @@ Intranet.Helper.Walkthrough = (function ($) {
         var highlight = $element.parent('.walkthrough').attr('data-highlight');
 
         if ($element.hasClass('is-highlighted')) {
-            $(highlight).css('zIndex', $(highlight).data('zindex'));
-
             if ($(highlight).data('position')) {
                 $(highlight).css('position', $(highlight).data('position'));
             }
 
             $(highlight).prev('.backdrop').remove();
+            $(highlight).removeClass('walkthrough-highlight');
             $element.removeClass('is-highlighted');
+
             return false;
         }
 
-        $(highlight).before('<div class="backdrop"></div>').data('zindex', $(highlight).css('zIndex')).css('zIndex', '9999999');
+        $(highlight).before('<div class="backdrop"></div>');
 
         if ($(highlight).css('position') !== 'absolute' || $(highlight).css('position') !== 'relative') {
             $(highlight).data('position', $(highlight).css('position')).css('position', 'relative');
         }
 
+        $(highlight).addClass('walkthrough-highlight');
         $element.addClass('is-highlighted');
 
         return true;
@@ -231,10 +251,22 @@ Intranet.Helper.Walkthrough = (function ($) {
 
         var currentIndex = $current.attr('data-step');
         var nextIndex = parseInt(currentIndex) + 1;
-        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
+        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
+
+        var whileInt = 0;
+        while ($nextItem.length === 0) {
+            whileInt++;
+
+            if (whileInt === 20) {
+                break;
+            }
+
+            nextIndex++;
+            $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
+        }
 
         if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough[data-step="1"]');
+            $nextItem = $('.walkthrough[data-step]:visible').first();
         }
 
         $current.find('.blipper').trigger('click');

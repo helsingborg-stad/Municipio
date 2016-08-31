@@ -2,7 +2,15 @@
 
 @section('content')
 
-<header class="profile-header">
+<header class="profile-header has-stripe">
+    <div class="stripe">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
     <div class="profile-header-background">
         <div style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
     </div>
@@ -137,7 +145,7 @@
                 @if (count($userResponsibilities) > 0)
                 <div class="grid-md-6">
                     <div class="box box-panel box-panel-secondary">
-                        <h4 class="box-title"><?php _e('Responsibilities', 'municipio-intranet'); ?></h4>
+                        <h4 class="box-title"><?php _e('Work assignments', 'municipio-intranet'); ?></h4>
                         <div class="box-content">
                             <ul class="tags">
                                 @foreach ($userResponsibilities as $item)

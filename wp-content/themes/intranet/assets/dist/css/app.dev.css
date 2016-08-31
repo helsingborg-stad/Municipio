@@ -106,6 +106,10 @@ body.admin-bar {
       fill: #fff;
       height: 52px;
       width: 34px; }
+      @media (max-width: 469px) {
+        #site-header .logotype svg, #site-header .logotype path {
+          height: 37px;
+          width: 24px; } }
   #site-header .subnav .profile-image-icon {
     margin-right: 8px; }
   #site-header .subnav {
@@ -114,13 +118,15 @@ body.admin-bar {
     #site-header .subnav > ul > li > a {
       padding: 0;
       font-size: .9em; }
+    @media (min-width: 769px) {
+      #site-header .subnav > ul > li {
+        position: relative; } }
     #site-header .subnav .subnav-icon a .pricon {
       opacity: .5; }
     #site-header .subnav .subnav-icon a:hover .pricon {
       opacity: 1; }
-    @media (min-width: 769px) {
-      #site-header .subnav li {
-        position: relative; } }
+    #site-header .subnav a[data-dropdown=".login-dropdown"] {
+      position: relative; }
     #site-header .subnav > ul > li + li {
       margin-left: 15px; }
   #site-header .subnav .dropdown ul a {
@@ -203,6 +209,9 @@ body.admin-bar {
 
 .login-dropdown {
   margin-top: 15px !important; }
+  .login-dropdown input[type="text"],
+  .login-dropdown input[type="password"] {
+    display: block; }
   .login-dropdown::before, .login-dropdown::after {
     right: 25px !important; }
 
@@ -319,8 +328,9 @@ body.admin-bar {
       display: block; }
       .profile-contact li + li {
         border-top: 1px solid rgba(255, 255, 255, 0.1); }
-    .profile-contact a > i.fa {
-      display: none; }
+    .profile-contact a > i.fa,
+    .profile-contact a > i.pricon {
+      display: none !important; }
     .profile-contact .value {
       text-align: center; }
     .profile-contact .value .value-label i.fa,
@@ -666,7 +676,7 @@ body.admin-bar {
       font-size: 1.4rem;
       white-space: nowrap;
       max-width: 100%;
-      min-width: auto;
+      min-width: 0px;
       width: 100%;
       position: relative; }
       .current-network::before {
@@ -802,15 +812,29 @@ a.dropdown-open:focus {
 .walkthrough {
   position: absolute;
   top: 100%;
+  left: 0;
+  right: 0;
   margin-top: -7px;
   z-index: 9000; }
   .walkthrough .dropdown-menu {
+    color: #252525;
     margin-left: -14px !important;
     margin-top: 5px !important;
     width: 350px; }
     @media (max-width: 769px) {
       .walkthrough .dropdown-menu {
-        width: 100vw; } }
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-radius: 0 !important; }
+        .walkthrough .dropdown-menu::after, .walkthrough .dropdown-menu::before {
+          display: none !important; } }
     .walkthrough .dropdown-menu footer {
       margin-top: 10px; }
     .walkthrough .dropdown-menu [data-action="walkthrough-cancel"] {
@@ -820,10 +844,17 @@ a.dropdown-open:focus {
       .walkthrough .dropdown-menu [data-action="walkthrough-cancel"]:hover {
         opacity: 1; }
 
+.walkthrough-highlight {
+  z-index: 999999999;
+  position: relative !important; }
+
 .walkthrough-center {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%); }
+  .walkthrough-center .blipper {
+    left: 50%;
+    margin-left: -7px; }
 
 .walkthrough-right {
   right: 0; }

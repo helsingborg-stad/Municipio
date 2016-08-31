@@ -17,7 +17,7 @@ $incidents = \Intranet\CustomPostType\Incidents::getIncidents($sites, $level, $l
 
     <?php if (get_field('link_to_archive', $module->ID)) : ?>
     <div class="gutter gutter-sm gutter-top">
-        <a href="#" class="read-more"><?php _e('Show all incidents', 'municipio-intranet'); ?></a>
+        <a href="<?php echo get_post_type_archive_link('incidents'); ?>" class="read-more"><?php _e('Show all incidents', 'municipio-intranet'); ?></a>
     </div>
     <?php endif; ?>
 </div>

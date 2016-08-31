@@ -30,6 +30,11 @@ body.admin-bar {
             fill: #fff;
             height: 52px;
             width: 34px;
+
+            @media #{$screen-below-sm} {
+                height: 37px;
+                width: 24px;
+            }
         }
     }
 
@@ -46,6 +51,12 @@ body.admin-bar {
             font-size: .9em;
         }
 
+        @media #{$screen-md-up} {
+            > ul > li {
+                position: relative;
+            }
+        }
+
         .subnav-icon a {
             .pricon {
                 opacity: .5;
@@ -56,14 +67,8 @@ body.admin-bar {
             }
         }
 
-        a.dropdown-open {
-
-        }
-
-        @media #{$screen-md-up} {
-            li {
-                position: relative;
-            }
+        a[data-dropdown=".login-dropdown"] {
+            position: relative;
         }
 
         > ul > li + li {
@@ -162,6 +167,11 @@ body.admin-bar {
 
 .login-dropdown {
     margin-top: 15px !important;
+
+    input[type="text"],
+    input[type="password"] {
+        display: block;
+    }
 
     &::before,
     &::after {

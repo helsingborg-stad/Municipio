@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-08-22 16:13+0200\n"
-"PO-Revision-Date: 2016-08-24 14:12+0200\n"
+"POT-Creation-Date: 2016-08-26 14:15+0200\n"
+"PO-Revision-Date: 2016-08-26 14:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -70,52 +70,52 @@ msgstr "Intranätets kortnamn"
 msgid "Password"
 msgstr "Lösenord"
 
-#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:158
+#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:192
 msgctxt "add new button"
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:159
+#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:193
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:160
+#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:194
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:161
+#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:195
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:162
+#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:196
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:163
+#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:197
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:164
+#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:198
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:165
+#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:199
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:166
+#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:200
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:167
+#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:201
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
@@ -124,15 +124,19 @@ msgstr "Inga %s i papperskorgen"
 msgid "incidents"
 msgstr "driftstörningar"
 
-#: library/CustomPostType/News.php:82
+#: library/CustomPostType/News.php:47
+msgid "This post is more than 60 days old"
+msgstr "Inlägget är mer än 60 dagar gammalt"
+
+#: library/CustomPostType/News.php:116
 msgid "Pin to top"
 msgstr "Klistra till toppen"
 
-#: library/CustomPostType/News.php:120
+#: library/CustomPostType/News.php:154
 msgid "Exclude from main news feed"
 msgstr "Exkludera från huvudsidans nyhetsflöde"
 
-#: library/CustomPostType/News.php:181
+#: library/CustomPostType/News.php:215
 msgid "news"
 msgstr "nyheter"
 
@@ -181,28 +185,33 @@ msgstr "Användarsystem"
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
-#: library/SearchWp/Search.php:286
+#: library/Public/Helper.php:75 library/SearchWp/Search.php:286
 #: views/partials/modal/missing-data-fields/nav.blade.php:3
 #: views/partials/modal/missing-data-fields/nav.blade.php:7
 msgid "Previous"
 msgstr "Föregående"
 
-#: library/SearchWp/Search.php:342
+#: library/Public/Helper.php:76 library/SearchWp/Search.php:342
 #: views/partials/modal/missing-data-fields/nav.blade.php:11
 #: views/partials/modal/missing-data.blade.php:36
 msgid "Next"
 msgstr "Nästa"
+
+#: library/Public/Helper.php:77
+#: templates/module/modularity-mod-intranet-u-syste.php:64
+msgid "Cancel"
+msgstr "Avbryt"
 
 #: library/Theme/Enqueue.php:34
 #: templates/module/modularity-mod-intranet-u-links.php:21
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
-#: library/Theme/Enqueue.php:35 views/partials/network-header.blade.php:49
+#: library/Theme/Enqueue.php:35 views/partials/network-header.blade.php:59
 msgid "Subscribe"
 msgstr "Prenumerera"
 
-#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:51
+#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:61
 msgid "Unsubscribe"
 msgstr "Sluta prenumerera"
 
@@ -228,6 +237,18 @@ msgstr "Redigera"
 #: library/Theme/Enqueue.php:44
 msgid "Done"
 msgstr "Klar"
+
+#: library/Theme/Walkthrough.php:23
+msgid ""
+"You are in <strong>Walkthrough mode</strong>. Click one of the flashing dots "
+"to get started."
+msgstr ""
+"Du är i kom-igång läget. Klicka på en av de blinkande prickarna för att få "
+"mer information om en funktion."
+
+#: library/Theme/Walkthrough.php:29
+msgid "Exit"
+msgstr "Avsluta"
 
 #: library/User/AdministrationUnits.php:25
 #: library/User/AdministrationUnits.php:26
@@ -560,10 +581,6 @@ msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr "Välj system som du vill visa i din lista över ”mina system”."
 
-#: templates/module/modularity-mod-intranet-u-syste.php:64
-msgid "Cancel"
-msgstr "Avbryt"
-
 #: views/archive-incidents.blade.php:25
 msgid "Duration"
 msgstr "Varaktighet"
@@ -693,24 +710,18 @@ msgstr "Gatuadress"
 msgid "City"
 msgstr "Stad"
 
-#: views/author-edit.blade.php:220
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:4
-msgid "Area of responsibility"
-msgstr "Ansvarsområden"
+#: views/author-edit.blade.php:220 views/author-edit.blade.php:232
+#: views/author.blade.php:140
+msgid "Work assignments"
+msgstr "Arbetsuppgifter"
 
 #: views/author-edit.blade.php:225
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:9
 msgid ""
-"Please add your areas of responsibility. This will make it easier to find "
-"you when searching."
+"Please add your work assignments. This will make it easier to find you when "
+"searching."
 msgstr ""
-"Lägg till ansvarsområden. Detta gör det lättare för andra att hitta dig med "
-"hjälp av sökfunktionen."
-
-#: views/author-edit.blade.php:232
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:16
-msgid "Responsibility"
-msgstr "Ansvar"
+"Lägg till dina arbetsuppgifter. Detta kommer göra det lättare för andra att "
+"hitta dig genom sök."
 
 #: views/author-edit.blade.php:236
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:20
@@ -718,9 +729,8 @@ msgid "Add area of responsibility"
 msgstr "Lägg till ansvarsområde"
 
 #: views/author-edit.blade.php:241
-#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
-msgid "Added responsibilities"
-msgstr "Dina ansvarsområden"
+msgid "Added work assignments"
+msgstr "Arbetsuppgifter som du lagt till"
 
 #: views/author-edit.blade.php:265 views/author.blade.php:125
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
@@ -847,10 +857,6 @@ msgstr "Min profil på Snapchat"
 msgid "Edit settings"
 msgstr "Redigera inställningar"
 
-#: views/author.blade.php:140
-msgid "Responsibilities"
-msgstr "Ansvarsområden"
-
 #: views/front-page.blade.php:18
 msgid "Your profile is not complete!"
 msgstr "Din profil är inte komplett!"
@@ -864,49 +870,57 @@ msgid "Complete your profile"
 msgstr "Färdigställ profilen"
 
 #: views/partials/header/intranet.blade.php:17
-#: views/partials/network-header.blade.php:15
+#: views/partials/network-header.blade.php:25
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/header/intranet.blade.php:28
+#: views/partials/header/intranet.blade.php:36
+msgid "Start help walkthrough"
+msgstr "Starta kom-igång läge"
+
+#: views/partials/header/intranet.blade.php:36
+msgid "Help"
+msgstr "Hjälp"
+
+#: views/partials/header/intranet.blade.php:37
 #: views/table-of-contents.blade.php:8
 msgid "A-Z"
 msgstr "A-Ö"
 
-#: views/partials/header/intranet.blade.php:41
+#: views/partials/header/intranet.blade.php:59
 msgid "Your profile"
 msgstr "Din profil"
 
-#: views/partials/header/intranet.blade.php:42
+#: views/partials/header/intranet.blade.php:60
 msgid "Settings"
 msgstr "Inställningar"
 
-#: views/partials/header/intranet.blade.php:43 views/search.blade.php:30
+#: views/partials/header/intranet.blade.php:61 views/search.blade.php:30
 msgid "Subscriptions"
 msgstr "Prenumerationer"
 
-#: views/partials/header/intranet.blade.php:45
+#: views/partials/header/intranet.blade.php:63
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:52
+#: views/partials/header/intranet.blade.php:69
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:57
+#: views/partials/header/intranet.blade.php:74
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/intranet.blade.php:68
+#: views/partials/header/intranet.blade.php:85
 msgid "Menu"
 msgstr "Meny"
 
-#: views/partials/header/intranet.blade.php:84
+#: views/partials/header/intranet.blade.php:101
 #: views/partials/user/loginform.blade.php:11
 msgid "Forgot your password?"
 msgstr "Glömt ditt lösenord?"
 
-#: views/partials/header/intranet.blade.php:92
+#: views/partials/header/intranet.blade.php:109
 #: views/partials/modal/missing-data.blade.php:5
 msgid "Close"
 msgstr "Stäng"
@@ -930,6 +944,26 @@ msgid ""
 msgstr ""
 "Om du vill att andra användare ska kunna se ditt telefonnummer så behöver du "
 "lägga till det här nedan."
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:4
+msgid "Area of responsibility"
+msgstr "Ansvarsområden"
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:9
+msgid ""
+"Please add your areas of responsibility. This will make it easier to find "
+"you when searching."
+msgstr ""
+"Lägg till ansvarsområden. Detta gör det lättare för andra att hitta dig med "
+"hjälp av sökfunktionen."
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:16
+msgid "Responsibility"
+msgstr "Ansvar"
+
+#: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:25
+msgid "Added responsibilities"
+msgstr "Dina ansvarsområden"
 
 #: views/partials/modal/missing-data.blade.php:4
 msgid "We're missing some information about you"
@@ -960,15 +994,15 @@ msgid ""
 msgstr ""
 "Din profil är inte komplett. Följ guiden för att uppdatera din information."
 
-#: views/partials/network-header.blade.php:6
+#: views/partials/network-header.blade.php:16
 msgid "Select intranet"
 msgstr "Välj intranät"
 
-#: views/partials/network-header.blade.php:30
+#: views/partials/network-header.blade.php:40
 msgid "Networks you are following"
 msgstr "Nätverk som du prenumererar på"
 
-#: views/partials/network-header.blade.php:39
+#: views/partials/network-header.blade.php:49
 msgid "Show all networks"
 msgstr "Visa alla nätverk"
 
@@ -1045,6 +1079,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Responsibilities"
+#~ msgstr "Ansvarsområden"
 
 #~ msgid "Manage subscriptions"
 #~ msgstr "Administrera prenumerationer"

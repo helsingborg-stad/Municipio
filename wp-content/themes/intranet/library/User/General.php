@@ -7,6 +7,23 @@ class General
     public function __construct()
     {
         add_action('admin_init', array($this, 'protectWpAdmin'));
+
+        add_action('update_user_meta', array($this, 'updateUserMeta'), 10, 4);
+        add_action('profile_update', array($this, 'profileUpdate'));
+    }
+
+    public function updateUserMeta($metaId, $userId, $metaKey, $_meta_value)
+    {
+        remove_action('update_user_meta', array($this, 'updateUserMeta'), 10);
+        update_user_meta($userId, '_profile_updated', date('Y-m-d H:i:s'));
+        add_action('update_user_meta', array($this, 'updateUserMeta'), 10, 4);
+    }
+
+    public function profileUpdate($userId)
+    {
+        remove_action('profile_update', array($this, 'profileUpdate'), 10);
+        update_user_meta($userId, '_profile_updated', date('Y-m-d H:i:s'));
+        add_action('profile_update', array($this, 'profileUpdate'));
     }
 
     public function protectWpAdmin()

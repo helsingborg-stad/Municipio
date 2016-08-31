@@ -217,19 +217,19 @@
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="work-responsibilities">
                             <label class="accordion-toggle" for="work-responsibilities">
-                                <h4 class="pricon pricon-clipboard pricon-space-right"><?php _e('Area of responsibility', 'municipio-intranet'); ?></h4>
+                                <h4 class="pricon pricon-clipboard pricon-space-right"><?php _e('Work assignments', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
                                     <div class="grid-md-12">
-                                        <p><?php _e('Please add your areas of responsibility. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                        <p><?php _e('Please add your work assignments. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
                                     </div>
                                 </div>
 
                                 <div class="grid">
                                     <div class="grid-md-12">
                                         <div class="form-group">
-                                            <label for="responsibility-autocomplete"><?php _e('Responsibility', 'municipio-intranet'); ?></label>
+                                            <label for="responsibility-autocomplete"><?php _e('Work assignments', 'municipio-intranet'); ?></label>
                                             <div class="tag-manager" data-input-name="responsibilities" data-wp-ajax-action="autocomplete_responsibilities">
                                                 <div class="tag-manager-input">
                                                     <div class="input-group">
@@ -238,7 +238,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="tag-manager-selected">
-                                                    <label class="label-sm"><?php _e('Added responsibilities', 'municipio-intranet'); ?></label>
+                                                    <label class="label-sm"><?php _e('Added work assignments', 'municipio-intranet'); ?></label>
                                                     <ul class="tags">
                                                         @foreach ($userResponsibilities as $item)
                                                         <li>

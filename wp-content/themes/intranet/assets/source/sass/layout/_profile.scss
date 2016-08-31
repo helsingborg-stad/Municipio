@@ -140,8 +140,9 @@
             }
         }
 
-        a > i.fa {
-            display: none;
+        a > i.fa,
+        a > i.pricon {
+            display: none !important;
         }
 
         .value {
