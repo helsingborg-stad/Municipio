@@ -168,6 +168,11 @@ body.admin-bar {
 .login-dropdown {
     margin-top: 15px !important;
 
+    input[type="text"],
+    input[type="password"] {
+        display: block;
+    }
+
     &::before,
     &::after {
         right: 25px !important;

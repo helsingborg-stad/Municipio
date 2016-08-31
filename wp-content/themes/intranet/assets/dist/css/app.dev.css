@@ -209,6 +209,9 @@ body.admin-bar {
 
 .login-dropdown {
   margin-top: 15px !important; }
+  .login-dropdown input[type="text"],
+  .login-dropdown input[type="password"] {
+    display: block; }
   .login-dropdown::before, .login-dropdown::after {
     right: 25px !important; }
 
