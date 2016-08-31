@@ -16,12 +16,12 @@ class Login
     public function loginReminder($data)
     {
         if (is_user_logged_in()) {
-            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'), '/');
             return $data;
         }
 
         if (!isset($_COOKIE['login_reminder'])) {
-            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'), '/');
             $data['showLoginReminder'] = true;
 
             add_filter('body_class', function ($classes) {
@@ -37,7 +37,7 @@ class Login
         $diff = date_diff($lastReminder, $now);
 
         if ($diff->days > 6) {
-            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
+            setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'), '/');
             $data['showLoginReminder'] = true;
 
             add_filter('body_class', function ($classes) {
