@@ -16,7 +16,7 @@
                     <?php _e('If you are employed in the city of Helsingborg you can enahcne your intranet experience by logging in. Fill in your computer login information in the below form to login.', 'municipio-intranet'); ?>
                 </p>
 
-                <figure style="margin-bottom: -40px;">
+                <figure class="hidden-xs hidden-sm" style="margin-bottom: -40px;">
                     <i class="pricon pricon-user pricon-5x pricon-badge pricon-badge-red-1"></i>
                     <i class="pricon pricon-discuss pricon-3x pricon-badge pricon-badge-red-2" style="position: relative;left:-20px;top: -20px;"></i>
 
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="gutter gutter-xl" style="margin-top: -40px;">
+        <div class="gutter gutter-xl">
             @include('partials.user.loginform')
         </div>
 

@@ -23,6 +23,12 @@ class Login
         if (!isset($_COOKIE['login_reminder'])) {
             setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
             $data['showLoginReminder'] = true;
+
+            add_filter('body_class', function ($classes) {
+                $classes[] = 'overflow-hidden';
+                return $classes;
+            });
+
             return $data;
         }
 
@@ -33,6 +39,11 @@ class Login
         if ($diff->days > 6) {
             setcookie('login_reminder', date('Y-m-d H:i:s'), strtotime('+30 days'));
             $data['showLoginReminder'] = true;
+
+            add_filter('body_class', function ($classes) {
+                $classes[] = 'overflow-hidden';
+                return $classes;
+            });
         }
 
         return $data;
