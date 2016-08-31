@@ -325,8 +325,9 @@ body.admin-bar {
       display: block; }
       .profile-contact li + li {
         border-top: 1px solid rgba(255, 255, 255, 0.1); }
-    .profile-contact a > i.fa {
-      display: none; }
+    .profile-contact a > i.fa,
+    .profile-contact a > i.pricon {
+      display: none !important; }
     .profile-contact .value {
       text-align: center; }
     .profile-contact .value .value-label i.fa,
