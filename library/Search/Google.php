@@ -106,8 +106,8 @@ class Google
             $dateMod = $meta->moddate;
         } elseif (isset($meta->pubdate)) {
             $dateMod = $meta->pubdate;
-        } elseif (isset($meta->{last-modified})) {
-            $dateMod = $meta->{last-modified};
+        } elseif (isset($meta->{'last-modified'})) {
+            $dateMod = $meta->{'last-modified'};
         }
 
         $dateMod = $this->convertDate($dateMod);
