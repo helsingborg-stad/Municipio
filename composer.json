@@ -74,7 +74,8 @@
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
         "wpackagist-plugin/active-directory-integration": ">=1.1.8",
-        "wpackagist-plugin/user-switching" : ">=1.0.0"
+        "wpackagist-plugin/user-switching" : ">=1.0.0",
+        "wpackagist-plugin/query-monitor": "2.12.0"
     },
 
     "extra": {
