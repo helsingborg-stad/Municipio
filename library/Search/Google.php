@@ -165,33 +165,17 @@ class Google
                         '">&laquo; Föregående</a></li>';
         }
 
-        // How many pages to show in the pager (excluding the current page)
-        $numPagesToShow = 10;
-
         // Get pages
         if ($this->resultsPerPage < $this->results->searchInformation->totalResults) {
             // Calculate number of pages
-            $numPages = ceil($this->results->searchInformation->totalResults / $this->resultsPerPage);
+            // The JSON API returns up to the first 100 results only,
+            // see https://developers.google.com/custom-search/json-api/v1/using_rest#search_request_metadata
+            $maxResults = 100;
+            $numPages = ceil(min($this->results->searchInformation->totalResults, $maxResults) / $this->resultsPerPage);
 
-            // Calculate range of pages to show in pager
-            $startingPage = $this->currentPage - ($numPagesToShow/2);
-            $endingPage = $this->currentPage + ($numPagesToShow/2) + 1;
-
-            if ($startingPage < 1) {
-                $startingPage = 1;
-                $endingPage = $numPagesToShow+2;
-            }
-
-            if ($endingPage >= $numPages) {
-                $endingPage = $numPages;
-            }
-
-            if ($this->currentPage == $endingPage) {
-                $endingPage = $numPages+1;
-            }
 
             // Output pages
-            for ($i = $startingPage; $i < $endingPage; $i++) {
+            for ($i = 1; $i <= $numPages; $i++) {
                 $thisIndex = ($this->resultsPerPage * ($i-1)) + 1;
 
                 $current = null;
@@ -205,11 +189,12 @@ class Google
         }
 
         // Get the next page
-        $nextPage = null;
         if (isset($query->nextPage)) {
-            $nextPage = $query->nextPage[0];
-            $markup[] = '<li><a class="next" href="?s=' . urlencode(stripslashes($this->keyword)) .
-                        '&amp;index=' . $nextPage->startIndex . '">Nästa &raquo;</a></li>';
+            $startIndex = $query->nextPage[0]->startIndex;
+            if ($startIndex < $maxResults) {
+                $markup[] = '<li><a class="next" href="?s=' . urlencode(stripslashes($this->keyword)) .
+              '&amp;index=' . $startIndex . '">Nästa &raquo;</a></li>';
+            }
         }
 
         $markup[] = '</ul>';
