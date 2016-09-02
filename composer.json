@@ -47,6 +47,10 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/attachment-revisions.git"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/larm.git"
         },
         {
@@ -69,6 +73,7 @@
         "helsingborg-stad/broken-link-detector": ">=1.0.0",
         "helsingborg-stad/modularity-guides": ">=1.0.0",
         "helsingborg-stad/larm": "dev-master",
+        "helsingborg-stad/attachment-revisions": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/varnish-http-purge": "^3.7.2",
         "wpackagist-plugin/stream": "^3.0.4",
