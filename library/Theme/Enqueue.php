@@ -57,7 +57,12 @@ class Enqueue
 
         wp_enqueue_style('hbg-prime');
 
-        wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
+        if (is_readable(get_template_directory_uri() . '/assets/dist/css/app.min.css')) {
+            wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
+        } else {
+            wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', '1.1.1');
+        }
+
         wp_enqueue_style('municipio');
     }
 
