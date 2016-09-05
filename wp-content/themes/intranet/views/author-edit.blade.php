@@ -30,10 +30,12 @@
                         <p>
                             <?php _e('Click on a section to view and edit your settings.', 'municipio-intranet'); ?>
                         </p>
+                        <p>
+                            <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-default-audience="only_me" data-scope="public_profile, user_about_me, user_birthday, user_hometown, user_location" onlogin="facebookLoginDone"></div>
+                        </p>
                     </article>
                 </div>
             </div>
-
 
             <div class="grid">
                 <div class="grid-xs-12">
@@ -72,6 +74,58 @@
                                         <div class="form-group">
                                             <label for="user_phone"><?php _e('Phone number', 'municipio-intranet'); ?></label>
                                             <input type="tel" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}" pattern="^\+?([\d|\s|(|)|\-])+" oninvalid="this.setCustomValidity('<?php _e('The phone number supplied is invalid', 'municipio-intranet'); ?>')">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <label><?php _e('Date of birth', 'municipio-intranet'); ?></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_birthday_year" style="font-weight:normal;"><?php _e('Year', 'municipio-intranet'); ?></label>
+                                            <select name="user_birthday[year]" id="user_birthday_year">
+                                                @for ($i = date('Y') - 13; $i >= date('Y') - 100; $i--)
+                                                    <option value="{{ $i }}" {{ selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['year'], $i) }}>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_birthday_month" style="font-weight:normal;"><?php _e('Month', 'municipio-intranet'); ?></label>
+                                            <select name="user_birthday[month]" id="user_birthday_month">
+                                                @for ($i = 1; $i <= 12; $i++)
+                                                    <option value="{{ $i }}" {{ selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['month'], $i) }}>{{ ucfirst(mysql2date('F', date('Y') . '-' . $i . '-01')) }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_birthday_day" style="font-weight:normal;"><?php _e('Day', 'municipio-intranet'); ?></label>
+                                            <select name="user_birthday[day]" id="user_birthday_day">
+                                                @for ($i = 1; $i <= 31; $i++)
+                                                    <option value="{{ $i }}" {{ selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['day'], $i) }}>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="user_hide_birthday" value="1" {{ checked(get_user_meta(get_current_user_id(), 'user_hide_birthday', true), true) }}>
+                                                <?php _e('Keep my date of birth secret', 'municipio-intranet'); ?>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
