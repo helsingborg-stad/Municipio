@@ -2,6 +2,23 @@
 
 @section('content')
 
+@if (municipio_intranet_get_user_has_birthday())
+<div class="notice-birthday">
+    <div class="container">
+        <div class="grid">
+            <div class="grid-md-12 gutter gutter-bottom">
+                <figure class="illustration-birthday">
+                    <i class="pricon pricon-balloon pricon-3x"></i>
+                    <i class="pricon pricon-balloon pricon-4x"></i>
+                    <i class="pricon pricon-balloon pricon-3x"></i>
+                </figure>
+                <span class="h2 no-padding"><?php echo sprintf('Säg grattis, idag fyller %s år!', get_the_author_meta('first_name')); ?></span>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 <header class="profile-header has-stripe">
     <div class="stripe">
         <div></div>

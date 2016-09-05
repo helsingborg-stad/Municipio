@@ -66,6 +66,7 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         }
 
         update_user_meta($user->ID, 'user_phone', $phone);
+        update_user_meta($user->ID, 'user_hometown', isset($_POST['user_hometown']) ? $_POST['user_hometown'] : '');
         update_user_meta($user->ID, 'user_administration_unit', $_POST['user_administration_unit']);
         update_user_meta($user->ID, 'user_department', $_POST['user_department']);
 

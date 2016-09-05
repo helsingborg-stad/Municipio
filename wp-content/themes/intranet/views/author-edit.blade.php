@@ -79,6 +79,15 @@
                                 </div>
 
                                 <div class="grid">
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_hometown"><?php _e('Hometown', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_hometown" name="user_hometown" value="{{ get_the_author_meta('user_hometown') }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
                                     <div class="grid-md-12">
                                         <div class="form-group">
                                             <label><?php _e('Date of birth', 'municipio-intranet'); ?></label>

@@ -108,3 +108,32 @@ if (!function_exists('municipio_intranet_get_administration_unit_name')) {
         return \Intranet\User\AdministrationUnits::getAdministrationUnit($id);
     }
 }
+
+if (!function_exists('municipio_intranet_get_user_has_birthday')) {
+    /**
+     * Check if user has birthday today
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_intranet_get_user_has_birthday($user = null)
+    {
+        if (is_null($user)) {
+            $user = wp_get_current_user();
+        } elseif (is_numeric($user)) {
+            $user = get_user_by('ID', $user);
+        } elseif (is_string($user)) {
+            $user = get_user_by('slug', $user);
+        }
+
+        $birthday = false;
+        if (!get_the_author_meta('user_birthday') || !get_the_author_meta('user_birthday')['year'] || !get_the_author_meta('user_birthday')['month'] || !get_the_author_meta('user_birthday')['day']) {
+            return false;
+        }
+
+        if (get_the_author_meta('user_birthday')['month'] == date('m') && get_the_author_meta('user_birthday')['day'] == date('d')) {
+            return true;
+        }
+
+        return false;
+    }
+}
