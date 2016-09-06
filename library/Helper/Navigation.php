@@ -103,7 +103,13 @@ class Navigation
      */
     public function mainMenuAuto()
     {
-        $menu = get_transient('main_menu_' . $_SERVER['REQUEST_URI']);
+        global $post;
+
+        $menu = false;
+        if (isset($post->ID)) {
+            $menu = get_transient('main_menu_' . $post->ID);
+        }
+
         $classes = array('nav');
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
@@ -121,7 +127,7 @@ class Navigation
                 $classes[] = 'nav-dropdown';
             }
 
-            set_transient('main_menu_' . $_SERVER['REQUEST_URI'], $menu, 60*60*168);
+            set_transient('main_menu_' . $post->ID, $menu, 60*60*168);
         }
 
         if (isset($menu) && $menu->itemCount() > 0) {
@@ -141,7 +147,12 @@ class Navigation
      */
     public function mobileMenuAuto()
     {
-        $menu = get_transient('mobile_menu_' . $_SERVER['REQUEST_URI']);
+        global $post;
+
+        $menu = false;
+        if (isset($post->ID)) {
+            $menu = get_transient('mobile_menu_' . $post->ID);
+        }
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $mobileMenuArgs = array(
@@ -154,7 +165,7 @@ class Navigation
 
             $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
-            set_transient('mobile_menu_' . $_SERVER['REQUEST_URI'], $menu, 60*60*168);
+            set_transient('mobile_menu_' . $post->ID, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
@@ -256,7 +267,12 @@ class Navigation
      */
     public function sidebarMenuAuto()
     {
-        $menu = get_transient('sidebar_menu_' . $_SERVER['REQUEST_URI']);
+        global $post;
+
+        $menu = false;
+        if (isset($post->ID)) {
+            $menu = get_transient('sidebar_menu_' . $post->ID);
+        }
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $menu = new \Municipio\Helper\NavigationTree(array(
@@ -265,7 +281,7 @@ class Navigation
                 'depth' => get_field('nav_sub_depth', 'option')
             ));
 
-            set_transient('sidebar_menu_' . $_SERVER['REQUEST_URI'], $menu, 60*60*168);
+            set_transient('sidebar_menu_' . $post->ID, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
