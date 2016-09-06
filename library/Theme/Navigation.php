@@ -16,6 +16,58 @@ class Navigation
         if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
             add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
         }
+
+        add_action('post_updated', array($this, 'purgeTreeMenuTransient'), 10, 3);
+    }
+
+    /**
+     * Find out which pages menus must be purged.
+     * @param int $postId The post id to empty for
+     */
+    public function purgeTreeMenuTransient($postId, $postAfter, $postBefore)
+    {
+        unset($postBefore->post_modified, $postBefore->post_modified_gmt, $postAfter->post_modified, $postAfter->post_modified_gmt);
+
+        // Compare post_parent, if changed we need to empty menu cahce on both the old and the new parent
+        if ($postBefore != $postAfter) {
+            $this->purgeTreeMenuTransientForAncestors($postBefore->post_parent);
+        }
+    }
+
+    /**
+     * Delete tree menu transient for ancestors of post id.
+     * @param int $postId The post id
+     * @return void
+     */
+    public function purgeTreeMenuTransientForAncestors($postId)
+    {
+        // Get page ancestors
+        $ancestors = get_post_ancestors($postId);
+        $ancestors[] = $postId;
+
+        // Remove front page from ancestors array
+        $ancestors = array_reverse($ancestors);
+
+        if ($ancestors[0] == get_option('page_on_front')) {
+            unset($ancestors[0]);
+        }
+
+        $ancestors = array_values($ancestors);
+
+        // Delete transient for page ancestors
+        foreach ($ancestors as $postId) {
+            $children = get_children(array(
+                'post_parent' => $postId,
+                'numberofposts' => -1,
+                'post_type' => 'page',
+            ));
+
+            foreach ($children as $child) {
+                delete_transient('main_menu_' . $child->ID);
+                delete_transient('mobile_menu_' . $child->ID);
+                delete_transient('sidebar_menu_' . $child->ID);
+            }
+        }
     }
 
     public function registerMenus()
