@@ -103,20 +103,25 @@ class Navigation
      */
     public function mainMenuAuto()
     {
+        $menu = get_transient('main_menu_' . $_SERVER['REQUEST_URI']);
         $classes = array('nav');
 
-        $menu = new \Municipio\Helper\NavigationTree(array(
-            'include_top_level' => true,
-            'render' => get_field('nav_primary_render', 'option'),
-            'depth' => get_field('nav_primary_depth', 'option')
-        ));
+        if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
+            $menu = new \Municipio\Helper\NavigationTree(array(
+                'include_top_level' => true,
+                'render' => get_field('nav_primary_render', 'option'),
+                'depth' => get_field('nav_primary_depth', 'option')
+            ));
 
-        if (!empty(get_field('nav_primary_align', 'option'))) {
-            $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
-        }
+            if (!empty(get_field('nav_primary_align', 'option'))) {
+                $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
+            }
 
-        if (get_field('nav_primariy_dropdown', 'option') === true) {
-            $classes[] = 'nav-dropdown';
+            if (get_field('nav_primariy_dropdown', 'option') === true) {
+                $classes[] = 'nav-dropdown';
+            }
+
+            set_transient('main_menu_' . $_SERVER['REQUEST_URI'], $menu, 60*60*168);
         }
 
         if (isset($menu) && $menu->itemCount() > 0) {
@@ -136,15 +141,21 @@ class Navigation
      */
     public function mobileMenuAuto()
     {
-        $mobileMenuArgs = array(
-            'include_top_level' => true
-        );
+        $menu = get_transient('mobile_menu_' . $_SERVER['REQUEST_URI']);
 
-        if (get_field('nav_primary_type', 'option') == 'wp') {
-            $mobileMenuArgs['top_level_type'] = 'mobile';
+        if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
+            $mobileMenuArgs = array(
+                'include_top_level' => true
+            );
+
+            if (get_field('nav_primary_type', 'option') == 'wp') {
+                $mobileMenuArgs['top_level_type'] = 'mobile';
+            }
+
+            $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
+
+            set_transient('mobile_menu_' . $_SERVER['REQUEST_URI'], $menu, 60*60*168);
         }
-
-        $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
         if ($menu->itemCount === 0) {
             return '';
@@ -245,11 +256,17 @@ class Navigation
      */
     public function sidebarMenuAuto()
     {
-        $menu = new \Municipio\Helper\NavigationTree(array(
-            'include_top_level' => !empty(get_field('nav_sub_include_top_level', 'option')) ? get_field('nav_sub_include_top_level', 'option') : false,
-            'render' => get_field('nav_sub_render', 'option'),
-            'depth' => get_field('nav_sub_depth', 'option')
-        ));
+        $menu = get_transient('sidebar_menu_' . $_SERVER['REQUEST_URI']);
+
+        if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
+            $menu = new \Municipio\Helper\NavigationTree(array(
+                'include_top_level' => !empty(get_field('nav_sub_include_top_level', 'option')) ? get_field('nav_sub_include_top_level', 'option') : false,
+                'render' => get_field('nav_sub_render', 'option'),
+                'depth' => get_field('nav_sub_depth', 'option')
+            ));
+
+            set_transient('sidebar_menu_' . $_SERVER['REQUEST_URI'], $menu, 60*60*168);
+        }
 
         if ($menu->itemCount === 0) {
             return '';
