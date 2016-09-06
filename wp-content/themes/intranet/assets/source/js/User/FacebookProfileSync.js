@@ -7,8 +7,11 @@ Intranet.User.FacebookProfileSync = (function ($) {
     }
 
     FacebookProfileSync.prototype.getDetails = function() {
-        FB.api('/me', {fields: 'birthday, location'}, function (response) {
-            this.saveDetails(response);
+        $('.fb-login-container .fb-login-button').hide();
+        $('.fb-login-container').append('<div class="loading loading-red"><div></div><div></div><div></div><div></div></div>');
+
+        FB.api('/me', {fields: 'birthday, location'}, function (details) {
+            this.saveDetails(details);
         }.bind(this));
     };
 
@@ -19,7 +22,17 @@ Intranet.User.FacebookProfileSync = (function ($) {
         };
 
         $.post(ajaxurl, data, function (response) {
+            if (response !== '1') {
+                $('.fb-login-container .loading').remove();
+                $('.fb-login-container').append('<div class="notice warning">Facebook details did not sync due to an error</div>');
 
+                return false;
+            }
+
+            $('.fb-login-container .loading').remove();
+            $('.fb-login-container').append('<div class="notice success">Facebook details synced to your profile</div>');
+
+            return true;
         });
     };
 

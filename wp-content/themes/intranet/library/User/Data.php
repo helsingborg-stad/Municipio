@@ -41,6 +41,7 @@ class Data
     {
         // Get the details from post
         $details = json_decode(json_encode($_POST['details']));
+        $picture = json_decode(json_encode($_POST['picture']));
 
         // Update birthday
         if (isset($details->birthday) && !empty($details->birthday)) {
@@ -53,7 +54,11 @@ class Data
             update_user_meta(get_current_user_id(), 'user_birthday', $details->birthday);
         }
 
-        var_dump($details->location->name);
+        // Update location
+        if (isset($details->location) && !empty($details->location)) {
+            $details->location = explode(',', $details->location->name)[0];
+            update_user_meta(get_current_user_id(), 'user_hometown', $details->location);
+        }
 
         echo "1";
         wp_die();
