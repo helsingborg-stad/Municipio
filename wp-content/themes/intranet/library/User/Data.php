@@ -248,7 +248,7 @@ class Data
             // Get array key meta value (if key exist in $matches)
             if (!empty($matches)) {
                 foreach ($matches as $value) {
-                    $metaValue = $metaValue[$value];
+                    $metaValue = isset($metaValue[$value]) ? $metaValue[$value] : null;
                 }
             }
 
