@@ -7,7 +7,7 @@ Plugin Name: Simple File Cache for WordPress
 Plugin URI:  http://sebastianthulin.se/simple-cache/
 Description: A Simple and Effective File-cache for WordPress.
 Author:      Sebastian Thulin & Kristoffer Svanmark @ Helsingborg Stad
-Disable:	 To disable this plugin add define("WP_SIMPLE_CACHE_DISABLED", true); to configuration.
+Disable:     To disable this plugin add define("WP_SIMPLE_CACHE_DISABLED", true); to configuration.
 */
 
 /* Store callback */ //TODO: FIX THIS
@@ -27,7 +27,7 @@ if (!function_exists('wp_simple_cache_plugin_end')) {
 global $wp_simple_cache;
 
 if (!class_exists('WpSimpleCache')) {
-    class ReallySimpleCache
+    class WpSimpleCache
     {
 
         private static $file_hash;
@@ -433,5 +433,5 @@ add_action('admin_bar_menu', function ($wp_admin_bar) {
 
 //Add timestamp to footer
 add_action('wp_footer', function () {
-    echo "\n" . "<!-- Page cache by Really Simple Cache on ".date("Y-m-d H:i:s")."-->" . "\n";
+    echo "\n" . "<!-- Page cache by Wp Simple Cache on ".date("Y-m-d H:i:s")."-->" . "\n";
 }, 999);
