@@ -125,6 +125,10 @@ if (!function_exists('municipio_intranet_get_user_has_birthday')) {
             $user = get_user_by('slug', $user);
         }
 
+        if (get_the_author_meta('user_hide_birthday') == 1) {
+            return false;
+        }
+
         $birthday = false;
         if (!get_the_author_meta('user_birthday') || !get_the_author_meta('user_birthday')['year'] || !get_the_author_meta('user_birthday')['month'] || !get_the_author_meta('user_birthday')['day']) {
             return false;
