@@ -6,6 +6,7 @@
 
 # Plugins
 /wp-content/plugins/*
+/wp-content/db.php
 
 # Themes
 /wp-content/themes/*

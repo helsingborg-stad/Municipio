@@ -2,6 +2,23 @@
 
 @section('content')
 
+@if (municipio_intranet_user_has_birthday())
+<div class="notice-birthday">
+    <div class="container">
+        <div class="grid">
+            <div class="grid-md-12 gutter gutter-bottom">
+                <figure class="illustration-birthday">
+                    <i class="pricon pricon-balloon pricon-3x"></i>
+                    <i class="pricon pricon-balloon pricon-4x"></i>
+                    <i class="pricon pricon-balloon pricon-3x"></i>
+                </figure>
+                <span class="h2 no-padding"><?php echo sprintf('Säg grattis, idag fyller %s år!', get_the_author_meta('first_name')); ?></span>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 <header class="profile-header has-stripe">
     <div class="stripe">
         <div></div>
@@ -50,6 +67,18 @@
                         @endif
                         @if (!empty(get_the_author_meta('user_twitter_username')))
                         <li><a href="https://twitter.com/{{ get_the_author_meta('user_twitter_username') }}" data-tooltip="<?php _e('My profile on Twitter', 'municipio-intranet'); ?>"><i class="pricon pricon-twitter"></i><span class="sr-only"><?php _e('My profile on Snapchat', 'municipio-intranet'); ?></span></a></li>
+                        @endif
+                    </ul>
+                    @endif
+
+                    @if (get_the_author_meta('user_hometown') && !get_the_author_meta('user_hide_birthday'))
+                    <ul class="nav-horizontal gutter gutter-top">
+                        @if (get_the_author_meta('user_hometown'))
+                        <li><i class="pricon pricon-home" style="position: relative;top: -1px;"></i> {{ get_the_author_meta('user_hometown') }}</li>
+                        @endif
+
+                        @if (!get_the_author_meta('user_hide_birthday') && municipio_intranet_user_birthday())
+                        <li><i class="pricon pricon-cake" style="position: relative;top: -1px;"></i> {{ municipio_intranet_user_birthday() }}</li>
                         @endif
                     </ul>
                     @endif

@@ -34,7 +34,6 @@
                 </div>
             </div>
 
-
             <div class="grid">
                 <div class="grid-xs-12">
                     <div class="accordion accordion-icon accordion-list">
@@ -49,13 +48,13 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_first_name"><?php _e('First name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                            <label for="user_first_name"><?php _e('First name', 'municipio-intranet'); ?><span class="text-danger">*</span> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
                                             <input type="text" id="user_first_name" name="user_first_name" value="{{ get_the_author_meta('first_name') }}" disabled>
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_last_name"><?php _e('Last name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                            <label for="user_last_name"><?php _e('Last name', 'municipio-intranet'); ?><span class="text-danger">*</span> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
                                             <input type="text" id="user_last_name" name="user_last_name" value="{{ get_the_author_meta('last_name') }}" disabled>
                                         </div>
                                     </div>
@@ -64,7 +63,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                            <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?><span class="text-danger">*</span> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
                                             <input type="email" id="user_email" name="user_email" value="{{ get_the_author_meta('email') }}" disabled>
                                         </div>
                                     </div>
@@ -72,6 +71,71 @@
                                         <div class="form-group">
                                             <label for="user_phone"><?php _e('Phone number', 'municipio-intranet'); ?></label>
                                             <input type="tel" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}" pattern="^\+?([\d|\s|(|)|\-])+" oninvalid="this.setCustomValidity('<?php _e('The phone number supplied is invalid', 'municipio-intranet'); ?>')">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_hometown"><?php _e('Hometown', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_hometown" name="user_hometown" value="{{ get_the_author_meta('user_hometown') }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <label><?php _e('Date of birth', 'municipio-intranet'); ?></label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_birthday_year" style="font-weight:normal;"><?php _e('Year', 'municipio-intranet'); ?></label>
+                                            <select name="user_birthday[year]" id="user_birthday_year">
+                                                <option value="" default><?php _e('Select year…', 'municipio-intranet'); ?></option>
+                                                @for ($i = date('Y') - 13; $i >= date('Y') - 100; $i--)
+                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['year']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['year'], $i) : null }}>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_birthday_month" style="font-weight:normal;"><?php _e('Month', 'municipio-intranet'); ?></label>
+                                            <select name="user_birthday[month]" id="user_birthday_month">
+                                                <option value="" default><?php _e('Select month…', 'municipio-intranet'); ?></option>
+                                                @for ($i = 1; $i <= 12; $i++)
+                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['month']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['month'], $i) : null }}>{{ ucfirst(mysql2date('F', date('Y') . '-' . $i . '-01')) }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid-md-4">
+                                        <div class="form-group">
+                                            <label for="user_birthday_day" style="font-weight:normal;"><?php _e('Day', 'municipio-intranet'); ?></label>
+                                            <select name="user_birthday[day]" id="user_birthday_day">
+                                                <option value="" default><?php _e('Select day…', 'municipio-intranet'); ?></option>
+                                                @for ($i = 1; $i <= 31; $i++)
+                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['day']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['day'], $i) : null }}>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="user_hide_birthday" value="1" {{ checked(get_user_meta(get_current_user_id(), 'user_hide_birthday', true), true) }}>
+                                                <?php _e('Keep my date of birth secret', 'municipio-intranet'); ?>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +209,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?><?php echo !empty(get_the_author_meta('ad_title')) ? ' <small>(' . __('Not editable', 'municipio-intranet') . ')</small>' : ''; ?></label>
+                                            <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?><?php echo !empty(get_the_author_meta('ad_title')) ? '<span class="text-danger">*</span> <small>(' . __('Not editable', 'municipio-intranet') . ')</small>' : ''; ?></label>
                                             @if (!empty(get_the_author_meta('ad_title')))
                                             <input type="text" id="user_work_title" name="ad_title" value="{{ get_the_author_meta('ad_title') }}" disabled>
                                             @else
@@ -158,7 +222,7 @@
                                 <div class="grid">
                                     <div class="grid-md-12">
                                         <div class="form-group">
-                                            <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?></label>
+                                            <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                                             <div class="grid">
                                                 @foreach ($administrationUnits as $unit)
                                                 <div class="grid-md-6">
@@ -176,7 +240,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?></label>
+                                            <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                                             <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
                                         </div>
                                     </div>
@@ -411,6 +475,21 @@
                         <div class="box-content">
                             <p><?php _e('This is where you edit your personal settings.', 'municipio-intranet'); ?></p>
                             <p><?php _e('Some of your settings is displayed on your profile to other logged in users.', 'municipio-intranet'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-xs-12">
+                    <div class="box box-filled">
+                        <h4 class="box-title"><?php _e('Sync from Facebook', 'municipio-intranet'); ?></h4>
+                        <div class="box-content">
+                            <p>
+                                <?php _e('We can sync some of your profile settings from Facebook. If you would like to do this click the login button below to login to Facebook and allow us to get needed information.', 'municipio-intranet'); ?>
+                            </p>
+
+                            <div class="fb-login-container gutter gutter-top">
+                                <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-default-audience="only_me" data-scope="public_profile, user_about_me, user_birthday, user_hometown, user_location" onlogin="facebookProfileSync"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

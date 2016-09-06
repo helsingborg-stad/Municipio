@@ -612,6 +612,83 @@ Intranet.Search.Sites = (function ($) {
 })(jQuery);
 
 Intranet = Intranet || {};
+Intranet.SocialLogin = Intranet.SocialLogin || {};
+
+Intranet.SocialLogin.Facebook = (function ($) {
+    function Facebook() {
+        // Facebook SDK needs #fb-root div, set it up
+        $('body').prepend('<div id="fb-root"></div>');
+
+        // Load the Facebook SDK
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=530769533785659";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }
+
+    Facebook.prototype.checkStatus = function() {
+        FB.getLoginStatus(function(response) {
+            if (response.status !== 'connected') {
+                FB.login();
+            }
+        });
+    };
+
+    return new Facebook();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.User = Intranet.User || {};
+
+Intranet.User.FacebookProfileSync = (function ($) {
+    function FacebookProfileSync() {
+
+    }
+
+    FacebookProfileSync.prototype.getDetails = function() {
+        $('.fb-login-container .fb-login-button').hide();
+        $('.fb-login-container').append('<div class="loading loading-red"><div></div><div></div><div></div><div></div></div>');
+
+        FB.api('/me', {fields: 'birthday, location'}, function (details) {
+            this.saveDetails(details);
+        }.bind(this));
+    };
+
+    FacebookProfileSync.prototype.saveDetails = function(details) {
+        var data = {
+            action: 'sync_facebook_profile',
+            details: details
+        };
+
+        $.post(ajaxurl, data, function (response) {
+            if (response !== '1') {
+                $('.fb-login-container .loading').remove();
+                $('.fb-login-container').append('<div class="notice warning">Facebook details did not sync due to an error</div>');
+
+                return false;
+            }
+
+            $('.fb-login-container .loading').remove();
+            $('.fb-login-container').append('<div class="notice success">Facebook details synced to your profile</div>');
+
+            return true;
+        });
+    };
+
+    return new FacebookProfileSync();
+
+})(jQuery);
+
+
+function facebookProfileSync() {
+    Intranet.User.FacebookProfileSync.getDetails();
+}
+
+Intranet = Intranet || {};
 Intranet.User = Intranet.User || {};
 
 Intranet.User.Links = (function ($) {

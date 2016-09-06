@@ -3,7 +3,16 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.9 (tbd)
+Version 0.2.10 (tbd)
+====================
+- Facebook login on profile settings (to fetch profile information from in a later stage)
+- Profile settings field for birthday
+- Profile setting to make birthday secret
+- Profile settings field for hometown
+- Birthday notice on user's profile if birthday's not secret
+- Add asterix to required fields in profile settings
+
+Version 0.2.9 (2016-09-02)
 ==========================
 - This release includes a ton o minor bug fixes and performance optimizations
 - Attachment (document) revisions plugin created and installed

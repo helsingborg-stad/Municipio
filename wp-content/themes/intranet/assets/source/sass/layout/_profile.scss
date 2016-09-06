@@ -163,7 +163,14 @@
 }
 
 .profile-social-networks {
-    margin-top: 20px;
+    position: absolute;
+    top: 28px;
+    left: 0;
+
+    @media #{$screen-below-md} {
+        position: static;
+        margin-top: 20px;
+    }
 
     a {
         color: rgba(#fff, .8);
@@ -184,6 +191,11 @@
             border-bottom: 5px solid #fff !important;
             border-left: 5px solid transparent !important;
         }
+    }
+
+    .pricon-linkedin {
+        position: relative;
+        top: -1px;
     }
 }
 
@@ -308,5 +320,42 @@
 @media #{$screen-xs} {
     .profile-image-upload .image-upload .fa-2x {
         font-size: 1.3em;
+    }
+}
+
+.notice-birthday {
+    background-color: #fff7d4;
+    text-align: center;
+
+    figure {
+        margin-bottom: -20px;
+        height: 100px;
+    }
+
+    figure {
+        display: block;
+        vertical-align: middle;
+
+        .pricon-balloon {
+            position: absolute;
+            @include center(true, false);
+        }
+
+        .pricon-balloon:nth-of-type(1) {
+            color: $palette-blue-2;
+            transform: translateX(-50px) translateY(10px);
+        }
+
+        .pricon-balloon:nth-of-type(2) {
+            color: $palette-red-2;
+            z-index: 3;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        .pricon-balloon:nth-of-type(3) {
+            color: $palette-green-2;
+            z-index: 1;
+            transform: translateX(0px) translateY(10px);
+        }
     }
 }

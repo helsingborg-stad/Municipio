@@ -100,7 +100,7 @@ class Subscription
             $userId = get_current_user_id();
         }
 
-        $subscriptions = self::getSubscriptions($userId, true);
+        $subscriptions = (array) self::getSubscriptions($userId, true);
         $matches = array_filter($subscriptions, function ($subscription) use ($blogId) {
             return $subscription == $blogId;
         });
