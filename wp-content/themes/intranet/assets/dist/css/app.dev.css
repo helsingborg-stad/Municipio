@@ -341,7 +341,13 @@ body.admin-bar {
       font-size: .9rem; } }
 
 .profile-social-networks {
-  margin-top: 20px; }
+  position: absolute;
+  top: 28px;
+  left: 0; }
+  @media (max-width: 769px) {
+    .profile-social-networks {
+      position: static;
+      margin-top: 20px; } }
   .profile-social-networks a {
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.2em; }
@@ -355,6 +361,9 @@ body.admin-bar {
       border-right: 5px solid transparent !important;
       border-bottom: 5px solid #fff !important;
       border-left: 5px solid transparent !important; }
+  .profile-social-networks .pricon-linkedin {
+    position: relative;
+    top: -1px; }
 
 .profile-header-background {
   position: absolute;

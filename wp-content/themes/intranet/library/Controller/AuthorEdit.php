@@ -79,8 +79,17 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         update_user_meta($user->ID, 'user_target_groups', isset($_POST['user_target_groups']) ? array_map('sanitize_text_field', $_POST['user_target_groups']) : array());
         update_user_meta($user->ID, 'user_color_scheme', isset($_POST['color_scheme']) ? $_POST['color_scheme'] : 'purple');
 
-        update_user_meta($user->ID, 'user_birthday', $_POST['user_birthday']);
-        update_user_meta($user->ID, 'user_hide_birthday', isset($_POST['user_hide_birthday']) ? true : false);
+        if (!empty($_POST['user_birthday']['year']) && !empty($_POST['user_birthday']['month']) && !empty($_POST['user_birthday']['day'])) {
+            update_user_meta($user->ID, 'user_birthday', $_POST['user_birthday']);
+        } else {
+            delete_user_meta($user->ID, 'user_birthday');
+        }
+
+        if (isset($_POST['user_hide_birthday'])) {
+            update_user_meta($user->ID, 'user_hide_birthday', true);
+        } else {
+            delete_user_meta($user->ID, 'user_hide_birthday');
+        }
 
         // Visiting address components
         $user_visiting_address = array(

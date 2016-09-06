@@ -109,13 +109,13 @@ if (!function_exists('municipio_intranet_get_administration_unit_name')) {
     }
 }
 
-if (!function_exists('municipio_intranet_get_user_has_birthday')) {
+if (!function_exists('municipio_intranet_user_has_birthday')) {
     /**
      * Check if user has birthday today
      * @param  mixed $user User id or login name, default is current logged in user
      * @return string
      */
-    function municipio_intranet_get_user_has_birthday($user = null)
+    function municipio_intranet_user_has_birthday($user = null)
     {
         if (is_null($user)) {
             $user = wp_get_current_user();
@@ -139,5 +139,35 @@ if (!function_exists('municipio_intranet_get_user_has_birthday')) {
         }
 
         return false;
+    }
+}
+
+if (!function_exists('municipio_intranet_user_birthday')) {
+    /**
+     * Check if user has birthday today
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_intranet_user_birthday($user = null)
+    {
+        if (is_null($user)) {
+            $user = wp_get_current_user();
+        } elseif (is_numeric($user)) {
+            $user = get_user_by('ID', $user);
+        } elseif (is_string($user)) {
+            $user = get_user_by('slug', $user);
+        }
+
+        if (get_the_author_meta('user_hide_birthday') == 1) {
+            return false;
+        }
+
+        if (!get_the_author_meta('user_birthday') || !get_the_author_meta('user_birthday')['year'] || !get_the_author_meta('user_birthday')['month'] || !get_the_author_meta('user_birthday')['day']) {
+            return false;
+        }
+
+        $bday = get_the_author_meta('user_birthday')['year'] . '-' . get_the_author_meta('user_birthday')['month'] . '-' . get_the_author_meta('user_birthday')['day'];
+
+        return mysql2date('d F Y', $bday);
     }
 }

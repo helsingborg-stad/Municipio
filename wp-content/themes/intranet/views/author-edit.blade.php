@@ -30,9 +30,6 @@
                         <p>
                             <?php _e('Click on a section to view and edit your settings.', 'municipio-intranet'); ?>
                         </p>
-                        <p>
-                            <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-default-audience="only_me" data-scope="public_profile, user_about_me, user_birthday, user_hometown, user_location" onlogin="facebookLoginDone"></div>
-                        </p>
                     </article>
                 </div>
             </div>
@@ -94,12 +91,14 @@
                                         </div>
                                     </div>
 
+
                                     <div class="grid-md-4">
                                         <div class="form-group">
                                             <label for="user_birthday_year" style="font-weight:normal;"><?php _e('Year', 'municipio-intranet'); ?></label>
                                             <select name="user_birthday[year]" id="user_birthday_year">
+                                                <option value="" default><?php _e('Select year…', 'municipio-intranet'); ?></option>
                                                 @for ($i = date('Y') - 13; $i >= date('Y') - 100; $i--)
-                                                    <option value="{{ $i }}" {{ selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['year'], $i) }}>{{ $i }}</option>
+                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['year']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['year'], $i) : null }}>{{ $i }}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -109,8 +108,9 @@
                                         <div class="form-group">
                                             <label for="user_birthday_month" style="font-weight:normal;"><?php _e('Month', 'municipio-intranet'); ?></label>
                                             <select name="user_birthday[month]" id="user_birthday_month">
+                                                <option value="" default><?php _e('Select month…', 'municipio-intranet'); ?></option>
                                                 @for ($i = 1; $i <= 12; $i++)
-                                                    <option value="{{ $i }}" {{ selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['month'], $i) }}>{{ ucfirst(mysql2date('F', date('Y') . '-' . $i . '-01')) }}</option>
+                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['month']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['month'], $i) : null }}>{{ ucfirst(mysql2date('F', date('Y') . '-' . $i . '-01')) }}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -120,8 +120,9 @@
                                         <div class="form-group">
                                             <label for="user_birthday_day" style="font-weight:normal;"><?php _e('Day', 'municipio-intranet'); ?></label>
                                             <select name="user_birthday[day]" id="user_birthday_day">
+                                                <option value="" default><?php _e('Select day…', 'municipio-intranet'); ?></option>
                                                 @for ($i = 1; $i <= 31; $i++)
-                                                    <option value="{{ $i }}" {{ selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['day'], $i) }}>{{ $i }}</option>
+                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['day']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['day'], $i) : null }}>{{ $i }}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -474,6 +475,20 @@
                         <div class="box-content">
                             <p><?php _e('This is where you edit your personal settings.', 'municipio-intranet'); ?></p>
                             <p><?php _e('Some of your settings is displayed on your profile to other logged in users.', 'municipio-intranet'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-xs-12">
+                    <div class="box box-filled">
+                        <h4 class="box-title"><?php _e('Sync from Facebook', 'municipio-intranet'); ?></h4>
+                        <div class="box-content">
+                            <p>
+                                <?php _e('We can sync some of your profile settings from Facebook. If you would like to do this click the login button below to login to Facebook and allow us to get needed information.', 'municipio-intranet'); ?>
+                            </p>
+                            <p>
+                                <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-default-audience="only_me" data-scope="public_profile, user_about_me, user_birthday, user_hometown, user_location" onlogin="facebookLoginDone"></div>
+                            </p>
                         </div>
                     </div>
                 </div>
