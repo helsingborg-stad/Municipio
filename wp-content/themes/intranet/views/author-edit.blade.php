@@ -48,13 +48,13 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_first_name"><?php _e('First name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                            <label for="user_first_name"><?php _e('First name', 'municipio-intranet'); ?><span class="text-danger">*</span> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
                                             <input type="text" id="user_first_name" name="user_first_name" value="{{ get_the_author_meta('first_name') }}" disabled>
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_last_name"><?php _e('Last name', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                            <label for="user_last_name"><?php _e('Last name', 'municipio-intranet'); ?><span class="text-danger">*</span> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
                                             <input type="text" id="user_last_name" name="user_last_name" value="{{ get_the_author_meta('last_name') }}" disabled>
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
+                                            <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?><span class="text-danger">*</span> <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small></label>
                                             <input type="email" id="user_email" name="user_email" value="{{ get_the_author_meta('email') }}" disabled>
                                         </div>
                                     </div>
@@ -209,7 +209,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?><?php echo !empty(get_the_author_meta('ad_title')) ? ' <small>(' . __('Not editable', 'municipio-intranet') . ')</small>' : ''; ?></label>
+                                            <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?><?php echo !empty(get_the_author_meta('ad_title')) ? '<span class="text-danger">*</span> <small>(' . __('Not editable', 'municipio-intranet') . ')</small>' : ''; ?></label>
                                             @if (!empty(get_the_author_meta('ad_title')))
                                             <input type="text" id="user_work_title" name="ad_title" value="{{ get_the_author_meta('ad_title') }}" disabled>
                                             @else
@@ -222,7 +222,7 @@
                                 <div class="grid">
                                     <div class="grid-md-12">
                                         <div class="form-group">
-                                            <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?></label>
+                                            <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                                             <div class="grid">
                                                 @foreach ($administrationUnits as $unit)
                                                 <div class="grid-md-6">
@@ -240,7 +240,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?></label>
+                                            <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                                             <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
                                         </div>
                                     </div>
