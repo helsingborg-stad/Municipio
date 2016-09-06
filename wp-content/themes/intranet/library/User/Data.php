@@ -30,6 +30,33 @@ class Data
     public function __construct()
     {
         add_action('wp', array($this, 'saveMissingDataForm'));
+        add_action('wp_ajax_sync_facebook_profile', array($this, 'syncFacebookDetails'));
+    }
+
+    /**
+     * Ajax callback for syncing Facebook information to profile
+     * @return void
+     */
+    public function syncFacebookDetails()
+    {
+        // Get the details from post
+        $details = json_decode(json_encode($_POST['details']));
+
+        // Update birthday
+        if (isset($details->birthday) && !empty($details->birthday)) {
+            $details->birthday = array(
+                'year' => date('Y', strtotime($details->birthday)),
+                'month' => ltrim(date('m', strtotime($details->birthday)), 0),
+                'day' => ltrim(date('d', strtotime($details->birthday)), 0)
+            );
+
+            update_user_meta(get_current_user_id(), 'user_birthday', $details->birthday);
+        }
+
+        var_dump($details->location->name);
+
+        echo "1";
+        wp_die();
     }
 
     /**

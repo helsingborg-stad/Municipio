@@ -631,18 +631,9 @@ Intranet.SocialLogin.Facebook = (function ($) {
 
     Facebook.prototype.checkStatus = function() {
         FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                Intranet.SocialLogin.Facebook.getDetails();
-            }
-            else {
+            if (response.status !== 'connected') {
                 FB.login();
             }
-        });
-    };
-
-    Facebook.prototype.getDetails = function() {
-        FB.api('/me', {fields: 'about, bio, birthday, gender, hometown, location'}, function (response) {
-            console.log(response);
         });
     };
 
@@ -650,8 +641,38 @@ Intranet.SocialLogin.Facebook = (function ($) {
 
 })(jQuery);
 
-function facebookLoginDone() {
-    Intranet.SocialLogin.Facebook.checkStatus();
+Intranet = Intranet || {};
+Intranet.User = Intranet.User || {};
+
+Intranet.User.FacebookProfileSync = (function ($) {
+    function FacebookProfileSync() {
+
+    }
+
+    FacebookProfileSync.prototype.getDetails = function() {
+        FB.api('/me', {fields: 'birthday, location'}, function (response) {
+            this.saveDetails(response);
+        }.bind(this));
+    };
+
+    FacebookProfileSync.prototype.saveDetails = function(details) {
+        var data = {
+            action: 'sync_facebook_profile',
+            details: details
+        };
+
+        $.post(ajaxurl, data, function (response) {
+
+        });
+    };
+
+    return new FacebookProfileSync();
+
+})(jQuery);
+
+
+function facebookProfileSync() {
+    Intranet.User.FacebookProfileSync.getDetails();
 }
 
 Intranet = Intranet || {};

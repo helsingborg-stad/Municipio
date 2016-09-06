@@ -18,25 +18,12 @@ Intranet.SocialLogin.Facebook = (function ($) {
 
     Facebook.prototype.checkStatus = function() {
         FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                Intranet.SocialLogin.Facebook.getDetails();
-            }
-            else {
+            if (response.status !== 'connected') {
                 FB.login();
             }
-        });
-    };
-
-    Facebook.prototype.getDetails = function() {
-        FB.api('/me', {fields: 'about, bio, birthday, gender, hometown, location'}, function (response) {
-            console.log(response);
         });
     };
 
     return new Facebook();
 
 })(jQuery);
-
-function facebookLoginDone() {
-    Intranet.SocialLogin.Facebook.checkStatus();
-}
