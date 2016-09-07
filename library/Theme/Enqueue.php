@@ -36,10 +36,10 @@ class Enqueue
      */
     public function adminStyle()
     {
-        wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/admin.min.css'));
+        wp_register_style('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/css/admin.min.css', '', filemtime(get_template_directory_uri() . '/assets/dist/css/admin.min.css') ? filemtime(get_template_directory_uri() . '/assets/dist/css/admin.min.css') : '1.0.0');
         wp_enqueue_style('helsingborg-se-admin');
 
-        wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/js/admin.min.js', '', @filemtime(get_template_directory_uri() . '/assets/dist/js/admin.min.js'), true);
+        wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/js/admin.min.js', '', filemtime(get_template_directory_uri() . '/assets/dist/js/admin.min.js') ? filemtime(get_template_directory_uri() . '/assets/dist/js/admin.min.js') : '1.0.0', true);
         wp_enqueue_script('helsingborg-se-admin');
     }
 
@@ -58,7 +58,7 @@ class Enqueue
         wp_enqueue_style('hbg-prime');
 
         if (is_readable(get_template_directory_uri() . '/assets/dist/css/app.min.css')) {
-            wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
+            wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css') ? filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css') : '1.0.0');
         } else {
             wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', '1.1.1');
         }
