@@ -8,7 +8,7 @@
             <div class="grid-md-6">
                 <div class="form-group">
                     <label for="user_first_name">
-                        <?php _e('First name', 'municipio-intranet'); ?>
+                        <?php _e('First name', 'municipio-intranet'); ?><span class="text-danger">*</span>
                         @if (get_user_meta(get_current_user_id(), 'first_name', true))
                         <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small>
                         @endif
@@ -19,7 +19,7 @@
             <div class="grid-md-6">
                 <div class="form-group">
                     <label for="user_last_name">
-                        <?php _e('Last name', 'municipio-intranet'); ?>
+                        <?php _e('Last name', 'municipio-intranet'); ?><span class="text-danger">*</span>
                         @if (get_user_meta(get_current_user_id(), 'last_name', true))
                         <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small>
                         @endif

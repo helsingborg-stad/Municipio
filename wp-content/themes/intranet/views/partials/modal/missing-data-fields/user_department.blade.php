@@ -15,12 +15,12 @@
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="form-group">
-                    <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?></label>
+                    <label for="user_administration_unit"><?php _e('Administration unit', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                     <div class="grid">
                         @foreach ($administrationUnits as $unit)
                         <div class="grid-md-6">
                             <label class="checkbox">
-                                <input type="radio" name="user_administration_unit" value="{{ $unit->id }}" {{ checked(true, in_array($unit->id, (array)get_the_author_meta('user_administration_unit'))) }}>
+                                <input type="radio" name="user_administration_unit" value="{{ $unit->id }}" {{ checked(true, in_array($unit->id, (array)get_user_meta(get_current_user_id(), 'user_administration_unit'))) }}>
                                 {{ $unit->name }}
                             </label>
                         </div>
@@ -33,8 +33,8 @@
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="form-group">
-                    <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?></label>
-                    <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}">
+                    <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
+                    <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}" required>
                 </div>
             </div>
         </div>
