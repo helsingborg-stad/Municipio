@@ -8,8 +8,8 @@
         case 'network_subscribed':
             if (is_user_logged_in()) {
                 $subscriptions = array_merge(
-                    \Intranet\User\Subscription::getForcedSubscriptions(true),
-                    \Intranet\User\Subscription::getSubscriptions(null, true)
+                    (array) \Intranet\User\Subscription::getForcedSubscriptions(true),
+                    (array) \Intranet\User\Subscription::getSubscriptions(null, true)
                 );
 
                 $news = \Intranet\CustomPostType\News::getNews($limit, $subscriptions);
