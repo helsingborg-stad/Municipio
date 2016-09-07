@@ -12,6 +12,7 @@ Version 0.2.10 (tbd)
 - Birthday notice on user's profile if birthday's not secret
 - Add asterix to required fields in profile settings
 - Navigation caching (Municipio theme)
+- Fixed php warnings and errors
 
 Version 0.2.9 (2016-09-02)
 ==========================
