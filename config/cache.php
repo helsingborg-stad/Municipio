@@ -17,3 +17,9 @@ define('WP_USE_MEMCACHED', true);
 * @var string
 */
 define('WP_CACHE_KEY_SALT', NONCE_KEY);
+
+/**
+* Simple Page Cache
+* @var string
+*/
+define('WP_SIMPLE_CACHE_BASE_DIR', dirname(__FILE__) . '/wp-content/uploads/cache/simple-cache/');
