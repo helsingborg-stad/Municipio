@@ -105,9 +105,14 @@ class Navigation
     {
         global $post;
 
+        $transientType = '';
+        if (is_user_logged_in()) {
+            $transientType = '_loggedin';
+        }
+
         $menu = false;
         if (isset($post->ID)) {
-            $menu = get_transient('main_menu_' . $post->ID);
+            $menu = get_transient('main_menu_' . $post->ID . $transientType);
         }
 
         $classes = array('nav');
@@ -127,7 +132,7 @@ class Navigation
                 $classes[] = 'nav-dropdown';
             }
 
-            set_transient('main_menu_' . $post->ID, $menu, 60*60*168);
+            set_transient('main_menu_' . $post->ID . $transientType, $menu, 60*60*168);
         }
 
         if (isset($menu) && $menu->itemCount() > 0) {
@@ -149,9 +154,14 @@ class Navigation
     {
         global $post;
 
+        $transientType = '';
+        if (is_user_logged_in()) {
+            $transientType = '_loggedin';
+        }
+
         $menu = false;
         if (isset($post->ID)) {
-            $menu = get_transient('mobile_menu_' . $post->ID);
+            $menu = get_transient('mobile_menu_' . $post->ID . $transientType);
         }
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
@@ -165,7 +175,7 @@ class Navigation
 
             $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
-            set_transient('mobile_menu_' . $post->ID, $menu, 60*60*168);
+            set_transient('mobile_menu_' . $post->ID . $transientType, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
@@ -269,9 +279,14 @@ class Navigation
     {
         global $post;
 
+        $transientType = '';
+        if (is_user_logged_in()) {
+            $transientType = '_loggedin';
+        }
+
         $menu = false;
         if (isset($post->ID)) {
-            $menu = get_transient('sidebar_menu_' . $post->ID);
+            $menu = get_transient('sidebar_menu_' . $post->ID . $transientType);
         }
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
@@ -281,7 +296,7 @@ class Navigation
                 'depth' => get_field('nav_sub_depth', 'option')
             ));
 
-            set_transient('sidebar_menu_' . $post->ID, $menu, 60*60*168);
+            set_transient('sidebar_menu_' . $post->ID . $transientType, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
