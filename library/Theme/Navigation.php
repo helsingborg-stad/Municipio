@@ -66,6 +66,10 @@ class Navigation
                 delete_transient('main_menu_' . $child->ID);
                 delete_transient('mobile_menu_' . $child->ID);
                 delete_transient('sidebar_menu_' . $child->ID);
+
+                delete_transient('main_menu_' . $child->ID . '_loggedin');
+                delete_transient('mobile_menu_' . $child->ID . '_loggedin');
+                delete_transient('sidebar_menu_' . $child->ID . '_loggedin');
             }
         }
     }
