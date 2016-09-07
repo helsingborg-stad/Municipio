@@ -50,7 +50,7 @@ if (!class_exists('WpSimpleCache')) {
             //Setup variables
             self::$file_hash        = md5(rtrim(trim(strtolower($_SERVER['REQUEST_URI'])), "/"));
             self::$domain_name      = md5($_SERVER['SERVER_NAME']);
-            self::$cache_folder     = "/cache/";
+            self::$cache_folder     = "/simple-cache/";
 
             //Cache time
             if (defined('DOING_AJAX') && DOING_AJAX === true && isset($_REQUEST) && !empty($_REQUEST)) {
