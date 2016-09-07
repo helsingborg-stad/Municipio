@@ -13,7 +13,7 @@
                         <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small>
                         @endif
                     </label>
-                    <input type="text" id="user_first_name" name="first_name" value="{{ get_user_meta(get_current_user_id(), 'first_name', true) }}" {{ get_user_meta(get_current_user_id(), 'first_name', true) ? 'disabled' : '' }}>
+                    <input type="text" id="user_first_name" name="first_name" value="{{ get_user_meta(get_current_user_id(), 'first_name', true) }}" {{ get_user_meta(get_current_user_id(), 'first_name', true) ? 'disabled' : '' }} required>
                 </div>
             </div>
             <div class="grid-md-6">
@@ -24,7 +24,7 @@
                         <small>(<?php _e('Not editable', 'municipio-intranet'); ?>)</small>
                         @endif
                     </label>
-                    <input type="text" id="user_last_name" name="last_name" value="{{ get_user_meta(get_current_user_id(), 'last_name', true) }}" {{ get_user_meta(get_current_user_id(), 'last_name', true) ? 'disabled' : '' }}>
+                    <input type="text" id="user_last_name" name="last_name" value="{{ get_user_meta(get_current_user_id(), 'last_name', true) }}" {{ get_user_meta(get_current_user_id(), 'last_name', true) ? 'disabled' : '' }} required>
                 </div>
             </div>
         </div>
