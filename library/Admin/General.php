@@ -7,6 +7,32 @@ class General
     public function __construct()
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);
+
+        // Post status private rename to "Only for logged in users"
+        add_action('current_screen', array($this, 'renamePrivate'));
+    }
+
+    /**
+     * Renames the "private" post visibility to "only for logged in users"
+     * @return void
+     */
+    public function renamePrivate()
+    {
+        if (!is_admin()) {
+            return;
+        }
+
+        if (get_current_screen()->action !== '') {
+            return;
+        }
+
+        add_filter('gettext', function ($translation, $text, $domain) {
+            if ($text !== 'Private') {
+                return $translation;
+            }
+
+            return __('Only for logged in users', 'municipio');
+        }, 10, 3);
     }
 
     /**
