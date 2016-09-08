@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
 "POT-Creation-Date: 2016-09-08 13:49+0200\n"
-"PO-Revision-Date: 2016-09-08 14:13+0200\n"
+"PO-Revision-Date: 2016-09-08 14:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -881,14 +881,17 @@ msgstr ""
 
 #: views/author-edit.blade.php:484
 msgid "Sync from Facebook"
-msgstr ""
+msgstr "Synkronisera från Facebook"
 
 #: views/author-edit.blade.php:487
 msgid ""
 "We can sync some of your profile settings from Facebook. If you would like "
 "to do this click the login button below to login to Facebook and allow us to "
 "get needed information."
-msgstr "Vi kan hämta in vissa "
+msgstr ""
+"Vi kan hämta in viss information om dig från ditt Facebook konto. Om du vill "
+"göra detta klickar du på knappen ”Logga in” nedan för att logga in på "
+"Facebook och ge oss lov att hämta uppgifterna."
 
 #: views/author.blade.php:60
 msgid "My profile on Facebook"
