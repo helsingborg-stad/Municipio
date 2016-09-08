@@ -488,7 +488,7 @@
                             </p>
 
                             <div class="fb-login-container gutter gutter-top">
-                                <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-default-audience="only_me" data-scope="public_profile, user_about_me, user_birthday, user_hometown, user_location" onlogin="facebookProfileSync"></div>
+                                <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-default-audience="only_me" data-scope="public_profile, user_birthday, user_location" onlogin="facebookProfileSync"></div>
                             </div>
                         </div>
                     </div>
