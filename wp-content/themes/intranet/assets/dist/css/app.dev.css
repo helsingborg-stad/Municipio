@@ -382,6 +382,7 @@ body.admin-bar {
     background-position: center center;
     -webkit-filter: blur(10px);
             filter: blur(10px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='10');
     -webkit-transform: scale(1.2);
             transform: scale(1.2); }
     .profile-header-background div::after {

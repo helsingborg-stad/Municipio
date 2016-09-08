@@ -217,6 +217,7 @@
         background-size: cover;
         background-position: center center;
         filter: blur(10px);
+        filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='10');
         transform: scale(1.2);
 
         &::after {
