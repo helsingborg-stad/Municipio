@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-08-19 10:41+0200\n"
-"PO-Revision-Date: 2016-08-19 10:41+0200\n"
+"POT-Creation-Date: 2016-09-08 11:14+0200\n"
+"PO-Revision-Date: 2016-09-08 11:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -809,19 +809,19 @@ msgstr "Fixerad till högerkanten"
 msgid "Menu to show translate link in"
 msgstr "Meny att visa översättningslänk i"
 
-#: acf-exports/translate-reference.php:211 library/Theme/Navigation.php:24
+#: acf-exports/translate-reference.php:211 library/Theme/Navigation.php:80
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: acf-exports/translate-reference.php:212 library/Theme/Navigation.php:25
+#: acf-exports/translate-reference.php:212 library/Theme/Navigation.php:81
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: acf-exports/translate-reference.php:213 library/Theme/Navigation.php:29
+#: acf-exports/translate-reference.php:213 library/Theme/Navigation.php:85
 msgid "Main menu"
 msgstr "Huvudmeny"
 
-#: acf-exports/translate-reference.php:214 library/Theme/Navigation.php:33
+#: acf-exports/translate-reference.php:214 library/Theme/Navigation.php:89
 msgid "Sidebar menu"
 msgstr "Sidebar-meny"
 
@@ -1244,7 +1244,11 @@ msgstr "Adress"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: library/Admin/General.php:62
+#: library/Admin/General.php:34
+msgid "Only for logged in users"
+msgstr "Endast för inloggade användare"
+
+#: library/Admin/General.php:88
 msgid "Private"
 msgstr "Privat"
 
@@ -1270,7 +1274,7 @@ msgid "Footer"
 msgstr "Sidfot"
 
 #: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
-#: library/Theme/Navigation.php:84
+#: library/Theme/Navigation.php:140
 msgid "Search"
 msgstr "Sök"
 
@@ -1515,7 +1519,12 @@ msgstr "Filtrera"
 msgid "No categories"
 msgstr "Inga kategorier"
 
-#: views/partials/blog/post-footer.blade.php:14
+#: views/partials/blog/post-footer.blade.php:9
+#: views/partials/page-footer.blade.php:11
+msgid "Share the page"
+msgstr "Dela sidan"
+
+#: views/partials/blog/post-footer.blade.php:34
 #: views/partials/timestamps.blade.php:4
 msgid "Published by"
 msgstr "Publicerad av"
@@ -1539,10 +1548,6 @@ msgstr "Mer"
 #: views/partials/mobile-menu.blade.php:5
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
-
-#: views/partials/page-footer.blade.php:11
-msgid "Share the page"
-msgstr "Dela sidan"
 
 #: views/partials/search/google.blade.php:22
 #: views/partials/search/wp.blade.php:22
