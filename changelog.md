@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.10 (tbd)
-====================
+Version 0.2.10 (2016-09-08)
+===========================
 - Facebook login on profile settings (to fetch profile information from in a later stage)
 - Profile settings field for birthday
 - Profile setting to make birthday secret
@@ -13,6 +13,10 @@ Version 0.2.10 (tbd)
 - Add asterix to required fields in profile settings
 - Navigation caching (Municipio theme)
 - Fixed php warnings and errors
+- Truncate long news stories
+- Check if SearchWP is installed, throw Exception if not
+- Simple caching activated
+- Login reminder via JS instead of PHP
 
 Version 0.2.9 (2016-09-02)
 ==========================
