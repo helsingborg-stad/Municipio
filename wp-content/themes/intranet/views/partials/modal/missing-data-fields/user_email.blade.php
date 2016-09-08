@@ -13,7 +13,7 @@
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="form-group">
-                    <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?></label>
+                    <label for="user_email"><?php _e('Email', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                     <input type="email" id="user_email" name="user_email" value="{{ get_the_author_meta('email') }}" required>
                 </div>
             </div>
