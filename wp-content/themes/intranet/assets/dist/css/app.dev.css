@@ -349,6 +349,7 @@ body.admin-bar {
       position: static;
       margin-top: 20px; } }
   .profile-social-networks a {
+    display: block;
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.2em; }
     .profile-social-networks a:hover {
