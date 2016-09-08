@@ -71,13 +71,13 @@
                     </ul>
                     @endif
 
-                    @if (get_the_author_meta('user_hometown') && !get_the_author_meta('user_hide_birthday'))
+                    @if (get_the_author_meta('user_hometown') && get_the_author_meta('user_hide_birthday') !== true)
                     <ul class="nav-horizontal gutter gutter-top">
                         @if (get_the_author_meta('user_hometown'))
                         <li><i class="pricon pricon-home" style="position: relative;top: -1px;"></i> {{ get_the_author_meta('user_hometown') }}</li>
                         @endif
 
-                        @if (!get_the_author_meta('user_hide_birthday') && municipio_intranet_user_birthday(get_the_author_meta('id')))
+                        @if (get_the_author_meta('user_hide_birthday') !== true && municipio_intranet_user_birthday(get_the_author_meta('id')))
                         <li><i class="pricon pricon-cake" style="position: relative;top: -1px;"></i> {{ municipio_intranet_user_birthday(get_the_author_meta('id')) }}</li>
                         @endif
                     </ul>

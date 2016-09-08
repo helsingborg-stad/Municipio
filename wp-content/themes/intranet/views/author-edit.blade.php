@@ -133,7 +133,7 @@
                                     <div class="grid-md-12">
                                         <div class="form-group">
                                             <label class="checkbox">
-                                                <input type="checkbox" name="user_hide_birthday" value="1" {{ checked(get_user_meta(get_current_user_id(), 'user_hide_birthday', true), true) }}>
+                                                <input type="checkbox" name="user_hide_birthday" value="1" {{ checked(get_the_author_meta('user_hide_birthday'), '', true), true) }}>
                                                 <?php _e('Keep my date of birth secret', 'municipio-intranet'); ?>
                                             </label>
                                         </div>
