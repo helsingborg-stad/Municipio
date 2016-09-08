@@ -1,5 +1,4 @@
-@if (isset($showLoginReminder) && $showLoginReminder)
-<div id="modal-target" class="modal modal-backdrop-white modal-open modal-xs" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-login-reminder" class="modal modal-backdrop-white modal-xs" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-content">
         <div class="box box-filled box-filled-red-4 box-filled-card pos-relative has-stripe">
             <div class="stripe stripe-red stripe-percentage">
@@ -36,4 +35,3 @@
 
     <div class="backdrop"></div>
 </div>
-@endif
