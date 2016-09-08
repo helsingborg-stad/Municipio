@@ -98,7 +98,7 @@
                                             <select name="user_birthday[year]" id="user_birthday_year">
                                                 <option value="" default><?php _e('Select year…', 'municipio-intranet'); ?></option>
                                                 @for ($i = date('Y') - 13; $i >= date('Y') - 100; $i--)
-                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['year']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['year'], $i) : null }}>{{ $i }}</option>
+                                                    <option value="{{ $i }}" {{ isset(get_the_author_meta('user_birthday')['year']) ? selected(get_the_author_meta('user_birthday')['year'], $i) : null }}>{{ $i }}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -110,7 +110,7 @@
                                             <select name="user_birthday[month]" id="user_birthday_month">
                                                 <option value="" default><?php _e('Select month…', 'municipio-intranet'); ?></option>
                                                 @for ($i = 1; $i <= 12; $i++)
-                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['month']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['month'], $i) : null }}>{{ ucfirst(mysql2date('F', date('Y') . '-' . $i . '-01')) }}</option>
+                                                    <option value="{{ $i }}" {{ isset(get_the_author_meta('user_birthday')['month']) ? selected(get_the_author_meta('user_birthday')['month'], $i) : null }}>{{ ucfirst(mysql2date('F', date('Y') . '-' . $i . '-01')) }}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -122,7 +122,7 @@
                                             <select name="user_birthday[day]" id="user_birthday_day">
                                                 <option value="" default><?php _e('Select day…', 'municipio-intranet'); ?></option>
                                                 @for ($i = 1; $i <= 31; $i++)
-                                                    <option value="{{ $i }}" {{ isset(get_user_meta(get_current_user_id(), 'user_birthday', true)['day']) ? selected(get_user_meta(get_current_user_id(), 'user_birthday', true)['day'], $i) : null }}>{{ $i }}</option>
+                                                    <option value="{{ $i }}" {{ isset(get_the_author_meta('user_birthday')['day']) ? selected(get_the_author_meta('user_birthday')['day'], $i) : null }}>{{ $i }}</option>
                                                 @endfor
                                             </select>
                                         </div>

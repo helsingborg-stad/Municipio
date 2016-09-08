@@ -77,8 +77,8 @@
                         <li><i class="pricon pricon-home" style="position: relative;top: -1px;"></i> {{ get_the_author_meta('user_hometown') }}</li>
                         @endif
 
-                        @if (!get_the_author_meta('user_hide_birthday') && municipio_intranet_user_birthday())
-                        <li><i class="pricon pricon-cake" style="position: relative;top: -1px;"></i> {{ municipio_intranet_user_birthday() }}</li>
+                        @if (!get_the_author_meta('user_hide_birthday') && municipio_intranet_user_birthday(get_the_author_meta('id')))
+                        <li><i class="pricon pricon-cake" style="position: relative;top: -1px;"></i> {{ municipio_intranet_user_birthday(get_the_author_meta('id')) }}</li>
                         @endif
                     </ul>
                     @endif
