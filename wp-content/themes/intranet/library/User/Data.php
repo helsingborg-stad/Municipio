@@ -337,6 +337,7 @@ class Data
             'street'    => isset($_POST['user_visiting_address']['street']) ? $_POST['user_visiting_address']['street'] : '',
             'city'      => isset($_POST['user_visiting_address']['city']) ? $_POST['user_visiting_address']['city'] : ''
         );
+
         update_user_meta($user->ID, 'user_visiting_address', $user_visiting_address);
 
         if (isset($_POST['responsibilities'])) {

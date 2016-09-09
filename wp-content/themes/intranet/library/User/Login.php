@@ -36,6 +36,25 @@ class Login
             update_user_meta($userId, 'user_phone', \Intranet\Helper\DataCleaner::phoneNumber(get_the_author_meta('ad_telephone', $userId)));
         }
 
+        // Visiting address
+        if (empty(get_the_author_meta('user_visiting_address', $userId))) {
+            $userVisitingAddress = array(
+                'city' => apply_filters('MunicipipIntranet/User/VisitingAddress/DefaultCity', 'Helsingborg')
+            );
+
+            if (!empty(get_the_author_meta('ad_physicaldeliveryofficename', $userId)) && empty(get_the_author_meta('ad_physicaldeliveryofficename', $userId))) {
+                $userVisitingAddress['workplace'] = get_the_author_meta('ad_physicaldeliveryofficename', $userId);
+            }
+
+            if (!empty(get_the_author_meta('ad_streetaddress', $userId)) && empty(get_the_author_meta('ad_streetaddress', $userId))) {
+                $userVisitingAddress['street'] = get_the_author_meta('ad_streetaddress', $userId);
+            }
+
+            if (isset($userVisitingAddress['workplace']) && isset($userVisitingAddress['street']) && isset($userVisitingAddress['city'])) {
+                update_user_meta($user->ID, 'user_visiting_address', $userVisitingAddress);
+            }
+        }
+
         return;
     }
 
