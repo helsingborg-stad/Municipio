@@ -111,9 +111,9 @@ class Navigation
 
         $label = 'Translate';
         if (get_field('google_translate_show_as', 'option') == 'icon') {
-            $label = '<span data-tooltip="Translate"><i class="pricon pricon-globe pricon-lg"></i></span>';
+            $label = '<span data-tooltip="Translate"><i class="pricon pricon-globe"></i></span>';
         } elseif (get_field('google_translate_show_as', 'option') == 'combined') {
-            $label = '<i class="pricon pricon-globe pricon-lg"></i> Translate';
+            $label = '<i class="pricon pricon-globe"></i> Translate';
         }
 
         $items .= '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
