@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
 "POT-Creation-Date: 2016-09-08 13:49+0200\n"
-"PO-Revision-Date: 2016-09-08 14:15+0200\n"
+"PO-Revision-Date: 2016-09-09 08:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -676,7 +676,7 @@ msgstr "Välj dag…"
 
 #: views/author-edit.blade.php:137
 msgid "Keep my date of birth secret"
-msgstr "Visa in min födelsedag för andra"
+msgstr "Visa inte min födelsedag för andra"
 
 #: views/author-edit.blade.php:149
 msgid "Social media"
