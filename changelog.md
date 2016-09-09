@@ -3,6 +3,11 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.11 (tbd)
+====================
+- Get vising address from active directory if possible
+- Remove leading zero from birthday date on profile
+
 Version 0.2.10 (2016-09-08)
 ===========================
 - Facebook login on profile settings (to fetch profile information from in a later stage)
