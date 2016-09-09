@@ -107,6 +107,7 @@ class Navigation
 
         $markup = null;
         $transientType = '';
+
         if (is_user_logged_in()) {
             $transientType = '_loggedin';
         }
@@ -118,7 +119,7 @@ class Navigation
 
         $classes = array('nav');
 
-        if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
+        if (!$menu || !is_string($menu) || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $menu = new \Municipio\Helper\NavigationTree(array(
                 'include_top_level' => true,
                 'render' => get_field('nav_primary_render', 'option'),
@@ -139,9 +140,9 @@ class Navigation
                 $markup .= '</ul>';
             }
 
-            $menu = $markup;
-
             set_transient('main_menu_' . $post->ID . $transientType, $markup, 60*60*168);
+
+            return $markup;
         }
 
         return $menu;
