@@ -139,10 +139,12 @@ class Navigation
                 $markup .= '</ul>';
             }
 
+            $menu = $markup;
+
             set_transient('main_menu_' . $post->ID . $transientType, $markup, 60*60*168);
         }
 
-        return $markup;
+        return $menu;
     }
 
     /**
