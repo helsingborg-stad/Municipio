@@ -168,6 +168,6 @@ if (!function_exists('municipio_intranet_user_birthday')) {
 
         $bday = get_the_author_meta('user_birthday')['year'] . '-' . get_the_author_meta('user_birthday')['month'] . '-' . get_the_author_meta('user_birthday')['day'];
 
-        return mysql2date('d F', $bday);
+        return mysql2date('j F', $bday);
     }
 }
