@@ -28,7 +28,7 @@
             <div class="grid-fit-content">
                 <label>&nbsp;</label>
                 <div class="pos-relative">
-                    <button class="btn" data-dropdown=".filter-dropdown">Välj taxonomier</button>
+                    <button class="btn" data-dropdown=".filter-dropdown" type="button">Välj taxonomier</button>
                     <ul class="dropdown-menu filter-dropdown dropdown-menu-arrow dropdown-menu-arrow-right dropdown-overflow" style="right:0;">
                         <?php $i = 0; ?>
                         @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
