@@ -242,6 +242,7 @@ class Archives
                     'id' => '',
                 ),
                 'choices' => array (
+                    'taxonomy' => 'Available taxonomies',
                     'text_search' => 'Text search',
                     'date_range' => 'Date range'
                 ),

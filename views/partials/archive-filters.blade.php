@@ -1,9 +1,9 @@
 @if (!empty($enabledHeaderFilters))
 <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
     <form method="get" action="{{ get_post_type_archive_link(get_post_type()) }}" class="container" id="archive-filter">
-        <div class="grid">
+        <div class="grid grid-table">
             @if (in_array('text_search', $enabledHeaderFilters))
-            <div class="grid-md-{{ 10/count($enabledHeaderFilters) }}">
+            <div class="grid-auto">
                 <label for="filter-keyword" class="text-sm"><strong><?php _e('Title', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -13,7 +13,7 @@
             @endif
 
             @if (in_array('date_range', $enabledHeaderFilters))
-            <div class="grid-md-{{ 10/count($enabledHeaderFilters) }}">
+            <div class="grid-auto">
                 <label for="filter-date-from" class="text-sm"><strong><?php _e('Date published', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon"><?php _e('From', 'municipio'); ?>:</span>
@@ -24,6 +24,32 @@
             </div>
             @endif
 
+            @if (in_array('taxonomy', $enabledHeaderFilters))
+            <div class="grid-fit-content">
+                <label>&nbsp;</label>
+                <div class="pos-relative">
+                    <button class="btn" data-dropdown=".filter-dropdown">Välj taxonomier</button>
+                    <ul class="dropdown-menu filter-dropdown dropdown-menu-arrow dropdown-menu-arrow-right dropdown-overflow" style="right:0;">
+                        <?php $i = 0; ?>
+                        @foreach ($filterTaxonomies as $taxonomy)
+                            <?php $i++; ?>
+                            {!! $i !== 1 ? '<li class="divider"></li>' : '' !!}
+                            <li class="title">{{ $taxonomy->label }}</li>
+                            @foreach ($taxonomy->values as $term)
+                            <li>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="term[]" value="{{ $term->slug }}"> {{ $term->name }}
+                                </label>
+                            </li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            @endif
+        </div>
+
+        <div class="grid">
             <div class="grid-md-2">
                  <label for="filter-date-from" class="text-sm">&nbsp;</label>
                 <input type="submit" value="<?php _e('Filter', 'municipio'); ?>" class="btn btn-primary btn-block">
