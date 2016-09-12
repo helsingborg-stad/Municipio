@@ -31,14 +31,14 @@
                     <button class="btn" data-dropdown=".filter-dropdown">Välj taxonomier</button>
                     <ul class="dropdown-menu filter-dropdown dropdown-menu-arrow dropdown-menu-arrow-right dropdown-overflow" style="right:0;">
                         <?php $i = 0; ?>
-                        @foreach ($filterTaxonomies as $taxonomy)
+                        @foreach ($filterTaxonomies as $taxKey => $taxonomy)
                             <?php $i++; ?>
                             {!! $i !== 1 ? '<li class="divider"></li>' : '' !!}
                             <li class="title">{{ $taxonomy->label }}</li>
                             @foreach ($taxonomy->values as $term)
                             <li>
                                 <label class="checkbox">
-                                    <input type="checkbox" name="term[]" value="{{ $term->slug }}"> {{ $term->name }}
+                                    <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}"> {{ $term->name }}
                                 </label>
                             </li>
                             @endforeach
