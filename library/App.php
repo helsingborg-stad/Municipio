@@ -11,7 +11,6 @@ class App
          */
         new \Municipio\Helper\Acf();
         new \Municipio\Helper\GravityForm();
-        new \Municipio\Helper\ArchiveFilter();
 
         /**
          * Template
