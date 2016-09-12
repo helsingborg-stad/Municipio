@@ -8,15 +8,15 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        @if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option'))
+        @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
             @include('partials.sidebar-left')
         @endif
 
         <?php
             $cols = 'grid-md-12';
-            if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option')) {
+            if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
                 $cols = 'grid-md-8 grid-lg-6';
-            } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option')) {
+            } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
                 $cols = 'grid-md-12 grid-lg-9';
             }
         ?>
@@ -30,17 +30,21 @@
             @endif
 
             <div class="grid">
-                @while(have_posts())
-                    {!! the_post() !!}
+                @if (have_posts())
+                    @while(have_posts())
+                        {!! the_post() !!}
 
-                    @if (in_array($template, array('full', 'compressed', 'collapsed')))
-                        <div class="grid-xs-12 post">
+                        @if (in_array($template, array('full', 'compressed', 'collapsed')))
+                            <div class="grid-xs-12 post">
+                                @include('partials.blog.type.post-' . $template)
+                            </div>
+                        @else
                             @include('partials.blog.type.post-' . $template)
-                        </div>
-                    @else
-                        @include('partials.blog.type.post-' . $template)
-                    @endif
-                @endwhile
+                        @endif
+                    @endwhile
+                @else
+                    <?php _e('No posts to show'); ?>…
+                @endif
             </div>
 
             @if (is_active_sidebar('content-area'))

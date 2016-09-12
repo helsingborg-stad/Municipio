@@ -25,13 +25,15 @@ class PostFilters
             return;
         }
 
-        $taxonomies = $this->getActiveTaxonomies();
+        $taxonomies = $this->getEnabledTaxonomies();
 
         add_action('HbgBlade/data', function ($data) use ($taxonomies) {
-            $data['enabledHeaderFilters'] = get_field('archive_' . sanitize_title(get_post_type()) . '_post_filters_header', 'option');
-            $data['enabledSidebarFilters'] = get_field('archive_' . sanitize_title(get_post_type()) . '_post_filters_sidebar', 'option');
+            global $wp_query;
+            $postType = $wp_query->query['post_type'];
+            $this->data['postType'] = $postType;
 
-            $data['filterTaxonomies'] = $taxonomies;
+            $data['enabledHeaderFilters'] = get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'option');
+            $data['enabledTaxonomyFilters'] = $taxonomies;
 
             return $data;
         });
@@ -41,19 +43,19 @@ class PostFilters
      * Get filterable taxonomies
      * @return array Taxonomies
      */
-    public function getActiveTaxonomies()
+    public function getEnabledTaxonomies()
     {
+        global $wp_query;
         $tax = array();
-        $postType = get_post_type();
-        $taxonomies = get_object_taxonomies($postType, 'object');
+        $taxonomies = get_field('archive_' . sanitize_title($wp_query->query['post_type']) . '_post_filters_sidebar', 'option');
 
         foreach ($taxonomies as $key => $item) {
-            $terms = get_terms($key, array(
+            $terms = get_terms($item, array(
                 'hide_empty' => false
             ));
 
-            $tax[$key] = array(
-                'label' => $item->labels->name,
+            $tax[$item] = array(
+                'label' => get_taxonomy($item)->labels->name,
                 'values' => $terms
             );
         }
@@ -91,22 +93,26 @@ class PostFilters
         }
 
         // Bail if tax or term is empty
-        if (!isset($_GET['tax']) || empty($_GET['tax']) || !isset($_GET['term']) || empty($_GET['term'])) {
+        if (!isset($_GET['term']) || empty($_GET['term'])) {
             return $query;
         }
 
-        $tax = sanitize_text_field($_GET['tax']);
-        $term = sanitize_text_field($_GET['term']);
+        $terms = $_GET['term'];
+        $terms = array_map(function ($item) {
+            return explode('|', $item);
+        }, $terms);
 
-        $query->set('tax_query', array(
-            'relation' => 'OR',
-            array(
-                'taxonomy' => $tax,
+        $taxQuery = array('relation' => 'OR');
+        foreach ($terms as $key => $term) {
+            $taxQuery[] = array(
+                'taxonomy' => $term[0],
                 'field' => 'slug',
-                'terms' => $term,
+                'terms' => $term[1],
                 'operator' => 'IN'
-            )
-        ));
+            );
+        }
+
+        $query->set('tax_query', $taxQuery);
 
         return $query;
     }
