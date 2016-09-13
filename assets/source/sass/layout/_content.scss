@@ -46,3 +46,20 @@
         }
     }
 }
+
+.filter-dropdown {
+    padding: 0;
+    width: 500px;
+
+    label.checkbox {
+        display: block;
+    }
+
+    .accordion-box .accordion-section,
+    .accordion-boxes .accordion-section,
+    .accordion-list .accordion-section {
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+    }
+}

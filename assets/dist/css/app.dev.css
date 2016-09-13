@@ -170,6 +170,18 @@
   .nav-accessibility a .pricon {
     margin-right: .2em; }
 
+.filter-dropdown {
+  padding: 0;
+  width: 500px; }
+  .filter-dropdown label.checkbox {
+    display: block; }
+  .filter-dropdown .accordion-box .accordion-section,
+  .filter-dropdown .accordion-boxes .accordion-section,
+  .filter-dropdown .accordion-list .accordion-section {
+    border-top: 0;
+    border-right: 0;
+    border-left: 0; }
+
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
 

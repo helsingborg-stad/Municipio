@@ -29,21 +29,27 @@
                 <label>&nbsp;</label>
                 <div class="pos-relative">
                     <button class="btn" data-dropdown=".filter-dropdown" type="button">Välj taxonomier</button>
-                    <ul class="dropdown-menu filter-dropdown dropdown-menu-arrow dropdown-menu-arrow-right dropdown-overflow" style="right:0;">
-                        <?php $i = 0; ?>
-                        @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
+                    <div class="dropdown-menu filter-dropdown dropdown-menu-arrow dropdown-menu-arrow-right dropdown-overflow" style="right:0;">
+                        <div class="accordion accordion-icon accordion-list">
+                            <?php $i = 0; ?>
+                            @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
                             <?php $i++; ?>
-                            {!! $i !== 1 ? '<li class="divider"></li>' : '' !!}
-                            <li class="title">{{ $taxonomy->label }}</li>
-                            @foreach ($taxonomy->values as $term)
-                            <li>
-                                <label class="checkbox">
-                                    <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
+                             <section class="accordion-section">
+                                <input type="radio" name="active-section" id="accordion-taxonomy-{{ $taxKey }}">
+                                <label class="accordion-toggle" for="accordion-taxonomy-{{ $taxKey }}">
+                                    <h5>{{ $taxonomy->label }}</h5>
                                 </label>
-                            </li>
+                                <div class="accordion-content text-columns-2">
+                                    @foreach ($taxonomy->values as $term)
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </section>
                             @endforeach
-                        @endforeach
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             @endif
