@@ -51,7 +51,7 @@ class Incidents
             'menu_position'        => 350,
             'has_archive'          => true,
             'rewrite'              => array(
-                'slug'       => __('incidents', 'municipio-intranet'),
+                'slug'       => sanitize_title(__('incidents', 'municipio-intranet')),
                 'with_front' => false
             ),
             'hierarchical'         => false,
