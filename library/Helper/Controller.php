@@ -71,7 +71,7 @@ class Controller
     {
         $src = file_get_contents($classPath);
 
-        if (preg_match('#^namespace\s+(.+?);$#sm', $src, $m)) {
+        if (preg_match('/namespace\s+(.+?);/', $src, $m)) {
             return $m[1];
         }
 
