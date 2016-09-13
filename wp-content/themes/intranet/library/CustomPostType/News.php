@@ -218,7 +218,7 @@ class News
             'hierarchical'         => false,
             'exclude_from_search'  => false,
             'taxonomies'           => array(),
-            'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author')
+            'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author', 'comments')
         );
 
         register_post_type(self::$postTypeSlug, $args);
