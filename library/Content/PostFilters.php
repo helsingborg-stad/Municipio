@@ -30,7 +30,7 @@ class PostFilters
         add_action('HbgBlade/data', function ($data) use ($taxonomies) {
             global $wp_query;
             $postType = $wp_query->query['post_type'];
-            $this->data['postType'] = $postType;
+            $data['postType'] = $postType;
 
             $data['enabledHeaderFilters'] = get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'option');
             $data['enabledTaxonomyFilters'] = $taxonomies;
@@ -48,6 +48,10 @@ class PostFilters
         global $wp_query;
         $tax = array();
         $taxonomies = get_field('archive_' . sanitize_title($wp_query->query['post_type']) . '_post_filters_sidebar', 'option');
+
+        if (!$taxonomies) {
+            return array();
+        }
 
         foreach ($taxonomies as $key => $item) {
             $terms = get_terms($item, array(
