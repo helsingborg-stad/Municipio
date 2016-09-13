@@ -21,7 +21,9 @@ class PostFilters
      */
     public function initFilters()
     {
-        if ((!is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
+        global $wp_query;
+
+        if (!isset($wp_query->query['post_type']) || !$wp_query->query['post_type'] || (!is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
             return;
         }
 
