@@ -43,7 +43,9 @@
                         @endif
                     @endwhile
                 @else
-                    <?php _e('No posts to show'); ?>…
+                    <div class="grid-xs-12">
+                        <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show'); ?>…</div>
+                    </div>
                 @endif
             </div>
 
