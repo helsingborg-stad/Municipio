@@ -13,7 +13,7 @@
                         <div class="grid">
                             <div class="grid-md-5">
                                 <div class="form-group">
-                                    <label for="table-of-contents-department"><?php _e('Department', 'municipio-intranet'); ?></label>
+                                    <label for="table-of-contents-department"><?php _e('Intranet', 'municipio-intranet'); ?></label>
                                     <select id="table-of-contents-department" name="department">
                                         <option value=""><?php _e('All', 'municipio-intranet'); ?></option>
                                         @foreach (\Intranet\Helper\Multisite::getSitesList(true) as $site)
