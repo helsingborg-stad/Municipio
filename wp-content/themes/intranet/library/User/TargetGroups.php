@@ -287,6 +287,10 @@ class TargetGroups
 
         $tags = array_merge($tags, $units);
 
+        uasort($tags, function ($a, $b) {
+            return $a->tag > $b->tag;
+        });
+
         return $tags;
     }
 
