@@ -120,8 +120,9 @@ class Profile
      */
     public function editProfileUrlRewrite()
     {
-        add_rewrite_rule('^' . $this->urlBase .'\/([a-zA-Z0-9_-]+)\/edit', 'index.php?author_name=$matches[1]&editprofile=true', 'top');
+        add_rewrite_rule('^' . $this->urlBase .'\/([a-zA-Z0-9_-]+)\/edit', 'index.php?author_name=$matches[1]&editprofile=true&modularity_template=author-edit', 'top');
         add_rewrite_tag('%editprofile%', 'true');
+        add_rewrite_tag('%modularity_template%', '(*.)');
 
         flush_rewrite_rules();
     }

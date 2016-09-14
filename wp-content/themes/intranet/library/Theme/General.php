@@ -27,6 +27,13 @@ class General
         add_filter('the_sites', array($this, 'getSiteOptions'));
 
         add_filter('Municipio/favicons', array($this, 'favicons'));
+
+        add_filter('Modularity/CoreTemplatesSearchTemplates', function ($templates) {
+            return array_merge($templates, array(
+                'author-edit',
+                'table-of-contents'
+            ));
+        });
     }
 
     public function favicons($icons)

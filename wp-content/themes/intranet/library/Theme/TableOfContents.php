@@ -20,7 +20,7 @@ class TableOfContents
 
     public function urlRewrite()
     {
-        add_rewrite_rule('^table-of-contents', 'index.php?table-of-contents', 'top');
+        add_rewrite_rule('^table-of-contents', 'index.php?table-of-contents&modularity_template=table-of-contents', 'top');
         add_rewrite_tag('%table-of-contents%', '([^&]+)');
         flush_rewrite_rules();
     }

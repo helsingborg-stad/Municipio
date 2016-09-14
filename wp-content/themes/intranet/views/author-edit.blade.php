@@ -493,6 +493,8 @@
                         </div>
                     </div>
                 </div>
+
+                <?php dynamic_sidebar('right-sidebar'); ?>
             </div>
         </aside>
     </div>
