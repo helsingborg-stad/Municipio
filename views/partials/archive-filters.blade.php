@@ -3,7 +3,7 @@
     <form method="get" action="{{ get_post_type_archive_link(get_post_type()) }}" class="container" id="archive-filter">
         <div class="grid grid-table">
             @if (in_array('text_search', $enabledHeaderFilters))
-            <div class="grid-auto">
+            <div class="grid-sm-12 grid-md-auto">
                 <label for="filter-keyword" class="text-sm sr-only"><strong><?php _e('Search', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -13,7 +13,7 @@
             @endif
 
             @if (in_array('date_range', $enabledHeaderFilters))
-            <div class="grid-auto">
+            <div class="grid-sm-12 grid-md-auto">
                 <label for="filter-date-from" class="text-sm sr-only"><strong><?php _e('Date published', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon"><?php _e('From', 'municipio'); ?>:</span>
@@ -24,7 +24,7 @@
             </div>
             @endif
 
-            <div class="grid-fit-content">
+            <div class="grid-sm-12 grid-md-fit-content">
                 <input type="submit" value="<?php _e('Search', 'municipio'); ?>" class="btn btn-primary btn-block">
             </div>
         </div>

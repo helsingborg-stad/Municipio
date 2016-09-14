@@ -63,3 +63,11 @@
         border-left: 0;
     }
 }
+
+@media #{$screen-below-md} {
+    .archive-filters {
+        .grid-sm-12 + .grid-sm-12 {
+            margin-top: 10px;
+        }
+    }
+}
