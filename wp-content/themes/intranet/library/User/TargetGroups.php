@@ -85,10 +85,7 @@ class TargetGroups
             $userId = get_current_user_id();
         }
 
-        $userGroups = get_user_meta($userId, 'user_target_groups', true);
-        if (!$userGroups) {
-            $userGroups = array();
-        }
+        $userGroups = self::getGroups($userId);
 
         // Check if any match if grop is an array
         if (is_array($group)) {
@@ -111,10 +108,7 @@ class TargetGroups
             return;
         }
 
-        $groups = get_user_meta(get_current_user_id(), 'user_target_groups', true);
-        if (!$groups) {
-            $groups = array();
-        }
+        $groups = self::getGroups();
 
         $metaQuery = $query->get('meta_query');
 
@@ -135,6 +129,28 @@ class TargetGroups
     }
 
     /**
+     * Get groups of a user
+     * @param  integer $userId User id
+     * @return array           User groups
+     */
+    public static function getGroups($userId = null)
+    {
+        if (!$userId) {
+            $userId = get_current_user_id();
+        }
+
+        $groups = get_user_meta($userId, 'user_target_groups', true);
+
+        if (!$groups) {
+            $groups = array();
+        }
+
+        $groups[] = 'unit-' . get_user_meta($userId, 'user_administration_unit', true);
+
+        return $groups;
+    }
+
+    /**
      * Adds restriction metabox to admin post edit
      */
     public function addRestrictionMetabox()
@@ -143,6 +159,7 @@ class TargetGroups
         global $post;
 
         $action = $current_screen->action;
+
         if (empty($action)) {
             $action = (isset($_GET['action']) && !empty($_GET['action'])) ? $_GET['action'] : null;
         }
@@ -260,6 +277,16 @@ class TargetGroups
 
         restore_current_blog();
 
+        $units = \Intranet\User\AdministrationUnits::getAdministrationUnits();
+        foreach ($units as &$unit) {
+            $unit->tag = $unit->name;
+            unset($unit->name);
+
+            $unit->id = 'unit-' . $unit->id;
+        }
+
+        $tags = array_merge($tags, $units);
+
         return $tags;
     }
 
@@ -327,7 +354,7 @@ class TargetGroups
         echo "<script>var mce_target_content_groups = [";
 
             foreach ($groups as $group) {
-                echo "{id: {$group->id}, tag: '{$group->tag}'},";
+                echo "{id: '{$group->id}', tag: '{$group->tag}'},";
             }
 
         echo "]</script>";
