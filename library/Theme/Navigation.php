@@ -17,21 +17,16 @@ class Navigation
             add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
         }
 
-        add_action('post_updated', array($this, 'purgeTreeMenuTransient'), 10, 3);
+        add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
     }
 
     /**
      * Find out which pages menus must be purged.
      * @param int $postId The post id to empty for
      */
-    public function purgeTreeMenuTransient($postId, $postAfter, $postBefore)
+    public function purgeTreeMenuTransient($postId, $post)
     {
-        unset($postBefore->post_modified, $postBefore->post_modified_gmt, $postAfter->post_modified, $postAfter->post_modified_gmt);
-
-        // Compare post_parent, if changed we need to empty menu cahce on both the old and the new parent
-        if ($postBefore != $postAfter) {
-            $this->purgeTreeMenuTransientForAncestors($postBefore->post_parent);
-        }
+        $this->purgeTreeMenuTransientForAncestors($post->post_parent);
     }
 
     /**
