@@ -27,7 +27,7 @@
     </li>
     @endif
 
-    <?php do_action('Municipio/blog/post_info', $post); ?>
+    <?php do_action('Municipio/blog/post_info', $post); ?>
 
     @if (comments_open())
     <li class="post-comments">
