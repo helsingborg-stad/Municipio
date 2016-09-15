@@ -23,6 +23,11 @@ class Search
 
     public function __construct()
     {
+        global $sitesLogged;
+        if (!is_array($sitesLogged)) {
+            $sitesLogged = array();
+        }
+
         $this->getLevel();
 
         $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
@@ -205,6 +210,8 @@ class Search
     public function multisiteSearchWP($level)
     {
         global $searchwp;
+        global $sitesLogged;
+
         $sites = null;
 
         $results = array();
@@ -235,19 +242,16 @@ class Search
              * This will add the search level as a suffix to the search query in the
              * Search WP log table for the current blog_id
              */
-            add_filter('searchwp_log_search', '__return_false');
-            if (count($sites) === $intSite) {
+            if ($this->level === $level && !in_array($siteId . '-' . $level, $sitesLogged)) {
                 global $currentSearchLevel;
-                $currentSearchLevel = $this->level;
+                $currentSearchLevel = $level;
 
                 /**
                  * Turn on logging and use the sanitize_text_field filter to suffix the search query
                  * added to the log table
                  */
-                add_filter('searchwp_log_search', function ($log, $engine, $preSearchOriginalTerms, $result) {
-                    add_filter('sanitize_text_field', '\Intranet\SearchWp\Search::filterLogQuery', 10, 2);
-                    return true;
-                }, 10, 4);
+                add_filter('searchwp_log_search', '\Intranet\SearchWp\Search::filterLogSearch', 15, 4);
+                $sitesLogged[] = $siteId . '-' . $level;
             }
 
             switch_to_blog($siteId);
@@ -267,6 +271,19 @@ class Search
         return $results;
     }
 
+    public static function filterLogSearch($log, $engine, $preSearchOriginalTerms, $result)
+    {
+        remove_filter('searchwp_log_search', '\Intranet\SearchWp\Search::filterLogSearch');
+
+        global $currentSearchLevel;
+        if (is_null($currentSearchLevel)) {
+            return $log;
+        }
+
+        add_filter('sanitize_text_field', '\Intranet\SearchWp\Search::filterLogQuery', 10, 2);
+        return true;
+    }
+
     /**
      * ATTENTION: Some hacky stuff going on here to append search type the the query log table in db
      * Add what type of search results to the search query log
@@ -282,6 +299,8 @@ class Search
         if (!empty($currentSearchLevel)) {
             $filtered .= ' (' . $currentSearchLevel . ')';
         }
+
+        $currentSearchLevel = null;
 
         return $filtered;
     }
