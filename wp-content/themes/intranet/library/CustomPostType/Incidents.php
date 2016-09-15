@@ -69,6 +69,15 @@ class Incidents
             return $posts;
         }
 
+        if (is_single()) {
+            foreach ($posts as $post) {
+                $post->blog_id = get_current_blog_id();
+                $post->incident_level = get_field('level', $post->ID);
+            }
+
+            return $posts;
+        }
+
         return self::getIncidents();
     }
 
