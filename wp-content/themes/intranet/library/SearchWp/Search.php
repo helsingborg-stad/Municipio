@@ -226,7 +226,26 @@ class Search
                 break;
         }
 
+        $intSite = 0;
         foreach ($sites as $siteId) {
+            $intSite++;
+
+            if (count($sites) === $intSite) {
+                global $currentSearchLevel;
+                $currentSearchLevel = $this->level;
+
+                add_filter('searchwp_log_search', function ($log, $engine, $preSearchOriginalTerms, $result) {
+                    $log = true;
+                    add_filter('sanitize_text_field', '\Intranet\SearchWp\Search::filterLogQuery', 10, 2);
+                    return $log;
+                }, 10, 4);
+            } else {
+                add_filter('searchwp_log_search', function ($log, $engine, $preSearchOriginalTerms, $result) {
+                    $log = false;
+                    return $log;
+                }, 10, 4);
+            }
+
             switch_to_blog($siteId);
 
             $s = isset($searchwp->original_query) && strlen($searchwp->original_query) > 0 ? $searchwp->original_query : get_search_query();
@@ -241,7 +260,28 @@ class Search
             restore_current_blog();
         }
 
+        exit;
+
         return $results;
+    }
+
+    /**
+     * ATTENTION: Some hacky stuff going on here to append search type the the query log table in db
+     * Add what type of search results to the search query log
+     * @param  string $filtered Filtered string
+     * @param  string $string   Unfiltered string
+     * @return string           Filtered string
+     */
+    public static function filterLogQuery($filtered, $string)
+    {
+        remove_filter('sanitize_text_field', '\Intranet\SearchWp\Search::filterLogQuery');
+        global $currentSearchLevel;
+
+        if (!empty($currentSearchLevel)) {
+            $filtered .= ' (' . $currentSearchLevel . ')';
+        }
+
+        return $filtered;
     }
 
     /**

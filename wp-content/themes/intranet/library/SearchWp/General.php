@@ -17,6 +17,9 @@ class General
         add_filter('searchwp_common_words', array($this, 'commonWords'));
         add_filter('searchwp_custom_stemmer', array($this, 'stem'));
 
+        // Disable search query logging by default (the logging will be handled specificly by the Search class)
+        add_filter('searchwp_log_search', '__return_false', 5);
+
         add_action('wp_ajax_search_autocomplete', array($this, 'ajaxSearch'));
         add_action('wp_ajax_nopriv_search_autocomplete', array($this, 'ajaxSearch'));
     }
@@ -25,6 +28,8 @@ class General
     {
         global $wp_query;
         $wp_query->set('s', sanitize_text_field($_REQUEST['s']));
+
+        add_filter('searchwp_log_search', '__return_false');
 
         $search = new \Intranet\SearchWp\Search();
         echo json_encode($search->results);
