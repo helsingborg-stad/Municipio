@@ -230,19 +230,23 @@ class Search
         foreach ($sites as $siteId) {
             $intSite++;
 
+            /**
+             * This part of the code is some hacky stuff
+             * This will add the search level as a suffix to the search query in the
+             * Search WP log table for the current blog_id
+             */
+            add_filter('searchwp_log_search', '__return_false');
             if (count($sites) === $intSite) {
                 global $currentSearchLevel;
                 $currentSearchLevel = $this->level;
 
+                /**
+                 * Turn on logging and use the sanitize_text_field filter to suffix the search query
+                 * added to the log table
+                 */
                 add_filter('searchwp_log_search', function ($log, $engine, $preSearchOriginalTerms, $result) {
-                    $log = true;
                     add_filter('sanitize_text_field', '\Intranet\SearchWp\Search::filterLogQuery', 10, 2);
-                    return $log;
-                }, 10, 4);
-            } else {
-                add_filter('searchwp_log_search', function ($log, $engine, $preSearchOriginalTerms, $result) {
-                    $log = false;
-                    return $log;
+                    return true;
                 }, 10, 4);
             }
 
@@ -259,8 +263,6 @@ class Search
 
             restore_current_blog();
         }
-
-        exit;
 
         return $results;
     }
