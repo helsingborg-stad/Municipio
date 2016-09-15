@@ -11,10 +11,10 @@ class Hash
      */
     public static function short($data)
     {
-        if (is_array($input) || is_object($input)) {
-            return substr(base_convert(md5(serialize($input)), 16, 32), 0, 12);
+        if (is_array($data) || is_object($data)) {
+            return substr(base_convert(md5(serialize($data)), 16, 32), 0, 12);
         }
 
-        return substr(base_convert(md5($input), 16, 32), 0, 12);
+        return substr(base_convert(md5($data), 16, 32), 0, 12);
     }
 }
