@@ -15,6 +15,11 @@ class Hash
         return substr(base_convert(md5($data), 16, 32), 0, 12);
     }
 
+    /**
+     * Sanitizes (serializes) the hash input data if needed
+     * @param  mixed   $data   Input data
+     * @return string          Sanitized data
+     */
     public static function sanitizeData($data)
     {
         if (!is_string($data)) {
