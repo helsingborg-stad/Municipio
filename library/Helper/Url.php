@@ -5,6 +5,15 @@ namespace Municipio\Helper;
 class Url
 {
     /**
+     * Get the url of the current page
+     * @return string Url
+     */
+    public static function getCurrent()
+    {
+        return '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    }
+
+    /**
      * Exclude specified params from a querystring
      * @param  string       $queryString   The querystring
      * @param  array|string $excludeParams Paramters to exclude (remove)

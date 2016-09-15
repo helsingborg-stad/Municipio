@@ -103,7 +103,7 @@ class Navigation
      */
     public function mainMenuAuto()
     {
-        global $post;
+        $transientHash = \Municipio\Helper\Hash::short(\Municipio\Helper\Url::getCurrent());
 
         $markup = null;
         $transientType = '';
@@ -112,10 +112,7 @@ class Navigation
             $transientType = '_loggedin';
         }
 
-        $menu = false;
-        if (isset($post->ID)) {
-            $menu = get_transient('main_menu_' . $post->ID . $transientType);
-        }
+        $menu = get_transient('main_menu_' . $transientHash . $transientType);
 
         $classes = array('nav');
 
@@ -140,7 +137,7 @@ class Navigation
                 $markup .= '</ul>';
             }
 
-            set_transient('main_menu_' . $post->ID . $transientType, $markup, 60*60*168);
+            set_transient('main_menu_' . $transientHash . $transientType, $markup, 60*60*168);
 
             return $markup;
         }
@@ -154,17 +151,14 @@ class Navigation
      */
     public function mobileMenuAuto()
     {
-        global $post;
+        $transientHash = \Municipio\Helper\Hash::short(\Municipio\Helper\Url::getCurrent());
 
         $transientType = '';
         if (is_user_logged_in()) {
             $transientType = '_loggedin';
         }
 
-        $menu = false;
-        if (isset($post->ID)) {
-            $menu = get_transient('mobile_menu_' . $post->ID . $transientType);
-        }
+        $menu = get_transient('mobile_menu_' . $transientHash . $transientType);
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $mobileMenuArgs = array(
@@ -177,7 +171,7 @@ class Navigation
 
             $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
-            set_transient('mobile_menu_' . $post->ID . $transientType, $menu, 60*60*168);
+            set_transient('mobile_menu_' . $transientHash . $transientType, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
@@ -275,21 +269,18 @@ class Navigation
 
     /**
      * Get navigation tree sidebar menu
-     * @return [type] [description]
+     * @return string Menu markup
      */
     public function sidebarMenuAuto()
     {
-        global $post;
+        $transientHash = \Municipio\Helper\Hash::short(\Municipio\Helper\Url::getCurrent());
 
         $transientType = '';
         if (is_user_logged_in()) {
             $transientType = '_loggedin';
         }
 
-        $menu = false;
-        if (isset($post->ID)) {
-            $menu = get_transient('sidebar_menu_' . $post->ID . $transientType);
-        }
+        $menu = get_transient('sidebar_menu_' . $transientHash . $transientType);
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $menu = new \Municipio\Helper\NavigationTree(array(
@@ -298,7 +289,7 @@ class Navigation
                 'depth' => get_field('nav_sub_depth', 'option')
             ));
 
-            set_transient('sidebar_menu_' . $post->ID . $transientType, $menu, 60*60*168);
+            set_transient('sidebar_menu_' . $transientHash . $transientType, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
