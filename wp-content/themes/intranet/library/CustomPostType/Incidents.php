@@ -10,6 +10,23 @@ class Incidents
     {
         add_action('init', array($this, 'registerCustomPostType'));
         add_filter('posts_results', array($this, 'getIncidentsArchive'), 10, 2);
+
+        add_action('Municipio/blog/post_info', function ($post) {
+            if ($post->post_type != 'incidents' || (!get_field('start_date') && !get_field('end_date'))) {
+                return;
+            }
+
+            $startDate = get_field('start_date') ? date('Y-m-d H:i', strtotime(get_field('start_date'))) : '';
+            $endDate = get_field('end_date') ? __('to', 'municipio-intranet') . ' ' . date('Y-m-d H:i', strtotime(get_field('end_date'))) : '';
+
+            echo '
+                <li>
+                    ' . __('Duration', 'municipio-intranet') . ':
+                    ' . $startDate . '
+                    ' . $endDate . '
+                </li>
+            ';
+        });
     }
 
     /**
