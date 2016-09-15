@@ -11,7 +11,15 @@ class Controller
      */
     public static function locateController($controller)
     {
-        $controller = ucfirst($controller);
+        preg_match_all('/^(single|archive)-/i', $controller, $matches);
+
+        $controllers = array(
+            str_replace('.blade.php', '', self::camelCase(basename($controller, '.php')))
+        );
+
+        if (isset($matches[1][0])) {
+            $controllers[] = self::camelCase($matches[1][0]);
+        }
 
         $searchPaths = array(
             get_stylesheet_directory() . '/library/Controller',
@@ -26,13 +34,15 @@ class Controller
         $searchPaths = apply_filters('Municipio/blade/controllers_search_paths', $searchPaths);
 
         foreach ($searchPaths as $path) {
-            $file = $path . '/' . str_replace('.blade.php', '', self::camelCase(basename($controller, '.php'))) . '.php';
+            foreach ($controllers as $controller) {
+                $file = $path . '/' . $controller . '.php';
 
-            if (!file_exists($file)) {
-                continue;
+                if (!file_exists($file)) {
+                    continue;
+                }
+
+                return $file;
             }
-
-            return $file;
         }
 
         return false;
