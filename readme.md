@@ -30,6 +30,18 @@ Author pages is blocked by default. To "unblock" add the following constant to w
 define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 ```
 
+## Actions
+
+#### Municipio/blog/post_info
+
+Blog post info header (single)
+
+- ```@param object $post``` - The post object
+
+```php
+do_action('Municipio/author_display/name', $post);
+```
+
 ## Filters
 
 #### Municipio/author_display/name
