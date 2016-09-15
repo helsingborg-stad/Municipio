@@ -5,7 +5,7 @@
             {
                 "key": "field_56c714f8d0a42",
                 "label": "Profile picture",
-                "name": "user_profile_picture",
+                "name": "user_profile_picture_id",
                 "type": "image",
                 "instructions": "",
                 "required": 0,

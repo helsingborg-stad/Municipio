@@ -3,8 +3,8 @@
         <li>
             <strong><?php echo apply_filters('Municipio/author_display/title', __('Published by', 'municipio')); ?>:</strong>
             <span class="post-author post-author-margin-left">
-                @if (get_field('page_show_author_image', 'option') !== false && get_field('post_show_author_image', get_the_id()) !== false && !empty(get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))))
-                    <span class="post-author-image" style="background-image:url('{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID')) }}');"><img src="{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID')) }}" alt="{{ (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name'))) ? get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')  : get_the_author() }}"></span>
+                @if (get_field('page_show_author_image', 'option') !== false && get_field('post_show_author_image', get_the_id()) !== false && !empty(get_the_author_meta('user_profile_picture')))
+                    <span class="post-author-image" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');"><img src="{{ get_the_author_meta('user_profile_picture') }}" alt="{{ (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name'))) ? get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')  : get_the_author() }}"></span>
                 @endif
 
                 @if (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name')))
