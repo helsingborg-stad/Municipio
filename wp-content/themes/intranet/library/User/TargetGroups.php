@@ -308,7 +308,11 @@ class TargetGroups
         $charsetCollation = $wpdb->get_charset_collate();
         $tableName = $wpdb->prefix . self::$tableSuffix;
 
-        if (!empty(get_site_option('taget-groups-db-version')) && $wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
+        if (get_site_option('target-groups-db-version', '', false) == 1 && $wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
+            $this->updateDatabase(2);
+        }
+
+        if (!empty(get_site_option('target-groups-db-version', '', false)) && $wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
             restore_current_blog();
             return;
         }
@@ -316,15 +320,40 @@ class TargetGroups
         $sql = "CREATE TABLE $tableName (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             tag varchar(55) DEFAULT '' NOT NULL,
+            administration_unit bigint(20) DEFAULT '',
             UNIQUE KEY id (id)
         ) $charsetCollation;";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
 
-        update_site_option('taget-groups-db-version', '1.0.0');
+        update_site_option('target-groups-db-version', 1);
 
         restore_current_blog();
+    }
+
+    public function updateDatabase($version)
+    {
+        global $wpdb;
+        $tableName = $wpdb->prefix . self::$tableSuffix;
+
+        switch ($version) {
+            case 2:
+                $sql = "ALTER TABLE $tableName
+                    ADD `administration_unit` BIGINT(20)  NULL  DEFAULT NULL  AFTER `tag`;
+                ";
+
+                $wpdb->query($sql);
+                break;
+
+            default:
+                return false;
+                break;
+        }
+
+        update_site_option('target-groups-db-version', $version);
+
+        return true;
     }
 
     public function initTargetedContentButton()
