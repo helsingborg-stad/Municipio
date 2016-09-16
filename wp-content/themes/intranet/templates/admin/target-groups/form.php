@@ -33,9 +33,9 @@
                     <div class="postbox">
                         <h2 class="hndle ui-sortable-handle" style="cursor:default;"><?php _e('Tags', 'municipio-intranet'); ?></h2>
                         <div class="inside tag-manager-tags">
-                            <?php foreach (\Intranet\User\TargetGroups::getAvailableGroups() as $tag) : ?>
+                            <?php foreach (\Intranet\User\TargetGroups::getAvailableGroups(false) as $tag) : ?>
                                 <div class="tag-manager-tag">
-                                    <?php echo $tag->tag; ?>
+                                    <?php echo $tag->tag; ?> <?php echo \Intranet\User\AdministrationUnits::getAdministrationUnit($tag->administration_unit) ? '(' . \Intranet\User\AdministrationUnits::getAdministrationUnit($tag->administration_unit) . ')' : '(' . __('All') . ')'; ?>
                                     <input type="hidden" name="tag-manager-tags[]" value="<?php echo $tag->tag; ?>">
                                     <div class="tag-manager-actions">
                                         <button class="btn-plain tag-manager-delete-tag"><span class="dashicons dashicons-trash"></span></button>
@@ -50,7 +50,7 @@
                         <div class="inside">
                             <p>
                                 <input type="text" placeholder="<?php _e('Target group name', 'municipio-intranet'); ?>…" data-tag-input>
-                                <select name="administration_unit">
+                                <select name="administration_unit" data-tag-unit-input>
                                     <option value=""><?php _e('All', 'municipio-intranet'); ?> <?php _e('administration units', 'municipio-intranet'); ?></option>
                                     <?php foreach (\Intranet\User\AdministrationUnits::getAdministrationUnits() as $unit) : ?>
                                     <option value="<?php echo $unit->id; ?>"><?php echo $unit->name; ?></option>

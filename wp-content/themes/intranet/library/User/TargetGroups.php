@@ -232,12 +232,24 @@ class TargetGroups
         global $wpdb;
 
         $values = array();
-        $tags = self::getAvailableGroups();
+        $tags = self::getAvailableGroups(false);
         $postedTags = $_POST['tag-manager-tags'];
+
+        $postedTags = array_map(function ($item) {
+            return explode('|', $item);
+        }, $postedTags);
 
         // Remove removed tags
         $removeTags = array_filter($tags, function ($item) use ($postedTags) {
-            return !in_array($item->tag, $postedTags);
+            foreach ($postedTags as $tag) {
+                if ($item->tag != $tag[0]) {
+                    continue;
+                }
+
+                return false;
+            }
+
+            return true;
         });
 
         foreach ($removeTags as $tag) {
@@ -250,13 +262,21 @@ class TargetGroups
             $addTags[] = $tag->tag;
         }
 
-        $addTags = array_diff($postedTags, $addTags);
+        $addTags = array_filter($postedTags, function ($item) use ($tags) {
+            foreach ($tags as $tag) {
+                if ($item[0] == $tag->tag) {
+                    return false;
+                }
+            }
 
-        foreach ($addTags as $tag) {
-            $values[] = $wpdb->prepare("(%s)", $tag);
+            return true;
+        });
+
+        foreach ($addTags as $key => $tag) {
+            $values[] = $wpdb->prepare("(%s, %d)", $tag[0], $tag[1]);
         }
 
-        $query = "INSERT INTO {$wpdb->prefix}" . self::$tableSuffix . " (tag) VALUES ";
+        $query = "INSERT INTO {$wpdb->prefix}" . self::$tableSuffix . " (tag, administration_unit) VALUES ";
         $query .= implode( ",\n", $values);
 
         $wpdb->query($query);
@@ -266,26 +286,28 @@ class TargetGroups
      * Get available groups
      * @return array Groups
      */
-    public static function getAvailableGroups()
+    public static function getAvailableGroups($units = true)
     {
         global $wpdb;
         global $current_site;
 
         switch_to_blog($current_site->blog_id);
 
-        $tags = $wpdb->get_results("SELECT id, tag FROM {$wpdb->prefix}" . self::$tableSuffix . " ORDER BY tag ASC");
+        $tags = $wpdb->get_results("SELECT id, tag, administration_unit FROM {$wpdb->prefix}" . self::$tableSuffix . " ORDER BY tag ASC");
 
         restore_current_blog();
 
-        $units = \Intranet\User\AdministrationUnits::getAdministrationUnits();
-        foreach ($units as &$unit) {
-            $unit->tag = $unit->name;
-            unset($unit->name);
+        if ($units) {
+            $units = \Intranet\User\AdministrationUnits::getAdministrationUnits();
+            foreach ($units as &$unit) {
+                $unit->tag = $unit->name;
+                unset($unit->name);
 
-            $unit->id = 'unit-' . $unit->id;
+                $unit->id = 'unit-' . $unit->id;
+            }
+
+            $tags = array_merge($tags, $units);
         }
-
-        $tags = array_merge($tags, $units);
 
         uasort($tags, function ($a, $b) {
             return $a->tag > $b->tag;
@@ -332,6 +354,11 @@ class TargetGroups
         restore_current_blog();
     }
 
+    /**
+     * Updates the database if needed
+     * @param  integer $version Needed database version
+     * @return boolean
+     */
     public function updateDatabase($version)
     {
         global $wpdb;

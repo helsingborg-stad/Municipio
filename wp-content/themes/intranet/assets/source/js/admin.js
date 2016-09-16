@@ -7,14 +7,16 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
 
         var tag = $('[data-tag-input]').val();
+        var unit = $('[data-tag-unit-input]').val();
+        var unit_name = $('[data-tag-unit-input] option[value="' + unit + '"]').text();
         if (tag.length === 0) {
             return;
         }
 
         $('.tag-manager-tags').append('\
             <div class="tag-manager-tag">\
-                ' + tag + '\
-                <input type="hidden" name="tag-manager-tags[]" value="' + tag + '">\
+                ' + tag + ' (' + unit_name + ')\
+                <input type="hidden" name="tag-manager-tags[]" value="' + tag + '|' + unit + '">\
                 <div class="tag-manager-actions">\
                     <button class="btn-plain tag-manager-delete-tag"><span class="dashicons dashicons-trash"></span></button>\
                 </div>\
