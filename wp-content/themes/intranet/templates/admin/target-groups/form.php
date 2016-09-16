@@ -49,7 +49,13 @@
                         <h2 class="hndle ui-sortable-handle" style="cursor:default;"><?php _e('Add tag', 'municipio-intranet'); ?></h2>
                         <div class="inside">
                             <p>
-                                <input type="text" placeholder="Tag name…" data-tag-input>
+                                <input type="text" placeholder="<?php _e('Target group name', 'municipio-intranet'); ?>…" data-tag-input>
+                                <select name="administration_unit">
+                                    <option value=""><?php _e('All', 'municipio-intranet'); ?> <?php _e('administration units', 'municipio-intranet'); ?></option>
+                                    <?php foreach (\Intranet\User\AdministrationUnits::getAdministrationUnits() as $unit) : ?>
+                                    <option value="<?php echo $unit->id; ?>"><?php echo $unit->name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                                 <button class="button button-primary" data-action="tag-manager-add-tag"><?php _e('Add', 'municipio-intranet'); ?></button>
                             </p>
                         </div>
