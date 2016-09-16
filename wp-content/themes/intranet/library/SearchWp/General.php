@@ -20,21 +20,21 @@ class General
         // Disable search query logging by default (the logging will be handled specificly by the Search class)
         add_filter('searchwp_log_search', '__return_false', 5);
 
+        /*
         add_action('wp_ajax_search_autocomplete', array($this, 'ajaxSearch'));
         add_action('wp_ajax_nopriv_search_autocomplete', array($this, 'ajaxSearch'));
+        */
     }
 
-    public function ajaxSearch()
+    public static function jsonSearch($data)
     {
         global $wp_query;
-        $wp_query->set('s', sanitize_text_field($_REQUEST['s']));
+        $wp_query->set('s', sanitize_text_field($data['s']));
 
         add_filter('searchwp_log_search', '__return_false');
 
         $search = new \Intranet\SearchWp\Search();
-        echo json_encode($search->results);
-
-        wp_die();
+        return $search->results;
     }
 
     /**

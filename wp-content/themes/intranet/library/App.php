@@ -44,5 +44,7 @@ class App
             new \Intranet\Module\UserSystems();
             new \Intranet\Module\IncidentList();
         }
+
+        new \Intranet\Api\CustomEndpoints();
     }
 }
