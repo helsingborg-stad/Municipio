@@ -424,7 +424,7 @@
                                             <div class="grid">
                                                 @foreach ($targetGroups as $group)
                                                 <div class="grid-md-6">
-                                                    <label class="checkbox"><input type="checkbox" name="user_target_groups[]" value="{{ $group->id }}" {{ checked(true, in_array($group->id, (array)get_the_author_meta('user_target_groups'))) }}> {{ $group->tag }}</label>
+                                                    <label class="checkbox"><input type="checkbox" name="user_target_groups[]" value="{{ $group->id }}" {{ checked(true, in_array($group->id, (array)get_the_author_meta('user_target_groups'))) }}> {{ $group->tag }} <?php echo isset($group->administration_unit) && \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) ? '(' . \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) . ')' : '(' . __('All') . ')'; ?></label>
                                                 </div>
                                                 @endforeach
                                             </div>

@@ -23,6 +23,6 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         $this->data['userResponsibilities'] = is_array(get_the_author_meta('user_responsibilities', $user->ID)) ? get_the_author_meta('user_responsibilities', $user->ID) : array();
         $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
         $this->data['administrationUnits'] = \Intranet\User\AdministrationUnits::getAdministrationUnits();
-        $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups();
+        $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups(false, get_current_user_id());
     }
 }

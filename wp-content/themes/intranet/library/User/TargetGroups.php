@@ -286,7 +286,7 @@ class TargetGroups
      * Get available groups
      * @return array Groups
      */
-    public static function getAvailableGroups($units = true)
+    public static function getAvailableGroups($units = true, $userId = null)
     {
         global $wpdb;
         global $current_site;
@@ -312,6 +312,18 @@ class TargetGroups
         uasort($tags, function ($a, $b) {
             return $a->tag > $b->tag;
         });
+
+        if ($userId) {
+            $userUnit = get_user_meta($userId, 'user_administration_unit', true);
+
+            $tags = array_filter($tags, function ($item) use ($userUnit) {
+                if (isset($item->administration_unit) && $item->administration_unit != $userUnit) {
+                    return false;
+                }
+
+                return true;
+            });
+        }
 
         return $tags;
     }
