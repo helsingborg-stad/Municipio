@@ -2,7 +2,7 @@
 <p>
     <?php foreach (\Intranet\User\TargetGroups::getAvailableGroups() as $group) : ?>
         <label class="target-group-restrict-checkbox">
-            <input type="checkbox" name="target_groups[]" value="<?php echo $group->id; ?>" <?php checked(true, in_array($group->id, (array)$current), true); ?>> <?php echo $group->tag; ?>
+            <input type="checkbox" name="target_groups[]" value="<?php echo $group->id; ?>" <?php checked(true, in_array($group->id, (array)$current), true); ?>> <?php echo $group->tag; ?> <?php echo isset($group->administration_unit) && \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) ? '(' . \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) . ')' : '(' . __('All') . ')'; ?>
         </label>
     <?php endforeach; ?>
 </p>
