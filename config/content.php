@@ -36,3 +36,5 @@ define('EMPTY_TRASH_DAYS', 30);
  * Do not block author pages
  */
 define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
+
+define('MUNICIPIO_INTRANET_USER_COLOR_THEME', false);

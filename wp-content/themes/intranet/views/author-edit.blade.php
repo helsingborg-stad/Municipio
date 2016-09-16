@@ -435,6 +435,7 @@
                         </section>
 
                         <!-- Intranet personalization -->
+                        @if (!defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') || (defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') && MUNICIPIO_INTRANET_USER_COLOR_THEME))
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="user-personalization">
                             <label class="accordion-toggle" for="user-personalization">
@@ -454,6 +455,8 @@
                                 </div>
                             </div>
                         </section>
+                        @endif
+
                     </div>
                 </div>
             </div>
