@@ -1,6 +1,7 @@
 <?php
 
 define('INTRANET_PATH', get_stylesheet_directory() . '/');
+define('INTRANET_TEMPLATE_PATH', get_stylesheet_directory() . '/templates/');
 
 add_action('after_setup_theme', function () {
     load_theme_textdomain('municipio-intranet', get_stylesheet_directory() . '/languages');
