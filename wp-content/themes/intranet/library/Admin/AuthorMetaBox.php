@@ -6,7 +6,7 @@ class AuthorMetaBox
 {
     public function __construct()
     {
-        add_action('add_meta_boxes', array($this, 'metaboxTitle'));
+        add_action('add_meta_boxes', array($this, 'authorDiv'));
         add_filter('default_hidden_meta_boxes', array($this, 'alwaysShowAuthorMetabox'), 10, 2);
     }
 
@@ -14,14 +14,47 @@ class AuthorMetaBox
      * Changes the metabox title of the author metabox (admin)
      * @return void
      */
-    public function metaboxTitle()
+    public function authorDiv()
     {
-        global $wp_meta_boxes;
-        if (!isset($wp_meta_boxes['page']['normal']['core']['authordiv']['title'])) {
-            return;
-        }
+        //__('Page manager', 'municipio-intranet')
+        foreach (get_post_types() as $postType) {
+            if (!post_type_supports($postType, 'author')) {
+                continue;
+            }
 
-        $wp_meta_boxes['page']['normal']['core']['authordiv']['title'] = __('Page manager', 'municipio-intranet');
+            remove_meta_box('authordiv', $postType, 'normal');
+            add_meta_box(
+                'authordiv',
+                __('Page manager', 'municipio-intranet'),
+                array($this, 'authorDivContent'),
+                $postType,
+                'normal',
+                'default'
+            );
+        }
+    }
+
+    public function authorDivContent()
+    {
+        global $post;
+
+        $authors = get_users(array(
+            'who' => 'authors'
+        ));
+
+        uasort($authors, function ($a, $b) use ($post) {
+            if ($post->post_author == $a->ID) {
+                return -1;
+            }
+
+            if ($post->post_author == $b->ID) {
+                return 1;
+            }
+
+            return 0;
+        });
+
+        include INTRANET_TEMPLATE_PATH . 'admin/authordiv.php';
     }
 
     /**
