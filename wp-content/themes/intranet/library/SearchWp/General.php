@@ -33,7 +33,8 @@ class General
 
         add_filter('searchwp_log_search', '__return_false');
 
-        $search = new \Intranet\SearchWp\Search();
+        $search = new \Intranet\SearchWp\Search('ajax');
+
         return $search->results;
     }
 

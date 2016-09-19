@@ -331,36 +331,6 @@ Intranet.Helper.Walkthrough = (function ($) {
 })(jQuery);
 
 Intranet = Intranet || {};
-Intranet.SocialLogin = Intranet.SocialLogin || {};
-
-Intranet.SocialLogin.Facebook = (function ($) {
-    function Facebook() {
-        // Facebook SDK needs #fb-root div, set it up
-        $('body').prepend('<div id="fb-root"></div>');
-
-        // Load the Facebook SDK
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=1604603396447959";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    }
-
-    Facebook.prototype.checkStatus = function() {
-        FB.getLoginStatus(function(response) {
-            if (response.status !== 'connected') {
-                FB.login();
-            }
-        });
-    };
-
-    return new Facebook();
-
-})(jQuery);
-
-Intranet = Intranet || {};
 Intranet.Search = Intranet.Search || {};
 
 Intranet.Search.General = (function ($) {
@@ -382,6 +352,11 @@ Intranet.Search.General = (function ($) {
 
     }
 
+    /**
+     * Initializes the autocomplete functionality
+     * @param  {object} element Element
+     * @return {void}
+     */
     General.prototype.autocomplete = function(element) {
         var $element = $(element);
         var $input = $element.find('input[type="search"]');
@@ -427,6 +402,11 @@ Intranet.Search.General = (function ($) {
         }.bind(this));
     };
 
+    /**
+     * Submit autocomplete
+     * @param  {object} element Autocomplete element
+     * @return {bool}
+     */
     General.prototype.autocompleteSubmit = function(element) {
         var $element = $(element);
         var $autocomplete = $element.find('.search-autocomplete');
@@ -442,6 +422,11 @@ Intranet.Search.General = (function ($) {
         return false;
     };
 
+    /**
+     * Navigate to next autocomplete list item
+     * @param  {object} element Autocomplete element
+     * @return {void}
+     */
     General.prototype.autocompleteKeyboardNavNext = function(element) {
         var $element = $(element);
         var $autocomplete = $element.find('.search-autocomplete');
@@ -466,6 +451,11 @@ Intranet.Search.General = (function ($) {
         $next.addClass('selected');
     };
 
+    /**
+     * Navigate to previous autocomplete list item
+     * @param  {object} element Autocomplete element
+     * @return {void}
+     */
     General.prototype.autocompleteKeyboardNavPrev = function(element) {
         var $element = $(element);
         var $autocomplete = $element.find('.search-autocomplete');
@@ -490,9 +480,15 @@ Intranet.Search.General = (function ($) {
         $prev.addClass('selected');
     };
 
+    /**
+     * Query for autocomplete suggestions
+     * @param  {object} element Autocomplete element
+     * @return {void}
+     */
     General.prototype.autocompleteQuery = function(element) {
         var $element = $(element);
         var $input = $element.find('input[type="search"]');
+        var query = $input.val();
 
         var data = {
             action: 'search_autocomplete',
@@ -500,12 +496,32 @@ Intranet.Search.General = (function ($) {
             level: 'ajax'
         };
 
+        $.ajax({
+            url: municipioIntranet.wpapi.url + 'intranet/1.0/s/' + query,
+            method: 'GET',
+            dataType: 'JSON',
+            beforeSend: function ( xhr ) {
+                xhr.setRequestHeader('X-WP-Nonce', municipioIntranet.wpapi.nonce);
+            }
+        }).done(function (res) {
+            $element.find('.search-autocomplete').remove();
+            this.outputAutocomplete(element, res);
+        }.bind(this));
+
+        /*
         $.post(ajaxurl, data, function (res) {
             $element.find('.search-autocomplete').remove();
             this.outputAutocomplete(element, res);
         }.bind(this), 'JSON');
+        */
     };
 
+    /**
+     * Outputs the autocomplete dropdown
+     * @param  {object} element Autocomplete element
+     * @param  {array}  res     Autocomplete query result
+     * @return {void}
+     */
     General.prototype.outputAutocomplete = function(element, res) {
         var $element = $(element);
         var $autocomplete = $('<div class="search-autocomplete"></div>');
@@ -514,7 +530,7 @@ Intranet.Search.General = (function ($) {
         var $content = $('<ul class="search-autocomplete-content"><li class="title"><i class="pricon pricon-file-text"></i> ' + municipioIntranet.searchAutocomplete.content + '</li></ul>');
 
         // Users
-        if (res.users !== null && res.users.length > 0) {
+        if (typeof res.users != 'undefined' && res.users !== null && res.users.length > 0) {
             $.each(res.users, function (index, user) {
                 if (user.profile_image.length) {
                     $users.append('<li><a href="' + user.profile_url + '"><img src="' + user.profile_image + '" class="search-autocomplete-image"> ' + user.name + '</a></li>');
@@ -528,7 +544,7 @@ Intranet.Search.General = (function ($) {
         }
 
         // Content
-        if (res.content !== null && res.content.length > 0) {
+        if (typeof res.content != 'undefined' && res.content !== null && res.content.length > 0) {
             $.each(res.content, function (index, post) {
                 if (post.is_file) {
                     $content.append('<li><a class="link-item-before" href="' + post.permalink + '" target="_blank">' + post.post_title + '</a></li>');
@@ -676,6 +692,36 @@ Intranet.Search.Sites = (function ($) {
     };
 
     return new Sites();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.SocialLogin = Intranet.SocialLogin || {};
+
+Intranet.SocialLogin.Facebook = (function ($) {
+    function Facebook() {
+        // Facebook SDK needs #fb-root div, set it up
+        $('body').prepend('<div id="fb-root"></div>');
+
+        // Load the Facebook SDK
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=1604603396447959";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }
+
+    Facebook.prototype.checkStatus = function() {
+        FB.getLoginStatus(function(response) {
+            if (response.status !== 'connected') {
+                FB.login();
+            }
+        });
+    };
+
+    return new Facebook();
 
 })(jQuery);
 

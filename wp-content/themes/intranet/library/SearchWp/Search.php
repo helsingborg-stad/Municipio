@@ -21,13 +21,14 @@ class Search
         'users' => null
     );
 
-    public function __construct()
+    public function __construct($level = 'subscriptions')
     {
         global $sitesLogged;
         if (!is_array($sitesLogged)) {
             $sitesLogged = array();
         }
 
+        $this->level = $level;
         $this->getLevel();
 
         $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
@@ -99,6 +100,10 @@ class Search
      */
     public function getLevel()
     {
+        if ($this->level == 'ajax') {
+            return;
+        }
+
         if (!is_user_logged_in()) {
             $this->level = 'all';
         }
