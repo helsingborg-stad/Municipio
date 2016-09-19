@@ -6,11 +6,18 @@ class Url
 {
     /**
      * Get the url of the current page
-     * @return string Url
+     * @param  boolean $querystring Wheater to include querystring or not
+     * @return string               Current url
      */
-    public static function getCurrent()
+    public static function getCurrent($querystring = false)
     {
-        return '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $url =  '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+        if (!$querystring) {
+            $url = preg_replace('/\?(.*)/', '', $url);
+        }
+
+        return $url;
     }
 
     /**
