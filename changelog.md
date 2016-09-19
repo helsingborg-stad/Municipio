@@ -7,6 +7,17 @@ Version 0.2.11 (tbd)
 ====================
 - Get vising address from active directory if possible
 - Remove leading zero from birthday date on profile
+- Adds comments support for the news post type
+- Modules on custom templates and pages
+- Include modules in search result
+- Restrict content to administration units
+- Sort target groups alphabetically
+- Single page template for incidents
+- Fixes issue with profile image display
+- Search statistics fixes
+- Adds support for global or local target groups
+- Deactivated user color scheme selection (default to purple theme)
+- Search autocomplete via wp-api
 
 Version 0.2.10 (2016-09-08)
 ===========================
