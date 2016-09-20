@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-09-20 10:38+0200\n"
+"POT-Creation-Date: 2016-09-20 13:19+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -929,7 +929,6 @@ msgstr ""
 
 #: views/partials/header/intranet.blade.php:17
 #: views/partials/mobile-menu.blade.php:5
-#: views/partials/network-header.blade.php:25
 msgid "What are you looking for?"
 msgstr ""
 
@@ -1049,6 +1048,10 @@ msgstr ""
 
 #: views/partials/network-header.blade.php:16
 msgid "Select intranet"
+msgstr ""
+
+#: views/partials/network-header.blade.php:25
+msgid "Search for intranets"
 msgstr ""
 
 #: views/partials/network-header.blade.php:40

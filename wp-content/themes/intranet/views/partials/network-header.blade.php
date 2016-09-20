@@ -22,7 +22,7 @@
                             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
                             <div class="input-group">
-                                <input data-dropdown-focus id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo get_field('search_placeholder_text', 'option') ? get_field('search_placeholder_text', 'option') : __('What are you looking for?', 'municipio'); ?>">
+                                <input data-dropdown-focus id="searchkeyword-0" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php echo __('Search for intranets', 'municipio'); ?>">
                                 <span class="input-group-addon-btn">
                                     <button type="submit" class="btn"><i class="pricon pricon-search"></i></button>
                                 </span>

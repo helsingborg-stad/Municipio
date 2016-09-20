@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-09-20 10:38+0200\n"
-"PO-Revision-Date: 2016-09-20 10:38+0200\n"
+"POT-Creation-Date: 2016-09-20 13:19+0200\n"
+"PO-Revision-Date: 2016-09-20 13:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -947,7 +947,6 @@ msgstr "Det var ett tag sedan du uppdaterade din profil. "
 
 #: views/partials/header/intranet.blade.php:17
 #: views/partials/mobile-menu.blade.php:5
-#: views/partials/network-header.blade.php:25
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
@@ -1076,13 +1075,17 @@ msgstr ""
 msgid "Select intranet"
 msgstr "Välj intranät"
 
+#: views/partials/network-header.blade.php:25
+msgid "Search for intranets"
+msgstr "Sök efter intranät"
+
 #: views/partials/network-header.blade.php:40
 msgid "Networks you are following"
-msgstr "Nätverk som du prenumererar på"
+msgstr "Intranät som du prenumererar på"
 
 #: views/partials/network-header.blade.php:49
 msgid "Show all networks"
-msgstr "Visa alla nätverk"
+msgstr "Visa alla intranät"
 
 #: views/partials/user/loginform.blade.php:3
 msgid "Username"
@@ -1121,7 +1124,7 @@ msgstr "Fortsätt utan att logga in"
 
 #: views/search.blade.php:38
 msgid "All sites"
-msgstr "Alla nätverk"
+msgstr "Alla intranät"
 
 #: views/search.blade.php:44
 msgid "Current site"
