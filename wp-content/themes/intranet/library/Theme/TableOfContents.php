@@ -8,14 +8,6 @@ class TableOfContents
     {
         add_action('init', array($this, 'urlRewrite'));
         add_filter('template_include', array($this, 'template'), 10);
-        add_filter('pre_get_posts', function ($query) {
-            if (!isset($query->query['table-of-contents'])) {
-                return $query;
-            }
-
-            $query->is_home = false;
-            return $query;
-        });
     }
 
     public function urlRewrite()
@@ -34,6 +26,8 @@ class TableOfContents
         }
 
         $template = \Municipio\Helper\Template::locateTemplate('table-of-contents');
+        $wp_query->is_home = false;
+
         return $template;
     }
 }
