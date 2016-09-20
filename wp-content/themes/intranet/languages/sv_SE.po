@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-09-08 13:49+0200\n"
-"PO-Revision-Date: 2016-09-09 08:12+0200\n"
+"POT-Creation-Date: 2016-09-20 10:38+0200\n"
+"PO-Revision-Date: 2016-09-20 10:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: library/Admin/AuthorMetaBox.php:24 library/Theme/General.php:10
+#: library/Admin/AuthorMetaBox.php:28 library/Theme/General.php:10
 msgid "Page manager"
 msgstr "Sidansvarig"
 
@@ -70,57 +70,65 @@ msgstr "Intranätets kortnamn"
 msgid "Password"
 msgstr "Lösenord"
 
-#: library/CustomPostType/Incidents.php:31 library/CustomPostType/News.php:192
+#: library/CustomPostType/Incidents.php:20 views/archive-incidents.blade.php:25
+msgid "to"
+msgstr "till"
+
+#: library/CustomPostType/Incidents.php:24 views/archive-incidents.blade.php:25
+msgid "Duration"
+msgstr "Varaktighet"
+
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:192
 msgctxt "add new button"
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: library/CustomPostType/Incidents.php:32 library/CustomPostType/News.php:193
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:193
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/CustomPostType/Incidents.php:33 library/CustomPostType/News.php:194
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:194
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/CustomPostType/Incidents.php:34 library/CustomPostType/News.php:195
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:195
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/CustomPostType/Incidents.php:35 library/CustomPostType/News.php:196
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:196
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/CustomPostType/Incidents.php:36 library/CustomPostType/News.php:197
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:197
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/CustomPostType/Incidents.php:37 library/CustomPostType/News.php:198
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:198
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/CustomPostType/Incidents.php:38 library/CustomPostType/News.php:199
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:199
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/CustomPostType/Incidents.php:39 library/CustomPostType/News.php:200
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:200
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: library/CustomPostType/Incidents.php:40 library/CustomPostType/News.php:201
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:201
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
 
-#: library/CustomPostType/Incidents.php:54
+#: library/CustomPostType/Incidents.php:71
 msgid "incidents"
 msgstr "driftstörningar"
 
@@ -185,13 +193,13 @@ msgstr "Användarsystem"
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
-#: library/Public/Helper.php:75 library/SearchWp/Search.php:286
+#: library/Public/Helper.php:75 library/SearchWp/Search.php:352
 #: views/partials/modal/missing-data-fields/nav.blade.php:3
 #: views/partials/modal/missing-data-fields/nav.blade.php:7
 msgid "Previous"
 msgstr "Föregående"
 
-#: library/Public/Helper.php:76 library/SearchWp/Search.php:342
+#: library/Public/Helper.php:76 library/SearchWp/Search.php:408
 #: views/partials/modal/missing-data-fields/nav.blade.php:11
 #: views/partials/modal/missing-data.blade.php:39
 msgid "Next"
@@ -202,39 +210,39 @@ msgstr "Nästa"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: library/Theme/Enqueue.php:35
+#: library/Theme/Enqueue.php:39
 #: templates/module/modularity-mod-intranet-u-links.php:21
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
-#: library/Theme/Enqueue.php:36 views/partials/network-header.blade.php:59
+#: library/Theme/Enqueue.php:40 views/partials/network-header.blade.php:59
 msgid "Subscribe"
 msgstr "Prenumerera"
 
-#: library/Theme/Enqueue.php:37 views/partials/network-header.blade.php:61
+#: library/Theme/Enqueue.php:41 views/partials/network-header.blade.php:61
 msgid "Unsubscribe"
 msgstr "Sluta prenumerera"
 
-#: library/Theme/Enqueue.php:40 views/search.blade.php:52
+#: library/Theme/Enqueue.php:44 views/search.blade.php:52
 #: views/search.blade.php:162
 msgid "Persons"
 msgstr "Personer"
 
-#: library/Theme/Enqueue.php:41
+#: library/Theme/Enqueue.php:45
 msgid "Content"
 msgstr "Innehåll"
 
-#: library/Theme/Enqueue.php:42
+#: library/Theme/Enqueue.php:46
 msgid "View all results"
 msgstr "Visa alla resultat"
 
-#: library/Theme/Enqueue.php:44 templates/admin/systems/form.php:85
+#: library/Theme/Enqueue.php:48 templates/admin/systems/form.php:85
 #: templates/module/modularity-mod-intranet-u-links.php:5
 #: templates/module/modularity-mod-intranet-u-syste.php:5
 msgid "Edit"
 msgstr "Redigera"
 
-#: library/Theme/Enqueue.php:45
+#: library/Theme/Enqueue.php:49
 msgid "Done"
 msgstr "Klar"
 
@@ -381,11 +389,11 @@ msgstr "Efternamn"
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
-#: library/User/TargetGroups.php:161
+#: library/User/TargetGroups.php:178
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
-#: library/User/TargetGroups.php:193 library/User/TargetGroups.php:194
+#: library/User/TargetGroups.php:210 library/User/TargetGroups.php:211
 #: views/author-edit.blade.php:418
 msgid "Target groups"
 msgstr "Målgrupper"
@@ -416,7 +424,7 @@ msgstr "Förvaltningens namn"
 
 #: templates/admin/administration-units/form.php:56
 #: templates/admin/systems/form.php:126
-#: templates/admin/target-groups/form.php:53 views/author-edit.blade.php:301
+#: templates/admin/target-groups/form.php:59 views/author-edit.blade.php:301
 #: views/author-edit.blade.php:346
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:21
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:21
@@ -536,15 +544,26 @@ msgstr "Administrera målgrupper"
 msgid "Tags"
 msgstr "Taggar"
 
+#: templates/admin/target-groups/form.php:38
+#: templates/admin/target-groups/form.php:54
+#: templates/admin/target-groups/restrict.php:5 views/author-edit.blade.php:427
+#: views/table-of-contents.blade.php:18
+msgid "All"
+msgstr "Alla"
+
 #: templates/admin/target-groups/form.php:49
 msgid "Add tag"
 msgstr "Lägg till tagg"
 
-#: templates/module/modularity-mod-intranet-inciden.php:9
-msgid "Incidents"
-msgstr "Driftstörningar"
+#: templates/admin/target-groups/form.php:52
+msgid "Target group name"
+msgstr "Målgruppsnamn"
 
-#: templates/module/modularity-mod-intranet-inciden.php:20
+#: templates/admin/target-groups/form.php:54
+msgid "administration units"
+msgstr "förvaltningar"
+
+#: templates/module/modularity-mod-intranet-inciden.php:17
 msgid "Show all incidents"
 msgstr "Visa alla driftstörningar"
 
@@ -584,14 +603,6 @@ msgstr "Välj system"
 msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr "Välj system som du vill visa i din lista över ”mina system”."
-
-#: views/archive-incidents.blade.php:25
-msgid "Duration"
-msgstr "Varaktighet"
-
-#: views/archive-incidents.blade.php:25
-msgid "to"
-msgstr "till"
 
 #: views/archive-incidents.blade.php:27
 msgid "Published"
@@ -732,7 +743,6 @@ msgstr "Förvaltning"
 #: views/author-edit.blade.php:243
 #: views/partials/modal/missing-data-fields/user_department.blade.php:6
 #: views/partials/modal/missing-data-fields/user_department.blade.php:36
-#: views/table-of-contents.blade.php:16
 msgid "Department"
 msgstr "Avdelning"
 
@@ -836,54 +846,54 @@ msgstr "eller"
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:441
+#: views/author-edit.blade.php:442
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:447
+#: views/author-edit.blade.php:448
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:448
+#: views/author-edit.blade.php:449
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:449
+#: views/author-edit.blade.php:450
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:450
+#: views/author-edit.blade.php:451
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:451
+#: views/author-edit.blade.php:452
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:464
+#: views/author-edit.blade.php:467
 msgid "Save settings"
 msgstr "Spara inställningar"
 
-#: views/author-edit.blade.php:474
+#: views/author-edit.blade.php:477
 msgid "Edit your settings"
 msgstr "Redigera dina inställningar"
 
-#: views/author-edit.blade.php:476
+#: views/author-edit.blade.php:479
 msgid "This is where you edit your personal settings."
 msgstr "Här kan du redigera dina personliga inställningar."
 
-#: views/author-edit.blade.php:477
+#: views/author-edit.blade.php:480
 msgid ""
 "Some of your settings is displayed on your profile to other logged in users."
 msgstr ""
 "Några av dina inställningar visas på din profilsida för andra inloggade "
 "användare."
 
-#: views/author-edit.blade.php:484
+#: views/author-edit.blade.php:487
 msgid "Sync from Facebook"
 msgstr "Synkronisera från Facebook"
 
-#: views/author-edit.blade.php:487
+#: views/author-edit.blade.php:490
 msgid ""
 "We can sync some of your profile settings from Facebook. If you would like "
 "to do this click the login button below to login to Facebook and allow us to "
@@ -1147,17 +1157,14 @@ msgstr "Administrera %s prenumerationer"
 msgid "Save subscriptions"
 msgstr "Spara prenumerationer"
 
-#: views/table-of-contents.blade.php:18
-msgid "All"
-msgstr "Alla"
+#. Theme Name of the plugin/theme
+#: views/table-of-contents.blade.php:16
+msgid "Intranet"
+msgstr "Intranät"
 
 #: views/table-of-contents.blade.php:27
 msgid "Text search"
 msgstr "Textsök"
-
-#. Theme Name of the plugin/theme
-msgid "Intranet"
-msgstr "Intranät"
 
 #. Description of the plugin/theme
 msgid "An Intranet theme"
@@ -1170,6 +1177,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Incidents"
+#~ msgstr "Driftstörningar"
 
 #~ msgid "Responsibilities"
 #~ msgstr "Ansvarsområden"
