@@ -8,6 +8,8 @@ class General
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);
 
+        add_filter('option_nestedpages_menusync', array($this, 'nestedPagesMenuSync'), 10);
+
         // Post status private rename to "Only for logged in users"
         add_action('current_screen', array($this, 'renamePrivate'));
 
@@ -97,5 +99,16 @@ class General
         }
 
         return $title;
+    }
+
+
+    /**
+     * Force nested pages to always generate a menu
+     * Plugin dependency: Nested Pages
+     * @return string        "sync"
+     */
+    public function nestedPagesMenuSync()
+    {
+        return "sync";
     }
 }

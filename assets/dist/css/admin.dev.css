@@ -29,3 +29,6 @@
 
 #screen-options-show-lathund-wrap .show-settings::after {
   display: none; }
+
+.wrap.nestedpages .np-sync-menu-cont {
+  display: none; }
