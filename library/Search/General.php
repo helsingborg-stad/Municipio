@@ -12,10 +12,10 @@ class General
 
     public function searchAttachmentPermalink($permalink, $post)
     {
-        if (!$post->post_mime_type) {
-            return $permalink;
+        if ($post->post_mime_type) {
+            return esc_url($post->guid);
         }
 
-        return esc_url($post->guid);
+        return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
     }
 }
