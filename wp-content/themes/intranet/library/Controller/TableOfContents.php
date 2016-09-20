@@ -33,6 +33,7 @@ class TableOfContents extends \Intranet\Controller\BaseController
                 SELECT *, " . $blogId . " AS blog_id FROM {$wpdb->posts} AS posts
                 WHERE
                     posts.post_type = 'page'
+                    AND posts.post_title != ''
                     AND posts.post_parent = ''
                     AND posts.post_status IN ('" . implode('\',\'', $postStatuses) . "')
                     AND NOT posts.ID = " . get_option('page_on_front') . "
@@ -52,6 +53,7 @@ class TableOfContents extends \Intranet\Controller\BaseController
                 SELECT *, " . $blogId . " AS blog_id FROM {$wpdb->posts} AS posts
                 WHERE
                     posts.post_type = 'page'
+                    AND posts.post_title != ''
                     AND posts.post_parent IN (" . implode(',', $topLevelIds) . ")
                     AND posts.post_status IN ('" . implode('\',\'', $postStatuses) . "')
             ");
