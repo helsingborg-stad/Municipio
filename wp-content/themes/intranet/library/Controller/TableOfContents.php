@@ -63,6 +63,8 @@ class TableOfContents extends \Intranet\Controller\BaseController
             restore_current_blog();
         }
 
+        var_dump(get_current_blog_id());
+
         $pages = array_merge($topLevel, $secondLevel);
 
         if (isset($_GET['department']) && !empty($_GET['department'])) {
@@ -86,9 +88,9 @@ class TableOfContents extends \Intranet\Controller\BaseController
             }
 
             unset($pages[$key]);
-        }
 
-        restore_current_blog();
+            restore_current_blog();
+        }
 
         if (isset($_GET['title']) && !empty($_GET['title'])) {
             $pages = array_filter($pages, function ($item) {
