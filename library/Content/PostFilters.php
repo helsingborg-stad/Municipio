@@ -80,7 +80,13 @@ class PostFilters
         $template = \Municipio\Helper\Template::locateTemplate($template);
 
         if (is_post_type_archive() && is_search()) {
-            $template = \Municipio\Helper\Template::locateTemplate('archive.blade.php');
+            $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
+
+            if (!$archiveTemplate) {
+                $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive.blade.php');
+            }
+
+            $template = $archiveTemplate;
         }
 
         return $template;
