@@ -688,6 +688,19 @@ body.admin-bar {
       .network-title em {
         letter-spacing: 0; } }
 
+.my-networks .network-title a::before {
+  font-family: hbg-pricons;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: -15%;
+  content: "";
+  font-weight: normal;
+  display: inline-block;
+  margin-right: 5px;
+  color: #979797; }
+
 .network-title-format {
   font-weight: bold; }
   .network-title-format em {

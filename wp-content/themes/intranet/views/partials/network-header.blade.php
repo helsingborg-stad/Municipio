@@ -33,7 +33,7 @@
                         <div class="network-search-results">
                             <ul class="my-networks">
                                 @foreach (\Intranet\User\Subscription::getForcedSubscriptions() as $site)
-                                    <li><a href="{{ $site->path }}">{!! $site->name !!}</a></li>
+                                    <li class="network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
                                 @endforeach
 
                                 @if (is_user_logged_in() && \Intranet\User\Subscription::getSubscriptions())
