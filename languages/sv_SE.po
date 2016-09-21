@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-09-08 11:14+0200\n"
-"PO-Revision-Date: 2016-09-08 11:15+0200\n"
+"POT-Creation-Date: 2016-09-20 10:45+0200\n"
+"PO-Revision-Date: 2016-09-20 10:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -497,7 +497,7 @@ msgstr "Trackbacks"
 #: acf-exports/translate-reference.php:98
 #: acf-exports/translate-reference.php:153
 #: acf-exports/translate-reference.php:280
-#: views/partials/blog/post-header.blade.php:37
+#: views/partials/blog/post-info.blade.php:36
 msgid "Comments"
 msgstr "Kommentarer"
 
@@ -683,7 +683,6 @@ msgid "- Select -"
 msgstr "- Välj -"
 
 #: acf-exports/translate-reference.php:179
-#: views/partials/archive-filters.blade.php:7
 msgid "Title"
 msgstr "Titel"
 
@@ -809,19 +808,19 @@ msgstr "Fixerad till högerkanten"
 msgid "Menu to show translate link in"
 msgstr "Meny att visa översättningslänk i"
 
-#: acf-exports/translate-reference.php:211 library/Theme/Navigation.php:80
+#: acf-exports/translate-reference.php:211 library/Theme/Navigation.php:75
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: acf-exports/translate-reference.php:212 library/Theme/Navigation.php:81
+#: acf-exports/translate-reference.php:212 library/Theme/Navigation.php:76
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: acf-exports/translate-reference.php:213 library/Theme/Navigation.php:85
+#: acf-exports/translate-reference.php:213 library/Theme/Navigation.php:80
 msgid "Main menu"
 msgstr "Huvudmeny"
 
-#: acf-exports/translate-reference.php:214 library/Theme/Navigation.php:89
+#: acf-exports/translate-reference.php:214 library/Theme/Navigation.php:84
 msgid "Sidebar menu"
 msgstr "Sidebar-meny"
 
@@ -1244,11 +1243,11 @@ msgstr "Adress"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: library/Admin/General.php:34
+#: library/Admin/General.php:42
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
-#: library/Admin/General.php:88
+#: library/Admin/General.php:96
 msgid "Private"
 msgstr "Privat"
 
@@ -1274,7 +1273,9 @@ msgid "Footer"
 msgstr "Sidfot"
 
 #: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
-#: library/Theme/Navigation.php:140
+#: library/Theme/Navigation.php:135 views/partials/archive-filters.blade.php:7
+#: views/partials/archive-filters.blade.php:10
+#: views/partials/archive-filters.blade.php:28
 msgid "Search"
 msgstr "Sök"
 
@@ -1495,6 +1496,10 @@ msgstr "Kontakt"
 msgid "Displays the contact information given."
 msgstr "Visar den angivna kontaktinformationen"
 
+#: views/archive.blade.php:47
+msgid "No posts to show"
+msgstr "Inga inlägg att visa"
+
 #: views/partials/archive-filters.blade.php:19
 msgid "From"
 msgstr "Från"
@@ -1510,10 +1515,6 @@ msgstr "Till"
 #: views/partials/archive-filters.blade.php:22
 msgid "To date"
 msgstr "Till datum"
-
-#: views/partials/archive-filters.blade.php:29
-msgid "Filter"
-msgstr "Filtrera"
 
 #: views/partials/blog/post-categories.blade.php:6
 msgid "No categories"
@@ -1603,6 +1604,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Filter"
+#~ msgstr "Filtrera"
 
 #~ msgid "Theme options"
 #~ msgstr "Temainställningar"
