@@ -112,7 +112,7 @@ class Navigation
             $transientType = '_loggedin';
         }
 
-        $menu = get_transient('main_menu_' . $transientHash . $transientType);
+        $menu = false; //get_transient('main_menu_' . $transientHash . $transientType);
 
         $classes = array('nav');
 
@@ -137,7 +137,7 @@ class Navigation
                 $markup .= '</ul>';
             }
 
-            set_transient('main_menu_' . $transientHash . $transientType, $markup, 60*60*168);
+            //set_transient('main_menu_' . $transientHash . $transientType, $markup, 60*60*168);
 
             return $markup;
         }
@@ -158,7 +158,7 @@ class Navigation
             $transientType = '_loggedin';
         }
 
-        $menu = get_transient('mobile_menu_' . $transientHash . $transientType);
+        $menu = false; //get_transient('mobile_menu_' . $transientHash . $transientType);
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $mobileMenuArgs = array(
@@ -171,7 +171,7 @@ class Navigation
 
             $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
-            set_transient('mobile_menu_' . $transientHash . $transientType, $menu, 60*60*168);
+            //set_transient('mobile_menu_' . $transientHash . $transientType, $menu, 60*60*168);
         }
 
         if ($menu->itemCount === 0) {
