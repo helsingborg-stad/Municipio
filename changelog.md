@@ -3,8 +3,17 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.11 (tbd)
+Version 0.2.12 (tbd)
 ====================
+- Removes unused code
+- Fix table of contents (A-Ö) switch_to_blog issue
+- Adds link item icon before each and every intranet in the "select intranet" dropdown
+- Private modules
+- Post module: Option to set the "title" column label in expandable list table
+- Search notices
+
+Version 0.2.11 (2016-09-22)
+===========================
 - Get vising address from active directory if possible
 - Remove leading zero from birthday date on profile
 - Adds comments support for the news post type
