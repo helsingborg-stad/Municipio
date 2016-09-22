@@ -13,6 +13,8 @@
     </div>
 </section>
 
+<?php do_action('search_notices'); ?>
+
 @if (!$results->items)
 
 <div class="container gutter gutter-lg gutter-top">
