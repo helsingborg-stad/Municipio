@@ -80,14 +80,10 @@
         "helsingborg-stad/attachment-revisions": ">=1.0.0",
         "helsingborg-stad/modularity-googleapps": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
-        "wpackagist-plugin/varnish-http-purge": "^3.7.2",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
         "wpackagist-plugin/active-directory-integration": ">=1.1.8",
-        "wpackagist-plugin/user-switching" : ">=1.0.0",
-        "wpackagist-plugin/query-monitor": "2.12.0",
-        "wpackagist-plugin/debug-bar-slow-actions": "0.8.3",
-        "wpackagist-plugin/debug-bar": "0.8.4"
+        "wpackagist-plugin/user-switching" : ">=1.0.0"
     },
 
     "extra": {
