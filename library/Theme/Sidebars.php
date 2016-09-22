@@ -49,9 +49,15 @@ class Sidebars
             $classes[] = 'box-panel-secondary';
         }
 
-        // Sidebar boxes (should be filled)
+        // Sidebar box-panel (should be filled)
         if (in_array($sidebarArgs['id'], array('left-sidebar-bottom', 'left-sidebar', 'right-sidebar')) && in_array('box-panel', $classes)) {
             unset($classes[array_search('box-panel', $classes)]);
+            $classes[] = 'box-filled';
+        }
+
+        // Sidebar box-index (should be filled)
+        if (in_array($sidebarArgs['id'], array('left-sidebar-bottom', 'left-sidebar', 'right-sidebar')) && in_array('box-index', $classes)) {
+            unset($classes[array_search('box-index', $classes)]);
             $classes[] = 'box-filled';
         }
 
