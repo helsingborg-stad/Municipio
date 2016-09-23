@@ -13,6 +13,10 @@ class PostFilters
         add_filter('posts_where', array($this, 'doPostDateFiltering'));
         add_filter('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_filter('pre_get_posts', array($this, 'doPostOrdering'));
+
+        remove_filter('content_save_pre', 'wp_filter_post_kses');
+        remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
+        remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
     }
 
     /**
