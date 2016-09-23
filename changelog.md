@@ -11,6 +11,7 @@ Version 0.2.12 (tbd)
 - Private modules
 - Post module: Option to set the "title" column label in expandable list table
 - Search notices
+- Adds ACF UX Collapse plugin
 
 Version 0.2.11 (2016-09-22)
 ===========================
