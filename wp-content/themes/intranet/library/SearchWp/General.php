@@ -14,10 +14,40 @@ class General
         // Disable search query logging by default (the logging will be handled specificly by the Search class)
         add_filter('searchwp_log_search', '__return_false', 5);
 
+        // Sync term synonyms
+        add_action('update_option_swp_termsyn_settings', array($this, 'copyTermsynSettings'), 10, 3);
+
         /*
         add_action('wp_ajax_search_autocomplete', array($this, 'ajaxSearch'));
         add_action('wp_ajax_nopriv_search_autocomplete', array($this, 'ajaxSearch'));
         */
+    }
+
+    /**
+     * Syncs term synonyms across all blogs
+     * @param  mixed  $old    Old option value
+     * @param  mixed  $new    New option value
+     * @param  string $option Option key
+     * @return void
+     */
+    public function copyTermsynSettings($old, $new, $option)
+    {
+        $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
+        $sites = array_filter($sites, function ($item) {
+            return $item != get_current_blog_id();
+        });
+
+        remove_action('update_option_swp_termsyn_settings', array($this, 'copyTermsynSettings'));
+
+        foreach ($sites as $site) {
+            switch_to_blog($site);
+            update_option($option, $new);
+            restore_current_blog();
+        }
+
+        add_action('update_option_swp_termsyn_settings', array($this, 'copyTermsynSettings'), 10, 3);
+
+        return;
     }
 
     public static function jsonSearch($data)
