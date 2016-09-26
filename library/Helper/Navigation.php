@@ -280,7 +280,7 @@ class Navigation
             $transientType = '_loggedin';
         }
 
-        $menu = get_transient('sidebar_menu_' . $transientHash . $transientType);
+        $menu = false; //get_transient('sidebar_menu_' . $transientHash . $transientType);
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
             $menu = new \Municipio\Helper\NavigationTree(array(
