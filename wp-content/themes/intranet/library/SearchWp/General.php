@@ -6,12 +6,6 @@ class General
 {
     public function __construct()
     {
-        add_action('init', function () {
-            if (!is_plugin_active('searchwp/searchwp.php') && !is_admin()) {
-                throw new \Error('SearchWP plugin is not activated. Please install and activate to continute.');
-            }
-        });
-
         add_filter('searchwp_and_logic', '__return_true');
         add_filter('searchwp_keyword_stem_locale', '__return_true');
         add_filter('searchwp_common_words', array($this, 'commonWords'));
