@@ -1,6 +1,7 @@
 # Config
 /config/database.php
 /config/salts.php
+/config/cache.php
 /config/developer.php
 /config/multisite.php
 
