@@ -28,7 +28,7 @@ class News
     public function oldNotice($content)
     {
         global $post;
-        if ($post->post_type !== 'intranet-news' || !is_single()) {
+        if ((isset($post) && $post->post_type !== 'intranet-news') || !is_single()) {
             return $content;
         }
 
