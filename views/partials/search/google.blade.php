@@ -43,8 +43,9 @@
 
                 <div class="grid">
                     <div class="grid-lg-12">
-                        <ul class="search-result-list">
+                        <?php do_action('loop_start'); ?>
 
+                        <ul class="search-result-list">
                             @foreach ($results->items as $item)
                             <li>
                                 <div class="search-result-item">
