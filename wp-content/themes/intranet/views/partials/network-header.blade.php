@@ -46,7 +46,9 @@
                         </div>
                         @endif
 
-                        <a href="{{ network_site_url('sites') }}" class="show-all"><span class="link-item"><?php _e('Show all networks', 'municipio-intranet'); ?></span></a>
+                        <div class="creamy creamy-border-top gutter gutter-sm">
+                            <a href="{{ network_site_url('sites') }}" class="btn btn-primary btn-block"><?php _e('Show all networks', 'municipio-intranet'); ?></a>
+                        </div>
                     </div>
                 </div>
             </div>

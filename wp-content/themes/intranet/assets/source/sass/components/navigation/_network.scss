@@ -1,3 +1,27 @@
+.network-search-dropdown {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+
+    background-color: #fff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 0 20px rgba(#000, .2);
+
+    border-radius: 3px;
+    overflow: hidden;
+
+    .show-all {
+        display: block;
+        background-color: $creamy;
+        border-top: 1px solid $creamy-darker;
+        padding: 10px 20px;
+        color: $base-font-color;
+    }
+}
+
 .network {
     position: relative;
 }
@@ -149,11 +173,15 @@
     text-align: left;
 
     ul {
-        padding: 15px 0 10px 0;
+        padding: 10px 0;
     }
 
     li.title {
-        padding: 0px 20px;
+        padding: 5px 20px;
+        background-color: $creamy;
+        border-top: 1px solid $creamy-darker;
+        border-bottom: 1px solid $creamy-darker;
+        margin-bottom: 10px;
     }
 
     li a {

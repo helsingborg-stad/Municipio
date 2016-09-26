@@ -1,26 +1,3 @@
-.network-search-dropdown {
-    display: none;
-    position: absolute;
-    z-index: 9999;
-    top: calc(100% + 10px);
-    left: 0;
-    right: 0;
-
-    background-color: #fff;
-    border: 1px solid $creamy-darker;
-    box-shadow: 0 0 20px rgba(#000, .2);
-
-    border-radius: 3px;
-
-    .show-all {
-        display: block;
-        background-color: $creamy;
-        border-top: 1px solid $creamy-darker;
-        padding: 10px 20px;
-        color: $base-font-color;
-    }
-}
-
 a.dropdown-open:focus {
     text-decoration: none !important;
 }
