@@ -12,6 +12,8 @@ Version 0.2.12 (tbd)
 - Post module: Option to set the "title" column label in expandable list table
 - Search notices
 - Adds ACF UX Collapse plugin
+- Add option to attach response email to the feedback function
+- Limit feedback responses to one per 5 days and user (cookie)
 
 Version 0.2.11 (2016-09-22)
 ===========================
