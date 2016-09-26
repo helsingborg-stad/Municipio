@@ -65,6 +65,8 @@
     <div class="container gutter gutter-xl gutter-top">
         <div class="grid">
             <div class="grid-md-9">
+                <?php do_action('loop_start'); ?>
+
                 @if ($resultCount === 0)
                     <div class="notice info">
                         <i class="pricon pricon-info-o"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
@@ -81,7 +83,6 @@
                     <div class="grid">
                         <div class="grid-lg-12">
                             <ul class="search-result-list">
-
                                 @foreach ($results as $item)
                                     @if (isset($item->user_login))
                                     <?php global $authordata; $authordata = get_user_by('ID', $item->ID); ?>
