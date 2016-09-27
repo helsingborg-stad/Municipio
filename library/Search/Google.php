@@ -21,6 +21,9 @@ class Google
 
         $this->keyword = $keyword;
         $this->results = $this->search($this->keyword, $startingIndex);
+
+        global $wp_query;
+        $wp_query->found_posts = $this->results->searchInformation->totalResults;
     }
 
     /**
