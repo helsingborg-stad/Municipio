@@ -32,7 +32,7 @@ class General
             return;
         }
 
-        if (get_current_screen()->action !== '') {
+        if (get_current_screen()->action !== '' && get_current_screen()->action !== 'add') {
             return;
         }
 
