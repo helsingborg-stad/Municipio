@@ -47,6 +47,10 @@ class Search
             'users' => $this->countSearch('users', 'count')
         );
 
+        global $wp_query;
+        $wp_query->found_posts = array_sum($resultCounts);
+
+
         if (defined('DOING_AJAX') && DOING_AJAX) {
             return;
         }
