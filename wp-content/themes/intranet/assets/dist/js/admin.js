@@ -51,27 +51,6 @@ jQuery(document).ready(function ($) {
         }
     });
 
-
-    // Author selector
-    $('.intranet-author-select li').on('click', function (e) {
-        $('.intranet-author-select li.selected').removeClass('selected');
-        $(this).addClass('selected');
-        $('[name="post_author_override"]').val($(this).data('user-id'));
-    });
-
-    $('[name="intranet-author-select-filter"]').on('input', function (e) {
-        if ($(this).val() == '') {
-            $('.intranet-author-select li').show();
-            return;
-        }
-
-        $('.intranet-author-select li:not(:contains(' + $(this).val() + '))').hide();
-        $('.intranet-author-select li:contains(' + $(this).val() + ')').show();
-    });
-
-    jQuery.expr[':'].contains = function(a, i, m) {
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-    };
 });
 
 
