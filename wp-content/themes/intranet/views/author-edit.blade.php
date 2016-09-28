@@ -222,7 +222,7 @@
                                 <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
-                                            <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?><?php echo !empty(get_the_author_meta('ad_title')) ? '<span class="text-danger">*</span> <small>(' . __('Not editable', 'municipio-intranet') . ')</small>' : ''; ?></label>
+                                            <label for="user_work_title"><?php _e('Work title', 'municipio-intranet'); ?><span class="text-danger">*</span> <?php echo !empty(get_the_author_meta('ad_title')) ? '<small>(' . __('Not editable', 'municipio-intranet') . ')</small>' : ''; ?></label>
                                             @if (!empty(get_the_author_meta('ad_title')))
                                             <input type="text" id="user_work_title" name="ad_title" value="{{ get_the_author_meta('ad_title') }}" disabled required>
                                             @else
