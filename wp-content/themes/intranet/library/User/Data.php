@@ -21,7 +21,6 @@ class Data
         'user_phone'                        => 'user_phone',
         'user_skills'                       => 'user_skills',
         'user_responsibilities'             => 'user_responsibilities',
-        'user_profile_picture'              => 'user_profile_picture',
         'user_about'                        => 'user_about',
         'user_visiting_address[workplace]'  => 'user_visiting_address',
         'user_visiting_address[street]'     => 'user_visiting_address',
