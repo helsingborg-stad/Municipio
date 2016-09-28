@@ -153,16 +153,24 @@
                             </label>
                             <div class="accordion-content">
                                 <div class="grid">
+                                    <div class="grid-xs-12">
+                                        <p><?php _e('Fill in your social media profile url:s if you want to make it easier for others to find your social media profiles.', 'municipio-intranet'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_facebook_url"><?php _e('Facebook profile url', 'municipio-intranet'); ?></label>
                                             <input type="url" pattern="https?://.+" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}" oninvalid="this.setCustomValidity('<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>')">
+                                            <?php municipio_intranet_field_example('facebook', 'https://www.facebook.com/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_linkedin_url"><?php _e('Linkedin profile url', 'municipio-intranet'); ?></label>
                                             <input type="url" pattern="https?://.+" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}" oninvalid="this.setCustomValidity('<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>')">
+                                            <?php municipio_intranet_field_example('linkedin', 'https://www.linkedin.com/in/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -172,12 +180,14 @@
                                         <div class="form-group">
                                             <label for="user_instagram_username"><?php _e('Instagram username', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_instagram_username" name="user_instagram_username" value="{{ get_the_author_meta('user_instagram_username') }}">
+                                            <?php municipio_intranet_field_example('instagram', mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_twitter_username"><?php _e('Twitter username', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_twitter_username" name="user_twitter_username" value="{{ get_the_author_meta('user_twitter_username') }}">
+                                            <?php municipio_intranet_field_example('twitter', mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -218,6 +228,7 @@
                                             @else
                                             <input type="text" id="user_work_title" name="user_work_title" value="{{ get_the_author_meta('user_work_title') }}" required>
                                             @endif
+                                            <?php municipio_intranet_field_example('user_work_title', __('Project coordinator', 'municipio-intranet')); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -245,6 +256,7 @@
                                         <div class="form-group">
                                             <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                                             <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}" required>
+                                            <?php municipio_intranet_field_example('user_department', __('Web-department', 'municipio-intranet')); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -260,6 +272,7 @@
                                         <div class="form-group">
                                             <label for="user_visiting_address_place" style="font-weight:normal;"><?php _e('Workplace', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_place" name="user_visiting_address[workplace]" value="{{ isset(get_the_author_meta('user_visiting_address')['workplace']) ? get_the_author_meta('user_visiting_address')['workplace'] : '' }}">
+                                            <?php municipio_intranet_field_example('user_visiting_address_place', 'Kontaktcenter'); ?>
                                         </div>
                                     </div>
 
@@ -267,6 +280,7 @@
                                         <div class="form-group">
                                             <label for="user_visiting_address_street" style="font-weight:normal;"><?php _e('Street address', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_street" name="user_visiting_address[street]" value="{{ isset(get_the_author_meta('user_visiting_address')['street']) ? get_the_author_meta('user_visiting_address')['street'] : '' }}">
+                                            <?php municipio_intranet_field_example('user_visiting_address_street', 'Stortorget 7'); ?>
                                         </div>
                                     </div>
 
@@ -274,6 +288,7 @@
                                         <div class="form-group">
                                             <label for="user_visiting_address_city" style="font-weight:normal;"><?php _e('City', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_city" name="user_visiting_address[city]" value="{{ isset(get_the_author_meta('user_visiting_address')['city']) ? get_the_author_meta('user_visiting_address')['city'] : '' }}">
+                                            <?php municipio_intranet_field_example('user_visiting_address_city', 'Helsingborg'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +304,15 @@
                             <div class="accordion-content">
                                 <div class="grid">
                                     <div class="grid-md-12">
-                                        <p><?php _e('Please add your work assignments. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                        <article>
+                                            <p><?php _e('Please add your work assignments. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                            <p><?php _e('Example work assignments', 'municipio-intranet'); ?>:</p>
+                                            <ul>
+                                                <li><?php _e('Intranet web developer', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Office management', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Human resource', 'municipio-intranet'); ?></li>
+                                            </ul>
+                                        </article>
                                     </div>
                                 </div>
 
@@ -334,7 +357,15 @@
                             <div class="accordion-content">
                                 <div class="grid">
                                     <div class="grid-md-12">
-                                        <p><?php _e('Please add your skills. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                        <article>
+                                            <p><?php _e('Please add your skills. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                                            <p><?php _e('Example skills', 'municipio-intranet'); ?>:</p>
+                                            <ul>
+                                                <li><?php _e('Web development', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Project management', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Copywriting', 'municipio-intranet'); ?></li>
+                                            </ul>
+                                        </article>
                                     </div>
                                 </div>
 
@@ -421,6 +452,13 @@
                                 <h4 class="pricon pricon-target pricon-space-right"><?php _e('Target groups', 'municipio-intranet'); ?></h4>
                             </label>
                             <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-xs-12">
+                                        <article>
+                                            <p><?php _e('Please check the boxes of the target groups that suits your current role. Checking a box will give you information targeted to the specific group.', 'municipio-intranet'); ?></p>
+                                        </article>
+                                    </div>
+                                </div>
                                 <div class="grid">
                                     <div class="grid-md-12">
                                         <div class="form-group">

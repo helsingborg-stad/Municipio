@@ -81,3 +81,19 @@ if (!function_exists('municipio_intranet_walkthrough')) {
         ';
     }
 }
+
+if (!function_exists('municipio_intranet_field_example')) {
+    function municipio_intranet_field_example($key, $example, $label = null)
+    {
+        if (is_null($label)) {
+            $label = __('Example', 'municipio-intranet');
+        }
+
+        $example = apply_filters('MunicipioIntranet/EditProfile/Example/Example', array(
+            'label' => $label,
+            'example' => $example
+        ), $key);
+
+        echo '<small>' . $example['label'] . ': ' . $example['example'] . '</small>';
+    }
+}
