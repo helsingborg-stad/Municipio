@@ -200,7 +200,7 @@ Intranet.Search.General = (function ($) {
         // Users
         if (typeof res.users != 'undefined' && res.users !== null && res.users.length > 0) {
             $.each(res.users, function (index, user) {
-                if (user.profile_image.length) {
+                if (user.profile_image) {
                     $users.append('<li><a href="' + user.profile_url + '"><img src="' + user.profile_image + '" class="search-autocomplete-image"> ' + user.name + '</a></li>');
                     return;
                 }
