@@ -30,6 +30,9 @@
                         <p>
                             <?php _e('Click on a section to view and edit your settings.', 'municipio-intranet'); ?>
                         </p>
+                        <p>
+                            <?php echo sprintf(__('Required fields are marked with %s', 'municipio-intranet'), '<span class="text-danger">*</span>'); ?>
+                        </p>
                     </article>
                 </div>
             </div>
