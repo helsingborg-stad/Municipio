@@ -27,6 +27,7 @@
                                                 <?php if ($show_userdata_guide) : ?>
                                                 <p><?php _e('Some vital information is missing from your profile. Before you can fully use the intranet we will need you to complete this guide to do the final setup.', 'municipio-intranet'); ?></p>
                                                 <p><?php _e('Click "next" to continue.', 'municipio-intranet'); ?></p>
+                                                <p><?php echo sprintf(__('Required fields are marked with %s', 'municipio-intranet'), '<span class="text-danger">*</span>'); ?></p>
                                                 <?php else : ?>
                                                 <p><?php _e('Your profile is not complete. Please go through the steps in this guide to update your information.', 'municipio-intranet'); ?></p>
                                                 <p><?php _e('Click "next" to continue.', 'municipio-intranet'); ?></p>

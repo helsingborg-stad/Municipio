@@ -35,6 +35,7 @@
                 <div class="form-group">
                     <label for="user_department"><?php _e('Department', 'municipio-intranet'); ?><span class="text-danger">*</span></label>
                     <input type="text" id="user_department" name="user_department" value="{{ get_the_author_meta('user_department') }}" required>
+                    <?php municipio_intranet_field_example('user_department', __('Web-department', 'municipio-intranet')); ?>
                 </div>
             </div>
         </div>

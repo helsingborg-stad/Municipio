@@ -6,7 +6,15 @@
     <div class="accordion-content">
         <div class="grid">
             <div class="grid-md-12">
-                <p><?php _e('Please add your skills. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                <article>
+                    <p><?php _e('Please add your skills. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
+                    <p><?php _e('Example skills', 'municipio-intranet'); ?>:</p>
+                    <ul>
+                        <li><?php _e('Web development', 'municipio-intranet'); ?></li>
+                        <li><?php _e('Project management', 'municipio-intranet'); ?></li>
+                        <li><?php _e('Copywriting', 'municipio-intranet'); ?></li>
+                    </ul>
+                </article>
             </div>
         </div>
 
