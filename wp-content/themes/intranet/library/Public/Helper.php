@@ -94,6 +94,6 @@ if (!function_exists('municipio_intranet_field_example')) {
             'example' => $example
         ), $key);
 
-        echo '<small>' . $example['label'] . ': ' . $example['example'] . '</small>';
+        echo '<small class="form-example"><span>' . $example['label'] . ':</span> ' . $example['example'] . '</small>';
     }
 }
