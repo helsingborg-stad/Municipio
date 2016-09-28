@@ -66,6 +66,10 @@
             "url": "https://github.com/helsingborg-stad/larm.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/force-ssl.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         }
@@ -89,6 +93,7 @@
         "helsingborg-stad/modularity-googleapps": ">=1.0.0",
         "helsingborg-stad/search-notices": ">=1.0.0",
         "helsingborg-stad/acf-ux-collapse": ">=1.0.0",
+        "helsingborg-stad/force-ssl": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
