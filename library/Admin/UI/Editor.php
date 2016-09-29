@@ -8,7 +8,7 @@ class Editor
     {
         // Add editor stylesheet
         add_action('admin_init', function () {
-            add_editor_style('//hbgprime.dev/dist/css/hbg-prime.min.css');
+            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//hbgprime.dev/dist/css/hbg-prime.min.css'));
         });
 
         // Metadata plugin

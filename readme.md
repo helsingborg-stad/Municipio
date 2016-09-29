@@ -191,6 +191,15 @@ Modify the date filter WHERE clause
 apply_filters('Municipio/archive/date_filter', $where, $from, $to);
 ```
 
+#### Municipio/admin/editor_stylesheet
+Change custom editor stylesheet
+
+- ```@param string $url``` - The stylesheet url
+
+```php
+apply_filters('Municipio/admin/editor_stylesheet', $url);
+```
+
 ## Dev mode
 To load assets from local styleguide. Set contant DEV_MODE to "true"
 
