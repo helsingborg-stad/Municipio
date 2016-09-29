@@ -47,21 +47,12 @@
     <?php endif; ?>
 
     <?php foreach ($news as $item) : ?>
-        <?php
-            $thumbnail_image = wp_get_attachment_image_src(
-                get_post_thumbnail_id($item->ID),
-                apply_filters('modularity/image/mainnews',
-                    array(500, 250),
-                    $args
-                )
-            );
-        ?>
         <div class="grid-lg-12">
             <a <?php if (is_super_admin()) : ?>title="Rank: <?php echo round($item->rank_percent, 3); ?>%"<?php endif; ?> href="<?php echo get_blog_permalink($item->blog_id, $item->ID); ?>" class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $module->post_type, $args)); ?> <?php echo $item->is_sticky ? 'is-sticky' : ''; ?>">
-                <?php if ($hasImages || (!get_field('placeholders', $module->ID) && $thumbnail_image)) : ?>
+                <?php if ($hasImages || (!get_field('placeholders', $module->ID) && $item->thumbnail_image)) : ?>
                     <div class="box-image-container">
-                        <?php if ($thumbnail_image) : ?>
-                        <img src="<?php echo $thumbnail_image[0]; ?>" alt="<?php echo $item->post_title; ?>">
+                        <?php if ($item->thumbnail_image) : ?>
+                        <img src="<?php echo $item->thumbnail_image[0]; ?>" alt="<?php echo $item->post_title; ?>">
                         <?php else : ?>
                         <figure class="image-placeholder"></figure>
                         <?php endif; ?>

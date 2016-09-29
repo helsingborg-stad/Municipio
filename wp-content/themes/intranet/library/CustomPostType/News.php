@@ -253,6 +253,19 @@ class News
             $news = self::getNewsFromSites($site, $count);
         }
 
+        foreach ($news as $item) {
+            switch_to_blog($item->blog_id);
+
+            $item->thumbnail_image = wp_get_attachment_image_src(
+                get_post_thumbnail_id($item->ID),
+                apply_filters('modularity/image/mainnews',
+                    array(500, 250)
+                )
+            );
+
+            restore_current_blog();
+        }
+
         return $news;
     }
 
