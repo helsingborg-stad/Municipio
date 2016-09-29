@@ -5,6 +5,7 @@ The changelog aims to describe higher level changes for each version of the intr
 
 Version 0.2.12 (tbd)
 ====================
+- Fixes a bon of minor bugs (functions and interface)
 - Removes unused code
 - Fix table of contents (A-Ö) switch_to_blog issue
 - Adds link item icon before each and every intranet in the "select intranet" dropdown
@@ -14,6 +15,7 @@ Version 0.2.12 (tbd)
 - Adds ACF UX Collapse plugin
 - Add option to attach response email to the feedback function
 - Limit feedback responses to one per 5 days and user (cookie)
+- WP Editor style formats from Hbg Styleguide
 
 Version 0.2.11 (2016-09-22)
 ===========================

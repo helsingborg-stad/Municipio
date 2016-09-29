@@ -31,9 +31,11 @@
 
     $hasImages = false;
 
-    foreach ($news as $item) {
-        if (get_thumbnail_source($item->ID) !== false) {
-            $hasImages = true;
+    if (get_field('placeholders', $module->ID)) {
+        foreach ($news as $item) {
+            if (get_thumbnail_source($item->ID) !== false) {
+                $hasImages = true;
+            }
         }
     }
 ?>
@@ -56,7 +58,7 @@
         ?>
         <div class="grid-lg-12">
             <a <?php if (is_super_admin()) : ?>title="Rank: <?php echo round($item->rank_percent, 3); ?>%"<?php endif; ?> href="<?php echo get_blog_permalink($item->blog_id, $item->ID); ?>" class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $module->post_type, $args)); ?> <?php echo $item->is_sticky ? 'is-sticky' : ''; ?>">
-                <?php if ($hasImages) : ?>
+                <?php if ($hasImages || (!get_field('placeholders', $module->ID) && $thumbnail_image)) : ?>
                     <div class="box-image-container">
                         <?php if ($thumbnail_image) : ?>
                         <img src="<?php echo $thumbnail_image[0]; ?>" alt="<?php echo $item->post_title; ?>">
