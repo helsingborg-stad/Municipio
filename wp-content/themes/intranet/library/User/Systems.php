@@ -12,7 +12,7 @@ class Systems
             return;
         }
 
-        add_action('init', array($this, 'createDatabaseTable'));
+        add_action('admin_init', array($this, 'createDatabaseTable'));
 
         add_action('admin_menu', array($this, 'createManageSystemsPage'));
         add_action('admin_init', array($this, 'addSystem'));

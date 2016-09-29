@@ -12,7 +12,7 @@ class AdministrationUnits
             return;
         }
 
-        add_action('init', array($this, 'createDatabaseTable'));
+        add_action('admin_init', array($this, 'createDatabaseTable'));
 
         add_action('network_admin_menu', array($this, 'createAdministrationUnitsAdminPage'));
         add_action('admin_init', array($this, 'addAdministrationUnit'));
