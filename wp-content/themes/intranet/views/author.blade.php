@@ -37,7 +37,7 @@
             <div class="grid-xs-12">
                 <div class="profile-header-content">
                     @if (!empty(get_the_author_meta('user_profile_picture')))
-                    <div class="profile-image" style="background-image:url('{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID')) }}');"></div>
+                    <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');"></div>
                     @endif
 
                     <h1 class="profile-fullname">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</h1>
