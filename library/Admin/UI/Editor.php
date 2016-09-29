@@ -15,7 +15,7 @@ class Editor
             }
         });
 
-        // Metadata plugin
+        // Custom plugins
         add_action('admin_init', array($this, 'metaData'));
 
         // Add format dropdown
@@ -36,10 +36,137 @@ class Editor
     public function styleFormat($settings)
     {
         $styleFormats = array(
+            // Text sizes
             array(
-                'title' => 'Small',
-                'inline' => 'small'
-            )
+                'title' => 'Text size',
+                'items' => array(
+                    array(
+                        'title' => 'Small',
+                        'inline' => 'small'
+                    ),
+                    array(
+                        'title' => 'Large',
+                        'inline' => 'span',
+                        'classes' => 'text-lg'
+                    ),
+                    array(
+                        'title' => 'Extra large',
+                        'inline' => 'span',
+                        'classes' => 'text-xl'
+                    )
+                )
+            ),
+
+            // Transform
+            array(
+                'title' => 'Transform',
+                'items' => array(
+                    array(
+                        'title' => 'Uppercase',
+                        'inline' => 'span',
+                        'classes' => 'text-uppercase'
+                    ),
+                    array(
+                        'title' => 'Lowercase',
+                        'inline' => 'span',
+                        'classes' => 'text-lowercase'
+                    ),
+                    array(
+                        'title' => 'Capitalize',
+                        'inline' => 'span',
+                        'classes' => 'text-capitalize'
+                    )
+                )
+            ),
+
+            // Text markings
+            array(
+                'title' => 'Highlight',
+                'items' => array(
+                    array(
+                        'title' => 'Drak gray',
+                        'inline' => 'span',
+                        'classes' => 'text-dark-gray'
+                    ),
+                    array(
+                        'title' => 'Highlight',
+                        'inline' => 'span',
+                        'classes' => 'text-highlight'
+                    ),
+                    array(
+                        'title' => 'Mark',
+                        'inline' => 'mark',
+                        'classes' => 'mark'
+                    ),
+                    array(
+                        'title' => 'Mark yellow',
+                        'inline' => 'mark',
+                        'classes' => 'mark-yellow'
+                    ),
+                    array(
+                        'title' => 'Mark blue',
+                        'inline' => 'mark',
+                        'classes' => 'mark-blue'
+                    ),
+                    array(
+                        'title' => 'Mark green',
+                        'inline' => 'mark',
+                        'classes' => 'mark-green'
+                    ),
+                    array(
+                        'title' => 'Mark red',
+                        'inline' => 'mark',
+                        'classes' => 'mark-red'
+                    ),
+                    array(
+                        'title' => 'Mark purple',
+                        'inline' => 'mark',
+                        'classes' => 'mark-purple'
+                    ),
+                )
+            ),
+
+            // Buttons
+            array(
+                'title' => 'Buttons',
+                'items' => array(
+                    array(
+                        'title' => 'Button',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md'
+                    ),
+                    array(
+                        'title' => 'Primary button',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md btn-primary'
+                    ),
+                    array(
+                        'title' => 'Button: First color',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md btn-theme-first'
+                    ),
+                    array(
+                        'title' => 'Button: Second color',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md btn-theme-second'
+                    ),
+                    array(
+                        'title' => 'Button: Third color',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md btn-theme-third'
+                    ),
+                    array(
+                        'title' => 'Button: Fourth color',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md btn-theme-fourth'
+                    ),
+                    array(
+                        'title' => 'Button: Fifth color',
+                        'inline' => 'a',
+                        'classes' => 'btn btn-md btn-theme-fifth'
+                    ),
+                )
+            ),
         );
 
         $settings['style_formats'] = json_encode($styleFormats);
