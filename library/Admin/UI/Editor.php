@@ -6,6 +6,11 @@ class Editor
 {
     public function __construct()
     {
+        // Add editor stylesheet
+        add_action('admin_init', function () {
+            add_editor_style('//hbgprime.dev/dist/css/hbg-prime.min.css');
+        });
+
         // Metadata plugin
         add_action('admin_init', array($this, 'metaData'));
 
@@ -34,6 +39,13 @@ class Editor
         );
 
         $settings['style_formats'] = json_encode($styleFormats);
+
+        // Set color scheme class on mce body
+        $color = get_field('color_scheme', 'option');
+
+        if ($color) {
+            $settings['body_class'] .= ' theme-' . $color;
+        }
 
         return $settings;
     }
