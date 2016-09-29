@@ -133,7 +133,7 @@ class Editor
                     array(
                         'title' => 'Button',
                         'inline' => 'a',
-                        'classes' => 'btn btn-md'
+                        'classes' => 'btn btn-md btn-btn'
                     ),
                     array(
                         'title' => 'Primary button',
