@@ -57,8 +57,8 @@ class SsoRedirect
 
     public function doAuthentication()
     {
-        if(class_exists('SAML_Client')) {
-            $client = new SAML_Client();
+        if(class_exists('\SAML_Client')) {
+            $client = new \SAML_Client();
             $client->authenticate();
         } elseif( (defined('WP_DEBUG') && WP_DEBUG === true) && function_exists('write_log')) {
             write_log('Error: SAML client plugin is not active.');
