@@ -373,7 +373,9 @@ body.admin-bar {
   bottom: 0;
   right: 0;
   z-index: -1;
-  overflow: hidden; }
+  overflow: hidden;
+  background-size: cover;
+  background-position: center 30%; }
   .profile-header-background div {
     width: 100%;
     height: 100%;
