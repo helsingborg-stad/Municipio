@@ -21,6 +21,7 @@ class App
         new \Intranet\User\General();
         new \Intranet\User\Registration();
         new \Intranet\User\Login();
+        new \Intranet\User\SsoRedirect();
         new \Intranet\User\Profile();
         new \Intranet\User\Subscription();
         new \Intranet\User\TargetGroups();
