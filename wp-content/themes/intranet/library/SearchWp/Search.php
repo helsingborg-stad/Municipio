@@ -21,7 +21,7 @@ class Search
         'users' => null
     );
 
-    public function __construct($level = 'subscriptions')
+    public function __construct($level = 'all')
     {
         global $sitesLogged;
         if (!is_array($sitesLogged)) {
@@ -117,11 +117,9 @@ class Search
             return;
         }
 
-        if (is_user_logged_in() && is_main_site()) {
-            $this->level = 'subscriptions';
-        } elseif (!is_user_logged_in() && is_main_site()) {
-            $this->level = 'all';
-        } elseif (!is_main_site()) {
+        $this->level = 'all';
+
+        if (!is_main_site()) {
             $this->level = 'current';
         }
     }

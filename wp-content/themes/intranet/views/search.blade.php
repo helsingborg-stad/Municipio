@@ -24,6 +24,14 @@
             <div class="grid-xs-12">
                 <nav>
                     <ul class="nav nav-horizontal">
+                        <li class="title">Välj nivå:</li>
+                        <li class="{{ $level == 'all' ? 'active' : '' }}">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
+                                <?php _e('All sites', 'municipio-intranet'); ?>
+                                <span class="label label-rounded label-sm">{{ $counts['all'] }}</span>
+                            </a>
+                        </li>
+
                         @if (is_user_logged_in())
                         <li class="{{ $level == 'subscriptions' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=subscriptions">
@@ -33,12 +41,6 @@
                         </li>
                         @endif
 
-                        <li class="{{ $level == 'all' ? 'active' : '' }}">
-                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
-                                <?php _e('All sites', 'municipio-intranet'); ?>
-                                <span class="label label-rounded label-sm">{{ $counts['all'] }}</span>
-                            </a>
-                        </li>
                         <li class="{{ $level == 'current' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=current">
                                 <?php _e('Current site', 'municipio-intranet'); ?>
