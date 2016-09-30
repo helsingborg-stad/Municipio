@@ -12,10 +12,17 @@ class General
 
     public function searchAttachmentPermalink($permalink, $post)
     {
-        if ($post->post_mime_type) {
+        // For posts that's not files
+        if (isset($post) && !empty($post) && !$post->post_mime_type) {
+            return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
+        }
+
+        // For posts that's files
+        if (isset($post) && !empty($post) && $post->post_mime_type) {
             return esc_url($post->guid);
         }
 
-        return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
+        // Other
+        return $permalink;
     }
 }
