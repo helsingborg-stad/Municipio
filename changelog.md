@@ -16,6 +16,7 @@ Version 0.2.12 (tbd)
 - Add option to attach response email to the feedback function
 - Limit feedback responses to one per 5 days and user (cookie)
 - WP Editor style formats from Hbg Styleguide
+- Updated lix calculator (now calculates headline ratio and more-tag existance)
 
 Version 0.2.11 (2016-09-22)
 ===========================
