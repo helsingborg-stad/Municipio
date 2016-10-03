@@ -9,6 +9,7 @@ Version 0.2.13 (tbd)
 - Makes it possible to close network selector by clicking outside it
 - Added missing translations
 - Adds loading incidator when following/unfollowing a intranet
+- Option to add modules to "edit profile" page
 
 Version 0.2.12 (2016-09-30)
 ====================
