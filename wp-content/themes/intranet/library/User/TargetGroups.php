@@ -145,7 +145,9 @@ class TargetGroups
             $groups = array();
         }
 
-        $groups[] = 'unit-' . get_user_meta($userId, 'user_administration_unit', true);
+        foreach (get_user_meta($userId, 'user_administration_unit', true) as $administrationUnit) {
+            $groups[] = 'unit-' . $administrationUnit;
+        }
 
         return $groups;
     }

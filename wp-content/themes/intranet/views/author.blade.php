@@ -49,8 +49,13 @@
 
                     @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
                         <span class="profile-department">
-                            {{ !empty(get_the_author_meta('user_administration_unit')) ? municipio_intranet_get_administration_unit_name(get_the_author_meta('user_administration_unit')) : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
-                            {{ !empty(get_the_author_meta('user_department')) ? get_the_author_meta('user_department') : '' }}
+                        @if (!empty(get_the_author_meta('user_administration_unit')))
+                            @foreach (get_the_author_meta('user_administration_unit') as $unit)
+                                {{ municipio_intranet_get_administration_unit_name($unit) }},
+                            @endforeach
+                        @endif
+
+                        {{ !empty(get_the_author_meta('user_department')) ? get_the_author_meta('user_department') : '' }}
                         </span>
                     @endif
 
