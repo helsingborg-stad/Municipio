@@ -19,6 +19,23 @@ class General
 
             update_user_meta($userId, 'user_profile_picture', $imageUrl);
         });
+
+        add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
+    }
+
+    /**
+     * Removes unwanted metaboxes from the module post types
+     * @param  string $postType Post type
+     * @return void
+     */
+    public function removeUnwantedModuleMetaboxes($postType)
+    {
+        if (substr($postType, 0, 4) != 'mod-') {
+            return;
+        }
+
+        // Removes the display options metabox
+        remove_meta_box('acf-group_56c33cf1470dc', $postType, 'side');
     }
 
     /**
