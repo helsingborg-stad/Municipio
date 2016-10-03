@@ -2,7 +2,7 @@
     <h4 class="box-title">
         <?php _e('Your links', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
-        <button class="btn btn-plain btn-sm pricon-space-right pricon pricon-edit" data-user-link-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
+        <button type="button" class="btn btn-plain btn-sm pricon-space-right pricon pricon-edit" data-user-link-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
         <?php endif; ?>
     </h4>
     <div class="box-content">
@@ -12,7 +12,7 @@
             <li>
                 <a class="link-item link-item-light" href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a>
                 <?php if (is_user_logged_in()) : ?>
-                <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="<?php echo $link['url']; ?>">&times;</button>
+                <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="<?php echo $link['url']; ?>" type="button">&times;</button>
                 <?php endif; ?>
             </li>
             <?php endforeach; ?>
@@ -34,7 +34,7 @@
             <input type="text" name="user-link-url" id="user-link-url">
         </div>
         <div class="form-group">
-            <input type="submit" class="btn" value="<?php _e('Save'); ?>">
+            <button type="submit" class="btn"><?php _e('Save'); ?></button>
         </div>
     </form>
     <?php endif; ?>

@@ -54,6 +54,9 @@ Intranet.User.Links = (function ($) {
             url: link
         };
 
+        var buttonText = $(element).find('button[type="submit"]').html();
+        $(element).find('button[type="submit"]').html('<i class="spinner spinner-dark"></i>');
+
         $.post(ajaxurl, data, function (res) {
             if (typeof res !== 'object') {
                 return;
@@ -63,7 +66,10 @@ Intranet.User.Links = (function ($) {
 
             $.each(res, function (index, link) {
                 this.addLinkToDom(element, link);
+                $(element).find('input[type="text"]').val('');
             }.bind(this));
+
+            $(element).find('button[type="submit"]').html(buttonText);
         }.bind(this), 'JSON');
     }
 

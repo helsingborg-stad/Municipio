@@ -170,450 +170,6 @@ Intranet.Stripe = (function ($) {
 var Intranet;
 
 Intranet = Intranet || {};
-Intranet.Helper = Intranet.Helper || {};
-
-Intranet.Helper.MissingData = (function ($) {
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function MissingData() {
-        $('[data-guide-nav="next"], [data-guide-nav="prev"]').on('click', function (e) {
-            $form = $(e.target).parents('form');
-            $fields = $(e.target).parents('section').find(':input:not([name="active-section"])');
-
-            var sectionIsValid = true;
-            $fields.each(function (index, element) {
-                // Valid
-                if ($(this)[0].checkValidity()) {
-                    return;
-                }
-
-                // Not valid
-                sectionIsValid = false;
-            });
-
-            if (!sectionIsValid) {
-                $form.find(':submit').trigger('click');
-                return false;
-            }
-
-            return true;
-        });
-    }
-
-    return new MissingData();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.Helper = Intranet.Helper || {};
-
-Intranet.Helper.Walkthrough = (function ($) {
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function Walkthrough() {
-        $('.walkthrough [data-dropdown]').on('click', function (e) {
-            e.preventDefault();
-            this.highlightArea(e.target);
-        }.bind(this));
-
-        $('[data-action="walkthrough-cancel"]').on('click', function (e) {
-            e.preventDefault();
-            $(e.target).closest('[data-action="walkthrough-cancel"]').parents('.walkthrough').find('.blipper').trigger('click');
-        }.bind(this));
-
-        $('[data-action="walkthrough-next"]').on('click', function (e) {
-            e.preventDefault();
-            var currentStep = $(e.target).closest('[data-action="walkthrough-next"]').parents('.walkthrough');
-            this.next(currentStep);
-        }.bind(this));
-
-        $('[data-action="walkthrough-previous"]').on('click', function (e) {
-            e.preventDefault();
-            var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
-            this.previous(currentStep);
-        }.bind(this));
-
-        $(window).on('resize load', function () {
-            if ($('.walkthrough[data-step]:visible').length < 2) {
-                $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
-                return;
-            }
-
-            $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
-            return;
-        });
-
-        $(window).on('resize load', function () {
-            if ($('.walkthrough .is-highlighted:not(:visible)').length) {
-                $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
-            }
-        });
-    }
-
-    Walkthrough.prototype.highlightArea = function (element) {
-        var $element = $(element).closest('[data-dropdown]');
-        var highlight = $element.parent('.walkthrough').attr('data-highlight');
-
-        if ($element.hasClass('is-highlighted')) {
-            if ($(highlight).data('position')) {
-                $(highlight).css('position', $(highlight).data('position'));
-            }
-
-            $(highlight).prev('.backdrop').remove();
-            $(highlight).removeClass('walkthrough-highlight');
-            $element.removeClass('is-highlighted');
-
-            return false;
-        }
-
-        $(highlight).before('<div class="backdrop"></div>');
-
-        if ($(highlight).css('position') !== 'absolute' || $(highlight).css('position') !== 'relative') {
-            $(highlight).data('position', $(highlight).css('position')).css('position', 'relative');
-        }
-
-        $(highlight).addClass('walkthrough-highlight');
-        $element.addClass('is-highlighted');
-
-        return true;
-    };
-
-    Walkthrough.prototype.next = function(current) {
-        var $current = current;
-
-        var currentIndex = $current.attr('data-step');
-        var nextIndex = parseInt(currentIndex) + 1;
-        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
-
-        var whileInt = 0;
-        while ($nextItem.length === 0) {
-            whileInt++;
-
-            if (whileInt === 20) {
-                break;
-            }
-
-            nextIndex++;
-            $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
-        }
-
-        if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough[data-step]:visible').first();
-        }
-
-        $current.find('.blipper').trigger('click');
-        $nextItem.find('.blipper').trigger('click');
-    };
-
-    Walkthrough.prototype.previous = function(current) {
-        var $current = current;
-
-        var currentIndex = $current.attr('data-step');
-        var nextIndex = parseInt(currentIndex) - 1;
-        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
-
-        if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough:last');
-        }
-
-        $current.find('.blipper').trigger('click');
-        $nextItem.find('.blipper').trigger('click');
-    };
-
-    return new Walkthrough();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.User = Intranet.User || {};
-
-Intranet.User.FacebookProfileSync = (function ($) {
-    function FacebookProfileSync() {
-
-    }
-
-    FacebookProfileSync.prototype.getDetails = function() {
-        $('.fb-login-container .fb-login-button').hide();
-        $('.fb-login-container').append('<div class="loading loading-red"><div></div><div></div><div></div><div></div></div>');
-
-        FB.api('/me', {fields: 'birthday, location'}, function (details) {
-            this.saveDetails(details);
-        }.bind(this));
-    };
-
-    FacebookProfileSync.prototype.saveDetails = function(details) {
-        var data = {
-            action: 'sync_facebook_profile',
-            details: details
-        };
-
-        $.post(ajaxurl, data, function (response) {
-            if (response !== '1') {
-                $('.fb-login-container .loading').remove();
-                $('.fb-login-container').append('<div class="notice warning">Facebook details did not sync due to an error</div>');
-
-                return false;
-            }
-
-            $('.fb-login-container .loading').remove();
-            $('.fb-login-container').append('<div class="notice success">Facebook details synced to your profile</div>');
-
-            return true;
-        });
-    };
-
-    return new FacebookProfileSync();
-
-})(jQuery);
-
-
-function facebookProfileSync() {
-    Intranet.User.FacebookProfileSync.getDetails();
-}
-
-Intranet = Intranet || {};
-Intranet.User = Intranet.User || {};
-
-Intranet.User.Links = (function ($) {
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function Links() {
-        $('[data-user-link-edit]').on('click', function (e) {
-            this.toggleEdit(e.target);
-        }.bind(this));
-
-        $('[data-user-link-add]').on('submit', function (e) {
-            e.preventDefault();
-
-            $element = $(e.target).closest('form').parents('.box');
-
-            var title = $(e.target).closest('form').find('[name="user-link-title"]').val();
-            var link = $(e.target).closest('form').find('[name="user-link-url"]').val();
-
-            this.addLink(title, link, $element);
-        }.bind(this));
-
-        $(document).on('click', '[data-user-link-remove]', function (e) {
-            e.preventDefault();
-
-            var element = $(e.target).closest('button').parents('.box');
-            var link = $(e.target).closest('button').attr('data-user-link-remove');
-
-            this.removeLink(element, link);
-        }.bind(this));
-    }
-
-    Links.prototype.toggleEdit = function (target) {
-        $target = $(target).closest('[data-user-link-edit]');
-        $box = $target.parents('.box');
-
-        if ($box.hasClass('is-editing')) {
-            $box.removeClass('is-editing');
-            $target.html(municipioIntranet.edit).removeClass('pricon-check').addClass('pricon-edit');
-            return;
-        }
-
-        $box.addClass('is-editing');
-        $target.html(municipioIntranet.done).addClass('pricon-check').removeClass('pricon-edit');
-    }
-
-    Links.prototype.addLink = function (title, link, element) {
-        var data = {
-            action: 'add_user_link',
-            title: title,
-            url: link
-        };
-
-        $.post(ajaxurl, data, function (res) {
-            if (typeof res !== 'object') {
-                return;
-            }
-
-            element.find('ul.links').empty();
-
-            $.each(res, function (index, link) {
-                this.addLinkToDom(element, link);
-            }.bind(this));
-        }.bind(this), 'JSON');
-    }
-
-    Links.prototype.addLinkToDom = function (element, link) {
-        var $list = element.find('ul.links');
-
-        if ($list.length === 0) {
-            element.find('.box-content').html('<ul class="links"></ul>');
-            $list = element.find('ul.links');
-        }
-
-        $list.append('\
-            <li>\
-                <a class="link-item link-item-light" href="' + link.url + '">' + link.title + '</a>\
-                <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="' + link.url + '">&times;</button>\
-            </li>\
-        ');
-    };
-
-    Links.prototype.removeLink = function (element, link) {
-        var data = {
-            action: 'remove_user_link',
-            url: link
-        };
-
-        $.post(ajaxurl, data, function (res) {
-            if (typeof res !== 'object') {
-                return;
-            }
-
-            if (res.length === 0) {
-                element.find('ul.links').remove();
-                element.find('.box-content').text(municipioIntranet.user_links_is_empty);
-            }
-
-            element.find('ul.links').empty();
-
-            $.each(res, function (index, link) {
-                this.addLinkToDom(element, link);
-            }.bind(this));
-        }.bind(this), 'JSON');
-    };
-
-    return new Links();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.User = Intranet.User || {};
-
-Intranet.User.LoginReminder = (function ($) {
-
-    var cookieKey = 'login_reminder';
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function LoginReminder() {
-        var dateNow = new Date().getTime();
-
-        // Logged in
-        if (municipioIntranet.is_user_logged_in) {
-            HelsingborgPrime.Helper.Cookie.set(cookieKey, dateNow, 30);
-            return;
-        }
-
-        // Not logged in and no previous login cookie
-        if (HelsingborgPrime.Helper.Cookie.get(cookieKey).length === 0) {
-            HelsingborgPrime.Helper.Cookie.set(cookieKey, dateNow, 30);
-            this.showReminder();
-            return;
-        }
-
-        // Not logged in and has previous login cookie
-        var lastReminder = HelsingborgPrime.Helper.Cookie.get(cookieKey);
-        lastReminder = new Date().setTime(lastReminder);
-
-        var daysSinceLastReminder = Math.round((dateNow-lastReminder) / (1000*60*60*24));
-
-        if (daysSinceLastReminder > 6) {
-            this.showReminder();
-            return;
-        }
-
-        $('#modal-login-reminder').remove();
-
-        return;
-    }
-
-    LoginReminder.prototype.showReminder = function() {
-        $('#modal-login-reminder').addClass('modal-open');
-        $('body').addClass('overflow-hidden');
-    };
-
-    return new LoginReminder();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.User = Intranet.User || {};
-
-Intranet.User.Subscribe = (function ($) {
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function Subscribe() {
-        $('[data-subscribe]').on('click', function (e) {
-            e.preventDefault();
-
-            var buttonElement = $(e.target).closest('[data-subscribe]');
-            var blogid = buttonElement.attr('data-subscribe');
-
-            this.toggleSubscription(blogid, buttonElement);
-        }.bind(this));
-    }
-
-    Subscribe.prototype.toggleSubscription = function (blogid, buttonElement) {
-        var postdata = {
-            action: 'toggle_subscription',
-            blog_id: blogid
-        };
-
-        buttonElement.html('<i class="spinner"></i>');
-
-        $.post(ajaxurl, postdata, function (res) {
-            if (res == 'subscribed') {
-                buttonElement.html('<i class="pricon pricon-minus-o"></i> ' + municipioIntranet.unsubscribe);
-            } else {
-                buttonElement.html('<i class="pricon pricon-plus-o"></i> '  + municipioIntranet.subscribe);
-            }
-        });
-    };
-
-    return new Subscribe();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.SocialLogin = Intranet.SocialLogin || {};
-
-Intranet.SocialLogin.Facebook = (function ($) {
-    function Facebook() {
-        // Facebook SDK needs #fb-root div, set it up
-        $('body').prepend('<div id="fb-root"></div>');
-
-        // Load the Facebook SDK
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=1604603396447959";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    }
-
-    Facebook.prototype.checkStatus = function() {
-        FB.getLoginStatus(function(response) {
-            if (response.status !== 'connected') {
-                FB.login();
-            }
-        });
-    };
-
-    return new Facebook();
-
-})(jQuery);
-
-Intranet = Intranet || {};
 Intranet.Search = Intranet.Search || {};
 
 Intranet.Search.General = (function ($) {
@@ -975,5 +531,455 @@ Intranet.Search.Sites = (function ($) {
     };
 
     return new Sites();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.Helper = Intranet.Helper || {};
+
+Intranet.Helper.MissingData = (function ($) {
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function MissingData() {
+        $('[data-guide-nav="next"], [data-guide-nav="prev"]').on('click', function (e) {
+            $form = $(e.target).parents('form');
+            $fields = $(e.target).parents('section').find(':input:not([name="active-section"])');
+
+            var sectionIsValid = true;
+            $fields.each(function (index, element) {
+                // Valid
+                if ($(this)[0].checkValidity()) {
+                    return;
+                }
+
+                // Not valid
+                sectionIsValid = false;
+            });
+
+            if (!sectionIsValid) {
+                $form.find(':submit').trigger('click');
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    return new MissingData();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.Helper = Intranet.Helper || {};
+
+Intranet.Helper.Walkthrough = (function ($) {
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function Walkthrough() {
+        $('.walkthrough [data-dropdown]').on('click', function (e) {
+            e.preventDefault();
+            this.highlightArea(e.target);
+        }.bind(this));
+
+        $('[data-action="walkthrough-cancel"]').on('click', function (e) {
+            e.preventDefault();
+            $(e.target).closest('[data-action="walkthrough-cancel"]').parents('.walkthrough').find('.blipper').trigger('click');
+        }.bind(this));
+
+        $('[data-action="walkthrough-next"]').on('click', function (e) {
+            e.preventDefault();
+            var currentStep = $(e.target).closest('[data-action="walkthrough-next"]').parents('.walkthrough');
+            this.next(currentStep);
+        }.bind(this));
+
+        $('[data-action="walkthrough-previous"]').on('click', function (e) {
+            e.preventDefault();
+            var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
+            this.previous(currentStep);
+        }.bind(this));
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough[data-step]:visible').length < 2) {
+                $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
+                return;
+            }
+
+            $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
+            return;
+        });
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough .is-highlighted:not(:visible)').length) {
+                $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
+            }
+        });
+    }
+
+    Walkthrough.prototype.highlightArea = function (element) {
+        var $element = $(element).closest('[data-dropdown]');
+        var highlight = $element.parent('.walkthrough').attr('data-highlight');
+
+        if ($element.hasClass('is-highlighted')) {
+            if ($(highlight).data('position')) {
+                $(highlight).css('position', $(highlight).data('position'));
+            }
+
+            $(highlight).prev('.backdrop').remove();
+            $(highlight).removeClass('walkthrough-highlight');
+            $element.removeClass('is-highlighted');
+
+            return false;
+        }
+
+        $(highlight).before('<div class="backdrop"></div>');
+
+        if ($(highlight).css('position') !== 'absolute' || $(highlight).css('position') !== 'relative') {
+            $(highlight).data('position', $(highlight).css('position')).css('position', 'relative');
+        }
+
+        $(highlight).addClass('walkthrough-highlight');
+        $element.addClass('is-highlighted');
+
+        return true;
+    };
+
+    Walkthrough.prototype.next = function(current) {
+        var $current = current;
+
+        var currentIndex = $current.attr('data-step');
+        var nextIndex = parseInt(currentIndex) + 1;
+        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
+
+        var whileInt = 0;
+        while ($nextItem.length === 0) {
+            whileInt++;
+
+            if (whileInt === 20) {
+                break;
+            }
+
+            nextIndex++;
+            $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
+        }
+
+        if ($nextItem.length === 0) {
+            $nextItem = $('.walkthrough[data-step]:visible').first();
+        }
+
+        $current.find('.blipper').trigger('click');
+        $nextItem.find('.blipper').trigger('click');
+    };
+
+    Walkthrough.prototype.previous = function(current) {
+        var $current = current;
+
+        var currentIndex = $current.attr('data-step');
+        var nextIndex = parseInt(currentIndex) - 1;
+        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
+
+        if ($nextItem.length === 0) {
+            $nextItem = $('.walkthrough:last');
+        }
+
+        $current.find('.blipper').trigger('click');
+        $nextItem.find('.blipper').trigger('click');
+    };
+
+    return new Walkthrough();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.User = Intranet.User || {};
+
+Intranet.User.FacebookProfileSync = (function ($) {
+    function FacebookProfileSync() {
+
+    }
+
+    FacebookProfileSync.prototype.getDetails = function() {
+        $('.fb-login-container .fb-login-button').hide();
+        $('.fb-login-container').append('<div class="loading loading-red"><div></div><div></div><div></div><div></div></div>');
+
+        FB.api('/me', {fields: 'birthday, location'}, function (details) {
+            this.saveDetails(details);
+        }.bind(this));
+    };
+
+    FacebookProfileSync.prototype.saveDetails = function(details) {
+        var data = {
+            action: 'sync_facebook_profile',
+            details: details
+        };
+
+        $.post(ajaxurl, data, function (response) {
+            if (response !== '1') {
+                $('.fb-login-container .loading').remove();
+                $('.fb-login-container').append('<div class="notice warning">Facebook details did not sync due to an error</div>');
+
+                return false;
+            }
+
+            $('.fb-login-container .loading').remove();
+            $('.fb-login-container').append('<div class="notice success">Facebook details synced to your profile</div>');
+
+            return true;
+        });
+    };
+
+    return new FacebookProfileSync();
+
+})(jQuery);
+
+
+function facebookProfileSync() {
+    Intranet.User.FacebookProfileSync.getDetails();
+}
+
+Intranet = Intranet || {};
+Intranet.User = Intranet.User || {};
+
+Intranet.User.Links = (function ($) {
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function Links() {
+        $('[data-user-link-edit]').on('click', function (e) {
+            this.toggleEdit(e.target);
+        }.bind(this));
+
+        $('[data-user-link-add]').on('submit', function (e) {
+            e.preventDefault();
+
+            $element = $(e.target).closest('form').parents('.box');
+
+            var title = $(e.target).closest('form').find('[name="user-link-title"]').val();
+            var link = $(e.target).closest('form').find('[name="user-link-url"]').val();
+
+            this.addLink(title, link, $element);
+        }.bind(this));
+
+        $(document).on('click', '[data-user-link-remove]', function (e) {
+            e.preventDefault();
+
+            var element = $(e.target).closest('button').parents('.box');
+            var link = $(e.target).closest('button').attr('data-user-link-remove');
+
+            this.removeLink(element, link);
+        }.bind(this));
+    }
+
+    Links.prototype.toggleEdit = function (target) {
+        $target = $(target).closest('[data-user-link-edit]');
+        $box = $target.parents('.box');
+
+        if ($box.hasClass('is-editing')) {
+            $box.removeClass('is-editing');
+            $target.html(municipioIntranet.edit).removeClass('pricon-check').addClass('pricon-edit');
+            return;
+        }
+
+        $box.addClass('is-editing');
+        $target.html(municipioIntranet.done).addClass('pricon-check').removeClass('pricon-edit');
+    }
+
+    Links.prototype.addLink = function (title, link, element) {
+        var data = {
+            action: 'add_user_link',
+            title: title,
+            url: link
+        };
+
+        var buttonText = $(element).find('button[type="submit"]').html();
+        $(element).find('button[type="submit"]').html('<i class="spinner spinner-dark"></i>');
+
+        $.post(ajaxurl, data, function (res) {
+            if (typeof res !== 'object') {
+                return;
+            }
+
+            element.find('ul.links').empty();
+
+            $.each(res, function (index, link) {
+                this.addLinkToDom(element, link);
+                $(element).find('input[type="text"]').val('');
+            }.bind(this));
+
+            $(element).find('button[type="submit"]').html(buttonText);
+        }.bind(this), 'JSON');
+    }
+
+    Links.prototype.addLinkToDom = function (element, link) {
+        var $list = element.find('ul.links');
+
+        if ($list.length === 0) {
+            element.find('.box-content').html('<ul class="links"></ul>');
+            $list = element.find('ul.links');
+        }
+
+        $list.append('\
+            <li>\
+                <a class="link-item link-item-light" href="' + link.url + '">' + link.title + '</a>\
+                <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="' + link.url + '">&times;</button>\
+            </li>\
+        ');
+    };
+
+    Links.prototype.removeLink = function (element, link) {
+        var data = {
+            action: 'remove_user_link',
+            url: link
+        };
+
+        $.post(ajaxurl, data, function (res) {
+            if (typeof res !== 'object') {
+                return;
+            }
+
+            if (res.length === 0) {
+                element.find('ul.links').remove();
+                element.find('.box-content').text(municipioIntranet.user_links_is_empty);
+            }
+
+            element.find('ul.links').empty();
+
+            $.each(res, function (index, link) {
+                this.addLinkToDom(element, link);
+            }.bind(this));
+        }.bind(this), 'JSON');
+    };
+
+    return new Links();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.User = Intranet.User || {};
+
+Intranet.User.LoginReminder = (function ($) {
+
+    var cookieKey = 'login_reminder';
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function LoginReminder() {
+        var dateNow = new Date().getTime();
+
+        // Logged in
+        if (municipioIntranet.is_user_logged_in) {
+            HelsingborgPrime.Helper.Cookie.set(cookieKey, dateNow, 30);
+            return;
+        }
+
+        // Not logged in and no previous login cookie
+        if (HelsingborgPrime.Helper.Cookie.get(cookieKey).length === 0) {
+            HelsingborgPrime.Helper.Cookie.set(cookieKey, dateNow, 30);
+            this.showReminder();
+            return;
+        }
+
+        // Not logged in and has previous login cookie
+        var lastReminder = HelsingborgPrime.Helper.Cookie.get(cookieKey);
+        lastReminder = new Date().setTime(lastReminder);
+
+        var daysSinceLastReminder = Math.round((dateNow-lastReminder) / (1000*60*60*24));
+
+        if (daysSinceLastReminder > 6) {
+            this.showReminder();
+            return;
+        }
+
+        $('#modal-login-reminder').remove();
+
+        return;
+    }
+
+    LoginReminder.prototype.showReminder = function() {
+        $('#modal-login-reminder').addClass('modal-open');
+        $('body').addClass('overflow-hidden');
+    };
+
+    return new LoginReminder();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.User = Intranet.User || {};
+
+Intranet.User.Subscribe = (function ($) {
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function Subscribe() {
+        $('[data-subscribe]').on('click', function (e) {
+            e.preventDefault();
+
+            var buttonElement = $(e.target).closest('[data-subscribe]');
+            var blogid = buttonElement.attr('data-subscribe');
+
+            this.toggleSubscription(blogid, buttonElement);
+        }.bind(this));
+    }
+
+    Subscribe.prototype.toggleSubscription = function (blogid, buttonElement) {
+        var postdata = {
+            action: 'toggle_subscription',
+            blog_id: blogid
+        };
+
+        buttonElement.html('<i class="spinner"></i>');
+
+        $.post(ajaxurl, postdata, function (res) {
+            if (res == 'subscribed') {
+                buttonElement.html('<i class="pricon pricon-minus-o"></i> ' + municipioIntranet.unsubscribe);
+            } else {
+                buttonElement.html('<i class="pricon pricon-plus-o"></i> '  + municipioIntranet.subscribe);
+            }
+        });
+    };
+
+    return new Subscribe();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.SocialLogin = Intranet.SocialLogin || {};
+
+Intranet.SocialLogin.Facebook = (function ($) {
+    function Facebook() {
+        // Facebook SDK needs #fb-root div, set it up
+        $('body').prepend('<div id="fb-root"></div>');
+
+        // Load the Facebook SDK
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=1604603396447959";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }
+
+    Facebook.prototype.checkStatus = function() {
+        FB.getLoginStatus(function(response) {
+            if (response.status !== 'connected') {
+                FB.login();
+            }
+        });
+    };
+
+    return new Facebook();
 
 })(jQuery);
