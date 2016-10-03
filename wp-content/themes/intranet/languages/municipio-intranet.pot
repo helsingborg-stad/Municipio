@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-03 09:16+0200\n"
+"POT-Creation-Date: 2016-10-03 10:07+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -215,11 +215,11 @@ msgstr ""
 msgid "You have not added any links yet…"
 msgstr ""
 
-#: library/Theme/Enqueue.php:40 views/partials/network-header.blade.php:61
+#: library/Theme/Enqueue.php:40
 msgid "Subscribe"
 msgstr ""
 
-#: library/Theme/Enqueue.php:41 views/partials/network-header.blade.php:63
+#: library/Theme/Enqueue.php:41
 msgid "Unsubscribe"
 msgstr ""
 
@@ -1123,6 +1123,14 @@ msgstr ""
 
 #: views/partials/network-header.blade.php:50
 msgid "Show all networks"
+msgstr ""
+
+#: views/partials/network-header.blade.php:61
+msgid "Follow"
+msgstr ""
+
+#: views/partials/network-header.blade.php:63
+msgid "Unfollow"
 msgstr ""
 
 #: views/partials/user/facebook-sync.blade.php:3

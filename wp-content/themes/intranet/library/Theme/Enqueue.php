@@ -37,8 +37,8 @@ class Enqueue
             ),
             'is_user_logged_in'   => is_user_logged_in(),
             'user_links_is_empty' => __('You have not added any links yet…', 'municipio-intranet'),
-            'subscribe' => __('Subscribe', 'municipio-intranet'),
-            'unsubscribe' => __('Unsubscribe', 'municipio-intranet'),
+            'subscribe' => __('Follow', 'municipio-intranet'),
+            'unsubscribe' => __('Unfollow', 'municipio-intranet'),
             'themeUrl' => get_stylesheet_directory_uri(),
             'searchAutocomplete' => array(
                 'persons' => __('Persons', 'municipio-intranet'),
