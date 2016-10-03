@@ -3,7 +3,14 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.12 (tbd)
+Version 0.2.13 (tbd)
+====================
+- Changes "subscribe" to "follow"
+- Makes it possible to close network selector by clicking outside it
+- Added missing translations
+- Adds loading incidator when following/unfollowing a intranet
+
+Version 0.2.12 (2016-09-30)
 ====================
 - Fixes a bon of minor bugs (functions and interface)
 - Removes unused code

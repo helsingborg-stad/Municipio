@@ -24,6 +24,8 @@ Intranet.User.Subscribe = (function ($) {
             blog_id: blogid
         };
 
+        buttonElement.html('<i class="spinner"></i>');
+
         $.post(ajaxurl, postdata, function (res) {
             if (res == 'subscribed') {
                 buttonElement.html('<i class="pricon pricon-minus-o"></i> ' + municipioIntranet.unsubscribe);
