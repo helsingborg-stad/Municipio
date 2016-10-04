@@ -14,6 +14,13 @@
                     {!! the_content() !!}
                 @endif
             </article>
+
+            @if (is_single() && is_active_sidebar('content-area'))
+                <div class="grid sidebar-content-area sidebar-content-area-bottom">
+                    <?php dynamic_sidebar('content-area'); ?>
+                </div>
+            @endif
+
         </div>
     </div>
 </div>
