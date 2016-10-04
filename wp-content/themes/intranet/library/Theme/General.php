@@ -38,9 +38,15 @@ class General
 
     public function favicons($icons)
     {
-        switch_to_blog(BLOG_ID_CURRENT_SITE);
+        if (function_exists('switch_to_blog')) {
+            switch_to_blog(BLOG_ID_CURRENT_SITE);
+        }
+
         $icons = get_field('favicons', 'option');
-        restore_current_blog();
+
+        if (function_exists('switch_to_blog')) {
+            restore_current_blog();
+        }
 
         return $icons;
     }
