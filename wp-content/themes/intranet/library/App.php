@@ -13,7 +13,6 @@ class App
         new \Intranet\Theme\Walkthrough();
 
         // Admin functionality
-        new \Intranet\Admin\NetworkSettings();
         new \Intranet\Admin\PasswordResetInstructions();
         new \Intranet\Admin\Options();
 
