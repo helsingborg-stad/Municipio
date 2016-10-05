@@ -11,7 +11,7 @@
                 {!! get_search_form() !!}
 
                 <div class="gutter gutter-sm gutter-top">
-                    <strong>{{ array_sum($counts) }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong>
+                     <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong>
                 </div>
             </div>
         </div>
@@ -77,7 +77,11 @@
                     @if ($wp_query->max_num_pages > 1)
                     <div class="grid">
                         <div class="grid-lg-12">
-                            {!! $pagination !!}
+                            {!!
+                                paginate_links(array(
+                                    'type' => 'list'
+                                ))
+                            !!}
                         </div>
                     </div>
                     @endif
@@ -85,8 +89,29 @@
                     <div class="grid">
                         <div class="grid-lg-12">
                             <ul class="search-result-list">
-                                @foreach ($results as $item)
-                                    @if (isset($item->user_login))
+                                @if ($level !== 'users')
+                                    @while(have_posts())
+                                        {!! the_post() !!}
+                                        <?php global $post; ?>
+                                        <li>
+                                            <div class="search-result-item">
+                                                @if (get_post_type() === 'attachment')
+                                                    <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($post->site_id, $post->ID), get_post()) }}" class="{{ municipio_get_mime_link_item($post->post_mime_type) }}">{{ apply_filters('Municipio/search_result/title', get_the_title() ? get_the_title() : __('Unknown media', 'municipio-intranet'), get_post()) }}</a></h3>
+                                                    <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($post->site_id)) !!}</span>
+                                                @else
+                                                    <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($post->site_id, $post->ID), get_post()) }}">{{ apply_filters('Municipio/search_result/title', get_the_title(), get_post()) }}</a></h3>
+                                                    <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($post->site_id)) !!}</span>
+                                                    <p>{!! apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post()) !!}</p>
+                                                @endif
+
+                                                <div class="search-result-info">
+                                                    <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($post->site_id, $post->ID), get_post()) }}">{{ apply_filters('Municipio/search_result/permalink_text', get_blog_permalink($post->site_id, $post->ID), get_post()) }}</a></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endwhile
+                                @else
+                                    @foreach ($users as $item)
                                     <?php global $authordata; $authordata = get_user_by('ID', $item->ID); ?>
                                     <li>
                                         <div class="search-result-item">
@@ -120,28 +145,8 @@
                                             </div>
                                         </div>
                                     </li>
-                                    @else
-                                    <?php global $post; $post = $item; setup_postdata($post); ?>
-                                    <li>
-                                        <div class="search-result-item">
-                                            <span class="search-result-date">{{ apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post()) }}</span><br>
-
-                                            @if (get_post_type() === 'attachment')
-                                                <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($item->blog_id, $item->ID), get_post()) }}" class="{{ municipio_get_mime_link_item($post->post_mime_type) }}">{{ apply_filters('Municipio/search_result/title', get_the_title() ? get_the_title() : __('Unknown media', 'municipio-intranet'), get_post()) }}</a></h3>
-                                                <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id)) !!}</span>
-                                            @else
-                                                <h3><a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($item->blog_id, $item->ID), get_post()) }}">{{ apply_filters('Municipio/search_result/title', get_the_title(), get_post()) }}</a></h3>
-                                                <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id)) !!}</span>
-                                                <p>{!! apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post()) !!}</p>
-                                            @endif
-
-                                            <div class="search-result-info">
-                                                <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', get_blog_permalink($item->blog_id, $item->ID), get_post()) }}">{{ apply_filters('Municipio/search_result/permalink_text', get_blog_permalink($item->blog_id, $item->ID), get_post()) }}</a></span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @endif
-                                @endforeach
+                                    @endforeach
+                                @endif
 
                             </ul>
                         </div>
@@ -150,7 +155,11 @@
                     @if ($wp_query->max_num_pages > 1)
                     <div class="grid">
                         <div class="grid-lg-12">
-                            {!! $pagination !!}
+                            {!!
+                                paginate_links(array(
+                                    'type' => 'list'
+                                ))
+                            !!}
                         </div>
                     </div>
                     @endif
@@ -159,7 +168,7 @@
 
             <aside class="grid-lg-3 grid-md-12 sidebar-right-sidebar">
                 <div class="grid">
-                    @if ($level !== 'users' && count($users) > 0)
+                    @if ($level !== 'users' && isset($users) && count($users) > 0)
                     <div class="grid-xs-12">
                         <div class="box box-filled">
                             <h3 class="box-title"><?php _e('Persons', 'municipio-intranet'); ?></h3>

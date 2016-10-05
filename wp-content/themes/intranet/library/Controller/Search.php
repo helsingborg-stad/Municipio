@@ -10,15 +10,15 @@ class Search extends \Intranet\Controller\BaseController
      */
     public function init()
     {
-        $search = new \Intranet\SearchWp\Search();
-
-        global $resultCounts;
-
+        global $wp_query;
+        $this->data['resultCount'] = $wp_query->found_posts;
         $this->data['keyword'] = get_search_query();
-        $this->data['resultCount'] = count($search->results);
-        $this->data['counts'] = $resultCounts;
-        $this->data['users'] = $search->users;
-        $this->data['results'] = $search->pageResults;
-        $this->data['level'] = $search->level;
+        $this->data['level'] = \Intranet\Search\Elasticsearch::$level;
+        $this->data['counts'] = array(
+            'all' => 0,
+            'subscriptions' => 0,
+            'current' => 0,
+            'users' => 0
+        );
     }
 }

@@ -30,6 +30,8 @@ class App
         new \Intranet\User\Skills();
         new \Intranet\User\Data();
 
+        new \Intranet\Search\Elasticsearch();
+
         // Custom post types
         new \Intranet\CustomPostType\News();
         new \Intranet\CustomPostType\Incidents();
