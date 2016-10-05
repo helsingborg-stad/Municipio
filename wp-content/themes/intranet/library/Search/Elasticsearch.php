@@ -15,6 +15,10 @@ class ElasticSearch
         add_action('pre_get_posts', array($this, 'setSites'));
     }
 
+    /**
+     * Set which sites to search in
+     * @param WP_Query $query
+     */
     public function setSites($query)
     {
         // If not search or main query, return the default query
@@ -32,6 +36,11 @@ class ElasticSearch
         $query->query_vars['sites'] = self::getSitesFromLevel(self::$level);
     }
 
+    /**
+     * Get sites to search from a specific level string
+     * @param  string $level Level
+     * @return string|array  Sites to search
+     */
     public static function getSitesFromLevel($level)
     {
         switch ($level) {

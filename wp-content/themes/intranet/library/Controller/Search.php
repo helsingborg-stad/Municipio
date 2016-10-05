@@ -25,6 +25,11 @@ class Search extends \Intranet\Controller\BaseController
         $this->countResult($this->data['level']);
     }
 
+    /**
+     * Counts results for each tab
+     * @param  string $currentLevel The current search level
+     * @return void
+     */
     public function countResult($currentLevel)
     {
         global $wp_query;
