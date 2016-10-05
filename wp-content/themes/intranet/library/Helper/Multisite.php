@@ -105,6 +105,10 @@ class Multisite
 
         $sites = array_values($sites);
 
-        return $sites[0];
+        if (isset($sites[0])) {
+            return $sites[0];
+        }
+
+        return null;
     }
 }
