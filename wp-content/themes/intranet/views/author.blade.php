@@ -50,7 +50,7 @@
                     @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
                         <span class="profile-department">
                         @if (!empty(get_the_author_meta('user_administration_unit')))
-                            @foreach (get_the_author_meta('user_administration_unit') as $unit)
+                            @foreach ((array) get_the_author_meta('user_administration_unit') as $unit)
                                 {{ municipio_intranet_get_administration_unit_name($unit) }},
                             @endforeach
                         @endif

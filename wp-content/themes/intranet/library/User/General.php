@@ -44,6 +44,10 @@ class General
      */
     public static function searchUsers($keyword)
     {
+        if (!is_user_logged_in()) {
+            return array();
+        }
+
         $userSearch = new \WP_User_Query(array(
             'search' => '*' . $keyword . '*',
         ));

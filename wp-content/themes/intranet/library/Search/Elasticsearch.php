@@ -2,7 +2,7 @@
 
 namespace Intranet\Search;
 
-class Elasticsearch
+class ElasticSearch
 {
     public static $level = 'all';
 
@@ -17,21 +17,38 @@ class Elasticsearch
 
     public function setSites($query)
     {
-        switch (self::$level) {
+        // If not search or main query, return the default query
+        if (!is_search() || !$query->is_main_query()) {
+            return;
+        }
+
+        // If level is users abort the query
+        if (self::$level === 'users') {
+            $query = false;
+            return;
+        }
+
+        // Set sites if non of above
+        $query->query_vars['sites'] = self::getSitesFromLevel(self::$level);
+    }
+
+    public static function getSitesFromLevel($level)
+    {
+        switch ($level) {
             case 'subscriptions':
                 $sites = array_merge(
                     \Intranet\User\Subscription::getSubscriptions(get_current_user_id(), true),
                     \Intranet\User\Subscription::getForcedSubscriptions(true)
                 );
-                $query->query_vars['sites'] = $sites;
+                return $sites;
                 break;
 
             case 'current':
-                $query->query_vars['sites'] = 'current';
+                return 'current';
                 break;
 
             default:
-                $query->query_vars['sites'] = 'all';
+                return 'all';
                 break;
         }
     }
