@@ -29,7 +29,7 @@ function loadGoogleTranslate() {
             var hrefUrl = $(this).attr('href');
 
             // Check if external or non valid url (do not add querystring)
-            if (hrefUrl.indexOf(location.origin) === -1 || hrefUrl.substr(0, 1) === '#') {
+            if (hrefUrl == null || hrefUrl.indexOf(location.origin) === -1 || hrefUrl.substr(0, 1) === '#') {
                 return;
             }
 
