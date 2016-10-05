@@ -31,7 +31,11 @@ class Search
         $this->level = $level;
         $this->getLevel();
 
-        $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
+        if(function_exists('get_blog_option')) {
+            $this->resultsPerPage = get_blog_option(BLOG_ID_CURRENT_SITE, 'posts_per_page');
+        } else {
+            $this->resultsPerPage = get_option('posts_per_page');
+        }
 
         if (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) {
             $this->currentPage = sanitize_text_field($_REQUEST['page']);
