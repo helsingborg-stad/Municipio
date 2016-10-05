@@ -13,7 +13,6 @@ class App
         new \Intranet\Theme\Walkthrough();
 
         // Admin functionality
-        new \Intranet\Admin\NetworkSettings();
         new \Intranet\Admin\PasswordResetInstructions();
         new \Intranet\Admin\Options();
 
@@ -30,8 +29,6 @@ class App
         new \Intranet\User\Responsibilities();
         new \Intranet\User\Skills();
         new \Intranet\User\Data();
-
-        new \Intranet\SearchWp\General();
 
         // Custom post types
         new \Intranet\CustomPostType\News();
