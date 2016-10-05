@@ -1,10 +1,13 @@
 <div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
+    <?php if (!$module->hideTitle) : ?>
     <h4 class="box-title">
         <?php _e('Your links', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
         <button type="button" class="btn btn-plain btn-sm pricon-space-right pricon pricon-edit" data-user-link-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
         <?php endif; ?>
     </h4>
+    <?php endif; ?>
+
     <div class="box-content">
         <?php if (!empty(\Intranet\Module\UserLinks::getLinks())) : ?>
         <ul class="links">
