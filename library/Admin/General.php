@@ -7,7 +7,7 @@ class General
     public function __construct()
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);
-        add_filter('option_nestedpages_menusync', array($this, 'nestedPagesMenuSync'), 10);
+        //add_filter('option_nestedpages_menusync', array($this, 'nestedPagesMenuSync'), 10);
 
         // Post status private rename to "Only for logged in users"
         add_action('current_screen', array($this, 'renamePrivate'));
