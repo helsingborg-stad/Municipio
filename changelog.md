@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.13 (tbd)
-====================
+Version 0.2.13 (2016-10-06)
+===========================
 - Changes "subscribe" to "follow"
 - Makes it possible to close network selector by clicking outside it
 - Added missing translations
@@ -17,7 +17,7 @@ Version 0.2.13 (tbd)
 
 Version 0.2.12 (2016-09-30)
 ====================
-- Fixes a bon of minor bugs (functions and interface)
+- Fixes a ton of minor bugs (functions and interface)
 - Removes unused code
 - Fix table of contents (A-Ö) switch_to_blog issue
 - Adds link item icon before each and every intranet in the "select intranet" dropdown
