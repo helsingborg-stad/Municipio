@@ -40,7 +40,10 @@
                                     <li>
                                         <a href="#" data-dropdown=".login-dropdown">
                                             @if (get_the_author_meta('user_profile_picture', get_current_user_id()))
-                                            <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_picture', get_current_user_id()) }}');"></span>
+                                            <?php
+                                                $croppedProfileImage = \Municipio\Helper\Image::resize(get_the_author_meta('user_profile_picture', get_current_user_id()), 50, 50)
+                                            ?>
+                                            <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ $croppedProfileImage }}');"></span>
                                             @endif
                                             <span class="hidden-sm hidden-xs">{{ municipio_intranet_get_first_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i></span>
 
