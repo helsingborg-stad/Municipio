@@ -10,6 +10,10 @@ Version 0.2.13 (tbd)
 - Added missing translations
 - Adds loading incidator when following/unfollowing a intranet
 - Option to add modules to "edit profile" page
+- Adds option to add modules to user edit page
+- Adds loading indicator when adding a user link
+- Adds inline table support to the content editor (MCE Table Buttons)
+- Breadcrums on edit profile page
 
 Version 0.2.12 (2016-09-30)
 ====================
