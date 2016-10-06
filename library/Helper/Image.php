@@ -76,7 +76,7 @@ class Image
             $path = substr($path, 1);
         }
 
-        return ABSPATH . $path;
+        return $_SERVER['DOCUMENT_ROOT'] . '/' . $path;
     }
 
     /**
@@ -87,7 +87,7 @@ class Image
      */
     public static function pathToUrl($path)
     {
-        $url = str_replace(ABSPATH, '', $path);
-        return '//' . $_SERVER['HTTP_HOST'] . '/' . $url;
+        $url = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path);
+        return '//' . $_SERVER['HTTP_HOST'] . $url;
     }
 }
