@@ -1,6 +1,6 @@
 <?php
 
-namespace Municpio\Helper;
+namespace Municipio\Helper;
 
 class Attachment
 {
