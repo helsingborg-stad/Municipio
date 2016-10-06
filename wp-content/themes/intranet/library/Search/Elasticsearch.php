@@ -12,7 +12,7 @@ class ElasticSearch
             self::$level = sanitize_text_field($_GET['level']);
         }
 
-        add_action('pre_get_posts', array($this, 'setSites'));
+        add_action('pre_get_posts', array($this, 'setSites'), 1000);
     }
 
     /**
