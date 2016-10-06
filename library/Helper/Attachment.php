@@ -14,8 +14,8 @@ class Attachment
         $attachmentId = 0;
         $dir = wp_upload_dir();
 
-        if (false !== strpos($url, $dir['baseurl'] . '/')) { // Is URL in uploads directory?
-            $file = basename($url);
+        if (false !== strpos($attachmentUrl, $dir['baseurl'] . '/')) { // Is URL in uploads directory?
+            $file = basename($attachmentUrl);
 
             $queryArgs = array(
                 'post_type'   => 'attachment',
