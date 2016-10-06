@@ -20,6 +20,17 @@ class Profile
         add_filter('template_include', array($this, 'editProfileTemplate'), 10);
 
         add_filter('Municipio/controller/base/view_data', array($this, 'currentUserData'));
+
+        add_filter('Modularity/adminbar/editor_link', array($this, 'profileEditModularityEditorLink'), 10, 4);
+    }
+
+    public function profileEditModularityEditorLink($editorLink, $post, $archiveSlug, $currentUrl)
+    {
+        if ($archiveSlug == 'author' && empty($editorLink) && strpos($currentUrl, '/edit')) {
+            $editorLink = admin_url('options.php?page=modularity-editor&id=author-edit');
+        }
+
+        return $editorLink;
     }
 
     public function currentUserData($data)

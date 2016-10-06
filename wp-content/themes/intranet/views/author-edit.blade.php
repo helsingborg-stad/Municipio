@@ -6,6 +6,25 @@
 {!! wp_nonce_field('user_settings_update_' . $user->ID) !!}
 
 <div class="container main-container">
+    <div class="grid breadcrumbs-wrapper">
+        <div class="grid-lg-12">
+            <ol class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                <li itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                    <a itemprop="item" href="{{ municipio_intranet_get_user_profile_url($user->ID) }}" title="<?php echo $currentUser->ID === $user->ID ? __('Your profile', 'municipio-intranet') : __('Profile', 'municipio-intranet') . ': ' . municipio_intranet_get_user_full_name($user->ID); ?>">
+                        <span itemprop="name"><?php echo $currentUser->ID === $user->ID ? __('Your profile', 'municipio-intranet') : __('Profile', 'municipio-intranet') . ': ' . municipio_intranet_get_user_full_name($user->ID); ?></span>
+                        <meta itemprop="position" content="1">
+                    </a>
+                </li>
+                <li itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                    <span itemprop="name" class="breadcrumbs-current" title="<?php echo $currentUser->ID === $user->ID ? __('Your settings', 'municipio-intranet') : sprintf(__('Settings of %s', 'municipio-intranet'), municipio_intranet_get_user_full_name($user->ID)); ?>">
+                        <?php echo $currentUser->ID === $user->ID ? __('Your settings', 'municipio-intranet') : sprintf(__('Settings of %s', 'municipio-intranet'), municipio_intranet_get_user_full_name($user->ID)); ?>
+                    </span>
+                    <meta itemprop="position" content="2">
+                </li>
+            </ol>
+        </div>
+    </div>
+
     <div class="grid">
         <div class="grid-lg-9 grid-md-12">
             @if (isset($_POST['_wpnonce']))

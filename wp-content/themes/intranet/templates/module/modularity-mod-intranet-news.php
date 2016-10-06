@@ -40,7 +40,7 @@
     }
 ?>
 <div class="grid">
-    <?php if (!empty($module->post_title)) : ?>
+    <?php if (!$module->hideTitle) : ?>
     <div class="grid-xs-12">
         <h2><?php echo $module->post_title; ?></h2>
     </div>

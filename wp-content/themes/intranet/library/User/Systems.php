@@ -158,17 +158,29 @@ class Systems
             }
 
             $systemOptions = get_site_option('user-systems-options');
+            $systemForced = array();
+            $systemSelectable = array();
+
+            foreach ($unitId as $unit) {
+                if (isset($systemOptions['forced'][$unit])) {
+                    $systemForced = array_merge($systemForced, $systemOptions['forced'][$unit]);
+                }
+
+                if (isset($systemOptions['selectable'][$unit])) {
+                    $systemSelectable = array_merge($systemSelectable, $systemOptions['selectable'][$unit]);
+                }
+            }
 
             foreach ($systems as $system) {
                 $system->forced = false;
                 $system->unavailable = false;
 
-                if (isset($systemOptions['forced'][$unitId]) && in_array($system->id, (array)$systemOptions['forced'][$unitId])) {
+                if (in_array($system->id, $systemForced)) {
                     $system->forced = true;
                 }
 
                 $system->selectable = false;
-                if (isset($systemOptions['selectable'][$unitId]) && in_array($system->id, (array)$systemOptions['selectable'][$unitId])) {
+                if (in_array($system->id, $systemSelectable)) {
                     $system->selectable = true;
                 }
             }

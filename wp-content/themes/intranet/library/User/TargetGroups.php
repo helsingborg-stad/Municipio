@@ -81,6 +81,10 @@ class TargetGroups
             return true;
         }
 
+        if (!is_user_logged_in()) {
+            return false;
+        }
+
         if (is_null($userId)) {
             $userId = get_current_user_id();
         }
@@ -145,7 +149,7 @@ class TargetGroups
             $groups = array();
         }
 
-        foreach (get_user_meta($userId, 'user_administration_unit', true) as $administrationUnit) {
+        foreach ((array) get_user_meta($userId, 'user_administration_unit', true) as $administrationUnit) {
             $groups[] = 'unit-' . $administrationUnit;
         }
 

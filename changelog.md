@@ -3,7 +3,19 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.12 (tbd)
+Version 0.2.13 (tbd)
+====================
+- Changes "subscribe" to "follow"
+- Makes it possible to close network selector by clicking outside it
+- Added missing translations
+- Adds loading incidator when following/unfollowing a intranet
+- Option to add modules to "edit profile" page
+- Adds option to add modules to user edit page
+- Adds loading indicator when adding a user link
+- Adds inline table support to the content editor (MCE Table Buttons)
+- Breadcrums on edit profile page
+
+Version 0.2.12 (2016-09-30)
 ====================
 - Fixes a bon of minor bugs (functions and interface)
 - Removes unused code
