@@ -30,7 +30,7 @@ class Attachment
                 )
             );
 
-            $query = new WP_Query($queryArgs);
+            $query = new \WP_Query($queryArgs);
 
             if ($query->have_posts()) {
                 foreach ($query->posts as $postId) {
