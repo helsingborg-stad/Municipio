@@ -6,6 +6,8 @@ class NavigationTree
 {
     public $args = array();
 
+    protected $postStatuses = array('publish');
+
     protected $currentPage = null;
     protected $ancestors = null;
     protected $topLevelPages = null;
@@ -39,15 +41,14 @@ class NavigationTree
                 return intval($item->menu_item_parent) === 0;
             });
         } else {
-            $postStatuses = array('publish');
             if (is_user_logged_in()) {
-                $postStatuses[] = 'private';
+                $this->postStatuses[] = 'private';
             }
 
             $this->topLevelPages = get_posts(array(
                 'post_parent' => 0,
                 'post_type' => 'page',
-                'post_status' => $postStatuses,
+                'post_status' => $this->postStatuses,
                 'orderby' => 'menu_order post_title',
                 'order' => 'asc',
                 'numberposts' => -1,
@@ -153,7 +154,7 @@ class NavigationTree
         return get_posts(array(
             'post_parent' => $parent,
             'post_type' => 'page',
-            'post_status' => 'publish',
+            'post_status' => $this->postStatuses,
             'orderby' => 'menu_order post_title',
             'order' => 'asc',
             'numberposts' => -1,
