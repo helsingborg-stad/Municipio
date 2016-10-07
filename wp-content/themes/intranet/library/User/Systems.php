@@ -161,7 +161,7 @@ class Systems
             $systemForced = array();
             $systemSelectable = array();
 
-            foreach ($unitId as $unit) {
+            foreach ((array) $unitId as $unit) {
                 if (isset($systemOptions['forced'][$unit])) {
                     $systemForced = array_merge($systemForced, $systemOptions['forced'][$unit]);
                 }
