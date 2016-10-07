@@ -13,8 +13,7 @@
                     editor: editor,
                     groups: mce_target_content_groups
                 });
-            },
-            values: metadata_button
+            }
         });
     });
 })();
