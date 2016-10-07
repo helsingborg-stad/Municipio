@@ -3,6 +3,12 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.14 (tbd)
+===========================
+- Updated news feed ui
+- Fixed visual editor plugins issue (some plugins did not load)
+- Fixed user systems bug (systems did not load)
+
 Version 0.2.13 (2016-10-06)
 ===========================
 - Changes "subscribe" to "follow"
