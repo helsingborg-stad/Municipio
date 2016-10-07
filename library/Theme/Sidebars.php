@@ -61,6 +61,11 @@ class Sidebars
             $classes[] = 'box-filled';
         }
 
+        // Sidebar box-news-horizontal (should be only box-news in sidebar)
+        if (in_array($sidebarArgs['id'], array('left-sidebar-bottom', 'left-sidebar', 'right-sidebar')) && in_array('box-news-horizontal', $classes)) {
+            unset($classes[array_search('box-news-horizontal', $classes)]);
+        }
+
         return $classes;
     }
 
