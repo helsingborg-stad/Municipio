@@ -210,13 +210,13 @@ class Editor
             echo '];</script>';
         });
 
-        add_filter('mce_external_plugins', function ($plugin) {
+        add_filter('mce_external_plugins', function ($plugins) {
             $plugins['metadata'] = get_template_directory_uri() . '/assets/dist/js/mce-metadata.js';
             return $plugins;
         });
 
-        add_filter('mce_buttons', function ($buttons) {
-            array_push($buttons, 'metadata');
+        add_filter('mce_buttons_2', function ($buttons) {
+            array_splice($buttons, 2, 0, array('metadata'));
             return $buttons;
         });
     }
