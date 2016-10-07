@@ -2,9 +2,6 @@
 
 @section('content')
 
-<form action="" method="post">
-{!! wp_nonce_field('user_settings_update_' . $user->ID) !!}
-
 <div class="container main-container">
     <div class="grid breadcrumbs-wrapper">
         <div class="grid-lg-12">
@@ -27,6 +24,9 @@
 
     <div class="grid">
         <div class="grid-lg-9 grid-md-12">
+            <form action="" method="post">
+            {!! wp_nonce_field('user_settings_update_' . $user->ID) !!}
+
             @if (isset($_POST['_wpnonce']))
             <div class="grid">
                 <div class="grid-xs-12">
@@ -528,6 +528,8 @@
                     </div>
                 </div>
             </div>
+            </form>
+
         </div>
 
         <aside class="grid-lg-3 grid-md-12 sidebar-right-sidebar">
@@ -547,6 +549,5 @@
         </aside>
     </div>
 </div>
-</form>
 
 @stop
