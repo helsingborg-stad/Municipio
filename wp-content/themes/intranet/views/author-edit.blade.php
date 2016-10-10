@@ -92,7 +92,7 @@
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_phone"><?php _e('Phone number', 'municipio-intranet'); ?></label>
-                                            <input type="tel" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}" pattern="^\+?([\d|\s|(|)|\-])+" oninvalid="this.setCustomValidity('<?php _e('The phone number supplied is invalid', 'municipio-intranet'); ?>')">
+                                            <input type="tel" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}" pattern="^\+?([\d|\s|(|)|\-])+" data-invalid-message="<?php _e('The phone number supplied is invalid', 'municipio-intranet'); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -181,14 +181,14 @@
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_facebook_url"><?php _e('Facebook profile url', 'municipio-intranet'); ?></label>
-                                            <input type="url" pattern="https?://.+" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}" oninvalid="this.setCustomValidity('<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>')">
+                                            <input type="url" pattern="https?://.+" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}" data-invalid-message="<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>">
                                             <?php municipio_intranet_field_example('facebook', 'https://www.facebook.com/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
                                         </div>
                                     </div>
                                     <div class="grid-md-6">
                                         <div class="form-group">
                                             <label for="user_linkedin_url"><?php _e('Linkedin profile url', 'municipio-intranet'); ?></label>
-                                            <input type="url" pattern="https?://.+" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}" oninvalid="this.setCustomValidity('<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>')">
+                                            <input type="url" pattern="https?://.+" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}" data-invalid-message="<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>">
                                             <?php municipio_intranet_field_example('linkedin', 'https://www.linkedin.com/in/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
                                         </div>
                                     </div>

@@ -14,7 +14,7 @@
             <div class="grid-xs-12">
                 <div class="form-group">
                     <label for="user_phone"><?php _e('Phone number', 'municipio-intranet'); ?></label>
-                    <input type="text" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}" pattern="^\+?([\d|\s|\(|\)|\-])+" oninvalid="this.setCustomValidity('<?php _e('The phone number supplied is invalid', 'municipio-intranet'); ?>')">
+                    <input type="text" id="user_phone" name="user_phone" value="{{ get_the_author_meta('user_phone') }}" pattern="^\+?([\d|\s|\(|\)|\-])+" data-invalid-message="<?php _e('The phone number supplied is invalid', 'municipio-intranet'); ?>">
                 </div>
             </div>
         </div>
