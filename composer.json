@@ -76,6 +76,18 @@
         {
             "type":"composer",
             "url":"https://wpackagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "humanmade/page-for-post-type",
+                "version": "1.0.1",
+                "dist": {
+                    "url": "https://github.com/humanmade/page-for-post-type/archive/4104277b2140a5b5badb6796979c6e2373c25048.zip",
+                    "type": "zip"
+                },
+                "type": "wordpress-plugin"
+            }
         }
     ],
 
@@ -106,7 +118,8 @@
         "wpackagist-plugin/user-switching" : ">=1.0.0",
         "wpackagist-plugin/wordpress-importer": "0.6.3",
         "wpackagist-plugin/elasticpress": "^2.1.1",
-        "wpackagist-plugin/mce-table-buttons": "^3.0.0"
+        "wpackagist-plugin/mce-table-buttons": "^3.0.0",
+        "humanmade/page-for-post-type": "^1.0.0"
     },
 
     "extra": {
