@@ -30,11 +30,11 @@
         <h5><?php _e('Add new link', 'municipio-intranet'); ?></h5>
         <div class="form-group">
             <label for="user-link-title"><?php _e('Title', 'municipio-intranet'); ?></label>
-            <input type="text" name="user-link-title" id="user-link-title">
+            <input type="text" name="user-link-title" id="user-link-title" title="Ange länk-titel" required>
         </div>
         <div class="form-group">
             <label for="user-link-url"><?php _e('Url', 'municipio-intranet'); ?></label>
-            <input type="text" name="user-link-url" id="user-link-url">
+            <input type="text" name="user-link-url" id="user-link-url" required>
         </div>
         <div class="form-group">
             <button type="submit" class="btn"><?php _e('Save'); ?></button>

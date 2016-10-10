@@ -45,9 +45,13 @@ Intranet.User.Links = (function ($) {
 
         $box.addClass('is-editing');
         $target.html(municipioIntranet.done).addClass('pricon-check').removeClass('pricon-edit');
-    }
+    };
 
     Links.prototype.addLink = function (title, link, element) {
+        if (!title.length || !link.length) {
+            return false;
+        }
+
         var data = {
             action: 'add_user_link',
             title: title,
@@ -71,7 +75,7 @@ Intranet.User.Links = (function ($) {
 
             $(element).find('button[type="submit"]').html(buttonText);
         }.bind(this), 'JSON');
-    }
+    };
 
     Links.prototype.addLinkToDom = function (element, link) {
         var $list = element.find('ul.links');
