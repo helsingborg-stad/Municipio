@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-03 10:07+0200\n"
-"PO-Revision-Date: 2016-10-03 10:08+0200\n"
+"POT-Creation-Date: 2016-10-10 12:57+0200\n"
+"PO-Revision-Date: 2016-10-10 13:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -19,18 +19,6 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-
-#: library/Admin/NetworkSettings.php:25
-msgid "Intranet settings"
-msgstr "Intranätsinställningar"
-
-#: library/Admin/NetworkSettings.php:38
-msgid "Shortname for this site"
-msgstr "Kortnamn för siten"
-
-#: library/Admin/NetworkSettings.php:58
-msgid "Forced subscription"
-msgstr "Tvinga prenumeration"
 
 #: library/Admin/Options.php:16
 msgid "Intranet options"
@@ -50,11 +38,11 @@ msgstr "Aktivera för att dölja intranätet från icke administratörer/redakt�
 
 #: library/Admin/Options.php:47
 msgid "Force subscription"
-msgstr "Tvingad prenumeration"
+msgstr "Obligatorisk att följa"
 
 #: library/Admin/Options.php:56
 msgid "Activate to force all users to subscribe to this intranet"
-msgstr "Aktivera för att tvinga alla användare att prenumerera på intranätet"
+msgstr "Aktivera för att tvinga alla användare att följa detta intranät"
 
 #: library/Admin/Options.php:68
 msgid "Intranet short name"
@@ -165,8 +153,8 @@ msgid ""
 "Shows news stories from the sites the current user is subscribing to (or "
 "from all if logged out)"
 msgstr ""
-"Visa nyheter från sidorna som den inloggade användaren prenumererar på "
-"(eller från alla om man är utloggad)."
+"Visa nyheter från intranät som den inloggade användaren följer (eller från "
+"alla om man är utloggad)."
 
 #: library/Module/UserLinks.php:21
 msgid "User link"
@@ -189,20 +177,20 @@ msgstr "Användarsystem"
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
-#: library/Public/Helper.php:75 library/SearchWp/Search.php:354
+#: library/Public/Helper.php:75 library/SearchWp/Search.php:358
 #: views/partials/modal/missing-data-fields/nav.blade.php:3
 #: views/partials/modal/missing-data-fields/nav.blade.php:7
 msgid "Previous"
 msgstr "Föregående"
 
-#: library/Public/Helper.php:76 library/SearchWp/Search.php:410
+#: library/Public/Helper.php:76 library/SearchWp/Search.php:414
 #: views/partials/modal/missing-data-fields/nav.blade.php:11
 #: views/partials/modal/missing-data.blade.php:40
 msgid "Next"
 msgstr "Nästa"
 
 #: library/Public/Helper.php:77
-#: templates/module/modularity-mod-intranet-u-syste.php:64
+#: templates/module/modularity-mod-intranet-u-syste.php:67
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -211,17 +199,17 @@ msgid "Example"
 msgstr "Exempel"
 
 #: library/Theme/Enqueue.php:39
-#: templates/module/modularity-mod-intranet-u-links.php:21
+#: templates/module/modularity-mod-intranet-u-links.php:24
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
-#: library/Theme/Enqueue.php:40
-msgid "Subscribe"
-msgstr "Prenumerera"
+#: library/Theme/Enqueue.php:40 views/partials/network-header.blade.php:61
+msgid "Follow"
+msgstr "Följ"
 
-#: library/Theme/Enqueue.php:41
-msgid "Unsubscribe"
-msgstr "Sluta prenumerera"
+#: library/Theme/Enqueue.php:41 views/partials/network-header.blade.php:63
+msgid "Unfollow"
+msgstr "Sluta följa"
 
 #: library/Theme/Enqueue.php:44 views/search.blade.php:54
 #: views/search.blade.php:165
@@ -237,8 +225,8 @@ msgid "View all results"
 msgstr "Visa alla resultat"
 
 #: library/Theme/Enqueue.php:48 templates/admin/systems/form.php:85
-#: templates/module/modularity-mod-intranet-u-links.php:5
-#: templates/module/modularity-mod-intranet-u-syste.php:5
+#: templates/module/modularity-mod-intranet-u-links.php:6
+#: templates/module/modularity-mod-intranet-u-syste.php:6
 msgid "Edit"
 msgstr "Redigera"
 
@@ -377,28 +365,28 @@ msgstr "God jul %s!"
 msgid "user"
 msgstr "anvandare"
 
-#: library/User/Registration.php:33 views/author-edit.blade.php:54
+#: library/User/Registration.php:33 views/author-edit.blade.php:73
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr "Förnamn"
 
-#: library/User/Registration.php:37 views/author-edit.blade.php:60
+#: library/User/Registration.php:37 views/author-edit.blade.php:79
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
 msgstr "Efternamn"
 
-#: library/User/Systems.php:267
+#: library/User/Systems.php:279
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
-#: library/User/TargetGroups.php:180
+#: library/User/TargetGroups.php:184
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
-#: library/User/TargetGroups.php:212 library/User/TargetGroups.php:213
-#: views/author-edit.blade.php:452
+#: library/User/TargetGroups.php:216 library/User/TargetGroups.php:217
+#: views/author-edit.blade.php:471
 msgid "Target groups"
 msgstr "Målgrupper"
 
@@ -409,8 +397,8 @@ msgstr "Målgrupper"
 #: templates/admin/systems/form.php:124
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
-#: templates/module/modularity-mod-intranet-u-links.php:37
-#: templates/module/modularity-mod-intranet-u-syste.php:65
+#: templates/module/modularity-mod-intranet-u-links.php:40
+#: templates/module/modularity-mod-intranet-u-syste.php:68
 msgid "Save"
 msgstr "Spara"
 
@@ -428,8 +416,8 @@ msgstr "Förvaltningens namn"
 
 #: templates/admin/administration-units/form.php:56
 #: templates/admin/systems/form.php:126
-#: templates/admin/target-groups/form.php:59 views/author-edit.blade.php:327
-#: views/author-edit.blade.php:380
+#: templates/admin/target-groups/form.php:59 views/author-edit.blade.php:346
+#: views/author-edit.blade.php:399
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:29
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:29
 msgid "Add"
@@ -490,19 +478,19 @@ msgstr ""
 
 #: templates/admin/systems/form.php:72 templates/admin/systems/form.php:108
 #: templates/admin/systems/form.php:140
-#: templates/module/modularity-mod-intranet-u-syste.php:40
+#: templates/module/modularity-mod-intranet-u-syste.php:43
 msgid "Name"
 msgstr "Namn"
 
 #: templates/admin/systems/form.php:73 templates/admin/systems/form.php:116
 #: templates/admin/systems/form.php:141
-#: templates/module/modularity-mod-intranet-u-syste.php:41
+#: templates/module/modularity-mod-intranet-u-syste.php:44
 msgid "Description"
 msgstr "Beskrivning"
 
 #: templates/admin/systems/form.php:74 templates/admin/systems/form.php:112
 #: templates/admin/systems/form.php:142
-#: templates/module/modularity-mod-intranet-u-links.php:33
+#: templates/module/modularity-mod-intranet-u-links.php:36
 msgid "Url"
 msgstr "Url"
 
@@ -536,7 +524,7 @@ msgid "Selectable"
 msgstr "Valbar"
 
 #: templates/admin/systems/form.php:144
-#: templates/module/modularity-mod-intranet-u-syste.php:54
+#: templates/module/modularity-mod-intranet-u-syste.php:57
 msgid "Forced"
 msgstr "Obligatorisk"
 
@@ -550,7 +538,7 @@ msgstr "Taggar"
 
 #: templates/admin/target-groups/form.php:38
 #: templates/admin/target-groups/form.php:54
-#: templates/admin/target-groups/restrict.php:5 views/author-edit.blade.php:468
+#: templates/admin/target-groups/restrict.php:5 views/author-edit.blade.php:487
 #: views/table-of-contents.blade.php:18
 msgid "All"
 msgstr "Alla"
@@ -571,39 +559,39 @@ msgstr "förvaltningar"
 msgid "Show all incidents"
 msgstr "Visa alla driftstörningar"
 
-#: templates/module/modularity-mod-intranet-news.php:66
+#: templates/module/modularity-mod-intranet-news.php:79
 msgid "Read more"
 msgstr "Läs mer"
 
-#: templates/module/modularity-mod-intranet-news.php:80
+#: templates/module/modularity-mod-intranet-news.php:93
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
-#: templates/module/modularity-mod-intranet-u-links.php:3
+#: templates/module/modularity-mod-intranet-u-links.php:4
 msgid "Your links"
 msgstr "Dina länkar"
 
-#: templates/module/modularity-mod-intranet-u-links.php:27
+#: templates/module/modularity-mod-intranet-u-links.php:30
 msgid "Add new link"
 msgstr "Lägg till länk"
 
-#: templates/module/modularity-mod-intranet-u-links.php:29
+#: templates/module/modularity-mod-intranet-u-links.php:32
 msgid "Title"
 msgstr "Titel"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:3
+#: templates/module/modularity-mod-intranet-u-syste.php:4
 msgid "Your systems"
 msgstr "Dina system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:12
+#: templates/module/modularity-mod-intranet-u-syste.php:15
 msgid "You need to be on the city network to use this system"
 msgstr "Du måste vara inloggad på stadens nätverk för att använda detta system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:27
+#: templates/module/modularity-mod-intranet-u-syste.php:30
 msgid "Select systems"
 msgstr "Välj system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:32
+#: templates/module/modularity-mod-intranet-u-syste.php:35
 msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr "Välj system som du vill visa i din lista över ”mina system”."
@@ -612,99 +600,110 @@ msgstr "Välj system som du vill visa i din lista över ”mina system”."
 msgid "Published"
 msgstr "Publicerad"
 
-#: views/author-edit.blade.php:15
-msgid "Settings saved"
-msgstr "Inställningarna sparades"
+#: views/author-edit.blade.php:10 views/author-edit.blade.php:11
+#: views/partials/header/intranet.blade.php:62
+msgid "Your profile"
+msgstr "Din profil"
 
-#: views/author-edit.blade.php:25
+#: views/author-edit.blade.php:10 views/author-edit.blade.php:11
+msgid "Profile"
+msgstr "Profil"
+
+#: views/author-edit.blade.php:16 views/author-edit.blade.php:17
+#: views/author-edit.blade.php:44
 msgid "Your settings"
 msgstr "Dina inställningar"
 
-#: views/author-edit.blade.php:27
+#: views/author-edit.blade.php:16 views/author-edit.blade.php:17
+#: views/author-edit.blade.php:46
 #, php-format
 msgid "Settings of %s"
 msgstr "Inställningar för %s"
 
-#: views/author-edit.blade.php:31
+#: views/author-edit.blade.php:34
+msgid "Settings saved"
+msgstr "Inställningarna sparades"
+
+#: views/author-edit.blade.php:50
 msgid "Click on a section to view and edit your settings."
 msgstr "Klicka på en sektion för att visa och redigera inställningarna."
 
-#: views/author-edit.blade.php:34
+#: views/author-edit.blade.php:53
 #: views/partials/modal/missing-data.blade.php:30
 #, php-format
 msgid "Required fields are marked with %s"
 msgstr "Obligatoriska fält är märkta med %s"
 
-#: views/author-edit.blade.php:48
+#: views/author-edit.blade.php:67
 msgid "Personal information"
 msgstr "Personlig information"
 
-#: views/author-edit.blade.php:54 views/author-edit.blade.php:60
-#: views/author-edit.blade.php:69 views/author-edit.blade.php:225
+#: views/author-edit.blade.php:73 views/author-edit.blade.php:79
+#: views/author-edit.blade.php:88 views/author-edit.blade.php:244
 #: views/partials/modal/missing-data-fields/name.blade.php:13
 #: views/partials/modal/missing-data-fields/name.blade.php:24
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:16
 msgid "Not editable"
 msgstr "Ej redigerbar"
 
-#: views/author-edit.blade.php:69 views/author.blade.php:120
+#: views/author-edit.blade.php:88 views/author.blade.php:120
 #: views/partials/modal/missing-data-fields/user_email.blade.php:4
 #: views/partials/modal/missing-data-fields/user_email.blade.php:16
 msgid "Email"
 msgstr "E-post"
 
-#: views/author-edit.blade.php:75 views/author.blade.php:108
+#: views/author-edit.blade.php:94 views/author.blade.php:108
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:4
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:16
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: views/author-edit.blade.php:76
+#: views/author-edit.blade.php:95
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:17
 msgid "The phone number supplied is invalid"
 msgstr "Det angivna telefonnumret är felaktigt formaterat"
 
-#: views/author-edit.blade.php:84
+#: views/author-edit.blade.php:103
 msgid "Hometown"
 msgstr "Bostadsort"
 
-#: views/author-edit.blade.php:93
+#: views/author-edit.blade.php:112
 msgid "Date of birth"
 msgstr "Födelsedag"
 
-#: views/author-edit.blade.php:100
+#: views/author-edit.blade.php:119
 msgid "Year"
 msgstr "År"
 
-#: views/author-edit.blade.php:102
+#: views/author-edit.blade.php:121
 msgid "Select year…"
 msgstr "Välj år…"
 
-#: views/author-edit.blade.php:112
+#: views/author-edit.blade.php:131
 msgid "Month"
 msgstr "Månad"
 
-#: views/author-edit.blade.php:114
+#: views/author-edit.blade.php:133
 msgid "Select month…"
 msgstr "Välj månad…"
 
-#: views/author-edit.blade.php:124
+#: views/author-edit.blade.php:143
 msgid "Day"
 msgstr "Dag"
 
-#: views/author-edit.blade.php:126
+#: views/author-edit.blade.php:145
 msgid "Select day…"
 msgstr "Välj dag…"
 
-#: views/author-edit.blade.php:140
+#: views/author-edit.blade.php:159
 msgid "Keep my date of birth secret"
 msgstr "Visa inte min födelsedag för andra"
 
-#: views/author-edit.blade.php:152
+#: views/author-edit.blade.php:171
 msgid "Social media"
 msgstr "Social media"
 
-#: views/author-edit.blade.php:157
+#: views/author-edit.blade.php:176
 msgid ""
 "Fill in your social media profile url:s if you want to make it easier for "
 "others to find your social media profiles."
@@ -712,97 +711,97 @@ msgstr ""
 "Om du vill göra det lättare för andra att hitta dig på sociala medier så kan "
 "du fylla i länkar till dina profiler här."
 
-#: views/author-edit.blade.php:164
+#: views/author-edit.blade.php:183
 msgid "Facebook profile url"
 msgstr "Facebook profilurl"
 
-#: views/author-edit.blade.php:165 views/author-edit.blade.php:172
+#: views/author-edit.blade.php:184 views/author-edit.blade.php:191
 msgid ""
 "The given url is invalid. Make sure the url starts with https:// or http://"
 msgstr ""
 "Den angivna webbadressen är felaktig. Försäkra dig om att webbadressen "
 "inleds med https:// eller http://"
 
-#: views/author-edit.blade.php:171
+#: views/author-edit.blade.php:190
 msgid "Linkedin profile url"
 msgstr "LinkedIn profilurl"
 
-#: views/author-edit.blade.php:181
+#: views/author-edit.blade.php:200
 msgid "Instagram username"
 msgstr "Användarnamn på Instagram"
 
-#: views/author-edit.blade.php:188
+#: views/author-edit.blade.php:207
 msgid "Twitter username"
 msgstr "Användarnamn på Twitter"
 
-#: views/author-edit.blade.php:201 views/author-edit.blade.php:207
+#: views/author-edit.blade.php:220 views/author-edit.blade.php:226
 #: views/partials/modal/missing-data-fields/user_about.blade.php:4
 #: views/partials/modal/missing-data-fields/user_about.blade.php:10
 msgid "About me"
 msgstr "Om mig"
 
-#: views/author-edit.blade.php:208
+#: views/author-edit.blade.php:227
 #: views/partials/modal/missing-data-fields/user_about.blade.php:11
 msgid "Write a little something about yourself…"
 msgstr "Skriv något om dig själv…"
 
-#: views/author-edit.blade.php:219
+#: views/author-edit.blade.php:238
 msgid "Work information"
 msgstr "Arbete"
 
-#: views/author-edit.blade.php:225
+#: views/author-edit.blade.php:244
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:16
 msgid "Work title"
 msgstr "Titel"
 
-#: views/author-edit.blade.php:231
+#: views/author-edit.blade.php:250
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:22
 msgid "Project coordinator"
 msgstr "Projektledare"
 
-#: views/author-edit.blade.php:239
+#: views/author-edit.blade.php:258
 #: views/partials/modal/missing-data-fields/user_department.blade.php:18
 msgid "Administration unit"
 msgstr "Förvaltning"
 
-#: views/author-edit.blade.php:257
+#: views/author-edit.blade.php:276
 #: views/partials/modal/missing-data-fields/user_department.blade.php:6
 #: views/partials/modal/missing-data-fields/user_department.blade.php:36
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:4
 msgid "Department"
 msgstr "Avdelning"
 
-#: views/author-edit.blade.php:259
+#: views/author-edit.blade.php:278
 #: views/partials/modal/missing-data-fields/user_department.blade.php:38
 msgid "Web-department"
 msgstr "Webbenheten"
 
-#: views/author-edit.blade.php:267 views/author.blade.php:136
+#: views/author-edit.blade.php:286 views/author.blade.php:136
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:4
 msgid "Visiting address"
 msgstr "Besöksadress"
 
-#: views/author-edit.blade.php:273
+#: views/author-edit.blade.php:292
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:10
 msgid "Workplace"
 msgstr "Arbetsplats"
 
-#: views/author-edit.blade.php:281
+#: views/author-edit.blade.php:300
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:18
 msgid "Street address"
 msgstr "Gatuadress"
 
-#: views/author-edit.blade.php:289
+#: views/author-edit.blade.php:308
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:26
 msgid "City"
 msgstr "Stad"
 
-#: views/author-edit.blade.php:302 views/author-edit.blade.php:322
+#: views/author-edit.blade.php:321 views/author-edit.blade.php:341
 #: views/author.blade.php:182
 msgid "Work assignments"
 msgstr "Arbetsuppgifter"
 
-#: views/author-edit.blade.php:308
+#: views/author-edit.blade.php:327
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:10
 msgid ""
 "Please add your work assignments. This will make it easier to find you when "
@@ -811,41 +810,41 @@ msgstr ""
 "Lägg till dina arbetsuppgifter. Detta kommer göra det lättare för andra att "
 "hitta dig genom sök."
 
-#: views/author-edit.blade.php:309
+#: views/author-edit.blade.php:328
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:11
 msgid "Example work assignments"
 msgstr "Exempel på arbetsuppgifter"
 
-#: views/author-edit.blade.php:311
+#: views/author-edit.blade.php:330
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:13
 msgid "Intranet web developer"
 msgstr "Utvecklare intranätsprojektet"
 
-#: views/author-edit.blade.php:312
+#: views/author-edit.blade.php:331
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:14
 msgid "Office management"
 msgstr "Office management"
 
-#: views/author-edit.blade.php:313
+#: views/author-edit.blade.php:332
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:15
 msgid "Human resource"
 msgstr "HR"
 
-#: views/author-edit.blade.php:326
+#: views/author-edit.blade.php:345
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:28
 msgid "Add area of responsibility"
 msgstr "Lägg till ansvarsområde"
 
-#: views/author-edit.blade.php:331
+#: views/author-edit.blade.php:350
 msgid "Added work assignments"
 msgstr "Arbetsuppgifter som du lagt till"
 
-#: views/author-edit.blade.php:355 views/author.blade.php:167
+#: views/author-edit.blade.php:374 views/author.blade.php:167
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
 msgid "Skills"
 msgstr "Kompetenser"
 
-#: views/author-edit.blade.php:361
+#: views/author-edit.blade.php:380
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:10
 msgid ""
 "Please add your skills. This will make it easier to find you when searching."
@@ -853,72 +852,72 @@ msgstr ""
 "Lägg till dina kompetenser. Detta gör det lättare för andra att hitta dig "
 "med hjälp av sökfunktionen."
 
-#: views/author-edit.blade.php:362
+#: views/author-edit.blade.php:381
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:11
 msgid "Example skills"
 msgstr "Exempel på kompetenser"
 
-#: views/author-edit.blade.php:364
+#: views/author-edit.blade.php:383
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:13
 msgid "Web development"
 msgstr "Webbutveckling"
 
-#: views/author-edit.blade.php:365
+#: views/author-edit.blade.php:384
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:14
 msgid "Project management"
 msgstr "Projektledning"
 
-#: views/author-edit.blade.php:366
+#: views/author-edit.blade.php:385
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:15
 msgid "Copywriting"
 msgstr "Copywriting"
 
-#: views/author-edit.blade.php:375
+#: views/author-edit.blade.php:394
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:24
 msgid "Skill"
 msgstr "Kompetens"
 
-#: views/author-edit.blade.php:379
+#: views/author-edit.blade.php:398
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:28
 msgid "Add skill"
 msgstr "Lägg till kompetens"
 
-#: views/author-edit.blade.php:384
+#: views/author-edit.blade.php:403
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:33
 msgid "Added skills"
 msgstr "Dina kompetenser"
 
-#: views/author-edit.blade.php:408
+#: views/author-edit.blade.php:427
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:4
 msgid "Profile image"
 msgstr "Profilbild"
 
-#: views/author-edit.blade.php:417
+#: views/author-edit.blade.php:436
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr "Är du säker på att du vill ta bort din profilbild?"
 
-#: views/author-edit.blade.php:417
+#: views/author-edit.blade.php:436
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Delete profile image"
 msgstr "Ta bort profilbild"
 
-#: views/author-edit.blade.php:428
+#: views/author-edit.blade.php:447
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
-#: views/author-edit.blade.php:430
+#: views/author-edit.blade.php:449
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr "eller"
 
-#: views/author-edit.blade.php:431
+#: views/author-edit.blade.php:450
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:458
+#: views/author-edit.blade.php:477
 msgid ""
 "Please check the boxes of the target groups that suits your current role. "
 "Checking a box will give you information targeted to the specific group."
@@ -926,43 +925,43 @@ msgstr ""
 "Kryssa för de målgrupper som matchar din nuvarande roll. Du kommer få "
 "målgruppsanpassad information från markerade grupper."
 
-#: views/author-edit.blade.php:483
+#: views/author-edit.blade.php:502
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:489
+#: views/author-edit.blade.php:508
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:490
+#: views/author-edit.blade.php:509
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:491
+#: views/author-edit.blade.php:510
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:492
+#: views/author-edit.blade.php:511
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:493
+#: views/author-edit.blade.php:512
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:508
+#: views/author-edit.blade.php:527
 msgid "Save settings"
 msgstr "Spara inställningar"
 
-#: views/author-edit.blade.php:518
+#: views/author-edit.blade.php:539
 msgid "Edit your settings"
 msgstr "Redigera dina inställningar"
 
-#: views/author-edit.blade.php:520
+#: views/author-edit.blade.php:541
 msgid "This is where you edit your personal settings."
 msgstr "Här kan du redigera dina personliga inställningar."
 
-#: views/author-edit.blade.php:521
+#: views/author-edit.blade.php:542
 msgid ""
 "Some of your settings is displayed on your profile to other logged in users."
 msgstr ""
@@ -1030,31 +1029,27 @@ msgstr "Hjälp"
 msgid "A-Z"
 msgstr "A-Ö"
 
-#: views/partials/header/intranet.blade.php:59
-msgid "Your profile"
-msgstr "Din profil"
-
-#: views/partials/header/intranet.blade.php:60
+#: views/partials/header/intranet.blade.php:63
 msgid "Settings"
 msgstr "Inställningar"
 
-#: views/partials/header/intranet.blade.php:61 views/search.blade.php:38
+#: views/partials/header/intranet.blade.php:64 views/search.blade.php:38
 msgid "Subscriptions"
-msgstr "Prenumerationer"
+msgstr "Intranät du följer"
 
-#: views/partials/header/intranet.blade.php:63
+#: views/partials/header/intranet.blade.php:66
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:69
+#: views/partials/header/intranet.blade.php:72
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:74
+#: views/partials/header/intranet.blade.php:77
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/intranet.blade.php:85
+#: views/partials/header/intranet.blade.php:88
 msgid "Menu"
 msgstr "Meny"
 
@@ -1143,19 +1138,11 @@ msgstr "Sök efter intranät"
 
 #: views/partials/network-header.blade.php:40
 msgid "Networks you are following"
-msgstr "Intranät som du prenumererar på"
+msgstr "Intranät som du följer"
 
 #: views/partials/network-header.blade.php:50
 msgid "Show all networks"
 msgstr "Visa alla intranät"
-
-#: views/partials/network-header.blade.php:61
-msgid "Follow"
-msgstr "Följ"
-
-#: views/partials/network-header.blade.php:63
-msgid "Unfollow"
-msgstr "Sluta följa"
 
 #: views/partials/user/facebook-sync.blade.php:3
 msgid "Sync from Facebook"
@@ -1229,16 +1216,16 @@ msgstr "Visa alla personträffar"
 
 #: views/subscriptions.blade.php:12
 msgid "Subscriptions saved"
-msgstr "Prenumerationer sparade"
+msgstr "Nätverk som du följer sparades"
 
 #: views/subscriptions.blade.php:21
 msgid "Manage your subscriptions"
-msgstr "Administrera dina prenumerationer"
+msgstr "Administrera vilka nätverk som du följer"
 
 #: views/subscriptions.blade.php:23
 #, php-format
 msgid "Manage subscriptions of %s"
-msgstr "Administrera %s prenumerationer"
+msgstr "Administrera vilka intranät %s följer"
 
 #: views/subscriptions.blade.php:50
 msgid "Save subscriptions"
@@ -1264,6 +1251,21 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Intranet settings"
+#~ msgstr "Intranätsinställningar"
+
+#~ msgid "Shortname for this site"
+#~ msgstr "Kortnamn för siten"
+
+#~ msgid "Forced subscription"
+#~ msgstr "Tvinga prenumeration"
+
+#~ msgid "Subscribe"
+#~ msgstr "Prenumerera"
+
+#~ msgid "Unsubscribe"
+#~ msgstr "Sluta prenumerera"
 
 #~ msgid ""
 #~ "Please add your areas of responsibility. This will make it easier to find "
