@@ -26,10 +26,11 @@ Intranet.User.Links = (function ($) {
         $(document).on('click', '[data-user-link-remove]', function (e) {
             e.preventDefault();
 
-            var element = $(e.target).closest('button').parents('.box');
+            var button = $(e.target).closest('button');
+            var element = button.parents('.box');
             var link = $(e.target).closest('button').attr('data-user-link-remove');
 
-            this.removeLink(element, link);
+            this.removeLink(element, link, button);
         }.bind(this));
     }
 
@@ -93,11 +94,13 @@ Intranet.User.Links = (function ($) {
         ');
     };
 
-    Links.prototype.removeLink = function (element, link) {
+    Links.prototype.removeLink = function (element, link, button) {
         var data = {
             action: 'remove_user_link',
             url: link
         };
+
+        button.html('<i class="spinner spinner-dark"></i>');
 
         $.post(ajaxurl, data, function (res) {
             if (typeof res !== 'object') {
