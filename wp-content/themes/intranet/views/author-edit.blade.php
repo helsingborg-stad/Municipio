@@ -116,7 +116,7 @@
 
                                     <div class="grid-md-4">
                                         <div class="form-group">
-                                            <label for="user_birthday_year" style="font-weight:normal;"><?php _e('Year', 'municipio-intranet'); ?></label>
+                                            <label for="user_birthday_year" style="font-weight:normal;" class="text-sm"><?php _e('Year', 'municipio-intranet'); ?></label>
                                             <select name="user_birthday[year]" id="user_birthday_year">
                                                 <option value="" default><?php _e('Select year…', 'municipio-intranet'); ?></option>
                                                 @for ($i = date('Y') - 13; $i >= date('Y') - 100; $i--)
@@ -128,7 +128,7 @@
 
                                     <div class="grid-md-4">
                                         <div class="form-group">
-                                            <label for="user_birthday_month" style="font-weight:normal;"><?php _e('Month', 'municipio-intranet'); ?></label>
+                                            <label for="user_birthday_month" style="font-weight:normal;" class="text-sm"><?php _e('Month', 'municipio-intranet'); ?></label>
                                             <select name="user_birthday[month]" id="user_birthday_month">
                                                 <option value="" default><?php _e('Select month…', 'municipio-intranet'); ?></option>
                                                 @for ($i = 1; $i <= 12; $i++)
@@ -140,7 +140,7 @@
 
                                     <div class="grid-md-4">
                                         <div class="form-group">
-                                            <label for="user_birthday_day" style="font-weight:normal;"><?php _e('Day', 'municipio-intranet'); ?></label>
+                                            <label for="user_birthday_day" style="font-weight:normal;" class="text-sm"><?php _e('Day', 'municipio-intranet'); ?></label>
                                             <select name="user_birthday[day]" id="user_birthday_day">
                                                 <option value="" default><?php _e('Select day…', 'municipio-intranet'); ?></option>
                                                 @for ($i = 1; $i <= 31; $i++)
@@ -289,7 +289,7 @@
 
                                     <div class="grid-md-4">
                                         <div class="form-group">
-                                            <label for="user_visiting_address_place" style="font-weight:normal;"><?php _e('Workplace', 'municipio-intranet'); ?></label>
+                                            <label for="user_visiting_address_place" style="font-weight:normal;" class="text-sm"><?php _e('Workplace', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_place" name="user_visiting_address[workplace]" value="{{ isset(get_the_author_meta('user_visiting_address')['workplace']) ? get_the_author_meta('user_visiting_address')['workplace'] : '' }}">
                                             <?php municipio_intranet_field_example('user_visiting_address_place', 'Kontaktcenter'); ?>
                                         </div>
@@ -297,7 +297,7 @@
 
                                     <div class="grid-md-4">
                                         <div class="form-group">
-                                            <label for="user_visiting_address_street" style="font-weight:normal;"><?php _e('Street address', 'municipio-intranet'); ?></label>
+                                            <label for="user_visiting_address_street" style="font-weight:normal;" class="text-sm"><?php _e('Street address', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_street" name="user_visiting_address[street]" value="{{ isset(get_the_author_meta('user_visiting_address')['street']) ? get_the_author_meta('user_visiting_address')['street'] : '' }}">
                                             <?php municipio_intranet_field_example('user_visiting_address_street', 'Stortorget 7'); ?>
                                         </div>
@@ -305,7 +305,7 @@
 
                                     <div class="grid-md-4">
                                         <div class="form-group">
-                                            <label for="user_visiting_address_city" style="font-weight:normal;"><?php _e('City', 'municipio-intranet'); ?></label>
+                                            <label for="user_visiting_address_city" style="font-weight:normal;" class="text-sm"><?php _e('City', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_city" name="user_visiting_address[city]" value="{{ isset(get_the_author_meta('user_visiting_address')['city']) ? get_the_author_meta('user_visiting_address')['city'] : '' }}">
                                             <?php municipio_intranet_field_example('user_visiting_address_city', 'Helsingborg'); ?>
                                         </div>
