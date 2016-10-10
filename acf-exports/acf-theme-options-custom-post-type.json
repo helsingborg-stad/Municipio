@@ -30,7 +30,7 @@
                         "required": 1,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": 50,
+                            "width": "100",
                             "class": "",
                             "id": ""
                         },
@@ -38,16 +38,14 @@
                         "placeholder": "",
                         "prepend": "",
                         "append": "",
-                        "maxlength": "",
-                        "readonly": 0,
-                        "disabled": 0
+                        "maxlength": ""
                     },
                     {
                         "key": "field_56b36c01e0619",
                         "label": "Permal\u00e4nk",
                         "name": "slug",
                         "type": "text",
-                        "instructions": "Public \/url\/ to show archive on. ",
+                        "instructions": "Public \/url\/ to show archive on.",
                         "required": 1,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -62,6 +60,22 @@
                         "maxlength": 50,
                         "readonly": 0,
                         "disabled": 0
+                    },
+                    {
+                        "key": "field_57fb6fde23852",
+                        "label": "Rewrite with front",
+                        "name": "with_front",
+                        "type": "true_false",
+                        "instructions": "Check if you would like to prefix the slug with blogfront",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "Prefix slug with blog front",
+                        "default_value": 1
                     },
                     {
                         "key": "field_56c1c7c731a5c",
@@ -92,7 +106,7 @@
                         "label": "Menu position",
                         "name": "menu_position",
                         "type": "select",
-                        "instructions": "Select where to place this custom post type admin section. ",
+                        "instructions": "Select where to place this custom post type admin section.",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -122,7 +136,8 @@
                         "ajax": 0,
                         "placeholder": "",
                         "disabled": 0,
-                        "readonly": 0
+                        "readonly": 0,
+                        "return_format": "value"
                     },
                     {
                         "key": "field_56b361b25defd",
@@ -213,7 +228,8 @@
                         },
                         "default_value": [],
                         "layout": "horizontal",
-                        "toggle": 0
+                        "toggle": 0,
+                        "return_format": "value"
                     }
                 ]
             }

@@ -69,7 +69,10 @@ class CustomPostType
                         'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
                         'public'             => $type_definition['public'],
                         'show_in_menu'       => $type_definition['show_in_nav_menus'],
-                        'rewrite'            => array( 'slug' => sanitize_title($type_definition['slug']) ),
+                        'rewrite'            => array(
+                                                    'with_front' => isset($type_definition['with_front']) ? $type_definition['with_front'] : true,
+                                                    'slug' => sanitize_title($type_definition['slug'])
+                                                ),
                         'capability_type'    => 'post',
                         'hierarchical'       => $type_definition['hierarchical'],
                         'supports'           => array_merge($type_definition['supports'], array('title')),
