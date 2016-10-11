@@ -81,7 +81,7 @@ class SidebarMenu extends \Walker_Nav_Menu
         $child_of = 0;
 
         foreach ($elements as $key => $element) {
-            if (isset($element->ID) && is_numeric($element->ID) && $element->ID == $current_page) {
+            if (isset($element->ID) && isset($current_page) && $element->ID == $current_page->ID) {
                 $child_of = $element->ID;
                 unset($elements[$key]);
 
