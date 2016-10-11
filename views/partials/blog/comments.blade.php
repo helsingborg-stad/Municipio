@@ -10,7 +10,7 @@
                     </time>
                 </header>
                 <div class="comment-text">
-                    {!! apply_filters('the_content', $comment->comment_content) !!}
+                    {!! $comment->comment_content !!}
                 </div>
 
                 @foreach($comments as $answer)
@@ -24,7 +24,7 @@
                                     </time>
                                 </header>
                                 <div class="comment-text">
-                                    {!! apply_filters('the_content', $answer->comment_content) !!}
+                                    {!! $answer->comment_content !!}
                                 </div>
                             </li>
                         </ul>
