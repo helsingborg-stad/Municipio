@@ -4,13 +4,11 @@ namespace Municipio\Comment;
 
 class HoneyPot
 {
-
     protected $field_content;
     protected $field_name;
 
     public function __construct()
     {
-
         //Not in admin
         if (is_admin()) {
             return;
@@ -21,8 +19,11 @@ class HoneyPot
         $this->field_name = substr(md5(AUTH_KEY), 5, 15);
 
         //Print frontend fields
-        add_filter('comment_form_default_fields', array($this, 'addHoneyPotFieldFilled'));
-        add_filter('comment_form_default_fields', array($this, 'addHoneyPotFieldBlank'));
+        add_filter('comment_form_logged_in_after', array($this, 'addHoneyPotFieldFilled'));
+        add_filter('comment_form_after_fields', array($this, 'addHoneyPotFieldFilled'));
+
+        add_filter('comment_form_logged_in_after', array($this, 'addHoneyPotFieldBlank'));
+        add_filter('comment_form_after_fields', array($this, 'addHoneyPotFieldBlank'));
 
         //Print cookie method
         add_action('init', array($this, 'fakeImage'));
@@ -36,10 +37,12 @@ class HoneyPot
         add_filter('comment_form', array($this, 'printFakeImage'));
     }
 
+    /**
+     * Outputs honey pot fake image
+     */
     public function fakeImage()
     {
         if (isset($_GET[$this->field_name]) && $_GET[$this->field_name] == $this->field_content) {
-
             //Send svg header
             header('Content-type: image/svg+xml');
 
@@ -51,55 +54,65 @@ class HoneyPot
         }
     }
 
+    /**
+     * Outputs honey pot fake image check
+     */
     public function fakeImageCookieCheck($data)
     {
         if (isset($_COOKIE[$this->field_name]) && $_COOKIE[$this->field_name] == $this->field_content) {
             return $data;
-        } else {
-            wp_die(__("Could not verify that you are human (image check).", 'municipio'));
         }
+
+        wp_die(__("Could not verify that you are human (image check).", 'municipio'));
     }
 
+    /**
+     * Outputs honey pot fake image
+     */
     public function printFakeImage()
     {
-        echo '<div class="fake-hide"><img src="' . get_permalink() . '?' . $this->field_name . '=' . $this->field_content . '"/></div>';
+        echo '<div class="fake-hide"><img src="' . get_permalink() . '?' . $this->field_name . '=' . $this->field_content . '"></div>';
     }
 
+    /**
+     * Outputs honey pot css
+     */
     public function printFakeHideBox()
     {
         echo '<style>.fake-hide {width: 1px; height: 1px; opacity: 0.0001; position: absolute;}</style>';
     }
 
-    public function addHoneyPotFieldFilled($fields)
+    /**
+     * Outputs honey pot filled field
+     */
+    public function addHoneyPotFieldFilled()
     {
-        if (is_array($fields)) {
-            $fields = array(
-                md5($this->field_name.'_fi') => '<div class="fake-hide"><input name="'.$this->field_name.'_fi" type="text" value="'.$this->field_content.'" size="30"/></div>'
-            ) + $fields;
-        }
-        return $fields;
+        echo '<div class="fake-hide"><input name="'.$this->field_name.'_fi" type="text" value="'.$this->field_content.'" size="30"></div>';
     }
 
-    public function addHoneyPotFieldBlank($fields)
+    /**
+     * Outputs honey pot blank field
+     */
+    public function addHoneyPotFieldBlank()
     {
-        if (is_array($fields)) {
-            $fields = array(
-                md5($this->field_name.'_bl') => '<div class="fake-hide"><input class="hidden" name="'.$this->field_name.'_bl" type="text" value="" size="30"/></div>'
-            ) + $fields;
-        }
-        return $fields;
+        echo '<div class="fake-hide"><input class="hidden" name="'.$this->field_name.'_bl" type="text" value="" size="30"></div>';
     }
 
+    /**
+     * Validate honeypot fields before saving comment
+     * @param  array $data The comment data
+     * @return array       Comment data or die
+     */
     public function honeyPotValidateFieldContent($data)
     {
         if (isset($_POST[$this->field_name.'_fi']) && isset($_POST[$this->field_name.'_bl'])) {
             if (empty($_POST[$this->field_name.'_bl']) && $_POST[$this->field_name.'_fi'] == $this->field_content) {
                 return $data;
-            } else {
-                wp_die(__("Could not verify that you are human (some hidden form fields are manipulated).", 'municipio'));
             }
-        } else {
-            wp_die(__("Could not verify that you are human (some form fields are missing).", 'municipio'));
+
+            wp_die(__("Could not verify that you are human (some hidden form fields are manipulated).", 'municipio'));
         }
+
+        wp_die(__("Could not verify that you are human (some form fields are missing).", 'municipio'));
     }
 }
