@@ -30,7 +30,7 @@ if (!function_exists('municipio_get_thumbnail_source')) {
         if (isset($size[0]) && isset($size[1])) {
             $src = wp_get_attachment_image_src(
                 $thumbnail_id,
-                array($size[0], $size[1])
+                municipio_to_aspect_ratio(array($size[0], $size[1]))
             );
         } else {
             $src = wp_get_attachment_image_src($thumbnail_id, 'medium');
