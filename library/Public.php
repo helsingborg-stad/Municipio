@@ -132,3 +132,15 @@ if (!function_exists('municipio_get_mime_link_item')) {
         return 'link-item link-item-' . $mime[0];
     }
 }
+
+if (!function_exists('municipio_to_aspect_ratio')) {
+    function municipio_to_aspect_ratio($ratio, $size)
+    {
+        $ratio = explode(':', $ratio);
+
+        $width = round($size[0]);
+        $height = ($width / $ratio[0]) * $ratio[1];
+
+        return array($width, $height);
+    }
+}
