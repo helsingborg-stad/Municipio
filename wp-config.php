@@ -36,7 +36,6 @@ if (file_exists(__DIR__ . '/config/cache.php')) {
     require_once 'config/cache.php';
 }
 
-
 /**
  * Multisite settings
  *
@@ -55,6 +54,13 @@ if (file_exists(__DIR__ . '/config/multisite.php')) {
  */
 if (file_exists(__DIR__ . '/config/developer.php')) {
     require_once 'config/developer.php';
+}
+
+/**
+ * Local ip
+ */
+if (file_exists(__DIR__ . '/config/local-ip.php')) {
+    require_once 'config/local-ip.php';
 }
 
 /**
