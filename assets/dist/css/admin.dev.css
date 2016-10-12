@@ -32,3 +32,11 @@
 
 .wrap.nestedpages .np-sync-menu-cont {
   display: none; }
+
+#adminmenu li.wp-menu-separator {
+  height: 1px;
+  margin: 6px 0; }
+
+#adminmenu div.separator {
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 1px; }
