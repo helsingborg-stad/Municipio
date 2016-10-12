@@ -26,35 +26,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="postbox">
-                        <h2 class="ui-sortable-handle hndle"><?php _e('Local url filtering', 'municipio-intranet'); ?></h2>
-                        <div class="inside">
-                            <p><?php _e('Only show systems with local url if visitor IP matches the following patterns.', 'municipio-intranet'); ?></p>
-
-                            <ul class="ip-patterns">
-                            <?php foreach (get_site_option('user_systems_ip_patterns', array()) as $pattern) : ?>
-                                <li class="tag-manager-tag">
-                                    <?php echo stripslashes($pattern); ?>
-                                    <button style="float:right;" type="submit" class="btn-plain municipio-delete" name="remove-local-url-pattern" value="<?php echo $pattern; ?>" onclick="return confirm('<?php _e('Do you want to permanently remove the pattern?', 'municipio-intranet'); ?>')"><span class="dashicons dashicons-trash"></span></button>
-                                </li>
-                            <?php endforeach; ?>
-                            </ul>
-
-                            <div style="background-color: #f6f6f6; margin: -12px; margin-top: 0; padding: 12px; padding-top: 8px; border-top: 1px solid #eee;">
-                                <p style="margin-top: 0;">
-                                    <label for="new-pattern">Regex Pattern</label>
-                                    <input type="text" class="widefat" name="local-url-pattern">
-                                </p>
-                                <p>
-                                    <small><?php _e('Example: <i>193\.180\.109\.([0-9]+)$</i> matches all ip addresses 193.180.109.[number]', 'municipio-intranet'); ?></small>
-                                </p>
-                                <p style="margin-bottom: 0;">
-                                    <button class="button" type="submit" name="add-local-url-pattern" value="true"><?php _e('Add pattern', 'municipio-intranet'); ?></button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div id="postbox-container-2" class="postbox-container">
