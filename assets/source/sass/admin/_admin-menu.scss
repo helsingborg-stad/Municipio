@@ -7,3 +7,16 @@
     background-color: rgba(#fff, .1);
     height: 1px;
 }
+
+.wp-submenu .wp-menu-separator {
+    background-color: rgba(#fff, .1);
+    height: 1px;
+
+    &:hover {
+        background-color: rgba(#fff, .1);
+    }
+
+    a {
+        display: none;
+    }
+}

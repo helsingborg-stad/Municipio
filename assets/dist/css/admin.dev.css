@@ -40,3 +40,11 @@
 #adminmenu div.separator {
   background-color: rgba(255, 255, 255, 0.1);
   height: 1px; }
+
+.wp-submenu .wp-menu-separator {
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 1px; }
+  .wp-submenu .wp-menu-separator:hover {
+    background-color: rgba(255, 255, 255, 0.1); }
+  .wp-submenu .wp-menu-separator a {
+    display: none; }

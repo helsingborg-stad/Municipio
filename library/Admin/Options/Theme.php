@@ -10,6 +10,11 @@ class Theme
             $themeOptionsCapability = 'administrator';
             $themeOptionsParent = 'themes.php';
 
+            add_action('admin_menu', function () use ($themeOptionsParent) {
+                global $submenu;
+                $submenu[$themeOptionsParent][] = array( '', 'read', '', '', 'wp-menu-separator');
+            }, 11);
+
             acf_add_options_sub_page(array(
                 'page_title'    => __('Theme Options', 'municipio'),
                 'menu_title'    => __('Theme Options', 'municipio'),
