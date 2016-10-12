@@ -8,6 +8,7 @@ Version 0.2.14 (tbd)
 - Updated news feed ui
 - Fixed visual editor plugins issue (some plugins did not load)
 - Fixed user systems bug (systems did not load)
+- Function for checking if user is using a local ip address (ip series specified in config file)
 
 Version 0.2.13 (2016-10-06)
 ===========================

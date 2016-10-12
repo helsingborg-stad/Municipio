@@ -22,6 +22,10 @@ if (!function_exists('is_local_ip')) {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
 
+        if (!defined('LOCAL_IP_SERIES') || empty(LOCAL_IP_SERIES)) {
+            return true;
+        }
+
         foreach (LOCAL_IP_SERIES as $range) {
             list($range, $netmask) = explode('/', $range, 2);
 
