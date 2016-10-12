@@ -95,38 +95,6 @@ class Systems
     }
 
     /**
-     * Saves patterns
-     * @return void
-     */
-    public function savePattern()
-    {
-        if (!isset($_POST['local-url-pattern']) || empty($_POST['local-url-pattern'])) {
-            return;
-        }
-
-        $patterns = get_site_option('user_systems_ip_patterns', array());
-        $patterns[] = sanitize_text_field($_POST['local-url-pattern']);
-
-        update_site_option('user_systems_ip_patterns', $patterns);
-    }
-
-    /**
-     * Removes a pattern
-     * @param  string $pattern Pattern
-     * @return void
-     */
-    public function removePattern($pattern)
-    {
-        $patterns = get_site_option('user_systems_ip_patterns', array());
-
-        $patterns = array_filter($patterns, function ($item) use ($pattern) {
-            return $item != stripslashes($pattern);
-        });
-
-        update_site_option('user_systems_ip_patterns', $patterns);
-    }
-
-    /**
      * Get a system
      * @param  integer    $id The system ID
      * @return stdObject      System data
@@ -228,17 +196,8 @@ class Systems
 
         $systems = array_map('unserialize', array_unique(array_map('serialize', $systems)));
 
-        // Remove local urls/systems if not on a internal ip
-        $ipPatterns = get_site_option('user_systems_ip_patterns', array());
-        $ipPatterns = array_map('stripslashes', $ipPatterns);
-        $ipPatterns = '/' . implode('|', $ipPatterns) . '/';
-        $clientIp = $_SERVER['REMOTE_ADDR'];
-
-        uasort($systems, function ($a, $b) {
-            return $a->name > $b->name;
-        });
-
-        if (preg_match($ipPatterns, $clientIp)) {
+        // If is on a local ip, return all system
+        if (is_local_ip()) {
             return $systems;
         }
 
