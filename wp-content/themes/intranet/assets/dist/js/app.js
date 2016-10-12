@@ -929,10 +929,10 @@ va = (function ($) {
         var lastReminder = HelsingborgPrime.Helper.Cookie.get(cookieKey);
         lastReminder = new Date().setTime(lastReminder);
 
-        var daysSinceLastReminder = Math.round((parseInt(dateNow) - parseInt(lastReminder)) / (1000*60*60*24));
-
+        var daysSinceLastReminder = Math.round((dateNow - lastReminder) / (1000 * 60 * 60 * 24))
         if (daysSinceLastReminder > 6) {
             this.showReminder();
+            HelsingborgPrime.Helper.Cookie.set(cookieKey, dateNow, 30);
             return;
         }
 
