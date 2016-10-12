@@ -259,7 +259,7 @@ class News
             $item->thumbnail_image = wp_get_attachment_image_src(
                 get_post_thumbnail_id($item->ID),
                 apply_filters('modularity/image/mainnews',
-                    municipio_to_aspect_ratio(array(500, 250))
+                    municipio_to_aspect_ratio('16:9', array(500, 250))
                 )
             );
 
