@@ -33,8 +33,16 @@ define('AUTOSAVE_INTERVAL', 120);
 define('EMPTY_TRASH_DAYS', 30);
 
 /**
+ * Disable the WordPress theme/plugin editor
+ */
+define('DISALLOW_FILE_EDIT', true);
+
+/**
  * Do not block author pages
  */
 define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 
+/**
+ * Disable color theme selector on user level
+ */
 define('MUNICIPIO_INTRANET_USER_COLOR_THEME', false);
