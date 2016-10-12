@@ -16,8 +16,12 @@ define('LOCAL_IP_SERIES', array(
  * @return boolean true  If IP exist in LOCAL_IP_SERIES or not.
  */
 if (!function_exists('is_local_ip')) {
-    function is_local_ip($ip)
+    function is_local_ip($ip = null)
     {
+        if (!$ip) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
         foreach (LOCAL_IP_SERIES as $range) {
             list($range, $netmask) = explode('/', $range, 2);
 
