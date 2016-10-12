@@ -74,6 +74,14 @@
             "url": "https://github.com/helsingborg-stad/force-ssl.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/elasticpress-synonyms.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/search-statistics.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         },
@@ -111,6 +119,8 @@
         "helsingborg-stad/acf-ux-collapse": ">=1.0.0",
         "helsingborg-stad/better-post-ui": ">=1.0.0",
         "helsingborg-stad/force-ssl": ">=1.0.0",
+        "helsingborg-stad/elasticpress-synonyms": ">=0.1.0",
+        "helsingborg-stad/wp-search-statistics": ">=0.1.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
