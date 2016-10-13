@@ -15,6 +15,8 @@ class Editor
             }
         });
 
+        add_filter('oembed_result', array($this, 'oembed'), 10, 3);
+
         // Custom plugins
         add_action('admin_init', array($this, 'metaData'));
 
@@ -26,6 +28,18 @@ class Editor
 
         // Add the formats
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
+    }
+
+    /**
+     * Wrap oembed in 16:9 ratio wrapper
+     * @param  string $data Markup
+     * @param  string $url  Embedded url
+     * @param  array $args  Args
+     * @return string       Markup
+     */
+    public function oembed($data, $url, $args)
+    {
+        return '<div class="ratio-16-9">' . $data . '</div>';
     }
 
     /**
