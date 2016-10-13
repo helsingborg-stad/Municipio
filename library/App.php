@@ -67,6 +67,7 @@ class App
         new \Municipio\Admin\Options\Favicon();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\Archives();
+        new \Municipio\Admin\Options\ContentEditor();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
