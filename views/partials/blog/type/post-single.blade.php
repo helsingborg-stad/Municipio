@@ -4,7 +4,7 @@
         <div class="post post-single">
             @include('partials.blog.post-header')
 
-            <article>
+            <article id="article">
                 @if (isset(get_extended($post->post_content)['main']) && strlen(get_extended($post->post_content)['main']) > 0 && isset(get_extended($post->post_content)['extended']) && strlen(get_extended($post->post_content)['extended']) > 0)
 
                     {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
