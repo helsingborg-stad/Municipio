@@ -6,28 +6,56 @@ class Editor
 {
     public function __construct()
     {
-        // Add editor stylesheet
-        add_action('admin_init', function () {
-            if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-                add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//hbgprime.dev/dist/css/hbg-prime.min.css'));
-            } else {
-                add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/css/hbg-prime.min.css'));
-            }
-        });
-
-        add_filter('oembed_result', array($this, 'oembed'), 10, 3);
+        // Actions
+        add_action('admin_init', array($this, 'editorStyle'));
+        //add_filter('mce_buttons', array($this, 'editorButtons'));
+        add_filter('mce_buttons_2', array($this, 'editorButtons2'));
+        add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
 
         // Custom plugins
         add_action('admin_init', array($this, 'metaData'));
+        add_action('admin_init', array($this, 'printBreak'));
 
-        // Add format dropdown
-        add_filter('mce_buttons_2', function ($buttons) {
-            array_unshift($buttons, 'styleselect');
-            return $buttons;
+        // Filters
+        add_filter('oembed_result', array($this, 'oembed'), 10, 3);
+
+        add_filter('the_content', function ($content) {
+            $content = str_replace('<!--printbreak-->', '<div style="page-break-before:always;" class="clearfix"></div>', $content);
+            $content = str_replace('<p><div style="page-break-after:before;" class="clearfix"></div></p>', '<div style="page-break-after:before;" class="clearfix"></div>', $content);
+            return $content;
         });
+    }
 
-        // Add the formats
-        add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
+    /*
+    public function editorButtons($buttons)
+    {
+        $pos = array_search('wp_more', $buttons, true);
+
+        if ($pos !== false) {
+            $buttonsRet = array_slice($buttons, 0, $pos + 1);
+            $buttonsRet[] = 'wp_page';
+            $buttons = array_merge($buttonsRet, array_slice($buttons, $pos + 1));
+        }
+
+        return $buttons;
+    }
+    */
+
+    public function editorButtons2($buttons)
+    {
+        array_unshift($buttons, 'styleselect');
+        return $buttons;
+    }
+
+    public function editorStyle()
+    {
+        if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
+            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//hbgprime.dev/dist/css/hbg-prime.min.css'));
+            return;
+        }
+
+        add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/css/hbg-prime.min.css'));
+        return;
     }
 
     /**
@@ -250,6 +278,29 @@ class Editor
 
         add_filter('mce_buttons_2', function ($buttons) {
             array_splice($buttons, 2, 0, array('metadata'));
+            return $buttons;
+        });
+    }
+
+    /**
+     * Metadata plugin
+     * @return void
+     */
+    public function printBreak()
+    {
+        global $pagenow;
+
+        if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+            return;
+        }
+
+        add_filter('mce_external_plugins', function ($plugins) {
+            $plugins['print_break'] = get_template_directory_uri() . '/assets/dist/js/mce-print-break.js';
+            return $plugins;
+        });
+
+        add_filter('mce_buttons', function ($buttons) {
+            array_splice($buttons, count($buttons)-2, 0, array('printbreak'));
             return $buttons;
         });
     }

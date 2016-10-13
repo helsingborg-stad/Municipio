@@ -29,7 +29,7 @@
                 </div>
             @endif
 
-            <div class="hidden-xs hidden-sm hidden-md">
+            <div class="hidden-xs hidden-sm hidden-md hidden-print">
                 @include('partials.page-footer')
             </div>
         </div>
