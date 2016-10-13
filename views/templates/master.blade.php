@@ -9,8 +9,8 @@
     <title>{{ wp_title('|', false, 'right') }}{{ get_bloginfo('name') }}</title>
 
     <meta name="description" content="{{ bloginfo('description') }}" />
-    <meta name="pubdate" content="{{ the_time('d M Y') }}">
-    <meta name="moddate" content="{{ the_modified_time('d M Y') }}">
+    <meta name="pubdate" content="{{ the_time('Y-m-d') }}">
+    <meta name="moddate" content="{{ the_modified_time('Y-m-d') }}">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=yes">
