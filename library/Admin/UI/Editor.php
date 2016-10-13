@@ -20,8 +20,8 @@ class Editor
         add_filter('oembed_result', array($this, 'oembed'), 10, 3);
 
         add_filter('the_content', function ($content) {
-            $content = str_replace('<!--printbreak-->', '<div style="page-break-before:always;" class="clearfix"></div>', $content);
-            $content = str_replace('<p><div style="page-break-after:before;" class="clearfix"></div></p>', '<div style="page-break-after:before;" class="clearfix"></div>', $content);
+            $content = str_replace('<!--printbreak-->', '<div style="page-break-before:always;" class="clearfix print-only"></div>', $content);
+            $content = str_replace('<p><div style="page-break-after:before;" class="clearfix print-only"></div></p>', '<div style="page-break-after:before;" class="clearfix print-only"></div>', $content);
             return $content;
         });
     }
