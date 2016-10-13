@@ -17,6 +17,10 @@ class General
             $imageUrl = wp_get_attachment_image_src($imageId, array(250, 250));
             $imageUrl = isset($imageUrl[0]) ? $imageUrl[0] : null;
 
+            if (!$imageUrl) {
+                return;
+            }
+
             update_user_meta($userId, 'user_profile_picture', $imageUrl);
         });
 
