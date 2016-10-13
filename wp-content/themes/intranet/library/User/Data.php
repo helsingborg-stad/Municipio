@@ -284,7 +284,7 @@ class Data
             return;
         }
 
-        if (isset($_GET['remove_profile_image']) && $_GET['remove_profile_image'] == 'true') {
+        if (isset($_POST['remove_profile_image']) && $_POST['remove_profile_image'] == 'true') {
             $profileImage = new \Intranet\User\ProfileImage();
             $profileImage->removeProfileImage($user->ID);
             return wp_redirect($_SERVER['HTTP_REFERER']);
