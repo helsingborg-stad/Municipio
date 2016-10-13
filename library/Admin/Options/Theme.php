@@ -97,6 +97,14 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title'    => __('Content editor', 'municipio'),
+                'menu_title'    => __('Content editor', 'municipio'),
+                'parent_slug'   => $themeOptionsParent,
+                'capability'    => $themeOptionsCapability,
+                'menu_slug'     => 'acf-options-content-editor'
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title'    => __('Custom Post Types', 'municipio'),
                 'menu_title'    => __('Post Types', 'municipio'),
                 'parent_slug'   => $themeOptionsParent,

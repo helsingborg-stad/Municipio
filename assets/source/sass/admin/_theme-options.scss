@@ -36,3 +36,11 @@
 #screen-options-show-lathund-wrap .show-settings::after {
     display: none;
 }
+
+.acf-checkbox-list.acf-hl {
+    columns: 4;
+
+    li {
+        float: none;
+    }
+}

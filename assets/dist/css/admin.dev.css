@@ -30,6 +30,13 @@
 #screen-options-show-lathund-wrap .show-settings::after {
   display: none; }
 
+.acf-checkbox-list.acf-hl {
+  -webkit-columns: 4;
+     -moz-columns: 4;
+          columns: 4; }
+  .acf-checkbox-list.acf-hl li {
+    float: none; }
+
 .wrap.nestedpages .np-sync-menu-cont {
   display: none; }
 
