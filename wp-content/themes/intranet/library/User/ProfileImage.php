@@ -125,9 +125,11 @@ class ProfileImage
         }
 
         $imagePath = $this->getProfileImagePathFromUrl($imageUrl);
+        $imagePath = preg_replace("/\.[^.]+$/", "", $imagePath);
+        $images = glob($imagePath . '*');
 
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+        foreach ($images as $image) {
+            unlink($image);
         }
 
         delete_user_meta($userId, 'user_profile_picture', $imageUrl);
