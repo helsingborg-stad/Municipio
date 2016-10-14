@@ -101,21 +101,24 @@ class Editor
         $formats = self::getAvailableStyleFormats();
         $enabled = get_field('content_editor_formats', 'options');
 
-        foreach ($formats as $key => &$format) {
-            $format = array_filter($format, function ($key) use ($enabled) {
-                return in_array($key, $enabled);
-            }, ARRAY_FILTER_USE_KEY);
-        }
+        if (is_array($enabled) && !empty($enabled) && is_array($formats) && !empty($formats)) {
 
-        foreach ($formats as $key => $items) {
-            if (!is_array($items) || count($items) === 0) {
-                continue;
+            foreach ($formats as $key => &$format) {
+                $format = array_filter($format, function ($key) use ($enabled) {
+                    return in_array($key, $enabled);
+                }, ARRAY_FILTER_USE_KEY);
             }
 
-            $returnFormats[] = array(
-                'title' => $key,
-                'items' => $items
-            );
+            foreach ($formats as $key => $items) {
+                if (!is_array($items) || count($items) === 0) {
+                    continue;
+                }
+
+                $returnFormats[] = array(
+                    'title' => $key,
+                    'items' => $items
+                );
+            }
         }
 
         return $returnFormats;
