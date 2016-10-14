@@ -3,12 +3,14 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.14 (tbd)
+Version 0.2.14 (2016-10-14)
 ===========================
 - Updated news feed ui
 - Fixed visual editor plugins issue (some plugins did not load)
 - Fixed user systems bug (systems did not load)
 - Function for checking if user is using a local ip address (ip series specified in config file)
+- Fixes profile image issue
+- Remove WordPress theme/plugin editor
 
 Version 0.2.13 (2016-10-06)
 ===========================
