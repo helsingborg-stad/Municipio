@@ -7,6 +7,9 @@ class Options
     public function __construct()
     {
         add_action('admin_init', array($this, 'setupOptions'));
+        add_filter('BetterPostUi/authors', function ($args) {
+            return array();
+        });
     }
 
     public function setupOptions()
