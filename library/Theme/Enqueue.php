@@ -100,6 +100,11 @@ class Enqueue
         wp_enqueue_script('hbg-prime');
 
         wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js', '', '1.0.0', true);
+        wp_localize_script('municipio', 'MunicipioLang', array(
+            'printbreak' => array(
+                'tooltip' => __('Insert Print Page Break tag', 'municipio')
+            )
+        ));
         wp_enqueue_script('municipio');
     }
 

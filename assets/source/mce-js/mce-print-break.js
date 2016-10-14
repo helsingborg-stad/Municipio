@@ -4,7 +4,7 @@
             text: '',
             icon: 'wp_page',
             context: 'insert',
-            tooltip: 'Insert Print Page Break tag',
+            tooltip: MunicipioLang.printbreak.tooltip,
             onclick: function(e) {
                 editor.execCommand('Print_Break');
             }
