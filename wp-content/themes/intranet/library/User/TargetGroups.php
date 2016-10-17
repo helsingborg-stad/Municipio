@@ -422,7 +422,7 @@ class TargetGroups
 
     public function registerMceButton($buttons)
     {
-        array_push($buttons, 'targeted_content');
+        array_splice($buttons, count($buttons)-2, 0, array('targeted_content'));
         return $buttons;
     }
 

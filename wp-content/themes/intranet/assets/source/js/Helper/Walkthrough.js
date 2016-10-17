@@ -50,26 +50,27 @@ Intranet.Helper.Walkthrough = (function ($) {
     Walkthrough.prototype.highlightArea = function (element) {
         var $element = $(element).closest('[data-dropdown]');
         var highlight = $element.parent('.walkthrough').attr('data-highlight');
+        var $highlight = $(highlight);
 
         if ($element.hasClass('is-highlighted')) {
-            if ($(highlight).data('position')) {
-                $(highlight).css('position', $(highlight).data('position'));
+            if ($highlight.data('position')) {
+                $highlight.css('position', $highlight.data('position'));
             }
 
-            $(highlight).prev('.backdrop').remove();
-            $(highlight).removeClass('walkthrough-highlight');
+            $highlight.prev('.backdrop').remove();
+            $highlight.removeClass('walkthrough-highlight');
             $element.removeClass('is-highlighted');
 
             return false;
         }
 
-        $(highlight).before('<div class="backdrop"></div>');
+        $highlight.before('<div class="backdrop"></div>');
 
-        if ($(highlight).css('position') !== 'absolute' || $(highlight).css('position') !== 'relative') {
-            $(highlight).data('position', $(highlight).css('position')).css('position', 'relative');
+        if ($highlight.css('position') !== 'absolute' || $highlight.css('position') !== 'relative') {
+            $highlight.data('position', $highlight.css('position')).css('position', 'relative');
         }
 
-        $(highlight).addClass('walkthrough-highlight');
+        $highlight.addClass('walkthrough-highlight');
         $element.addClass('is-highlighted');
 
         return true;
@@ -99,7 +100,9 @@ Intranet.Helper.Walkthrough = (function ($) {
         }
 
         $current.find('.blipper').trigger('click');
-        $nextItem.find('.blipper').trigger('click');
+        setTimeout(function () {
+            $nextItem.find('.blipper').trigger('click');
+        }, 1);
     };
 
     Walkthrough.prototype.previous = function(current) {
@@ -114,7 +117,9 @@ Intranet.Helper.Walkthrough = (function ($) {
         }
 
         $current.find('.blipper').trigger('click');
-        $nextItem.find('.blipper').trigger('click');
+        setTimeout(function () {
+            $nextItem.find('.blipper').trigger('click');
+        }, 1);
     };
 
     return new Walkthrough();

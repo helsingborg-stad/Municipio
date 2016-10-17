@@ -46,8 +46,13 @@
                         <h1><?php echo sprintf(__('Settings of %s', 'municipio-intranet'), municipio_intranet_get_user_full_name($user->ID)) ; ?></h1>
                         @endif
 
+
                         <p>
-                            <?php _e('Click on a section to view and edit your settings.', 'municipio-intranet'); ?>
+                            <?php _e('Click on a section to view and edit your settings. Some information that we already know about you will be automatically filled and non editable.', 'municipio-intranet'); ?>
+                            <?php _e('You should add additional information and a profile image. The more information you add the easier collegues can get in touch with you.', 'municipio-intranet'); ?>
+                        </p>
+                        <p>
+                            <?php _e('Only people working within the city will be able to look at your profile.', 'municipio-intranet'); ?>
                         </p>
                         <p>
                             <?php echo sprintf(__('Required fields are marked with %s', 'municipio-intranet'), '<span class="text-danger">*</span>'); ?>
@@ -534,16 +539,6 @@
 
         <aside class="grid-lg-3 grid-md-12 sidebar-right-sidebar">
             <div class="grid">
-                <div class="grid-xs-12">
-                    <div class="box box-filled">
-                        <h4 class="box-title"><?php _e('Edit your settings', 'municipio-intranet'); ?></h4>
-                        <div class="box-content">
-                            <p><?php _e('This is where you edit your personal settings.', 'municipio-intranet'); ?></p>
-                            <p><?php _e('Some of your settings is displayed on your profile to other logged in users.', 'municipio-intranet'); ?></p>
-                        </div>
-                    </div>
-                </div>
-
                 <?php dynamic_sidebar('right-sidebar'); ?>
             </div>
         </aside>

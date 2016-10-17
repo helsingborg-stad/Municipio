@@ -23,6 +23,14 @@
         <div class="grid">
             <div class="grid-xs-12">
                 <nav>
+                    <?php
+                        echo municipio_intranet_walkthrough(
+                            __('Search', 'municipio-intranet'),
+                            __('Select if you want to see results from all intranets, the intranets that you are following, the intranet you\'re currently browsing or collegues. The numbers shows how many results earch category have.', 'municipio-intranet'),
+                            '.search-level'
+                        );
+                    ?>
+
                     <ul class="nav nav-horizontal">
                         <li class="title">Välj nivå:</li>
                         <li class="{{ $level == 'all' ? 'active' : '' }}">

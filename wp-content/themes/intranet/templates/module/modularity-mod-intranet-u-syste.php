@@ -1,4 +1,14 @@
 <div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
+    <?php
+        echo municipio_intranet_walkthrough(
+            __('Your systems', 'municipio-intranet'),
+            __('Your selected list of links to systems.', 'municipio-intranet'),
+            '.modularity-mod-intranet-u-syste',
+            'top-left',
+            'right'
+        );
+    ?>
+
     <?php if (!$module->hideTitle) : ?>
     <h4 class="box-title">
         <?php _e('Your systems', 'municipio-intranet'); ?>

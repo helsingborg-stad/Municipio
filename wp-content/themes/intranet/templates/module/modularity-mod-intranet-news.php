@@ -2,6 +2,7 @@
     $news = false;
     $display = get_field('display', $module->ID);
     $limit = !empty(get_field('limit', $module->ID)) ? get_field('limit', $module->ID) : 10;
+    $helpTooltip = false;
 
     switch ($display) {
         default:
@@ -13,9 +14,11 @@
                 );
 
                 $news = \Intranet\CustomPostType\News::getNews($limit, $subscriptions);
+                $helpTooltip = true;
             } else {
                 $news = \Intranet\CustomPostType\News::getNews($limit, 'all');
             }
+
             break;
 
         case 'network':
@@ -39,7 +42,20 @@
         }
     }
 ?>
-<div class="grid">
+<div class="grid intranet-news">
+
+    <?php
+    if ($helpTooltip) {
+        echo municipio_intranet_walkthrough(
+            __('News feed', 'municipio-intranet'),
+            __('This is your personalized news feed. The personalized news feed will show the news that affects all employees and from the intranets that you are following. You will also see news from the target groups that you might have selected in your profile settings. ', 'municipio-intranet'),
+            '.intranet-news',
+            'top-center'
+        );
+    }
+    ?>
+
+
     <?php if (!$module->hideTitle) : ?>
     <div class="grid-xs-12">
         <h2><?php echo $module->post_title; ?></h2>

@@ -35,19 +35,7 @@ if (!function_exists('municipio_intranet_walkthrough')) {
             $styleTag .= '"';
         }
 
-        switch ($position) {
-            default:
-                $position = 'walkthrough-center';
-                break;
-
-            case 'left':
-                $position = 'walkthrough-left';
-                break;
-
-            case 'right':
-                $position = 'walkthrough-right';
-                break;
-        }
+        $position = 'walkthrough-' . $position;
 
         switch ($dropdownPosition) {
             default:

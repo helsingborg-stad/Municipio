@@ -1,4 +1,14 @@
 <div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
+    <?php
+        echo municipio_intranet_walkthrough(
+            __('Your links', 'municipio-intranet'),
+            __('Here you can add links to websites that you usally use or want to be able to reach quickly.', 'municipio-intranet'),
+            '.modularity-mod-intranet-u-links',
+            'top-left',
+            'right'
+        );
+    ?>
+
     <?php if (!$module->hideTitle) : ?>
     <h4 class="box-title">
         <?php _e('Your links', 'municipio-intranet'); ?>

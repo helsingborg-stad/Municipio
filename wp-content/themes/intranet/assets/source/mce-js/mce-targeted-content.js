@@ -3,6 +3,7 @@
         editor.addButton('targeted_content', {
             text: '',
             icon: 'fa-users',
+            tooltip: 'Restrict content to target group',
             onclick: function(e) {
                 editor.windowManager.open({
                     title: 'Select groups',

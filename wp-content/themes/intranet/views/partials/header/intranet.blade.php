@@ -20,13 +20,13 @@
                                 </span>
                             </div>
 
-                            {!!
-                                municipio_intranet_walkthrough(
-                                    'Sök efter innehåll',
-                                    '<p>Genom att fylla i en sökfras och klicka på sök så kan du söka efter innehåll i samtliga eller specifika intranät.</p>',
+                            <?php
+                                echo municipio_intranet_walkthrough(
+                                    __('Search', 'municipio-intranet'),
+                                    __('Type what you are looking for and click to magnifying glass to search. You will get results from all of the city\'s intranets. You can search for information, documents or collegues. You can search a persons name, skills or tasks (only works if you are logged in).', 'municipio-intranet'),
                                     '.search-main'
-                                )
-                            !!}
+                                );
+                            ?>
                         </form>
                     </div>
 
@@ -34,7 +34,16 @@
                         <nav class="subnav clearfix">
                             <ul class="nav nav-horizontal">
                                 <li class="subnav-icon hidden-xs"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
-                                <li class="hidden-xs hidden-sm"><a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a></li>
+                                <li class="hidden-xs hidden-sm subnav-a-z">
+                                    <a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a>
+                                    <?php
+                                        echo municipio_intranet_walkthrough(
+                                            __('A-Z', 'municipio-intranet'),
+                                            __('Click here to show the contents of the intranet in alphabetic order. For example: If you are looking for information about salary, look below the letter S. You can select to view information from all intranets or just from specifically selected intranets.', 'municipio-intranet'),
+                                            '.subnav-a-z'
+                                        );
+                                    ?>
+                                </li>
 
                                 @if ($currentUser->ID > 0)
                                     <li>

@@ -61,6 +61,7 @@ a.dropdown-open:focus {
             float: right;
             padding: 7.5px 15px;
             opacity: .6;
+            color: $base-font-color;
 
             &:hover {
                 opacity: 1;
@@ -84,14 +85,35 @@ a.dropdown-open:focus {
     }
 }
 
+.walkthrough-top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .blipper {
+        left: 50%;
+        margin-left: -7px;
+    }
+}
+
 .walkthrough-right {
     right: 0;
+}
+
+.walkthrough-top-right {
+    top: 0;
+    right: 0;
+}
+
+.walkthrough-top-left {
+    top: 0;
+    left: 0;
 }
 
 .walkthrough-dropdown-right {
     .dropdown-menu {
         left: auto;
-        right: -10px;
+        right: calc(100% - 24px);
 
         &::before,
         &::after {
