@@ -49,6 +49,12 @@ class Enqueue
      */
     public function style()
     {
+        $loadWpJquery = apply_filters('Municipio/load-wp-jquery', false);
+
+        if (!$loadWpJquery) {
+            wp_deregister_script('jquery');
+        }
+
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
             wp_register_style('hbg-prime', '//hbgprime.dev/dist/css/hbg-prime.min.css', '', '1.0.0');
         } else {
