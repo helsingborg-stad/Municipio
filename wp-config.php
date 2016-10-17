@@ -25,12 +25,12 @@ require_once 'config/salts.php';
 require_once 'config/plugins.php';
 require_once 'config/update.php';
 require_once 'config/upload.php';
+require_once 'config/cron.php';
 
 /**
- * Multisite settings
+ * Cache settings
  *
- * To enable this site as a multisite please rename the config/multisite-example.php file to
- * multisite.php, then go ahead and edit the configurations
+ * To enable cache add a file called cache.php with appropriate settings .
  */
 if (file_exists(__DIR__ . '/config/cache.php')) {
     require_once 'config/cache.php';
