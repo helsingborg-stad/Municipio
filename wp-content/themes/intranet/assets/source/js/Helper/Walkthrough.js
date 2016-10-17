@@ -86,6 +86,7 @@ Intranet.Helper.Walkthrough = (function ($) {
 
         if ($nextItem.length === 0) {
             $nextItem = $('.walkthrough:visible:first');
+            currentIndex = 0;
         }
 
         $current.find('.blipper').trigger('click');
@@ -102,7 +103,8 @@ Intranet.Helper.Walkthrough = (function ($) {
         var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
 
         if ($nextItem.length === 0) {
-            $nextItem = $('.walkthroughvisible:last');
+            $nextItem = $('.walkthrough:visible').last();
+            currentIndex = $nextItem.index();
         }
 
         $current.find('.blipper').trigger('click');
