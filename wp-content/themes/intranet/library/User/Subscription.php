@@ -17,13 +17,13 @@ class Subscription
      * Get forced subscriptions
      * @return array Blog id's of forced subscriptions
      */
-    public static function getForcedSubscriptions($onlyBlogId = false)
+    public static function getForcedSubscriptions($onlyBlogId = false, $mainBlog = true)
     {
         $sites = get_sites();
         $forcedIds = array();
 
         foreach ($sites as $key => $site) {
-            if (!$site->is_forced) {
+            if (!$site->is_forced || (!$mainBlog && is_main_site($site->blog_id))) {
                 unset($sites[$key]);
                 continue;
             }
