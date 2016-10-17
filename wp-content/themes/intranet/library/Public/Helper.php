@@ -52,7 +52,7 @@ if (!function_exists('municipio_intranet_walkthrough')) {
         }
 
         return '
-            <div class="walkthrough ' . $position . ' ' . $dropdownPosition . '" data-step="' . $municipio_intranet_walkthrough_counter . '"' . $highlightSelector . $styleTag . '>
+            <div class="walkthrough ' . $position . ' ' . $dropdownPosition . '"' . $highlightSelector . $styleTag . '>
                 <div class="blipper" data-dropdown=".blipper-' . $municipio_intranet_walkthrough_counter . '-dropdown"></div>
                 <div class="dropdown-menu dropdown-menu-arrow blipper-' . $municipio_intranet_walkthrough_counter . '-dropdown gutter">
                     <h4>' . $title . '</h4>

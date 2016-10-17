@@ -212,6 +212,8 @@ Intranet.Helper = Intranet.Helper || {};
 
 Intranet.Helper.Walkthrough = (function ($) {
 
+    var currentIndex = 0;
+
     /**
      * Constructor
      * Should be named as the class itself
@@ -240,7 +242,7 @@ Intranet.Helper.Walkthrough = (function ($) {
         }.bind(this));
 
         $(window).on('resize load', function () {
-            if ($('.walkthrough[data-step]:visible').length < 2) {
+            if ($('.walkthrough:visible').length < 2) {
                 $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
                 return;
             }
@@ -286,26 +288,13 @@ Intranet.Helper.Walkthrough = (function ($) {
     };
 
     Walkthrough.prototype.next = function(current) {
+        currentIndex++;
+
         var $current = current;
-
-        var currentIndex = $current.attr('data-step');
-        var nextIndex = parseInt(currentIndex) + 1;
-        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
-
-        var whileInt = 0;
-        while ($nextItem.length === 0) {
-            whileInt++;
-
-            if (whileInt === 20) {
-                break;
-            }
-
-            nextIndex++;
-            $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]:visible');
-        }
+        var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
 
         if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough[data-step]:visible').first();
+            $nextItem = $('.walkthrough:visible:first');
         }
 
         $current.find('.blipper').trigger('click');
@@ -316,14 +305,13 @@ Intranet.Helper.Walkthrough = (function ($) {
     };
 
     Walkthrough.prototype.previous = function(current) {
-        var $current = current;
+        currentIndex--;
 
-        var currentIndex = $current.attr('data-step');
-        var nextIndex = parseInt(currentIndex) - 1;
-        var $nextItem = $('.walkthrough[data-step="' + nextIndex + '"]');
+        var $current = current;
+        var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
 
         if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough:last');
+            $nextItem = $('.walkthroughvisible:last');
         }
 
         $current.find('.blipper').trigger('click');
@@ -340,7 +328,7 @@ Intranet.Helper.Walkthrough = (function ($) {
 
         var scrollTo = $(element).offset().top;
         $('html, body').animate({
-            scrollTop: (scrollTo-50)
+            scrollTop: (scrollTo-100)
         }, 300);
     };
 
