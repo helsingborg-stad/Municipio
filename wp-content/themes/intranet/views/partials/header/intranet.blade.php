@@ -55,16 +55,6 @@
                                             <span class="profile-image profile-image-icon inline-block" style="background-image:url('{{ $croppedProfileImage }}');"></span>
                                             @endif
                                             <span class="hidden-sm hidden-xs">{{ municipio_intranet_get_first_name($currentUser->ID) }} <i class="pricon pricon-caret-down pricon-xs"></i></span>
-
-                                            {!!
-                                                municipio_intranet_walkthrough(
-                                                    'Användare',
-                                                    '<p>Öppna menyn för att hitta vidare till sidorna där du kan administrera ditt användarkonto.</p>',
-                                                    '.subnav',
-                                                    'center',
-                                                    'right'
-                                                )
-                                            !!}
                                         </a>
 
                                         <ul class="dropdown-menu login-dropdown dropdown-menu-arrow dropdown-menu-arrow-right">
