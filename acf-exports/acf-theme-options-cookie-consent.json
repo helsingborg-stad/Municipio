@@ -109,7 +109,7 @@
                 {
                     "param": "options_page",
                     "operator": "==",
-                    "value": "theme-settings"
+                    "value": "acf-options-theme-options"
                 }
             ]
         ],
