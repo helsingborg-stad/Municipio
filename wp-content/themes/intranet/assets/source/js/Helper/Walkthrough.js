@@ -102,7 +102,8 @@ Intranet.Helper.Walkthrough = (function ($) {
         $current.find('.blipper').trigger('click');
         setTimeout(function () {
             $nextItem.find('.blipper').trigger('click');
-        }, 1);
+            this.scrollTo($nextItem[0]);
+        }.bind(this), 1);
     };
 
     Walkthrough.prototype.previous = function(current) {
@@ -119,7 +120,19 @@ Intranet.Helper.Walkthrough = (function ($) {
         $current.find('.blipper').trigger('click');
         setTimeout(function () {
             $nextItem.find('.blipper').trigger('click');
-        }, 1);
+            this.scrollTo($nextItem[0]);
+        }.bind(this), 1);
+    };
+
+    Walkthrough.prototype.scrollTo = function(element) {
+        if (!$(element).is(':offscreen')) {
+            return;
+        }
+
+        var scrollTo = $(element).offset().top;
+        $('html, body').animate({
+            scrollTop: (scrollTo-50)
+        }, 300);
     };
 
     return new Walkthrough();
