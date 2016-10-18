@@ -1,7 +1,7 @@
 <div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
     <?php
         echo municipio_intranet_walkthrough(
-            __('Your systems', 'municipio-intranet'),
+            __('My systems', 'municipio-intranet'),
             __('Your selected list of links to systems.', 'municipio-intranet'),
             '.modularity-mod-intranet-u-syste',
             'top-left',
@@ -11,7 +11,7 @@
 
     <?php if (!$module->hideTitle) : ?>
     <h4 class="box-title">
-        <?php _e('Your systems', 'municipio-intranet'); ?>
+        <?php _e('My systems', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
         <button type="button" onclick="location.hash='modal-select-systems'" class="btn btn-plain btn-sm pricon pricon-edit pricon-space-right" data-user-systems-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
         <?php endif; ?>

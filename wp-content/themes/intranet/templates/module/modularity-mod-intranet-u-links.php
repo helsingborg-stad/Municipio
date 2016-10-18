@@ -1,7 +1,7 @@
 <div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
     <?php
         echo municipio_intranet_walkthrough(
-            __('Your links', 'municipio-intranet'),
+            __('My links', 'municipio-intranet'),
             __('Here you can add links to websites that you usally use or want to be able to reach quickly.', 'municipio-intranet'),
             '.modularity-mod-intranet-u-links',
             'top-left',
@@ -11,7 +11,7 @@
 
     <?php if (!$module->hideTitle) : ?>
     <h4 class="box-title">
-        <?php _e('Your links', 'municipio-intranet'); ?>
+        <?php _e('My links', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
         <button type="button" class="btn btn-plain btn-sm pricon-space-right pricon pricon-edit" data-user-link-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
         <?php endif; ?>

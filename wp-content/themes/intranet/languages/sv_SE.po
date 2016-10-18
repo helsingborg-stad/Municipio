@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-17 10:44+0200\n"
-"PO-Revision-Date: 2016-10-17 10:49+0200\n"
+"POT-Creation-Date: 2016-10-18 12:26+0200\n"
+"PO-Revision-Date: 2016-10-18 12:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -559,8 +559,8 @@ msgstr "Det finns inga nyheter att visa"
 
 #: templates/module/modularity-mod-intranet-u-links.php:4
 #: templates/module/modularity-mod-intranet-u-links.php:14
-msgid "Your links"
-msgstr "Dina länkar"
+msgid "My links"
+msgstr "Mina länkar"
 
 #: templates/module/modularity-mod-intranet-u-links.php:5
 msgid ""
@@ -580,8 +580,8 @@ msgstr "Titel"
 
 #: templates/module/modularity-mod-intranet-u-syste.php:4
 #: templates/module/modularity-mod-intranet-u-syste.php:14
-msgid "Your systems"
-msgstr "Dina system"
+msgid "My systems"
+msgstr "Mina system"
 
 #: templates/module/modularity-mod-intranet-u-syste.php:5
 msgid "Your selected list of links to systems."
@@ -606,7 +606,7 @@ msgid "Published"
 msgstr "Publicerad"
 
 #: views/author-edit.blade.php:10 views/author-edit.blade.php:11
-#: views/partials/header/intranet.blade.php:71
+#: views/partials/header/intranet.blade.php:61
 msgid "Your profile"
 msgstr "Din profil"
 
@@ -1070,27 +1070,27 @@ msgstr ""
 "L. Du kan välja om du vill se resultat från alla intranät eller från "
 "enskilda intranät."
 
-#: views/partials/header/intranet.blade.php:72
+#: views/partials/header/intranet.blade.php:62
 msgid "Settings"
 msgstr "Inställningar"
 
-#: views/partials/header/intranet.blade.php:73 views/search.blade.php:46
+#: views/partials/header/intranet.blade.php:63 views/search.blade.php:46
 msgid "Subscriptions"
 msgstr "Intranät du följer"
 
-#: views/partials/header/intranet.blade.php:75
+#: views/partials/header/intranet.blade.php:65
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:81
+#: views/partials/header/intranet.blade.php:71
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:86
+#: views/partials/header/intranet.blade.php:76
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/intranet.blade.php:97
+#: views/partials/header/intranet.blade.php:87
 msgid "Menu"
 msgstr "Meny"
 
@@ -1303,6 +1303,12 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Your links"
+#~ msgstr "Dina länkar"
+
+#~ msgid "Your systems"
+#~ msgstr "Dina system"
 
 #~ msgid "Local url filtering"
 #~ msgstr "Filtrera lokala url:er"
