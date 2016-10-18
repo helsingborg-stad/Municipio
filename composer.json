@@ -82,6 +82,10 @@
             "url": "https://github.com/helsingborg-stad/search-statistics.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/readspeaker-helper.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         },
@@ -121,6 +125,7 @@
         "helsingborg-stad/force-ssl": ">=1.0.0",
         "helsingborg-stad/elasticpress-synonyms": ">=0.1.0",
         "helsingborg-stad/wp-search-statistics": ">=0.1.0",
+        "helsingborg-stad/readspeaker-helper": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "^1.5.4",
