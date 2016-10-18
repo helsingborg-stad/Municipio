@@ -1134,6 +1134,7 @@ a.dropdown-open:focus {
   margin: 15px 0; }
 
 .modularity-mod-intranet-news .box-news article img {
+  margin: 0;
   float: left;
   width: 40%;
   height: auto;
