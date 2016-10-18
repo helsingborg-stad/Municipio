@@ -2,6 +2,7 @@
     position: relative;
     text-align: center;
     border-bottom: 1px solid $creamy-darker;
+    z-index: 1;
 
     .profile-fullname {
         color: #fff;
@@ -15,21 +16,21 @@
 
     .profile-image {
         position: relative;
-
+        background-color: #fff;
         margin: auto;
         border-radius: 50%;
         margin-bottom: 10px;
         width: 110px;
         height: 110px;
 
-        &::before {
+        &::after {
             content: '';
             position: absolute;
             bottom: -8%;
             left: 0;
             height: 10%;
             width: 100%;
-            background-color: #000;
+            background-color: rgba(#000, .5);
             border-radius: 50%;
             filter: blur(5px);
             filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='5');
@@ -361,6 +362,66 @@
             color: $palette-green-2;
             z-index: 1;
             transform: translateX(0px) translateY(10px);
+        }
+    }
+}
+
+a.profile-card {
+    display: block;
+    margin-bottom: 30px;
+    width: 100%;
+    padding: 20px;
+    background-color: $creamy;
+    border: 1px solid $creamy-darker;
+    border-radius: 5px;
+    color: $base-font-color;
+
+    .h4 {
+        color: $palette-purple-2;
+        padding-top: 10px;
+        padding-bottom: 0;
+    }
+
+    .profile-title {
+        font-size: .9em;
+    }
+
+    .profile-department {
+        margin: 15px -20px -20px -20px;
+        border-top: 1px solid $creamy-darker;
+        background-color: #edece9;
+        padding: 10px 20px;
+    }
+
+    @media #{$screen-below-md} {
+        padding: 10px;
+        text-align: left;
+        margin-bottom: 15px;
+
+        .profile-image {
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .profile-department {
+            margin: 15px -10px -10px -10px;
+            border-top: 1px solid $creamy-darker;
+            background-color: #edece9;
+            padding: 5px 10px;
+        }
+
+        .h4 {
+            padding: 0;
+        }
+    }
+
+    &:hover {
+        text-decoration: none;
+
+        .h4 {
+            text-decoration: underline;
         }
     }
 }

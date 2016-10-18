@@ -92,16 +92,11 @@
 
                     <div class="grid">
                         <div class="grid-lg-12">
-                            <ul class="search-result-list">
-                                @foreach ($results as $item)
-                                    @if (isset($item->user_login))
-                                        @include('partials.search.user')
-                                    @else
-                                        @include('partials.search.page')
-                                    @endif
-                                @endforeach
-
-                            </ul>
+                            @if ($level === 'users')
+                                @include('partials.search.user')
+                            @else
+                                @include('partials.search.page')
+                            @endif
                         </div>
                     </div>
 

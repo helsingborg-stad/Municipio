@@ -1,4 +1,39 @@
-<?php global $authordata; $authordata = get_user_by('ID', $item->ID); ?>
+<ul class="grid" data-equal-container>
+    @foreach ($results as $item)
+    <?php global $authordata; $authordata = get_user_by('ID', $item->ID); ?>
+    <li class="grid-sm-12 grid-md-6 grid-lg-4">
+        <a href="#" class="profile-card profile-header" data-equal-item>
+            @if (!empty(get_the_author_meta('user_profile_picture')))
+            <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');"></div>
+            @else
+            <div class="profile-image"></div>
+            @endif
+
+            <span class="h4">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</span>
+
+            @if (!empty(get_the_author_meta('ad_title')))
+                 <span class="profile-title">{{ get_the_author_meta('ad_title') }}</span>
+            @elseif (!empty(get_the_author_meta('user_work_title')))
+                <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
+            @endif
+
+            @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
+                <span class="profile-department">
+                @if (!empty(get_the_author_meta('user_administration_unit')))
+                    @foreach ((array) get_the_author_meta('user_administration_unit') as $unit)
+                        {{ municipio_intranet_get_administration_unit_name($unit) }}
+                    @endforeach
+                @endif
+                </span>
+            @endif
+        </a>
+    </li>
+    @endforeach
+</ul>
+
+
+
+<!--
 <li>
     <div class="search-result-item">
         <div class="search-result-item-user">
@@ -11,18 +46,9 @@
             <div class="profile-basics">
                 <h3><a href="{{ municipio_intranet_get_user_profile_url($item->ID) }}">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</a></h3>
 
-                @if (!empty(get_the_author_meta('ad_title')))
-                     <span class="profile-title">{{ get_the_author_meta('ad_title') }}</span>
-                @elseif (!empty(get_the_author_meta('user_work_title')))
-                    <span class="profile-title">{{ get_the_author_meta('user_work_title') }}</span>
-                @endif
 
-                @if (!empty(get_the_author_meta('user_administration_unit')) || !empty(get_the_author_meta('user_department')))
-                    <span class="profile-department">
-                        {{ !empty(get_the_author_meta('user_administration_unit')) ? municipio_intranet_get_administration_unit_name(get_the_author_meta('user_administration_unit')) : '' }}{{ !empty(get_the_author_meta('user_administration_unit')) && !empty(get_the_author_meta('user_department')) ? ',' : '' }}
-                        {{ !empty(get_the_author_meta('user_department')) ? get_the_author_meta('user_department') : '' }}
-                    </span>
-                @endif
+
+
             </div>
         </div>
 
@@ -31,3 +57,4 @@
         </div>
     </div>
 </li>
+-->
