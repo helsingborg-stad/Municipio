@@ -148,7 +148,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": 50,
+                            "width": "25",
                             "class": "",
                             "id": ""
                         },
@@ -164,7 +164,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": 50,
+                            "width": "25",
                             "class": "",
                             "id": ""
                         },
@@ -180,7 +180,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": 50,
+                            "width": "25",
                             "class": "",
                             "id": ""
                         },
@@ -196,12 +196,36 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": 50,
+                            "width": "25",
                             "class": "",
                             "id": ""
                         },
                         "message": "Whether the post type is hierarchical (e.g. page). Allows Parent to be specified.",
                         "default_value": 1
+                    },
+                    {
+                        "key": "field_5805d63cdcbf4",
+                        "label": "Navigation",
+                        "name": "show_posts_in_sidebar_menu",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": [
+                            [
+                                {
+                                    "field": "field_56b364336050a",
+                                    "operator": "==",
+                                    "value": "1"
+                                }
+                            ]
+                        ],
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "Show posts in sidebar menu (only ofr automatically generated menus)",
+                        "default_value": 0
                     },
                     {
                         "key": "field_56b364a391788",

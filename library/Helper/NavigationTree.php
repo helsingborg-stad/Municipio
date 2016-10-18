@@ -12,6 +12,8 @@ class NavigationTree
     protected $ancestors = null;
     protected $topLevelPages = null;
 
+    protected $pageForPostTypeIds = null;
+
     public $itemCount = 0;
     protected $depth = 0;
 
@@ -89,7 +91,7 @@ class NavigationTree
             $classes = array();
 
             if (is_numeric($page)) {
-                $page = get_page($page);
+                $page = get_post($page);
             }
 
             if ($this->isAncestors($pageId)) {
@@ -136,7 +138,13 @@ class NavigationTree
      */
     protected function getCurrentPage()
     {
+        if (is_post_type_archive()) {
+            $pageForPostType = get_option('page_for_' . get_post_type());
+            return get_post($pageForPostType);
+        }
+
         global $post;
+
         if (!is_object($post)) {
             return get_queried_object();
         }
@@ -151,6 +159,44 @@ class NavigationTree
      */
     protected function getChildren($parent)
     {
+        $key = array_search($parent, $this->getPageForPostTypeIds());
+
+        if ($key && is_post_type_hierarchical($key)) {
+            $inMenu = false;
+
+            foreach (get_field('avabile_dynamic_post_types', 'options') as $type) {
+                if ($type['slug'] !== $key) {
+                    continue;
+                }
+
+                $inMenu = $type['show_posts_in_sidebar_menu'];
+            }
+
+            if ($inMenu) {
+                return get_posts(array(
+                    'post_type' => $key,
+                    'post_status' => $this->postStatuses,
+                    'orderby' => 'menu_order post_title',
+                    'order' => 'asc',
+                    'numberposts' => -1,
+                    'meta_query'    => array(
+                        'relation' => 'OR',
+                        array(
+                            'key' => 'hide_in_menu',
+                            'compare' => 'NOT EXISTS'
+                        ),
+                        array(
+                            'key'   => 'hide_in_menu',
+                            'value' => '0',
+                            'compare' => '='
+                        )
+                    )
+                ), 'OBJECT');
+            }
+
+            return array();
+        }
+
         return get_posts(array(
             'post_parent' => $parent,
             'post_type' => 'page',
@@ -171,6 +217,36 @@ class NavigationTree
                 )
             )
         ), 'OBJECT');
+    }
+
+    protected function getPageForPostTypeIds()
+    {
+        if (is_array($this->pageForPostTypeIds)) {
+            return $this->pageForPostTypeIds;
+        }
+
+        $pageIds = array();
+
+        foreach (get_post_types(array(), 'objects') as $postType) {
+            if (! $postType->has_archive) {
+                continue;
+            }
+
+            if ('post' === $postType->name) {
+                $pageId = get_option('page_for_posts');
+            } else {
+                $pageId = get_option("page_for_{$postType->name}");
+            }
+
+            if (!$pageId) {
+                continue;
+            }
+
+            $pageIds[$postType->name] = $pageId;
+        }
+
+        $this->pageForPostTypeIds = $pageIds;
+        return $this->pageForPostTypeIds;
     }
 
     /**
@@ -295,7 +371,9 @@ class NavigationTree
     {
         $pageId = $this->getPageId($item);
         $hide = get_field('hide_in_menu', $pageId) ? get_field('hide_in_menu', $pageId) : false;
-        return !(isset($item->post_parent) && !$this->args['include_top_level'] && $item->post_parent === 0) || $hide;
+
+        return !($item->post_type === 'page' && isset($item->post_parent) && !$this->args['include_top_level'] && $item->post_parent === 0)
+               || $hide;
     }
 
 
@@ -338,7 +416,7 @@ class NavigationTree
         }
 
         if (!is_object($page)) {
-            $page = get_page($page);
+            $page = get_post($page);
         }
 
         if (isset($page->post_type) && $page->post_type == 'nav_menu_item') {
