@@ -3,9 +3,18 @@
 # Admin redirect
 RedirectMatch 301 /admin/(.*) /wp/wp-admin/$1
 
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} .*helsingborg.se.*
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</ifModule>
+
 # Rewrite rules -
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
     RewriteBase /
     RewriteRule ^index\.php$ - [L]
 
