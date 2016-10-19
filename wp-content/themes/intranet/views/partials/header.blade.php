@@ -17,5 +17,3 @@
 
     @include('partials.header.' . $headerLayout['template'])
 </header>
-
-@include('partials.hero')
