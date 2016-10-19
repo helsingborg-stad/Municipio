@@ -10,11 +10,13 @@
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
-     @foreach (\Intranet\User\Subscription::getForcedSubscriptions(false, false) as $site)
+    @if ($forced = \Intranet\User\Subscription::getForcedSubscriptions(false, false))
     <ul class="hidden-xs hidden-sm">
+    @foreach ($forced as $site)
         <li class="link-box network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
-    </ul>
     @endforeach
+    </ul>
+    @endif
 
     @if (is_active_sidebar('left-sidebar-bottom'))
         <div class="grid sidebar-left-sidebar-bottom">
