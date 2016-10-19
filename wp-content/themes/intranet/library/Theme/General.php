@@ -34,6 +34,10 @@ class General
                 'table-of-contents'
             ));
         });
+
+        add_action('widgets_init', function () {
+            unregister_sidebar('slider-area');
+        }, 15);
     }
 
     public function favicons($icons)
