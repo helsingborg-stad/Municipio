@@ -18,16 +18,18 @@ class Archives
             return;
         }
 
-        $posttypes = get_post_types();
-        $posttypes = array_filter($posttypes, function ($value) {
-            if (substr($value, 0, 4) === 'mod-' || substr($value, 0, 4) === 'acf-' || in_array($value, array('attachment', 'revision', 'nav_menu_item', 'page', 'custom-short-link'))) {
-                return apply_filters('Municipio/archives/canChangeStyle', false, $value);
+        $postTypes = array();
+        foreach (get_post_types() as $key => $postType) {
+            $args = get_post_type_object($postType);
+
+            if (!$args->public) {
+                continue;
             }
 
-            return true;
-        });
+            $postTypes[$postType] = $args->label;
+        }
 
-        foreach ($posttypes as $posttype) {
+        foreach ($postTypes as $posttype => $title) {
             // Get posttype taxonommies
             $taxonomies = array();
             $taxonomiesRaw = get_object_taxonomies($posttype);
@@ -38,7 +40,7 @@ class Archives
 
             $fieldArgs = array(
                 'key' => 'group_' . md5($posttype),
-                'title' => __('Archive for', 'municipio') . ': ' . ucwords($posttype),
+                'title' => __('Archive for', 'municipio') . ': ' . $title,
                 'fields' => array(),
                 'location' => array (
                     array (
