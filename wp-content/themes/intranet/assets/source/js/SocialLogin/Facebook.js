@@ -1,3 +1,4 @@
+/*
 Intranet = Intranet || {};
 Intranet.SocialLogin = Intranet.SocialLogin || {};
 
@@ -27,3 +28,4 @@ Intranet.SocialLogin.Facebook = (function ($) {
     return new Facebook();
 
 })(jQuery);
+*/
