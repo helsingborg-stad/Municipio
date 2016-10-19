@@ -38,6 +38,8 @@ class General
         add_action('widgets_init', function () {
             unregister_sidebar('slider-area');
         }, 15);
+
+        add_filter('ReadSpeakerHelper\multisite_load', '__return_true');
     }
 
     public function favicons($icons)
