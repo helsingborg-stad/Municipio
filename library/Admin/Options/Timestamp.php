@@ -12,7 +12,18 @@ class Timestamp
 
     public function loadPostTypesToCheckbox($field)
     {
-        $field['choices'] = array_diff(get_post_types(array(),'names'), array("revision", "acf-field", "acf-field-group", "nav_menu_item"));
+        $postTypes = array();
+        foreach (get_post_types() as $key => $postType) {
+            $args = get_post_type_object($postType);
+
+            if (!$args->public) {
+                continue;
+            }
+
+            $postTypes[$postType] = $args->label;
+        }
+
+        $field['choices'] = $postTypes;
         return $field;
     }
 }
