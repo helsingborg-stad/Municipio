@@ -11,7 +11,7 @@
     @endif
 
      @foreach (\Intranet\User\Subscription::getForcedSubscriptions(false, false) as $site)
-    <ul>
+    <ul class="hidden-xs hidden-sm">
         <li class="link-box network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
     </ul>
     @endforeach
