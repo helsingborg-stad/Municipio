@@ -265,7 +265,7 @@
                                                 @foreach ($administrationUnits as $unit)
                                                 <div class="grid-md-6">
                                                     <label class="checkbox">
-                                                        <input type="checkbox" name="user_administration_unit[]" value="{{ $unit->id }}" {{ checked(true, in_array($unit->id, (array)get_the_author_meta('user_administration_unit'))) }}>
+                                                        <input type="checkbox" name="user_administration_unit[]" value="{{ $unit->id }}" {{ checked(true, in_array($unit->id, (array)get_the_author_meta('user_administration_unit'))) }} data-require>
                                                         {{ $unit->name }}
                                                     </label>
                                                 </div>
