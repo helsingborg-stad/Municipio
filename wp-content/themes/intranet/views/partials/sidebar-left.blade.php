@@ -10,7 +10,7 @@
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
-    @if ($forced = \Intranet\User\Subscription::getForcedSubscriptions(false, false))
+    @if (is_main_site() && is_front_page() && $forced = \Intranet\User\Subscription::getForcedSubscriptions(false, false))
     <ul class="hidden-xs hidden-sm">
     @foreach ($forced as $site)
         <li class="link-box network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
