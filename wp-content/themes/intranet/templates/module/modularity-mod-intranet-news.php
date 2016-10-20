@@ -62,13 +62,13 @@
     </div>
     <?php endif; ?>
 
-    <?php foreach ($news as $item) : ?>
+    <?php $i = 0; foreach ($news as $item) : $i++; ?>
         <div class="grid-lg-12">
             <a <?php if (is_super_admin()) : ?>title="Rank: <?php echo round($item->rank_percent, 3); ?>%"<?php endif; ?> href="<?php echo get_blog_permalink($item->blog_id, $item->ID); ?>" class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $module->post_type, $args)); ?> <?php echo $item->is_sticky ? 'is-sticky' : ''; ?>">
                 <?php if (!in_array($args['id'], array('content-area', 'content-area-top')) && ($hasImages || (!get_field('placeholders', $module->ID) && $item->thumbnail_image))) : ?>
                     <div class="box-image-container">
-                        <?php if ($item->thumbnail_image) : ?>
-                        <img class="box-image" src="<?php echo $item->thumbnail_image[0]; ?>" alt="<?php echo $item->post_title; ?>">
+                        <?php if ($item->thumbnail_image && $item->image) : ?>
+                        <img class="box-image" src="<?php echo $i === 1 ? $item->image[0] : $item->thumbnail_image[0]; ?>" alt="<?php echo $item->post_title; ?>">
                         <?php else : ?>
                         <figure class="image-placeholder"></figure>
                         <?php endif; ?>

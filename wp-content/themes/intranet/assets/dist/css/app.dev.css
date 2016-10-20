@@ -1113,22 +1113,28 @@ a.dropdown-open:focus {
 .modularity-mod-intranet-news .box-news p:first-of-type {
   margin: 0; }
 
-.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box,
-.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box {
-  position: relative;
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img + p,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img + p {
+  float: none;
+  width: 100%;
+  height: auto; }
+
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img {
+  margin: 0;
+  margin-bottom: 10px; }
+
+.sidebar-content-area-bottom .modularity-mod-intranet-news .box-news,
+.sidebar-content-area-top .modularity-mod-intranet-news .box-news {
+  margin: 0; }
+
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news {
   padding-top: 30px;
+  margin-top: 30px;
   border-top: 1px solid #e7e5e1; }
-  .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box::after,
-  .sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 5px;
-    width: 100%;
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), transparent);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent); }
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .read-more,
 .sidebar-content-area-top .modularity-mod-intranet-news .read-more {
@@ -1149,19 +1155,25 @@ a.dropdown-open:focus {
       font-size: 1.5rem; } }
 
 .modularity-mod-intranet-news .box-news article {
-  margin: 0; }
+  margin: 0;
+  margin-top: 15px; }
 
 .modularity-mod-intranet-news .box-news article img {
+  position: relative;
+  top: 3px;
   margin: 0;
   float: right;
-  width: 40%;
+  width: calc(40% - 15px);
   height: auto;
-  padding-left: 15px;
+  margin-left: 15px;
   border-radius: 3px; }
 
 .modularity-mod-intranet-news .box-news article img + p {
   float: right;
   width: 60%; }
+
+.modularity-mod-intranet-news .box-news:hover .read-more {
+  background-color: #E0DED9; }
 
 .table-of-contents .network-title {
   float: right; }
