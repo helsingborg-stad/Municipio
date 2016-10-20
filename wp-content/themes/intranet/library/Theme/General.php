@@ -40,6 +40,16 @@ class General
         }, 15);
 
         add_filter('ReadSpeakerHelper\multisite_load', '__return_true');
+        add_filter('Municipio/GoogleAnalytics/ua', array($this, 'googleAnalyticsUA'));
+    }
+
+    public function googleAnalyticsUA($ua)
+    {
+        if (!is_main_site() && (!$ua || empty($ua))) {
+            return get_blog_option(SITE_ID_CURRENT_SITE, 'options_google_analytics_ua');
+        }
+
+        return $ua;
     }
 
     public function favicons($icons)
