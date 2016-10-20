@@ -73,6 +73,7 @@ class General
             $site->is_forced = get_blog_option($site->blog_id, 'intranet_force_subscription') === 'true';
             $site->is_hidden = (boolean) get_blog_option($site->blog_id, 'intranet_site_hidden');
             $site->subscribed = false;
+            $site->autosubscribe_tags = get_blog_option($site->blog_id, 'intranet_ad_autosubscribe');
 
             if ($site->is_forced || in_array($site->blog_id, $subscriptions)) {
                 $site->subscribed = true;

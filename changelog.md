@@ -3,6 +3,10 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.2.18 (tbd)
+====================
+- Autosubscribe to user's primary network on user creation
+
 Version 0.2.16 + 0.2.17 (2016-10-19)
 ====================================
 - Added walkthrough steps

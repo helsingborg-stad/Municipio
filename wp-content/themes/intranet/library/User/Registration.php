@@ -20,6 +20,9 @@ class Registration
         // Set default display name
         add_action('network_user_new_form', array($this, 'addNameFieldsToUserRegistration'));
         add_action('wpmu_new_user', array($this, 'saveUserRegistrationName'), 10, 1);
+
+        // Auto subscribe to intranets matching ad_displayname end tag
+        add_action('wpmu_new_user', array($this, 'autosubscribe'));
     }
 
     /**
@@ -31,14 +34,45 @@ class Registration
             <table class="form-table">
                 <tr class="form-field form-required">
                     <th scope="row"><label for="first_name">' . __('First name') . '</label></th>
-                    <td><input type="text" class="regular-text" name="user[first_name]" id="first_name" autocapitalize="true" autocorrect="off" maxlength="60" required /></td>
+                    <td><input type="text" class="regular-text" name="user[first_name]" id="first_name" autocapitalize="true" autocorrect="off" maxlength="60" required></td>
                 </tr>
                 <tr class="form-field form-required">
                     <th scope="row"><label for="last_name">' . __('Last name') . '</label></th>
-                    <td><input type="text" class="regular-text" name="user[last_name]" id="last_name" autocapitalize="true" autocorrect="off" maxlength="60" required /></td>
+                    <td><input type="text" class="regular-text" name="user[last_name]" id="last_name" autocapitalize="true" autocorrect="off" maxlength="60" required></td>
                 </tr>
             </table>
         ';
+    }
+
+    /**
+     * Autosubscribe to the users main intranet on registration
+     * @param  integer $userId User id
+     * @return void
+     */
+    public function autosubscribe($userId)
+    {
+        $userId = get_current_user_id();
+        $adTag = get_user_meta($userId, 'ad_displayname', true);
+        $adTag = strtolower(trim(end(explode('-', $adTag))));
+
+        $sites = \Intranet\Helper\Multisite::getSitesList();
+
+        foreach ($sites as $key => $site) {
+            if (!$site->autosubscribe_tags) {
+                continue;
+            }
+
+            $siteTags = explode(',', $site->autosubscribe_tags);
+            $siteTags = array_map(function ($item) {
+                return strtolower(trim($item));
+            }, $siteTags);
+
+            if (!in_array($adTag, $siteTags)) {
+                continue;
+            }
+
+            \Intranet\User\Subscription::subscribe($userId, $site->blog_id);
+        }
     }
 
     /**

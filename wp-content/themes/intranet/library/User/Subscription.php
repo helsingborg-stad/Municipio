@@ -174,6 +174,7 @@ class Subscription
     public static function update($userId, $subscriptions)
     {
         $subscriptions = array_values($subscriptions);
+        $subscriptions = array_unique($subscriptions);
         $subscriptions = json_encode($subscriptions);
 
         return update_user_meta($userId, 'intranet_subscriptions', $subscriptions);

@@ -82,5 +82,22 @@ class Options
             'intranet_short_name'
         );
 
+        // AD autosubscribe keys
+        add_settings_field(
+            'intranet_ad_autosubscribe',
+            __('Intranet autosubscribe keys (comma separated)', 'municipio-intranet'),
+            function ($args) {
+                $html = '<input type="text" class="regular-text ltr" name="intranet_ad_autosubscribe" id="intranet_ad_autosubscribe" value="' . get_option('intranet_ad_autosubscribe') . '">';
+                echo $html;
+            },
+            'general',
+            'municipio_intranet'
+        );
+
+        register_setting(
+            'general',
+            'intranet_ad_autosubscribe'
+        );
+
     }
 }
