@@ -44,6 +44,15 @@ do_action('Municipio/author_display/name', $post);
 
 ## Filters
 
+#### Municipio/GoogleAnalytics/ua
+Filters the Google Analytics UA (user id) used to laod Google Analytics.
+
+- ```@param string $ua``` - The Google Analytics UA
+
+```php
+apply_filters('Municipio/GoogleAnalytics/ua', $ua);
+```
+
 #### Municipio/author_display/name
 Set the name of the author display
 
