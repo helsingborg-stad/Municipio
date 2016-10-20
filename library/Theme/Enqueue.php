@@ -127,7 +127,7 @@ class Enqueue
      */
     public function googleAnalytics()
     {
-        $gaUser = get_field('google_analytics_ua', 'option');
+        $gaUser = apply_filters('Municipio/GoogleAnalytics/ua', get_field('google_analytics_ua', 'option'));
 
         if (empty($gaUser)) {
             return;
