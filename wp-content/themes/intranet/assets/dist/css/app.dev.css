@@ -1106,22 +1106,40 @@ a.dropdown-open:focus {
   border-radius: 5px; }
 
 .box-news .network-title {
-  margin: 0 5px 10px 0;
-  display: inline-block; }
+  margin-right: 5px;
+  display: inline-block;
+  font-weight: normal; }
 
 .modularity-mod-intranet-news .box-news p:first-of-type {
   margin: 0; }
 
-.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12,
-.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 {
-  margin-top: 30px; }
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box {
+  position: relative;
+  padding-top: 30px;
+  border-top: 1px solid #e7e5e1; }
+  .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box::after,
+  .sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 5px;
+    width: 100%;
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), transparent);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent); }
+
+.sidebar-content-area-bottom .modularity-mod-intranet-news .read-more,
+.sidebar-content-area-top .modularity-mod-intranet-news .read-more {
+  margin-top: 15px; }
 
 .sidebar-right-sidebar .modularity-mod-intranet-news .box-news time,
 .sidebar-left-sidebar .modularity-mod-intranet-news .box-news time {
-  display: block;
-  margin-bottom: 8px; }
+  display: block; }
 
 .modularity-mod-intranet-news .box-news-horizontal .box-title {
+  margin-top: 10px;
   font-size: 1.8rem; }
   @media screen and (min-width: 0) and (max-width: 468px) {
     .modularity-mod-intranet-news .box-news-horizontal .box-title {
@@ -1131,14 +1149,14 @@ a.dropdown-open:focus {
       font-size: 1.5rem; } }
 
 .modularity-mod-intranet-news .box-news article {
-  margin: 15px 0; }
+  margin: 0; }
 
 .modularity-mod-intranet-news .box-news article img {
   margin: 0;
-  float: left;
+  float: right;
   width: 40%;
   height: auto;
-  padding-right: 15px;
+  padding-left: 15px;
   border-radius: 3px; }
 
 .modularity-mod-intranet-news .box-news article img + p {

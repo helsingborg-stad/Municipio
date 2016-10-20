@@ -5,8 +5,9 @@
 }
 
 .box-news .network-title {
-    margin: 0 5px 10px 0;
+    margin-right: 5px;
     display: inline-block;
+    font-weight: normal;
 }
 
 .modularity-mod-intranet-news .box-news p:first-of-type {
@@ -18,7 +19,27 @@
     .modularity-mod-intranet-news {
 
         .grid-lg-12 + .grid-lg-12 {
-            margin-top: 30px;
+            .box {
+                position: relative;
+                padding-top: 30px;
+                border-top: 1px solid $creamy-darker;
+
+                &::after {
+                    $height: 5px;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: $height;
+                    width: 100%;
+                    @include gradient(rgba(#000, .05), rgba(#000, 0), to bottom);
+                }
+            }
+        }
+
+        .read-more {
+            margin-top: 15px;
         }
 
     }
@@ -29,12 +50,12 @@
     .modularity-mod-intranet-news .box-news {
         time {
             display: block;
-            margin-bottom: 8px;
         }
     }
 }
 
 .modularity-mod-intranet-news .box-news-horizontal .box-title {
+    margin-top: 10px;
     font-size: 1.8rem;
 
     @media screen and #{$screen-xs} {
@@ -47,15 +68,15 @@
 }
 
 .modularity-mod-intranet-news .box-news article {
-    margin: 15px 0;
+    margin: 0;
 }
 
 .modularity-mod-intranet-news .box-news article img {
     margin: 0;
-    float: left;
+    float: right;
     width: 40%;
     height: auto;
-    padding-right: 15px;
+    padding-left: 15px;
     border-radius: 3px;
 }
 
