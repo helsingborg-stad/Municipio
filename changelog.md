@@ -6,6 +6,7 @@ The changelog aims to describe higher level changes for each version of the intr
 Version 0.2.18 (tbd)
 ====================
 - Autosubscribe to user's primary network on user creation
+- Improved news feed ui
 
 Version 0.2.16 + 0.2.17 (2016-10-19)
 ====================================
