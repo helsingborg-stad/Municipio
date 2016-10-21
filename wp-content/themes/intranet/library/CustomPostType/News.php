@@ -179,16 +179,16 @@ class News
      */
     public function registerCustomPostType()
     {
-        $nameSingular = 'News';
-        $namePlural = 'News';
+        $nameSingular = __('News', 'municipio-intranet');
+        $namePlural = __('News', 'municipio-intranet');
 
         $icon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyOTcgMjk3IiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PGcgZmlsbD0iI0ZGRiI+PHBhdGggZD0iTTE3My44NTggMTA0LjYyNmg3MC40MXY1Mi40MzJoLTcwLjQxeiIvPjxwYXRoIGQ9Ik00NC42NzcgMjYyLjQzaDI0Mi4yNTZjNS41NiAwIDEwLjA2Ny00LjUxIDEwLjA2Ny0xMC4wN1Y0NC42NGMwLTUuNTYtNC41MDgtMTAuMDY4LTEwLjA2Ny0xMC4wNjhINDQuNjc3Yy01LjU2IDAtMTAuMDY3IDQuNTA4LTEwLjA2NyAxMC4wNjh2MjA3LjcyYzAgNS41NiA0LjUwNyAxMC4wNyAxMC4wNjcgMTAuMDd6TTE1Ny43NSA5Ni41N2E4LjA1NSA4LjA1NSAwIDAgMSA4LjA1NC04LjA1NWg4Ni41MmE4LjA1NSA4LjA1NSAwIDAgMSA4LjA1NSA4LjA1NXY2OC41NGE4LjA1NSA4LjA1NSAwIDAgMS04LjA1OCA4LjA1NGgtODYuNTJhOC4wNTUgOC4wNTUgMCAwIDEtOC4wNTQtOC4wNTRWOTYuNTd6bS03OC40NjYtOC4wNTRoNTEuOTEzYTguMDU1IDguMDU1IDAgMCAxIDAgMTYuMTFINzkuMjg0YTguMDU0IDguMDU0IDAgMSAxIDAtMTYuMTF6bTAgMzQuNjJoNTEuOTEzYTguMDU1IDguMDU1IDAgMCAxIDAgMTYuMTFINzkuMjg0YTguMDU1IDguMDU1IDAgMSAxIDAtMTYuMTF6bTAgMzQuNjE2aDUxLjkxM2E4LjA1NSA4LjA1NSAwIDAgMSAwIDE2LjExSDc5LjI4NGE4LjA1NSA4LjA1NSAwIDEgMSAwLTE2LjExem0wIDUxLjkzMmgxNzMuMDRhOC4wNTYgOC4wNTYgMCAwIDEgMCAxNi4xMUg3OS4yODRhOC4wNTUgOC4wNTUgMCAwIDEgMC0xNi4xMXpNMTguNSAyNTIuMzZWNjkuMTkyaC04LjQzM0M0LjUwNyA2OS4xOTIgMCA3My43IDAgNzkuMjYydjE3My4xYzAgNS41NiA0LjUwOCAxMC4wNjcgMTAuMDY3IDEwLjA2N2gxMC40NWEyNi4wNTUgMjYuMDU1IDAgMCAxLTIuMDE2LTEwLjA3eiIvPjwvZz48L3N2Zz4=';
 
         $labels = array(
-            'name'               => _x($nameSingular, 'post type general name', 'municipio-intranet'),
-            'singular_name'      => _x($nameSingular, 'post type singular name', 'municipio-intranet'),
-            'menu_name'          => _x($namePlural, 'admin menu', 'municipio-intranet'),
-            'name_admin_bar'     => _x($nameSingular, 'add new on admin bar', 'municipio-intranet'),
+            'name'               => $nameSingular,
+            'singular_name'      => $nameSingular,
+            'menu_name'          => $namePlural,
+            'name_admin_bar'     => $nameSingular,
             'add_new'            => _x('Add New', 'add new button', 'municipio-intranet'),
             'add_new_item'       => sprintf(__('Add new %s', 'municipio-intranet'), $nameSingular),
             'new_item'           => sprintf(__('New %s', 'municipio-intranet'), $nameSingular),
@@ -203,7 +203,7 @@ class News
 
         $args = array(
             'labels'               => $labels,
-            'description'          => 'News stories',
+            'description'          => __('News stories', 'municipio-intranet'),
             'menu_icon'            => $icon,
             'public'               => true,
             'publicly_queriable'   => true,

@@ -35,16 +35,16 @@ class Incidents
      */
     public function registerCustomPostType()
     {
-        $nameSingular = 'Incident';
-        $namePlural = 'Incidents';
+        $nameSingular = __('Incident', 'municipio-intranet');
+        $namePlural = __('Incidents', 'municipio-intranet');
 
         $icon = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIwLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZD0iTTcuMSwxLjRDNy4xLDAuNiw3LjcsMCw4LjUsMGMwLjksMCwxLjYsMC45LDEuNCwxLjhjLTAuMSwwLjMsMCwwLjcsMC4xLDFjMC40LDAuNywxLjEsMS4xLDIsMS4xYzAuOSwwLDEuNi0wLjQsMi0xLjEKCWMwLjItMC4zLDAuMi0wLjcsMC4xLTFDMTMuOSwwLjksMTQuNiwwLDE1LjUsMGMwLjgsMCwxLjQsMC42LDEuNCwxLjRjMCwwLjctMC41LDEuMi0xLjEsMS40Yy0wLjMsMC4xLTAuNiwwLjMtMC44LDAuNQoJYy0wLjYsMSwwLjIsMS45LDAuOSwyLjhDMTQuOCw2LjcsMTMuNCw3LDEyLDdjLTEuNSwwLTIuOC0wLjMtNC0wLjhDOC44LDUuMiw5LjYsNC40LDksMy4zQzguOCwzLDguNSwyLjksOC4yLDIuOAoJQzcuNSwyLjYsNy4xLDIuMSw3LjEsMS40eiBNMjAuNiwxNS41aDIuNGMwLjYsMCwxLjEtMC41LDEuMS0xcy0wLjUtMS0xLjEtMWgtMi40Yy0wLjYsMC0xLjEtMC40LTEuMi0xLjFjLTAuMS0wLjcsMC4zLTEuMSwwLjgtMS4zCglsMi4yLTAuOWMwLjUtMC4yLDAuOC0wLjgsMC42LTEuM2MtMC4yLTAuNS0wLjgtMC44LTEuNC0wLjZsLTIuMywwLjljLTAuMywwLjEtMC43LDAtMC45LTAuNGMtMC4yLTAuNC0wLjQtMC44LTAuNi0xLjIKCUMxNiw4LjUsMTQuMSw5LDEyLDlDOS45LDksOCw4LjUsNi4zLDcuNUM2LjEsNy45LDUuOSw4LjIsNS43LDguNkM1LjUsOS4yLDUuMSw5LjIsNC44LDkuMUwyLjUsOC4yQzEuOSw4LDEuMyw4LjIsMS4xLDguOAoJYy0wLjIsMC41LDAsMS4xLDAuNiwxLjNjMCwwLDAsMCwwLDBMMy45LDExYzAuNSwwLjIsMC45LDAuNywwLjgsMS4zQzQuNiwxMyw0LDEzLjQsMy41LDEzLjRIMS4xYy0wLjYsMC0xLjEsMC41LTEuMSwxczAuNSwxLDEuMSwxCgloMi40YzAuNiwwLDEuMiwwLjQsMS4zLDEuMUM0LjgsMTcuMiw0LjUsMTcuNyw0LDE4TDEuNSwxOUMxLDE5LjMsMC44LDE5LjksMSwyMC40czAuOSwwLjgsMS40LDAuNUw1LDE5LjhjMC4zLTAuMSwwLjctMC4xLDAuOSwwLjMKCWMxLjMsMi4yLDMuNiwzLjcsNi4xLDMuOWMyLjUtMC4zLDQuOC0xLjcsNi4xLTMuOGMwLjMtMC40LDAuNi0wLjUsMS0wLjRsMi42LDEuMWMwLjUsMC4yLDEuMiwwLDEuNC0wLjVjMC4yLTAuNSwwLTEuMS0wLjUtMS40CgljMCwwLDAsMCwwLDBMMjAsMThjLTAuNS0wLjItMC45LTAuNy0wLjgtMS40QzE5LjQsMTUuOCwyMCwxNS41LDIwLjYsMTUuNUwyMC42LDE1LjV6Ii8+Cjwvc3ZnPgo=';
 
         $labels = array(
-            'name'               => _x($nameSingular, 'post type general name', 'municipio-intranet'),
-            'singular_name'      => _x($nameSingular, 'post type singular name', 'municipio-intranet'),
-            'menu_name'          => _x($namePlural, 'admin menu', 'municipio-intranet'),
-            'name_admin_bar'     => _x($nameSingular, 'add new on admin bar', 'municipio-intranet'),
+            'name'               => $nameSingular,
+            'singular_name'      => $nameSingular,
+            'menu_name'          => $namePlural,
+            'name_admin_bar'     => $nameSingular,
             'add_new'            => _x('Add New', 'add new button', 'municipio-intranet'),
             'add_new_item'       => sprintf(__('Add new %s', 'municipio-intranet'), $nameSingular),
             'new_item'           => sprintf(__('New %s', 'municipio-intranet'), $nameSingular),
@@ -59,7 +59,7 @@ class Incidents
 
         $args = array(
             'labels'               => $labels,
-            'description'          => 'Incident reporting',
+            'description'          => __('Incident reporting', 'municipio-intranet'),
             'menu_icon'            => $icon,
             'public'               => true,
             'publicly_queriable'   => true,
