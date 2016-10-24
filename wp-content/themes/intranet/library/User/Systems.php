@@ -162,7 +162,7 @@ class Systems
 
         if (in_array('forced', $filter)) {
             $selectable = array_filter($allSystems, function ($item) {
-                return $item->forced;
+                return isset($item->forced) ? $item->forced : false;
             });
 
             $systems = array_merge($systems, $selectable);
