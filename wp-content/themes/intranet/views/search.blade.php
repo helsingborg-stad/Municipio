@@ -11,7 +11,7 @@
                 {!! get_search_form() !!}
 
                 <div class="gutter gutter-sm gutter-top">
-                    <strong>{{ array_sum($counts) }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong>
+                     <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong>
                 </div>
             </div>
         </div>
@@ -85,25 +85,35 @@
                     @if ($wp_query->max_num_pages > 1)
                     <div class="grid">
                         <div class="grid-lg-12">
-                            {!! $pagination !!}
+                            {!!
+                                paginate_links(array(
+                                    'type' => 'list'
+                                ))
+                            !!}
                         </div>
                     </div>
                     @endif
 
                     <div class="grid">
                         <div class="grid-lg-12">
+
                             @if ($level === 'users')
                                 @include('partials.search.user')
                             @else
                                 @include('partials.search.page')
                             @endif
+
                         </div>
                     </div>
 
                     @if ($wp_query->max_num_pages > 1)
                     <div class="grid">
                         <div class="grid-lg-12">
-                            {!! $pagination !!}
+                            {!!
+                                paginate_links(array(
+                                    'type' => 'list'
+                                ))
+                            !!}
                         </div>
                     </div>
                     @endif
@@ -112,7 +122,7 @@
 
             <aside class="grid-lg-3 grid-md-12 sidebar-right-sidebar">
                 <div class="grid">
-                    @if ($level !== 'users' && count($users) > 0)
+                    @if ($level !== 'users' && isset($users) && count($users) > 0)
                     <div class="grid-xs-12">
                         <div class="box box-filled">
                             <h3 class="box-title"><?php _e('Persons', 'municipio-intranet'); ?></h3>

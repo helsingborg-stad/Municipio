@@ -13,3 +13,25 @@ Please refer to respective theme and/or plugin for deeper documentation.
 
 ## Licence
 Please note that licences for this project are specified for each theme and/or plugin. Please refer to respective theme and/or plugin in search for licences.
+
+Elasticsearch
+-------------
+
+We use Elasticsearch as our prefered search engine. Here's a few things you might need:
+
+#### List indexes
+<sup>*Note:* If the response is ```health status index pri rep docs.count docs.deleted store.size pri.store.size``` you have no indexes.</sup>
+```
+$ curl 'http://localhost:9200/_cat/indices?v'
+```
+
+#### Delete all indexes
+<sub>*Note:* For this to work, you need to make sure that the setting ```action.destructive_requires_name``` is set to false. Settings it to true will disabel the option to delete all indexes at once.</sub>
+```
+$ curl -XDELETE 'http://localhost:9200/_all'
+```
+
+#### Delete specific index
+```
+$ curl -XDELETE 'http://localhost:9200/<index_name>'
+```
