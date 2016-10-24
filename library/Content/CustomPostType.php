@@ -64,10 +64,11 @@ class CustomPostType
                         'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $type_definition['post_type_name'])
                     );
 
-                    $supports = array('title');
+                    $supports = array('title', 'editor');
                     if (!empty($type_definition['supports'])) {
-                        array_merge($type_definition['supports'], array('title'));
+                        $supports = array_merge($type_definition['supports'], $supports);
                     }
+
                     $args = array(
                         'labels'             => $labels,
                         'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
