@@ -1,4 +1,4 @@
-<ul class="search-result-list grid">
+<ul class="search-result-list">
     @while(have_posts())
     {!! the_post() !!}
     <?php global $post; ?>
