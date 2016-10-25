@@ -79,6 +79,10 @@ class UserLinks extends \Modularity\Module
         $links = (array)get_user_meta($userId, 'user_links', true);
         $links = array_filter($links);
 
+        uasort($links, function ($a, $b) {
+            return strcmp($a['title'], $b['title']);
+        });
+
         return $links;
     }
 
@@ -127,6 +131,7 @@ class UserLinks extends \Modularity\Module
             echo json_encode($links);
             wp_die();
         }
+
         return $links;
     }
 
