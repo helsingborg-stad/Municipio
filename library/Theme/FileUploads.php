@@ -44,6 +44,10 @@ class FileUploads
      */
     public function mimeTypes($mimes)
     {
+        // Archives
+        $mimes['zip'] = 'application/zip';
+        $mimes['gz'] = 'application/x-gzip';
+
         // Images
         $mimes['ico'] = 'image/x-icon';
 
