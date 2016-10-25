@@ -13,7 +13,7 @@ class CustomEndpoints
     {
         register_rest_route('intranet/1.0', '/s/(?P<s>(.*)+)', array(
             'methods' => 'GET',
-            'callback' => '\Intranet\SearchWp\General::jsonSearch',
+            'callback' => '\Intranet\Search\General::jsonSearch',
         ));
     }
 }
