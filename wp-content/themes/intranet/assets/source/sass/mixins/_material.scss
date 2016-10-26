@@ -1,0 +1,63 @@
+    @mixin material-shadow {
+        body:not(.material-no-shadow) & {
+            box-shadow: 0 2px 3px rgba(0,0,0,.08);
+
+            @media print {
+                box-shadow: none;
+            }
+        }
+    }
+
+    @mixin material-shadow-small {
+        body:not(.material-no-shadow) & {
+            box-shadow: 0 2px 3px rgba(0,0,0,.08);
+
+            @media print {
+                box-shadow: none;
+            }
+        }
+    }
+
+    @mixin material-shadow-medium {
+       body:not(.material-no-shadow) & {
+            box-shadow: 0 2px 6px rgba(0,0,0,.08);
+
+            @media print {
+                box-shadow: none;
+            }
+        }
+    }
+
+    @mixin material-shadow-large {
+        body:not(.material-no-shadow) & {
+            box-shadow: 0 2px 10px rgba(0,0,0,.08);
+
+            @media print {
+                box-shadow: none;
+            }
+        }
+    }
+
+    @mixin material-radius {
+        body:not(.material-no-radius) & {
+            border-radius: 2px;
+        }
+    }
+
+    @mixin material-radius-small {
+        body:not(.material-no-radius) & {
+            border-radius: 2px;
+        }
+    }
+
+    @mixin material-radius-medium {
+        body:not(.material-no-radius) & {
+            border-radius: 4px;
+        }
+    }
+
+    @mixin material-radius-large {
+        body:not(.material-no-radius) & {
+            border-radius: 8px;
+        }
+    }

@@ -501,13 +501,21 @@ body.admin-bar {
 
 a.profile-card {
   display: block;
+  position: relative;
   margin-bottom: 30px;
   width: 100%;
   padding: 20px;
+  padding-bottom: 45px;
   background-color: #f6f5f2;
   border: 1px solid #e7e5e1;
-  border-radius: 5px;
   color: #252525; }
+  body:not(.material-no-shadow) a.profile-card {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08); }
+    @media print {
+      body:not(.material-no-shadow) a.profile-card {
+        box-shadow: none; } }
+  body:not(.material-no-radius) a.profile-card {
+    border-radius: 2px; }
   a.profile-card .h4 {
     color: #712082;
     padding-top: 10px;
@@ -515,10 +523,14 @@ a.profile-card {
   a.profile-card .profile-title {
     font-size: .9em; }
   a.profile-card .profile-department {
-    margin: 15px -20px -20px -20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border-top: 1px solid #e7e5e1;
     background-color: #edece9;
-    padding: 10px 20px; }
+    padding: 10px 20px;
+    line-height: 1; }
   @media (max-width: 769px) {
     a.profile-card {
       padding: 10px;

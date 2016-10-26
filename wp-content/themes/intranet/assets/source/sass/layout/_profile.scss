@@ -368,13 +368,17 @@
 
 a.profile-card {
     display: block;
+    position: relative;
     margin-bottom: 30px;
     width: 100%;
     padding: 20px;
+    padding-bottom: 45px;
     background-color: $creamy;
     border: 1px solid $creamy-darker;
-    border-radius: 5px;
     color: $base-font-color;
+
+    @include material-shadow();
+    @include material-radius();
 
     .h4 {
         color: $palette-purple-2;
@@ -387,10 +391,14 @@ a.profile-card {
     }
 
     .profile-department {
-        margin: 15px -20px -20px -20px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
         border-top: 1px solid $creamy-darker;
         background-color: #edece9;
         padding: 10px 20px;
+        line-height: 1;
     }
 
     @media #{$screen-below-md} {
