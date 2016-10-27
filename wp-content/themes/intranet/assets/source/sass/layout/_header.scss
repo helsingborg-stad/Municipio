@@ -9,7 +9,7 @@ body.admin-bar {
         padding: 20px 10px;
 
         .grid + .grid {
-            margin-top: 5px;
+            margin-top: 15px;
         }
 
         .or {
@@ -24,15 +24,15 @@ body.admin-bar {
         margin: 0;
         padding: 0;
         line-height: 1;
-        margin-top: 2.5px;
+        margin-top: 4px;
     }
 
     .logotype {
         display: block;
 
         svg, path {
-            height: 85px;
-            width: 80px;
+            width: 90px;
+            height: 96px;
 
             @media #{$screen-below-sm} {
                 height: 37px;

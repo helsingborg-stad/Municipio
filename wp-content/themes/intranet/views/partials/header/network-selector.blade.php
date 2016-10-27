@@ -4,8 +4,7 @@
             __('Select intranet', 'municipio-intranet'),
             __('Select which intranet you would like to visit.', 'municipio-intranet'),
             '.network',
-            'left',
-            'left'
+            'center'
         );
     ?>
 

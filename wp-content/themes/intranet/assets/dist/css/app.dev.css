@@ -92,7 +92,7 @@ body.admin-bar {
   #site-header .navbar {
     padding: 20px 10px; }
     #site-header .navbar .grid + .grid {
-      margin-top: 5px; }
+      margin-top: 15px; }
     #site-header .navbar .or {
       color: #fff;
       font-weight: bold;
@@ -102,12 +102,12 @@ body.admin-bar {
     margin: 0;
     padding: 0;
     line-height: 1;
-    margin-top: 2.5px; }
+    margin-top: 4px; }
   #site-header .logotype {
     display: block; }
     #site-header .logotype svg, #site-header .logotype path {
-      height: 85px;
-      width: 80px; }
+      width: 90px;
+      height: 96px; }
       @media (max-width: 469px) {
         #site-header .logotype svg, #site-header .logotype path {
           height: 37px;
