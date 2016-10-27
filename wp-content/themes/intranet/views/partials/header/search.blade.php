@@ -2,7 +2,7 @@
     <label for="searchkeyword-top" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
     <div class="input-group">
-        <input id="searchkeyword-top" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php _e('Search for content, files and staff', 'municipio-intranet') ?>…" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>" required>
+        <input id="searchkeyword-top" autocomplete="off" class="form-control" type="search" name="s" placeholder="<?php is_user_logged_in() ? _e('Search for content, files and staff', 'municipio-intranet') : _e('Search for content and files', 'municipio-intranet'); ?>…" value="<?php echo (isset($_GET['s']) && strlen($_GET['s']) > 0) ? urldecode(stripslashes($_GET['s'])) : ''; ?>" required>
         <span class="input-group-addon-btn">
             <button type="submit" class="btn"><?php _e('Search', 'municipio'); ?></button>
         </span>
