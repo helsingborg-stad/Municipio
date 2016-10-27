@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-18 12:26+0200\n"
-"PO-Revision-Date: 2016-10-24 08:45+0200\n"
+"POT-Creation-Date: 2016-10-27 12:40+0200\n"
+"PO-Revision-Date: 2016-10-27 12:42+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -48,6 +48,10 @@ msgstr "Aktivera för att tvinga alla användare att följa detta intranät"
 msgid "Intranet short name"
 msgstr "Intranätets kortnamn"
 
+#: library/Admin/Options.php:88
+msgid "Intranet autosubscribe keys (comma separated)"
+msgstr "Nycklar för automatisk följ (kommaseparerad)"
+
 #: library/Admin/PasswordResetInstructions.php:16
 #: library/Admin/PasswordResetInstructions.php:17
 #: views/partials/user/loginform.blade.php:7
@@ -61,6 +65,14 @@ msgstr "till"
 #: library/CustomPostType/Incidents.php:24 views/archive-incidents.blade.php:25
 msgid "Duration"
 msgstr "Varaktighet"
+
+#: library/CustomPostType/Incidents.php:38
+msgid "Incident"
+msgstr "Driftstörning"
+
+#: library/CustomPostType/Incidents.php:39
+msgid "Incidents"
+msgstr "Driftstörningar"
 
 #: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:192
 msgctxt "add new button"
@@ -112,6 +124,10 @@ msgstr "Inga %s"
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
 
+#: library/CustomPostType/Incidents.php:62
+msgid "Incident reporting"
+msgstr "Rapportering av driftstörning"
+
 #: library/CustomPostType/Incidents.php:71
 msgid "incidents"
 msgstr "driftstörningar"
@@ -128,6 +144,15 @@ msgstr "Klistra till toppen"
 msgid "Exclude from main news feed"
 msgstr "Exkludera från huvudsidans nyhetsflöde"
 
+#: library/CustomPostType/News.php:182 library/CustomPostType/News.php:183
+#: library/Module/News.php:21 library/Module/News.php:22
+msgid "News"
+msgstr "Nyheter"
+
+#: library/CustomPostType/News.php:206
+msgid "News stories"
+msgstr "Nyheter"
+
 #: library/CustomPostType/News.php:215
 msgid "news"
 msgstr "nyheter"
@@ -143,10 +168,6 @@ msgstr "Driftsstörningslistor"
 #: library/Module/IncidentList.php:23
 msgid "Lists incidents"
 msgstr "Listar driftstörningar"
-
-#: library/Module/News.php:21 library/Module/News.php:22
-msgid "Intranet news"
-msgstr "Intranätsnyheter"
 
 #: library/Module/News.php:23
 msgid ""
@@ -177,20 +198,20 @@ msgstr "Användarsystem"
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
-#: library/Public/Helper.php:63 library/SearchWp/Search.php:358
+#: library/Public/Helper.php:63
 #: views/partials/modal/missing-data-fields/nav.blade.php:3
 #: views/partials/modal/missing-data-fields/nav.blade.php:7
 msgid "Previous"
 msgstr "Föregående"
 
-#: library/Public/Helper.php:64 library/SearchWp/Search.php:414
+#: library/Public/Helper.php:64
 #: views/partials/modal/missing-data-fields/nav.blade.php:11
 #: views/partials/modal/missing-data.blade.php:40
 msgid "Next"
 msgstr "Nästa"
 
 #: library/Public/Helper.php:65
-#: templates/module/modularity-mod-intranet-u-syste.php:77
+#: templates/module/modularity-mod-intranet-u-syste.php:75
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -199,20 +220,22 @@ msgid "Example"
 msgstr "Exempel"
 
 #: library/Theme/Enqueue.php:39
-#: templates/module/modularity-mod-intranet-u-links.php:34
+#: templates/module/modularity-mod-intranet-u-links.php:33
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
-#: library/Theme/Enqueue.php:40 views/partials/network-header.blade.php:61
+#: library/Theme/Enqueue.php:40 views/partials/header/subscribe.blade.php:6
+#: views/partials/network-header.blade.php:61
 msgid "Follow"
 msgstr "Följ"
 
-#: library/Theme/Enqueue.php:41 views/partials/network-header.blade.php:63
+#: library/Theme/Enqueue.php:41 views/partials/header/subscribe.blade.php:8
+#: views/partials/network-header.blade.php:63
 msgid "Unfollow"
 msgstr "Sluta följa"
 
 #: library/Theme/Enqueue.php:44 views/search.blade.php:62
-#: views/search.blade.php:173
+#: views/search.blade.php:128
 msgid "Persons"
 msgstr "Personer"
 
@@ -261,102 +284,102 @@ msgstr "Förvaltningar"
 msgid "All fields must be filled in to add a new administration unit"
 msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
 
-#: library/User/General.php:106
+#: library/User/General.php:110
 #, php-format
 msgid "Hi %s"
 msgstr "Hej %s"
 
-#: library/User/General.php:107
+#: library/User/General.php:111
 #, php-format
 msgid "Hello %s"
 msgstr "Hallå där %s"
 
-#: library/User/General.php:108
+#: library/User/General.php:112
 #, php-format
 msgid "How is it going %s?"
 msgstr "Hur går det %s?"
 
-#: library/User/General.php:109
+#: library/User/General.php:113
 #, php-format
 msgid "Good to see you, %s"
 msgstr "Trevligt att se dig, %s"
 
-#: library/User/General.php:110
+#: library/User/General.php:114
 #, php-format
 msgid "Howdy %s"
 msgstr "Tjena %s"
 
-#: library/User/General.php:115
+#: library/User/General.php:119
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr "God morgon %s, ännu en underbar dag!"
 
-#: library/User/General.php:116
+#: library/User/General.php:120
 #, php-format
 msgid "Good morning %s"
 msgstr "God morgon %s"
 
-#: library/User/General.php:117
+#: library/User/General.php:121
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr "Vilken härlig morgon %s"
 
-#: library/User/General.php:118
+#: library/User/General.php:122
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr "Rise and shine %s"
 
-#: library/User/General.php:119 library/User/General.php:128
+#: library/User/General.php:123 library/User/General.php:132
 #, php-format
 msgid "Have a great day %s"
 msgstr "Ha en fin dag %s"
 
-#: library/User/General.php:120
+#: library/User/General.php:124
 #, php-format
 msgid "%s you up already?"
 msgstr "Är du redan vaken %s?"
 
-#: library/User/General.php:125
+#: library/User/General.php:129
 #, php-format
 msgid "Good afternoon %s"
 msgstr "God eftermiddag %s"
 
-#: library/User/General.php:126
+#: library/User/General.php:130
 #, php-format
 msgid "Greetings, %s"
 msgstr "Var hälsad %s"
 
-#: library/User/General.php:127
+#: library/User/General.php:131
 #, php-format
 msgid "Keep going strong %s!"
 msgstr "Kör hårt %s"
 
-#: library/User/General.php:133
+#: library/User/General.php:137
 #, php-format
 msgid "It's getting late, %s"
 msgstr "Det börjar bli sent nu %s"
 
-#: library/User/General.php:134
+#: library/User/General.php:138
 #, php-format
 msgid "Good eavning %s"
 msgstr "God kväll %s"
 
-#: library/User/General.php:139
+#: library/User/General.php:143
 #, php-format
 msgid "Good night %s"
 msgstr "God natt %s"
 
-#: library/User/General.php:140
+#: library/User/General.php:144
 #, php-format
 msgid "Still going strong, %s?"
 msgstr "Är du fortfarande i farten %s?"
 
-#: library/User/General.php:167
+#: library/User/General.php:171
 #, php-format
 msgid "Happy new year %s"
 msgstr "Gott nytt år %s!"
 
-#: library/User/General.php:172
+#: library/User/General.php:176
 #, php-format
 msgid "Merry christmas %s"
 msgstr "God jul %s!"
@@ -365,13 +388,13 @@ msgstr "God jul %s!"
 msgid "user"
 msgstr "anvandare"
 
-#: library/User/Registration.php:33 views/author-edit.blade.php:78
+#: library/User/Registration.php:36 views/author-edit.blade.php:78
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr "Förnamn"
 
-#: library/User/Registration.php:37 views/author-edit.blade.php:84
+#: library/User/Registration.php:40 views/author-edit.blade.php:84
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
@@ -397,8 +420,8 @@ msgstr "Målgrupper"
 #: templates/admin/systems/form.php:95
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
-#: templates/module/modularity-mod-intranet-u-links.php:50
-#: templates/module/modularity-mod-intranet-u-syste.php:78
+#: templates/module/modularity-mod-intranet-u-links.php:48
+#: templates/module/modularity-mod-intranet-u-syste.php:76
 msgid "Save"
 msgstr "Spara"
 
@@ -452,19 +475,19 @@ msgstr ""
 
 #: templates/admin/systems/form.php:43 templates/admin/systems/form.php:79
 #: templates/admin/systems/form.php:111
-#: templates/module/modularity-mod-intranet-u-syste.php:53
+#: templates/module/modularity-mod-intranet-u-syste.php:51
 msgid "Name"
 msgstr "Namn"
 
 #: templates/admin/systems/form.php:44 templates/admin/systems/form.php:87
 #: templates/admin/systems/form.php:112
-#: templates/module/modularity-mod-intranet-u-syste.php:54
+#: templates/module/modularity-mod-intranet-u-syste.php:52
 msgid "Description"
 msgstr "Beskrivning"
 
 #: templates/admin/systems/form.php:45 templates/admin/systems/form.php:83
 #: templates/admin/systems/form.php:113
-#: templates/module/modularity-mod-intranet-u-links.php:46
+#: templates/module/modularity-mod-intranet-u-links.php:44
 msgid "Url"
 msgstr "Url"
 
@@ -498,7 +521,7 @@ msgid "Selectable"
 msgstr "Valbar"
 
 #: templates/admin/systems/form.php:115
-#: templates/module/modularity-mod-intranet-u-syste.php:67
+#: templates/module/modularity-mod-intranet-u-syste.php:65
 msgid "Forced"
 msgstr "Obligatorisk"
 
@@ -549,11 +572,11 @@ msgstr ""
 "din profil har valt att ange att du tillhör en specifik målgrupp kan det "
 "även synas nyheter riktade till den målgruppen här."
 
-#: templates/module/modularity-mod-intranet-news.php:95
+#: templates/module/modularity-mod-intranet-news.php:101
 msgid "Read more"
 msgstr "Läs mer"
 
-#: templates/module/modularity-mod-intranet-news.php:109
+#: templates/module/modularity-mod-intranet-news.php:116
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -570,11 +593,11 @@ msgstr ""
 "Här kan du lägga till länkar till hemsidor eller system du snabbt vill komma "
 "åt."
 
-#: templates/module/modularity-mod-intranet-u-links.php:40
+#: templates/module/modularity-mod-intranet-u-links.php:38
 msgid "Add new link"
 msgstr "Lägg till länk"
 
-#: templates/module/modularity-mod-intranet-u-links.php:42
+#: templates/module/modularity-mod-intranet-u-links.php:40
 msgid "Title"
 msgstr "Titel"
 
@@ -588,15 +611,15 @@ msgid "Your selected list of links to systems."
 msgstr ""
 "Din lista med utvalda system. Klicka på redigera för att ändra i listan."
 
-#: templates/module/modularity-mod-intranet-u-syste.php:25
+#: templates/module/modularity-mod-intranet-u-syste.php:24
 msgid "You need to be on the city network to use this system"
 msgstr "Du måste vara inloggad på stadens nätverk för att använda detta system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:40
+#: templates/module/modularity-mod-intranet-u-syste.php:38
 msgid "Select systems"
 msgstr "Välj system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:45
+#: templates/module/modularity-mod-intranet-u-syste.php:43
 msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr "Välj system som du vill visa i din lista över ”mina system”."
@@ -606,7 +629,7 @@ msgid "Published"
 msgstr "Publicerad"
 
 #: views/author-edit.blade.php:10 views/author-edit.blade.php:11
-#: views/partials/header/intranet.blade.php:61
+#: views/partials/header/subnav.blade.php:28
 msgid "Your profile"
 msgstr "Din profil"
 
@@ -931,7 +954,7 @@ msgstr "Ta bort profilbild"
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
-#: views/author-edit.blade.php:454
+#: views/author-edit.blade.php:454 views/partials/header/intranet.blade.php:21
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr "eller"
@@ -1019,19 +1042,50 @@ msgid ""
 "updated so we can keep our intranet up to date."
 msgstr "Det var ett tag sedan du uppdaterade din profil. "
 
-#: views/partials/header/intranet.blade.php:17
-#: views/partials/mobile-menu.blade.php:5
-msgid "What are you looking for?"
-msgstr "Vad letar du efter?"
+#: views/partials/header/network-selector.blade.php:4
+#: views/partials/header/network-selector.blade.php:12
+#: views/partials/network-header.blade.php:8
+#: views/partials/network-header.blade.php:16
+msgid "Select intranet"
+msgstr "Välj intranät"
 
-#: views/partials/header/intranet.blade.php:25
+#: views/partials/header/network-selector.blade.php:5
+#: views/partials/network-header.blade.php:9
+msgid "Select which intranet you would like to visit."
+msgstr "I denna lista väljer du vilket förvaltningsintranät du vill besöka. "
+
+#: views/partials/header/network-selector.blade.php:22
+#: views/partials/network-header.blade.php:25
+msgid "Search for intranets"
+msgstr "Sök efter intranät"
+
+#: views/partials/header/network-selector.blade.php:37
+#: views/partials/network-header.blade.php:40
+msgid "Networks you are following"
+msgstr "Intranät som du följer"
+
+#: views/partials/header/network-selector.blade.php:47
+#: views/partials/network-header.blade.php:50
+msgid "Show all networks"
+msgstr "Visa alla intranät"
+
+#: views/partials/header/search.blade.php:5
+msgid "Search for content, files and staff"
+msgstr "Sök efter innehåll, filer och personal"
+
+#: views/partials/header/search.blade.php:5
+msgid "Search for content and files"
+msgstr "Sök efter innehåll och filer"
+
+#: views/partials/header/search.blade.php:7
+#: views/partials/header/search.blade.php:13
 #: views/partials/mobile-menu.blade.php:2
 #: views/partials/mobile-menu.blade.php:7 views/search.blade.php:28
 #: views/table-of-contents.blade.php:32
 msgid "Search"
 msgstr "Sök"
 
-#: views/partials/header/intranet.blade.php:26
+#: views/partials/header/search.blade.php:14
 msgid ""
 "Type what you are looking for and click to magnifying glass to search. You "
 "will get results from all of the city's intranets. You can search for "
@@ -1043,22 +1097,22 @@ msgstr ""
 "dokument eller kollegor. Du  kan söka på en persons  namn, kompetens eller "
 "arbetsuppgift (fungerar bara om du är inloggad)."
 
-#: views/partials/header/intranet.blade.php:36
+#: views/partials/header/subnav.blade.php:3
 msgid "Start help walkthrough"
 msgstr "Starta kom-igång läge"
 
-#: views/partials/header/intranet.blade.php:36
+#: views/partials/header/subnav.blade.php:3
 #: views/partials/mobile-menu.blade.php:15
 msgid "Help"
 msgstr "Hjälp"
 
-#: views/partials/header/intranet.blade.php:38
-#: views/partials/header/intranet.blade.php:41
+#: views/partials/header/subnav.blade.php:5
+#: views/partials/header/subnav.blade.php:8
 #: views/partials/mobile-menu.blade.php:16 views/table-of-contents.blade.php:8
 msgid "A-Z"
 msgstr "A-Ö"
 
-#: views/partials/header/intranet.blade.php:42
+#: views/partials/header/subnav.blade.php:9
 msgid ""
 "Click here to show the contents of the intranet in alphabetic order. For "
 "example: If you are looking for information about salary, look below the "
@@ -1070,29 +1124,33 @@ msgstr ""
 "L. Du kan välja om du vill se resultat från alla intranät eller från "
 "enskilda intranät."
 
-#: views/partials/header/intranet.blade.php:62
+#: views/partials/header/subnav.blade.php:29
 msgid "Settings"
 msgstr "Inställningar"
 
-#: views/partials/header/intranet.blade.php:63 views/search.blade.php:46
+#: views/partials/header/subnav.blade.php:30 views/search.blade.php:46
 msgid "Subscriptions"
 msgstr "Intranät du följer"
 
-#: views/partials/header/intranet.blade.php:65
+#: views/partials/header/subnav.blade.php:32
 msgid "Log out"
 msgstr "Logga ut"
 
-#: views/partials/header/intranet.blade.php:71
+#: views/partials/header/subnav.blade.php:38
 msgid "Log in"
 msgstr "Logga in"
 
-#: views/partials/header/intranet.blade.php:76
+#: views/partials/header/subnav.blade.php:43
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/intranet.blade.php:87
+#: views/partials/header/subnav.blade.php:54
 msgid "Menu"
 msgstr "Meny"
+
+#: views/partials/mobile-menu.blade.php:5
+msgid "What are you looking for?"
+msgstr "Vad letar du efter?"
 
 #: views/partials/modal/missing-data-fields/nav.blade.php:15
 msgid "Save and continue"
@@ -1163,27 +1221,6 @@ msgid ""
 "update your information."
 msgstr ""
 "Din profil är inte komplett. Följ guiden för att uppdatera din information."
-
-#: views/partials/network-header.blade.php:8
-#: views/partials/network-header.blade.php:16
-msgid "Select intranet"
-msgstr "Välj intranät"
-
-#: views/partials/network-header.blade.php:9
-msgid "Select which intranet you would like to visit."
-msgstr "I denna lista väljer du vilket förvaltningsintranät du vill besöka. "
-
-#: views/partials/network-header.blade.php:25
-msgid "Search for intranets"
-msgstr "Sök efter intranät"
-
-#: views/partials/network-header.blade.php:40
-msgid "Networks you are following"
-msgstr "Intranät som du följer"
-
-#: views/partials/network-header.blade.php:50
-msgid "Show all networks"
-msgstr "Visa alla intranät"
 
 #: views/partials/user/facebook-sync.blade.php:3
 msgid "Sync from Facebook"
@@ -1257,12 +1294,12 @@ msgstr "Nuvarande intranät"
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
-#: views/search.blade.php:175
+#: views/search.blade.php:130
 #, php-format
 msgid "%d personer matchar din sökning"
 msgstr "%d personer matchar din sökning"
 
-#: views/search.blade.php:188
+#: views/search.blade.php:143
 msgid "Show all matching persons"
 msgstr "Visa alla personträffar"
 
@@ -1303,6 +1340,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Intranet news"
+#~ msgstr "Intranätsnyheter"
 
 #~ msgid "Your links"
 #~ msgstr "Dina länkar"
@@ -1369,9 +1409,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Lägg till ansvarsområden. Detta gör det lättare för andra att hitta dig "
 #~ "med hjälp av sökfunktionen."
-
-#~ msgid "Incidents"
-#~ msgstr "Driftstörningar"
 
 #~ msgid "Responsibilities"
 #~ msgstr "Ansvarsområden"
