@@ -6,30 +6,33 @@ body.admin-bar {
     display: block;
 
     .navbar {
-        padding: 10px;
+        padding: 20px 10px;
+
+        .grid + .grid {
+            margin-top: 5px;
+        }
+
+        .or {
+            color: #fff;
+            font-weight: bold;
+            padding: 0 .5em;
+        }
     }
 
     .site-title {
-        display: block;
-        margin-right: 30px;
-        padding-top: 7px;
-        float: left;
-
-        .h1 {
-            font-size: .9em;
-            letter-spacing: .5px;
-            color: #fff;
-        }
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        margin-top: 2.5px;
     }
 
     .logotype {
         display: block;
-        margin-right: 30px;
 
         svg, path {
-            fill: #fff;
-            height: 52px;
-            width: 34px;
+            height: 85px;
+            width: 80px;
 
             @media #{$screen-below-sm} {
                 height: 37px;
@@ -86,55 +89,29 @@ body.admin-bar {
         position: relative;
         display: block;
         width: 100%;
+        background-color: #fff;
+        border-radius: 3px;
 
-        @include input-placeholder(#222, .5);
+        @include input-placeholder($palette-purple-4, 1, bold);
 
         input[type="search"].form-control {
-            background-color: #fff;
+            background-color: transparent;
             border: none;
             box-shadow: none;
             width: 100%;
-            border-radius: 3px 0 0 3px;
-        }
-
-        input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-            background-color: darken($palette-gray-4, 17%);
-            padding: 7px 12px;
-
-            @if ($includeThemes == true) {
-                @each $theme, $color in $themes {
-                    .theme-#{$theme} & {
-                        background-color: darken(map-get($color, fourthSafe), 17%);
-                        color: map-get($color, fourthTextColor);
-                    }
-                }
-            }
-
-            &::after {
-                opacity: 1;
-                margin-right: 0;
-            }
+            padding: 9px 15px;
+            height: auto;
+            font-size: 1.1rem;
         }
 
         button[type="submit"].btn {
-            background-color: #fff;
-            color: $gray;
-            padding: 7px;
+            background-color: $palette-purple-1;
+            color: #fff;
             border: none;
             transition: 200ms all;
             overflow: hidden;
-            border-radius: 0 3px 3px 0;
-
-            &::after {
-                display: inline-block;
-                vertical-align: middle;
-                white-space: nowrap;
-                content: attr(data-label);
-                margin-left: .5em;
-                opacity: 0;
-                transition: 200ms all;
-                margin-right: -30px;
-            }
+            border-radius: 2px;
+            margin: 3px;
         }
     }
 

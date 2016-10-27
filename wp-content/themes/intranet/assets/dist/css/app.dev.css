@@ -90,23 +90,24 @@ body.admin-bar {
 #site-header {
   display: block; }
   #site-header .navbar {
-    padding: 10px; }
+    padding: 20px 10px; }
+    #site-header .navbar .grid + .grid {
+      margin-top: 5px; }
+    #site-header .navbar .or {
+      color: #fff;
+      font-weight: bold;
+      padding: 0 .5em; }
   #site-header .site-title {
-    display: block;
-    margin-right: 30px;
-    padding-top: 7px;
-    float: left; }
-    #site-header .site-title .h1 {
-      font-size: .9em;
-      letter-spacing: .5px;
-      color: #fff; }
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    margin-top: 2.5px; }
   #site-header .logotype {
-    display: block;
-    margin-right: 30px; }
+    display: block; }
     #site-header .logotype svg, #site-header .logotype path {
-      fill: #fff;
-      height: 52px;
-      width: 34px; }
+      height: 85px;
+      width: 80px; }
       @media (max-width: 469px) {
         #site-header .logotype svg, #site-header .logotype path {
           height: 37px;
@@ -135,66 +136,46 @@ body.admin-bar {
   #site-header .search.search-main {
     position: relative;
     display: block;
-    width: 100%; }
+    width: 100%;
+    background-color: #fff;
+    border-radius: 3px; }
     #site-header .search.search-main ::-webkit-input-placeholder {
       /* WebKit browsers */
-      color: rgba(34, 34, 34, 0.5);
-      font-weight: normal; }
+      opacity: 1;
+      color: #7b075e;
+      font-weight: bold; }
     #site-header .search.search-main :-moz-placeholder {
       /* Mozilla Firefox 4 to 18 */
-      color: rgba(34, 34, 34, 0.5);
-      font-weight: normal; }
+      opacity: 1;
+      color: #7b075e;
+      font-weight: bold; }
     #site-header .search.search-main ::-moz-placeholder {
       /* Mozilla Firefox 19+ */
-      color: rgba(34, 34, 34, 0.5);
-      font-weight: normal; }
+      opacity: 1;
+      color: #7b075e;
+      font-weight: bold; }
     #site-header .search.search-main :-ms-input-placeholder {
       /* Internet Explorer 10+ */
-      color: rgba(34, 34, 34, 0.5);
-      font-weight: normal; }
+      opacity: 1;
+      color: #7b075e;
+      font-weight: bold; }
     #site-header .search.search-main input[type="search"].form-control {
-      background-color: #fff;
+      background-color: transparent;
       border: none;
       box-shadow: none;
       width: 100%;
-      border-radius: 3px 0 0 3px; }
-    #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-      background-color: #4c4c4c;
-      padding: 7px 12px; }
-      .theme-red #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-        background-color: #5a0603;
-        color: #fff; }
-      .theme-blue #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-        background-color: #00202f;
-        color: #fff; }
-      .theme-green #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-        background-color: #24390c;
-        color: #fff; }
-      .theme-purple #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn {
-        background-color: #29021f;
-        color: #fff; }
-      #site-header .search.search-main input[type="search"].form-control:focus + .input-group-addon-btn .btn::after {
-        opacity: 1;
-        margin-right: 0; }
+      padding: 9px 15px;
+      height: auto;
+      font-size: 1.1rem; }
     #site-header .search.search-main button[type="submit"].btn {
-      background-color: #fff;
-      color: #979797;
-      padding: 7px;
+      background-color: #d35098;
+      color: #fff;
       border: none;
       -webkit-transition: 200ms all;
               transition: 200ms all;
       overflow: hidden;
-      border-radius: 0 3px 3px 0; }
-      #site-header .search.search-main button[type="submit"].btn::after {
-        display: inline-block;
-        vertical-align: middle;
-        white-space: nowrap;
-        content: attr(data-label);
-        margin-left: .5em;
-        opacity: 0;
-        -webkit-transition: 200ms all;
-                transition: 200ms all;
-        margin-right: -30px; }
+      border-radius: 2px;
+      margin: 3px; }
   #site-header .menu-trigger {
     color: #fff;
     position: relative; }
@@ -823,71 +804,22 @@ a.profile-card {
 
 .current-network {
   position: relative;
-  padding: .2em .4em;
-  background-color: #e7e5e1;
+  padding: 11px;
+  background-color: #fff;
   border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 1.6rem;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  font-weight: normal;
   cursor: pointer;
   text-align: left;
   overflow: hidden;
-  min-width: 350px;
-  padding-right: 1.5em; }
-  @media screen and (min-width: 0) and (max-width: 468px) {
-    .current-network {
-      font-size: 1.4rem;
-      white-space: nowrap;
-      max-width: 100%;
-      min-width: 0px;
-      width: 100%;
-      position: relative; }
-      .current-network::before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 70px;
-        background: -webkit-linear-gradient(left, rgba(246, 245, 242, 0), #f6f5f2);
-        background: linear-gradient(to right, rgba(246, 245, 242, 0), #f6f5f2); }
-      .current-network::after {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-                transform: translateY(-50%); } }
-  @media screen and (min-width: 469px) and (max-width: 768px) {
-    .current-network {
-      min-width: auto;
-      width: 100%; } }
-  .current-network::after {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-    font-family: hbg-pricons;
-    line-height: 1;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    vertical-align: -15%;
-    content: "";
-    font-size: .4em;
-    margin-left: 10px; }
-  .current-network.dropdown-open::after {
-    font-family: hbg-pricons;
-    line-height: 1;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    vertical-align: -15%;
-    content: "";
-    font-size: .8em;
-    color: #e3000f;
-    right: 15px; }
+  padding-right: 1.5em;
+  width: 100%;
+  color: #252525; }
+  .current-network strong {
+    display: inline-block;
+    padding-right: 5px;
+    color: #7b075e; }
   .current-network em {
     font-weight: 100;
     color: #979797;
@@ -896,23 +828,65 @@ a.profile-card {
       .current-network em {
         letter-spacing: 0; } }
 
+.current-network-dropdown-arrow {
+  display: block;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  height: calc(100% - 6px);
+  width: 38px;
+  background-color: #a84c98;
+  border-radius: 2px; }
+  .current-network-dropdown-arrow::after {
+    position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    font-family: hbg-pricons;
+    line-height: 1;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: -15%;
+    content: "";
+    color: #fff;
+    font-size: .6em;
+    margin-top: 2px; }
+
+.current-network.dropdown-open .current-network-dropdown-arrow::after {
+  font-family: hbg-pricons;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: -15%;
+  content: "";
+  font-size: .8em;
+  margin-top: 1px; }
+
 .network-search {
   display: block;
   border-bottom: 1px solid #e7e5e1; }
   .network-search ::-webkit-input-placeholder {
     /* WebKit browsers */
+    opacity: 1;
     color: #979797;
     font-weight: normal; }
   .network-search :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
+    opacity: 1;
     color: #979797;
     font-weight: normal; }
   .network-search ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
+    opacity: 1;
     color: #979797;
     font-weight: normal; }
   .network-search :-ms-input-placeholder {
     /* Internet Explorer 10+ */
+    opacity: 1;
     color: #979797;
     font-weight: normal; }
   .network-search .input-group {

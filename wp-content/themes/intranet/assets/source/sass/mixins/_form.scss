@@ -1,20 +1,24 @@
 @mixin input-placeholder($color: #ddd, $opacity: 1, $font-weight: normal) {
     ::-webkit-input-placeholder { /* WebKit browsers */
+        opacity: 1;
         color: rgba($color, $opacity);
         font-weight: $font-weight;
     }
 
     :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        opacity: 1;
         color: rgba($color, $opacity);
         font-weight: $font-weight;
     }
 
     ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        opacity: 1;
         color: rgba($color, $opacity);
         font-weight: $font-weight;
     }
 
     :-ms-input-placeholder { /* Internet Explorer 10+ */
+        opacity: 1;
         color: rgba($color, $opacity);
         font-weight: $font-weight;
     }
