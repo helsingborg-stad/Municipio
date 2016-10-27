@@ -1063,18 +1063,25 @@ a.dropdown-open:focus {
   .modularity-mod-intranet-u-links .only-if-editing,
   .modularity-mod-intranet-u-syste .only-if-editing {
     display: none; }
+  .modularity-mod-intranet-u-links .box-title,
+  .modularity-mod-intranet-u-syste .box-title {
+    position: relative; }
   .modularity-mod-intranet-u-links [data-user-link-edit],
   .modularity-mod-intranet-u-links [data-user-systems-edit],
   .modularity-mod-intranet-u-syste [data-user-link-edit],
   .modularity-mod-intranet-u-syste [data-user-systems-edit] {
     font-weight: normal;
     font-size: .7em;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: transparent;
     position: absolute;
-    top: 0;
-    right: 0;
-    padding: 6px;
-    border-radius: 0 0 0 2px !important; }
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+    right: 15px;
+    padding: 0px;
+    border-radius: 0 0 0 2px !important;
+    color: #fff; }
     .modularity-mod-intranet-u-links [data-user-link-edit]::before,
     .modularity-mod-intranet-u-links [data-user-systems-edit]::before,
     .modularity-mod-intranet-u-syste [data-user-link-edit]::before,
@@ -1087,33 +1094,32 @@ a.dropdown-open:focus {
     .modularity-mod-intranet-u-syste [data-user-link-edit]:focus,
     .modularity-mod-intranet-u-syste [data-user-systems-edit]:hover,
     .modularity-mod-intranet-u-syste [data-user-systems-edit]:focus {
-      background-color: rgba(0, 0, 0, 0.6);
       text-decoration: underline; }
   .modularity-mod-intranet-u-links button[data-user-link-remove],
   .modularity-mod-intranet-u-syste button[data-user-link-remove] {
-    padding: 6px 9px 5px 9px;
-    position: relative;
-    top: -2px; }
+    padding: 6px 9px 5px 9px; }
   .modularity-mod-intranet-u-links .is-editing .only-if-editing,
   .modularity-mod-intranet-u-syste .is-editing .only-if-editing {
     display: block; }
   .modularity-mod-intranet-u-links .is-editing .links li,
   .modularity-mod-intranet-u-syste .is-editing .links li {
     background-color: rgba(255, 255, 255, 0.3);
-    padding: 10px 10px 10px 13px;
     border-radius: 3px; }
-    .modularity-mod-intranet-u-links .is-editing .links li + li,
-    .modularity-mod-intranet-u-syste .is-editing .links li + li {
-      margin-top: 3px; }
     .modularity-mod-intranet-u-links .is-editing .links li a,
     .modularity-mod-intranet-u-syste .is-editing .links li a {
+      float: left;
       text-decoration: none !important; }
+    .modularity-mod-intranet-u-links .is-editing .links li::after,
+    .modularity-mod-intranet-u-syste .is-editing .links li::after {
+      content: "";
+      display: table;
+      clear: both; }
   .modularity-mod-intranet-u-links [data-user-link-add],
   .modularity-mod-intranet-u-syste [data-user-link-add] {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #f6f5f2;
     padding: 15px;
-    margin: -5px;
-    margin-top: 5px; }
+    border: 1px solid #e7e5e1;
+    border-top: none; }
 
 .intranet-news.walkthrough-highlight {
   background-color: #fff;

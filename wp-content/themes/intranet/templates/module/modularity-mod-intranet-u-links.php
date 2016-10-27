@@ -1,4 +1,4 @@
-<div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
+<div class="box box-panel">
     <?php
         echo municipio_intranet_walkthrough(
             __('My links', 'municipio-intranet'),
@@ -18,22 +18,20 @@
     </h4>
     <?php endif; ?>
 
-    <div class="box-content">
-        <?php if (!empty(\Intranet\Module\UserLinks::getLinks())) : ?>
-        <ul class="links">
-            <?php foreach (\Intranet\Module\UserLinks::getLinks() as $link) : ?>
-            <li>
-                <a class="link-item link-item-light" href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a>
-                <?php if (is_user_logged_in()) : ?>
-                <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="<?php echo $link['url']; ?>" type="button">&times;</button>
-                <?php endif; ?>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-        <?php else : ?>
-            <?php _e('You have not added any links yet…', 'municipio-intranet'); ?>
-        <?php endif; ?>
-    </div>
+    <?php if (!empty(\Intranet\Module\UserLinks::getLinks())) : ?>
+    <ul class="links">
+        <?php foreach (\Intranet\Module\UserLinks::getLinks() as $link) : ?>
+        <li>
+            <a class="link-item" href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a>
+            <?php if (is_user_logged_in()) : ?>
+            <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="<?php echo $link['url']; ?>" type="button">&times;</button>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php else : ?>
+        <div class="box-content"><?php _e('You have not added any links yet…', 'municipio-intranet'); ?></div>
+    <?php endif; ?>
 
     <?php if (is_user_logged_in()) : ?>
     <form action="<?php echo municipio_intranet_current_url(); ?>" class="only-if-editing" data-user-link-add>

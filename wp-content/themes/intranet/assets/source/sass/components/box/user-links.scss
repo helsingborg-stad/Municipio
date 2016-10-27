@@ -6,17 +6,23 @@
         display: none;
     }
 
+    .box-title {
+        position: relative;
+    }
+
     [data-user-link-edit],
     [data-user-systems-edit] {
         font-weight: normal;
         font-size: .7em;
 
-        background-color: rgba(0,0,0,.4);
+        background-color: transparent;
         position: absolute;
-        top: 0;
-        right: 0;
-        padding: 6px;
+        @include center(false, true);
+        right: 15px;
+        padding: 0px;
         border-radius: 0 0 0 2px !important;
+
+        color: #fff;
 
         &::before {
             vertical-align: -5%;
@@ -24,15 +30,12 @@
 
         &:hover,
         &:focus {
-            background-color: rgba(0,0,0,.6);
             text-decoration: underline;
         }
     }
 
     button[data-user-link-remove] {
         padding: 6px 9px 5px 9px;
-        position: relative;
-        top: -2px;
     }
 
     .is-editing {
@@ -42,23 +45,25 @@
 
         .links li {
             background-color: rgba(#fff, .3);
-            padding: 10px 10px 10px 13px;
             border-radius: 3px;
 
-            & + li {
-                margin-top: 3px;
+            a {
+                float: left;
+                text-decoration: none !important;
             }
 
-            a {
-                text-decoration: none !important;
+            &::after {
+                content: "";
+                display: table;
+                clear: both;
             }
         }
     }
 
     [data-user-link-add] {
-        background-color: rgba(#000, .3);
+        background-color: $creamy;
         padding: 15px;
-        margin: -5px;
-        margin-top: 5px;
+        border: 1px solid $creamy-darker;
+        border-top: none;
     }
 }

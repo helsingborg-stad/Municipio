@@ -1,4 +1,4 @@
-<div class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $module->post_type, $args)); ?>">
+<div class="box box-panel">
     <?php
         echo municipio_intranet_walkthrough(
             __('My systems', 'municipio-intranet'),
@@ -18,16 +18,14 @@
     </h4>
     <?php endif; ?>
 
-    <div class="box-content">
-        <ul class="links">
-            <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
-            <?php if ($system->unavailable === true) : ?>
-            <li><a class="link-item link-item-light link-unavailable" href="<?php echo $system->url; ?>"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>"><?php echo $system->name; ?></span></a></li>
-            <?php else : ?>
-            <li><a href="<?php echo $system->url; ?>" class="link-item link-item-light"><?php echo $system->name; ?></a></li>
-            <?php endif; endforeach; ?>
-        </ul>
-    </div>
+    <ul class="links">
+        <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
+        <?php if ($system->unavailable === true) : ?>
+        <li><a class="link-item link-unavailable" href="<?php echo $system->url; ?>"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>"><?php echo $system->name; ?></span></a></li>
+        <?php else : ?>
+        <li><a href="<?php echo $system->url; ?>" class="link-item"><?php echo $system->name; ?></a></li>
+        <?php endif; endforeach; ?>
+    </ul>
 </div>
 
 <div id="modal-select-systems" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
