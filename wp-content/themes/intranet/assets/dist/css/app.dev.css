@@ -1097,7 +1097,7 @@ a.dropdown-open:focus {
       text-decoration: underline; }
   .modularity-mod-intranet-u-links button[data-user-link-remove],
   .modularity-mod-intranet-u-syste button[data-user-link-remove] {
-    padding: 6px 9px 5px 9px; }
+    padding: 1px 5px 5px; }
   .modularity-mod-intranet-u-links .is-editing .only-if-editing,
   .modularity-mod-intranet-u-syste .is-editing .only-if-editing {
     display: block; }
@@ -1149,7 +1149,8 @@ a.dropdown-open:focus {
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .box-news,
 .sidebar-content-area-top .modularity-mod-intranet-news .box-news {
-  margin: 0; }
+  margin: 0;
+  overflow: hidden; }
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news,
 .sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news {
@@ -1162,16 +1163,25 @@ a.dropdown-open:focus {
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news time,
 .sidebar-content-area-top .modularity-mod-intranet-news time {
-  margin-top: 2px; }
+  margin-top: 2px;
+  float: right; }
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .sub-heading span,
 .sidebar-content-area-top .modularity-mod-intranet-news .sub-heading span {
   color: #7b075e;
   font-weight: bold; }
 
-.sidebar-right-sidebar .modularity-mod-intranet-news .box-news time,
-.sidebar-left-sidebar .modularity-mod-intranet-news .box-news time {
-  display: block; }
+.sidebar-right-sidebar .modularity-mod-intranet-news .box-news .sub-heading,
+.sidebar-left-sidebar .modularity-mod-intranet-news .box-news .sub-heading {
+  margin-bottom: 10px; }
+
+.sidebar-right-sidebar .modularity-mod-intranet-news .box-news article,
+.sidebar-left-sidebar .modularity-mod-intranet-news .box-news article {
+  margin-top: 5px; }
+
+.sidebar-right-sidebar .modularity-mod-intranet-news .box-news .read-more,
+.sidebar-left-sidebar .modularity-mod-intranet-news .box-news .read-more {
+  margin-top: 10px; }
 
 .modularity-mod-intranet-news .box-news-horizontal .box-title {
   margin-top: 10px;

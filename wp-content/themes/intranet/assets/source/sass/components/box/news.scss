@@ -14,7 +14,7 @@
     margin: 0;
 }
 
-.sidebar-content-area-bottom, ,
+.sidebar-content-area-bottom,
 .sidebar-content-area-top {
     .modularity-mod-intranet-news {
 
@@ -34,6 +34,7 @@
 
         .box-news {
             margin: 0;
+            overflow: hidden;
         }
 
         .grid-lg-12 + .grid-lg-12 .box-news {
@@ -47,6 +48,7 @@
 
         time {
             margin-top: 2px;
+            float: right;
         }
 
         .sub-heading span {
@@ -60,8 +62,16 @@
 .sidebar-right-sidebar,
 .sidebar-left-sidebar {
     .modularity-mod-intranet-news .box-news {
-        time {
-            display: block;
+        .sub-heading {
+            margin-bottom: 10px;
+        }
+
+        article {
+            margin-top: 5px;
+        }
+
+        .read-more {
+            margin-top: 10px;
         }
     }
 }
