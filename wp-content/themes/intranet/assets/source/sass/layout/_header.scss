@@ -6,7 +6,7 @@ body.admin-bar {
     display: block;
 
     .navbar {
-        padding: 20px 10px;
+        padding: 20px 0;
 
         .grid + .grid {
             margin-top: 15px;
@@ -24,7 +24,15 @@ body.admin-bar {
         margin: 0;
         padding: 0;
         line-height: 1;
-        margin-top: 4px;
+        font-weight: 100;
+
+        @media #{$screen-md-up} {
+            margin-top: 4px;
+        }
+
+        @media #{$screen-xs} {
+            font-size: .9em;
+        }
     }
 
     .logotype {

@@ -9,7 +9,7 @@
     ?>
 
     <button class="current-network network-title" data-dropdown=".network-search-dropdown">
-        <strong><?php _e('Select intranet', 'municipio-intranet'); ?>:</strong>
+        <strong class="hidden-md"><?php _e('Select intranet', 'municipio-intranet'); ?>:</strong>
         {!! municipio_intranet_format_site_name(Intranet\Helper\Multisite::getSite(get_current_blog_id()), 'long') !!}
         <span class="current-network-dropdown-arrow"></span>
     </button>

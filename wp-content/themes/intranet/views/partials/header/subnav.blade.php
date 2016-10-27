@@ -1,6 +1,6 @@
 <nav class="subnav clearfix">
     <ul class="nav nav-horizontal">
-        <li class="subnav-icon hidden-xs"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
+        <li class="subnav-icon hidden-xs hidden-sm"><a href="?walkthrough" data-tooltip="<?php _e('Start help walkthrough', 'municipio-intranet'); ?>"><i class="pricon pricon-question-o pricon-lg"></i><span class="sr-only"><?php _e('Help', 'municipio-intranet'); ?></span></a></li>
         <li class="hidden-xs hidden-sm subnav-a-z">
             <a href="{{ municipio_table_of_contents_url() }}"><?php _e('A-Z', 'municipio-intranet'); ?></a>
             <?php

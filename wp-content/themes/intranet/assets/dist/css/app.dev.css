@@ -90,7 +90,7 @@ body.admin-bar {
 #site-header {
   display: block; }
   #site-header .navbar {
-    padding: 20px 10px; }
+    padding: 20px 0; }
     #site-header .navbar .grid + .grid {
       margin-top: 15px; }
     #site-header .navbar .or {
@@ -102,7 +102,13 @@ body.admin-bar {
     margin: 0;
     padding: 0;
     line-height: 1;
-    margin-top: 4px; }
+    font-weight: 100; }
+    @media (min-width: 769px) {
+      #site-header .site-title {
+        margin-top: 4px; } }
+    @media (min-width: 0) and (max-width: 468px) {
+      #site-header .site-title {
+        font-size: .9em; } }
   #site-header .logotype {
     display: block; }
     #site-header .logotype svg, #site-header .logotype path {
@@ -865,6 +871,30 @@ a.profile-card {
   content: "";
   font-size: .8em;
   margin-top: 1px; }
+
+@media (max-width: 769px) {
+  #site-header .navbar {
+    padding: 10px 0;
+    padding-bottom: 35px; }
+  body:not(.material-no-shadow) .navbar {
+    box-shadow: none; }
+  .network {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0; }
+  .current-network {
+    border-radius: 0px;
+    background-color: #f6f5f2;
+    border-bottom: 1px solid #e7e5e1;
+    box-shadow: none;
+    font-size: .9em;
+    padding-top: 8px;
+    padding-bottom: 8px; }
+  .current-network-dropdown-arrow {
+    width: 32px; }
+    .current-network-dropdown-arrow::after {
+      margin-top: 1px; } }
 
 .network-search {
   display: block;

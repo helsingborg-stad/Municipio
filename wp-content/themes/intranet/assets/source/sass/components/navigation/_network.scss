@@ -135,6 +135,42 @@
     }
 }
 
+@media #{$screen-below-md} {
+    #site-header .navbar {
+        padding: 10px 0;
+        padding-bottom: 35px;
+    }
+
+    body:not(.material-no-shadow) .navbar {
+        box-shadow: none;
+    }
+
+    .network {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .current-network {
+        border-radius: 0px;
+        background-color: $creamy;
+        border-bottom: 1px solid $creamy-darker;
+        box-shadow: none;
+        font-size: .9em;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .current-network-dropdown-arrow {
+        width: 32px;
+
+        &::after {
+            margin-top: 1px;
+        }
+    }
+}
+
 .network-search {
     display: block;
     border-bottom: 1px solid $creamy-darker;
