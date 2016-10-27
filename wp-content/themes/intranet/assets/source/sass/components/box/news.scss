@@ -39,11 +39,19 @@
         .grid-lg-12 + .grid-lg-12 .box-news {
             padding-top: 30px;
             margin-top: 30px;
-            border-top: 1px solid $creamy-darker;
         }
 
         .read-more {
             margin-top: 15px;
+        }
+
+        time {
+            margin-top: 2px;
+        }
+
+        .sub-heading span {
+            color: $palette-purple-4;
+            font-weight: bold;
         }
 
     }

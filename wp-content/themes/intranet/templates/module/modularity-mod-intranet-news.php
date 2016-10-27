@@ -75,8 +75,10 @@
                     </div>
                 <?php endif; ?>
                 <div class="box-content">
-                <span class="label label-sm label-purple-5 network-title"><?php echo municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id), 'long'); ?></span>
-                    <time class="pricon pricon-clock pricon-space-right" datetime="<?php echo mysql2date('Y-m-d H:i:s', strtotime($item->post_date)); ?>"><?php echo mysql2date(get_option('date_format'), $item->post_date); ?></time>
+                    <div class="sub-heading clearfix">
+                        <span><?php echo municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id), 'long'); ?></span>
+                        <time class="pricon pricon-clock pricon-space-right pull-right" datetime="<?php echo mysql2date('Y-m-d H:i:s', strtotime($item->post_date)); ?>"><?php echo mysql2date(get_option('date_format'), $item->post_date); ?></time>
+                    </div>
                     <h3 class="box-title text-highlight"><?php echo apply_filters('the_title', $item->post_title); ?></h3>
 
                     <article class="clearfix">
