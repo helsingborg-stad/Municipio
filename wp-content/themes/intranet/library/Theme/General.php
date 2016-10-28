@@ -52,6 +52,10 @@ class General
             </li>');
             return $items;
         });
+
+        add_filter('Municipio/Page/MainGrid/Classes', function ($classes) {
+            return array();
+        });
     }
 
     public function googleAnalyticsUA($ua)
