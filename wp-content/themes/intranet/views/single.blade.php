@@ -5,7 +5,7 @@
 <div class="container main-container">
     @include('partials.breadcrumbs')
 
-    <div class="grid {{ (wp_get_post_parent_id(get_the_id()) != 0) ? 'no-margin-top' : '' }}">
+    <div class="grid">
         @include('partials.sidebar-left')
 
         <div class="{{ $contentGridSize }} print-grow">
