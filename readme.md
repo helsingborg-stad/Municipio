@@ -200,6 +200,24 @@ Modify the date filter WHERE clause
 apply_filters('Municipio/archive/date_filter', $where, $from, $to);
 ```
 
+#### Municipio/Breadcrumbs
+Show/hide (true/false) breadcrumbs
+
+- ```@param boolean $bool```- True or false (show or hide)
+
+```php
+apply_filters('Municipio/Breadcrumbs', $bool, get_queried_object())
+```
+
+#### Municipio/Breadcrumbs/Items
+Filter the items/links in the breadcrumb
+
+- ```@param array $items``` - The breadcrumb items
+
+```php
+apply_filters('Municipio/Breadcrumbs/Items', $items, get_queried_object());
+```
+
 #### Municipio/admin/editor_stylesheet
 Change custom editor stylesheet
 

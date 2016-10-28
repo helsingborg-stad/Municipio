@@ -64,6 +64,11 @@ class CustomPostType
                         'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $type_definition['post_type_name'])
                     );
 
+                    $supports = array('title', 'editor');
+                    if (!empty($type_definition['supports'])) {
+                        $supports = array_merge($type_definition['supports'], $supports);
+                    }
+
                     $args = array(
                         'labels'             => $labels,
                         'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
@@ -75,7 +80,7 @@ class CustomPostType
                                                 ),
                         'capability_type'    => 'post',
                         'hierarchical'       => $type_definition['hierarchical'],
-                        'supports'           => array_merge($type_definition['supports'], array('title')),
+                        'supports'           => $supports,
                         'menu_position'      => (int) $type_definition['menu_position'],
                         'has_archive'        => true,
                     );
