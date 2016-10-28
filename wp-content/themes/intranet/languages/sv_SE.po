@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-27 12:40+0200\n"
-"PO-Revision-Date: 2016-10-28 09:36+0200\n"
+"POT-Creation-Date: 2016-10-28 10:55+0200\n"
+"PO-Revision-Date: 2016-10-28 10:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -273,14 +273,14 @@ msgstr ""
 msgid "Exit"
 msgstr "Avsluta"
 
-#: library/User/AdministrationUnits.php:25
 #: library/User/AdministrationUnits.php:26
+#: library/User/AdministrationUnits.php:27
 #: templates/admin/administration-units/form.php:3
 #: templates/admin/administration-units/form.php:34
 msgid "Administration units"
 msgstr "Förvaltningar"
 
-#: library/User/AdministrationUnits.php:95
+#: library/User/AdministrationUnits.php:125
 msgid "All fields must be filled in to add a new administration unit"
 msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
 
@@ -572,11 +572,11 @@ msgstr ""
 "din profil har valt att ange att du tillhör en specifik målgrupp kan det "
 "även synas nyheter riktade till den målgruppen här."
 
-#: templates/module/modularity-mod-intranet-news.php:101
+#: templates/module/modularity-mod-intranet-news.php:103
 msgid "Read more"
 msgstr "Läs mer"
 
-#: templates/module/modularity-mod-intranet-news.php:116
+#: templates/module/modularity-mod-intranet-news.php:118
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -1041,6 +1041,14 @@ msgid ""
 "It's been a while since you updated your profile settings. Please have it "
 "updated so we can keep our intranet up to date."
 msgstr "Det var ett tag sedan du uppdaterade din profil. "
+
+#: views/partials/breadcrumbs.blade.php:29
+msgid "Go to"
+msgstr "Gå till"
+
+#: views/partials/breadcrumbs.blade.php:29
+msgid "intranet"
+msgstr "intranät"
 
 #: views/partials/header/network-selector.blade.php:4
 #: views/partials/header/network-selector.blade.php:12

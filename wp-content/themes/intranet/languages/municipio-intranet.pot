@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-27 12:40+0200\n"
+"POT-Creation-Date: 2016-10-28 10:55+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -271,14 +271,14 @@ msgstr ""
 msgid "Exit"
 msgstr ""
 
-#: library/User/AdministrationUnits.php:25
 #: library/User/AdministrationUnits.php:26
+#: library/User/AdministrationUnits.php:27
 #: templates/admin/administration-units/form.php:3
 #: templates/admin/administration-units/form.php:34
 msgid "Administration units"
 msgstr ""
 
-#: library/User/AdministrationUnits.php:95
+#: library/User/AdministrationUnits.php:125
 msgid "All fields must be filled in to add a new administration unit"
 msgstr ""
 
@@ -563,11 +563,11 @@ msgid ""
 "have selected in your profile settings. "
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:101
+#: templates/module/modularity-mod-intranet-news.php:103
 msgid "Read more"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:116
+#: templates/module/modularity-mod-intranet-news.php:118
 msgid "Threre's no news stories to display"
 msgstr ""
 
@@ -1012,6 +1012,14 @@ msgstr ""
 msgid ""
 "It's been a while since you updated your profile settings. Please have it "
 "updated so we can keep our intranet up to date."
+msgstr ""
+
+#: views/partials/breadcrumbs.blade.php:29
+msgid "Go to"
+msgstr ""
+
+#: views/partials/breadcrumbs.blade.php:29
+msgid "intranet"
 msgstr ""
 
 #: views/partials/header/network-selector.blade.php:4
