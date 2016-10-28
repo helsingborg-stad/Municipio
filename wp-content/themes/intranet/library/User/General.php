@@ -176,6 +176,6 @@ class General
             $greeting = _('Merry christmas %s', 'municipio-intranet');
         }
 
-        return sprintf($greeting, get_user_meta(get_current_user_id(), 'first_name', true));
+        return sprintf($greeting, '<strong>' . get_user_meta(get_current_user_id(), 'first_name', true) . '</strong>');
     }
 }

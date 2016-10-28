@@ -213,6 +213,10 @@ body.admin-bar {
   .login-form.login-form a[href="#forgot-password"]:hover {
     text-decoration: underline; }
 
+.greeting {
+  font-weight: 200;
+  padding-bottom: 0; }
+
 .profile-header {
   position: relative;
   text-align: center;
@@ -955,6 +959,16 @@ a.profile-card {
 @media (max-width: 769px) {
   .btn-subscribe {
     margin-top: 10px; } }
+
+.breadcrumbs-wrapper {
+  margin-top: 30px;
+  padding-bottom: 27px;
+  border-bottom: 1px solid #e7e5e1; }
+
+.breadcrumbs {
+  margin: 0;
+  margin-top: 6px;
+  font-size: 1rem; }
 
 a.dropdown-open:focus {
   text-decoration: none !important; }
