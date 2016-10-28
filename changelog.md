@@ -3,7 +3,7 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.3.0 (tbd)
+Version 0.3.0 (2016-10-28)
 ===========================
 - ElasticSearch (!)
 - Translation updates
