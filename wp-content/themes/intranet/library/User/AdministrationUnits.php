@@ -5,6 +5,7 @@ namespace Intranet\User;
 class AdministrationUnits
 {
     public static $tableSuffix = 'administration_units';
+    public static $userFirstUnit = null;
 
     public function __construct()
     {
@@ -45,6 +46,35 @@ class AdministrationUnits
 
         $wpdb->delete($wpdb->base_prefix . self::$tableSuffix, array('id' => $id), array('%d'));
         return;
+    }
+
+    public static function getUsersAdministrationUnitIntranet($userId = null)
+    {
+        if (!is_null(self::$userFirstUnit)) {
+            return self::$userFirstUnit;
+        }
+
+        if (!$userId) {
+            $userId = get_current_user_id();
+        }
+
+        $units = get_user_meta(get_current_user_id(), 'user_administration_unit', true);
+
+        if (is_array($units) && !empty($units)) {
+            foreach ($units as $unitId) {
+                $unit = self::getAdministrationUnit($unitId);
+                $unit = \Intranet\Helper\Multisite::searchSites($unit);
+
+                if (!is_array($unit) || empty($unit)) {
+                    continue;
+                }
+
+                self::$userFirstUnit = $unit[0];
+                return $unit[0];
+            }
+        }
+
+        return false;
     }
 
     /**
