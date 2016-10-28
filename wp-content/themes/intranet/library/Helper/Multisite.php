@@ -4,6 +4,8 @@ namespace Intranet\Helper;
 
 class Multisite
 {
+    public static $sites = null;
+
     /**
      * Gets the main site information
      * @return array
@@ -69,7 +71,13 @@ class Multisite
      */
     public static function getSitesList($includeMainSite = true, $onlyIds = false)
     {
-        $sites = get_sites();
+        $sites = null;
+        if (!is_null(self::$sites)) {
+            $sites = self::$sites;
+        } else {
+            $sites = get_sites();
+        }
+
         $ids = array();
 
         foreach ($sites as $key => $site) {
