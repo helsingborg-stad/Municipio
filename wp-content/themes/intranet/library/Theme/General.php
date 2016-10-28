@@ -51,11 +51,13 @@ class General
                 </a>
             </li>');
             return $items;
-        });
+        }, 10, 2);
 
         add_filter('Municipio/Page/MainGrid/Classes', function ($classes) {
             return array();
         });
+
+        add_filter('ep_analyzer_language', 'Swedish');
     }
 
     public function googleAnalyticsUA($ua)
