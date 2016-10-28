@@ -3,10 +3,21 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.2.18 (tbd)
-====================
+Version 0.3.0 (2016-10-28)
+===========================
+- ElasticSearch (!)
+- Translation updates
 - Autosubscribe to user's primary network on user creation
+- Improved header ui
 - Improved news feed ui
+- Improved user search result ui
+- Changed UI for the "my links" and "my systems" boxes
+- Removed hero area
+- Load ReadSpeaker settings from the main site (portalen) for all sites in network
+- Load Google Analytics settings from the main site (portalen) ffor all sites in network
+- Fixes issue preventing users from selecting multiple administration units in the setup guide
+- Sort "my links" by link title
+- Quicklink to users "main" administration unit intranet
 
 Version 0.2.16 + 0.2.17 (2016-10-19)
 ====================================
