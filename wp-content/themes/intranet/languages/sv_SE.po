@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
 "POT-Creation-Date: 2016-10-27 12:40+0200\n"
-"PO-Revision-Date: 2016-10-27 12:42+0200\n"
+"PO-Revision-Date: 2016-10-28 09:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -302,7 +302,7 @@ msgstr "Hur går det %s?"
 #: library/User/General.php:113
 #, php-format
 msgid "Good to see you, %s"
-msgstr "Trevligt att se dig, %s"
+msgstr "Trevligt att se dig %s"
 
 #: library/User/General.php:114
 #, php-format
@@ -347,7 +347,7 @@ msgstr "God eftermiddag %s"
 #: library/User/General.php:130
 #, php-format
 msgid "Greetings, %s"
-msgstr "Var hälsad %s"
+msgstr "Hallå %s"
 
 #: library/User/General.php:131
 #, php-format
@@ -357,7 +357,7 @@ msgstr "Kör hårt %s"
 #: library/User/General.php:137
 #, php-format
 msgid "It's getting late, %s"
-msgstr "Det börjar bli sent nu %s"
+msgstr "Jobbar du fortfarande %s?"
 
 #: library/User/General.php:138
 #, php-format
