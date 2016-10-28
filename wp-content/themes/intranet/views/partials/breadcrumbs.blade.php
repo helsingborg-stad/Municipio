@@ -22,6 +22,29 @@
     <div class="grid">
         <div class="grid-xs-12 text-center">
             <span class="h1 greeting">{!! \Intranet\User\General::greet() !!}</span>
+            <?php
+                $unit = null;
+                $units = get_user_meta(get_current_user_id(), 'user_administration_unit', true);
+
+                if (is_array($units) && !empty($units)) {
+                    foreach ($units as $unitId) {
+                        $unit = \Intranet\User\AdministrationUnits::getAdministrationUnit($unitId);
+                        $unit = \Intranet\Helper\Multisite::searchSites($unit);
+
+                        if (!is_array($unit) || empty($unit)) {
+                            continue;
+                        }
+
+                        $unit = $unit[0];
+                    }
+                }
+            ?>
+
+            @if ($unit)
+            <a href="#" class="btn btn-sm gutter gutter-margin gutter-top gutter-sm">
+                <?php _e('Go to', 'municipio-intranet'); ?> {{ substr($unit->name, -1, 1) === 's' ? $unit->name : $unit->name . 's' }} <?php _e('intranet', 'municipio-intranet'); ?>
+            </a>
+            @endif
         </div>
     </div>
 </section>
