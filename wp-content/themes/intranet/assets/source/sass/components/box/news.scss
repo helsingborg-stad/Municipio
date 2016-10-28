@@ -38,8 +38,11 @@
         }
 
         .grid-lg-12 + .grid-lg-12 .box-news {
-            padding-top: 30px;
             margin-top: 30px;
+
+            @media #{$screen-sm-up} {
+                padding-top: 30px;
+            }
         }
 
         .read-more {
@@ -54,6 +57,14 @@
         .sub-heading span {
             color: $palette-purple-4;
             font-weight: bold;
+        }
+
+        @media #{$screen-below-sm} {
+            .sub-heading {
+                border-top: 0;
+                border-bottom: 0;
+                padding: 0;
+            }
         }
 
     }

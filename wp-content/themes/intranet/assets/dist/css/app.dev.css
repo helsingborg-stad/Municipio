@@ -956,10 +956,6 @@ a.profile-card {
       background-color: #f6f5f2;
       text-decoration: none; }
 
-@media (max-width: 769px) {
-  .btn-subscribe {
-    margin-top: 10px; } }
-
 .breadcrumbs-wrapper {
   margin-top: 30px;
   padding-bottom: 27px;
@@ -1168,8 +1164,11 @@ a.dropdown-open:focus {
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news,
 .sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news {
-  padding-top: 30px;
   margin-top: 30px; }
+  @media (min-width: 469px) {
+    .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news,
+    .sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12 + .grid-lg-12 .box-news {
+      padding-top: 30px; } }
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .read-more,
 .sidebar-content-area-top .modularity-mod-intranet-news .read-more {
@@ -1184,6 +1183,13 @@ a.dropdown-open:focus {
 .sidebar-content-area-top .modularity-mod-intranet-news .sub-heading span {
   color: #7b075e;
   font-weight: bold; }
+
+@media (max-width: 469px) {
+  .sidebar-content-area-bottom .modularity-mod-intranet-news .sub-heading,
+  .sidebar-content-area-top .modularity-mod-intranet-news .sub-heading {
+    border-top: 0;
+    border-bottom: 0;
+    padding: 0; } }
 
 .sidebar-right-sidebar .modularity-mod-intranet-news .box-news .sub-heading,
 .sidebar-left-sidebar .modularity-mod-intranet-news .box-news .sub-heading {

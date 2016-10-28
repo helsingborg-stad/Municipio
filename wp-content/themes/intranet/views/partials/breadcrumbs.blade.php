@@ -5,7 +5,7 @@
         <div class="breadcrumbs-wrapper">
             <div class="grid">
                 @if (apply_filters('Municipio/Breadcrumbs', wp_get_post_parent_id(get_the_id()) != 0, get_queried_object()))
-                <div class="grid-md-8">
+                <div class="grid-sm-8 hidden-xs">
                     {{ \Municipio\Theme\Navigation::outputBreadcrumbs() }}
                 </div>
                 @endif
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-@elseif (is_main_site() && is_user_logged_in())
+@elseif (is_main_site() && is_front_page() && is_user_logged_in())
 
 <section class="gutter gutter-vertical gutter-xl">
     <div class="grid">
