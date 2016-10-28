@@ -16,7 +16,7 @@
     </div>
 </div>
 
-@else
+@elseif (is_main_site() && is_user_logged_in())
 
 <section class="gutter gutter-vertical gutter-xl">
     <div class="grid">
