@@ -13,6 +13,18 @@
                         @if (!empty($site->description))
                         <p>{{ $site->description }}</p>
                         @endif
+
+                        @if (is_user_logged_in() && !is_author() && get_blog_option($site->blog_id, 'intranet_force_subscription') != 'true')
+                        <p>
+                            <button class="btn btn-primary btn-subscribe" data-subscribe="{{ $site->blog_id }}">
+                                @if (!\Intranet\User\Subscription::hasSubscribed($site->blog_id))
+                                <i class="pricon pricon-plus-o"></i> <?php _e('Follow', 'municipio-intranet'); ?>
+                                @else
+                                <i class="pricon pricon-minus-o"></i> <?php _e('Unfollow', 'municipio-intranet'); ?>
+                                @endif
+                            </button>
+                        </p>
+                        @endif
                     </div>
                 </a>
             </div>

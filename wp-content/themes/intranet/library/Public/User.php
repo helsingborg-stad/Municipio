@@ -45,7 +45,7 @@ if (!function_exists('municipio_intranet_get_user_manage_subscriptions_url')) {
      */
     function municipio_intranet_get_user_manage_subscriptions_url()
     {
-        return network_site_url('subscriptions');
+        return network_site_url('sites');
     }
 }
 
