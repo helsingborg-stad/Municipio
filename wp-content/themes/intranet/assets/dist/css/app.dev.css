@@ -177,11 +177,11 @@ body.admin-bar {
       background-color: #d35098;
       color: #fff;
       border: none;
-      -webkit-transition: 200ms all;
-              transition: 200ms all;
       overflow: hidden;
       border-radius: 2px;
       margin: 3px; }
+    #site-header .search.search-main .input-group-addon-btn {
+      text-align: right; }
   #site-header .menu-trigger {
     color: #fff;
     position: relative; }
@@ -202,6 +202,9 @@ body.admin-bar {
     display: block; }
   .login-dropdown::before, .login-dropdown::after {
     right: 25px !important; }
+
+html[data-useragent*="Chrome"] #site-header .search.search-main button[type="submit"].btn {
+  margin-right: 2px; }
 
 .login-form.login-form a[href="#forgot-password"] {
   color: #979797;

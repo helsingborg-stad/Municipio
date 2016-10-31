@@ -116,10 +116,13 @@ body.admin-bar {
             background-color: $palette-purple-1;
             color: #fff;
             border: none;
-            transition: 200ms all;
             overflow: hidden;
             border-radius: 2px;
             margin: 3px;
+        }
+
+        .input-group-addon-btn {
+            text-align: right;
         }
     }
 
@@ -162,6 +165,10 @@ body.admin-bar {
     &::after {
         right: 25px !important;
     }
+}
+
+html[data-useragent*="Chrome"] #site-header .search.search-main button[type="submit"].btn {
+    margin-right: 2px;
 }
 
 .login-form.login-form {
