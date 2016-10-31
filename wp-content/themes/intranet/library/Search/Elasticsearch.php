@@ -12,6 +12,11 @@ class ElasticSearch
             self::$level = sanitize_text_field($_GET['level']);
         }
 
+        add_filter('ep_indexable_post_status', function ($statuses) {
+            $statuses[] = 'inherit';
+            return array_unique($statuses);
+        });
+
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
     }
 
