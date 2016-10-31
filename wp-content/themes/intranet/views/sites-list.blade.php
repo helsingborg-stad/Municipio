@@ -4,12 +4,23 @@
 
 <div class="container main-container">
 
+    <div class="grid">
+        <div class="grid-xs-12">
+            <article>
+                <h1><?php _e('All intranets', 'municipio-intranet'); ?></h1>
+                <p>
+                    <?php _e('This is a list of available intranets. You can follow or unfollow them by clicking the follow/unfollow buttons. Intranets missing the follow/unfollow buttons are marked as mandatory and can therefor not be unfollowed.', 'municipio-intranet'); ?>
+                </p>
+            </article>
+        </div>
+    </div>
+
     <div class="grid" data-equal-container>
         @foreach (\Intranet\Helper\Multisite::getSitesList(true) as $site)
             <div class="grid-md-4">
-                <a href="{{ $site->path }}" class="box box-index" data-equal-item>
+                <div class="box box-index" data-equal-item>
                     <div class="box-content">
-                        <h5 class="box-index-title link-item">{!! municipio_intranet_format_site_name($site) !!}</h5>
+                        <h5 class="box-index-title link-item"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></h5>
                         @if (!empty($site->description))
                         <p>{{ $site->description }}</p>
                         @endif
@@ -26,7 +37,7 @@
                         </p>
                         @endif
                     </div>
-                </a>
+                </div>
             </div>
         @endforeach
     </div>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-28 10:55+0200\n"
-"PO-Revision-Date: 2016-10-28 10:56+0200\n"
+"POT-Creation-Date: 2016-10-31 14:50+0100\n"
+"PO-Revision-Date: 2016-10-31 14:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -225,12 +225,12 @@ msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
 #: library/Theme/Enqueue.php:40 views/partials/header/subscribe.blade.php:6
-#: views/partials/network-header.blade.php:61
+#: views/partials/network-header.blade.php:61 views/sites-list.blade.php:32
 msgid "Follow"
 msgstr "Följ"
 
 #: library/Theme/Enqueue.php:41 views/partials/header/subscribe.blade.php:8
-#: views/partials/network-header.blade.php:63
+#: views/partials/network-header.blade.php:63 views/sites-list.blade.php:34
 msgid "Unfollow"
 msgstr "Sluta följa"
 
@@ -1311,22 +1311,20 @@ msgstr "%d personer matchar din sökning"
 msgid "Show all matching persons"
 msgstr "Visa alla personträffar"
 
-#: views/subscriptions.blade.php:12
-msgid "Subscriptions saved"
-msgstr "Nätverk som du följer sparades"
+#: views/sites-list.blade.php:10
+msgid "All intranets"
+msgstr "Alla intranät"
 
-#: views/subscriptions.blade.php:21
-msgid "Manage your subscriptions"
-msgstr "Administrera vilka nätverk som du följer"
-
-#: views/subscriptions.blade.php:23
-#, php-format
-msgid "Manage subscriptions of %s"
-msgstr "Administrera vilka intranät %s följer"
-
-#: views/subscriptions.blade.php:50
-msgid "Save subscriptions"
-msgstr "Spara prenumerationer"
+#: views/sites-list.blade.php:12
+msgid ""
+"This is a list of available intranets. You can follow or unfollow them by "
+"clicking the follow/unfollow buttons. Intranets missing the follow/unfollow "
+"buttons are marked as mandatory and can therefor not be unfollowed."
+msgstr ""
+"Detta är en lista över alla tillgängliga intranät. Du kan följa eller sluta "
+"följa ett intranät genom att klicka på knappen ”följ/sluta följa”. Intranät "
+"som saknar knappen är obligatoriska och kan därför inte följas eller sluta "
+"följas."
 
 #. Theme Name of the plugin/theme
 #: views/table-of-contents.blade.php:16
@@ -1348,6 +1346,18 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Subscriptions saved"
+#~ msgstr "Nätverk som du följer sparades"
+
+#~ msgid "Manage your subscriptions"
+#~ msgstr "Administrera vilka nätverk som du följer"
+
+#~ msgid "Manage subscriptions of %s"
+#~ msgstr "Administrera vilka intranät %s följer"
+
+#~ msgid "Save subscriptions"
+#~ msgstr "Spara prenumerationer"
 
 #~ msgid "Intranet news"
 #~ msgstr "Intranätsnyheter"

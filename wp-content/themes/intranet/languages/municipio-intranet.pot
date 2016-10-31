@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-10-28 10:55+0200\n"
+"POT-Creation-Date: 2016-10-31 14:50+0100\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -225,12 +225,12 @@ msgid "You have not added any links yet…"
 msgstr ""
 
 #: library/Theme/Enqueue.php:40 views/partials/header/subscribe.blade.php:6
-#: views/partials/network-header.blade.php:61
+#: views/partials/network-header.blade.php:61 views/sites-list.blade.php:32
 msgid "Follow"
 msgstr ""
 
 #: library/Theme/Enqueue.php:41 views/partials/header/subscribe.blade.php:8
-#: views/partials/network-header.blade.php:63
+#: views/partials/network-header.blade.php:63 views/sites-list.blade.php:34
 msgid "Unfollow"
 msgstr ""
 
@@ -1260,21 +1260,15 @@ msgstr ""
 msgid "Show all matching persons"
 msgstr ""
 
-#: views/subscriptions.blade.php:12
-msgid "Subscriptions saved"
+#: views/sites-list.blade.php:10
+msgid "All intranets"
 msgstr ""
 
-#: views/subscriptions.blade.php:21
-msgid "Manage your subscriptions"
-msgstr ""
-
-#: views/subscriptions.blade.php:23
-#, php-format
-msgid "Manage subscriptions of %s"
-msgstr ""
-
-#: views/subscriptions.blade.php:50
-msgid "Save subscriptions"
+#: views/sites-list.blade.php:12
+msgid ""
+"This is a list of available intranets. You can follow or unfollow them by "
+"clicking the follow/unfollow buttons. Intranets missing the follow/unfollow "
+"buttons are marked as mandatory and can therefor not be unfollowed."
 msgstr ""
 
 #. Theme Name of the plugin/theme
