@@ -30,7 +30,7 @@ class PostFilters
         $queriedObject = get_queried_object();
         $pageForPosts = get_option('page_for_' . get_post_type());
 
-        if (($pageForPosts !== $queriedObject->ID && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
+        if (is_null($queriedObject) || ($pageForPosts !== $queriedObject->ID && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
             return;
         }
 
