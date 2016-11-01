@@ -19,15 +19,7 @@
 </div>
 @endif
 
-<header class="profile-header has-stripe">
-    <div class="stripe">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-
+<header class="profile-header">
     <div class="profile-header-background">
         <div style="background-image:url('{{ !empty(get_the_author_meta('user_profile_picture')) ? get_the_author_meta('user_profile_picture') : 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg' }}');"></div>
     </div>
