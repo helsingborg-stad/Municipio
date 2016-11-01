@@ -14,18 +14,16 @@ class SsoRedirect
 
         //Run code (if not prohibited url and sso is available)
         if (!$this->disabledUrl()) {
-            if (function_exists('is_sso_available')) {
-                if (is_sso_available()) {
-                    add_action('init', array($this, 'init'), 9999);
-                }
-            } else {
-                add_action('init', array($this, 'init'), 9999);
-            }
+            add_action('init', array($this, 'init'), 9999);
         }
     }
 
     public function init()
     {
+        if (function_exists('is_sso_available') && !is_sso_available()) {
+            return;
+        }
+
         if (!$this->isAuthenticated() && $this->isInNetwork() && $this->isExplorer()) {
             $this->doAuthentication();
         } elseif (!$this->isInNetwork() || !$this->isExplorer()) {
