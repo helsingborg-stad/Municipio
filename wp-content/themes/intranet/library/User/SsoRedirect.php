@@ -20,7 +20,7 @@ class SsoRedirect
 
     public function init()
     {
-        if (function_exists('is_sso_available') && !is_sso_available()) {
+        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && !\SsoAvailability\SsoAvailability::isSsoAvailable()) {
             return;
         }
 

@@ -57,10 +57,8 @@ class SsoAvailability
         ";
         exit();
     }
-}
 
-if (!function_exists('is_sso_available')) {
-    function is_sso_available()
+    public static function isSsoAvailable()
     {
         if (!isset($_COOKIE['sso_available'])) {
             return false;
