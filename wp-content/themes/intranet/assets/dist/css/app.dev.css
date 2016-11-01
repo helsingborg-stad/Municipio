@@ -536,7 +536,8 @@ a.profile-card {
               transform: translate(-50%, -50%);
       vertical-align: 0%;
       line-height: 1;
-      font-size: 4em; }
+      font-size: 4em;
+      margin-top: 1px; }
   @media (max-width: 769px) {
     a.profile-card {
       padding: 10px;
