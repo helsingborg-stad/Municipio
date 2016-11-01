@@ -45,11 +45,13 @@ class General
         add_filter('Municipio/Breadcrumbs', '__return_true');
         add_filter('Municipio/Breadcrumbs/Items', function ($items, $queriedObject) {
             $site = \Intranet\Helper\Multisite::getSite(get_current_blog_id());
+
             array_unshift($items, '<li itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
                 <a itemprop="item" href="' . $site->path . '" title="' . $site->name . '">
                 ' . $site->name . '
                 </a>
             </li>');
+
             return $items;
         }, 10, 2);
 

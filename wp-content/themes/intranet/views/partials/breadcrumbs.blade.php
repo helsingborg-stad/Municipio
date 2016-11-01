@@ -1,4 +1,4 @@
-@if (!is_main_site())
+@if (!is_main_site() || (is_main_site() && !is_front_page()))
 
 <div class="grid no-margin-top">
     <div class="grid-xs-12">
