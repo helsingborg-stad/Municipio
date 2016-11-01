@@ -1111,6 +1111,9 @@ a.dropdown-open:focus {
   .modularity-mod-intranet-u-links button[data-user-link-remove],
   .modularity-mod-intranet-u-syste button[data-user-link-remove] {
     padding: 1px 5px 5px; }
+  .modularity-mod-intranet-u-links .links li,
+  .modularity-mod-intranet-u-syste .links li {
+    padding: 6px 10px !important; }
   .modularity-mod-intranet-u-links .is-editing .only-if-editing,
   .modularity-mod-intranet-u-syste .is-editing .only-if-editing {
     display: block; }
