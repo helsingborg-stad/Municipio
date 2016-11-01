@@ -13,6 +13,10 @@ class Login
 
     public function adMapping($username, $user)
     {
+        if (isset($_COOKIE['sso_manual_logout'])) {
+            setcookie('sso_manual_logout', null, -1);
+        }
+
         $userId = $user->data->ID;
 
         // Map the administration unit
@@ -64,6 +68,7 @@ class Login
      */
     public function frontendLogout()
     {
+        setcookie('sso_manual_logout', true, time()+3600);
         wp_redirect(home_url('/'));
         exit;
     }

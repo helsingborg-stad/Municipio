@@ -12,8 +12,10 @@ class SsoRedirect
         //Set vars
         $this->prohibitedUrls = array('plugins');
 
+        var_dump($_COOKIE);
+
         //Run code (if not prohibited url and sso is available)
-        if (!$this->disabledUrl()) {
+        if (!$this->disabledUrl() && !isset($_COOKIE['sso_manual_logout'])) {
             add_action('init', array($this, 'init'), 9999);
         }
     }
@@ -24,7 +26,7 @@ class SsoRedirect
             return;
         }
 
-        if (!$this->isAuthenticated() && $this->isInNetwork() && $this->isExplorer()) {
+        if (!$this->isAuthenticated() && $this->isInNetwork() && $this->isExplorer() && !$this->isManuallyLoggedOut()) {
             $this->doAuthentication();
         } elseif (!$this->isInNetwork() || !$this->isExplorer()) {
             add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
@@ -41,6 +43,11 @@ class SsoRedirect
     public function isInNetwork()
     {
         return is_local_ip();
+    }
+
+    public function isManuallyLoggedOut()
+    {
+        return true;
     }
 
     public function isExplorer()
