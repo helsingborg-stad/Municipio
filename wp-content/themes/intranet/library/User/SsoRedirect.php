@@ -12,8 +12,6 @@ class SsoRedirect
         //Set vars
         $this->prohibitedUrls = array('plugins');
 
-        var_dump($_COOKIE);
-
         //Run code (if not prohibited url and sso is available)
         if (!$this->disabledUrl() && !isset($_COOKIE['sso_manual_logout'])) {
             add_action('init', array($this, 'init'), 9999);
