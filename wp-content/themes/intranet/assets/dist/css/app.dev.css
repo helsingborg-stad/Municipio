@@ -525,18 +525,33 @@ a.profile-card {
     background-color: #edece9;
     padding: 10px 20px;
     line-height: 1; }
+  a.profile-card .profile-image {
+    position: relative; }
+    a.profile-card .profile-image i.pricon {
+      position: absolute;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+      vertical-align: 0%;
+      line-height: 1;
+      font-size: 4em; }
   @media (max-width: 769px) {
     a.profile-card {
       padding: 10px;
+      padding-bottom: 20px;
       text-align: left;
       margin-bottom: 15px; }
       a.profile-card .profile-image {
+        position: relative;
         float: left;
         width: 50px;
         height: 50px;
         margin-right: 10px; }
+        a.profile-card .profile-image i.pricon {
+          font-size: 2em; }
       a.profile-card .profile-department {
-        margin: 15px -10px -10px -10px;
         border-top: 1px solid #e7e5e1;
         background-color: #edece9;
         padding: 5px 10px; }
@@ -546,6 +561,86 @@ a.profile-card {
     text-decoration: none; }
     a.profile-card:hover .h4 {
       text-decoration: underline; }
+
+li:nth-child(5n + 1) a.profile-card .profile-image {
+  background-color: #d35098;
+  color: #fff; }
+  .theme-red li:nth-child(5n + 1) a.profile-card .profile-image {
+    background-color: #f7a600;
+    color: #000; }
+  .theme-blue li:nth-child(5n + 1) a.profile-card .profile-image {
+    background-color: #4db4e7;
+    color: #000; }
+  .theme-green li:nth-child(5n + 1) a.profile-card .profile-image {
+    background-color: #afca05;
+    color: #000; }
+  .theme-purple li:nth-child(5n + 1) a.profile-card .profile-image {
+    background-color: #d35098;
+    color: #000; }
+
+li:nth-child(5n + 2) a.profile-card .profile-image {
+  background-color: #712082;
+  color: #fff; }
+  .theme-red li:nth-child(5n + 2) a.profile-card .profile-image {
+    background-color: #cb0050;
+    color: #fff; }
+  .theme-blue li:nth-child(5n + 2) a.profile-card .profile-image {
+    background-color: #0069b4;
+    color: #fff; }
+  .theme-green li:nth-child(5n + 2) a.profile-card .profile-image {
+    background-color: #11a636;
+    color: #000; }
+  .theme-purple li:nth-child(5n + 2) a.profile-card .profile-image {
+    background-color: #712082;
+    color: #fff; }
+
+li:nth-child(5n + 3) a.profile-card .profile-image {
+  background-color: #a84c98;
+  color: #fff; }
+  .theme-red li:nth-child(5n + 3) a.profile-card .profile-image {
+    background-color: #ec6701;
+    color: #000; }
+  .theme-blue li:nth-child(5n + 3) a.profile-card .profile-image {
+    background-color: #5ba1d8;
+    color: #000; }
+  .theme-green li:nth-child(5n + 3) a.profile-card .profile-image {
+    background-color: #a0c855;
+    color: #000; }
+  .theme-purple li:nth-child(5n + 3) a.profile-card .profile-image {
+    background-color: #a84c98;
+    color: #fff; }
+
+li:nth-child(5n + 4) a.profile-card .profile-image {
+  background-color: #7b075e;
+  color: #fff; }
+  .theme-red li:nth-child(5n + 4) a.profile-card .profile-image {
+    background-color: #ae0b05;
+    color: #fff; }
+  .theme-blue li:nth-child(5n + 4) a.profile-card .profile-image {
+    background-color: #005c86;
+    color: #fff; }
+  .theme-green li:nth-child(5n + 4) a.profile-card .profile-image {
+    background-color: #50811b;
+    color: #fff; }
+  .theme-purple li:nth-child(5n + 4) a.profile-card .profile-image {
+    background-color: #7b075e;
+    color: #fff; }
+
+li:nth-child(5n + 5) a.profile-card .profile-image {
+  background-color: #a61380;
+  color: #fff; }
+  .theme-red li:nth-child(5n + 5) a.profile-card .profile-image {
+    background-color: #e3000f;
+    color: #fff; }
+  .theme-blue li:nth-child(5n + 5) a.profile-card .profile-image {
+    background-color: #0095db;
+    color: #000; }
+  .theme-green li:nth-child(5n + 5) a.profile-card .profile-image {
+    background-color: #76b828;
+    color: #000; }
+  .theme-purple li:nth-child(5n + 5) a.profile-card .profile-image {
+    background-color: #a61380;
+    color: #fff; }
 
 .search-result-item h3 {
   margin-bottom: 0;

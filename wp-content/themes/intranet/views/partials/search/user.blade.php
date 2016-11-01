@@ -1,3 +1,4 @@
+<?php $faces = array('pricon-smiley-flirty', 'pricon-smiley-cool', 'pricon-smiley-smile', 'pricon-smiley-super-happy', 'pricon-smiley-thounge'); ?>
 <ul class="grid" data-equal-container>
     @foreach ($users as $item)
     <?php global $authordata; $authordata = get_user_by('ID', $item->ID); ?>
@@ -6,7 +7,9 @@
             @if (!empty(get_the_author_meta('user_profile_picture')))
             <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');"></div>
             @else
-            <div class="profile-image"></div>
+            <div class="profile-image">
+                <i class="pricon {{ $faces[array_rand($faces)] }}"></i>
+            </div>
             @endif
 
             <span class="h4">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</span>

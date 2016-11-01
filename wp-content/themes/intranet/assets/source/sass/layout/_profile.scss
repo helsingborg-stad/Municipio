@@ -401,20 +401,37 @@ a.profile-card {
         line-height: 1;
     }
 
+    .profile-image {
+        position: relative;
+
+        i.pricon {
+            position: absolute;
+            @include center();
+            vertical-align: 0%;
+            line-height: 1;
+            font-size: 4em;
+        }
+    }
+
     @media #{$screen-below-md} {
         padding: 10px;
+        padding-bottom: 20px;
         text-align: left;
         margin-bottom: 15px;
 
         .profile-image {
+            position: relative;
             float: left;
             width: 50px;
             height: 50px;
             margin-right: 10px;
+
+            i.pricon {
+                font-size: 2em;
+            }
         }
 
         .profile-department {
-            margin: 15px -10px -10px -10px;
             border-top: 1px solid $creamy-darker;
             background-color: #edece9;
             padding: 5px 10px;
@@ -430,6 +447,81 @@ a.profile-card {
 
         .h4 {
             text-decoration: underline;
+        }
+    }
+}
+
+li:nth-child(5n + 1) a.profile-card .profile-image {
+    background-color: $palette-purple-1;
+    color: #fff;
+
+    // Color theme styles
+    @if ($includeThemes == true) {
+        @each $theme, $color in $themes {
+            .theme-#{$theme} & {
+                background-color: map-get($color, first);
+                color: map-get($color, firstTextColor)
+            }
+        }
+    }
+}
+
+li:nth-child(5n + 2) a.profile-card .profile-image {
+    background-color: $palette-purple-2;
+    color: #fff;
+
+    // Color theme styles
+    @if ($includeThemes == true) {
+        @each $theme, $color in $themes {
+            .theme-#{$theme} & {
+                background-color: map-get($color, second);
+                color: map-get($color, secondTextColor)
+            }
+        }
+    }
+}
+
+li:nth-child(5n + 3) a.profile-card .profile-image {
+    background-color: $palette-purple-3;
+    color: #fff;
+
+    // Color theme styles
+    @if ($includeThemes == true) {
+        @each $theme, $color in $themes {
+            .theme-#{$theme} & {
+                background-color: map-get($color, third);
+                color: map-get($color, thirdTextColor)
+            }
+        }
+    }
+}
+
+li:nth-child(5n + 4) a.profile-card .profile-image {
+    background-color: $palette-purple-4;
+    color: #fff;
+
+    // Color theme styles
+    @if ($includeThemes == true) {
+        @each $theme, $color in $themes {
+            .theme-#{$theme} & {
+                background-color: map-get($color, fourth);
+                color: map-get($color, fourthTextColor)
+            }
+        }
+    }
+}
+
+li:nth-child(5n + 5) a.profile-card .profile-image {
+    background-color: $palette-purple-5;
+    color: #fff;
+
+    // Color theme styles
+    @if ($includeThemes == true) {
+        @each $theme, $color in $themes {
+            .theme-#{$theme} & {
+                background-color: map-get($color, fifth);
+                color: map-get($color, fifthTextColor)
+            }
         }
     }
 }
