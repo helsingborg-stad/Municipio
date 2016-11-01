@@ -12,9 +12,15 @@ class SsoRedirect
         //Set vars
         $this->prohibitedUrls = array('plugins');
 
-        //Run code (if not prohibited url)
+        //Run code (if not prohibited url and sso is available)
         if (!$this->disabledUrl()) {
-            add_action('init', array($this, 'init'), 9999);
+            if (function_exists('is_sso_available')) {
+                if (is_sso_available()) {
+                    add_action('init', array($this, 'init'), 9999);
+                }
+            } else {
+                add_action('init', array($this, 'init'), 9999);
+            }
         }
     }
 
