@@ -53,7 +53,7 @@ class NavigationTree
                 'post_status' => $this->postStatuses,
                 'orderby' => 'menu_order post_title',
                 'order' => 'asc',
-                'numberposts' => -1,
+                'posts_per_page' => -1,
                 'meta_query'    => array(
                     'relation' => 'AND',
                     array(
@@ -183,7 +183,7 @@ class NavigationTree
                     'post_status' => $this->postStatuses,
                     'orderby' => 'menu_order post_title',
                     'order' => 'asc',
-                    'numberposts' => -1,
+                    'posts_per_page' => -1,
                     'meta_query'    => array(
                         'relation' => 'OR',
                         array(
@@ -208,7 +208,7 @@ class NavigationTree
             'post_status' => $this->postStatuses,
             'orderby' => 'menu_order post_title',
             'order' => 'asc',
-            'numberposts' => -1,
+            'posts_per_page' => -1,
             'meta_query'    => array(
                 'relation' => 'AND',
                 array(
