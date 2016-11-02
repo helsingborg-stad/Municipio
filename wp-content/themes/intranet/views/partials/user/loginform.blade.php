@@ -18,6 +18,7 @@
         <a href="#forgot-password"><?php _e('Forgot your password?', 'municipio-intranet'); ?></a><br>
         @endif
 
+        <input type="hidden" name="use_sso" value="false">
         <input type="submit" class="btn btn-primary" value="<?php _e('Login', 'municipio-intranet'); ?>">
     </div>
 </form>
