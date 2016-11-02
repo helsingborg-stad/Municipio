@@ -13,7 +13,7 @@ class SsoRedirect
         $this->prohibitedUrls = array('plugins');
 
         //Run code (if not prohibited url and sso is available)
-        if (!$this->disabledUrl() && !isset($_COOKIE['sso_manual_logout'])) {
+        if (!$this->disabledUrl()) {
             add_action('init', array($this, 'init'), 9999);
         }
     }
@@ -45,6 +45,10 @@ class SsoRedirect
 
     public function isManuallyLoggedOut()
     {
+        if (!isset($_COOKIE['sso_manual_logout']) || !(isset($_COOKIE['sso_manual_logout']) && $_COOKIE['sso_manual_logout'] == 1)) {
+            return false;
+        }
+
         return true;
     }
 

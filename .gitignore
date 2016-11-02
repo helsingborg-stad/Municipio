@@ -7,6 +7,9 @@
 
 # Plugins
 /wp-content/plugins/*
+!/wp-content/plugins/saml-20-single-sign-on
+
+# Dropins
 /wp-content/db.php
 
 # Themes
