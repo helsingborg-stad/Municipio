@@ -21,6 +21,7 @@ class SsoRedirect
     public function init()
     {
         if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && !\SsoAvailability\SsoAvailability::isSsoAvailable()) {
+            add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
             return;
         }
 
