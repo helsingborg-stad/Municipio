@@ -21,7 +21,6 @@ class SsoRedirect
     public function init()
     {
         if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && !\SsoAvailability\SsoAvailability::isSsoAvailable()) {
-            add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
             return;
         }
 
@@ -29,6 +28,7 @@ class SsoRedirect
             $this->doAuthentication();
         } elseif (!$this->isInNetwork() || !$this->isExplorer()) {
             add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
+            add_filter('site_option_active_plugins', array($this, 'disableSsoPlugin'));
         } elseif ($this->isAuthenticated()) {
             add_filter('body_class', array($this, 'addBodyClass'));
         }
@@ -83,7 +83,7 @@ class SsoRedirect
 
     public function disableSsoPlugin($plugins)
     {
-        $key = array_search('saml-20-single-sign-on/samlauth.php', $plugins);
+        $key = array_search('saml-20-single-sign-on/samlauth.php', maybe_unserialize($plugins));
         if (false !== $key) {
             unset($plugins[$key]);
         }
