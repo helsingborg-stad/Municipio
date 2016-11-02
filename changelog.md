@@ -3,6 +3,23 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.3.1 (2016-11-02)
+==========================
+- Updated translations
+- Hide user greet if not logged in
+- Mobile optimizations
+- Allow ElasticSearch to index attachments
+- Remove manage subscriptions page, use "all intranets" page insterad
+- Add information text to the "all intranets" page
+- Add follow buttons to the "all intranets" page
+- Search button alignment in Chrome
+- Show breadcrumbs on main_blog (portalen)
+- Profile ui updated (stripe removed)
+- Check if sso is available before trying to sso login
+- Add option to logout even if signed in with sso
+- Tighter rows in "my links" and "my systems"
+- User results in search without profile images now gets nicer placeholder
+
 Version 0.3.0 (2016-10-28)
 ===========================
 - ElasticSearch (!)
