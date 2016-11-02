@@ -27,17 +27,26 @@ class PostFilters
     {
         global $wp_query;
 
+        if (!get_post_type()) {
+            return;
+        }
+
         $queriedObject = get_queried_object();
+        $objectId = null;
+        if (isset($queriedObject->ID)) {
+            $objectId = $queriedObject->ID;
+        }
+
         $pageForPosts = get_option('page_for_' . get_post_type());
 
-        if (($pageForPosts !== $queriedObject->ID && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
+        if (is_null($queriedObject) || ($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
             return;
         }
 
         $taxonomies = $this->getEnabledTaxonomies();
 
         add_action('HbgBlade/data', function ($data) use ($taxonomies) {
-            $data['postType'] = $postType;
+            $data['postType'] = get_post_type();
 
             $data['enabledHeaderFilters'] = get_field('archive_' . get_post_type() . '_post_filters_header', 'option');
             $data['enabledTaxonomyFilters'] = $taxonomies;

@@ -152,15 +152,10 @@ class Navigation
         echo '<ol class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">';
 
         if (!is_front_page()) {
-            if (is_category() || is_single()) {
-                echo '<li>';
-                the_category('<li>');
-
-                if (is_single()) {
-                    echo '<li>';
-                    the_title();
-                    echo '</li>';
-                }
+            if (is_single()) {
+                $output[] = '<li>' . get_the_title() . '</li>';
+            } elseif (is_category()) {
+                $output[] = '<li>' . get_the_category() . '</li>';
             } elseif (is_page()) {
                 if ($post->post_parent) {
                     $anc = get_post_ancestors($post->ID);
