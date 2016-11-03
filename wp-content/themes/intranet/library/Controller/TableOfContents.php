@@ -79,6 +79,10 @@ class TableOfContents extends \Intranet\Controller\BaseController
                 continue;
             }
 
+            $titles = array_filter($titles, function ($item) {
+                return $item['title'];
+            });
+
             foreach ($titles as $title) {
                 $cloned = clone $page;
                 $cloned->post_title = $title['title'];
