@@ -187,7 +187,7 @@ class Systems
         $systems = array_map('unserialize', array_unique(array_map('serialize', $systems)));
 
         // If is on a local ip, return all system
-        if (is_local_ip()) {
+        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && \SsoAvailability\SsoAvailability::isSsoAvailable()) {
             return $systems;
         }
 
