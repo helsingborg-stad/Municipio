@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /* Icon variables */
+.error404 span.h1 {
+  color: #fff !important; }
+
 .easter-egg div {
   position: relative;
   -webkit-transition: 100ms -webkit-transform ease-in-out;
