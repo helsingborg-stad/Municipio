@@ -3,6 +3,16 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.3.2 (tbd)
+===================
+- New attachment revisions and media replace function
+- Author sorting
+- Fixed 404 page
+- Filter empty titles in table of contents
+- Gutter for the "forced subscriptions" list in left sidebar
+- Allow protocol-relative urls in acf url field
+- Make all Modularity iframes protorol-relative
+
 Version 0.3.1 (2016-11-02)
 ==========================
 - Updated translations
