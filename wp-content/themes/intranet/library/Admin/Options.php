@@ -10,6 +10,15 @@ class Options
         add_filter('BetterPostUi/authors', function ($args) {
             return array();
         });
+
+        // Nested Pages plugin page author dropdowns
+        add_filter('wp_dropdown_users_args', function ($args, $r) {
+            if ($r['id'] == 'post_author') {
+                $args['who'] = '';
+            }
+
+            return $args;
+        }, 10, 2);
     }
 
     public function setupOptions()
