@@ -21,7 +21,6 @@
                     <?php dynamic_sidebar('content-area'); ?>
                 </div>
             @endif
-
         </div>
     </div>
 </div>
