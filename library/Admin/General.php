@@ -27,28 +27,6 @@ class General
         });
 
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
-
-        add_filter('acf/load_field/type=url', array($this, 'urlFieldToTextField'), 10);
-    }
-
-    public function urlFieldToTextField($field)
-    {
-        if (defined('DOING_AJAX') && DOING_AJAX || !is_admin()) {
-            return $field;
-        }
-
-        if (!self::$url2text) {
-            self::$url2text = true;
-
-            echo "
-            <script>
-                jQuery(document).ready(function ($) {
-                    $('input[type=\"url\"]').attr('type', 'text').css('padding-left', '25px');
-                });
-            </script>";
-        }
-
-        return $field;
     }
 
     /**
