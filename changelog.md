@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.3.2 (tbd)
-===================
+Version 0.3.2 (2016-11-09)
+==========================
 - New attachment revisions and media replace function
 - Author sorting
 - Fixed 404 page
