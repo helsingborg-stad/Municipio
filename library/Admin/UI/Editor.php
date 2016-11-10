@@ -13,7 +13,7 @@ class Editor
 
         // Custom plugins
         $this->metaData();
-        $this->printBreak();
+        //$this->printBreak();
 
         // Filters
         add_filter('oembed_result', array($this, 'oembed'), 10, 3);
