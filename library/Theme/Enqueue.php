@@ -84,7 +84,7 @@ class Enqueue
         }
 
         //Custom
-        if (defined('DEV_MODE') && DEV_MODE === true) {
+        if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
             wp_register_script('hbg-prime', '//hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
         } else {
             wp_register_script('hbg-prime', '//helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
