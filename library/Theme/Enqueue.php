@@ -101,6 +101,11 @@ class Enqueue
             'googleTranslate' => array(
                 'gaTrack' => get_field('google_translate_ga_track', 'option'),
                 'gaUA'    => get_field('google_analytics_ua', 'option')
+            ),
+            'scrollElevator' => array(
+                'cta' => get_field('scroll_elevator_text', 'option'),
+                'tooltip' => get_field('scroll_elevator_tooltio', 'option'),
+                'tooltipPosition' => get_field('scroll_elevator_tooltio_position', 'option')
             )
         ));
         wp_enqueue_script('hbg-prime');
