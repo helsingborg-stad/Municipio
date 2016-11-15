@@ -59,7 +59,9 @@ class General
             return array();
         });
 
-        add_filter('ep_analyzer_language', 'Swedish');
+        add_filter('ep_analyzer_language', function () {
+            return 'Swedish';
+        });
     }
 
     public function googleAnalyticsUA($ua)
