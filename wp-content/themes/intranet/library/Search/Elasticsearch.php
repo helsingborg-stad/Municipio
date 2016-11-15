@@ -19,6 +19,7 @@ class ElasticSearch
 
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
+        add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
     }
 
     /**
@@ -39,7 +40,7 @@ class ElasticSearch
         }
 
         // Set sites if non of above
-        $query->query_vars['sites'] = self::getSitesFromLevel(self::$level);
+        $query->set('sites', self::getSitesFromLevel(self::$level));
     }
 
     /**
@@ -63,10 +64,33 @@ class ElasticSearch
         $query->set('post_type', array('page', 'attachment'));
 
         $postStatuses  = array('publish', 'inherit');
+
         if (is_user_logged_in()) {
             $postStatuses[] = 'private';
         }
+
         $query->set('post_status', $postStatuses);
+    }
+
+    /**
+     * Set orderby to relevance
+     * @param WP_Query $query
+     */
+    public function setOrderby($query)
+    {
+        // If not search or main query, return the default query
+        if (!is_search() || !$query->is_main_query()) {
+            return;
+        }
+
+        // If level is users abort the query
+        if (self::$level === 'users') {
+            $query = false;
+            return;
+        }
+
+        // Set orderby
+        $query->set('orderby', 'relevance');
     }
 
     /**
