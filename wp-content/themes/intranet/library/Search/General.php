@@ -8,10 +8,19 @@ class General
     {
         $q = sanitize_text_field($data['s']);
 
+        $postStatuses  = array('publish', 'inherit');
+
+        if (is_user_logged_in()) {
+            $postStatuses[] = 'private';
+        }
+
         $query = new \WP_Query(array(
-            's' => $q,
-            'orderby' => 'relevance',
-            'sites' => 'all'
+            's'             => $q,
+            'orderby'       => 'relevance',
+            'sites'         => 'all',
+            'post_status'   => $postStatuses,
+            'post_type'     => array('page', 'attachment'),
+            'cache_results' => false
         ));
 
         $users = array();
