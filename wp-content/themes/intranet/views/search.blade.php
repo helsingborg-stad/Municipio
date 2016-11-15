@@ -32,7 +32,7 @@
                     ?>
 
                     <ul class="nav nav-horizontal">
-                        <li class="title">Välj nivå:</li>
+                        <li class="title"><?php _e('Select depth', 'municipio-intranet'); ?>:</li>
                         <li class="{{ $level == 'all' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
                                 <?php _e('All sites', 'municipio-intranet'); ?>
@@ -51,7 +51,7 @@
 
                         <li class="{{ $level == 'current' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=current">
-                                <?php _e('Current site', 'municipio-intranet'); ?>
+                                {{ municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite(get_current_blog_id()), 'long') }}
                                 <span class="label label-rounded label-sm">{{ $counts['current'] }}</span>
                             </a>
                         </li>
