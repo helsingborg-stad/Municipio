@@ -58,7 +58,7 @@ class AdministrationUnits
             $userId = get_current_user_id();
         }
 
-        $units = get_user_meta(get_current_user_id(), 'user_administration_unit', true);
+        $units = (array)get_user_meta(get_current_user_id(), 'user_administration_unit', true);
 
         if (is_array($units) && !empty($units)) {
             foreach ($units as $unitId) {
