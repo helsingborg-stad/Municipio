@@ -26,7 +26,7 @@
             <?php $unit = \Intranet\User\AdministrationUnits::getUsersAdministrationUnitIntranet(); ?>
             @if ($unit)
             <a href="{{ $unit->path }}" class="btn btn-sm gutter gutter-margin gutter-top gutter-sm">
-                <?php _e('Go to', 'municipio-intranet'); ?> {{ substr($unit->name, -1, 1) === 's' ? $unit->name : $unit->name . 's' }} <?php _e('intranet', 'municipio-intranet'); ?>
+                <?php _e('Go to', 'municipio-intranet'); ?> {{ substr($unit->name, -1, 1) === 's' ? strtolower($unit->name) : strtolower($unit->name . 's') }} <?php _e('intranet', 'municipio-intranet'); ?>
             </a>
             @endif
         </div>
