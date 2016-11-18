@@ -53,7 +53,8 @@ class Registration
     {
         $userId = get_current_user_id();
         $adTag = get_user_meta($userId, 'ad_displayname', true);
-        $adTag = strtolower(trim(end(explode('-', $adTag))));
+        $adTag = explode('-', $adTag);
+        $adTag = strtolower(trim(end($adTag)));
 
         $sites = \Intranet\Helper\Multisite::getSitesList();
 
