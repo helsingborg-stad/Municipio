@@ -169,73 +169,6 @@
                             </div>
                         </section>
 
-                        <!-- Social media -->
-                        <section class="accordion-section">
-                            <input type="radio" name="active-section" id="social-media">
-                            <label class="accordion-toggle" for="social-media">
-                                <h4 class="pricon pricon-share pricon-space-right"><?php _e('Social media', 'municipio-intranet'); ?></h4>
-                            </label>
-                            <div class="accordion-content">
-                                <div class="grid">
-                                    <div class="grid-xs-12">
-                                        <p><?php _e('Fill in your social media profile url:s if you want to make it easier for others to find your social media profiles.', 'municipio-intranet'); ?></p>
-                                    </div>
-                                </div>
-
-                                <div class="grid">
-                                    <div class="grid-md-6">
-                                        <div class="form-group">
-                                            <label for="user_facebook_url"><?php _e('Facebook profile url', 'municipio-intranet'); ?></label>
-                                            <input type="url" pattern="https?://.+" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}" data-invalid-message="<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>">
-                                            <?php municipio_intranet_field_example('facebook', 'https://www.facebook.com/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
-                                        </div>
-                                    </div>
-                                    <div class="grid-md-6">
-                                        <div class="form-group">
-                                            <label for="user_linkedin_url"><?php _e('Linkedin profile url', 'municipio-intranet'); ?></label>
-                                            <input type="url" pattern="https?://.+" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}" data-invalid-message="<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>">
-                                            <?php municipio_intranet_field_example('linkedin', 'https://www.linkedin.com/in/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid">
-                                    <div class="grid-md-6">
-                                        <div class="form-group">
-                                            <label for="user_instagram_username"><?php _e('Instagram username', 'municipio-intranet'); ?></label>
-                                            <input type="text" id="user_instagram_username" name="user_instagram_username" value="{{ get_the_author_meta('user_instagram_username') }}">
-                                            <?php municipio_intranet_field_example('instagram', mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
-                                        </div>
-                                    </div>
-                                    <div class="grid-md-6">
-                                        <div class="form-group">
-                                            <label for="user_twitter_username"><?php _e('Twitter username', 'municipio-intranet'); ?></label>
-                                            <input type="text" id="user_twitter_username" name="user_twitter_username" value="{{ get_the_author_meta('user_twitter_username') }}">
-                                            <?php municipio_intranet_field_example('twitter', mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- About me -->
-                        <section class="accordion-section">
-                            <input type="radio" name="active-section" id="user-about">
-                            <label class="accordion-toggle" for="user-about">
-                                <h4  class="pricon pricon-info-o pricon-space-right"><?php _e('About me', 'municipio-intranet'); ?></h4>
-                            </label>
-                            <div class="accordion-content no-padding">
-                                <div class="grid">
-                                    <div class="grid-xs-12">
-                                        <div class="form-group">
-                                            <label for="user_about" class="sr-only"><?php _e('About me', 'municipio-intranet'); ?></label>
-                                            <textarea name="user_about" id="user_about" cols="30" rows="10" style="border:none;display: block;box-shadow: none;padding: 20px;" placeholder="<?php _e('Write a little something about yourself…', 'municipio-intranet'); ?>">{{ get_the_author_meta('user_about') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
                         <!-- Work information -->
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="work-information">
@@ -313,6 +246,103 @@
                                             <label for="user_visiting_address_city" style="font-weight:normal;" class="text-sm"><?php _e('City', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_city" name="user_visiting_address[city]" value="{{ isset(get_the_author_meta('user_visiting_address')['city']) ? get_the_author_meta('user_visiting_address')['city'] : '' }}">
                                             <?php municipio_intranet_field_example('user_visiting_address_city', 'Helsingborg'); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Traget groups -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="target-groups">
+                            <label class="accordion-toggle" for="target-groups">
+                                <h4 class="pricon pricon-target pricon-space-right"><?php _e('Target groups', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-xs-12">
+                                        <article>
+                                            <p><?php _e('Please check the boxes of the target groups that suits your current role. Checking a box will give you information targeted to the specific group.', 'municipio-intranet'); ?></p>
+                                        </article>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <div class="grid">
+                                                @foreach ($targetGroups as $group)
+                                                <div class="grid-md-6">
+                                                    <label class="checkbox"><input type="checkbox" name="user_target_groups[]" value="{{ $group->id }}" {{ checked(true, in_array($group->id, (array)get_the_author_meta('user_target_groups'))) }}> {{ $group->tag }} <?php echo isset($group->administration_unit) && \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) ? '(' . \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) . ')' : '(' . __('All') . ')'; ?></label>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Social media -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="social-media">
+                            <label class="accordion-toggle" for="social-media">
+                                <h4 class="pricon pricon-share pricon-space-right"><?php _e('Social media', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-xs-12">
+                                        <p><?php _e('Fill in your social media profile url:s if you want to make it easier for others to find your social media profiles.', 'municipio-intranet'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_facebook_url"><?php _e('Facebook profile url', 'municipio-intranet'); ?></label>
+                                            <input type="url" pattern="https?://.+" id="user_facebook_url" name="user_facebook_url" value="{{ get_the_author_meta('user_facebook_url') }}" data-invalid-message="<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>">
+                                            <?php municipio_intranet_field_example('facebook', 'https://www.facebook.com/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
+                                        </div>
+                                    </div>
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_linkedin_url"><?php _e('Linkedin profile url', 'municipio-intranet'); ?></label>
+                                            <input type="url" pattern="https?://.+" id="user_linkedin_url" name="user_linkedin_url" value="{{ get_the_author_meta('user_linkedin_url') }}" data-invalid-message="<?php _e('The given url is invalid. Make sure the url starts with https:// or http://', 'municipio-intranet'); ?>">
+                                            <?php municipio_intranet_field_example('linkedin', 'https://www.linkedin.com/in/' . mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_instagram_username"><?php _e('Instagram username', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_instagram_username" name="user_instagram_username" value="{{ get_the_author_meta('user_instagram_username') }}">
+                                            <?php municipio_intranet_field_example('instagram', mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
+                                        </div>
+                                    </div>
+                                    <div class="grid-md-6">
+                                        <div class="form-group">
+                                            <label for="user_twitter_username"><?php _e('Twitter username', 'municipio-intranet'); ?></label>
+                                            <input type="text" id="user_twitter_username" name="user_twitter_username" value="{{ get_the_author_meta('user_twitter_username') }}">
+                                            <?php municipio_intranet_field_example('twitter', mb_strtolower(get_the_author_meta('first_name') . get_the_author_meta('last_name'))); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- About me -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="user-about">
+                            <label class="accordion-toggle" for="user-about">
+                                <h4  class="pricon pricon-info-o pricon-space-right"><?php _e('About me', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content no-padding">
+                                <div class="grid">
+                                    <div class="grid-xs-12">
+                                        <div class="form-group">
+                                            <label for="user_about" class="sr-only"><?php _e('About me', 'municipio-intranet'); ?></label>
+                                            <textarea name="user_about" id="user_about" cols="30" rows="10" style="border:none;display: block;box-shadow: none;padding: 20px;" placeholder="<?php _e('Write a little something about yourself…', 'municipio-intranet'); ?>">{{ get_the_author_meta('user_about') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -462,36 +492,6 @@
                                                     <div class="selected-file"></div>
                                                     <input type="file" id="user_profile_image" name="user_profile_image" class="hidden">
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Traget groups -->
-                        <section class="accordion-section">
-                            <input type="radio" name="active-section" id="target-groups">
-                            <label class="accordion-toggle" for="target-groups">
-                                <h4 class="pricon pricon-target pricon-space-right"><?php _e('Target groups', 'municipio-intranet'); ?></h4>
-                            </label>
-                            <div class="accordion-content">
-                                <div class="grid">
-                                    <div class="grid-xs-12">
-                                        <article>
-                                            <p><?php _e('Please check the boxes of the target groups that suits your current role. Checking a box will give you information targeted to the specific group.', 'municipio-intranet'); ?></p>
-                                        </article>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="grid-md-12">
-                                        <div class="form-group">
-                                            <div class="grid">
-                                                @foreach ($targetGroups as $group)
-                                                <div class="grid-md-6">
-                                                    <label class="checkbox"><input type="checkbox" name="user_target_groups[]" value="{{ $group->id }}" {{ checked(true, in_array($group->id, (array)get_the_author_meta('user_target_groups'))) }}> {{ $group->tag }} <?php echo isset($group->administration_unit) && \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) ? '(' . \Intranet\User\AdministrationUnits::getAdministrationUnit($group->administration_unit) . ')' : '(' . __('All') . ')'; ?></label>
-                                                </div>
-                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
