@@ -58,20 +58,28 @@ class AdministrationUnits
             $userId = get_current_user_id();
         }
 
-        $units = (array)get_user_meta(get_current_user_id(), 'user_administration_unit', true);
+        $adTag = get_user_meta($userId, 'ad_displayname', true);
+        $adTag = explode('-', $adTag);
+        $adTag = strtolower(trim(end($adTag)));
 
-        if (is_array($units) && !empty($units)) {
-            foreach ($units as $unitId) {
-                $unit = self::getAdministrationUnit($unitId);
-                $unit = \Intranet\Helper\Multisite::searchSites($unit);
+        $sites = \Intranet\Helper\Multisite::getSitesList();
 
-                if (!is_array($unit) || empty($unit)) {
-                    continue;
-                }
-
-                self::$userFirstUnit = $unit[0];
-                return $unit[0];
+        foreach ($sites as $key => $site) {
+            if (!$site->autosubscribe_tags) {
+                continue;
             }
+
+            $siteTags = explode(',', $site->autosubscribe_tags);
+            $siteTags = array_map(function ($item) {
+                return strtolower(trim($item));
+            }, $siteTags);
+
+            if (!in_array($adTag, $siteTags)) {
+                continue;
+            }
+
+            self::$userFirstUnit = $site;
+            return $site;
         }
 
         return false;
