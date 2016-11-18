@@ -36,7 +36,18 @@
                 @if (is_user_logged_in() && \Intranet\User\Subscription::getSubscriptions())
                     <li class="title"><?php _e('Networks you are following', 'municipio-intranet'); ?></li>
                     @foreach (\Intranet\User\Subscription::getSubscriptions() as $site)
-                        <li class="network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
+                        <li class="network-title">
+                            <a href="{{ $site->path }}">
+                                {!! municipio_intranet_format_site_name($site) !!}
+                                <button class="btn btn-primary btn-subscribe btn-sm pull-right" data-subscribe="{{ $site->blog_id }}">
+                                    @if (!\Intranet\User\Subscription::hasSubscribed($site->blog_id))
+                                    <i class="pricon pricon-plus-o"></i> <?php _e('Follow', 'municipio-intranet'); ?>
+                                    @else
+                                    <i class="pricon pricon-minus-o"></i> <?php _e('Unfollow', 'municipio-intranet'); ?>
+                                    @endif
+                                </button>
+                            </a>
+                        </li>
                     @endforeach
                 @endif
             </ul>
