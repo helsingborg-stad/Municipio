@@ -11,7 +11,7 @@
     <?php
         echo municipio_intranet_walkthrough(
             __('Search', 'municipio-intranet'),
-            __('Type what you are looking for and click to magnifying glass to search. You will get results from all of the city\'s intranets. You can search for information, documents or collegues. You can search a persons name, skills or tasks (only works if you are logged in).', 'municipio-intranet'),
+            __('Type what you are looking for. You will get search results from all intranets. If you are logged in you can also search collegues by searching.', 'municipio-intranet'),
             '.search-main'
         );
     ?>

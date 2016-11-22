@@ -2,7 +2,7 @@
     <?php
         echo municipio_intranet_walkthrough(
             __('Select intranet', 'municipio-intranet'),
-            __('Select which intranet you would like to visit.', 'municipio-intranet'),
+            __('Select which intranet you would like to visit. You can also decide which intranets you would like to follow.', 'municipio-intranet'),
             '.network',
             'center'
         );

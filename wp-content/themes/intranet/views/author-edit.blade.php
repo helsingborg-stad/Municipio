@@ -46,13 +46,18 @@
                         <h1><?php echo sprintf(__('Settings of %s', 'municipio-intranet'), municipio_intranet_get_user_full_name($user->ID)) ; ?></h1>
                         @endif
 
+                        Klicka på en rubrik nedan föra att visa och redigera dina inställningar.
+                        En del information hämtas automatiskt och kan inte redigeras.
+                        Obligatoriska fält måste fyllas i för att du ska få rätt innehåll från intranätet.
+                        Ju fler av de övriga fälten du fyller i, desto lättare blir det för dina kollegor att komma i kontakt med dig vid behov.
+
 
                         <p>
-                            <?php _e('Click on a section to view and edit your settings. Some information that we already know about you will be automatically filled and non editable.', 'municipio-intranet'); ?>
-                            <?php _e('You should add additional information and a profile image. The more information you add the easier collegues can get in touch with you.', 'municipio-intranet'); ?>
+                            <?php _e('Click on a headline below to view and edit your settings. Some information will be prefilled and non-editable.', 'municipio-intranet'); ?>
+                            <?php _e('The required fields must be filled in to optimize the information you will see on the intranets.', 'municipio-intranet'); ?>
                         </p>
                         <p>
-                            <?php _e('Only people working within the city will be able to look at your profile.', 'municipio-intranet'); ?>
+                            <?php _e('The more non-required fields you fill in the easeier it will be for your collegues to find and reach out to you.', 'municipio-intranet'); ?>
                         </p>
                         <p>
                             <?php echo sprintf(__('Required fields are marked with %s', 'municipio-intranet'), '<span class="text-danger">*</span>'); ?>
@@ -342,7 +347,7 @@
                                     <div class="grid-xs-12">
                                         <div class="form-group">
                                             <label for="user_about" class="sr-only"><?php _e('About me', 'municipio-intranet'); ?></label>
-                                            <textarea name="user_about" id="user_about" cols="30" rows="10" style="border:none;display: block;box-shadow: none;padding: 20px;" placeholder="<?php _e('Write a little something about yourself…', 'municipio-intranet'); ?>">{{ get_the_author_meta('user_about') }}</textarea>
+                                            <textarea name="user_about" id="user_about" cols="30" rows="10" style="border:none;display: block;box-shadow: none;padding: 20px;" placeholder="<?php _e('Write a short personal presentation…', 'municipio-intranet'); ?>">{{ get_the_author_meta('user_about') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

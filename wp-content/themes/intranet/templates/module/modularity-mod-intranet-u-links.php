@@ -2,7 +2,7 @@
     <?php
         echo municipio_intranet_walkthrough(
             __('My links', 'municipio-intranet'),
-            __('Here you can add links to websites that you usally use or want to be able to reach quickly.', 'municipio-intranet'),
+            __('Here you can add links to websites that you usally use or want to be able to reach quickly. The links can be both pages on the intranet and pages on other websites (like social media websites or other work tools) that you need a quick link to.', 'municipio-intranet'),
             '.modularity-mod-intranet-u-links',
             'top-left',
             'right'

@@ -48,7 +48,7 @@
     if ($helpTooltip) {
         echo municipio_intranet_walkthrough(
             __('News feed', 'municipio-intranet'),
-            __('This is your personalized news feed. The personalized news feed will show the news that affects all employees and from the intranets that you are following. You will also see news from the target groups that you might have selected in your profile settings. ', 'municipio-intranet'),
+            __('This is your personalized news feed. The personalized news feed will show the news that affects all employees. You will also see news from your administration unit (if existing) and from other intranets that you are following.', 'municipio-intranet'),
             '.intranet-news',
             'top-center'
         );
