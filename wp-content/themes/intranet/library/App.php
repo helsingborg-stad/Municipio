@@ -15,6 +15,7 @@ class App
         // Admin functionality
         new \Intranet\Admin\PasswordResetInstructions();
         new \Intranet\Admin\Options();
+        new \Intranet\Admin\Filters();
 
         // User services
         new \Intranet\User\General();
