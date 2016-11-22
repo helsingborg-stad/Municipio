@@ -179,6 +179,7 @@ class NavigationTree
 
             if ($inMenu) {
                 return get_posts(array(
+                    'post_parent' => 0,
                     'post_type' => $key,
                     'post_status' => $this->postStatuses,
                     'orderby' => 'menu_order post_title',
