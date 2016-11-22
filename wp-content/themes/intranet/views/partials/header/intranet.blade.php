@@ -7,7 +7,7 @@
             <div class="grid-auto">
                 <div class="grid grid-table grid-va-middle">
                     <div class="grid-auto no-padding">
-                        <span class="h3 site-title">Helsingborgs stads intranät</span>
+                        <a href="{{ network_home_url() }}" class="h3 site-title inline-block"><span {!! get_field('logotype_tooltip', 'option') ? 'data-tooltip="' . get_field('logotype_tooltip', 'option') . '"' : '' !!}>Helsingborgs stads intranät</span></a>
                     </div>
                     <div class="grid-fit-content no-padding">
                         @include('partials.header.subnav')
