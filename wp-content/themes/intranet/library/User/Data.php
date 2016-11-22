@@ -4,6 +4,8 @@ namespace Intranet\User;
 
 class Data
 {
+    public static $muteFillerForm = false;
+
     // key => template
     public static $requiredUserData = array(
         'user_email' => 'user_email'
@@ -12,6 +14,7 @@ class Data
     public static $requiredMetaFields = array(
         'user_administration_unit' => 'user_department',
         'user_department'          => 'user_department',
+        'user_title'               => 'user_work_title',
         'first_name'               => 'name',
         'last_name'                => 'name'
     );
@@ -30,8 +33,32 @@ class Data
     {
         add_action('wp', array($this, 'saveMissingDataForm'));
         add_action('wp_ajax_sync_facebook_profile', array($this, 'syncFacebookDetails'));
-
         add_action('MunicipioIntranet/save_profile_settings', array($this, 'saveProfileSettings'));
+
+        $this->muteProfileFiller();
+    }
+
+    /**
+     * Decide weather to mute the profile filler or not
+     * @return void
+     */
+    public function muteProfileFiller()
+    {
+        $numMutedVisits = 0;
+        $maxNumMutedVisits = 5;
+
+        if (isset($_COOKIE['muted_visits'])) {
+            $numMutedVisits = (int) $_COOKIE['muted_visits'];
+        }
+
+        if ($numMutedVisits < $maxNumMutedVisits) {
+            $numMutedVisits++;
+            self::$muteFillerForm = true;
+            setcookie('muted_visits', $numMutedVisits, time() + (3600 * 24));
+        } else {
+            self::$muteFillerForm = false;
+            setcookie('muted_visits', 0, -1);
+        }
     }
 
     /**

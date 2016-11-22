@@ -28,7 +28,7 @@ class BaseController extends \Municipio\Controller\BaseController
         );
 
         $this->data['show_userdata_guide'] = false;
-        if (is_array($this->data['missing']) && count($this->data['missing']) > 0) {
+        if (is_array($this->data['missing']) && count($this->data['missing']) > 0 && !\Intranet\User\Data::$muteFillerForm) {
             $this->data['show_userdata_guide'] = true;
         }
 
