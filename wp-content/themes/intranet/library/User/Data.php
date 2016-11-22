@@ -14,7 +14,7 @@ class Data
     public static $requiredMetaFields = array(
         'user_administration_unit' => 'user_department',
         'user_department'          => 'user_department',
-        'user_title'               => 'user_work_title',
+        'user_work_title'          => 'user_work_title',
         'first_name'               => 'name',
         'last_name'                => 'name'
     );
