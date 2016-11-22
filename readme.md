@@ -185,7 +185,7 @@ Filters applied to the search form
 - ```@param string $var``` - The content of the variable
 
 ```php
-apply_filters('Municipio/search_form/date', $url);
+apply_filters('Municipio/search_form/action', $url);
 ```
 
 #### Municipio/archive/sort_keys
