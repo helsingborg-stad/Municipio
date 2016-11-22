@@ -43,7 +43,8 @@ class Cache
             $this->hash = $this->hash . "-auth-" . $this->createShortHash($caps, true);
         }
 
-        get_current_user_id();
+        //Ban cache on save post
+        add_action('save_post', array($this, 'clearCache'));
     }
 
     /**
