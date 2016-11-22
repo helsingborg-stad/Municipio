@@ -18,17 +18,12 @@ class General
      */
     public function searchAttachmentPermalink($permalink, $post)
     {
-        // For posts that's not files
-        if (isset($post) && !empty($post) && !$post->post_mime_type) {
-            return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
-        }
+        switch ($post->post_type) {
+            case 'attachment':
+                return wp_get_attachment_url($post->ID);
 
-        // For posts that's files
-        if (isset($post) && !empty($post) && $post->post_mime_type) {
-            return esc_url($post->guid);
+            default:
+                return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
         }
-
-        // Other
-        return $permalink;
     }
 }

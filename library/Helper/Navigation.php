@@ -54,7 +54,7 @@ class Navigation
             return '';
         }
 
-        if (get_field('nav_primary_type', 'option') == 'wp' && in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp'))) {
+        if (get_field('nav_primary_type', 'option') == 'wp' && (!get_field('nav_sub_type', 'option') || in_array(get_field('nav_sub_type', 'option'), array('sub', 'wp')))) {
             return $this->mobileMenuWP();
         } else {
             return $this->mobileMenuAuto();

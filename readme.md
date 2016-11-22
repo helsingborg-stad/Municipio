@@ -44,6 +44,15 @@ do_action('Municipio/author_display/name', $post);
 
 ## Filters
 
+#### Municipio/GoogleAnalytics/ua
+Filters the Google Analytics UA (user id) used to laod Google Analytics.
+
+- ```@param string $ua``` - The Google Analytics UA
+
+```php
+apply_filters('Municipio/GoogleAnalytics/ua', $ua);
+```
+
 #### Municipio/author_display/name
 Set the name of the author display
 
@@ -189,6 +198,24 @@ Modify the date filter WHERE clause
 
 ```php
 apply_filters('Municipio/archive/date_filter', $where, $from, $to);
+```
+
+#### Municipio/Breadcrumbs
+Show/hide (true/false) breadcrumbs
+
+- ```@param boolean $bool```- True or false (show or hide)
+
+```php
+apply_filters('Municipio/Breadcrumbs', $bool, get_queried_object())
+```
+
+#### Municipio/Breadcrumbs/Items
+Filter the items/links in the breadcrumb
+
+- ```@param array $items``` - The breadcrumb items
+
+```php
+apply_filters('Municipio/Breadcrumbs/Items', $items, get_queried_object());
 ```
 
 #### Municipio/admin/editor_stylesheet

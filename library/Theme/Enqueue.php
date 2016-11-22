@@ -49,6 +49,12 @@ class Enqueue
      */
     public function style()
     {
+        $loadWpJquery = apply_filters('Municipio/load-wp-jquery', false);
+
+        if (!$loadWpJquery) {
+            wp_deregister_script('jquery');
+        }
+
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
             wp_register_style('hbg-prime', '//hbgprime.dev/dist/css/hbg-prime.min.css', '', '1.0.0');
         } else {
@@ -78,7 +84,7 @@ class Enqueue
         }
 
         //Custom
-        if (defined('DEV_MODE') && DEV_MODE === true) {
+        if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
             wp_register_script('hbg-prime', '//hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
         } else {
             wp_register_script('hbg-prime', '//helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
@@ -95,11 +101,21 @@ class Enqueue
             'googleTranslate' => array(
                 'gaTrack' => get_field('google_translate_ga_track', 'option'),
                 'gaUA'    => get_field('google_analytics_ua', 'option')
+            ),
+            'scrollElevator' => array(
+                'cta' => get_field('scroll_elevator_text', 'option'),
+                'tooltip' => get_field('scroll_elevator_tooltio', 'option'),
+                'tooltipPosition' => get_field('scroll_elevator_tooltio_position', 'option')
             )
         ));
         wp_enqueue_script('hbg-prime');
 
         wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/js/packaged.min.js', '', '1.0.0', true);
+        wp_localize_script('municipio', 'MunicipioLang', array(
+            'printbreak' => array(
+                'tooltip' => __('Insert Print Page Break tag', 'municipio')
+            )
+        ));
         wp_enqueue_script('municipio');
     }
 
@@ -116,7 +132,7 @@ class Enqueue
      */
     public function googleAnalytics()
     {
-        $gaUser = get_field('google_analytics_ua', 'option');
+        $gaUser = apply_filters('Municipio/GoogleAnalytics/ua', get_field('google_analytics_ua', 'option'));
 
         if (empty($gaUser)) {
             return;

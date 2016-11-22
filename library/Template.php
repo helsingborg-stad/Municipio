@@ -122,7 +122,7 @@ class Template
         }
 
         if (!\Municipio\Helper\Template::isBlade($template)) {
-            $path = get_template_directory() . '/' . $template;
+            $path = $template;
 
             // Return path if file exists, else default to page.blade.php
             if (file_exists($path)) {

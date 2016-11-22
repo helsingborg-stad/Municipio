@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-09-20 10:45+0200\n"
+"POT-Creation-Date: 2016-10-14 13:30+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -456,7 +456,8 @@ msgstr ""
 
 #: acf-exports/translate-reference.php:93
 #: acf-exports/translate-reference.php:148
-#: acf-exports/translate-reference.php:275
+#: acf-exports/translate-reference.php:275 library/Admin/Options/Theme.php:100
+#: library/Admin/Options/Theme.php:101
 msgid "Content editor"
 msgstr ""
 
@@ -875,8 +876,8 @@ msgstr ""
 msgid "Tagline text"
 msgstr ""
 
-#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:30
-#: library/Admin/Options/Theme.php:31
+#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:36
+#: library/Admin/Options/Theme.php:37
 msgid "Header"
 msgstr ""
 
@@ -1201,11 +1202,11 @@ msgstr ""
 msgid "Contacts"
 msgstr ""
 
-#: library/Admin/General.php:42
+#: library/Admin/General.php:64
 msgid "Only for logged in users"
 msgstr ""
 
-#: library/Admin/General.php:96
+#: library/Admin/General.php:118
 msgid "Private"
 msgstr ""
 
@@ -1213,55 +1214,55 @@ msgstr ""
 msgid "Archive for"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:13 library/Admin/Options/Theme.php:14
+#: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:22 library/Admin/Options/Theme.php:23
+#: library/Admin/Options/Theme.php:28 library/Admin/Options/Theme.php:29
 msgid "Navigation"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:38 library/Admin/Options/Theme.php:39
+#: library/Admin/Options/Theme.php:44 library/Admin/Options/Theme.php:45
 msgid "Content"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:46 library/Admin/Options/Theme.php:47
-#: library/Theme/Sidebars.php:69
+#: library/Admin/Options/Theme.php:52 library/Admin/Options/Theme.php:53
+#: library/Theme/Sidebars.php:80
 msgid "Footer"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
+#: library/Admin/Options/Theme.php:60 library/Admin/Options/Theme.php:61
 #: library/Theme/Navigation.php:135 views/partials/archive-filters.blade.php:7
 #: views/partials/archive-filters.blade.php:10
 #: views/partials/archive-filters.blade.php:28
 msgid "Search"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:62 library/Admin/Options/Theme.php:63
+#: library/Admin/Options/Theme.php:68 library/Admin/Options/Theme.php:69
 msgid "Blog & Archives"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:94
+#: library/Admin/Options/Theme.php:108
 msgid "Custom Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:95
+#: library/Admin/Options/Theme.php:109
 msgid "Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:102
+#: library/Admin/Options/Theme.php:116
 msgid "Custom Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:103
+#: library/Admin/Options/Theme.php:117
 msgid "Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:110
+#: library/Admin/Options/Theme.php:124
 msgid "Custom CSS/JS Editor"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:111
+#: library/Admin/Options/Theme.php:125
 msgid "Custom CSS/JS"
 msgstr ""
 
@@ -1294,17 +1295,17 @@ msgstr ""
 msgid "Purge Varnish"
 msgstr ""
 
-#: library/Comment/HoneyPot.php:59
+#: library/Comment/HoneyPot.php:66
 msgid "Could not verify that you are human (image check)."
 msgstr ""
 
-#: library/Comment/HoneyPot.php:99
+#: library/Comment/HoneyPot.php:113
 msgid ""
 "Could not verify that you are human (some hidden form fields are "
 "manipulated)."
 msgstr ""
 
-#: library/Comment/HoneyPot.php:102
+#: library/Comment/HoneyPot.php:116
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr ""
 
@@ -1373,72 +1374,76 @@ msgstr ""
 msgid "Front page"
 msgstr ""
 
-#: library/Template.php:130
+#: library/Template.php:132
 msgid "Admin notice"
 msgstr ""
 
-#: library/Template.php:130
+#: library/Template.php:132
 #, php-format
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr ""
 
-#: library/Theme/Sidebars.php:70
+#: library/Theme/Enqueue.php:105
+msgid "Insert Print Page Break tag"
+msgstr ""
+
+#: library/Theme/Sidebars.php:81
 msgid "The footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:82
+#: library/Theme/Sidebars.php:93
 msgid "Hero"
 msgstr ""
 
-#: library/Theme/Sidebars.php:83
+#: library/Theme/Sidebars.php:94
 msgid "The hero area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:95
+#: library/Theme/Sidebars.php:106
 msgid "Content area (above article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:96
+#: library/Theme/Sidebars.php:107
 msgid "The area above the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:106
+#: library/Theme/Sidebars.php:117
 msgid "Content area (below article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:107
+#: library/Theme/Sidebars.php:118
 msgid "The area below the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:117
+#: library/Theme/Sidebars.php:128
 msgid "Main container bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:118
+#: library/Theme/Sidebars.php:129
 msgid "The area below the main container"
 msgstr ""
 
-#: library/Theme/Sidebars.php:128
+#: library/Theme/Sidebars.php:139
 msgid "Left sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:129
+#: library/Theme/Sidebars.php:140
 msgid "The left sidebar area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:141
+#: library/Theme/Sidebars.php:152
 msgid "Left sidebar bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:142
+#: library/Theme/Sidebars.php:153
 msgid "The area below the left sidebar content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:154
+#: library/Theme/Sidebars.php:165
 msgid "Right sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:155
+#: library/Theme/Sidebars.php:166
 msgid "The right sidebar area"
 msgstr ""
 
@@ -1508,8 +1513,8 @@ msgstr ""
 msgid "What are you looking for?"
 msgstr ""
 
-#: views/partials/search/google.blade.php:22
-#: views/partials/search/wp.blade.php:22
+#: views/partials/search/google.blade.php:24
+#: views/partials/search/wp.blade.php:24
 msgid "Found no matching results on your search…"
 msgstr ""
 

@@ -27,18 +27,28 @@ class PostFilters
     {
         global $wp_query;
 
-        if (!isset($wp_query->query['post_type']) || !$wp_query->query['post_type'] || (!is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
+        if (!get_post_type()) {
+            return;
+        }
+
+        $queriedObject = get_queried_object();
+        $objectId = null;
+        if (isset($queriedObject->ID)) {
+            $objectId = $queriedObject->ID;
+        }
+
+        $pageForPosts = get_option('page_for_' . get_post_type());
+
+        if (is_null($queriedObject) || ($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
             return;
         }
 
         $taxonomies = $this->getEnabledTaxonomies();
 
         add_action('HbgBlade/data', function ($data) use ($taxonomies) {
-            global $wp_query;
-            $postType = $wp_query->query['post_type'];
-            $data['postType'] = $postType;
+            $data['postType'] = get_post_type();
 
-            $data['enabledHeaderFilters'] = get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'option');
+            $data['enabledHeaderFilters'] = get_field('archive_' . get_post_type() . '_post_filters_header', 'option');
             $data['enabledTaxonomyFilters'] = $taxonomies;
 
             return $data;
@@ -51,9 +61,8 @@ class PostFilters
      */
     public function getEnabledTaxonomies()
     {
-        global $wp_query;
         $tax = array();
-        $taxonomies = get_field('archive_' . sanitize_title($wp_query->query['post_type']) . '_post_filters_sidebar', 'option');
+        $taxonomies = get_field('archive_' . sanitize_title(get_post_type()) . '_post_filters_sidebar', 'option');
 
         if (!$taxonomies) {
             return array();
@@ -113,7 +122,7 @@ class PostFilters
             return $query;
         }
 
-        $terms = $_GET['term'];
+        $terms = (array)$_GET['term'];
         $terms = array_map(function ($item) {
             return explode('|', $item);
         }, $terms);

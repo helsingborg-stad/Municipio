@@ -6,7 +6,7 @@
 
     @include('partials.breadcrumbs')
 
-    <div class="grid {{ (wp_get_post_parent_id(get_the_id()) != 0) ? 'no-margin-top' : '' }}">
+    <div class="grid {{ implode(' ', apply_filters('Municipio/Page/MainGrid/Classes', wp_get_post_parent_id(get_the_id()) != 0 ? array('no-margin-top') : array())) }}">
         @include('partials.sidebar-left')
 
         <div class="{{ $contentGridSize }} grid-print-12" id="readspeaker-read">

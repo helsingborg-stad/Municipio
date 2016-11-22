@@ -4,6 +4,8 @@ namespace Municipio\Admin;
 
 class General
 {
+    public static $url2text = false;
+
     public function __construct()
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);

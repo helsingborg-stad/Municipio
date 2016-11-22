@@ -8,13 +8,12 @@ class Editor
     {
         // Actions
         add_action('admin_init', array($this, 'editorStyle'));
-        //add_filter('mce_buttons', array($this, 'editorButtons'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
 
         // Custom plugins
-        add_action('admin_init', array($this, 'metaData'));
-        add_action('admin_init', array($this, 'printBreak'));
+        $this->metaData();
+        //$this->printBreak();
 
         // Filters
         add_filter('oembed_result', array($this, 'oembed'), 10, 3);
@@ -25,21 +24,6 @@ class Editor
             return $content;
         });
     }
-
-    /*
-    public function editorButtons($buttons)
-    {
-        $pos = array_search('wp_more', $buttons, true);
-
-        if ($pos !== false) {
-            $buttonsRet = array_slice($buttons, 0, $pos + 1);
-            $buttonsRet[] = 'wp_page';
-            $buttons = array_merge($buttonsRet, array_slice($buttons, $pos + 1));
-        }
-
-        return $buttons;
-    }
-    */
 
     public function editorButtons2($buttons)
     {
@@ -251,13 +235,13 @@ class Editor
      */
     public function metaData()
     {
-        global $pagenow;
-
-        if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-            return;
-        }
-
         add_action('admin_footer', function () {
+            global $pagenow;
+
+            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+                return;
+            }
+
             global $post;
             $metakeys = \Municipio\Helper\Post::getPostMetaKeys($post->ID);
 
@@ -275,11 +259,23 @@ class Editor
         });
 
         add_filter('mce_external_plugins', function ($plugins) {
+            global $pagenow;
+
+            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+                return $plugins;
+            }
+
             $plugins['metadata'] = get_template_directory_uri() . '/assets/dist/js/mce-metadata.js';
             return $plugins;
         });
 
         add_filter('mce_buttons_2', function ($buttons) {
+            global $pagenow;
+
+            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+                return $buttons;
+            }
+
             array_splice($buttons, 2, 0, array('metadata'));
             return $buttons;
         });
@@ -291,12 +287,6 @@ class Editor
      */
     public function printBreak()
     {
-        global $pagenow;
-
-        if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-            return;
-        }
-
         add_filter('mce_external_plugins', function ($plugins) {
             $plugins['print_break'] = get_template_directory_uri() . '/assets/dist/js/mce-print-break.js';
             return $plugins;

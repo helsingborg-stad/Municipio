@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-09-20 10:45+0200\n"
-"PO-Revision-Date: 2016-09-20 10:45+0200\n"
+"POT-Creation-Date: 2016-10-14 13:30+0200\n"
+"PO-Revision-Date: 2016-10-14 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -466,7 +466,8 @@ msgstr "Funktioner för inläggstypen"
 
 #: acf-exports/translate-reference.php:93
 #: acf-exports/translate-reference.php:148
-#: acf-exports/translate-reference.php:275
+#: acf-exports/translate-reference.php:275 library/Admin/Options/Theme.php:100
+#: library/Admin/Options/Theme.php:101
 msgid "Content editor"
 msgstr "Innehållsförfattare"
 
@@ -902,8 +903,8 @@ msgstr "Använd egen"
 msgid "Tagline text"
 msgstr "Slogantext"
 
-#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:30
-#: library/Admin/Options/Theme.php:31
+#: acf-exports/translate-reference.php:236 library/Admin/Options/Theme.php:36
+#: library/Admin/Options/Theme.php:37
 msgid "Header"
 msgstr "Sidhuvud"
 
@@ -1243,11 +1244,11 @@ msgstr "Adress"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: library/Admin/General.php:42
+#: library/Admin/General.php:64
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
-#: library/Admin/General.php:96
+#: library/Admin/General.php:118
 msgid "Private"
 msgstr "Privat"
 
@@ -1255,55 +1256,55 @@ msgstr "Privat"
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Theme.php:13 library/Admin/Options/Theme.php:14
+#: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
 msgstr "Temainställningar"
 
-#: library/Admin/Options/Theme.php:22 library/Admin/Options/Theme.php:23
+#: library/Admin/Options/Theme.php:28 library/Admin/Options/Theme.php:29
 msgid "Navigation"
 msgstr "Navigering"
 
-#: library/Admin/Options/Theme.php:38 library/Admin/Options/Theme.php:39
+#: library/Admin/Options/Theme.php:44 library/Admin/Options/Theme.php:45
 msgid "Content"
 msgstr "Innehåll"
 
-#: library/Admin/Options/Theme.php:46 library/Admin/Options/Theme.php:47
-#: library/Theme/Sidebars.php:69
+#: library/Admin/Options/Theme.php:52 library/Admin/Options/Theme.php:53
+#: library/Theme/Sidebars.php:80
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Admin/Options/Theme.php:54 library/Admin/Options/Theme.php:55
+#: library/Admin/Options/Theme.php:60 library/Admin/Options/Theme.php:61
 #: library/Theme/Navigation.php:135 views/partials/archive-filters.blade.php:7
 #: views/partials/archive-filters.blade.php:10
 #: views/partials/archive-filters.blade.php:28
 msgid "Search"
 msgstr "Sök"
 
-#: library/Admin/Options/Theme.php:62 library/Admin/Options/Theme.php:63
+#: library/Admin/Options/Theme.php:68 library/Admin/Options/Theme.php:69
 msgid "Blog & Archives"
 msgstr "Bloggar & Arkiv"
 
-#: library/Admin/Options/Theme.php:94
+#: library/Admin/Options/Theme.php:108
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:95
+#: library/Admin/Options/Theme.php:109
 msgid "Post Types"
 msgstr "Inläggstyper"
 
-#: library/Admin/Options/Theme.php:102
+#: library/Admin/Options/Theme.php:116
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:103
+#: library/Admin/Options/Theme.php:117
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:110
+#: library/Admin/Options/Theme.php:124
 msgid "Custom CSS/JS Editor"
 msgstr "Egen CSS/JS"
 
-#: library/Admin/Options/Theme.php:111
+#: library/Admin/Options/Theme.php:125
 msgid "Custom CSS/JS"
 msgstr "Egen CSS/JS"
 
@@ -1336,17 +1337,17 @@ msgstr "Töm cache för sidan"
 msgid "Purge Varnish"
 msgstr "Töm varnish"
 
-#: library/Comment/HoneyPot.php:59
+#: library/Comment/HoneyPot.php:66
 msgid "Could not verify that you are human (image check)."
 msgstr "Kunde inte verifiera att du är mänsklig (bildkontroll)"
 
-#: library/Comment/HoneyPot.php:99
+#: library/Comment/HoneyPot.php:113
 msgid ""
 "Could not verify that you are human (some hidden form fields are "
 "manipulated)."
 msgstr "Kunde inte verifiera att du är mänsklig (ett dolt fält är manipulerat)"
 
-#: library/Comment/HoneyPot.php:102
+#: library/Comment/HoneyPot.php:116
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
@@ -1415,72 +1416,76 @@ msgstr "Sida"
 msgid "Front page"
 msgstr "Startsida"
 
-#: library/Template.php:130
+#: library/Template.php:132
 msgid "Admin notice"
 msgstr "Administratörsnotis"
 
-#: library/Template.php:130
+#: library/Template.php:132
 #, php-format
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Sidebars.php:70
+#: library/Theme/Enqueue.php:105
+msgid "Insert Print Page Break tag"
+msgstr "Infoga sidbrytning för utskrift"
+
+#: library/Theme/Sidebars.php:81
 msgid "The footer area"
 msgstr "Footer-arean"
 
-#: library/Theme/Sidebars.php:82
+#: library/Theme/Sidebars.php:93
 msgid "Hero"
 msgstr "Hero"
 
-#: library/Theme/Sidebars.php:83
+#: library/Theme/Sidebars.php:94
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:95
+#: library/Theme/Sidebars.php:106
 msgid "Content area (above article)"
 msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:96
+#: library/Theme/Sidebars.php:107
 msgid "The area above the content"
 msgstr "Arean ovanför huvudinnehållet"
 
-#: library/Theme/Sidebars.php:106
+#: library/Theme/Sidebars.php:117
 msgid "Content area (below article)"
 msgstr "Innehållsarea (nedanför artikel)"
 
-#: library/Theme/Sidebars.php:107
+#: library/Theme/Sidebars.php:118
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:117
+#: library/Theme/Sidebars.php:128
 msgid "Main container bottom"
 msgstr "Main container bottom"
 
-#: library/Theme/Sidebars.php:118
+#: library/Theme/Sidebars.php:129
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:128
+#: library/Theme/Sidebars.php:139
 msgid "Left sidebar"
 msgstr "Vänster sidebar"
 
-#: library/Theme/Sidebars.php:129
+#: library/Theme/Sidebars.php:140
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:141
+#: library/Theme/Sidebars.php:152
 msgid "Left sidebar bottom"
 msgstr "Vänster sidebar bottom"
 
-#: library/Theme/Sidebars.php:142
+#: library/Theme/Sidebars.php:153
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:154
+#: library/Theme/Sidebars.php:165
 msgid "Right sidebar"
 msgstr "Höger sidebar"
 
-#: library/Theme/Sidebars.php:155
+#: library/Theme/Sidebars.php:166
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
@@ -1550,8 +1555,8 @@ msgstr "Mer"
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/search/google.blade.php:22
-#: views/partials/search/wp.blade.php:22
+#: views/partials/search/google.blade.php:24
+#: views/partials/search/wp.blade.php:24
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
