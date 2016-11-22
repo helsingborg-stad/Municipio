@@ -6,7 +6,7 @@ class Cache
 {
     /**
      * Fragment cache in memcached
-     * @param  string $postId      The post id that you want to cache
+     * @param  string $postId      The post id that you want to cache (or any other key that relates to specific data)
      * @param  string $hash        Any input data altering output result as a concatinated string/array/object.
      * @param  string $ttl         The time that a cache should live (in seconds)
      * @return string              The request response
