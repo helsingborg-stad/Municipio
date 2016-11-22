@@ -1,7 +1,7 @@
 <section class="accordion-section">
     <input type="radio" name="active-section" id="accordion-missing-{{ $i }}">
     <span class="accordion-toggle">
-        <h3><span class="label label-number"><em>{{ $i }}</em></span> <?php _e('Department', 'municipio-intranet'); ?></h3>
+        <h3><span class="label label-number"><em>{{ $i }}</em></span> <?php _e('Work title', 'municipio-intranet'); ?></h3>
     </span>
     <div class="accordion-content">
         <div class="grid">
