@@ -179,6 +179,15 @@ apply_filters('Municipio/search_result/permalink_url', $permalink_url, $post);
 apply_filters('Municipio/search_result/permalink_text', $permalink_text, $post);
 ```
 
+#### Municipio/search_form/…
+Filters applied to the search form
+
+- ```@param string $var``` - The content of the variable
+
+```php
+apply_filters('Municipio/search_form/date', $url);
+```
+
 #### Municipio/archive/sort_keys
 Modify the avaiable sorting keys for archives
 
