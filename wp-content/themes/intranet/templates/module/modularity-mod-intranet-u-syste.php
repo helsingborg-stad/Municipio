@@ -2,7 +2,7 @@
     <?php
         echo municipio_intranet_walkthrough(
             __('My systems', 'municipio-intranet'),
-            __('This is a lost of the most common systems in your administration unit. Click the edit button to add more systems to the list.', 'municipio-intranet'),
+            __('This is a list of the most common systems in your administration unit. Click the edit button to add more systems to the list.', 'municipio-intranet'),
             '.modularity-mod-intranet-u-syste',
             'top-left',
             'right'
