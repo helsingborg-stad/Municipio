@@ -20,6 +20,66 @@ class ElasticSearch
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
+
+        add_filter('ep_search_args', function ($args, $scope, $query_args) {
+            //var_dump($args['query']['function_score']['query']['bool']);
+
+            $query = array(
+                'should' => array(
+                    array(
+                        'multi_match' => array(
+                            'query' => get_search_query(),
+                            'fields' => array(
+                                'post_title',
+                                'post_content',
+                            ),
+                            'operator' => 'and',
+                            'boost' => 4,
+                            'fuzziness' => 0
+                        )
+                    ),
+                    array(
+                        'multi_match' => array(
+                            'query' => get_search_query(),
+                            'fields' => array(
+                                'post_title'
+                            ),
+                            'boost' => 3,
+                            'fuzziness' => 0
+                        )
+                    ),
+                    array(
+                        'multi_match' => array(
+                            'query' => get_search_query(),
+                            'fields' => array(
+                                'post_title',
+                                'post_content'
+                            ),
+                            'operator' => 'or',
+                            'boost' => 2,
+                            'fuzziness' => 0
+                        )
+                    ),
+                    array(
+                        'multi_match' => array(
+                            'query' => get_search_query(),
+                            'fields' => array(
+                                'post_title',
+                                'post_content',
+                                'post_excerpt',
+                            ),
+                            'operator' => 'or',
+                            'boost' => 1,
+                            'fuzziness' => 1
+                        )
+                    ),
+                )
+            );
+
+            $args['query']['function_score']['query']['bool'] = $query;
+            //var_dump($args['query']['function_score']['query']['bool']); exit;
+            return $args;
+        }, 10, 3);
     }
 
     /**
