@@ -186,7 +186,7 @@ class Cache
 
 /*
 Usage example:
-$cache = new Modularity\Helper\Cache($post->Id);
+$cache = new Municipio\Helper\Cache($post->Id);
 if ($cache->start()) {
     // Your cacheable content here
     $cache->stop();
