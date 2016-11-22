@@ -54,11 +54,17 @@ class Cache
      */
     public static function clearCache($postId)
     {
+
+        do_action('Municipio/fragment_cache/before_clear',$postId);
+
         if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
             return false;
         }
 
         wp_cache_delete($postId, self::$keyGroup);
+
+        do_action('Municipio/fragment_cache/after_clear',$postId);
+
         return true;
     }
 
