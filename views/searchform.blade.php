@@ -5,7 +5,7 @@
 <div class="search" itemscope itemtype="http://schema.org/WebSite">
     <meta itemprop="url" content="{{ home_url() }}">
 
-    <form method="get" action="/" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+    <form method="get" action="{{ apply_filters('Municipio/search_form/action', home_url()); }}" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
         <meta itemprop="target" content="{{ home_url('?s=') }}{search_term_string}">
 
         @if (is_front_page())
