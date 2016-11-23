@@ -31,25 +31,20 @@
 
         @if (!empty($enabledTaxonomyFilters))
         <div class="grid" id="options" style="display: none;">
-            <div class="grid-sm-12 grid-md-6">
-                <div class="accordion accordion-icon accordion-list no-shadow">
-                    @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
-                     <section class="accordion-section">
-                        <input type="radio" name="active-section" id="accordion-taxonomy-{{ $taxKey }}">
-                        <label class="accordion-toggle" for="accordion-taxonomy-{{ $taxKey }}">
-                            <h6>{{ $taxonomy->label }}</h6>
-                        </label>
-                        <div class="accordion-content text-columns-2">
-                            @foreach ($taxonomy->values as $term)
-                            <label class="checkbox block-level">
+            @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
+                <div class="grid-sm-12">
+                    <h4>{{ $taxonomy->label }}</h4>
+                    <div class="grid">
+                    @foreach ($taxonomy->values as $term)
+                        <div class="grid-md-3">
+                            <label class="checkbox">
                                 <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
                             </label>
-                            @endforeach
                         </div>
-                    </section>
                     @endforeach
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
         @endif
 
