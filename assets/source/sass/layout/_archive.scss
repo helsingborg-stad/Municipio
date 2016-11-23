@@ -1,0 +1,9 @@
+#archive-filter .box-content {
+    max-height: 200px;
+    overflow: auto;
+    padding-bottom: 0;
+
+    > ul {
+        padding-bottom: 10px;
+    }
+}

@@ -31,22 +31,26 @@
 
         @if (!empty($enabledTaxonomyFilters))
         <div class="gutter gutter-top" id="options" style="display: none;">
+            <div class="grid" data-equal-container>
             @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        <h4>{{ $taxonomy->label }}</h4>
-                        <div class="grid">
-                        @foreach ($taxonomy->values as $term)
-                            <div class="grid-md-3">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
-                                </label>
-                            </div>
-                        @endforeach
+                <div class="grid-md-4">
+                    <div class="box box-panel box-panel-secondary" data-equal-item>
+                        <h4 class="box-title">{{ $taxonomy->label }}</h4>
+                        <div class="box-content">
+                            <ul>
+                            @foreach ($taxonomy->values as $term)
+                                <li>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
+                                    </label>
+                                </li>
+                            @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>
             @endforeach
+            </div>
         </div>
         @endif
 
