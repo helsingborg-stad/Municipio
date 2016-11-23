@@ -43,6 +43,6 @@ class ShortCode
             'tooltip' => ''
         ), $atts));
 
-        return '<span class="explain"><em>' . $content . '</em><span data-tooltip="' . $tooltip . '"><i class="pricon pricon-question-o"></i></span></span>';
+        return '<span class="explain"><em>' . $content . '</em> <span data-tooltip="' . $tooltip . '"><i class="pricon pricon-question-o"></i></span></span>';
     }
 }
