@@ -57,8 +57,8 @@
                         <ul class="table-of-contents">
                             @foreach ($pages as $page)
                             <li class="clearfix">
-                                <a href="{{ get_blog_permalink($page->blog_id, $page->ID) }}" class="link-item pull-left">{{ $page->post_title }}</a>
-                                <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($page->blog_id)) !!}</span>
+                                <a href="{{ get_blog_permalink($page['blog_id'], $page['ID']) }}" class="link-item pull-left">{{ $page['post_title'] }}</a>
+                                <span class="network-title label label-sm label-creamy">{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($page['blog_id'])) !!}</span>
                             </li>
                             @endforeach
                         </ul>

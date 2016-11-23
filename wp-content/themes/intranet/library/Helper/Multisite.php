@@ -87,7 +87,7 @@ class Multisite
             }
 
             if ($onlyIds) {
-                $ids[] = $site->blog_id;
+                $ids[] = (int) $site->blog_id;
                 continue;
             }
         }
