@@ -18,7 +18,6 @@
 
     @if (get_the_modified_time() != get_the_time())
 
-        @if (is_array(get_field('show_date_updated','option')) && is_array(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_updated','option')) && in_array(get_post_type(get_the_id()), get_field('show_date_published','option')))
             @if(is_array(get_field('show_date_published','option')) && in_array(get_post_type(get_the_id()),get_field('show_date_published','option')))
             <li>
                 <strong><?php _e("Published", 'municipio'); ?>:</strong>
@@ -36,7 +35,6 @@
                 </time>
             </li>
             @endif
-        @endif
 
     @else
 
