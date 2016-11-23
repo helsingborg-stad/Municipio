@@ -15,7 +15,8 @@ Version 0.3.3 (tbd)
 - Allow "missing profile details" modal to be closed (will be opened again every 5th page view)
 - Changed search weighting hopefully improves search results relevance
 - Posttype single pages navigation (used in combination with page for post type) is now working better
-- 
+- Search query optimization
+- Improved logics for table of contents
 
 Version 0.3.2 (2016-11-09)
 ==========================
