@@ -181,6 +181,7 @@ class NavigationTree
                 return get_posts(array(
                     'post_type' => $key,
                     'post_status' => $this->postStatuses,
+                    'post_parent' => 0,
                     'orderby' => 'menu_order post_title',
                     'order' => 'asc',
                     'posts_per_page' => -1,
@@ -204,7 +205,7 @@ class NavigationTree
 
         return get_posts(array(
             'post_parent' => $parent,
-            'post_type' => 'page',
+            'post_type' => 'any',
             'post_status' => $this->postStatuses,
             'orderby' => 'menu_order post_title',
             'order' => 'asc',

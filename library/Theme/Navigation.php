@@ -18,6 +18,27 @@ class Navigation
         }
 
         add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
+
+        add_filter('the_posts', array($this, 'pageForPostTypeNavigation'));
+    }
+
+    /**
+     * Fix sidebar nav if "page for post type" is same as the curretn post's post type
+     * @param  array $posts
+     * @return array
+     */
+    public function pageForPostTypeNavigation($posts)
+    {
+        if (is_main_query() && is_single() && isset($posts[0])) {
+            $postType = $posts[0]->post_type;
+            $parent = get_option("page_for_{$postType}");
+
+            if ($parent) {
+                $posts[0]->post_parent = $parent;
+            }
+        }
+
+        return $posts;
     }
 
     /**

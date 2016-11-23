@@ -30,25 +30,26 @@
         </div>
 
         @if (!empty($enabledTaxonomyFilters))
-        <div class="grid" id="options" style="display: none;">
-            <div class="grid-sm-12 grid-md-6">
-                <div class="accordion accordion-icon accordion-list no-shadow">
-                    @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
-                     <section class="accordion-section">
-                        <input type="radio" name="active-section" id="accordion-taxonomy-{{ $taxKey }}">
-                        <label class="accordion-toggle" for="accordion-taxonomy-{{ $taxKey }}">
-                            <h6>{{ $taxonomy->label }}</h6>
-                        </label>
-                        <div class="accordion-content text-columns-2">
+        <div class="gutter gutter-top" id="options" style="display: none;">
+            <div class="grid" data-equal-container>
+            @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
+                <div class="grid-md-4">
+                    <div class="box box-panel box-panel-secondary" data-equal-item>
+                        <h4 class="box-title">{{ $taxonomy->label }}</h4>
+                        <div class="box-content">
+                            <ul>
                             @foreach ($taxonomy->values as $term)
-                            <label class="checkbox block-level">
-                                <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
-                            </label>
+                                <li>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
+                                    </label>
+                                </li>
                             @endforeach
+                            </ul>
                         </div>
-                    </section>
-                    @endforeach
+                    </div>
                 </div>
+            @endforeach
             </div>
         </div>
         @endif

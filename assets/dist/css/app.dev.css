@@ -186,6 +186,13 @@
   .archive-filters .grid-sm-12 + .grid-sm-12 {
     margin-top: 10px; } }
 
+#archive-filter .box-content {
+  max-height: 200px;
+  overflow: auto;
+  padding-bottom: 0; }
+  #archive-filter .box-content > ul {
+    padding-bottom: 10px; }
+
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
 

@@ -30,6 +30,7 @@ class App
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
         new \Municipio\Theme\FileUploads();
+        new \Municipio\Theme\Archive();
 
         new \Municipio\Search\General();
 
