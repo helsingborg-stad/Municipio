@@ -3,6 +3,20 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
+Version 0.3.3 (tbd)
+===================
+- Search ordering
+- "Current intranet" string is now switched to the name of the current intranet in search depth
+- Quicklink to administration unit intranet if available
+- Follow/unfollow buttons in intranet selector
+- Rearranged profile settings
+- Clickable logo in mobile version (take me home)
+- Fetch private posts in wp-editor link tool
+- Allow "missing profile details" modal to be closed (will be opened again every 5th page view)
+- Changed search weighting hopefully improves search results relevance
+- Posttype single pages navigation (used in combination with page for post type) is now working better
+- 
+
 Version 0.3.2 (2016-11-09)
 ==========================
 - New attachment revisions and media replace function
