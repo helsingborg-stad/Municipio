@@ -36,44 +36,44 @@ class Elasticsearch
     public function searchArgs($args, $scope, $query_args)
     {
         $query = array(
-            'should' => array(
+            'must' => array(
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title',
                             'post_content',
                         ),
                         'operator' => 'and',
                         'boost' => 4,
-                        'fuzziness' => 0
+                        'fuzziness' => 2
                     )
                 ),
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title'
                         ),
                         'boost' => 3,
-                        'fuzziness' => 0
+                        'fuzziness' => 2
                     )
                 ),
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title',
                             'post_content'
                         ),
                         'operator' => 'or',
                         'boost' => 2,
-                        'fuzziness' => 0
+                        'fuzziness' => 2
                     )
                 ),
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title',
                             'post_content',
@@ -81,7 +81,7 @@ class Elasticsearch
                         ),
                         'operator' => 'or',
                         'boost' => 1,
-                        'fuzziness' => 1
+                        'fuzziness' => 2
                     )
                 ),
             )
