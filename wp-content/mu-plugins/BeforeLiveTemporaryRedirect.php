@@ -16,7 +16,11 @@ class BeforeLiveTemporaryRedirect
 
     public function __construct()
     {
-        if ($_SERVER['HTTP_HOST'] == 'intranat.helsingborg.se') {
+
+        if (in_array($_SERVER['HTTP_HOST'], array('intranat.helsingborg.se', 'intranat.dev'))) {
+
+            session_start();
+
             if (isset($_GET['letmein']) && !isset($_SESSION['letmein'])) {
                 $this->setCookie();
             }
@@ -30,12 +34,12 @@ class BeforeLiveTemporaryRedirect
 
     public function setCookie()
     {
-        $_SESSION['letmein'] = 1;
+        $_SESSION['letmein'] = "1";
     }
 
     public function checkCookie()
     {
-        if (isset($_SESSION['letmein']) && $_SESSION['letmein'] == 1) {
+        if (isset($_SESSION['letmein']) && $_SESSION['letmein'] == "1") {
             return true;
         }
         return false;
