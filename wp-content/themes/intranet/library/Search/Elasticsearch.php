@@ -2,7 +2,7 @@
 
 namespace Intranet\Search;
 
-class ElasticSearch
+class Elasticsearch
 {
     public static $level = 'all';
 
@@ -12,74 +12,83 @@ class ElasticSearch
             self::$level = sanitize_text_field($_GET['level']);
         }
 
-        add_filter('ep_indexable_post_status', function ($statuses) {
-            $statuses[] = 'inherit';
-            return array_unique($statuses);
-        });
-
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
 
-        add_filter('ep_search_args', function ($args, $scope, $query_args) {
-            //var_dump($args['query']['function_score']['query']['bool']);
+        add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
+        add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
+    }
 
-            $query = array(
-                'should' => array(
-                    array(
-                        'multi_match' => array(
-                            'query' => get_search_query(),
-                            'fields' => array(
-                                'post_title',
-                                'post_content',
-                            ),
-                            'operator' => 'and',
-                            'boost' => 4,
-                            'fuzziness' => 0
-                        )
-                    ),
-                    array(
-                        'multi_match' => array(
-                            'query' => get_search_query(),
-                            'fields' => array(
-                                'post_title'
-                            ),
-                            'boost' => 3,
-                            'fuzziness' => 0
-                        )
-                    ),
-                    array(
-                        'multi_match' => array(
-                            'query' => get_search_query(),
-                            'fields' => array(
-                                'post_title',
-                                'post_content'
-                            ),
-                            'operator' => 'or',
-                            'boost' => 2,
-                            'fuzziness' => 0
-                        )
-                    ),
-                    array(
-                        'multi_match' => array(
-                            'query' => get_search_query(),
-                            'fields' => array(
-                                'post_title',
-                                'post_content',
-                                'post_excerpt',
-                            ),
-                            'operator' => 'or',
-                            'boost' => 1,
-                            'fuzziness' => 1
-                        )
-                    ),
-                )
-            );
+    /**
+     * Indexable post statuses
+     * @param  array $statuses Default post statuses
+     * @return array           Updated post statuses
+     */
+    public function indexablePostStatuses($statuses)
+    {
+        $statuses[] = 'private';
+        $statuses[] = 'inherit';
 
-            $args['query']['function_score']['query']['bool'] = $query;
-            //var_dump($args['query']['function_score']['query']['bool']); exit;
-            return $args;
-        }, 10, 3);
+        return array_unique($statuses);
+    }
+
+    public function searchArgs($args, $scope, $query_args)
+    {
+        $query = array(
+            'should' => array(
+                array(
+                    'multi_match' => array(
+                        'query' => get_search_query(),
+                        'fields' => array(
+                            'post_title',
+                            'post_content',
+                        ),
+                        'operator' => 'and',
+                        'boost' => 4,
+                        'fuzziness' => 0
+                    )
+                ),
+                array(
+                    'multi_match' => array(
+                        'query' => get_search_query(),
+                        'fields' => array(
+                            'post_title'
+                        ),
+                        'boost' => 3,
+                        'fuzziness' => 0
+                    )
+                ),
+                array(
+                    'multi_match' => array(
+                        'query' => get_search_query(),
+                        'fields' => array(
+                            'post_title',
+                            'post_content'
+                        ),
+                        'operator' => 'or',
+                        'boost' => 2,
+                        'fuzziness' => 0
+                    )
+                ),
+                array(
+                    'multi_match' => array(
+                        'query' => get_search_query(),
+                        'fields' => array(
+                            'post_title',
+                            'post_content',
+                            'post_excerpt',
+                        ),
+                        'operator' => 'or',
+                        'boost' => 1,
+                        'fuzziness' => 1
+                    )
+                ),
+            )
+        );
+
+        $args['query']['function_score']['query']['bool'] = $query;
+        return $args;
     }
 
     /**
