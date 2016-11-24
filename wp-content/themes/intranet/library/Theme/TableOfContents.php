@@ -169,6 +169,7 @@ class TableOfContents
                     AND NOT p.ID = ' . get_blog_option($site, 'page_on_front') . '
                     AND (
                         pm.meta_key LIKE \'table_of_contents_titles_%\'
+                        AND pm.meta_value != \'\'
                     )
             ';
 
