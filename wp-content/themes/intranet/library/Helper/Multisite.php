@@ -70,11 +70,8 @@ class Multisite
      */
     public static function getSitesList($includeMainSite = true, $onlyIds = false)
     {
-        // Check for sites cache
-        $sites = self::$sitesList;
-
         // If sites cache is empty go on and get the sites from db
-        if (is_null($sites)) {
+        if (is_null(self::$sitesList)) {
             $sites = array();
             $sites['all'] = get_sites();
             $sites['all_ids'] = array();
