@@ -23,6 +23,7 @@ class BeforeLiveTemporaryRedirect
 
             if ($this->checkCookie() === false) {
                 header('Location: https://beta.intranat.helsingborg.se');
+                exit;
             }
         }
     }
