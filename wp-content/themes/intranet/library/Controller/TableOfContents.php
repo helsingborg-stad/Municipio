@@ -4,7 +4,17 @@ namespace Intranet\Controller;
 
 class TableOfContents extends \Intranet\Controller\BaseController
 {
+    public static $cacheKeyGroup = 'intranet-table-of-contents';
+
     public function init()
+    {
+        $this->data['tableOfContents'] = $this->getTableOfContents();
+
+        $this->data['selectedDepartment'] = isset($_GET['department']) && !empty($_GET['department']) ? $_GET['department'] : null;
+        $this->data['titleQuery'] = isset($_GET['title']) && !empty($_GET['title']) ? $_GET['title'] : null;
+    }
+
+    public function getTableOfContents()
     {
         $site = null;
         $search = null;
@@ -17,9 +27,16 @@ class TableOfContents extends \Intranet\Controller\BaseController
             $search = $_GET['title'];
         }
 
-        $this->data['tableOfContents'] = \Intranet\Theme\TableOfContents::get($site, $search);
+        $cacheKey = md5(serialize(array($site, $search)));
+        $cache = wp_cache_get($cacheKey, self::$cacheKeyGroup);
 
-        $this->data['selectedDepartment'] = isset($_GET['department']) && !empty($_GET['department']) ? $_GET['department'] : null;
-        $this->data['titleQuery'] = isset($_GET['title']) && !empty($_GET['title']) ? $_GET['title'] : null;
+        if ($cache) {
+            return $cache;
+        }
+
+        $data = \Intranet\Theme\TableOfContents::get($site, $search);
+        wp_cache_add($cacheKey, $data, self::$cacheKeyGroup, 3600*10);
+
+        return $data;
     }
 }
