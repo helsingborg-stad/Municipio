@@ -4,6 +4,8 @@ namespace Intranet\Theme;
 
 class TableOfContents
 {
+    public static $cacheKeyGroup = 'intranet-table-of-contents';
+
     public function __construct()
     {
         add_action('init', array($this, 'urlRewrite'));
@@ -39,6 +41,13 @@ class TableOfContents
      */
     public static function get($sites = null, $search = null)
     {
+        $cacheKey = md5(serialize(array('toc', $site, $search)));
+        $cache = wp_cache_get($cacheKey, self::$cacheKeyGroup);
+
+        if ($cache) {
+            return $cache;
+        }
+
         global $wpdb;
 
         // Get the sites to get table of contents from
@@ -64,6 +73,8 @@ class TableOfContents
         $results = self::query($wpdb, $sites, $fields, $postStatuses);
         $pages = self::groupResults($results);
         $toc = self::prepareOutput($pages, $search);
+
+        wp_cache_add($cacheKey, $toc, self::$cacheKeyGroup, 3600*10);
 
         return $toc;
     }
