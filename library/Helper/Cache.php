@@ -7,7 +7,7 @@ class Cache
     /**
      * Fragment cache in memcached
      * @param  string $postId      The post id that you want to cache (or any other key that relates to specific data)
-     * @param  string $unique      Any input data altering output result as a concatinated string/array/object.
+     * @param  string $module      Any input data altering output result as a concatinated string/array/object.
      * @param  string $ttl         The time that a cache should live (in seconds)
      * @return string              The request response
      */
@@ -16,22 +16,21 @@ class Cache
     private $ttl = null;
     private $hash = null;
 
-    public $keyGroup = 'mun-cache';
+    public static $keyGroup = 'mun-cache';
 
-    public function __construct($postId, $unique = '', $ttl = 3600*24)
+    public function __construct($postId, $module = '', $ttl = 3600*24)
     {
-
         // Set variables
         $this->postId       = $postId;
         $this->ttl          = $ttl;
 
         //Alter keyGroup if ms
         if (function_exists('is_multisite') && is_multisite()) {
-            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
+            self::$keyGroup = self::$keyGroup . '-' . get_current_blog_id() . '-';
         }
 
         // Create hash string
-        $this->hash = $this->createShortHash($unique);
+        $this->hash = $this->createShortHash($module);
 
         // Role based key
         if (is_user_logged_in() && isset(wp_get_current_user()->caps) && is_array(wp_get_current_user()->caps)) {
@@ -59,7 +58,7 @@ class Cache
             return false;
         }
 
-        wp_cache_delete($postId, $this->keyGroup);
+        wp_cache_delete($postId, self::$keyGroup);
         return true;
     }
 
@@ -69,7 +68,6 @@ class Cache
      */
     public function start()
     {
-
         if (!$this->isActive()) {
             return true;
         }
@@ -89,7 +87,6 @@ class Cache
      */
     public function stop()
     {
-
         if (!$this->isActive() || $this->hasCache()) {
             return false;
         }
@@ -98,14 +95,13 @@ class Cache
         $return_data = ob_get_clean();
 
         if (!empty($return_data)) {
-            $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
+            $cacheArray = (array) wp_cache_get($this->postId, self::$keyGroup);
 
             $cacheArray[$this->hash] = $return_data.$this->fragmentTag();
 
-            wp_cache_delete($this->postId, $this->keyGroup);
+            wp_cache_delete($this->postId, self::$keyGroup);
 
-            wp_cache_add($this->postId, array_filter($cacheArray), $this->keyGroup, $this->ttl);
-
+            wp_cache_add($this->postId, array_filter($cacheArray), self::$keyGroup, $this->ttl);
         }
 
         echo $return_data;
@@ -132,8 +128,7 @@ class Cache
      */
     private function getCache($print = true)
     {
-
-        $cacheArray = wp_cache_get($this->postId, $this->keyGroup);
+        $cacheArray = wp_cache_get($this->postId, self::$keyGroup);
 
         if (!is_array($cacheArray) || !array_key_exists($this->hash, $cacheArray)) {
             return false;
