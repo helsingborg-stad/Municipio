@@ -6,13 +6,13 @@
             @include('partials.blog.post-header')
 
             <article id="article">
-                @if (isset(get_extended($post->post_content)['main']) && strlen(get_extended($post->post_content)['main']) > 0 && isset(get_extended($post->post_content)['extended']) && strlen(get_extended($post->post_content)['extended']) > 0)
+                @if (isset(get_extended($post->post_content)['main']) && !empty(get_extended($post->post_content)['main']) && isset(get_extended($post->post_content)['extended']) && !empty(get_extended($post->post_content)['extended']))
 
                     {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
                     {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
 
                 @else
-                    {!! the_content() !!}
+                    {!! apply_filters('the_content', $post->post_content) !!}
                 @endif
             </article>
 
