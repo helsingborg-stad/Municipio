@@ -90,6 +90,9 @@ class TargetGroups
         }
 
         $userGroups = self::getGroups($userId);
+        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && \SsoAvailability\SsoAvailability::isSsoAvailable()) {
+            $userGroups[] = 'citrix';
+        }
 
         // Check if any match if grop is an array
         if (is_array($group)) {
