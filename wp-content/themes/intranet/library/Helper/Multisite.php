@@ -4,7 +4,7 @@ namespace Intranet\Helper;
 
 class Multisite
 {
-    public static $sites = null;
+    public static $sitesList = null;
 
     /**
      * Gets the main site information
@@ -61,7 +61,6 @@ class Multisite
         }
 
         return $sites;
-
     }
 
     /**
@@ -71,32 +70,45 @@ class Multisite
      */
     public static function getSitesList($includeMainSite = true, $onlyIds = false)
     {
-        $sites = null;
-        if (!is_null(self::$sites)) {
-            $sites = self::$sites;
-        } else {
-            $sites = get_sites();
-        }
+        // Check for sites cache
+        $sites = self::$sitesList;
 
-        $ids = array();
+        // If sites cache is empty go on and get the sites from db
+        if (is_null($sites)) {
+            $sites = array();
+            $sites['all'] = get_sites();
+            $sites['all_ids'] = array();
+            $sites['not_main'] = array();
+            $site['not_main_ids'] = array();
 
-        foreach ($sites as $key => $site) {
-            if (is_main_site($site->blog_id) && !$includeMainSite) {
-                unset($sites[$key]);
-                continue;
+            foreach ($sites['all'] as $key => $site) {
+                $sites['all_ids'][] = (int) $site->blog_id;
             }
 
-            if ($onlyIds) {
-                $ids[] = (int) $site->blog_id;
-                continue;
-            }
+            $sites['not_main'] = array_filter($sites['all'], function ($site) {
+                return !is_main_site($site->blog_id);
+            });
+
+            $sites['not_main_ids'] = array_filter($sites['not_main'], function ($site) {
+                return !is_main_site($site->blog_id);
+            });
+
+            self::$sitesList = $sites;
         }
 
         if ($onlyIds) {
-            return $ids;
+            if (!$includeMainSite) {
+                return self::$sitesList['not_main_ids'];
+            }
+
+            return self::$sitesList['all_ids'];
         }
 
-        return $sites;
+        if (!$includeMainSite) {
+            return self::$sitesList['not_main'];
+        }
+
+        return self::$sitesList['all'];
     }
 
     /**
