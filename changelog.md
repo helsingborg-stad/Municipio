@@ -3,8 +3,8 @@ Changelog
 
 The changelog aims to describe higher level changes for each version of the intranet. Multiple minor changes and/or adjusments not worth mentioning may also have been made.
 
-Version 0.3.3 (tbd)
-===================
+Version 0.3.3 (2016-11-23)
+==========================
 - Search ordering
 - "Current intranet" string is now switched to the name of the current intranet in search depth
 - Quicklink to administration unit intranet if available
