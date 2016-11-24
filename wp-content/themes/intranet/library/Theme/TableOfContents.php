@@ -41,7 +41,7 @@ class TableOfContents
      */
     public static function get($sites = null, $search = null)
     {
-        $cacheKey = md5(serialize(array('toc', $site, $search)));
+        $cacheKey = md5(serialize(array('toc', $sites, $search)));
         $cache = wp_cache_get($cacheKey, self::$cacheKeyGroup);
 
         if ($cache) {
