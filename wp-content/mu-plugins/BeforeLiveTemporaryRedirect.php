@@ -41,4 +41,4 @@ class BeforeLiveTemporaryRedirect
     }
 }
 
-new \BFLTR\BFLTR();
+new \BFLTR\BeforeLiveTemporaryRedirect();
