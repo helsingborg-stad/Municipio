@@ -35,6 +35,8 @@ class Elasticsearch
 
     public function searchArgs($args, $scope, $query_args)
     {
+        $q = $query_args['s'];
+
         $query = array(
             'must' => array(
                 array(
