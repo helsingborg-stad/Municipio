@@ -35,11 +35,13 @@ class Elasticsearch
 
     public function searchArgs($args, $scope, $query_args)
     {
+        $q = $query_args['s'];
+
         $query = array(
             'should' => array(
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title',
                             'post_content',
@@ -51,7 +53,7 @@ class Elasticsearch
                 ),
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title'
                         ),
@@ -61,7 +63,7 @@ class Elasticsearch
                 ),
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title',
                             'post_content'
@@ -73,7 +75,7 @@ class Elasticsearch
                 ),
                 array(
                     'multi_match' => array(
-                        'query' => get_search_query(),
+                        'query' => $q,
                         'fields' => array(
                             'post_title',
                             'post_content',
