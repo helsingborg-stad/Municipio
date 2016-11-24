@@ -21,7 +21,7 @@ class BeforeLiveTemporaryRedirect
                 $this->setCookie();
             }
 
-            if ($this->checkCookie() === false) {
+            if ($this->checkCookie() === false && !isset($_GET['letmein'])) {
                 header('Location: https://beta.intranat.helsingborg.se');
                 exit;
             }
