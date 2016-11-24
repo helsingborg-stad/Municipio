@@ -12,6 +12,7 @@ class Elasticsearch
             self::$level = sanitize_text_field($_GET['level']);
         }
 
+        add_action('pre_get_posts', array($this, 'setStatuses'), 1000);
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
@@ -89,6 +90,27 @@ class Elasticsearch
 
         $args['query']['function_score']['query']['bool'] = $query;
         return $args;
+    }
+
+    public function setStatuses($query)
+    {
+        // If not search or main query, return the default query
+        if (!is_search() || !$query->is_main_query()) {
+            return;
+        }
+
+        // If level is users abort the query
+        if (self::$level === 'users') {
+            $query = false;
+            return;
+        }
+
+        $postStatuses = array('publish');
+        if (is_user_logged_in()) {
+            $postStatuses[] = 'private';
+        }
+
+        $query->set('post_status', $postStatuses);
     }
 
     /**
