@@ -35,10 +35,23 @@ class Elasticsearch
 
     public function searchArgs($args, $scope, $query_args)
     {
+
         $q = $query_args['s'];
 
         $query = array(
-            'must' => array(
+            'should' => array(
+                array(
+                    'multi_match' => array(
+                        'query' => $q,
+                        'type' => 'phrase',
+                        'fields' => array(
+                            'post_title',
+                            'post_content',
+                        ),
+                        'boost' => 5,
+                        'fuzziness' => 1
+                    )
+                ),
                 array(
                     'multi_match' => array(
                         'query' => $q,
@@ -48,7 +61,7 @@ class Elasticsearch
                         ),
                         'operator' => 'and',
                         'boost' => 4,
-                        'fuzziness' => 2
+                        'fuzziness' => 1
                     )
                 ),
                 array(
@@ -58,7 +71,7 @@ class Elasticsearch
                             'post_title'
                         ),
                         'boost' => 3,
-                        'fuzziness' => 2
+                        'fuzziness' => 1
                     )
                 ),
                 array(
@@ -70,7 +83,7 @@ class Elasticsearch
                         ),
                         'operator' => 'or',
                         'boost' => 2,
-                        'fuzziness' => 2
+                        'fuzziness' => 1
                     )
                 ),
                 array(
@@ -83,7 +96,7 @@ class Elasticsearch
                         ),
                         'operator' => 'or',
                         'boost' => 1,
-                        'fuzziness' => 2
+                        'fuzziness' => 1
                     )
                 ),
             )
