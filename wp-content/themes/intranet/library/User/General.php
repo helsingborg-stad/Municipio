@@ -10,6 +10,15 @@ class General
 
         add_action('update_user_meta', array($this, 'updateUserMeta'), 10, 4);
         add_action('profile_update', array($this, 'profileUpdate'));
+
+        add_action('set_current_user', 'removeAdminBar');
+    }
+
+    public function removeAdminBar()
+    {
+        if (current_user_can('subscriber') || current_user_can_for_blog(get_current_blog_id(), 'subscriber')) {
+            show_admin_bar(false);
+        }
     }
 
     public function updateUserMeta($metaId, $userId, $metaKey, $_meta_value)
