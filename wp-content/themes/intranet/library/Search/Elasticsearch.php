@@ -38,12 +38,31 @@ class Elasticsearch
 
         $q = $query_args['s'];
 
+        $query = array(
+            'should' => array(
+                array(
+                    'multi_match' => array(
+                        'query' => $q,
+                        'fields' => array(
+                            'post_title^7',
+                            'post_content^3',
+                        ),
+                        'fuzziness' => 'auto'
+                    )
+                )
+            )
+        );
+
+        $args['query']['function_score']['query']['bool'] = $query;
+
+        /*
         $args['query'] = array(
             'simple_query_string' => array(
                 'fields' => array('post_title^7', 'post_content^3'),
                 'query' => $q
             )
         );
+        */
 
 
         return $args;
