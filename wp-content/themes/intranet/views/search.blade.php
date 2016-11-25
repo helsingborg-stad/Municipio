@@ -2,7 +2,7 @@
 
 @section('content')
 
-<?php global $wp_query; var_dump($wp_query);?>
+<?php global $wp_query; ?>
 
 <section class="creamy creamy-border-bottom gutter-vertical gutter-lg clearfix">
     <div class="container">
@@ -32,7 +32,7 @@
                     ?>
 
                     <ul class="nav nav-horizontal">
-                        <li class="title"><?php _e('Filter search on', 'municipio-intranet'); ?>:</li>
+                        <li class="title"><?php _e('Filter search by', 'municipio-intranet'); ?>:</li>
                         <li class="{{ $level == 'all' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
                                 <?php _e('All sites', 'municipio-intranet'); ?>
