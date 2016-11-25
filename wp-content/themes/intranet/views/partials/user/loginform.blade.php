@@ -14,7 +14,7 @@
         </label>
     </div>
     <div class="form-group">
-        @if (!empty(get_site_option('password-reset-instructions')))
+        @if (!empty(get_site_option('password-reset-instructions')) && !is_404())
         <a href="#forgot-password"><?php _e('Forgot your password?', 'municipio-intranet'); ?></a><br>
         @endif
 
