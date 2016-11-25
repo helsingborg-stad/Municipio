@@ -15,9 +15,29 @@ class Elasticsearch
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
+        add_action('pre_get_posts', array($this, 'removeMime'), 1000);
 
         add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
+        add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
+    }
+
+    /**
+     * Remove specified mime types
+     *  @param WP_Query $query
+     */
+     */
+    public function removeMime($query)
+    {
+
+        //TODO: FIX!
+        // If not search or main query, return the default query
+        if (!is_search() || !$query->is_main_query()) {
+            return;
+        }
+
+        // Set orderby
+        $query->set('orderby', 'relevance');
     }
 
     /**
@@ -33,9 +53,18 @@ class Elasticsearch
         return array_unique($statuses);
     }
 
+    /**
+     * Indexable post types
+     * @param  array $types Default post types
+     * @return array Updated post types
+     */
+    public function indexablePostTypes($types)
+    {
+        return array_unique(array_merge($types, \Intranet\Helper\PostType::getPublic()));
+    }
+
     public function searchArgs($args, $scope, $query_args)
     {
-
         $q = $query_args['s'];
 
         $args['query'] = array(
@@ -88,7 +117,7 @@ class Elasticsearch
         }
 
         $query->set('cache_results', false);
-        $query->set('post_type', array('page', 'attachment'));
+        $query->set('post_type', \Intranet\Helper\PostType::getPublic());
 
         $postStatuses  = array('publish', 'inherit');
 

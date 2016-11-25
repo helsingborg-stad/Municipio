@@ -12,6 +12,7 @@ class General
         add_action('profile_update', array($this, 'profileUpdate'));
 
         add_action('init', array($this, 'removeAdminBar'), 1200);
+        add_action('init', array($this, 'makePrivateReadable'), 1200);
     }
 
     public function removeAdminBar()
@@ -19,6 +20,13 @@ class General
         if (!current_user_can('edit_posts') && !current_user_can_for_blog(get_current_blog_id(), 'edit_posts')) {
             show_admin_bar(false);
         }
+    }
+
+    public function makePrivateReadable()
+    {
+        $role = get_role('subscriber');
+        $subRole->add_cap('read_private_posts');
+        $subRole->add_cap('read_private_pages');
     }
 
     public function updateUserMeta($metaId, $userId, $metaKey, $_meta_value)

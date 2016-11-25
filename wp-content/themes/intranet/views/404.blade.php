@@ -52,7 +52,7 @@
 
     <div id="wrapper">
         @include('partials.stripe')
-        @if (municipio_current_post_status() === 'private')
+        @if (municipio_current_post_status() === 'private' || municipio_intranet_is_author_page())
             @include('partials.404.login')
         @else
             @include('partials.404.default')
