@@ -24,10 +24,10 @@ class General
 
     public function removeAdminBarFallback()
     {
-        if (current_user_can('subscriber')) {
+        /*if (current_user_can('subscriber')) {
             echo '<style>#wpadminbar {display: none !important; } </style>';
             echo '<style>html {margin-top: 0 !important; } </style>';
-        }
+        }*/
     }
 
     public function updateUserMeta($metaId, $userId, $metaKey, $_meta_value)
