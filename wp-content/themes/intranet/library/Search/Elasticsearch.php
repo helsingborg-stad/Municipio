@@ -38,58 +38,14 @@ class Elasticsearch
 
         $q = $query_args['s'];
 
-        $query = array(
-            'should' => array(
-                array(
-                    'multi_match' => array(
-                        'query' => $q,
-                        'type' => 'phrase',
-                        'fields' => array(
-                            'post_title',
-                            'post_content',
-                        ),
-                        'boost' => 10,
-                        'fuzziness' => 1
-                    )
-                ),
-                array(
-                    'multi_match' => array(
-                        'query' => $q,
-                        'fields' => array(
-                            'post_title',
-                            'post_content',
-                        ),
-                        'operator' => 'and',
-                        'boost' => 9,
-                        'fuzziness' => 1
-                    )
-                ),
-                array(
-                    'multi_match' => array(
-                        'query' => $q,
-                        'fields' => array(
-                            'post_title'
-                        ),
-                        'boost' => 8,
-                        'fuzziness' => 1
-                    )
-                ),
-                array(
-                    'multi_match' => array(
-                        'query' => $q,
-                        'fields' => array(
-                            'post_title',
-                            'post_content'
-                        ),
-                        'operator' => 'or',
-                        'boost' => 3,
-                        'fuzziness' => 1
-                    )
-                )
+        $args['query'] = array(
+            'simple_query_string' => array(
+                'fields' => array('post_title^7', 'post_content^3'),
+                'query' => $q
             )
         );
 
-        $args['query']['function_score']['query']['bool'] = $query;
+
         return $args;
     }
 
