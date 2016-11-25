@@ -11,23 +11,14 @@ class General
         add_action('update_user_meta', array($this, 'updateUserMeta'), 10, 4);
         add_action('profile_update', array($this, 'profileUpdate'));
 
-        add_action('init', array($this, 'removeAdminBar'), 1200);
-        add_action('wp_head', array($this, 'removeAdminBarFallback'), 1200);
+        //add_action('init', array($this, 'removeAdminBar'), 1200);
     }
 
     public function removeAdminBar()
     {
-        if (current_user_can('subscriber') || current_user_can_for_blog(get_current_blog_id(), 'subscriber')) {
+        if (!current_user_can('edit_pages') || current_user_can_for_blog(get_current_blog_id(), 'subscriber')) {
             show_admin_bar(false);
         }
-    }
-
-    public function removeAdminBarFallback()
-    {
-        /*if (current_user_can('subscriber')) {
-            echo '<style>#wpadminbar {display: none !important; } </style>';
-            echo '<style>html {margin-top: 0 !important; } </style>';
-        }*/
     }
 
     public function updateUserMeta($metaId, $userId, $metaKey, $_meta_value)
