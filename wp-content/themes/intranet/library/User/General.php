@@ -24,7 +24,7 @@ class General
 
     public function removeAdminBarFallback()
     {
-        if (current_user_can('subscriber') || current_user_can_for_blog(get_current_blog_id(), 'subscriber')) {
+        if (current_user_can('subscriber')) {
             echo '<style>#wpadminbar {display: none !important; } </style>';
             echo '<style>html {margin-top: 0 !important; } </style>';
         }
