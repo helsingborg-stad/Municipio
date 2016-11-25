@@ -19,7 +19,7 @@ class General
             'orderby'       => 'relevance',
             'sites'         => 'all',
             'post_status'   => $postStatuses,
-            'post_type'     => array('page', 'attachment'),
+            'post_type'     => \Intranet\Helper\PostType::getPublic(),
             'cache_results' => false
         ));
 

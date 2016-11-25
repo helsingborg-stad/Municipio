@@ -17,6 +17,7 @@ class Elasticsearch
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
 
         add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
+        add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
     }
 
@@ -33,9 +34,18 @@ class Elasticsearch
         return array_unique($statuses);
     }
 
+    /**
+     * Indexable post types
+     * @param  array $types Default post types
+     * @return array Updated post types
+     */
+    public function indexablePostTypes($types)
+    {
+        return array_unique(array_merge($types, \Intranet\Helper\PostType::getPublic()));
+    }
+
     public function searchArgs($args, $scope, $query_args)
     {
-
         $q = $query_args['s'];
 
         $query = array(
@@ -107,7 +117,7 @@ class Elasticsearch
         }
 
         $query->set('cache_results', false);
-        $query->set('post_type', array('page', 'attachment'));
+        $query->set('post_type', \Intranet\Helper\PostType::getPublic());
 
         $postStatuses  = array('publish', 'inherit');
 

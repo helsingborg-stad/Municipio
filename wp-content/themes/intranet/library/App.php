@@ -5,6 +5,9 @@ class App
 {
     public function __construct()
     {
+        // Data
+        new \Intranet\Helper\PostType();
+
         // Basic theme functionality
         new \Intranet\Theme\General();
         new \Intranet\Theme\Enqueue();
