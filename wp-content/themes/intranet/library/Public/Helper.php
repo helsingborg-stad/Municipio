@@ -85,3 +85,14 @@ if (!function_exists('municipio_intranet_field_example')) {
         echo '<small class="form-example"><span>' . $example['label'] . ':</span> ' . $example['example'] . '</small>';
     }
 }
+
+if (!function_exists('municipio_current_post_status')) {
+    function municipio_current_post_status()
+    {
+        global $wp_query;
+        if (isset($wp_query->queried_object->post_status)) {
+            return $wp_query->queried_object->post_status;
+        }
+        return false;
+    }
+}
