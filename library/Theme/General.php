@@ -9,28 +9,16 @@ class General
         add_filter('body_class', array($this, 'colorScheme'));
         add_filter('body_class', array($this, 'isChildTheme'));
 
-        add_filter('the_title', array($this, 'removePrivate'));
+        add_filter('private_title_format', array($this, 'titleFormat'));
+        add_filter('protected_title_format', array($this, 'titleFormat'));
+
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
     }
 
-    public function removePrivate($title)
+    public function titleFormat($format)
     {
-        $title = attribute_escape($title);
-
-        $findthese = array(
-            '/Protected:/',
-            '/Private:/'
-        );
-
-        $replacewith = array(
-            '',
-            ''
-        );
-
-        $title = preg_replace($findthese, $replacewith, $title);
-
-        return $title;
+        return '%s';
     }
 
     /**
