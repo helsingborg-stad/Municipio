@@ -25,8 +25,8 @@ class General
     public function makePrivateReadable()
     {
         $role = get_role('subscriber');
-        $subRole->add_cap('read_private_posts');
-        $subRole->add_cap('read_private_pages');
+        $role->add_cap('read_private_posts');
+        $role->add_cap('read_private_pages');
     }
 
     public function updateUserMeta($metaId, $userId, $metaKey, $_meta_value)

@@ -18,14 +18,13 @@ class Elasticsearch
         add_action('pre_get_posts', array($this, 'removeMime'), 1000);
 
         add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
-        add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
+        //add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
     }
 
     /**
      * Remove specified mime types
      *  @param WP_Query $query
-     */
      */
     public function removeMime($query)
     {
