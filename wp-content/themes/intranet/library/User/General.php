@@ -11,12 +11,12 @@ class General
         add_action('update_user_meta', array($this, 'updateUserMeta'), 10, 4);
         add_action('profile_update', array($this, 'profileUpdate'));
 
-        //add_action('init', array($this, 'removeAdminBar'), 1200);
+        add_action('init', array($this, 'removeAdminBar'), 1200);
     }
 
     public function removeAdminBar()
     {
-        if (!current_user_can('edit_pages') || current_user_can_for_blog(get_current_blog_id(), 'subscriber')) {
+        if (!current_user_can('edit_posts') && !current_user_can_for_blog(get_current_blog_id(), 'edit_posts')) {
             show_admin_bar(false);
         }
     }
