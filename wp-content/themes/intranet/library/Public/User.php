@@ -24,6 +24,24 @@ if (!function_exists('municipio_intranet_get_user_profile_url')) {
     }
 }
 
+
+if (!function_exists('municipio_intranet_is_author_page')) {
+    /**
+     * Check if current page is author
+     * @return bool
+     */
+    function municipio_intranet_is_author_page()
+    {
+        global $wp_query;
+        if (isset($wp_query->query['author_name'])) {
+            if (!empty($wp_query->query['author_name'])) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 if (!function_exists('municipio_intranet_get_user_profile_edit_url')) {
     /**
      * Get edit profile url
