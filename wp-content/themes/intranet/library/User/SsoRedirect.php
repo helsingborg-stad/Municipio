@@ -12,6 +12,8 @@ class SsoRedirect
         // If session "sso_after_login_redirect" exists and isnt empty, redirect to the url in the value
         // This is (hopefully) the url of the link (or other entry point) that the user was on before the SSO auth
         if (isset($_SESSION['sso_after_login_redirect']) && !empty($_SESSION['sso_after_login_redirect'])) {
+            session_start();
+            unset($_SESSION['sso_after_login_redirect']);
             wp_redirect($_SESSION['sso_after_login_redirect']);
             wp_die();
         }
