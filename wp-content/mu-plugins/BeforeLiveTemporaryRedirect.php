@@ -17,7 +17,7 @@ class BeforeLiveTemporaryRedirect
     public function __construct()
     {
 
-        if (in_array($_SERVER['HTTP_HOST'], array('intranat.helsingborg.se', 'intranat.dev'))) {
+        if (in_array($_SERVER['HTTP_HOST'], array('beta.intranat.helsingborg.se'))) {
 
             session_start();
 
@@ -26,7 +26,7 @@ class BeforeLiveTemporaryRedirect
             }
 
             if ($this->checkCookie() === false && !isset($_GET['letmein'])) {
-                header('Location: https://beta.intranat.helsingborg.se');
+                header('Location: https://intranat.helsingborg.se');
                 exit;
             }
         }

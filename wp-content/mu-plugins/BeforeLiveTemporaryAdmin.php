@@ -18,7 +18,7 @@ class BeforeLiveTemporaryAdmin
     {
         if (in_array($_SERVER['HTTP_HOST'], array('beta.intranat.helsingborg.se'))) {
             if (is_admin() && (! defined('DOING_AJAX') || (defined('DOING_AJAX') && !DOING_AJAX))) {
-                wp_die("Vi flyttar intranätet till rätt ställe. Det är därför inte möjligt att uppdatera intranätet just nu. Vi beräknar vara färdiga efter klockan 11.");
+                wp_die('Vi har flyttat intanätet hit: <a href="https://intranat.helsingborg.se/">intranat.helsingborg.se</a>.');
             }
         }
     }
