@@ -290,6 +290,10 @@ class News
         $i = 0;
         $sql = null;
 
+        $sites = array_filter($sites, function ($site) {
+            return is_a(get_blog_details($site), 'WP_Site');
+        });
+
         $postStatuses = array('publish');
 
         if (is_user_logged_in()) {
