@@ -408,9 +408,10 @@ a.profile-card {
             position: absolute;
             @include center();
             vertical-align: 0%;
-            line-height: 1;
+            line-height: .5;
             font-size: 4em;
             margin-top: 1px;
+            color: #fff;
         }
     }
 

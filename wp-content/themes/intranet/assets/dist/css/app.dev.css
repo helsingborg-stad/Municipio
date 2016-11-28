@@ -538,9 +538,10 @@ a.profile-card {
       -webkit-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%);
       vertical-align: 0%;
-      line-height: 1;
+      line-height: .5;
       font-size: 4em;
-      margin-top: 1px; }
+      margin-top: 1px;
+      color: #fff; }
   @media (max-width: 769px) {
     a.profile-card {
       padding: 10px;
