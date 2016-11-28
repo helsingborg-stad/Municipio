@@ -9,13 +9,7 @@ class SsoRedirect
 
     public function __construct()
     {
-        // If cookie "sso_after_login_redirect" exists and isnt empty, redirect to the url in the value
-        // This is (hopefully) the url of the link (or other entry point) that the user was on before the SSO auth
-        if (isset($_COOKIE['sso_after_login_redirect']) && !empty($_COOKIE['sso_after_login_redirect'])) {
-            setcookie('sso_after_login_redirect', null, -1);
-            wp_redirect($_COOKIE['sso_after_login_redirect']);
-            wp_die();
-        }
+        add_action('template_redirect', array($this, 'afterLoginRedirect'));
 
         //Set vars
         $this->prohibitedUrls = array('plugins');
@@ -23,6 +17,23 @@ class SsoRedirect
         //Run code (if not prohibited url and sso is available)
         if (!$this->disabledUrl()) {
             add_action('init', array($this, 'init'), 9999);
+        }
+    }
+
+    /**
+     * If cookie "sso_after_login_redirect" exists and isnt empty, redirect to the url in the value
+     * This is (hopefully) the url of the link (or other entry point) that the user was on before the SSO auth
+     * @return void
+     */
+    public function afterLoginRedirect()
+    {
+        if (isset($_COOKIE['sso_after_login_redirect']) && !empty($_COOKIE['sso_after_login_redirect'])) {
+            $redirect = $_SERVER['HTTPS'] === 'on' ? 'https:' : 'http:';
+            $redirect .= $_COOKIE['sso_after_login_redirect'];
+            setcookie('sso_after_login_redirect', '', -1, '/', COOKIE_DOMAIN);
+
+            wp_redirect($redirect);
+            exit;
         }
     }
 
@@ -71,7 +82,9 @@ class SsoRedirect
 
     public function doAuthentication()
     {
-        setcookie('sso_after_login_redirect', municipio_intranet_current_url(), time() + 300);
+        if (!isset($_COOKIE['sso_after_login_redirect']) || empty($_COOKIE['sso_after_login_redirect'])) {
+            setcookie('sso_after_login_redirect', municipio_intranet_current_url(), time() + 300, '/', COOKIE_DOMAIN);
+        }
 
         if (class_exists('\SAML_Client')) {
             $client = new \SAML_Client();
