@@ -53,7 +53,7 @@ class Elasticsearch
     {
         $q = $query_args['s'];
 
-        $args['min_score'] = 0.05;
+        $args['min_score'] = 0.03;
 
         $args['query'] = array(
             'simple_query_string' => array(
