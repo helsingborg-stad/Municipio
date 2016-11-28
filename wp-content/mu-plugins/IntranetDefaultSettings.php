@@ -54,7 +54,10 @@ class IntranetDefaultSettings
             'options_footer_signature_show'     => 1,
 
             // Search
-            'options_search_placeholder_text'   => __('What are you looking for?', 'municipio-intranet')
+            'options_search_placeholder_text'   => __('What are you looking for?', 'municipio-intranet'),
+
+            // Content
+            'options_page_show_share'           => 0
         );
 
         foreach ($defaultBlogOptions as $key => $value) {
