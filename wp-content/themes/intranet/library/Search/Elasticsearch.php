@@ -4,12 +4,16 @@ namespace Intranet\Search;
 
 class Elasticsearch
 {
-    public static $level = 'all';
+    public static $level = 'subscriptions';
 
     public function __construct()
     {
         if (isset($_GET['level']) && !empty($_GET['level'])) {
             self::$level = sanitize_text_field($_GET['level']);
+        }
+
+        if (!is_user_logged_in()) {
+            self::$level = 'all';
         }
 
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
@@ -19,7 +23,6 @@ class Elasticsearch
         add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
         add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
-
     }
 
 
