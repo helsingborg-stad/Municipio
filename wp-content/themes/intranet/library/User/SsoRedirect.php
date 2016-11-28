@@ -9,12 +9,11 @@ class SsoRedirect
 
     public function __construct()
     {
-        // If session "sso_after_login_redirect" exists and isnt empty, redirect to the url in the value
+        // If cookie "sso_after_login_redirect" exists and isnt empty, redirect to the url in the value
         // This is (hopefully) the url of the link (or other entry point) that the user was on before the SSO auth
-        if (isset($_SESSION['sso_after_login_redirect']) && !empty($_SESSION['sso_after_login_redirect'])) {
-            session_start();
-            unset($_SESSION['sso_after_login_redirect']);
-            wp_redirect($_SESSION['sso_after_login_redirect']);
+        if (isset($_COOKIE['sso_after_login_redirect']) && !empty($_COOKIE['sso_after_login_redirect'])) {
+            setcookie('sso_after_login_redirect', null, -1);
+            wp_redirect($_COOKIE['sso_after_login_redirect']);
             wp_die();
         }
 
@@ -72,8 +71,7 @@ class SsoRedirect
 
     public function doAuthentication()
     {
-        session_start();
-        $_SESSION['sso_after_login_redirect'] = municipio_intranet_current_url();
+        setcookie('sso_after_login_redirect', municipio_intranet_current_url(), time() + 300);
 
         if (class_exists('\SAML_Client')) {
             $client = new \SAML_Client();
