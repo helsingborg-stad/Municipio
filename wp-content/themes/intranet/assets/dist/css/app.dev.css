@@ -538,9 +538,10 @@ a.profile-card {
       -webkit-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%);
       vertical-align: 0%;
-      line-height: 1;
+      line-height: .5;
       font-size: 4em;
-      margin-top: 1px; }
+      margin-top: 1px;
+      color: #fff; }
   @media (max-width: 769px) {
     a.profile-card {
       padding: 10px;
@@ -965,7 +966,7 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
     content: "";
     color: #fff;
     font-size: .6em;
-    margin-top: 2px; }
+    margin-top: .6px; }
 
 .current-network.dropdown-open .current-network-dropdown-arrow::after {
   font-family: hbg-pricons;

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-11-22 09:52+0100\n"
+"POT-Creation-Date: 2016-11-28 14:32+0100\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -236,8 +236,8 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
-#: library/Theme/Enqueue.php:44 views/search.blade.php:62
-#: views/search.blade.php:128
+#: library/Theme/Enqueue.php:44 views/search.blade.php:63
+#: views/search.blade.php:133
 msgid "Persons"
 msgstr ""
 
@@ -284,102 +284,102 @@ msgstr ""
 msgid "All fields must be filled in to add a new administration unit"
 msgstr ""
 
-#: library/User/General.php:110
+#: library/User/General.php:129
 #, php-format
 msgid "Hi %s"
 msgstr ""
 
-#: library/User/General.php:111
+#: library/User/General.php:130
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: library/User/General.php:112
+#: library/User/General.php:131
 #, php-format
 msgid "How is it going %s?"
 msgstr ""
 
-#: library/User/General.php:113
+#: library/User/General.php:132
 #, php-format
 msgid "Good to see you, %s"
 msgstr ""
 
-#: library/User/General.php:114
+#: library/User/General.php:133
 #, php-format
 msgid "Howdy %s"
 msgstr ""
 
-#: library/User/General.php:119
+#: library/User/General.php:138
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr ""
 
-#: library/User/General.php:120
+#: library/User/General.php:139
 #, php-format
 msgid "Good morning %s"
 msgstr ""
 
-#: library/User/General.php:121
+#: library/User/General.php:140
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr ""
 
-#: library/User/General.php:122
+#: library/User/General.php:141
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr ""
 
-#: library/User/General.php:123 library/User/General.php:132
+#: library/User/General.php:142 library/User/General.php:151
 #, php-format
 msgid "Have a great day %s"
 msgstr ""
 
-#: library/User/General.php:124
+#: library/User/General.php:143
 #, php-format
 msgid "%s you up already?"
 msgstr ""
 
-#: library/User/General.php:129
+#: library/User/General.php:148
 #, php-format
 msgid "Good afternoon %s"
 msgstr ""
 
-#: library/User/General.php:130
+#: library/User/General.php:149
 #, php-format
 msgid "Greetings, %s"
 msgstr ""
 
-#: library/User/General.php:131
+#: library/User/General.php:150
 #, php-format
 msgid "Keep going strong %s!"
 msgstr ""
 
-#: library/User/General.php:137
+#: library/User/General.php:156
 #, php-format
 msgid "It's getting late, %s"
 msgstr ""
 
-#: library/User/General.php:138
+#: library/User/General.php:157
 #, php-format
 msgid "Good eavning %s"
 msgstr ""
 
-#: library/User/General.php:143
+#: library/User/General.php:162
 #, php-format
 msgid "Good night %s"
 msgstr ""
 
-#: library/User/General.php:144
+#: library/User/General.php:163
 #, php-format
 msgid "Still going strong, %s?"
 msgstr ""
 
-#: library/User/General.php:171
+#: library/User/General.php:190
 #, php-format
 msgid "Happy new year %s"
 msgstr ""
 
-#: library/User/General.php:176
+#: library/User/General.php:195
 #, php-format
 msgid "Merry christmas %s"
 msgstr ""
@@ -404,11 +404,11 @@ msgstr ""
 msgid "All fields must be filled in to add a new system"
 msgstr ""
 
-#: library/User/TargetGroups.php:184
+#: library/User/TargetGroups.php:187
 msgid "Restrict to target groups"
 msgstr ""
 
-#: library/User/TargetGroups.php:216 library/User/TargetGroups.php:217
+#: library/User/TargetGroups.php:219 library/User/TargetGroups.php:220
 #: views/author-edit.blade.php:264
 msgid "Target groups"
 msgstr ""
@@ -532,7 +532,7 @@ msgstr ""
 
 #: templates/admin/target-groups/form.php:38
 #: templates/admin/target-groups/form.php:54
-#: templates/admin/target-groups/restrict.php:5
+#: templates/admin/target-groups/restrict.php:10
 #: views/author-edit.blade.php:280 views/table-of-contents.blade.php:18
 msgid "All"
 msgstr ""
@@ -547,6 +547,10 @@ msgstr ""
 
 #: templates/admin/target-groups/form.php:54
 msgid "administration units"
+msgstr ""
+
+#: templates/admin/target-groups/restrict.php:4
+msgid "Logged in via Citrix"
 msgstr ""
 
 #: templates/module/modularity-mod-intranet-inciden.php:17
@@ -756,9 +760,8 @@ msgid "Administration unit"
 msgstr ""
 
 #: views/author-edit.blade.php:219
-#: views/partials/modal/missing-data-fields/user_department.blade.php:6
 #: views/partials/modal/missing-data-fields/user_department.blade.php:36
-msgid "Department"
+msgid "Department/unit"
 msgstr ""
 
 #: views/author-edit.blade.php:221
@@ -1100,7 +1103,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: views/partials/header/subnav.blade.php:30 views/search.blade.php:46
+#: views/partials/header/subnav.blade.php:30 views/search.blade.php:40
 msgid "Subscriptions"
 msgstr ""
 
@@ -1130,6 +1133,10 @@ msgstr ""
 
 #: views/partials/modal/missing-data-fields/user_about.blade.php:11
 msgid "Write a little something about yourself…"
+msgstr ""
+
+#: views/partials/modal/missing-data-fields/user_department.blade.php:6
+msgid "Department"
 msgstr ""
 
 #: views/partials/modal/missing-data-fields/user_department.blade.php:11
@@ -1244,23 +1251,23 @@ msgid ""
 msgstr ""
 
 #: views/search.blade.php:35
-msgid "Select depth"
+msgid "Filter search by"
 msgstr ""
 
-#: views/search.blade.php:38
+#: views/search.blade.php:48
 msgid "All sites"
 msgstr ""
 
-#: views/search.blade.php:82
+#: views/search.blade.php:87
 msgid "Found no matching results on your search…"
 msgstr ""
 
-#: views/search.blade.php:130
+#: views/search.blade.php:135
 #, php-format
 msgid "%d personer matchar din sökning"
 msgstr ""
 
-#: views/search.blade.php:143
+#: views/search.blade.php:148
 msgid "Show all matching persons"
 msgstr ""
 

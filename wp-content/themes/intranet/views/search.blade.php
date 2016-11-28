@@ -33,12 +33,6 @@
 
                     <ul class="nav nav-horizontal">
                         <li class="title"><?php _e('Filter search by', 'municipio-intranet'); ?>:</li>
-                        <li class="{{ $level == 'all' ? 'active' : '' }}">
-                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
-                                <?php _e('All sites', 'municipio-intranet'); ?>
-                                <span class="label label-rounded label-sm">{{ $counts['all'] }}</span>
-                            </a>
-                        </li>
 
                         @if (is_user_logged_in())
                         <li class="{{ $level == 'subscriptions' ? 'active' : '' }}">
@@ -48,6 +42,13 @@
                             </a>
                         </li>
                         @endif
+
+                        <li class="{{ $level == 'all' ? 'active' : '' }}">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=all">
+                                <?php _e('All sites', 'municipio-intranet'); ?>
+                                <span class="label label-rounded label-sm">{{ $counts['all'] }}</span>
+                            </a>
+                        </li>
 
                         <li class="{{ $level == 'current' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=current">

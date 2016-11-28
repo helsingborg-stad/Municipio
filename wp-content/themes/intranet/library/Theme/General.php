@@ -62,6 +62,11 @@ class General
         add_filter('ep_analyzer_language', function () {
             return 'Swedish';
         });
+
+        // Force hide share buttons
+        add_filter('acf/load_value/name=page_show_share', function ($value) {
+            return false;
+        });
     }
 
     public function googleAnalyticsUA($ua)

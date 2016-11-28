@@ -3,7 +3,7 @@
     @foreach ($users as $item)
     <?php global $authordata; $authordata = get_user_by('ID', $item->ID); ?>
     <li class="grid-sm-12 grid-md-6 grid-lg-4">
-        <a href="#" class="profile-card profile-header" data-equal-item>
+        <a href="{{ municipio_intranet_get_user_profile_url($item->ID) }}" class="profile-card profile-header" data-equal-item>
             @if (!empty(get_the_author_meta('user_profile_picture')))
             <div class="profile-image" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');"></div>
             @else
