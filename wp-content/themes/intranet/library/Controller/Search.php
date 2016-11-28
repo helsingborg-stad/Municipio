@@ -50,9 +50,19 @@ class Search extends \Intranet\Controller\BaseController
             $queryVars = $wp_query->query_vars;
             $sites = \Intranet\Search\ElasticSearch::getSitesFromLevel($level);
 
+            $postStatuses  = array('publish', 'inherit');
+
+            if (is_user_logged_in()) {
+                $postStatuses[] = 'private';
+            }
+
             $query = new \WP_Query(array(
-                's' => get_search_query(),
-                'sites' => $sites,
+                's'             => get_search_query(),
+                'orderby'       => 'relevance',
+                'sites'         => $sites,
+                'post_status'   => $postStatuses,
+                'post_type'     => \Intranet\Helper\PostType::getPublic(),
+                'cache_results' => false
             ));
 
             $counts[$level] = $query->found_posts;
