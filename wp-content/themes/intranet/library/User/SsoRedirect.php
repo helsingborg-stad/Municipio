@@ -9,6 +9,13 @@ class SsoRedirect
 
     public function __construct()
     {
+        // If session "sso_after_login_redirect" exists and isnt empty, redirect to the url in the value
+        // This is (hopefully) the url of the link (or other entry point) that the user was on before the SSO auth
+        if (isset($_SESSION['sso_after_login_redirect']) && !empty($_SESSION['sso_after_login_redirect'])) {
+            wp_redirect($_SESSION['sso_after_login_redirect']);
+            wp_die();
+        }
+
         //Set vars
         $this->prohibitedUrls = array('plugins');
 
@@ -63,6 +70,9 @@ class SsoRedirect
 
     public function doAuthentication()
     {
+        session_start();
+        $_SESSION['sso_after_login_redirect'] = municipio_intranet_current_url();
+
         if (class_exists('\SAML_Client')) {
             $client = new \SAML_Client();
             $client->authenticate();
