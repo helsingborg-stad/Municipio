@@ -966,7 +966,7 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
     content: "";
     color: #fff;
     font-size: .6em;
-    margin-top: 2px; }
+    margin-top: .6px; }
 
 .current-network.dropdown-open .current-network-dropdown-arrow::after {
   font-family: hbg-pricons;
