@@ -84,7 +84,7 @@ class Login
     public function frontendLoginFailed($username)
     {
         // Where did the submit come from
-        $referrer = $_SERVER['HTTP_REFERER'];
+        $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 
         // If there's a valid referrer, and it's not the default log-in screen
         if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
