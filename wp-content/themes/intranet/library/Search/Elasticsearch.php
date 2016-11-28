@@ -15,29 +15,13 @@ class Elasticsearch
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
-        //add_action('pre_get_posts', array($this, 'removeMime'), 1000);
 
         add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
         add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
+
     }
 
-    /**
-     * Remove specified mime types
-     *  @param WP_Query $query
-     */
-    public function removeMime($query)
-    {
-
-        //TODO: FIX!
-        // If not search or main query, return the default query
-        if (!is_search() || !$query->is_main_query()) {
-            return;
-        }
-
-        // Set orderby
-        $query->set('orderby', 'relevance');
-    }
 
     /**
      * Indexable post statuses
@@ -70,7 +54,20 @@ class Elasticsearch
             'simple_query_string' => array(
                 'fields' => array('post_title^7', 'post_content^3'),
                 'query' => $q,
-                //'analyzer' => 'elasticpress_synonyms'
+            )
+        );
+
+        // Get allowed image mimes to be able to filter them out from serach result
+        $imageMimes = array_values(array_filter(get_allowed_mime_types(), function ($mime) {
+            return substr($mime, 0, 6) === 'image/';
+        }));
+
+        // Add image mime filter
+        $args['post_filter']['bool']['must_not'] = array(
+            array(
+                'terms' => array(
+                    'post_mime_type' => apply_filters('MunicipioIntranet/search/mimefilter', $imageMimes)
+                )
             )
         );
 
