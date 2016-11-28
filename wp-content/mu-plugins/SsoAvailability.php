@@ -6,7 +6,9 @@ class SsoAvailability
 {
     public function __construct()
     {
-        $this->check();
+        if (!$this->isLoggedIn()) {
+            $this->check();
+        }
     }
 
     public function check()
@@ -68,6 +70,20 @@ class SsoAvailability
             return true;
         }
 
+        return false;
+    }
+
+    public function isLoggedIn()
+    {
+        if (is_array($_COOKIE) && !empty($_COOKIE)) {
+            foreach ($_COOKIE as $key => $val) {
+                if (preg_match("/wordpress_logged_in/i", $key)) {
+                    if (!empty($val)) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 }
