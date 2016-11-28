@@ -75,7 +75,11 @@
     <div class="container gutter gutter-xl gutter-top">
         <div class="grid">
             <div class="grid-md-9">
-                <?php do_action('loop_start'); ?>
+                <?php
+                if ($resultCount === 0) {
+                    do_action('loop_start');
+                }
+                ?>
 
                 @if ($resultCount === 0)
                     <div class="notice info">
