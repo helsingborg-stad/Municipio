@@ -26,7 +26,7 @@ class BeforeLiveTemporaryRedirect
             }
 
             if ($this->checkCookie() === false && !isset($_GET['letmein'])) {
-                header('Location: https://intranat.helsingborg.se');
+                header('Location: https://intranat.helsingborg.se/' . $_SERVER[REQUEST_URI]);
                 exit;
             }
         }
