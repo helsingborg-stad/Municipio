@@ -17,7 +17,7 @@
 
             @include('partials.blog.type.post-single')
 
-            @if (is_single() && comments_open())
+            @if (is_single() && comments_open() && is_user_logged_in())
                 <div class="grid">
                     <div class="grid-sm-12">
                         @include('partials.blog.comments-form')
