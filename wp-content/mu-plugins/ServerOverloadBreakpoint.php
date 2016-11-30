@@ -13,6 +13,10 @@ class ServerOverloadBreakpoint
             return true;
         }
 
+        if ($this->isLockedIn()) {
+            return true;
+        }
+
         if ($this->isLockedOut()) {
             $this->sendErrorMessage("Avvaktar tillgängliga resurser.");
         }
@@ -24,6 +28,9 @@ class ServerOverloadBreakpoint
         if (!$this->hasFreeApacheProcesses()) {
             $this->sendErrorMessage("Avvaktar lediga processer.");
         }
+
+        // Make the user a VIP
+        $this->doLockin();
     }
 
     private function hasFreeApacheProcesses()
@@ -53,11 +60,24 @@ class ServerOverloadBreakpoint
         return false;
     }
 
+    private function isLockedIn()
+    {
+        if (isset($_COOKIE['overloaded-server-lockin']) && $_COOKIE['overloaded-server-lockin'] == 1) {
+            return true;
+        }
+        return false;
+    }
+
     private function doLockout()
     {
         if (!$this->isLockedOut()) {
             setcookie("overloaded-server-lockout", 1, time()+120);
         }
+    }
+
+    private function doLockin()
+    {
+        setcookie("overloaded-server-lockin", 1, time()+600);
     }
 
     public function sendErrorMessage($reason = "")
