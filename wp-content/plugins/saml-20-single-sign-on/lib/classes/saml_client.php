@@ -44,7 +44,7 @@ class SAML_Client
       if(array_key_exists($this->settings->get_attribute('username'), $attrs) )
       {
         $username = $attrs[$this->settings->get_attribute('username')][0];
-        if(get_user_by('login',$username))
+        if($user = get_user_by('login',$username))
         {
           $this->simulate_signon($username);
         }
@@ -135,6 +135,12 @@ class SAML_Client
   {
     $this->update_role();
     $user = get_user_by('login', $username);
+
+    if (class_exists('ADIntegrationPlugin')) {
+      $AD_Integration_plugin = new ADIntegrationPlugin();
+      $AD_Integration_plugin->authenticate($user, $user->data->user_login, $user->data->user_pass);
+    }
+
     wp_set_auth_cookie($user->ID);
 
     if( array_key_exists('redirect_to', $_GET) )
