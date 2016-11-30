@@ -4,7 +4,7 @@ namespace ServerOverLoadBreakpoint;
 
 class ServerOverloadBreakpoint
 {
-    public $MaxApacheProcesses = 150;
+    public $MaxApacheProcesses = 200;
     public $domain = 'intranat.helsingborg.se';
 
     public function __construct()
