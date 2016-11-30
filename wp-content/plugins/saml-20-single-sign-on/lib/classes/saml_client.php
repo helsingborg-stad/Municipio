@@ -44,7 +44,7 @@ class SAML_Client
       if(array_key_exists($this->settings->get_attribute('username'), $attrs) )
       {
         $username = $attrs[$this->settings->get_attribute('username')][0];
-        if($user = get_user_by('login',$username))
+        if(get_user_by('login',$username))
         {
           $this->simulate_signon($username);
         }
