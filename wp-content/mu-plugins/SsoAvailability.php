@@ -46,7 +46,7 @@ class SsoAvailability
             function setCookie(value) {
                 var d = new Date();
                 var name = 'sso_available';
-                var daysValid = 5;
+                var daysValid = ".rand(3, 11).";
 
                 d.setTime(d.getTime() + (daysValid * 24 * 60 * 60 * 1000));
 
