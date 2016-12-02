@@ -75,7 +75,13 @@ class Profile
         global $wp_query;
         $currentUser = wp_get_current_user();
 
+        var_dump($currentUser);
+
         if (is_author() && !is_user_logged_in()) {
+            $wp_query->set_404();
+        }
+
+        if (0 === strpos($currentUser->data->user_email, 'DISABLED-USER-')) {
             $wp_query->set_404();
         }
 
