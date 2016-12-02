@@ -4,7 +4,7 @@ namespace ServerOverLoadBreakpoint;
 
 class ServerOverloadBreakpoint
 {
-    public $MaxApacheProcesses = 150;
+    public $MaxApacheProcesses = 200;
     public $domain = 'intranat.helsingborg.se';
 
     public function __construct()
@@ -46,7 +46,7 @@ class ServerOverloadBreakpoint
 
     private function hasFreeCPU()
     {
-        if (sys_getloadavg()[0] < 0.8) {
+        if (sys_getloadavg()[0] < 7) {
             return true;
         }
         return false;
@@ -124,6 +124,7 @@ class ServerOverloadBreakpoint
             <p style="font-size: 0.7em; text-align: center;">Felsökningsinformation: ' .$reason. '</p>
         ');
     }
+
 }
 
 new \ServerOverLoadBreakpoint\ServerOverLoadBreakpoint();
