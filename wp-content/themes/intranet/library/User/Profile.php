@@ -13,6 +13,7 @@ class Profile
         // View profile
         add_action('init', array($this, 'profileUrlRewrite'));
         add_action('template_redirect', array($this, 'accessControl'), 5);
+        add_action('template_redirect', array($this, 'inactiveControl'), 5);
         add_filter('wp_title', array($this, 'setProfileTitle'), 11, 3);
 
         // Edit profile
@@ -79,12 +80,25 @@ class Profile
             $wp_query->set_404();
         }
 
-        if (0 === strpos($currentUser->data->user_email, 'DISABLED-USER-')) {
-            $wp_query->set_404();
-        }
-
         if (isset($wp_query->query['editprofile']) && $wp_query->query['editprofile'] && (!is_super_admin() && $currentUser->user_login != $wp_query->query['author_name'])) {
             $wp_query->set_404();
+        }
+    }
+
+    /**
+     * Only show author/profile if is enabled user
+     * @return void
+     */
+    public function inactiveControl()
+    {
+        global $wp_query;
+
+        $user = get_user_by('login', $wp_query->query['author_name']);
+
+        if (isset($user->data->user_email)) {
+            if (0 === strpos($user->data->user_email, 'DISABLED-USER-')) {
+                $wp_query->set_404();
+            }
         }
     }
 
