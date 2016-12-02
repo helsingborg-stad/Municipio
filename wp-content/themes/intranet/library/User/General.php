@@ -63,6 +63,7 @@ class General
      */
     public static function searchUsers($keyword)
     {
+
         if (!is_user_logged_in()) {
             return array();
         }
@@ -97,7 +98,6 @@ class General
             )
         ));
 
-
         $users = array();
         foreach ($userSearch->get_results() as $user) {
             $users[$user->ID] = $user->data;
@@ -107,13 +107,6 @@ class General
             if (array_key_exists($user->ID, $users)) {
                 continue;
             }
-
-            if (isset($user->data->user_email)) {
-                if (0 === strpos($user->data->user_email, 'DISABLED-USER-')) {
-                    continue;
-                }
-            }
-
             $users[$user->ID] = $user->data;
         }
 
@@ -121,6 +114,14 @@ class General
             $users[$user->ID]->name = municipio_intranet_get_user_full_name($user->ID);
             $users[$user->ID]->profile_url = municipio_intranet_get_user_profile_url($user->ID);
             $users[$user->ID]->profile_image = get_the_author_meta('user_profile_picture', $user->ID);
+        }
+
+        foreach ($users as $userkey => $user) {
+            if (isset($user->user_email)) {
+                if (0 === strpos($user->user_email, 'DISABLED-USER-')) {
+                    unset($users[$userkey]);
+                }
+            }
         }
 
         return $users;
