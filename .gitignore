@@ -1,3 +1,5 @@
+ad-api/
+
 # Config
 /config/database.php
 /config/salts.php
