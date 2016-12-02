@@ -16,17 +16,18 @@ class Cache
     private $ttl = null;
     private $hash = null;
 
-    public static $keyGroup = 'mun-cache';
+    public $keyGroup = 'mun-cache';
 
     public function __construct($postId, $module = '', $ttl = 3600*24)
     {
+
         // Set variables
         $this->postId       = $postId;
         $this->ttl          = $ttl;
 
         //Alter keyGroup if ms
         if (function_exists('is_multisite') && is_multisite()) {
-            self::$keyGroup = self::$keyGroup . '-' . get_current_blog_id() . '-';
+            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
         }
 
         // Create hash string
@@ -52,13 +53,13 @@ class Cache
      * @param  integer $postId Post id to clear
      * @return boolean
      */
-    public static function clearCache($postId)
+    public function clearCache($postId)
     {
         if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
             return false;
         }
 
-        wp_cache_delete($postId, self::$keyGroup);
+        wp_cache_delete($postId, $this->keyGroup);
         return true;
     }
 
@@ -68,6 +69,7 @@ class Cache
      */
     public function start()
     {
+
         if (!$this->isActive()) {
             return true;
         }
@@ -87,6 +89,7 @@ class Cache
      */
     public function stop()
     {
+
         if (!$this->isActive() || $this->hasCache()) {
             return false;
         }
@@ -95,13 +98,14 @@ class Cache
         $return_data = ob_get_clean();
 
         if (!empty($return_data)) {
-            $cacheArray = (array) wp_cache_get($this->postId, self::$keyGroup);
+            $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
 
             $cacheArray[$this->hash] = $return_data.$this->fragmentTag();
 
-            wp_cache_delete($this->postId, self::$keyGroup);
+            wp_cache_delete($this->postId, $this->keyGroup);
 
-            wp_cache_add($this->postId, array_filter($cacheArray), self::$keyGroup, $this->ttl);
+            wp_cache_add($this->postId, array_filter($cacheArray), $this->keyGroup, $this->ttl);
+
         }
 
         echo $return_data;
@@ -128,7 +132,8 @@ class Cache
      */
     private function getCache($print = true)
     {
-        $cacheArray = wp_cache_get($this->postId, self::$keyGroup);
+
+        $cacheArray = wp_cache_get($this->postId, $this->keyGroup);
 
         if (!is_array($cacheArray) || !array_key_exists($this->hash, $cacheArray)) {
             return false;
