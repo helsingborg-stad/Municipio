@@ -6,9 +6,7 @@ class SsoAvailability
 {
     public function __construct()
     {
-        if (!$this->isLoggedIn()) {
-            $this->check();
-        }
+        $this->check();
     }
 
     public function check()
@@ -46,9 +44,7 @@ class SsoAvailability
             function setCookie(value) {
                 var d = new Date();
                 var name = 'sso_available';
-                var daysValid = ".rand(3, 11).";
-
-                d.setTime(d.getTime() + (daysValid * 24 * 60 * 60 * 1000));
+                d.setTime(d.getTime() + (60 * 60 * 1000));
 
                 var expires = 'expires=' + d.toUTCString();
                 document.cookie = name + '=' + value.toString() + '; ' + expires + '; domain=" . COOKIE_DOMAIN . "; path=/;';
