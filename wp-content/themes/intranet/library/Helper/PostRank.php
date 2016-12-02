@@ -74,7 +74,7 @@ class PostRank
     {
         $baseRankKey = 'default';
 
-        if ($post->is_sticky) {
+        if ($post->is_sticky && $post->blog_id == get_current_blog_id()) {
             $baseRankKey = 'sticky';
         } elseif ($post->blog_id == BLOG_ID_CURRENT_SITE) {
             $baseRankKey = 'mainBlog';
