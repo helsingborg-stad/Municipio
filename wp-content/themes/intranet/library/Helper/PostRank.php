@@ -5,7 +5,7 @@ namespace Intranet\Helper;
 class PostRank
 {
     public static $baseRanks = array(
-        'sticky'     => 1000,
+        'sticky'     => 10000000,
         'mainBlog'   => 400,
         'forced'     => 300,
         'subscribed' => 200,
@@ -14,9 +14,9 @@ class PostRank
 
     public static $multipliers = array(
         'baseRank' => 1,
-        'pageViews' => 20,
+        'pageViews' => 5,
         'userViews' => 10,
-        'age'       => 0.001
+        'age'       => 0.5
     );
 
     /**
