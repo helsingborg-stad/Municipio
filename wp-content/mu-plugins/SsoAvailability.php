@@ -6,7 +6,17 @@ class SsoAvailability
 {
     public function __construct()
     {
-        $this->check();
+        if (is_local_ip()) {
+            if (!isset($_COOKIE['sso_available'])) {
+                $this->check();
+            }
+        } else {
+            // Not in network, remove sso.
+            if (isset($_COOKIE['sso_available'])) {
+                unset($_COOKIE['sso_available']);
+            }
+            setcookie("sso_available", "", time()-3600);
+        }
     }
 
     public function check()
@@ -68,22 +78,6 @@ class SsoAvailability
 
         return false;
     }
-
-    public function isLoggedIn()
-    {
-        if (is_array($_COOKIE) && !empty($_COOKIE)) {
-            foreach ($_COOKIE as $key => $val) {
-                if (preg_match("/wordpress_logged_in/i", $key)) {
-                    if (!empty($val)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 }
 
-if (!isset($_COOKIE['sso_available']) && (is_local_ip() || (isset($_GET['trigger_sso']) && $_GET['trigger_sso'] == 'true'))) {
-    new SsoAvailability();
-}
+new SsoAvailability();
