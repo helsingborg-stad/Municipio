@@ -97,6 +97,7 @@ class General
             )
         ));
 
+
         $users = array();
         foreach ($userSearch->get_results() as $user) {
             $users[$user->ID] = $user->data;
@@ -105,6 +106,12 @@ class General
         foreach ($userMetaSearch->get_results() as $user) {
             if (array_key_exists($user->ID, $users)) {
                 continue;
+            }
+
+            if (isset($user->data->user_email)) {
+                if (0 === strpos($user->data->user_email, 'DISABLED-USER-')) {
+                    continue;
+                }
             }
 
             $users[$user->ID] = $user->data;
