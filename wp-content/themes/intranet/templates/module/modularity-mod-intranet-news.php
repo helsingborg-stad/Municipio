@@ -10,7 +10,7 @@
         $limit,
         $helpTooltip,
         $news
-    ), 60);
+    ), 60*60*3);
 
     if ($cache->start()) {
 

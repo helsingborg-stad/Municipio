@@ -7,6 +7,7 @@ class App
     {
         // Data
         new \Intranet\Helper\PostType();
+        new \Intranet\Helper\FragmentCache();
 
         // Basic theme functionality
         new \Intranet\Theme\General();
