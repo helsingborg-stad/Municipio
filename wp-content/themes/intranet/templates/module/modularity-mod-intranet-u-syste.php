@@ -13,7 +13,7 @@
     <h4 class="box-title">
         <?php _e('My systems', 'municipio-intranet'); ?>
         <?php if (is_user_logged_in()) : ?>
-        <button type="button" onclick="location.hash='modal-select-systems'" class="btn btn-plain btn-sm pricon pricon-edit pricon-space-right" data-user-systems-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
+        <button type="button" onclick="location.hash='modal-select-systems'" class="btn btn-plain btn-sm pricon pricon-edit pricon-space-right" data-user-systems-edit><?php _e('Add', 'municipio-intranet'); ?></button>
         <?php endif; ?>
     </h4>
     <?php endif; ?>
