@@ -92,7 +92,7 @@ class Subscription
             $userId = get_current_user_id();
         }
 
-        $cacheKey = md5(serialize(array('getSubscriptions')));
+        $cacheKey = md5(serialize(array('getSubscriptions', $userId)));
 
         // Return if cached
         if (!$onlyBlogId && (self::$userSubscription || $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup))) {
@@ -220,7 +220,7 @@ class Subscription
         $subscriptions = json_encode($subscriptions);
 
         // Ban the subscriptions cache
-        $cacheKey = md5(serialize(array('getSubscriptions')));
+        $cacheKey = md5(serialize(array('getSubscriptions',$userId)));
         wp_cache_delete($cacheKey, self::$cacheGroup);
 
         return update_user_meta($userId, 'intranet_subscriptions', $subscriptions);
