@@ -21,7 +21,7 @@ class General
         add_filter('body_class', array($this, 'colorScheme'), 11);
 
         // Count pageviews
-        add_action('wp', array($this, 'pageViewCounter'));
+        //add_action('wp', array($this, 'pageViewCounter'));
 
         // Get additional site options
         add_filter('the_sites', array($this, 'getSiteOptions'));
