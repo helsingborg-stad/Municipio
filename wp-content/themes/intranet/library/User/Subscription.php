@@ -4,33 +4,34 @@ namespace Intranet\User;
 
 class Subscription
 {
+    public static $cacheGroup = 'intranat-subscriptions';
+
+    public static $forcedSubscriptions;
+    public static $forcedSubscriptionsIds;
+    public static $userSubscription;
+
     public function __construct()
     {
         add_action('wp_ajax_toggle_subscription', '\Intranet\User\Subscription::toggleSubscription');
         add_action('wp_ajax_nopriv_toggle_subscription', '\Intranet\User\Subscription::toggleSubscription');
     }
 
-    /**
-     * Get forced subscriptions
-     * @return array Blog id's of forced subscriptions
-     */
-    public static function getForcedSubscriptions($onlyBlogId = false, $mainBlog = true)
+    public static function getForcedList()
     {
-        $sites = get_sites();
-        $forcedIds = array();
+        $cacheKey = md5(serialize(array('getForcedList')));
 
-        foreach ($sites as $key => $site) {
-            if (!$site->is_forced || (!$mainBlog && is_main_site($site->blog_id))) {
-                unset($sites[$key]);
-                continue;
+        if (self::$forcedSubscriptions || $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup)) {
+            if ($cacheResult) {
+                return $cacheResult;
             }
 
-            $forcedIds[] = $site->blog_id;
+            return self::$forcedSubscriptions;
         }
 
-        if ($onlyBlogId) {
-            return $forcedIds;
-        }
+        $sites = get_sites();
+        $sites = array_filter($sites, function ($site) {
+            return $site->is_forced;
+        });
 
         // Sort alphabetically but always put main site first
         uasort($sites, function ($a, $b) {
@@ -40,6 +41,37 @@ class Subscription
 
             return $a->name > $b->name;
         });
+
+        self::$forcedSubscriptions = $sites;
+        wp_cache_add($cacheKey, self::$forcedSubscriptions, self::$cacheGroup, 3600*24*30);
+        return self::$forcedSubscriptions;
+    }
+
+    /**
+     * Get forced subscriptions
+     * @return array Blog id's of forced subscriptions
+     */
+    public static function getForcedSubscriptions($onlyBlogId = false, $mainBlog = true)
+    {
+        $sites = self::getForcedList();
+
+        // Remove main blog from array if wanted
+        if (!$mainBlog) {
+            array_filter($sites, function ($site) {
+                return !is_main_site($site->blog_id);
+            });
+        }
+
+        // Fetch only ids if wanted
+        if ($onlyBlogId) {
+            $ids = array();
+
+            foreach ($sites as $site) {
+                $ids[] = $site->blog_id;
+            }
+
+            return $ids;
+        }
 
         return $sites;
     }
@@ -60,10 +92,21 @@ class Subscription
             $userId = get_current_user_id();
         }
 
-        $subscriptionsIds = array();
+        $cacheKey = md5(serialize(array('getSubscriptions')));
+
+        // Return if cached
+        if (!$onlyBlogId && (self::$userSubscription || $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup))) {
+            if ($cacheResult) {
+                return $cacheResult;
+            }
+
+            return self::$userSubscription;
+        }
+
         $subscriptions = get_user_meta($userId, 'intranet_subscriptions', true);
         $subscriptions = json_decode($subscriptions);
 
+        // Return if only blog ids
         if ($onlyBlogId) {
             return $subscriptions;
         }
@@ -82,7 +125,9 @@ class Subscription
             return $a->name > $b->name;
         });
 
-        return $subscriptions;
+        self::$userSubscription = $subscriptions;
+        wp_cache_add($cacheKey, self::$userSubscription, self::$cacheGroup, 3600*24*30);
+        return self::$userSubscription;
     }
 
     /**
@@ -173,6 +218,10 @@ class Subscription
         $subscriptions = array_values($subscriptions);
         $subscriptions = array_unique($subscriptions);
         $subscriptions = json_encode($subscriptions);
+
+        // Ban the subscriptions cache
+        $cacheKey = md5(serialize(array('getSubscriptions')));
+        wp_cache_delete($cacheKey, self::$cacheGroup);
 
         return update_user_meta($userId, 'intranet_subscriptions', $subscriptions);
     }
