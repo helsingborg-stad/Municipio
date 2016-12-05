@@ -21,7 +21,7 @@ class General
         add_filter('body_class', array($this, 'colorScheme'), 11);
 
         // Count pageviews
-        add_action('wp', array($this, 'pageViewCounter'));
+        //add_action('wp', array($this, 'pageViewCounter'));
 
         // Get additional site options
         add_filter('the_sites', array($this, 'getSiteOptions'));
@@ -135,6 +135,7 @@ class General
     public function colorScheme($classes)
     {
         $classes['color_scheme'] = 'theme-purple';
+        return $classes;
 
         if ((defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') && !MUNICIPIO_INTRANET_USER_COLOR_THEME) || !is_user_logged_in() || empty(get_the_author_meta('user_color_scheme', get_current_user_id()))) {
             return $classes;
