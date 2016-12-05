@@ -91,6 +91,10 @@ class Profile
      */
     public function inactiveControl()
     {
+        if (!is_author()) {
+            return;
+        }
+
         global $wp_query;
 
         $user = get_user_by('login', $wp_query->query['author_name']);
