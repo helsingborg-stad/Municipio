@@ -17,7 +17,6 @@ class Login
 
     public function transleEmailToUser()
     {
-        var_dump($_POST);
         if (!isset($_POST)) {
             return;
         }

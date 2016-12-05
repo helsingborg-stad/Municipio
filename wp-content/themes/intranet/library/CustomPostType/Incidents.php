@@ -130,7 +130,7 @@ class Incidents
 
         $posts = array();
 
-        foreach ($sites as $site) {
+        foreach ((array)$sites as $site) {
             $posts = array_merge($posts, self::getIncidentsFromSite($site));
         }
 
