@@ -19,6 +19,11 @@ class Options
 
             return $args;
         }, 10, 2);
+
+        add_action('update_option_intranet_force_subscription', function ($option) {
+            $cacheKey = md5(serialize(array('getForcedList')));
+            wp_cache_delete($cacheKey, self::$cacheGroup);
+        });
     }
 
     public function setupOptions()
