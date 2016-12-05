@@ -58,7 +58,7 @@ class Elasticsearch
         $args['query'] = array(
             'simple_query_string' => array(
                 'fields' => array('post_title^7', 'post_content^3'),
-                'query' => $q,
+                'query' => $q . '~2',
                 'analyzer' => 'elasticpress_synonyms'
             )
         );
