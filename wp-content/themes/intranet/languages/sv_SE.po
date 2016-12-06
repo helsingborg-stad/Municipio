@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-11-28 14:32+0100\n"
-"PO-Revision-Date: 2016-11-28 14:33+0100\n"
+"POT-Creation-Date: 2016-12-06 12:55+0100\n"
+"PO-Revision-Date: 2016-12-06 12:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -20,35 +20,35 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: library/Admin/Options.php:28
+#: library/Admin/Options.php:33
 msgid "Intranet options"
 msgstr "Intranätsinställningar"
 
-#: library/Admin/Options.php:30
+#: library/Admin/Options.php:35
 msgid "Intranet specific options."
 msgstr "Intranätsspecifika inställningar."
 
-#: library/Admin/Options.php:38
+#: library/Admin/Options.php:43
 msgid "Hidden"
 msgstr "Dold"
 
-#: library/Admin/Options.php:47
+#: library/Admin/Options.php:52
 msgid "Activate to hide this intranet for non administrators and editors"
 msgstr "Aktivera för att dölja intranätet från icke administratörer/redaktörer"
 
-#: library/Admin/Options.php:59
+#: library/Admin/Options.php:64
 msgid "Force subscription"
 msgstr "Obligatorisk att följa"
 
-#: library/Admin/Options.php:68
+#: library/Admin/Options.php:73
 msgid "Activate to force all users to subscribe to this intranet"
 msgstr "Aktivera för att tvinga alla användare att följa detta intranät"
 
-#: library/Admin/Options.php:80
+#: library/Admin/Options.php:85
 msgid "Intranet short name"
 msgstr "Intranätets kortnamn"
 
-#: library/Admin/Options.php:97
+#: library/Admin/Options.php:102
 msgid "Intranet autosubscribe keys (comma separated)"
 msgstr "Nycklar för automatisk följ (kommaseparerad)"
 
@@ -251,7 +251,6 @@ msgstr "Visa alla resultat"
 
 #: library/Theme/Enqueue.php:48 templates/admin/systems/form.php:56
 #: templates/module/modularity-mod-intranet-u-links.php:16
-#: templates/module/modularity-mod-intranet-u-syste.php:16
 msgid "Edit"
 msgstr "Redigera"
 
@@ -259,7 +258,11 @@ msgstr "Redigera"
 msgid "Done"
 msgstr "Klar"
 
-#: library/Theme/General.php:10
+#: library/Theme/Enqueue.php:50
+msgid "No more news to load"
+msgstr "Det finns inga fler nyheter"
+
+#: library/Theme/General.php:13
 msgid "Page manager"
 msgstr "Sidansvarig"
 
@@ -286,102 +289,102 @@ msgstr "Förvaltningar"
 msgid "All fields must be filled in to add a new administration unit"
 msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
 
-#: library/User/General.php:129
+#: library/User/General.php:137
 #, php-format
 msgid "Hi %s"
 msgstr "Hej %s"
 
-#: library/User/General.php:130
+#: library/User/General.php:138
 #, php-format
 msgid "Hello %s"
 msgstr "Hallå där %s"
 
-#: library/User/General.php:131
+#: library/User/General.php:139
 #, php-format
 msgid "How is it going %s?"
 msgstr "Hur går det %s?"
 
-#: library/User/General.php:132
+#: library/User/General.php:140
 #, php-format
 msgid "Good to see you, %s"
 msgstr "Trevligt att se dig %s"
 
-#: library/User/General.php:133
+#: library/User/General.php:141
 #, php-format
 msgid "Howdy %s"
 msgstr "Tjena %s"
 
-#: library/User/General.php:138
+#: library/User/General.php:146
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr "God morgon %s, ännu en underbar dag!"
 
-#: library/User/General.php:139
+#: library/User/General.php:147
 #, php-format
 msgid "Good morning %s"
 msgstr "God morgon %s"
 
-#: library/User/General.php:140
+#: library/User/General.php:148
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr "Vilken härlig morgon %s"
 
-#: library/User/General.php:141
+#: library/User/General.php:149
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr "Rise and shine %s"
 
-#: library/User/General.php:142 library/User/General.php:151
+#: library/User/General.php:150 library/User/General.php:159
 #, php-format
 msgid "Have a great day %s"
 msgstr "Ha en fin dag %s"
 
-#: library/User/General.php:143
+#: library/User/General.php:151
 #, php-format
 msgid "%s you up already?"
 msgstr "Är du redan vaken %s?"
 
-#: library/User/General.php:148
+#: library/User/General.php:156
 #, php-format
 msgid "Good afternoon %s"
 msgstr "God eftermiddag %s"
 
-#: library/User/General.php:149
+#: library/User/General.php:157
 #, php-format
 msgid "Greetings, %s"
 msgstr "Hallå %s"
 
-#: library/User/General.php:150
+#: library/User/General.php:158
 #, php-format
 msgid "Keep going strong %s!"
 msgstr "Kör hårt %s"
 
-#: library/User/General.php:156
+#: library/User/General.php:164
 #, php-format
 msgid "It's getting late, %s"
 msgstr "Jobbar du fortfarande %s?"
 
-#: library/User/General.php:157
+#: library/User/General.php:165
 #, php-format
 msgid "Good eavning %s"
 msgstr "God kväll %s"
 
-#: library/User/General.php:162
+#: library/User/General.php:170
 #, php-format
 msgid "Good night %s"
 msgstr "God natt %s"
 
-#: library/User/General.php:163
+#: library/User/General.php:171
 #, php-format
 msgid "Still going strong, %s?"
 msgstr "Är du fortfarande i farten %s?"
 
-#: library/User/General.php:190
+#: library/User/General.php:198
 #, php-format
 msgid "Happy new year %s"
 msgstr "Gott nytt år %s!"
 
-#: library/User/General.php:195
+#: library/User/General.php:203
 #, php-format
 msgid "Merry christmas %s"
 msgstr "God jul %s!"
@@ -441,8 +444,9 @@ msgstr "Förvaltningens namn"
 
 #: templates/admin/administration-units/form.php:56
 #: templates/admin/systems/form.php:97
-#: templates/admin/target-groups/form.php:59 views/author-edit.blade.php:386
-#: views/author-edit.blade.php:439
+#: templates/admin/target-groups/form.php:59
+#: templates/module/modularity-mod-intranet-u-syste.php:16
+#: views/author-edit.blade.php:386 views/author-edit.blade.php:439
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:29
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:29
 msgid "Add"
@@ -562,11 +566,15 @@ msgstr "Inloggad via Citrix (i Helsingborgs stads nätverk)"
 msgid "Show all incidents"
 msgstr "Visa alla driftstörningar"
 
-#: templates/module/modularity-mod-intranet-news.php:50
+#: templates/module/modularity-mod-intranet-news-item.php:38
+msgid "Read more"
+msgstr "Läs mer"
+
+#: templates/module/modularity-mod-intranet-news.php:68
 msgid "News feed"
 msgstr "Nyhetsflöde"
 
-#: templates/module/modularity-mod-intranet-news.php:51
+#: templates/module/modularity-mod-intranet-news.php:69
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -577,11 +585,11 @@ msgstr ""
 "anställda. Du ser också nyheterna från din förvaltnings intranät (om det "
 "finns ett sådant) och från de intranät du följer."
 
-#: templates/module/modularity-mod-intranet-news.php:103
-msgid "Read more"
-msgstr "Läs mer"
+#: templates/module/modularity-mod-intranet-news.php:93
+msgid "Load more news"
+msgstr "Ladda in fler nyheter"
 
-#: templates/module/modularity-mod-intranet-news.php:118
+#: templates/module/modularity-mod-intranet-news.php:104
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
