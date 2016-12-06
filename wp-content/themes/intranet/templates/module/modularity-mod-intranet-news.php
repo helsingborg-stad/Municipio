@@ -25,7 +25,7 @@
             break;
 
         case 'blog':
-            $sites = get_current_blog_id();
+            $sites = (array) get_current_blog_id();
             break;
     }
 
