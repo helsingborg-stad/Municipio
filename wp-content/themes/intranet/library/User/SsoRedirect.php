@@ -30,7 +30,8 @@ class SsoRedirect
         if (isset($_COOKIE['sso_after_login_redirect']) && !empty($_COOKIE['sso_after_login_redirect'])) {
             $redirect = $_SERVER['HTTPS'] === 'on' ? 'https:' : 'http:';
             $redirect .= $_COOKIE['sso_after_login_redirect'];
-            setcookie('sso_after_login_redirect', '', -1, '/', COOKIE_DOMAIN);
+            setcookie('sso_after_login_redirect', FALSE, -1, '/', COOKIE_DOMAIN);
+            unset($_COOKIE['sso_after_login_redirect']);
 
             wp_redirect($redirect);
             exit;
@@ -82,11 +83,11 @@ class SsoRedirect
 
     public function doAuthentication()
     {
-        if (!isset($_COOKIE['sso_after_login_redirect']) || empty($_COOKIE['sso_after_login_redirect'])) {
-            setcookie('sso_after_login_redirect', municipio_intranet_current_url(), time() + 300, '/', COOKIE_DOMAIN);
-        }
-
         if (class_exists('\SAML_Client')) {
+            if (!isset($_COOKIE['sso_after_login_redirect']) || empty($_COOKIE['sso_after_login_redirect'])) {
+                setcookie('sso_after_login_redirect', municipio_intranet_current_url(), time() + 300, '/', COOKIE_DOMAIN);
+            }
+
             $client = new \SAML_Client();
             $client->authenticate();
         } elseif ((defined('WP_DEBUG') && WP_DEBUG === true) && function_exists('write_log')) {
