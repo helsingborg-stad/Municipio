@@ -124,9 +124,9 @@ class General
                 $site->subscribed = false;
                 $site->autosubscribe_tags = get_blog_option($site->blog_id, 'intranet_ad_autosubscribe');
 
-            }
+                restore_current_blog();
 
-            restore_current_blog();
+            }
 
             wp_cache_set('intranet-site-options', $sites, '', 600);
 
