@@ -49,6 +49,8 @@ class App
             new \Intranet\Module\IncidentList();
         }
 
-        new \Intranet\Api\CustomEndpoints();
+        new \Intranet\Api\Wp();
+        new \Intranet\Api\News();
+        new \Intranet\Api\Search();
     }
 }

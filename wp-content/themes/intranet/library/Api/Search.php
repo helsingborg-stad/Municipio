@@ -2,7 +2,7 @@
 
 namespace Intranet\Api;
 
-class CustomEndpoints
+class Search
 {
     public function __construct()
     {

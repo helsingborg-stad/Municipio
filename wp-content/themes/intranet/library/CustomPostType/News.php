@@ -230,8 +230,14 @@ class News
      * @param  mixed   $site  'all' for all sites, array with blog ids or null for current
      * @return array          News array
      */
-    public static function getNews($count = 10, $site = null)
+    public static function getNews($count = 10, $site = null, $offset = null)
     {
+        $news = null;
+
+        if (is_null($offset)) {
+            $offset = 0;
+        }
+
         if (is_null($site)) {
             // Current site
             $postStatuses = array('publish');
@@ -241,16 +247,18 @@ class News
             }
 
             $news = get_posts(array(
-                'post_type' => 'intranet-news',
-                'post_status' => $postStatuses
+                'post_type'      => 'intranet-news',
+                'post_status'    => $postStatuses,
+                'posts_per_page' => $count,
+                'offset'         => $offset
             ));
         } elseif ($site == 'all') {
             // All sites
             $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
-            $news = self::getNewsFromSites($sites, $count);
+            $news = self::getNewsFromSites($sites, $count, $offset);
         } elseif (is_array($site)) {
             // Specific blog ids
-            $news = self::getNewsFromSites($site, $count);
+            $news = self::getNewsFromSites($site, $count, $offset);
         }
 
         foreach ($news as $item) {
@@ -282,9 +290,13 @@ class News
      * @param  integer $count Number of posts to get
      * @return array          Posts
      */
-    public static function getNewsFromSites($sites = array(), $count = 10)
+    public static function getNewsFromSites($sites = array(), $count = 10, $offset = null)
     {
         global $wpdb;
+
+        if (is_null($offset)) {
+            $offset = 0;
+        }
 
         $news = array();
         $i = 0;
@@ -341,7 +353,7 @@ class News
             $i++;
         }
 
-        $sql .= " ORDER BY is_sticky DESC, post_date DESC LIMIT $count";
+        $sql .= " ORDER BY is_sticky DESC, post_date DESC LIMIT $offset, $count";
         $newsPosts = $wpdb->get_results($sql);
 
         $newsPosts = array_filter($newsPosts, function ($item) {
