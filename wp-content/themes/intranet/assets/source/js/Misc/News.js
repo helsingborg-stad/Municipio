@@ -3,6 +3,8 @@ Intranet.Misc = Intranet.Misc || {};
 
 Intranet.Misc.News = (function ($) {
     function News() {
+        $('[data-action="intranet-news-load-more"]').prop('disabled', false);
+
         $('[data-action="intranet-news-load-more"]').on('click', function (e) {
             var button = $(e.target).closest('button');
             var container = button.parents('.modularity-mod-intranet-news').find('.intranet-news');
