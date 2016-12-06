@@ -95,7 +95,9 @@ class Subscription
         $cacheKey = md5(serialize(array('getSubscriptions', $userId)));
 
         // Return if cached
-        if (!$onlyBlogId && (self::$userSubscription || $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup))) {
+        $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup);
+
+        if (!$onlyBlogId && (self::$userSubscription || $cacheResult)) {
             if ($cacheResult) {
                 return $cacheResult;
             }
