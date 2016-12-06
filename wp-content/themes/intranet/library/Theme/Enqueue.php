@@ -46,7 +46,8 @@ class Enqueue
                 'viewAll' => __('View all results', 'municipio-intranet')
             ),
             'edit' => __('Edit', 'municipio-intranet'),
-            'done' => __('Done', 'municipio-intranet')
+            'done' => __('Done', 'municipio-intranet'),
+            'no_more_news' => __('No more news to load', 'municipio-intranet')
         ));
 
         wp_enqueue_script('intranet');

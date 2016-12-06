@@ -12,7 +12,7 @@ class News
     public function routes()
     {
         register_rest_route('intranet/1.0', '/news/(?P<count>(.*)+)/(?P<offset>(.*)+)/(?P<sites>(.*)+)', array(
-            'methods' => 'GET',
+            'methods' => 'POST',
             'callback' => array($this, 'getNews'),
             'args' => array(
                 'count' => array(
@@ -42,7 +42,7 @@ class News
             $sites = explode(',', $sites);
         }
 
-        $news = \Intranet\CustomPostType\News::getNews($data['count'], $sites, $data['offset']);
+        $news = \Intranet\CustomPostType\News::getNews($data['count'], $sites, $data['offset'], true);
         return $news;
     }
 }

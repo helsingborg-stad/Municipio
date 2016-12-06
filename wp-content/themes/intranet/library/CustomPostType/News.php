@@ -230,12 +230,18 @@ class News
      * @param  mixed   $site  'all' for all sites, array with blog ids or null for current
      * @return array          News array
      */
-    public static function getNews($count = 10, $site = null, $offset = null)
+    public static function getNews($count = 10, $site = null, $offset = null, $render = false)
     {
         $news = null;
 
         if (is_null($offset)) {
             $offset = 0;
+        }
+
+        $module = false;
+        if ($render && isset($_POST['module']) && isset($_POST['args'])) {
+            $module = json_decode(html_entity_decode(stripslashes($_POST['module'])));
+            $args = json_decode(html_entity_decode(stripslashes($_POST['args'])), true);
         }
 
         if (is_null($site)) {
@@ -264,6 +270,7 @@ class News
         foreach ($news as $item) {
             switch_to_blog($item->blog_id);
 
+            // Get thumbnail-image
             $item->thumbnail_image = wp_get_attachment_image_src(
                 get_post_thumbnail_id($item->ID),
                 apply_filters('modularity/image/mainnews',
@@ -271,12 +278,19 @@ class News
                 )
             );
 
+            // Get full image
             $item->image = wp_get_attachment_image_src(
                 get_post_thumbnail_id($item->ID),
                 apply_filters('modularity/image/mainnews',
                     municipio_to_aspect_ratio('16:9', array(1000, 500))
                 )
             );
+
+            if ($render && $module) {
+                ob_start();
+                include INTRANET_TEMPLATE_PATH . 'module/modularity-mod-intranet-news-item.php';
+                $item->markup = ob_get_clean();
+            }
 
             restore_current_blog();
         }
