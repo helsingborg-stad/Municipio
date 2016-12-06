@@ -161,8 +161,8 @@ class Elasticsearch
         switch ($level) {
             case 'subscriptions':
                 $sites = array_merge(
-                    \Intranet\User\Subscription::getSubscriptions(get_current_user_id(), true),
-                    \Intranet\User\Subscription::getForcedSubscriptions(true)
+                    (array) \Intranet\User\Subscription::getSubscriptions(get_current_user_id(), true),
+                    (array) \Intranet\User\Subscription::getForcedSubscriptions(true)
                 );
                 return $sites;
                 break;
