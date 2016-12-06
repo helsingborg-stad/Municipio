@@ -105,8 +105,8 @@ class General
     {
         $subscriptions = (array) \Intranet\User\Subscription::getSubscriptions(null, true);
 
-        if (!is_null($this->siteOptions)) {
-            return $this->siteOptions;
+        if (!is_null(self::$siteOptions)) {
+            return self::$siteOptions;
         } elseif ($cached_sites = wp_cache_get('intranet-site-options')) {
             $sites = $cached_sites;
         } else {
@@ -148,7 +148,7 @@ class General
 
         }
 
-        $this->siteOptions = $sites;
+        self::$siteOptions = $sites;
 
         return $sites;
     }
