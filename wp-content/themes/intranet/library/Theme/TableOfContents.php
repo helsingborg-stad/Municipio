@@ -143,7 +143,7 @@ class TableOfContents
             $pages[$page->blog_id . '-' . $page->ID] = array(
                 'blog_id' => $page->blog_id,
                 'ID' => $page->ID,
-                'titles' => array($page->post_title)
+                'titles' => array($page->post_title, $page->meta_value)
             );
         }
 
