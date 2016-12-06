@@ -100,9 +100,10 @@
     }
 }
 
-.modularity-mod-intranet-news .box-news article {
-    margin: 0;
-    margin-top: 15px;
+.modularity-mod-intranet-news .box-news {
+    article {
+        margin: 0;
+    }
 }
 
 .modularity-mod-intranet-news .box-news article img {
