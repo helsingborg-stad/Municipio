@@ -30,4 +30,4 @@ class BeforeLiveTemporaryAdmin
     }
 }
 
-new \BFLTA\BeforeLiveTemporaryAdmin();
+//new \BFLTA\BeforeLiveTemporaryAdmin();
