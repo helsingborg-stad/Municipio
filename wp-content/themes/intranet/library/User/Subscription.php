@@ -19,8 +19,9 @@ class Subscription
     public static function getForcedList()
     {
         $cacheKey = md5(serialize(array('getForcedList')));
+        $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup);
 
-        if (self::$forcedSubscriptions || $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup)) {
+        if (self::$forcedSubscriptions || $cacheResult) {
             if ($cacheResult) {
                 return $cacheResult;
             }
