@@ -8,6 +8,7 @@ class RemoveSite
     {
         add_action('delete_blog', array($this, 'removeFollowers'));
         add_action('deactivate_blog', array($this, 'removeFollowers'));
+        add_action('archive_blog', array($this, 'removeFollowers'));
         add_action('make_spam_blog', array($this, 'removeFollowers'));
     }
 
