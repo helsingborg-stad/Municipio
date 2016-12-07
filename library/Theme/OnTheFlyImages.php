@@ -51,7 +51,7 @@ class OnTheFlyImages
         // Get file path info
         $path      = get_attached_file($attachment_id);
         $path_info = pathinfo($path);
-        $ext       = $path_info['extension'];
+        $ext       = isset($path_info['extension']) && !empty($path_info['extension']) ? $path_info['extension'] : '';
         $rel_path  = str_replace(array( $upload_dir, ".$ext" ), '', $path);
         $suffix    = "{$width}x{$height}";
         $dest_path = "{$upload_dir}{$rel_path}-{$suffix}.{$ext}";
