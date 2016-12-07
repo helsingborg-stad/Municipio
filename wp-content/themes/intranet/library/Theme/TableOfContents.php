@@ -134,7 +134,7 @@ class TableOfContents
             if (isset($pages[$page->blog_id . '-' . $page->ID])) {
                 $pages[$page->blog_id . '-' . $page->ID]['titles'] = array_unique(array_merge(
                     $pages[$page->blog_id . '-' . $page->ID]['titles'],
-                    array($page->post_title, $page->meta_value)
+                    array($page->meta_value)
                 ));
 
                 continue;
@@ -143,7 +143,7 @@ class TableOfContents
             $pages[$page->blog_id . '-' . $page->ID] = array(
                 'blog_id' => $page->blog_id,
                 'ID' => $page->ID,
-                'titles' => array($page->post_title, $page->meta_value)
+                'titles' => array($page->meta_value)
             );
         }
 
