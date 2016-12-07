@@ -118,7 +118,7 @@ class TableOfContents
         }
 
         // Use collator to be able to sort multibyte keys
-        $collator = new \Collator('se_SV');
+        $collator = new \Collator(get_locale());
 
         uksort($toc, function ($a, $b) use ($collator) {
             return $collator->compare($a, $b);
