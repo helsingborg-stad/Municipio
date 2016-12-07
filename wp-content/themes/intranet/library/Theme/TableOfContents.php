@@ -95,7 +95,7 @@ class TableOfContents
                     continue;
                 }
 
-                $key = strtolower(mb_substr($title, 0, 1));
+                $key = mb_strtoupper(mb_substr($title, 0, 1));
                 if (!isset($toc[$key])) {
                     $toc[$key] = array();
                 }
@@ -108,7 +108,6 @@ class TableOfContents
             }
         }
 
-        ksort($toc);
         foreach ($toc as &$pages) {
             uasort($pages, function ($a, $b) {
                 return strcmp($a['post_title'], $b['post_title']);
@@ -117,6 +116,13 @@ class TableOfContents
             // Reset keys
             $pages = array_values($pages);
         }
+
+        // Use collator to be able to sort multibyte keys
+        $collator = new \Collator('se_SV');
+
+        uksort($toc, function ($a, $b) use ($collator) {
+            return $collator->compare($a, $b);
+        });
 
         return $toc;
     }

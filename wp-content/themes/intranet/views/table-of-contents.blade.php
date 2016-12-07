@@ -42,7 +42,7 @@
                         <label>Hoppa till bokstav</label>
                         <ul class="pagination pagination-lg">
                         @foreach ($tableOfContents as $key => $pages)
-                             <li><a href="#index-{{ $key }}">{{ strtoupper($key) }}</a></li>
+                             <li><a href="#index-{{ $key }}">{{ mb_strtoupper($key) }}</a></li>
                         @endforeach
                         </ul>
                     </div>
