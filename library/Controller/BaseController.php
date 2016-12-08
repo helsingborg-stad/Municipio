@@ -70,7 +70,7 @@ class BaseController
 
         $headerLayoutSetting = get_field('header_layout', 'option');
 
-        if (empty($headerLayoutSetting) || in_array($headerLayoutSetting, array('business', 'casual'))) {
+        if (empty($headerLayoutSetting) || in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
             $this->data['headerLayout'] = array(
                 'class'    => 'header-'.$headerLayoutSetting,
                 'template' => 'default'

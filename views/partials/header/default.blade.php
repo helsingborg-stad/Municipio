@@ -28,8 +28,8 @@
 !!}
 
 <div class="container hidden-print">
-    <div class="grid">
-        <div class="grid-md-6 text-center-xs text-center-sm">
+    <div class="grid grid-table grid-va-middle">
+        <div class="grid-auto text-center-xs text-center-sm">
             <div class="grid grid-table grid-va-middle no-padding">
                 <div class="grid-xs-8 grid-sm-8 grid-md-12 text-left-sm text-left-xs">
                     {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option'), true, get_field('header_tagline_enable', 'option')) !!}
@@ -41,7 +41,14 @@
                 @endif
             </div>
         </div>
-        <div class="grid-md-6 text-center-sm text-center-xs text-right hidden-xs hidden-sm">
+
+        @if (get_field('sub_site_title', 'option'))
+        <div class="grid-auto text-center hidden-xs hidden-sm hidden-md">
+            <span class="sub-site-title">{!! get_field('sub_site_title', 'option') !!}</span>
+        </div>
+        @endif
+
+        <div class="grid-auto text-center-sm text-center-xs text-right hidden-xs hidden-sm">
             <div>
                 {!!
                     wp_nav_menu(array(
@@ -88,6 +95,10 @@
         </div>
     </div>
 </div>
+
+@if (get_field('sub_site_title', 'option'))
+    <span class="sub-site-title-block hidden-lg hidden-xl">{!! get_field('sub_site_title', 'option') !!}</span>
+@endif
 
 @if (get_field('nav_primary_enable', 'option') === true)
     <nav class="navbar navbar-mainmenu hidden-xs hidden-sm hidden-print">
