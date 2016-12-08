@@ -20,16 +20,16 @@ class OnTheFlyImages
      */
     public function runResizeImage($downsize, $id, $size)
     {
-        if (is_array($size) && count($size) == 2) {
+        if (is_array($size) && count($size) == 2 && !empty($id)) {
             return array(
                 $this->resizeImage($id, $size[0], $size[1], true),
                 $size[0],
                 $size[1],
                 true
             );
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /* Resize image on the fly
