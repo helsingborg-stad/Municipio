@@ -12,3 +12,5 @@ Make sure to have [Node.js](http://nodejs.org) installed on your machine.
 1. First off run the setup script from Terminal. ```cd``` to your theme folder and run ```sh setup.sh``` and fill in the requested information.
 2. Run ```npm install``` to install Node dependencies (gulp).
 3. To compile SASS and JS just run ```gulp``` in the theme folder.
+
+----
