@@ -7,7 +7,7 @@
             <div class="grid-auto">
                 <div class="grid grid-table grid-va-middle">
                     <div class="grid-auto no-padding">
-                        <a href="{{ network_home_url() }}" class="h3 site-title inline-block"><span {!! get_field('logotype_tooltip', 'option') ? 'data-tooltip="' . get_field('logotype_tooltip', 'option') . '"' : '' !!}>Helsingborgs stads intranät</span></a>
+                        <a href="{{ network_home_url() }}" class="h3 site-title inline-block"><span {!! get_field('logotype_tooltip', 'option') ? 'data-tooltip="' . get_field('logotype_tooltip', 'option') . '"' : '' !!}>{{ get_site_option('site_name') }}</span></a>
                     </div>
                     <div class="grid-fit-content no-padding">
                         @include('partials.header.subnav')
