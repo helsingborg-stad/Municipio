@@ -59,7 +59,9 @@ class Cache
             return false;
         }
 
+        wp_cache_delete($post->post_type, $this->keyGroup);
         wp_cache_delete($postId, $this->keyGroup);
+
         return true;
     }
 
