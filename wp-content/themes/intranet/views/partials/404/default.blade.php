@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="grid-lg-2 grid-md-2 grid-sm-12 hidden-xs hidden-sm no-margin no-padding"></div>
         <div class="grid-lg-8 grid-md-8 grid-sm-12">
-           <span class="h1 no-margin no-padding">Helsingborgs stads intranät</span>
+           <span class="h1 no-margin no-padding">{{ get_site_option('site_name') }}</span>
         </div>
     </div>
 </div>
