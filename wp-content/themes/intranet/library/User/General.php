@@ -63,7 +63,6 @@ class General
      */
     public static function searchUsers($keyword)
     {
-
         if (!is_user_logged_in()) {
             return array();
         }
@@ -118,7 +117,19 @@ class General
 
         foreach ($users as $userkey => $user) {
             if (isset($user->user_email)) {
+
+                //Remove disabled users
                 if (0 === strpos($user->user_email, 'DISABLED-USER-')) {
+                    unset($users[$userkey]);
+                }
+
+                //Remove users not having an email
+                if (empty($user->user_email)) {
+                    unset($users[$userkey]);
+                }
+
+                //Remove users that are considerd an s-account
+                if (preg_match('/^s([a-z]{4})([0-9]{4})/i', $user->user_login)) {
                     unset($users[$userkey]);
                 }
             }
