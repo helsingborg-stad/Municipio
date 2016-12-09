@@ -100,7 +100,19 @@ class Profile
         $user = get_user_by('login', $wp_query->query['author_name']);
 
         if (isset($user->data->user_email)) {
+
+            //Remove disabled users
             if (0 === strpos($user->data->user_email, 'DISABLED-USER-')) {
+                $wp_query->set_404();
+            }
+
+            //Remove users not having an email
+            if (empty($user->data->user_email)) {
+                $wp_query->set_404();
+            }
+
+            //Remove users that are considerd an s-account
+            if (preg_match('/^s([a-z]{4})([0-9]{4})/i', $user->data->user_login)) {
                 $wp_query->set_404();
             }
         }
