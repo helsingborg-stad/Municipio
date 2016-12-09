@@ -8,6 +8,9 @@ class Registration
 
     public function __construct()
     {
+        // Do not allow "s-accounts"
+        add_filter('pre_user_login', array($this, 'disallowSaccount'));
+
         // Add new user to all sites
         add_action('wpmu_activate_user', array($this, 'addDefaultRole'), 10, 1);
         add_action('wpmu_new_user', array($this, 'addDefaultRole'), 10, 1);
@@ -23,6 +26,23 @@ class Registration
 
         // Auto subscribe to intranets matching ad_displayname end tag
         add_action('wpmu_new_user', array($this, 'autosubscribe'));
+    }
+
+    /**
+     * Disallow S-accounts
+     * @param  string $userLogin    User's username
+     * @return void
+     */
+    public function disallowSaccount($userLogin)
+    {
+        if (!preg_match('/^s([a-z]{4})([0-9]{4})/i', $userLogin)) {
+            return;
+        }
+
+        setcookie('sso_manual_logout', true, time()+3600);
+        wp_redirect(network_home_url());
+
+        return false;
     }
 
     /**
