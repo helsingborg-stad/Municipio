@@ -86,6 +86,10 @@
             "url": "https://github.com/helsingborg-stad/readspeaker-helper.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/ElasticPress.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         },
@@ -125,6 +129,7 @@
         "helsingborg-stad/better-post-ui": ">=1.0.0",
         "helsingborg-stad/force-ssl": ">=1.0.0",
         "helsingborg-stad/elasticpress-synonyms": ">=0.1.0",
+        "helsingborg-stad/ElasticPress": "dev-develop",
         "helsingborg-stad/wp-search-statistics": ">=0.1.0",
         "helsingborg-stad/readspeaker-helper": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
@@ -134,8 +139,7 @@
         "wpackagist-plugin/user-switching" : ">=1.0.0",
         "wpackagist-plugin/wordpress-importer": "0.6.3",
         "wpackagist-plugin/mce-table-buttons": "^3.0.0",
-        "humanmade/page-for-post-type": "^1.0.0",
-        "10up/elasticpress": "^2.1"
+        "humanmade/page-for-post-type": "^1.0.0"
     },
 
     "extra": {
