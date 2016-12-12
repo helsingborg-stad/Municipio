@@ -11,8 +11,10 @@ class SsoAvailability
                 $this->check();
             }
 
-            if (isset($_COOKIE['sso_available']) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available']) {
-                $this->check();
+            if (isset($_COOKIE['sso_available']) && $_COOKIE['sso_available'] != "false") {
+                if ($_COOKIE['sso_available'] != $_SERVER['REMOTE_ADDR']) {
+                    $this->check();
+                }
             }
 
         } else {
@@ -45,7 +47,7 @@ class SsoAvailability
             var image = document.createElement('img');
 
             image.addEventListener('load', function () {
-                setCookie(".$_SERVER['REMOTE_ADDR'].");
+                setCookie('".$_SERVER['REMOTE_ADDR']."');
                 location.href = '" . $url . "';
             });
 
@@ -77,7 +79,7 @@ class SsoAvailability
             return false;
         }
 
-        if ($_COOKIE['sso_available'] == $_SERVER['REMOTE_ADDR']) {
+        if ($_COOKIE['sso_available'] === $_SERVER['REMOTE_ADDR']) {
             return true;
         }
 
