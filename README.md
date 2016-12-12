@@ -35,3 +35,16 @@ $ curl -XDELETE 'http://localhost:9200/_all'
 ```
 $ curl -XDELETE 'http://localhost:9200/<index_name>'
 ```
+
+#### Exact match on specific field
+```
+$ curl 'http://localhost:9200/<index_name>/_search?pretty' -d '
+    {
+        "query": {
+            "term": {
+                "<field_name>": "<field_value>"
+            }
+        }
+    }
+'
+```
