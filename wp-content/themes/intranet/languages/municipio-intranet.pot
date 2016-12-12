@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-06 12:55+0100\n"
+"POT-Creation-Date: 2016-12-12 11:12+0100\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -76,52 +76,52 @@ msgstr ""
 msgid "Incidents"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:192
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:200
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:193
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:201
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:194
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:202
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:195
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:203
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:196
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:204
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:197
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:205
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:198
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:206
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:199
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:207
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:200
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:208
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:201
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:209
 #, php-format
 msgid "No %s in trash"
 msgstr ""
@@ -134,28 +134,28 @@ msgstr ""
 msgid "incidents"
 msgstr ""
 
-#: library/CustomPostType/News.php:47
+#: library/CustomPostType/News.php:55
 msgid "This post is more than 60 days old"
 msgstr ""
 
-#: library/CustomPostType/News.php:116
+#: library/CustomPostType/News.php:124
 msgid "Pin to top"
 msgstr ""
 
-#: library/CustomPostType/News.php:154
+#: library/CustomPostType/News.php:162
 msgid "Exclude from main news feed"
 msgstr ""
 
-#: library/CustomPostType/News.php:182 library/CustomPostType/News.php:183
+#: library/CustomPostType/News.php:190 library/CustomPostType/News.php:191
 #: library/Module/News.php:21 library/Module/News.php:22
 msgid "News"
 msgstr ""
 
-#: library/CustomPostType/News.php:206
+#: library/CustomPostType/News.php:214
 msgid "News stories"
 msgstr ""
 
-#: library/CustomPostType/News.php:215
+#: library/CustomPostType/News.php:223
 msgid "news"
 msgstr ""
 
@@ -237,7 +237,7 @@ msgid "Unfollow"
 msgstr ""
 
 #: library/Theme/Enqueue.php:44 views/search.blade.php:63
-#: views/search.blade.php:133
+#: views/search.blade.php:159
 msgid "Persons"
 msgstr ""
 
@@ -287,102 +287,102 @@ msgstr ""
 msgid "All fields must be filled in to add a new administration unit"
 msgstr ""
 
-#: library/User/General.php:137
+#: library/User/General.php:148
 #, php-format
 msgid "Hi %s"
 msgstr ""
 
-#: library/User/General.php:138
+#: library/User/General.php:149
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: library/User/General.php:139
+#: library/User/General.php:150
 #, php-format
 msgid "How is it going %s?"
 msgstr ""
 
-#: library/User/General.php:140
+#: library/User/General.php:151
 #, php-format
 msgid "Good to see you, %s"
 msgstr ""
 
-#: library/User/General.php:141
+#: library/User/General.php:152
 #, php-format
 msgid "Howdy %s"
 msgstr ""
 
-#: library/User/General.php:146
+#: library/User/General.php:157
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr ""
 
-#: library/User/General.php:147
+#: library/User/General.php:158
 #, php-format
 msgid "Good morning %s"
 msgstr ""
 
-#: library/User/General.php:148
+#: library/User/General.php:159
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr ""
 
-#: library/User/General.php:149
+#: library/User/General.php:160
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr ""
 
-#: library/User/General.php:150 library/User/General.php:159
+#: library/User/General.php:161 library/User/General.php:170
 #, php-format
 msgid "Have a great day %s"
 msgstr ""
 
-#: library/User/General.php:151
+#: library/User/General.php:162
 #, php-format
 msgid "%s you up already?"
 msgstr ""
 
-#: library/User/General.php:156
+#: library/User/General.php:167
 #, php-format
 msgid "Good afternoon %s"
 msgstr ""
 
-#: library/User/General.php:157
+#: library/User/General.php:168
 #, php-format
 msgid "Greetings, %s"
 msgstr ""
 
-#: library/User/General.php:158
+#: library/User/General.php:169
 #, php-format
 msgid "Keep going strong %s!"
 msgstr ""
 
-#: library/User/General.php:164
+#: library/User/General.php:175
 #, php-format
 msgid "It's getting late, %s"
 msgstr ""
 
-#: library/User/General.php:165
+#: library/User/General.php:176
 #, php-format
 msgid "Good eavning %s"
 msgstr ""
 
-#: library/User/General.php:170
+#: library/User/General.php:181
 #, php-format
 msgid "Good night %s"
 msgstr ""
 
-#: library/User/General.php:171
+#: library/User/General.php:182
 #, php-format
 msgid "Still going strong, %s?"
 msgstr ""
 
-#: library/User/General.php:198
+#: library/User/General.php:209
 #, php-format
 msgid "Happy new year %s"
 msgstr ""
 
-#: library/User/General.php:203
+#: library/User/General.php:214
 #, php-format
 msgid "Merry christmas %s"
 msgstr ""
@@ -391,13 +391,13 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: library/User/Registration.php:36 views/author-edit.blade.php:83
+#: library/User/Registration.php:56 views/author-edit.blade.php:83
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr ""
 
-#: library/User/Registration.php:40 views/author-edit.blade.php:89
+#: library/User/Registration.php:60 views/author-edit.blade.php:89
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
@@ -1251,6 +1251,11 @@ msgstr ""
 msgid "Continue without logging in"
 msgstr ""
 
+#: views/search.blade.php:14
+#, php-format
+msgid "<strong>%1$d</strong> results on \"%2$s\""
+msgstr ""
+
 #: views/search.blade.php:29
 msgid ""
 "Select if you want to see results from all intranets, the intranets that "
@@ -1266,16 +1271,20 @@ msgstr ""
 msgid "All sites"
 msgstr ""
 
-#: views/search.blade.php:87
+#: views/search.blade.php:88
 msgid "Found no matching results on your search…"
 msgstr ""
 
-#: views/search.blade.php:135
+#: views/search.blade.php:94
+msgid "We did not find any matching content, but we found some users"
+msgstr ""
+
+#: views/search.blade.php:96 views/search.blade.php:161
 #, php-format
 msgid "%d personer matchar din sökning"
 msgstr ""
 
-#: views/search.blade.php:148
+#: views/search.blade.php:109 views/search.blade.php:174
 msgid "Show all matching persons"
 msgstr ""
 
