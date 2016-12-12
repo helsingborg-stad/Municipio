@@ -21,7 +21,7 @@
     <ul class="links">
         <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
         <?php if ($system->unavailable === true) : ?>
-        <li><a class="link-item link-unavailable" href="<?php echo $system->url; ?>"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>"><?php echo $system->name; ?></span></a></li>
+        <li><a target="_blank" class="link-item link-unavailable" href="<?php echo $system->url; ?>"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>"><?php echo $system->name; ?></span></a></li>
         <?php else : ?>
         <li><a href="<?php echo $system->url; ?>" class="link-item"><?php echo $system->name; ?></a></li>
         <?php endif; endforeach; ?>
