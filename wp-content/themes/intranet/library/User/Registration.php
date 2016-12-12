@@ -40,7 +40,7 @@ class Registration
         }
 
         setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
-        wp_redirect(network_home_url());
+        wp_redirect(network_home_url('?login=saccount'));
 
         return false;
     }
