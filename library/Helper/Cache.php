@@ -45,7 +45,7 @@ class Cache
         }
 
         //Ban cache on save post
-        add_action('save_post', array($this, 'clearCache'));
+        add_action('save_post', array($this, 'clearCache'), 10, 2);
     }
 
     /**
@@ -53,7 +53,7 @@ class Cache
      * @param  integer $postId Post id to clear
      * @return boolean
      */
-    public function clearCache($postId)
+    public function clearCache($postId, $post)
     {
         if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
             return false;
