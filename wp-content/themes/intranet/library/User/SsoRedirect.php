@@ -94,8 +94,13 @@ class SsoRedirect
                 setcookie('sso_after_login_redirect', municipio_intranet_current_url(), time() + 300, '/', COOKIE_DOMAIN);
             }
 
-            $client = new \SAML_Client();
-            $client->authenticate();
+            try {
+                $client = new \SAML_Client();
+                $client->authenticate();
+            } catch (Exception $e) {
+                write_log('Error: SSO could not be performed due to an error in SSO plugin (' . $e . ')');
+            }
+
         } elseif ((defined('WP_DEBUG') && WP_DEBUG === true) && function_exists('write_log')) {
             write_log('Error: SAML client plugin is not active.');
         }
