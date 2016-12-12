@@ -51,7 +51,7 @@ class Elasticsearch
 
     public function searchArgs($args, $scope, $query_args)
     {
-        $q = $query_args['s'];
+        $q = trim($query_args['s']);
 
         $args['min_score'] = 0.03;
 
