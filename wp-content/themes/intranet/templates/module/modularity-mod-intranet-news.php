@@ -29,7 +29,7 @@
             break;
     }
 
-    $cache = new Municipio\Helper\Cache($module->post_type, array(
+    $cache = new Municipio\Helper\Cache('intranet-news', array(
         Intranet\User\Subscription::getSubscriptions(get_current_user_id()),
         $display,
         $limit,
