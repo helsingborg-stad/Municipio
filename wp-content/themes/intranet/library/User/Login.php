@@ -38,7 +38,7 @@ class Login
     public function adMapping($username, $user)
     {
         if (isset($_COOKIE['sso_manual_logout'])) {
-            setcookie('sso_manual_logout', null, -1, COOKIE_DOMAIN);
+            setcookie('sso_manual_logout', null, -1, '/', COOKIE_DOMAIN);
         }
 
         $userId = $user->data->ID;
@@ -92,7 +92,7 @@ class Login
      */
     public function frontendLogout()
     {
-        setcookie('sso_manual_logout', true, time()+3600, COOKIE_DOMAIN);
+        setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
         wp_redirect(home_url('/'));
         exit;
     }
