@@ -12,7 +12,7 @@ class SsoAvailability
                 return;
             }
 
-            if (isset($_COOKIE[sso_avabile]) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available']) {
+            if (isset($_COOKIE['sso_available']) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available']) {
                 $this->check();
                 return;
             }
