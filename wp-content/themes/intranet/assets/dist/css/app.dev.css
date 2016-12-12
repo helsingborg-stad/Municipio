@@ -1326,9 +1326,8 @@ a.dropdown-open:focus {
   margin: 0; }
 
 .modularity-mod-intranet-news .box-news article img {
-  position: relative;
-  top: 3px;
   margin: 0;
+  margin-top: 3px;
   float: right;
   width: calc(40% - 15px);
   height: auto;
