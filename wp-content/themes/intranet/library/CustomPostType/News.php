@@ -25,7 +25,7 @@ class News
             }
 
             return true;
-        });
+        }, 10, 2);
     }
 
     /**

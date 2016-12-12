@@ -24,8 +24,39 @@ class Elasticsearch
         add_filter('ep_indexable_post_status', array($this, 'indexablePostStatuses'));
         add_filter('ep_indexable_post_types', array($this, 'indexablePostTypes'));
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
+
+        add_action('post_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
+        add_action('save_post', array($this, 'saveExcludeFromSearch'));
     }
 
+    /**
+     * Adds form field for exclude from search
+     * @return void
+     */
+    public function excludeFromSearchCheckbox()
+    {
+        global $post;
+        $checked = checked(true, get_post_meta($post->ID, 'exclude_from_search', true), false);
+
+        echo '<div class="misc-pub-section">
+            <label><input type="checkbox" name="elasicpress-exclude-from-search" value="true" ' . $checked . '> ' . __('Exclude from search', 'municipio-intranet') . '</label>
+        </div>';
+    }
+
+    /**
+     * Saves the "exclude from search" value
+     * @param  int $postId The post id
+     * @return void
+     */
+    public function saveExcludeFromSearch($postId)
+    {
+        if (!isset($_POST['elasicpress-exclude-from-search']) || $_POST['elasicpress-exclude-from-search'] != 'true') {
+            delete_post_meta($postId, 'exclude_from_search');
+            return;
+        }
+
+        update_post_meta($postId, 'exclude_from_search', true);
+    }
 
     /**
      * Indexable post statuses
