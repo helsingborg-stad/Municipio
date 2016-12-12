@@ -50,8 +50,9 @@ class Elasticsearch
      */
     public function saveExcludeFromSearch($postId)
     {
-        if (!isset($_POST['elasicpress-exclude-from-search']) || $_POST['elasicpress-exclude-from-search'] !== 'true') {
+        if (!isset($_POST['elasicpress-exclude-from-search']) || $_POST['elasicpress-exclude-from-search'] != 'true') {
             delete_post_meta($postId, 'exclude_from_search');
+            return;
         }
 
         update_post_meta($postId, 'exclude_from_search', true);
