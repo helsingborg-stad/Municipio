@@ -8,7 +8,7 @@ Author: Keith Bartholomew
 Author URI: http://keithbartholomew.com
 */
 
-define('WP_DEBUG', true);
+//define('WP_DEBUG', true);
 
 // Store all config stuff with the main blog, which is defined by BLOG_ID_CURRENT_SITE
 if (defined('MULTISITE') && constant('MULTISITE')) {
