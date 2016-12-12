@@ -18,6 +18,14 @@ class News
         add_filter('posts_orderby', array($this, 'sortStickyPost'), 10, 2);
 
         add_filter('the_content', array($this, 'oldNotice'));
+
+        add_filter('Municipio\Cache\EmptyForAllBlogs', function ($response, $post) {
+            if ($post->post_type !== 'intranet-news') {
+                return $response;
+            }
+
+            return true;
+        });
     }
 
     /**
