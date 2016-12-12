@@ -18,6 +18,12 @@ class SsoRedirect
         if (!$this->disabledUrl()) {
             add_action('init', array($this, 'init'), 9999);
         }
+
+        //Disable SSO on subsites completly
+        if (!is_main_site()) {
+            add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
+            add_filter('site_option_active_plugins', array($this, 'disableSsoPlugin'));
+        }
     }
 
     /**
@@ -30,7 +36,7 @@ class SsoRedirect
         if (isset($_COOKIE['sso_after_login_redirect']) && !empty($_COOKIE['sso_after_login_redirect'])) {
             $redirect = $_SERVER['HTTPS'] === 'on' ? 'https:' : 'http:';
             $redirect .= $_COOKIE['sso_after_login_redirect'];
-            setcookie('sso_after_login_redirect', FALSE, -1, '/', COOKIE_DOMAIN);
+            setcookie('sso_after_login_redirect', false, -1, '/', COOKIE_DOMAIN);
             unset($_COOKIE['sso_after_login_redirect']);
 
             wp_redirect($redirect);
