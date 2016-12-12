@@ -14,15 +14,12 @@ class SsoRedirect
         //Set vars
         $this->prohibitedUrls = array('plugins');
 
-        //Run code (if not prohibited url and sso is available)
-        if (!$this->disabledUrl()) {
-            add_action('init', array($this, 'init'), 9999);
-        }
-
         //Disable SSO on subsites completly
         if (!is_main_site()) {
             add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
             add_filter('site_option_active_plugins', array($this, 'disableSsoPlugin'));
+        } elseif (!$this->disabledUrl()) {
+            add_action('init', array($this, 'init'), 9999);
         }
     }
 
