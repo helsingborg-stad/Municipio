@@ -29,6 +29,10 @@ class Elasticsearch
         add_action('save_post', array($this, 'saveExcludeFromSearch'));
     }
 
+    /**
+     * Adds form field for exclude from search
+     * @return void
+     */
     public function excludeFromSearchCheckbox()
     {
         global $post;
@@ -39,6 +43,11 @@ class Elasticsearch
         </div>';
     }
 
+    /**
+     * Saves the "exclude from search" value
+     * @param  int $postId The post id
+     * @return void
+     */
     public function saveExcludeFromSearch($postId)
     {
         if (!isset($_POST['elasicpress-exclude-from-search']) || $_POST['elasicpress-exclude-from-search'] !== 'true') {
