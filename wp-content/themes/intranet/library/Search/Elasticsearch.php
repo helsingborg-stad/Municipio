@@ -100,7 +100,7 @@ class Elasticsearch
             return (string) $string_lengt;
         }
 
-        return '1';
+        return '0';
     }
 
     /**
