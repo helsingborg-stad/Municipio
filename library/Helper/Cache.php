@@ -16,7 +16,7 @@ class Cache
     private $ttl = null;
     private $hash = null;
 
-    public $keyGroup = 'mun-cache';
+    public static $keyGroup = 'mun-cache';
 
     public function __construct($postId, $module = '', $ttl = 3600*24)
     {
@@ -24,11 +24,6 @@ class Cache
         // Set variables
         $this->postId       = $postId;
         $this->ttl          = $ttl;
-
-        //Alter keyGroup if ms
-        if (function_exists('is_multisite') && is_multisite()) {
-            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
-        }
 
         // Create hash string
         $this->hash = $this->createShortHash($module);
@@ -43,9 +38,27 @@ class Cache
 
             $this->hash = $this->hash . "-auth-" . $this->createShortHash($caps, true);
         }
+    }
 
-        //Ban cache on save post
-        add_action('save_post', array($this, 'clearCache'));
+    /**
+     * Get keygroup
+     * @param  integer $blogId Blog id (optional)
+     * @return string          Key group
+     */
+    public static function getKeyGroup($blogId = null)
+    {
+        $keyGroup = self::$keyGroup;
+
+        if (!function_exists('is_multisite') || !is_multisite()) {
+            return $keyGroup;
+        }
+
+        if (is_null($blogId)) {
+            $blogId = get_current_blog_id();
+        }
+
+        $keyGroup .= '-' . $blogId;
+        return $keyGroup;
     }
 
     /**
@@ -53,13 +66,24 @@ class Cache
      * @param  integer $postId Post id to clear
      * @return boolean
      */
-    public function clearCache($postId)
+    public static function clearCache($postId, $post)
     {
         if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
             return false;
         }
 
-        wp_cache_delete($postId, $this->keyGroup);
+        wp_cache_delete($postId, self::getKeyGroup());
+        wp_cache_delete($post->post_type, self::getKeyGroup());
+
+        // Empty post type for all sites in network (?)
+        if (function_exists('is_multisite') && is_multisite() && apply_filters('Municipio\Cache\EmptyForAllBlogs', false, $post)) {
+            $blogs = get_sites();
+
+            foreach ($blogs as $blog) {
+                wp_cache_delete($post->post_type, self::getKeyGroup($blog->blog_id));
+            }
+        }
+
         return true;
     }
 
@@ -69,7 +93,6 @@ class Cache
      */
     public function start()
     {
-
         if (!$this->isActive()) {
             return true;
         }
@@ -89,7 +112,6 @@ class Cache
      */
     public function stop()
     {
-
         if (!$this->isActive() || $this->hasCache()) {
             return false;
         }
@@ -98,14 +120,13 @@ class Cache
         $return_data = ob_get_clean();
 
         if (!empty($return_data)) {
-            $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
+            $cacheArray = (array) wp_cache_get($this->postId, self::getKeyGroup());
 
             $cacheArray[$this->hash] = $return_data.$this->fragmentTag();
 
-            wp_cache_delete($this->postId, $this->keyGroup);
+            wp_cache_delete($this->postId, self::getKeyGroup());
 
-            wp_cache_add($this->postId, array_filter($cacheArray), $this->keyGroup, $this->ttl);
-
+            wp_cache_add($this->postId, array_filter($cacheArray), self::getKeyGroup(), $this->ttl);
         }
 
         echo $return_data;
@@ -132,8 +153,7 @@ class Cache
      */
     private function getCache($print = true)
     {
-
-        $cacheArray = wp_cache_get($this->postId, $this->keyGroup);
+        $cacheArray = wp_cache_get($this->postId, self::getKeyGroup());
 
         if (!is_array($cacheArray) || !array_key_exists($this->hash, $cacheArray)) {
             return false;
