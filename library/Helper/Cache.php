@@ -16,7 +16,7 @@ class Cache
     private $ttl = null;
     private $hash = null;
 
-    public $keyGroup = 'mun-cache';
+    public static $keyGroup = 'mun-cache';
 
     public function __construct($postId, $module = '', $ttl = 3600*24)
     {
@@ -27,7 +27,7 @@ class Cache
 
         //Alter keyGroup if ms
         if (function_exists('is_multisite') && is_multisite()) {
-            $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
+            self::$keyGroup = self::$keyGroup . '-' . get_current_blog_id();
         }
 
         // Create hash string
@@ -56,8 +56,8 @@ class Cache
             return false;
         }
 
-        wp_cache_delete($post->post_type, $this->keyGroup);
-        wp_cache_delete($postId, $this->keyGroup);
+        wp_cache_delete($post->post_type, self::$keyGroup);
+        wp_cache_delete($postId, self::$keyGroup);
 
         return true;
     }
@@ -97,13 +97,13 @@ class Cache
         $return_data = ob_get_clean();
 
         if (!empty($return_data)) {
-            $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
+            $cacheArray = (array) wp_cache_get($this->postId, self::$keyGroup);
 
             $cacheArray[$this->hash] = $return_data.$this->fragmentTag();
 
-            wp_cache_delete($this->postId, $this->keyGroup);
+            wp_cache_delete($this->postId, self::$keyGroup);
 
-            wp_cache_add($this->postId, array_filter($cacheArray), $this->keyGroup, $this->ttl);
+            wp_cache_add($this->postId, array_filter($cacheArray), self::$keyGroup, $this->ttl);
 
         }
 
@@ -132,7 +132,7 @@ class Cache
     private function getCache($print = true)
     {
 
-        $cacheArray = wp_cache_get($this->postId, $this->keyGroup);
+        $cacheArray = wp_cache_get($this->postId, self::$keyGroup);
 
         if (!is_array($cacheArray) || !array_key_exists($this->hash, $cacheArray)) {
             return false;
