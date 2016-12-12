@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-12 11:12+0100\n"
+"POT-Creation-Date: 2016-12-12 14:06+0100\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1031,6 +1031,14 @@ msgid ""
 "updated so we can keep our intranet up to date."
 msgstr ""
 
+#: views/partials/404/login.blade.php:5
+msgid "You need to login to be able to view this page"
+msgstr ""
+
+#: views/partials/404/login.blade.php:9
+msgid "Username or password is incorrect."
+msgstr ""
+
 #: views/partials/breadcrumbs.blade.php:29
 msgid "Go to"
 msgstr ""
@@ -1127,7 +1135,13 @@ msgstr ""
 msgid "Login failed. Please try again."
 msgstr ""
 
-#: views/partials/header/subnav.blade.php:54
+#: views/partials/header/subnav.blade.php:47
+msgid ""
+"You are trying to login with an S-account. S-accounts are not allowed on "
+"the intranet."
+msgstr ""
+
+#: views/partials/header/subnav.blade.php:58
 msgid "Menu"
 msgstr ""
 

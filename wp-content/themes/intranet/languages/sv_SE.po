@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-12 11:12+0100\n"
-"PO-Revision-Date: 2016-12-12 11:12+0100\n"
+"POT-Creation-Date: 2016-12-12 14:06+0100\n"
+"PO-Revision-Date: 2016-12-12 14:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -1060,6 +1060,14 @@ msgid ""
 "updated so we can keep our intranet up to date."
 msgstr "Det var ett tag sedan du uppdaterade din profil. "
 
+#: views/partials/404/login.blade.php:5
+msgid "You need to login to be able to view this page"
+msgstr "Du måste logga in för att se den här sidan"
+
+#: views/partials/404/login.blade.php:9
+msgid "Username or password is incorrect."
+msgstr "Det angivna användarnamnet och/eller lösenordet är felaktigt."
+
 #: views/partials/breadcrumbs.blade.php:29
 msgid "Go to"
 msgstr "Gå till"
@@ -1164,7 +1172,15 @@ msgstr "Logga in"
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/subnav.blade.php:54
+#: views/partials/header/subnav.blade.php:47
+msgid ""
+"You are trying to login with an S-account. S-accounts are not allowed on the "
+"intranet."
+msgstr ""
+"Du försöker logga in med ett S-konto. S-konton kan inte användas för att "
+"logga in på intranätet."
+
+#: views/partials/header/subnav.blade.php:58
 msgid "Menu"
 msgstr "Meny"
 
