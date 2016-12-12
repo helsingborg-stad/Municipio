@@ -58,7 +58,7 @@ class Elasticsearch
         $args['query'] = array(
             'simple_query_string' => array(
                 'fields' => array('post_title^7', 'post_content^3'),
-                'query' => $q . '~2',
+                'query' => $q . '~'.$this->fuzzynessSize($q),
                 'analyzer' => 'elasticpress_synonyms'
             )
         );
@@ -78,6 +78,29 @@ class Elasticsearch
         );
 
         return $args;
+    }
+
+    public function fuzzynessSize($query = '')
+    {
+
+        $max_fuzzyness = 4;
+        $min_fuzzyness = 1;
+        $division_by = 3;
+
+        if ($string_lengt = floor(strlen($query)/$division_by)) {
+
+            if ($string_lengt >= $max_fuzzyness) {
+                return (string) $max_fuzzyness;
+            }
+
+            if ($string_lengt <= $min_fuzzyness) {
+                return (string) $min_fuzzyness;
+            }
+
+            return (string) $string_lengt;
+        }
+
+        return '1';
     }
 
     /**
