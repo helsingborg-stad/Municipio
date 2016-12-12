@@ -8,6 +8,7 @@ class Elasticsearch
 
     public function __construct()
     {
+
         if (isset($_GET['level']) && !empty($_GET['level'])) {
             self::$level = sanitize_text_field($_GET['level']);
         }
@@ -51,7 +52,9 @@ class Elasticsearch
 
     public function searchArgs($args, $scope, $query_args)
     {
-        $q = trim($query_args['s']);
+        $q =    $this->filterQuery(
+                    trim($query_args['s'])
+                );
 
         $args['min_score'] = 0.03;
 
@@ -103,6 +106,25 @@ class Elasticsearch
         }
 
         return '0';
+    }
+
+    public function filterQuery($q = "")
+    {
+        $q = explode(" ", $q);
+
+        if (is_array($q) && !empty($q)) {
+            foreach ($q as $key => $value) {
+                if (mb_strlen($value) <= 2) {
+                    unset($q[$key]);
+                }
+            }
+        }
+
+        if (is_array($q)) {
+            return trim(implode(" ", $q));
+        }
+
+        return $q;
     }
 
     /**
