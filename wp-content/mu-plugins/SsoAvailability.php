@@ -40,7 +40,7 @@ class SsoAvailability
             var image = document.createElement('img');
 
             image.addEventListener('load', function () {
-                setCookie(true);
+                setCookie(".$_SERVER['REMOTE_ADDR'].");
                 location.href = '" . $url . "';
             });
 
