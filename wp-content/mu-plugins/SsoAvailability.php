@@ -7,9 +7,16 @@ class SsoAvailability
     public function __construct()
     {
         if (is_local_ip()) {
-            if (!isset($_COOKIE['sso_available']) || (isset($_COOKIE[sso_avabile]) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available'])) {
+            if (!isset($_COOKIE['sso_available'])) {
                 $this->check();
+                return;
             }
+
+            if (isset($_COOKIE[sso_avabile]) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available']) {
+                $this->check();
+                return;
+            }
+
         } else {
             // Not in network, remove sso.
             if (isset($_COOKIE['sso_available'])) {
