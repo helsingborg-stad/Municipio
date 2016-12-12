@@ -9,12 +9,10 @@ class SsoAvailability
         if (is_local_ip()) {
             if (!isset($_COOKIE['sso_available'])) {
                 $this->check();
-                return;
             }
 
             if (isset($_COOKIE['sso_available']) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available']) {
                 $this->check();
-                return;
             }
 
         } else {
