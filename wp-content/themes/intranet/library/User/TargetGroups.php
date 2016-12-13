@@ -81,18 +81,11 @@ class TargetGroups
             return true;
         }
 
-        if (!is_user_logged_in()) {
-            return false;
-        }
-
-        if (is_null($userId)) {
+        if (is_null($userId) && is_user_logged_in()) {
             $userId = get_current_user_id();
         }
 
         $userGroups = self::getGroups($userId);
-        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && \SsoAvailability\SsoAvailability::isSsoAvailable()) {
-            $userGroups[] = 'citrix';
-        }
 
         // Check if any match if grop is an array
         if (is_array($group)) {
@@ -142,21 +135,34 @@ class TargetGroups
      */
     public static function getGroups($userId = null)
     {
-        if (!$userId) {
+        $groups = array();
+
+        if (!$userId && is_user_logged_in()) {
             $userId = get_current_user_id();
         }
 
-        $groups = get_user_meta($userId, 'user_target_groups', true);
+        // Add user's groups if logged in
+        if (is_user_logged_in()) {
+            $groups = array_merge(
+                $groups,
+                (array) get_user_meta($userId, 'user_target_groups', true)
+            );
 
-        if (!$groups) {
-            $groups = array();
+            foreach ((array) get_user_meta($userId, 'user_administration_unit', true) as $administrationUnit) {
+                $groups[] = 'unit-' . $administrationUnit;
+            }
+        } else {
+            $groups[] = 'loggedout';
         }
 
-        foreach ((array) get_user_meta($userId, 'user_administration_unit', true) as $administrationUnit) {
-            $groups[] = 'unit-' . $administrationUnit;
+        // Add citrix availability target group
+        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && \SsoAvailability\SsoAvailability::isSsoAvailable()) {
+            $groups[] = 'citrix';
+        } else {
+            $groups[] = 'no-citrix';
         }
 
-        return $groups;
+        return array_unique($groups);
     }
 
     /**
