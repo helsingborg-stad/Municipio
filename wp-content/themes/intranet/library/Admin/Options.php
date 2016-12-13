@@ -30,6 +30,12 @@ class Options
             $cacheKey = md5(serialize(array('getForcedList')));
             wp_cache_delete($cacheKey, self::$cacheGroup);
         });
+
+        add_action('update_option_intranet_site_hidden', '\Intranet\Theme\General::emptySiteOptionsCache');
+        add_action('update_option_intranet_force_subscription', '\Intranet\Theme\General::emptySiteOptionsCache');
+        add_action('update_option_intranet_administration_unit_network', '\Intranet\Theme\General::emptySiteOptionsCache');
+        add_action('update_option_intranet_short_name', '\Intranet\Theme\General::emptySiteOptionsCache');
+        add_action('update_option_intranet_ad_autosubscribe', '\Intranet\Theme\General::emptySiteOptionsCache');
     }
 
     public function setupOptions()
