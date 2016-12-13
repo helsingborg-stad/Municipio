@@ -15,7 +15,7 @@
     </button>
 
     <div class="network-search-dropdown">
-        <form class="network-search" method="get" action="{{ home_url() }}">
+        <form class="network-search hidden-xs" method="get" action="{{ home_url() }}">
             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
             <div class="input-group">
@@ -46,15 +46,6 @@
                                     <i class="pricon pricon-minus-o"></i> <?php _e('Unfollow', 'municipio-intranet'); ?>
                                     @endif
                                 </button>
-                            </a>
-                        </li>
-                    @endforeach
-                @else
-                    <li class="title"><?php _e('Administration units', 'municipio-intranet'); ?></li>
-                    @foreach (\Intranet\Helper\Multisite::getSitesWhere(array('is_administration_unit' => true)) as $site)
-                        <li class="network-title">
-                            <a href="{{ $site->path }}">
-                                {!! municipio_intranet_format_site_name($site) !!}
                             </a>
                         </li>
                     @endforeach
