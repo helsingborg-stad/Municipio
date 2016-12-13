@@ -8,13 +8,13 @@
         );
     ?>
 
-    <button class="current-network network-title" data-dropdown=".network-search-dropdown">
+    <button class="current-network network-title hidden-xs" data-dropdown=".network-search-dropdown">
         <strong class="hidden-xs hidden-md"><?php _e('Select intranet', 'municipio-intranet'); ?>:</strong>
         {!! municipio_intranet_format_site_name(Intranet\Helper\Multisite::getSite(get_current_blog_id()), 'long') !!}
         <span class="current-network-dropdown-arrow"></span>
     </button>
 
-    <div class="network-search-dropdown">
+    <div class="network-search-dropdown hidden-xs">
         <form class="network-search" method="get" action="{{ home_url() }}">
             <label for="searchkeyword-0" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
 
@@ -46,6 +46,15 @@
                                     <i class="pricon pricon-minus-o"></i> <?php _e('Unfollow', 'municipio-intranet'); ?>
                                     @endif
                                 </button>
+                            </a>
+                        </li>
+                    @endforeach
+                @else
+                    <li class="title"><?php _e('Administration units', 'municipio-intranet'); ?></li>
+                    @foreach (\Intranet\Helper\Multisite::getSitesWhere(array('is_administration_unit' => true)) as $site)
+                        <li class="network-title">
+                            <a href="{{ $site->path }}">
+                                {!! municipio_intranet_format_site_name($site) !!}
                             </a>
                         </li>
                     @endforeach

@@ -128,4 +128,21 @@ class Multisite
 
         return null;
     }
+
+    public static function getSitesWhere($where = array())
+    {
+        $sites = self::getSitesList();
+
+        $sites = array_filter($sites, function ($item) use ($where) {
+            $return = false;
+
+            foreach ($where as $key => $value) {
+                $return = $item->{$key} == $value;
+            }
+
+            return $return;
+        });
+
+        return $sites;
+    }
 }

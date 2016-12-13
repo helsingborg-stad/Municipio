@@ -58,6 +58,27 @@ class Options
             'intranet_site_hidden'
         );
 
+        // Administration unit network
+        add_settings_field(
+            'intranet_administration_unit_network',
+            __('Is administration unit', 'municipio-intranet'),
+            function ($args) {
+                $html = '<input type="checkbox" id="intranet_administration_unit_network" name="intranet_administration_unit_network" value="true" ' . checked('true', get_option('intranet_administration_unit_network'), false) . '>';
+                $html .= '<label for="intranet_administration_unit_network"> '  . $args[0] . '</label>';
+                echo $html;
+            },
+            'general',
+            'municipio_intranet',
+            array(
+                __('Activate to set this site as administration unit (will be displayed in the intranet selector)', 'municipio-intranet')
+            )
+        );
+
+        register_setting(
+            'general',
+            'intranet_administration_unit_network'
+        );
+
         // Forced subscription
         add_settings_field(
             'intranet_force_subscription',

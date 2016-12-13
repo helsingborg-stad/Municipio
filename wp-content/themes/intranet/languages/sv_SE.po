@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-12 14:06+0100\n"
-"PO-Revision-Date: 2016-12-12 14:07+0100\n"
+"POT-Creation-Date: 2016-12-13 11:21+0100\n"
+"PO-Revision-Date: 2016-12-13 11:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -37,18 +37,30 @@ msgid "Activate to hide this intranet for non administrators and editors"
 msgstr "Aktivera för att dölja intranätet från icke administratörer/redaktörer"
 
 #: library/Admin/Options.php:64
+msgid "Is administration unit"
+msgstr "Förvaltningsintranät"
+
+#: library/Admin/Options.php:73
+msgid ""
+"Activate to set this site as administration unit (will be displayed in the "
+"intranet selector)"
+msgstr ""
+"Aktivera för att markera sidan som ett förvaltningsintranät (kommer visas i "
+"intranätsväljaren)"
+
+#: library/Admin/Options.php:85
 msgid "Force subscription"
 msgstr "Obligatorisk att följa"
 
-#: library/Admin/Options.php:73
+#: library/Admin/Options.php:94
 msgid "Activate to force all users to subscribe to this intranet"
 msgstr "Aktivera för att tvinga alla användare att följa detta intranät"
 
-#: library/Admin/Options.php:85
+#: library/Admin/Options.php:106
 msgid "Intranet short name"
 msgstr "Intranätets kortnamn"
 
-#: library/Admin/Options.php:102
+#: library/Admin/Options.php:123
 msgid "Intranet autosubscribe keys (comma separated)"
 msgstr "Nycklar för automatisk följ (kommaseparerad)"
 
@@ -218,6 +230,10 @@ msgstr "Avbryt"
 #: library/Public/Helper.php:77
 msgid "Example"
 msgstr "Exempel"
+
+#: library/Search/Elasticsearch.php:42
+msgid "Exclude from search"
+msgstr ""
 
 #: library/Theme/Enqueue.php:39
 #: templates/module/modularity-mod-intranet-u-links.php:33
