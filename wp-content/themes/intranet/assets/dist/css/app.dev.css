@@ -1061,6 +1061,8 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
     .network-search-results li a:hover {
       background-color: #f6f5f2;
       text-decoration: none; }
+  .network-search-results .btn-subscribe .pricon {
+    vertical-align: 8%; }
 
 .breadcrumbs-wrapper {
   margin-top: 30px;
