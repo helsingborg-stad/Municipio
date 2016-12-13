@@ -242,7 +242,7 @@
                                         <div class="form-group">
                                             <label for="user_visiting_address_street" style="font-weight:normal;" class="text-sm"><?php _e('Street address', 'municipio-intranet'); ?></label>
                                             <input type="text" id="user_visiting_address_street" name="user_visiting_address[street]" value="{{ isset(get_the_author_meta('user_visiting_address')['street']) ? get_the_author_meta('user_visiting_address')['street'] : '' }}">
-                                            <?php municipio_intranet_field_example('user_visiting_address_street', 'Stortorget 7'); ?>
+                                            <?php municipio_intranet_field_example('user_visiting_address_street', 'Stortorget 17'); ?>
                                         </div>
                                     </div>
 
