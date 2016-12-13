@@ -49,6 +49,15 @@
                             </a>
                         </li>
                     @endforeach
+                @else
+                    <li class="title"><?php _e('Administration units', 'municipio-intranet'); ?></li>
+                    @foreach (\Intranet\Helper\Multisite::getSitesWhere(array('is_administration_unit' => true)) as $site)
+                        <li class="network-title">
+                            <a href="{{ $site->path }}">
+                                {!! municipio_intranet_format_site_name($site) !!}
+                            </a>
+                        </li>
+                    @endforeach
                 @endif
             </ul>
         </div>
