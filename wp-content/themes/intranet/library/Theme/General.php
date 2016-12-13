@@ -108,6 +108,10 @@ class General
      */
     public function getSiteOptions($sites)
     {
+        if (isset(debug_backtrace()[5]) && strpos(debug_backtrace()[5]['file'], 'user.php') > -1) {
+            return $sites;
+        }
+
         if (!is_null(self::$siteOptions)) {
             return self::$siteOptions;
         } elseif ($cached_sites = wp_cache_get('intranet-site-options')) {

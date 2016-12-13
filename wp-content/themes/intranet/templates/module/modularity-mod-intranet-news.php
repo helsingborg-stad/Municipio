@@ -88,12 +88,17 @@
         }
         ?>
     </div>
+
+    <?php if (count($news) >= $limit) : ?>
     <div class="grid">
         <div class="grid-lg-12">
             <button class="btn btn-primary btn-block" data-action="intranet-news-load-more"><?php _e('Load more news', 'municipio-intranet'); ?></button>
         </div>
     </div>
+    <?php endif; ?>
+
     <?php else : ?>
+
     <div class="grid">
         <?php if (!empty($module->post_title)) : ?>
         <div class="grid-xs-12">
@@ -104,6 +109,7 @@
             <?php _e('Threre\'s no news stories to display', 'municipio-intranet'); ?> <i class="pricon pricon-smiley-sad"></i>
         </div>
     </div>
+
     <?php endif; ?>
 
 
