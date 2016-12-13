@@ -36,7 +36,7 @@ class Registration
     public function disallowSaccount($userLogin)
     {
         if (!preg_match('/^s([a-z]{4})([0-9]{4})/i', $userLogin)) {
-            return;
+            return $userLogin;
         }
 
         setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
