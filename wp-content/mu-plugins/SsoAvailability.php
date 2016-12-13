@@ -10,13 +10,6 @@ class SsoAvailability
             if (!isset($_COOKIE['sso_available'])) {
                 $this->check();
             }
-
-            if (isset($_COOKIE['sso_available']) && $_COOKIE['sso_available'] != "false") {
-                if ($_COOKIE['sso_available'] != $_SERVER['REMOTE_ADDR']) {
-                    $this->check();
-                }
-            }
-
         } else {
             // Not in network, remove sso.
             if (isset($_COOKIE['sso_available'])) {
@@ -47,7 +40,7 @@ class SsoAvailability
             var image = document.createElement('img');
 
             image.addEventListener('load', function () {
-                setCookie('".$_SERVER['REMOTE_ADDR']."');
+                setCookie(true);
                 location.href = '" . $url . "';
             });
 
@@ -79,7 +72,7 @@ class SsoAvailability
             return false;
         }
 
-        if ($_COOKIE['sso_available'] === $_SERVER['REMOTE_ADDR']) {
+        if ($_COOKIE['sso_available'] == 'true') {
             return true;
         }
 
