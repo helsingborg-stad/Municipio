@@ -103,16 +103,12 @@ class General
      */
     public function getSiteOptions($sites)
     {
-        $subscriptions = (array) \Intranet\User\Subscription::getSubscriptions(null, true);
-
         if (!is_null(self::$siteOptions)) {
             return self::$siteOptions;
         } elseif ($cached_sites = wp_cache_get('intranet-site-options')) {
             $sites = $cached_sites;
         } else {
-
             foreach ($sites as $key => $site) {
-
                 //Do not switch inside get_blog_option!
                 switch_to_blog($site->blog_id);
 
@@ -125,15 +121,14 @@ class General
                 $site->autosubscribe_tags = get_blog_option($site->blog_id, 'intranet_ad_autosubscribe');
 
                 restore_current_blog();
-
             }
 
             wp_cache_set('intranet-site-options', $sites, '', 600);
-
         }
 
-        foreach ($sites as $key => $site) {
+        $subscriptions = (array) \Intranet\User\Subscription::getSubscriptions(null, true);
 
+        foreach ($sites as $key => $site) {
             if ($site->is_forced || in_array($site->blog_id, $subscriptions)) {
                 $site->subscribed = true;
             }
@@ -145,7 +140,6 @@ class General
                 }
                 restore_current_blog();
             }
-
         }
 
         self::$siteOptions = $sites;
