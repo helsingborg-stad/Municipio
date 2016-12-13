@@ -96,6 +96,11 @@ class General
         return $icons;
     }
 
+    public static function emptySiteOptionsCache()
+    {
+        wp_cache_delete('intranet-site-options');
+    }
+
     /**
      * Get additional options for sites on get_sites()
      * @param  array $sites Sites
