@@ -7,7 +7,7 @@ class SsoAvailability
     public function __construct()
     {
         if (is_local_ip()) {
-            if (!isset($_COOKIE['sso_available']) || (isset($_COOKIE[sso_avabile]) && $_SERVER['REMOTE_ADDR'] != $_COOKIE['sso_available'])) {
+            if (!isset($_COOKIE['sso_available'])) {
                 $this->check();
             }
         } else {
@@ -40,7 +40,7 @@ class SsoAvailability
             var image = document.createElement('img');
 
             image.addEventListener('load', function () {
-                setCookie(".$_SERVER['REMOTE_ADDR'].");
+                setCookie(true);
                 location.href = '" . $url . "';
             });
 
@@ -72,7 +72,7 @@ class SsoAvailability
             return false;
         }
 
-        if ($_COOKIE['sso_available'] == $_SERVER['REMOTE_ADDR']) {
+        if ($_COOKIE['sso_available'] == 'true') {
             return true;
         }
 
