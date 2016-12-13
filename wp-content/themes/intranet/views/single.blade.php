@@ -6,6 +6,9 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
+
+        @include('partials.sidebar-left')
+
         <div class="grid-md-12 grid-lg-9">
             @if (is_single() && is_active_sidebar('content-area-top'))
                 <div class="grid sidebar-content-area sidebar-content-area-top">
