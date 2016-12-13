@@ -8,7 +8,13 @@ class Options
     {
         add_action('admin_init', array($this, 'setupOptions'));
         add_filter('BetterPostUi/authors', function ($args) {
-            return array();
+
+            //Do no limit to user type.
+            if (isset($args['who'])) {
+                unset($args['who']);
+            }
+
+            return $args;
         });
 
         // Nested Pages plugin page author dropdowns
