@@ -117,6 +117,7 @@ class General
                 $site->short_name = get_blog_option($site->blog_id, 'intranet_short_name');
                 $site->is_forced = get_blog_option($site->blog_id, 'intranet_force_subscription') === 'true';
                 $site->is_hidden = (boolean) get_blog_option($site->blog_id, 'intranet_site_hidden');
+                $site->is_administration_unit = get_blog_option($site->blog_id, 'intranet_administration_unit_network') === 'true';
                 $site->subscribed = false;
                 $site->autosubscribe_tags = get_blog_option($site->blog_id, 'intranet_ad_autosubscribe');
 
