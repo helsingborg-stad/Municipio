@@ -6,16 +6,18 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
-        @include('partials.sidebar-left')
-
-        <div class="{{ $contentGridSize }} print-grow">
+        <div class="grid-md-12 grid-lg-9">
             @if (is_single() && is_active_sidebar('content-area-top'))
                 <div class="grid sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
                 </div>
             @endif
 
-            @include('partials.blog.type.post-single')
+            <div class="grid">
+                <div class="grid-sm-12">
+                        @include('partials.blog.type.post-single')
+                </div>
+            </div>
 
             @if (is_single() && comments_open() && is_user_logged_in())
                 <div class="grid">
