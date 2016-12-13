@@ -23,6 +23,11 @@ class Search extends \Intranet\Controller\BaseController
         }
 
         $this->countResult($this->data['level']);
+
+        if ($this->data['level'] !== 'users' && $this->data['counts']['subscriptions'] === 0 && $this->data['counts']['all'] === 0 && count($this->data['users']) > 0) {
+            wp_redirect(municipio_intranet_current_url(). '&level=users');
+            exit;
+        }
     }
 
     /**
