@@ -103,14 +103,15 @@ class General
      */
     public function getSiteOptions($sites)
     {
-        $subscriptions = (array) \Intranet\User\Subscription::getSubscriptions(null, true);
+        if (isset(debug_backtrace()[5]) && strpos(debug_backtrace()[5]['file'], 'user.php') > -1) {
+            return $sites;
+        }
 
         if (!is_null(self::$siteOptions)) {
             return self::$siteOptions;
         } elseif ($cached_sites = wp_cache_get('intranet-site-options')) {
             $sites = $cached_sites;
         } else {
-
             foreach ($sites as $key => $site) {
 
                 //Do not switch inside get_blog_option!
@@ -129,8 +130,9 @@ class General
             }
 
             wp_cache_set('intranet-site-options', $sites, '', 600);
-
         }
+
+        $subscriptions = (array) \Intranet\User\Subscription::getSubscriptions(null, true);
 
         foreach ($sites as $key => $site) {
 
