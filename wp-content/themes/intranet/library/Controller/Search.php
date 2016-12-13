@@ -25,7 +25,10 @@ class Search extends \Intranet\Controller\BaseController
         $this->countResult($this->data['level']);
 
         if ($this->data['level'] !== 'users' && $this->data['counts']['subscriptions'] === 0 && $this->data['counts']['all'] === 0 && count($this->data['users']) > 0) {
-            wp_redirect(municipio_intranet_current_url(). '&level=users');
+            wp_redirect(municipio_intranet_current_url() . '&level=users');
+            exit;
+        } elseif (is_user_logged_in() && $this->data['level'] !== 'all' && $this->data['counts']['subscriptions'] === 0 && $this->data['counts']['all'] > 0) {
+            wp_redirect(municipio_intranet_current_url() . '&level=all');
             exit;
         }
     }
