@@ -26,7 +26,10 @@ class Elasticsearch
         add_filter('ep_search_args', array($this, 'searchArgs'), 10, 3);
 
         add_action('post_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
+        add_action('attachment_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
+
         add_action('save_post', array($this, 'saveExcludeFromSearch'));
+        add_action('edit_attachment', array($this, 'saveExcludeFromSearch'));
     }
 
     /**
