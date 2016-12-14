@@ -18,6 +18,7 @@ class Registration
 
         // Add existing users to new or activated sites
         add_action('wpmu_new_blog', array($this, 'addUsersToNewBlog'));
+        add_action('wpmu_new_blog_cron', array($this, 'addUsersToNewBlogCron'), 10, 1);
         add_action('wpmu_activate_blog', array($this, 'activateBlogUser'), 10, 2);
 
         // Set default display name
@@ -131,17 +132,28 @@ class Registration
     /**
      * Adds all users to the blog when
      * @param integer $blogId The newly created blog's ID
+     * @param boolean $async If the function should be scheduled.
      */
-    public function addUsersToNewBlog($blogId)
+    public function addUsersToNewBlog($blogId, $async = true)
     {
+        if ($async === true) {
+            wp_schedule_single_event(time() + 5, 'wpmu_new_blog_cron', array($blogId));
+        } else {
+            $this->addUsersToNewBlogCron($blogId);
+        }
+        return true;
+    }
+
+    public function addUsersToNewBlogCron($blogId)
+    {
+        set_time_limit(600);
+
         global $wpdb;
         $users = $wpdb->get_results("SELECT ID FROM $wpdb->users");
 
         foreach ($users as $user) {
             $this->addDefaultRole($user->ID, $blogId);
         }
-
-        return true;
     }
 
     /**
