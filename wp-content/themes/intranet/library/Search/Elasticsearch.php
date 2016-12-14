@@ -94,7 +94,7 @@ class Elasticsearch
 
         $args['query'] = array(
             'simple_query_string' => array(
-                'fields' => array('post_title^7', 'post_content^3'),
+                'fields' => array('post_title^7', 'post_content^3', 'terms.post_tag.name^4'),
                 'query' => $q . '~'.$this->fuzzynessSize($q),
                 'analyzer' => 'elasticpress_synonyms'
             )
