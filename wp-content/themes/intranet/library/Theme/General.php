@@ -9,6 +9,10 @@ class General
 
     public function __construct()
     {
+        add_action('init', function () {
+            register_taxonomy_for_object_type('post_tag', 'page');
+        });
+
         add_filter('Municipio/author_display/title', function ($title) {
             return __('Page manager', 'municipio-intranet');
         });
