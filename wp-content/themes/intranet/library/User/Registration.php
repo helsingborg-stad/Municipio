@@ -9,7 +9,7 @@ class Registration
     public function __construct()
     {
         // Do not allow "s-accounts"
-        add_filter('pre_user_login', array($this, 'disallowSaccount'));
+        add_filter('pre_user_login', array($this, 'disallowedUsers'));
 
         // Add new user to all sites
         add_action('wpmu_activate_user', array($this, 'addDefaultRole'), 10, 1);
@@ -29,20 +29,33 @@ class Registration
     }
 
     /**
-     * Disallow S-accounts
+     * Disallow username combinations
+     * Example: S-accounts
      * @param  string $userLogin    User's username
      * @return void
      */
-    public function disallowSaccount($userLogin)
+    public function disallowedUsers($userLogin)
     {
-        if (!preg_match('/^s([a-z]{4})([0-9]{4})/i', $userLogin)) {
-            return $userLogin;
+        // If pattern matches it will be considered disallowed
+        // pattern => redirect
+        $disallowed = apply_filters('MunicipioIntranet/register/disallowed', array(
+            '/^s([a-z]{4})([0-9]{4})/i' => network_home_url('?login=saccount'),
+            '/^([a-z]{3})([0-9]{4})/i' => network_home_url('?login=faccount')
+        ));
+
+        // Loop disallowed patterns, fail-redirect if pattern matches
+        foreach ($disallowed as $pattern => $redirectUrl) {
+            if (!preg_match($pattern, $userLogin)) {
+                continue;
+            }
+
+            setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
+            wp_redirect($redirect);
+            exit;
         }
 
-        setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
-        wp_redirect(network_home_url('?login=saccount'));
-
-        return false;
+        // Not disallowed, return userLogin
+        return $userLogin;
     }
 
     /**
