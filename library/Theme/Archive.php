@@ -16,7 +16,7 @@ class Archive
         }
 
         $inMenu = false;
-        foreach (get_field('avabile_dynamic_post_types', 'options') as $type) {
+        foreach ((array) get_field('avabile_dynamic_post_types', 'options') as $type) {
             if ($type['slug'] !== $query->post_type) {
                 continue;
             }
