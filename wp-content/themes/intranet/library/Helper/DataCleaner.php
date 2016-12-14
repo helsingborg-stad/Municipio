@@ -17,9 +17,17 @@ class DataCleaner
             return $number;
         }
 
-        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
-        $number = $phoneUtil->parse($number, 'SE');
+        if (strlen($number) > 17) {
+            return $number;
+        }
 
-        return $phoneUtil->format($number, $numberFormat);
+        try {
+            $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+            $number = $phoneUtil->parse($number, 'SE');
+
+            return $phoneUtil->format($number, $numberFormat);
+        } catch (Exception $e) {
+            return $number;
+        }
     }
 }
