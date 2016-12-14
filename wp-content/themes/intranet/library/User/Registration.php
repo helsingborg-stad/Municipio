@@ -132,13 +132,13 @@ class Registration
     /**
      * Adds all users to the blog when
      * @param integer $blogId The newly created blog's ID
-     * @param boolean $async If the function should be scheduled.
      */
-    public function addUsersToNewBlog($blogId, $async = true)
+    public function addUsersToNewBlog($blogId)
     {
-        if ($async === true) {
+        if (function_exists('count_users') && count_users()['total_users'] > 100) {
             wp_schedule_single_event(time() + 5, 'wpmu_new_blog_cron', array($blogId));
         } else {
+            die("NOT!");
             $this->addUsersToNewBlogCron($blogId);
         }
         return true;
