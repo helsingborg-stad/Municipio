@@ -23,7 +23,7 @@ class Customizer
     {
         global $submenu;
 
-        foreach ($submenu['themes.php'] as $key => $item) {
+        foreach ((array) $submenu['themes.php'] as $key => $item) {
             if ($item[1] != 'customize') {
                 continue;
             }
