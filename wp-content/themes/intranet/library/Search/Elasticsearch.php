@@ -106,10 +106,17 @@ class Elasticsearch
         $args['post_filter']['bool']['must_not'] = array(
             array(
                 'terms' => array(
-                    'post_mime_type' => apply_filters('MunicipioIntranet/search/mimefilter', $imageMimes)
+                    'post_mime_type' => apply_filters('MunicipioIntranet/search/mimefilter', $imageMimes),
+                ),
+            ),
+            array(
+                'term' => array(
+                    'meta.exclude_from_search.boolean' => true
                 )
             )
         );
+
+        $args = apply_filters('MunicipioIntranet/search/args', $args, $query_args['s']);
 
         return $args;
     }
