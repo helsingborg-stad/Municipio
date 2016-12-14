@@ -17,6 +17,8 @@ class Elasticsearch
             self::$level = 'all';
         }
 
+        //add_filter('ep_config_mapping', array($this, 'elasticPressStemmer'), 100);
+
         add_action('pre_get_posts', array($this, 'setSites'), 1000);
         add_action('pre_get_posts', array($this, 'setTypes'), 1000);
         add_action('pre_get_posts', array($this, 'setOrderby'), 1000);
@@ -30,6 +32,35 @@ class Elasticsearch
 
         add_action('save_post', array($this, 'saveExcludeFromSearch'));
         add_action('edit_attachment', array($this, 'saveExcludeFromSearch'));
+    }
+
+    public function elasticPressStemmer($mapping)
+    {
+        if (!$mapping) {
+            return $mapping;
+        }
+
+        if (!isset($mapping['settings']['analysis']['filter']) || !isset($mapping['settings']['analysis']['analyzer'])) {
+            return $mapping;
+        }
+
+        $mapping['settings']['analysis']['filter']['ewp_snowball']['stopwords'] = 'och,det,att,i,en,jag,hon,som,han,på,den,med,var,sig,för,så,till,är,men,ett,om,hade,de,av,icke,mig,du,henne,då,sin,nu,har,inte,hans,honom,skulle,hennes,där,min,man,ej,vid,kunde,något,från,ut,när,efter,upp,vi,dem,vara,vad,över,än,dig,kan,sina,här,ha,mot,alla,under,någon,allt,mycket,sedan,ju,denna,själv,detta,åt,utan,varit,hur,ingen,mitt,ni,bli,blev,oss,din,dessa,några,deras,blir,mina,samma,vilken,er,sådan,vår,blivit,dess,inom,mellan,sådant,varför,varje,vilka,ditt,vem,vilket,sitta,sådana,vart,dina,vars,vårt,våra,ert,era,vilkas';
+
+        return $mapping;
+
+
+        // BELOW IS ANOTHERWAY OF SETTING UP STEMMER...
+        $mapping['settings']['analysis']['filter']['intranet_stemmer'] = array(
+            'type' => 'stemmer',
+            'name' => apply_filters('MunicipioIntranet/search/stemmer', 'light_swedish')
+        );
+
+        $mapping['settings']['analysis']['analyzer']['intranat_stemmer_filter'] = array(
+            'tokenizer' => 'standard',
+            'filter' => array('intranet_stemmer')
+        );
+
+        return $mapping;
     }
 
     /**
