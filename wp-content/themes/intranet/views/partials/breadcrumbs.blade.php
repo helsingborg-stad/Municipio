@@ -22,14 +22,16 @@
     <div class="grid">
         <div class="grid-xs-12 text-center">
             <span class="h1 greeting">
-                {!! \Intranet\User\General::greet() !!}
+                {!! (get_user_meta(get_current_user_id(), 'disable_welcome_phrase', true) != 1) ? \Intranet\User\General::greet() : '<strong>' . municipio_intranet_get_user_full_name() . '</strong>' !!}
             </span>
 
             <div class="greeting-actions gutter gutter-margin gutter-top gutter-sm">
                 <div class="pos-relative inline-block greeting-options">
                     <button class="btn btn-sm" data-dropdown=".greeting-dropdown"><i class="pricon pricon-xs pricon-caret-down"></i></button>
-                    <ul class="greeting-dropdown dropdown-menu dropdown-menu-arrow dropdown-menu-arrow-left">
-                        <li><a href="#">Dölj hälsningsfras</a></li>
+                    <ul class="greeting-dropdown dropdown-menu dropdown-menu-arrow dropdown-menu-arrow-left" style="width: 250px;">
+                        <li><a href="#" data-action="toggle-welcome-phrase">
+                            <?php echo (get_user_meta(get_current_user_id(), 'disable_welcome_phrase', true) != 1) ? __('Disable welcome phrase', 'municipio-intranet') : __('Enable welcome phrase', 'municipio-intranet'); ?>
+                        </a></li>
                     </ul>
                 </div>
 
