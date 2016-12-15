@@ -137,10 +137,10 @@ class Registration
     {
         if (function_exists('count_users') && count_users()['total_users'] > 100) {
             wp_schedule_single_event(time() + 5, 'wpmu_new_blog_cron', array($blogId));
-        } else {
-            die("NOT!");
-            $this->addUsersToNewBlogCron($blogId);
+            return true;
         }
+
+        $this->addUsersToNewBlogCron($blogId);
         return true;
     }
 
