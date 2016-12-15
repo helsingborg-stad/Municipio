@@ -190,3 +190,15 @@ html[data-useragent*="Chrome"] #site-header .search.search-main button[type="sub
     font-weight: 200;
     padding-bottom: 0;
 }
+
+.greeting-actions .dropdown-open {
+    display: inline-block;
+}
+
+.greeting-dropdown {
+    left: -8px;
+}
+
+.greeting-options button .pricon {
+    vertical-align: 30%;
+}

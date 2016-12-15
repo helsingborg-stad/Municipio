@@ -21,14 +21,25 @@
 <section class="gutter gutter-vertical gutter-xl">
     <div class="grid">
         <div class="grid-xs-12 text-center">
-            <span class="h1 greeting">{!! \Intranet\User\General::greet() !!}</span>
+            <span class="h1 greeting">
+                {!! \Intranet\User\General::greet() !!}
+            </span>
 
-            <?php $unit = \Intranet\User\AdministrationUnits::getUsersAdministrationUnitIntranet(); ?>
-            @if ($unit)
-            <a href="{{ $unit->path }}" class="btn btn-sm gutter gutter-margin gutter-top gutter-sm">
-                <?php _e('Go to', 'municipio-intranet'); ?> {{ substr($unit->name, -1, 1) === 's' ? strtolower($unit->name) : strtolower($unit->name . 's') }} <?php _e('intranet', 'municipio-intranet'); ?>
-            </a>
-            @endif
+            <div class="greeting-actions gutter gutter-margin gutter-top gutter-sm">
+                <div class="pos-relative inline-block greeting-options">
+                    <button class="btn btn-sm" data-dropdown=".greeting-dropdown"><i class="pricon pricon-xs pricon-caret-down"></i></button>
+                    <ul class="greeting-dropdown dropdown-menu dropdown-menu-arrow dropdown-menu-arrow-left">
+                        <li><a href="#">Dölj hälsningsfras</a></li>
+                    </ul>
+                </div>
+
+                <?php $unit = \Intranet\User\AdministrationUnits::getUsersAdministrationUnitIntranet(); ?>
+                @if ($unit)
+                <a href="{{ $unit->path }}" class="btn btn-sm">
+                    <?php _e('Go to', 'municipio-intranet'); ?> {{ substr($unit->name, -1, 1) === 's' ? strtolower($unit->name) : strtolower($unit->name . 's') }} <?php _e('intranet', 'municipio-intranet'); ?>
+                </a>
+                @endif
+            </div>
         </div>
     </div>
 </section>
