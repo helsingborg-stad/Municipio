@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-15 11:58+0100\n"
-"PO-Revision-Date: 2016-12-15 12:03+0100\n"
+"POT-Creation-Date: 2016-12-15 16:45+0100\n"
+"PO-Revision-Date: 2016-12-15 16:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -69,6 +69,10 @@ msgstr "Nycklar för automatisk följ (kommaseparerad)"
 #: views/partials/user/loginform.blade.php:7
 msgid "Password"
 msgstr "Lösenord"
+
+#: library/Admin/Users.php:21
+msgid "Sync with network (cron)"
+msgstr "Synkronisera med nätverk (schemalagt arbete)"
 
 #: library/CustomPostType/Incidents.php:20 views/archive-incidents.blade.php:25
 msgid "to"
@@ -253,7 +257,7 @@ msgid "Unfollow"
 msgstr "Sluta följa"
 
 #: library/Theme/Enqueue.php:48 views/search.blade.php:63
-#: views/search.blade.php:133
+#: views/search.blade.php:135
 msgid "Persons"
 msgstr "Personer"
 
@@ -315,102 +319,102 @@ msgstr "Förvaltningar"
 msgid "All fields must be filled in to add a new administration unit"
 msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
 
-#: library/User/General.php:148
+#: library/User/General.php:149
 #, php-format
 msgid "Hi %s"
 msgstr "Hej %s"
 
-#: library/User/General.php:149
+#: library/User/General.php:150
 #, php-format
 msgid "Hello %s"
 msgstr "Hallå där %s"
 
-#: library/User/General.php:150
+#: library/User/General.php:151
 #, php-format
 msgid "How is it going %s?"
 msgstr "Hur går det %s?"
 
-#: library/User/General.php:151
+#: library/User/General.php:152
 #, php-format
 msgid "Good to see you, %s"
 msgstr "Trevligt att se dig %s"
 
-#: library/User/General.php:152
+#: library/User/General.php:153
 #, php-format
 msgid "Howdy %s"
 msgstr "Tjena %s"
 
-#: library/User/General.php:157
+#: library/User/General.php:158
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr "God morgon %s, ännu en underbar dag!"
 
-#: library/User/General.php:158
+#: library/User/General.php:159
 #, php-format
 msgid "Good morning %s"
 msgstr "God morgon %s"
 
-#: library/User/General.php:159
+#: library/User/General.php:160
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr "Vilken härlig morgon %s"
 
-#: library/User/General.php:160
+#: library/User/General.php:161
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr "Rise and shine %s"
 
-#: library/User/General.php:161 library/User/General.php:170
+#: library/User/General.php:162 library/User/General.php:171
 #, php-format
 msgid "Have a great day %s"
 msgstr "Ha en fin dag %s"
 
-#: library/User/General.php:162
+#: library/User/General.php:163
 #, php-format
 msgid "%s you up already?"
 msgstr "Är du redan vaken %s?"
 
-#: library/User/General.php:167
+#: library/User/General.php:168
 #, php-format
 msgid "Good afternoon %s"
 msgstr "God eftermiddag %s"
 
-#: library/User/General.php:168
+#: library/User/General.php:169
 #, php-format
 msgid "Greetings, %s"
 msgstr "Hallå %s"
 
-#: library/User/General.php:169
+#: library/User/General.php:170
 #, php-format
 msgid "Keep going strong %s!"
 msgstr "Hejsan %s"
 
-#: library/User/General.php:175
+#: library/User/General.php:176
 #, php-format
 msgid "It's getting late, %s"
 msgstr "Jobbar du fortfarande %s?"
 
-#: library/User/General.php:176
+#: library/User/General.php:177
 #, php-format
 msgid "Good eavning %s"
 msgstr "God kväll %s"
 
-#: library/User/General.php:181
+#: library/User/General.php:182
 #, php-format
 msgid "Good night %s"
 msgstr "God natt %s"
 
-#: library/User/General.php:182
+#: library/User/General.php:183
 #, php-format
 msgid "Still going strong, %s?"
 msgstr "Är du fortfarande i farten %s?"
 
-#: library/User/General.php:209
+#: library/User/General.php:210
 #, php-format
 msgid "Happy new year %s"
 msgstr "Gott nytt år %s!"
 
-#: library/User/General.php:214
+#: library/User/General.php:215
 #, php-format
 msgid "Merry christmas %s"
 msgstr "God jul %s!"
@@ -431,7 +435,7 @@ msgstr "Förnamn"
 msgid "Last name"
 msgstr "Efternamn"
 
-#: library/User/Systems.php:228
+#: library/User/Systems.php:244
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
@@ -524,6 +528,7 @@ msgid "Url"
 msgstr "Url"
 
 #: templates/admin/systems/form.php:57
+#: templates/module/modularity-mod-intranet-u-links.php:27
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -607,11 +612,11 @@ msgstr "Visa alla driftstörningar"
 msgid "Read more"
 msgstr "Läs mer"
 
-#: templates/module/modularity-mod-intranet-news.php:68
+#: templates/module/modularity-mod-intranet-news.php:69
 msgid "News feed"
 msgstr "Nyhetsflöde"
 
-#: templates/module/modularity-mod-intranet-news.php:69
+#: templates/module/modularity-mod-intranet-news.php:70
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -622,11 +627,11 @@ msgstr ""
 "anställda. Du ser också nyheterna från din förvaltnings intranät (om det "
 "finns ett sådant) och från de intranät du följer."
 
-#: templates/module/modularity-mod-intranet-news.php:95
+#: templates/module/modularity-mod-intranet-news.php:96
 msgid "Load more news"
 msgstr "Ladda in fler nyheter"
 
-#: templates/module/modularity-mod-intranet-news.php:109
+#: templates/module/modularity-mod-intranet-news.php:110
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -667,11 +672,12 @@ msgstr ""
 "Här listas de vanligaste systemen i din förvaltning. Klicka på redigera för "
 "att lägga till fler system i listan."
 
-#: templates/module/modularity-mod-intranet-u-syste.php:24
+#: templates/module/modularity-mod-intranet-u-syste.php:23
 msgid "You need to login to your account to access the systems list."
 msgstr "Du måste logga in för att kunna se dina system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:27
+#: templates/module/modularity-mod-intranet-u-syste.php:26
+#: views/search.blade.php:163
 msgid ""
 "Your logged in from a computer outside the city network. This causes some "
 "systems to be unavailable."
@@ -679,9 +685,14 @@ msgstr ""
 "Du är inloggad på en dator som inte är ansluten till stadens nätverk. Vissa "
 "system kan därför vara oåtkomliga."
 
-#: templates/module/modularity-mod-intranet-u-syste.php:32
+#: templates/module/modularity-mod-intranet-u-syste.php:31
+#: views/search.blade.php:169
 msgid "You need to be on the city network to use this system"
 msgstr "Du måste vara inloggad på stadens nätverk för att använda detta system"
+
+#: templates/module/modularity-mod-intranet-u-syste.php:35
+msgid "Add system link"
+msgstr "Lägg till systemlänk"
 
 #: templates/module/modularity-mod-intranet-u-syste.php:47
 msgid "Select systems"
@@ -1400,14 +1411,27 @@ msgstr "Alla intranät"
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
-#: views/search.blade.php:135
+#: views/search.blade.php:137
 #, php-format
-msgid "%d personer matchar din sökning"
+msgid "%d persons matching the search query"
 msgstr "%d personer matchar din sökning"
 
-#: views/search.blade.php:148
+#: views/search.blade.php:150
 msgid "Show all matching persons"
 msgstr "Visa alla personträffar"
+
+#: views/search.blade.php:159
+msgid "Systems"
+msgstr "System"
+
+#: views/search.blade.php:161
+#, php-format
+msgid "Found %d matching user systems"
+msgstr "Hittade %d matchande verksamhetssystem"
+
+#: views/search.blade.php:163
+msgid "Note"
+msgstr "Observera:"
 
 #: views/sites-list.blade.php:10
 msgid "All intranets"
@@ -1444,6 +1468,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "%d personer matchar din sökning"
+#~ msgstr "%d personer matchar din sökning"
 
 #~ msgid "Logged in via Citrix"
 #~ msgstr "Inloggad via Citrix (i Helsingborgs stads nätverk)"
