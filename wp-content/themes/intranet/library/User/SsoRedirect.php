@@ -18,6 +18,9 @@ class SsoRedirect
         if (!is_main_site()) {
             add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
             add_filter('site_option_active_plugins', array($this, 'disableSsoPlugin'));
+        } elseif (defined('DOING_CRON') && DOING_CRON === true) {
+            add_filter('option_active_plugins', array($this, 'disableSsoPlugin'));
+            add_filter('site_option_active_plugins', array($this, 'disableSsoPlugin'));
         } elseif (!$this->disabledUrl()) {
             add_action('init', array($this, 'init'), 9999);
         }
