@@ -504,6 +504,24 @@
                             </div>
                         </section>
 
+                        <!-- Intranet settings -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="user-settings">
+                            <label class="accordion-toggle" for="user-settings">
+                                <h4 class="pricon pricon-settings pricon-space-right"><?php _e('Other Settings', 'municipio-intranet'); ?></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-xs-12">
+                                        <div class="form-group">
+                                            <label><?php _e('Welcome phrase', 'municipio-intranet'); ?></label>
+                                            <label class="checkbox"><input type="checkbox" name="disable_welcome_phrase" value="1" {{ checked(get_the_author_meta('disable_welcome_phrase'), '1') }}> <?php _e('Disable welcome phrase', 'municipio-intranet'); ?></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         <!-- Intranet personalization -->
                         @if (!defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') || (defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') && MUNICIPIO_INTRANET_USER_COLOR_THEME))
                         <section class="accordion-section">
