@@ -19,7 +19,6 @@
     <?php endif; ?>
 
     <ul class="links">
-
         <?php if (!is_user_logged_in()) : ?>
             <li class="creamy text-sm" style="border:none;"><?php _e('You need to login to your account to access the systems list.', 'municipio-intranet'); ?></li>
         <?php else : ?>
@@ -33,6 +32,7 @@
             <?php else : ?>
             <li><a target="_blank" href="<?php echo $system->url; ?>" class="link-item"><?php echo $system->name; ?></a></li>
             <?php endif; endforeach; ?>
+            <!-- <button type="button"  class="btn btn-primary pricon pricon-edit pricon-space-right"><?php _e('Add system link', 'municipio-intranet'); ?></button> -->
         <?php endif; ?>
     </ul>
 </div>
