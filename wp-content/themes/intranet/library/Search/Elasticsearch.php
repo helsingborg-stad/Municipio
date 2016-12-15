@@ -201,7 +201,7 @@ class Elasticsearch
     public function setSites($query)
     {
         // If not search or main query, return the default query
-        if (!is_search() || !$query->is_main_query()) {
+        if (!is_search() || is_post_type_archive() || !$query->is_main_query()) {
             return;
         }
 
@@ -222,7 +222,7 @@ class Elasticsearch
     public function setTypes($query)
     {
         // If not search or main query, return the default query
-        if (!is_search() || !$query->is_main_query()) {
+        if (!is_search() || is_post_type_archive() || !$query->is_main_query()) {
             return;
         }
 
@@ -251,7 +251,7 @@ class Elasticsearch
     public function setOrderby($query)
     {
         // If not search or main query, return the default query
-        if (!is_search() || !$query->is_main_query()) {
+        if (!is_search() || is_post_type_archive() || !$query->is_main_query()) {
             return;
         }
 
