@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
 "POT-Creation-Date: 2016-12-15 16:45+0100\n"
-"PO-Revision-Date: 2016-12-15 16:47+0100\n"
+"PO-Revision-Date: 2016-12-15 16:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -1431,7 +1431,7 @@ msgstr "Hittade %d matchande verksamhetssystem"
 
 #: views/search.blade.php:163
 msgid "Note"
-msgstr "Observera:"
+msgstr "Observera"
 
 #: views/sites-list.blade.php:10
 msgid "All intranets"
