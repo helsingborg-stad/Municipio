@@ -87,7 +87,7 @@
                         <i class="pricon pricon-info-o"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
                     </div>
                 @else
-                    @if ($wp_query->max_num_pages > 1)
+                    @if ($level !== 'users' && $wp_query->max_num_pages > 1)
                     <div class="grid">
                         <div class="grid-lg-12">
                             {!!
@@ -111,7 +111,7 @@
                         </div>
                     </div>
 
-                    @if ($wp_query->max_num_pages > 1)
+                    @if ($level !== 'users' && $wp_query->max_num_pages > 1)
                     <div class="grid">
                         <div class="grid-lg-12">
                             {!!
