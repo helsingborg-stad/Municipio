@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-13 11:21+0100\n"
-"PO-Revision-Date: 2016-12-13 11:22+0100\n"
+"POT-Creation-Date: 2016-12-15 11:58+0100\n"
+"PO-Revision-Date: 2016-12-15 12:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -20,27 +20,27 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: library/Admin/Options.php:33
+#: library/Admin/Options.php:45
 msgid "Intranet options"
 msgstr "Intranätsinställningar"
 
-#: library/Admin/Options.php:35
+#: library/Admin/Options.php:47
 msgid "Intranet specific options."
 msgstr "Intranätsspecifika inställningar."
 
-#: library/Admin/Options.php:43
+#: library/Admin/Options.php:55
 msgid "Hidden"
 msgstr "Dold"
 
-#: library/Admin/Options.php:52
+#: library/Admin/Options.php:64
 msgid "Activate to hide this intranet for non administrators and editors"
 msgstr "Aktivera för att dölja intranätet från icke administratörer/redaktörer"
 
-#: library/Admin/Options.php:64
+#: library/Admin/Options.php:76
 msgid "Is administration unit"
 msgstr "Förvaltningsintranät"
 
-#: library/Admin/Options.php:73
+#: library/Admin/Options.php:85
 msgid ""
 "Activate to set this site as administration unit (will be displayed in the "
 "intranet selector)"
@@ -48,19 +48,19 @@ msgstr ""
 "Aktivera för att markera sidan som ett förvaltningsintranät (kommer visas i "
 "intranätsväljaren)"
 
-#: library/Admin/Options.php:85
+#: library/Admin/Options.php:97
 msgid "Force subscription"
 msgstr "Obligatorisk att följa"
 
-#: library/Admin/Options.php:94
+#: library/Admin/Options.php:106
 msgid "Activate to force all users to subscribe to this intranet"
 msgstr "Aktivera för att tvinga alla användare att följa detta intranät"
 
-#: library/Admin/Options.php:106
+#: library/Admin/Options.php:118
 msgid "Intranet short name"
 msgstr "Intranätets kortnamn"
 
-#: library/Admin/Options.php:123
+#: library/Admin/Options.php:135
 msgid "Intranet autosubscribe keys (comma separated)"
 msgstr "Nycklar för automatisk följ (kommaseparerad)"
 
@@ -223,7 +223,7 @@ msgid "Next"
 msgstr "Nästa"
 
 #: library/Public/Helper.php:65
-#: templates/module/modularity-mod-intranet-u-syste.php:75
+#: templates/module/modularity-mod-intranet-u-syste.php:84
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -231,54 +231,63 @@ msgstr "Avbryt"
 msgid "Example"
 msgstr "Exempel"
 
-#: library/Search/Elasticsearch.php:42
+#: library/Search/Elasticsearch.php:76
 msgid "Exclude from search"
-msgstr ""
+msgstr "Exkludera från sök"
 
-#: library/Theme/Enqueue.php:39
+#: library/Theme/Enqueue.php:43
 #: templates/module/modularity-mod-intranet-u-links.php:33
 msgid "You have not added any links yet…"
 msgstr "Du har inte lagt till några länkar än…"
 
-#: library/Theme/Enqueue.php:40
+#: library/Theme/Enqueue.php:44
 #: views/partials/header/network-selector.blade.php:44
 #: views/partials/header/subscribe.blade.php:6 views/sites-list.blade.php:32
 msgid "Follow"
 msgstr "Följ"
 
-#: library/Theme/Enqueue.php:41
+#: library/Theme/Enqueue.php:45
 #: views/partials/header/network-selector.blade.php:46
 #: views/partials/header/subscribe.blade.php:8 views/sites-list.blade.php:34
 msgid "Unfollow"
 msgstr "Sluta följa"
 
-#: library/Theme/Enqueue.php:44 views/search.blade.php:63
-#: views/search.blade.php:159
+#: library/Theme/Enqueue.php:48 views/search.blade.php:63
+#: views/search.blade.php:133
 msgid "Persons"
 msgstr "Personer"
 
-#: library/Theme/Enqueue.php:45
+#: library/Theme/Enqueue.php:49
 msgid "Content"
 msgstr "Innehåll"
 
-#: library/Theme/Enqueue.php:46
+#: library/Theme/Enqueue.php:50
 msgid "View all results"
 msgstr "Visa alla resultat"
 
-#: library/Theme/Enqueue.php:48 templates/admin/systems/form.php:56
+#: library/Theme/Enqueue.php:52 templates/admin/systems/form.php:56
 #: templates/module/modularity-mod-intranet-u-links.php:16
 msgid "Edit"
 msgstr "Redigera"
 
-#: library/Theme/Enqueue.php:49
+#: library/Theme/Enqueue.php:53
 msgid "Done"
 msgstr "Klar"
 
-#: library/Theme/Enqueue.php:50
+#: library/Theme/Enqueue.php:54
 msgid "No more news to load"
 msgstr "Det finns inga fler nyheter"
 
-#: library/Theme/General.php:13
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:518
+#: views/partials/breadcrumbs.blade.php:33
+msgid "Disable welcome phrase"
+msgstr "Dölj hälsningsfras"
+
+#: library/Theme/Enqueue.php:56 views/partials/breadcrumbs.blade.php:33
+msgid "Enable welcome phrase"
+msgstr "Visa hälsningsfras"
+
+#: library/Theme/General.php:17
 msgid "Page manager"
 msgstr "Sidansvarig"
 
@@ -298,6 +307,7 @@ msgstr "Avsluta"
 #: library/User/AdministrationUnits.php:27
 #: templates/admin/administration-units/form.php:3
 #: templates/admin/administration-units/form.php:34
+#: views/partials/header/network-selector.blade.php:53
 msgid "Administration units"
 msgstr "Förvaltningar"
 
@@ -373,7 +383,7 @@ msgstr "Hallå %s"
 #: library/User/General.php:169
 #, php-format
 msgid "Keep going strong %s!"
-msgstr "Kör hårt %s"
+msgstr "Hejsan %s"
 
 #: library/User/General.php:175
 #, php-format
@@ -409,13 +419,13 @@ msgstr "God jul %s!"
 msgid "user"
 msgstr "anvandare"
 
-#: library/User/Registration.php:56 views/author-edit.blade.php:83
+#: library/User/Registration.php:70 views/author-edit.blade.php:83
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr "Förnamn"
 
-#: library/User/Registration.php:60 views/author-edit.blade.php:89
+#: library/User/Registration.php:74 views/author-edit.blade.php:89
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
@@ -425,11 +435,11 @@ msgstr "Efternamn"
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
-#: library/User/TargetGroups.php:187
+#: library/User/TargetGroups.php:193
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
-#: library/User/TargetGroups.php:219 library/User/TargetGroups.php:220
+#: library/User/TargetGroups.php:225 library/User/TargetGroups.php:226
 #: views/author-edit.blade.php:264
 msgid "Target groups"
 msgstr "Målgrupper"
@@ -442,7 +452,7 @@ msgstr "Målgrupper"
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
 #: templates/module/modularity-mod-intranet-u-links.php:48
-#: templates/module/modularity-mod-intranet-u-syste.php:76
+#: templates/module/modularity-mod-intranet-u-syste.php:85
 msgid "Save"
 msgstr "Spara"
 
@@ -497,13 +507,13 @@ msgstr ""
 
 #: templates/admin/systems/form.php:43 templates/admin/systems/form.php:79
 #: templates/admin/systems/form.php:111
-#: templates/module/modularity-mod-intranet-u-syste.php:51
+#: templates/module/modularity-mod-intranet-u-syste.php:60
 msgid "Name"
 msgstr "Namn"
 
 #: templates/admin/systems/form.php:44 templates/admin/systems/form.php:87
 #: templates/admin/systems/form.php:112
-#: templates/module/modularity-mod-intranet-u-syste.php:52
+#: templates/module/modularity-mod-intranet-u-syste.php:61
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -543,7 +553,7 @@ msgid "Selectable"
 msgstr "Valbar"
 
 #: templates/admin/systems/form.php:115
-#: templates/module/modularity-mod-intranet-u-syste.php:65
+#: templates/module/modularity-mod-intranet-u-syste.php:74
 msgid "Forced"
 msgstr "Obligatorisk"
 
@@ -556,9 +566,8 @@ msgid "Tags"
 msgstr "Taggar"
 
 #: templates/admin/target-groups/form.php:38
-#: templates/admin/target-groups/form.php:54
-#: templates/admin/target-groups/restrict.php:10
-#: views/author-edit.blade.php:280 views/table-of-contents.blade.php:18
+#: templates/admin/target-groups/form.php:54 views/author-edit.blade.php:280
+#: views/table-of-contents.blade.php:18
 msgid "All"
 msgstr "Alla"
 
@@ -575,8 +584,20 @@ msgid "administration units"
 msgstr "förvaltningar"
 
 #: templates/admin/target-groups/restrict.php:4
-msgid "Logged in via Citrix"
-msgstr "Inloggad via Citrix (i Helsingborgs stads nätverk)"
+msgid "Logged out"
+msgstr "Utloggad"
+
+#: templates/admin/target-groups/restrict.php:8
+msgid "Inside city network (can use SSO)"
+msgstr "I stadens nätverk (kan använda SSO)"
+
+#: templates/admin/target-groups/restrict.php:12
+msgid "Outside city network (can not use SSO)"
+msgstr "Utanför stadens nätverk (kan inte använda SSO)"
+
+#: templates/admin/target-groups/restrict.php:18
+msgid "All administration units"
+msgstr "Alla förvaltningar"
 
 #: templates/module/modularity-mod-intranet-inciden.php:17
 msgid "Show all incidents"
@@ -601,11 +622,11 @@ msgstr ""
 "anställda. Du ser också nyheterna från din förvaltnings intranät (om det "
 "finns ett sådant) och från de intranät du följer."
 
-#: templates/module/modularity-mod-intranet-news.php:93
+#: templates/module/modularity-mod-intranet-news.php:95
 msgid "Load more news"
 msgstr "Ladda in fler nyheter"
 
-#: templates/module/modularity-mod-intranet-news.php:104
+#: templates/module/modularity-mod-intranet-news.php:109
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -647,14 +668,26 @@ msgstr ""
 "att lägga till fler system i listan."
 
 #: templates/module/modularity-mod-intranet-u-syste.php:24
+msgid "You need to login to your account to access the systems list."
+msgstr "Du måste logga in för att kunna se dina system"
+
+#: templates/module/modularity-mod-intranet-u-syste.php:27
+msgid ""
+"Your logged in from a computer outside the city network. This causes some "
+"systems to be unavailable."
+msgstr ""
+"Du är inloggad på en dator som inte är ansluten till stadens nätverk. Vissa "
+"system kan därför vara oåtkomliga."
+
+#: templates/module/modularity-mod-intranet-u-syste.php:32
 msgid "You need to be on the city network to use this system"
 msgstr "Du måste vara inloggad på stadens nätverk för att använda detta system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:38
+#: templates/module/modularity-mod-intranet-u-syste.php:47
 msgid "Select systems"
 msgstr "Välj system"
 
-#: templates/module/modularity-mod-intranet-u-syste.php:43
+#: templates/module/modularity-mod-intranet-u-syste.php:52
 msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
 msgstr "Välj system som du vill visa i din lista över ”mina system”."
@@ -1006,31 +1039,39 @@ msgstr "eller"
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:512
+#: views/author-edit.blade.php:511
+msgid "Other Settings"
+msgstr "Övriga inställningar"
+
+#: views/author-edit.blade.php:517
+msgid "Welcome phrase"
+msgstr "Hälsningsfras"
+
+#: views/author-edit.blade.php:530
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:518
+#: views/author-edit.blade.php:536
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:519
+#: views/author-edit.blade.php:537
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:520
+#: views/author-edit.blade.php:538
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:521
+#: views/author-edit.blade.php:539
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:522
+#: views/author-edit.blade.php:540
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:537
+#: views/author-edit.blade.php:555
 msgid "Save settings"
 msgstr "Spara inställningar"
 
@@ -1084,11 +1125,11 @@ msgstr "Du måste logga in för att se den här sidan"
 msgid "Username or password is incorrect."
 msgstr "Det angivna användarnamnet och/eller lösenordet är felaktigt."
 
-#: views/partials/breadcrumbs.blade.php:29
+#: views/partials/breadcrumbs.blade.php:41
 msgid "Go to"
 msgstr "Gå till"
 
-#: views/partials/breadcrumbs.blade.php:29
+#: views/partials/breadcrumbs.blade.php:41
 msgid "intranet"
 msgstr "intranät"
 
@@ -1113,7 +1154,7 @@ msgstr "Sök efter intranät"
 msgid "Networks you are following"
 msgstr "Intranät som du följer"
 
-#: views/partials/header/network-selector.blade.php:58
+#: views/partials/header/network-selector.blade.php:67
 msgid "Show all networks"
 msgstr "Visa alla intranät"
 
@@ -1355,20 +1396,16 @@ msgstr "Filtrera sökresultaten"
 msgid "All sites"
 msgstr "Alla intranät"
 
-#: views/search.blade.php:88
+#: views/search.blade.php:87
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
-#: views/search.blade.php:94
-msgid "We did not find any matching content, but we found some users"
-msgstr "Hittade inget matchande innehåll men hittade följande personträffar"
-
-#: views/search.blade.php:96 views/search.blade.php:161
+#: views/search.blade.php:135
 #, php-format
 msgid "%d personer matchar din sökning"
 msgstr "%d personer matchar din sökning"
 
-#: views/search.blade.php:109 views/search.blade.php:174
+#: views/search.blade.php:148
 msgid "Show all matching persons"
 msgstr "Visa alla personträffar"
 
@@ -1407,6 +1444,12 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Logged in via Citrix"
+#~ msgstr "Inloggad via Citrix (i Helsingborgs stads nätverk)"
+
+#~ msgid "We did not find any matching content, but we found some users"
+#~ msgstr "Hittade inget matchande innehåll men hittade följande personträffar"
 
 #~ msgid "Select depth"
 #~ msgstr "Välj djup"
