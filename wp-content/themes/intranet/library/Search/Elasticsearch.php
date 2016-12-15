@@ -196,25 +196,6 @@ class Elasticsearch
         return '0';
     }
 
-    public function filterQuery($q = "")
-    {
-        $q = explode(" ", $q);
-
-        if (is_array($q) && !empty($q)) {
-            foreach ($q as $key => $value) {
-                if (mb_strlen($value) <= 2) {
-                    unset($q[$key]);
-                }
-            }
-        }
-
-        if (is_array($q)) {
-            return trim(implode(" ", $q));
-        }
-
-        return $q;
-    }
-
     /**
      * Set which sites to search in
      * @param WP_Query $query
