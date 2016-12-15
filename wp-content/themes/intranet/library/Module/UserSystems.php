@@ -33,7 +33,7 @@ class UserSystems extends \Modularity\Module
 
         add_action('init', array($this, 'saveUserSystems'));
 
-        add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
+        //add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
     }
 
     public function saveUserSystems()
