@@ -19,6 +19,10 @@
     <?php endif; ?>
 
     <ul class="links">
+        <?php if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && !\SsoAvailability\SsoAvailability::isSsoAvailable()) : ?>
+        <li class="creamy text-sm" style="border:none;"><?php _e('Your logged in from a computer outside the city network. This causes some systems to be unavailable.', 'municipio-intranet'); ?></li>
+        <?php endif; ?>
+
         <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
         <?php if ($system->unavailable === true) : ?>
         <li><a target="_blank" class="link-item link-unavailable" href="<?php echo $system->url; ?>"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>"><?php echo $system->name; ?></span></a></li>
