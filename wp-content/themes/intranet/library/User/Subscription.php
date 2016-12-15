@@ -16,6 +16,10 @@ class Subscription
         add_action('wp_ajax_nopriv_toggle_subscription', '\Intranet\User\Subscription::toggleSubscription');
     }
 
+    /**
+     * Get list of forced subscriptions
+     * @return void
+     */
     public static function getForcedList()
     {
         $cacheKey = md5(serialize(array('getForcedList')));
