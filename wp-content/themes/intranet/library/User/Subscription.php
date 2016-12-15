@@ -58,8 +58,8 @@ class Subscription
 
         // Remove main blog from array if wanted
         if (!$mainBlog) {
-            array_filter($sites, function ($site) {
-                return !is_main_site($site->blog_id);
+            $sites = array_filter($sites, function ($site) {
+                return absint($site->blog_id) !== BLOG_ID_CURRENT_SITE;
             });
         }
 
