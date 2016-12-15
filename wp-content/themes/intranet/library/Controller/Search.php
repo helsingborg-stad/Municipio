@@ -18,6 +18,10 @@ class Search extends \Intranet\Controller\BaseController
 
         $this->data['users'] = \Intranet\User\General::searchUsers(get_search_query());
 
+        if (is_user_logged_in()) {
+            $this->data['systems'] = \Intranet\User\Systems::search(get_search_query());
+        }
+
         if ($this->data['level'] === 'users') {
             $this->data['resultCount'] = count($this->data['users']);
         }

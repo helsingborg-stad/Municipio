@@ -84,6 +84,22 @@ class Systems
         return;
     }
 
+    public static function search($q)
+    {
+        $q = trim($q);
+
+        if (!is_user_logged_in() || empty($q)) {
+            return array();
+        }
+
+        $systems = \Intranet\User\Systems::getAvailabelSystems('user', array('user'));
+        $systems = array_filter($systems, function ($item) use ($q) {
+            return strpos(strtolower($item->name), strtolower($q)) > -1;
+        });
+
+        return $systems;
+    }
+
     /**
      * Get a system
      * @param  integer    $id The system ID
@@ -92,7 +108,7 @@ class Systems
     public static function getSystem($id)
     {
         global $wpdb;
-        $query = $wpdb->prepare("SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " WHERE id = %d", array($id));
+        $query = $wpdb->prepare("SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " WHERE id = %d ORDER BY name ASC", array($id));
         return $wpdb->get_row($query);
     }
 
