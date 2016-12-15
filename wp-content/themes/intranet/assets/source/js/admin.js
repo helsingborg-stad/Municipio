@@ -51,6 +51,31 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    /**
+     * USER SYNC
+     */
+    $('[data-action="users-sync-with-network"]').on('click', function () {
+        var $parent = $(this).parent();
+        var blogid = $(this).attr('data-blogid');
+        $parent.find('.spinner').css('visibility', 'visible');
+
+        $.post(ajaxurl, {action: 'sync_network_users', blog_id: blogid}, function (res) {
+            $parent.find('.spinner').css('visibility', 'hidden');
+
+            if (res.success === 'cron') {
+                alert('A cronjob has been scheduled to run immediately');
+                return;
+            }
+
+            if (res.success === true) {
+                alert('Users synced with network');
+                return;
+            }
+
+            alert('Woops, there was an error with the syncing process. Contact the developer(s).');
+        });
+    });
+
 });
 
 

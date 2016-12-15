@@ -170,6 +170,283 @@ Intranet.Stripe = (function ($) {
 var Intranet;
 
 Intranet = Intranet || {};
+Intranet.Helper = Intranet.Helper || {};
+
+Intranet.Helper.MissingData = (function ($) {
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function MissingData() {
+        $('[data-guide-nav="next"], [data-guide-nav="prev"]').on('click', function (e) {
+            $form = $(e.target).parents('form');
+            $fields = $(e.target).parents('section').find(':input:not([name="active-section"])');
+
+            var sectionIsValid = true;
+            $fields.each(function (index, element) {
+                // Valid
+                if ($(this)[0].checkValidity()) {
+                    return;
+                }
+
+                // Not valid
+                sectionIsValid = false;
+            });
+
+            if (!sectionIsValid) {
+                $form.find(':submit').trigger('click');
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    return new MissingData();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.Helper = Intranet.Helper || {};
+
+Intranet.Helper.Walkthrough = (function ($) {
+
+    var currentIndex = 0;
+
+    /**
+     * Constructor
+     * Should be named as the class itself
+     */
+    function Walkthrough() {
+        $('.walkthrough [data-dropdown]').on('click', function (e) {
+            e.preventDefault();
+            this.highlightArea(e.target);
+        }.bind(this));
+
+        $('[data-action="walkthrough-cancel"]').on('click', function (e) {
+            e.preventDefault();
+            $(e.target).closest('[data-action="walkthrough-cancel"]').parents('.walkthrough').find('.blipper').trigger('click');
+        }.bind(this));
+
+        $('[data-action="walkthrough-next"]').on('click', function (e) {
+            e.preventDefault();
+            var currentStep = $(e.target).closest('[data-action="walkthrough-next"]').parents('.walkthrough');
+            this.next(currentStep);
+        }.bind(this));
+
+        $('[data-action="walkthrough-previous"]').on('click', function (e) {
+            e.preventDefault();
+            var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
+            this.previous(currentStep);
+        }.bind(this));
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough:visible').length < 2) {
+                $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
+                return;
+            }
+
+            $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
+            return;
+        });
+
+        $(window).on('resize load', function () {
+            if ($('.walkthrough .is-highlighted:not(:visible)').length) {
+                $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
+            }
+        });
+    }
+
+    Walkthrough.prototype.highlightArea = function (element) {
+        var $element = $(element).closest('[data-dropdown]');
+        var highlight = $element.parent('.walkthrough').attr('data-highlight');
+        var $highlight = $(highlight);
+
+        if ($element.hasClass('is-highlighted')) {
+            if ($highlight.data('position')) {
+                $highlight.css('position', $highlight.data('position'));
+            }
+
+            $highlight.prev('.backdrop').remove();
+            $highlight.removeClass('walkthrough-highlight');
+            $element.removeClass('is-highlighted');
+
+            return false;
+        }
+
+        $highlight.before('<div class="backdrop"></div>');
+
+        if ($highlight.css('position') !== 'absolute' || $highlight.css('position') !== 'relative') {
+            $highlight.data('position', $highlight.css('position')).css('position', 'relative');
+        }
+
+        $highlight.addClass('walkthrough-highlight');
+        $element.addClass('is-highlighted');
+
+        return true;
+    };
+
+    Walkthrough.prototype.next = function(current) {
+        currentIndex++;
+
+        var $current = current;
+        var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
+
+        if ($nextItem.length === 0) {
+            $nextItem = $('.walkthrough:visible:first');
+            currentIndex = 0;
+        }
+
+        $current.find('.blipper').trigger('click');
+        setTimeout(function () {
+            $nextItem.find('.blipper').trigger('click');
+            this.scrollTo($nextItem[0]);
+        }.bind(this), 1);
+    };
+
+    Walkthrough.prototype.previous = function(current) {
+        currentIndex--;
+
+        var $current = current;
+        var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
+
+        if ($nextItem.length === 0) {
+            $nextItem = $('.walkthrough:visible').last();
+            currentIndex = $nextItem.index();
+        }
+
+        $current.find('.blipper').trigger('click');
+        setTimeout(function () {
+            $nextItem.find('.blipper').trigger('click');
+            this.scrollTo($nextItem[0]);
+        }.bind(this), 1);
+    };
+
+    Walkthrough.prototype.scrollTo = function(element) {
+        if (!$(element).is(':offscreen')) {
+            return;
+        }
+
+        var scrollTo = $(element).offset().top;
+        $('html, body').animate({
+            scrollTop: (scrollTo-100)
+        }, 300);
+    };
+
+    return new Walkthrough();
+
+})(jQuery);
+
+Intranet = Intranet || {};
+Intranet.Misc = Intranet.Misc || {};
+
+Intranet.Misc.News = (function ($) {
+    function News() {
+        $('[data-action="intranet-news-load-more"]').prop('disabled', false);
+
+        $('[data-action="intranet-news-load-more"]').on('click', function (e) {
+            var button = $(e.target).closest('button');
+            var container = button.parents('.modularity-mod-intranet-news').find('.intranet-news');
+            this.loadMore(container, button);
+        }.bind(this));
+    }
+
+    News.prototype.showLoader = function(button) {
+        button.hide();
+        button.after('<div class="loading"><div></div><div></div><div></div><div></div></div>');
+    };
+
+    News.prototype.hideLoader = function(button) {
+        button.parent().find('.loading').remove();
+        button.show();
+    };
+
+    News.prototype.loadMore = function(container, button) {
+        var callbackUrl = container.attr('data-infinite-scroll-callback');
+        var pagesize = container.attr('data-infinite-scroll-pagesize');
+        var sites = container.attr('data-infinite-scroll-sites');
+        var offset = container.find('a.box-news').length ? container.find('a.box-news').length + 1 : 0;
+        var module = container.attr('data-module');
+        var args = container.attr('data-args');
+
+        this.showLoader(button);
+
+        $.ajax({
+            url: callbackUrl + pagesize + '/' + offset + '/' + sites,
+            method: 'POST',
+            data: {
+                module: module,
+                args: args
+            },
+            dataType: 'JSON',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', municipioIntranet.wpapi.nonce);
+            }
+        }).done(function (res) {
+            if (res.length === 0) {
+                this.noMore(container, button);
+                return;
+            }
+
+            this.output(container, res);
+            this.hideLoader(button);
+
+            if (res.length < pagesize) {
+                this.noMore(container, button);
+            }
+        }.bind(this));
+    };
+
+    News.prototype.noMore = function(container, button) {
+        this.hideLoader(button);
+        button.text(municipioIntranet.no_more_news).prop('disabled', true);
+    };
+
+    News.prototype.output = function(container, news) {
+        $.each(news, function (index, item) {
+            container.append(item.markup);
+        });
+    };
+
+    return new News();
+
+})(jQuery);
+
+
+/*
+Intranet = Intranet || {};
+Intranet.SocialLogin = Intranet.SocialLogin || {};
+
+Intranet.SocialLogin.Facebook = (function ($) {
+    function Facebook() {
+        // Facebook SDK needs #fb-root div, set it up
+        $('body').prepend('<div id="fb-root"></div>');
+
+        // Load the Facebook SDK
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=1604603396447959";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }
+
+    Facebook.prototype.checkStatus = function() {
+        FB.getLoginStatus(function(response) {
+            if (response.status !== 'connected') {
+                FB.login();
+            }
+        });
+    };
+
+    return new Facebook();
+
+})(jQuery);
+*/
+
+Intranet = Intranet || {};
 Intranet.Search = Intranet.Search || {};
 
 Intranet.Search.General = (function ($) {
@@ -531,283 +808,6 @@ Intranet.Search.Sites = (function ($) {
     };
 
     return new Sites();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.Misc = Intranet.Misc || {};
-
-Intranet.Misc.News = (function ($) {
-    function News() {
-        $('[data-action="intranet-news-load-more"]').prop('disabled', false);
-
-        $('[data-action="intranet-news-load-more"]').on('click', function (e) {
-            var button = $(e.target).closest('button');
-            var container = button.parents('.modularity-mod-intranet-news').find('.intranet-news');
-            this.loadMore(container, button);
-        }.bind(this));
-    }
-
-    News.prototype.showLoader = function(button) {
-        button.hide();
-        button.after('<div class="loading"><div></div><div></div><div></div><div></div></div>');
-    };
-
-    News.prototype.hideLoader = function(button) {
-        button.parent().find('.loading').remove();
-        button.show();
-    };
-
-    News.prototype.loadMore = function(container, button) {
-        var callbackUrl = container.attr('data-infinite-scroll-callback');
-        var pagesize = container.attr('data-infinite-scroll-pagesize');
-        var sites = container.attr('data-infinite-scroll-sites');
-        var offset = container.find('a.box-news').length ? container.find('a.box-news').length + 1 : 0;
-        var module = container.attr('data-module');
-        var args = container.attr('data-args');
-
-        this.showLoader(button);
-
-        $.ajax({
-            url: callbackUrl + pagesize + '/' + offset + '/' + sites,
-            method: 'POST',
-            data: {
-                module: module,
-                args: args
-            },
-            dataType: 'JSON',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', municipioIntranet.wpapi.nonce);
-            }
-        }).done(function (res) {
-            if (res.length === 0) {
-                this.noMore(container, button);
-                return;
-            }
-
-            this.output(container, res);
-            this.hideLoader(button);
-
-            if (res.length < pagesize) {
-                this.noMore(container, button);
-            }
-        }.bind(this));
-    };
-
-    News.prototype.noMore = function(container, button) {
-        this.hideLoader(button);
-        button.text(municipioIntranet.no_more_news).prop('disabled', true);
-    };
-
-    News.prototype.output = function(container, news) {
-        $.each(news, function (index, item) {
-            container.append(item.markup);
-        });
-    };
-
-    return new News();
-
-})(jQuery);
-
-
-/*
-Intranet = Intranet || {};
-Intranet.SocialLogin = Intranet.SocialLogin || {};
-
-Intranet.SocialLogin.Facebook = (function ($) {
-    function Facebook() {
-        // Facebook SDK needs #fb-root div, set it up
-        $('body').prepend('<div id="fb-root"></div>');
-
-        // Load the Facebook SDK
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.7&appId=1604603396447959";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    }
-
-    Facebook.prototype.checkStatus = function() {
-        FB.getLoginStatus(function(response) {
-            if (response.status !== 'connected') {
-                FB.login();
-            }
-        });
-    };
-
-    return new Facebook();
-
-})(jQuery);
-*/
-
-Intranet = Intranet || {};
-Intranet.Helper = Intranet.Helper || {};
-
-Intranet.Helper.MissingData = (function ($) {
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function MissingData() {
-        $('[data-guide-nav="next"], [data-guide-nav="prev"]').on('click', function (e) {
-            $form = $(e.target).parents('form');
-            $fields = $(e.target).parents('section').find(':input:not([name="active-section"])');
-
-            var sectionIsValid = true;
-            $fields.each(function (index, element) {
-                // Valid
-                if ($(this)[0].checkValidity()) {
-                    return;
-                }
-
-                // Not valid
-                sectionIsValid = false;
-            });
-
-            if (!sectionIsValid) {
-                $form.find(':submit').trigger('click');
-                return false;
-            }
-
-            return true;
-        });
-    }
-
-    return new MissingData();
-
-})(jQuery);
-
-Intranet = Intranet || {};
-Intranet.Helper = Intranet.Helper || {};
-
-Intranet.Helper.Walkthrough = (function ($) {
-
-    var currentIndex = 0;
-
-    /**
-     * Constructor
-     * Should be named as the class itself
-     */
-    function Walkthrough() {
-        $('.walkthrough [data-dropdown]').on('click', function (e) {
-            e.preventDefault();
-            this.highlightArea(e.target);
-        }.bind(this));
-
-        $('[data-action="walkthrough-cancel"]').on('click', function (e) {
-            e.preventDefault();
-            $(e.target).closest('[data-action="walkthrough-cancel"]').parents('.walkthrough').find('.blipper').trigger('click');
-        }.bind(this));
-
-        $('[data-action="walkthrough-next"]').on('click', function (e) {
-            e.preventDefault();
-            var currentStep = $(e.target).closest('[data-action="walkthrough-next"]').parents('.walkthrough');
-            this.next(currentStep);
-        }.bind(this));
-
-        $('[data-action="walkthrough-previous"]').on('click', function (e) {
-            e.preventDefault();
-            var currentStep = $(e.target).closest('[data-action="walkthrough-previous"]').parents('.walkthrough');
-            this.previous(currentStep);
-        }.bind(this));
-
-        $(window).on('resize load', function () {
-            if ($('.walkthrough:visible').length < 2) {
-                $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').hide();
-                return;
-            }
-
-            $('[data-action="walkthrough-previous"], [data-action="walkthrough-next"]').show();
-            return;
-        });
-
-        $(window).on('resize load', function () {
-            if ($('.walkthrough .is-highlighted:not(:visible)').length) {
-                $('.walkthrough .is-highlighted:not(:visible)').parent('.walkthrough').find('.blipper').trigger('click');
-            }
-        });
-    }
-
-    Walkthrough.prototype.highlightArea = function (element) {
-        var $element = $(element).closest('[data-dropdown]');
-        var highlight = $element.parent('.walkthrough').attr('data-highlight');
-        var $highlight = $(highlight);
-
-        if ($element.hasClass('is-highlighted')) {
-            if ($highlight.data('position')) {
-                $highlight.css('position', $highlight.data('position'));
-            }
-
-            $highlight.prev('.backdrop').remove();
-            $highlight.removeClass('walkthrough-highlight');
-            $element.removeClass('is-highlighted');
-
-            return false;
-        }
-
-        $highlight.before('<div class="backdrop"></div>');
-
-        if ($highlight.css('position') !== 'absolute' || $highlight.css('position') !== 'relative') {
-            $highlight.data('position', $highlight.css('position')).css('position', 'relative');
-        }
-
-        $highlight.addClass('walkthrough-highlight');
-        $element.addClass('is-highlighted');
-
-        return true;
-    };
-
-    Walkthrough.prototype.next = function(current) {
-        currentIndex++;
-
-        var $current = current;
-        var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
-
-        if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough:visible:first');
-            currentIndex = 0;
-        }
-
-        $current.find('.blipper').trigger('click');
-        setTimeout(function () {
-            $nextItem.find('.blipper').trigger('click');
-            this.scrollTo($nextItem[0]);
-        }.bind(this), 1);
-    };
-
-    Walkthrough.prototype.previous = function(current) {
-        currentIndex--;
-
-        var $current = current;
-        var $nextItem = $('.walkthrough:eq(' + currentIndex + '):visible');
-
-        if ($nextItem.length === 0) {
-            $nextItem = $('.walkthrough:visible').last();
-            currentIndex = $nextItem.index();
-        }
-
-        $current.find('.blipper').trigger('click');
-        setTimeout(function () {
-            $nextItem.find('.blipper').trigger('click');
-            this.scrollTo($nextItem[0]);
-        }.bind(this), 1);
-    };
-
-    Walkthrough.prototype.scrollTo = function(element) {
-        if (!$(element).is(':offscreen')) {
-            return;
-        }
-
-        var scrollTo = $(element).offset().top;
-        $('html, body').animate({
-            scrollTop: (scrollTo-100)
-        }, 300);
-    };
-
-    return new Walkthrough();
 
 })(jQuery);
 
