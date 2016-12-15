@@ -69,6 +69,7 @@ class General
 
         $userSearch = new \WP_User_Query(array(
             'search' => '*' . $keyword . '*',
+            'number' => 200,
         ));
 
         $userMetaSearch = new \WP_User_Query(array(
