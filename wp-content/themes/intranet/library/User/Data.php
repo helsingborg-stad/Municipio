@@ -32,9 +32,31 @@ class Data
     {
         add_action('wp', array($this, 'saveMissingDataForm'));
         add_action('wp_ajax_sync_facebook_profile', array($this, 'syncFacebookDetails'));
+        add_action('wp_ajax_toggle_welcome_phrase', array($this, 'toggleWelcomePhrase'));
         add_action('MunicipioIntranet/save_profile_settings', array($this, 'saveProfileSettings'));
 
         $this->muteProfileFiller();
+    }
+
+    /**
+     * Toggles the welcome message (ajax hook)
+     * @return void
+     */
+    public function toggleWelcomePhrase()
+    {
+        if (!defined('DOING_AJAX') || !DOING_AJAX) {
+            return;
+        }
+
+        $current = get_user_meta(get_current_user_id(), 'disable_welcome_phrase', true);
+
+        if ($current == 1) {
+            update_user_meta(get_current_user_id(), 'disable_welcome_phrase', '0');
+            wp_send_json(array('disabled' => false));
+        } else {
+            update_user_meta(get_current_user_id(), 'disable_welcome_phrase', '1');
+            wp_send_json(array('disabled' => true));
+        }
     }
 
     /**

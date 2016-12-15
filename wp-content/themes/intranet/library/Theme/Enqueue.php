@@ -36,6 +36,10 @@ class Enqueue
                 'nonce' => wp_create_nonce('wp_rest')
             ),
             'is_user_logged_in'   => is_user_logged_in(),
+            'user' => array(
+                'full_name' => municipio_intranet_get_user_full_name(),
+                'greet' => \Intranet\User\General::greet()
+            ),
             'user_links_is_empty' => __('You have not added any links yet…', 'municipio-intranet'),
             'subscribe' => __('Follow', 'municipio-intranet'),
             'unsubscribe' => __('Unfollow', 'municipio-intranet'),
@@ -47,7 +51,9 @@ class Enqueue
             ),
             'edit' => __('Edit', 'municipio-intranet'),
             'done' => __('Done', 'municipio-intranet'),
-            'no_more_news' => __('No more news to load', 'municipio-intranet')
+            'no_more_news' => __('No more news to load', 'municipio-intranet'),
+            'disable_welcome_phrase' => __('Disable welcome phrase', 'municipio-intranet'),
+            'enable_welcome_phrase' => __('Enable welcome phrase', 'municipio-intranet')
         ));
 
         wp_enqueue_script('intranet');
