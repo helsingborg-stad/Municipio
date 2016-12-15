@@ -49,13 +49,7 @@
                 </div>
             @endif
 
-            @if (is_main_site())
-                <!--
-                @if (is_user_logged_in())
-                <h1 class="gutter gutter-bottom">{{ \Intranet\User\General::greet() }}</h1>
-                @endif
-                -->
-            @else
+            @if (!is_main_site())
                 @if (have_posts())
                     @while(have_posts())
                         {!! the_post() !!}
