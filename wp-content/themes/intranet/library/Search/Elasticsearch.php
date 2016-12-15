@@ -117,17 +117,15 @@ class Elasticsearch
 
     public function searchArgs($args, $scope, $query_args)
     {
-        $q =    $this->filterQuery(
-                    trim($query_args['s'])
-                );
+        $q = trim($query_args['s']);
 
         $args['min_score'] = 0.03;
 
-
+        //Advanced query
         $args['query'] = array(
             'multi_match' => array(
                 'query' => $q,
-                'fuzziness' => 'AUTO',
+                'fuzziness' => $this->fuzzynessSize($q),
                 'fields' => array(
                     'post_title^7',
                     'post_content^3',
