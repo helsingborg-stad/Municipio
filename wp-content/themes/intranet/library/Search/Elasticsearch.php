@@ -123,13 +123,29 @@ class Elasticsearch
 
         $args['min_score'] = 0.03;
 
+
         $args['query'] = array(
-            'simple_query_string' => array(
-                'fields' => array('post_title^7', 'post_content^3', 'terms.post_tag.name^4'),
-                'query' => $q . '~'.$this->fuzzynessSize($q),
-                'analyzer' => 'elasticpress_synonyms'
+            'multi_match' => array(
+                'query' => $q,
+                'fuzziness' => 'AUTO',
+                'fields' => array(
+                    'post_title^7',
+                    'post_content^3',
+                    'terms.post_tag.name^4'
+                )
             )
         );
+
+        // Use simple_query_string query
+        if (isset($_GET['type']) && $_GET['type'] === 'simple') {
+            $args['query'] = array(
+                'simple_query_string' => array(
+                    'fields' => array('post_title^7', 'post_content^3', 'terms.post_tag.name^4'),
+                    'query' => $q . '~'.$this->fuzzynessSize($q),
+                    'analyzer' => 'elasticpress_synonyms'
+                )
+            );
+        }
 
         // Get allowed image mimes to be able to filter them out from serach result
         $imageMimes = array_values(array_filter(get_allowed_mime_types(), function ($mime) {
