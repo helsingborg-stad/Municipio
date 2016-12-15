@@ -34,7 +34,8 @@
         $display,
         $limit,
         $helpTooltip,
-        $news
+        $news,
+        $module->ID
     ), 60*60*3);
 
     if ($cache->start()) {
