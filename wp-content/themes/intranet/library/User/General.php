@@ -189,7 +189,7 @@ class General
         $time = current_time('H:i');
 
         if ($time >= '00:00' && $time <= '04:59') {
-            $greetingKey = aray('day', 'night');
+            $greetingKey = array('day', 'night');
         } elseif ($time >= '05:00' && $time <= '08:00') {
             $greetingKey = array('morning');
         } elseif ($time >= '12:30' && $time <= '17:59') {
