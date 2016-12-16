@@ -5,16 +5,20 @@ namespace Intranet\Search;
 class Elasticsearch
 {
     public static $level = 'subscriptions';
+    public static $postTypeFilter = null;
 
     public function __construct()
     {
-
         if (isset($_GET['level']) && !empty($_GET['level'])) {
             self::$level = sanitize_text_field($_GET['level']);
         }
 
         if (!is_user_logged_in()) {
             self::$level = 'all';
+        }
+
+        if (self::$level !== 'files') {
+            self::$postTypeFilter = array('attachment');
         }
 
         //add_filter('ep_config_mapping', array($this, 'elasticPressStemmer'), 100);
@@ -165,7 +169,6 @@ class Elasticsearch
         );
 
         $args = apply_filters('MunicipioIntranet/search/args', $args, $query_args['s']);
-
         return $args;
     }
 
@@ -232,12 +235,9 @@ class Elasticsearch
             return;
         }
 
-        $postTypes = \Intranet\Helper\PostType::getPublic();
-
-        if (self::$level !== 'files') {
-            $postTypes = array_filter($postTypes, function ($value) {
-                return $value !== 'attachment';
-            });
+        $postTypes = \Intranet\Helper\PostType::getPublic(self::$postTypeFilter);
+        if (self::$level === 'files') {
+            $postTypes = array('attachment');
         }
 
         $query->set('cache_results', false);

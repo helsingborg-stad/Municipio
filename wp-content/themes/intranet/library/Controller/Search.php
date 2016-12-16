@@ -50,6 +50,7 @@ class Search extends \Intranet\Controller\BaseController
             'all' => 0,
             'subscriptions' => 0,
             'current' => 0,
+            'files' => 0
         );
 
         $counts[$currentLevel] = $wp_query->found_posts;
@@ -63,6 +64,11 @@ class Search extends \Intranet\Controller\BaseController
             $sites = \Intranet\Search\ElasticSearch::getSitesFromLevel($level);
 
             $postStatuses  = array('publish', 'inherit');
+            $postTypes = \Intranet\Helper\PostType::getPublic(\Intranet\Search\ElasticSearch::$postTypeFilter);
+
+            if ($level === 'files') {
+                $postTypes = array('attachment');
+            }
 
             if (is_user_logged_in()) {
                 $postStatuses[] = 'private';
@@ -73,7 +79,7 @@ class Search extends \Intranet\Controller\BaseController
                 'orderby'       => 'relevance',
                 'sites'         => $sites,
                 'post_status'   => $postStatuses,
-                'post_type'     => \Intranet\Helper\PostType::getPublic(),
+                'post_type'     => $postTypes,
                 'cache_results' => false
             ));
 

@@ -57,6 +57,13 @@
                             </a>
                         </li>
 
+                        <li class="{{ $level == 'files' ? 'active' : '' }}">
+                            <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=files">
+                                <?php _e('Files', 'municipio-intranet'); ?>
+                                <span class="label label-rounded label-sm">{{ $counts['files'] }}</span>
+                            </a>
+                        </li>
+
                         @if (is_user_logged_in())
                         <li class="{{ $level == 'users' ? 'active' : '' }}">
                             <a href="{{ home_url() }}?s={{ urlencode(get_search_query()) }}&amp;level=users">
