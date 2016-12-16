@@ -50,6 +50,10 @@ class BackEnd
             $prefix = __('Beta', 'municipio');
         }
 
+        if (!$prefix) {
+            return $title;
+        }
+
         return $prefix . ': ' . $title;
     }
 
