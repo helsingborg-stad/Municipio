@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-10-14 13:30+0200\n"
-"PO-Revision-Date: 2016-10-14 13:30+0200\n"
+"POT-Creation-Date: 2016-12-16 09:34+0100\n"
+"PO-Revision-Date: 2016-12-16 09:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -809,19 +809,19 @@ msgstr "Fixerad till högerkanten"
 msgid "Menu to show translate link in"
 msgstr "Meny att visa översättningslänk i"
 
-#: acf-exports/translate-reference.php:211 library/Theme/Navigation.php:75
+#: acf-exports/translate-reference.php:211 library/Theme/Navigation.php:96
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: acf-exports/translate-reference.php:212 library/Theme/Navigation.php:76
+#: acf-exports/translate-reference.php:212 library/Theme/Navigation.php:97
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: acf-exports/translate-reference.php:213 library/Theme/Navigation.php:80
+#: acf-exports/translate-reference.php:213 library/Theme/Navigation.php:101
 msgid "Main menu"
 msgstr "Huvudmeny"
 
-#: acf-exports/translate-reference.php:214 library/Theme/Navigation.php:84
+#: acf-exports/translate-reference.php:214 library/Theme/Navigation.php:105
 msgid "Sidebar menu"
 msgstr "Sidebar-meny"
 
@@ -1244,15 +1244,15 @@ msgstr "Adress"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: library/Admin/General.php:64
+#: library/Admin/General.php:66
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
-#: library/Admin/General.php:118
+#: library/Admin/General.php:120
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Options/Archives.php:41
+#: library/Admin/Options/Archives.php:43
 msgid "Archive for"
 msgstr "Arkiv för"
 
@@ -1274,7 +1274,7 @@ msgid "Footer"
 msgstr "Sidfot"
 
 #: library/Admin/Options/Theme.php:60 library/Admin/Options/Theme.php:61
-#: library/Theme/Navigation.php:135 views/partials/archive-filters.blade.php:7
+#: library/Theme/Navigation.php:156 views/partials/archive-filters.blade.php:7
 #: views/partials/archive-filters.blade.php:10
 #: views/partials/archive-filters.blade.php:28
 msgid "Search"
@@ -1308,20 +1308,32 @@ msgstr "Egen CSS/JS"
 msgid "Custom CSS/JS"
 msgstr "Egen CSS/JS"
 
-#: library/Admin/UI/BackEnd.php:16 library/Admin/UI/BackEnd.php:21
+#: library/Admin/UI/BackEnd.php:18
+msgid "Local"
+msgstr "Lokal miljö"
+
+#: library/Admin/UI/BackEnd.php:22
+msgid "Test"
+msgstr "Test"
+
 #: library/Admin/UI/BackEnd.php:26
+msgid "Beta"
+msgstr "Beta"
+
+#: library/Admin/UI/BackEnd.php:36 library/Admin/UI/BackEnd.php:41
+#: library/Admin/UI/BackEnd.php:46
 msgid "Notice"
 msgstr "Notis"
 
-#: library/Admin/UI/BackEnd.php:16
+#: library/Admin/UI/BackEnd.php:36
 msgid "You're on a local server."
 msgstr "Detta är en lokal server."
 
-#: library/Admin/UI/BackEnd.php:21
+#: library/Admin/UI/BackEnd.php:41
 msgid "This it the test-environment. Your content will not be published."
 msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 
-#: library/Admin/UI/BackEnd.php:26
+#: library/Admin/UI/BackEnd.php:46
 msgid "This it the beta-environment. All functionality is not guaranteed."
 msgstr "Detta är en beta-miljö. All funktionalitet är inte garanterad."
 
@@ -1400,7 +1412,7 @@ msgstr "Inga %s hittades"
 msgid "No %s found in trash"
 msgstr "Inga %s hittades i papperskorgen"
 
-#: library/Content/CustomPostType.php:69
+#: library/Content/CustomPostType.php:74
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
@@ -1425,7 +1437,7 @@ msgstr "Administratörsnotis"
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Enqueue.php:105
+#: library/Theme/Enqueue.php:120
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -1569,12 +1581,12 @@ msgstr "Hittade inga matchande resultat för din sökning…"
 msgid "Share on"
 msgstr "Dela på"
 
-#: views/partials/timestamps.blade.php:24
-#: views/partials/timestamps.blade.php:45
+#: views/partials/timestamps.blade.php:23
+#: views/partials/timestamps.blade.php:43
 msgid "Published"
 msgstr "Publicerad"
 
-#: views/partials/timestamps.blade.php:33
+#: views/partials/timestamps.blade.php:32
 msgid "Last updated"
 msgstr "Senast uppdaterad"
 
