@@ -232,8 +232,16 @@ class Elasticsearch
             return;
         }
 
+        $postTypes = \Intranet\Helper\PostType::getPublic();
+
+        if (self::$level !== 'files') {
+            $postTypes = array_filter($postTypes, function ($value) {
+                return $value !== 'attachment';
+            });
+        }
+
         $query->set('cache_results', false);
-        $query->set('post_type', \Intranet\Helper\PostType::getPublic());
+        $query->set('post_type', $postTypes);
 
         $postStatuses  = array('publish', 'inherit');
 
