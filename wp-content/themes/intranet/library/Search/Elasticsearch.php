@@ -169,6 +169,7 @@ class Elasticsearch
         );
 
         $args = apply_filters('MunicipioIntranet/search/args', $args, $query_args['s']);
+
         return $args;
     }
 
