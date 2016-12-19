@@ -26,3 +26,10 @@
 </div>
 
 @include('partials.blog.post-footer')
+
+<div class="grid">
+    <div class="grid-xs-12">
+        @include('partials.timestamps')
+    </div>
+</div>
+
