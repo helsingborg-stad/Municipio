@@ -27,6 +27,7 @@ class Registration
 
         // Auto subscribe to intranets matching ad_displayname end tag
         add_action('wpmu_new_user', array($this, 'autosubscribe'));
+        add_action('wp_login', array($this, 'autosubscribe'));
     }
 
     /**
@@ -85,6 +86,16 @@ class Registration
      */
     public function autosubscribe($userId)
     {
+        if (!is_numeric($userId)) {
+            $user = get_user_by('user_login', $userId);
+
+            if (!$user) {
+                return false;
+            }
+
+            $userId = $user->ID;
+        }
+
         $userId = get_current_user_id();
         $adTag = get_user_meta($userId, 'ad_displayname', true);
         $adTag = explode('-', $adTag);
