@@ -501,6 +501,15 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <p class="text-sm">
+                                            <?php _e('Max filesize', 'municipio-intranet'); ?>: 2 mb<br>
+                                            <?php _e('Allowed filetypes', 'municipio-intranet'); ?>: jpg, png
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
