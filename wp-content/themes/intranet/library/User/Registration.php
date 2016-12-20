@@ -87,7 +87,7 @@ class Registration
     public function autosubscribe($userId)
     {
         if (!is_numeric($userId)) {
-            $user = get_user_by('user_login', $userId);
+            $user = get_user_by('login', $userId);
 
             if (!$user) {
                 return false;
