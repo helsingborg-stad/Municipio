@@ -96,7 +96,6 @@ class Registration
             $userId = $user->ID;
         }
 
-        $userId = get_current_user_id();
         $adTag = get_user_meta($userId, 'ad_displayname', true);
         $adTag = explode('-', $adTag);
         $adTag = strtolower(trim(end($adTag)));
