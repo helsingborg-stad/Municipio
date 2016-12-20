@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-15 16:45+0100\n"
-"PO-Revision-Date: 2016-12-15 16:49+0100\n"
+"POT-Creation-Date: 2016-12-20 16:22+0100\n"
+"PO-Revision-Date: 2016-12-20 16:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -235,7 +235,7 @@ msgstr "Avbryt"
 msgid "Example"
 msgstr "Exempel"
 
-#: library/Search/Elasticsearch.php:76
+#: library/Search/Elasticsearch.php:80
 msgid "Exclude from search"
 msgstr "Exkludera från sök"
 
@@ -256,8 +256,8 @@ msgstr "Följ"
 msgid "Unfollow"
 msgstr "Sluta följa"
 
-#: library/Theme/Enqueue.php:48 views/search.blade.php:63
-#: views/search.blade.php:135
+#: library/Theme/Enqueue.php:48 views/search.blade.php:70
+#: views/search.blade.php:142
 msgid "Persons"
 msgstr "Personer"
 
@@ -282,7 +282,7 @@ msgstr "Klar"
 msgid "No more news to load"
 msgstr "Det finns inga fler nyheter"
 
-#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:518
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:527
 #: views/partials/breadcrumbs.blade.php:33
 msgid "Disable welcome phrase"
 msgstr "Dölj hälsningsfras"
@@ -423,13 +423,13 @@ msgstr "God jul %s!"
 msgid "user"
 msgstr "anvandare"
 
-#: library/User/Registration.php:70 views/author-edit.blade.php:83
+#: library/User/Registration.php:71 views/author-edit.blade.php:83
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr "Förnamn"
 
-#: library/User/Registration.php:74 views/author-edit.blade.php:89
+#: library/User/Registration.php:75 views/author-edit.blade.php:89
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
@@ -677,7 +677,7 @@ msgid "You need to login to your account to access the systems list."
 msgstr "Du måste logga in för att kunna se dina system"
 
 #: templates/module/modularity-mod-intranet-u-syste.php:26
-#: views/search.blade.php:163
+#: views/search.blade.php:170
 msgid ""
 "Your logged in from a computer outside the city network. This causes some "
 "systems to be unavailable."
@@ -686,7 +686,7 @@ msgstr ""
 "system kan därför vara oåtkomliga."
 
 #: templates/module/modularity-mod-intranet-u-syste.php:31
-#: views/search.blade.php:169
+#: views/search.blade.php:176
 msgid "You need to be on the city network to use this system"
 msgstr "Du måste vara inloggad på stadens nätverk för att använda detta system"
 
@@ -1050,39 +1050,47 @@ msgstr "eller"
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:511
+#: views/author-edit.blade.php:508
+msgid "Max filesize"
+msgstr "Max filstorlek"
+
+#: views/author-edit.blade.php:509
+msgid "Allowed filetypes"
+msgstr "Tillåtna filtyper"
+
+#: views/author-edit.blade.php:520
 msgid "Other Settings"
 msgstr "Övriga inställningar"
 
-#: views/author-edit.blade.php:517
+#: views/author-edit.blade.php:526
 msgid "Welcome phrase"
 msgstr "Hälsningsfras"
 
-#: views/author-edit.blade.php:530
+#: views/author-edit.blade.php:539
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:536
+#: views/author-edit.blade.php:545
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:537
+#: views/author-edit.blade.php:546
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:538
+#: views/author-edit.blade.php:547
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:539
+#: views/author-edit.blade.php:548
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:540
+#: views/author-edit.blade.php:549
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:555
+#: views/author-edit.blade.php:564
 msgid "Save settings"
 msgstr "Spara inställningar"
 
@@ -1169,23 +1177,23 @@ msgstr "Intranät som du följer"
 msgid "Show all networks"
 msgstr "Visa alla intranät"
 
-#: views/partials/header/search.blade.php:5
+#: views/partials/header/search.blade.php:10
 msgid "Search for content, files and staff"
 msgstr "Sök efter innehåll, filer och personal"
 
-#: views/partials/header/search.blade.php:5
+#: views/partials/header/search.blade.php:10
 msgid "Search for content and files"
 msgstr "Sök efter innehåll och filer"
 
-#: views/partials/header/search.blade.php:7
-#: views/partials/header/search.blade.php:13
+#: views/partials/header/search.blade.php:12
+#: views/partials/header/search.blade.php:18
 #: views/partials/mobile-menu.blade.php:2
 #: views/partials/mobile-menu.blade.php:7 views/search.blade.php:28
 #: views/table-of-contents.blade.php:32
 msgid "Search"
 msgstr "Sök"
 
-#: views/partials/header/search.blade.php:14
+#: views/partials/header/search.blade.php:19
 msgid ""
 "Type what you are looking for. You will get search results from all "
 "intranets. If you are logged in you can also search collegues by searching."
@@ -1407,29 +1415,33 @@ msgstr "Filtrera sökresultaten"
 msgid "All sites"
 msgstr "Alla intranät"
 
-#: views/search.blade.php:87
+#: views/search.blade.php:62
+msgid "Files"
+msgstr "Filer"
+
+#: views/search.blade.php:94
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
-#: views/search.blade.php:137
+#: views/search.blade.php:144
 #, php-format
 msgid "%d persons matching the search query"
 msgstr "%d personer matchar din sökning"
 
-#: views/search.blade.php:150
+#: views/search.blade.php:157
 msgid "Show all matching persons"
 msgstr "Visa alla personträffar"
 
-#: views/search.blade.php:159
+#: views/search.blade.php:166
 msgid "Systems"
 msgstr "System"
 
-#: views/search.blade.php:161
+#: views/search.blade.php:168
 #, php-format
 msgid "Found %d matching user systems"
 msgstr "Hittade %d matchande verksamhetssystem"
 
-#: views/search.blade.php:163
+#: views/search.blade.php:170
 msgid "Note"
 msgstr "Observera"
 

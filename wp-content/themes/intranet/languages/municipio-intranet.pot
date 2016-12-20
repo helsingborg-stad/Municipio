@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-15 11:58+0100\n"
+"POT-Creation-Date: 2016-12-20 16:21+0100\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -66,6 +66,10 @@ msgstr ""
 #: library/Admin/PasswordResetInstructions.php:17
 #: views/partials/user/loginform.blade.php:7
 msgid "Password"
+msgstr ""
+
+#: library/Admin/Users.php:21
+msgid "Sync with network (cron)"
 msgstr ""
 
 #: library/CustomPostType/Incidents.php:20
@@ -229,7 +233,7 @@ msgstr ""
 msgid "Example"
 msgstr ""
 
-#: library/Search/Elasticsearch.php:76
+#: library/Search/Elasticsearch.php:80
 msgid "Exclude from search"
 msgstr ""
 
@@ -250,8 +254,8 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
-#: library/Theme/Enqueue.php:48 views/search.blade.php:63
-#: views/search.blade.php:133
+#: library/Theme/Enqueue.php:48 views/search.blade.php:70
+#: views/search.blade.php:142
 msgid "Persons"
 msgstr ""
 
@@ -276,7 +280,7 @@ msgstr ""
 msgid "No more news to load"
 msgstr ""
 
-#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:518
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:527
 #: views/partials/breadcrumbs.blade.php:33
 msgid "Disable welcome phrase"
 msgstr ""
@@ -311,102 +315,102 @@ msgstr ""
 msgid "All fields must be filled in to add a new administration unit"
 msgstr ""
 
-#: library/User/General.php:148
+#: library/User/General.php:149
 #, php-format
 msgid "Hi %s"
 msgstr ""
 
-#: library/User/General.php:149
+#: library/User/General.php:150
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: library/User/General.php:150
+#: library/User/General.php:151
 #, php-format
 msgid "How is it going %s?"
 msgstr ""
 
-#: library/User/General.php:151
+#: library/User/General.php:152
 #, php-format
 msgid "Good to see you, %s"
 msgstr ""
 
-#: library/User/General.php:152
+#: library/User/General.php:153
 #, php-format
 msgid "Howdy %s"
 msgstr ""
 
-#: library/User/General.php:157
+#: library/User/General.php:158
 #, php-format
 msgid "Morning! A good day is on it's way, %s"
 msgstr ""
 
-#: library/User/General.php:158
+#: library/User/General.php:159
 #, php-format
 msgid "Good morning %s"
 msgstr ""
 
-#: library/User/General.php:159
+#: library/User/General.php:160
 #, php-format
 msgid "What a lovely morning, %s"
 msgstr ""
 
-#: library/User/General.php:160
+#: library/User/General.php:161
 #, php-format
 msgid "Wakey-wakey, rise and shine %s!"
 msgstr ""
 
-#: library/User/General.php:161 library/User/General.php:170
+#: library/User/General.php:162 library/User/General.php:171
 #, php-format
 msgid "Have a great day %s"
 msgstr ""
 
-#: library/User/General.php:162
+#: library/User/General.php:163
 #, php-format
 msgid "%s you up already?"
 msgstr ""
 
-#: library/User/General.php:167
+#: library/User/General.php:168
 #, php-format
 msgid "Good afternoon %s"
 msgstr ""
 
-#: library/User/General.php:168
+#: library/User/General.php:169
 #, php-format
 msgid "Greetings, %s"
 msgstr ""
 
-#: library/User/General.php:169
+#: library/User/General.php:170
 #, php-format
 msgid "Keep going strong %s!"
 msgstr ""
 
-#: library/User/General.php:175
+#: library/User/General.php:176
 #, php-format
 msgid "It's getting late, %s"
 msgstr ""
 
-#: library/User/General.php:176
+#: library/User/General.php:177
 #, php-format
 msgid "Good eavning %s"
 msgstr ""
 
-#: library/User/General.php:181
+#: library/User/General.php:182
 #, php-format
 msgid "Good night %s"
 msgstr ""
 
-#: library/User/General.php:182
+#: library/User/General.php:183
 #, php-format
 msgid "Still going strong, %s?"
 msgstr ""
 
-#: library/User/General.php:209
+#: library/User/General.php:210
 #, php-format
 msgid "Happy new year %s"
 msgstr ""
 
-#: library/User/General.php:214
+#: library/User/General.php:215
 #, php-format
 msgid "Merry christmas %s"
 msgstr ""
@@ -415,19 +419,19 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: library/User/Registration.php:70 views/author-edit.blade.php:83
+#: library/User/Registration.php:71 views/author-edit.blade.php:83
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr ""
 
-#: library/User/Registration.php:74 views/author-edit.blade.php:89
+#: library/User/Registration.php:75 views/author-edit.blade.php:89
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
 msgstr ""
 
-#: library/User/Systems.php:228
+#: library/User/Systems.php:244
 msgid "All fields must be filled in to add a new system"
 msgstr ""
 
@@ -517,6 +521,7 @@ msgid "Url"
 msgstr ""
 
 #: templates/admin/systems/form.php:57
+#: templates/module/modularity-mod-intranet-u-links.php:27
 msgid "Remove"
 msgstr ""
 
@@ -600,11 +605,11 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:68
+#: templates/module/modularity-mod-intranet-news.php:69
 msgid "News feed"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:69
+#: templates/module/modularity-mod-intranet-news.php:70
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -612,11 +617,11 @@ msgid ""
 "following."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:95
+#: templates/module/modularity-mod-intranet-news.php:96
 msgid "Load more news"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:109
+#: templates/module/modularity-mod-intranet-news.php:110
 msgid "Threre's no news stories to display"
 msgstr ""
 
@@ -652,18 +657,24 @@ msgid ""
 "Click the edit button to add more systems to the list."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:24
+#: templates/module/modularity-mod-intranet-u-syste.php:23
 msgid "You need to login to your account to access the systems list."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:27
+#: templates/module/modularity-mod-intranet-u-syste.php:26
+#: views/search.blade.php:170
 msgid ""
 "Your logged in from a computer outside the city network. This causes some "
 "systems to be unavailable."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:32
+#: templates/module/modularity-mod-intranet-u-syste.php:31
+#: views/search.blade.php:176
 msgid "You need to be on the city network to use this system"
+msgstr ""
+
+#: templates/module/modularity-mod-intranet-u-syste.php:35
+msgid "Add system link"
 msgstr ""
 
 #: templates/module/modularity-mod-intranet-u-syste.php:47
@@ -1006,39 +1017,47 @@ msgstr ""
 msgid "Select a photo"
 msgstr ""
 
-#: views/author-edit.blade.php:511
+#: views/author-edit.blade.php:508
+msgid "Max filesize"
+msgstr ""
+
+#: views/author-edit.blade.php:509
+msgid "Allowed filetypes"
+msgstr ""
+
+#: views/author-edit.blade.php:520
 msgid "Other Settings"
 msgstr ""
 
-#: views/author-edit.blade.php:517
+#: views/author-edit.blade.php:526
 msgid "Welcome phrase"
 msgstr ""
 
-#: views/author-edit.blade.php:530
+#: views/author-edit.blade.php:539
 msgid "Theme"
 msgstr ""
 
-#: views/author-edit.blade.php:536
+#: views/author-edit.blade.php:545
 msgid "Color scheme"
 msgstr ""
 
-#: views/author-edit.blade.php:537
+#: views/author-edit.blade.php:546
 msgid "Red"
 msgstr ""
 
-#: views/author-edit.blade.php:538
+#: views/author-edit.blade.php:547
 msgid "Blue"
 msgstr ""
 
-#: views/author-edit.blade.php:539
+#: views/author-edit.blade.php:548
 msgid "Green"
 msgstr ""
 
-#: views/author-edit.blade.php:540
+#: views/author-edit.blade.php:549
 msgid "Purple"
 msgstr ""
 
-#: views/author-edit.blade.php:555
+#: views/author-edit.blade.php:564
 msgid "Save settings"
 msgstr ""
 
@@ -1123,23 +1142,23 @@ msgstr ""
 msgid "Show all networks"
 msgstr ""
 
-#: views/partials/header/search.blade.php:5
+#: views/partials/header/search.blade.php:10
 msgid "Search for content, files and staff"
 msgstr ""
 
-#: views/partials/header/search.blade.php:5
+#: views/partials/header/search.blade.php:10
 msgid "Search for content and files"
 msgstr ""
 
-#: views/partials/header/search.blade.php:7
-#: views/partials/header/search.blade.php:13
+#: views/partials/header/search.blade.php:12
+#: views/partials/header/search.blade.php:18
 #: views/partials/mobile-menu.blade.php:2
 #: views/partials/mobile-menu.blade.php:7 views/search.blade.php:28
 #: views/table-of-contents.blade.php:32
 msgid "Search"
 msgstr ""
 
-#: views/partials/header/search.blade.php:14
+#: views/partials/header/search.blade.php:19
 msgid ""
 "Type what you are looking for. You will get search results from all "
 "intranets. If you are logged in you can also search collegues by searching."
@@ -1338,17 +1357,34 @@ msgstr ""
 msgid "All sites"
 msgstr ""
 
-#: views/search.blade.php:87
+#: views/search.blade.php:62
+msgid "Files"
+msgstr ""
+
+#: views/search.blade.php:94
 msgid "Found no matching results on your search…"
 msgstr ""
 
-#: views/search.blade.php:135
+#: views/search.blade.php:144
 #, php-format
-msgid "%d personer matchar din sökning"
+msgid "%d persons matching the search query"
 msgstr ""
 
-#: views/search.blade.php:148
+#: views/search.blade.php:157
 msgid "Show all matching persons"
+msgstr ""
+
+#: views/search.blade.php:166
+msgid "Systems"
+msgstr ""
+
+#: views/search.blade.php:168
+#, php-format
+msgid "Found %d matching user systems"
+msgstr ""
+
+#: views/search.blade.php:170
+msgid "Note"
 msgstr ""
 
 #: views/sites-list.blade.php:10
