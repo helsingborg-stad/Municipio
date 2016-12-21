@@ -23,12 +23,14 @@ class Customizer
     {
         global $submenu;
 
-        foreach ((array) $submenu['themes.php'] as $key => $item) {
-            if ($item[1] != 'customize') {
-                continue;
-            }
+        if (isset($submenu['themes.php'])) {
+            foreach ((array) $submenu['themes.php'] as $key => $item) {
+                if ($item[1] != 'customize') {
+                    continue;
+                }
 
-            unset($submenu['themes.php'][$key]);
+                unset($submenu['themes.php'][$key]);
+            }
         }
     }
 
