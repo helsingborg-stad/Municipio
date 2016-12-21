@@ -118,13 +118,20 @@
         @if ((isset(get_the_author_meta('user_visiting_address')['street']) && !empty(get_the_author_meta('user_visiting_address')['street'])) || (isset(get_the_author_meta('user_visiting_address')['city']) && !empty(get_the_author_meta('user_visiting_address')['city'])))
         <li>
             @if (isset(get_the_author_meta('user_visiting_address')['street']) && isset(get_the_author_meta('user_visiting_address')['city']))
-            <a href="//www.google.com/maps?q={{ get_the_author_meta('user_visiting_address')['street'] }} {{ get_the_author_meta('user_visiting_address')['city'] }}">
+            <a href="//www.google.com/maps?q={{ urlencode(get_the_author_meta('user_visiting_address')['street']) }} {{ urlencode(get_the_author_meta('user_visiting_address')['city']) }}">
             @else
             <a href="#" data-dropdown=".visiting-address-dropdown">
             @endif
                 <i class="pricon pricon-location-pin pricon-2x"></i>
                 <span class="value">
-                    {{ isset(get_the_author_meta('user_visiting_address')['workplace']) ? get_the_author_meta('user_visiting_address')['workplace'] : '' }}
+                    @if (isset(get_the_author_meta('user_visiting_address')['workplace']))
+                        {{ get_the_author_meta('user_visiting_address')['workplace'] }}
+                    @elseif (isset(get_the_author_meta('user_visiting_address')['street']))
+                        {{ get_the_author_meta('user_visiting_address')['street'] }}
+                    @else
+                        {{ get_the_author_meta('user_visiting_address')['city'] }}
+                    @endif
+
                     <span class="value-label"><i class="pricon pricon-location-pin"></i> <?php _e('Visiting address', 'municipio-intranet'); ?></span>
                 </span>
             </a>
