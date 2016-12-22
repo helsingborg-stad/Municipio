@@ -205,6 +205,10 @@ class Enqueue
             return $url;
         }
 
+        if (isset($_GET['gf_page']) && $_GET['gf_page'] == 'preview') {
+            return $url;
+        }
+
         return $url . "' defer='defer";
     }
 
