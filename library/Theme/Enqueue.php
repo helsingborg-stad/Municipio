@@ -82,11 +82,6 @@ class Enqueue
      */
     public function script()
     {
-        //Remove jQuery
-        if (!is_admin()) {
-            wp_dequeue_script('jquery');
-        }
-
         //Custom
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
             wp_register_script($this->defaultPrimeName, '//hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
@@ -213,14 +208,19 @@ class Enqueue
         return $url . "' defer='defer";
     }
 
+    /**
+     * Change jquery deps to hbgprime deps
+     * @return void
+     */
     public function waitForPrime()
     {
         $wp_scripts = wp_scripts();
+
         if (!is_admin() && isset($wp_scripts->registered)) {
             foreach ($wp_scripts->registered as $key => $item) {
                 if (is_array($item->deps) && !empty($item->deps)) {
                     foreach ($item->deps as $depkey => $depencency) {
-                        $item->deps[$depkey] = str_replace("jquery", $this->defaultPrimeName, $depencency);
+                        $item->deps[$depkey] = str_replace("jquery", $this->defaultPrimeName, strtolower($depencency));
                     }
                 }
             }
