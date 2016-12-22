@@ -4,7 +4,6 @@ namespace Municipio\Theme;
 
 class Enqueue
 {
-
     public $defaultPrimeName = 'hbg-prime';
 
     public function __construct()
@@ -31,6 +30,23 @@ class Enqueue
 
         //Enable defered loading
         add_action('clean_url', array($this, 'deferedLoadingJavascript'));
+
+        // Plugin filters (script/style related)
+        add_filter('gform_init_scripts_footer', '__return_true');
+        add_filter('gform_cdata_open', array($this, 'wrapGformCdataOpen'));
+        add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
+    }
+
+    public function wrapGformCdataOpen($content)
+    {
+        $content = 'document.addEventListener( "DOMContentLoaded", function() { ';
+        return $content;
+    }
+
+    public function wrapGformCdataClose($content)
+    {
+        $content = ' }, false );';
+        return $content;
     }
 
     /**
