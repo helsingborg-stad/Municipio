@@ -89,7 +89,7 @@ class Subscription
      */
     public static function getSubscriptions($userId = null, $onlyBlogId = false)
     {
-        if (!is_user_logged_in()) {
+        if (!$userId && !is_user_logged_in()) {
             return array();
         }
 
@@ -102,7 +102,7 @@ class Subscription
         // Return if cached
         $cacheResult = wp_cache_get($cacheKey, self::$cacheGroup);
 
-        if (!$onlyBlogId && (self::$userSubscription || $cacheResult)) {
+        if (!$onlyBlogId && (self::$userSubscription || ($cacheResult && !empty($cacheResult)))) {
             if ($cacheResult) {
                 return $cacheResult;
             }
