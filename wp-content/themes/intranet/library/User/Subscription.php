@@ -227,8 +227,7 @@ class Subscription
         $subscriptions = json_encode($subscriptions);
 
         // Ban the subscriptions cache
-        $cacheKey = md5(serialize(array('getSubscriptions',$userId)));
-        wp_cache_delete($cacheKey, self::$cacheGroup);
+        self::emptyCache($userId);
 
         return update_user_meta($userId, 'intranet_subscriptions', $subscriptions);
     }
@@ -241,6 +240,8 @@ class Subscription
      */
     public static function subscribe($userId, $blogId)
     {
+        self::emptyCache($userId);
+
         $subscriptions = self::getSubscriptions($userId, true);
         $subscriptions[] = $blogId;
 
@@ -257,6 +258,8 @@ class Subscription
      */
     public static function unsubscribe($userId, $blogId)
     {
+        self::emptyCache($userId);
+
         $subscriptions = self::getSubscriptions($userId, true);
         $subscriptions = array_filter($subscriptions, function ($subscription) use ($blogId) {
             return $subscription != $blogId;
@@ -265,5 +268,11 @@ class Subscription
         self::update($userId, $subscriptions);
 
         return $subscriptions;
+    }
+
+    public static function emptyCache($userId)
+    {
+        $cacheKey = md5(serialize(array('getSubscriptions', $userId)));
+        wp_cache_delete($cacheKey, self::$cacheGroup);
     }
 }

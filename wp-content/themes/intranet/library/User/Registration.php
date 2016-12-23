@@ -42,7 +42,8 @@ class Registration
         // pattern => redirect
         $disallowed = apply_filters('MunicipioIntranet/register/disallowed', array(
             '/^s([a-z]{4})([0-9]{4})/i' => network_home_url('?login=saccount'),
-            '/^([a-z]{3})([0-9]{4})/i' => network_home_url('?login=faccount')
+            '/^([a-z]{3})([0-9]{4})/i' => network_home_url('?login=faccount'),
+            '/^([0-9]{6})([a-z]{2})/i' => network_home_url('?login=schoolaccount')
         ));
 
         // Loop disallowed patterns, fail-redirect if pattern matches

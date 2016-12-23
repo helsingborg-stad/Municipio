@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2016-12-20 16:22+0100\n"
-"PO-Revision-Date: 2016-12-20 16:22+0100\n"
+"POT-Creation-Date: 2016-12-22 14:37+0100\n"
+"PO-Revision-Date: 2016-12-22 15:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -423,13 +423,13 @@ msgstr "God jul %s!"
 msgid "user"
 msgstr "anvandare"
 
-#: library/User/Registration.php:71 views/author-edit.blade.php:83
+#: library/User/Registration.php:72 views/author-edit.blade.php:83
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr "Förnamn"
 
-#: library/User/Registration.php:75 views/author-edit.blade.php:89
+#: library/User/Registration.php:76 views/author-edit.blade.php:89
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
@@ -856,7 +856,7 @@ msgstr "Avdelning/enhet"
 msgid "Web-department"
 msgstr "Webbenheten"
 
-#: views/author-edit.blade.php:229 views/author.blade.php:128
+#: views/author-edit.blade.php:229 views/author.blade.php:135
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:4
 msgid "Visiting address"
 msgstr "Besöksadress"
@@ -930,7 +930,7 @@ msgid "Write a short personal presentation…"
 msgstr "Här kan du skriva en kort presentation om dig själv…"
 
 #: views/author-edit.blade.php:361 views/author-edit.blade.php:381
-#: views/author.blade.php:174
+#: views/author.blade.php:181
 msgid "Work assignments"
 msgstr "Arbetsuppgifter"
 
@@ -972,7 +972,7 @@ msgstr "Lägg till ansvarsområde"
 msgid "Added work assignments"
 msgstr "Arbetsuppgifter som du lagt till"
 
-#: views/author-edit.blade.php:414 views/author.blade.php:159
+#: views/author-edit.blade.php:414 views/author.blade.php:166
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
 msgid "Skills"
 msgstr "Kompetenser"
@@ -1256,7 +1256,15 @@ msgstr ""
 "Du försöker logga in med ett S-konto. S-konton kan inte användas för att "
 "logga in på intranätet."
 
-#: views/partials/header/subnav.blade.php:58
+#: views/partials/header/subnav.blade.php:51
+msgid ""
+"You are trying to login with an school account. School accounts are not "
+"allowed on the intranet."
+msgstr ""
+"Du försöker logga in med ett skolkonto. Skolkonton kan inte användas för att "
+"logga in på intranätet."
+
+#: views/partials/header/subnav.blade.php:62
 msgid "Menu"
 msgstr "Meny"
 
