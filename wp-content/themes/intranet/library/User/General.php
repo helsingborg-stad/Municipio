@@ -193,12 +193,12 @@ class General
         // Special occations
         // New year
         if (date('m-d') == '12-31' || date('m-d') == '01-01') {
-            $greeting = _('Happy new year %s', 'municipio-intranet');
+            $greeting = __('Happy new year %s', 'municipio-intranet');
         }
 
         // Christmas
         if (date('m-d') == '12-24') {
-            $greeting = _('Merry christmas %s', 'municipio-intranet');
+            $greeting = __('Merry christmas %s', 'municipio-intranet');
         }
 
         return sprintf($greeting, '<strong>' . get_user_meta(get_current_user_id(), 'first_name', true) . '</strong>');
