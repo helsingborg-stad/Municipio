@@ -1266,14 +1266,20 @@ a.dropdown-open:focus {
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
 .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img + p,
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news .image-placeholder,
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news .image-placeholder + p,
 .sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
-.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img + p {
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img + p,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news .image-placeholder,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news .image-placeholder + p {
   float: none;
   width: 100%;
   height: auto; }
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
-.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img {
+.sidebar-content-area-bottom .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news .image-placeholder,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news article img,
+.sidebar-content-area-top .modularity-mod-intranet-news .grid-lg-12:first-of-type .box-news .image-placeholder {
   margin: 0;
   margin-bottom: 20px; }
 
@@ -1336,7 +1342,8 @@ a.dropdown-open:focus {
 .modularity-mod-intranet-news .box-news article {
   margin: 0; }
 
-.modularity-mod-intranet-news .box-news article img {
+.modularity-mod-intranet-news .box-news article img,
+.modularity-mod-intranet-news .box-news .image-placeholder {
   margin: 0;
   margin-top: 3px;
   float: right;
@@ -1345,7 +1352,11 @@ a.dropdown-open:focus {
   margin-left: 15px;
   border-radius: 3px; }
 
-.modularity-mod-intranet-news .box-news article img + p {
+.modularity-mod-intranet-news .box-news .image-placeholder {
+  padding-bottom: 25%; }
+
+.modularity-mod-intranet-news .box-news article img + p,
+.modularity-mod-intranet-news .box-news .image-placeholder + p {
   float: right;
   width: 60%; }
 
