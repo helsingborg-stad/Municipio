@@ -46,12 +46,6 @@
                         <h1><?php echo sprintf(__('Settings of %s', 'municipio-intranet'), municipio_intranet_get_user_full_name($user->ID)) ; ?></h1>
                         @endif
 
-                        Klicka på en rubrik nedan föra att visa och redigera dina inställningar.
-                        En del information hämtas automatiskt och kan inte redigeras.
-                        Obligatoriska fält måste fyllas i för att du ska få rätt innehåll från intranätet.
-                        Ju fler av de övriga fälten du fyller i, desto lättare blir det för dina kollegor att komma i kontakt med dig vid behov.
-
-
                         <p>
                             <?php _e('Click on a headline below to view and edit your settings. Some information will be prefilled and non-editable.', 'municipio-intranet'); ?>
                             <?php _e('The required fields must be filled in to optimize the information you will see on the intranets.', 'municipio-intranet'); ?>
