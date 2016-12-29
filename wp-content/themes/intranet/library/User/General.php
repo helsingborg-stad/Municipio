@@ -77,43 +77,43 @@ class General
                 'relation' => 'OR',
                 array(
                     'key' => 'first_name',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'last_name',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'user_responsibilities',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'user_skills',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'user_work_title',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'user_phone',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'user_department',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'ad_company',
-                    'value' => $keyword,
-                    'compare' => 'LIKE'
+                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'compare' => 'REGEXP'
                 )
             )
         ));
