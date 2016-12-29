@@ -94,6 +94,26 @@ class General
                     'key' => 'user_skills',
                     'value' => $keyword,
                     'compare' => 'LIKE'
+                ),
+                array(
+                    'key' => 'user_work_title',
+                    'value' => $keyword,
+                    'compare' => 'LIKE'
+                ),
+                array(
+                    'key' => 'user_phone',
+                    'value' => $keyword,
+                    'compare' => 'LIKE'
+                ),
+                array(
+                    'key' => 'user_department',
+                    'value' => $keyword,
+                    'compare' => 'LIKE'
+                ),
+                array(
+                    'key' => 'ad_company',
+                    'value' => $keyword,
+                    'compare' => 'LIKE'
                 )
             )
         ));
