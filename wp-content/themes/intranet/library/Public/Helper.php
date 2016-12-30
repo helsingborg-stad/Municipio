@@ -90,9 +90,34 @@ if (!function_exists('municipio_current_post_status')) {
     function municipio_current_post_status()
     {
         global $wp_query;
+
         if (isset($wp_query->queried_object->post_status)) {
             return $wp_query->queried_object->post_status;
         }
+
         return false;
+    }
+}
+
+if (!function_exists('municipio_intranet_follow_button')) {
+    function municipio_intranet_follow_button($blogId, $additionalClasses = array(), $echo = true)
+    {
+        $additionalClasses = implode(' ', $additionalClasses);
+
+        $html = '<button class="btn btn-primary btn-subscribe ' . $additionalClasses . '" data-subscribe="' . $blogId . '">';
+
+        if (!\Intranet\User\Subscription::hasSubscribed($blogId)) {
+            $html .= '<i class="pricon pricon-plus-o"></i> ' . __('Follow', 'municipio-intranet');
+        } else {
+            $html .= '<i class="pricon pricon-minus-o"></i> ' . __('Unfollow', 'municipio-intranet');
+        }
+
+        $html .= '</button>';
+
+        if (!$echo) {
+            return $html;
+        }
+
+        echo $html;
     }
 }
