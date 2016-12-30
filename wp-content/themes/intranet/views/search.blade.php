@@ -84,7 +84,7 @@
         <div class="grid">
             <div class="grid-md-9">
                 <?php
-                if ($resultCount === 0) {
+                if ($resultCount === 0 || $level === 'users') {
                     do_action('loop_start');
                 }
                 ?>

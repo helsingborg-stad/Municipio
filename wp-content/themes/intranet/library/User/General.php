@@ -73,16 +73,17 @@ class General
         ));
 
         $userMetaSearch = new \WP_User_Query(array(
+            's' => $keyword,
             'meta_query' => array(
                 'relation' => 'OR',
                 array(
                     'key' => 'first_name',
                     'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
+                    'compare' => '='
                 ),
                 array(
                     'key' => 'last_name',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                    'value' => '\b' . $keyword . '\b',
                     'compare' => 'REGEXP'
                 ),
                 array(
@@ -119,7 +120,7 @@ class General
         ));
 
         $users = array();
-        foreach ($userSearch->get_results() as $user) {
+        foreach ($userMetaSearch->results as $user) {
             $users[$user->ID] = $user->data;
         }
 
@@ -138,7 +139,6 @@ class General
 
         foreach ($users as $userkey => $user) {
             if (isset($user->user_email)) {
-
                 //Remove disabled users
                 if (0 === strpos($user->user_email, 'DISABLED-USER-')) {
                     unset($users[$userkey]);
