@@ -67,7 +67,7 @@ class Search extends \Intranet\Controller\BaseController
             $sites = \Intranet\Search\ElasticSearch::getSitesFromLevel($level);
 
             $postStatuses  = array('publish', 'inherit');
-            $postTypes = \Intranet\Helper\PostType::getPublic(\Intranet\Search\ElasticSearch::$postTypeFilter);
+            $postTypes = \Intranet\Helper\PostType::getPublic(array('attachment'));
 
             if ($level === 'files') {
                 $postTypes = array('attachment');
