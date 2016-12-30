@@ -19,18 +19,20 @@ Intranet.User.Subscribe = (function ($) {
     }
 
     Subscribe.prototype.toggleSubscription = function (blogid, buttonElement) {
+        var $allButtons = $('[data-subscribe="' + blogid + '"]');
+
         var postdata = {
             action: 'toggle_subscription',
             blog_id: blogid
         };
 
-        buttonElement.html('<i class="spinner"></i>');
+        $allButtons.html('<i class="spinner"></i>');
 
         $.post(ajaxurl, postdata, function (res) {
             if (res == 'subscribed') {
-                buttonElement.html('<i class="pricon pricon-minus-o"></i> ' + municipioIntranet.unsubscribe);
+                $allButtons.html('<i class="pricon pricon-minus-o"></i> ' + municipioIntranet.unsubscribe);
             } else {
-                buttonElement.html('<i class="pricon pricon-plus-o"></i> '  + municipioIntranet.subscribe);
+                $allButtons.html('<i class="pricon pricon-plus-o"></i> '  + municipioIntranet.subscribe);
             }
         });
     };

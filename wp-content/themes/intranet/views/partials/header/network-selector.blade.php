@@ -39,13 +39,7 @@
                         <li class="network-title">
                             <a href="{{ $site->path }}">
                                 {!! municipio_intranet_format_site_name($site) !!}
-                                <button class="btn btn-primary btn-subscribe btn-sm pull-right" data-subscribe="{{ $site->blog_id }}">
-                                    @if (!\Intranet\User\Subscription::hasSubscribed($site->blog_id))
-                                    <i class="pricon pricon-plus-o"></i> <?php _e('Follow', 'municipio-intranet'); ?>
-                                    @else
-                                    <i class="pricon pricon-minus-o"></i> <?php _e('Unfollow', 'municipio-intranet'); ?>
-                                    @endif
-                                </button>
+                                {{ municipio_intranet_follow_button($site->blog_id, array('btn-sm', 'pull-right')) }}
                             </a>
                         </li>
                     @endforeach
