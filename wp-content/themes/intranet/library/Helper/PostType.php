@@ -13,13 +13,9 @@ class PostType
 
         // Filters out given post types
         if ($filter) {
-            $postTypes = array_filter($postTypes, function ($postType) use ($postTypes) {
-                return !in_array($postType, (array) $postTypes);
+            $postTypes = array_filter($postTypes, function ($postType) use ($filter) {
+                return !in_array($postType, (array) $filter);
             });
-        }
-
-        if (!is_array($filter) || count($filter) === 0) {
-            return array();
         }
 
         return array_values(array_diff($postTypes, array('nav_menu_item', 'revision', 'hbg-alarm', 'incidents')));
