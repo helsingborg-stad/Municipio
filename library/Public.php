@@ -143,3 +143,12 @@ if (!function_exists('municipio_to_aspect_ratio')) {
         return array($width, $height);
     }
 }
+
+if (!function_exists('municiipio_format_currency')) {
+    function municiipio_format_currency($value)
+    {
+        $value = str_split(strrev($value), 3);
+        $value = strrev(implode(" ", $value));
+        return $value;
+    }
+}

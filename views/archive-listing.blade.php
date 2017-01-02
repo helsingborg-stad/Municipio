@@ -61,7 +61,7 @@
                                     {{ isset(get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug)[0]) ? get_the_terms(get_the_id(), \WpListings\Listings::$placesTaxonomySlug)[0]->name : null }}
                                 </div>
                                 <h2 class="box-title text-highlight"><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
-                                <p class="text-xl" style="margin-top: 0;">{{ strrev(implode(" ", str_split(strrev(get_post_meta(get_the_id(), 'listing_price', true)), 3))) }}{{ apply_filters('wp-listings/currency', ':-') }}</p>
+                                <p class="text-xl" style="margin-top: 0;">{{ municiipio_format_currency(get_post_meta(get_the_id(), 'listing_price', true)) }}{{ apply_filters('wp-listings/currency', ':-') }}</p>
                             </div>
                         </li>
                     @endwhile
