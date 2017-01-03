@@ -10,9 +10,9 @@ class PostFilters
 
         add_filter('template_include', array($this, 'enablePostTypeArchiveSearch'), 1);
 
-        add_filter('posts_where', array($this, 'doPostDateFiltering'));
-        add_filter('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
-        add_filter('pre_get_posts', array($this, 'doPostOrdering'));
+        add_action('posts_where', array($this, 'doPostDateFiltering'));
+        add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
+        add_action('pre_get_posts', array($this, 'doPostOrdering'));
 
         remove_filter('content_save_pre', 'wp_filter_post_kses');
         remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
