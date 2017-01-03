@@ -14,6 +14,32 @@ class General
 
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
+
+        add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
+    }
+
+    /**
+     * Fixes fieldgroups page-template path
+     * @param  array $fieldgroup Fieldgroup
+     * @return array
+     */
+    public function fixFieldgroupLocationPath($fieldgroup)
+    {
+        if (!isset($fieldgroup['location'])) {
+            return $fieldgroup;
+        }
+
+        foreach ($fieldgroup['location'] as &$locations) {
+            foreach ($locations as &$location) {
+                if ($location['param'] !== 'page_template') {
+                    return $fieldgroup;
+                }
+
+                $location['value'] = basename($location['value']);
+            }
+        }
+
+        return $fieldgroup;
     }
 
     public function titleFormat($format)
