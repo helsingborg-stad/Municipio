@@ -13,6 +13,13 @@ class General
 
         add_action('init', array($this, 'removeAdminBar'), 1200);
         add_action('init', array($this, 'makePrivateReadable'), 1200);
+
+        add_action('pre_user_query', array($this, 'excludeInactiveUsers'));
+    }
+
+    public function excludeInactiveUsers($query)
+    {
+        $query->query_where .= " AND NOT user_email IS NULL AND NOT user_email LIKE 'DISABLED-USER-%'";
     }
 
     public function removeAdminBar()
@@ -75,46 +82,52 @@ class General
         $userMetaSearch = new \WP_User_Query(array(
             's' => $keyword,
             'meta_query' => array(
-                'relation' => 'OR',
+                'relation' => 'AND',
                 array(
-                    'key' => 'first_name',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
+                    'relation' => 'AND',
                 ),
                 array(
-                    'key' => 'last_name',
-                    'value' => '\b' . $keyword . '\b',
-                    'compare' => 'REGEXP'
-                ),
-                array(
-                    'key' => 'user_responsibilities',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
-                ),
-                array(
-                    'key' => 'user_skills',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
-                ),
-                array(
-                    'key' => 'user_work_title',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
-                ),
-                array(
-                    'key' => 'user_phone',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
-                ),
-                array(
-                    'key' => 'user_department',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
-                ),
-                array(
-                    'key' => 'ad_company',
-                    'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => 'REGEXP'
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'first_name',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'last_name',
+                        'value' => '\b' . $keyword . '\b',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'user_responsibilities',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'user_skills',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'user_work_title',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'user_phone',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'user_department',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    ),
+                    array(
+                        'key' => 'ad_company',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'compare' => 'REGEXP'
+                    )
                 )
             )
         ));
