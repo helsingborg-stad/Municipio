@@ -30,6 +30,20 @@ Author pages is blocked by default. To "unblock" add the following constant to w
 define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 ```
 
+#### Load specific version of styleguide
+Constants that lock version of the styleguide. Comes in handy when you want to enshure maximum stability of a site. 
+
+```
+define('STYLEGUIDE_VERSION', 1.0.32);
+```
+
+#### Load specific developement version of styleguide
+Constant that load local verrsion of the styleguide. 
+
+```
+define('DEV_MODE', true);
+```
+
 ## Actions
 
 #### Municipio/blog/post_info
@@ -43,6 +57,16 @@ do_action('Municipio/author_display/name', $post);
 ```
 
 ## Filters
+
+#### Municipio/theme/key
+Filters the theme/styleguide asset key. 
+
+- ```@param string $key``` - The key of the styleguide theme
+
+```php
+apply_filters('Municipio/theme/key', $key);
+```
+
 
 #### Municipio/GoogleAnalytics/ua
 Filters the Google Analytics UA (user id) used to laod Google Analytics.
