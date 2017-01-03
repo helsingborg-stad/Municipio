@@ -79,7 +79,7 @@ class General
                 array(
                     'key' => 'first_name',
                     'value' => '[[:<:]]' . $keyword . '[[:>:]]',
-                    'compare' => '='
+                    'compare' => 'REGEXP'
                 ),
                 array(
                     'key' => 'last_name',
