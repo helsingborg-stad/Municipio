@@ -12,15 +12,18 @@ class Template
      */
     public static function add($templateName, $templatePath)
     {
-        add_filter('theme_page_templates', function ($templates) use ($templatePath, $templateName) {
+        $templateFile = basename($templatePath);
+
+        add_filter('theme_page_templates', function ($templates) use ($templateFile, $templatePath, $templateName) {
             return array_merge(array(
-                $templatePath => $templateName
+                $templateFile => $templateName
             ), $templates);
         });
 
         return (object) array(
             'name' => $templateName,
-            'path' => $templatePath
+            'path' => $templateFile,
+            'fullPath' => $templatePath
         );
     }
 
