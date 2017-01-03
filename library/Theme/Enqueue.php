@@ -123,7 +123,7 @@ class Enqueue
             if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
                 wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/js/hbg-prime.min.js', '', STYLEGUIDE_VERSION);
             } else {
-                wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/js/hbg-prime.min.js', '', STYLEGUIDE_VERSION);
+                wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/js/hbg-prime.min.js', '', 'latest');
             }
         }
 
