@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2016-12-16 09:34+0100\n"
+"POT-Creation-Date: 2017-01-03 09:50+0100\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1266,32 +1266,32 @@ msgstr ""
 msgid "Custom CSS/JS"
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:18
+#: library/Admin/UI/BackEnd.php:23
 msgid "Local"
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:22
+#: library/Admin/UI/BackEnd.php:27
 msgid "Test"
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:26
+#: library/Admin/UI/BackEnd.php:31
 msgid "Beta"
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:36 library/Admin/UI/BackEnd.php:41
-#: library/Admin/UI/BackEnd.php:46
+#: library/Admin/UI/BackEnd.php:41 library/Admin/UI/BackEnd.php:46
+#: library/Admin/UI/BackEnd.php:51
 msgid "Notice"
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:36
+#: library/Admin/UI/BackEnd.php:41
 msgid "You're on a local server."
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:41
+#: library/Admin/UI/BackEnd.php:46
 msgid "This it the test-environment. Your content will not be published."
 msgstr ""
 
-#: library/Admin/UI/BackEnd.php:46
+#: library/Admin/UI/BackEnd.php:51
 msgid "This it the beta-environment. All functionality is not guaranteed."
 msgstr ""
 
@@ -1395,7 +1395,7 @@ msgstr ""
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr ""
 
-#: library/Theme/Enqueue.php:120
+#: library/Theme/Enqueue.php:131
 msgid "Insert Print Page Break tag"
 msgstr ""
 
@@ -1471,7 +1471,7 @@ msgstr ""
 msgid "Displays the contact information given."
 msgstr ""
 
-#: views/archive.blade.php:47
+#: views/archive-listing.blade.php:70 views/archive.blade.php:47
 msgid "No posts to show"
 msgstr ""
 
@@ -1546,6 +1546,10 @@ msgstr ""
 
 #: views/partials/timestamps.blade.php:32
 msgid "Last updated"
+msgstr ""
+
+#: views/single-listing.blade.php:41
+msgid "Price"
 msgstr ""
 
 #: views/templates/master.blade.php:52
