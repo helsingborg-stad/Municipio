@@ -44,7 +44,11 @@ class GravityForm
      */
     public function filterGravityFormSubmit($button, $form)
     {
-        return '<button class="button btn btn-primary" id="gform_submit_button_'.$form['id'].'">'.__("Submit").'</button>';
+        if ($form['button']['type'] !== 'text') {
+            return $button;
+        }
+
+        return str_replace('class=\'', 'class=\'btn btn-primary ', $button);
     }
 
     public function filterGravityFormOutput($form)
