@@ -48,6 +48,12 @@
                         </div>
 
                         @include('partials.blog.post-footer')
+
+                        <div class="grid">
+                            <div class="grid-md-12">
+                                <?php echo do_shortcode('[wp-listings-contact-form]'); ?>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
