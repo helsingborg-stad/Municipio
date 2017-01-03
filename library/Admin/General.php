@@ -21,6 +21,12 @@ class General
             }
 
             $imageId = get_user_meta($userId, 'user_profile_picture_id', true);
+            delete_user_meta($userId, 'user_profile_picture_id');
+
+            if (!$imageId) {
+                return;
+            }
+
             $imageUrl = wp_get_attachment_image_src($imageId, array(250, 250));
             $imageUrl = isset($imageUrl[0]) ? $imageUrl[0] : null;
 
