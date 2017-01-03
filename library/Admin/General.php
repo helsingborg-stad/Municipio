@@ -15,6 +15,11 @@ class General
         add_action('current_screen', array($this, 'renamePrivate'));
 
         add_action('profile_update', function ($userId) {
+            // Make sure its a form submission and nothing else
+            if (!wp_verify_nonce($_POST['_wpnonce'], 'update-user_' . $userId)) {
+                return;
+            }
+
             $imageId = get_user_meta($userId, 'user_profile_picture_id', true);
             $imageUrl = wp_get_attachment_image_src($imageId, array(250, 250));
             $imageUrl = isset($imageUrl[0]) ? $imageUrl[0] : null;
