@@ -91,7 +91,7 @@ class Enqueue
 
             //Check for version number lock files.
             if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/'+STYLEGUIDE_VERSION+'/css/hbg-prime-'.$this->getStyleguideTheme().'.min.css', '', STYLEGUIDE_VERSION);
+                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/css/hbg-prime-'.$this->getStyleguideTheme().'.min.css', '', STYLEGUIDE_VERSION);
             } else {
                 wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-'.$this->getStyleguideTheme().'.min.css', '', 'latest');
             }
@@ -121,7 +121,7 @@ class Enqueue
 
             //Check for version number lock files.
             if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-                wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/'+STYLEGUIDE_VERSION+'/js/hbg-prime.min.js', '', STYLEGUIDE_VERSION);
+                wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/js/hbg-prime.min.js', '', STYLEGUIDE_VERSION);
             } else {
                 wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/js/hbg-prime.min.js', '', STYLEGUIDE_VERSION);
             }
