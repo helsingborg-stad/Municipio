@@ -13,7 +13,7 @@ class ImageSizeFilter
 
     public function setImageQuality($quaility)
     {
-        return 100;
+        return 95;
     }
 
     public function addVideoSizeClass($default_class, $post_type, $args)
