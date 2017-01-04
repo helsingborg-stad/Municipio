@@ -378,6 +378,10 @@ class NavigationTree
      */
     public function shouldBeIncluded($item)
     {
+        if (!is_object($item)) {
+            return false;
+        }
+
         $pageId = $this->getPageId($item);
         $hide = get_field('hide_in_menu', $pageId) ? get_field('hide_in_menu', $pageId) : false;
 
