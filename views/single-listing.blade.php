@@ -37,12 +37,14 @@
                                         {{ the_content() }}
                                     </article>
 
+                                    @if (wp_listings_use_price())
                                     <footer class="post-footer gutter gutter-bottom">
                                         <label class="inline-block"><?php _e('Price', 'municipio'); ?>:</label>
                                         <span class="text-xl inline-block">
                                             {{ municiipio_format_currency(get_post_meta(get_the_id(), 'listing_price', true)) }}{{ apply_filters('wp-listings/currency', ':-') }}
                                         </span>
                                     </footer>
+                                    @endif
                                 </div>
                             </div>
                         </div>
