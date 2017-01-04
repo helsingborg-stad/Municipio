@@ -45,6 +45,27 @@
                                         </span>
                                     </footer>
                                     @endif
+
+                                    @if (wp_listings_get_meta_fields())
+                                    <div class="gutter gutter-vertical gutter-lg">
+                                        <table class="table table-bordered table-striped table-sm">
+                                            <thead>
+                                                <tr>
+                                                @foreach (wp_listings_get_meta_fields() as $field)
+                                                    <td>{{ $field['label'] }}</td>
+                                                @endforeach
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                @foreach (wp_listings_get_meta_fields() as $field)
+                                                    <td>{{ get_post_meta($post->ID, $field['name'], true) ? get_post_meta($post->ID, $field['name'], true) : '-' }}</td>
+                                                @endforeach
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
