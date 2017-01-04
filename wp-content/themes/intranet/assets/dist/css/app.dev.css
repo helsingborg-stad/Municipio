@@ -669,11 +669,9 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
 
 .search-result-item-user {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
@@ -686,7 +684,6 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
     opacity: .15; }
   .search-result-item-user .profile-image {
     -webkit-box-flex: 0;
-    -webkit-flex: 0 0 auto;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
     margin-right: 25px;
@@ -694,7 +691,6 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
     height: 80px; }
   .search-result-item-user .profile-basics {
     -webkit-box-flex: 1;
-    -webkit-flex: 1 0 auto;
         -ms-flex: 1 0 auto;
             flex: 1 0 auto; }
   .search-result-item-user .profile-title,
@@ -1194,9 +1190,9 @@ a.dropdown-open:focus {
   .modularity-mod-intranet-u-syste .box-title {
     position: relative; }
   .modularity-mod-intranet-u-links [data-user-link-edit],
-  .modularity-mod-intranet-u-links [data-user-systems-edit],
+  .modularity-mod-intranet-u-links h4 [data-user-systems-edit],
   .modularity-mod-intranet-u-syste [data-user-link-edit],
-  .modularity-mod-intranet-u-syste [data-user-systems-edit] {
+  .modularity-mod-intranet-u-syste h4 [data-user-systems-edit] {
     font-weight: normal;
     font-size: .7em;
     background-color: transparent;
@@ -1210,17 +1206,17 @@ a.dropdown-open:focus {
     border-radius: 0 0 0 2px !important;
     color: #fff; }
     .modularity-mod-intranet-u-links [data-user-link-edit]::before,
-    .modularity-mod-intranet-u-links [data-user-systems-edit]::before,
+    .modularity-mod-intranet-u-links h4 [data-user-systems-edit]::before,
     .modularity-mod-intranet-u-syste [data-user-link-edit]::before,
-    .modularity-mod-intranet-u-syste [data-user-systems-edit]::before {
+    .modularity-mod-intranet-u-syste h4 [data-user-systems-edit]::before {
       vertical-align: -5%; }
     .modularity-mod-intranet-u-links [data-user-link-edit]:hover, .modularity-mod-intranet-u-links [data-user-link-edit]:focus,
-    .modularity-mod-intranet-u-links [data-user-systems-edit]:hover,
-    .modularity-mod-intranet-u-links [data-user-systems-edit]:focus,
+    .modularity-mod-intranet-u-links h4 [data-user-systems-edit]:hover,
+    .modularity-mod-intranet-u-links h4 [data-user-systems-edit]:focus,
     .modularity-mod-intranet-u-syste [data-user-link-edit]:hover,
     .modularity-mod-intranet-u-syste [data-user-link-edit]:focus,
-    .modularity-mod-intranet-u-syste [data-user-systems-edit]:hover,
-    .modularity-mod-intranet-u-syste [data-user-systems-edit]:focus {
+    .modularity-mod-intranet-u-syste h4 [data-user-systems-edit]:hover,
+    .modularity-mod-intranet-u-syste h4 [data-user-systems-edit]:focus {
       text-decoration: underline; }
   .modularity-mod-intranet-u-links button[data-user-link-remove],
   .modularity-mod-intranet-u-syste button[data-user-link-remove] {

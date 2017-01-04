@@ -117,11 +117,10 @@ class Systems
      * @param  mixed (optional) $unitId        Unit id to get systems for
      * @return array                           Systems
      */
-    public static function getAvailabelSystems($unitId = null, $filter = array())
+    public static function getAvailabelSystems($unitId = null, $filter = array(), $onlyId = false)
     {
         global $wpdb;
         $query = "SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " ORDER BY name ASC";
-
         $systems = $wpdb->get_results($query);
 
         if ($unitId) {
@@ -161,6 +160,16 @@ class Systems
         }
 
         if (count($filter) === 0) {
+            if ($onlyId) {
+                $ids = array();
+
+                foreach ($systems as $system) {
+                    $ids[] = (int)$system->id;
+                }
+
+                return $ids;
+            }
+
             return $systems;
         }
 
@@ -192,12 +201,22 @@ class Systems
         }
 
         if (in_array('user', $filter)) {
-            $selected = (array)get_user_meta(get_current_user_id(), 'user_systems', true);
+            $selected = get_user_meta(get_current_user_id(), 'user_systems', true);
+
+            // To check if the user ever has made any selections for his/her system list
+            // we check if the selected systems is an empty string
+            // - Empty string means the record is missing in the db
+            // - Emtpy array means the record exist but is empty
+            if ($selected === '') {
+                $selected = $systemForced;
+            }
+
+            // Cast selected to array
+            $selected = (array)$selected;
+
             $systems = array_filter($allSystems, function ($item) use ($selected) {
                 return in_array($item->id, $selected);
             });
-
-            $systems = array_merge($systems, self::getAvailabelSystems($unitId, array('forced')));
         }
 
         $systems = array_map('unserialize', array_unique(array_map('serialize', $systems)));
@@ -218,6 +237,16 @@ class Systems
         uasort($systems, function ($a, $b) {
             return $a->unavailable > $b->unavailable;
         });
+
+        if ($onlyId) {
+            $ids = array();
+
+            foreach ($systems as $system) {
+                $ids[] = (int)$system->id;
+            }
+
+            return $ids;
+        }
 
         return $systems;
     }
