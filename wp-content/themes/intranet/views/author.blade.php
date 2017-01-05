@@ -124,9 +124,9 @@
             @endif
                 <i class="pricon pricon-location-pin pricon-2x"></i>
                 <span class="value">
-                    @if (isset(get_the_author_meta('user_visiting_address')['workplace']))
+                    @if (isset(get_the_author_meta('user_visiting_address')['workplace']) && !empty(get_the_author_meta('user_visiting_address')['workplace']))
                         {{ get_the_author_meta('user_visiting_address')['workplace'] }}
-                    @elseif (isset(get_the_author_meta('user_visiting_address')['street']))
+                    @elseif (isset(get_the_author_meta('user_visiting_address')['street']) && !empty(get_the_author_meta('user_visiting_address')['street']))
                         {{ get_the_author_meta('user_visiting_address')['street'] }}
                     @else
                         {{ get_the_author_meta('user_visiting_address')['city'] }}
