@@ -90,6 +90,10 @@
             "url": "https://github.com/helsingborg-stad/ElasticPress.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/wp-listings.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         },
@@ -129,6 +133,7 @@
         "helsingborg-stad/better-post-ui": ">=1.0.0",
         "helsingborg-stad/force-ssl": ">=1.0.0",
         "helsingborg-stad/elasticpress-synonyms": ">=0.1.0",
+        "helsingborg-stad/wp-listings": ">=1.0.0",
         "10up/elasticpress": "dev-master",
         "helsingborg-stad/wp-search-statistics": ">=0.1.0",
         "helsingborg-stad/readspeaker-helper": ">=1.0.0",
