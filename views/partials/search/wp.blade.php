@@ -48,18 +48,25 @@
                 <div class="grid">
                     <div class="grid-lg-12">
                         <ul class="search-result-list">
-
                             @while(have_posts())
                                 {!! the_post() !!}
                                 <li>
-                                    <div class="search-result-item">
-                                        <span class="search-result-date">{{ apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post()) }}</span>
-                                        <h3><a class="link-item" href="{{ apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post()) }}">{{ apply_filters('Municipio/search_result/title', get_the_title(), get_post()) }}</a></h3>
-                                        <p>{{ apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post()) }}</p>
-                                        <div class="search-result-info">
-                                            <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post()) }}">{{ apply_filters('Municipio/search_result/permalink_text', get_permalink(), get_post()) }}</a></span>
-                                        </div>
-                                    </div>
+                                    <?php
+                                    $date = apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post());
+                                    $permalink = apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post());
+                                    $permalinkText = apply_filters('Municipio/search_result/permalink_text', get_permalink(), get_post());
+                                    $title = apply_filters('Municipio/search_result/title', get_the_title(), get_post());
+                                    $lead = apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post());
+                                    $thumbnail = wp_get_attachment_image_src(
+                                        get_post_thumbnail_id(),
+                                        apply_filters('Modularity/index/image', municipio_to_aspect_ratio('16:9', array(200, 200))                                            )
+                                    );
+
+                                    if (is_array($thumbnail)) {
+                                        $thumbnail = $thumbnail[0];
+                                    }
+                                    ?>
+                                    @include('partials.search.result-item')
                                 </li>
                             @endwhile
 

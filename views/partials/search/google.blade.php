@@ -48,14 +48,16 @@
                         <ul class="search-result-list">
                             @foreach ($results->items as $item)
                             <li>
-                                <div class="search-result-item">
-                                    <span class="search-result-date">{{ apply_filters('Municipio/search_result/date', $search->getModifiedDate($item), false) }}</span>
-                                    <h3><a class="link-item" href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}" class="{{ (isset($item->fileFormat)) ? $search->getFiletypeClass($item->fileFormat) : '' }}">{!! apply_filters('Municipio/search_result/title', $item->htmlTitle, false) !!}</a></h3>
-                                    <p>{!! apply_filters('Municipio/search_result/excerpt', trim($item->snippet), false) !!}</p>
-                                    <div class="search-result-info">
-                                        <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ apply_filters('Municipio/search_result/permalink_url', $item->link, false) }}">{!! apply_filters('Municipio/search_result/permalink_text', $item->htmlFormattedUrl, false) !!}</a></span>
-                                    </div>
-                                </div>
+                                <?php
+                                $date = apply_filters('Municipio/search_result/date', $search->getModifiedDate($item), false);
+                                $permalink = apply_filters('Municipio/search_result/permalink_url', $item->link, false);
+                                $permalinkText = apply_filters('Municipio/search_result/permalink_text', $item->htmlFormattedUrl, false);
+                                $title = apply_filters('Municipio/search_result/title', $item->htmlTitle, false);
+                                $titleClass = isset($item->fileFormat) ? $search->getFiletypeClass($item->fileFormat) : '';
+                                $lead = apply_filters('Municipio/search_result/excerpt', trim($item->snippet), false);
+                                $thumbnail = false;
+                                ?>
+                                @include('partials.search.result-item')
                             </li>
                             @endforeach
 
