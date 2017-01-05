@@ -1,0 +1,51 @@
+    {
+        "key": "group_586df81d53d0f",
+        "title": "Search results",
+        "fields": [
+            {
+                "key": "field_586df85ba787d",
+                "label": "Display options",
+                "name": "search_result_display_options",
+                "type": "checkbox",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "image": "Featured image",
+                    "date": "Published date",
+                    "lead": "Lead",
+                    "url": "Url"
+                },
+                "default_value": [
+                    "date",
+                    "lead",
+                    "url"
+                ],
+                "layout": "vertical",
+                "toggle": 0,
+                "return_format": "value"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-search"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": 1,
+        "description": ""
+    }
