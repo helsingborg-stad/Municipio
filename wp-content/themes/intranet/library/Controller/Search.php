@@ -38,7 +38,7 @@ class Search extends \Intranet\Controller\BaseController
             wp_redirect(municipio_intranet_current_url() . '&level=all');
             exit;
         }
-     }
+    }
 
     /**
      * Counts results for each tab
