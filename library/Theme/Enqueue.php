@@ -41,7 +41,7 @@ class Enqueue
      * Set current theme from db.
      * @return bool
      */
-    public function getStyleguideTheme()
+    public static function getStyleguideTheme()
     {
         return apply_filters('Municipio/theme/key', get_field('color_scheme', 'option'));
     }
@@ -86,13 +86,13 @@ class Enqueue
 
         //Load from local developement enviroment
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-            wp_register_style($this->defaultPrimeName, '//hbgprime.dev/dist/css/hbg-prime-' . $this->getStyleguideTheme() . '.dev.css', '', '1.0.0');
+            wp_register_style($this->defaultPrimeName, '//hbgprime.dev/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.dev.css', '', '1.0.0');
         } else {
             //Check for version number lock files.
             if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/css/hbg-prime-' . $this->getStyleguideTheme() . '.min.css', '', STYLEGUIDE_VERSION);
+                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', STYLEGUIDE_VERSION);
             } else {
-                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-'.$this->getStyleguideTheme().'.min.css', '', 'latest');
+                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
             }
         }
 

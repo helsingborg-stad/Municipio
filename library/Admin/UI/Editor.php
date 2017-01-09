@@ -34,11 +34,16 @@ class Editor
     public function editorStyle()
     {
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//hbgprime.dev/dist/css/hbg-prime.min.css'));
+            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//hbgprime.dev/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.dev.css'));
             return;
         }
 
-        add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web-cdn/styleguide.dev/dist/css/hbg-prime.min.css'));
+        if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
+            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css'));
+        } else {
+            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css'));
+        }
+
         return;
     }
 
