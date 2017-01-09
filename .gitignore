@@ -13,6 +13,7 @@ ad-api/
 
 # Dropins
 /wp-content/db.php
+/srd/
 
 # Themes
 /wp-content/themes/*
