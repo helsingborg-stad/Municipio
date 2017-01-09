@@ -6,7 +6,6 @@ class General
 {
     public function __construct()
     {
-        add_filter('body_class', array($this, 'colorScheme'));
         add_filter('body_class', array($this, 'isChildTheme'));
 
         add_filter('private_title_format', array($this, 'titleFormat'));
@@ -69,23 +68,6 @@ class General
         $content    = preg_replace('~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content);
 
         return $content;
-    }
-
-    /**
-     * Color scheme body class
-     * @param  array $classes Default classes
-     * @return array          Modified classes
-     */
-    public function colorScheme($classes)
-    {
-        $color = get_field('color_scheme', 'option');
-
-        if (!$color) {
-            return $classes;
-        }
-
-        $classes['color_scheme'] = 'theme-' . $color;
-        return $classes;
     }
 
     /**
