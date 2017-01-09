@@ -25,7 +25,7 @@ class General
             return '<a href="' . municipio_intranet_get_user_profile_url($userId) . '">' . $name . '</a>';
         }, 10, 2);
 
-        add_filter('body_class', array($this, 'colorScheme'), 11);
+        add_filter('Municipio/theme/key', array($this, 'colorScheme'));
 
         // Count pageviews
         //add_action('wp', array($this, 'pageViewCounter'));
@@ -166,17 +166,15 @@ class General
      * @param  array $classes  Body classes
      * @return array           Modified body classes
      */
-    public function colorScheme($classes)
+    public function colorScheme($key)
     {
-        $classes['color_scheme'] = 'theme-purple';
-        return $classes;
+        return 'purple';
 
         if ((defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') && !MUNICIPIO_INTRANET_USER_COLOR_THEME) || !is_user_logged_in() || empty(get_the_author_meta('user_color_scheme', get_current_user_id()))) {
-            return $classes;
+            return $key;
         }
 
-        $classes['color_scheme'] = 'theme-' . get_the_author_meta('user_color_scheme', get_current_user_id());
-        return $classes;
+        return get_the_author_meta('user_color_scheme', get_current_user_id());
     }
 
     /**
