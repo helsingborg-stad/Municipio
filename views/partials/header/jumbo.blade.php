@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<nav class="navbar navbar-mainmenu hidden-print">
+<nav class="navbar navbar-mainmenu hidden-print {{ get_field('header_sticky', 'option') ? 'sticky-scroll' : '' }}">
     <div class="container">
         <div class="grid">
             <div class="grid-xs-12 {!! apply_filters('Municipio/header_grid_size','grid-md-12'); !!}">

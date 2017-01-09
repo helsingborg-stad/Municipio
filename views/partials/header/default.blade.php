@@ -101,7 +101,7 @@
 @endif
 
 @if (get_field('nav_primary_enable', 'option') === true)
-    <nav class="navbar navbar-mainmenu hidden-xs hidden-sm hidden-print">
+    <nav class="navbar navbar-mainmenu hidden-xs hidden-sm hidden-print {{ get_field('header_sticky', 'option') ? 'sticky-scroll' : '' }}">
         <div class="container">
             <div class="grid">
                 <div class="grid-sm-12">
