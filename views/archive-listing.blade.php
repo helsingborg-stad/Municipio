@@ -33,9 +33,12 @@
                 </div>
             @endif
 
+            {{ do_action('wp-listings/archive/before') }}
+
             <div class="grid">
                 <div class="grid-xs-12">
                 @if (have_posts())
+
                     <ul>
                     @while(have_posts())
                         {!! the_post() !!}
@@ -90,6 +93,7 @@
                     !!}
                 </div>
             </div>
+
         </div>
 
         @include('partials.sidebar-right')
