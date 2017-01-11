@@ -12,6 +12,19 @@
     @include('partials.breadcrumbs')
 
     <div class="grid">
+        <div class="grid-md-6">
+            @if (get_search_query())
+            <h1><?php _e('Listings', 'municipio'); ?>: "{{ get_search_query() }}"</h1>
+            @else
+            <h1><?php _e('Listings', 'municipio'); ?></h1>
+            @endif
+        </div>
+        <div class="grid-md-6">
+            {!! wp_listings_add_listing_button(array('pull-right')) !!}
+        </div>
+    </div>
+
+    <div class="grid">
         @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
             @include('partials.sidebar-left')
         @endif
