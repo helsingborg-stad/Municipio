@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-01-03 09:50+0100\n"
-"PO-Revision-Date: 2017-01-03 09:50+0100\n"
+"POT-Creation-Date: 2017-01-11 11:04+0100\n"
+"PO-Revision-Date: 2017-01-11 11:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1244,11 +1244,11 @@ msgstr "Adress"
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: library/Admin/General.php:66
+#: library/Admin/General.php:77
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
-#: library/Admin/General.php:120
+#: library/Admin/General.php:131
 msgid "Private"
 msgstr "Privat"
 
@@ -1416,10 +1416,6 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
-#: library/Helper/GravityForm.php:47
-msgid "Submit"
-msgstr "Skicka"
-
 #: library/Template.php:49
 msgid "Page"
 msgstr "Sida"
@@ -1437,7 +1433,11 @@ msgstr "Administratörsnotis"
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Enqueue.php:131
+#: library/Theme/Enqueue.php:147
+msgid "No matching content found…"
+msgstr "Inga matchande filter hittades…"
+
+#: library/Theme/Enqueue.php:155
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -1513,7 +1513,7 @@ msgstr "Kontakt"
 msgid "Displays the contact information given."
 msgstr "Visar den angivna kontaktinformationen"
 
-#: views/archive-listing.blade.php:70 views/archive.blade.php:47
+#: views/archive-listing.blade.php:76 views/archive.blade.php:47
 msgid "No posts to show"
 msgstr "Inga inlägg att visa"
 
@@ -1590,7 +1590,7 @@ msgstr "Publicerad"
 msgid "Last updated"
 msgstr "Senast uppdaterad"
 
-#: views/single-listing.blade.php:41
+#: views/single-listing.blade.php:42
 msgid "Price"
 msgstr "Pris"
 
@@ -1625,6 +1625,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Submit"
+#~ msgstr "Skicka"
 
 #~ msgid "Filter"
 #~ msgstr "Filtrera"
