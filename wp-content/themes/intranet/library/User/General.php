@@ -68,11 +68,13 @@ class General
      * @param  string $keyword Search keyword
      * @return array           Matching users
      */
-    public static function searchUsers(trim($keyword))
+    public static function searchUsers($keyword)
     {
         if (!is_user_logged_in()) {
             return array();
         }
+
+        $keyword = str_replace(" ", "|", trim($keyword));
 
         $userSearch = new \WP_User_Query(array(
             'search' => '*' . $keyword . '*',
