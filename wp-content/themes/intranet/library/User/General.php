@@ -97,7 +97,7 @@ class General
                     ),
                     array(
                         'key' => 'last_name',
-                        'value' => '\b' . $keyword . '\b',
+                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
@@ -151,6 +151,10 @@ class General
             $users[$user->ID]->profile_url = municipio_intranet_get_user_profile_url($user->ID);
             $users[$user->ID]->profile_image = get_the_author_meta('user_profile_picture', $user->ID);
         }
+
+        usort($users, function ($a, $b) use ($keyword) {
+             return similar_text($keyword , $b->name) - similar_text($keyword ,$a->name);
+        });
 
         foreach ($users as $userkey => $user) {
             if (isset($user->user_email)) {
