@@ -15,7 +15,7 @@ class HoneyPot
         }
 
         //Verification values
-        $this->field_content = substr(md5(NONCE_SALT+NONCE_KEY), 5, 15);
+        $this->field_content = substr(md5(NONCE_SALT . NONCE_KEY), 5, 15);
         $this->field_name = substr(md5(AUTH_KEY), 5, 15);
 
         //Print frontend fields
