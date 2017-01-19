@@ -8,8 +8,11 @@ class Registration
 
     public function __construct()
     {
-        // Do not allow "s-accounts"
+        // Do not allow "special accounts"
         add_filter('pre_user_login', array($this, 'disallowedUsers'));
+
+        // Ban new user account registration if email is used as username
+        add_filter('pre_user_login', array($this, 'disallowAccountRegistration'));
 
         // Add new user to all sites
         add_action('wpmu_activate_user', array($this, 'addDefaultRole'), 10, 1);
@@ -58,6 +61,16 @@ class Registration
         }
 
         // Not disallowed, return userLogin
+        return $userLogin;
+    }
+
+    public function disallowAccountRegistration($userLogin)
+    {
+        if (is_email($userLogin) && !email_exists($email)) {
+            wp_redirect(network_home_url('?login=noemail'));
+            exit;
+        }
+
         return $userLogin;
     }
 
