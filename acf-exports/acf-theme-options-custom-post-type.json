@@ -242,7 +242,7 @@
                         },
                         "choices": {
                             "editor": "Content editor",
-                            "'author'": "Author Select",
+                            "author": "Author Select",
                             "thumbnail": "Featured Image",
                             "excerpt": "Excerpt",
                             "trackbacks": "Trackbacks",
