@@ -160,7 +160,7 @@ if (!function_exists('municipio_intranet_get_user_search_stopwords')) {
                 "utan", "utanför", "ute", "vad", "vänster", "vänstra", "var", "vår", "vara", "våra", "varför", "varifrån", "varit",
                 "varken", "värre", "varsågod", "vart", "vårt", "vem", "vems", "verkligen", "vi", "vid", "vidare", "viktig",
                 "viktigare", "viktigast", "viktigt", "vilka", "vilken", "vilket", "vill"
-            )
+            ),
             get_locale()
         );
     }
