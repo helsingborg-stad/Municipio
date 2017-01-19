@@ -119,6 +119,11 @@ class Elasticsearch
         return array_unique(array_merge($types, \Intranet\Helper\PostType::getPublic()));
     }
 
+    /**
+     * The search args for the search query
+     * @param  array $args         Search arguments
+     * @return array               Modified arguments
+     */
     public function searchArgs($args, $scope, $query_args)
     {
         $q = trim($query_args['s']);
@@ -127,13 +132,34 @@ class Elasticsearch
 
         //Advanced query
         $args['query'] = array(
-            'multi_match' => array(
-                'query' => $q,
-                'fuzziness' => $this->fuzzynessSize($q),
-                'fields' => array(
-                    'post_title^7',
-                    'post_content^3',
-                    'terms.post_tag.name^4'
+            'bool' => array(
+                // Match keywords
+                'must' => array(
+                    array(
+                        'multi_match' => array(
+                            'query' => $q,
+                            'fuzziness' => $this->fuzzynessSize($q),
+                            'fields' => array(
+                                'post_title^7',
+                                'post_content^3',
+                                'terms.post_tag.name^4'
+                            )
+                        )
+                    )
+                ),
+
+                // Match full query
+                'should' => array(
+                    array(
+                        'multi_match' => array(
+                            'query' => $q,
+                            'fields' => array(
+                                'post_title^7',
+                                'post_content^3'
+                            ),
+                            'type' => 'phrase'
+                        )
+                    ),
                 )
             )
         );
@@ -173,6 +199,11 @@ class Elasticsearch
         return $args;
     }
 
+    /**
+     * Fuzziness size depending on query length
+     * @param  string $query The search query
+     * @return string        Fuzziness
+     */
     public function fuzzynessSize($query = '')
     {
         $max_fuzzyness = 4;
