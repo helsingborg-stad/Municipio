@@ -74,12 +74,13 @@ class General
             return array();
         }
 
-        $keyword = str_replace(" ", "|", trim($keyword));
+        $keywordsRegex = explode(' ', trim($keyword));
+        $stopwords = municipio_intranet_get_user_search_stopwords();
+        $keywordsRegex = array_filter($keywordsRegex, function ($keyword) use ($stopwords) {
+            return !in_array($keyword, $stopwords);
+        });
 
-        $userSearch = new \WP_User_Query(array(
-            'search' => '*' . $keyword . '*',
-            'number' => 200,
-        ));
+        $keywordsRegex = '(' . implode('|', $keywordsRegex) . ')';
 
         $userMetaSearch = new \WP_User_Query(array(
             's' => $keyword,
@@ -92,42 +93,42 @@ class General
                     'relation' => 'OR',
                     array(
                         'key' => 'first_name',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'last_name',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'user_responsibilities',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'user_skills',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'user_work_title',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'user_phone',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'user_department',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     ),
                     array(
                         'key' => 'ad_company',
-                        'value' => '[[:<:]]' . $keyword . '[[:>:]]',
+                        'value' => '[[:<:]]' . $keywordsRegex . '[[:>:]]',
                         'compare' => 'REGEXP'
                     )
                 )
