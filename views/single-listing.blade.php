@@ -46,6 +46,17 @@
                                     </footer>
                                     @endif
 
+                                    @if(!empty(wp_listings_get_documents()))
+                                        <div class="box box-panel box-panel-secondary">
+                                            <h4 class="box-title"><?php _e('Attached files', 'municipio'); ?></h4>
+                                            <ul>
+                                                @foreach (wp_listings_get_documents() as $field)
+                                                    <li><a href="{{ wp_get_attachment_url($field['document_file']) }}" class="link-item link-item-outbound">{{ $field['document_title'] }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     @if (wp_listings_get_meta_fields())
                                     <div class="gutter gutter-vertical gutter-lg">
                                         <table class="table table-bordered table-striped table-sm">
