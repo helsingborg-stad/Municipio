@@ -386,7 +386,7 @@ class NavigationTree
         $hide = get_field('hide_in_menu', $pageId) ? get_field('hide_in_menu', $pageId) : false;
 
         return !($item->post_type === 'page' && isset($item->post_parent) && !$this->args['include_top_level'] && $item->post_parent === 0)
-               || $hide;
+               && !$hide;
     }
 
 
