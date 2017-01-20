@@ -373,7 +373,7 @@ class NavigationTree
 
     /**
      * Datermines if page should be included in the menu or not
-     * @param  integer $id The page ID
+     * @param  object $item The menu item
      * @return boolean
      */
     public function shouldBeIncluded($item)
