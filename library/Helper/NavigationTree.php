@@ -77,8 +77,10 @@ class NavigationTree
         if ($this->args['include_top_level']) {
             $this->walk($this->topLevelPages);
         } else {
-            $page = isset($this->ancestors[0]) ? array($this->ancestors[0]) : array($this->currentPage);
-            $this->walk($page);
+            $page = isset($this->ancestors[0]) ? $this->ancestors[0] : $this->currentPage;
+            if ($page) {
+                $this->walk(array($page));
+            }
         }
     }
 

@@ -142,6 +142,9 @@ class Enqueue
                 'cta' => get_field('scroll_elevator_text', 'option'),
                 'tooltip' => get_field('scroll_elevator_tooltio', 'option'),
                 'tooltipPosition' => get_field('scroll_elevator_tooltio_position', 'option')
+            ),
+            'tableFilter' => array(
+                'empty' => apply_filters('municipio/tablefilter/empty', __('No matching content found…', 'municipio'))
             )
         ));
         wp_enqueue_script($this->defaultPrimeName);
