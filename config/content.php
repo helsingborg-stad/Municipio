@@ -51,8 +51,3 @@ define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
  * Disable color theme selector on user level
  */
 define('MUNICIPIO_INTRANET_USER_COLOR_THEME', false);
-
-/**
- * Disable color theme selector on user level
- */
-define('SEARCH_NOTICES_NETWORK', true);
