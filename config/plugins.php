@@ -2,6 +2,10 @@
 
 /**
  * Turn of admin panel for ACF.
- * @var bool
  */
  define('ACF_LITE', false);
+
+/**
+ * Share search notices across the network
+ */
+ define('SEARCH_NOTICES_NETWORK', true);
