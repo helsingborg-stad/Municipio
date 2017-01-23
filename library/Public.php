@@ -152,3 +152,23 @@ if (!function_exists('municiipio_format_currency')) {
         return $value;
     }
 }
+
+if (!function_exists('municipio_get_author_full_name')) {
+    /**
+     * Get url to manage subscriptions page
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_get_author_full_name($author = null)
+    {
+        if (is_null($author)) {
+            $author = get_the_author_meta('ID');
+        }
+
+        if (!empty(get_user_meta($author, 'first_name', true)) && !empty(get_user_meta($author, 'last_name', true))) {
+            return get_user_meta($author, 'first_name', true) . ' ' . get_user_meta($author, 'last_name', true);
+        }
+
+        return get_user_meta($author, 'nicename', true);
+    }
+}
