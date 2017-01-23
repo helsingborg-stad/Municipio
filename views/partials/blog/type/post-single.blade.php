@@ -5,7 +5,7 @@
 
             @include('partials.blog.post-header')
 
-            @if (is_null(get_field('post_single_show_featured_image')) || get_field('post_single_show_featured_image') === true)
+            @if (get_field('post_single_show_featured_image') === true)
                 <img src="{{ municipio_get_thumbnail_source(null, array(700,700)) }}" alt="{{ the_title() }}">
             @endif
 
