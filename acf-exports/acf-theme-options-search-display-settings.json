@@ -31,7 +31,7 @@
                 "name": "search_label_text",
                 "type": "text",
                 "instructions": "",
-                "required": 1,
+                "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": 33,
@@ -52,7 +52,7 @@
                 "name": "search_placeholder_text",
                 "type": "text",
                 "instructions": "",
-                "required": 1,
+                "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": 33,
@@ -73,7 +73,7 @@
                 "name": "search_button_text",
                 "type": "text",
                 "instructions": "",
-                "required": 1,
+                "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": 33,
