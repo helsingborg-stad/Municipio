@@ -5,7 +5,7 @@
 
     <h3><a class="link-item {{ isset($titleClass) ? $titleClass : '' }}" href="{{ $permalink }}">{{ $title }}</a></h3>
 
-    @if (is_null(get_field('search_result_display_options', 'option')) || in_array('image', (array)get_field('search_result_display_options', 'option')))
+    @if (in_array('image', (array)get_field('search_result_display_options', 'option')))
     <?php
     if ($thumbnail) {
         echo '<a href="' . $permalink . '"><img src="' . $thumbnail . '" class="pull-right gutter gutter-margin gutter-left material-radius"></a>';

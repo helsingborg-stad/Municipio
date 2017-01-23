@@ -19,6 +19,8 @@
     @endif
 
     <div class="grid grid-table grid-table-autofit {{ is_single() ? 'no-padding' : '' }}">
+
+        @if (array_intersect(array('tags', 'category'), (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
         <div class="grid-md-4">
             @if (in_array('tags', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
                 @include('partials.blog.post-tags')
@@ -28,6 +30,7 @@
                 @include('partials.blog.post-categories')
             @endif
         </div>
+        @endif
 
         @if (in_array('author', (array) get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && get_field('post_show_author', get_the_id()) !== false)
             <div class="grid-md-4">

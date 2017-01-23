@@ -46,9 +46,11 @@ class PostFilters
         $taxonomies = $this->getEnabledTaxonomies();
 
         add_action('HbgBlade/data', function ($data) use ($taxonomies) {
-            $data['postType'] = get_post_type();
+            if (!isset($data['postType'])) {
+                $data['postType'] = get_post_type();
+            }
 
-            $data['enabledHeaderFilters'] = get_field('archive_' . get_post_type() . '_post_filters_header', 'option');
+            $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
             $data['enabledTaxonomyFilters'] = $taxonomies;
 
             return $data;
