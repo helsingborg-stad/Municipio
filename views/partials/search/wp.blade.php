@@ -47,30 +47,53 @@
 
                 <div class="grid">
                     <div class="grid-lg-12">
-                        <ul class="search-result-list">
-                            @while(have_posts())
-                                {!! the_post() !!}
-                                <li>
-                                    <?php
-                                    $date = apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post());
-                                    $permalink = apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post());
-                                    $permalinkText = apply_filters('Municipio/search_result/permalink_text', get_permalink(), get_post());
-                                    $title = apply_filters('Municipio/search_result/title', get_the_title(), get_post());
-                                    $lead = apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post());
-                                    $thumbnail = wp_get_attachment_image_src(
-                                        get_post_thumbnail_id(),
-                                        apply_filters('Modularity/index/image', municipio_to_aspect_ratio('16:9', array(200, 200))                                            )
-                                    );
+                        @if ($template === 'grid')
+                            <div class="grid">
+                                @while(have_posts())
+                                    {!! the_post() !!}
+                                        <?php
+                                        $date = apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post());
+                                        $permalink = apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post());
+                                        $permalinkText = apply_filters('Municipio/search_result/permalink_text', get_permalink(), get_post());
+                                        $title = apply_filters('Municipio/search_result/title', get_the_title(), get_post());
+                                        $lead = apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post());
+                                        $thumbnail = wp_get_attachment_image_src(
+                                            get_post_thumbnail_id(),
+                                            apply_filters('Modularity/index/image', municipio_to_aspect_ratio('16:9', array(500, 500))                                            )
+                                        );
 
-                                    if (is_array($thumbnail)) {
-                                        $thumbnail = $thumbnail[0];
-                                    }
-                                    ?>
-                                    @include('partials.search.result-item')
-                                </li>
-                            @endwhile
+                                        if (is_array($thumbnail)) {
+                                            $thumbnail = $thumbnail[0];
+                                        }
+                                        ?>
+                                        @include('partials.search.result-item-grid')
+                                @endwhile
+                            </div>
+                        @else
+                            <ul class="search-result-list">
+                                @while(have_posts())
+                                    {!! the_post() !!}
+                                    <li>
+                                        <?php
+                                        $date = apply_filters('Municipio/search_result/date', get_the_modified_date(), get_post());
+                                        $permalink = apply_filters('Municipio/search_result/permalink_url', get_permalink(), get_post());
+                                        $permalinkText = apply_filters('Municipio/search_result/permalink_text', get_permalink(), get_post());
+                                        $title = apply_filters('Municipio/search_result/title', get_the_title(), get_post());
+                                        $lead = apply_filters('Municipio/search_result/excerpt', get_the_excerpt(), get_post());
+                                        $thumbnail = wp_get_attachment_image_src(
+                                            get_post_thumbnail_id(),
+                                            apply_filters('Modularity/index/image', municipio_to_aspect_ratio('16:9', array(200, 200))                                            )
+                                        );
 
-                        </ul>
+                                        if (is_array($thumbnail)) {
+                                            $thumbnail = $thumbnail[0];
+                                        }
+                                        ?>
+                                        @include('partials.search.result-item')
+                                    </li>
+                                @endwhile
+                            </ul>
+                        @endif
                     </div>
                 </div>
 

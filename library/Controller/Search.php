@@ -12,7 +12,7 @@ class Search extends \Municipio\Controller\BaseController
             $this->wpSearch();
         }
 
-        $this->data['template'] = is_null(get_filed('search_result_layout', 'option')) ? 'default' : get_filed('search_result_layout', 'option');
+        $this->data['template'] = is_null(get_field('search_result_layout', 'option')) ? 'default' : get_field('search_result_layout', 'option');
         $this->data['gridSize'] = get_field('search_result_grid_columns', 'option');
     }
 
