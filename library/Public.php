@@ -172,3 +172,25 @@ if (!function_exists('municipio_get_author_full_name')) {
         return get_user_meta($author, 'nicename', true);
     }
 }
+
+if (!function_exists('municipio_post_taxonomies_to_display')) {
+    /**
+     * Gets "public" (set via theme options) taxonomies and terms for a specific post
+     * @param  int    $postId The id of the post
+     * @return array          Taxs and terms
+     */
+    function municipio_post_taxonomies_to_display(int $postId) : array
+    {
+        $taxonomies = array();
+        $post = get_post($postId);
+        $taxonomiesToShow = get_field('archive_' . sanitize_title($post->post_type) . '_post_taxonomy_display', 'option');
+
+        foreach ($taxonomiesToShow as $taxonomy) {
+            $taxonomies[$taxonomy] = wp_get_post_terms($postId, $taxonomy);
+        }
+
+        $taxonomies = array_filter($taxonomies);
+
+        return $taxonomies;
+    }
+}
