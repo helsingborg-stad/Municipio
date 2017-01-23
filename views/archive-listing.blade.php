@@ -53,16 +53,30 @@
                                 @endif
                             </a>
                             <div class="box-content">
-                                <div>
-                                    <?php
-                                        $terms = array();
-                                        foreach (get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug) as $term) {
+
+                                <?php
+                                    $terms = array();
+                                    foreach ((array) get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug) as $term) {
+                                        //if (is_object($term)) {
                                             $terms[] = $term->name;
-                                        }
-                                    ?>
-                                    {{ implode(', ', (array) $terms) }},
-                                    {{ isset(get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug)[0]) ? get_the_terms(get_the_id(), \WpListings\Listings::$placesTaxonomySlug)[0]->name : null }}
-                                </div>
+                                        //}
+                                    }
+                                    $terms      = implode(', ', (array) $terms);
+                                    $location   = isset(get_the_terms(get_the_id(), \WpListings\Listings::$placesTaxonomySlug)[0]) ? get_the_terms(get_the_id(), \WpListings\Listings::$placesTaxonomySlug)[0]->name : "";
+                                ?>
+
+                                @if ($terms != "" || $location != "")
+
+                                    <div>
+                                        {{ $terms }}
+                                        @if ($terms != "" && $location != "")
+                                        ,
+                                        @endif
+                                        {{ $location }}
+                                    </div>
+
+                                @endif
+
                                 <h2 class="box-title text-highlight"><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
 
                                 @if (wp_listings_use_price())
