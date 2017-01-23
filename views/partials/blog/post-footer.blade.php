@@ -18,22 +18,22 @@
         </div>
     @endif
 
-    <div class="grid grid-table grid-table-autofit {{ is_single() ? 'no-padding' : '' }}">
-
-        @if (array_intersect(array('tags', 'category'), (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
-        <div class="grid-md-4">
-            @if (in_array('tags', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
-                @include('partials.blog.post-tags')
-            @endif
-
-            @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')))
-                @include('partials.blog.post-categories')
-            @endif
+    <div class="grid">
+        <div class="grid-md-12">
+            @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
+            <h5>{{ get_taxonomy($taxonomy)->label }}</h5>
+            <ul class="tags">
+                @foreach ($terms as $term)
+                <li><a href="{{ get_term_link($term, $taxonomy) }}" class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}">{{ $term->name }}</a></li>
+                @endforeach
+            </ul>
+            @endforeach
         </div>
-        @endif
+    </div>
 
+    <div class="grid grid-table grid-table-autofit {{ is_single() ? 'no-padding' : '' }}">
         @if (in_array('author', (array) get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && get_field('post_show_author', get_the_id()) !== false)
-            <div class="grid-md-4">
+            <div class="grid-md-6">
                 <strong><?php echo apply_filters('Municipio/author_display/title', __('Published by', 'municipio')); ?>:</strong>
                 @if (get_field('page_link_to_author_archive', 'option'))
                 <a href="{{ get_author_posts_url(get_the_author_meta('ID')) }}" class="post-author post-author-margin-left">
@@ -60,7 +60,7 @@
         @endif
 
         @if (get_field('post_show_share', get_the_id()) !== false && get_field('page_show_share', 'option') !== false && !is_single())
-        <div class="grid-md-4 text-right">
+        <div class="grid-md-6 text-right">
             @include('partials.social-share')
         </div>
         @endif
