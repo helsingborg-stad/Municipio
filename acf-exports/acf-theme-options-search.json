@@ -16,7 +16,7 @@
                     "id": ""
                 },
                 "message": "Use Google Site Search",
-                "default_value": 1
+                "default_value": 0
             },
             {
                 "key": "field_569fa7fffa53e",
