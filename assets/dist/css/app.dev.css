@@ -7,7 +7,8 @@
   .site-header .logotype svg {
     display: block;
     max-width: 250px;
-    width: 100%; }
+    width: 100%;
+    height: auto; }
   .site-header .logotype .h1 {
     color: #fff; }
 
@@ -135,7 +136,6 @@
   display: block;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   padding-top: 60px;
   width: 100%; }
