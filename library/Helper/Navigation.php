@@ -50,6 +50,9 @@ class Navigation
      */
     public function mobileMenu()
     {
+        if (get_field('nav_mobile_enable', 'option') === false) {
+            return '';
+        }
         if (get_field('nav_primary_enable', 'option') === false && get_field('nav_sub_enable', 'option') === false) {
             return '';
         }
