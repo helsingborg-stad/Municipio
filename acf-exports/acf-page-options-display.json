@@ -3,6 +3,22 @@
         "title": "Display settings",
         "fields": [
             {
+                "key": "field_56c33e148efe3",
+                "label": "Featured image",
+                "name": "post_single_show_featured_image",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Show featured image in single template",
+                "default_value": 0
+            },
+            {
                 "key": "field_56c33d008efe3",
                 "label": "Share",
                 "name": "post_show_share",

@@ -5,6 +5,10 @@
 
             @include('partials.blog.post-header')
 
+            @if (is_null(get_field('post_single_show_featured_image')) || get_field('post_single_show_featured_image') === true)
+                <img src="{{ municipio_get_thumbnail_source(null, array(700,700)) }}" alt="{{ the_title() }}">
+            @endif
+
             <article id="article">
                 @if (isset(get_extended($post->post_content)['main']) && !empty(get_extended($post->post_content)['main']) && isset(get_extended($post->post_content)['extended']) && !empty(get_extended($post->post_content)['extended']))
 
