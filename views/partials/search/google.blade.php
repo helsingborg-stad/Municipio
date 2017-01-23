@@ -30,7 +30,7 @@
 @else
 
 <section>
-    <div class="container">
+    <div class="container main-container">
         <div class="grid">
             <div class="grid-md-12 grid-lg-9">
                 @if ($pagination)
