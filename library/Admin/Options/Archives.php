@@ -42,7 +42,8 @@ class Archives
             $taxonomiesRaw = get_object_taxonomies($posttype);
 
             foreach ($taxonomiesRaw as $taxonomy) {
-                $taxonomies[$taxonomy] = $taxonomy;
+                $taxonomy = get_taxonomy($taxonomy);
+                $taxonomies[$taxonomy->name] = $taxonomy->label;
             }
 
             $fieldArgs = array(
@@ -374,6 +375,7 @@ class Archives
                     'layout' => 'horizontal',
                 );
 
+                // Info to display
                 $fieldArgs['fields'][] = array (
                     'key' => 'field_56fcc62b8ab02_' . md5($posttype),
                     'label' => 'Info to display',
@@ -388,8 +390,6 @@ class Archives
                         'id' => '',
                     ),
                     'choices' => array (
-                        'category' => 'Show category',
-                        'tags' => 'Show tags',
                         'author' => 'Show author',
                         'author_image' => 'Show autor image (only if show author)',
                     ),
@@ -398,6 +398,29 @@ class Archives
                     'default_value' => '',
                     'layout' => 'horizontal',
                 );
+
+                // Taxonomy info to display
+                if (count($taxonomies) > 0) {
+                    $fieldArgs['fields'][] = array (
+                        'key' => 'field_56fcc62b8ab03_' . md5($posttype),
+                        'label' => 'Taxonomies to display',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_post_taxonomy_display',
+                        'type' => 'checkbox',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => $taxonomies,
+                        'other_choice' => 0,
+                        'save_other_choice' => 0,
+                        'default_value' => '',
+                        'layout' => 'horizontal',
+                    );
+                }
             }
 
 
