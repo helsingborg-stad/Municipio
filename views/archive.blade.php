@@ -23,6 +23,15 @@
 
         <div class="{{ $cols }}">
 
+            @if (is_category())
+            <div class="grid">
+                <div class="grid-xs-12">
+                    <h1>{{ single_cat_title() }}</h1>
+                    {!! category_description() !!}
+                </div>
+            </div>
+            @endif
+
             @if (is_active_sidebar('content-area-top'))
                 <div class="grid sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
