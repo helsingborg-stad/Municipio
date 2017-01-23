@@ -18,18 +18,15 @@
         </div>
     @endif
 
+    @if (!empty(municipio_post_taxonomies_to_display(get_the_id())))
     <div class="grid">
         <div class="grid-md-12">
             @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
-            <h5>{{ get_taxonomy($taxonomy)->label }}</h5>
-            <ul class="tags">
-                @foreach ($terms as $term)
-                <li><a href="{{ get_term_link($term, $taxonomy) }}" class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}">{{ $term->name }}</a></li>
-                @endforeach
-            </ul>
+                @include('partials.blog.post-terms')
             @endforeach
         </div>
     </div>
+    @endif
 
     <div class="grid grid-table grid-table-autofit {{ is_single() ? 'no-padding' : '' }}">
         @if (in_array('author', (array) get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && get_field('post_show_author', get_the_id()) !== false)
