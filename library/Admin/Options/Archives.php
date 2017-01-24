@@ -288,7 +288,7 @@ class Archives
                     'label' => 'Archive filtering settings',
                     'name' => 'archive_' . sanitize_title($posttype) . '_feed_filtering_settings',
                     'type' => 'message',
-                    'instructions' => 'The below settings will apply for the archive feed.',
+                    'instructions' => 'The below settings will decide for which taxonomy filters should be shown in the archive filtering.',
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array (
@@ -379,7 +379,7 @@ class Archives
 
                     $fieldArgs['fields'][] = array(
                         'key' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_type'),
-                        'label' => $taxLabel . ': Placement',
+                        'label' => $taxLabel . ': Type',
                         'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_type',
                         'type' => 'select',
                         'instructions' => '',

@@ -75,8 +75,16 @@ class PostFilters
                 'hide_empty' => false
             ));
 
-            $tax[$item] = array(
-                'label' => get_taxonomy($item)->labels->name,
+            $placement = get_field('archive_' . sanitize_title(get_post_type()) . '_filter_' . sanitize_title($item) . '_placement', 'option');
+            if (is_null($placement)) {
+                $placement = 'secondary';
+            }
+
+            $type = get_field('archive_' . sanitize_title(get_post_type()) . '_filter_' . sanitize_title($item) . '_type', 'option');
+
+            $tax[$placement][$item] = array(
+                'label' => get_taxonomy($item)->label,
+                'type' => $type,
                 'values' => $terms
             );
         }
@@ -131,6 +139,10 @@ class PostFilters
 
         $taxQuery = array('relation' => 'OR');
         foreach ($terms as $key => $term) {
+            if (!isset($term[0]) || !isset($term[1])) {
+                continue;
+            }
+
             $taxQuery[] = array(
                 'taxonomy' => $term[0],
                 'field' => 'slug',
