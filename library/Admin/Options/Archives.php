@@ -369,7 +369,8 @@ class Archives
                         ),
                         'choices' => array (
                             'primary' => 'Primary',
-                            'secondary' => 'Secondary'
+                            'row' => 'Row',
+                            'folded' => 'Folded'
                         ),
                         'other_choice' => 0,
                         'save_other_choice' => 0,
