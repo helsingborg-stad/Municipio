@@ -45,7 +45,7 @@ class Support
         global $wp_post_types;
 
         if (isset($wp_post_types['post'])) {
-            if (function_exists('get_field') && get_field('disable_default_blog_post_type')) {
+            if (function_exists('get_field') && get_field('disable_default_blog_post_type', 'option')) {
                 add_action('admin_menu', function () {
                     remove_menu_page('edit.php');
                 });
@@ -58,7 +58,7 @@ class Support
         }
 
         if (isset($wp_post_types['page'])) {
-            if (function_exists('get_field') && get_field('disable_default_page_post_type')) {
+            if (function_exists('get_field') && get_field('disable_default_page_post_type', 'option')) {
                 add_action('admin_menu', function () {
                     remove_menu_page('edit.php?post_type=page');
                 });
