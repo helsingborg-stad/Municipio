@@ -42,6 +42,26 @@
             </div>
         </div>
 
+        @if (isset($enabledTaxonomyFilters->row) && !empty($enabledTaxonomyFilters->row))
+        @foreach ($enabledTaxonomyFilters->row as $taxKey => $taxonomy)
+        <div class="gutter gutter-top">
+        <div class="grid">
+            <div class="grid-xs-12">
+                <ul class="segmented-control">
+                    <li class="title">{{ $taxonomy->label }}:</li>
+                    @foreach ($taxonomy->values as $term)
+                        <li>
+                            <input id="segment-id-{{ $taxKey }}-{{ $term->slug }}" type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}>
+                            <label for="segment-id-{{ $taxKey }}-{{ $term->slug }}" class="checkbox inline-block">{{ $term->name }}</label>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        </div>
+        @endforeach
+        @endif
+
         @if (isset($enabledTaxonomyFilters->folded) && !empty($enabledTaxonomyFilters->folded))
         <div class="gutter gutter-top" id="options" style="display: none;">
             <div class="grid" data-equal-container>
@@ -54,7 +74,8 @@
                             @foreach ($taxonomy->values as $term)
                                 <li>
                                     <label class="checkbox">
-                                        <input type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
+                                        <input type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}>
+                                        {{ $term->name }}
                                     </label>
                                 </li>
                             @endforeach
