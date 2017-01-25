@@ -185,7 +185,7 @@ if (!function_exists('municipio_post_taxonomies_to_display')) {
         $post = get_post($postId);
         $taxonomiesToShow = get_field('archive_' . sanitize_title($post->post_type) . '_post_taxonomy_display', 'option');
 
-        foreach ($taxonomiesToShow as $taxonomy) {
+        foreach ((array)$taxonomiesToShow as $taxonomy) {
             $taxonomies[$taxonomy] = apply_filters('Municipio/taxonomies_to_display/terms', wp_get_post_terms($postId, $taxonomy), $postId, $taxonomy);
         }
 
