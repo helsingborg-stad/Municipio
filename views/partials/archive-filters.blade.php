@@ -24,15 +24,48 @@
             </div>
             @endif
 
+            @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
+                @foreach ($enabledTaxonomyFilters->primary as $taxKey => $tax)
+                <div class="grid-sm-12 {{ $tax->type == 'multi' ? 'grid-md-fit-content' : 'grid-md-auto' }}">
+                    <label for="filter-{{ $taxKey }}" class="text-sm sr-only">{{ $tax->label }}</label>
+                    @if ($tax->type === 'single')
+                        @include('partials.archive-filters.select')
+                    @else
+                        @include('partials.archive-filters.button-dropdown')
+                    @endif
+                </div>
+                @endforeach
+            @endif
+
             <div class="grid-sm-12 grid-md-fit-content">
                 <input type="submit" value="<?php _e('Search', 'municipio'); ?>" class="btn btn-primary btn-block">
             </div>
         </div>
 
-        @if (!empty($enabledTaxonomyFilters))
+        @if (isset($enabledTaxonomyFilters->row) && !empty($enabledTaxonomyFilters->row))
+        @foreach ($enabledTaxonomyFilters->row as $taxKey => $taxonomy)
+        <div class="gutter gutter-top">
+        <div class="grid">
+            <div class="grid-xs-12">
+                <ul class="segmented-control">
+                    <li class="title">{{ $taxonomy->label }}:</li>
+                    @foreach ($taxonomy->values as $term)
+                        <li>
+                            <input id="segment-id-{{ $taxKey }}-{{ $term->slug }}" type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}>
+                            <label for="segment-id-{{ $taxKey }}-{{ $term->slug }}" class="checkbox inline-block">{{ $term->name }}</label>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        </div>
+        @endforeach
+        @endif
+
+        @if (isset($enabledTaxonomyFilters->folded) && !empty($enabledTaxonomyFilters->folded))
         <div class="gutter gutter-top" id="options" style="display: none;">
             <div class="grid" data-equal-container>
-            @foreach ($enabledTaxonomyFilters as $taxKey => $taxonomy)
+            @foreach ($enabledTaxonomyFilters->folded as $taxKey => $taxonomy)
                 <div class="grid-md-4">
                     <div class="box box-panel box-panel-secondary" data-equal-item>
                         <h4 class="box-title">{{ $taxonomy->label }}</h4>
@@ -41,7 +74,8 @@
                             @foreach ($taxonomy->values as $term)
                                 <li>
                                     <label class="checkbox">
-                                        <input type="checkbox" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}> {{ $term->name }}
+                                        <input type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}>
+                                        {{ $term->name }}
                                     </label>
                                 </li>
                             @endforeach
@@ -54,7 +88,7 @@
         </div>
         @endif
 
-        @if (!empty($enabledTaxonomyFilters))
+        @if (isset($enabledTaxonomyFilters->folded) && !empty($enabledTaxonomyFilters->folded))
         <div class="grid no-margin gutter gutter-top gutter-sm">
             <div class="grid-xs-12">
                 <button type="button" data-toggle="#options" class="btn btn-plain pricon pricon-plus-o pricon-space-right" data-toggle-text="Visa färre sökalternativ…" data-toggle-class="btn btn-plain pricon pricon-minus-o pricon-space-right">Visa fler sökalternativ…</a>

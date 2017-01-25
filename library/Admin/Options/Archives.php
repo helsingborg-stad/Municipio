@@ -42,7 +42,8 @@ class Archives
             $taxonomiesRaw = get_object_taxonomies($posttype);
 
             foreach ($taxonomiesRaw as $taxonomy) {
-                $taxonomies[$taxonomy] = $taxonomy;
+                $taxonomy = get_taxonomy($taxonomy);
+                $taxonomies[$taxonomy->name] = $taxonomy->label;
             }
 
             $fieldArgs = array(
@@ -237,53 +238,6 @@ class Archives
                     'readonly' => 0,
                 );
 
-                // Post filters
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_570ba0c87756c' . md5($posttype),
-                    'label' => 'Post filters',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_header',
-                    'type' => 'checkbox',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array (
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'choices' => array (
-                        'text_search' => 'Text search',
-                        'date_range' => 'Date range'
-                    ),
-                    'default_value' => array (
-                    ),
-                    'layout' => 'horizontal',
-                    'toggle' => 0,
-                );
-
-                // Post filters sidebar
-                if (count($taxonomies) > 0) {
-                    $fieldArgs['fields'][] = array(
-                        'key' => 'field_570ba0c8erg434' . md5($posttype),
-                        'label' => 'Taxonomy filters',
-                        'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_sidebar',
-                        'type' => 'checkbox',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array (
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'choices' => $taxonomies,
-                        'default_value' => array (
-                        ),
-                        'layout' => 'horizontal',
-                        'toggle' => 0,
-                    );
-                }
-
                 // Publish date
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_56fcc6914296b_' . md5($posttype),
@@ -327,6 +281,132 @@ class Archives
                     'message' => 'Yes, show the sidebar navigation',
                     'default_value' => 0,
                 );
+
+                // Post filters
+                $fieldArgs['fields'][] = array (
+                    'key' => 'field_570e104caf1b5_' . md5($posttype),
+                    'label' => 'Archive filtering settings',
+                    'name' => 'archive_' . sanitize_title($posttype) . '_feed_filtering_settings',
+                    'type' => 'message',
+                    'instructions' => 'The below settings will decide for which taxonomy filters should be shown in the archive filtering.',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array (
+                        'width' => '',
+                        'class' => 'municipio-theme-options-label',
+                        'id' => '',
+                    ),
+                    'message' => '',
+                    'new_lines' => 'wpautop',
+                    'esc_html' => 0,
+                );
+
+                $fieldArgs['fields'][] = array(
+                    'key' => 'field_570ba0c87756c' . md5($posttype),
+                    'label' => 'Post filters',
+                    'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_header',
+                    'type' => 'checkbox',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array (
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array (
+                        'text_search' => 'Text search',
+                        'date_range' => 'Date range'
+                    ),
+                    'default_value' => array (
+                    ),
+                    'layout' => 'horizontal',
+                    'toggle' => 0,
+                );
+
+                // Post filters sidebar
+                if (count($taxonomies) > 0) {
+                    $fieldArgs['fields'][] = array(
+                        'key' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
+                        'label' => 'Taxonomy filters',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_post_filters_sidebar',
+                        'type' => 'checkbox',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => $taxonomies,
+                        'default_value' => array (
+                        ),
+                        'layout' => 'horizontal',
+                        'toggle' => 0,
+                    );
+                }
+
+                foreach ($taxonomies as $taxName => $taxLabel) {
+                    $fieldArgs['fields'][] = array(
+                        'key' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_placement'),
+                        'label' => $taxLabel . ': Placement',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_placement',
+                        'type' => 'select',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => array(array(
+                            array(
+                                'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
+                                'operator' => '==',
+                                'value' => $taxName
+                            )
+                        )),
+                        'wrapper' => array (
+                            'width' => '50%',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => array (
+                            'primary' => 'Primary',
+                            'row' => 'Row',
+                            'folded' => 'Folded'
+                        ),
+                        'other_choice' => 0,
+                        'save_other_choice' => 0,
+                        'default_value' => 'datetime',
+                        'layout' => 'horizontal',
+                    );
+
+                    $fieldArgs['fields'][] = array(
+                        'key' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_type'),
+                        'label' => $taxLabel . ': Type',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_type',
+                        'type' => 'select',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => array(array(
+                            array(
+                                'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
+                                'operator' => '==',
+                                'value' => $taxName
+                            )
+                        )),
+                        'wrapper' => array (
+                            'width' => '50%',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => array (
+                            'single' => 'Single choice',
+                            'multi' => 'Multiple choices'
+                        ),
+                        'other_choice' => 0,
+                        'save_other_choice' => 0,
+                        'default_value' => 'datetime',
+                        'layout' => 'horizontal',
+                    );
+                }
             }
 
             // Post display label
@@ -374,6 +454,7 @@ class Archives
                     'layout' => 'horizontal',
                 );
 
+                // Info to display
                 $fieldArgs['fields'][] = array (
                     'key' => 'field_56fcc62b8ab02_' . md5($posttype),
                     'label' => 'Info to display',
@@ -388,8 +469,6 @@ class Archives
                         'id' => '',
                     ),
                     'choices' => array (
-                        'category' => 'Show category',
-                        'tags' => 'Show tags',
                         'author' => 'Show author',
                         'author_image' => 'Show autor image (only if show author)',
                     ),
@@ -398,6 +477,29 @@ class Archives
                     'default_value' => '',
                     'layout' => 'horizontal',
                 );
+
+                // Taxonomy info to display
+                if (count($taxonomies) > 0) {
+                    $fieldArgs['fields'][] = array (
+                        'key' => 'field_56fcc62b8ab03_' . md5($posttype),
+                        'label' => 'Taxonomies to display',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_post_taxonomy_display',
+                        'type' => 'checkbox',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => $taxonomies,
+                        'other_choice' => 0,
+                        'save_other_choice' => 0,
+                        'default_value' => '',
+                        'layout' => 'horizontal',
+                    );
+                }
             }
 
 
