@@ -44,6 +44,30 @@
                 },
                 "message": "Header should stick to view (floats when scrolling)",
                 "default_value": 0
+            },
+            {
+                "key": "field_58737dd1dc763",
+                "label": "Transparent",
+                "name": "header_transparent",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56a22aaa83835",
+                            "operator": "==",
+                            "value": "jumbo"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Transparent header on front page",
+                "default_value": 0
             }
         ],
         "location": [
