@@ -240,22 +240,7 @@ class PostFilters
 
         // Continue if meta query
         $query->set('meta_key', $orderby);
-        $query->set(
-            'meta_query',
-            array(
-                'relation' => 'OR',
-                array(
-                    'key' => $orderby,
-                    'compare' => 'EXISTS'
-                ),
-                array(
-                    'key' => $orderby,
-                    'compare' => 'NOT EXISTS'
-                )
-            )
-        );
-
-        $query->set('orderby', 'meta_key');
+        $query->set('orderby', 'meta_value');
 
         return $query;
     }
