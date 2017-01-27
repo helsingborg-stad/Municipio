@@ -31,6 +31,7 @@ class App
         new \Municipio\Theme\Blog();
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
+        new \Municipio\Theme\CustomTemplates();
 
         new \Municipio\Search\General();
 
