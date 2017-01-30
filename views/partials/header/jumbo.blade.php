@@ -17,6 +17,8 @@
                         {!! municipio_get_logotype(get_field('header_logotype', 'option'), get_field('logotype_tooltip', 'option')) !!}
                         <a href="#mobile-menu" data-target="#mobile-menu" class="{!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} menu-trigger"><span class="menu-icon"></span></a>
                     </div>
+
+                    @if (get_field('nav_primary_enable', 'option') === true)
                     <div class="grid-md-8 text-right {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-xs hidden-sm'); !!}">
                         <nav class="nav-group-overflow" data-btn-width="100">
                             {!! $navigation['mainMenu'] !!}
@@ -26,6 +28,7 @@
                             </span>
                         </nav>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
