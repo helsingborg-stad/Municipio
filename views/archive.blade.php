@@ -40,6 +40,7 @@
 
             <div class="grid">
                 @if (have_posts())
+                    <?php $postNum = 0; ?>
                     @while(have_posts())
                         {!! the_post() !!}
 
@@ -50,6 +51,8 @@
                         @else
                             @include('partials.blog.type.post-' . $template)
                         @endif
+
+                        <?php $postNum++; ?>
                     @endwhile
                 @else
                     <div class="grid-xs-12">

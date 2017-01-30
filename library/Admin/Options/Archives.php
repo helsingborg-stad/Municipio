@@ -170,6 +170,31 @@ class Archives
                     'readonly' => 0,
                 );
 
+                $fieldArgs['fields'][] = array(
+                    'key' => 'field_570ded8a4720erg_' . md5($posttype),
+                    'label' => 'Alter grid column size',
+                    'name' => 'archive_' . sanitize_title($posttype) . '_grid_columns_alter',
+                    'type' => 'true_false',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => array (
+                        array (
+                            array (
+                                'field' => 'field_56f00fe21f918_' . md5($posttype),
+                                'operator' => '==',
+                                'value' => 'grid',
+                            ),
+                        )
+                    ),
+                    'wrapper' => array (
+                        'width' => '50%',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'message' => 'Yes, alter grid column size',
+                    'default_value' => 0,
+                );
+
                 // Post sorting
                 $metaKeys = array(
                     'post_date'  => 'Date published',
