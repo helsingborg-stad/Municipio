@@ -52,15 +52,7 @@
                 "type": "true_false",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": [
-                    [
-                        {
-                            "field": "field_56a22aaa83835",
-                            "operator": "==",
-                            "value": "jumbo"
-                        }
-                    ]
-                ],
+                "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
                     "class": "",
