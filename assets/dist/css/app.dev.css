@@ -232,11 +232,8 @@
     background-color: #FFF4F4; }
   .gform_wrapper .gfield_description,
   .gform_wrapper .validation_message {
-    text-align: right;
     opacity: .8;
-    font-size: .8em;
-    width: 50%;
-    float: right; }
+    font-size: .8em; }
   .gform_wrapper .validation_message {
     color: #ff0000;
     opacity: 1;
