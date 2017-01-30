@@ -23,11 +23,15 @@
 
         <div class="{{ $cols }}">
 
-            @if (is_category())
+            @if (is_category() || is_date())
             <div class="grid">
                 <div class="grid-xs-12">
+                    @if (is_category())
                     <h1>{{ single_cat_title() }}</h1>
                     {!! category_description() !!}
+                    @elseif (is_date())
+                    <h1>{{ the_archive_title() }}</h1>
+                    @endif
                 </div>
             </div>
             @endif
