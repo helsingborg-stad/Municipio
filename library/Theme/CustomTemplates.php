@@ -8,7 +8,8 @@ class CustomTemplates
     {
         \Municipio\Helper\Template::add(
             __('Full width', 'municipio'),
-            \Municipio\Helper\Template::locateTemplate('full-width.blade.php')
+            \Municipio\Helper\Template::locateTemplate('full-width.blade.php'),
+            'all'
         );
     }
 }
