@@ -48,7 +48,7 @@ class Editor
     }
 
     /**
-     * Wrap oembed in 16:9 ratio wrapper
+     * Filters oembed output
      * @param  string $data Markup
      * @param  string $url  Embedded url
      * @param  array $args  Args
@@ -56,39 +56,25 @@ class Editor
      */
     public function oembed($html, $url, $attr, $postId)
     {
-        $shouldFilter = apply_filters('Municipio/oembed/should_filter_markup', true, $url, $postId);
+        $provider = false;
 
-        if (!$shouldFilter || (strpos($url, 'youtube.com') === false && strpos($url, 'vimeo.com') === false)) {
+        if (strpos($url, 'youtube') !== false) {
+            $provider = 'youtube';
+        } elseif (strpos($url, 'vimeo') !== false) {
+            $provider = 'vimeo';
+        }
+
+        $shouldFilter = apply_filters('Municipio/oembed/should_filter_markup', true, $provider, $url, $postId);
+
+        // Check if there's a oembed class for the provider
+        if (!class_exists('\Municipio\Oembed\\' . $provider) || !$shouldFilter) {
             return '<div class="ratio-16-9">' . $html . '</div>';
         }
 
-        $id = false;
-        $thumbnail = '';
+        $class = '\Municipio\Oembed\\' . $provider;
+        $oembed = new $class($url);
 
-        if (strpos($url, 'youtube') !== false) {
-            preg_match_all('/(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i', $url, $matches);
-            $id = isset($matches[1][0]) ? $matches[1][0] : false;
-
-            if ($id) {
-                $thumbnail = 'https://img.youtube.com/vi/' . $id . '/maxresdefault.jpg';
-            }
-        } elseif (strpos($url, 'vimeo') !== false) {
-            preg_match_all('/https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/', $url, $matches);
-            $id = isset($matches[3][0]) ? $matches[3][0] : false;
-
-            if ($id) {
-                $requestThumb = wp_remote_get('http://vimeo.com/api/v2/video/' . $id . '.json');
-                $requestThumb = json_decode(wp_remote_retrieve_body($requestThumb));
-
-                $thumbnail = $requestThumb[0]->thumbnail_large;
-            }
-        }
-
-        return '
-            <div class="player ratio-16-9" style="background-image:url(' . $thumbnail . ');">
-                <a href="#video-player-' . $id . '" data-video-id="' . $id . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>
-            </div>
-        ';
+        return $oembed->output();
     }
 
     /**
