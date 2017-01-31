@@ -38,7 +38,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "33.3333%",
                     "class": "",
                     "id": ""
                 },
@@ -54,11 +54,27 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "33.3333%",
                     "class": "",
                     "id": ""
                 },
                 "message": "Transparent header on front page",
+                "default_value": 0
+            },
+            {
+                "key": "field_58737dd1dc76345",
+                "label": "Centered",
+                "name": "header_centered",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.3333%",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Center all contents of the header",
                 "default_value": 0
             }
         ],

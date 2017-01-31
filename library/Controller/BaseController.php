@@ -55,6 +55,40 @@ class BaseController
         $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
         $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
         $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
+
+        $this->data['navigation']['headerTabsMenu'] = wp_nav_menu(array(
+            'theme_location' => 'header-tabs-menu',
+            'container' => 'nav',
+            'container_class' => 'menu-header-tabs',
+            'container_id' => '',
+            'menu_class' => 'nav nav-tabs',
+            'menu_id' => 'help-menu-top',
+            'echo' => false,
+            'before' => '',
+            'after' => '',
+            'link_before' => '',
+            'link_after' => '',
+            'items_wrap' => '<ul class="%2$s">%3$s</ul>',
+            'depth' => 1,
+            'fallback_cb' => '__return_false'
+        ));
+
+        $this->data['navigation']['headerHelpMenu'] = wp_nav_menu(array(
+            'theme_location' => 'help-menu',
+            'container' => 'nav',
+            'container_class' => 'menu-help',
+            'container_id' => '',
+            'menu_class' => 'nav nav-help nav-horizontal',
+            'menu_id' => 'help-menu-top',
+            'echo' => false,
+            'before' => '',
+            'after' => '',
+            'link_before' => '',
+            'link_after' => '',
+            'items_wrap' => '<ul class="%2$s">%3$s</ul>',
+            'depth' => 1,
+            'fallback_cb' => '__return_false'
+        ));
     }
 
     public function getLogotype()
