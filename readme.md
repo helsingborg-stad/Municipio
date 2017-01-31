@@ -260,6 +260,16 @@ Change custom editor stylesheet
 apply_filters('Municipio/admin/editor_stylesheet', $url);
 ```
 
+#### Municipio/oembed/should_filter_markup
+Decide if oembed markup should be filtered to HbgPrime video player (youtube and vimeo) or not.
+
+- ```@param string $url``` - The resource url
+- ```@param int $postId``` - Id of the current post
+
+```php
+apply_filters('Municipio/oembed/should_filter_markup', true, $url, $postId);
+```
+
 ## Dev mode
 To load assets from local styleguide. Set contant DEV_MODE to "true"
 

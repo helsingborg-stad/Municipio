@@ -16,7 +16,7 @@ class Editor
         //$this->printBreak();
 
         // Filters
-        add_filter('oembed_result', array($this, 'oembed'), 10, 3);
+        add_filter('embed_oembed_html', array($this, 'oembed'), 10, 4);
 
         add_filter('the_content', function ($content) {
             $content = str_replace('<!--printbreak-->', '<div style="page-break-before:always;" class="clearfix print-only"></div>', $content);
@@ -54,9 +54,41 @@ class Editor
      * @param  array $args  Args
      * @return string       Markup
      */
-    public function oembed($data, $url, $args)
+    public function oembed($html, $url, $attr, $postId)
     {
-        return '<div class="ratio-16-9">' . $data . '</div>';
+        $shouldFilter = apply_filters('Municipio/oembed/should_filter_markup', true, $url, $postId);
+
+        if (!$shouldFilter || (strpos($url, 'youtube.com') === false && strpos($url, 'vimeo.com') === false)) {
+            return '<div class="ratio-16-9">' . $html . '</div>';
+        }
+
+        $id = false;
+        $thumbnail = '';
+
+        if (strpos($url, 'youtube') !== false) {
+            preg_match_all('/(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i', $url, $matches);
+            $id = isset($matches[1][0]) ? $matches[1][0] : false;
+
+            if ($id) {
+                $thumbnail = 'https://img.youtube.com/vi/' . $id . '/maxresdefault.jpg';
+            }
+        } elseif (strpos($url, 'vimeo') !== false) {
+            preg_match_all('/https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/', $url, $matches);
+            $id = isset($matches[3][0]) ? $matches[3][0] : false;
+
+            if ($id) {
+                $requestThumb = wp_remote_get('http://vimeo.com/api/v2/video/' . $id . '.json');
+                $requestThumb = json_decode(wp_remote_retrieve_body($requestThumb));
+
+                $thumbnail = $requestThumb[0]->thumbnail_large;
+            }
+        }
+
+        return '
+            <div class="player ratio-16-9" style="background-image:url(' . $thumbnail . ');">
+                <a href="#video-player-' . $id . '" data-video-id="' . $id . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>
+            </div>
+        ';
     }
 
     /**
