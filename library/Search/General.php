@@ -18,12 +18,11 @@ class General
      */
     public function searchAttachmentPermalink($permalink, $post)
     {
-        switch ($post->post_type) {
-            case 'attachment':
-                return wp_get_attachment_url($post->ID);
-
-            default:
-                return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
+        if (isset($post->post_type) && $post->post_type == 'attachment') {
+            return wp_get_attachment_url($post->ID);
+        }
+        else {
+            return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
         }
     }
 }
