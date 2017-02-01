@@ -76,6 +76,38 @@
                 },
                 "message": "Center all contents of the header",
                 "default_value": 0
+            },
+            {
+                "key": "field_56a22aaa83835wef",
+                "label": "Header content color",
+                "name": "header_content_color",
+                "type": "radio",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_58737dd1dc763",
+                            "operator": "==",
+                            "value": 1
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "light": "Light",
+                    "dark": "Dark"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "light",
+                "layout": "vertical",
+                "allow_null": 0,
+                "return_format": "value"
             }
         ],
         "location": [
