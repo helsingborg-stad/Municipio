@@ -101,12 +101,33 @@ class BaseController
 
     public function getHeaderLayout()
     {
-
         $headerLayoutSetting = get_field('header_layout', 'option');
+
+        $classes = array();
+        $classes[] = 'header-' . $headerLayoutSetting;
+
+        if (is_front_page() && get_field('header_transparent', 'option')) {
+            $classes[] = 'header-transparent';
+        }
+
+        if (get_field('header_centered', 'option')) {
+            $classes[] = 'header-center';
+        }
+
+        switch (get_field('header_content_color', 'option')) {
+            case 'light':
+                $classes[] = 'header-light';
+                break;
+
+            case 'dark':
+                $classes[] = 'header-dark';
+                break;
+        }
+
 
         if (empty($headerLayoutSetting) || in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
             $this->data['headerLayout'] = array(
-                'class'    => 'header-'.$headerLayoutSetting,
+                'classes'    => implode(' ', $classes),
                 'template' => 'default'
             );
 
@@ -114,7 +135,7 @@ class BaseController
         }
 
         $this->data['headerLayout'] = array(
-            'class'    => 'header-' . $headerLayoutSetting,
+            'classes'    => implode(' ', $classes),
             'template' => $headerLayoutSetting
         );
 
