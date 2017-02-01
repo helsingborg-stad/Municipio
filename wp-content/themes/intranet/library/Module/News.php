@@ -34,7 +34,7 @@ class News extends \Modularity\Module
             $this->args['namePlural'],
             $this->args['description'],
             $this->args['supports'],
-            $this->args['icon']
+            $this->args['icon'],
             $this->args['plugin'],
             $this->args['cache_ttl']
         );
