@@ -36,7 +36,7 @@ class Template
             }
         }
 
-        add_action('load-post.php', array($this, 'adminFrontPageTemplates'));
+        add_action('init', array($this, 'adminFrontPageTemplates'));
         add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
     }
 
