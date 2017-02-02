@@ -151,7 +151,7 @@ class News
     {
         global $post;
 
-        if ($post->post_type != self::$postTypeSlug || \Intranet\User\Subscription::isForcedSubscription(get_current_blog_id())) {
+        if ($post->post_type != self::$postTypeSlug || is_main_site(get_current_blog_id())) {
             return;
         }
 
