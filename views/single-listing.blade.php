@@ -46,6 +46,10 @@
                                     </footer>
                                     @endif
 
+                                    <footer class="listing-actions gutter gutter-bottom gutter-sm">
+                                        {!! wp_listings_delete_listing_button() !!}
+                                    </footer>
+
                                     @if(!empty(wp_listings_get_documents()))
                                         <div class="box box-panel box-panel-secondary">
                                             <h4 class="box-title"><?php _e('Attached files', 'municipio'); ?></h4>
