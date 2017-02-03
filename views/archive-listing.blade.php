@@ -56,11 +56,15 @@
 
                                 <?php
                                     $terms = array();
-                                    foreach ((array) get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug) as $term) {
-                                        //if (is_object($term)) {
-                                            $terms[] = $term->name;
-                                        //}
+
+                                    if (!empty(get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug))) {
+                                        foreach ((array) get_the_terms(get_the_id(), \WpListings\Listings::$taxonomySlug) as $term) {
+                                            //if (is_object($term)) {
+                                                $terms[] = $term->name;
+                                            //}
+                                        }
                                     }
+
                                     $terms      = implode(', ', (array) $terms);
                                     $location   = isset(get_the_terms(get_the_id(), \WpListings\Listings::$placesTaxonomySlug)[0]) ? get_the_terms(get_the_id(), \WpListings\Listings::$placesTaxonomySlug)[0]->name : "";
                                 ?>
