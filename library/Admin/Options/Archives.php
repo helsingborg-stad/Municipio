@@ -187,7 +187,7 @@ class Archives
                         )
                     ),
                     'wrapper' => array (
-                        'width' => '50%',
+                        'width' => '100%',
                         'class' => '',
                         'id' => '',
                     ),
