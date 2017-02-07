@@ -128,14 +128,14 @@
 .header-casual .navbar-mainmenu {
   padding-top: 15px; }
 
-.header-casual .menu-item-search,
-.header-casual .menu-item-translate {
+.header-casual .nav:not(.nav-center) .menu-item-search,
+.header-casual .nav:not(.nav-center) .menu-item-translate {
   float: right; }
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
   display: block;
   display: -webkit-box;
-  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   padding-top: 60px;
   width: 100%; }

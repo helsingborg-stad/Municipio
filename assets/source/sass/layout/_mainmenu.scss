@@ -27,8 +27,10 @@
         padding-top: 15px;
     }
 
-    .menu-item-search,
-    .menu-item-translate {
-        float: right;
+    .nav:not(.nav-center) {
+        .menu-item-search,
+        .menu-item-translate {
+            float: right;
+        }
     }
 }
