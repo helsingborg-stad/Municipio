@@ -1,4 +1,4 @@
-<footer class="main-footer hidden-print">
+<footer class="main-footer hidden-print {{ get_field('scroll_elevator_enabled', 'option') ? 'scroll-elevator-toggle' : '' }}">
     <div class="container">
 
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')

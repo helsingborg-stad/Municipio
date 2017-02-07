@@ -20,13 +20,37 @@
                 "esc_html": 0
             },
             {
+                "key": "field_56e938a940ac1",
+                "label": "Enable",
+                "name": "scroll_elevator_enabled",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Enable scroll elevator",
+                "default_value": 0
+            },
+            {
                 "key": "field_5825bf01e64a4",
                 "label": "Call to action text",
                 "name": "scroll_elevator_text",
                 "type": "text",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac1",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "33.3333",
                     "class": "",
@@ -45,7 +69,15 @@
                 "type": "text",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac1",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "33.3333",
                     "class": "",
@@ -64,7 +96,15 @@
                 "type": "select",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac1",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "33.3333",
                     "class": "",

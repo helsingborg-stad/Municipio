@@ -1,4 +1,4 @@
-<footer class="main-footer main-footer-compressed hidden-print">
+<footer class="main-footer main-footer-compressed hidden-print {{ get_field('scroll_elevator_enabled', 'option') ? 'scroll-elevator-toggle' : '' }}">
     <div class="container">
         <div class="grid">
             <div class="grid-md-3">
