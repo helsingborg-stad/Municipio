@@ -115,7 +115,7 @@ class Template
      */
     public function load($template)
     {
-        if (!empty(get_page_template_slug()) && get_page_template_slug() != $template) {
+        if (is_single() && !empty(get_page_template_slug()) && get_page_template_slug() != $template) {
             if (\Municipio\Helper\Template::locateTemplate(get_page_template_slug())) {
                 $template = get_page_template_slug();
             }
