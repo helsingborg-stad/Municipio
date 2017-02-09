@@ -139,7 +139,7 @@
         "helsingborg-stad/readspeaker-helper": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
-        "wpackagist-plugin/wp-nested-pages": "^1.5.4",
+        "wpackagist-plugin/wp-nested-pages": "1.6.5.2",
         "wpackagist-plugin/active-directory-integration": ">=1.1.8",
         "wpackagist-plugin/user-switching" : ">=1.0.0",
         "wpackagist-plugin/wordpress-importer": "0.6.3",
