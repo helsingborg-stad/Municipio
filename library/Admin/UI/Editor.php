@@ -58,10 +58,10 @@ class Editor
     {
         $provider = false;
 
-        if (strpos($url, 'youtube') !== false) {
-            $provider = 'youtube';
-        } elseif (strpos($url, 'vimeo') !== false) {
-            $provider = 'vimeo';
+        if (strpos(strtolower($url), 'youtube') !== false || strpos(strtolower($url), 'youtu.be') !== false) {
+            $provider = 'YouTube';
+        } elseif (strpos(strtolower($url), 'vimeo') !== false) {
+            $provider = 'Vimeo';
         }
 
         $shouldFilter = apply_filters('Municipio/oembed/should_filter_markup', true, $provider, $url, $postId);

@@ -27,14 +27,24 @@ class YouTube extends Oembed
      */
     public function getParams()
     {
-        $url = $this->url;
-        $url = explode('?', $url);
-        $url = $url[1];
-        $url = explode('&', $url);
+        if (strpos($this->url, '?') !== false) {
+            $url = $this->url;
+            $url = explode('?', $url);
+            $url = $url[1];
+            $url = explode('&', $url);
 
-        foreach ($url as $qs) {
-            $qs = explode('=', $qs);
-            $this->params[$qs[0]] = $qs[1];
+            foreach ($url as $qs) {
+                $qs = explode('=', $qs);
+                $this->params[$qs[0]] = $qs[1];
+            }
+        }
+
+        if (strpos($this->url, 'youtu.be') !== false) {
+            $v = $this->url;
+            $v = explode('/', $v);
+            $v = end($v);
+
+            $this->params['v'] = $v;
         }
 
         return $this;
