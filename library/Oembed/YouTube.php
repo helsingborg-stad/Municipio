@@ -19,12 +19,16 @@ class YouTube extends Oembed
             return $this->fallback();
         }
 
-        if (isset($this->params['list'])) {
+        if (isset($this->params['list']) && (defined('MUNICIPIO_GOOGLEAPIS_KEY') && MUNICIPIO_GOOGLEAPIS_KEY)) {
             $this->playlist = $this->getPlaylist();
 
             if (!isset($this->params['v'])) {
                 $this->params['v'] = reset($this->playlist)->snippet->resourceId->videoId;
             }
+        }
+
+        if (!isset($this->params['v'])) {
+            return $this->fallback();
         }
 
         $this->getThumbnail();
