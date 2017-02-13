@@ -4,7 +4,7 @@ namespace Municipio\Oembed;
 
 class Vimeo extends Oembed
 {
-    public function __construct($url)
+    public function __construct(string $url)
     {
         parent::__construct($url);
     }

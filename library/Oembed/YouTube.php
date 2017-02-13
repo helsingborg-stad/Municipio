@@ -4,11 +4,14 @@ namespace Municipio\Oembed;
 
 class YouTube extends Oembed
 {
+    private $playerWrapper;
+
     protected $playlist = array();
 
-    public function __construct($url, $html = '')
+    public function __construct(string $url, string $html = '', bool $playerWrapper = false)
     {
         parent::__construct($url, $html);
+        $this->playerWrapper = $playerWrapper;
     }
 
     public function output() : string
@@ -40,10 +43,12 @@ class YouTube extends Oembed
     {
         $html = '';
 
-        if (!empty($this->playlist)) {
-            $html .= '<div class="player-wrapper is-playlist">';
-        } else {
-            $html .= '<div class="player-wrapper">';
+        if ($this->playerWrapper) {
+            if (!empty($this->playlist)) {
+                $html .= '<div class="player-wrapper is-playlist">';
+            } else {
+                $html .= '<div class="player-wrapper">';
+            }
         }
 
         $html .= '<div class="player ratio-16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">';
@@ -66,7 +71,9 @@ class YouTube extends Oembed
             $html .= '</ul>';
         }
 
-        $html .= '</div>';
+        if ($this->playerWrapper) {
+            $html .= '</div>';
+        }
 
         return $html;
     }
