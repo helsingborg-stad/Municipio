@@ -72,7 +72,7 @@ class Editor
         }
 
         $class = '\Municipio\Oembed\\' . $provider;
-        $oembed = new $class($url);
+        $oembed = new $class($url, $html);
 
         return $oembed->output();
     }

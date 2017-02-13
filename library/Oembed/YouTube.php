@@ -4,21 +4,67 @@ namespace Municipio\Oembed;
 
 class YouTube extends Oembed
 {
-    public function __construct($url)
+    protected $playlist = array();
+
+    public function __construct($url, $html = '')
     {
-        parent::__construct($url);
+        parent::__construct($url, $html);
     }
 
     public function output() : string
     {
         $this->getParams();
+
+        if (!isset($this->params['v']) && !isset($this->params['list'])) {
+            return $this->fallback();
+        }
+
+        if (isset($this->params['list'])) {
+            $this->playlist = $this->getPlaylist();
+
+            if (!isset($this->params['v'])) {
+                $this->params['v'] = reset($this->playlist)->snippet->resourceId->videoId;
+            }
+        }
+
         $this->getThumbnail();
 
-        return '
-            <div class="player ratio-16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">
-                <a href="#video-player-' . $this->params['v'] . '" data-video-id="' . $this->params['v'] . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>
-            </div>
-        ';
+        return $this->playerMarkup();
+    }
+
+    public function playerMarkup()
+    {
+        $html = '';
+
+        if (!empty($this->playlist)) {
+            $html .= '<div class="player-wrapper is-playlist">';
+        } else {
+            $html .= '<div class="player-wrapper">';
+        }
+
+        $html .= '<div class="player ratio-16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">';
+
+        if (!isset($this->params['list'])) {
+            $html .= '<a href="#video-player-' . $this->params['v'] . '" data-video-id="' . $this->params['v'] . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>';
+        } else {
+            $html .= '<a href="#video-player-' . $this->params['v'] . '" data-list-id="' . $this->params['list'] . '" data-video-id="' . $this->params['v'] . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>';
+        }
+
+        $html .= '</div>';
+
+        if (!empty($this->playlist)) {
+            $html .= '<ol class="player-playlist">';
+
+            foreach ($this->playlist as $item) {
+                $html .= '<li><a href="#" data-video-id="' . $item->snippet->resourceId->videoId . '" data-list-id="' . $this->params['list'] . '">' . $item->snippet->title . '</a></li>';
+            }
+
+            $html .= '</ul>';
+        }
+
+        $html .= '</div>';
+
+        return $html;
     }
 
     /**
@@ -52,10 +98,54 @@ class YouTube extends Oembed
 
     /**
      * Gets the video thumbnail
-     * @return void
+     * @return bool
      */
-    public function getThumbnail()
+    public function getThumbnail() : bool
     {
-        $this->params['thumbnail'] = 'https://img.youtube.com/vi/' . $this->params['v'] . '/maxresdefault.jpg';
+        if (!isset($this->params['v'])) {
+            $this->params['thumbnail'] = '';
+            return false;
+        }
+
+        $this->params['thumbnail'] = 'https://i.ytimg.com/vi/' . $this->params['v'] . '/sddefault.jpg';
+        return true;
+    }
+
+    /**
+     * Get playlist items
+     * @return array Playlist
+     */
+    public function getPlaylist() : array
+    {
+        if (!defined('MUNICIPIO_GOOGLEAPIS_KEY') || !MUNICIPIO_GOOGLEAPIS_KEY || !isset($this->params['list'])) {
+            return array();
+        }
+
+        $theEnd = false;
+        $nextPageToken = true;
+
+        $items = array();
+
+        while ($nextPageToken) {
+            $endpointUrl = 'https://www.googleapis.com/youtube/v3/playlistItems?playlistId=' . $this->params['list'] . '&part=snippet&maxResults=50&key=' . MUNICIPIO_GOOGLEAPIS_KEY;
+
+            if (is_string($nextPageToken) && !empty($nextPageToken)) {
+                $endpointUrl .= '&pageToken=' . $nextPageToken;
+            }
+
+            $response = wp_remote_get($endpointUrl);
+
+            // If response code is bad return
+            if (wp_remote_retrieve_response_code($response) !== 200) {
+                return array();
+            }
+
+            $result = json_decode(wp_remote_retrieve_body($response));
+            $items = array_merge($items, $result->items);
+
+            $nextPageToken = isset($result->nextPageToken) ? $result->nextPageToken : false;
+        }
+
+        return $items;
     }
 }
