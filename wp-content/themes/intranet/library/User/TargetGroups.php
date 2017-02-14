@@ -112,6 +112,10 @@ class TargetGroups
 
         $metaQuery = $query->get('meta_query');
 
+        if (empty($metaQuery)) {
+            $metaQuery = array();
+        }
+
         $metaQuery[] = array(
             'relation' => 'OR',
             array(
