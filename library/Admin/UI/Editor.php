@@ -16,7 +16,7 @@ class Editor
         //$this->printBreak();
 
         // Filters
-        add_filter('embed_oembed_html', array('self', 'oembed'), 10, 4);
+        add_filter('embed_oembed_html', '\Municipio\Admin\UI\Editor::oembed', 10, 4);
 
         add_filter('the_content', function ($content) {
             $content = str_replace('<!--printbreak-->', '<div style="page-break-before:always;" class="clearfix print-only"></div>', $content);
