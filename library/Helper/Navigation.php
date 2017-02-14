@@ -53,6 +53,7 @@ class Navigation
         if (get_field('nav_mobile_enable', 'option') === false) {
             return '';
         }
+
         if (get_field('nav_primary_enable', 'option') === false && get_field('nav_sub_enable', 'option') === false) {
             return '';
         }
@@ -190,29 +191,10 @@ class Navigation
      */
     public function mobileMenuWP()
     {
-        if (get_field('nav_sub_type', 'option') == 'sub') {
-            return wp_nav_menu(array(
-                'echo' => false,
-                'depth' =>  0,
-                'theme_location' => 'main-menu',
-                'container' => false,
-                'container_class' => '',
-                'container_id' => '',
-                'menu_class' => 'nav-mobile',
-                'menu_id' => '',
-                'before' => '',
-                'after' => '',
-                'link_before' => '',
-                'link_after' => '',
-                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                'fallback_cb' => '__return_false'
-            ));
-        }
-
         return wp_nav_menu(array(
             'echo' => false,
             'depth' =>  0,
-            'theme_location' => 'sidebar-menu',
+            'theme_location' => 'main-menu',
             'container' => false,
             'container_class' => '',
             'container_id' => '',
