@@ -57,6 +57,36 @@ class PostFilters
         });
     }
 
+    public static function getMultiTaxDropdown($tax, int $parent = 0)
+    {
+        $termArgs = array(
+            'hide_empty' => false,
+            'parent' => $parent
+        );
+
+        $terms = get_terms($tax->slug, $termArgs);
+
+        $inputType = $tax->type === 'single' ? 'radio' : 'checkbox';
+
+        $html = '<ul>';
+
+        foreach ($terms as $term) {
+            $checked = checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($tax->slug . '|' . $term->slug, $_GET['term']), false);
+
+            $html .= '<li>';
+                $html .= '<label class="checkbox">';
+                   $html .= '<input type="' . $inputType .'" name="term[]" value="' . $tax->slug . '|' . $term->slug . '" ' . $checked . '> ' . $term->name;
+                $html .= '</label>';
+
+                $html .= self::getMultiTaxDropdown($tax, $term->term_id);
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+        return $html;
+    }
+
     /**
      * Get filterable taxonomies
      * @return array Taxonomies
