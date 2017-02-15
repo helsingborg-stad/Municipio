@@ -57,7 +57,7 @@ class PostFilters
         });
     }
 
-    public static function getMultiTaxDropdown($tax, int $parent = 0)
+    public static function getMultiTaxDropdown($tax, int $parent = 0, string $class = '')
     {
         $termArgs = array(
             'hide_empty' => false,
@@ -68,7 +68,13 @@ class PostFilters
 
         $inputType = $tax->type === 'single' ? 'radio' : 'checkbox';
 
-        $html = '<ul>';
+        $html = '<ul';
+
+        if (!empty($class)) {
+            $html .= ' class="' . $class . '"';
+        }
+
+        $html .= '>';
 
         foreach ($terms as $term) {
             $checked = checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($tax->slug . '|' . $term->slug, $_GET['term']), false);

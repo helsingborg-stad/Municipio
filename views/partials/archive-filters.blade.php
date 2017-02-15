@@ -70,16 +70,8 @@
                     <div class="box box-panel box-panel-secondary" data-equal-item>
                         <h4 class="box-title">{{ $taxonomy->label }}</h4>
                         <div class="box-content">
-                            <ul>
-                            @foreach ($taxonomy->values as $term)
-                                <li>
-                                    <label class="checkbox">
-                                        <input type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="term[]" value="{{ $taxKey }}|{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}>
-                                        {{ $term->name }}
-                                    </label>
-                                </li>
-                            @endforeach
-                            </ul>
+                            <?php $taxonomy->slug = $taxKey; $dropdown = \Municipio\Content\PostFilters::getMultiTaxDropdown($taxonomy, 0, 'list-hierarchical'); ?>
+                            {!! $dropdown !!}
                         </div>
                     </div>
                 </div>
