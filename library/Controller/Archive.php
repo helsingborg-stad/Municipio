@@ -29,6 +29,7 @@ class Archive extends \Municipio\Controller\BaseController
     public function gridAlterColumns()
     {
         $gridRand = array();
+
         switch ($this->data['gridSize']) {
             case 12:
                 $gridRand = array(
@@ -74,6 +75,11 @@ class Archive extends \Municipio\Controller\BaseController
 
     public static function getColumnSize()
     {
+        // Fallback if not set
+        if (empty(self::$randomGridBase)) {
+            return 'grid-md-' . self::$gridSize;
+        }
+
         if (empty(self::$gridRow)) {
             self::$gridRow = self::$randomGridBase;
         }
