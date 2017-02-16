@@ -89,6 +89,28 @@ class Archives
                     'esc_html' => 0,
                 );
 
+                $fieldArgs['fields'][] = array(
+                    "key" => "field_570e104caf1b23234_' . md5($posttype)",
+                    "label" => "Archive title",
+                    'name' => 'archive_' . sanitize_title($posttype) . '_title',
+                    "type" => "text",
+                    "instructions" => __('Leave empty to hide title', 'municipio'),
+                    "required" => 0,
+                    "conditional_logic" => 0,
+                    "wrapper" => array(
+                        "width" => "",
+                        "class" => "",
+                        "id" => ""
+                    ),
+                    "default_value" => "",
+                    "placeholder" => "",
+                    "prepend" => "",
+                    "append" => "",
+                    "maxlength" => "",
+                    "readonly" => 0,
+                    "disabled" => 0
+                );
+
                 // Post style
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_56f00fe21f918_' . md5($posttype),
