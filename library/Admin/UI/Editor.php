@@ -13,6 +13,7 @@ class Editor
 
         // Custom plugins
         $this->metaData();
+        $this->pricons();
         //$this->printBreak();
 
         // Filters
@@ -250,6 +251,31 @@ class Editor
                 ),
             )
         ));
+    }
+
+    public function pricons()
+    {
+        add_filter('mce_external_plugins', function ($plugins) {
+            global $pagenow;
+
+            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+                return $plugins;
+            }
+
+            $plugins['pricons'] = get_template_directory_uri() . '/assets/dist/js/mce-pricons.js';
+            return $plugins;
+        });
+
+        add_filter('mce_buttons_2', function ($buttons) {
+            global $pagenow;
+
+            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
+                return $buttons;
+            }
+
+            $buttons[] = 'pricons';
+            return $buttons;
+        });
     }
 
     /**

@@ -55,3 +55,10 @@
     background-color: rgba(255, 255, 255, 0.1); }
   .wp-submenu .wp-menu-separator a {
     display: none; }
+
+.mce-i-pricon-smiley-cool::after {
+  display: inline-block;
+  content: "\f118";
+  font-family: 'FontAwesome';
+  position: relative;
+  top: -1px; }
