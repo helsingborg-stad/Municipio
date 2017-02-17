@@ -38,14 +38,16 @@
 <body {!! body_class('no-js') !!}>
     <!--[if lt IE 9]>
         <div class="notice info browserupgrade">
-            <div class="container"><div class="grid-table grid-va-middle">
-                <div class="grid-col-icon">
-                    <i class="fa fa-plug"></i>
+            <div class="container">
+                <div class="grid-table grid-va-middle">
+                    <div class="grid-fit-content">
+                        <i class="fa fa-plug"></i>
+                    </div>
+                    <div class="grid-auto">
+                        <strong>Du använder en gammal webbläsare.</strong> För att hemsidan ska fungera så bra som möjligt bör du byta till en modernare webbläsare. På <a href="http://browsehappy.com">browsehappy.com</a> kan du få hjälp att hitta en ny modern webbläsare.
+                    </div>
                 </div>
-                <div class="grid-sm-12">
-                <strong>Du använder en gammal webbläsare.</strong> För att hemsidan ska fungera så bra som möjligt bör du byta till en modernare webbläsare. På <a href="http://browsehappy.com">browsehappy.com</a> kan du få hjälp att hitta en ny modern webbläsare.
-                </div>
-            </div></div>
+            </div>
         </div>
     <![endif]-->
 
