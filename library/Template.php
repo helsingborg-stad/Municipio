@@ -171,7 +171,6 @@ class Template
         $controller = \Municipio\Helper\Controller::locateController($template);
 
         if (!$controller) {
-            //$controller = get_template_directory() . '/library/Controller/BaseController.php';
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
 
@@ -203,7 +202,7 @@ class Template
     {
         $types = array(
             'index'      => 'index.blade.php',
-            'home'       => 'home.blade.php',
+            'home'       => 'archive.blade.php',
             'single'     => 'single.blade.php',
             'page'       => 'page.blade.php',
             '404'        => '404.blade.php',
