@@ -31,7 +31,7 @@
 
             <div class="grid">
                 <div class="grid-xs-12">
-                    <h2><?php _e('Posts by', 'municipio'); ?> {{ municipio_get_author_full_name() }}</h2>
+                    <h2><?php _e('Posts by', 'municipio'); ?> {{ municipio_get_author_full_name() ? municipio_get_author_full_name() : get_the_author_meta('nicename') }}</h2>
                 </div>
                 @if (have_posts())
                     @while(have_posts())

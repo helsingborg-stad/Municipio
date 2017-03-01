@@ -1,6 +1,8 @@
 @if ($hasLeftSidebar)
 <aside class="grid-md-4 grid-lg-3 sidebar-left-sidebar hidden-print">
-    @include('partials.author-box')
+    @if (is_author())
+        @include('partials.author-box')
+    @endif
 
     @if (is_active_sidebar('left-sidebar'))
         <div class="grid sidebar-left-sidebar-top">
