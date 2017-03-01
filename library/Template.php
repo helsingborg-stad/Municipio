@@ -168,6 +168,12 @@ class Template
             $template = 'e404.php';
         }
 
+        switch ($template) {
+            case 'author.php':
+                $template = 'archive.php';
+                break;
+        }
+
         $controller = \Municipio\Helper\Controller::locateController($template);
 
         if (!$controller) {

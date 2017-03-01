@@ -13,11 +13,17 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function init()
     {
-        $this->data['postType'] = get_post_type();
-        $this->data['template'] = !empty(get_field('archive_' . sanitize_title(get_post_type()) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title(get_post_type()) . '_post_style', 'option') : 'collapsed';
-        $this->data['grid_size'] = !empty(get_field('archive_' . sanitize_title(get_post_type()) . '_grid_columns', 'option')) ? get_field('archive_' . sanitize_title(get_post_type()) . '_grid_columns', 'option') : 'grid-md-6';
+        $postType = get_post_type();
+        if (is_author()) {
+            $postType = 'author';
+            $this->data['hasLeftSidebar'] = true;
+        }
 
-        $this->data['grid_alter'] = get_field('archive_' . sanitize_title(get_post_type()) . '_grid_columns_alter', 'option') ? true : false;
+        $this->data['postType'] = $postType;
+        $this->data['template'] = !empty(get_field('archive_' . sanitize_title($postType) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($postType) . '_post_style', 'option') : 'collapsed';
+        $this->data['grid_size'] = !empty(get_field('archive_' . sanitize_title($postType) . '_grid_columns', 'option')) ? get_field('archive_' . sanitize_title($postType) . '_grid_columns', 'option') : 'grid-md-6';
+
+        $this->data['grid_alter'] = get_field('archive_' . sanitize_title($postType) . '_grid_columns_alter', 'option') ? true : false;
         $this->data['gridSize'] = (int)str_replace('-', '', filter_var($this->data['grid_size'], FILTER_SANITIZE_NUMBER_INT));
         self::$gridSize = $this->data['gridSize'];
 
