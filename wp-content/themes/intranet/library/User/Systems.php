@@ -84,6 +84,11 @@ class Systems
         return;
     }
 
+    /**
+     * Search systems
+     * @param  string $q Search query
+     * @return array     Search results
+     */
     public static function search($q)
     {
         $q = trim($q);
@@ -112,142 +117,184 @@ class Systems
         return $wpdb->get_row($query);
     }
 
-    /**
-     * Get a list of all systems in the database
-     * @param  mixed (optional) $unitId        Unit id to get systems for
-     * @return array                           Systems
-     */
-    public static function getAvailabelSystems($unitId = null, $filter = array(), $onlyId = false)
+    public static function filter($systems, $filter = array(), $unitId = array())
     {
-        global $wpdb;
-        $query = "SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " ORDER BY name ASC";
-        $systems = $wpdb->get_results($query);
-
-        if ($unitId) {
-            switch ($unitId) {
-                case 'user':
-                    $unitId = get_user_meta(get_current_user_id(), 'user_administration_unit', true);
-                    break;
-            }
-
-            $systemOptions = get_site_option('user-systems-options');
-            $systemForced = array();
-            $systemSelectable = array();
-
-            foreach ((array) $unitId as $unit) {
-                if (isset($systemOptions['forced'][$unit])) {
-                    $systemForced = array_merge($systemForced, $systemOptions['forced'][$unit]);
-                }
-
-                if (isset($systemOptions['selectable'][$unit])) {
-                    $systemSelectable = array_merge($systemSelectable, $systemOptions['selectable'][$unit]);
-                }
-            }
-
-            foreach ($systems as $system) {
-                $system->forced = false;
-                $system->unavailable = false;
-
-                if (in_array($system->id, $systemForced)) {
-                    $system->forced = true;
-                }
-
-                $system->selectable = false;
-                if (in_array($system->id, $systemSelectable)) {
-                    $system->selectable = true;
-                }
-            }
-        }
-
-        if (count($filter) === 0) {
-            if ($onlyId) {
-                $ids = array();
-
-                foreach ($systems as $system) {
-                    $ids[] = (int)$system->id;
-                }
-
-                return $ids;
-            }
-
-            return $systems;
-        }
-
-        // Filters
-        $allSystems = $systems;
-        $systems = array();
-
+        // Only selectable systems
         if (in_array('selectable', $filter)) {
-            $selectable = array_filter($allSystems, function ($item) {
+            $systems = array_filter($systems, function ($item) {
                 return $item->selectable;
             });
-
-            $systems = array_merge($systems, $selectable);
         }
 
+        // Only forced systems
         if (in_array('forced', $filter)) {
-            $selectable = array_filter($allSystems, function ($item) {
+            $systems = array_filter($systems, function ($item) {
                 return isset($item->forced) ? $item->forced : false;
             });
-
-            $systems = array_merge($systems, $selectable);
         }
 
-        if (in_array('only_selected', $filter)) {
+        // Only systems selected by user
+        if (in_array('user_only_selected', $filter)) {
             $selected = (array)get_user_meta(get_current_user_id(), 'user_systems', true);
-            $systems = array_filter($allSystems, function ($item) use ($selected) {
+            $systems = array_filter($systems, function ($item) use ($selected) {
                 return in_array($item->id, $selected);
             });
         }
 
+        // Systems avaiable to user (selected and non selected)
         if (in_array('user', $filter)) {
             $selected = get_user_meta(get_current_user_id(), 'user_systems', true);
+
+            $systemForced = self::getUnitForced($unitId);
+            $systemSelectable = self::getUnitSelectable($unitId);
+
+            $systems = array_filter(self::getAll(), function ($system) use ($systemForced, $systemSelectable) {
+                return in_array($system->id, $systemForced) || in_array($system->id, $systemSelectable);
+            });
 
             // To check if the user ever has made any selections for his/her system list
             // we check if the selected systems is an empty string
             // - Empty string means the record is missing in the db
             // - Emtpy array means the record exist but is empty
             if ($selected === '') {
-                $selected = $systemForced;
+                $selected = array_filter($systems, function ($system) {
+                    return $system->forced;
+                });
             }
 
             // Cast selected to array
-            $selected = (array)$selected;
+            $selected = (array) $selected;
+            foreach ($systems as $system) {
+                $system->selected = false;
 
-            $systems = array_filter($allSystems, function ($item) use ($selected) {
-                return in_array($item->id, $selected);
-            });
+                if (in_array($system->id, $selected)) {
+                    $system->selected = true;
+                }
+            }
         }
 
-        $systems = array_map('unserialize', array_unique(array_map('serialize', $systems)));
+        return $systems;
+    }
 
-        // If is on a local ip, return all system
-        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && \SsoAvailability\SsoAvailability::isSsoAvailable()) {
-            return $systems;
-        }
+    public static function getAvailabelSystems($unitId = null, $filter = array(), $onlyId = false)
+    {
+        $systems = self::getAll();
 
-        foreach ($systems as $system) {
-            if (!$system->is_local) {
-                continue;
+        if ($unitId) {
+            if ($unitId === 'user') {
+                $unitId = get_user_meta(get_current_user_id(), 'user_administration_unit', true);
             }
 
-            $system->unavailable = true;
+            $systems = self::getUnitSystems($unitId);
+        }
+
+        if ($filter) {
+            $systems = self::filter($systems, $filter, $unitId);
+        }
+
+        if ($onlyId) {
+            return array_keys($systems);
         }
 
         uasort($systems, function ($a, $b) {
-            return $a->unavailable > $b->unavailable;
+            return strcmp($a->name, $b->name);
         });
 
-        if ($onlyId) {
-            $ids = array();
+        return $systems;
+    }
 
-            foreach ($systems as $system) {
-                $ids[] = (int)$system->id;
+    /**
+     * Get a units selectable systems
+     * @param  array $unitId Unit id
+     * @return array
+     */
+    public static function getUnitSelectable($unitId)
+    {
+        $systemOptions = get_site_option('user-systems-options');
+        $systemSelectable = array();
+
+        foreach ((array) $unitId as $unit) {
+            if (isset($systemOptions['selectable'][$unit])) {
+                $systemSelectable = array_merge($systemSelectable, $systemOptions['selectable'][$unit]);
             }
-
-            return $ids;
         }
 
+        return $systemSelectable;
+    }
+
+    /**
+     * Get a units forced systems
+     * @param  array $unitId Unit id
+     * @return array
+     */
+    public static function getUnitForced($unitId)
+    {
+        $systemOptions = get_site_option('user-systems-options');
+        $systems = array();
+
+        foreach ((array) $unitId as $unit) {
+            if (isset($systemOptions['forced'][$unit])) {
+                $systems = array_merge($systems, $systemOptions['forced'][$unit]);
+            }
+        }
+
+        return $systems;
+    }
+
+    /**
+     * Only get systems for a specific administration unit id
+     * @param  int $unitId
+     * @return array
+     */
+    public function getUnitSystems($unitId)
+    {
+        $systems = self::getAll();
+        $systemForced = self::getUnitForced($unitId);
+        $systemSelectable = self::getUnitSelectable($unitId);
+
+        foreach ($systems as $system) {
+            $system->forced = false;
+            if (in_array($system->id, $systemForced)) {
+                $system->forced = true;
+            }
+
+            $system->selectable = false;
+            if (in_array($system->id, $systemSelectable)) {
+                $system->selectable = true;
+            }
+        }
+
+        return $systems;
+    }
+
+    /**
+     * Get all systems
+     * @return array
+     */
+    public static function getAll()
+    {
+        $systems = array();
+
+        global $wpdb;
+        $query = "SELECT * FROM {$wpdb->base_prefix}" . self::$tableSuffix . " ORDER BY name ASC";
+        $dbSystems = $wpdb->get_results($query);
+
+        // If is on a local ip
+        $unavailable = true;
+        if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && \SsoAvailability\SsoAvailability::isSsoAvailable()) {
+            $unavailable = false;
+        }
+
+        foreach ($dbSystems as $system) {
+            $system->unavailable = false;
+            if ($system->is_local == 1 && $unavailable) {
+                $system->unavailable = true;
+            }
+
+            $systems[$system->id] = $system;
+        }
+
+        ksort($systems);
         return $systems;
     }
 

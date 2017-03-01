@@ -109,7 +109,6 @@
                                     <thead>
                                         <tr>
                                             <th><?php _e('Name', 'municipio-intranet'); ?></th>
-                                            <th class="system-hidden"><?php _e('Description', 'municipio-intranet'); ?></th>
                                             <th><?php _e('Url', 'municipio-intranet'); ?></th>
                                             <th style="text-align:center;"><?php _e('Selectable', 'municipio-intranet'); ?></th>
                                             <th style="text-align:center;"><?php _e('Forced', 'municipio-intranet'); ?></th>
@@ -119,7 +118,6 @@
                                         <?php foreach (\Intranet\User\Systems::getAvailabelSystems($unit->id) as $system) : ?>
                                         <tr>
                                             <td><?php echo $system->name; ?></td>
-                                            <td class="system-hidden"><?php echo $system->description; ?></td>
                                             <td><?php echo $system->url; ?></td>
                                             <td style="text-align:center;"><input type="checkbox" name="selectable[<?php echo $unit->id; ?>][]" value="<?php echo $system->id; ?>" <?php checked(true, $system->selectable); ?>></td>
                                             <td style="text-align:center;"><input type="checkbox" name="forced[<?php echo $unit->id; ?>][]" value="<?php echo $system->id; ?>" <?php checked(true, $system->forced); ?>></td>

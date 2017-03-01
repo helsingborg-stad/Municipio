@@ -23,7 +23,7 @@
             <li class="creamy text-sm" style="border:none;"><?php _e('You need to login to your account to access the systems list.', 'municipio-intranet'); ?></li>
         <?php else : ?>
             <?php
-            $systems = \Intranet\User\Systems::getAvailabelSystems('user', array('user'));
+            $systems = \Intranet\User\Systems::getAvailabelSystems('user', array('user_only_selected'));
             if (empty($systems)) : ?>
                 <li class="text-center">
                     <div class="gutter">
@@ -72,10 +72,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user') as $system) : ?>
+                                <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" name="system-selected[]" value="<?php echo $system->id; ?>" <?php checked(true, in_array($system->id, \Intranet\User\Systems::getAvailabelSystems('user', array('user'), true))); ?>>
+                                        <input type="checkbox" name="system-selected[]" value="<?php echo $system->id; ?>" <?php checked(true, $system->selected); ?>>
                                     </td>
                                     <td><?php echo $system->name; ?></td>
                                     <td><?php echo $system->description; ?></td>
