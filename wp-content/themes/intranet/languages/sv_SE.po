@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-01-19 16:11+0100\n"
-"PO-Revision-Date: 2017-01-19 16:12+0100\n"
+"POT-Creation-Date: 2017-03-02 16:00+0100\n"
+"PO-Revision-Date: 2017-03-02 16:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -366,15 +366,15 @@ msgstr "Förnamn"
 msgid "Last name"
 msgstr "Efternamn"
 
-#: library/User/Systems.php:273
+#: library/User/Systems.php:320
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
-#: library/User/TargetGroups.php:193
+#: library/User/TargetGroups.php:197
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
-#: library/User/TargetGroups.php:225 library/User/TargetGroups.php:226
+#: library/User/TargetGroups.php:229 library/User/TargetGroups.php:230
 #: views/author-edit.blade.php:258
 msgid "Target groups"
 msgstr "Målgrupper"
@@ -446,13 +446,12 @@ msgid "Name"
 msgstr "Namn"
 
 #: templates/admin/systems/form.php:44 templates/admin/systems/form.php:87
-#: templates/admin/systems/form.php:112
 #: templates/module/modularity-mod-intranet-u-syste.php:71
 msgid "Description"
 msgstr "Beskrivning"
 
 #: templates/admin/systems/form.php:45 templates/admin/systems/form.php:83
-#: templates/admin/systems/form.php:113
+#: templates/admin/systems/form.php:112
 #: templates/module/modularity-mod-intranet-u-links.php:44
 msgid "Url"
 msgstr "Url"
@@ -483,11 +482,11 @@ msgstr "Systemet är bara tillgängligt från lokal IP-adress"
 msgid "Available systems for %s"
 msgstr "Tillgängliga system för %s"
 
-#: templates/admin/systems/form.php:114
+#: templates/admin/systems/form.php:113
 msgid "Selectable"
 msgstr "Valbar"
 
-#: templates/admin/systems/form.php:115
+#: templates/admin/systems/form.php:114
 msgid "Forced"
 msgstr "Obligatorisk"
 
@@ -541,11 +540,11 @@ msgstr "Visa alla driftstörningar"
 msgid "Read more"
 msgstr "Läs mer"
 
-#: templates/module/modularity-mod-intranet-news.php:69
+#: templates/module/modularity-mod-intranet-news.php:70
 msgid "News feed"
 msgstr "Nyhetsflöde"
 
-#: templates/module/modularity-mod-intranet-news.php:70
+#: templates/module/modularity-mod-intranet-news.php:71
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -556,11 +555,11 @@ msgstr ""
 "anställda. Du ser också nyheterna från din förvaltnings intranät (om det "
 "finns ett sådant) och från de intranät du följer."
 
-#: templates/module/modularity-mod-intranet-news.php:96
+#: templates/module/modularity-mod-intranet-news.php:97
 msgid "Load more news"
 msgstr "Ladda in fler nyheter"
 
-#: templates/module/modularity-mod-intranet-news.php:110
+#: templates/module/modularity-mod-intranet-news.php:111
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -614,6 +613,8 @@ msgstr "Du måste logga in för att kunna se dina system"
 #: templates/module/modularity-mod-intranet-u-syste.php:30
 msgid "You have not selected any systems to display."
 msgstr ""
+"Du har inte valt några system än. Klicka på knappen ”välj system” för att "
+"välja ut vilka system som ska visas här."
 
 #: templates/module/modularity-mod-intranet-u-syste.php:36
 #: views/search.blade.php:170
