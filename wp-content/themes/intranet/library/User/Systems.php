@@ -167,6 +167,8 @@ class Systems
                 $selected = array_filter($systems, function ($system) {
                     return $system->forced;
                 });
+
+                $selected = array_keys($selected);
             }
 
             // Cast selected to array
@@ -174,7 +176,7 @@ class Systems
             foreach ($systems as $system) {
                 $system->selected = false;
 
-                if (in_array($system->id, array_keys($selected))) {
+                if (in_array($system->id, $selected)) {
                     $system->selected = true;
                 }
             }
