@@ -135,7 +135,14 @@ class Systems
 
         // Only systems selected by user
         if (in_array('user_only_selected', $filter)) {
-            $selected = (array)get_user_meta(get_current_user_id(), 'user_systems', true);
+            $selected = get_user_meta(get_current_user_id(), 'user_systems', true);
+
+            if ($selected === '') {
+                return array_filter($systems, function ($system) {
+                    return $system->forced;
+                });
+            }
+
             $systems = array_filter($systems, function ($item) use ($selected) {
                 return in_array($item->id, $selected);
             });
@@ -148,7 +155,7 @@ class Systems
             $systemForced = self::getUnitForced($unitId);
             $systemSelectable = self::getUnitSelectable($unitId);
 
-            $systems = array_filter(self::getAll(), function ($system) use ($systemForced, $systemSelectable) {
+            $systems = array_filter($systems, function ($system) use ($systemForced, $systemSelectable) {
                 return in_array($system->id, $systemForced) || in_array($system->id, $systemSelectable);
             });
 
@@ -167,7 +174,7 @@ class Systems
             foreach ($systems as $system) {
                 $system->selected = false;
 
-                if (in_array($system->id, $selected)) {
+                if (in_array($system->id, array_keys($selected))) {
                     $system->selected = true;
                 }
             }
