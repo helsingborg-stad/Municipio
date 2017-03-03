@@ -75,7 +75,8 @@ class PostFilters
         $html .= '>';
 
         foreach ($terms as $term) {
-            $checked = checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($tax->slug . '|' . $term->slug, $_GET['term']), false);
+            $isChecked = isset($_GET[$tax->slug]) && ($_GET[$tax->slug] === $term->slug || in_array($term->slug, $_GET[$tax->slug]));
+            $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
                 $html .= '<label class="checkbox">';
