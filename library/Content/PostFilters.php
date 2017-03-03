@@ -43,15 +43,13 @@ class PostFilters
             return;
         }
 
-        $taxonomies = $this->getEnabledTaxonomies();
-
-        add_action('HbgBlade/data', function ($data) use ($taxonomies) {
+        add_action('HbgBlade/data', function ($data) {
             if (!isset($data['postType'])) {
                 $data['postType'] = get_post_type();
             }
 
             $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
-            $data['enabledTaxonomyFilters'] = $taxonomies;
+            $data['enabledTaxonomyFilters'] = $this->getEnabledTaxonomies($data['postType']);
 
             return $data;
         });
@@ -81,7 +79,7 @@ class PostFilters
 
             $html .= '<li>';
                 $html .= '<label class="checkbox">';
-                   $html .= '<input type="' . $inputType .'" name="term[]" value="' . $tax->slug . '|' . $term->slug . '" ' . $checked . '> ' . $term->name;
+                   $html .= '<input type="' . $inputType .'" name="' . $tax->slug . '[]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
                 $html .= '</label>';
 
                 $html .= self::getMultiTaxDropdown($tax, $term->term_id);
@@ -97,36 +95,52 @@ class PostFilters
      * Get filterable taxonomies
      * @return array Taxonomies
      */
-    public function getEnabledTaxonomies()
+    public function getEnabledTaxonomies($postType = null, $group = true)
     {
-        $tax = array();
-        $taxonomies = get_field('archive_' . sanitize_title(get_post_type()) . '_post_filters_sidebar', 'option');
+        if (!$postType) {
+            $postType = get_post_type();
+        }
+
+        $grouped = array();
+        $ungrouped = array();
+        $taxonomies = get_field('archive_' . sanitize_title($postType) . '_post_filters_sidebar', 'option');
 
         if (!$taxonomies) {
             return array();
         }
 
         foreach ($taxonomies as $key => $item) {
+            $tax = get_taxonomy($item);
             $terms = get_terms($item, array(
                 'hide_empty' => false
             ));
 
-            $placement = get_field('archive_' . sanitize_title(get_post_type()) . '_filter_' . sanitize_title($item) . '_placement', 'option');
+            $placement = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_placement', 'option');
             if (is_null($placement)) {
                 $placement = 'secondary';
             }
 
-            $type = get_field('archive_' . sanitize_title(get_post_type()) . '_filter_' . sanitize_title($item) . '_type', 'option');
+            $type = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_type', 'option');
 
-            $tax[$placement][$item] = array(
-                'label' => get_taxonomy($item)->label,
+            $grouped[$placement][$tax->name] = array(
+                'label' => $tax->label,
+                'type' => $type,
+                'values' => $terms
+            );
+
+            $ungrouped[$tax->name] = array(
+                'label' => $tax->label,
                 'type' => $type,
                 'values' => $terms
             );
         }
 
-        $tax = json_decode(json_encode($tax));
-        return $tax;
+        if ($group) {
+            $grouped = json_decode(json_encode($grouped));
+            return $grouped;
+        }
+
+        return $ungrouped;
     }
 
     /**
@@ -163,32 +177,31 @@ class PostFilters
             return $query;
         }
 
-        // Bail if tax or term is empty
-        if (!isset($_GET['term']) || empty($_GET['term'])) {
+        $filterable = $this->getEnabledTaxonomies($query->query['post_type']);
+
+        if (empty($filterable)) {
             return $query;
         }
 
-        $terms = (array)$_GET['term'];
-        $terms = array_map(function ($item) {
-            return explode('|', $item);
-        }, $terms);
-
         $taxQuery = array('relation' => 'OR');
-        foreach ($terms as $key => $term) {
-            if (!isset($term[0]) || !isset($term[1])) {
+
+        foreach ($filterable as $key => $value) {
+            if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {
                 continue;
             }
 
+            $terms = (array) $_GET[$key];
+
             $taxQuery[] = array(
-                'taxonomy' => $term[0],
+                'taxonomy' => $key,
                 'field' => 'slug',
-                'terms' => $term[1],
+                'terms' => $terms,
                 'operator' => 'IN'
             );
         }
 
         $query->set('tax_query', $taxQuery);
-
+        $query->set('post_type', $query->query['post_type']);
         return $query;
     }
 
