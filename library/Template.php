@@ -170,7 +170,9 @@ class Template
 
         switch ($template) {
             case 'author.php':
-                $template = 'archive.php';
+                if (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES) {
+                    $template = 'archive.php';
+                }
                 break;
         }
 
