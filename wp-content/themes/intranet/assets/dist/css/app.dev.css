@@ -1298,7 +1298,7 @@ a.dropdown-open:focus {
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news time,
 .sidebar-content-area-top .modularity-mod-intranet-news time {
-  margin-top: 2px;
+  margin-top: 5px;
   float: right; }
 
 .sidebar-content-area-bottom .modularity-mod-intranet-news .sub-heading span,
