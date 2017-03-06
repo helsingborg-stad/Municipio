@@ -27,7 +27,7 @@ class PostFilters
     {
         global $wp_query;
 
-        if (!get_post_type()) {
+        if (!get_post_type() && !$wp_query->query['post_type']) {
             return;
         }
 
@@ -39,13 +39,17 @@ class PostFilters
 
         $pageForPosts = get_option('page_for_' . get_post_type());
 
-        if (is_null($queriedObject) || ($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
+        if (($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
             return;
         }
 
-        add_action('HbgBlade/data', function ($data) {
-            if (!isset($data['postType'])) {
-                $data['postType'] = get_post_type();
+        add_action('HbgBlade/data', function ($data) use ($wp_query) {
+            if (!isset($data['postType']) || !$data['postType']) {
+                if (get_post_type()) {
+                    $data['postType'] = get_post_type();
+                } elseif (isset($wp_query->query['post_type']) && !empty($wp_query->query['post_type'])) {
+                    $data['postType'] = $wp_query->query['post_type'];
+                }
             }
 
             $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
