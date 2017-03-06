@@ -71,7 +71,7 @@
                     @endwhile
                 @else
                     <div class="grid-xs-12">
-                        <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show'); ?>…</div>
+                        <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show', 'municipio'); ?>…</div>
                     </div>
                 @endif
             </div>
