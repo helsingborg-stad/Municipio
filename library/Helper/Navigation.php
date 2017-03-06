@@ -77,14 +77,13 @@ class Navigation
             $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
         }
 
-        return wp_nav_menu(array(
+        $args = array(
             'echo' => false,
             'depth' => 1,
             'theme_location' => 'main-menu',
             'container' => false,
             'container_class' => 'menu-{menu-slug}-container',
             'container_id' => '',
-            'menu_class' => implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'),
             'menu_id' => 'main-menu',
             'before' => '',
             'after' => '',
@@ -92,7 +91,19 @@ class Navigation
             'link_after' => '',
             'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
             'fallback_cb' => '__return_false'
-        ));
+        );
+
+        if (get_field('nav_primariy_second_level', 'option')) {
+            $classes[] = 'nav-multilevel';
+            $args['depth'] = 2;
+            $args['walker'] = new \Municipio\Walker\MainMenuSecondary();
+            $args['items_section_wrap'] = $args['items_wrap'];
+            $args['items_wrap'] = '%3$s';
+        }
+
+        $args['menu_class'] = implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm');
+
+        return wp_nav_menu($args);
     }
 
     /**
