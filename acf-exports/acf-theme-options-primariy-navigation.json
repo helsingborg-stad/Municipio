@@ -49,6 +49,30 @@
                 "layout": "vertical"
             },
             {
+                "key": "field_56fa6428939ab",
+                "label": "Second level",
+                "name": "nav_primariy_second_level",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Yes, display second menu level to active first level menu item",
+                "default_value": 0
+            },
+            {
                 "key": "field_56e93ce4914ea",
                 "label": "Automatically generated menu",
                 "name": "",
@@ -77,59 +101,6 @@
                 "message": "The automatically generated menu type will include all published pages from top level pages and down to the below specified depth level. The automatically generated menu is a heavy procedure for the system to run. The deeper it should go the longer loading time.",
                 "new_lines": "wpautop",
                 "esc_html": 0
-            },
-            {
-                "key": "field_56e938f740ac2",
-                "label": "Menu depth",
-                "name": "nav_primary_depth",
-                "type": "number",
-                "instructions": "Set to 0 to show all levels",
-                "required": 1,
-                "conditional_logic": [
-                    [
-                        {
-                            "field": "field_56e938a940ac0",
-                            "operator": "==",
-                            "value": "1"
-                        },
-                        {
-                            "field": "field_56e938cc40ac1",
-                            "operator": "==",
-                            "value": "wp"
-                        },
-                        {
-                            "field": "field_56fa6428939ab",
-                            "operator": "==",
-                            "value": "1"
-                        }
-                    ],
-                    [
-                        {
-                            "field": "field_56e938a940ac0",
-                            "operator": "==",
-                            "value": "1"
-                        },
-                        {
-                            "field": "field_56e938cc40ac1",
-                            "operator": "==",
-                            "value": "auto"
-                        }
-                    ]
-                ],
-                "wrapper": {
-                    "width": 50,
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": 0,
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "min": 0,
-                "max": "",
-                "step": "",
-                "readonly": 0,
-                "disabled": 0
             },
             {
                 "key": "field_56e94a6a96f90",
