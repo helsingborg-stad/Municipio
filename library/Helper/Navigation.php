@@ -77,15 +77,9 @@ class Navigation
             $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
         }
 
-        $depth = 1;
-        if (get_field('nav_primariy_dropdown', 'option') === true && intval(get_field('nav_primary_depth', 'option')) > -1) {
-            $depth = intval(get_field('nav_primary_depth', 'option'));
-            $classes[] = 'nav-dropdown';
-        }
-
         return wp_nav_menu(array(
             'echo' => false,
-            'depth' =>  $depth,
+            'depth' => 1,
             'theme_location' => 'main-menu',
             'container' => false,
             'container_class' => 'menu-{menu-slug}-container',
@@ -124,15 +118,11 @@ class Navigation
             $menu = new \Municipio\Helper\NavigationTree(array(
                 'include_top_level' => true,
                 'render' => get_field('nav_primary_render', 'option'),
-                'depth' => get_field('nav_primary_depth', 'option')
+                'depth' => 1
             ));
 
             if (!empty(get_field('nav_primary_align', 'option'))) {
                 $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
-            }
-
-            if (get_field('nav_primariy_dropdown', 'option') === true) {
-                $classes[] = 'nav-dropdown';
             }
 
             if (isset($menu) && $menu->itemCount() > 0) {
