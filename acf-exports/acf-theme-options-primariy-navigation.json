@@ -179,7 +179,15 @@
                 "type": "radio",
                 "instructions": "",
                 "required": 1,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_56e938a940ac0",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
