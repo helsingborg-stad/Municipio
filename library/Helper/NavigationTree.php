@@ -30,10 +30,16 @@ class NavigationTree
             'top_level_type' => 'tree',
             'render' => 'active',
             'depth' => -1,
+            'start_depth' => 1,
             'wrapper' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
             'classes' => 'nav',
-            'id' => ''
+            'id' => '',
+            'sidebar' => false
         ), $args);
+
+        if ($this->args['depth'] > -1 && $this->args['start_depth'] > 1) {
+            $this->args['depth'] += $this->args['start_depth'];
+        }
 
         // Get valuable page information
         $this->currentPage = $this->getCurrentPage();
@@ -54,7 +60,7 @@ class NavigationTree
 
         if ($this->args['include_top_level']) {
             if ($this->args['sublevel']) {
-                $this->walk($this->topLevelPages, 'nav-has-sublevel');
+                $this->walk($this->topLevelPages, 1, 'nav-has-sublevel');
                 $this->getSecondLevelPages();
 
                 $walkIndex = null;
@@ -70,7 +76,7 @@ class NavigationTree
                         $isSublevel = true;
                     }
 
-                    $this->walk($this->secondLevelPages[$walkIndex], 'nav-sublevel');
+                    $this->walk($this->secondLevelPages[$walkIndex], 1, 'nav-sublevel');
                 }
             } else {
                 $this->startWrapper();
@@ -88,6 +94,10 @@ class NavigationTree
         }
     }
 
+    /**
+     * Gets top level pages
+     * @return void
+     */
     protected function getTopLevelPages()
     {
         if (is_user_logged_in()) {
@@ -122,6 +132,10 @@ class NavigationTree
         return $this->topLevelPages;
     }
 
+    /**
+     * Gets second level pages
+     * @return array
+     */
     protected function getSecondLevelPages()
     {
         $secondLevel = array();
@@ -143,10 +157,8 @@ class NavigationTree
      * @param  array $pages Pages to walk
      * @return void
      */
-    protected function walk($pages, $classes = null)
+    protected function walk($pages, $depth = 1, $classes = null)
     {
-        $this->depth++;
-
         if ($this->args['sublevel']) {
             $this->startWrapper($classes);
         }
@@ -154,6 +166,7 @@ class NavigationTree
         foreach ($pages as $page) {
             $pageId = $this->getPageId($page);
             $classes = array();
+            $output = true;
 
             if (is_numeric($page)) {
                 $page = get_post($page);
@@ -167,7 +180,11 @@ class NavigationTree
                 $classes[] = 'current current-menu-item';
             }
 
-            $this->item($page, $classes);
+            if ($depth < $this->args['start_depth']) {
+                $output = false;
+            }
+
+            $this->item($page, $depth, $classes, $output);
         }
 
         if ($this->args['sublevel']) {
@@ -181,7 +198,7 @@ class NavigationTree
      * @param  array  $classes Classes
      * @return void
      */
-    protected function item($page, $classes = array())
+    protected function item($page, $depth, $classes = array(), $output = true)
     {
         $pageId = $this->getPageId($page);
         $children = $this->getChildren($pageId);
@@ -190,15 +207,25 @@ class NavigationTree
             $classes[] = 'has-children';
         }
 
-        $this->startItem($page, $classes);
-
-        if ($this->isActiveItem($pageId) && count($children) > 0 && ($this->args['depth'] <= 0 || $this->depth < $this->args['depth'])) {
-            $this->startSubmenu($page);
-            $this->walk($children);
-            $this->endSubmenu($page);
+        if ($output) {
+            $this->startItem($page, $classes);
         }
 
-        $this->endItem($page);
+        if ($this->isActiveItem($pageId) && count($children) > 0 && ($this->args['depth'] <= 0 || $depth < $this->args['depth'])) {
+            if ($output) {
+                $this->startSubmenu($page);
+            }
+
+            $this->walk($children, $depth + 1);
+
+            if ($output) {
+                $this->endSubmenu($page);
+            }
+        }
+
+        if ($output) {
+            $this->endItem($page);
+        }
     }
 
     /**
