@@ -57,7 +57,7 @@ class NavigationTree
                 $this->walk($this->topLevelPages, 'nav-has-sublevel');
                 $this->getSecondLevelPages();
 
-                $walkInded = null;
+                $walkIndex = null;
                 if (!empty($this->ancestors)) {
                     $walkIndex = $this->ancestors[0];
                 } else {
