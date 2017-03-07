@@ -72,12 +72,18 @@ class NavigationTree
 
                     $this->walk($this->secondLevelPages[$walkIndex], 'nav-sublevel');
                 }
+            } else {
+                $this->startWrapper();
+                $this->walk($this->topLevelPages);
+                $this->endWrapper();
             }
         } else {
             $page = isset($this->ancestors[0]) ? $this->ancestors[0] : $this->currentPage;
 
             if ($page) {
+                $this->startWrapper();
                 $this->walk(array($page));
+                $this->endWrapper();
             }
         }
     }
