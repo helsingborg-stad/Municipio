@@ -21,7 +21,7 @@ class MainMenuSecondary extends \Walker_Nav_Menu
 
         $postAncestors = get_post_ancestors($post->ID);
 
-        // Find toplevel adn sublevel
+        // Find toplevel and sublevel
         foreach ($elements as $element) {
             if ($element->object_id == $post->ID) {
                 $current = $element;
@@ -86,6 +86,11 @@ class MainMenuSecondary extends \Walker_Nav_Menu
         $subWrap = explode('%3$s', $argsObj->items_section_wrap);
 
         if (!is_null($currentTopLevel) && isset($subLevel[$currentTopLevel])) {
+            if ($current->ID === $currentTopLevel) {
+                global $isSublevel;
+                $isSublevel = true;
+            }
+
             $output .= sprintf(
                 $subWrap[0],
                 esc_attr($argsObj->menu_id) . '-sublevel',

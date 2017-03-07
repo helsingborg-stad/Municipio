@@ -54,7 +54,11 @@ class BaseController
         $navigation = new \Municipio\Helper\Navigation();
         $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
         $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
-        $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
+
+        global $isSublevel;
+        if ($isSublevel !== true) {
+            $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
+        }
 
         $this->data['navigation']['headerTabsMenu'] = wp_nav_menu(array(
             'theme_location' => 'header-tabs-menu',
