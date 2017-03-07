@@ -10,7 +10,9 @@ class NavigationTree
 
     protected $currentPage = null;
     protected $ancestors = null;
+
     protected $topLevelPages = null;
+    protected $secondLevelPages = null;
 
     protected $pageForPostTypeIds = null;
 
@@ -24,9 +26,13 @@ class NavigationTree
         // Merge args
         $this->args = array_merge(array(
             'include_top_level' => false,
+            'sublevel' => false,
             'top_level_type' => 'tree',
             'render' => 'active',
-            'depth' => -1
+            'depth' => -1,
+            'wrapper' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            'classes' => 'nav',
+            'id' => ''
         ), $args);
 
         // Get valuable page information
@@ -43,45 +49,87 @@ class NavigationTree
                 return intval($item->menu_item_parent) === 0;
             });
         } else {
-            if (is_user_logged_in()) {
-                $this->postStatuses[] = 'private';
-            }
-
-            $topLevelQuery = new \WP_Query(array(
-                'post_parent' => 0,
-                'post_type' => 'page',
-                'post_status' => $this->postStatuses,
-                'orderby' => 'menu_order post_title',
-                'order' => 'asc',
-                'posts_per_page' => -1,
-                'meta_query'    => array(
-                    'relation' => 'AND',
-                    array(
-                        'relation' => 'OR',
-                        array(
-                            'key' => 'hide_in_menu',
-                            'compare' => 'NOT EXISTS'
-                        ),
-                        array(
-                            'key'   => 'hide_in_menu',
-                            'value' => '0',
-                            'compare' => '='
-                        )
-                    )
-                )
-            ));
-
-            $this->topLevelPages = $topLevelQuery->posts;
+            $this->getTopLevelPages();
         }
 
         if ($this->args['include_top_level']) {
-            $this->walk($this->topLevelPages);
+            if ($this->args['sublevel']) {
+                $this->walk($this->topLevelPages, 'nav-has-sublevel');
+                $this->getSecondLevelPages();
+
+                $walkInded = null;
+                if (!empty($this->ancestors)) {
+                    $walkIndex = $this->ancestors[0];
+                } else {
+                    $walkIndex = $this->currentPage->ID;
+                }
+
+                if (isset($this->secondLevelPages[$walkIndex]) && !is_null($walkIndex)) {
+                    if ($this->currentPage->post_parent == 0) {
+                        global $isSublevel;
+                        $isSublevel = true;
+                    }
+
+                    $this->walk($this->secondLevelPages[$walkIndex], 'nav-sublevel');
+                }
+            }
         } else {
             $page = isset($this->ancestors[0]) ? $this->ancestors[0] : $this->currentPage;
+
             if ($page) {
                 $this->walk(array($page));
             }
         }
+    }
+
+    protected function getTopLevelPages()
+    {
+        if (is_user_logged_in()) {
+            $this->postStatuses[] = 'private';
+        }
+
+        $topLevelQuery = new \WP_Query(array(
+            'post_parent' => 0,
+            'post_type' => 'page',
+            'post_status' => $this->postStatuses,
+            'orderby' => 'menu_order post_title',
+            'order' => 'asc',
+            'posts_per_page' => -1,
+            'meta_query'    => array(
+                'relation' => 'AND',
+                array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'hide_in_menu',
+                        'compare' => 'NOT EXISTS'
+                    ),
+                    array(
+                        'key'   => 'hide_in_menu',
+                        'value' => '0',
+                        'compare' => '='
+                    )
+                )
+            )
+        ));
+
+        $this->topLevelPages = $topLevelQuery->posts;
+        return $this->topLevelPages;
+    }
+
+    protected function getSecondLevelPages()
+    {
+        $secondLevel = array();
+
+        foreach ($this->topLevelPages as $topLevelPage) {
+            $pages = get_children(array(
+                'post_parent' => $topLevelPage->ID,
+            ));
+
+            $secondLevel[$topLevelPage->ID] = $pages;
+        }
+
+        $this->secondLevelPages = $secondLevel;
+        return $secondLevel;
     }
 
     /**
@@ -89,9 +137,13 @@ class NavigationTree
      * @param  array $pages Pages to walk
      * @return void
      */
-    protected function walk($pages)
+    protected function walk($pages, $classes = null)
     {
         $this->depth++;
+
+        if ($this->args['sublevel']) {
+            $this->startWrapper($classes);
+        }
 
         foreach ($pages as $page) {
             $pageId = $this->getPageId($page);
@@ -110,6 +162,10 @@ class NavigationTree
             }
 
             $this->item($page, $classes);
+        }
+
+        if ($this->args['sublevel']) {
+            $this->endWrapper();
         }
     }
 
@@ -348,6 +404,34 @@ class NavigationTree
     }
 
     /**
+     * Starts wrapper
+     * @return void
+     */
+    protected function startWrapper($classes = null)
+    {
+        $wrapperStart = explode('%3$s', $this->args['wrapper'])[0];
+        $this->addOutput(sprintf(
+            $wrapperStart,
+            $this->args['id'],
+            trim($this->args['classes'] . ' ' . $classes)
+        ));
+    }
+
+    /**
+     * Ends wrapper
+     * @return void
+     */
+    protected function endWrapper()
+    {
+        $wrapperEnd = explode('%3$s', $this->args['wrapper'])[1];
+        $this->addOutput(sprintf(
+            $wrapperEnd,
+            $this->args['id'],
+            $this->args['classes']
+        ));
+    }
+
+    /**
      * Opens a submenu
      * @return void
      */
@@ -406,7 +490,7 @@ class NavigationTree
      * Echos the output
      * @return void
      */
-    public function render($echo = true)
+    public function render($echo = true, $wrapper = array())
     {
         if ($echo) {
             echo $this->output;

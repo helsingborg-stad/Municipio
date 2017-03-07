@@ -112,37 +112,27 @@ class Navigation
      */
     public function mainMenuAuto()
     {
-        $transientHash = \Municipio\Helper\Hash::short(\Municipio\Helper\Url::getCurrent());
-
         $markup = null;
-        $transientType = '';
 
-        if (is_user_logged_in()) {
-            $transientType = '_loggedin';
-        }
-
-        $menu = false; //get_transient('main_menu_' . $transientHash . $transientType);
-
+        $menu = false;
         $classes = array('nav');
 
         if (!$menu || !is_string($menu) || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
-            $menu = new \Municipio\Helper\NavigationTree(array(
-                'include_top_level' => true,
-                'render' => get_field('nav_primary_render', 'option'),
-                'depth' => 1
-            ));
-
             if (!empty(get_field('nav_primary_align', 'option'))) {
                 $classes[] = 'nav-' . get_field('nav_primary_align', 'option');
             }
 
-            if (isset($menu) && $menu->itemCount() > 0) {
-                $markup = '<ul id="main-menu" class="' . implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm') . '">';
-                $markup .= apply_filters('Municipio/main_menu/items', $menu->render(false));
-                $markup .= '</ul>';
-            }
+            $menu = new \Municipio\Helper\NavigationTree(array(
+                'include_top_level' => true,
+                'render' => get_field('nav_primary_render', 'option'),
+                'depth' => 1,
+                'sublevel' => get_field('nav_primariy_second_level', 'option'),
+                'classes' => implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm')
+            ));
 
-            //set_transient('main_menu_' . $transientHash . $transientType, $markup, 60*60*168);
+            if (isset($menu) && $menu->itemCount() > 0) {
+                $markup = apply_filters('Municipio/main_menu/items', $menu->render(false));
+            }
 
             return $markup;
         }
