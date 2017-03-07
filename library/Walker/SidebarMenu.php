@@ -80,8 +80,12 @@ class SidebarMenu extends \Walker_Nav_Menu
     {
         $child_of = 0;
 
+        if (is_a($current_page, '\WP_Post')) {
+            $current_page = $current_page->ID;
+        }
+
         foreach ($elements as $key => $element) {
-            if (isset($element->ID) && isset($current_page) && $element->ID == $current_page->ID) {
+            if (isset($element->ID) && isset($current_page) && $element->ID == $current_page) {
                 $child_of = $element->ID;
                 unset($elements[$key]);
 
