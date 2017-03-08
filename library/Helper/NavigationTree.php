@@ -45,6 +45,10 @@ class NavigationTree
         $this->currentPage = $this->getCurrentPage();
         $this->ancestors = $this->getAncestors();
 
+        if (!$this->currentPage) {
+            return;
+        }
+
         if ($this->args['top_level_type'] == 'mobile') {
             $themeLocations = get_nav_menu_locations();
             $this->topLevelPages = wp_get_nav_menu_items($themeLocations['main-menu'], array(
