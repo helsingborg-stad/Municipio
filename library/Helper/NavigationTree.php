@@ -147,7 +147,9 @@ class NavigationTree
         foreach ($this->topLevelPages as $topLevelPage) {
             $pages = get_children(array(
                 'post_parent' => $topLevelPage->ID,
-                'post_type' => 'page'
+                'post_type' => 'page',
+                'orderby' => 'menu_order post_title',
+                'order' => 'asc'
             ));
 
             $secondLevel[$topLevelPage->ID] = $pages;
