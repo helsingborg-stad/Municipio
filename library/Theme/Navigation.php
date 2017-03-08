@@ -10,7 +10,7 @@ class Navigation
 
         if (in_array('mainmenu', (array)get_field('search_display', 'option'))) {
             add_filter('wp_nav_menu_items', array($this, 'addSearchMagnifier'), 10, 2);
-            add_filter('Municipio/main_menu/items', array($this, 'addSearchMagnifier'), 10, 2);
+            add_filter('Municipio/main_menu/wrapper_end', array($this, 'addSearchMagnifier'), 10, 2);
         }
 
         if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
@@ -144,6 +144,10 @@ class Navigation
      */
     public function addSearchMagnifier($items, $args = null)
     {
+        if (!is_object($args)) {
+            $args = (object)$args;
+        }
+
         if ($args && $args->theme_location != apply_filters('Municipio/main_menu_theme_location', 'main-menu')) {
             return $items;
         }
@@ -155,7 +159,12 @@ class Navigation
 
         $search = '<li class="menu-item-search"><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="pricon pricon-search"></i></span></a></li>';
 
-        $items .= $search;
+        if (isset($args->include_top_level)) {
+            $items = $search . $items;
+        } else {
+            $items .= $search;
+        }
+
         return $items;
     }
 
