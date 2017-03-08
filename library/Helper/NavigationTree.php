@@ -83,17 +83,13 @@ class NavigationTree
                     $this->walk($this->secondLevelPages[$walkIndex], 1, 'nav-sublevel');
                 }
             } else {
-                $this->startWrapper();
                 $this->walk($this->topLevelPages);
-                $this->endWrapper();
             }
         } else {
             $page = isset($this->ancestors[0]) ? $this->ancestors[0] : $this->currentPage;
 
             if ($page) {
-                $this->startWrapper();
                 $this->walk(array($page));
-                $this->endWrapper();
             }
         }
     }
@@ -532,6 +528,14 @@ class NavigationTree
      */
     public function render($echo = true, $wrapper = array())
     {
+        $this->output = apply_filters('Municipio/main_menu/items', $this->output);
+        $this->output = sprintf(
+            $this->args['wrapper'],
+            $this->args['id'],
+            trim($this->args['classes']),
+            $this->output
+        );
+
         if ($echo) {
             echo $this->output;
             return true;
