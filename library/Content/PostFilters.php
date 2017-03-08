@@ -157,7 +157,7 @@ class PostFilters
     {
         $template = \Municipio\Helper\Template::locateTemplate($template);
 
-        if (is_post_type_archive() && is_search()) {
+        if ((is_post_type_archive() || is_category() || is_date() || is_tax()) && is_search()) {
             $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
 
             if (!$archiveTemplate) {
