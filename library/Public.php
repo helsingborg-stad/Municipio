@@ -194,3 +194,14 @@ if (!function_exists('municipio_post_taxonomies_to_display')) {
         return $taxonomies;
     }
 }
+
+if (!function_exists('municipio_current_url')) {
+    /**
+     * Gets the current url
+     * @return string
+     */
+    function municipio_intranet_current_url()
+    {
+        return "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+    }
+}
