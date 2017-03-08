@@ -130,10 +130,6 @@ class Navigation
                 'classes' => implode(' ', apply_filters('Municipio/main_menu_classes', $classes)) . ' ' . apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm')
             ));
 
-            if (isset($menu) && $menu->itemCount() > 0) {
-                $markup = apply_filters('Municipio/main_menu/items', $menu->render(false));
-            }
-
             return $markup;
         }
 
