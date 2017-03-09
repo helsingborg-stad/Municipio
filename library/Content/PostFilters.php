@@ -134,6 +134,14 @@ class PostFilters
         $ungrouped = array();
         $taxonomies = get_field('archive_' . sanitize_title($postType) . '_post_filters_sidebar', 'option');
 
+        // Hide category filter if displaying a category
+        global $wp_query;
+        if (is_category()) {
+            $taxonomies = array_filter($taxonomies, function ($item) {
+                return $item !== 'category';
+            });
+        }
+
         if (!$taxonomies) {
             return array();
         }
