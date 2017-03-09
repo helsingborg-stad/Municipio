@@ -51,7 +51,7 @@
                     <li class="title">{{ $taxonomy->label }}:</li>
                     @foreach ($taxonomy->values as $term)
                         <li>
-                            <input id="segment-id-{{ $taxKey }}-{{ $term->slug }}" type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="{{ $taxKey }}[]" value="{{ $term->slug }}" {{ checked(true, isset($_GET['term']) && is_array($_GET['term']) && in_array($taxKey . '|' . $term->slug, $_GET['term'])) }}>
+                            <input id="segment-id-{{ $taxKey }}-{{ $term->slug }}" type="{{ $taxonomy->type === 'single' ? 'radio' : 'checkbox' }}" name="{{ $taxKey }}[]" value="{{ $term->slug }}" {{ checked(true, isset($_GET[$taxKey]) && is_array($_GET[$taxKey]) && in_array($term->slug, $_GET[$taxKey])) }}>
                             <label for="segment-id-{{ $taxKey }}-{{ $term->slug }}" class="checkbox inline-block">{{ $term->name }}</label>
                         </li>
                     @endforeach
