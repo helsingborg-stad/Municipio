@@ -42,7 +42,12 @@ class Archive
         }
 
         // Check if page_for_{post_type} isset,  return if not
-        $pageForPostType = get_option('page_for_' . $query->get('post_type'));
+        $postType = $query->get('post_type');
+        if (is_array($postType)) {
+            $postType = end($postType);
+        }
+
+        $pageForPostType = get_option('page_for_' . $postType);
         if (!$pageForPostType) {
             return;
         }

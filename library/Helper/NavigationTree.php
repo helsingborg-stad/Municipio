@@ -25,6 +25,7 @@ class NavigationTree
     {
         // Merge args
         $this->args = array_merge(array(
+            'theme_location' => '',
             'include_top_level' => false,
             'sublevel' => false,
             'top_level_type' => 'tree',
@@ -44,6 +45,10 @@ class NavigationTree
         // Get valuable page information
         $this->currentPage = $this->getCurrentPage();
         $this->ancestors = $this->getAncestors();
+
+        if (!$this->currentPage) {
+            return;
+        }
 
         if ($this->args['top_level_type'] == 'mobile') {
             $themeLocations = get_nav_menu_locations();
@@ -76,7 +81,7 @@ class NavigationTree
                         $isSublevel = true;
                     }
 
-                    $this->walk($this->secondLevelPages[$walkIndex], 1, 'nav-sublevel');
+                    $this->walk($this->secondLevelPages[$walkIndex], 2, 'nav-sublevel');
                 }
             } else {
                 $this->startWrapper();
@@ -145,7 +150,7 @@ class NavigationTree
                 'post_parent' => $topLevelPage->ID,
                 'post_type' => 'page',
                 'orderby' => 'menu_order post_title',
-                'order' => 'asc',
+                'order' => 'asc'
             ));
 
             $secondLevel[$topLevelPage->ID] = $pages;
@@ -163,7 +168,7 @@ class NavigationTree
     protected function walk($pages, $depth = 1, $classes = null)
     {
         if ($this->args['sublevel']) {
-            $this->startWrapper($classes);
+            $this->startWrapper($classes, $depth === 1);
         }
 
         foreach ($pages as $page) {
@@ -191,7 +196,7 @@ class NavigationTree
         }
 
         if ($this->args['sublevel']) {
-            $this->endWrapper();
+            $this->endWrapper($depth === 1);
         }
     }
 
@@ -443,9 +448,14 @@ class NavigationTree
      * Starts wrapper
      * @return void
      */
-    protected function startWrapper($classes = null)
+    protected function startWrapper($classes = null, $filters = true)
     {
         $wrapperStart = explode('%3$s', $this->args['wrapper'])[0];
+
+        if ($filters) {
+            $wrapperStart = apply_filters('Municipio/main_menu/wrapper_start', $wrapperStart, $this->args);
+        }
+
         $this->addOutput(sprintf(
             $wrapperStart,
             $this->args['id'],
@@ -457,9 +467,14 @@ class NavigationTree
      * Ends wrapper
      * @return void
      */
-    protected function endWrapper()
+    protected function endWrapper($filters = true)
     {
         $wrapperEnd = explode('%3$s', $this->args['wrapper'])[1];
+
+        if ($filters) {
+            $wrapperEnd = apply_filters('Municipio/main_menu/wrapper_end', $wrapperEnd, $this->args);
+        }
+
         $this->addOutput(sprintf(
             $wrapperEnd,
             $this->args['id'],

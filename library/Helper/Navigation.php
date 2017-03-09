@@ -123,6 +123,7 @@ class Navigation
             }
 
             $menu = new \Municipio\Helper\NavigationTree(array(
+                'theme_location' => 'main-menu',
                 'include_top_level' => true,
                 'render' => get_field('nav_primary_render', 'option'),
                 'depth' => 1,

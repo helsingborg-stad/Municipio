@@ -20,6 +20,26 @@ class PostFilters
     }
 
     /**
+     * Get post type
+     * @return string
+     */
+    public function getPostType()
+    {
+        global $wp_query;
+
+        $postType = isset($wp_query->query['post_type']) ? $wp_query->query['post_type'] : false;
+        if (!$postType && isset($wp_query->query['category_name']) && !empty($wp_query->query['category_name'])) {
+            $postType = 'post';
+        }
+
+        if (is_array($postType)) {
+            $postType = end($postType);
+        }
+
+        return $postType;
+    }
+
+    /**
      * Initialize the post filter UI
      * @return void
      */
@@ -27,7 +47,11 @@ class PostFilters
     {
         global $wp_query;
 
-        if (!get_post_type() && !$wp_query->query['post_type']) {
+        if (!get_post_type()) {
+            return;
+        }
+
+        if (isset($wp_query->query['post_type']) && !$wp_query->query['post_type']) {
             return;
         }
 
@@ -157,7 +181,7 @@ class PostFilters
     {
         $template = \Municipio\Helper\Template::locateTemplate($template);
 
-        if (is_post_type_archive() && is_search()) {
+        if ((is_post_type_archive() || is_category() || is_date() || is_tax()) && is_search()) {
             $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
 
             if (!$archiveTemplate) {
@@ -182,7 +206,9 @@ class PostFilters
             return $query;
         }
 
-        $filterable = $this->getEnabledTaxonomies($query->query['post_type']);
+        $postType = $this->getPostType();
+
+        $filterable = $this->getEnabledTaxonomies($postType);
 
         if (empty($filterable)) {
             return $query;
@@ -206,7 +232,7 @@ class PostFilters
         }
 
         $query->set('tax_query', $taxQuery);
-        $query->set('post_type', $query->query['post_type']);
+        $query->set('post_type', $this->getPostType());
         return $query;
     }
 
