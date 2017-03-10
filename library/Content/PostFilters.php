@@ -134,6 +134,10 @@ class PostFilters
         $ungrouped = array();
         $taxonomies = get_field('archive_' . sanitize_title($postType) . '_post_filters_sidebar', 'option');
 
+        if (!$taxonomies) {
+            return array();
+        }
+
         // Hide category filter if displaying a category
         global $wp_query;
         if (is_category()) {
@@ -142,8 +146,9 @@ class PostFilters
             });
         }
 
-        if (!$taxonomies) {
-            return array();
+        // Hide taxonomy if displaying a taxonomy
+        if (is_a(get_queried_object(), 'WP_Term')) {
+            $taxonomies = array_diff($taxonomies, (array)get_queried_object()->taxonomy);
         }
 
         foreach ($taxonomies as $key => $item) {
