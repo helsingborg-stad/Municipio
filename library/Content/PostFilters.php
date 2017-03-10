@@ -27,6 +27,11 @@ class PostFilters
     {
         global $wp_query;
 
+        // If taxonomy or category page and post type not isset then it's the "post" post type
+        if ((is_tax() || is_category()) && is_a(get_queried_object(), 'WP_Term') && !get_post_type()) {
+            return 'post';
+        }
+
         $postType = isset($wp_query->query['post_type']) ? $wp_query->query['post_type'] : false;
         if (!$postType && isset($wp_query->query['category_name']) && !empty($wp_query->query['category_name'])) {
             $postType = 'post';
@@ -47,11 +52,17 @@ class PostFilters
     {
         global $wp_query;
 
-        if (!get_post_type()) {
-            return;
+        if ((is_category() || is_tax()) && !get_post_type()) {
+            $postType = 'post';
         }
 
-        if (isset($wp_query->query['post_type']) && !$wp_query->query['post_type']) {
+        $postType = get_post_type();
+
+        if (!$postType && isset($wp_query->query['post_type'])) {
+            $postType = $wp_query->query['post_type'];
+        }
+
+        if (!$postType) {
             return;
         }
 
@@ -63,17 +74,13 @@ class PostFilters
 
         $pageForPosts = get_option('page_for_' . get_post_type());
 
-        if (($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home()) || is_admin()) {
+        if (($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home() && !is_category() && !is_tax()) || is_admin()) {
             return;
         }
 
-        add_action('HbgBlade/data', function ($data) use ($wp_query) {
+        add_action('HbgBlade/data', function ($data) use ($wp_query, $postType) {
             if (!isset($data['postType']) || !$data['postType']) {
-                if (get_post_type()) {
-                    $data['postType'] = get_post_type();
-                } elseif (isset($wp_query->query['post_type']) && !empty($wp_query->query['post_type'])) {
-                    $data['postType'] = $wp_query->query['post_type'];
-                }
+                $data['postType'] = $postType;
             }
 
             $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
@@ -103,12 +110,12 @@ class PostFilters
         $html .= '>';
 
         foreach ($terms as $term) {
-            $isChecked = isset($_GET[$tax->slug]) && ($_GET[$tax->slug] === $term->slug || in_array($term->slug, $_GET[$tax->slug]));
+            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug, $_GET['filter'][$tax->slug]));
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
                 $html .= '<label class="checkbox">';
-                   $html .= '<input type="' . $inputType .'" name="' . $tax->slug . '[]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
+                   $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
                 $html .= '</label>';
 
                 $html .= self::getMultiTaxDropdown($tax, $term->term_id);
@@ -215,13 +222,12 @@ class PostFilters
     public function doPostTaxonomyFiltering($query)
     {
         // Do not execute this in admin view
-        if (is_admin() || !(is_archive() || is_home()) || !$query->is_main_query()) {
+        if (is_admin() || !(is_archive() || is_home() || is_category() || is_tax()) || !$query->is_main_query()) {
             return $query;
         }
 
         $postType = $this->getPostType();
-
-        $filterable = $this->getEnabledTaxonomies($postType);
+        $filterable = $this->getEnabledTaxonomies($postType, false);
 
         if (empty($filterable)) {
             return $query;
@@ -230,17 +236,33 @@ class PostFilters
         $taxQuery = array('relation' => 'OR');
 
         foreach ($filterable as $key => $value) {
-            if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {
+            if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
                 continue;
             }
 
-            $terms = (array) $_GET[$key];
+            $terms = (array) $_GET['filter'][$key];
 
             $taxQuery[] = array(
                 'taxonomy' => $key,
                 'field' => 'slug',
                 'terms' => $terms,
                 'operator' => 'IN'
+            );
+        }
+
+        if (is_tax() || is_category()) {
+            $taxQuery = array(
+                'relation' => 'AND',
+                array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => get_queried_object()->taxonomy,
+                        'field' => 'slug',
+                        'terms' => (array) get_queried_object()->slug,
+                        'operator' => 'IN'
+                    )
+                ),
+                $taxQuery
             );
         }
 
