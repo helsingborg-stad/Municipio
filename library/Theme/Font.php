@@ -34,10 +34,9 @@ class Font
         wp_enqueue_script('web-font');
     }
 
-    public function addFontFamilies() {
-        ?>
-        <style> body { font-family: <?php echo THEME_FONTS; ?>; } </style>
-        <?php
+    public function addFontFamilies()
+    {
+        echo '<style> body { font-family: ' . THEME_FONTS . ' } </style>';
     }
 
     /**
@@ -53,9 +52,8 @@ class Font
 
     public function checkFont()
     {
-        $font_family = WEB_FONT;
-        if ($font_family != get_option('theme_font_family')) {
-            $this->saveFont($font_family);
+        if (WEB_FONT != get_option('theme_font_family')) {
+            $this->saveFont(WEB_FONT);
         }
     }
 
@@ -164,7 +162,7 @@ class Font
         }
 
         // Get local file
-        if (! $fonts_json) {
+        if (!$fonts_json) {
             $fonts_json = file_get_contents($font_list);
         }
 
