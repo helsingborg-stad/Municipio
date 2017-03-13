@@ -188,7 +188,7 @@ class Navigation
                 $output[] = '<li>' . get_the_category() . '</li>';
             } elseif (is_page()) {
                 if ($post->post_parent) {
-                    $anc = get_post_ancestors($post->ID);
+                    $anc = array_reverse(get_post_ancestors($post->ID));
                     $title = get_the_title();
 
                     $int = 1;
