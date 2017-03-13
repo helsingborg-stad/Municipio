@@ -91,7 +91,9 @@ body.admin-bar {
   position: static !important; }
 
 #site-header {
-  display: block; }
+  display: block;
+  position: relative;
+  z-index: 1; }
   #site-header .navbar {
     padding: 20px 0; }
     #site-header .navbar .grid + .grid {

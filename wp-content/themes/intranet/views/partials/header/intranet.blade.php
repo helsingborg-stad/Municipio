@@ -29,9 +29,6 @@
     </div>
 </nav>
 
-@include('partials.user.modal-login')
-@include('partials.user.modal-password')
-
 @if (strlen($navigation['mobileMenu']) > 0)
     <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
         @include('partials.mobile-menu')
