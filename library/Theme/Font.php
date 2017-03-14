@@ -14,40 +14,38 @@ class Font
     public function __construct()
     {
         if (defined('WEB_FONT')) {
-            add_filter('script_loader_tag', array($this, 'asyncScript'), 10);
-            add_action('wp_enqueue_scripts', array($this, 'enqueueScript'), 10, 2);
             add_action('admin_init', array($this, 'checkFont'));
+            add_action('wp_head', array($this, 'renderFontVar'), 5);
+            add_action('wp_head', array($this, 'renderFontJS'), 5);
         }
         if (defined('THEME_FONTS')) {
-            add_action('wp_head', array($this, 'addFontFamilies'));
+            add_action('wp_head', array($this, 'addFontFamilies'), 7);
         }
     }
 
-    public function enqueueScript()
+    public function renderFontVar()
     {
-        wp_register_script('web-font', get_template_directory_uri() . '/assets/dist/js/font.min.js', 'jquery', null, false);
-        wp_localize_script('web-font', 'webFont', array(
-            'fontFamily' => get_option('theme_font_family'),
-            'md5'        => get_option('theme_font_md5'),
-            'fontFile'   => get_option('theme_font_file'),
-        ));
-        wp_enqueue_script('web-font');
+        echo '<script>';
+        echo 'var webFont = '. json_encode(array(
+                'fontFamily' => get_option('theme_font_family'),
+                'md5'        => get_option('theme_font_md5'),
+                'fontFile'   => get_option('theme_font_file'),
+            )) . ';';
+        echo '</script>';
+    }
+
+    public function renderFontJS()
+    {
+        if (file_exists(MUNICIPIO_PATH . '/assets/dist/js/font.min.js')) {
+            echo '<script>';
+                readfile(MUNICIPIO_PATH . '/assets/dist/js/font.min.js');
+            echo '</script>';
+        }
     }
 
     public function addFontFamilies()
     {
         echo '<style> body { font-family: ' . THEME_FONTS . ' } </style>';
-    }
-
-    /**
-     * Change script defer attribute to async
-     */
-    public function asyncScript($tag)
-    {
-        if (strpos($tag, 'font.min.js') == true) {
-            return str_replace("defer='defer'", "async='async'", $tag);
-        }
-        return $tag;
     }
 
     public function checkFont()
