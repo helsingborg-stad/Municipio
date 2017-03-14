@@ -107,7 +107,7 @@ body.admin-bar {
     margin: 0;
     padding: 0;
     line-height: 1;
-    font-weight: 100; }
+    font-weight: 400; }
     @media (min-width: 769px) {
       #site-header .site-title {
         margin-top: 4px; } }
