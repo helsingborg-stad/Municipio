@@ -77,6 +77,11 @@ class TargetGroups
      */
     public static function userInGroup($group, $userId = null)
     {
+
+        if (is_preview()) {
+            return true;
+        }
+
         if (is_null($group) || empty($group)) {
             return true;
         }
@@ -105,6 +110,10 @@ class TargetGroups
     public function doGroupRestriction($query)
     {
         if (is_admin()) {
+            return;
+        }
+
+        if (is_preview()) {
             return;
         }
 
