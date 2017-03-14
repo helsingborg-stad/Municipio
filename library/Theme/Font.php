@@ -19,18 +19,20 @@ class Font
             add_action('wp_head', array($this, 'renderFontJS'), 5);
         }
         if (defined('THEME_FONTS')) {
-            add_action('wp_head', array($this, 'addFontFamilies'), 7);
+            add_action('wp_head', array($this, 'addFontFamilies'), 200);
         }
     }
 
     public function renderFontVar()
     {
-        echo '<script>';
+        echo '<script type="text/javascript">';
+        echo '/* <![CDATA[ */ ';
         echo 'var webFont = '. json_encode(array(
                 'fontFamily' => get_option('theme_font_family'),
                 'md5'        => get_option('theme_font_md5'),
                 'fontFile'   => get_option('theme_font_file'),
             )) . ';';
+        echo ' /* ]]> */';
         echo '</script>';
     }
 
@@ -38,14 +40,16 @@ class Font
     {
         if (file_exists(MUNICIPIO_PATH . '/assets/dist/js/font.min.js')) {
             echo '<script>';
+                echo '/* <![CDATA[ */ ';
                 readfile(MUNICIPIO_PATH . '/assets/dist/js/font.min.js');
+                echo ' /* ]]> */';
             echo '</script>';
         }
     }
 
     public function addFontFamilies()
     {
-        echo '<style> body { font-family: ' . THEME_FONTS . ' } </style>';
+        echo '<style> body { font-family: ' . THEME_FONTS . '; } </style>';
     }
 
     public function checkFont()
