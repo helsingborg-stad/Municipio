@@ -45,7 +45,8 @@ gulp.task('sass-dev', function() {
 gulp.task('scripts-dist', function() {
     gulp.src([
             'assets/source/js/**/*.js',
-            '!assets/source/js/admin/*.js'
+            '!assets/source/js/admin/*.js',
+            '!assets/source/js/font.js'
         ])
         .pipe(concat('packaged.js'))
         .pipe(gulp.dest('assets/dist/js'))
