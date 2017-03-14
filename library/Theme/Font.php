@@ -65,6 +65,7 @@ class Font
     public function saveFont($font_family)
     {
         $font_file = str_replace(' ', '_', strtolower($font_family)) . '.json';
+        $allowed_styles = array('regular', '600', '700', 'italic', '600italic', '700italic',);
         $md5 = '';
 
         if (file_exists(MUNICIPIO_PATH . 'assets/source/fonts/' . $font_file)) {
@@ -80,7 +81,9 @@ class Font
                 $font = $font_array['items'][$font_key];
                 if (! empty($font)) {
                     $font_string = '';
-                    foreach ($font['files'] as $key => $file_url) {
+                    // Filter allowed styles/weights
+                    $styles = array_intersect_key($font['files'], array_flip($allowed_styles));
+                    foreach ($styles as $key => $file_url) {
                         $font_string .= $this->getFontString($font['family'], $key, $file_url);
                     }
                     $md5 = md5($font_string);
@@ -120,7 +123,7 @@ class Font
             case (is_numeric($key) ? true : false) :
                 $font_weight = $key;
                 break;
-            case (ctype_alpha($name) ? true : false) :
+            case (ctype_alpha($key) ? true : false) :
                 $font_style = $key;
                 break;
             case (ctype_alnum($key) ? true : false) :
