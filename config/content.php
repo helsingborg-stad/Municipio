@@ -17,6 +17,14 @@ if ($_SERVER['HTTPS'] === 'on') {
  */
  define('WP_DEFAULT_THEME', 'intranet');
 
+ /**
+ * Use municipio webfont loader
+ * @var bool
+ * @var string
+ */
+ define('WEB_FONT', 'Roboto');
+ define('THEME_FONTS', 'Roboto,system,Segoe UI,Tahoma,-apple-system');
+
 /**
  * Limit number of post revisions per post
  * @var integer
