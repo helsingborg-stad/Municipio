@@ -66,7 +66,11 @@ class Font
 
     public function checkFont()
     {
-        if (WEB_FONT != get_option('theme_font_family')) {
+        if (!is_multisite() && WEB_FONT != get_option('theme_font_family')) {
+            $this->saveFont(WEB_FONT);
+        }
+
+        if (is_multisite() && WEB_FONT != get_site_option('theme_font_family')) {
             $this->saveFont(WEB_FONT);
         }
     }
