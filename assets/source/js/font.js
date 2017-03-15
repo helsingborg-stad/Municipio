@@ -10,7 +10,7 @@ WebFont.Font.Load = (function (window, document) {
         'addEventListener' in window
         ),
         md5 = webFont.md5,
-        key = 'fonts',
+        key = 'webFont',
         cache;
 
     function Load() {
@@ -20,15 +20,13 @@ WebFont.Font.Load = (function (window, document) {
     Load.prototype.insertFont = function(value) {
         var style = document.createElement('style');
         style.innerHTML = value;
+        style.id = "renderedFontData";
         document.head.appendChild(style);
     }
 
     Load.prototype.init = function() {
 
-        console.log("init");
-
         if (!isModernBrowser) {
-            //Browser is too old
             return;
         }
 
@@ -43,10 +41,9 @@ WebFont.Font.Load = (function (window, document) {
                     // Busting cache when md5 doesn't match
                     window.localStorage.removeItem(key);
                     cache = null;
-                    }
                 }
+            }
         } catch(e) {
-            // Most likely LocalStorage disabled
             return;
         }
 
@@ -62,9 +59,7 @@ WebFont.Font.Load = (function (window, document) {
                             response = JSON.parse(this.response);
                             Load.prototype.insertFont(response.value);
                             window.localStorage.setItem(key, this.response);
-                        } catch(e) {
-                        // LocalStorage is probably full
-                        }
+                        } catch(e) {}
                     }
                 };
                 request.send();
