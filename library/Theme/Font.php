@@ -14,7 +14,9 @@ class Font
     public function __construct()
     {
         if (defined('WEB_FONT')) {
-            add_action('admin_init', array($this, 'checkFont'));
+            add_action('admin_init', array($this, 'checkFont'), 10);
+            add_action('admin_init', array($this, 'refreshWebFont'), 5);
+
             add_action('wp_head', array($this, 'renderFontVar'), 5);
             add_action('wp_head', array($this, 'renderFontJS'), 5);
         }
@@ -39,7 +41,7 @@ class Font
     public function renderFontJS()
     {
         if (file_exists(MUNICIPIO_PATH . '/assets/dist/js/font.min.js')) {
-            echo '<script>';
+            echo '<script type="text/javascript">';
                 echo '/* <![CDATA[ */ ';
                 readfile(MUNICIPIO_PATH . '/assets/dist/js/font.min.js');
                 echo ' /* ]]> */';
@@ -56,6 +58,24 @@ class Font
     {
         if (WEB_FONT != get_option('theme_font_family')) {
             $this->saveFont(WEB_FONT);
+        }
+    }
+
+    public function refreshWebFont()
+    {
+        if (isset($_GET['refreshWebFont'])) {
+
+            //Remove file
+            unlink(MUNICIPIO_PATH . 'assets/source/fonts/' . str_replace(' ', '_', strtolower(WEB_FONT)) . '.json');
+
+            //Remove options
+            delete_option('theme_font_md5');
+            delete_option('theme_font_family');
+            delete_option('theme_font_file');
+
+            //Die (Tell us that it has been done)
+            wp_die("The font settings cache has been trashed.");
+
         }
     }
 
