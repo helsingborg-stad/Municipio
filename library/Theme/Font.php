@@ -34,13 +34,13 @@ class Font
             echo 'var webFont = '. json_encode(array(
                 'fontFamily' => get_site_option('theme_font_family'),
                 'md5'        => get_site_option('theme_font_md5'),
-                'fontFile'   => get_site_option('theme_font_file'),
+                'fontFile'   => get_template_directory_uri() . get_site_option('theme_font_file')
             )) . ';';
         } else {
             echo 'var webFont = '. json_encode(array(
                 'fontFamily' => get_option('theme_font_family'),
                 'md5'        => get_option('theme_font_md5'),
-                'fontFile'   => get_option('theme_font_file'),
+                'fontFile'   => get_template_directory_uri() . get_option('theme_font_file')
             )) . ';';
         }
 
@@ -143,11 +143,11 @@ class Font
         if (is_multisite()) {
             update_site_option('theme_font_md5', $md5);
             update_site_option('theme_font_family', $font_family);
-            update_site_option('theme_font_file', get_template_directory_uri() . '/assets/source/fonts/' . $font_file);
+            update_site_option('theme_font_file', '/assets/source/fonts/' . $font_file);
         } else {
             update_option('theme_font_md5', $md5);
             update_option('theme_font_family', $font_family);
-            update_option('theme_font_file', get_template_directory_uri() . '/assets/source/fonts/' . $font_file);
+            update_option('theme_font_file', '/assets/source/fonts/' . $font_file);
         }
     }
 
