@@ -29,11 +29,21 @@ class Font
     {
         echo '<script type="text/javascript">';
         echo '/* <![CDATA[ */ ';
-        echo 'var webFont = '. json_encode(array(
+
+        if (is_multisite()) {
+            echo 'var webFont = '. json_encode(array(
+                'fontFamily' => get_site_option('theme_font_family'),
+                'md5'        => get_site_option('theme_font_md5'),
+                'fontFile'   => get_site_option('theme_font_file'),
+            )) . ';';
+        } else {
+            echo 'var webFont = '. json_encode(array(
                 'fontFamily' => get_option('theme_font_family'),
                 'md5'        => get_option('theme_font_md5'),
                 'fontFile'   => get_option('theme_font_file'),
             )) . ';';
+        }
+
         echo ' /* ]]> */';
         echo '</script>';
     }
@@ -69,9 +79,16 @@ class Font
             unlink(MUNICIPIO_PATH . 'assets/source/fonts/' . str_replace(' ', '_', strtolower(WEB_FONT)) . '.json');
 
             //Remove options
-            delete_option('theme_font_md5');
-            delete_option('theme_font_family');
-            delete_option('theme_font_file');
+            if (is_multisite()) {
+                delete_site_option('theme_font_md5');
+                delete_site_option('theme_font_family');
+                delete_site_option('theme_font_file');
+            } else {
+                delete_option('theme_font_md5');
+                delete_option('theme_font_family');
+                delete_option('theme_font_file');
+            }
+
 
             //Die (Tell us that it has been done)
             wp_die("The font settings cache has been trashed.");
@@ -119,9 +136,15 @@ class Font
         }
 
         // Update font options
-        update_option('theme_font_md5', $md5);
-        update_option('theme_font_family', $font_family);
-        update_option('theme_font_file', get_template_directory_uri() . '/assets/source/fonts/' . $font_file);
+        if (is_multisite()) {
+            update_site_option('theme_font_md5', $md5);
+            update_site_option('theme_font_family', $font_family);
+            update_site_option('theme_font_file', get_template_directory_uri() . '/assets/source/fonts/' . $font_file);
+        } else {
+            update_option('theme_font_md5', $md5);
+            update_option('theme_font_family', $font_family);
+            update_option('theme_font_file', get_template_directory_uri() . '/assets/source/fonts/' . $font_file);
+        }
     }
 
     /**
