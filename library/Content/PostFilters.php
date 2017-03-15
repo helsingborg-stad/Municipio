@@ -28,7 +28,7 @@ class PostFilters
         global $wp_query;
 
         // If taxonomy or category page and post type not isset then it's the "post" post type
-        if ((is_tax() || is_category()) && is_a(get_queried_object(), 'WP_Term') && !get_post_type()) {
+        if ((is_tax() || is_category() || is_tag()) && is_a(get_queried_object(), 'WP_Term') && !get_post_type()) {
             return 'post';
         }
 
@@ -52,7 +52,7 @@ class PostFilters
     {
         global $wp_query;
 
-        if ((is_category() || is_tax()) && !get_post_type()) {
+        if ((is_category() || is_tax() || is_tag()) && !get_post_type()) {
             $postType = 'post';
         }
 
@@ -74,7 +74,7 @@ class PostFilters
 
         $pageForPosts = get_option('page_for_' . get_post_type());
 
-        if (($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home() && !is_category() && !is_tax()) || is_admin()) {
+        if (($pageForPosts !== $objectId && !is_archive() && !is_post_type_archive() && !is_home() && !is_category() && !is_tax() && !is_tag()) || is_admin()) {
             return;
         }
 
@@ -201,7 +201,7 @@ class PostFilters
     {
         $template = \Municipio\Helper\Template::locateTemplate($template);
 
-        if ((is_post_type_archive() || is_category() || is_date() || is_tax()) && is_search()) {
+        if ((is_post_type_archive() || is_category() || is_date() || is_tax() || is_tag()) && is_search()) {
             $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
 
             if (!$archiveTemplate) {
@@ -222,7 +222,7 @@ class PostFilters
     public function doPostTaxonomyFiltering($query)
     {
         // Do not execute this in admin view
-        if (is_admin() || !(is_archive() || is_home() || is_category() || is_tax()) || !$query->is_main_query()) {
+        if (is_admin() || !(is_archive() || is_home() || is_category() || is_tax() || is_tag()) || !$query->is_main_query()) {
             return $query;
         }
 
@@ -250,7 +250,7 @@ class PostFilters
             );
         }
 
-        if (is_tax() || is_category()) {
+        if (is_tax() || is_category() || is_tag()) {
             $taxQuery = array(
                 'relation' => 'AND',
                 array(
