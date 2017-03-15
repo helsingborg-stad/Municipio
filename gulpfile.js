@@ -54,7 +54,12 @@ gulp.task('scripts-dist', function() {
         .pipe(uglify())
         .pipe(gulp.dest('assets/dist/js'));
 
-    return gulp.src('assets/source/mce-js/*.js')
+    gulp.src('assets/source/js/font.js')
+            .pipe(rename('font.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('assets/dist/js'));
+
+    gulp.src('assets/source/mce-js/*.js')
             .pipe(uglify())
             .pipe(gulp.dest('assets/dist/js'));
 });

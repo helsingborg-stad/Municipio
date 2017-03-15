@@ -24,6 +24,9 @@ WebFont.Font.Load = (function (window, document) {
     }
 
     Load.prototype.init = function() {
+
+        console.log("init");
+
         if (!isModernBrowser) {
             //Browser is too old
             return;
