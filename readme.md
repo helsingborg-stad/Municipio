@@ -276,3 +276,11 @@ To load assets from local styleguide. Set contant DEV_MODE to "true"
 ```php
 define('DEV_MODE', true);
 ```
+
+## Theme fonts
+Municipio is integrated with google web-fonts. It enables smart loading of fonts preventing invisible fonts. 
+
+```php
+define('WEB_FONT', 'Roboto'); //The google fonts name (without weights)
+define('THEME_FONTS', 'Roboto, system,Segoe UI,Tahoma,-apple-system'); //The css-name of the font(s)
+```
