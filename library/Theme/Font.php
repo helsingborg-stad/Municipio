@@ -25,6 +25,10 @@ class Font
         }
     }
 
+    /**
+     * Print settings from database about the font face.
+     * @return void
+     */
     public function renderFontVar()
     {
         echo '<script type="text/javascript">';
@@ -48,6 +52,11 @@ class Font
         echo '</script>';
     }
 
+    /**
+     * Print js-function in header
+     * @param  string $fontFamily Font family to save
+     * @return void
+     */
     public function renderFontJS()
     {
         if (file_exists(MUNICIPIO_PATH . '/assets/dist/js/font.min.js')) {
@@ -59,11 +68,19 @@ class Font
         }
     }
 
+    /**
+     * Print styling element
+     * @return string
+     */
     public function addFontFamilies()
     {
         echo '<style> body { font-family: ' . THEME_FONTS . '; } </style>';
     }
 
+    /**
+     * Trigger webfont inital save.
+     * @return void
+     */
     public function checkFont()
     {
         if (!is_multisite() && WEB_FONT != get_option('theme_font_family')) {
@@ -75,6 +92,10 @@ class Font
         }
     }
 
+    /**
+     * Force refresh of the webfont. Access ?refreshWebFont in admin interface.
+     * @return void
+     */
     public function refreshWebFont()
     {
         if (isset($_GET['refreshWebFont'])) {
@@ -92,7 +113,6 @@ class Font
                 delete_option('theme_font_family');
                 delete_option('theme_font_file');
             }
-
 
             //Die (Tell us that it has been done)
             wp_die("The font settings cache has been trashed.");
