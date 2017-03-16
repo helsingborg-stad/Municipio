@@ -27,6 +27,7 @@ WebFont.Font.Load = (function (window, document) {
     Load.prototype.init = function() {
 
         if (!isModernBrowser) {
+            this.fontPolyFill();
             return;
         }
 
@@ -65,6 +66,19 @@ WebFont.Font.Load = (function (window, document) {
                 request.send();
             });
         }
+    }
+
+    Load.prototype.fontPolyFill = function() {
+
+        //Define font settings
+        var link        = document.createElement( "link" );
+            link.href   = 'https://fonts.googleapis.com/css?family=' + webFont.fontFamily + ':400,400i,600,600i,700,700i';
+            link.type   = "text/css";
+            link.rel    = "stylesheet";
+            link.media  = "screen,print";
+
+        //Insert to DOM
+        document.getElementsByTagName("head")[0].appendChild( link );
     }
 
     return new Load();
