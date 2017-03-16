@@ -63,10 +63,6 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/helsingborg-stad/larm.git"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/better-post-UI.git"
         },
         {
@@ -125,7 +121,6 @@
         "helsingborg-stad/modularity-dictionary": ">=1.0.0",
         "helsingborg-stad/broken-link-detector": ">=1.0.0",
         "helsingborg-stad/modularity-guides": ">=1.0.0",
-        "helsingborg-stad/larm": "dev-master",
         "helsingborg-stad/attachment-revisions": ">=1.0.0",
         "helsingborg-stad/modularity-googleapps": ">=1.0.0",
         "helsingborg-stad/search-notices": ">=1.0.0",
