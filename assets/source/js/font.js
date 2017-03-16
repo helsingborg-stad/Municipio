@@ -11,6 +11,7 @@ WebFont.Font.Load = (function (window, document) {
         ),
         md5 = webFont.md5,
         key = 'webFont',
+        font = webFont.fontFamily,
         cache;
 
     function Load() {
@@ -19,13 +20,15 @@ WebFont.Font.Load = (function (window, document) {
 
     Load.prototype.insertFont = function(value) {
         var style = document.createElement('style');
-        style.innerHTML = value;
-        style.id = "renderedFontData";
+            style.innerHTML     = value;
+            style.id            = "renderedFontData";
+
         document.head.appendChild(style);
     }
 
     Load.prototype.init = function() {
 
+        //Old browsers
         if (!isModernBrowser) {
             this.fontPolyFill();
             return;
@@ -72,13 +75,13 @@ WebFont.Font.Load = (function (window, document) {
 
         //Define font settings
         var link        = document.createElement( "link" );
-            link.href   = 'https://fonts.googleapis.com/css?family=' + webFont.fontFamily + ':400,400i,600,600i,700,700i';
+            link.href   = 'https://fonts.googleapis.com/css?family=' + font + ':400,400i,600,600i,700,700i';
             link.type   = "text/css";
             link.rel    = "stylesheet";
             link.media  = "screen,print";
 
         //Insert to DOM
-        document.getElementsByTagName("head")[0].appendChild( link );
+        document.head.appendChild(link);
     }
 
     return new Load();

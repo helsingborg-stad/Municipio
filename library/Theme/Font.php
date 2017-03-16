@@ -131,27 +131,39 @@ class Font
         $md5 = '';
 
         if (file_exists(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile)) {
-            $file_content = file_get_contents(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile);
-            $file_object = json_decode($file_content);
-            $md5 = $file_object->md5;
+
+            $file_content   = file_get_contents(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile);
+            $file_object    = json_decode($file_content);
+            $md5            = $file_object->md5;
+
         } else {
-            $url = (defined('GOOGLE_FONT_KEY')) ? $this->api_url . '?key=' . GOOGLE_FONT_KEY : null;
+
+            $url        = (defined('GOOGLE_FONT_KEY')) ? $this->api_url . '?key=' . GOOGLE_FONT_KEY : null;
             $fonts_json = $this->getFontList($url);
+
+            //Valid json
             if ($fonts_json) {
+
+                //Parsing of font file
                 $font_array = json_decode($fonts_json, true);
-                $font_key = array_search($fontFamily, array_column($font_array['items'], 'family'));
-                $font = $font_array['items'][$font_key];
+                $font_key   = array_search($fontFamily, array_column($font_array['items'], 'family'));
+                $font       = $font_array['items'][$font_key];
+
                 if (! empty($font)) {
                     $font_string = '';
+
                     // Filter allowed styles/weights
                     $styles = array_intersect_key($font['files'], array_flip($allowed_styles));
-                    foreach ($styles as $key => $file_url) {
+                    foreach ((array) $styles as $key => $file_url) {
                         $font_string .= $this->getFontString($font['family'], $key, $file_url);
                     }
                     $md5 = md5($font_string);
+
                     // Complete json string
-                    $json_string = '{"md5":"' . $md5 . '","value":"' . $font_string . '"}';
-                    $json_file = fopen(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile, 'w');
+                    $json_string    = '{"md5":"' . $md5 . '","value":"' . $font_string . '"}';
+                    $json_file      = fopen(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile, 'w');
+
+                    // Write to file
                     fwrite($json_file, $json_string);
                     fclose($json_file);
                 }
