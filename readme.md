@@ -278,9 +278,9 @@ define('DEV_MODE', true);
 ```
 
 ## Theme fonts
-Municipio is integrated with google web-fonts. It enables smart loading of fonts preventing invisible fonts. 
+Municipio is integrated with google web-fonts. It enables smart loading of fonts preventing invisible fonts using Google & Adobe webfont loader. 
 
 ```php
 define('WEB_FONT', 'Roboto'); //The google fonts name (without weights)
-define('THEME_FONTS', 'Roboto, system,Segoe UI,Tahoma,-apple-system'); //The css-name of the font(s)
+define('WEB_FONT_REMOTE', true); //Load font kit from cdn
 ```
