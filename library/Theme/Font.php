@@ -52,9 +52,9 @@ class Font
     {
         if (file_exists(MUNICIPIO_PATH . '/assets/dist/js/font.min.js')) {
             echo '<script type="text/javascript">';
-                echo '/* <![CDATA[ */ ';
-                readfile(MUNICIPIO_PATH . '/assets/dist/js/font.min.js');
-                echo ' /* ]]> */';
+            echo '/* <![CDATA[ */ ';
+            readfile(MUNICIPIO_PATH . '/assets/dist/js/font.min.js');
+            echo ' /* ]]> */';
             echo '</script>';
         }
     }
@@ -96,23 +96,22 @@ class Font
 
             //Die (Tell us that it has been done)
             wp_die("The font settings cache has been trashed.");
-
         }
     }
 
     /**
      * Save new font
-     * @param  string $font_family Font family to save
+     * @param  string $fontFamily Font family to save
      * @return void
      */
-    public function saveFont($font_family)
+    public function saveFont($fontFamily)
     {
-        $font_file = str_replace(' ', '_', strtolower($font_family)) . '.json';
+        $fontFile = str_replace(' ', '_', strtolower($fontFamily)) . '.json';
         $allowed_styles = array('regular', '600', '700', 'italic', '600italic', '700italic',);
         $md5 = '';
 
-        if (file_exists(MUNICIPIO_PATH . 'assets/source/fonts/' . $font_file)) {
-            $file_content = file_get_contents(MUNICIPIO_PATH . 'assets/source/fonts/' . $font_file);
+        if (file_exists(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile)) {
+            $file_content = file_get_contents(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile);
             $file_object = json_decode($file_content);
             $md5 = $file_object->md5;
         } else {
@@ -120,7 +119,7 @@ class Font
             $fonts_json = $this->getFontList($url);
             if ($fonts_json) {
                 $font_array = json_decode($fonts_json, true);
-                $font_key = array_search($font_family, array_column($font_array['items'], 'family'));
+                $font_key = array_search($fontFamily, array_column($font_array['items'], 'family'));
                 $font = $font_array['items'][$font_key];
                 if (! empty($font)) {
                     $font_string = '';
@@ -132,33 +131,45 @@ class Font
                     $md5 = md5($font_string);
                     // Complete json string
                     $json_string = '{"md5":"' . $md5 . '","value":"' . $font_string . '"}';
-                    $json_file = fopen(MUNICIPIO_PATH . 'assets/source/fonts/' . $font_file, 'w');
+                    $json_file = fopen(MUNICIPIO_PATH . 'assets/source/fonts/' . $fontFile, 'w');
                     fwrite($json_file, $json_string);
                     fclose($json_file);
                 }
             }
         }
 
-        // Update font options
+        $this->updateFontOptions($md5, $fontFamily, $fontFile);
+    }
+
+    /**
+     * Update database with the new font settings
+     * @param  string $md5         Font hash
+     * @param  string $fontFamily  Font style name
+     * @param  string $fontFile    Font path
+     * @return void
+     */
+
+    public function updateFontOptions($md5, $fontFamily, $fontFile)
+    {
         if (is_multisite()) {
             update_site_option('theme_font_md5', $md5);
-            update_site_option('theme_font_family', $font_family);
-            update_site_option('theme_font_file', '/assets/source/fonts/' . $font_file);
+            update_site_option('theme_font_family', $fontFamily);
+            update_site_option('theme_font_file', '/assets/source/fonts/' . $fontFile);
         } else {
             update_option('theme_font_md5', $md5);
-            update_option('theme_font_family', $font_family);
-            update_option('theme_font_file', '/assets/source/fonts/' . $font_file);
+            update_option('theme_font_family', $fontFamily);
+            update_option('theme_font_file', '/assets/source/fonts/' . $fontFile);
         }
     }
 
     /**
      * Download font and convert to base64 encoded string
-     * @param  string $font_family Font family name
+     * @param  string $fontFamily Font family name
      * @param  string $key         Font style name
      * @param  string $url         External font url
      * @return string
      */
-    public function getFontString($font_family, $key, $url)
+    public function getFontString($fontFamily, $key, $url)
     {
         // Download font from url
         $file = file_get_contents($url);
@@ -187,7 +198,7 @@ class Font
 
         // Base64 encode font file
         $base64 = 'data:application/x-font-woff' . ';base64,' . base64_encode($file);
-        $font_string .= '@font-face {\n  font-family: \'' . $font_family . '\';\n  font-style: ' . $font_style . ';\n  font-weight: ' . $font_weight . ';\n  src: local(\'' . $font_family . '\'), local(\'' . $font_family . '-'. ucfirst($key) . '\'), url(' . $base64 . ') format(\'woff\');\n}\n';
+        $font_string .= '@font-face {\n  font-family: \'' . $fontFamily . '\';\n  font-style: ' . $font_style . ';\n  font-weight: ' . $font_weight . ';\n  src: local(\'' . $fontFamily . '\'), local(\'' . $fontFamily . '-'. ucfirst($key) . '\'), url(' . $base64 . ') format(\'woff\');\n}\n';
 
         return $font_string;
     }
