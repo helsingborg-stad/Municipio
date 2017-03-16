@@ -9,8 +9,7 @@ var cssnano = require('gulp-cssnano');
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
-//var imagemin = require('gulp-imagemin');
-//var pngquant = require('imagemin-pngquant'); // $ npm i -D imagemin-pngquant
+
 
 // Compile Our Sass
 gulp.task('sass-dist', function() {
@@ -45,19 +44,13 @@ gulp.task('sass-dev', function() {
 gulp.task('scripts-dist', function() {
     gulp.src([
             'assets/source/js/**/*.js',
-            '!assets/source/js/admin/*.js',
-            '!assets/source/js/font.js'
+            '!assets/source/js/admin/*.js'
         ])
         .pipe(concat('packaged.js'))
         .pipe(gulp.dest('assets/dist/js'))
         .pipe(rename('packaged.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('assets/dist/js'));
-
-    gulp.src('assets/source/js/font.js')
-            .pipe(rename('font.min.js'))
-            .pipe(uglify())
-            .pipe(gulp.dest('assets/dist/js'));
 
     gulp.src('assets/source/mce-js/*.js')
             .pipe(uglify())
