@@ -98,6 +98,7 @@ class Enqueue
 
         wp_enqueue_style($this->defaultPrimeName);
 
+        // Load versioned file if is readable
         if (is_readable(get_template_directory_uri() . '/assets/dist/css/app.min.css')) {
             wp_register_style('municipio', get_template_directory_uri() . '/assets/dist/css/app.min.css', '', @filemtime(get_template_directory_uri() . '/assets/dist/css/app.min.css'));
         } else {
@@ -156,6 +157,9 @@ class Enqueue
             )
         ));
         wp_enqueue_script('municipio');
+
+        //Load polyfill SAAS
+        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v2/polyfill.min.js', 'municipio');
     }
 
     public function moveScriptsToFooter()
