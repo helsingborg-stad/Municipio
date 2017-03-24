@@ -207,10 +207,10 @@ class Elasticsearch
     public function fuzzynessSize($query = '')
     {
         $max_fuzzyness = 4;
-        $min_fuzzyness = 1;
+        $min_fuzzyness = 0;
         $division_by = 3;
 
-        if (strlen($query) === $division_by) {
+        if (strlen($query) >= $division_by) {
             return (string) '0';
         }
 
