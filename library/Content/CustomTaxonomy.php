@@ -77,7 +77,7 @@ class CustomTaxonomy
     {
         $choices = array_map('trim', get_post_types());
 
-        $choices = array_diff($choices, array('attachment','revision','acf-field-group','acf-field','nav_menu_item'));
+        $choices = array_diff($choices, array('revision','acf-field-group','acf-field','nav_menu_item'));
 
         if (is_array($choices)) {
             foreach ($choices as $choice) {
