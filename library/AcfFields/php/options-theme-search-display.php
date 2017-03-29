@@ -1,0 +1,118 @@
+<?php 
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+    'key' => 'group_56a72f6430912',
+    'title' => 'Display settings',
+    'fields' => array(
+        0 => array(
+            'layout' => 'vertical',
+            'choices' => array(
+                'hero' => 'In front-page hero/slider',
+                'header_sub' => 'In the header of all pages but front page',
+                'header' => 'In the header of all pages',
+                'mainmenu' => 'Icon in main menu',
+            ),
+            'default_value' => array(
+            ),
+            'allow_custom' => 0,
+            'save_custom' => 0,
+            'toggle' => 0,
+            'return_format' => 'value',
+            'key' => 'field_56a72f9b645b7',
+            'label' => 'Display search',
+            'name' => 'search_display',
+            'type' => 'checkbox',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+        ),
+        1 => array(
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'key' => 'field_56d3fa48a53d6',
+            'label' => __('Search field label', 'municipio'),
+            'name' => 'search_label_text',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => 33,
+                'class' => '',
+                'id' => '',
+            ),
+            'readonly' => 0,
+            'disabled' => 0,
+        ),
+        2 => array(
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'key' => 'field_56d3fa67a53d7',
+            'label' => __('Search field placeholder', 'municipio'),
+            'name' => 'search_placeholder_text',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => 33,
+                'class' => '',
+                'id' => '',
+            ),
+            'readonly' => 0,
+            'disabled' => 0,
+        ),
+        3 => array(
+            'default_value' => 'Sök',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'key' => 'field_56d3fa82a53d8',
+            'label' => __('Search button text', 'municipio'),
+            'name' => 'search_button_text',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => 33,
+                'class' => '',
+                'id' => '',
+            ),
+            'readonly' => 0,
+            'disabled' => 0,
+        ),
+    ),
+    'location' => array(
+        0 => array(
+            0 => array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'acf-options-search',
+            ),
+        ),
+    ),
+    'menu_order' => -10,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => 1,
+    'description' => '',
+    'local' => 'php',
+));
+}
