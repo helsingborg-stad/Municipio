@@ -17,13 +17,18 @@
         {
             "type":"composer",
             "url":"https://wpackagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/acf-export-manager.git"
         }
     ],
     "require": {
         "composer/installers": "^1.0",
         "philo/laravel-blade": "^3.1",
         "symfony/debug": "^3.0",
-        "wpackagist-plugin/advanced-custom-fields": "^4.4.7"
+        "wpackagist-plugin/advanced-custom-fields": "^4.4.7",
+        "helsingborg-stad/acf-export-manager": ">=1.0.0"
     },
     "extra" : {
         "installer-paths" : {
