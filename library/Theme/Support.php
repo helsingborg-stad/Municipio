@@ -23,6 +23,20 @@ class Support
 
         //Remove dashboard stuff
         add_action('wp_dashboard_setup', array($this, 'removeDashboardMetaboxes'));
+
+        //Attachment pages
+        add_action('template_redirect', array($this, 'attachmentPageRedirect'));
+    }
+
+    public function attachmentPageRedirect()
+    {
+        if (!defined('ATTACHMENT_PAGE') || defined('ATTACHMENT_PAGE') && ATTACHMENT_PAGE === false) {
+            global $post;
+            if (is_attachment() && isset($post->post_parent) && is_numeric($post->post_parent) && ($post->post_parent != 0)) {
+                wp_redirect(get_permalink($post->post_parent), 301);
+                exit();
+            }
+        }
     }
 
     /**
