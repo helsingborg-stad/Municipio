@@ -382,7 +382,7 @@ class TargetGroups
         $sql = "CREATE TABLE $tableName (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             tag varchar(55) DEFAULT '' NOT NULL,
-            administration_unit bigint(20) DEFAULT '',
+            administration_unit bigint(20) DEFAULT '0',
             UNIQUE KEY id (id)
         ) $charsetCollation;";
 
