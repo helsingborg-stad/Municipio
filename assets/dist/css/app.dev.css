@@ -193,6 +193,23 @@
   #archive-filter .box-content > ul {
     padding-bottom: 10px; }
 
+.archive_event li {
+  padding: 15px 0;
+  border-bottom: 1px solid #f1f1f1; }
+
+.archive_event img {
+  padding-top: 7px;
+  width: 100%;
+  height: auto; }
+
+.archive_event_meta {
+  padding: 7px 0; }
+  .archive_event_meta p {
+    padding-top: 7px; }
+  .archive_event_meta svg {
+    position: relative;
+    top: 1px; }
+
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
 
