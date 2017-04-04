@@ -37,7 +37,7 @@
         $news,
         $module,
         $sites
-    ), 5);
+    ), 5*60);
 
     if ($cache->start()) {
 
