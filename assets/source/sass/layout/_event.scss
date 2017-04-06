@@ -1,0 +1,60 @@
+.event-single {
+	.image {
+		width: 100%;
+		height: auto;
+	}
+
+	.info {
+		&_box {
+			float: left;
+			width: 100%;
+			margin-bottom: 30px;
+
+			.icon {
+			    float: left;
+			    width: 5rem;
+			    color: #bbbac0;
+			    font-size: 2.2rem;
+			    line-height: 4.65rem;
+			    text-align: center;
+			    border-radius: 50%;
+			    border: 3px solid #bbbac0;
+			}
+
+			.text {
+			    padding: 0.8rem 0 0 6rem;
+
+			    h3 {
+				    margin: 0;
+				    font-size: 20px;
+				}
+				span {
+					font-weight: lighter;
+				    color: #bbbac0;
+				    margin-top: -5px;
+				}
+			}
+		}
+	}
+}
+
+.event-archive {
+	li {
+		padding: 15px 0;
+		border-bottom: 1px solid $creamy;
+	}
+
+	img {
+		padding-top: 7px;
+		width: 100%;
+		height: auto;
+	}
+
+	&_meta {
+		padding: 7px 0;
+
+		p {
+			padding-top: 7px;
+		}
+	}
+}

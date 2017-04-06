@@ -7,29 +7,3 @@
         padding-bottom: 10px;
     }
 }
-
-.archive_event {
-	li {
-		padding: 15px 0;
-		border-bottom: 1px solid #f1f1f1;
-	}
-
-	img {
-		padding-top: 7px;
-		width: 100%;
-		height: auto;
-	}
-
-	&_meta {
-		padding: 7px 0;
-
-		p {
-			padding-top: 7px;
-		}
-
-		svg {
-	      position: relative;
-	      top: 1px;
-	    }
-	}
-}
