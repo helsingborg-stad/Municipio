@@ -15,7 +15,7 @@ class SingleEvent extends \Municipio\Controller\BaseController
      * Get single event date
      * @return array
      */
-    public static function singleEventDate($post_id)
+    public function singleEventDate($post_id)
     {
         $date = null;
         $get_date = (! empty(get_query_var('date'))) ? get_query_var('date') : false;
@@ -40,7 +40,7 @@ class SingleEvent extends \Municipio\Controller\BaseController
      * @param  string $start_date event start date
      * @return array              date values
      */
-    public static function dateParts($start_date)
+    public function dateParts($start_date)
     {
         $start = date('Y-m-d H:i:s', strtotime($start_date));
         $date  = array(
@@ -58,7 +58,7 @@ class SingleEvent extends \Municipio\Controller\BaseController
      * @param  int $post_id post id
      * @return array        object with occasions
      */
-    public static function getEventOccasions($post_id)
+    public function getEventOccasions($post_id)
     {
         global $wpdb;
         $db_table = $wpdb->prefix . "integrate_occasions";
