@@ -1,8 +1,4 @@
-<?php
-    global $post;
-    $event_date = \Municipio\Helper\Event::getSingleEventDate($post->ID);
-    $event_location = get_post_meta($post->ID, 'location', true);
-?>
+<?php global $post; ?>
 @extends('templates.master')
 
 @section('content')
@@ -17,28 +13,28 @@
         </div>
         <div class="grid-md-4 hidden-sm hidden-xs">
             <div class="grid info">
-                @if (! empty($event_date))
+                @if (! empty($date))
                 <div class="grid-md-12">
                     <div class="info_box">
                         <div class="icon">
                             <i class="pricon pricon-calendar"></i>
                         </div>
                         <div class="text">
-                            <h3>{{ $event_date['date'] }} {{ $event_date['month'] }}</h3>
-                            <span>{{ $event_date['time'] }}</span>
+                            <h3>{{ $date['date'] }} {{ $date['month'] }}</h3>
+                            <span>{{ $date['time'] }}</span>
                         </div>
                     </div>
                 </div>
                 @endif
-                @if ($event_location['title'])
+                @if (! empty($location['title']))
                     <div class="grid-md-12">
                         <div class="info_box">
                             <div class="icon">
                                 <i class="pricon pricon-location-pin"></i>
                             </div>
                             <div class="text">
-                                <h3>{{ $event_location['title'] }}</h3>
-                                <span>{{ $event_location['city'] }}</span>
+                                <h3>{{ $location['title'] }}</h3>
+                                <span>{{ $location['city'] }}</span>
                             </div>
                         </div>
                     </div>
