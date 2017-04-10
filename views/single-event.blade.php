@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 @endif
-                @if (! empty($location['title']))
+                @if (! empty($location))
                     <div class="grid-md-12">
                         <div class="info_box">
                             <div class="icon">
