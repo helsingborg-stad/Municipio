@@ -11,6 +11,7 @@ class General
         add_filter('private_title_format', array($this, 'titleFormat'));
         add_filter('protected_title_format', array($this, 'titleFormat'));
 
+        add_filter('accessibility_items', array($this, 'accessibilityItems'), 10, 1);
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
 
@@ -83,5 +84,17 @@ class General
         }
 
         return $classes;
+    }
+
+    /**
+     * Filter for adding accessibility items
+     * @param  array $items Default item array
+     * @return array        Modified item array
+     */
+    public function accessibilityItems($items)
+    {
+        $items[] = '<a href="#" onclick="window.print();return false;" class=""><i class="pricon pricon-print"></i> ' . __('Print', 'municipio') . '</a>';
+
+        return $items;
     }
 }
