@@ -4,7 +4,7 @@
         	{!! ReadSpeakerHelper_playButton() !!}
     	</li>
     @endif
-	@foreach (apply_filters('accessibility_items', '') as $item)
+	@foreach (apply_filters('accessibility_items', array()) as $item)
 		<li>
 			{!! $item !!}
 		</li>
