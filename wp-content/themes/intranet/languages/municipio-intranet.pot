@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-03-02 16:00+0100\n"
+"POT-Creation-Date: 2017-04-11 15:32+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -276,7 +276,7 @@ msgstr ""
 msgid "No more news to load"
 msgstr ""
 
-#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:521
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:530
 #: views/partials/breadcrumbs.blade.php:33
 msgid "Disable welcome phrase"
 msgstr ""
@@ -350,28 +350,28 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: library/User/Registration.php:85 views/author-edit.blade.php:77
+#: library/User/Registration.php:85 views/author-edit.blade.php:86
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:11
 msgid "First name"
 msgstr ""
 
-#: library/User/Registration.php:89 views/author-edit.blade.php:83
+#: library/User/Registration.php:89 views/author-edit.blade.php:92
 #: views/partials/modal/missing-data-fields/name.blade.php:4
 #: views/partials/modal/missing-data-fields/name.blade.php:22
 msgid "Last name"
 msgstr ""
 
-#: library/User/Systems.php:320
+#: library/User/Systems.php:329
 msgid "All fields must be filled in to add a new system"
 msgstr ""
 
-#: library/User/TargetGroups.php:197
+#: library/User/TargetGroups.php:206
 msgid "Restrict to target groups"
 msgstr ""
 
-#: library/User/TargetGroups.php:229 library/User/TargetGroups.php:230
-#: views/author-edit.blade.php:258
+#: library/User/TargetGroups.php:238 library/User/TargetGroups.php:239
+#: views/author-edit.blade.php:267
 msgid "Target groups"
 msgstr ""
 
@@ -401,8 +401,8 @@ msgstr ""
 
 #: templates/admin/administration-units/form.php:56
 #: templates/admin/systems/form.php:97
-#: templates/admin/target-groups/form.php:59 views/author-edit.blade.php:380
-#: views/author-edit.blade.php:433
+#: templates/admin/target-groups/form.php:59 views/author-edit.blade.php:389
+#: views/author-edit.blade.php:442
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:29
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:29
 msgid "Add"
@@ -492,7 +492,7 @@ msgid "Tags"
 msgstr ""
 
 #: templates/admin/target-groups/form.php:38
-#: templates/admin/target-groups/form.php:54 views/author-edit.blade.php:274
+#: templates/admin/target-groups/form.php:54 views/author-edit.blade.php:283
 #: views/table-of-contents.blade.php:18
 msgid "All"
 msgstr ""
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Show all incidents"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news-item.php:38
+#: templates/module/modularity-mod-intranet-news-item.php:32
 msgid "Read more"
 msgstr ""
 
@@ -672,326 +672,336 @@ msgstr ""
 msgid "Required fields are marked with %s"
 msgstr ""
 
-#: views/author-edit.blade.php:71
+#: views/author-edit.blade.php:66
+msgid ""
+"Some fields is not filled correctly. Please check the form again before "
+"submitting."
+msgstr ""
+
+#: views/author-edit.blade.php:80
 msgid "Personal information"
 msgstr ""
 
-#: views/author-edit.blade.php:77 views/author-edit.blade.php:83
-#: views/author-edit.blade.php:92 views/author-edit.blade.php:181
+#: views/author-edit.blade.php:86 views/author-edit.blade.php:92
+#: views/author-edit.blade.php:101 views/author-edit.blade.php:190
 #: views/partials/modal/missing-data-fields/name.blade.php:13
 #: views/partials/modal/missing-data-fields/name.blade.php:24
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:16
 msgid "Not editable"
 msgstr ""
 
-#: views/author-edit.blade.php:92 views/author.blade.php:112
+#: views/author-edit.blade.php:101 views/author.blade.php:112
 #: views/partials/modal/missing-data-fields/user_email.blade.php:4
 #: views/partials/modal/missing-data-fields/user_email.blade.php:16
 msgid "Email"
 msgstr ""
 
-#: views/author-edit.blade.php:98 views/author.blade.php:100
+#: views/author-edit.blade.php:107 views/author.blade.php:100
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:4
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:16
 msgid "Phone number"
 msgstr ""
 
-#: views/author-edit.blade.php:99
+#: views/author-edit.blade.php:108
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:17
 msgid "The phone number supplied is invalid"
 msgstr ""
 
-#: views/author-edit.blade.php:107
+#: views/author-edit.blade.php:116
 msgid "Hometown"
 msgstr ""
 
-#: views/author-edit.blade.php:116
+#: views/author-edit.blade.php:125
 msgid "Date of birth"
 msgstr ""
 
-#: views/author-edit.blade.php:123
+#: views/author-edit.blade.php:132
 msgid "Year"
 msgstr ""
 
-#: views/author-edit.blade.php:125
+#: views/author-edit.blade.php:134
 msgid "Select year…"
 msgstr ""
 
-#: views/author-edit.blade.php:135
+#: views/author-edit.blade.php:144
 msgid "Month"
 msgstr ""
 
-#: views/author-edit.blade.php:137
+#: views/author-edit.blade.php:146
 msgid "Select month…"
 msgstr ""
 
-#: views/author-edit.blade.php:147
+#: views/author-edit.blade.php:156
 msgid "Day"
 msgstr ""
 
-#: views/author-edit.blade.php:149
+#: views/author-edit.blade.php:158
 msgid "Select day…"
 msgstr ""
 
-#: views/author-edit.blade.php:163
+#: views/author-edit.blade.php:172
 msgid "Keep my date of birth secret"
 msgstr ""
 
-#: views/author-edit.blade.php:175
+#: views/author-edit.blade.php:184
 msgid "Work information"
 msgstr ""
 
-#: views/author-edit.blade.php:181
+#: views/author-edit.blade.php:184
+msgid "Incomplete"
+msgstr ""
+
+#: views/author-edit.blade.php:190
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:4
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:16
 msgid "Work title"
 msgstr ""
 
-#: views/author-edit.blade.php:187
+#: views/author-edit.blade.php:196
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:22
 msgid "Project coordinator"
 msgstr ""
 
-#: views/author-edit.blade.php:195
+#: views/author-edit.blade.php:204
 #: views/partials/modal/missing-data-fields/user_department.blade.php:18
 msgid "Administration unit"
 msgstr ""
 
-#: views/author-edit.blade.php:213
+#: views/author-edit.blade.php:222
 #: views/partials/modal/missing-data-fields/user_department.blade.php:36
 msgid "Department/unit"
 msgstr ""
 
-#: views/author-edit.blade.php:215
+#: views/author-edit.blade.php:224
 #: views/partials/modal/missing-data-fields/user_department.blade.php:38
 msgid "Web-department"
 msgstr ""
 
-#: views/author-edit.blade.php:223 views/author.blade.php:135
+#: views/author-edit.blade.php:232 views/author.blade.php:135
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:4
 msgid "Visiting address"
 msgstr ""
 
-#: views/author-edit.blade.php:229
+#: views/author-edit.blade.php:238
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:10
 msgid "Workplace"
 msgstr ""
 
-#: views/author-edit.blade.php:237
+#: views/author-edit.blade.php:246
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:18
 msgid "Street address"
 msgstr ""
 
-#: views/author-edit.blade.php:245
+#: views/author-edit.blade.php:254
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:26
 msgid "City"
 msgstr ""
 
-#: views/author-edit.blade.php:264
+#: views/author-edit.blade.php:273
 msgid ""
 "Please check the boxes of the target groups that suits your current role. "
 "Checking a box will give you information targeted to the specific group."
 msgstr ""
 
-#: views/author-edit.blade.php:288
+#: views/author-edit.blade.php:297
 msgid "Social media"
 msgstr ""
 
-#: views/author-edit.blade.php:293
+#: views/author-edit.blade.php:302
 msgid ""
 "Fill in your social media profile url:s if you want to make it easier for "
 "others to find your social media profiles."
 msgstr ""
 
-#: views/author-edit.blade.php:300
+#: views/author-edit.blade.php:309
 msgid "Facebook profile url"
 msgstr ""
 
-#: views/author-edit.blade.php:301 views/author-edit.blade.php:308
+#: views/author-edit.blade.php:310 views/author-edit.blade.php:317
 msgid ""
 "The given url is invalid. Make sure the url starts with https:// or http://"
 msgstr ""
 
-#: views/author-edit.blade.php:307
+#: views/author-edit.blade.php:316
 msgid "Linkedin profile url"
 msgstr ""
 
-#: views/author-edit.blade.php:317
+#: views/author-edit.blade.php:326
 msgid "Instagram username"
 msgstr ""
 
-#: views/author-edit.blade.php:324
+#: views/author-edit.blade.php:333
 msgid "Twitter username"
 msgstr ""
 
-#: views/author-edit.blade.php:337 views/author-edit.blade.php:343
+#: views/author-edit.blade.php:346 views/author-edit.blade.php:352
 #: views/partials/modal/missing-data-fields/user_about.blade.php:4
 #: views/partials/modal/missing-data-fields/user_about.blade.php:10
 msgid "About me"
 msgstr ""
 
-#: views/author-edit.blade.php:344
+#: views/author-edit.blade.php:353
 msgid "Write a short personal presentation…"
 msgstr ""
 
-#: views/author-edit.blade.php:355 views/author-edit.blade.php:375
+#: views/author-edit.blade.php:364 views/author-edit.blade.php:384
 #: views/author.blade.php:181
 msgid "Work assignments"
 msgstr ""
 
-#: views/author-edit.blade.php:361
+#: views/author-edit.blade.php:370
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:10
 msgid ""
 "Please add your work assignments. This will make it easier to find you when "
 "searching."
 msgstr ""
 
-#: views/author-edit.blade.php:362
+#: views/author-edit.blade.php:371
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:11
 msgid "Example work assignments"
 msgstr ""
 
-#: views/author-edit.blade.php:364
+#: views/author-edit.blade.php:373
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:13
 msgid "Intranet web developer"
 msgstr ""
 
-#: views/author-edit.blade.php:365
+#: views/author-edit.blade.php:374
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:14
 msgid "Office management"
 msgstr ""
 
-#: views/author-edit.blade.php:366
+#: views/author-edit.blade.php:375
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:15
 msgid "Human resource"
 msgstr ""
 
-#: views/author-edit.blade.php:379
+#: views/author-edit.blade.php:388
 #: views/partials/modal/missing-data-fields/user_responsibilities.blade.php:28
 msgid "Add area of responsibility"
 msgstr ""
 
-#: views/author-edit.blade.php:384
+#: views/author-edit.blade.php:393
 msgid "Added work assignments"
 msgstr ""
 
-#: views/author-edit.blade.php:408 views/author.blade.php:166
+#: views/author-edit.blade.php:417 views/author.blade.php:166
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
 msgid "Skills"
 msgstr ""
 
-#: views/author-edit.blade.php:414
+#: views/author-edit.blade.php:423
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:10
 msgid ""
 "Please add your skills. This will make it easier to find you when searching."
 msgstr ""
 
-#: views/author-edit.blade.php:415
+#: views/author-edit.blade.php:424
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:11
 msgid "Example skills"
 msgstr ""
 
-#: views/author-edit.blade.php:417
+#: views/author-edit.blade.php:426
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:13
 msgid "Web development"
 msgstr ""
 
-#: views/author-edit.blade.php:418
+#: views/author-edit.blade.php:427
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:14
 msgid "Project management"
 msgstr ""
 
-#: views/author-edit.blade.php:419
+#: views/author-edit.blade.php:428
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:15
 msgid "Copywriting"
 msgstr ""
 
-#: views/author-edit.blade.php:428
+#: views/author-edit.blade.php:437
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:24
 msgid "Skill"
 msgstr ""
 
-#: views/author-edit.blade.php:432
+#: views/author-edit.blade.php:441
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:28
 msgid "Add skill"
 msgstr ""
 
-#: views/author-edit.blade.php:437
+#: views/author-edit.blade.php:446
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:33
 msgid "Added skills"
 msgstr ""
 
-#: views/author-edit.blade.php:461
+#: views/author-edit.blade.php:470
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:4
 msgid "Profile image"
 msgstr ""
 
-#: views/author-edit.blade.php:470
+#: views/author-edit.blade.php:479
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr ""
 
-#: views/author-edit.blade.php:470
+#: views/author-edit.blade.php:479
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Delete profile image"
 msgstr ""
 
-#: views/author-edit.blade.php:481
+#: views/author-edit.blade.php:490
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr ""
 
-#: views/author-edit.blade.php:483 views/partials/header/intranet.blade.php:21
+#: views/author-edit.blade.php:492 views/partials/header/intranet.blade.php:21
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr ""
 
-#: views/author-edit.blade.php:484
+#: views/author-edit.blade.php:493
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr ""
 
-#: views/author-edit.blade.php:502
+#: views/author-edit.blade.php:511
 msgid "Max filesize"
 msgstr ""
 
-#: views/author-edit.blade.php:503
+#: views/author-edit.blade.php:512
 msgid "Allowed filetypes"
 msgstr ""
 
-#: views/author-edit.blade.php:514
+#: views/author-edit.blade.php:523
 msgid "Other Settings"
 msgstr ""
 
-#: views/author-edit.blade.php:520
+#: views/author-edit.blade.php:529
 msgid "Welcome phrase"
 msgstr ""
 
-#: views/author-edit.blade.php:533
+#: views/author-edit.blade.php:542
 msgid "Theme"
 msgstr ""
 
-#: views/author-edit.blade.php:539
+#: views/author-edit.blade.php:548
 msgid "Color scheme"
 msgstr ""
 
-#: views/author-edit.blade.php:540
+#: views/author-edit.blade.php:549
 msgid "Red"
 msgstr ""
 
-#: views/author-edit.blade.php:541
+#: views/author-edit.blade.php:550
 msgid "Blue"
 msgstr ""
 
-#: views/author-edit.blade.php:542
+#: views/author-edit.blade.php:551
 msgid "Green"
 msgstr ""
 
-#: views/author-edit.blade.php:543
+#: views/author-edit.blade.php:552
 msgid "Purple"
 msgstr ""
 
-#: views/author-edit.blade.php:558
+#: views/author-edit.blade.php:567
 msgid "Save settings"
 msgstr ""
 
