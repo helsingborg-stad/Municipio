@@ -16,6 +16,35 @@ class General
         add_filter('the_content', array($this, 'removeEmptyPTag'));
 
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
+
+        add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
+    }
+
+    /**
+     * Returns image for module site grid
+     * @param  string $image
+     * @param  object $site
+     * @return string
+     */
+    public function sitesGridImage($image, $site)
+    {
+        switch_to_blog($site->blog_id);
+
+        if ($frontpage = get_option('page_on_front') && get_the_post_thumbnail_url(get_option('page_on_front'))) {
+            $src = get_the_post_thumbnail_url($frontpage);
+            $image = '<div style="background-image:url(' . $src . ');" class="box-image">
+               <img alt="' . $site->blogname . '" src="' . $src . '">
+            </div>';
+
+        } elseif ($logo = get_field('logotype_negative', 'option')) {
+            $image = '<div class="box-image">
+               ' . \Municipio\Helper\Svg::extract($logo['url']) . '
+            </div>';
+        }
+
+        restore_current_blog();
+
+        return $image;
     }
 
     /**
