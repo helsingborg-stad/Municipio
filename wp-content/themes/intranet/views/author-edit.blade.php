@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="grid form-errors hidden">
+            <div id="form-errors" class="grid form-errors hidden">
                 <div class="grid-xs-12">
                     <div class="notice warning">
                         <i class="pricon pricon-notice-warning"></i> <?php _e("Some fields is not filled correctly. Please check the form again before submitting.", 'municipio-intranet'); ?>
