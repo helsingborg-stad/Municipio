@@ -51,7 +51,7 @@ $loader->register();
 /**
  * Acf auto import and export
  */
-add_action('plugins_loaded', function () {
+add_action('init', function () {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');
