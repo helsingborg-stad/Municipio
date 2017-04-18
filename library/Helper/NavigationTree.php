@@ -269,7 +269,7 @@ class NavigationTree
             $inMenu = false;
 
             foreach (get_field('avabile_dynamic_post_types', 'options') as $type) {
-                if ($type['slug'] !== $key) {
+                if (sanitize_title(substr($type['post_type_name'], 0, 19)) !== $key) {
                     continue;
                 }
 
