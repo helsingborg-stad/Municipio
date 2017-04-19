@@ -44,7 +44,7 @@ class NavigationTree
 
         // Get valuable page information
         $this->currentPage = $this->getCurrentPage();
-        $this->ancestors = $this->getAncestors();
+        $this->ancestors = $this->getAncestors($this->currentPage->ID);
 
         if (!$this->currentPage) {
             return;
@@ -89,7 +89,8 @@ class NavigationTree
                 $this->endWrapper();
             }
         } else {
-            $page = isset($this->ancestors[0]) ? $this->ancestors[0] : $this->currentPage;
+            $ancestors = $this->getAncestors($this->currentPage);
+            $page = isset($ancestors[0]) ? $ancestors[0] : $this->currentPage;
 
             if ($page) {
                 $this->startWrapper();
@@ -359,11 +360,12 @@ class NavigationTree
 
     /**
      * Get ancestors of the current page
+     * @param  integer / post object $post
      * @return array ID's of ancestors
      */
-    protected function getAncestors()
+    protected function getAncestors($post)
     {
-        return array_reverse(get_post_ancestors($this->currentPage));
+        return array_reverse(get_post_ancestors($post));
     }
 
     /**
