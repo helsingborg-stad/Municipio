@@ -226,6 +226,8 @@ class Navigation
             } else {
                 if (is_home()) {
                     $title = single_post_title();
+                } elseif (is_tax()) {
+                    $title = single_cat_title(null, false);
                 } elseif (is_category()) {
                     $title = get_the_category();
                 } elseif (is_archive()) {
