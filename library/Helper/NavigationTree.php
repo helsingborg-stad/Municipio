@@ -375,7 +375,13 @@ class NavigationTree
      */
     protected function isAncestors($id)
     {
-        return in_array($id, $this->ancestors);
+        $ancestors  = $this->ancestors;
+        $baseParent = $this->getAncestors($this->currentPage);
+        if (is_array($baseParent) && !empty($baseParent)) {
+            $ancestors = array_merge($ancestors, $baseParent);
+        }
+
+        return in_array($id, $ancestors);
     }
 
     /**
