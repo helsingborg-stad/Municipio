@@ -204,12 +204,12 @@ class Navigation
                             <span itemprop="name">' . __('Home') . '</span><meta itemprop="position" content="' . $int++ . '"></a>
                         </li>';
 
-            if (is_single() && get_post_type_archive_link($post->post_type)) {
-                $title = get_the_title();
-                $archive_title = $post_type->label;
+            if (is_single() && $post_type->has_archive) {
+                $cpt_archive_link = (is_string($post_type->has_archive)) ? get_permalink(get_page_by_path($post_type->has_archive)) : get_post_type_archive_link($post_type->name);
+
                 $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                <a itemprop="item" href="' . get_post_type_archive_link($post->post_type) . '" title="' . $archive_title . '">
-                                <span itemprop="name">' . $archive_title . '</span><meta itemprop="position" content="' . $int++ . '"></a>
+                                <a itemprop="item" href="' . $cpt_archive_link . '" title="' .  $post_type->label . '">
+                                <span itemprop="name">' .  $post_type->label . '</span><meta itemprop="position" content="' . $int++ . '"></a>
                             </li>';
             }
 
