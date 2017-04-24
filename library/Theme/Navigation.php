@@ -191,6 +191,11 @@ class Navigation
     public static function outputBreadcrumbs()
     {
         global $post;
+
+        if (!is_a($post, 'WP_Post')) {
+            return;
+        }
+
         $title = get_the_title();
         $post_type = get_post_type_object($post->post_type);
         $output = array();

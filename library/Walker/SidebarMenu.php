@@ -29,7 +29,7 @@ class SidebarMenu extends \Walker_Nav_Menu
         }
 
         foreach ($elements as $element) {
-            if (isset($element->object_id) && intval($element->object_id) == $current_page->ID) {
+            if (isset($element->object_id) && isset($current_page->ID) && intval($element->object_id) == $current_page->ID) {
                 $current_page = $element->ID;
                 break;
             }
