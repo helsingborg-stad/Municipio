@@ -6,8 +6,19 @@ class Archive
 {
     public function __construct()
     {
+        add_filter('wp_title', array($this, 'pageTitle'));
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
+    }
+
+    /**
+     * Filter away "Archive:" from archive title
+     * @param  string $title
+     * @return string
+     */
+    public function pageTitle($title)
+    {
+        return trim(str_replace(__('Archive') . ':', '', $title));
     }
 
     public function onlyFirstLevel($query)
