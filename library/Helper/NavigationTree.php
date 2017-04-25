@@ -44,10 +44,10 @@ class NavigationTree
 
         // Get valuable page information
         $this->currentPage = $this->getCurrentPage();
-        $this->ancestors = $this->getAncestors($this->currentPage->ID);
 
-        if (!$this->currentPage) {
-            return;
+        $this->ancestors = array();
+        if (is_a($this->currentPage, 'WP_Post')) {
+            $this->ancestors = $this->getAncestors($this->currentPage->ID);
         }
 
         if ($this->args['top_level_type'] == 'mobile') {
