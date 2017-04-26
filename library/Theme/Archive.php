@@ -18,7 +18,7 @@ class Archive
      */
     public function pageTitle($title)
     {
-        return trim(str_replace(__('Archive') . ':', '', $title));
+        return preg_replace('/(archive|arkiv|' . __('Archive') . '):/i', '', $title);
     }
 
     public function onlyFirstLevel($query)
