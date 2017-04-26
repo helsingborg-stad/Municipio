@@ -7,6 +7,7 @@ class General
     public function __construct()
     {
         add_filter('body_class', array($this, 'isChildTheme'));
+        add_filter('body_class', array($this, 'e404classes'));
 
         add_filter('private_title_format', array($this, 'titleFormat'));
         add_filter('protected_title_format', array($this, 'titleFormat'));
@@ -18,6 +19,12 @@ class General
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
+    }
+
+    public function e404classes($classes)
+    {
+        $classes[] = 'error404-2';
+        return $classes;
     }
 
     /**
