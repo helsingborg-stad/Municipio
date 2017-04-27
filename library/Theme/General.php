@@ -19,6 +19,23 @@ class General
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
+
+        add_action('add_meta_boxes', array($this, 'removeDisplaySettings'), 9999);
+    }
+
+    /**
+     * Remove display settings metabox from non public posttypes
+     * @param  string $postType
+     * @return void
+     */
+    public function removeDisplaySettings($postType)
+    {
+        $publicPostTypes = array_keys(\Municipio\Helper\PostType::getPublic());
+        $publicPostTypes[] = 'page';
+
+        if (!in_array($postType, $publicPostTypes)) {
+            remove_meta_box('acf-group_56c33cf1470dc', $postType, 'side');
+        }
     }
 
     public function e404classes($classes)
