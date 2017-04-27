@@ -113,11 +113,11 @@ class Navigation
             'header-tabs-menu' => __('Header tabs menu', 'municipio')
         );
 
-        if (get_field('nav_primary_enable', 'option') === true) {
+        if (get_field('nav_primary_enable', 'option')) {
             $menus['main-menu'] = __('Main menu', 'municipio');
         }
 
-        if (get_field('nav_sub_enable', 'option') === true) {
+        if (get_field('nav_sub_enable', 'option')) {
             $menus['sidebar-menu'] = __('Sidebar menu', 'municipio');
         }
 
