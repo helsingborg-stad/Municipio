@@ -42,14 +42,14 @@
                                         <h2><a href="{{ esc_url(add_query_arg('date', preg_replace('/\D/', '', $post->start_date), the_permalink())) }}">{{ the_title() }}</a></h2>
                                             <div class="event-archive_meta">
                                                 <p><small><i class="pricon pricon-calendar"></i>
-                                                <strong>{{ __('Date', 'municipio') }}:</strong>
+                                                <strong><?php _ex('Date', 'Event archive', 'municipio'); ?>:</strong>
                                                    {{ \Municipio\Helper\Event::formatEventDate($post->start_date, $post->end_date) }}
                                                 </small></p>
 
                                                 <?php $location = get_field('location'); ?>
                                                 @if (!empty($location['title']))
                                                     <p><small><i class="pricon pricon-location-pin"></i>
-                                                    <strong>{{ __('Location', 'municipio') }}:</strong> {{ $location['title'] }}
+                                                    <strong><?php _ex('Location', 'Event archive','municipio'); ?>:</strong> {{ $location['title'] }}
                                                     </small></p>
                                                 @endif
                                             </div>

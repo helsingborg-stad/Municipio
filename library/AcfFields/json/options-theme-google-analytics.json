@@ -12,7 +12,7 @@
             "label": "Google Analytics UA",
             "name": "google_analytics_ua",
             "type": "text",
-            "instructions": "To activate Google Analytics please insert your Google Analytics UA.\r\nUsally a string like this: UA-XXXXX-Y",
+            "instructions": "To activate Google Analytics please insert your Google Analytics UA.<br>Usally a string like this: UA-XXXXX-Y",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -43,4 +43,3 @@
     "description": "",
     "local": "php"
 }]
-

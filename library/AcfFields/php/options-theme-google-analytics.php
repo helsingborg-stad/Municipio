@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_56c5c4d919d29',
     'title' => 'Google Analytics',
     'fields' => array(
@@ -15,8 +15,7 @@
             'label' => __('Google Analytics UA', 'municipio'),
             'name' => 'google_analytics_ua',
             'type' => 'text',
-            'instructions' => __('To activate Google Analytics please insert your Google Analytics UA.
-Usally a string like this: UA-XXXXX-Y', 'municipio'),
+            'instructions' => __('To activate Google Analytics please insert your Google Analytics UA.<br>Usally a string like this: UA-XXXXX-Y', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -47,4 +46,4 @@ Usally a string like this: UA-XXXXX-Y', 'municipio'),
     'description' => '',
     'local' => 'php',
 ));
-}
+}
