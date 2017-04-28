@@ -47,8 +47,8 @@
         [
             {
                 "param": "post_type",
-                "operator": "==",
-                "value": "page"
+                "operator": "!=",
+                "value": "mod-notice"
             }
         ]
     ],
@@ -59,7 +59,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 

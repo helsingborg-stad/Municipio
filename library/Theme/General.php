@@ -20,7 +20,7 @@ class General
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
 
-        add_action('add_meta_boxes', array($this, 'removeDisplaySettings'), 9999);
+        //add_action('add_meta_boxes', array($this, 'removeDisplaySettings'), 9999);
     }
 
     /**
@@ -35,6 +35,7 @@ class General
 
         if (!in_array($postType, $publicPostTypes)) {
             remove_meta_box('acf-group_56c33cf1470dc', $postType, 'side');
+            remove_meta_box('group_56d83cff12bb3', $postType, 'side');
         }
     }
 
