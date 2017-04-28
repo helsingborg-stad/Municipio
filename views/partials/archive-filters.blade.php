@@ -44,6 +44,7 @@
 
         @if (isset($enabledTaxonomyFilters->row) && !empty($enabledTaxonomyFilters->row))
         @foreach ($enabledTaxonomyFilters->row as $taxKey => $taxonomy)
+        @if(count($taxonomy->values) > 1)
         <div class="gutter gutter-top">
         <div class="grid">
             <div class="grid-xs-12">
@@ -59,6 +60,7 @@
             </div>
         </div>
         </div>
+        @endif
         @endforeach
         @endif
 

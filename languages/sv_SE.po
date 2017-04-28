@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2017-04-28 13:06+0200\n"
-"PO-Revision-Date: 2017-04-28 13:08+0200\n"
+"PO-Revision-Date: 2017-04-28 13:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -3525,7 +3525,7 @@ msgstr "Datum"
 #: views/archive-event.blade.php:52
 msgctxt "Event archive"
 msgid "Location"
-msgstr "Lokalisering"
+msgstr "Plats"
 
 #: views/archive-event.blade.php:76 views/archive-listing.blade.php:94
 #: views/archive.blade.php:74 views/author.blade.php:50
