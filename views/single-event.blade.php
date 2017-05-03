@@ -33,8 +33,12 @@
                                 <i class="pricon pricon-location-pin"></i>
                             </div>
                             <div class="text">
-                                <h3>{{ $location['title'] }}</h3>
-                                <span>{{ $location['city'] }}</span>
+                                @if (isset($location['title']) && !empty($location['title']))
+                                    <h3>{{ $location['title'] }}</h3>
+                                @endif
+                                @if (isset($location['city']) && !empty($location['city']))
+                                    <span>{{ $location['city'] }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
