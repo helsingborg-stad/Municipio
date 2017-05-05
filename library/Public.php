@@ -68,6 +68,17 @@ if (!function_exists('municipio_get_logotype')) {
             'negative' => get_field('logotype_negative', 'option')
         );
 
+        foreach ($logotype as &$logo) {
+            if (!is_int($logo)) {
+                continue;
+            }
+
+            $logoinfo = array();
+            $logoinfo['id'] = $logo;
+            $logoinfo['url'] = wp_get_attachment_url($logoinfo['id']);
+            $logo = $logoinfo;
+        }
+
         // Get the symbol to use (blog name or image)
         $symbol = '<span class="h1 no-margin no-padding">' . $siteName . '</span>';
 
