@@ -174,6 +174,10 @@ class NavigationTree
             $this->startWrapper($classes, $depth === 1);
         }
 
+        if (!is_array($pages)) {
+            return;
+        }
+
         foreach ($pages as $page) {
             $pageId = $this->getPageId($page);
             $classes = array();
