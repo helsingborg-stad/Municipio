@@ -20,22 +20,6 @@ class Navigation
         add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
 
         add_filter('the_posts', array($this, 'pageForPostTypeNavigation'));
-
-        add_filter('nav_menu_css_class', array($this, 'filterNavClasses'), 10, 4);
-    }
-
-    /**
-     * Replace current ancestor class name
-     * @param  array  $classes  Nav menu item classes
-     * @param  object $item     Nav menu item data object
-     * @return array            Modified classes
-     */
-    public function filterNavClasses($classes, $item) {
-        if (is_array($classes) || is_string($classes)) {
-            $classes = str_replace('current-menu-item-ancestor', 'current-menu-ancestor', $classes);
-        }
-
-        return $classes;
     }
 
     /**
