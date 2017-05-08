@@ -56,9 +56,11 @@ class NavigationTree
                 'menu_item_parent' => 0
             ));
 
-            $this->topLevelPages = array_filter($this->topLevelPages, function ($item) {
-                return intval($item->menu_item_parent) === 0;
-            });
+            if (is_array($this->topLevelPages)) {
+                $this->topLevelPages = array_filter($this->topLevelPages, function ($item) {
+                    return intval($item->menu_item_parent) === 0;
+                });
+            }
         } else {
             $this->getTopLevelPages();
         }
