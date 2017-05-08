@@ -55,13 +55,19 @@ class General
     {
         switch_to_blog($site->blog_id);
 
+        $image = null;
+
         if ($frontpage = get_option('page_on_front') && get_the_post_thumbnail_url(get_option('page_on_front'))) {
             $src = get_the_post_thumbnail_url($frontpage);
-            $image = '<div style="background-image:url(' . $src . ');" class="box-image">
-               <img alt="' . $site->blogname . '" src="' . $src . '">
-            </div>';
 
-        } elseif ($logo = get_field('logotype_negative', 'option')) {
+            if ($src) {
+                $image = '<div style="background-image:url(' . $src . ');" class="box-image">
+                   <img alt="' . $site->blogname . '" src="' . $src . '">
+                </div>';
+            }
+        }
+
+        if (!$image && $logo = get_field('logotype_negative', 'option')) {
             $image = '<div class="box-image">
                ' . \Municipio\Helper\Svg::extract($logo['url']) . '
             </div>';
