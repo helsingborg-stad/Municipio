@@ -3,37 +3,49 @@
     "title": "Manage post types",
     "fields": [
         {
+            "key": "field_56b347f3ffb6c",
+            "label": "Tillg\u00e4ngliga inl\u00e4ggstyper",
+            "name": "avabile_dynamic_post_types",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "L\u00e4gg till inl\u00e4ggstyp",
+            "collapsed": "field_56b3619c5defc",
             "sub_fields": [
                 {
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
                     "key": "field_56b3619c5defc",
-                    "label": "Post type name",
+                    "label": "Inl\u00e4ggstypens namn",
                     "name": "post_type_name",
                     "type": "text",
-                    "instructions": "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! <\/span>",
+                    "instructions": "<span style=\"color: #ff0000;\">V\u00e4lj namn med omsorg. Namnet g\u00e5r inte att \u00e4ndra.<\/span>",
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "100",
                         "class": "",
                         "id": ""
-                    }
-                },
-                {
+                    },
                     "default_value": "",
-                    "maxlength": 50,
+                    "maxlength": "",
                     "placeholder": "",
                     "prepend": "",
-                    "append": "",
+                    "append": ""
+                },
+                {
                     "key": "field_56b36c01e0619",
                     "label": "Permal\u00e4nk",
                     "name": "slug",
                     "type": "text",
-                    "instructions": "Public \/url\/ to show archive on.",
+                    "instructions": "Offentlig \/url\/ att visa arkivet p\u00e5",
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -41,41 +53,36 @@
                         "class": "",
                         "id": ""
                     },
+                    "default_value": "",
+                    "maxlength": 50,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
                     "readonly": 0,
                     "disabled": 0
                 },
                 {
-                    "default_value": 1,
-                    "message": "Prefix slug with blog front",
-                    "ui": 0,
-                    "ui_on_text": "",
-                    "ui_off_text": "",
                     "key": "field_57fb6fde23852",
-                    "label": "Rewrite with front",
+                    "label": "Skriv om med front",
                     "name": "with_front",
                     "type": "true_false",
-                    "instructions": "Check if you would like to prefix the slug with blogfront",
+                    "instructions": "Bocka i om du vill prefixa slugen med blogfront (exempel \/blog\/slug)",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "50",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": 1,
+                    "message": "L\u00e4gg bloggfront framf\u00f6r slug",
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
                 },
                 {
-                    "return_format": "array",
-                    "preview_size": "full",
-                    "library": "uploadedTo",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "svg",
                     "key": "field_56c1c7c731a5c",
-                    "label": "Menu icon",
+                    "label": "Menyikon",
                     "name": "menu_icon",
                     "type": "image",
                     "instructions": "",
@@ -85,23 +92,45 @@
                         "width": 50,
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "return_format": "array",
+                    "preview_size": "full",
+                    "library": "uploadedTo",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "svg"
                 },
                 {
+                    "key": "field_56b363105df00",
+                    "label": "Menyposition",
+                    "name": "menu_position",
+                    "type": "select",
+                    "instructions": "V\u00e4lj var inl\u00e4ggstypen ska ligga i amdinistrationsmenyn",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
                     "multiple": 0,
                     "allow_null": 0,
                     "choices": {
-                        "5": "Below Posts",
-                        "10": "Below Media",
-                        "15": "Below Links",
-                        "20": "Below Pages",
-                        "25": "Below comments",
-                        "60": "Below first separator",
-                        "65": "Below Plugins",
-                        "70": "Below Users",
-                        "75": "Below Tools",
-                        "80": "Below Settings",
-                        "100": "Below second separator"
+                        "5": "Under inl\u00e4gg",
+                        "10": "Under media",
+                        "15": "Under l\u00e4nkar",
+                        "20": "Under sidor",
+                        "25": "Under kommentarer",
+                        "60": "Under f\u00f6rsta avgr\u00e4nsningen",
+                        "65": "Under plugin",
+                        "70": "Under anv\u00e4ndare",
+                        "75": "Under verktyg",
+                        "80": "Under inst\u00e4llningar",
+                        "100": "Under andra avgr\u00e4nsningen"
                     },
                     "default_value": {
                         "25": 25
@@ -110,29 +139,12 @@
                     "ajax": 0,
                     "placeholder": "",
                     "return_format": "value",
-                    "key": "field_56b363105df00",
-                    "label": "Menu position",
-                    "name": "menu_position",
-                    "type": "select",
-                    "instructions": "Select where to place this custom post type admin section.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": 50,
-                        "class": "",
-                        "id": ""
-                    },
                     "disabled": 0,
                     "readonly": 0
                 },
                 {
-                    "default_value": 1,
-                    "message": "Controls how the type is visible to authors",
-                    "ui": 0,
-                    "ui_on_text": "",
-                    "ui_off_text": "",
                     "key": "field_56b361b25defd",
-                    "label": "Public?",
+                    "label": "Publik?",
                     "name": "public",
                     "type": "true_false",
                     "instructions": "",
@@ -142,16 +154,16 @@
                         "width": "25",
                         "class": "",
                         "id": ""
-                    }
-                },
-                {
-                    "default_value": 0,
-                    "message": "Whether to exclude posts with this post type from front end search results.",
+                    },
+                    "default_value": 1,
+                    "message": "Kontrollerar inl\u00e4ggstypens tillg\u00e4nglighet",
                     "ui": 0,
                     "ui_on_text": "",
-                    "ui_off_text": "",
+                    "ui_off_text": ""
+                },
+                {
                     "key": "field_56b362255defe",
-                    "label": "Exclude from search?",
+                    "label": "Exkludera fr\u00e5n s\u00f6kresultat",
                     "name": "exclude_from_search",
                     "type": "true_false",
                     "instructions": "",
@@ -161,16 +173,16 @@
                         "width": "25",
                         "class": "",
                         "id": ""
-                    }
-                },
-                {
-                    "default_value": 1,
-                    "message": "Make post type available for selection in navigation menus.",
+                    },
+                    "default_value": 0,
+                    "message": "Om inl\u00e4ggstypen ska exkluderas fr\u00e5n s\u00f6kresultat",
                     "ui": 0,
                     "ui_on_text": "",
-                    "ui_off_text": "",
+                    "ui_off_text": ""
+                },
+                {
                     "key": "field_56b3629c5deff",
-                    "label": "Avabile in nav menus?",
+                    "label": "Tillg\u00e4nglig i menyer",
                     "name": "show_in_nav_menus",
                     "type": "true_false",
                     "instructions": "",
@@ -180,16 +192,16 @@
                         "width": "25",
                         "class": "",
                         "id": ""
-                    }
-                },
-                {
+                    },
                     "default_value": 1,
-                    "message": "Whether the post type is hierarchical (e.g. page). Allows Parent to be specified.",
+                    "message": "Till\u00e5t inl\u00e4ggstypen att kunna visas i menyer.",
                     "ui": 0,
                     "ui_on_text": "",
-                    "ui_off_text": "",
+                    "ui_off_text": ""
+                },
+                {
                     "key": "field_56b364336050a",
-                    "label": "Hierarchical",
+                    "label": "Hierarkisk",
                     "name": "hierarchical",
                     "type": "true_false",
                     "instructions": "",
@@ -199,16 +211,16 @@
                         "width": "25",
                         "class": "",
                         "id": ""
-                    }
-                },
-                {
-                    "default_value": 0,
-                    "message": "Show posts in sidebar menu (only ofr automatically generated menus)",
+                    },
+                    "default_value": 1,
+                    "message": "Om inl\u00e4ggstypen \u00e4r hierarkisk. Till\u00e5ter parent\/child f\u00f6rh\u00e5llande mellan inl\u00e4gg.",
                     "ui": 0,
                     "ui_on_text": "",
-                    "ui_off_text": "",
+                    "ui_off_text": ""
+                },
+                {
                     "key": "field_5805d63cdcbf4",
-                    "label": "Navigation",
+                    "label": "Navigering",
                     "name": "show_posts_in_sidebar_menu",
                     "type": "true_false",
                     "instructions": "",
@@ -226,27 +238,16 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": 0,
+                    "message": "Visa inl\u00e4gg i sidebar-meny (bara f\u00f6r automatiskt genererade menyer)",
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
                 },
                 {
-                    "layout": "horizontal",
-                    "choices": {
-                        "editor": "Content editor",
-                        "author": "Author Select",
-                        "thumbnail": "Featured Image",
-                        "excerpt": "Excerpt",
-                        "trackbacks": "Trackbacks",
-                        "comments": "Comments",
-                        "page-attributes": "Page Attributes",
-                        "post-formats": "Post Formats"
-                    },
-                    "default_value": [],
-                    "allow_custom": 0,
-                    "save_custom": 0,
-                    "toggle": 0,
-                    "return_format": "value",
                     "key": "field_56b364a391788",
-                    "label": "Post type functions",
+                    "label": "Funktioner f\u00f6r inl\u00e4ggstypen",
                     "name": "supports",
                     "type": "checkbox",
                     "instructions": "",
@@ -256,26 +257,41 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "layout": "horizontal",
+                    "choices": {
+                        "editor": "Inneh\u00e5llsf\u00f6rfattare",
+                        "author": "Val av f\u00f6rfattare",
+                        "thumbnail": "Utvald bild",
+                        "excerpt": "Ingress",
+                        "trackbacks": "Trackbacks",
+                        "comments": "Kommentarer",
+                        "page-attributes": "Sidattribut",
+                        "post-formats": "Inl\u00e4ggsformat"
+                    },
+                    "default_value": [],
+                    "allow_custom": 0,
+                    "save_custom": 0,
+                    "toggle": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_5915caa2841dd",
+                    "label": "Acf: Treat as a page rather than a CPT",
+                    "name": "treat_as_cpt",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Yes, apply rules like if it was a page (ACF).",
+                    "default_value": 0
                 }
-            ],
-            "min": 0,
-            "max": 0,
-            "layout": "block",
-            "button_label": "Add post type",
-            "collapsed": "field_56b3619c5defc",
-            "key": "field_56b347f3ffb6c",
-            "label": "Available post types",
-            "name": "avabile_dynamic_post_types",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
+            ]
         }
     ],
     "location": [
@@ -294,7 +310,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 

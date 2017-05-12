@@ -20,6 +20,27 @@ class Navigation
         add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
 
         add_filter('the_posts', array($this, 'pageForPostTypeNavigation'));
+
+        add_filter('acf/location/screen', array($this, 'modifyAcfLocationRules'), 10, 2);
+
+    }
+
+    /**
+     * Treat hirecial posttypes as pages in backend
+     * @param  array $options
+     * @param  array $fieldGroup
+     * @return array
+     */
+    public function modifyAcfLocationRules($options, $fieldGroup)
+    {
+        if (is_post_type_hierarchical($options['post_type']) && post_type_exists('page') && is_admin()) {
+            foreach ((array) get_field('avabile_dynamic_post_types', 'option') as $postType) {
+                if ($postType['treat_as_cpt'] && $options['post_type'] == sanitize_title(substr($postType['post_type_name'], 0, 19))) {
+                    $options['post_type'] = 'page';
+                }
+            }
+        }
+        return $options;
     }
 
     /**
