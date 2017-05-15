@@ -7,7 +7,9 @@
     @include('partials.breadcrumbs')
     <div class="grid event-single">
         <div class="grid-md-7">
-            <img src="{{ municipio_get_thumbnail_source(null, array(750,750)) }}" alt="{{ the_title() }}" class="image gutter gutter-bottom">
+            @if (municipio_get_thumbnail_source(null, array(750,750)))
+                <img src="{{ municipio_get_thumbnail_source(null, array(750,750)) }}" alt="{{ the_title() }}" class="image gutter gutter-bottom">
+            @endif
         </div>
         <div class="grid-md-1">
         </div>
@@ -48,7 +50,7 @@
 
         <div class="grid-md-12 grid-lg-12">
             @if (is_single() && is_active_sidebar('content-area-top'))
-                <div class="grid sidebar-content-area sidebar-content-area-top" style="border:1px solid blue;">
+                <div class="grid sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
                 </div>
             @endif
