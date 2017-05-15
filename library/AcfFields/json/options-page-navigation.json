@@ -48,7 +48,7 @@
             {
                 "param": "post_type",
                 "operator": "!=",
-                "value": "mod-notice"
+                "value": "null"
             }
         ]
     ],
@@ -61,4 +61,3 @@
     "active": 1,
     "description": ""
 }]
-
