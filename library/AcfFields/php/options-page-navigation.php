@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_56d83cff12bb3',
     'title' => 'Navigation settings',
     'fields' => array(
@@ -50,8 +50,8 @@
         0 => array(
             0 => array(
                 'param' => 'post_type',
-                'operator' => '==',
-                'value' => 'page',
+                'operator' => '!=',
+                'value' => 'null',
             ),
         ),
     ),
@@ -65,4 +65,4 @@
     'description' => '',
     'local' => 'php',
 ));
-}
+}
