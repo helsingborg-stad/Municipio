@@ -168,13 +168,10 @@ class General
      */
     public function colorScheme($key)
     {
-        return 'purple';
-
-        if ((defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') && !MUNICIPIO_INTRANET_USER_COLOR_THEME) || !is_user_logged_in() || empty(get_the_author_meta('user_color_scheme', get_current_user_id()))) {
+        if ((defined('MUNICIPIO_INTRANET_USER_COLOR_THEME') && !MUNICIPIO_INTRANET_USER_COLOR_THEME)) {
             return $key;
         }
-
-        return get_the_author_meta('user_color_scheme', get_current_user_id());
+        return 'purple';
     }
 
     /**
