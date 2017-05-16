@@ -238,7 +238,8 @@
                         "trackbacks": "Trackbacks",
                         "comments": "Comments",
                         "page-attributes": "Page Attributes",
-                        "post-formats": "Post Formats"
+                        "post-formats": "Post Formats",
+                        "revisions": "Revisions"
                     },
                     "default_value": [],
                     "allow_custom": 0,
@@ -297,4 +298,3 @@
     "description": "",
     "local": "php"
 }]
-

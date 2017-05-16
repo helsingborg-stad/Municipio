@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_56b34353ef1eb',
     'title' => 'Manage post types',
     'fields' => array(
@@ -242,6 +242,7 @@
                         'comments' => __('Comments', 'municipio'),
                         'page-attributes' => __('Page Attributes', 'municipio'),
                         'post-formats' => __('Post Formats', 'municipio'),
+                        'revisions' => __('Revisions', 'municipio')
                     ),
                     'default_value' => array(
                     ),
@@ -301,4 +302,4 @@
     'description' => '',
     'local' => 'php',
 ));
-}
+}
