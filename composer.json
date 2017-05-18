@@ -120,7 +120,7 @@
         "helsingborg-stad/Municipio": ">=1.0.0",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
         "helsingborg-stad/custom-short-links": ">=1.0.0",
-        "helsingborg-stad/Customer-feedback": ">=1.0.0",
+        "helsingborg-stad/Customer-feedback": ">=2.0.0",
         "helsingborg-stad/content-scheduler": ">=1.0.0",
         "helsingborg-stad/modularity-dictionary": ">=1.0.0",
         "helsingborg-stad/broken-link-detector": ">=1.0.0",
