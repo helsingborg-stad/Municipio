@@ -60,7 +60,10 @@ class App
                 'UserSystems'
             );
 
-            new \Intranet\Module\IncidentList();
+            modularity_register_module(
+                INTRANET_PATH . 'library/Module/IncidentList',
+                'IncidentList'
+            );
         }
 
         new \Intranet\Api\Wp();
