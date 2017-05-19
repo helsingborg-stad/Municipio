@@ -1,0 +1,72 @@
+[{
+    "key": "group_57469ceda9387",
+    "title": "Intranet news",
+    "fields": [
+        {
+            "layout": "vertical",
+            "choices": {
+                "network_subscribed": "Combine news from subscribed networks",
+                "network": "Combine news from all network",
+                "blog": "Only news from the current site"
+            },
+            "default_value": "network_subscribed",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_57469cf4d2d8e",
+            "label": "Display",
+            "name": "display",
+            "type": "radio",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": 10,
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5746a4a2fbfdb",
+            "label": "Number of news",
+            "name": "limit",
+            "type": "number",
+            "instructions": "Number of news to display",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "readonly": 0,
+            "disabled": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "mod-intranet-news"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
