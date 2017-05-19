@@ -1,5 +1,5 @@
 <div class="grid-lg-12">
-    <a href="{{ get_blog_permalink($item->blog_id, $item->ID) }}" class="<?php echo implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $module->post_type, $args)); ?> {{ $item->is_sticky ? 'is-sticky' : '' }}" {!! is_super_admin() ? 'title="Rank: ' . round($item->rank_percent, 3) . '%"' : '' !!}>
+    <a href="{{ get_blog_permalink($item->blog_id, $item->ID) }}" class="{{ $classes }} {{ $item->is_sticky ? 'is-sticky' : '' }}" {!! is_super_admin() ? 'title="Rank: ' . round($item->rank_percent, 3) . '%"' : '' !!}>
         @if (!in_array($args['id'], array('content-area', 'content-area-top')) && $item->thumbnail_image)
             <div class="box-image-container">
                 @if ($item->thumbnail_image && $item->image)

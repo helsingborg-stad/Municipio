@@ -9,32 +9,33 @@
         );
     ?>
 
-    <?php if (!$module->hideTitle) : ?>
+    @if (!$module->hideTitle)
     <h4 class="box-title">
         <?php _e('My links', 'municipio-intranet'); ?>
-        <?php if (is_user_logged_in()) : ?>
+
+        @if (is_user_logged_in())
         <button type="button" class="btn btn-plain btn-sm pricon-space-right pricon pricon-edit" data-user-link-edit><?php _e('Edit', 'municipio-intranet'); ?></button>
-        <?php endif; ?>
+        @endif
     </h4>
-    <?php endif; ?>
+    @endif
 
-    <?php if (!empty(\Intranet\Module\UserLinks::getLinks())) : ?>
+    @if (!empty(\Intranet\Module\UserLinks::getLinks()))
     <ul class="links">
-        <?php foreach (\Intranet\Module\UserLinks::getLinks() as $link) : ?>
+        @foreach (\Intranet\Module\UserLinks::getLinks() as $link)
         <li>
-            <a target="_blank" class="link-item" href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a>
-            <?php if (is_user_logged_in()) : ?>
-            <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="<?php echo $link['url']; ?>" type="button" data-tooltip="<?php _e('Remove'); ?>">&times;</button>
-            <?php endif; ?>
+            <a target="_blank" class="link-item" href="{{ $link['url'] }}">{{ $link['title'] }}</a>
+            @if (is_user_logged_in())
+            <button class="btn btn-icon btn-sm text-lg pull-right only-if-editing" data-user-link-remove="{{ $link['url'] }}" type="button" data-tooltip="<?php _e('Remove'); ?>">&times;</button>
+            @endif
         </li>
-        <?php endforeach; ?>
+        @endforeach
     </ul>
-    <?php else : ?>
+    @else
         <div class="box-content"><?php _e('You have not added any links yet…', 'municipio-intranet'); ?></div>
-    <?php endif; ?>
+    @endif
 
-    <?php if (is_user_logged_in()) : ?>
-    <form action="<?php echo municipio_intranet_current_url(); ?>" class="only-if-editing" data-user-link-add>
+    @if (is_user_logged_in())
+    <form action="{{ municipio_intranet_current_url() }}" class="only-if-editing" data-user-link-add>
         <h5><?php _e('Add new link', 'municipio-intranet'); ?></h5>
         <div class="form-group">
             <label for="user-link-title"><?php _e('Title', 'municipio-intranet'); ?></label>
@@ -48,5 +49,5 @@
             <button type="submit" class="btn"><?php _e('Save'); ?></button>
         </div>
     </form>
-    <?php endif; ?>
+    @endif
 </div>

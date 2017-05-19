@@ -39,7 +39,7 @@ class News extends \Modularity\Module
 
         $data['args'] = $this->args;
 
-        $this->data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $this->module->post_type, $this->args));
+        $data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $this->module->post_type, $this->args));
 
         return $data;
     }

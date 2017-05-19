@@ -9,46 +9,46 @@
         );
     ?>
 
-    <?php if (!$module->hideTitle) : ?>
+    @if (!$module->hideTitle)
     <h4 class="box-title">
         <?php _e('My systems', 'municipio-intranet'); ?>
-        <?php if (is_user_logged_in()) : ?>
+
+        @if (is_user_logged_in())
         <button type="button" onclick="location.hash='modal-select-systems'" class="btn btn-plain btn-sm pricon pricon-edit pricon-space-right" data-user-systems-edit><?php _e('Select systems', 'municipio-intranet'); ?></button>
-        <?php endif; ?>
+        @endif
     </h4>
-    <?php endif; ?>
+    @endif
 
     <ul class="links">
-        <?php if (!is_user_logged_in()) : ?>
+        @if (!is_user_logged_in())
             <li class="creamy text-sm" style="border:none;"><?php _e('You need to login to your account to access the systems list.', 'municipio-intranet'); ?></li>
-        <?php else : ?>
-            <?php
-            $systems = \Intranet\User\Systems::getAvailabelSystems('user', array('user_only_selected'));
-            if (empty($systems)) : ?>
+        @else
+            @if (empty($systems))
                 <li class="text-center">
                     <div class="gutter">
                         <?php _e('You have not selected any systems to display.', 'municipio-intranet'); ?><br>
                         <button type="button" style="margin-top:7px;" onclick="location.hash='modal-select-systems'" class="btn btn-primary btn-md" data-user-systems-edit><?php _e('Select systems', 'municipio-intranet'); ?></button>
                     </div>
                 </li>
-            <?php else :?>
-                <?php if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && !\SsoAvailability\SsoAvailability::isSsoAvailable()) : ?>
+            @else
+                @if (method_exists('\SsoAvailability\SsoAvailability', 'isSsoAvailable') && !\SsoAvailability\SsoAvailability::isSsoAvailable())
                 <li class="creamy text-sm" style="border:none;"><?php _e('Your logged in from a computer outside the city network. This causes some systems to be unavailable.', 'municipio-intranet'); ?></li>
-                <?php endif; ?>
+                @endif
 
-                <?php foreach ($systems as $system) : ?>
-                <?php if ($system->unavailable === true) : ?>
-                <li><a target="_blank" class="link-item link-unavailable" href="<?php echo $system->url; ?>"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>"><?php echo $system->name; ?></span></a></li>
-                <?php else : ?>
-                <li><a target="_blank" href="<?php echo $system->url; ?>" class="link-item"><?php echo $system->name; ?></a></li>
-            <?php endif; endforeach; endif; ?>
-            <!-- <button type="button"  class="btn btn-primary pricon pricon-edit pricon-space-right"><?php _e('Add system link', 'municipio-intranet'); ?></button> -->
-        <?php endif; ?>
+                @foreach ($systems as $system)
+                    @if ($system->unavailable === true)
+                    <li><a target="_blank" class="link-item link-unavailable" href="{{ $system->url }}"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>">{{ $system->name }}</span></a></li>
+                    @else
+                    <li><a target="_blank" href="{{ $system->url }}" class="link-item">{{ $system->name }}</a></li>
+                    @endif
+                @endforeach
+            @endif
+        @endif
     </ul>
 </div>
 
 <div id="modal-select-systems" class="modal modal-backdrop-2 modal-small" tabindex="-1" role="dialog" aria-hidden="true">
-    <form action="<?php echo municipio_intranet_current_url(); ?>" method="post">
+    <form action="{{ municipio_intranet_current_url() }}" method="post">
         <?php wp_nonce_field('save', 'select-systems'); ?>
 
         <div class="modal-content">
@@ -72,15 +72,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system) : ?>
+                                @foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system)
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" name="system-selected[]" value="<?php echo $system->id; ?>" <?php checked(true, $system->selected); ?>>
+                                        <input type="checkbox" name="system-selected[]" value="{{ $system->id }}" {{ checked(true, $system->selected) }}>
                                     </td>
-                                    <td><?php echo $system->name; ?></td>
-                                    <td><?php echo $system->description; ?></td>
+                                    <td>{{ $system->name }}</td>
+                                    <td>{{ $system->description }}</td>
                                 </tr>
-                                <?php endforeach; ?>
+                                @endforeach
                             </tbody>
                         </table>
                     </p>
@@ -90,7 +90,7 @@
                 <a href="#close" class="btn btn-close"><?php _e('Cancel', 'municipio-intranet'); ?></a>
                 <button type="submit" class="btn btn-primary"><?php _e('Save', 'municipio-intranet'); ?></button>
             </div>
-        </div><!-- /.modal-content -->
+        </div>
         <a href="#close" class="backdrop"></a>
     </form>
-</div><!-- /.modal -->
+</div>
