@@ -45,7 +45,11 @@ class App
 
         // Modularity modules
         if (class_exists('\Modularity\Module')) {
-            new \Intranet\Module\News();
+            modularity_register_module(
+                INTRANET_PATH . 'library/Module/',
+                'News'
+            );
+
             new \Intranet\Module\UserLinks();
             new \Intranet\Module\UserSystems();
             new \Intranet\Module\IncidentList();
