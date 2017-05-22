@@ -472,8 +472,8 @@ class NavigationTree
             $title
         ));
 
-        if ($outputSubmenuToggle) {
-            $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span></button>');
+        if ($outputSubmenuToggle && $this->args['theme_location'] !== 'main-menu') {
+            $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button>');
         }
     }
 
