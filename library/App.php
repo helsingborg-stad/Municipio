@@ -80,6 +80,11 @@ class App
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\Editor();
 
+        /**
+         * Api
+         */
+        new \Municipio\Api\Navigation();
+
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views';
             $paths[] = get_template_directory() . '/views';
