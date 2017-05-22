@@ -47,12 +47,16 @@ class General
      */
     public function removeUnwantedModuleMetaboxes($postType)
     {
-        if (substr($postType, 0, 4) != 'mod-') {
-            return;
-        }
+        $publicPostTypes = array_keys(\Municipio\Helper\PostType::getPublic());
+        $publicPostTypes[] = 'page';
 
-        // Removes the display options metabox
-        remove_meta_box('acf-group_56c33cf1470dc', $postType, 'side');
+        if (!in_array($postType, $publicPostTypes)) {
+            // Navigation settings
+            remove_meta_box('acf-group_56d83cff12bb3', $postType, 'side');
+
+            // Display settings
+            remove_meta_box('acf-group_56c33cf1470dc', $postType, 'side');
+        }
     }
 
     /**
