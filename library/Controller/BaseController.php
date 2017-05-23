@@ -51,15 +51,6 @@ class BaseController
 
     public function getNavigationMenus()
     {
-        $navigation = new \Municipio\Helper\Navigation();
-        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
-        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
-
-        global $isSublevel;
-        if ($isSublevel !== true) {
-            $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
-        }
-
         $this->data['navigation']['headerTabsMenu'] = wp_nav_menu(array(
             'theme_location' => 'header-tabs-menu',
             'container' => 'nav',
@@ -93,6 +84,40 @@ class BaseController
             'depth' => 1,
             'fallback_cb' => '__return_false'
         ));
+
+        // If 404, fragment cache the navigation and return
+        if (is_404()) {
+            if (!wp_cache_get('404-menus', 'municipio-navigation')) {
+                $navigation = new \Municipio\Helper\Navigation();
+                $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+                $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+
+                wp_cache_add(
+                    '404-menus',
+                    array(
+                        'mainMenu' => $this->data['navigation']['mainMenu'],
+                        'mobileMenu' => $this->data['navigation']['mobileMenu']
+                    ),
+                    'municipio-navigation',
+                    86400
+                );
+            } else {
+                $cache = wp_cache_get('404-menus', 'municipio-navigation');
+                $this->data['navigation']['mainMenu'] = $cache['mainMenu'];
+                $this->data['navigation']['mobileMenu'] = $cache['mobileMenu'];
+            }
+
+            return;
+        }
+
+        $navigation = new \Municipio\Helper\Navigation();
+        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+
+        global $isSublevel;
+        if ($isSublevel !== true) {
+            $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
+        }
     }
 
     public function getLogotype()
