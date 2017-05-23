@@ -18,11 +18,16 @@ class NavigationTree
 
     public $itemCount = 0;
     protected $depth = 0;
+    protected $currentDepth = 0;
 
     protected $output = '';
 
-    public function __construct($args = array())
+    public function __construct($args = array(), $parent = false)
     {
+        if ($parent) {
+            $parent = get_post($parent);
+        }
+
         // Merge args
         $this->args = array_merge(array(
             'theme_location' => '',
@@ -43,7 +48,12 @@ class NavigationTree
         }
 
         // Get valuable page information
-        $this->currentPage = $this->getCurrentPage();
+        if ($parent) {
+            $parent->post_parent = 0;
+            $this->currentPage = $parent;
+        } else {
+            $this->currentPage = $this->getCurrentPage();
+        }
 
         $this->ancestors = array();
         if (is_a($this->currentPage, 'WP_Post')) {
@@ -62,7 +72,11 @@ class NavigationTree
                 });
             }
         } else {
-            $this->getTopLevelPages();
+            if ($parent) {
+                $this->topLevelPages = array($parent);
+            } else {
+                $this->getTopLevelPages();
+            }
         }
 
         if ($this->args['include_top_level']) {
@@ -170,6 +184,8 @@ class NavigationTree
      */
     protected function walk($pages, $depth = 1, $classes = null)
     {
+        $this->currentDepth = $depth;
+
         if ($this->args['sublevel']) {
             $this->startWrapper($classes, $depth === 1);
         }
@@ -180,7 +196,8 @@ class NavigationTree
 
         foreach ($pages as $page) {
             $pageId = $this->getPageId($page);
-            $classes = array();
+            $attributes = array();
+            $attributes['class'] = array();
             $output = true;
 
             if (is_numeric($page)) {
@@ -188,18 +205,18 @@ class NavigationTree
             }
 
             if ($this->isAncestors($pageId)) {
-                $classes[] = 'current-node current-menu-ancestor';
+                $attributes['class'][] = 'current-node current-menu-ancestor';
             }
 
             if ($this->getPageId($this->currentPage) == $pageId) {
-                $classes[] = 'current current-menu-item';
+                $attributes['class'][] = 'current current-menu-item';
             }
 
             if ($depth < $this->args['start_depth']) {
                 $output = false;
             }
 
-            $this->item($page, $depth, $classes, $output);
+            $this->item($page, $depth, $attributes, $output);
         }
 
         if ($this->args['sublevel']) {
@@ -213,17 +230,20 @@ class NavigationTree
      * @param  array  $classes Classes
      * @return void
      */
-    protected function item($page, $depth, $classes = array(), $output = true)
+    protected function item($page, $depth, $attributes = array(), $output = true)
     {
         $pageId = $this->getPageId($page);
         $children = $this->getChildren($pageId);
 
+        $hasChildren = false;
         if (count($children) > 0) {
-            $classes[] = 'has-children';
+            $hasChildren = true;
+            $attributes['class'][] = 'has-children';
+            $attributes['data-page-id'] = $pageId;
         }
 
         if ($output) {
-            $this->startItem($page, $classes);
+            $this->startItem($page, $attributes, $hasChildren);
         }
 
         if ($this->isActiveItem($pageId) && count($children) > 0 && ($this->args['depth'] <= 0 || $depth < $this->args['depth'])) {
@@ -410,15 +430,24 @@ class NavigationTree
      * @param  array  $classes Classes
      * @return void
      */
-    protected function startItem($item, $classes = array())
+    protected function startItem($item, $attributes = array(), $hasChildren = false)
     {
         if (!$this->shouldBeIncluded($item) || !is_object($item)) {
             return;
         }
 
         $this->itemCount++;
+        $outputSubmenuToggle = false;
 
-        $classes[] = 'page-' . $item->ID;
+        $attributes['class'][] = 'page-' . $item->ID;
+
+        if ($hasChildren && ($this->args['depth'] === -1 || $this->currentDepth < $this->args['depth'] + 1)) {
+            $outputSubmenuToggle = true;
+
+            if (array_search('has-children', $attributes['class']) > -1) {
+                unset($attributes['class'][array_search('has-children', $attributes['class'])]);
+            }
+        }
 
         $title = isset($item->post_title) ? $item->post_title : '';
         $objId = $this->getPageId($item);
@@ -437,11 +466,25 @@ class NavigationTree
         }
 
         $this->addOutput(sprintf(
-            '<li class="%1$s"><a href="%2$s">%3$s</a>',
-            $classes = implode(' ', $classes),
+            '<li%1$s><a href="%2$s">%3$s</a>',
+            $this->attributes($attributes),
             $href,
             $title
         ));
+
+        if ($outputSubmenuToggle && $this->args['theme_location'] !== 'main-menu') {
+            $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button>');
+        }
+    }
+
+    private function attributes($attributes = array())
+    {
+        foreach ($attributes as $attribute => &$data) {
+            $data = implode(' ', (array) $data);
+            $data = $attribute . '="' . $data . '"';
+        }
+
+        return $attributes ? ' ' . implode(' ', $attributes) : '';
     }
 
     /**

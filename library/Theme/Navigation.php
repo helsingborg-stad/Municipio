@@ -18,8 +18,28 @@ class Navigation
         }
 
         add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
-
         add_filter('the_posts', array($this, 'pageForPostTypeNavigation'));
+
+        add_action('after_setup_theme', array($this, 'submenuAjaxEndpoint'));
+    }
+
+    public function submenuAjaxEndpoint()
+    {
+        if (!isset($_GET['load-submenu-id']) || !is_numeric($_GET['load-submenu-id'])) {
+            return;
+        }
+
+        $submenu = new \Municipio\Helper\NavigationTree(
+            array(
+                'include_top_level' => false,
+                'depth' => 2,
+                'wrapper' => '%3$s'
+            ),
+            $_GET['load-submenu-id']
+        );
+
+        wp_send_json('<ul class="sub-menu">' . $submenu->render(false) . '</ul>');
+        exit;
     }
 
     /**
