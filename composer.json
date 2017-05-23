@@ -116,7 +116,7 @@
         "johnpbloch/wordpress": "4.7.3",
         "wp-api/wp-api": "2.0-beta15",
         "giggsey/libphonenumber-for-php": "7.6.0",
-        "helsingborg-stad/Modularity": ">=1.0.0",
+        "helsingborg-stad/Modularity": ">=2.0.0",
         "helsingborg-stad/Municipio": ">=1.0.0",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
         "helsingborg-stad/custom-short-links": ">=1.0.0",
