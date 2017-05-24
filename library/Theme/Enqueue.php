@@ -129,6 +129,10 @@ class Enqueue
 
         //Localization
         wp_localize_script($this->defaultPrimeName, 'HbgPrimeArgs', array(
+            'api' => array(
+                'root' => esc_url_raw(rest_url()),
+                'nonce' => wp_create_nonce('wp_rest')
+            ),
             'cookieConsent' => array(
                 'show'      => get_field('cookie_consent_active', 'option'),
                 'message'   => get_field('cookie_consent_message', 'option'),
