@@ -22,9 +22,9 @@ class IncidentList extends \Modularity\Module
     public function data() : array
     {
         $data = array();
-        $sites = get_field('incidents', $module->ID);
-        $level = get_field('incident_level', $module->ID);
-        $length = get_field('length', $module->ID);
+        $sites = get_field('incidents', $this->ID);
+        $level = get_field('incident_level', $this->ID);
+        $length = get_field('length', $this->ID);
 
         $data['incidents'] = \Intranet\CustomPostType\Incidents::getIncidents($sites, $level, $length);
         $data['linkToArchive'] = get_field('link_to_archive', $this->ID);
