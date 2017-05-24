@@ -22,10 +22,13 @@ class NavigationTree
 
     protected $output = '';
 
+    protected $isAjaxParent = false;
+
     public function __construct($args = array(), $parent = false)
     {
         if ($parent) {
             $parent = get_post($parent);
+            $this->isAjaxParent = true;
         }
 
         // Merge args
@@ -220,7 +223,7 @@ class NavigationTree
                 }
             }
 
-            if ($depth < $this->args['start_depth']) {
+            if (($this->isAjaxParent && $depth === 1) || $depth < $this->args['start_depth']) {
                 $output = false;
             }
 
@@ -339,7 +342,7 @@ class NavigationTree
 
         return get_posts(array(
             'post_parent' => $parent,
-            'post_type' => 'any',
+            'post_type' => get_post_type($parent),
             'post_status' => $this->postStatuses,
             'orderby' => 'menu_order post_title',
             'order' => 'asc',
