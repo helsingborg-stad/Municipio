@@ -206,10 +206,18 @@ class NavigationTree
 
             if ($this->isAncestors($pageId)) {
                 $attributes['class'][] = 'current-node current-menu-ancestor';
+
+                if (count($this->getChildren($pageId)) > 0) {
+                    $attributes['class'][] = 'is-expanded';
+                }
             }
 
             if ($this->getPageId($this->currentPage) == $pageId) {
                 $attributes['class'][] = 'current current-menu-item';
+
+                if (count($this->getChildren($this->currentPage->ID)) > 0) {
+                    $attributes['class'][] = 'is-expanded';
+                }
             }
 
             if ($depth < $this->args['start_depth']) {
