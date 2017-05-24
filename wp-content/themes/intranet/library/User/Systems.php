@@ -144,7 +144,7 @@ class Systems
             }
 
             $systems = array_filter($systems, function ($item) use ($selected) {
-                return in_array($item->id, $selected);
+                return in_array($item->id, (array) $selected);
             });
         }
 
@@ -255,7 +255,7 @@ class Systems
      * @param  int $unitId
      * @return array
      */
-    public function getUnitSystems($unitId)
+    public static function getUnitSystems($unitId)
     {
         $systems = self::getAll();
         $systemForced = self::getUnitForced($unitId);

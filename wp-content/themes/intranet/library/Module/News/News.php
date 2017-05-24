@@ -39,14 +39,14 @@ class News extends \Modularity\Module
 
         $data['args'] = $this->args;
 
-        $data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $this->module->post_type, $this->args));
+        $data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $this->post_type, $this->args));
 
         return $data;
     }
 
     public function preparePosts()
     {
-        if (get_field('placeholders', $module->ID)) {
+        if (get_field('placeholders', $this->ID)) {
             foreach ($news as $item) {
                 if (get_thumbnail_source($item->ID) !== false) {
                     $this->hasImages = true;
