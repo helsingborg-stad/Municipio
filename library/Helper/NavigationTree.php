@@ -250,6 +250,7 @@ class NavigationTree
         if (count($children) > 0) {
             $hasChildren = true;
             $attributes['class'][] = 'has-children';
+            $attributes['class'][] = 'has-sub-menu';
             $attributes['data-page-id'] = $pageId;
         }
 
@@ -477,7 +478,7 @@ class NavigationTree
         }
 
         $this->addOutput(sprintf(
-            '<li%1$s><a href="%2$s">%3$s</a>',
+            '<li%1$s><span><a href="%2$s">%3$s</a>',
             $this->attributes($attributes),
             $href,
             $title
@@ -509,7 +510,7 @@ class NavigationTree
             return;
         }
 
-        $this->addOutput('</li>');
+        $this->addOutput('</span></li>');
     }
 
     /**
