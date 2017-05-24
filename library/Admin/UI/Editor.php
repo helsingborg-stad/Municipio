@@ -25,7 +25,7 @@ class Editor
             return $content;
         });
 
-        add_filter('iny_mce_before_init', array($this, 'allowedHtmlTags'));
+        add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags'));
     }
 
     /**
