@@ -24,14 +24,43 @@ class Editor
             $content = str_replace('<p><div style="page-break-after:before;" class="clearfix print-only"></div></p>', '<div style="page-break-after:before;" class="clearfix print-only"></div>', $content);
             return $content;
         });
+
+        add_filter('iny_mce_before_init', array($this, 'allowedHtmlTags'));
     }
 
+    /**
+     * Extend valid html-elements for wp editor
+     * @param  array $init
+     * @return array
+     */
+    public function allowedHtmlTags($init)
+    {
+        $extend = 'div[*], style[*], script[*], iframe[*], span[*], section[*], article[*], header[*], footer[*]';
+
+        if (isset($init['extended_valid_elements']) && !empty($init['extended_valid_elements'])) {
+            $init['extended_valid_elements'] .= ', ' . $extend;
+        } else {
+            $init['extended_valid_elements'] = $extend;
+        }
+
+        return $init;
+    }
+
+    /**
+     * Add styleselect button to editor
+     * @param  array $buttons
+     * @return array
+     */
     public function editorButtons2($buttons)
     {
         array_unshift($buttons, 'styleselect');
         return $buttons;
     }
 
+    /**
+     * Add stylesheet to editor
+     * @return void
+     */
     public function editorStyle()
     {
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
@@ -44,8 +73,6 @@ class Editor
         } else {
             add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-' . \Municipio\Theme\Enqueue::getStyleguideTheme() . '.min.css'));
         }
-
-        return;
     }
 
     /**
@@ -103,6 +130,10 @@ class Editor
         return $settings;
     }
 
+    /**
+     * Get enabled style formats from options
+     * @return array
+     */
     public static function getEnabledStyleFormats()
     {
         $returnFormats = array();
@@ -132,6 +163,10 @@ class Editor
         return $returnFormats;
     }
 
+    /**
+     * Get available style formats for editor
+     * @return array
+     */
     public static function getAvailableStyleFormats()
     {
         return apply_filters('Municipio\WpEditor\AvailableFormats', array(
@@ -253,6 +288,10 @@ class Editor
         ));
     }
 
+    /**
+     * Add pricons button to editor
+     * @return void
+     */
     public function pricons()
     {
         add_filter('mce_external_plugins', function ($plugins) {
