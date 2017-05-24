@@ -478,7 +478,7 @@ class NavigationTree
         }
 
         $this->addOutput(sprintf(
-            '<li%1$s><span><a href="%2$s">%3$s</a>',
+            '<li%1$s><a href="%2$s">%3$s</a>',
             $this->attributes($attributes),
             $href,
             $title
@@ -510,7 +510,7 @@ class NavigationTree
             return;
         }
 
-        $this->addOutput('</span></li>');
+        $this->addOutput('</li>');
     }
 
     /**
