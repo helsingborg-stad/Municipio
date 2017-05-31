@@ -217,8 +217,7 @@ class NavigationTree
 
             if ($this->getPageId($this->currentPage) == $pageId) {
                 $attributes['class'][] = 'current current-menu-item';
-
-                if (count($this->getChildren($this->currentPage->ID)) > 0) {
+                if (count($this->getChildren($this->currentPage->ID)) > 0 && $depth != $this->args['depth']) {
                     $attributes['class'][] = 'is-expanded';
                 }
             }
