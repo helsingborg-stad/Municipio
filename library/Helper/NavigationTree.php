@@ -251,7 +251,6 @@ class NavigationTree
             $hasChildren = true;
             $attributes['class'][] = 'has-children';
             $attributes['class'][] = 'has-sub-menu';
-            $attributes['data-page-id'] = $pageId;
         }
 
         if ($output) {
