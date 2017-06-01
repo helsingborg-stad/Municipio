@@ -9,7 +9,7 @@
         );
     ?>
 
-    @if (!$hideTitle && !empty($post_title))
+    @if (!$module->hideTitle)
     <h4 class="box-title">
         <?php _e('My links', 'municipio-intranet'); ?>
 
@@ -19,9 +19,9 @@
     </h4>
     @endif
 
-    @if (!empty($links))
+    @if (!empty(\Intranet\Module\UserLinks::getLinks()))
     <ul class="links">
-        @foreach ($links as $link)
+        @foreach (\Intranet\Module\UserLinks::getLinks() as $link)
         <li>
             <a target="_blank" class="link-item" href="{{ $link['url'] }}">{{ $link['title'] }}</a>
             @if (is_user_logged_in())
