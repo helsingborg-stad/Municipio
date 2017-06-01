@@ -9,7 +9,7 @@
         );
     ?>
 
-    @if (!$module->hideTitle)
+    @if (!$hideTitle && !empty($post_title))
     <h4 class="box-title">
         <?php _e('My systems', 'municipio-intranet'); ?>
 

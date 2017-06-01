@@ -49,7 +49,7 @@ class UserLinks extends \Modularity\Module
      * Get a users links
      * @return array Links
      */
-    public function getLinks()
+    public static function getLinks()
     {
         if (!is_user_logged_in()) {
             return;

@@ -24,14 +24,15 @@ class News extends \Modularity\Module
         $limit = !empty(get_field('limit', $this->ID)) ? get_field('limit', $this->ID) : 10;
         $sites = $this->getSites();
 
+        $data['display'] = get_field('display', $this->ID);
         $data['limit'] = $limit;
         $data['news'] = \Intranet\CustomPostType\News::getNews($limit, $sites);
         $data['helpTooltip'] = false;
         $data['module'] = $this->data;
 
-        $data['scrollCallbackSites'] = $sites;
-        if (is_array($data['scrollCallbackSites'])) {
-            $data['scrollCallbackSites'] = implode(',', $sites);
+        $data['sites'] = $sites;
+        if (is_array($data['sites'])) {
+            $data['sites'] = implode(',', $sites);
         }
 
         $this->preparePosts();
