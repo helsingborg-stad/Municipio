@@ -19,9 +19,9 @@
     </h4>
     @endif
 
-    @if (!empty(\Intranet\Module\UserLinks::getLinks()))
+    @if (!empty(\Intranet\Module\UserLinks->getLinks()))
     <ul class="links">
-        @foreach (\Intranet\Module\UserLinks::getLinks() as $link)
+        @foreach (\Intranet\Module\UserLinks->getLinks() as $link)
         <li>
             <a target="_blank" class="link-item" href="{{ $link['url'] }}">{{ $link['title'] }}</a>
             @if (is_user_logged_in())
