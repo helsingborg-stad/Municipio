@@ -50,6 +50,10 @@ class NavigationTree
             $this->args['depth'] += $this->args['start_depth'];
         }
 
+        if (is_user_logged_in()) {
+            $this->postStatuses[] = 'private';
+        }
+
         // Get valuable page information
         if ($parent) {
             $parent->post_parent = 0;
@@ -125,10 +129,6 @@ class NavigationTree
      */
     protected function getTopLevelPages()
     {
-        if (is_user_logged_in()) {
-            $this->postStatuses[] = 'private';
-        }
-
         $topLevelQuery = new \WP_Query(array(
             'post_parent' => 0,
             'post_type' => 'page',
