@@ -26,6 +26,7 @@ class UserLinks extends \Modularity\Module
     public function data() : array
     {
         $data = array();
+        $data['links'] = $this->getLinks();
 
         return $data;
     }
@@ -49,7 +50,7 @@ class UserLinks extends \Modularity\Module
      * Get a users links
      * @return array Links
      */
-    public static function getLinks()
+    public function getLinks()
     {
         if (!is_user_logged_in()) {
             return;
