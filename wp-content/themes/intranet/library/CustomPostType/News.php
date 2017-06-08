@@ -26,6 +26,17 @@ class News
 
             return true;
         }, 10, 2);
+
+        add_filter('Municipio/blade/view_paths', array($this, 'addTemplatePaths'));
+    }
+
+    /**
+     * Add searchable blade template paths
+     * @param array $array Template paths
+     */
+    public function addTemplatePaths($array) {
+        $array[] = get_stylesheet_directory() . '/templates';
+        return $array;
     }
 
     /**
@@ -275,6 +286,10 @@ class News
             $news = self::getNewsFromSites($site, $count, $offset);
         }
 
+        if ($render && $module) {
+            $template = new \Municipio\template;
+        }
+
         foreach ($news as $item) {
             switch_to_blog($item->blog_id);
 
@@ -295,8 +310,16 @@ class News
             );
 
             if ($render && $module) {
+                $view = \Municipio\Helper\Template::locateTemplate('news-item.blade.php', array(get_stylesheet_directory() . '/templates/module'));
+                $view = $template->cleanViewPath($view);
+                $data = array(
+                    'item'      => $item,
+                    'args'      => $args,
+                    'classes'   => implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $item->post_type, $args))
+                );
+
                 ob_start();
-                include INTRANET_TEMPLATE_PATH . 'module/modularity-mod-intranet-news-item.php';
+                $template->render($view, $data);
                 $item->markup = ob_get_clean();
             }
 
