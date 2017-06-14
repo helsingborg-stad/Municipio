@@ -217,8 +217,7 @@ class NavigationTree
 
             if ($this->getPageId($this->currentPage) == $pageId) {
                 $attributes['class'][] = 'current current-menu-item';
-
-                if (count($this->getChildren($this->currentPage->ID)) > 0) {
+                if (count($this->getChildren($this->currentPage->ID)) > 0 && $depth != $this->args['depth']) {
                     $attributes['class'][] = 'is-expanded';
                 }
             }
@@ -251,7 +250,6 @@ class NavigationTree
             $hasChildren = true;
             $attributes['class'][] = 'has-children';
             $attributes['class'][] = 'has-sub-menu';
-            $attributes['data-page-id'] = $pageId;
         }
 
         if ($output) {
@@ -484,7 +482,7 @@ class NavigationTree
             $title
         ));
 
-        if ($outputSubmenuToggle && $this->args['theme_location'] !== 'main-menu') {
+        if ($outputSubmenuToggle) {
             $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button>');
         }
     }
