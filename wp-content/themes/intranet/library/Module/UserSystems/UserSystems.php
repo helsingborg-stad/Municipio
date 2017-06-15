@@ -16,14 +16,15 @@ class UserSystems extends \Modularity\Module
         $this->namePlural = __('User systems', 'municipio-intranet');
         $this->description = __('Shows a users\'s system link list', 'municipio-intranet');
 
-        add_action('init', array($this, 'saveUserSystems'));
+        add_action('wp_loaded', array($this, 'saveUserSystems'));
         add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
     }
 
     public function data() : array
     {
         $data = array();
-        $data['systems'] = \Intranet\User\Systems::getAvailabelSystems('user', array('user_only_selected'));
+        $data['selectedSystems'] = \Intranet\User\Systems::getAvailabelSystems('user', array('user_only_selected'));
+        $data['availableSystems'] = \Intranet\User\Systems::getAvailabelSystems('user', array('user'));
 
         return $data;
     }

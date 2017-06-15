@@ -9,7 +9,7 @@
         );
     ?>
 
-    @if (!$module->hideTitle)
+    @if (!$hideTitle && !empty($post_title))
     <h4 class="box-title">
         <?php _e('My systems', 'municipio-intranet'); ?>
 
@@ -23,7 +23,7 @@
         @if (!is_user_logged_in())
             <li class="creamy text-sm" style="border:none;"><?php _e('You need to login to your account to access the systems list.', 'municipio-intranet'); ?></li>
         @else
-            @if (empty($systems))
+            @if (empty($selectedSystems))
                 <li class="text-center">
                     <div class="gutter">
                         <?php _e('You have not selected any systems to display.', 'municipio-intranet'); ?><br>
@@ -35,7 +35,7 @@
                 <li class="creamy text-sm" style="border:none;"><?php _e('Your logged in from a computer outside the city network. This causes some systems to be unavailable.', 'municipio-intranet'); ?></li>
                 @endif
 
-                @foreach ($systems as $system)
+                @foreach ($selectedSystems as $system)
                     @if ($system->unavailable === true)
                     <li><a target="_blank" class="link-item link-unavailable" href="{{ $system->url }}"><span data-tooltip="<?php _e('You need to be on the city network to use this system', 'municipio-intranet'); ?>">{{ $system->name }}</span></a></li>
                     @else
@@ -72,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (\Intranet\User\Systems::getAvailabelSystems('user', array('user')) as $system)
+                                @foreach ($availableSystems as $system)
                                 <tr>
                                     <td class="text-center">
                                         <input type="checkbox" name="system-selected[]" value="{{ $system->id }}" {{ checked(true, $system->selected) }}>

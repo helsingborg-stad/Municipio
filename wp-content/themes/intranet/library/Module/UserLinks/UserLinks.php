@@ -26,6 +26,7 @@ class UserLinks extends \Modularity\Module
     public function data() : array
     {
         $data = array();
+        $data['links'] = $this->getLinks();
 
         return $data;
     }

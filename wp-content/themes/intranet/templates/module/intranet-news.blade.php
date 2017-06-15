@@ -12,7 +12,7 @@ $cache = new Municipio\Helper\Cache('intranet-news', array(
 
 @if ($cache->start())
 @if (count($news) > 0)
-    <div class="grid intranet-news" data-infinite-scroll-callback="{{ rest_url('intranet/1.0/news/') }}" data-infinite-scroll-pagesize="{{ $limit }}" data-infinite-scroll-sites="{{ $scrollCallbackSites }}" data-module="{{ htmlentities(json_encode($module)) }}" data-args="{!! htmlentities(json_encode($args)) !!}">
+    <div class="grid intranet-news" data-infinite-scroll-callback="{{ rest_url('intranet/1.0/news/') }}" data-infinite-scroll-pagesize="{{ $limit }}" data-infinite-scroll-sites="{{ $sites }}" data-module="{{ htmlentities(json_encode($module)) }}" data-args="{!! htmlentities(json_encode($args)) !!}">
         <?php
             echo municipio_intranet_walkthrough(
                 __('News feed', 'municipio-intranet'),
