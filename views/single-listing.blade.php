@@ -24,7 +24,10 @@
 
                                     @include('partials.blog.post-header')
 
+                                    <?php $margin = ''; ?>
+
                                     @if(get_field('listings_images'))
+                                    <?php $margin = 'style="margin-top: 45px;"'; ?>
                                     <div class="slider ratio-16-9 slider-layout-default">
                                         <div data-flickity='{"cellSelector":".slide","cellAlign":"left","wrapAround":true,"pageDots":true,"freeScroll":false,"groupCells":false,"setGallerySize":false,"draggable":false,"prevNextButtons":true,"autoPlay":false}'>
                                             @foreach (get_field('listings_images') as $image)
@@ -36,7 +39,7 @@
                                     </div>
                                     @endif
 
-                                    <article id="article">
+                                    <article id="article" {!! $margin !!}>
                                         {{ the_content() }}
                                     </article>
 
