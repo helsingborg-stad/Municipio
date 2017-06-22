@@ -117,7 +117,6 @@
 
     "require": {
         "composer/installers": "~1.0",
-        "johnpbloch/wordpress": "4.7.3",
         "wp-api/wp-api": "2.0-beta15",
         "giggsey/libphonenumber-for-php": "7.6.0",
         "helsingborg-stad/Modularity": ">=2.0.0",
@@ -149,7 +148,8 @@
         "wpackagist-plugin/user-switching" : ">=1.0.0",
         "wpackagist-plugin/wordpress-importer": "0.6.3",
         "wpackagist-plugin/mce-table-buttons": "^3.0.0",
-        "humanmade/page-for-post-type": "^1.0.0"
+        "humanmade/page-for-post-type": "^1.0.0",
+        "johnpbloch/wordpress": "^4.8"
     },
 
     "extra": {
