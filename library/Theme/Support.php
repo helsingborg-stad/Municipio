@@ -30,13 +30,9 @@ class Support
 
     public function attachmentPageRedirect()
     {
-        if (!defined('ATTACHMENT_PAGE') || defined('ATTACHMENT_PAGE') && ATTACHMENT_PAGE === true) {
-            global $post, $wp_query;
-
-            if (get_post_type($post) == 'attachment') {
-                $wp_query->set_404();
-                status_header(404);
-                get_404_template();
+        if (!defined('ATTACHMENT_PAGE') || defined('ATTACHMENT_PAGE') && ATTACHMENT_PAGE === false) {
+            if (is_attachment() && !is_search() && !is_archive()) {
+                wp_redirect(wp_get_attachment_url($post->ID));
             }
         }
     }
