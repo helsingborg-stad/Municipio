@@ -21,17 +21,20 @@
                         <div class="grid">
                             <div class="grid-xs-12">
                                 <div class="post post-single">
+
                                     @include('partials.blog.post-header')
 
-                                    <?php if (get_field('listings_images')) : ?>
-                                    <div class="slider slider-nav-bottom" style="height: 450px;max-height: 450px;">
-                                        <ul>
-                                            <?php foreach (get_field('listings_images') as $image) : ?>
-                                            <li><div class="slider-image" style="background-image:url('<?php echo $image; ?>');"></div></li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                                    @if(get_field('listings_images'))
+                                    <div class="slider ratio-16-9 slider-layout-default">
+                                        <div data-flickity='{"cellSelector":".slide","cellAlign":"left","wrapAround":true,"pageDots":true,"freeScroll":false,"groupCells":false,"setGallerySize":false,"draggable":false,"prevNextButtons":true,"autoPlay":false}'>
+                                            @foreach (get_field('listings_images') as $image)
+                                            <div class="slide type-image " >
+                                                <div class="slider-image" style="background-image:url({{ $image }})"></div>
+                                            </div>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <?php endif; ?>
+                                    @endif
 
                                     <article id="article">
                                         {{ the_content() }}
