@@ -16,6 +16,7 @@ class UserLinks extends \Modularity\Module
         $this->nameSingular = __('User link', 'municipio-intranet');
         $this->namePlural = __('User links', 'municipio-intranet');
         $this->description = __('Shows a user\'s link list', 'municipio-intranet');
+        $this->cacheTtl = 0;
 
         add_action('wp_ajax_add_user_link', array($this, 'addLink'));
         add_action('wp_ajax_remove_user_link', array($this, 'removeLink'));

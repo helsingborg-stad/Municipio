@@ -15,6 +15,7 @@ class UserSystems extends \Modularity\Module
         $this->nameSingular = __('User systems', 'municipio-intranet');
         $this->namePlural = __('User systems', 'municipio-intranet');
         $this->description = __('Shows a users\'s system link list', 'municipio-intranet');
+        $this->cacheTtl = 0;
 
         add_action('template_redirect', array($this, 'saveUserSystems'));
         add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
