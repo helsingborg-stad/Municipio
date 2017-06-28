@@ -25,6 +25,12 @@
     </div>
     @endif
 
+    @if (isset($_GET['save-system']) && $_GET['save-system'] == "saved")
+    <div class="notice success">
+        <i class="pricon pricon-check"></i> <?php _e("Your systems list has been updated.", 'municipio-intranet'); ?>
+    </div>
+    @endif
+
     <ul class="links">
         @if (!is_user_logged_in())
             <li class="creamy text-sm" style="border:none;"><?php _e('You need to login to your account to access the systems list.', 'municipio-intranet'); ?></li>

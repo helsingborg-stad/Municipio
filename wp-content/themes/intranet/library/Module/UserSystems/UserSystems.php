@@ -36,14 +36,18 @@ class UserSystems extends \Modularity\Module
             return;
         }
 
-        if (update_user_meta(get_current_user_id(), 'user_systems', isset($_POST['system-selected']) ? $_POST['system-selected'] : null)) {
-            wp_redirect($_SERVER['HTTP_REFERER']);
+        //Determine operator char
+        if (strpos($_SERVER['HTTP_REFERER'], "?") !== false) {
+            $operator = "&";
         } else {
-            if (strpos($_SERVER['HTTP_REFERER'], "?") !== false) {
-                wp_redirect($_SERVER['HTTP_REFERER']."&save-system=error");
-            } else {
-                wp_redirect($_SERVER['HTTP_REFERER']."?save-system=error");
-            }
+            $operator = "?";
+        }
+
+        //Update and redirect
+        if (update_user_meta(get_current_user_id(), 'user_systems', isset($_POST['system-selected']) ? $_POST['system-selected'] : null)) {
+            wp_redirect($_SERVER['HTTP_REFERER'] . $operator . "save-system=saved");
+        } else {
+            wp_redirect($_SERVER['HTTP_REFERER'] . $operator . "save-system=error");
         }
 
         exit;

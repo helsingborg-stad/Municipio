@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-04-11 15:32+0200\n"
+"POT-Creation-Date: 2017-06-28 14:46+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,6 +19,124 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: acf-fields/php/incidents-module.php:6
+#: library/Module/IncidentList/IncidentList.php:15
+msgid "Incident list"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:11
+#: acf-fields/php/incidents-module.php:36
+#: templates/admin/target-groups/form.php:38
+#: templates/admin/target-groups/form.php:54 views/author-edit.blade.php:283
+#: views/table-of-contents.blade.php:18
+msgid "All"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:12
+#: views/partials/header/subnav.blade.php:30 views/search.blade.php:40
+msgid "Subscriptions"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:13
+msgid "Current"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:21
+msgid "Incidents from"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:37 acf-fields/php/incidents.php:11
+msgid "Low"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:38 acf-fields/php/incidents.php:12
+msgid "Medium"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:39 acf-fields/php/incidents.php:13
+msgid "High"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:47
+msgid "Incident level"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:68
+msgid "Length"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:82
+msgid "Yes, link to archive"
+msgstr ""
+
+#: acf-fields/php/incidents-module.php:87
+msgid "Link to archive"
+msgstr ""
+
+#: acf-fields/php/incidents.php:6 library/CustomPostType/Incidents.php:38
+msgid "Incident"
+msgstr ""
+
+#: acf-fields/php/incidents.php:21
+msgid "User impact level"
+msgstr ""
+
+#: acf-fields/php/incidents.php:38
+msgid "Start date"
+msgstr ""
+
+#: acf-fields/php/incidents.php:55
+msgid "End date"
+msgstr ""
+
+#: acf-fields/php/news-module.php:6
+msgid "Intranet news"
+msgstr ""
+
+#: acf-fields/php/news-module.php:11
+msgid "Combine news from subscribed networks"
+msgstr ""
+
+#: acf-fields/php/news-module.php:12
+msgid "Combine news from all network"
+msgstr ""
+
+#: acf-fields/php/news-module.php:13
+msgid "Only news from the current site"
+msgstr ""
+
+#: acf-fields/php/news-module.php:21
+msgid "Display"
+msgstr ""
+
+#: acf-fields/php/news-module.php:42
+msgid "Number of news"
+msgstr ""
+
+#: acf-fields/php/news-module.php:45
+msgid "Number of news to display"
+msgstr ""
+
+#: acf-fields/php/table-of-contents.php:6
+msgid "Table of contents"
+msgstr ""
+
+#: acf-fields/php/table-of-contents.php:17
+#: acf-fields/php/table-of-contents.php:36
+#: templates/module/intranet-u-links.blade.php:41
+msgid "Title"
+msgstr ""
+
+#: acf-fields/php/table-of-contents.php:33
+msgid "Lägg till rad"
+msgstr ""
+
+#: acf-fields/php/table-of-contents.php:39
+msgid ""
+"Sets the title for this page in the \"table of contents\" list. Leave empty "
+"to use page title."
+msgstr ""
 
 #: library/Admin/Options.php:45
 msgid "Intranet options"
@@ -82,60 +200,56 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:38
-msgid "Incident"
-msgstr ""
-
 #: library/CustomPostType/Incidents.php:39
 msgid "Incidents"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:200
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:211
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:201
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:212
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:202
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:213
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:203
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:214
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:204
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:215
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:205
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:216
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:206
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:217
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:207
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:218
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:208
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:219
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:209
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:220
 #, php-format
 msgid "No %s in trash"
 msgstr ""
@@ -148,67 +262,64 @@ msgstr ""
 msgid "incidents"
 msgstr ""
 
-#: library/CustomPostType/News.php:55
+#: library/CustomPostType/News.php:66
 msgid "This post is more than 60 days old"
 msgstr ""
 
-#: library/CustomPostType/News.php:124
+#: library/CustomPostType/News.php:135
 msgid "Pin to top"
 msgstr ""
 
-#: library/CustomPostType/News.php:162
+#: library/CustomPostType/News.php:173
 msgid "Exclude from main news feed"
 msgstr ""
 
-#: library/CustomPostType/News.php:190 library/CustomPostType/News.php:191
-#: library/Module/News.php:21 library/Module/News.php:22
+#: library/CustomPostType/News.php:201 library/CustomPostType/News.php:202
+#: library/Module/News/News.php:16 library/Module/News/News.php:17
 msgid "News"
 msgstr ""
 
-#: library/CustomPostType/News.php:214
+#: library/CustomPostType/News.php:225
 msgid "News stories"
 msgstr ""
 
-#: library/CustomPostType/News.php:223
+#: library/CustomPostType/News.php:234
 msgid "news"
 msgstr ""
 
-#: library/Module/IncidentList.php:21
-msgid "Incident list"
-msgstr ""
-
-#: library/Module/IncidentList.php:22
+#: library/Module/IncidentList/IncidentList.php:16
 msgid "Incident lists"
 msgstr ""
 
-#: library/Module/IncidentList.php:23
+#: library/Module/IncidentList/IncidentList.php:17
 msgid "Lists incidents"
 msgstr ""
 
-#: library/Module/News.php:23
+#: library/Module/News/News.php:18
 msgid ""
 "Shows news stories from the sites the current user is subscribing to (or "
 "from all if logged out)"
 msgstr ""
 
-#: library/Module/UserLinks.php:21
+#: library/Module/UserLinks/UserLinks.php:16
 msgid "User link"
 msgstr ""
 
-#: library/Module/UserLinks.php:22
+#: library/Module/UserLinks/UserLinks.php:17
 msgid "User links"
 msgstr ""
 
-#: library/Module/UserLinks.php:23
+#: library/Module/UserLinks/UserLinks.php:18
 msgid "Shows a user's link list"
 msgstr ""
 
-#: library/Module/UserSystems.php:11 library/Module/UserSystems.php:12
-#: library/User/Systems.php:31 library/User/Systems.php:32
+#: library/Module/UserSystems/UserSystems.php:15
+#: library/Module/UserSystems/UserSystems.php:16 library/User/Systems.php:31
+#: library/User/Systems.php:32
 msgid "User systems"
 msgstr ""
 
-#: library/Module/UserSystems.php:13
+#: library/Module/UserSystems/UserSystems.php:17
 msgid "Shows a users's system link list"
 msgstr ""
 
@@ -225,7 +336,7 @@ msgid "Next"
 msgstr ""
 
 #: library/Public/Helper.php:65
-#: templates/module/modularity-mod-intranet-u-syste.php:90
+#: templates/module/intranet-u-systems.blade.php:102
 msgid "Cancel"
 msgstr ""
 
@@ -245,8 +356,7 @@ msgstr ""
 msgid "Exclude from search"
 msgstr ""
 
-#: library/Theme/Enqueue.php:43
-#: templates/module/modularity-mod-intranet-u-links.php:33
+#: library/Theme/Enqueue.php:43 templates/module/intranet-u-links.blade.php:34
 msgid "You have not added any links yet…"
 msgstr ""
 
@@ -264,7 +374,7 @@ msgid "View all results"
 msgstr ""
 
 #: library/Theme/Enqueue.php:52 templates/admin/systems/form.php:56
-#: templates/module/modularity-mod-intranet-u-links.php:16
+#: templates/module/intranet-u-links.blade.php:17
 msgid "Edit"
 msgstr ""
 
@@ -316,32 +426,47 @@ msgstr ""
 msgid "Hi %s"
 msgstr ""
 
-#: library/User/General.php:194
+#: library/User/General.php:190
+#, php-format
+msgid "Good to see you, %s"
+msgstr ""
+
+#: library/User/General.php:195
 #, php-format
 msgid "Good morning %s"
 msgstr ""
 
-#: library/User/General.php:199
+#: library/User/General.php:196
+#, php-format
+msgid "Have a great day %s"
+msgstr ""
+
+#: library/User/General.php:201
 #, php-format
 msgid "Good afternoon %s"
 msgstr ""
 
-#: library/User/General.php:204
+#: library/User/General.php:206
+#, php-format
+msgid "It's getting late, %s"
+msgstr ""
+
+#: library/User/General.php:207
 #, php-format
 msgid "Good eavning %s"
 msgstr ""
 
-#: library/User/General.php:209
+#: library/User/General.php:212
 #, php-format
 msgid "Good night %s"
 msgstr ""
 
-#: library/User/General.php:236
+#: library/User/General.php:239
 #, php-format
 msgid "Happy new year %s"
 msgstr ""
 
-#: library/User/General.php:241
+#: library/User/General.php:244
 #, php-format
 msgid "Merry christmas %s"
 msgstr ""
@@ -382,8 +507,8 @@ msgstr ""
 #: templates/admin/systems/form.php:95
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
-#: templates/module/modularity-mod-intranet-u-links.php:48
-#: templates/module/modularity-mod-intranet-u-syste.php:91
+#: templates/module/intranet-u-links.blade.php:49
+#: templates/module/intranet-u-systems.blade.php:103
 msgid "Save"
 msgstr ""
 
@@ -434,23 +559,23 @@ msgstr ""
 
 #: templates/admin/systems/form.php:43 templates/admin/systems/form.php:79
 #: templates/admin/systems/form.php:111
-#: templates/module/modularity-mod-intranet-u-syste.php:70
+#: templates/module/intranet-u-systems.blade.php:82
 msgid "Name"
 msgstr ""
 
 #: templates/admin/systems/form.php:44 templates/admin/systems/form.php:87
-#: templates/module/modularity-mod-intranet-u-syste.php:71
+#: templates/module/intranet-u-systems.blade.php:83
 msgid "Description"
 msgstr ""
 
 #: templates/admin/systems/form.php:45 templates/admin/systems/form.php:83
 #: templates/admin/systems/form.php:112
-#: templates/module/modularity-mod-intranet-u-links.php:44
+#: templates/module/intranet-u-links.blade.php:45
 msgid "Url"
 msgstr ""
 
 #: templates/admin/systems/form.php:57
-#: templates/module/modularity-mod-intranet-u-links.php:27
+#: templates/module/intranet-u-links.blade.php:28
 msgid "Remove"
 msgstr ""
 
@@ -491,12 +616,6 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: templates/admin/target-groups/form.php:38
-#: templates/admin/target-groups/form.php:54 views/author-edit.blade.php:283
-#: views/table-of-contents.blade.php:18
-msgid "All"
-msgstr ""
-
 #: templates/admin/target-groups/form.php:49
 msgid "Add tag"
 msgstr ""
@@ -525,19 +644,15 @@ msgstr ""
 msgid "All administration units"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-inciden.php:17
+#: templates/module/intranet-incident-list.blade.php:10
 msgid "Show all incidents"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news-item.php:32
-msgid "Read more"
-msgstr ""
-
-#: templates/module/modularity-mod-intranet-news.php:70
+#: templates/module/intranet-news.blade.php:18
 msgid "News feed"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:71
+#: templates/module/intranet-news.blade.php:19
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -545,20 +660,20 @@ msgid ""
 "following."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:97
+#: templates/module/intranet-news.blade.php:41
 msgid "Load more news"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-news.php:111
+#: templates/module/intranet-news.blade.php:54
 msgid "Threre's no news stories to display"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-links.php:4
-#: templates/module/modularity-mod-intranet-u-links.php:14
+#: templates/module/intranet-u-links.blade.php:4
+#: templates/module/intranet-u-links.blade.php:14
 msgid "My links"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-links.php:5
+#: templates/module/intranet-u-links.blade.php:5
 msgid ""
 "Here you can add links to websites that you usally use or want to be able "
 "to reach quickly. The links can be both pages on the intranet and pages on "
@@ -566,58 +681,60 @@ msgid ""
 "need a quick link to."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-links.php:38
+#: templates/module/intranet-u-links.blade.php:39
 msgid "Add new link"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-links.php:40
-msgid "Title"
-msgstr ""
-
-#: templates/module/modularity-mod-intranet-u-syste.php:4
-#: templates/module/modularity-mod-intranet-u-syste.php:14
+#: templates/module/intranet-u-systems.blade.php:4
+#: templates/module/intranet-u-systems.blade.php:14
 msgid "My systems"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:5
+#: templates/module/intranet-u-systems.blade.php:5
 msgid ""
 "This is a list of the most common systems in your administration unit. "
 "Click the edit button to add more systems to the list."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:16
-#: templates/module/modularity-mod-intranet-u-syste.php:31
-#: templates/module/modularity-mod-intranet-u-syste.php:57
+#: templates/module/intranet-u-systems.blade.php:17
+#: templates/module/intranet-u-systems.blade.php:42
+#: templates/module/intranet-u-systems.blade.php:69
 msgid "Select systems"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:23
+#: templates/module/intranet-u-systems.blade.php:24
+msgid "Could not save your selected systems."
+msgstr ""
+
+#: templates/module/intranet-u-systems.blade.php:30
+msgid "Your systems list has been updated."
+msgstr ""
+
+#: templates/module/intranet-u-systems.blade.php:36
 msgid "You need to login to your account to access the systems list."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:30
+#: templates/module/intranet-u-systems.blade.php:41
 msgid "You have not selected any systems to display."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:36
-#: views/search.blade.php:170
+#: templates/module/intranet-u-systems.blade.php:47 views/search.blade.php:170
 msgid ""
 "Your logged in from a computer outside the city network. This causes some "
 "systems to be unavailable."
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:41
-#: views/search.blade.php:176
+#: templates/module/intranet-u-systems.blade.php:52 views/search.blade.php:176
 msgid "You need to be on the city network to use this system"
 msgstr ""
 
-#: templates/module/modularity-mod-intranet-u-syste.php:45
-msgid "Add system link"
-msgstr ""
-
-#: templates/module/modularity-mod-intranet-u-syste.php:62
+#: templates/module/intranet-u-systems.blade.php:74
 msgid ""
 "Select the systems that you would like to show in your \"My systems\" area."
+msgstr ""
+
+#: templates/module/news-item.blade.php:32
+msgid "Read more"
 msgstr ""
 
 #: views/archive-incidents.blade.php:27
@@ -680,6 +797,14 @@ msgstr ""
 
 #: views/author-edit.blade.php:80
 msgid "Personal information"
+msgstr ""
+
+#: views/author-edit.blade.php:80 views/author-edit.blade.php:184
+#: views/author-edit.blade.php:267 views/author-edit.blade.php:297
+#: views/author-edit.blade.php:346 views/author-edit.blade.php:364
+#: views/author-edit.blade.php:417 views/author-edit.blade.php:470
+#: views/author-edit.blade.php:523 views/author-edit.blade.php:542
+msgid "Incomplete"
 msgstr ""
 
 #: views/author-edit.blade.php:86 views/author-edit.blade.php:92
@@ -745,10 +870,6 @@ msgstr ""
 
 #: views/author-edit.blade.php:184
 msgid "Work information"
-msgstr ""
-
-#: views/author-edit.blade.php:184
-msgid "Incomplete"
 msgstr ""
 
 #: views/author-edit.blade.php:190
@@ -1133,10 +1254,6 @@ msgstr ""
 
 #: views/partials/header/subnav.blade.php:29
 msgid "Settings"
-msgstr ""
-
-#: views/partials/header/subnav.blade.php:30 views/search.blade.php:40
-msgid "Subscriptions"
 msgstr ""
 
 #: views/partials/header/subnav.blade.php:32
