@@ -23,7 +23,38 @@ class Profile
         add_filter('Municipio/controller/base/view_data', array($this, 'currentUserData'));
 
         add_filter('Modularity/adminbar/editor_link', array($this, 'profileEditModularityEditorLink'), 10, 4);
+
+        //Contact module
+        add_filter('Modularity/mod-contacts/contact-info', array($this, 'getProfileUserData'), 10, 2);
     }
+
+    public function getProfileUserData($data, $type)
+    {
+
+        //Bail early if not a wp user
+        if ($type['acf_fc_layout'] != "user") {
+            return $data;
+        }
+
+        //Get data from user id
+        $user_meta = get_user_meta($data['id']);
+
+        if ($user_meta) {
+
+            //Parse
+            $user_meta['user_visiting_address'][0] = unserialize($user_meta['user_visiting_address'][0]);
+
+            //Fill return value
+            $data['image']                  = $user_meta['user_profile_picture'][0];
+            $data['work_title']             = $user_meta['ad_title'][0];
+            $data['administration_unit']    = \Intranet\User\AdministrationUnits::getAdministrationUnit($user_meta['user_administration_unit'][0]);
+            $data['phone']                  = array(array('number' => $user_meta['ad_mobile'][0]));
+            $data['visiting_address']       = implode(" - ", $user_meta['user_visiting_address'][0]);
+        }
+
+        return $data;
+    }
+
 
     public function profileEditModularityEditorLink($editorLink, $post, $archiveSlug, $currentUrl)
     {
