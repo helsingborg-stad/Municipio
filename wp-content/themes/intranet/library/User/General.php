@@ -187,11 +187,13 @@ class General
             // All day greetings
             'day' => array(
                 __('Hi %s', 'municipio-intranet'),
+                __('Good to see you, %s', 'municipio-intranet'),
             ),
 
             // Morning greetings
             'morning' => array(
                 __('Good morning %s', 'municipio-intranet'),
+                __('Have a great day %s', 'municipio-intranet'),
             ),
 
             // Afternoon greetings
@@ -201,7 +203,8 @@ class General
 
             // Eavning greetings
             'eavning' => array(
-                __('Good eavning %s', 'municipio-intranet')
+                __('It\'s getting late, %s', 'municipio-intranet'),
+                __('Good eavning %s', 'municipio-intranet'),
             ),
 
             // Night greetings
