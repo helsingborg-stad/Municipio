@@ -19,6 +19,12 @@
     </h4>
     @endif
 
+    @if (isset($_GET['save-system']) && $_GET['save-system'] == "error")
+    <div class="notice danger">
+        <i class="pricon pricon-notice-warning"></i> <?php _e("Could not save your selected systems.", 'municipio-intranet'); ?>
+    </div>
+    @endif
+
     <ul class="links">
         @if (!is_user_logged_in())
             <li class="creamy text-sm" style="border:none;"><?php _e('You need to login to your account to access the systems list.', 'municipio-intranet'); ?></li>

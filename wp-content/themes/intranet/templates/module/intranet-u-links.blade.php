@@ -31,7 +31,7 @@
         @endforeach
     </ul>
     @else
-        <div class="box-content"><?php _e('You have not added any links yet…', 'municipio-intranet'); ?></div>
+        <div class="box-content creamy text-sm"><?php _e('You have not added any links yet…', 'municipio-intranet'); ?></div>
     @endif
 
     @if (is_user_logged_in())

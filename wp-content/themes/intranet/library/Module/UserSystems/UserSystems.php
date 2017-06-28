@@ -16,7 +16,7 @@ class UserSystems extends \Modularity\Module
         $this->namePlural = __('User systems', 'municipio-intranet');
         $this->description = __('Shows a users\'s system link list', 'municipio-intranet');
 
-        add_action('wp_loaded', array($this, 'saveUserSystems'));
+        add_action('template_redirect', array($this, 'saveUserSystems'));
         add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
     }
 
@@ -35,13 +35,21 @@ class UserSystems extends \Modularity\Module
             return;
         }
 
-        update_user_meta(get_current_user_id(), 'user_systems', isset($_POST['system-selected']) ? $_POST['system-selected'] : null);
+        if (update_user_meta(get_current_user_id(), 'user_systems', isset($_POST['system-selected']) ? $_POST['system-selected'] : null)) {
+            wp_redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            if (strpos($_SERVER['HTTP_REFERER'], "?") !== false) {
+                wp_redirect($_SERVER['HTTP_REFERER']."&save-system=error");
+            } else {
+                wp_redirect($_SERVER['HTTP_REFERER']."?save-system=error");
+            }
+        }
 
-        wp_redirect($_SERVER['HTTP_REFERER']);
         exit;
     }
 
     /**
+     *
      * Restrict access for the module (only logged in users)
      * @param  string $markup Markup
      * @param  object $module Module post object
@@ -66,4 +74,3 @@ class UserSystems extends \Modularity\Module
      * template()        Return the view template (blade) the module should use when displayed
      */
 }
-
