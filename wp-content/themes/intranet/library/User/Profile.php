@@ -32,6 +32,7 @@ class Profile
     {
 
         //Bail early if not a wp user
+        $type = (array) $type;
         if ($type['acf_fc_layout'] != "user") {
             return $data;
         }
