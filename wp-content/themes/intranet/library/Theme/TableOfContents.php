@@ -4,12 +4,16 @@ namespace Intranet\Theme;
 
 class TableOfContents
 {
-    public static $cacheKeyGroup = 'intranet-table-of-contents';
+    public static $commonCacheKey = 'intranet-table-of-contents';
 
     public function __construct()
     {
+        //Template & url
         add_action('init', array($this, 'urlRewrite'));
         add_filter('template_include', array($this, 'template'), 10);
+
+        //Cache
+        add_action('update_post_meta', array($this, 'purgeTableOfContent'), 50, 4);
     }
 
     public function urlRewrite()
@@ -41,8 +45,8 @@ class TableOfContents
      */
     public static function get($sites = null, $search = null)
     {
-        $cacheKey = md5(serialize(array('toc', $sites, $search)));
-        $cache = wp_cache_get($cacheKey, self::$cacheKeyGroup);
+        $localCacheKey = md5(serialize(array('toc', $sites, $search)));
+        $cache = wp_cache_get(self::$commonCacheKey, $localCacheKey);
 
         if ($cache) {
             return $cache;
@@ -74,9 +78,37 @@ class TableOfContents
         $pages = self::groupResults($results);
         $toc = self::prepareOutput($pages, $search);
 
-        wp_cache_add($cacheKey, $toc, self::$cacheKeyGroup, 3600*10);
+        wp_cache_add(self::$commonCacheKey, $toc, $localCacheKey, 3600*10);
 
         return $toc;
+    }
+
+    /**
+     * Purge cache
+     * @param  array $sites   Site ids to include
+     * @param  string $search Title search
+     * @return array          Matching content
+     */
+
+    public function purgeTableOfContent($meta_id, $object_id, $meta_key, $_meta_value)
+    {
+
+        //Check if saved key
+        if ($meta_key != "table_of_contents_titles") {
+            return;
+        }
+
+        //Delete cache
+        if (is_multisite()) {
+            $current_blog_id = get_current_blog_id();
+            foreach (get_sites() as $site) {
+                wp_cache_switch_to_blog($site->blog_id);
+                wp_cache_delete(self::$commonCacheKey);
+            }
+            wp_cache_switch_to_blog($current_blog_id);
+        } else {
+            wp_cache_delete(self::$commonCacheKey);
+        }
     }
 
     /**
