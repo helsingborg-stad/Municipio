@@ -1,17 +1,16 @@
 <?php global $post; ?>
 <div class="{{ $grid_size }}">
-    <a href="{{ the_permalink() }}" class="box box-index">
+    <a href="{{ the_permalink() }}" class="box box-index box-card-post">
         <div class="box-container" data-equal-item>
-            @if (municipio_get_thumbnail_source(null,array(400,250)))
-            <div class="box-image" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(400,250)) }}');">
-                <img src="{{ municipio_get_thumbnail_source(null,array(400,250)) }}">
+            @if (municipio_get_thumbnail_source(null,array(400,225)))
+            <div class="box-image ratio-16-9" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(400,225)) }}');">
                 @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && isset(get_the_category()[0]->name))
                 <span class="box-card-post-category label label-theme">{{ get_the_category()[0]->name }}</span>
                 @endif
             </div>
             @else
                 @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && isset(get_the_category()[0]->name))
-                <span class="box-card-post-category label label-theme">{{ get_the_category()[0]->name }}</span>
+                <span class="label-category label label-theme">{{ get_the_category()[0]->name }}</span>
                 @endif
             @endif
 
