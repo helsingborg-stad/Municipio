@@ -102,10 +102,10 @@ class TableOfContents
         if (is_multisite()) {
             $current_blog_id = get_current_blog_id();
             foreach (get_sites() as $site) {
-                wp_cache_switch_to_blog($site->blog_id);
+                switch_to_blog($site->blog_id);
                 wp_cache_delete(self::$commonCacheKey);
             }
-            wp_cache_switch_to_blog($current_blog_id);
+            switch_to_blog($current_blog_id);
         } else {
             wp_cache_delete(self::$commonCacheKey);
         }
