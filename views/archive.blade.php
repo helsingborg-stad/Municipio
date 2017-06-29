@@ -53,7 +53,7 @@
                 </div>
             @endif
 
-            <div class="grid">
+            <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
                 @if (have_posts())
                     <?php $postNum = 0; ?>
                     @while(have_posts())

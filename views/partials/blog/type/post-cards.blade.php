@@ -1,7 +1,7 @@
 <?php global $post; ?>
 <div class="{{ $grid_size }}">
-    <a href="{{ the_permalink() }}" class="box box-card box-card-post box-card-post-equal">
-        <div class="box-container">
+    <a href="{{ the_permalink() }}" class="box box-index">
+        <div class="box-container" data-equal-item>
             @if (municipio_get_thumbnail_source(null,array(400,250)))
             <div class="box-image" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(400,250)) }}');">
                 <img src="{{ municipio_get_thumbnail_source(null,array(400,250)) }}">
