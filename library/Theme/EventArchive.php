@@ -6,10 +6,19 @@ class EventArchive extends Archive
 {
 
     private $eventPostType = "event";
+    private $dbTable;
 
     public function __construct()
     {
-        add_action('pre_get_posts', array($this, 'filterEvents'), 100);
+        //Setup local wpdb instance
+        global $wpdb;
+        $this->db = $wpdb;
+        $this->db_table = $wpdb->prefix . "integrate_occasions";
+
+        //Run functions if table exists
+        if ($this->db->get_var("SHOW TABLES LIKE" . $this->db_table) !== null) {
+            add_action('pre_get_posts', array($this, 'filterEvents'), 100);
+        }
     }
 
     /**
@@ -40,12 +49,7 @@ class EventArchive extends Archive
      */
     public function eventFilterSelect($select)
     {
-        global $wpdb;
-        $db_table = $wpdb->prefix . "integrate_occasions";
-
-        $select .= ",{$db_table}.start_date,{$db_table}.end_date,{$db_table}.door_time,{$db_table}.status,{$db_table}.exception_information,{$db_table}.content_mode,{$db_table}.content ";
-
-        return $select;
+        return $select . ",{$this->db_table}.start_date,{$this->db_table}.end_date,{$this->db_table}.door_time,{$this->db_table}.status,{$this->db_table}.exception_information,{$this->db_table}.content_mode,{$this->db_table}.content ";
     }
 
     /**
@@ -55,11 +59,7 @@ class EventArchive extends Archive
      */
     public function eventFilterJoin($join)
     {
-        global $wp_query, $wpdb;
-        $db_table = $wpdb->prefix . "integrate_occasions";
-        $join .= "LEFT JOIN {$db_table} ON ({$wpdb->posts}.ID = {$db_table}.event_id) ";
-
-        return $join;
+        return $join . "LEFT JOIN {$this->db_table} ON ({$this->db->posts}.ID = {$this->db_table}.event_id) ";
     }
 
     /**
@@ -69,9 +69,6 @@ class EventArchive extends Archive
      */
     public function eventFilterWhere($where)
     {
-        global $wpdb;
-        $db_table = $wpdb->prefix . "integrate_occasions";
-
         $from = null;
         $to = null;
 
@@ -86,19 +83,19 @@ class EventArchive extends Archive
         if (!is_null($from) && !is_null($to)) {
             // USE BETWEEN ON START DATE
             $where = str_replace(
-                "{$wpdb->posts}.post_date >= '{$from}'",
-                "{$db_table}.start_date BETWEEN '{$from}' AND '{$to}'",
+                "{$this->db->posts}.post_date >= '{$from}'",
+                "{$this->db_table}.start_date BETWEEN '{$from}' AND '{$to}'",
                 $where
             );
             $where = str_replace(
-                "AND {$wpdb->posts}.post_date <= '{$to}'",
+                "AND {$this->db->posts}.post_date <= '{$to}'",
                 "",
                 $where
             );
         } elseif (!is_null($from) || !is_null($to)) {
             // USE FROM OR TO
-            $where = str_replace("{$wpdb->posts}.post_date >=", "{$db_table}.start_date >=", $where);
-            $where = str_replace("{$wpdb->posts}.post_date <=", "{$db_table}.end_date <=", $where);
+            $where = str_replace("{$this->db->posts}.post_date >=", "{$this->db_table}.start_date >=", $where);
+            $where = str_replace("{$this->db->posts}.post_date <=", "{$this->db_table}.end_date <=", $where);
         }
 
         return $where;
@@ -111,11 +108,7 @@ class EventArchive extends Archive
      */
     public function eventFilterGroupBy($groupby)
     {
-        global $wpdb;
-        $db_table = $wpdb->prefix . "integrate_occasions";
-        $groupby = "{$db_table}.start_date, {$db_table}.end_date";
-
-        return $groupby;
+        return "{$this->db_table}.start_date, {$this->db_table}.end_date";
     }
 
     /**
@@ -125,11 +118,7 @@ class EventArchive extends Archive
      */
     public function eventFilterOrderBy($orderby)
     {
-        global $wpdb;
-        $db_table = $wpdb->prefix . "integrate_occasions";
-        $orderby = "{$db_table}.start_date ASC";
-
-        return $orderby;
+        return "{$this->db_table}.start_date ASC";
     }
 
 }
