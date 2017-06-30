@@ -16,7 +16,7 @@ class EventArchive extends Archive
         $this->db_table = $wpdb->prefix . "integrate_occasions";
 
         //Run functions if table exists
-        if ($this->db->get_var("SHOW TABLES LIKE" . $this->db_table) !== null) {
+        if ($this->db->get_var("SHOW TABLES LIKE " . $this->db_table) !== null) {
             add_action('pre_get_posts', array($this, 'filterEvents'), 100);
         }
     }
