@@ -23,7 +23,7 @@ class Archive
 
     public function onlyFirstLevel($query)
     {
-        if (is_author() || !is_archive() || !$query->is_main_query()) {
+        if (is_author() || !is_archive() || !$query->is_main_query() || is_admin()) {
             return;
         }
 
