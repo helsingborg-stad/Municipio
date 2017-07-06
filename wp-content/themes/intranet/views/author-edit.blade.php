@@ -52,6 +52,7 @@
                         </p>
                         <p>
                             <?php _e('The more non-required fields you fill in the easeier it will be for your collegues to find and reach out to you.', 'municipio-intranet'); ?>
+                            <?php _e('The information in your profile is only shown to users logged on to the intranet.', 'municipio-intranet'); ?>
                         </p>
                         <p>
                             <?php echo sprintf(__('Required fields are marked with %s', 'municipio-intranet'), '<span class="text-danger">*</span>'); ?>
@@ -370,9 +371,10 @@
                                             <p><?php _e('Please add your work assignments. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
                                             <p><?php _e('Example work assignments', 'municipio-intranet'); ?>:</p>
                                             <ul>
-                                                <li><?php _e('Intranet web developer', 'municipio-intranet'); ?></li>
-                                                <li><?php _e('Office management', 'municipio-intranet'); ?></li>
-                                                <li><?php _e('Human resource', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Teacher', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Procurement', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Environmental administrator', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Olweus instructor', 'municipio-intranet'); ?></li>
                                             </ul>
                                         </article>
                                     </div>
@@ -423,9 +425,9 @@
                                             <p><?php _e('Please add your skills. This will make it easier to find you when searching.', 'municipio-intranet'); ?></p>
                                             <p><?php _e('Example skills', 'municipio-intranet'); ?>:</p>
                                             <ul>
-                                                <li><?php _e('Web development', 'municipio-intranet'); ?></li>
                                                 <li><?php _e('Project management', 'municipio-intranet'); ?></li>
-                                                <li><?php _e('Copywriting', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Law', 'municipio-intranet'); ?></li>
+                                                <li><?php _e('Pharmaceuticals handling', 'municipio-intranet'); ?></li>
                                             </ul>
                                         </article>
                                     </div>
