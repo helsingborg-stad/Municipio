@@ -301,7 +301,7 @@ class Editor
                 return $plugins;
             }
 
-            $plugins['pricons'] = get_template_directory_uri() . '/assets/dist/js/mce-pricons.js';
+            $plugins['pricons'] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-pricons.js');
             return $plugins;
         });
 
@@ -353,7 +353,7 @@ class Editor
                 return $plugins;
             }
 
-            $plugins['metadata'] = get_template_directory_uri() . '/assets/dist/js/mce-metadata.js';
+            $plugins['metadata'] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-metadata.js');
             return $plugins;
         });
 
@@ -376,7 +376,7 @@ class Editor
     public function printBreak()
     {
         add_filter('mce_external_plugins', function ($plugins) {
-            $plugins['print_break'] = get_template_directory_uri() . '/assets/dist/js/mce-print-break.js';
+            $plugins['print_break'] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-print-break.js');
             return $plugins;
         });
 
