@@ -393,6 +393,7 @@ class News
                 WHERE
                     posts.post_type = '" . self::$postTypeSlug . "'
                     AND posts.post_status IN ({$postStatuses})
+                    AND posts.post_date < NOW()
                 )";
 
             $i++;
