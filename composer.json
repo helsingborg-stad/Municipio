@@ -98,6 +98,10 @@
             "url": "https://github.com/helsingborg-stad/modularity-form-builder.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/todo.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         },
@@ -138,6 +142,7 @@
         "helsingborg-stad/wp-listings": ">=1.0.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "helsingborg-stad/modularity-form-builder": ">=1.0.0",
+        "helsingborg-stad/todo": ">=1.0.0",
         "10up/elasticpress": "dev-master",
         "helsingborg-stad/wp-search-statistics": ">=0.1.0",
         "helsingborg-stad/readspeaker-helper": ">=1.0.0",
