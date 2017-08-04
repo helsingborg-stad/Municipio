@@ -7,8 +7,34 @@ class Archive
     public function __construct()
     {
         add_filter('wp_title', array($this, 'pageTitle'));
+        add_filter('get_the_archive_title', array($this, 'pageHeader'));
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
+    }
+
+    /**
+     * Filter away "Archive:" etc from pageHeader
+     * @param  string $title
+     * @return string
+     */
+    public function pageHeader($title)
+    {
+        if (is_category()) {
+            return single_cat_title('', false);
+        } elseif (is_tag()) {
+            return single_cat_title('', false);
+        } elseif (is_author()) {
+            $title = '<span class="vcard">' . get_the_author() . '</span>';
+        } elseif (is_year()) {
+            return get_the_date(_x('Y', 'yearly archives date format'));
+        } elseif (is_month()) {
+            return get_the_date(_x('F Y', 'monthly archives date format'));
+        } elseif (is_day()) {
+            return get_the_date(_x('F j, Y', 'daily archives date format'));
+        } elseif (is_post_type_archive()) {
+            return post_type_archive_title('', false);
+        }
+        return $title;
     }
 
     /**
