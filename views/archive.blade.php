@@ -53,28 +53,33 @@
                 </div>
             @endif
 
-            <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
-                @if (have_posts())
-                    <?php $postNum = 0; ?>
-                    @while(have_posts())
-                        {!! the_post() !!}
+            @if (in_array($template, array('list')))
+                @include('partials.blog.type.post-' . $template)
+            @else
+                <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
+                    @if (have_posts())
+                        <?php $postNum = 0; ?>
+                        @while(have_posts())
+                            {!! the_post() !!}
 
-                        @if (in_array($template, array('full', 'compressed', 'collapsed')))
-                            <div class="grid-xs-12 post">
+                            @if (in_array($template, array('full', 'compressed', 'collapsed')))
+                                <div class="grid-xs-12 post">
+                                    @include('partials.blog.type.post-' . $template)
+                                </div>
+                            @else
                                 @include('partials.blog.type.post-' . $template)
-                            </div>
-                        @else
-                            @include('partials.blog.type.post-' . $template)
-                        @endif
+                            @endif
 
-                        <?php $postNum++; ?>
-                    @endwhile
-                @else
-                    <div class="grid-xs-12">
-                        <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show', 'municipio'); ?>…</div>
-                    </div>
-                @endif
-            </div>
+                            <?php $postNum++; ?>
+                        @endwhile
+                    @else
+                        <div class="grid-xs-12">
+                            <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show', 'municipio'); ?>…</div>
+                        </div>
+                    @endif
+                </div>
+
+            @endif
 
             @if (is_active_sidebar('content-area'))
                 <div class="grid sidebar-content-area sidebar-content-area-bottom">

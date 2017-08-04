@@ -131,7 +131,8 @@ class Archives
                         'compressed' => 'Compressed',
                         'grid' => 'Grid',
                         'cards' => 'Post cards',
-                        'newsitem' => 'News items'
+                        'newsitem' => 'News items',
+                        'list' => 'List'
                     ),
                     'default_value' => array (
                         0 => 'full',
