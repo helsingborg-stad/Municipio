@@ -11,6 +11,8 @@ class Author extends \Intranet\Controller\BaseController
         global $wp_query;
         global $authordata;
 
+        $this->redirectProfile();
+
         $currentUser = wp_get_current_user();
         $user = get_user_by('slug', $wp_query->query['author_name']);
 
@@ -30,6 +32,17 @@ class Author extends \Intranet\Controller\BaseController
     }
 
 
+    public function redirectProfile()
+    {
+        //Check if main site
+        if(get_current_blog_id() == BLOG_ID_CURRENT_SITE) {
+            return;
+        }
+
+        //Redirect to main site
+        wp_redirect(municipio_intranet_get_user_profile_url(get_queried_object()->ID));
+        exit;
+    }
 
 
     public function getCoverUrl()
