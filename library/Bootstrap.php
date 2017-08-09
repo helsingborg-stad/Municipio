@@ -100,19 +100,22 @@ add_action('init', function () {
 if (function_exists('get_field')) {
     new Municipio\App();
 } else {
-    //Be shure to enable ACF
-    if (!is_admin()) {
-        if (is_user_logged_in()) {
-            wp_redirect(admin_url('plugins.php'));
-            exit;
-        } else {
-            if (!in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'))) {
-                auth_redirect();
+    if (!(defined('WP_CLI') && WP_CLI)) {
+
+        //Be shure to enable ACF
+        if (!is_admin()) {
+            if (is_user_logged_in()) {
+                wp_redirect(admin_url('plugins.php'));
+                exit;
+            } else {
+                if (!in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'))) {
+                    auth_redirect();
+                }
             }
+        } else {
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-error"><p>Please active ACF (PRO) to proceed.</p></div>';
+            });
         }
-    } else {
-        add_action('admin_notices', function () {
-            echo '<div class="notice notice-error"><p>Please active ACF (PRO) to proceed.</p></div>';
-        });
     }
 }
