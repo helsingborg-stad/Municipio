@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-07-06 09:56+0200\n"
-"PO-Revision-Date: 2017-07-06 09:56+0200\n"
+"POT-Creation-Date: 2017-08-09 14:24+0200\n"
+"PO-Revision-Date: 2017-08-09 14:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -19,6 +19,18 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: acf-fields/php/default-author-cover.php:6
+msgid "Default author cover"
+msgstr "Standardomslag för användare"
+
+#: acf-fields/php/default-author-cover.php:10
+msgid "Covers"
+msgstr "Omslagsbilder"
+
+#: acf-fields/php/default-author-cover.php:29
+msgid "Upload Cover"
+msgstr "Ladda upp omslagsbild"
 
 #: acf-fields/php/incidents-module.php:6
 #: library/Module/IncidentList/IncidentList.php:15
@@ -390,7 +402,7 @@ msgstr "Klar"
 msgid "No more news to load"
 msgstr "Det finns inga fler nyheter"
 
-#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:532
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:583
 #: views/partials/breadcrumbs.blade.php:33
 msgid "Disable welcome phrase"
 msgstr "Dölj hälsningsfras"
@@ -497,11 +509,11 @@ msgstr "Efternamn"
 msgid "All fields must be filled in to add a new system"
 msgstr "Alla fält måste fyllas i för att lägga till ett nytt system"
 
-#: library/User/TargetGroups.php:208
+#: library/User/TargetGroups.php:206
 msgid "Restrict to target groups"
 msgstr "Begränsa till målgrupper"
 
-#: library/User/TargetGroups.php:240 library/User/TargetGroups.php:241
+#: library/User/TargetGroups.php:238 library/User/TargetGroups.php:239
 #: views/author-edit.blade.php:268
 msgid "Target groups"
 msgstr "Målgrupper"
@@ -839,8 +851,9 @@ msgstr "Personlig information"
 #: views/author-edit.blade.php:81 views/author-edit.blade.php:185
 #: views/author-edit.blade.php:268 views/author-edit.blade.php:298
 #: views/author-edit.blade.php:347 views/author-edit.blade.php:365
-#: views/author-edit.blade.php:419 views/author-edit.blade.php:472
-#: views/author-edit.blade.php:525 views/author-edit.blade.php:544
+#: views/author-edit.blade.php:419 views/author-edit.blade.php:471
+#: views/author-edit.blade.php:523 views/author-edit.blade.php:576
+#: views/author-edit.blade.php:595
 msgid "Incomplete"
 msgstr "Ofullständig"
 
@@ -1098,77 +1111,82 @@ msgstr "Lägg till kompetens"
 msgid "Added skills"
 msgstr "Dina kompetenser"
 
-#: views/author-edit.blade.php:472
+#: views/author-edit.blade.php:471
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:4
 msgid "Profile image"
 msgstr "Profilbild"
 
-#: views/author-edit.blade.php:481
+#: views/author-edit.blade.php:480 views/author-edit.blade.php:532
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr "Är du säker på att du vill ta bort din profilbild?"
 
-#: views/author-edit.blade.php:481
+#: views/author-edit.blade.php:480 views/author-edit.blade.php:532
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Delete profile image"
 msgstr "Ta bort profilbild"
 
-#: views/author-edit.blade.php:492
+#: views/author-edit.blade.php:491 views/author-edit.blade.php:543
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
-#: views/author-edit.blade.php:494 views/partials/header/intranet.blade.php:21
+#: views/author-edit.blade.php:493 views/author-edit.blade.php:545
+#: views/partials/header/intranet.blade.php:21
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr "eller"
 
-#: views/author-edit.blade.php:495
+#: views/author-edit.blade.php:494 views/author-edit.blade.php:546
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:513
+#: views/author-edit.blade.php:512 views/author-edit.blade.php:564
 msgid "Max filesize"
 msgstr "Max filstorlek"
 
-#: views/author-edit.blade.php:514
+#: views/author-edit.blade.php:513 views/author-edit.blade.php:565
 msgid "Allowed filetypes"
 msgstr "Tillåtna filtyper"
 
-#: views/author-edit.blade.php:525
+#: views/author-edit.blade.php:523
+msgid "Profile cover"
+msgstr "Omslagsbild"
+
+#: views/author-edit.blade.php:576
 msgid "Other Settings"
 msgstr "Övriga inställningar"
 
-#: views/author-edit.blade.php:531
+#: views/author-edit.blade.php:582
 msgid "Welcome phrase"
 msgstr "Hälsningsfras"
 
-#: views/author-edit.blade.php:544
+#: views/author-edit.blade.php:595
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:550
+#: views/author-edit.blade.php:601
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:551
+#: views/author-edit.blade.php:602
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:552
+#: views/author-edit.blade.php:603
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:553
+#: views/author-edit.blade.php:604
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:554
+#: views/author-edit.blade.php:605
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:569
+#: views/author-edit.blade.php:620
 msgid "Save settings"
 msgstr "Spara inställningar"
 
@@ -1590,6 +1608,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Default cover"
+#~ msgstr "Standard omslagsbild"
 
 #~ msgid "Add system link"
 #~ msgstr "Lägg till systemlänk"

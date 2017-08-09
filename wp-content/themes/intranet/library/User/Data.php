@@ -34,6 +34,7 @@ class Data
         add_action('wp_ajax_sync_facebook_profile', array($this, 'syncFacebookDetails'));
         add_action('wp_ajax_toggle_welcome_phrase', array($this, 'toggleWelcomePhrase'));
         add_action('MunicipioIntranet/save_profile_settings', array($this, 'saveProfileSettings'));
+        add_action('MunicipioIntranet/save_profile_settings', array($this, 'saveProfileUploads'));
 
         $this->muteProfileFiller();
     }
@@ -157,9 +158,10 @@ class Data
             return;
         }
 
-        $profileImage = new \Intranet\User\ProfileImage();
+        $profileImage = new \Intranet\User\ProfileUploadImage();
         $profileImage->uploadProfileImage($value[0], wp_get_current_user());
     }
+
 
     /**
      * Updates user data table
@@ -313,6 +315,68 @@ class Data
         return $fields;
     }
 
+
+    public function saveProfileUploads()
+    {
+        global $wp_query;
+
+        if (!isset($_POST['_wpnonce'])) {
+            return;
+        }
+
+        $currentUser = wp_get_current_user();
+        $user = get_user_by('slug', $wp_query->query['author_name']);
+
+        if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'user_settings_update_' . $user->ID)) {
+            return;
+        }
+
+        //MAP UPLOAD KEY & VALUES
+        if(isset($_POST) && is_array($_POST)) {
+            foreach($_POST as $key => $value) {
+
+                //Remove image
+                if (strpos( $key, "remove_profile_" ) !== false && $value == true) {
+                    $key = str_replace('remove','user', $key);
+                    $profileImage = new \Intranet\User\ProfileUploadImage();
+                    $profileImage->removeProfileImage($user->ID, $key);
+
+                    return wp_redirect($_SERVER['HTTP_REFERER']);
+                }
+
+                //Map image keys to upload
+                if (strpos( $key, "user_profile_" ) !== false && $value !== "") {
+                    $image_keys[] = $key;
+                }
+            }
+
+            //Map image URI to upload
+            if(! empty($image_keys) && isset($_POST['image_uploader_file'])) {
+                $items_to_upload = array_combine($image_keys,$_POST['image_uploader_file']);
+            }
+        }
+
+        //Upload images
+        if(isset($items_to_upload) && ! empty($items_to_upload)) {
+            foreach($items_to_upload as $key => $value) {
+                $profileImage = new \Intranet\User\ProfileUploadImage();
+                switch ($key) {
+
+                    case "user_profile_cover":
+                        $profileImage->setCrop(1366, 768);
+                        $profileImage->setUploadDir('profile-cover');
+                    break;
+
+                }
+
+                $profileImage->uploadProfileImage($value, $user, $key);
+            }
+
+        }
+
+        return true;
+    }
+
     /**
      * Save profile settings form
      * @return bool
@@ -330,17 +394,6 @@ class Data
 
         if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'user_settings_update_' . $user->ID)) {
             return;
-        }
-
-        if (isset($_POST['remove_profile_image']) && $_POST['remove_profile_image'] == 'true') {
-            $profileImage = new \Intranet\User\ProfileImage();
-            $profileImage->removeProfileImage($user->ID);
-            return wp_redirect($_SERVER['HTTP_REFERER']);
-        }
-
-        if (isset($_POST['image_uploader_file'][0]) && !empty($_POST['image_uploader_file'][0])) {
-            $profileImage = new \Intranet\User\ProfileImage();
-            $profileImage->uploadProfileImage($_POST['image_uploader_file'][0], $user);
         }
 
         if (isset($_POST['user_work_title'])) {

@@ -220,9 +220,6 @@
         background-image: url('http://helsingborg.dev/wp-content/uploads/2015/09/hero-startsida.jpg');
         background-size: cover;
         background-position: center center;
-        filter: blur(10px);
-        filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='10');
-        transform: scale(1.2);
 
         &::after {
             content: '';

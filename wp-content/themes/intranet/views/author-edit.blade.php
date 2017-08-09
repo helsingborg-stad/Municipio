@@ -464,8 +464,7 @@
                                 </div>
                             </div>
                         </section>
-
-                        <!-- Profile iamge -->
+                        <!-- Profile Image -->
                         <section class="accordion-section">
                             <input type="radio" name="active-section" id="profile-image">
                             <label class="accordion-toggle" for="profile-image">
@@ -478,7 +477,7 @@
                                             <div class="profile-image-upload">
                                                 @if (!empty(get_the_author_meta('user_profile_picture')))
                                                 <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_picture') }}');">
-                                                    <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_image" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
+                                                    <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_picture" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
                                                 </div>
                                                 @endif
 
@@ -492,7 +491,7 @@
                                                             <span class="placeholder-text-drag"><?php _e('Drag a photo here', 'municipio-intranet'); ?></span>
                                                             <span class="placeholder-text-browse">
                                                                 <em class="placeholder-text-or"><?php _e('or', 'municipio-intranet'); ?></em>
-                                                                <label for="user_profile_image" class="btn btn-secondary btn-select-file"><?php _e('Select a photo', 'municipio-intranet'); ?></label>
+                                                                <label for="user_profile_picture" class="btn btn-secondary btn-select-file"><?php _e('Select a photo', 'municipio-intranet'); ?></label>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -500,7 +499,59 @@
                                                         <span>Drop it like it's hot</span>
                                                     </div>
                                                     <div class="selected-file"></div>
-                                                    <input type="file" id="user_profile_image" name="user_profile_image" class="hidden">
+                                                    <input type="file" id="user_profile_picture" name="user_profile_picture" class="hidden">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <p class="text-sm">
+                                            <?php _e('Max filesize', 'municipio-intranet'); ?>: 2 mb<br>
+                                            <?php _e('Allowed filetypes', 'municipio-intranet'); ?>: jpg, png
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Profile cover -->
+                        <section class="accordion-section">
+                            <input type="radio" name="active-section" id="profile-cover">
+                            <label class="accordion-toggle" for="profile-cover">
+                                <h4 class="pricon pricon-picture pricon-space-right"><?php _e('Profile cover', 'municipio-intranet'); ?> <small style="color: #ff0000" class="pull-right accordion-error hidden"><?php _e("Incomplete", 'municipio-intranet'); ?></small></h4>
+                            </label>
+                            <div class="accordion-content">
+                                <div class="grid">
+                                    <div class="grid-md-12">
+                                        <div class="form-group">
+                                            <div class="profile-image-upload">
+                                                @if (!empty(get_the_author_meta('user_profile_cover')))
+                                                <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ get_the_author_meta('user_profile_cover') }}');">
+                                                    <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_cover" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
+                                                </div>
+                                                @endif
+
+                                                <div class="image-upload inline-block" data-max-files="1" data-max-size="2000" data-preview-image="true" style="width:250px;height:250px;">
+                                                    <div class="placeholder">
+                                                        <span class="fa-stack fa-2x">
+                                                            <i class="fa fa-picture-o fa-stack-2x"></i>
+                                                            <i class="fa fa-plus-circle fa-stack-1x"></i>
+                                                        </span>
+                                                        <div class="placeholder-text">
+                                                            <span class="placeholder-text-drag"><?php _e('Drag a photo here', 'municipio-intranet'); ?></span>
+                                                            <span class="placeholder-text-browse">
+                                                                <em class="placeholder-text-or"><?php _e('or', 'municipio-intranet'); ?></em>
+                                                                <label for="user_profile_cover" class="btn btn-secondary btn-select-file"><?php _e('Select a photo', 'municipio-intranet'); ?></label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="placeholder placeholder-is-dragover">
+                                                        <span>Drop it like it's hot</span>
+                                                    </div>
+                                                    <div class="selected-file"></div>
+                                                    <input type="file" id="user_profile_cover" name="user_profile_cover" class="hidden">
                                                 </div>
                                             </div>
                                         </div>

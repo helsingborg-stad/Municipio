@@ -2,15 +2,38 @@
 
 namespace Intranet\User;
 
-class ProfileImage
+class ProfileUploadImage
 {
+    private $uploadDir, $width, $height, $crop;
+
+    public function __construct()
+    {
+        $this->setCrop();
+        $this->setUploadDir();
+    }
+
+    public function setUploadDir($dirName = 'profile-images')
+    {
+        $uploadDir = '/';
+        $uploadDir .= $dirName;
+
+        $this->uploadDir = $uploadDir;
+    }
+
+    public function setCrop($width = 250, $height = 250, $crop = true)
+    {
+        $this->width = $width;
+        $this->height = $height;
+        $this->crop = $crop;
+    }
+
     /**
      * Uploads user profile image
      * @param  string $imageDataUri The image data uri
      * @param  object $user         User object
      * @return array                Profile image url
      */
-    public function uploadProfileImage($imageDataUri, $user)
+    public function uploadProfileImage($imageDataUri, $user, $user_meta = 'user_profile_picture')
     {
         global $current_site;
 
@@ -24,7 +47,7 @@ class ProfileImage
         $uploadDir = wp_upload_dir();
         $uploadDirUrl = $uploadDir['baseurl'];
         $uploadDir = $uploadDir['basedir'];
-        $uploadDir = $uploadDir . '/profile-images';
+        $uploadDir = $uploadDir . $this->uploadDir;
 
         $fileType = preg_match_all('/data:image\/(.*);/', $imageDataUri[0], $matches);
         if (!isset($matches[1][0])) {
@@ -52,12 +75,16 @@ class ProfileImage
         file_put_contents($filePathWithName, $decodedImage);
         restore_current_blog();
 
-        $croppedImagePath = $this->cropProfileImage($filePathWithName, 250, 250);
+
+
+        $croppedImagePath = $this->cropProfileImage($filePathWithName, $this->width, $this->height, $this->crop);
+
+
         $profileImageUrl = $this->getProfileImageUrlFromPath($croppedImagePath);
 
-        $this->removeProfileImage($user->ID);
+        $this->removeProfileImage($user->ID, $user_meta);
 
-        update_user_meta($user->ID, 'user_profile_picture', $profileImageUrl);
+        update_user_meta($user->ID, $user_meta, $profileImageUrl);
 
         return true;
     }
@@ -116,9 +143,9 @@ class ProfileImage
      * @param  integer $userId The user's id
      * @return boolean
      */
-    public function removeProfileImage($userId)
+    public function removeProfileImage($userId, $user_meta = 'user_profile_picture')
     {
-        $imageUrl = get_user_meta($userId, 'user_profile_picture', true);
+        $imageUrl = get_user_meta($userId, $user_meta, true);
 
         if (empty($imageUrl)) {
             return true;
@@ -132,7 +159,7 @@ class ProfileImage
             unlink($image);
         }
 
-        delete_user_meta($userId, 'user_profile_picture', $imageUrl);
+        delete_user_meta($userId, $user_meta, $imageUrl);
 
         return true;
     }
