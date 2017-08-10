@@ -4,27 +4,12 @@ namespace Intranet\User;
 
 class ProfileUploadImage
 {
-    private $uploadDir, $width, $height, $crop;
+    private $uploadDir, $width, $height, $crop, $imageDataUri, $decodedImage, $fileType;
 
     public function __construct()
     {
         $this->setCrop();
         $this->setUploadDir();
-    }
-
-    public function setUploadDir($dirName = 'profile-images')
-    {
-        $uploadDir = '/';
-        $uploadDir .= $dirName;
-
-        $this->uploadDir = $uploadDir;
-    }
-
-    public function setCrop($width = 250, $height = 250, $crop = true)
-    {
-        $this->width = $width;
-        $this->height = $height;
-        $this->crop = $crop;
     }
 
     /**
@@ -37,19 +22,88 @@ class ProfileUploadImage
     {
         global $current_site;
 
-        // Decode the imageDataUri
-        $imageDataUri = str_replace(' ', '+', $imageDataUri);
-        $imageDataUri = explode(',', $imageDataUri);
-        $decodedImage = base64_decode($imageDataUri[1]);
+        //switch_to_blog($current_site->blog_id);
 
-        switch_to_blog($current_site->blog_id);
+        $this->decodeImageUri($imageDataUri);
+        $this->setFileType();
+        $this->createUploadDir();
+
+        $filePathWithName = $this->uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '.' . $this->fileType;
+
+        //$filePathWithSize = $this->uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '-' . $width . '-' . $heght . '.' . $this->fileType;
+
+        file_put_contents($filePathWithName, $this->decodedImage);
+        //restore_current_blog();
+
+        $croppedImagePath = $this->cropProfileImage($filePathWithName, $this->width, $this->height, $this->crop);
+
+        $profileImageUrl = $this->getProfileImageUrlFromPath($croppedImagePath);
+
+        $this->removeProfileImage($user->ID, $user_meta);
+
+        update_user_meta($user->ID, $user_meta, $profileImageUrl);
+
+        return true;
+    }
+
+
+    /**
+     * Set upload dir name with
+     * @param string $dirName Name of the directory to create
+     * @return void
+     */
+    public function setUploadDir($dirName = 'profile-images')
+    {
+        $uploadDirName = '/';
+        $uploadDirName .= $dirName;
 
         $uploadDir = wp_upload_dir();
         $uploadDirUrl = $uploadDir['baseurl'];
         $uploadDir = $uploadDir['basedir'];
-        $uploadDir = $uploadDir . $this->uploadDir;
+        $uploadDir = $uploadDir . $uploadDirName;
 
-        $fileType = preg_match_all('/data:image\/(.*);/', $imageDataUri[0], $matches);
+        $this->uploadDir = $uploadDir;
+    }
+
+
+    /**
+     * Set crop dimensions
+     * @param mixed(int/array)      $width      Width in pixels
+     * @param mixed(int/array)      $height     Height in pixels
+     * @param mixed(boolean/array)  $crop       Crop or just resize? true to crop
+     * @return void
+     */
+    public function setCrop($width = 220, $height = 220, $crop = true)
+    {
+        $this->width = $width;
+        $this->height = $height;
+        $this->crop = $crop;
+    }
+
+
+    /**
+     * Decode image URI
+     * @param  string   $imageDataUri   The image data uri
+     * @return void
+     */
+    public function decodeImageUri($imageDataUri)
+    {
+        $imageDataUri = str_replace(' ', '+', $imageDataUri);
+        $imageDataUri = explode(',', $imageDataUri);
+        $decodedImage = base64_decode($imageDataUri[1]);
+
+        $this->imageDataUri = $imageDataUri;
+        $this->decodedImage = $decodedImage;
+    }
+
+
+    /**
+     * Set File type
+     * @return void
+     */
+    public function setFileType()
+    {
+        $fileType = preg_match_all('/data:image\/(.*);/', $this->imageDataUri[0], $matches);
         if (!isset($matches[1][0])) {
             return;
         }
@@ -61,32 +115,28 @@ class ProfileUploadImage
                 $fileType = 'jpg';
                 break;
 
+            case 'png':
+                $fileType = 'png';
+                break;
+
             default:
                 $fileType = $fileType;
                 break;
         }
 
-        if (!file_exists($uploadDir)) {
-            mkdir($uploadDir, 0775, true);
+        $this->fileType = $fileType;
+    }
+
+
+    /**
+     * Create upload folder
+     * @return void
+     */
+    public function createUploadDir()
+    {
+        if (isset($this->uploadDir) && !file_exists($this->uploadDir)) {
+            mkdir($this->uploadDir, 0775, true);
         }
-
-        $filePathWithName = $uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '.' . $fileType;
-
-        file_put_contents($filePathWithName, $decodedImage);
-        restore_current_blog();
-
-
-
-        $croppedImagePath = $this->cropProfileImage($filePathWithName, $this->width, $this->height, $this->crop);
-
-
-        $profileImageUrl = $this->getProfileImageUrlFromPath($croppedImagePath);
-
-        $this->removeProfileImage($user->ID, $user_meta);
-
-        update_user_meta($user->ID, $user_meta, $profileImageUrl);
-
-        return true;
     }
 
     /**
