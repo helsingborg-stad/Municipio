@@ -251,12 +251,16 @@ class ProfileUploadImage
      * @param  integer $userId The user's id
      * @return boolean
      */
-    public function removeProfileImage($userId, $user_meta = 'user_profile_picture')
+    public function removeProfileImage($userId, $userMeta)
     {
-        $urls = get_user_meta($userId, $user_meta, true);
+        if(!isset($userMeta) && ! $userMeta) {
+            return;
+        }
 
-        if (empty($urls)) {
-            return true;
+        $urls = get_user_meta($userId, $userMeta, true);
+
+        if (!is_array($urls)) {
+            return;
         }
 
         foreach($urls as $url) {
@@ -264,7 +268,7 @@ class ProfileUploadImage
             unlink($path);
         }
 
-        delete_user_meta($userId, $user_meta);
+        delete_user_meta($userId, $userMeta);
 
         //Remove old meta field
         if($userMeta = 'user_profile_img') {

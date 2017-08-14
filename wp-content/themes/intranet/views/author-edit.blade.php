@@ -478,7 +478,7 @@
 
                                                 @if (!empty($profile_img))
                                                 <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ $profile_img }}');">
-                                                    <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_picture" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
+                                                    <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_img" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
                                                 </div>
                                                 @endif
 
