@@ -98,4 +98,11 @@
             border: none;
         }
     }
+
+    div[class^="modularity-"], div[class*=" modularity-"] {
+        margin-bottom: 0;
+        .box {
+            margin-bottom: 0;
+        }
+    }
 }
