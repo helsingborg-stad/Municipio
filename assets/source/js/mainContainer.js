@@ -8,7 +8,7 @@ Municipio.Helper.MainContainer = (function ($) {
     }
 
     MainContainer.prototype.removeMainContainer = function () {
-        if($('#main-content').empty()) {
+        if($('#main-content').is(':empty')) {
             $('#main-content').remove();
             return true;
         }
