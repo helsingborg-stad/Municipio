@@ -66,7 +66,7 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         }
 
         if(isset($image)) {
-            return $image[0];
+            return $image;
         }
 
     }
