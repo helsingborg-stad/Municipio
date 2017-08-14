@@ -73,7 +73,7 @@
 
         @include('partials.header')
 
-        <main id="main-content" class="clearfix">
+        <main id="main-content" class="clearfix main-content">
             @yield('content')
 
             @if (is_active_sidebar('content-area-bottom'))
