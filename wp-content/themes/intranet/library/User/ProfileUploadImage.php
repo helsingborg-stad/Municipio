@@ -37,7 +37,7 @@ class ProfileUploadImage
 
         //Save original image
         $imagePaths = array();
-        $imagePaths[] = $this->uploadDir . '/' . $user->data->user_login . '-' . $imageID . '.' . $fileType;
+        $imagePaths[] = $this->uploadDir . '/' . $user->data->user_login . '-' . $imageId . '.' . $fileType;
         file_put_contents($imagePaths[0], $decodedImage);
 
         //Crop & save images sizes
