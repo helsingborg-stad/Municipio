@@ -49,6 +49,7 @@ gulp.task("rev:sass", ['sass-dist', 'sass-dev'], function(){
 // Concatenate & Minify JS
 gulp.task('scripts-dist', function() {
     gulp.src([
+            'assets/source/js/*.js',
             'assets/source/js/**/*.js',
             '!assets/source/js/admin/*.js'
         ])
