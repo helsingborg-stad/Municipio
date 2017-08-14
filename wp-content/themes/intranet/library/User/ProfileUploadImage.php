@@ -20,8 +20,12 @@ class ProfileUploadImage
      * @param  string $userMeta    User meta key
      * @return boolean
      */
-    public function uploadProfileImage($imageDataUri, $user, $userMeta = 'user_profile_picture')
+    public function uploadProfileImage($imageDataUri, $user, $userMeta)
     {
+        if(!isset($userMeta) && ! $userMeta) {
+            return;
+        }
+
         global $current_site;
 
         $this->user = $user;
@@ -57,7 +61,7 @@ class ProfileUploadImage
         update_user_meta($user->ID, $userMeta, $imageUrls);
 
         //Add image to old profile image meta
-        if($userMeta = 'user_profile_img') {
+        if($userMeta == 'user_profile_img') {
             $this->removeProfileImage($user->ID, 'user_profile_picture');
             update_user_meta($user->ID, 'user_profile_picture', $imageUrls[1]);
         }
@@ -271,7 +275,7 @@ class ProfileUploadImage
         delete_user_meta($userId, $userMeta);
 
         //Remove old meta field
-        if($userMeta = 'user_profile_img') {
+        if($userMeta == 'user_profile_img') {
             delete_user_meta($userId, 'user_profile_picture');
         }
 
