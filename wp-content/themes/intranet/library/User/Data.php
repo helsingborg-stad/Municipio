@@ -359,12 +359,31 @@ class Data
         //Upload images
         if(isset($items_to_upload) && ! empty($items_to_upload)) {
             foreach($items_to_upload as $key => $value) {
+
                 $profileImage = new \Intranet\User\ProfileUploadImage();
+
                 switch ($key) {
 
-                    case "user_profile_cover_2":
-                        $profileImage->setCrop(1366, 768);
-                        $profileImage->setUploadDir('profile-cover');
+                    case "user_profile_picture":
+                        $sizes = array();
+                        $sizes[] = (object) [
+                            'width'  => 250,
+                            'height' => 250,
+                            'crop'   => true
+                        ];
+                        $sizes[] = (object) [
+                            'width'  => 110,
+                            'height' => 110,
+                            'crop'   => true
+                        ];
+                        $sizes[] = (object) [
+                            'width'  => 220,
+                            'height' => 220,
+                            'crop'   => true
+                        ];
+
+                        $profileImage->setCrop($sizes);
+                        $profileImage->setUploadDir('profile-images');
                     break;
 
                     case "user_profile_cover":
@@ -374,16 +393,10 @@ class Data
                             'height' => 768,
                             'crop'   => true
                         ];
-                        $sizes[] = (object) [
-                            'width'  => 1920,
-                            'height' => 1080,
-                            'crop'   => true
-                        ];
 
                         $profileImage->setCrop($sizes);
                         $profileImage->setUploadDir('profile-cover');
                     break;
-
                 }
 
                 $profileImage->uploadProfileImage($value, $user, $key);

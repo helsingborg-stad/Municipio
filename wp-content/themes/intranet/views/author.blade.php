@@ -4,6 +4,7 @@
 
 @if (municipio_intranet_user_has_birthday())
 <div class="notice-birthday">
+
     <div class="container">
         <div class="grid">
             <div class="grid-md-12 gutter gutter-bottom">
@@ -28,9 +29,13 @@
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="profile-header-content">
-
-                    @if (!empty(get_the_author_meta('user_profile_picture')))
-                        <img class="profile-image" src="{{ $profile_img[0] }}">
+                    @if (!empty($profile_img) && is_array($profile_img))
+                        <img class="profile-image" src="{{$profile_img[2]}}"
+                            srcset="
+                                {{ $profile_img[2] }} 1x,
+                                {{ $profile_img[3] }} 2x">
+                    @elseif (!empty($profile_img))
+                        <img class="profile-image" src="{{ $profile_img }}">
                     @endif
 
                     <h1 class="profile-fullname">{{ municipio_intranet_get_user_full_name(get_the_author_meta('ID')) }}</h1>

@@ -24,6 +24,47 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
         $this->data['administrationUnits'] = \Intranet\User\AdministrationUnits::getAdministrationUnits();
         $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups(false, get_current_user_id());
-        $this->data['profile_img'] = get_the_author_meta('user_profile_picture', $user->ID);
+        $this->data['profile_img'] =   $this->getProfileImgUrl($user->ID);
+        $this->data['profile_cover'] = $this->getCoverUrl($user->ID);
+    }
+
+    /**
+     * Get profile img URL
+     * @param  int User ID
+     * @return string
+     */
+    private function getProfileImageUrl($userId)
+    {
+        $image = get_the_author_meta('user_profile_picture', $userId);
+
+        if(! isset($image)) {
+            return;
+        }
+
+        if(is_array($image)) {
+            return $image[1];
+        }
+
+        return $image;
+    }
+
+    /**
+     * Get profile cover URL
+     * @param  int User ID
+     * @return string
+     */
+    private function getCoverUrl($userId)
+    {
+        $image = get_the_author_meta('user_profile_cover', $userId);
+
+        if(! isset($image)) {
+            return;
+        }
+
+        if(is_array($image)) {
+            return $image[0];
+        }
+
+        return $image;
     }
 }

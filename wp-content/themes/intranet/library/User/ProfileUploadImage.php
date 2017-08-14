@@ -33,13 +33,15 @@ class ProfileUploadImage
 
         $fileType = $this->setFileType($imageDataUri);
 
+        $imageId = uniqid();
+
         //Save original image
         $imagePaths = array();
-        $imagePaths[] = $this->uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '.' . $fileType;
+        $imagePaths[] = $this->uploadDir . '/' . $user->data->user_login . '-' . $imageID . '.' . $fileType;
         file_put_contents($imagePaths[0], $decodedImage);
 
         //Crop & save images sizes
-        $imagePaths = array_merge($imagePaths, $this->cropImages($imagePaths[0], $fileType));
+        $imagePaths = array_merge($imagePaths, $this->cropImages($imagePaths[0], $fileType, $imageId));
 
         //Remove old files & URLS from user meta
         $this->removeProfileImage($user->ID, $userMeta);
@@ -178,9 +180,10 @@ class ProfileUploadImage
      * Resize/crop profile image to given size
      * @param  string  $path      Path to original image
      * @param  string  $fileType  Image file type
+     * @param  string  $imageId   Image unique ID
      * @return array              Array of paths to images
      */
-    public function cropImages($path, $fileType)
+    public function cropImages($path, $fileType, $imageId)
     {
         $image = wp_get_image_editor($path);
         $sizes = $this->sizes;
@@ -189,18 +192,18 @@ class ProfileUploadImage
             return;
         }
 
-        $image->set_quality(80);
-
         $images = array();
 
         foreach($sizes as $dimension) {
+            $image = wp_get_image_editor($path);
+            $image->set_quality(80);
 
             $width = $dimension->width;
             $height = $dimension->height;
             $crop = $dimension->crop;
 
             $image->resize($width, $height, $crop);
-            $newFilePath = $this->uploadDir . '/' . $this->user->data->user_login . '-' . uniqid() . '-' . $width . 'x' . $height . '.' . $fileType;
+            $newFilePath = $this->uploadDir . '/' . $this->user->data->user_login . '-' . $imageId . '-' . $width . 'x' . $height . '.' . $fileType;
             $image->save($newFilePath);
 
             $images[] = $newFilePath;

@@ -57,20 +57,21 @@ class Author extends \Intranet\Controller\BaseController
         }
 
         if (isset($profile_cover) && !empty($profile_cover)) {
-            return $profile_cover;
+            return $profile_cover[0];
         }
 
         else {
             $images = get_field('default_author_cover', 'options');
 
-            //First fallback
+            //First fallback (ACF)
             if(isset($images) && $images) {
                 $image = $images[array_rand($images, 1)]['cover'];
+                $image = wp_get_attachment_image_src($image['ID'], array('1366','768'));
 
-                return $image['url'];
+                return $image[0];
             }
 
-            //Last fallback
+            //Last fallback (STATIC)
             return 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg';
         }
     }
