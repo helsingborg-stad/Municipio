@@ -110,6 +110,8 @@
 
 .main-footer .logotype {
   text-align: left; }
+  .main-footer .logotype span.h1 {
+    color: #fff; }
 
 .main-footer .icons-list li a {
   font-size: 3em; }
