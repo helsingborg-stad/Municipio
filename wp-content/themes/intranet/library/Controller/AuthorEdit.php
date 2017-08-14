@@ -25,7 +25,7 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         $this->data['administrationUnits'] = \Intranet\User\AdministrationUnits::getAdministrationUnits();
         $this->data['targetGroups'] = \Intranet\User\TargetGroups::getAvailableGroups(false, get_current_user_id());
         $this->data['profile_img'] =   $this->getProfileImageUrl($user->ID);
-        $this->data['profile_cover'] = $this->getCoverUrl($user->ID);
+        $this->data['cover_img'] = $this->getCoverUrl($user->ID);
     }
 
     /**
