@@ -233,7 +233,7 @@ class PostFilters
             return $query;
         }
 
-        $taxQuery = array('relation' => 'OR');
+        $taxQuery = array('relation' => 'AND');
 
         foreach ($filterable as $key => $value) {
             if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
