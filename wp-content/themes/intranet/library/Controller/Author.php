@@ -4,7 +4,7 @@ namespace Intranet\Controller;
 
 class Author extends \Intranet\Controller\BaseController
 {
-    private $user, $cover_url, $cover_classes;
+    private $user, $cover_url, $profile_img;
 
     public function init()
     {
@@ -21,17 +21,17 @@ class Author extends \Intranet\Controller\BaseController
             $this->user = $user;
         }
 
-        $this->getCoverUrl();
-        //$this->setCoverClasses();
-
         $this->data['userResponsibilities'] = is_array(get_the_author_meta('user_responsibilities', $user->ID)) ? get_the_author_meta('user_responsibilities', $user->ID) : array();
         $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
 
-        $this->data['cover_url'] = $this->cover_url;
-        //$this->data['cover_classes'] = $this->cover_classes;
+        $this->data['cover_url'] =  $this->getCoverUrl();
+        $this->data['profile_img'] = $this->getProfileImg();
     }
 
-
+    /**
+     * Redirect to main blog author page
+     * @return void
+     */
     public function redirectProfile()
     {
         //Check if main site
@@ -44,7 +44,10 @@ class Author extends \Intranet\Controller\BaseController
         exit;
     }
 
-
+    /**
+     * Get cover URL
+     * @return mixed string/array
+     */
     public function getCoverUrl()
     {
         $user = $this->user;
@@ -54,34 +57,33 @@ class Author extends \Intranet\Controller\BaseController
         }
 
         if (isset($profile_cover) && !empty($profile_cover)) {
-            $this->cover_url = $profile_cover;
+            return $profile_cover;
         }
 
         else {
-            $this->getDefaultCoverUrl();
+            $images = get_field('default_author_cover', 'options');
+
+            //First fallback
+            if(isset($images) && $images) {
+                $image = $images[array_rand($images, 1)]['cover'];
+
+                return $image['url'];
+            }
+
+            //Last fallback
+            return 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg';
         }
     }
 
-    public function getDefaultCoverUrl()
+    /**
+     * Get profile image URL
+     * @return mixed string/array
+     */
+    public function getProfileImg()
     {
-        $images = get_field('default_author_cover', 'options');
-
-        if(isset($images) && $images) {
-            $image = $images[array_rand($images, 1)]['cover'];
-            $this->cover_url = $image['url'];
-        }
-
-        else {
-            $this->cover_url = 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg';
+        if(isset($this->user) && $this->user) {
+            return get_user_meta($this->user->data->ID, 'user_profile_picture', true);
         }
     }
 
-    public function setCoverClasses()
-    {
-        $classes = $this->cover_classes;
-
-        if (isset($classes) && is_array($classes)) {
-            $this->cover_classes = implode(' ', $classes);
-        }
-    }
 }

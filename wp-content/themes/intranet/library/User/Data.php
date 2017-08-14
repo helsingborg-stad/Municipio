@@ -362,8 +362,25 @@ class Data
                 $profileImage = new \Intranet\User\ProfileUploadImage();
                 switch ($key) {
 
-                    case "user_profile_cover":
+                    case "user_profile_cover_2":
                         $profileImage->setCrop(1366, 768);
+                        $profileImage->setUploadDir('profile-cover');
+                    break;
+
+                    case "user_profile_cover":
+                        $sizes = array();
+                        $sizes[] = (object) [
+                            'width'  => 1366,
+                            'height' => 768,
+                            'crop'   => true
+                        ];
+                        $sizes[] = (object) [
+                            'width'  => 1920,
+                            'height' => 1080,
+                            'crop'   => true
+                        ];
+
+                        $profileImage->setCrop($sizes);
                         $profileImage->setUploadDir('profile-cover');
                     break;
 
