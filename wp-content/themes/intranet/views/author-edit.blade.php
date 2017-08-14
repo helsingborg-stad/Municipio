@@ -476,7 +476,7 @@
                                         <div class="form-group">
                                             <div class="profile-image-upload">
 
-                                                @if (!empty(get_the_author_meta('user_profile_picture')))
+                                                @if (!empty($profile_img))
                                                 <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ $profile_img }}');">
                                                     <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_picture" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile image', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
                                                 </div>
@@ -492,7 +492,7 @@
                                                             <span class="placeholder-text-drag"><?php _e('Drag a photo here', 'municipio-intranet'); ?></span>
                                                             <span class="placeholder-text-browse">
                                                                 <em class="placeholder-text-or"><?php _e('or', 'municipio-intranet'); ?></em>
-                                                                <label for="user_profile_picture" class="btn btn-secondary btn-select-file"><?php _e('Select a photo', 'municipio-intranet'); ?></label>
+                                                                <label for="user_profile_img" class="btn btn-secondary btn-select-file"><?php _e('Select a photo', 'municipio-intranet'); ?></label>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -500,7 +500,7 @@
                                                         <span>Drop it like it's hot</span>
                                                     </div>
                                                     <div class="selected-file"></div>
-                                                    <input type="file" id="user_profile_picture" name="user_profile_picture" class="hidden">
+                                                    <input type="file" id="user_profile_img" name="user_profile_img" class="hidden">
                                                 </div>
                                             </div>
                                         </div>
@@ -529,7 +529,7 @@
                                         <div class="form-group">
                                             <div class="profile-image-upload">
                                                 @if (!empty(get_the_author_meta('user_profile_cover')))
-                                                <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ $profile_cover }}');">
+                                                <div class="profile-image profile-image-250 inline-block" style="background-image:url('{{ $cover_img }}');">
                                                     <button onclick="return confirm('<?php _e('Are your sure you want to remove the profile image?', 'municipio-intranet'); ?>');" type="submit" name="remove_profile_cover" value="true" class="btn btn-icon btn-danger btn-sm text-lg" data-tooltip="<?php _e('Delete profile cover', 'municipio-intranet'); ?>" data-tooltip-right>&times;</button>
                                                 </div>
                                                 @endif

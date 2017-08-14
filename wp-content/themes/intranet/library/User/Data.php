@@ -364,7 +364,7 @@ class Data
 
                 switch ($key) {
 
-                    case "user_profile_picture":
+                    case "user_profile_img":
                         $sizes = array();
                         $sizes[] = (object) [
                             'width'  => 250,

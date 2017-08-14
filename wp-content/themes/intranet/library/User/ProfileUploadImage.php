@@ -31,8 +31,10 @@ class ProfileUploadImage
         $imageDataUri = $this->imageDataUri;
         $decodedImage = $this->decodedImage;
 
+        //Set Filetype
         $fileType = $this->setFileType($imageDataUri);
 
+        //Set unique ID
         $imageId = uniqid();
 
         //Save original image
@@ -53,6 +55,12 @@ class ProfileUploadImage
         }
 
         update_user_meta($user->ID, $userMeta, $imageUrls);
+
+        //Add image to old profile image meta
+        if($userMeta = 'user_profile_img') {
+            $this->removeProfileImage($user->ID, 'user_profile_picture');
+            update_user_meta($user->ID, 'user_profile_picture', $imageUrls[1]);
+        }
 
         return true;
     }
@@ -257,6 +265,11 @@ class ProfileUploadImage
         }
 
         delete_user_meta($userId, $user_meta);
+
+        //Remove old meta field
+        if($userMeta = 'user_profile_img') {
+            delete_user_meta($userId, 'user_profile_picture');
+        }
 
         return true;
     }

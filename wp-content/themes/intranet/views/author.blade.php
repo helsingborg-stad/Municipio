@@ -22,7 +22,7 @@
 
 <header class="profile-header">
     <div class="profile-header-background">
-        <div style="background-image:url('{{ $cover_url }}');"></div>
+        <div style="background-image:url('{{ $cover_img }}');"></div>
     </div>
 
     <div class="container">

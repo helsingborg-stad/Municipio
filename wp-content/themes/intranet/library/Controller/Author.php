@@ -4,8 +4,6 @@ namespace Intranet\Controller;
 
 class Author extends \Intranet\Controller\BaseController
 {
-    private $user, $cover_url, $profile_img;
-
     public function init()
     {
         global $wp_query;
@@ -18,14 +16,13 @@ class Author extends \Intranet\Controller\BaseController
 
         if ($user) {
             $authordata = $user;
-            $this->user = $user;
         }
 
         $this->data['userResponsibilities'] = is_array(get_the_author_meta('user_responsibilities', $user->ID)) ? get_the_author_meta('user_responsibilities', $user->ID) : array();
         $this->data['userSkills'] = is_array(get_the_author_meta('user_skills', $user->ID)) ? get_the_author_meta('user_skills', $user->ID) : array();
 
-        $this->data['cover_url'] =  $this->getCoverUrl();
-        $this->data['profile_img'] = $this->getProfileImg();
+        $this->data['cover_img'] =  $this->getCoverUrl($user->ID);
+        $this->data['profile_img'] = $this->getProfileImg($user->ID);
     }
 
     /**
@@ -46,15 +43,17 @@ class Author extends \Intranet\Controller\BaseController
 
     /**
      * Get cover URL
+     * @param int $userId User ID
      * @return mixed string/array
      */
-    public function getCoverUrl()
+    public function getCoverUrl($userId)
     {
-        $user = $this->user;
-
-        if(isset($user)) {
-            $profile_cover = get_the_author_meta('user_profile_cover', $user->ID);
+        if(!isset($userId)) {
+            return;
         }
+
+        $profile_cover = get_the_author_meta('user_profile_cover', $userId);
+
 
         if (isset($profile_cover) && !empty($profile_cover)) {
             return $profile_cover[0];
@@ -71,19 +70,34 @@ class Author extends \Intranet\Controller\BaseController
                 return $image[0];
             }
 
-            //Last fallback (STATIC)
+            //Last fallback (OLD STATIC)
             return 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg';
         }
     }
 
     /**
      * Get profile image URL
+     * @param int $userId User ID
      * @return mixed string/array
      */
-    public function getProfileImg()
+    public function getProfileImg($userId)
     {
-        if(isset($this->user) && $this->user) {
-            return get_user_meta($this->user->data->ID, 'user_profile_picture', true);
+        if(!isset($userId)) {
+            return;
+        }
+
+        $images = get_the_author_meta('user_profile_img', $userId);
+
+        if(!empty($images) && is_array($images)) {
+            return $images;
+        }
+        //CHECK FOR OLD META FIELD
+        else {
+             $image = get_the_author_meta('user_profile_picture', $userId);
+        }
+
+        if(isset($image)) {
+            return $image;
         }
     }
 

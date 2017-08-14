@@ -29,26 +29,6 @@ class AuthorEdit extends \Intranet\Controller\BaseController
     }
 
     /**
-     * Get profile img URL
-     * @param  int User ID
-     * @return string
-     */
-    private function getProfileImageUrl($userId)
-    {
-        $image = get_the_author_meta('user_profile_picture', $userId);
-
-        if(! isset($image)) {
-            return;
-        }
-
-        if(is_array($image)) {
-            return $image[1];
-        }
-
-        return $image;
-    }
-
-    /**
      * Get profile cover URL
      * @param  int User ID
      * @return string
@@ -66,5 +46,28 @@ class AuthorEdit extends \Intranet\Controller\BaseController
         }
 
         return $image;
+    }
+
+    /**
+     * Get profile img URL
+     * @param  int User ID
+     * @return string
+     */
+    private function getProfileImageUrl($userId)
+    {
+        $image = get_the_author_meta('user_profile_img', $userId);
+
+        if(isset($image) && is_array($image)) {
+            return $image[1];
+        }
+        //CHECK FOR OLD META FIELD
+        else {
+             $image = get_the_author_meta('user_profile_picture', $userId);
+        }
+
+        if(isset($image)) {
+            return $image[0];
+        }
+
     }
 }
