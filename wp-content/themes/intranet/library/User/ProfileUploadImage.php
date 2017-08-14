@@ -4,7 +4,8 @@ namespace Intranet\User;
 
 class ProfileUploadImage
 {
-    private $user, $uploadDir, $width, $height, $crop, $imageDataUri, $decodedImage, $fileType, $dimensions, $filePaths, $fileUrls;
+    private $user, $uploadDir, $sizes;
+    private $imageDataUri, $decodedImage, $fileType;
 
     public function __construct()
     {
@@ -16,47 +17,46 @@ class ProfileUploadImage
      * Uploads user profile image
      * @param  string $imageDataUri The image data uri
      * @param  object $user         User object
-     * @return array                Profile image url
+     * @param  string $userMeta    User meta key
+     * @return boolean
      */
-    public function uploadProfileImage($imageDataUri, $user, $user_meta = 'user_profile_picture')
+    public function uploadProfileImage($imageDataUri, $user, $userMeta = 'user_profile_picture')
     {
         global $current_site;
 
         $this->user = $user;
-
-        //switch_to_blog($current_site->blog_id);
-
-        $this->decodeImageUri($imageDataUri);
-        $this->setFileType();
         $this->createUploadDir();
+        $this->decodeImageUri($imageDataUri);
 
-        $this->filePaths = array();
-        $this->filePaths[] = $this->uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '.' . $this->fileType;
+        $imageDataUri = $this->imageDataUri;
+        $decodedImage = $this->decodedImage;
 
-        //$filePathWithSize = $this->uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '-' . $width . '-' . $heght . '.' . $this->fileType;
+        $fileType = $this->setFileType($imageDataUri);
 
-        file_put_contents($this->filePaths[0], $this->decodedImage);
-        //restore_current_blog();
+        //Save original image
+        $imagePaths = array();
+        $imagePaths[] = $this->uploadDir . '/' . $user->data->user_login . '-' . uniqid() . '.' . $fileType;
+        file_put_contents($imagePaths[0], $decodedImage);
 
+        //Crop & save images sizes
+        $imagePaths = array_merge($imagePaths, $this->cropImages($imagePaths[0], $fileType));
 
-        $this->cropImages($this->filePaths[0]);
+        //Remove old files & URLS from user meta
+        $this->removeProfileImage($user->ID, $userMeta);
 
-        $this->removeProfileImage($user->ID, $user_meta);
-
-        $fileUrls = array();
-
-        foreach($this->filePaths as $filePath) {
-            $fileUrls[] = $this->getProfileImageUrlFromPath($filePath);
+        //Save new URLS to user meta
+        $imageUrls = array();
+        foreach($imagePaths as $imagePath) {
+            $imageUrls[] = $this->getProfileImageUrlFromPath($imagePath);
         }
 
-        var_dump($fileUrls);
-        update_user_meta($user->ID, $user_meta, $fileUrls);
+        update_user_meta($user->ID, $userMeta, $imageUrls);
 
         return true;
     }
 
     /**
-     * Set upload dir name with
+     * Set upload dir name
      * @param string $dirName Name of the directory to create
      * @return void
      */
@@ -74,18 +74,18 @@ class ProfileUploadImage
     }
 
     /**
-     * Set crop dimensions
-     * @param mixed(int/array)      $width      Width in pixels
-     * @param mixed(int)      $height     Height in pixels
-     * @param mixed(boolean)  $crop       Crop or just resize? true to crop
+     * Set crop sizes
+     * @param mixed(int/array)      $width      Width in pixels or array with multiple sizes
+     * @param mixed(int)            $height     Height in pixels
+     * @param mixed(boolean)        $crop       Crop or just resize? true to crop
      * @return void
      */
     public function setCrop($width = 220, $height = 220, $crop = true)
     {
-        $this->dimensions = array();
+        $this->sizes = array();
 
         if(! is_array($width)) {
-            $this->dimensions[] = (object) [
+            $this->sizes[] = (object) [
                 'width'  => $width,
                 'height' => $height,
                 'crop'   => $crop
@@ -103,7 +103,7 @@ class ProfileUploadImage
             $crop = $size->crop;
 
             if(isset($width) && is_int($width) && isset($height) && is_int($height) && isset($crop) && is_bool($crop)) {
-                $this->dimensions[] = (object) [
+                $this->sizes[] = (object) [
                     'width'  => $width,
                     'height' => $height,
                     'crop'   => $crop
@@ -128,15 +128,18 @@ class ProfileUploadImage
 
         $this->imageDataUri = $imageDataUri;
         $this->decodedImage = $decodedImage;
+
+        return;
     }
 
     /**
      * Set File type
-     * @return void
+     * @param  string   $imageDataUri     The image data uri
+     * @return string
      */
-    public function setFileType()
+    public function setFileType($imageDataUri)
     {
-        $fileType = preg_match_all('/data:image\/(.*);/', $this->imageDataUri[0], $matches);
+        $fileType = preg_match_all('/data:image\/(.*);/', $imageDataUri[0], $matches);
         if (!isset($matches[1][0])) {
             return;
         }
@@ -157,7 +160,7 @@ class ProfileUploadImage
                 break;
         }
 
-        $this->fileType = $fileType;
+        return $fileType;
     }
 
     /**
@@ -174,15 +177,13 @@ class ProfileUploadImage
     /**
      * Resize/crop profile image to given size
      * @param  string  $path      Path to original image
-     * @param  integer  $width    Width in pixels
-     * @param  integer  $height   Height in pixels
-     * @param  boolean $crop      Crop or just resize? true to crop
-     * @return string             The cropped image's path
+     * @param  string  $fileType  Image file type
+     * @return array              Array of paths to images
      */
-    public function cropImages($path)
+    public function cropImages($path, $fileType)
     {
         $image = wp_get_image_editor($path);
-        $dimensions = $this->dimensions;
+        $sizes = $this->sizes;
 
         if (is_wp_error($image)) {
             return;
@@ -190,20 +191,22 @@ class ProfileUploadImage
 
         $image->set_quality(80);
 
-        foreach($dimensions as $dimension) {
+        $images = array();
+
+        foreach($sizes as $dimension) {
 
             $width = $dimension->width;
             $height = $dimension->height;
             $crop = $dimension->crop;
 
             $image->resize($width, $height, $crop);
-
-            $newFilePath = $this->uploadDir . '/' . $this->user->data->user_login . '-' . uniqid() . '-' . $width . 'x' . $height . '.' . $this->fileType;
-
+            $newFilePath = $this->uploadDir . '/' . $this->user->data->user_login . '-' . uniqid() . '-' . $width . 'x' . $height . '.' . $fileType;
             $image->save($newFilePath);
 
-            $this->filePaths[] = $newFilePath;
+            $images[] = $newFilePath;
         }
+
+        return $images;
     }
 
     /**
@@ -233,7 +236,7 @@ class ProfileUploadImage
     }
 
     /**
-     * Removes a user's profile iamge
+     * Removes a user's profile image
      * @param  integer $userId The user's id
      * @return boolean
      */
