@@ -15,7 +15,7 @@
                 @if (comments_open($item->ID))
                 <?php switch_to_blog($item->blog_id); ?>
                 <span class="comments gutter gutter-right gutter-sm">
-                    <span class="pricon pricon-comments pricon-space-right">({{ comments_number('0', '1', '%') }})</span>
+                    <span class="pricon pricon-comments pricon-space-right">({{ get_comments_number($item->ID) }})</span>
                 </span>
                 <?php restore_current_blog(); ?>
                 @endif
