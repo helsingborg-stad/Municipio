@@ -13,9 +13,11 @@
                 <span>{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id), 'long') !!}</span>
                 <time class="pricon pricon-clock pricon-space-right" datetime="{{ mysql2date('Y-m-d H:i:s', strtotime($item->post_date)) }}">{{ mysql2date(get_option('date_format'), $item->post_date) }}</time>
                 @if (comments_open($item->ID))
+                <?php switch_to_blog($item->blog_id); ?>
                 <span class="comments gutter gutter-right gutter-sm">
                     <span class="pricon pricon-comments pricon-space-right">({{ comments_number('0', '1', '%') }})</span>
                 </span>
+                <?php restore_current_blog(); ?>
                 @endif
             </div>
 
