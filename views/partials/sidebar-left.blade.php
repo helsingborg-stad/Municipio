@@ -4,9 +4,18 @@
         @include('partials.author-box')
     @endif
 
+     <!-- Use right sidebar to the left in small-ish devices -->
     @if (is_active_sidebar('left-sidebar'))
-        <div class="grid sidebar-left-sidebar-top">
+        <div class="grid sidebar-left-sidebar-top hidden-xs hidden-sm hidden-md">
             <?php dynamic_sidebar('left-sidebar'); ?>
+        </div>
+    @endif
+
+    <!-- Use right sidebar to the left in small-ish devices -->
+    @if (is_active_sidebar('left-sidebar') || is_active_sidebar('right-sidebar'))
+        <div class="grid sidebar-left-sidebar-top hidden-lg">
+            <?php dynamic_sidebar('left-sidebar'); ?>
+            <?php dynamic_sidebar('right-sidebar'); ?>
         </div>
     @endif
 
