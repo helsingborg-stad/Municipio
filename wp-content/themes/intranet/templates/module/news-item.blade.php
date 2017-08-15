@@ -12,6 +12,11 @@
             <div class="sub-heading clearfix">
                 <span>{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id), 'long') !!}</span>
                 <time class="pricon pricon-clock pricon-space-right" datetime="{{ mysql2date('Y-m-d H:i:s', strtotime($item->post_date)) }}">{{ mysql2date(get_option('date_format'), $item->post_date) }}</time>
+                @if (comments_open($item->ID))
+                <span class="comments gutter gutter-right gutter-sm">
+                    <span class="pricon pricon-comments pricon-space-right">({{ comments_number('0', '1', '%') }})</span>
+                </span>
+                @endif
             </div>
 
             <h3 class="box-title text-highlight">{{ apply_filters('the_title', $item->post_title) }}</h3>

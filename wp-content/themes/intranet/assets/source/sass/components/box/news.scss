@@ -52,12 +52,18 @@
             margin-top: 15px;
         }
 
-        time {
+        time, .comments {
             margin-top: 5px;
             float: right;
         }
 
-        .sub-heading span {
+        .comments {
+            font-size: .8em;
+            vertical-align: baseline;
+            line-height: 1;
+        }
+
+        .sub-heading > span:not(.comments) {
             color: $palette-purple-4;
             font-weight: bold;
         }

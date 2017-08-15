@@ -1293,13 +1293,20 @@ a.dropdown-open:focus {
 .sidebar-content-area-top .modularity-mod-intranet-news .read-more {
   margin-top: 15px; }
 
-.sidebar-content-area-bottom .modularity-mod-intranet-news time,
-.sidebar-content-area-top .modularity-mod-intranet-news time {
+.sidebar-content-area-bottom .modularity-mod-intranet-news time, .sidebar-content-area-bottom .modularity-mod-intranet-news .comments,
+.sidebar-content-area-top .modularity-mod-intranet-news time,
+.sidebar-content-area-top .modularity-mod-intranet-news .comments {
   margin-top: 5px;
   float: right; }
 
-.sidebar-content-area-bottom .modularity-mod-intranet-news .sub-heading span,
-.sidebar-content-area-top .modularity-mod-intranet-news .sub-heading span {
+.sidebar-content-area-bottom .modularity-mod-intranet-news .comments,
+.sidebar-content-area-top .modularity-mod-intranet-news .comments {
+  font-size: .8em;
+  vertical-align: baseline;
+  line-height: 1; }
+
+.sidebar-content-area-bottom .modularity-mod-intranet-news .sub-heading > span:not(.comments),
+.sidebar-content-area-top .modularity-mod-intranet-news .sub-heading > span:not(.comments) {
   color: #7b075e;
   font-weight: bold; }
 
