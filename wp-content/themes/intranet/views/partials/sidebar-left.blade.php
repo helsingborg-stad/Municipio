@@ -1,7 +1,7 @@
 @if ($hasLeftSidebar)
 <aside class="grid-md-4 grid-lg-3 sidebar-left-sidebar hidden-print">
     @if (is_active_sidebar('left-sidebar'))
-        <div class="grid sidebar-left-sidebar-top">
+        <div class="grid sidebar-left-sidebar-top hidden-xs hidden-sm hidden-md">
             <?php dynamic_sidebar('left-sidebar'); ?>
         </div>
     @endif
@@ -16,6 +16,14 @@
         <li class="link-box network-title"><a href="{{ $site->path }}">{!! municipio_intranet_format_site_name($site) !!}</a></li>
     @endforeach
     </ul>
+    @endif
+
+    <!-- Use right sidebar to the left in small-ish devices -->
+    @if (is_active_sidebar('left-sidebar')||$hasRightSidebar)
+        <div class="grid sidebar-left-sidebar-top hidden-lg">
+            <?php dynamic_sidebar('left-sidebar'); ?>
+            <?php dynamic_sidebar('right-sidebar'); ?>
+        </div>
     @endif
 
     @if (is_active_sidebar('left-sidebar-bottom'))
