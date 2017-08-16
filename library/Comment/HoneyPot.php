@@ -79,7 +79,7 @@ class HoneyPot
      */
     public function printFakeHideBox()
     {
-        echo '<style>.fake-hide {width: 1px; height: 1px; opacity: 0.0001; position: absolute;}</style>';
+        echo '<style>.fake-hide {width: 1px; height: 1px; opacity: 0.0001; position: absolute; overflow: hidden;}</style>';
     }
 
     /**
