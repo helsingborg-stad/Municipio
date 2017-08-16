@@ -216,3 +216,28 @@ if (!function_exists('municipio_current_url')) {
         return "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
     }
 }
+
+
+if (!function_exists('municipio_get_user_profile_url')) {
+    /**
+     * Get profile url
+     * @param  mixed $user User id or login name, default is current logged in user
+     * @return string
+     */
+    function municipio_get_user_profile_url($user = null)
+    {
+        if (is_null($user)) {
+            $user = wp_get_current_user();
+        } elseif (is_numeric($user)) {
+            $user = get_user_by('ID', $user);
+        } elseif (is_string($user)) {
+            $user = get_user_by('slug', $user);
+        }
+
+        if (!is_a($user, 'WP_User')) {
+            return null;
+        }
+
+        return network_site_url('user/' . $user->data->user_login);
+    }
+}

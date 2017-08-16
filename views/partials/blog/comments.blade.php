@@ -4,7 +4,7 @@
             <li class="comment">
                 <header>
                     <div class="author-image">
-                        <a href="{{ municipio_intranet_get_user_profile_url($comment->user_id) }}">
+                        <a href="{{ municipio_get_user_profile_url($comment->user_id) }}">
                             @if(get_the_author_meta('user_profile_picture', $comment->user_id))
                             <img src="{{ get_the_author_meta('user_profile_picture', $comment->user_id) }}">
                             @else
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="author-name">
-                        <a class="author-link" href="{{ municipio_intranet_get_user_profile_url($comment->user_id) }}">
+                        <a class="author-link" href="{{ municipio_get_user_profile_url($comment->user_id) }}">
                             <em>{{ $comment->comment_author }}</em>
                         </a>
                     </div>
@@ -33,7 +33,7 @@
                             <li>
                                 <header>
                                     <div class="author-image">
-                                        <a href="{{ municipio_intranet_get_user_profile_url($answer->user_id) }}">
+                                        <a href="{{ municipio_get_user_profile_url($answer->user_id) }}">
                                             @if(get_the_author_meta('user_profile_picture', $answer->user_id))
                                             <img src="{{ get_the_author_meta('user_profile_picture', $answer->user_id) }}">
                                             @else
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <div class="author-name">
-                                        <a class="author-link" href="{{ municipio_intranet_get_user_profile_url($answer->user_id) }}">
+                                        <a class="author-link" href="{{ municipio_get_user_profile_url($answer->user_id) }}">
                                             <em>{{ $answer->comment_author }}</em>
                                         </a>
                                     </div>
