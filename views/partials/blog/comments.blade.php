@@ -4,9 +4,9 @@
             <li class="comment">
                 <header>
                     <div class="author-image">
-                        <a href="{{ municipio_get_user_profile_url($comment->user_id) }}">
-                            @if(get_the_author_meta('user_profile_picture', $comment->user_id))
-                            <img src="{{ get_the_author_meta('user_profile_picture', $comment->user_id) }}">
+                        <a href="{{ municipio_get_user_profile_url($comment->comment_author_email) }}">
+                            @if(get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID))
+                            <img src="{{ get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID) }}">
                             @else
                             <i class="pricon pricon-2x pricon-user-o"></i>
                             @endif
@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="author-name">
-                        <a class="author-link" href="{{ municipio_get_user_profile_url($comment->user_id) }}">
+                        <a class="author-link" href="{{ municipio_get_user_profile_url($comment->comment_author_email) }}">
                             <em>{{ $comment->comment_author }}</em>
                         </a>
                     </div>
@@ -33,9 +33,9 @@
                             <li>
                                 <header>
                                     <div class="author-image">
-                                        <a href="{{ municipio_get_user_profile_url($answer->user_id) }}">
-                                            @if(get_the_author_meta('user_profile_picture', $answer->user_id))
-                                            <img src="{{ get_the_author_meta('user_profile_picture', $answer->user_id) }}">
+                                        <a href="{{ municipio_get_user_profile_url($answer->comment_author_email) }}">
+                                            @if(get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID))
+                                            <img src="{{ get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID) }}">
                                             @else
                                             <i class="pricon pricon-2x pricon-user-o"></i>
                                             @endif
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <div class="author-name">
-                                        <a class="author-link" href="{{ municipio_get_user_profile_url($answer->user_id) }}">
+                                        <a class="author-link" href="{{ municipio_get_user_profile_url($answer->comment_author_email) }}">
                                             <em>{{ $answer->comment_author }}</em>
                                         </a>
                                     </div>

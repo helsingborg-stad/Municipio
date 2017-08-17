@@ -231,7 +231,11 @@ if (!function_exists('municipio_get_user_profile_url')) {
         } elseif (is_numeric($user)) {
             $user = get_user_by('ID', $user);
         } elseif (is_string($user)) {
-            $user = get_user_by('slug', $user);
+            if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
+              $user = get_user_by('email', $user);
+            } else {
+              $user = get_user_by('slug', $user);
+            }
         }
 
         if (!is_a($user, 'WP_User')) {
