@@ -9,7 +9,7 @@ class Sidebars
         add_action('widgets_init', array($this, 'register'));
         add_filter('Modularity/Module/Classes', array($this, 'moduleClasses'), 10, 3);
         add_filter('Modularity/Module/WpWidget/before', array($this, 'wpWidgetBefore'), 10, 3);
-        add_filter('Modularity/Editor/SidebarCompability', array($this, 'moduleSidebarCompability'), 10, 2);
+        add_filter('Modularity/Editor/SidebarIncompability', array($this, 'moduleSidebarIncompability'), 10, 2);
     }
 
     public function wpWidgetBefore($before, $sidebarArgs, $module)
@@ -178,15 +178,51 @@ class Sidebars
      * @return array
      */
 
-    public function moduleSidebarCompability($moduleSpecification, $modulePostType) : array
+    public function moduleSidebarIncompability($moduleSpecification, $modulePostType) : array
     {
+
+        // List of avabile areas.
+        // right-sidebar
+        // left-sidebar-bottom
+        // left-sidebar
+        // content-area-bottom
+        // content-area
+        // content-area-top
+        // slider-area
+        // footer-area
 
         switch ($modulePostType) {
             case "mod-slider":
-                $moduleSpecification['sidebar_compability'] = array("content-area", "content-area-top", "content-area-bottom", "slider-area");
+            case "mod-video":
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area");
                 break;
             case "mod-table":
-                $moduleSpecification['sidebar_compability'] = array("content-area", "content-area-top", "content-area-bottom");
+            case "mod-gallery":
+            case "mod-guide":
+            case "mod-alarms":
+            case "mod-interactive-map":
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "slider-area");
+                break;
+            case "mod-posts":
+            case "mod-location":
+            case "mod-social":
+            case "mod-dictionary":
+            case "mod-contacts":
+            case "mod-fileslist":
+            case "mod-g-calendar":
+            case "mod-index":
+            case "mod-inlaylist":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area", "slider-area");
+                break;
+            case "mod-rss":
+            case "mod-script":
+            case "mod-notice":
+            case "mod-iframe":
+            case "mod-event":
+            case "mod-form":
+            case "mod-location":
+            case "mod-text":
+                $moduleSpecification['sidebar_incompability'] = array("slider-area");
                 break;
         }
 
