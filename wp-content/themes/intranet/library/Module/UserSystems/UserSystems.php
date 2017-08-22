@@ -2,14 +2,21 @@
 
 namespace Intranet\Module;
 
+use Philo\Blade\Blade as Blade;
+
 class UserSystems extends \Modularity\Module
 {
+    public static $renderedModal = false;
     public $slug = 'intranet-u-systems';
     public $icon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgOTU2LjY5OSA5NTYuNjk5Ij48cGF0aCBkPSJNNzgyLjcgNDEzLjJoLS41Yy03LjctMTIxLjctMTA4LjktMjE4LTIzMi41LTIxOC0xMTQuMSAwLTIwOSA4Mi0yMjkuMSAxOTAuMi0yLjYtLjEtNS4zLS4yLTcuOS0uMi04NSAwLTE1Ni43IDU2LjMtMTgwLjEgMTMzLjYtMy42LS4zLTcuMy0uNS0xMS0uNUM1NC41IDUxOC4zIDAgNTcyLjcgMCA2MzkuOWMwIDY3LjIgNTQuNCAxMjEuNiAxMjEuNSAxMjEuNmg2NjEuMWM5Ni4yIDAgMTc0LjEtNzggMTc0LjEtMTc0LjEwMiAwLTk2LjEtNzcuOC0xNzQuMi0xNzQtMTc0LjJ6IiBmaWxsPSIjRkZGIi8+PC9zdmc+';
     public $supports = array();
 
     public $templateDir = INTRANET_TEMPLATE_PATH . 'module';
 
+    /**
+     * Init functions
+     * @return void
+     */
     public function init()
     {
         $this->nameSingular = __('User systems', 'municipio-intranet');
@@ -19,17 +26,25 @@ class UserSystems extends \Modularity\Module
 
         add_action('template_redirect', array($this, 'saveUserSystems'));
         add_filter('Modularity/Display/' . $this->moduleSlug . '/Markup', array($this, 'restrictAccess'), 10, 2);
+        add_action('wp_footer', array($this, 'renderModal'));
     }
 
+    /**
+     * Gather view data
+     * @return void
+     */
     public function data() : array
     {
         $data = array();
         $data['selectedSystems'] = \Intranet\User\Systems::getAvailabelSystems('user', array('user_only_selected'));
         $data['availableSystems'] = \Intranet\User\Systems::getAvailabelSystems('user', array('user'));
-
         return $data;
     }
 
+    /**
+     * Save users system on post
+     * @return void
+     */
     public function saveUserSystems()
     {
         if (!isset($_REQUEST['select-systems']) || !wp_verify_nonce($_REQUEST['select-systems'], 'save')) {
@@ -54,7 +69,6 @@ class UserSystems extends \Modularity\Module
     }
 
     /**
-     *
      * Restrict access for the module (only logged in users)
      * @param  string $markup Markup
      * @param  object $module Module post object
@@ -67,6 +81,19 @@ class UserSystems extends \Modularity\Module
         }
 
         return $markup;
+    }
+
+    /**
+     * Render modal in footer once
+     * @return void
+     */
+    public function renderModal()
+    {
+        if (!self::$renderedModal) {
+            $blade = new Blade($this->templateDir, WP_CONTENT_DIR . '/uploads/cache/blade-cache');
+            echo $blade->view()->make('intranet-i-systems-modal', $this->data())->render();
+        }
+        self::$renderedModal = true;
     }
 
     /**
