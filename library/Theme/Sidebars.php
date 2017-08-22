@@ -9,6 +9,7 @@ class Sidebars
         add_action('widgets_init', array($this, 'register'));
         add_filter('Modularity/Module/Classes', array($this, 'moduleClasses'), 10, 3);
         add_filter('Modularity/Module/WpWidget/before', array($this, 'wpWidgetBefore'), 10, 3);
+        add_filter('Modularity/Editor/SidebarCompability', array($this, 'moduleSidebarCompability'), 10, 2);
     }
 
     public function wpWidgetBefore($before, $sidebarArgs, $module)
@@ -169,5 +170,26 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>'
         ));
+    }
+
+    /**
+     * Appends compability support
+     * @param  array $moduleSpecification Original module settings
+     * @return array
+     */
+
+    public function moduleSidebarCompability($moduleSpecification, $modulePostType) : array
+    {
+
+        switch ($modulePostType) {
+            case "mod-slider":
+                $moduleSpecification['sidebar_compability'] = array("content-area", "content-area-top", "content-area-bottom", "slider-area");
+                break;
+            case "mod-table":
+                $moduleSpecification['sidebar_compability'] = array("content-area", "content-area-top", "content-area-bottom");
+                break;
+        }
+
+        return $moduleSpecification;
     }
 }
