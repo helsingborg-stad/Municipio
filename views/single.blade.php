@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            @if (is_single() && comments_open())
+            @if (is_single() && comments_open() && is_user_logged_in() && get_option('comment_order') == 'desc')
                 <div class="grid">
                     <div class="grid-sm-12">
                         @include('partials.blog.comments-form')
@@ -30,6 +30,17 @@
                 <div class="grid">
                     <div class="grid-sm-12">
                         @include('partials.blog.comments')
+                    </div>
+                </div>
+            @elseif (is_single() && comments_open() && is_user_logged_in() && get_option('comment_order') == 'asc')
+                <div class="grid">
+                    <div class="grid-sm-12">
+                        @include('partials.blog.comments')
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="grid-sm-12">
+                        @include('partials.blog.comments-form')
                     </div>
                 </div>
             @endif

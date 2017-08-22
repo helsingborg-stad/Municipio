@@ -1,7 +1,7 @@
 <ul id="comments" class="comments">
     @foreach($comments as $comment)
         @if($comment->comment_parent == 0)
-            <li class="comment">
+            <li class="comment" id="comment-{{$comment->comment_ID}}">
                 <header>
                     <div class="author-image">
                         <a href="{{ municipio_get_user_profile_url($comment->comment_author_email) }}">
@@ -22,6 +22,10 @@
                     <time data-tooltip="{{ date('Y-m-d \k\l\. H:i', strtotime($comment->comment_date)) }}" data-tooltip-right datetime="{{ $comment->comment_date_gmt }}">
                         {{ municipio_human_datediff($comment->comment_date) }} sedan
                     </time>
+
+                    <div class="reply">
+                        {{comment_reply_link($replyArgs,$comment->comment_ID,$comment->comment_post_ID)}}
+                    </div>
                 </header>
                 <div class="comment-text">
                     {!! comment_text($comment->comment_ID); !!}
