@@ -34,7 +34,8 @@ class News
      * Add searchable blade template paths
      * @param array $array Template paths
      */
-    public function addTemplatePaths($array) {
+    public function addTemplatePaths($array)
+    {
         $array[] = get_stylesheet_directory() . '/templates';
         return $array;
     }
@@ -236,7 +237,7 @@ class News
             ),
             'hierarchical'         => false,
             'exclude_from_search'  => false,
-            'taxonomies'           => array(),
+            'taxonomies'           => array('category'),
             'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author', 'comments')
         );
 
@@ -249,7 +250,7 @@ class News
      * @param  mixed   $site  'all' for all sites, array with blog ids or null for current
      * @return array          News array
      */
-    public static function getNews($count = 10, $site = null, $offset = null, $render = false)
+    public static function getNews($count = 10, $site = null, $offset = null, $render = false, $categoryId = null)
     {
         $news = null;
 
@@ -263,7 +264,7 @@ class News
             $args = json_decode(html_entity_decode(stripslashes($_POST['args'])), true);
         }
 
-        if (is_null($site)) {
+        if (is_null($site)||(is_array($site) && count($site) == 1 && array_pop($site) == get_current_blog_id())) {
             // Current site
             $postStatuses = array('publish');
 
@@ -271,12 +272,19 @@ class News
                 $postStatuses[] = 'private';
             }
 
-            $news = get_posts(array(
+            $postArgs = array(
                 'post_type'      => 'intranet-news',
                 'post_status'    => $postStatuses,
                 'posts_per_page' => $count,
                 'offset'         => $offset
-            ));
+            );
+
+            if (!is_null($categoryId)) {
+                $postArgs['category'] = $categoryId;
+            }
+
+            $news = get_posts($postArgs);
+
         } elseif ($site == 'all') {
             // All sites
             $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
@@ -290,40 +298,46 @@ class News
             $template = new \Municipio\template;
         }
 
-        foreach ($news as $item) {
-            switch_to_blog($item->blog_id);
+        if (is_array($news) && !empty($news)) {
+            foreach ($news as $item) {
+                if (isset($item->blog_id)) {
+                    switch_to_blog($item->blog_id);
+                }
 
-            // Get thumbnail-image
-            $item->thumbnail_image = wp_get_attachment_image_src(
-                get_post_thumbnail_id($item->ID),
-                apply_filters('modularity/image/mainnews',
-                    municipio_to_aspect_ratio('16:9', array(610, 343))
-                )
-            );
-
-            // Get full image
-            $item->image = wp_get_attachment_image_src(
-                get_post_thumbnail_id($item->ID),
-                apply_filters('modularity/image/mainnews',
-                    municipio_to_aspect_ratio('16:9', array(1000, 500))
-                )
-            );
-
-            if ($render && $module) {
-                $view = \Municipio\Helper\Template::locateTemplate('news-item.blade.php', array(get_stylesheet_directory() . '/templates/module'));
-                $view = $template->cleanViewPath($view);
-                $data = array(
-                    'item'      => $item,
-                    'args'      => $args,
-                    'classes'   => implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $item->post_type, $args))
+                // Get thumbnail-image
+                $item->thumbnail_image = wp_get_attachment_image_src(
+                    get_post_thumbnail_id($item->ID),
+                    apply_filters('modularity/image/mainnews',
+                        municipio_to_aspect_ratio('16:9', array(610, 343))
+                    )
                 );
 
-                ob_start();
-                $template->render($view, $data);
-                $item->markup = ob_get_clean();
-            }
+                // Get full image
+                $item->image = wp_get_attachment_image_src(
+                    get_post_thumbnail_id($item->ID),
+                    apply_filters('modularity/image/mainnews',
+                        municipio_to_aspect_ratio('16:9', array(1000, 500))
+                    )
+                );
 
-            restore_current_blog();
+                if ($render && $module) {
+                    $view = \Municipio\Helper\Template::locateTemplate('news-item.blade.php', array(get_stylesheet_directory() . '/templates/module'));
+                    $view = $template->cleanViewPath($view);
+                    $data = array(
+                        'item'      => $item,
+                        'args'      => $args,
+                        'classes'   => implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $item->post_type, $args))
+                    );
+
+                    ob_start();
+                    $template->render($view, $data);
+                    $item->markup = ob_get_clean();
+                }
+
+                if (isset($item->blog_id)) {
+                    restore_current_blog();
+                }
+            }
         }
 
         return $news;

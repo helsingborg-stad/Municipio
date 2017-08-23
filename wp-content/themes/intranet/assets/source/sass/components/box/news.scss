@@ -139,3 +139,18 @@
 .modularity-mod-intranet-news .box-news:hover .read-more {
     background-color: #E0DED9;
 }
+
+.modularity-mod-intranet-news .intranet-news-header h2 {
+    width: 70%;
+    float: left;
+}
+
+.modularity-mod-intranet-news .intranet-news-header select.postform {
+    float: right;
+    width: 30%;
+    padding: 3px 10px;
+}
+
+.grid.intranet-news-header + .grid.intranet-news {
+    margin-top: 0;
+}

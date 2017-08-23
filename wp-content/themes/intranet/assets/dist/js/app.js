@@ -708,12 +708,24 @@ Intranet.Misc = Intranet.Misc || {};
 
 Intranet.Misc.News = (function ($) {
     function News() {
-        $('[data-action="intranet-news-load-more"]').prop('disabled', false);
 
-        $('[data-action="intranet-news-load-more"]').on('click', function (e) {
-            var button = $(e.target).closest('button');
-            var container = button.parents('.modularity-mod-intranet-news').find('.intranet-news');
-            this.loadMore(container, button);
+        //Init
+        this.container  = $('.modularity-mod-intranet-news .intranet-news');
+        this.button     = $('.modularity-mod-intranet-news [data-action="intranet-news-load-more"]');
+        this.category   = $('.modularity-mod-intranet-news select[name="cat"]');
+
+        //Enable disabled button
+        this.button.prop('disabled', false);
+
+        //Load more click
+        this.button.on('click', function (e) {
+            this.loadMore(this.container, this.button);
+        }.bind(this));
+
+        //Category switcher
+        this.category.on('change', function (e) {
+            this.container.empty();
+            this.loadMore(this.container, this.button);
         }.bind(this));
     }
 
@@ -728,17 +740,24 @@ Intranet.Misc.News = (function ($) {
     };
 
     News.prototype.loadMore = function(container, button) {
-        var callbackUrl = container.attr('data-infinite-scroll-callback');
-        var pagesize = container.attr('data-infinite-scroll-pagesize');
-        var sites = container.attr('data-infinite-scroll-sites');
-        var offset = container.find('a.box-news').length ? container.find('a.box-news').length + 1 : 0;
-        var module = container.attr('data-module');
-        var args = container.attr('data-args');
+        var callbackUrl     = container.attr('data-infinite-scroll-callback');
+        var pagesize        = container.attr('data-infinite-scroll-pagesize');
+        var sites           = container.attr('data-infinite-scroll-sites');
+        var offset          = container.find('a.box-news').length ? container.find('a.box-news').length + 1 : 0;
+        var module          = container.attr('data-module');
+        var category        = this.category.val();
+        var args            = container.attr('data-args');
 
         this.showLoader(button);
 
+        if(!isNaN(parseFloat(category)) && isFinite(category)) {
+            var url = callbackUrl + pagesize + '/' + offset + '/' + sites + '/' + category;
+        } else {
+            var url = callbackUrl + pagesize + '/' + offset + '/' + sites + '/0';
+        }
+
         $.ajax({
-            url: callbackUrl + pagesize + '/' + offset + '/' + sites,
+            url: url,
             method: 'POST',
             data: {
                 module: module,

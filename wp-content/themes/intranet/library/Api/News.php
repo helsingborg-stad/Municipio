@@ -11,7 +11,7 @@ class News
 
     public function routes()
     {
-        register_rest_route('intranet/1.0', '/news/(?P<count>(.*)+)/(?P<offset>(.*)+)/(?P<sites>(.*)+)', array(
+        register_rest_route('intranet/1.0', '/news/(?P<count>(.*)+)/(?P<offset>(.*)+)/(?P<sites>(.*)+)/(?P<category>(.*)+)', array(
             'methods' => 'POST',
             'callback' => array($this, 'getNews'),
             'args' => array(
@@ -30,6 +30,12 @@ class News
                 'sites' => array(
                     'required' => true
                 ),
+                'category' => array(
+                    'required' => false,
+                    'validate_callback' => function ($param, $request, $key) {
+                        return is_numeric($param);
+                    }
+                ),
             )
         ));
     }
@@ -37,12 +43,13 @@ class News
     public function getNews($data)
     {
         $sites = $data['sites'];
+        $category = !empty($data['category']) ? $data['category'] : null;
 
         if ($sites !== 'all' || !is_null($sites)) {
             $sites = explode(',', $sites);
         }
 
-        $news = \Intranet\CustomPostType\News::getNews($data['count'], $sites, $data['offset'], true);
+        $news = \Intranet\CustomPostType\News::getNews($data['count'], $sites, $data['offset'], true, $category);
         return $news;
     }
 }

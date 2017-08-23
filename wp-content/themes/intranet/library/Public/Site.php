@@ -78,6 +78,11 @@ if (!function_exists('municipio_intranet_format_site_name')) {
      */
     function municipio_intranet_format_site_name($site, $parts = 'all')
     {
+
+        if (!is_object($site)) {
+            $site = \Intranet\Helper\Multisite::getSite(get_current_blog_id());
+        }
+
         switch ($parts) {
             case 'short':
                 return ($site->short_name) ? $site->short_name : '';
@@ -88,6 +93,7 @@ if (!function_exists('municipio_intranet_format_site_name')) {
             default:
                 return ($site->short_name) ? $site->short_name . ' <em>' . $site->name . '</em>' : $site->name;
         }
+
     }
 }
 

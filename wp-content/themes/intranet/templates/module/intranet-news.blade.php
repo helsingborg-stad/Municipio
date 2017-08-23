@@ -12,6 +12,18 @@ $cache = new Municipio\Helper\Cache('intranet-news', array(
 
 @if ($cache->start())
 @if (count($news) > 0)
+
+    <div class="grid intranet-news-header">
+        @if (!$hideTitle && !empty($post_title))
+        <div class="grid-xs-12">
+            <h2>{!! apply_filters('the_title', $post_title) !!}</h2>
+            @if(true)
+                {!! wp_dropdown_categories($categoryDropdownArgs) !!}
+            @endif
+        </div>
+        @endif
+    </div>
+
     <div class="grid intranet-news" data-infinite-scroll-callback="{{ rest_url('intranet/1.0/news/') }}" data-infinite-scroll-pagesize="{{ $limit }}" data-infinite-scroll-sites="{{ $sites }}" data-module="{{ htmlentities(json_encode($module)) }}" data-args="{!! htmlentities(json_encode($args)) !!}">
         <?php
             echo municipio_intranet_walkthrough(
@@ -21,12 +33,6 @@ $cache = new Municipio\Helper\Cache('intranet-news', array(
                 'top-center'
             );
         ?>
-
-        @if (!$hideTitle && !empty($post_title))
-        <div class="grid-xs-12">
-            <h2>{!! apply_filters('the_title', $post_title) !!}</h2>
-        </div>
-        @endif
 
         <?php $i = 0; ?>
         @foreach ($news as $item)

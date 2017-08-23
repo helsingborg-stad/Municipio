@@ -42,6 +42,13 @@ class News extends \Modularity\Module
 
         $data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-news', 'box-news-horizontal'), $this->post_type, $this->args));
 
+        $data['categoryDropdownArgs'] = array(
+            'orderby' => 'name',
+            'echo' => 0,
+            'show_option_all' => __("Select category", 'municipio-intranet'),
+            'hide_if_empty' => true
+        );
+
         return $data;
     }
 
