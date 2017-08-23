@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-08-09 14:24+0200\n"
-"PO-Revision-Date: 2017-08-09 14:25+0200\n"
+"POT-Creation-Date: 2017-08-23 15:32+0200\n"
+"PO-Revision-Date: 2017-08-23 15:32+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -218,52 +218,52 @@ msgstr "Varaktighet"
 msgid "Incidents"
 msgstr "Driftstörningar"
 
-#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:211
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:212
 msgctxt "add new button"
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:212
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:213
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:213
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:214
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:214
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:215
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:215
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:216
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:216
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:217
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:217
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:218
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:218
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:219
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:219
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:220
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:220
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:221
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
@@ -276,28 +276,28 @@ msgstr "Rapportering av driftstörning"
 msgid "incidents"
 msgstr "driftstörningar"
 
-#: library/CustomPostType/News.php:66
+#: library/CustomPostType/News.php:67
 msgid "This post is more than 60 days old"
 msgstr "Inlägget är mer än 60 dagar gammalt"
 
-#: library/CustomPostType/News.php:135
+#: library/CustomPostType/News.php:136
 msgid "Pin to top"
 msgstr "Klistra till toppen"
 
-#: library/CustomPostType/News.php:173
+#: library/CustomPostType/News.php:174
 msgid "Exclude from main news feed"
 msgstr "Exkludera från huvudsidans nyhetsflöde"
 
-#: library/CustomPostType/News.php:201 library/CustomPostType/News.php:202
+#: library/CustomPostType/News.php:202 library/CustomPostType/News.php:203
 #: library/Module/News/News.php:16 library/Module/News/News.php:17
 msgid "News"
 msgstr "Nyheter"
 
-#: library/CustomPostType/News.php:225
+#: library/CustomPostType/News.php:226
 msgid "News stories"
 msgstr "Nyheter"
 
-#: library/CustomPostType/News.php:234
+#: library/CustomPostType/News.php:235
 msgid "news"
 msgstr "nyheter"
 
@@ -317,6 +317,10 @@ msgstr ""
 "Visa nyheter från intranät som den inloggade användaren följer (eller från "
 "alla om man är utloggad)."
 
+#: library/Module/News/News.php:48
+msgid "Select category"
+msgstr "Välj kategori"
+
 #: library/Module/UserLinks/UserLinks.php:16
 msgid "User link"
 msgstr "Användarlänk"
@@ -329,13 +333,13 @@ msgstr "Användarlänkar"
 msgid "Shows a user's link list"
 msgstr "Visar en användares länklista"
 
-#: library/Module/UserSystems/UserSystems.php:15
-#: library/Module/UserSystems/UserSystems.php:16 library/User/Systems.php:31
+#: library/Module/UserSystems/UserSystems.php:22
+#: library/Module/UserSystems/UserSystems.php:23 library/User/Systems.php:31
 #: library/User/Systems.php:32
 msgid "User systems"
 msgstr "Användarsystem"
 
-#: library/Module/UserSystems/UserSystems.php:17
+#: library/Module/UserSystems/UserSystems.php:24
 msgid "Shows a users's system link list"
 msgstr "Visar en användares lista på system"
 
@@ -352,7 +356,7 @@ msgid "Next"
 msgstr "Nästa"
 
 #: library/Public/Helper.php:65
-#: templates/module/intranet-u-systems.blade.php:102
+#: templates/module/intranet-i-systems-modal.blade.php:41
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -402,7 +406,7 @@ msgstr "Klar"
 msgid "No more news to load"
 msgstr "Det finns inga fler nyheter"
 
-#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:583
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:584
 #: views/partials/breadcrumbs.blade.php:33
 msgid "Disable welcome phrase"
 msgstr "Dölj hälsningsfras"
@@ -525,8 +529,8 @@ msgstr "Målgrupper"
 #: templates/admin/systems/form.php:95
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
+#: templates/module/intranet-i-systems-modal.blade.php:42
 #: templates/module/intranet-u-links.blade.php:49
-#: templates/module/intranet-u-systems.blade.php:103
 msgid "Save"
 msgstr "Spara"
 
@@ -580,12 +584,12 @@ msgstr ""
 
 #: templates/admin/systems/form.php:43 templates/admin/systems/form.php:79
 #: templates/admin/systems/form.php:111
-#: templates/module/intranet-u-systems.blade.php:82
+#: templates/module/intranet-i-systems-modal.blade.php:21
 msgid "Name"
 msgstr "Namn"
 
 #: templates/admin/systems/form.php:44 templates/admin/systems/form.php:87
-#: templates/module/intranet-u-systems.blade.php:83
+#: templates/module/intranet-i-systems-modal.blade.php:22
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -665,15 +669,26 @@ msgstr "Utanför stadens nätverk (kan inte använda SSO)"
 msgid "All administration units"
 msgstr "Alla förvaltningar"
 
+#: templates/module/intranet-i-systems-modal.blade.php:8
+#: templates/module/intranet-u-systems.blade.php:17
+#: templates/module/intranet-u-systems.blade.php:42
+msgid "Select systems"
+msgstr "Välj system"
+
+#: templates/module/intranet-i-systems-modal.blade.php:13
+msgid ""
+"Select the systems that you would like to show in your \"My systems\" area."
+msgstr "Välj system som du vill visa i din lista över ”mina system”."
+
 #: templates/module/intranet-incident-list.blade.php:10
 msgid "Show all incidents"
 msgstr "Visa alla driftstörningar"
 
-#: templates/module/intranet-news.blade.php:18
+#: templates/module/intranet-news.blade.php:30
 msgid "News feed"
 msgstr "Nyhetsflöde"
 
-#: templates/module/intranet-news.blade.php:19
+#: templates/module/intranet-news.blade.php:31
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -684,11 +699,11 @@ msgstr ""
 "anställda. Du ser också nyheterna från din förvaltnings intranät (om det "
 "finns ett sådant) och från de intranät du följer."
 
-#: templates/module/intranet-news.blade.php:41
+#: templates/module/intranet-news.blade.php:47
 msgid "Load more news"
 msgstr "Ladda in fler nyheter"
 
-#: templates/module/intranet-news.blade.php:54
+#: templates/module/intranet-news.blade.php:60
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -725,12 +740,6 @@ msgstr ""
 "Här listas de vanligaste systemen i din förvaltning. Klicka på redigera för "
 "att lägga till fler system i listan."
 
-#: templates/module/intranet-u-systems.blade.php:17
-#: templates/module/intranet-u-systems.blade.php:42
-#: templates/module/intranet-u-systems.blade.php:69
-msgid "Select systems"
-msgstr "Välj system"
-
 #: templates/module/intranet-u-systems.blade.php:24
 msgid "Could not save your selected systems."
 msgstr "Vi kunde tyvärr inte spara dina nya systemval."
@@ -761,12 +770,7 @@ msgstr ""
 msgid "You need to be on the city network to use this system"
 msgstr "Du måste vara inloggad på stadens nätverk för att använda detta system"
 
-#: templates/module/intranet-u-systems.blade.php:74
-msgid ""
-"Select the systems that you would like to show in your \"My systems\" area."
-msgstr "Välj system som du vill visa i din lista över ”mina system”."
-
-#: templates/module/news-item.blade.php:32
+#: templates/module/news-item.blade.php:41
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -852,8 +856,8 @@ msgstr "Personlig information"
 #: views/author-edit.blade.php:268 views/author-edit.blade.php:298
 #: views/author-edit.blade.php:347 views/author-edit.blade.php:365
 #: views/author-edit.blade.php:419 views/author-edit.blade.php:471
-#: views/author-edit.blade.php:523 views/author-edit.blade.php:576
-#: views/author-edit.blade.php:595
+#: views/author-edit.blade.php:524 views/author-edit.blade.php:577
+#: views/author-edit.blade.php:596
 msgid "Incomplete"
 msgstr "Ofullständig"
 
@@ -865,13 +869,13 @@ msgstr "Ofullständig"
 msgid "Not editable"
 msgstr "Ej redigerbar"
 
-#: views/author-edit.blade.php:102 views/author.blade.php:112
+#: views/author-edit.blade.php:102 views/author.blade.php:118
 #: views/partials/modal/missing-data-fields/user_email.blade.php:4
 #: views/partials/modal/missing-data-fields/user_email.blade.php:16
 msgid "Email"
 msgstr "E-post"
 
-#: views/author-edit.blade.php:108 views/author.blade.php:100
+#: views/author-edit.blade.php:108 views/author.blade.php:106
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:4
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:16
 msgid "Phone number"
@@ -948,7 +952,7 @@ msgstr "Avdelning/enhet"
 msgid "Web-department"
 msgstr "Webbenheten"
 
-#: views/author-edit.blade.php:233 views/author.blade.php:135
+#: views/author-edit.blade.php:233 views/author.blade.php:141
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:4
 msgid "Visiting address"
 msgstr "Besöksadress"
@@ -1022,7 +1026,7 @@ msgid "Write a short personal presentation…"
 msgstr "Här kan du skriva en kort presentation om dig själv…"
 
 #: views/author-edit.blade.php:365 views/author-edit.blade.php:386
-#: views/author.blade.php:181
+#: views/author.blade.php:187
 msgid "Work assignments"
 msgstr "Arbetsuppgifter"
 
@@ -1065,7 +1069,7 @@ msgstr "Lägg till ansvarsområde"
 msgid "Added work assignments"
 msgstr "Arbetsuppgifter som du lagt till"
 
-#: views/author-edit.blade.php:419 views/author.blade.php:166
+#: views/author-edit.blade.php:419 views/author.blade.php:172
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
 msgid "Skills"
 msgstr "Kompetenser"
@@ -1116,101 +1120,105 @@ msgstr "Dina kompetenser"
 msgid "Profile image"
 msgstr "Profilbild"
 
-#: views/author-edit.blade.php:480 views/author-edit.blade.php:532
+#: views/author-edit.blade.php:481 views/author-edit.blade.php:533
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr "Är du säker på att du vill ta bort din profilbild?"
 
-#: views/author-edit.blade.php:480 views/author-edit.blade.php:532
+#: views/author-edit.blade.php:481
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Delete profile image"
 msgstr "Ta bort profilbild"
 
-#: views/author-edit.blade.php:491 views/author-edit.blade.php:543
+#: views/author-edit.blade.php:492 views/author-edit.blade.php:544
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr "Dra ett bild hit"
 
-#: views/author-edit.blade.php:493 views/author-edit.blade.php:545
+#: views/author-edit.blade.php:494 views/author-edit.blade.php:546
 #: views/partials/header/intranet.blade.php:21
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr "eller"
 
-#: views/author-edit.blade.php:494 views/author-edit.blade.php:546
+#: views/author-edit.blade.php:495 views/author-edit.blade.php:547
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr "Välj en bild"
 
-#: views/author-edit.blade.php:512 views/author-edit.blade.php:564
+#: views/author-edit.blade.php:513 views/author-edit.blade.php:565
 msgid "Max filesize"
 msgstr "Max filstorlek"
 
-#: views/author-edit.blade.php:513 views/author-edit.blade.php:565
+#: views/author-edit.blade.php:514 views/author-edit.blade.php:566
 msgid "Allowed filetypes"
 msgstr "Tillåtna filtyper"
 
-#: views/author-edit.blade.php:523
+#: views/author-edit.blade.php:524
 msgid "Profile cover"
 msgstr "Omslagsbild"
 
-#: views/author-edit.blade.php:576
+#: views/author-edit.blade.php:533
+msgid "Delete profile cover"
+msgstr "Ta bort omslagsbild"
+
+#: views/author-edit.blade.php:577
 msgid "Other Settings"
 msgstr "Övriga inställningar"
 
-#: views/author-edit.blade.php:582
+#: views/author-edit.blade.php:583
 msgid "Welcome phrase"
 msgstr "Hälsningsfras"
 
-#: views/author-edit.blade.php:595
+#: views/author-edit.blade.php:596
 msgid "Theme"
 msgstr "Tema"
 
-#: views/author-edit.blade.php:601
+#: views/author-edit.blade.php:602
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: views/author-edit.blade.php:602
+#: views/author-edit.blade.php:603
 msgid "Red"
 msgstr "Röd"
 
-#: views/author-edit.blade.php:603
+#: views/author-edit.blade.php:604
 msgid "Blue"
 msgstr "Blå"
 
-#: views/author-edit.blade.php:604
+#: views/author-edit.blade.php:605
 msgid "Green"
 msgstr "Grön"
 
-#: views/author-edit.blade.php:605
+#: views/author-edit.blade.php:606
 msgid "Purple"
 msgstr "Lila"
 
-#: views/author-edit.blade.php:620
+#: views/author-edit.blade.php:621
 msgid "Save settings"
 msgstr "Spara inställningar"
 
-#: views/author.blade.php:57
+#: views/author.blade.php:63
 msgid "My profile on Facebook"
 msgstr "Min profil på Facebook"
 
-#: views/author.blade.php:60
+#: views/author.blade.php:66
 msgid "My profile on LinkedIn"
 msgstr "Min profil på LinkedIn"
 
-#: views/author.blade.php:60 views/author.blade.php:63
+#: views/author.blade.php:66 views/author.blade.php:69
 msgid "My profile on Instagram"
 msgstr "Min profil på Instagram"
 
-#: views/author.blade.php:63 views/author.blade.php:66
+#: views/author.blade.php:69 views/author.blade.php:72
 msgid "My profile on Twitter"
 msgstr "Min profil på Twitter"
 
-#: views/author.blade.php:66
+#: views/author.blade.php:72
 msgid "My profile on Snapchat"
 msgstr "Min profil på Snapchat"
 
-#: views/author.blade.php:85 views/front-page.blade.php:34
+#: views/author.blade.php:91 views/front-page.blade.php:34
 msgid "Edit settings"
 msgstr "Redigera inställningar"
 
