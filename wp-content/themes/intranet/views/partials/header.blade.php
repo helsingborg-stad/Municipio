@@ -1,4 +1,4 @@
-<header id="site-header" class="site-header {{ $headerLayout['class'] }} pos-relative">
+<header id="site-header" class="site-header @if(isset($headerLayout['class'])) {{ $headerLayout['class'] }} @endif pos-relative">
     <div class="stripe stripe-md hidden-xs hidden-sm">
         <div></div>
         <div></div>
