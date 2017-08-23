@@ -55,9 +55,11 @@ class News extends \Modularity\Module
     public function preparePosts()
     {
         if (get_field('placeholders', $this->ID)) {
-            foreach ($news as $item) {
-                if (get_thumbnail_source($item->ID) !== false) {
-                    $this->hasImages = true;
+            if (is_array($news) && !empty($news)) {
+                foreach ($news as $item) {
+                    if (get_thumbnail_source($item->ID) !== false) {
+                        $this->hasImages = true;
+                    }
                 }
             }
         }
