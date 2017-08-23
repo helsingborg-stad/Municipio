@@ -17,7 +17,7 @@ $cache = new Municipio\Helper\Cache('intranet-news', array(
         @if (!$hideTitle && !empty($post_title))
         <div class="grid-xs-12">
             <h2>{!! apply_filters('the_title', $post_title) !!}</h2>
-            @if(true)
+            @if(get_current_blog_id() != BLOG_ID_CURRENT_SITE)
                 {!! wp_dropdown_categories($categoryDropdownArgs) !!}
             @endif
         </div>
