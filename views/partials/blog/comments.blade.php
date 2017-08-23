@@ -15,7 +15,7 @@
 
                     <div class="author-name">
                         <a class="author-link" href="{{ municipio_get_user_profile_url($comment->comment_author_email) }}">
-                            <em>{{ $comment->comment_author }}</em>
+                            <em>{{ get_user_by('email', $comment->comment_author_email)->display_name }}</em>
                         </a>
                     </div>
 
