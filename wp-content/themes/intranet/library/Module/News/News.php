@@ -52,7 +52,7 @@ class News extends \Modularity\Module
         return $data;
     }
 
-    public function preparePosts()
+    public function preparePosts($news = null)
     {
         if (get_field('placeholders', $this->ID)) {
             if (is_array($news) && !empty($news)) {
