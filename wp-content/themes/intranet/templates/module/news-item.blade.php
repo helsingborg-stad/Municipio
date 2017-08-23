@@ -12,13 +12,15 @@
             <div class="sub-heading clearfix">
                 <span>{!! municipio_intranet_format_site_name(\Intranet\Helper\Multisite::getSite($item->blog_id), 'long') !!}</span>
                 <time class="pricon pricon-clock pricon-space-right" datetime="{{ mysql2date('Y-m-d H:i:s', strtotime($item->post_date)) }}">{{ mysql2date(get_option('date_format'), $item->post_date) }}</time>
-                @if (comments_open($item->ID))
+
                 <?php switch_to_blog($item->blog_id); ?>
-                <span class="comments gutter gutter-right gutter-sm">
-                    <span class="pricon pricon-comments pricon-space-right">({{ get_comments_number($item->ID) }})</span>
-                </span>
+                    @if (comments_open($item->ID))
+                    <span class="comments gutter gutter-right gutter-sm">
+                        <span class="pricon pricon-comments pricon-space-right">({{ get_comments_number($item->ID) }})</span>
+                    </span>
+                    @endif
                 <?php restore_current_blog(); ?>
-                @endif
+
             </div>
 
             <h3 class="box-title text-highlight">{{ apply_filters('the_title', $item->post_title) }}</h3>
