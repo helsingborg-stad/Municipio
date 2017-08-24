@@ -38,8 +38,8 @@
                                 <header>
                                     <div class="author-image">
                                         <a href="{{ municipio_get_user_profile_url($answer->comment_author_email) }}">
-                                            @if(get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID))
-                                            <img src="{{ get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID) }}">
+                                            @if(get_the_author_meta('user_profile_picture', get_user_by('email', $answer->comment_author_email)->ID))
+                                            <img src="{{ get_the_author_meta('user_profile_picture', get_user_by('email', $answer->comment_author_email)->ID) }}">
                                             @else
                                             <i class="pricon pricon-2x pricon-user-o"></i>
                                             @endif
