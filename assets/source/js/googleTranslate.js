@@ -1,4 +1,4 @@
-var Municipio = {};
+Muncipio = Muncipio || {};
 
 var googleTranslateLoaded = false;
 
