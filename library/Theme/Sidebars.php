@@ -216,8 +216,15 @@ class Sidebars
         // content-area-top
         // slider-area
         // footer-area
+        // top-sidebar
+        // bottom-sidebar
 
         switch ($modulePostType) {
+            case "mod-section-featured":
+            case "mod-section-full":
+            case "mod-section-split":
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "content-area-bottom", "content-area", "content-area-top", "footer-area");
+                break;
             case "mod-slider":
             case "mod-video":
                 $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area");
@@ -227,7 +234,7 @@ class Sidebars
             case "mod-guide":
             case "mod-alarms":
             case "mod-interactive-map":
-                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "slider-area");
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "slider-area", "bottom-sidebar", "top-sidebar");
                 break;
             case "mod-posts":
             case "mod-location":
@@ -238,7 +245,7 @@ class Sidebars
             case "mod-g-calendar":
             case "mod-index":
             case "mod-inlaylist":
-                $moduleSpecification['sidebar_incompability'] = array("footer-area", "slider-area");
+                $moduleSpecification['sidebar_incompability'] = array("footer-area", "slider-area", "bottom-sidebar", "top-sidebar");
                 break;
             case "mod-rss":
             case "mod-script":
@@ -248,7 +255,7 @@ class Sidebars
             case "mod-form":
             case "mod-location":
             case "mod-text":
-                $moduleSpecification['sidebar_incompability'] = array("slider-area");
+                $moduleSpecification['sidebar_incompability'] = array("slider-area", "bottom-sidebar", "top-sidebar");
                 break;
         }
 
