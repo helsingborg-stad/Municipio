@@ -40,7 +40,7 @@ class Single extends \Municipio\Controller\BaseController
             $classes[] = 'active';
         }
 
-        $output = '<a class="' . implode(' ', $classes) . '" href="#" data-post-id="' . $id . '">';
+        $output = '<a class="' . implode(' ', $classes) . '" href="#" data-comment-id="' . $id . '">';
         $output .= '<span id="like-count">' . $count . '</span>';
         $output .= '</a>';
 

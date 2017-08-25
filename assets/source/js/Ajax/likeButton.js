@@ -1,5 +1,3 @@
-
-
 Muncipio = Muncipio || {};
 Muncipio.Ajax = Muncipio.Ajax || {};
 
@@ -21,7 +19,7 @@ Muncipio.Ajax.LikeButton = (function ($) {
     }
 
     Like.prototype.ajaxCall = function(likeButton) {
-        var post_id = $(likeButton).data('post-id');
+        var comment_id = $(likeButton).data('comment-id');
         var counter = $('span#like-count', likeButton);
         var button = $(likeButton);
 
@@ -30,7 +28,7 @@ Muncipio.Ajax.LikeButton = (function ($) {
             type : 'post',
             data : {
                 action : 'likeButton',
-                post_id : post_id,
+                comment_id : comment_id,
                 // send the nonce along with the request
                 nonce : likeButtonData.nonce
             },

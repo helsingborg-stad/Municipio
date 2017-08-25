@@ -33,12 +33,12 @@ class LikeButton extends \Municipio\Helper\Ajax
             die ( 'Busted!');
         }
 
-        $postId = $_REQUEST['post_id'];
+        $commentId = $_REQUEST['comment_id'];
 
         $like = array();
 
-        if(is_array(get_comment_meta( $postId, '_likes', true )) == true) {
-            $like = array_merge($like, get_comment_meta( $postId, '_likes', true ));
+        if(is_array(get_comment_meta( $commentId, '_likes', true )) == true) {
+            $like = array_merge($like, get_comment_meta( $commentId, '_likes', true ));
         }
 
         if(in_array(get_current_user_id(), $like)) {
@@ -48,7 +48,7 @@ class LikeButton extends \Municipio\Helper\Ajax
             $like[] = get_current_user_id();
         }
 
-        update_comment_meta( $postId, '_likes', $like );
+        update_comment_meta( $commentId, '_likes', $like );
 
         $likes = count($like);
 
