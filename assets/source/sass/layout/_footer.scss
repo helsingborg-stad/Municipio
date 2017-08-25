@@ -11,6 +11,7 @@
     }
 }
 
-.hero + .main-footer {
+.hero + .main-footer,
+[class^="modularity-mod-section-"] + .main-footer {
     margin-top: 0;
 }

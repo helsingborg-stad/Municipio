@@ -116,7 +116,8 @@
 .main-footer .icons-list li a {
   font-size: 3em; }
 
-.hero + .main-footer {
+.hero + .main-footer,
+[class^="modularity-mod-section-"] + .main-footer {
   margin-top: 0; }
 
 .navbar-mainmenu a:not(.logotype) svg {
