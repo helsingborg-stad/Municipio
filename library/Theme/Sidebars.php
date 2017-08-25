@@ -170,6 +170,32 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>'
         ));
+
+        /**
+         * Full page top
+         */
+        register_sidebar(array(
+            'id'            => 'top-sidebar',
+            'name'          => __('Top sidebar (full-width)', 'municipio'),
+            'description'   => __('Sidebar that sits below the hero, takes up 100% of the widht.', 'municipio'),
+            'before_widget' => '<div class="%2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>'
+        ));
+
+        /**
+         * Full page bottom
+         */
+        register_sidebar(array(
+            'id'            => 'bottom-sidebar',
+            'name'          => __('Bottom sidebar (full-width)', 'municipio'),
+            'description'   => __('Sidebar that sits just before the footer, takes up 100% of the widht.', 'municipio'),
+            'before_widget' => '<div class="%2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>'
+        ));
     }
 
     /**
