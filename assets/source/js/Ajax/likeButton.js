@@ -4,17 +4,13 @@ Muncipio.Ajax = Muncipio.Ajax || {};
 Muncipio.Ajax.LikeButton = (function ($) {
 
     function Like() {
-        this.name = 'nikolas';
         this.init();
     }
 
     Like.prototype.init = function() {
         $('a.like-button').on('click', function(e) {
-
             this.ajaxCall(e.target);
-
             return false;
-
         }.bind(this));
     }
 
@@ -27,9 +23,8 @@ Muncipio.Ajax.LikeButton = (function ($) {
             url : likeButtonData.ajax_url,
             type : 'post',
             data : {
-                action : 'likeButton',
+                action : 'ajaxLikeMethod',
                 comment_id : comment_id,
-                // send the nonce along with the request
                 nonce : likeButtonData.nonce
             },
             beforeSend: function() {
@@ -47,7 +42,7 @@ Muncipio.Ajax.LikeButton = (function ($) {
                 counter.html( likes );
             },
             success : function( response ) {
-                //counter.html( response );
+
             }
         });
 

@@ -21,16 +21,28 @@ class Single extends \Municipio\Controller\BaseController
             'after'      => '',
             'max_depth'  => get_option('thread_comments_depth')
         );
+
+        if(defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && ! MUNICIPIO_BLOCK_AUTHOR_PAGES) {
+            $this->data['authorPages'] = true;
+        }
     }
 
+    /**
+     * Display comment like button
+     * @param int $id Comment ID
+     * @return string Markup to display button
+     */
     public static function likeButton($id)
     {
+        if(! is_user_logged_in()) {
+            return;
+        }
+
         $likes = get_comment_meta( $id, '_likes', true );
 
         if(empty($likes) || is_array($likes) == false) {
             $count = 0;
-        }
-        else {
+        } else {
             $count = count($likes);
         }
 
@@ -40,7 +52,7 @@ class Single extends \Municipio\Controller\BaseController
             $classes[] = 'active';
         }
 
-        $output = '<a class="' . implode(' ', $classes) . '" href="#" data-comment-id="' . $id . '">';
+        $output = '<a class="' . implode(' ', $classes) . '" href="javascript:void(0)" data-comment-id="' . $id . '">';
         $output .= '<span id="like-count">' . $count . '</span>';
         $output .= '</a>';
 
