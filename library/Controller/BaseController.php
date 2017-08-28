@@ -205,6 +205,8 @@ class BaseController
 
         //Return items to view. Format: array(array('title' => '', 'link' => ''))
         $this->data['verticalNav'] = apply_filters('Municipio/Menu/Vertical/Items', array());
+
+        return true;
     }
 
     /**

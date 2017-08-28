@@ -247,6 +247,14 @@
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
 
+.scroll-dots {
+  position: fixed;
+  right: 15px;
+  top: 50%;
+  z-index: 1000;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%); }
+
 .gform_wrapper {
   /* Basic form */
   /* Step by step guide */
