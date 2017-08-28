@@ -270,6 +270,27 @@ Decide if oembed markup should be filtered to HbgPrime video player (youtube and
 apply_filters('Municipio/oembed/should_filter_markup', true, $url, $postId);
 ```
 
+
+#### Municipio/Menu/Vertical/EnabledSidebars
+Dictates what sidebars that sould be active on the current page to show the vertical menu. Simple array containing the sidebar id's. 
+
+- ```@param array $sidebars``` - An flat array with sidebar id's. 
+
+```php
+apply_filters('Municipio/Menu/Vertical/EnabledSidebars', $sidebars);
+```
+
+
+#### Municipio/Menu/Vertical/Items
+Items that should be visible in the vertical navigation menus. Represented as dots with hover-labels. 
+
+- ```@param array $items``` - An array with items representing links. 
+
+```php
+apply_filters('Municipio/Menu/Vertical/EnabledSidebars', array(array('title' => 'Page section title', 'link' => '#anchorlink'));
+```
+
+
 ## Dev mode
 To load assets from local styleguide. Set contant DEV_MODE to "true"
 
