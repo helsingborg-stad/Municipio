@@ -59,7 +59,7 @@
                 <div class="grid-md-12">
                         {!! the_post() !!}
                         <div class="grid gutter gutter-lg gutter-bottom">
-                            <div class="grid-md-8">
+                            <div class="grid-md-8" id="readspeaker-read">
                                 <div class="post post-single">
                                     <article id="article">
                                         <h1>{{ the_title() }}</h1>
