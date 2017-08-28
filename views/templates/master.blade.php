@@ -87,6 +87,8 @@
 
         @include('partials.footer')
 
+        @include('partials.vertical-menu')
+
         @if (in_array(get_field('show_google_translate', 'option'), array('footer', 'fold')))
             @include('partials.translate')
         @endif

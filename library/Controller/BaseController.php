@@ -18,6 +18,7 @@ class BaseController
         $this->getNavigationMenus();
         $this->getHelperVariables();
         $this->getFilterData();
+        $this->getVerticalMenu();
 
         $this->init();
     }
@@ -182,6 +183,28 @@ class BaseController
                 $this->data['footerLayout'] = 'default';
                 break;
         }
+    }
+
+    public function getVerticalMenu()
+    {
+        //Define
+        $abortFunction = true;
+
+        //Check if these sidebars is active before running
+        $triggerBySidebar = apply_filters('Municipio/Menu/Vertical/EnabledSidebars', array('top-sidebar', 'bottom-sidebar'));
+        foreach ((array) $triggerBySidebar as $sidebar) {
+            if (is_active_sidebar($sidebar)) {
+                $abortFunction = false;
+            }
+        }
+
+        //No active sidebars, abort
+        if ($abortFunction === true) {
+            return false;
+        }
+
+        //Return items to view. Format: array(array('title' => '', 'link' => ''))
+        $this->data['verticalNav'] = apply_filters('Municipio/Menu/Vertical/Items', array());
     }
 
     /**
