@@ -61,10 +61,10 @@
                         <div class="grid gutter gutter-lg gutter-bottom">
                             <div class="grid-md-8">
                                 <div class="post post-single">
-
-                                    @include('partials.blog.post-header')
-
                                     <article id="article">
+                                        <h1>{{ the_title() }}</h1>
+                                        @include('partials.accessibility-menu')
+
                                         @if (isset(get_extended($post->post_content)['main']) && !empty(get_extended($post->post_content)['main']) && isset(get_extended($post->post_content)['extended']) && !empty(get_extended($post->post_content)['extended']))
 
                                             {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
