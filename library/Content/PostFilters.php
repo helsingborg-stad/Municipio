@@ -85,6 +85,7 @@ class PostFilters
 
             $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
             $data['enabledTaxonomyFilters'] = $this->getEnabledTaxonomies($data['postType']);
+            $data['archiveUrl'] = (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) ? get_post_type_archive_link($postType) : false;
 
             return $data;
         });
