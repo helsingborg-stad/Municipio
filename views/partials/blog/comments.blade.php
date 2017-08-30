@@ -1,8 +1,8 @@
  <div class="comments-wrapper">
-    <ul class="comments" id="comments">
+    <ul class="comments comments-new" id="comments">
         @foreach($comments as $comment)
             @if($comment->comment_parent == 0)
-                <li class="comment" id="comment-{{$comment->comment_ID}}">
+                <li class="comment comment-new" id="comment-{{$comment->comment_ID}}">
                     <div class="author-image">
                         @if (isset($authorPages) && $authorPages == true && email_exists($comment->comment_author_email) !== false)
                            <a href="{{ municipio_get_user_profile_url($comment->comment_author_email) }}">
