@@ -55,6 +55,7 @@ class App
          * Comments
          */
         new \Municipio\Comment\HoneyPot();
+        new \Municipio\Comment\LikeButton();
 
         add_action('widgets_init', function () {
             register_widget('\Municipio\Widget\Contact');
