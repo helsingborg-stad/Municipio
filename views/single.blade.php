@@ -21,31 +21,35 @@
                 </div>
             </div>
 
-            @if (is_single() && comments_open() && is_user_logged_in() && get_option('comment_order') == 'desc')
+            @if (is_single() && comments_open() && get_option('comment_order') == 'desc')
                 <div class="grid">
                     <div class="grid-sm-12">
                         @include('partials.blog.comments-form')
                     </div>
                 </div>
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        @include('partials.blog.comments')
+                @if(isset($comments) && ! empty($comments))
+                    <div class="grid">
+                        <div class="grid-sm-12">
+                            @include('partials.blog.comments')
+                        </div>
                     </div>
-                </div>
-            @elseif (is_single() && comments_open() && is_user_logged_in() && get_option('comment_order') == 'asc')
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        @include('partials.blog.comments')
+                @endif
+            @elseif (is_single() && comments_open())
+                @if(isset($comments) && ! empty($comments))
+                    <div class="grid">
+                        <div class="grid-sm-12">
+                            @include('partials.blog.comments')
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="grid">
                     <div class="grid-sm-12">
                         @include('partials.blog.comments-form')
                     </div>
                 </div>
             @endif
-        </div>
 
+        </div>
         @include('partials.sidebar-right')
     </div>
 </div>
