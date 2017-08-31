@@ -33,6 +33,7 @@ class App
         new \Municipio\Theme\EventArchive();
         new \Municipio\Theme\CustomTemplates();
         new \Municipio\Theme\Font();
+        new \Municipio\Theme\ColorScheme();
 
         new \Municipio\Search\General();
 
