@@ -9,7 +9,6 @@ class General
     public function __construct()
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);
-        //add_filter('option_nestedpages_menusync', array($this, 'nestedPagesMenuSync'), 10);
 
         // Post status private rename to "Only for logged in users"
         add_action('current_screen', array($this, 'renamePrivate'));
@@ -38,6 +37,30 @@ class General
         });
 
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
+
+        add_action('admin_footer', array($this, 'setIrisDefaultColorPalette'));
+    }
+
+    /**
+     * Sets the iris default color palette
+     * @return void
+     */
+
+    public function setIrisDefaultColorPalette()
+    {
+
+        $colorPalette = get_option('color_scheme_palette');
+
+        if (is_array($colorPalette) && !empty($colorPalette)) {
+            echo "
+            <script>
+            acf.add_filter('color_picker_args', function( args, $field ){
+                args.palettes = ['". implode("', '", $colorPalette) ."']
+                return args;
+            });
+            </script>
+            ";
+        }
     }
 
     /**
@@ -136,16 +159,5 @@ class General
         }
 
         return $title;
-    }
-
-
-    /**
-     * Force nested pages to always generate a menu
-     * Plugin dependency: Nested Pages
-     * @return string        "sync"
-     */
-    public function nestedPagesMenuSync()
-    {
-        return "sync";
     }
 }
