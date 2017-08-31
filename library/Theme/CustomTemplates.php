@@ -11,5 +11,11 @@ class CustomTemplates
             \Municipio\Helper\Template::locateTemplate('full-width.blade.php'),
             'all'
         );
+
+        \Municipio\Helper\Template::add(
+            __('One page (no article)', 'municipio'),
+            \Municipio\Helper\Template::locateTemplate('one-page.blade.php'),
+            'all'
+        );
     }
 }
