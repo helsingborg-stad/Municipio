@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-07-06 09:56+0200\n"
+"POT-Creation-Date: 2017-08-31 11:14+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -19,6 +19,18 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: acf-fields/php/default-author-cover.php:6
+msgid "Default author cover"
+msgstr ""
+
+#: acf-fields/php/default-author-cover.php:10
+msgid "Covers"
+msgstr ""
+
+#: acf-fields/php/default-author-cover.php:29
+msgid "Upload Cover"
+msgstr ""
 
 #: acf-fields/php/incidents-module.php:6
 #: library/Module/IncidentList/IncidentList.php:15
@@ -204,52 +216,52 @@ msgstr ""
 msgid "Incidents"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:211
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:212
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:212
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:213
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:213
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:214
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:214
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:215
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:215
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:216
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:216
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:217
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:217
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:218
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:218
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:219
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:219
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:220
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:220
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:221
 #, php-format
 msgid "No %s in trash"
 msgstr ""
@@ -262,28 +274,28 @@ msgstr ""
 msgid "incidents"
 msgstr ""
 
-#: library/CustomPostType/News.php:66
+#: library/CustomPostType/News.php:67
 msgid "This post is more than 60 days old"
 msgstr ""
 
-#: library/CustomPostType/News.php:135
+#: library/CustomPostType/News.php:136
 msgid "Pin to top"
 msgstr ""
 
-#: library/CustomPostType/News.php:173
+#: library/CustomPostType/News.php:174
 msgid "Exclude from main news feed"
 msgstr ""
 
-#: library/CustomPostType/News.php:201 library/CustomPostType/News.php:202
+#: library/CustomPostType/News.php:202 library/CustomPostType/News.php:203
 #: library/Module/News/News.php:16 library/Module/News/News.php:17
 msgid "News"
 msgstr ""
 
-#: library/CustomPostType/News.php:225
+#: library/CustomPostType/News.php:226
 msgid "News stories"
 msgstr ""
 
-#: library/CustomPostType/News.php:234
+#: library/CustomPostType/News.php:235
 msgid "news"
 msgstr ""
 
@@ -301,6 +313,10 @@ msgid ""
 "from all if logged out)"
 msgstr ""
 
+#: library/Module/News/News.php:48
+msgid "Select category"
+msgstr ""
+
 #: library/Module/UserLinks/UserLinks.php:16
 msgid "User link"
 msgstr ""
@@ -313,13 +329,13 @@ msgstr ""
 msgid "Shows a user's link list"
 msgstr ""
 
-#: library/Module/UserSystems/UserSystems.php:15
-#: library/Module/UserSystems/UserSystems.php:16 library/User/Systems.php:31
+#: library/Module/UserSystems/UserSystems.php:22
+#: library/Module/UserSystems/UserSystems.php:23 library/User/Systems.php:31
 #: library/User/Systems.php:32
 msgid "User systems"
 msgstr ""
 
-#: library/Module/UserSystems/UserSystems.php:17
+#: library/Module/UserSystems/UserSystems.php:24
 msgid "Shows a users's system link list"
 msgstr ""
 
@@ -336,7 +352,7 @@ msgid "Next"
 msgstr ""
 
 #: library/Public/Helper.php:65
-#: templates/module/intranet-u-systems.blade.php:102
+#: templates/module/intranet-i-systems-modal.blade.php:42
 msgid "Cancel"
 msgstr ""
 
@@ -386,7 +402,7 @@ msgstr ""
 msgid "No more news to load"
 msgstr ""
 
-#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:532
+#: library/Theme/Enqueue.php:55 views/author-edit.blade.php:584
 #: views/partials/breadcrumbs.blade.php:33
 msgid "Disable welcome phrase"
 msgstr ""
@@ -507,8 +523,8 @@ msgstr ""
 #: templates/admin/systems/form.php:95
 #: templates/admin/target-groups/form.php:19
 #: templates/admin/target-groups/form.php:24
+#: templates/module/intranet-i-systems-modal.blade.php:43
 #: templates/module/intranet-u-links.blade.php:49
-#: templates/module/intranet-u-systems.blade.php:103
 msgid "Save"
 msgstr ""
 
@@ -559,12 +575,12 @@ msgstr ""
 
 #: templates/admin/systems/form.php:43 templates/admin/systems/form.php:79
 #: templates/admin/systems/form.php:111
-#: templates/module/intranet-u-systems.blade.php:82
+#: templates/module/intranet-i-systems-modal.blade.php:21
 msgid "Name"
 msgstr ""
 
 #: templates/admin/systems/form.php:44 templates/admin/systems/form.php:87
-#: templates/module/intranet-u-systems.blade.php:83
+#: templates/module/intranet-i-systems-modal.blade.php:22
 msgid "Description"
 msgstr ""
 
@@ -644,15 +660,30 @@ msgstr ""
 msgid "All administration units"
 msgstr ""
 
+#: templates/module/intranet-i-systems-modal.blade.php:8
+#: templates/module/intranet-u-systems.blade.php:17
+#: templates/module/intranet-u-systems.blade.php:42
+msgid "Select systems"
+msgstr ""
+
+#: templates/module/intranet-i-systems-modal.blade.php:13
+msgid ""
+"Select the systems that you would like to show in your \"My systems\" area."
+msgstr ""
+
+#: templates/module/intranet-i-systems-modal.blade.php:27
+msgid "Mandatory"
+msgstr ""
+
 #: templates/module/intranet-incident-list.blade.php:10
 msgid "Show all incidents"
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:18
+#: templates/module/intranet-news.blade.php:30
 msgid "News feed"
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:19
+#: templates/module/intranet-news.blade.php:31
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -660,11 +691,11 @@ msgid ""
 "following."
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:41
+#: templates/module/intranet-news.blade.php:47
 msgid "Load more news"
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:54
+#: templates/module/intranet-news.blade.php:60
 msgid "Threre's no news stories to display"
 msgstr ""
 
@@ -696,12 +727,6 @@ msgid ""
 "Click the edit button to add more systems to the list."
 msgstr ""
 
-#: templates/module/intranet-u-systems.blade.php:17
-#: templates/module/intranet-u-systems.blade.php:42
-#: templates/module/intranet-u-systems.blade.php:69
-msgid "Select systems"
-msgstr ""
-
 #: templates/module/intranet-u-systems.blade.php:24
 msgid "Could not save your selected systems."
 msgstr ""
@@ -728,12 +753,7 @@ msgstr ""
 msgid "You need to be on the city network to use this system"
 msgstr ""
 
-#: templates/module/intranet-u-systems.blade.php:74
-msgid ""
-"Select the systems that you would like to show in your \"My systems\" area."
-msgstr ""
-
-#: templates/module/news-item.blade.php:32
+#: templates/module/news-item.blade.php:41
 msgid "Read more"
 msgstr ""
 
@@ -808,8 +828,9 @@ msgstr ""
 #: views/author-edit.blade.php:81 views/author-edit.blade.php:185
 #: views/author-edit.blade.php:268 views/author-edit.blade.php:298
 #: views/author-edit.blade.php:347 views/author-edit.blade.php:365
-#: views/author-edit.blade.php:419 views/author-edit.blade.php:472
-#: views/author-edit.blade.php:525 views/author-edit.blade.php:544
+#: views/author-edit.blade.php:419 views/author-edit.blade.php:471
+#: views/author-edit.blade.php:524 views/author-edit.blade.php:577
+#: views/author-edit.blade.php:596
 msgid "Incomplete"
 msgstr ""
 
@@ -821,13 +842,13 @@ msgstr ""
 msgid "Not editable"
 msgstr ""
 
-#: views/author-edit.blade.php:102 views/author.blade.php:112
+#: views/author-edit.blade.php:102 views/author.blade.php:118
 #: views/partials/modal/missing-data-fields/user_email.blade.php:4
 #: views/partials/modal/missing-data-fields/user_email.blade.php:16
 msgid "Email"
 msgstr ""
 
-#: views/author-edit.blade.php:108 views/author.blade.php:100
+#: views/author-edit.blade.php:108 views/author.blade.php:106
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:4
 #: views/partials/modal/missing-data-fields/user_phone.blade.php:16
 msgid "Phone number"
@@ -904,7 +925,7 @@ msgstr ""
 msgid "Web-department"
 msgstr ""
 
-#: views/author-edit.blade.php:233 views/author.blade.php:135
+#: views/author-edit.blade.php:233 views/author.blade.php:141
 #: views/partials/modal/missing-data-fields/user_visiting_address.blade.php:4
 msgid "Visiting address"
 msgstr ""
@@ -972,7 +993,7 @@ msgid "Write a short personal presentation…"
 msgstr ""
 
 #: views/author-edit.blade.php:365 views/author-edit.blade.php:386
-#: views/author.blade.php:181
+#: views/author.blade.php:187
 msgid "Work assignments"
 msgstr ""
 
@@ -1013,7 +1034,7 @@ msgstr ""
 msgid "Added work assignments"
 msgstr ""
 
-#: views/author-edit.blade.php:419 views/author.blade.php:166
+#: views/author-edit.blade.php:419 views/author.blade.php:172
 #: views/partials/modal/missing-data-fields/user_skills.blade.php:4
 msgid "Skills"
 msgstr ""
@@ -1057,12 +1078,12 @@ msgstr ""
 msgid "Added skills"
 msgstr ""
 
-#: views/author-edit.blade.php:472
+#: views/author-edit.blade.php:471
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:4
 msgid "Profile image"
 msgstr ""
 
-#: views/author-edit.blade.php:481
+#: views/author-edit.blade.php:481 views/author-edit.blade.php:533
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:13
 msgid "Are your sure you want to remove the profile image?"
 msgstr ""
@@ -1072,86 +1093,95 @@ msgstr ""
 msgid "Delete profile image"
 msgstr ""
 
-#: views/author-edit.blade.php:492
+#: views/author-edit.blade.php:492 views/author-edit.blade.php:544
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:24
 msgid "Drag a photo here"
 msgstr ""
 
-#: views/author-edit.blade.php:494 views/partials/header/intranet.blade.php:21
+#: views/author-edit.blade.php:494 views/author-edit.blade.php:546
+#: views/partials/header/intranet.blade.php:21
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:26
 msgid "or"
 msgstr ""
 
-#: views/author-edit.blade.php:495
+#: views/author-edit.blade.php:495 views/author-edit.blade.php:547
 #: views/partials/modal/missing-data-fields/user_profile_picture.blade.php:27
 msgid "Select a photo"
 msgstr ""
 
-#: views/author-edit.blade.php:513
+#: views/author-edit.blade.php:513 views/author-edit.blade.php:565
 msgid "Max filesize"
 msgstr ""
 
-#: views/author-edit.blade.php:514
+#: views/author-edit.blade.php:514 views/author-edit.blade.php:566
 msgid "Allowed filetypes"
 msgstr ""
 
-#: views/author-edit.blade.php:525
+#: views/author-edit.blade.php:524
+msgid "Profile cover"
+msgstr ""
+
+#: views/author-edit.blade.php:533
+msgid "Delete profile cover"
+msgstr ""
+
+#: views/author-edit.blade.php:577
 msgid "Other Settings"
 msgstr ""
 
-#: views/author-edit.blade.php:531
+#: views/author-edit.blade.php:583
 msgid "Welcome phrase"
 msgstr ""
 
-#: views/author-edit.blade.php:544
+#: views/author-edit.blade.php:596
 msgid "Theme"
 msgstr ""
 
-#: views/author-edit.blade.php:550
+#: views/author-edit.blade.php:602
 msgid "Color scheme"
 msgstr ""
 
-#: views/author-edit.blade.php:551
+#: views/author-edit.blade.php:603
 msgid "Red"
 msgstr ""
 
-#: views/author-edit.blade.php:552
+#: views/author-edit.blade.php:604
 msgid "Blue"
 msgstr ""
 
-#: views/author-edit.blade.php:553
+#: views/author-edit.blade.php:605
 msgid "Green"
 msgstr ""
 
-#: views/author-edit.blade.php:554
+#: views/author-edit.blade.php:606
 msgid "Purple"
 msgstr ""
 
-#: views/author-edit.blade.php:569
+#: views/author-edit.blade.php:621
 msgid "Save settings"
 msgstr ""
 
-#: views/author.blade.php:57
+#: views/author.blade.php:63
 msgid "My profile on Facebook"
 msgstr ""
 
-#: views/author.blade.php:60
+#: views/author.blade.php:66
 msgid "My profile on LinkedIn"
 msgstr ""
 
-#: views/author.blade.php:60 views/author.blade.php:63
+#: views/author.blade.php:66 views/author.blade.php:69
 msgid "My profile on Instagram"
 msgstr ""
 
-#: views/author.blade.php:63 views/author.blade.php:66
+#: views/author.blade.php:69 views/author.blade.php:72
 msgid "My profile on Twitter"
 msgstr ""
 
-#: views/author.blade.php:66
+#: views/author.blade.php:72
 msgid "My profile on Snapchat"
 msgstr ""
 
-#: views/author.blade.php:85 views/front-page.blade.php:34
+#: views/author.blade.php:91 views/front-page.blade.php:34
 msgid "Edit settings"
 msgstr ""
 

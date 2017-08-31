@@ -24,9 +24,10 @@
                             </thead>
                             <tbody>
                                 @foreach ($availableSystems as $system)
+                                <?php $tooltip = $system->forced ? 'data-tooltip="' . __('Mandatory', 'municipio-intranet') . '" data-tooltip-top' : ''; ?>
                                 <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" name="system-selected[]" value="{{ $system->id }}" {{ checked(true, $system->selected) }}>
+                                    <td class="text-center" {!! $tooltip !!}>
+                                        <input type="checkbox" name="system-selected[]" value="{{ $system->id }}" {{ checked(true, $system->selected) }} {{ $system->forced ? 'disabled' : '' }}>
                                     </td>
                                     <td>{{ $system->name }}</td>
                                     <td>{{ $system->description }}</td>

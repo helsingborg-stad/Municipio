@@ -133,7 +133,7 @@ class Systems
             });
         }
 
-        // Only systems selected by user
+        // Only systems selected by user and forced systems
         if (in_array('user_only_selected', $filter)) {
             $selected = get_user_meta(get_current_user_id(), 'user_systems', true);
 
@@ -144,7 +144,7 @@ class Systems
             }
 
             $systems = array_filter($systems, function ($item) use ($selected) {
-                return in_array($item->id, (array) $selected);
+                return in_array($item->id, (array) $selected) || $item->forced;
             });
         }
 
@@ -171,12 +171,12 @@ class Systems
                 $selected = array_keys($selected);
             }
 
-            // Cast selected to array
+            // Cast selected + forced to array
             $selected = (array) $selected;
             foreach ($systems as $system) {
                 $system->selected = false;
 
-                if (in_array($system->id, $selected)) {
+                if (in_array($system->id, $selected) || $system->forced) {
                     $system->selected = true;
                 }
             }
