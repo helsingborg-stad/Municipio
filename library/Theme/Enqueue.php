@@ -5,9 +5,14 @@ namespace Municipio\Theme;
 class Enqueue
 {
     public $defaultPrimeName = 'hbg-prime';
+    public $styleguideUri;
 
     public function __construct()
     {
+
+        //Set stylegudei url
+        add_action('init', array($this, 'init'));
+
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
         add_action('wp_enqueue_scripts', array($this, 'script'), 5);
@@ -35,6 +40,20 @@ class Enqueue
         add_filter('gform_init_scripts_footer', '__return_true');
         add_filter('gform_cdata_open', array($this, 'wrapGformCdataOpen'));
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
+    }
+
+
+    /**
+     * Set url to styleguide
+     * @return void
+     */
+    public function init()
+    {
+        $this->styleguideUri = rtrim(apply_filters('Municipio/theme/styleguide_uri', "//helsingborg-stad.github.io/styleguide-web/dist/"), '/') . '/';
+
+        if ($this->styleguideUri && !defined('MUNICIPIO_STYLEGUIDE_URI')) {
+            define('MUNICIPIO_STYLEGUIDE_URI', $this->styleguideUri);
+        }
     }
 
     /**
@@ -90,9 +109,9 @@ class Enqueue
         } else {
             //Check for version number lock files.
             if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', STYLEGUIDE_VERSION);
+                wp_register_style($this->defaultPrimeName, $this->styleguideUri . STYLEGUIDE_VERSION . '/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', STYLEGUIDE_VERSION);
             } else {
-                wp_register_style($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
+                wp_register_style($this->defaultPrimeName, $this->styleguideUri . 'css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
             }
         }
 
@@ -160,8 +179,8 @@ class Enqueue
         wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v2/polyfill.min.js', 'municipio');
 
         //Comment reply
-        if ( is_singular() && get_option( 'thread_comments' ) ) {
-            wp_enqueue_script( 'comment-reply' );
+        if (is_singular() && get_option('thread_comments')) {
+            wp_enqueue_script('comment-reply');
         }
     }
 
