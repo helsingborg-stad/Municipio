@@ -22,6 +22,7 @@ class Enqueue
 
         add_action('wp_enqueue_scripts', array($this, 'googleAnalytics'), 999);
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
+        add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -189,6 +190,18 @@ class Enqueue
         global $wp_scripts;
         $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
         $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
+    }
+
+    /**
+     * Enqueue Google reCAPTCHA
+     * @return void
+     */
+    public function googleReCaptcha()
+    {
+        if (comments_open()) {
+            wp_register_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', '', '1.0.0', true);
+            wp_enqueue_script('google-recaptcha');
+        }
     }
 
     /**

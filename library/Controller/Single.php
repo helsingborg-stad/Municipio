@@ -21,6 +21,7 @@ class Single extends \Municipio\Controller\BaseController
             'after'      => '',
             'max_depth'  => get_option('thread_comments_depth')
         );
+        $this->data['g_recaptcha_key'] = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
 
         if(defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && ! MUNICIPIO_BLOCK_AUTHOR_PAGES) {
             $this->data['authorPages'] = true;

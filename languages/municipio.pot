@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-08-29 14:02+0200\n"
+"POT-Creation-Date: 2017-09-01 15:47+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1036,11 +1036,11 @@ msgstr ""
 msgid "Kontakter"
 msgstr ""
 
-#: library/Admin/General.php:81
+#: library/Admin/General.php:104
 msgid "Only for logged in users"
 msgstr ""
 
-#: library/Admin/General.php:135
+#: library/Admin/General.php:158
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:733
 msgid "Private"
 msgstr ""
@@ -1155,6 +1155,21 @@ msgstr ""
 
 #: library/Admin/UI/VarnishPurge.php:77
 msgid "Purge Varnish"
+msgstr ""
+
+#: library/Comment/CommentsFilters.php:21
+msgid ""
+"Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
+msgstr ""
+
+#: library/Comment/CommentsFilters.php:38
+#: vendor/advanced-custom-fields/core/actions/export.php:26
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
+msgid "Error"
+msgstr ""
+
+#: library/Comment/CommentsFilters.php:38
+msgid "reCaptcha verification failed"
 msgstr ""
 
 #: library/Comment/HoneyPot.php:66
@@ -1288,11 +1303,15 @@ msgstr ""
 msgid "Full width"
 msgstr ""
 
-#: library/Theme/Enqueue.php:146
+#: library/Theme/CustomTemplates.php:16
+msgid "One page (no article)"
+msgstr ""
+
+#: library/Theme/Enqueue.php:166
 msgid "No matching content found…"
 msgstr ""
 
-#: library/Theme/Enqueue.php:154
+#: library/Theme/Enqueue.php:174
 msgid "Insert Print Page Break tag"
 msgstr ""
 
@@ -1680,11 +1699,6 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/acf.php:769
 msgid "Full"
-msgstr ""
-
-#: vendor/advanced-custom-fields/core/actions/export.php:26
-#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
-msgid "Error"
 msgstr ""
 
 #: vendor/advanced-custom-fields/core/actions/export.php:33

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-08-31 15:23+0200\n"
-"PO-Revision-Date: 2017-08-31 15:30+0200\n"
+"POT-Creation-Date: 2017-09-01 15:47+0200\n"
+"PO-Revision-Date: 2017-09-01 15:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -1198,6 +1198,23 @@ msgstr "Töm cache för sidan"
 msgid "Purge Varnish"
 msgstr "Töm varnish"
 
+#: library/Comment/CommentsFilters.php:21
+msgid ""
+"Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
+msgstr ""
+"Municipio: konstant ‘g_recaptcha_key’ eller ‘g_recaptcha_secret’ är inte "
+"definierade."
+
+#: library/Comment/CommentsFilters.php:38
+#: vendor/advanced-custom-fields/core/actions/export.php:26
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
+msgid "Error"
+msgstr "Fel"
+
+#: library/Comment/CommentsFilters.php:38
+msgid "reCaptcha verification failed"
+msgstr "Verifiering av robotfilter misslyckades"
+
 #: library/Comment/HoneyPot.php:66
 msgid "Could not verify that you are human (image check)."
 msgstr "Kunde inte verifiera att du är mänsklig (bildkontroll)"
@@ -1337,11 +1354,11 @@ msgstr "Fullbredd"
 msgid "One page (no article)"
 msgstr "Fullbredd (utan artikel)"
 
-#: library/Theme/Enqueue.php:165
+#: library/Theme/Enqueue.php:166
 msgid "No matching content found…"
 msgstr "Inga matchande filter hittades…"
 
-#: library/Theme/Enqueue.php:173
+#: library/Theme/Enqueue.php:174
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -1754,13 +1771,6 @@ msgstr ""
 #: vendor/advanced-custom-fields/acf.php:769
 msgid "Full"
 msgstr "Fullständig"
-
-#: vendor/advanced-custom-fields/core/actions/export.php:26
-#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
-#, fuzzy
-#| msgid "Error info"
-msgid "Error"
-msgstr "Felinformation"
 
 #: vendor/advanced-custom-fields/core/actions/export.php:33
 msgid "No ACF groups selected"
