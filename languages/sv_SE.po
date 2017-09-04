@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-08-29 14:02+0200\n"
-"PO-Revision-Date: 2017-08-29 14:02+0200\n"
+"POT-Creation-Date: 2017-09-01 15:47+0200\n"
+"PO-Revision-Date: 2017-09-01 15:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1077,11 +1077,11 @@ msgstr "Adress"
 msgid "Kontakter"
 msgstr "Kontakter"
 
-#: library/Admin/General.php:81
+#: library/Admin/General.php:104
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
-#: library/Admin/General.php:135
+#: library/Admin/General.php:158
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:733
 msgid "Private"
 msgstr "Privat"
@@ -1197,6 +1197,23 @@ msgstr "Töm cache för sidan"
 #: library/Admin/UI/VarnishPurge.php:77
 msgid "Purge Varnish"
 msgstr "Töm varnish"
+
+#: library/Comment/CommentsFilters.php:21
+msgid ""
+"Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
+msgstr ""
+"Municipio: konstant ‘g_recaptcha_key’ eller ‘g_recaptcha_secret’ är inte "
+"definierade."
+
+#: library/Comment/CommentsFilters.php:38
+#: vendor/advanced-custom-fields/core/actions/export.php:26
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
+msgid "Error"
+msgstr "Fel"
+
+#: library/Comment/CommentsFilters.php:38
+msgid "reCaptcha verification failed"
+msgstr "Verifiering av robotfilter misslyckades"
 
 #: library/Comment/HoneyPot.php:66
 msgid "Could not verify that you are human (image check)."
@@ -1333,11 +1350,15 @@ msgstr "Arkiv"
 msgid "Full width"
 msgstr "Fullbredd"
 
-#: library/Theme/Enqueue.php:146
+#: library/Theme/CustomTemplates.php:16
+msgid "One page (no article)"
+msgstr "Fullbredd (utan artikel)"
+
+#: library/Theme/Enqueue.php:166
 msgid "No matching content found…"
 msgstr "Inga matchande filter hittades…"
 
-#: library/Theme/Enqueue.php:154
+#: library/Theme/Enqueue.php:174
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -1359,7 +1380,7 @@ msgstr "Huvudmeny"
 
 #: library/Theme/Navigation.php:125
 msgid "Sidebar menu"
-msgstr "Sidebar-meny"
+msgstr "Sidomeny"
 
 #: library/Theme/Navigation.php:212 library/Theme/Navigation.php:213
 msgid "Home"
@@ -1371,7 +1392,7 @@ msgstr "Footer-arean"
 
 #: library/Theme/Sidebars.php:94
 msgid "Hero"
-msgstr "Hero"
+msgstr "Under sidhuvud (Heroyta)"
 
 #: library/Theme/Sidebars.php:95
 msgid "The hero area"
@@ -1395,7 +1416,7 @@ msgstr "Arean under innehållet"
 
 #: library/Theme/Sidebars.php:129
 msgid "Main container bottom"
-msgstr "Main container bottom"
+msgstr "Under artikel"
 
 #: library/Theme/Sidebars.php:130
 msgid "The area below the main container"
@@ -1403,7 +1424,7 @@ msgstr "Arean under main container"
 
 #: library/Theme/Sidebars.php:140
 msgid "Left sidebar"
-msgstr "Vänster sidebar"
+msgstr "Vänster sidofält (övre sektion)"
 
 #: library/Theme/Sidebars.php:141
 msgid "The left sidebar area"
@@ -1411,7 +1432,7 @@ msgstr "Sidebar till vänster"
 
 #: library/Theme/Sidebars.php:153
 msgid "Left sidebar bottom"
-msgstr "Vänster sidebar bottom"
+msgstr "Vänster sidofält (undre sektion)"
 
 #: library/Theme/Sidebars.php:154
 msgid "The area below the left sidebar content"
@@ -1419,7 +1440,7 @@ msgstr "Sidebar vänster botten"
 
 #: library/Theme/Sidebars.php:166
 msgid "Right sidebar"
-msgstr "Höger sidebar"
+msgstr "Höger sidofält"
 
 #: library/Theme/Sidebars.php:167
 msgid "The right sidebar area"
@@ -1427,7 +1448,7 @@ msgstr "Sidebar till höger"
 
 #: library/Theme/Sidebars.php:179
 msgid "Top sidebar (full-width)"
-msgstr ""
+msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
 #: library/Theme/Sidebars.php:180
 #, php-format
@@ -1436,7 +1457,7 @@ msgstr ""
 
 #: library/Theme/Sidebars.php:192
 msgid "Bottom sidebar (full-width)"
-msgstr ""
+msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
 #: library/Theme/Sidebars.php:193
 #, php-format
@@ -1750,13 +1771,6 @@ msgstr ""
 #: vendor/advanced-custom-fields/acf.php:769
 msgid "Full"
 msgstr "Fullständig"
-
-#: vendor/advanced-custom-fields/core/actions/export.php:26
-#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
-#, fuzzy
-#| msgid "Error info"
-msgid "Error"
-msgstr "Felinformation"
 
 #: vendor/advanced-custom-fields/core/actions/export.php:33
 msgid "No ACF groups selected"

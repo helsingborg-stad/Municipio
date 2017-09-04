@@ -10,6 +10,9 @@ class Sidebars
         add_filter('Modularity/Module/Classes', array($this, 'moduleClasses'), 10, 3);
         add_filter('Modularity/Module/WpWidget/before', array($this, 'wpWidgetBefore'), 10, 3);
         add_filter('Modularity/Editor/SidebarIncompability', array($this, 'moduleSidebarIncompability'), 10, 2);
+
+        add_filter('Modularity/Module/Container/Sidebars', array($this, 'registerSidebarWithContainerSupport'));
+        add_filter('Modularity/Module/Container/Modules', array($this, 'registerModulesWithContainerSupport'));
     }
 
     public function wpWidgetBefore($before, $sidebarArgs, $module)
@@ -207,18 +210,6 @@ class Sidebars
     public function moduleSidebarIncompability($moduleSpecification, $modulePostType) : array
     {
 
-        // List of avabile areas.
-        // right-sidebar
-        // left-sidebar-bottom
-        // left-sidebar
-        // content-area-bottom
-        // content-area
-        // content-area-top
-        // slider-area
-        // footer-area
-        // top-sidebar
-        // bottom-sidebar
-
         switch ($modulePostType) {
             case "mod-section-featured":
             case "mod-section-full":
@@ -260,5 +251,43 @@ class Sidebars
         }
 
         return $moduleSpecification;
+    }
+
+    /**
+     * Add container grid to some modules placed in full-width widget areas
+     * @return array
+     */
+
+    public function registerSidebarWithContainerSupport($sidebars)
+    {
+        $sidebars[] = "top-sidebar";
+        $sidebars[] = "bottom-sidebar";
+        return $sidebars;
+    }
+
+    /**
+     * Add container grid to some modules placed in full-width widget areas
+     * @return array
+     */
+
+    public function registerModulesWithContainerSupport($modules)
+    {
+        $modules[] = "mod-posts";
+        $modules[] = "mod-location";
+        $modules[] = "mod-social";
+        $modules[] = "mod-contacts";
+        $modules[] = "mod-fileslist";
+        $modules[] = "mod-index";
+        $modules[] = "mod-inlaylist";
+        $modules[] = "mod-form";
+        $modules[] = "mod-text";
+        $modules[] = "mod-guide";
+        $modules[] = "mod-table";
+        $modules[] = "mod-gallery";
+        $modules[] = "mod-video";
+        $modules[] = "mod-notice";
+        $modules[] = "mod-g-calendar";
+
+        return $modules;
     }
 }

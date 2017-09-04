@@ -33,6 +33,7 @@ class App
         new \Municipio\Theme\EventArchive();
         new \Municipio\Theme\CustomTemplates();
         new \Municipio\Theme\Font();
+        new \Municipio\Theme\ColorScheme();
 
         new \Municipio\Search\General();
 
@@ -56,6 +57,7 @@ class App
          */
         new \Municipio\Comment\HoneyPot();
         new \Municipio\Comment\LikeButton();
+        new \Municipio\Comment\CommentsFilters();
 
         add_action('widgets_init', function () {
             register_widget('\Municipio\Widget\Contact');
