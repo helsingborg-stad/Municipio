@@ -251,7 +251,7 @@
   position: fixed;
   right: 15px;
   top: 50%;
-  z-index: 1000;
+  z-index: 9999;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
 
