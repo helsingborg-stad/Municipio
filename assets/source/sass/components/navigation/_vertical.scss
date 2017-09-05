@@ -4,4 +4,8 @@
     top: 50%;
     z-index: 9999;
     transform: translateY(-50%);
+
+    @media screen and #{$screen-below-md} {
+        right: 7px;
+    }
 }

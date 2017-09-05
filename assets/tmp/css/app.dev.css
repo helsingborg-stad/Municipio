@@ -254,6 +254,9 @@
   z-index: 9999;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
+  @media screen and (max-width: 769px) {
+    .scroll-dots {
+      right: 7px; } }
 
 .gform_wrapper {
   /* Basic form */
