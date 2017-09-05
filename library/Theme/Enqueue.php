@@ -198,7 +198,7 @@ class Enqueue
      */
     public function googleReCaptcha()
     {
-        if (comments_open()) {
+        if(is_single() && comments_open() && !is_user_logged_in() && get_option('comment_registration') == 0) {
             wp_register_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', '', '1.0.0', true);
             wp_enqueue_script('google-recaptcha');
         }
