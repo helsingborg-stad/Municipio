@@ -1,8 +1,5 @@
 # Secutiry rules & Wordpress default configuration.
 
-# Admin redirect
-RedirectMatch 301 /admin/(.*) /wp/wp-admin/$1
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -24,8 +21,8 @@ RedirectMatch 301 /admin/(.*) /wp/wp-admin/$1
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
-    RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) wp/$2 [L]
-    RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ wp/$2 [L]
+    RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+    RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
     RewriteRule . index.php [L]
 </ifModule>
 
