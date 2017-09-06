@@ -21,8 +21,8 @@
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
-    RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
-    RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+    RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) wp/$2 [L]
+    RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ wp/$2 [L]
     RewriteRule . index.php [L]
 </ifModule>
 
@@ -34,7 +34,7 @@
     RewriteCond %{HTTP_REFERER} !.*intranat.dev.* [OR]
     RewriteCond %{HTTP_REFERER} !.*helsingborg.se.* [OR]
     RewriteCond %{HTTP_USER_AGENT} ^$
-    RewriteRule (.*) http://%{REMOTE_ADDR}/$1 [R=301,L]
+    RewriteRule (.*) https://%{REMOTE_ADDR}/$1 [R=301,L]
 </ifModule>
 
 # Prevent access to XML RPC & Pingback
