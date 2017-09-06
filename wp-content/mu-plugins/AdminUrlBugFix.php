@@ -16,7 +16,7 @@ class AdminUrlBugFix
         add_filter('admin_url', array($this, 'cleanAdminUrl'), 99999, 3);
     }
 
-    public function acfLoadClean($url, $path, $blog_id)
+    public function cleanAdminUrl($url, $path, $blog_id)
     {
         return str_replace("/wp/wp-admin/post.php/wp/wp-admin/", "/wp/wp-admin/", $url);
     }
