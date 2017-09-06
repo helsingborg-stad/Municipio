@@ -13,6 +13,23 @@ class Breadcrumb
     public function prependMainSite($items, $object)
     {
 
+        //Removes "home" page fron breadcrumb
+        if (is_array($items) && isset($items[0])) {
+            unset($items[0]);
+        }
+
+        //Add clickable subsite name
+        if (!is_main_site()) {
+            $site = \Intranet\Helper\Multisite::getSite(get_current_blog_id());
+
+            array_unshift($items, '
+                <li itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                    <a itemprop="item" href="' . $site->path . '" title="' . $site->name . '">
+                    ' . $site->name . '
+                    </a>
+                </li>');
+        }
+
         //Prepend "portalen"
         $mainSiteBloginfo = get_blog_details(BLOG_ID_CURRENT_SITE);
         array_unshift($items, '
