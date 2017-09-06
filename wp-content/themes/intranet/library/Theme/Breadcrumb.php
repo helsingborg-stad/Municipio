@@ -13,11 +13,6 @@ class Breadcrumb
     public function prependMainSite($items, $object)
     {
 
-        //Removes "home" page fron breadcrumb
-        if (is_array($items) && isset($items[0])) {
-            unset($items[0]);
-        }
-
         //Prepend "portalen"
         $mainSiteBloginfo = get_blog_details(BLOG_ID_CURRENT_SITE);
         array_unshift($items, '
