@@ -32,9 +32,9 @@
 
                 <p>
                     @if(isset(get_extended($item->post_content)['extended']) && !empty(get_extended($item->post_content)['extended']))
-                        {!! wp_strip_all_tags(get_extended($item->post_content)['main']) !!}
+                        {!! wp_strip_all_tags(strip_shortcodes(get_extended($item->post_content)['main'])) !!}
                     @else
-                        {!! wp_trim_words($item->post_content, 50, '') !!}
+                        {!! wp_trim_words(wp_strip_all_tags(strip_shortcodes($item->post_content)), 50, '') !!}
                     @endif
                 </p>
 
