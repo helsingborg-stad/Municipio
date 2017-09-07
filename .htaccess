@@ -1,8 +1,5 @@
 # Secutiry rules & Wordpress default configuration.
 
-# Admin redirect
-RedirectMatch 301 /admin/(.*) /wp/wp-admin/$1
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -37,7 +34,7 @@ RedirectMatch 301 /admin/(.*) /wp/wp-admin/$1
     RewriteCond %{HTTP_REFERER} !.*intranat.dev.* [OR]
     RewriteCond %{HTTP_REFERER} !.*helsingborg.se.* [OR]
     RewriteCond %{HTTP_USER_AGENT} ^$
-    RewriteRule (.*) http://%{REMOTE_ADDR}/$1 [R=301,L]
+    RewriteRule (.*) https://%{REMOTE_ADDR}/$1 [R=301,L]
 </ifModule>
 
 # Prevent access to XML RPC & Pingback

@@ -22,37 +22,39 @@
                 </div>
             </div>
 
-            @if (is_single() && comments_open() && is_user_logged_in() && get_option('comment_order') == 'desc')
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        @include('partials.blog.comments-form')
-                    </div>
-                </div>
-                @if(isset($comments) && ! empty($comments))
+            @if (is_single() && comments_open() && is_user_logged_in())
+                @if(get_option('comment_order') == 'desc')
                     <div class="grid">
                         <div class="grid-sm-12">
-                            @include('partials.blog.comments')
+                            @include('partials.blog.comments-form')
+                        </div>
+                    </div>
+                    @if(isset($comments) && ! empty($comments))
+                        <div class="grid">
+                            <div class="grid-sm-12">
+                                @include('partials.blog.comments')
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    @if(isset($comments) && ! empty($comments))
+                        <div class="grid">
+                            <div class="grid-sm-12">
+                                @include('partials.blog.comments')
+                            </div>
+                        </div>
+                    @endif
+                    <div class="grid">
+                        <div class="grid-sm-12">
+                            @include('partials.blog.comments-form')
                         </div>
                     </div>
                 @endif
-            @elseif (is_single() && comments_open() && is_user_logged_in())
-                @if(isset($comments) && ! empty($comments))
-                    <div class="grid">
-                        <div class="grid-sm-12">
-                            @include('partials.blog.comments')
-                        </div>
-                    </div>
-                @endif
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        @include('partials.blog.comments-form')
-                    </div>
-                </div>
             @endif
-
         </div>
 
         @include('partials.sidebar-right')
+
     </div>
 </div>
 
