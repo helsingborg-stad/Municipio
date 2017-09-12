@@ -61,6 +61,16 @@ class General
         add_filter('acf/load_value/name=page_show_share', function ($value) {
             return false;
         });
+
+        //Redirect private post status to 404 login fix
+        add_action('wp', array($this, 'redirectPrivateFix'));
+    }
+
+    public function redirectPrivateFix()
+    {
+        if(isset(get_queried_object()->post_status) && get_queried_object()->post_status == 'private' && !is_user_logged_in()) {
+            remove_filter('template_redirect', 'redirect_canonical');
+        }
     }
 
     public function googleAnalyticsUA($ua)

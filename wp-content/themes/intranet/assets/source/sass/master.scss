@@ -1,7 +1,3 @@
-.error404 span.h1 {
-    color: #fff !important;
-}
-
 .easter-egg div {
     position: relative;
     transition: 100ms transform ease-in-out;
@@ -93,3 +89,17 @@
         background-color: #ff0000;
     }
 }
+
+
+//404
+body.error404 {
+    #wrapper {
+        padding-top: 25vh;
+    }
+
+    .h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+}
+

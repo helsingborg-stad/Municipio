@@ -1,8 +1,5 @@
 @charset "UTF-8";
 /* Icon variables */
-.error404 span.h1 {
-  color: #fff !important; }
-
 .easter-egg div {
   position: relative;
   transition: 100ms -webkit-transform ease-in-out;
@@ -86,6 +83,13 @@
     background-color: #ff00d2; }
   90% {
     background-color: #ff0000; } }
+
+body.error404 #wrapper {
+  padding-top: 25vh; }
+
+body.error404 .h1 {
+  font-size: 1.5rem;
+  margin-bottom: 15px; }
 
 body.admin-bar {
   position: static !important; }
