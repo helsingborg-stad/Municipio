@@ -56,7 +56,7 @@ class Registration
             }
 
             setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
-            wp_redirect($redirect);
+            wp_redirect($redirectUrl);
             exit;
         }
 
