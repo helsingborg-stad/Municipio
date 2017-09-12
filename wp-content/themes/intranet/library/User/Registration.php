@@ -41,6 +41,11 @@ class Registration
      */
     public function disallowedUsers($userLogin)
     {
+
+        if (wp_doing_cron()) {
+            return $userLogin;
+        }
+
         // If pattern matches it will be considered disallowed
         // pattern => redirect
         $disallowed = apply_filters('MunicipioIntranet/register/disallowed', array(
