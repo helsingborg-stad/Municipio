@@ -20,6 +20,7 @@ class General
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
 
+        remove_filter('template_redirect', 'redirect_canonical');
         //add_action('add_meta_boxes', array($this, 'removeDisplaySettings'), 9999);
     }
 
