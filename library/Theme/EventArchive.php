@@ -108,7 +108,10 @@ class EventArchive extends Archive
      */
     public function eventFilterGroupBy($groupby)
     {
-        return "{$this->db_table}.start_date, {$this->db_table}.end_date";
+        global $wpdb;
+        $groupby = "{$wpdb->posts}.ID ,{$this->db_table}.start_date, {$this->db_table}.end_date";
+
+        return $groupby;
     }
 
     /**
