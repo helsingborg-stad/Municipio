@@ -29,10 +29,10 @@
 
     <?php do_action('Municipio/blog/post_info', $post); ?>
 
-    @if (comments_open())
+    @if (comments_open() && get_option('comment_registration') == 0 || comments_open() && is_user_logged_in())
     <li class="post-comments">
         <a href="{{ comments_link() }}">
-            <i class="fa fa-lg fa-comments hidden-md hidden-lg"></i>
+            <span class="hidden-md hidden-lg"><i class="fa fa-lg fa-comments"></i> {{ comments_number('0', '1', '%') }}</span>
             <span class="hidden-xs hidden-sm"><?php _e('Comments'); ?> ({{ comments_number('0', '1', '%') }})</span>
         </a>
     </li>

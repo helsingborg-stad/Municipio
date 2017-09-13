@@ -15,7 +15,7 @@ class General
 
         add_action('profile_update', function ($userId) {
             // Make sure its a form submission and nothing else
-            if (!wp_verify_nonce($_POST['_wpnonce'], 'update-user_' . $userId)) {
+            if (!isset($_POST['_wpnonce'])||!wp_verify_nonce($_POST['_wpnonce'], 'update-user_' . $userId)) {
                 return;
             }
 
