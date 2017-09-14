@@ -20,6 +20,9 @@ class CustomPostType
             return sanitize_title($value, $value);
         }, 10, 3);
 
+        //Use page or single template
+        add_filter('single_template', array($this, 'setPageTemplate'), 20);
+
         //Disable filled fields
         add_action('admin_head', function () {
             echo '<script>';
@@ -100,5 +103,22 @@ class CustomPostType
                 }
             }
         }
+    }
+
+    /**
+     * Use page template for hierarchical custom post types
+     * @param  string $template_path Path to post type template
+     * @return string
+     */
+    public function setPageTemplate($template_path)
+    {
+        if ($post_type = get_post_type()) {
+            $post_type_object = get_post_type_object($post_type);
+            if (is_object($post_type_object) && $post_type_object->hierarchical == true && $post_type_object->_builtin == false) {
+                $template_path = \Municipio\Helper\Template::locateTemplate('page');
+            }
+        }
+
+        return($template_path);
     }
 }
