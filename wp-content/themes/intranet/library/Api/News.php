@@ -11,7 +11,7 @@ class News
 
     public function routes()
     {
-        register_rest_route('intranet/1.0', '/news/(?P<count>(.*)+)/(?P<offset>(.*)+)/(?P<sites>(.*)+)/(?P<category>(.*)+)', array(
+        register_rest_route('intranet/1.0', '/news/(?P<count>(\d)+)/(?P<offset>(\d)+)/(?P<sites>(.*)+)/(?P<category>(\d)+)', array(
             'methods' => 'POST',
             'callback' => array($this, 'getNews'),
             'args' => array(
