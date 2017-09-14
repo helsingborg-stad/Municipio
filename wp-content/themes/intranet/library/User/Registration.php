@@ -4,7 +4,6 @@ namespace Intranet\User;
 
 class Registration
 {
-    protected $defaultRole = 'subscriber';
 
     public function __construct()
     {
@@ -13,10 +12,6 @@ class Registration
 
         // Ban new user account registration if email is used as username
         add_filter('pre_user_login', array($this, 'disallowAccountRegistration'));
-
-        // Set default display name
-        add_action('network_user_new_form', array($this, 'addNameFieldsToUserRegistration'));
-        add_action('wpmu_new_user', array($this, 'saveUserRegistrationName'), 10, 1);
 
         // Auto subscribe to intranets matching ad_displayname end tag
         add_action('wpmu_new_user', array($this, 'autosubscribe'));
@@ -69,25 +64,6 @@ class Registration
     }
 
     /**
-     * Adds the firstname and lastname fields to the network user registration
-     */
-    public function addNameFieldsToUserRegistration()
-    {
-        echo '
-            <table class="form-table">
-                <tr class="form-field form-required">
-                    <th scope="row"><label for="first_name">' . __('First name') . '</label></th>
-                    <td><input type="text" class="regular-text" name="user[first_name]" id="first_name" autocapitalize="true" autocorrect="off" maxlength="60" required></td>
-                </tr>
-                <tr class="form-field form-required">
-                    <th scope="row"><label for="last_name">' . __('Last name') . '</label></th>
-                    <td><input type="text" class="regular-text" name="user[last_name]" id="last_name" autocapitalize="true" autocorrect="off" maxlength="60" required></td>
-                </tr>
-            </table>
-        ';
-    }
-
-    /**
      * Autosubscribe to the users main intranet on registration
      * @param  integer $userId User id
      * @return void
@@ -128,22 +104,4 @@ class Registration
         }
     }
 
-    /**
-     * Save the user's firstname and lastname on network registration
-     * @param  integer $userId The user's id
-     * @return void
-     */
-    public function saveUserRegistrationName($userId)
-    {
-        $firstName = isset($_POST['user']['first_name']) && !empty($_POST['user']['first_name']) ? sanitize_text_field($_POST['user']['first_name']) : '';
-        $lastName = isset($_POST['user']['last_name']) && !empty($_POST['user']['last_name']) ? sanitize_text_field($_POST['user']['last_name']) : '';
-
-        update_user_meta($userId, 'first_name', $firstName);
-        update_user_meta($userId, 'last_name', $lastName);
-
-        wp_update_user(array(
-            'ID' => $userId,
-            'display_name' => $firstName . ' ' . $lastName
-        ));
-    }
 }
