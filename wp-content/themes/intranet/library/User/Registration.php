@@ -83,7 +83,7 @@ class Registration
         $adTag = get_user_meta($userId, 'ad_displayname', true);
         $adTag = explode('-', $adTag);
 
-        if(is_array($adTag) && !empty($adTag)) {
+        if (is_array($adTag) && !empty($adTag)) {
             $adTag = strtolower(trim(end($adTag)));
 
             $sites = \Intranet\Helper\Multisite::getSitesList();
@@ -106,5 +106,4 @@ class Registration
             }
         }
     }
-
 }
