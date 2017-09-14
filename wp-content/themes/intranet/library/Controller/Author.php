@@ -11,7 +11,6 @@ class Author extends \Intranet\Controller\BaseController
 
         $this->redirectProfile();
 
-        $currentUser = wp_get_current_user();
         $user = get_user_by('slug', $wp_query->query['author_name']);
 
         if ($user) {
@@ -32,7 +31,7 @@ class Author extends \Intranet\Controller\BaseController
     public function redirectProfile()
     {
         //Check if main site
-        if (get_current_blog_id() == BLOG_ID_CURRENT_SITE) {
+        if (is_main_site()) {
             return;
         }
 
@@ -85,9 +84,7 @@ class Author extends \Intranet\Controller\BaseController
 
         if (!empty($images) && is_array($images)) {
             return $images;
-        }
-        //CHECK FOR OLD META FIELD
-        else {
+        } else {
             $image = get_the_author_meta('user_profile_picture', $userId);
         }
 
