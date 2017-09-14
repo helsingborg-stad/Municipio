@@ -1,16 +1,3 @@
-<?php
-$cache = new Municipio\Helper\Cache('intranet-news', array(
-    Intranet\User\Subscription::getSubscriptions(get_current_user_id()),
-    $display,
-    $limit,
-    $helpTooltip,
-    $news,
-    $module,
-    $sites
-), 5*60);
-?>
-
-@if ($cache->start())
 @if (count($news) > 0)
 
     <div class="grid intranet-news-header">
@@ -47,7 +34,8 @@ $cache = new Municipio\Helper\Cache('intranet-news', array(
             <button class="btn btn-primary btn-block" data-action="intranet-news-load-more"><?php _e('Load more news', 'municipio-intranet'); ?></button>
         </div>
     </div>
-@endif
+    @endif
+
 @else
     <div class="grid">
         @if (!empty($module->post_title))
@@ -61,6 +49,6 @@ $cache = new Municipio\Helper\Cache('intranet-news', array(
         </div>
     </div>
 @endif
-@endif
 
-<?php $cache->stop(); ?>
+
+

@@ -16,6 +16,7 @@ class News extends \Modularity\Module
         $this->nameSingular = __('News', 'municipio-intranet');
         $this->namePlural = __('News', 'municipio-intranet');
         $this->description = __('Shows news stories from the sites the current user is subscribing to (or from all if logged out)', 'municipio-intranet');
+        $this->cacheTtl = 0;
     }
 
     public function data() : array
