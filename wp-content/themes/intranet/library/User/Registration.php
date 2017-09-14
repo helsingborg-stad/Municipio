@@ -82,25 +82,28 @@ class Registration
 
         $adTag = get_user_meta($userId, 'ad_displayname', true);
         $adTag = explode('-', $adTag);
-        $adTag = strtolower(trim(end($adTag)));
 
-        $sites = \Intranet\Helper\Multisite::getSitesList();
+        if(is_array($adTag) && !empty($adTag)) {
+            $adTag = strtolower(trim(end($adTag)));
 
-        foreach ($sites as $key => $site) {
-            if (!$site->autosubscribe_tags) {
-                continue;
+            $sites = \Intranet\Helper\Multisite::getSitesList();
+
+            foreach ($sites as $key => $site) {
+                if (!$site->autosubscribe_tags) {
+                    continue;
+                }
+
+                $siteTags = explode(',', $site->autosubscribe_tags);
+                $siteTags = array_map(function ($item) {
+                    return strtolower(trim($item));
+                }, $siteTags);
+
+                if (!in_array($adTag, $siteTags)) {
+                    continue;
+                }
+
+                \Intranet\User\Subscription::subscribe($userId, $site->blog_id);
             }
-
-            $siteTags = explode(',', $site->autosubscribe_tags);
-            $siteTags = array_map(function ($item) {
-                return strtolower(trim($item));
-            }, $siteTags);
-
-            if (!in_array($adTag, $siteTags)) {
-                continue;
-            }
-
-            \Intranet\User\Subscription::subscribe($userId, $site->blog_id);
         }
     }
 
