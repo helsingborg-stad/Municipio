@@ -32,7 +32,7 @@ class Author extends \Intranet\Controller\BaseController
     public function redirectProfile()
     {
         //Check if main site
-        if(get_current_blog_id() == BLOG_ID_CURRENT_SITE) {
+        if (get_current_blog_id() == BLOG_ID_CURRENT_SITE) {
             return;
         }
 
@@ -48,31 +48,26 @@ class Author extends \Intranet\Controller\BaseController
      */
     public function getCoverUrl($userId)
     {
-        if(!isset($userId)) {
+        if (!isset($userId)) {
             return;
         }
 
         $profile_cover = get_the_author_meta('user_profile_cover', $userId);
 
-
         if (isset($profile_cover) && !empty($profile_cover)) {
             return $profile_cover[0];
-        }
-
-        else {
+        } else {
             $images = get_field('default_author_cover', 'options');
 
-            //First fallback (ACF)
-            if(isset($images) && $images) {
+            if (isset($images) && $images) {
                 $image = $images[array_rand($images, 1)]['cover'];
-                $image = wp_get_attachment_image_src($image['ID'], array('1366','768'));
+                $image = wp_get_attachment_image_src($image['ID'], array('1366', '768'));
 
                 return $image[0];
             }
-
-            //Last fallback (OLD STATIC)
-            return 'http://www.helsingborg.se/wp-content/uploads/2016/05/varen_2016_2_1800x350.jpg';
         }
+
+        return false;
     }
 
     /**
@@ -82,23 +77,22 @@ class Author extends \Intranet\Controller\BaseController
      */
     public function getProfileImg($userId)
     {
-        if(!isset($userId)) {
+        if (!isset($userId)) {
             return;
         }
 
         $images = get_the_author_meta('user_profile_img', $userId);
 
-        if(!empty($images) && is_array($images)) {
+        if (!empty($images) && is_array($images)) {
             return $images;
         }
         //CHECK FOR OLD META FIELD
         else {
-             $image = get_the_author_meta('user_profile_picture', $userId);
+            $image = get_the_author_meta('user_profile_picture', $userId);
         }
 
-        if(isset($image)) {
+        if (isset($image)) {
             return $image;
         }
     }
-
 }
