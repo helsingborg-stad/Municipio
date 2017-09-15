@@ -22,7 +22,7 @@ class ProfileUploadImage
      */
     public function uploadProfileImage($imageDataUri, $user, $userMeta)
     {
-        if(!isset($userMeta) && ! $userMeta) {
+        if (!isset($userMeta) && ! $userMeta) {
             return;
         }
 
@@ -54,14 +54,14 @@ class ProfileUploadImage
 
         //Save new URLS to user meta
         $imageUrls = array();
-        foreach($imagePaths as $imagePath) {
+        foreach ($imagePaths as $imagePath) {
             $imageUrls[] = $this->getProfileImageUrlFromPath($imagePath);
         }
 
         update_user_meta($user->ID, $userMeta, $imageUrls);
 
         //Add image to old profile image meta
-        if($userMeta == 'user_profile_img') {
+        if ($userMeta == 'user_profile_img') {
             $this->removeProfileImage($user->ID, 'user_profile_picture');
             update_user_meta($user->ID, 'user_profile_picture', $imageUrls[1]);
         }
@@ -98,7 +98,7 @@ class ProfileUploadImage
     {
         $this->sizes = array();
 
-        if(! is_array($width)) {
+        if (! is_array($width)) {
             $this->sizes[] = (object) [
                 'width'  => $width,
                 'height' => $height,
@@ -111,19 +111,18 @@ class ProfileUploadImage
         //If array, set multiple sizes
         $sizes = $width;
 
-        foreach($sizes as $size) {
+        foreach ($sizes as $size) {
             $width = $size->width;
             $height = $size->height;
             $crop = $size->crop;
 
-            if(isset($width) && is_int($width) && isset($height) && is_int($height) && isset($crop) && is_bool($crop)) {
+            if (isset($width) && is_int($width) && isset($height) && is_int($height) && isset($crop) && is_bool($crop)) {
                 $this->sizes[] = (object) [
                     'width'  => $width,
                     'height' => $height,
                     'crop'   => $crop
                 ];
             }
-
         }
 
         return;
@@ -206,7 +205,7 @@ class ProfileUploadImage
 
         $images = array();
 
-        foreach($sizes as $dimension) {
+        foreach ($sizes as $dimension) {
             $image = wp_get_image_editor($path);
             $image->set_quality(80);
 
@@ -257,7 +256,7 @@ class ProfileUploadImage
      */
     public function removeProfileImage($userId, $userMeta)
     {
-        if(!isset($userMeta) && ! $userMeta) {
+        if (!isset($userMeta) && ! $userMeta) {
             return;
         }
 
@@ -267,7 +266,7 @@ class ProfileUploadImage
             return;
         }
 
-        foreach($urls as $url) {
+        foreach ($urls as $url) {
             $path = $this->getProfileImagePathFromUrl($url);
             unlink($path);
         }
@@ -275,7 +274,7 @@ class ProfileUploadImage
         delete_user_meta($userId, $userMeta);
 
         //Remove old meta field
-        if($userMeta == 'user_profile_img') {
+        if ($userMeta == 'user_profile_img') {
             delete_user_meta($userId, 'user_profile_picture');
         }
 
