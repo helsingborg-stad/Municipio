@@ -99,19 +99,21 @@ class Profile
         //Get data from user id
         $user_meta = get_user_meta($data['id']);
 
-        if ($user_meta) {
+        if (is_numeric($data['id'])) {
 
-            //Parse
-            $user_meta['user_visiting_address'][0] = unserialize($user_meta['user_visiting_address'][0]);
+            $administration_unit = get_user_meta($data['id'], 'user_administration_unit', true);
+            $administration_unit = is_array($administration_unit) ? array_pop($administration_unit) : '';
 
-            //Fill return value
-            $data['image']                  = isset($user_meta['user_profile_picture'][0]) ? $user_meta['user_profile_picture'][0] : null;
-            $data['administration_unit']    = isset($user_meta['user_administration_unit'][0]) ? \Intranet\User\AdministrationUnits::getAdministrationUnit($user_meta['user_administration_unit'][0]) : "";
-            $data['visiting_address']       = implode(" - ", array_filter($user_meta['user_visiting_address'][0]));
+            if (is_numeric($administration_unit)) {
+                $data['administration_unit']    = \Intranet\User\AdministrationUnits::getAdministrationUnit($administration_unit);
+            } else {
+                $data['administration_unit']    = "";
+            }
 
-            //Get separate, to enable filters.
+            $data['image'] = get_user_meta($data['id'], 'user_profile_picture', true);
+            $data['visiting_address'] = implode(" - ", array_filter(get_user_meta($data['id'], 'user_visiting_address', true)));
             $data['work_title'] = get_user_meta($data['id'], 'user_work_title', true);
-            $data['phone'] = array('number' => get_user_meta($data['id'], 'user_phone', true));
+            $data['phone'] = array(array('number' => get_user_meta($data['id'], 'user_phone', true)));
         }
 
         return $data;
