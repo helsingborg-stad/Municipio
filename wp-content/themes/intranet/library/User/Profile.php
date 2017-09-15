@@ -31,6 +31,7 @@ class Profile
 
         //Default values for updatable fields
         add_filter('get_user_metadata', array($this, 'defaultToADProfile'), 1, 4);
+        add_filter('get_user_metadata', array($this, 'defaultUserVisitingAdressADProfile'), 1, 4);
 
         //Contact module
         add_filter('Modularity/mod-contacts/contact-info', array($this, 'getProfileUserData'), 10, 2);
@@ -45,7 +46,7 @@ class Profile
         //Remove this filter, to be able to use get_user_meta without infinite loop
         remove_filter('get_user_metadata', array($this, 'defaultUserVisitingAdressADProfile'), 1);
 
-        if ($meta_key == "user_visiting_address") {
+        if ($meta_key == "user_visiting_address" && empty(get_user_meta($object_id, 'user_visiting_address', $single))) {
 
             $meta_value = array(
                 'workplace' => get_user_meta($object_id, 'ad_physicaldeliveryofficename', true),
