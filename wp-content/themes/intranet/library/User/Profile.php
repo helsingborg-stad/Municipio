@@ -111,7 +111,7 @@ class Profile
 
             //Get separate, to enable filters.
             $data['work_title'] = get_user_meta($data['id'], 'user_work_title', true);
-            $data['phone'] = get_user_meta($data['id'], 'user_phone', true);
+            $data['phone'] = array('number' => get_user_meta($data['id'], 'user_phone', true));
         }
 
         return $data;
