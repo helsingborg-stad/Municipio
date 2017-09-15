@@ -9,6 +9,11 @@ class Login
         add_action('wp_login', array($this, 'adMapping'), 10, 2);
         add_action('wp_login_failed', array($this, 'frontendLoginFailed'));
         add_action('wp_logout', array($this, 'frontendLogout'), 9);
+
+        // Redirect to homepage
+        add_filter('adApiWpIntegration/login/defaultRedirect', function () {
+            return network_home_url("/");
+        });
     }
 
     public function adMapping($username, $user)
