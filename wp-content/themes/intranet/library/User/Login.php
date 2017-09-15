@@ -6,10 +6,6 @@ class Login
 {
     public function __construct()
     {
-        add_action('wp_authenticate', function () {
-            $_GET['redirect_to'] = network_home_url('/');
-        }, 9);
-
         add_action('wp_login', array($this, 'adMapping'), 10, 2);
         add_action('wp_login_failed', array($this, 'frontendLoginFailed'));
         add_action('wp_logout', array($this, 'frontendLogout'), 9);
