@@ -13,27 +13,6 @@ class Login
         add_action('wp_login', array($this, 'adMapping'), 10, 2);
         add_action('wp_login_failed', array($this, 'frontendLoginFailed'));
         add_action('wp_logout', array($this, 'frontendLogout'), 9);
-        add_action('login_init', array($this, 'transleEmailToUser'), 1);
-    }
-
-    public function transleEmailToUser()
-    {
-        if (!isset($_POST)) {
-            return;
-        }
-
-        if (empty($_POST)) {
-            return;
-        }
-
-        if (isset($_POST['log']) && isset($_POST['pwd']) && is_email($_POST['log'])) {
-            if ($user = get_user_by('email', $_POST['log'])) {
-                if (isset($user->data->user_login)) {
-                    $_POST['log'] = $user->data->user_login;
-                }
-            }
-        }
-
     }
 
     public function adMapping($username, $user)
