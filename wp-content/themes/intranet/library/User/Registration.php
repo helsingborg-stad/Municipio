@@ -10,9 +10,6 @@ class Registration
         // Do not allow "special accounts"
         add_filter('pre_user_login', array($this, 'disallowedUsers'));
 
-        // Ban new user account registration if email is used as username
-        add_filter('pre_user_login', array($this, 'disallowAccountRegistration'));
-
         // Auto subscribe to intranets matching ad_displayname end tag
         add_action('wpmu_new_user', array($this, 'autosubscribe'));
         add_action('wp_login', array($this, 'autosubscribe'));
@@ -53,16 +50,6 @@ class Registration
         return $userLogin;
     }
 
-    public function disallowAccountRegistration($userLogin)
-    {
-        if (is_email($userLogin) && !email_exists($email)) {
-            wp_redirect(network_home_url('?login=noemail'));
-            exit;
-        }
-
-        return $userLogin;
-    }
-
     /**
      * Autosubscribe to the users main intranet on registration
      * @param  integer $userId User id
@@ -90,6 +77,7 @@ class Registration
                     }
 
                     $siteTags = explode(',', $site->autosubscribe_tags);
+
                     $siteTags = array_map(function ($item) {
                         return strtolower(trim($item));
                     }, $siteTags);

@@ -51,10 +51,6 @@
                         <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('You are trying to login with an school account. School accounts are not allowed on the intranet.', 'municipio-intranet'); ?></div></div>
                         @endif
 
-                        @if (isset($_GET['login']) && $_GET['login'] == 'noemail')
-                        <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('You are trying to use an email to login. This is not allowed when you login for the first time.', 'municipio-intranet'); ?></div></div>
-                        @endif
-
                         @include('partials.user.loginform')
                     </div>
                 </div>
