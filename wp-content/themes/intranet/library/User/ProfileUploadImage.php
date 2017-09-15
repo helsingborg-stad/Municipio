@@ -268,7 +268,10 @@ class ProfileUploadImage
 
         foreach ($urls as $url) {
             $path = $this->getProfileImagePathFromUrl($url);
-            unlink($path);
+
+            if (file_exists($path)) {
+                unlink($path);
+            }
         }
 
         delete_user_meta($userId, $userMeta);
