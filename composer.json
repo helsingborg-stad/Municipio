@@ -11,6 +11,10 @@
     "repositories": [
         {
             "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/active-directory-api-wp-integration.git"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/Modularity.git"
         },
         {
@@ -123,6 +127,7 @@
         "composer/installers": "~1.0",
         "wp-api/wp-api": "2.0-beta15",
         "giggsey/libphonenumber-for-php": "7.6.0",
+        "helsingborg-stad/active-directory-api-wp-integration": ">=2.0.0",
         "helsingborg-stad/Modularity": ">=2.0.0",
         "helsingborg-stad/Municipio": ">=1.0.0",
         "helsingborg-stad/lix-calculator": ">=1.0.1",
@@ -149,7 +154,6 @@
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "1.6.5.2",
-        "wpackagist-plugin/active-directory-integration": ">=1.1.8",
         "wpackagist-plugin/user-switching" : ">=1.0.0",
         "wpackagist-plugin/wordpress-importer": "0.6.3",
         "wpackagist-plugin/mce-table-buttons": "^3.0.0",
