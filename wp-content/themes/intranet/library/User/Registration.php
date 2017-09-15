@@ -7,47 +7,9 @@ class Registration
 
     public function __construct()
     {
-        // Do not allow "special accounts"
-        add_filter('pre_user_login', array($this, 'disallowedUsers'));
-
         // Auto subscribe to intranets matching ad_displayname end tag
         add_action('wpmu_new_user', array($this, 'autosubscribe'));
         add_action('wp_login', array($this, 'autosubscribe'));
-    }
-
-    /**
-     * Disallow username combinations
-     * Example: S-accounts
-     * @param  string $userLogin    User's username
-     * @return void
-     */
-    public function disallowedUsers($userLogin)
-    {
-        if (wp_doing_cron()) {
-            return $userLogin;
-        }
-
-        // If pattern matches it will be considered disallowed
-        // pattern => redirect
-        $disallowed = apply_filters('MunicipioIntranet/register/disallowed', array(
-            '/^s([a-z]{4})([0-9]{4})/i' => network_home_url('?login=saccount'),
-            '/^([a-z]{3})([0-9]{4})/i' => network_home_url('?login=faccount'),
-            '/^([0-9]{6})([a-z]{2})/i' => network_home_url('?login=schoolaccount')
-        ));
-
-        // Loop disallowed patterns, fail-redirect if pattern matches
-        foreach ($disallowed as $pattern => $redirectUrl) {
-            if (!preg_match($pattern, $userLogin)) {
-                continue;
-            }
-
-            setcookie('sso_manual_logout', true, time()+3600, '/', COOKIE_DOMAIN);
-            wp_redirect($redirectUrl);
-            exit;
-        }
-
-        // Not disallowed, return userLogin
-        return $userLogin;
     }
 
     /**

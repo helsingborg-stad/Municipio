@@ -42,15 +42,6 @@
                         @if (isset($_GET['login']) && $_GET['login'] == 'failed')
                         <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('Login failed. Please try again.', 'municipio-intranet'); ?></div></div>
                         @endif
-
-                        @if (isset($_GET['login']) && $_GET['login'] == 'saccount')
-                        <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('You are trying to login with an S-account. S-accounts are not allowed on the intranet.', 'municipio-intranet'); ?></div></div>
-                        @endif
-
-                        @if (isset($_GET['login']) && $_GET['login'] == 'schoolaccount')
-                        <div class="gutter gutter-bottom"><div class="notice notice-sm danger"><?php _e('You are trying to login with an school account. School accounts are not allowed on the intranet.', 'municipio-intranet'); ?></div></div>
-                        @endif
-
                         @include('partials.user.loginform')
                     </div>
                 </div>
