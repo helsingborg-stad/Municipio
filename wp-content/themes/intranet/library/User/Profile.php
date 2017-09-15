@@ -109,24 +109,9 @@ class Profile
             $data['administration_unit']    = isset($user_meta['user_administration_unit'][0]) ? \Intranet\User\AdministrationUnits::getAdministrationUnit($user_meta['user_administration_unit'][0]) : "";
             $data['visiting_address']       = implode(" - ", array_filter($user_meta['user_visiting_address'][0]));
 
-            //Work title
-            if (isset($user_meta['user_work_title']) && !empty($user_meta['user_work_title'])) {
-                $data['work_title'] = $user_meta['user_work_title'][0];
-            } elseif (isset($user_meta['ad_title']) && !empty($user_meta['ad_title'])) {
-                $data['work_title'] = $user_meta['ad_title'][0];
-            } else {
-                $data['work_title'] = "";
-            }
-
-            //Phone number
-            if (isset($user_meta['user_phone']) && !empty($user_meta['user_phone'])) {
-                $data['phone'] = array('number' => $user_meta['user_phone'][0]);
-            } elseif (isset($user_meta['ad_telephonenumber']) && !empty($user_meta['ad_telephonenumber'])) {
-                $data['phone'] = array('number' => $user_meta['ad_telephonenumber'][0]);
-            } elseif (isset($user_meta['ad_mobile']) && !empty($user_meta['ad_mobile'])) {
-                $data['phone'] = array('number' => $user_meta['ad_mobile'][0]);
-            }
-
+            //Get separate, to enable filters.
+            $data['work_title'] = get_user_meta($data['id'], 'user_work_title', true);
+            $data['phone'] = get_user_meta($data['id'], 'user_phone', true);
         }
 
         return $data;
