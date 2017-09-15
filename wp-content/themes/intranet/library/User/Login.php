@@ -11,7 +11,7 @@ class Login
         add_action('wp_logout', array($this, 'frontendLogout'), 9);
 
         // Redirect to homepage
-        add_filter('adApiWpIntegration/login/defaultRedirect', function () {
+        add_filter('adApiWpIntegration/login/defaultRedirect', function ($url) {
             return network_home_url("/");
         });
     }
