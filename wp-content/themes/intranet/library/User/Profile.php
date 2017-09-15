@@ -106,9 +106,9 @@ class Profile
 
             //Fill return value
             $data['image']                  = $user_meta['user_profile_picture'][0];
-            $data['work_title']             = $user_meta['ad_title'][0];
+            $data['work_title']             = $user_meta['user_work_title'][0];
             $data['administration_unit']    = \Intranet\User\AdministrationUnits::getAdministrationUnit($user_meta['user_administration_unit'][0]);
-            $data['phone']                  = array(array('number' => $user_meta['ad_mobile'][0]));
+            $data['phone']                  = array(array('number' => $user_meta['user_phone'][0]));
             $data['visiting_address']       = implode(" - ", $user_meta['user_visiting_address'][0]);
         }
 
