@@ -13,13 +13,6 @@ class General
 
         add_action('init', array($this, 'removeAdminBar'), 1200);
         add_action('init', array($this, 'makePrivateReadable'), 1200);
-
-        add_action('pre_user_query', array($this, 'excludeInactiveUsers'));
-    }
-
-    public function excludeInactiveUsers($query)
-    {
-        $query->query_where .= " AND NOT user_email IS NULL AND NOT user_email LIKE 'DISABLED-USER-%'";
     }
 
     public function removeAdminBar()

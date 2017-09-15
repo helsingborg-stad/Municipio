@@ -5,6 +5,9 @@ namespace Intranet\User;
 class Profile
 {
     protected $urlBase = 'user';
+    public $fieldMap = array(
+        'user_phone' => 'ad_mobile'
+    );
 
     public function __construct()
     {
@@ -24,8 +27,32 @@ class Profile
 
         add_filter('Modularity/adminbar/editor_link', array($this, 'profileEditModularityEditorLink'), 10, 4);
 
+        //Default values for updatable fields
+        add_filter('get_user_metadata', array($this, 'defaultToActiveDirectoryProfile'), 1, 4);
+
         //Contact module
         add_filter('Modularity/mod-contacts/contact-info', array($this, 'getProfileUserData'), 10, 2);
+
+    }
+
+    public function defaultToActiveDirectoryProfile($type, int $object_id, string $meta_key, bool $single)
+    {
+
+        //Remove this filter, to be able to use get_user_meta without infinite loop
+        remove_filter('get_user_metadata', array($this, 'defaultToActiveDirectoryProfile'), 1);
+
+        if (array_key_exists($meta_key, $this->fieldMap)) {
+
+            $default = get_user_meta($object_id, $meta_key, $single);
+
+            if (empty($default)) {
+                return get_user_meta($object_id, $this->fieldMap[$meta_key], $single);
+            }
+        }
+
+        //Add filter back again
+        add_filter('get_user_metadata', array($this, 'defaultToActiveDirectoryProfile'), 1, 4);
+
     }
 
     public function getProfileUserData($data, $type)
