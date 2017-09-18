@@ -20,9 +20,8 @@ class General
     {
         if (isset($post->post_type) && $post->post_type == 'attachment') {
             return wp_get_attachment_url($post->ID);
-        }
-        else {
-            return $permalink . '?highlight=' . str_replace(' ', '+', get_search_query());
+        } else {
+            return $permalink;
         }
     }
 }

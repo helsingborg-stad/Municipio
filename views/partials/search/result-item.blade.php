@@ -19,7 +19,7 @@
 
     @if (is_null(get_field('search_result_display_options', 'option')) || in_array('url', (array)get_field('search_result_display_options', 'option')))
     <div class="search-result-info">
-        <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ $permalink }}">{{ str_replace("?highlight=" . get_search_query(), "", strip_tags($permalinkText)) }}</a></span>
+        <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ $permalink }}">{{ strip_tags($permalinkText) }}</a></span>
     </div>
     @endif
 </div>
