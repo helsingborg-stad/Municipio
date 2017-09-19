@@ -379,6 +379,17 @@ class News
         // Convert to comma separated string
         $postStatuses = implode(',', $postStatuses);
 
+        if (is_main_site()) {
+            $sql .= 'SELECT
+                        blog_id,
+                        post_id,
+                        post_date,
+                        is_sticky,
+                        page_views,
+                        user_views,
+                        exclude_post
+                    from (';
+        }
         foreach ($sites as $site) {
             if ($i > 0) {
                 $sql .= " UNION ";
@@ -399,11 +410,13 @@ class News
                     posts.post_date,
                     CASE WHEN postmeta1.meta_value THEN postmeta1.meta_value ELSE 0 END AS is_sticky,
                     CASE WHEN postmeta2.meta_value THEN postmeta2.meta_value ELSE 0 END AS page_views,
-                    postmeta3.meta_value AS user_views
+                    postmeta3.meta_value AS user_views,
+                    CASE WHEN postmeta4.meta_value THEN postmeta4.meta_value ELSE 0 END AS exclude_post
                 FROM $postsTable posts
-                LEFT JOIN $postMetaTable postmeta1 ON posts.ID = postmeta1.post_id AND postmeta1.meta_key = 'is_sticky'
-                LEFT JOIN $postMetaTable postmeta2 ON posts.ID = postmeta2.post_id AND postmeta2.meta_key = '_page_views'
-                LEFT JOIN $postMetaTable postmeta3 ON posts.ID = postmeta3.post_id AND postmeta3.meta_key = '_user_page_viewed'
+                    LEFT JOIN $postMetaTable postmeta1 ON posts.ID = postmeta1.post_id AND postmeta1.meta_key = 'is_sticky'
+                    LEFT JOIN $postMetaTable postmeta2 ON posts.ID = postmeta2.post_id AND postmeta2.meta_key = '_page_views'
+                    LEFT JOIN $postMetaTable postmeta3 ON posts.ID = postmeta3.post_id AND postmeta3.meta_key = '_user_page_viewed'
+                    LEFT JOIN $postMetaTable postmeta4 ON posts.ID = postmeta4.post_id AND postmeta4.meta_key = 'intranet_news_exclude_from_main_site'
                 WHERE
                     posts.post_type = '" . self::$postTypeSlug . "'
                     AND posts.post_status IN ({$postStatuses})
@@ -411,6 +424,12 @@ class News
                 )";
 
             $i++;
+        }
+
+        if (is_main_site()) {
+            $sql .= ") as a
+                    WHERE
+                        a.exclude_post = '0'";
         }
 
         $sql .= " ORDER BY is_sticky DESC, post_date DESC LIMIT $offset, $count";
@@ -437,16 +456,6 @@ class News
             $news[] = get_blog_post($item->blog_id, $item->post_id);
             end($news);
             $key = key($news);
-
-            if (is_main_site()) {
-                $query = "SELECT meta_value FROM {$table} WHERE post_id = {$item->post_id} AND meta_key = 'intranet_news_exclude_from_main_site' ORDER BY meta_id DESC LIMIT 1";
-                $excludeFromMain = (boolean) $wpdb->get_var($query);
-
-                if ($excludeFromMain) {
-                    unset($news[$key]);
-                    continue;
-                }
-            }
 
             $news[$key]->blog_id = $item->blog_id;
             $news[$key]->is_sticky = $item->is_sticky;
