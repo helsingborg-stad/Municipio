@@ -46,12 +46,16 @@ class Profile
         //Remove this filter, to be able to use get_user_meta without infinite loop
         remove_filter('get_user_metadata', array($this, 'defaultUserVisitingAdressADProfile'), 1);
 
-        if ($meta_key == "user_visiting_address" && empty(array_filter(get_user_meta($object_id, 'user_visiting_address', $single)))) {
-            $meta_value = array(array(
-                'workplace' => get_user_meta($object_id, 'ad_physicaldeliveryofficename', true),
-                'street' => get_user_meta($object_id, 'ad_streetaddress', true),
-                'city' => ""
-            ));
+        if ($meta_key == "user_visiting_address") {
+            $adressArray = get_user_meta($object_id, 'user_visiting_address', $single);
+
+            if (!is_array($adressArray)||(is_array($adressArray) && empty(array_filter($adressArray)))) {
+                $meta_value = array(array(
+                    'workplace' => get_user_meta($object_id, 'ad_physicaldeliveryofficename', true),
+                    'street' => get_user_meta($object_id, 'ad_streetaddress', true),
+                    'city' => ""
+                ));
+            }
         }
 
         //Add filter back again
