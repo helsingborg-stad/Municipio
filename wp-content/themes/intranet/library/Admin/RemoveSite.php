@@ -30,7 +30,3 @@ class RemoveSite
         $res = $wpdb->query($query);
     }
 }
-
-
-
-

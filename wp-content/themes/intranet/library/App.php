@@ -21,7 +21,6 @@ class App
         new \Intranet\Admin\PasswordResetInstructions();
         new \Intranet\Admin\Options();
         new \Intranet\Admin\Filters();
-        new \Intranet\Admin\Users();
         new \Intranet\Admin\RemoveSite();
 
         // User services
