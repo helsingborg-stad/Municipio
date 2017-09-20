@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-08-31 11:14+0200\n"
-"PO-Revision-Date: 2017-08-31 11:14+0200\n"
+"POT-Creation-Date: 2017-09-20 17:57+0200\n"
+"PO-Revision-Date: 2017-09-20 17:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -202,10 +202,6 @@ msgstr "Nycklar för automatisk följ (kommaseparerad)"
 msgid "Password"
 msgstr "Lösenord"
 
-#: library/Admin/Users.php:21
-msgid "Sync with network (cron)"
-msgstr "Synkronisera med nätverk (schemalagt arbete)"
-
 #: library/CustomPostType/Incidents.php:20 views/archive-incidents.blade.php:25
 msgid "to"
 msgstr "till"
@@ -218,52 +214,52 @@ msgstr "Varaktighet"
 msgid "Incidents"
 msgstr "Driftstörningar"
 
-#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:212
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:214
 msgctxt "add new button"
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:213
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:215
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:214
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:216
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:215
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:217
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:216
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:218
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:217
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:219
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:218
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:220
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:219
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:221
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:220
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:222
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:221
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:223
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
@@ -284,20 +280,25 @@ msgstr "Inlägget är mer än 60 dagar gammalt"
 msgid "Pin to top"
 msgstr "Klistra till toppen"
 
-#: library/CustomPostType/News.php:174
-msgid "Exclude from main news feed"
-msgstr "Exkludera från huvudsidans nyhetsflöde"
+#: library/CustomPostType/News.php:173
+msgid "main site"
+msgstr "huvudsidan"
 
-#: library/CustomPostType/News.php:202 library/CustomPostType/News.php:203
+#: library/CustomPostType/News.php:176
+#, php-format
+msgid "Exclude from %ss news feed"
+msgstr "Exkludera från %ss nyhetsflöde"
+
+#: library/CustomPostType/News.php:204 library/CustomPostType/News.php:205
 #: library/Module/News/News.php:16 library/Module/News/News.php:17
 msgid "News"
 msgstr "Nyheter"
 
-#: library/CustomPostType/News.php:226
+#: library/CustomPostType/News.php:228
 msgid "News stories"
 msgstr "Nyheter"
 
-#: library/CustomPostType/News.php:235
+#: library/CustomPostType/News.php:237
 msgid "news"
 msgstr "nyheter"
 
@@ -317,7 +318,7 @@ msgstr ""
 "Visa nyheter från intranät som den inloggade användaren följer (eller från "
 "alla om man är utloggad)."
 
-#: library/Module/News/News.php:48
+#: library/Module/News/News.php:49
 msgid "Select category"
 msgstr "Välj kategori"
 
@@ -443,71 +444,59 @@ msgstr "Förvaltningar"
 msgid "All fields must be filled in to add a new administration unit"
 msgstr "Alla fält måste fyllas i för att lägga till en ny förvaltning"
 
-#: library/User/General.php:189
+#: library/User/General.php:182
 #, php-format
 msgid "Hi %s"
 msgstr "Hej %s"
 
-#: library/User/General.php:190
+#: library/User/General.php:183
 #, php-format
 msgid "Good to see you, %s"
 msgstr "Trevligt att se dig %s"
 
-#: library/User/General.php:195
+#: library/User/General.php:188
 #, php-format
 msgid "Good morning %s"
 msgstr "God morgon %s"
 
-#: library/User/General.php:196
+#: library/User/General.php:189
 #, php-format
 msgid "Have a great day %s"
 msgstr "Ha en fin dag %s"
 
-#: library/User/General.php:201
+#: library/User/General.php:194
 #, php-format
 msgid "Good afternoon %s"
 msgstr "God eftermiddag %s"
 
-#: library/User/General.php:206
+#: library/User/General.php:199
 #, php-format
 msgid "It's getting late, %s"
 msgstr "Jobbar du fortfarande %s?"
 
-#: library/User/General.php:207
+#: library/User/General.php:200
 #, php-format
 msgid "Good eavning %s"
 msgstr "God kväll %s"
 
-#: library/User/General.php:212
+#: library/User/General.php:205
 #, php-format
 msgid "Good night %s"
 msgstr "God natt %s"
 
-#: library/User/General.php:239
+#: library/User/General.php:232
 #, php-format
 msgid "Happy new year %s"
 msgstr "Gott nytt år %s!"
 
-#: library/User/General.php:244
+#: library/User/General.php:237
 #, php-format
 msgid "Merry christmas %s"
 msgstr "God jul %s!"
 
-#: library/User/Profile.php:11
+#: library/User/Profile.php:16
 msgid "user"
 msgstr "anvandare"
-
-#: library/User/Registration.php:85 views/author-edit.blade.php:87
-#: views/partials/modal/missing-data-fields/name.blade.php:4
-#: views/partials/modal/missing-data-fields/name.blade.php:11
-msgid "First name"
-msgstr "Förnamn"
-
-#: library/User/Registration.php:89 views/author-edit.blade.php:93
-#: views/partials/modal/missing-data-fields/name.blade.php:4
-#: views/partials/modal/missing-data-fields/name.blade.php:22
-msgid "Last name"
-msgstr "Efternamn"
 
 #: library/User/Systems.php:329
 msgid "All fields must be filled in to add a new system"
@@ -688,11 +677,11 @@ msgstr "Obligatoriskt"
 msgid "Show all incidents"
 msgstr "Visa alla driftstörningar"
 
-#: templates/module/intranet-news.blade.php:30
+#: templates/module/intranet-news.blade.php:17
 msgid "News feed"
 msgstr "Nyhetsflöde"
 
-#: templates/module/intranet-news.blade.php:31
+#: templates/module/intranet-news.blade.php:18
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -703,11 +692,11 @@ msgstr ""
 "anställda. Du ser också nyheterna från din förvaltnings intranät (om det "
 "finns ett sådant) och från de intranät du följer."
 
-#: templates/module/intranet-news.blade.php:47
+#: templates/module/intranet-news.blade.php:34
 msgid "Load more news"
 msgstr "Ladda in fler nyheter"
 
-#: templates/module/intranet-news.blade.php:60
+#: templates/module/intranet-news.blade.php:48
 msgid "Threre's no news stories to display"
 msgstr "Det finns inga nyheter att visa"
 
@@ -865,6 +854,12 @@ msgstr "Personlig information"
 msgid "Incomplete"
 msgstr "Ofullständig"
 
+#: views/author-edit.blade.php:87
+#: views/partials/modal/missing-data-fields/name.blade.php:4
+#: views/partials/modal/missing-data-fields/name.blade.php:11
+msgid "First name"
+msgstr "Förnamn"
+
 #: views/author-edit.blade.php:87 views/author-edit.blade.php:93
 #: views/author-edit.blade.php:102 views/author-edit.blade.php:191
 #: views/partials/modal/missing-data-fields/name.blade.php:13
@@ -872,6 +867,12 @@ msgstr "Ofullständig"
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:16
 msgid "Not editable"
 msgstr "Ej redigerbar"
+
+#: views/author-edit.blade.php:93
+#: views/partials/modal/missing-data-fields/name.blade.php:4
+#: views/partials/modal/missing-data-fields/name.blade.php:22
+msgid "Last name"
+msgstr "Efternamn"
 
 #: views/author-edit.blade.php:102 views/author.blade.php:118
 #: views/partials/modal/missing-data-fields/user_email.blade.php:4
@@ -1352,31 +1353,7 @@ msgstr "Logga in"
 msgid "Login failed. Please try again."
 msgstr "Inloggningen misslyckades. Försök igen."
 
-#: views/partials/header/subnav.blade.php:47
-msgid ""
-"You are trying to login with an S-account. S-accounts are not allowed on the "
-"intranet."
-msgstr ""
-"Du försöker logga in med ett S-konto. S-konton kan inte användas för att "
-"logga in på intranätet."
-
-#: views/partials/header/subnav.blade.php:51
-msgid ""
-"You are trying to login with an school account. School accounts are not "
-"allowed on the intranet."
-msgstr ""
-"Du försöker logga in med ett skolkonto. Skolkonton kan inte användas för att "
-"logga in på intranätet."
-
-#: views/partials/header/subnav.blade.php:55
-msgid ""
-"You are trying to use an email to login. This is not allowed when you login "
-"for the first time."
-msgstr ""
-"Det går inte att logga in på intranätet första gången med en epostadress. "
-"Vänligen använd ditt användarnamn istället."
-
-#: views/partials/header/subnav.blade.php:66
+#: views/partials/header/subnav.blade.php:53
 msgid "Menu"
 msgstr "Meny"
 
@@ -1620,6 +1597,30 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://github.com/helsingborg-stad"
 msgstr ""
+
+#~ msgid "Sync with network (cron)"
+#~ msgstr "Synkronisera med nätverk (schemalagt arbete)"
+
+#~ msgid ""
+#~ "You are trying to login with an S-account. S-accounts are not allowed on "
+#~ "the intranet."
+#~ msgstr ""
+#~ "Du försöker logga in med ett S-konto. S-konton kan inte användas för att "
+#~ "logga in på intranätet."
+
+#~ msgid ""
+#~ "You are trying to login with an school account. School accounts are not "
+#~ "allowed on the intranet."
+#~ msgstr ""
+#~ "Du försöker logga in med ett skolkonto. Skolkonton kan inte användas för "
+#~ "att logga in på intranätet."
+
+#~ msgid ""
+#~ "You are trying to use an email to login. This is not allowed when you "
+#~ "login for the first time."
+#~ msgstr ""
+#~ "Det går inte att logga in på intranätet första gången med en epostadress. "
+#~ "Vänligen använd ditt användarnamn istället."
 
 #~ msgid "Default cover"
 #~ msgstr "Standard omslagsbild"

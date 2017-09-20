@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Intranet\n"
-"POT-Creation-Date: 2017-08-31 11:14+0200\n"
+"POT-Creation-Date: 2017-09-20 17:57+0200\n"
 "PO-Revision-Date: 2016-05-31 16:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -198,10 +198,6 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: library/Admin/Users.php:21
-msgid "Sync with network (cron)"
-msgstr ""
-
 #: library/CustomPostType/Incidents.php:20
 #: views/archive-incidents.blade.php:25
 msgid "to"
@@ -216,52 +212,52 @@ msgstr ""
 msgid "Incidents"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:212
+#: library/CustomPostType/Incidents.php:48 library/CustomPostType/News.php:214
 msgctxt "add new button"
 msgid "Add New"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:213
+#: library/CustomPostType/Incidents.php:49 library/CustomPostType/News.php:215
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:214
+#: library/CustomPostType/Incidents.php:50 library/CustomPostType/News.php:216
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:215
+#: library/CustomPostType/Incidents.php:51 library/CustomPostType/News.php:217
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:216
+#: library/CustomPostType/Incidents.php:52 library/CustomPostType/News.php:218
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:217
+#: library/CustomPostType/Incidents.php:53 library/CustomPostType/News.php:219
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:218
+#: library/CustomPostType/Incidents.php:54 library/CustomPostType/News.php:220
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:219
+#: library/CustomPostType/Incidents.php:55 library/CustomPostType/News.php:221
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:220
+#: library/CustomPostType/Incidents.php:56 library/CustomPostType/News.php:222
 #, php-format
 msgid "No %s"
 msgstr ""
 
-#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:221
+#: library/CustomPostType/Incidents.php:57 library/CustomPostType/News.php:223
 #, php-format
 msgid "No %s in trash"
 msgstr ""
@@ -282,20 +278,25 @@ msgstr ""
 msgid "Pin to top"
 msgstr ""
 
-#: library/CustomPostType/News.php:174
-msgid "Exclude from main news feed"
+#: library/CustomPostType/News.php:173
+msgid "main site"
 msgstr ""
 
-#: library/CustomPostType/News.php:202 library/CustomPostType/News.php:203
+#: library/CustomPostType/News.php:176
+#, php-format
+msgid "Exclude from %ss news feed"
+msgstr ""
+
+#: library/CustomPostType/News.php:204 library/CustomPostType/News.php:205
 #: library/Module/News/News.php:16 library/Module/News/News.php:17
 msgid "News"
 msgstr ""
 
-#: library/CustomPostType/News.php:226
+#: library/CustomPostType/News.php:228
 msgid "News stories"
 msgstr ""
 
-#: library/CustomPostType/News.php:235
+#: library/CustomPostType/News.php:237
 msgid "news"
 msgstr ""
 
@@ -313,7 +314,7 @@ msgid ""
 "from all if logged out)"
 msgstr ""
 
-#: library/Module/News/News.php:48
+#: library/Module/News/News.php:49
 msgid "Select category"
 msgstr ""
 
@@ -437,70 +438,58 @@ msgstr ""
 msgid "All fields must be filled in to add a new administration unit"
 msgstr ""
 
-#: library/User/General.php:189
+#: library/User/General.php:182
 #, php-format
 msgid "Hi %s"
 msgstr ""
 
-#: library/User/General.php:190
+#: library/User/General.php:183
 #, php-format
 msgid "Good to see you, %s"
 msgstr ""
 
-#: library/User/General.php:195
+#: library/User/General.php:188
 #, php-format
 msgid "Good morning %s"
 msgstr ""
 
-#: library/User/General.php:196
+#: library/User/General.php:189
 #, php-format
 msgid "Have a great day %s"
 msgstr ""
 
-#: library/User/General.php:201
+#: library/User/General.php:194
 #, php-format
 msgid "Good afternoon %s"
 msgstr ""
 
-#: library/User/General.php:206
+#: library/User/General.php:199
 #, php-format
 msgid "It's getting late, %s"
 msgstr ""
 
-#: library/User/General.php:207
+#: library/User/General.php:200
 #, php-format
 msgid "Good eavning %s"
 msgstr ""
 
-#: library/User/General.php:212
+#: library/User/General.php:205
 #, php-format
 msgid "Good night %s"
 msgstr ""
 
-#: library/User/General.php:239
+#: library/User/General.php:232
 #, php-format
 msgid "Happy new year %s"
 msgstr ""
 
-#: library/User/General.php:244
+#: library/User/General.php:237
 #, php-format
 msgid "Merry christmas %s"
 msgstr ""
 
-#: library/User/Profile.php:11
+#: library/User/Profile.php:16
 msgid "user"
-msgstr ""
-
-#: library/User/Registration.php:85 views/author-edit.blade.php:87
-#: views/partials/modal/missing-data-fields/name.blade.php:4
-#: views/partials/modal/missing-data-fields/name.blade.php:11
-msgid "First name"
-msgstr ""
-
-#: library/User/Registration.php:89 views/author-edit.blade.php:93
-#: views/partials/modal/missing-data-fields/name.blade.php:4
-#: views/partials/modal/missing-data-fields/name.blade.php:22
-msgid "Last name"
 msgstr ""
 
 #: library/User/Systems.php:329
@@ -679,11 +668,11 @@ msgstr ""
 msgid "Show all incidents"
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:30
+#: templates/module/intranet-news.blade.php:17
 msgid "News feed"
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:31
+#: templates/module/intranet-news.blade.php:18
 msgid ""
 "This is your personalized news feed. The personalized news feed will show "
 "the news that affects all employees. You will also see news from your "
@@ -691,11 +680,11 @@ msgid ""
 "following."
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:47
+#: templates/module/intranet-news.blade.php:34
 msgid "Load more news"
 msgstr ""
 
-#: templates/module/intranet-news.blade.php:60
+#: templates/module/intranet-news.blade.php:48
 msgid "Threre's no news stories to display"
 msgstr ""
 
@@ -834,12 +823,24 @@ msgstr ""
 msgid "Incomplete"
 msgstr ""
 
+#: views/author-edit.blade.php:87
+#: views/partials/modal/missing-data-fields/name.blade.php:4
+#: views/partials/modal/missing-data-fields/name.blade.php:11
+msgid "First name"
+msgstr ""
+
 #: views/author-edit.blade.php:87 views/author-edit.blade.php:93
 #: views/author-edit.blade.php:102 views/author-edit.blade.php:191
 #: views/partials/modal/missing-data-fields/name.blade.php:13
 #: views/partials/modal/missing-data-fields/name.blade.php:24
 #: views/partials/modal/missing-data-fields/user_work_title.blade.php:16
 msgid "Not editable"
+msgstr ""
+
+#: views/author-edit.blade.php:93
+#: views/partials/modal/missing-data-fields/name.blade.php:4
+#: views/partials/modal/missing-data-fields/name.blade.php:22
+msgid "Last name"
 msgstr ""
 
 #: views/author-edit.blade.php:102 views/author.blade.php:118
@@ -1303,25 +1304,7 @@ msgstr ""
 msgid "Login failed. Please try again."
 msgstr ""
 
-#: views/partials/header/subnav.blade.php:47
-msgid ""
-"You are trying to login with an S-account. S-accounts are not allowed on "
-"the intranet."
-msgstr ""
-
-#: views/partials/header/subnav.blade.php:51
-msgid ""
-"You are trying to login with an school account. School accounts are not "
-"allowed on the intranet."
-msgstr ""
-
-#: views/partials/header/subnav.blade.php:55
-msgid ""
-"You are trying to use an email to login. This is not allowed when you login "
-"for the first time."
-msgstr ""
-
-#: views/partials/header/subnav.blade.php:66
+#: views/partials/header/subnav.blade.php:53
 msgid "Menu"
 msgstr ""
 
