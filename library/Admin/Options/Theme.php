@@ -81,14 +81,6 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title'    => 'Google Analytics',
-                'menu_title'    => 'Google Analytics',
-                'parent_slug'   => $themeOptionsParent,
-                'capability'    => $themeOptionsCapability,
-                'menu_slug'     => 'acf-options-google-analytics'
-            ));
-
-            acf_add_options_sub_page(array(
                 'page_title'    => 'Google Translate',
                 'menu_title'    => 'Google Translate',
                 'parent_slug'   => $themeOptionsParent,
