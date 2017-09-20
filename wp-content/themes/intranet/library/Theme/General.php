@@ -47,7 +47,7 @@ class General
         }, 15);
 
         add_filter('ReadSpeakerHelper\multisite_load', '__return_true');
-        add_filter('Municipio/GoogleAnalytics/ua', array($this, 'googleAnalyticsUA'));
+        add_filter('GoogleAnalytics/TrackingId/ua', array($this, 'googleAnalyticsUA'));
 
         add_filter('Municipio/Page/MainGrid/Classes', function ($classes) {
             return array();

@@ -103,6 +103,11 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/google-analythics.git"
+
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/helsingborg-stad/todo.git"
         },
         {
@@ -156,6 +161,7 @@
         "10up/elasticpress": "dev-master",
         "helsingborg-stad/wp-search-statistics": ">=0.1.0",
         "helsingborg-stad/readspeaker-helper": ">=1.0.0",
+        "helsingborg-stad/google-analythics": ">=1.0.0",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
         "wpackagist-plugin/wp-nested-pages": "1.6.5.2",
