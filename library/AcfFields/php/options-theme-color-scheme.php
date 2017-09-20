@@ -1,7 +1,8 @@
 <?php 
-
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_56a0a7dcb5c09',
     'title' => 'Color scheme',
     'fields' => array(
@@ -15,6 +16,7 @@
                 'purple' => 'Purple',
                 'familjen' => 'Familjen helsingborg',
                 'astorp' => 'Åstorps kommun',
+                'hultsfred' => 'Hultsfreds kommun',
             ),
             'default_value' => 'gray',
             'other_choice' => 0,
@@ -54,4 +56,4 @@
     'description' => '',
     'local' => 'php',
 ));
-}
+}

@@ -11,7 +11,8 @@
                 "green": "Green",
                 "purple": "Purple",
                 "familjen": "Familjen helsingborg",
-                "astorp": "\u00c5storps kommun"
+                "astorp": "\u00c5storps kommun",
+                "hultsfred": "Hultsfreds kommun"
             },
             "default_value": "gray",
             "other_choice": 0,
@@ -51,4 +52,4 @@
     "description": "",
     "local": "php"
 }]
-
+
