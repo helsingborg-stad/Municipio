@@ -169,9 +169,11 @@ class News
 
         $current = get_post_meta($post->ID, 'intranet_news_exclude_from_main_site', true);
         $checked = checked(true, $current, false);
+        $main_intranet = get_blog_details(SITE_ID_CURRENT_SITE);
+        $blogname = (!empty($main_intranet->blogname)) ? $main_intranet->blogname : __('main site', 'municipio-intranet');
 
         echo '<div class="misc-pub-section">';
-        echo '<label for="intranet_news_exclude_from_main_site"><input type="checkbox" name="intranet_news_exclude_from_main_site" value="true" id="intranet_news_exclude_from_main_site" ' . $checked .'> ' . __('Exclude from main news feed', 'municipio-intranet') . '</label>';
+        echo '<label for="intranet_news_exclude_from_main_site"><input type="checkbox" name="intranet_news_exclude_from_main_site" value="true" id="intranet_news_exclude_from_main_site" ' . $checked .'> ' . sprintf(__('Exclude from %ss news feed', 'municipio-intranet'), $blogname) . '</label>';
         echo '</div>';
     }
 
