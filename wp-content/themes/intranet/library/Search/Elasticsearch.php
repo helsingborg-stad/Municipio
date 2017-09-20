@@ -9,6 +9,10 @@ class Elasticsearch
 
     public function __construct()
     {
+        if (is_admin()) {
+            return;
+        }
+
         if (isset($_GET['level']) && !empty($_GET['level'])) {
             self::$level = sanitize_text_field($_GET['level']);
         }
