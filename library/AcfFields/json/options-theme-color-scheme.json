@@ -3,22 +3,6 @@
     "title": "Color scheme",
     "fields": [
         {
-            "layout": "vertical",
-            "choices": {
-                "gray": "Gray",
-                "red": "Red",
-                "blue": "Blue",
-                "green": "Green",
-                "purple": "Purple",
-                "familjen": "Familjen helsingborg",
-                "astorp": "\u00c5storps kommun",
-                "hultsfred": "Hultsfreds kommun"
-            },
-            "default_value": "gray",
-            "other_choice": 0,
-            "save_other_choice": 0,
-            "allow_null": 0,
-            "return_format": "value",
             "key": "field_56a0a7e36365b",
             "label": "Color scheme",
             "name": "color_scheme",
@@ -30,7 +14,23 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "choices": {
+                "gray": "Gray",
+                "red": "Red",
+                "blue": "Blue",
+                "green": "Green",
+                "purple": "Purple",
+                "familjen": "Familjen helsingborg",
+                "astorp": "\u00c5storps kommun",
+                "hultsfred": "Hultsfreds kommun"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "gray",
+            "layout": "vertical",
+            "return_format": "value"
         }
     ],
     "location": [
@@ -49,7 +49,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
-
+
