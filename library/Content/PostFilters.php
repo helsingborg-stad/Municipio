@@ -28,7 +28,7 @@ class PostFilters
         global $wp_query;
 
         // If taxonomy or category page and post type not isset then it's the "post" post type
-        if ((is_tax() || is_category() || is_tag()) && is_a(get_queried_object(), 'WP_Term') && !get_post_type()) {
+        if (is_home() || ((is_tax() || is_category() || is_tag()) && is_a(get_queried_object(), 'WP_Term') && !get_post_type())) {
             return 'post';
         }
 
