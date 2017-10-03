@@ -16,10 +16,12 @@ class Search extends \Intranet\Controller\BaseController
         $this->data['keyword'] = get_search_query();
         $this->data['level'] = \Intranet\Search\ElasticSearch::$level;
 
-        $this->data['users'] = \Intranet\User\General::searchUsers(get_search_query());
-
         if (is_user_logged_in()) {
+            $this->data['users'] = \Intranet\User\General::searchUsers(get_search_query());
             $this->data['systems'] = \Intranet\User\Systems::search(get_search_query());
+        } else {
+            $this->data['users'] = array();
+            $this->data['systems'] = array();
         }
 
         if ($this->data['level'] === 'users') {

@@ -30,6 +30,7 @@ Intranet.Search.General = (function ($) {
         var $input = $element.find('input[type="search"]');
 
         $input.on('keydown', function (e) {
+
             switch (e.which) {
                 case 40:
                     this.autocompleteKeyboardNavNext(element);
@@ -53,6 +54,7 @@ Intranet.Search.General = (function ($) {
             typingTimer = setTimeout(function () {
                 this.autocompleteQuery(element);
             }.bind(this), 300);
+
         }.bind(this));
 
         $(document).on('click', function (e) {
@@ -65,7 +67,6 @@ Intranet.Search.General = (function ($) {
             if ($input.val().length < 3) {
                 return;
             }
-
             this.autocompleteQuery(element);
         }.bind(this));
     };
@@ -164,6 +165,8 @@ Intranet.Search.General = (function ($) {
             level: 'ajax'
         };
 
+        $element.find('button[type="submit"]').addClass("searching");
+
         $.ajax({
             url: municipioIntranet.wpapi.url + 'intranet/1.0/s/' + query,
             method: 'GET',
@@ -174,14 +177,9 @@ Intranet.Search.General = (function ($) {
         }).done(function (res) {
             $element.find('.search-autocomplete').remove();
             this.outputAutocomplete(element, res);
+            $element.find('button[type="submit"]').removeClass("searching");
         }.bind(this));
 
-        /*
-        $.post(ajaxurl, data, function (res) {
-            $element.find('.search-autocomplete').remove();
-            this.outputAutocomplete(element, res);
-        }.bind(this), 'JSON');
-        */
     };
 
     /**

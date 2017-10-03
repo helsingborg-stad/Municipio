@@ -2,8 +2,8 @@
 /* Icon variables */
 .easter-egg div {
   position: relative;
-  transition: 100ms -webkit-transform ease-in-out;
-  transition: 100ms transform ease-in-out;
+  -webkit-transition: 100ms -webkit-transform ease-in-out;
+          transition: 100ms transform ease-in-out;
   -webkit-transform-origin: 0 50%;
           transform-origin: 0 50%; }
   .easter-egg div:hover {
@@ -21,8 +21,8 @@
   border-radius: 0 50px 50px 0;
   -webkit-transform: translateY(-50%) translateX(-150%);
           transform: translateY(-50%) translateX(-150%);
-  transition: 1s -webkit-transform;
-  transition: 1s transform;
+  -webkit-transition: 1s -webkit-transform;
+          transition: 1s transform;
   z-index: -1; }
   .easter-egg .stripe-instruments.show {
     -webkit-transform: translateY(-50%) translateX(0%);
