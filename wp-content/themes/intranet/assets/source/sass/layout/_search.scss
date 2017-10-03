@@ -8,7 +8,6 @@
     margin-bottom: 10px;
 }
 
-
 .search-result-item-user {
     display: flex;
     align-items: center;
@@ -137,6 +136,10 @@
             }
         }
     }
+}
+
+.button[type="submit"].searching {
+    opacity: .7;
 }
 
 .search-autocomplete-image {

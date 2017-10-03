@@ -778,6 +778,9 @@ li:nth-child(5n + 5) a.profile-card .profile-image {
     .theme-purple .search-autocomplete li.selected a {
       background-color: rgba(113, 32, 130, 0.1); }
 
+.button[type="submit"].searching {
+  opacity: .7; }
+
 .search-autocomplete-image {
   display: inline-block;
   vertical-align: middle;
