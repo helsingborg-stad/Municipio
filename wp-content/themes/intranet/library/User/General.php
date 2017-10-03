@@ -61,7 +61,7 @@ class General
      * @param  string $keyword Search keyword
      * @return array           Matching users
      */
-    public static function searchUsers($keyword)
+    public static function searchUsers($keyword, $limit = false)
     {
         if (!is_user_logged_in()) {
             return array();
@@ -128,6 +128,10 @@ class General
             )
         ));
 
+        if ($limit && is_numeric($limit)) {
+            $userMetaSearch['number'] = $limit;
+        }
+
         $users = array();
         foreach ($userMetaSearch->results as $user) {
             $users[$user->ID] = $user->data;
@@ -147,7 +151,7 @@ class General
         }
 
         usort($users, function ($a, $b) use ($keyword) {
-             return similar_text($keyword , $b->name) - similar_text($keyword ,$a->name);
+             return similar_text($keyword, $b->name) - similar_text($keyword, $a->name);
         });
 
         foreach ($users as $userkey => $user) {

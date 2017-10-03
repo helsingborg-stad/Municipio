@@ -20,17 +20,18 @@ class General
             'sites'         => 'all',
             'post_status'   => $postStatuses,
             'post_type'     => \Intranet\Helper\PostType::getPublic(),
-            'cache_results' => false
+            'cache_results' => true,
+            'posts_per_page' => 5
         ));
 
         $users = array();
         if (is_user_logged_in()) {
-            $users = \Intranet\User\General::searchUsers($q);
+            $users = \Intranet\User\General::searchUsers($q, 5);
         }
 
         return array(
-            'content' => array_slice($query->posts, 0, 5),
-            'users' => array_slice($users, 0, 5)
+            'content' => $query->posts,
+            'users' => $users
         );
     }
 }
