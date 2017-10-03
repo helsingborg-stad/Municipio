@@ -14,7 +14,7 @@ class General
             $postStatuses[] = 'private';
         }
 
-        if ($cache = self::getCachedResponse($this->createCacheHash(array($postStatuses, $q)))) {
+        if ($cache = self::getCachedResponse(self::createCacheHash(array($postStatuses, $q)))) {
             return $cache;
         }
 
