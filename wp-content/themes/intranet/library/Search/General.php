@@ -14,7 +14,7 @@ class General
             $postStatuses[] = 'private';
         }
 
-        if ($cache = $this->getCachedResponse($this->createCacheHash(array($postStatuses, $q)))) {
+        if ($cache = self::getCachedResponse($this->createCacheHash(array($postStatuses, $q)))) {
             return $cache;
         }
 
@@ -38,22 +38,22 @@ class General
             'users' => $users
         );
 
-        $this->setCachedResponse($response);
+        self::setCachedResponse($response);
 
         return $response;
     }
 
-    private function getCachedResponse($hash)
+    private static function getCachedResponse($hash)
     {
         return wp_cache_get('json_search_query', $hash);
     }
 
-    private function setCachedResponse($response, $hash)
+    private static function setCachedResponse($response, $hash)
     {
         return wp_cache_set('json_search_query', $response, $hash, 60*60);
     }
 
-    private function createCacheHash($args)
+    private static function createCacheHash($args)
     {
         return md5(maybe_serialize($args));
     }
