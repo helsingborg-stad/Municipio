@@ -75,7 +75,7 @@ class General
 
         $keywordsRegex = '(' . implode('|', $keywordsRegex) . ')';
 
-        $userMetaSearch = new \WP_User_Query(array(
+        $args = array(
             's' => $keyword,
             'meta_query' => array(
                 'relation' => 'AND',
@@ -126,11 +126,13 @@ class General
                     )
                 )
             )
-        ));
+        );
 
         if ($limit && is_numeric($limit)) {
-            $userMetaSearch['number'] = $limit;
+            $args['number'] = $limit;
         }
+
+        $userMetaSearch = new \WP_User_Query($args);
 
         $users = array();
         foreach ($userMetaSearch->results as $user) {
