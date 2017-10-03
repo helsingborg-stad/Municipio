@@ -83,7 +83,8 @@ class Search extends \Intranet\Controller\BaseController
                 'sites'         => $sites,
                 'post_status'   => $postStatuses,
                 'post_type'     => $postTypes,
-                'cache_results' => false
+                'cache_results' => true,
+                'posts_per_page' => 50
             ));
 
             $counts[$level] = $query->found_posts;
