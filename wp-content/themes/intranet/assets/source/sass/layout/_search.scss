@@ -138,8 +138,14 @@
     }
 }
 
-button[type="submit"].searching {
-    opacity: .6;
+.search {
+    button[type="submit"] {
+        transition: 300ms opacity;
+    }
+
+    button[type="submit"].searching {
+        opacity: .6;
+    }
 }
 
 .search-autocomplete-image {
