@@ -6,7 +6,7 @@ class General
 {
     public static function jsonSearch($data)
     {
-        $q = sanitize_text_field($data['s']);
+        $q = sanitize_text_field(urldecode($data['s']));
 
         $postStatuses  = array('publish', 'inherit');
 
