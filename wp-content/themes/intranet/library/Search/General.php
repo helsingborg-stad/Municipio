@@ -38,7 +38,7 @@ class General
             'users' => $users
         );
 
-        self::setCachedResponse($response);
+        self::setCachedResponse($response, self::createCacheHash(array($postStatuses, $q)));
 
         return $response;
     }
