@@ -45,7 +45,12 @@ class News
         $sites = $data['sites'];
         $category = !empty($data['category']) ? $data['category'] : null;
 
-        if ($sites !== 'all' || !is_null($sites)) {
+        if ($sites == 'all') {
+            $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
+            $sites = implode(',', $sites);
+        }
+
+        if (!is_null($sites)) {
             $sites = explode(',', $sites);
         }
 

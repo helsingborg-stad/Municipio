@@ -286,7 +286,6 @@ class News
             }
 
             $news = get_posts($postArgs);
-
         } elseif ($site == 'all') {
             // All sites
             $sites = \Intranet\Helper\Multisite::getSitesList(true, true);
@@ -309,7 +308,8 @@ class News
                 // Get thumbnail-image
                 $item->thumbnail_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($item->ID),
-                    apply_filters('modularity/image/mainnews',
+                    apply_filters(
+                        'modularity/image/mainnews',
                         municipio_to_aspect_ratio('16:9', array(610, 343))
                     )
                 );
@@ -317,7 +317,8 @@ class News
                 // Get full image
                 $item->image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($item->ID),
-                    apply_filters('modularity/image/mainnews',
+                    apply_filters(
+                        'modularity/image/mainnews',
                         municipio_to_aspect_ratio('16:9', array(1000, 500))
                     )
                 );
@@ -381,17 +382,17 @@ class News
         // Convert to comma separated string
         $postStatuses = implode(',', $postStatuses);
 
-        if (is_main_site()) {
-            $sql .= 'SELECT
-                        blog_id,
-                        post_id,
-                        post_date,
-                        is_sticky,
-                        page_views,
-                        user_views,
-                        exclude_post
-                    from (';
-        }
+        $sql .= 'SELECT
+                    blog_id,
+                    post_id,
+                    post_date,
+                    is_sticky,
+                    page_views,
+                    user_views,
+                    exclude_post,
+                    target_groups
+                from (';
+
         foreach ($sites as $site) {
             if ($i > 0) {
                 $sql .= " UNION ";
@@ -413,12 +414,14 @@ class News
                     CASE WHEN postmeta1.meta_value THEN postmeta1.meta_value ELSE 0 END AS is_sticky,
                     CASE WHEN postmeta2.meta_value THEN postmeta2.meta_value ELSE 0 END AS page_views,
                     postmeta3.meta_value AS user_views,
-                    CASE WHEN postmeta4.meta_value THEN postmeta4.meta_value ELSE 0 END AS exclude_post
+                    CASE WHEN postmeta4.meta_value THEN postmeta4.meta_value ELSE 0 END AS exclude_post,
+                    postmeta5.meta_value AS target_groups
                 FROM $postsTable posts
                     LEFT JOIN $postMetaTable postmeta1 ON posts.ID = postmeta1.post_id AND postmeta1.meta_key = 'is_sticky'
                     LEFT JOIN $postMetaTable postmeta2 ON posts.ID = postmeta2.post_id AND postmeta2.meta_key = '_page_views'
                     LEFT JOIN $postMetaTable postmeta3 ON posts.ID = postmeta3.post_id AND postmeta3.meta_key = '_user_page_viewed'
                     LEFT JOIN $postMetaTable postmeta4 ON posts.ID = postmeta4.post_id AND postmeta4.meta_key = 'intranet_news_exclude_from_main_site'
+                    LEFT JOIN $postMetaTable postmeta5 ON posts.ID = postmeta5.post_id AND postmeta5.meta_key = '_target_groups'
                 WHERE
                     posts.post_type = '" . self::$postTypeSlug . "'
                     AND posts.post_status IN ({$postStatuses})
@@ -428,56 +431,53 @@ class News
             $i++;
         }
 
+        $sql .= ")
+                as posts
+                WHERE ";
+
         if (is_main_site()) {
-            $sql .= ") as a
-                    WHERE
-                        a.exclude_post = '0'";
+            $sql .= "posts.exclude_post = '0' AND ";
+        }
+
+        $sql .= "posts.target_groups IS NULL ";
+
+        if (is_user_logged_in()) {
+            $targetGroups = \Intranet\User\TargetGroups::getGroups();
+
+            if (is_array($targetGroups) && !empty($targetGroups)) {
+                $targetGroups = array_filter($targetGroups, function ($group) {
+                    return !empty($group);
+                });
+
+                if (!empty($targetGroups)) {
+                    foreach ($targetGroups as $group) {
+                        $sql .= "OR posts.target_groups LIKE '%\"" . $group . "\"%'";
+                    }
+                }
+            }
+        } else {
+            $sql .= "OR posts.target_groups LIKE '%\"loggedout\"%'";
         }
 
         $sql .= " ORDER BY is_sticky DESC, post_date DESC LIMIT $offset, $count";
+
         $newsPosts = $wpdb->get_results($sql);
 
-        $newsPosts = array_filter($newsPosts, function ($item) {
-            return !is_null($item->post_id);
-        });
-
-        foreach ($newsPosts as $item) {
-            $table = "{$wpdb->base_prefix}postmeta";
-            if ($item->blog_id > 1) {
-                $table = "{$wpdb->base_prefix}{$item->blog_id}_postmeta";
-            }
-
-            $query = "SELECT meta_value FROM {$table} WHERE post_id = {$item->post_id} AND meta_key = '_target_groups' ORDER BY meta_id DESC LIMIT 1";
-            $targetGroups = $wpdb->get_var($query);
-            $targetGroups = unserialize($targetGroups);
-
-            if (!\Intranet\User\TargetGroups::userInGroup($targetGroups)) {
-                continue;
-            }
-
-            $news[] = get_blog_post($item->blog_id, $item->post_id);
-            end($news);
-            $key = key($news);
-
-            $news[$key]->blog_id = $item->blog_id;
-            $news[$key]->is_sticky = $item->is_sticky;
-            $news[$key]->page_views = (int) $item->page_views;
-            $news[$key]->user_views = is_serialized($item->user_views) ? count(unserialize($item->user_views)) : 0;
-            $news[$key]->rank = \Intranet\Helper\PostRank::rank($news[$key]);
+        if (is_array($newsPosts) && !empty($newsPosts)) {
+            $newsPosts = array_filter($newsPosts, function ($item) {
+                return !is_null($item->post_id);
+            });
         }
 
-        // Sort on rank
-        uasort($news, function ($a, $b) {
-            return $a->rank < $b->rank;
-        });
+        if (!empty($newsPosts)) {
+            foreach ($newsPosts as $item) {
+                $news[] = get_blog_post($item->blog_id, $item->post_id);
+                end($news);
+                $key = key($news);
 
-        $rankTotal = 0;
-        foreach ($news as $key => $post) {
-            $rankTotal += $post->rank;
-        }
-
-        foreach ($news as $key => $post) {
-            $news[$key]->rank_percent = ($post->rank / $rankTotal) * 100;
+                $news[$key]->blog_id = $item->blog_id;
+                $news[$key]->is_sticky = $item->is_sticky;
+            }
         }
 
         return $news;
