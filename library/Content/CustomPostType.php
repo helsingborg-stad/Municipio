@@ -112,9 +112,16 @@ class CustomPostType
      */
     public function setPageTemplate($template_path)
     {
+        // Exclude post types
+        $excludedPostTypes = array();
+        if (has_filter('Municipio/CustomPostType/ExcludedPostTypes')) {
+            $excludedPostTypes = apply_filters('Municipio/CustomPostType/ExcludedPostTypes', $excludedPostTypes);
+        }
+
         if ($post_type = get_post_type()) {
             $post_type_object = get_post_type_object($post_type);
-            if (is_object($post_type_object) && $post_type_object->hierarchical == true && $post_type_object->_builtin == false) {
+
+            if (is_object($post_type_object) && $post_type_object->hierarchical == true && $post_type_object->_builtin == false && !in_array($post_type_object->name, $excludedPostTypes)) {
                 $template_path = \Municipio\Helper\Template::locateTemplate('page');
             }
         }
