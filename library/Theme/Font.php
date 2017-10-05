@@ -40,7 +40,7 @@ class Font
             <script>
             WebFont.load({
                 google: {
-                  families: ['". WEB_FONT .":400,400i,500,500i,600,600i,700,700i']
+                  families: ['". WEB_FONT .":300,400,400i,500,500i,700,700i,900']
                 },
                 timeout: 2000
               });
