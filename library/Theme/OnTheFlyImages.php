@@ -20,7 +20,29 @@ class OnTheFlyImages
      */
     public function runResizeImage($downsize, $id, $size)
     {
+
         if (is_array($size) && count($size) == 2 && !empty($id)) {
+
+            //Check for image
+            if (!in_array(get_post_mime_type($id), array('image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 'image/x-icon'))) {
+                return false;
+            }
+
+            //Check that sizes are numeric
+            if (!is_numeric($size[0]) ||!is_numeric($size[1])) {
+                return false;
+            }
+
+            //Normalize size (do not create humungous images)
+            if ($size[0] > 2500) {
+                $size[0] = 2500;
+            }
+
+            //Normalize size (do not create humungous images)
+            if ($size[1] > 2500) {
+                $size[1] = 2500;
+            }
+
             return array(
                 $this->resizeImage($id, $size[0], $size[1], true),
                 $size[0],
