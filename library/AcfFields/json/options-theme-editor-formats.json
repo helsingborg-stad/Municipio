@@ -3,7 +3,18 @@
     "title": "Editor formats",
     "fields": [
         {
-            "layout": "horizontal",
+            "key": "field_57ff50bdc2f7d",
+            "label": "Formats",
+            "name": "content_editor_formats",
+            "type": "checkbox",
+            "instructions": "Check the formats you would like to enable",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "choices": {
                 "small": "Small",
                 "large": "Large",
@@ -20,13 +31,16 @@
                 "mark-red": "Mark red",
                 "mark-purple": "Mark purple",
                 "button": "Button",
-                "button-primary": "Primary button",
+                "button-light": "Light button",
                 "button-first": "Button: First color",
                 "button-second": "Button: Second color",
                 "button-third": "Button: Third color",
                 "button-fourth": "Button: Fourth color",
-                "button-fifth": "Button: Fifth color"
+                "button-fifth": "Button: Fifth color",
+                "button-primary": "Primary button"
             },
+            "allow_custom": 0,
+            "save_custom": 0,
             "default_value": [
                 "small",
                 "large",
@@ -49,6 +63,7 @@
                 "button-third",
                 "button-fourth",
                 "button-fifth",
+                "button-light",
                 "small",
                 "large",
                 "extra-large",
@@ -70,20 +85,6 @@
                 "button-third",
                 "button-fourth",
                 "button-fifth",
-                "small",
-                "large",
-                "extra-large",
-                "uppercase",
-                "lowercase",
-                "capitalize",
-                "dark-gray",
-                "highlight",
-                "mark",
-                "mark-yellow",
-                "mark-blue",
-                "mark-green",
-                "mark-red",
-                "mark-purple",
                 "button",
                 "button-primary",
                 "button-first",
@@ -92,22 +93,9 @@
                 "button-fourth",
                 "button-fifth"
             ],
-            "allow_custom": 0,
-            "save_custom": 0,
+            "layout": "horizontal",
             "toggle": 1,
-            "return_format": "value",
-            "key": "field_57ff50bdc2f7d",
-            "label": "Formats",
-            "name": "content_editor_formats",
-            "type": "checkbox",
-            "instructions": "Check the formats you would like to enable",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
+            "return_format": "value"
         }
     ],
     "location": [
@@ -126,7 +114,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 

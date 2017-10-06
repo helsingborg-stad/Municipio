@@ -252,38 +252,90 @@ class Editor
                 'button' => array(
                     'title' => 'Button',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-btn'
+                    'block' => 'p',
+                    'classes' => 'btn'
                 ),
-                'button-primary' => array(
-                    'title' => 'Primary button',
+                'button-light' => array(
+                    'title' => 'Light button',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-primary'
+                    'block' => 'p',
+                    'classes' => 'btn btn-light'
                 ),
                 'button-first' => array(
                     'title' => 'Button: First color',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-theme-first'
+                    'block' => 'p',
+                    'classes' => 'btn btn-theme-first'
                 ),
                 'button-second' => array(
                     'title' => 'Button: Second color',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-theme-second'
+                    'block' => 'p',
+                    'classes' => 'btn btn-theme-second'
                 ),
                 'button-third' => array(
                     'title' => 'Button: Third color',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-theme-third'
+                    'block' => 'p',
+                    'classes' => 'btn btn-theme-third'
                 ),
                 'button-fourth' => array(
                     'title' => 'Button: Fourth color',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-theme-fourth'
+                    'block' => 'p',
+                    'classes' => 'btn btn-theme-fourth'
                 ),
                 'button-fifth' => array(
                     'title' => 'Button: Fifth color',
                     'inline' => 'a',
-                    'classes' => 'btn btn-md btn-theme-fifth'
+                    'block' => 'p',
+                    'classes' => 'btn btn-theme-fifth'
+                )
+            ),
+
+            'Buttons (outline)' => array(
+                'button' => array(
+                    'title' => 'Button',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline'
                 ),
+                'button-light' => array(
+                    'title' => 'Light button',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline btn-light'
+                ),
+                'button-first' => array(
+                    'title' => 'Button: First color',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline btn-theme-first'
+                ),
+                'button-second' => array(
+                    'title' => 'Button: Second color',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline btn-theme-second'
+                ),
+                'button-third' => array(
+                    'title' => 'Button: Third color',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline btn-theme-third'
+                ),
+                'button-fourth' => array(
+                    'title' => 'Button: Fourth color',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline btn-theme-fourth'
+                ),
+                'button-fifth' => array(
+                    'title' => 'Button: Fifth color',
+                    'inline' => 'a',
+                    'block' => 'p',
+                    'classes' => 'btn btn-outline btn-theme-fifth'
+                )
             )
         ));
     }
