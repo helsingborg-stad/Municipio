@@ -1,6 +1,6 @@
 @if (!empty($enabledHeaderFilters))
 <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
-    <form method="get" action="" class="container" id="archive-filter">
+    <form method="get" action="{{ $archiveUrl }}" class="container" id="archive-filter">
         <div class="grid">
             @if (in_array('text_search', $enabledHeaderFilters))
             <div class="grid-sm-12 grid-md-auto">
@@ -37,7 +37,7 @@
                 @endforeach
             @endif
 
-            @if($archiveUrl)
+            @if($queryString)
                 <div class="grid-sm-12 hidden-sm hidden-xs grid-md-fit-content">
                     <a class="btn btn-block pricon pricon-close pricon-space-right" href="{{ $archiveUrl }}"><?php _e('Clear filters', 'municipio'); ?></a>
                 </div>
