@@ -49,14 +49,12 @@
                 </div>
             @endif
 
-            @if (!is_main_site())
-                @if (have_posts())
-                    @while(have_posts())
-                        {!! the_post() !!}
+            @if (have_posts())
+                @while(have_posts())
+                    {!! the_post() !!}
 
-                        @include('partials.article')
-                    @endwhile
-                @endif
+                    @include('partials.article')
+                @endwhile
             @endif
 
             @if (is_active_sidebar('content-area'))
