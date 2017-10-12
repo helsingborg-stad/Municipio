@@ -170,7 +170,8 @@ class NavigationTree
                 'post_parent' => $topLevelPage->ID,
                 'post_type' => 'page',
                 'orderby' => 'menu_order post_title',
-                'order' => 'asc'
+                'order' => 'asc',
+                'posts_per_page' => -1
             ));
 
             $secondLevel[$topLevelPage->ID] = $pages;
