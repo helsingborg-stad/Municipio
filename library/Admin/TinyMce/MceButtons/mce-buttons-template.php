@@ -103,15 +103,13 @@
             </style>
             <script>
                 $(document).ready(function () {
-
-
                     if ( typeof top.tinymce !== 'undefined') {
+                        //Standard WP editor
                         $('head').append('<link rel="stylesheet" type="text/css" href="' + top.tinymce.activeEditor.windowManager.getParams().stylesSheet + '">');
                     } else {
+                        //Modularity iFrame editor
                         $('head').append('<link rel="stylesheet" type="text/css" href="' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet + '">');
                     }
-
-                    $('head').append('<link rel="stylesheet" type="text/css" href="' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet + '">');
                     $( '#btnText' ).keyup(function() {
                         $("#preview a").html($('#btnText').val());
                     });
