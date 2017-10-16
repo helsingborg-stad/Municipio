@@ -77,24 +77,33 @@
                 "mark-blue",
                 "mark-green",
                 "mark-red",
-                "mark-purple",
-                "button",
-                "button-primary",
-                "button-first",
-                "button-second",
-                "button-third",
-                "button-fourth",
-                "button-fifth",
-                "button",
-                "button-primary",
-                "button-first",
-                "button-second",
-                "button-third",
-                "button-fourth",
-                "button-fifth"
+                "mark-purple"
             ],
             "layout": "horizontal",
             "toggle": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_59e0c2a482b12",
+            "label": "Plugins",
+            "name": "content_editor_plugins",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "MceButtons": "MceButtons"
+            },
+            "allow_custom": 0,
+            "save_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
             "return_format": "value"
         }
     ],

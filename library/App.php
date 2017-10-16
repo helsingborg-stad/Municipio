@@ -84,6 +84,8 @@ class App
         new \Municipio\Admin\UI\FrontEnd();
         new \Municipio\Admin\UI\Editor();
 
+        new \Municipio\Admin\TinyMce\LoadPlugins();
+
         /**
          * Api
          */
