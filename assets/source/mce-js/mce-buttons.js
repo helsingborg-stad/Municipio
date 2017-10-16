@@ -15,7 +15,7 @@
                 title: 'Add button',
                 url: mce_hbg_buttons.themeUrl + '/library/Admin/TinyMce/MceButtons/mce-buttons-template.php',
                 width: 500,
-                height: 400,
+                height: 420,
                 buttons: [
                     {
                         text: 'Insert',
