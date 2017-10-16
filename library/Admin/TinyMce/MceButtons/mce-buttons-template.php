@@ -71,6 +71,10 @@
                                 <input id="btn-sm" type="radio" name="gender" value="btn-sm">
                                 <label for="btn-sm">Small</label>
                             </div>
+                            <div>
+                                <input id="btn-block" type="checkbox" name="gender" value="btn-block">
+                                <label for="btn-block">Fullwidth</label>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -100,6 +104,10 @@
                     align-items: center;
                     text-align: center;
                 }
+
+                #preview > div {
+                    width: 100%;
+                }
             </style>
             <script>
                 $(document).ready(function () {
@@ -113,12 +121,13 @@
                     $( '#btnText' ).keyup(function() {
                         $("#preview a").html($('#btnText').val());
                     });
-                    $('input[type="radio"]').click(function () {
-                        var btnType = $('#btnType input:checked').val();
-                        var btnColor = $('#btnColor input:checked').val();
-                        var btnSize = $('#btnSize input:checked').val();
+                    $('input[type="radio"], input[type="checkbox"]').click(function () {
+                        var btnClass = "";
+                        $( "input:checked" ).each(function( index, element) {
+                            btnClass += " " + $(element).val();
+                        });
                         $('#preview a').removeClass();
-                        $('#preview a').addClass(btnType + ' ' + btnColor + ' ' + btnSize);
+                        $('#preview a').addClass(btnClass);
                     });
                 });
             </script>
