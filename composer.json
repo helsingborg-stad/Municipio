@@ -1,5 +1,5 @@
 {
-    "name": "helsingborg-stad/intranat.se",
+    "name": "helsingborg-stad/intranat",
     "license": "GNU",
     "authors": [
         {
@@ -115,6 +115,10 @@
             "url": "https://github.com/helsingborg-stad/multisite-role-propagation.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/wp-page-for-posttype.git"
+        },
+        {
             "type":"composer",
             "url":"https://wpackagist.org"
         },
@@ -161,6 +165,7 @@
         "helsingborg-stad/wp-search-statistics": ">=0.1.0",
         "helsingborg-stad/readspeaker-helper": ">=1.0.0",
         "helsingborg-stad/google-analythics": ">=1.0.0",
+        "helsingborg-stad/wp-page-for-posttype": ">=1.0.0",
         "wpackagist-plugin/elasticpress": "2.3.2",
         "wpackagist-plugin/wp-editor-widget": "^0.5.5",
         "wpackagist-plugin/stream": "^3.0.4",
