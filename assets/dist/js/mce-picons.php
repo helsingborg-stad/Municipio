@@ -1,5 +1,5 @@
 <?php
-    $icons = file_get_contents('http://hbgprime.dev/dist/pricons.json');
+    $icons = file_get_contents('https://helsingborg-stad.github.io/styleguide-web/dist/pricons.json');
     $icons = json_decode($icons);
 ?>
 <!doctype html>
@@ -11,8 +11,8 @@
 
     <title>Test</title>
 
-    <link rel="stylesheet" href="http://hbgprime.dev/dist/css/hbg-prime-icons.min.css">
-
+    <link rel="stylesheet" href="https://helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-icons.min.css">
+        
     <style>
         body {
             font-size: 16px;
