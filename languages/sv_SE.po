@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-09-01 15:47+0200\n"
-"PO-Revision-Date: 2017-09-01 15:49+0200\n"
+"POT-Creation-Date: 2017-11-09 11:13+0100\n"
+"PO-Revision-Date: 2017-11-09 11:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -160,6 +160,45 @@ msgstr "Visa bild på författare"
 msgid "Link name to author archive"
 msgstr "Länka namn till arkivet för författaren"
 
+#: library/AcfFields/php/options-theme-color-scheme.php:6
+#: library/AcfFields/php/options-theme-color-scheme.php:10
+msgid "Color scheme"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:22
+msgid "Gray"
+msgstr "Grå"
+
+#: library/AcfFields/php/options-theme-color-scheme.php:23
+#: vendor/advanced-custom-fields/core/fields/radio.php:150
+msgid "Red"
+msgstr "Röd"
+
+#: library/AcfFields/php/options-theme-color-scheme.php:24
+#: vendor/advanced-custom-fields/core/fields/radio.php:151
+msgid "Blue"
+msgstr "Blå"
+
+#: library/AcfFields/php/options-theme-color-scheme.php:25
+msgid "Green"
+msgstr "Grön"
+
+#: library/AcfFields/php/options-theme-color-scheme.php:26
+msgid "Purple"
+msgstr "Lila"
+
+#: library/AcfFields/php/options-theme-color-scheme.php:27
+msgid "Familjen helsingborg"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:28
+msgid "Åstorps kommun"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:29
+msgid "Hultsfreds kommun"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-cookie-consent.php:10
 msgid "Show cookie consent to users if not already accepted"
 msgstr "Visa cookie-medgivande för nya användare"
@@ -176,6 +215,7 @@ msgid "Message"
 msgstr "Meddelande"
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:61
+#: library/AcfFields/php/options-theme-editor-formats.php:36
 msgid "Button"
 msgstr "Knapp"
 
@@ -350,7 +390,7 @@ msgid "Navigation"
 msgstr "Navigering"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:237
-#: library/Admin/Options/Theme.php:100 library/Admin/Options/Theme.php:101
+#: library/Admin/Options/Theme.php:92 library/Admin/Options/Theme.php:93
 msgid "Content editor"
 msgstr "Innehållsförfattare"
 
@@ -404,13 +444,110 @@ msgstr "Lägg till inläggstyp"
 msgid "Available post types"
 msgstr "Tillgängliga inläggstyper"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:103
+#: library/AcfFields/php/options-theme-editor-formats.php:6
+msgid "Editor formats"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:10
 msgid "Formats"
 msgstr "Inläggsformat"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:106
+#: library/AcfFields/php/options-theme-editor-formats.php:13
 msgid "Check the formats you would like to enable"
 msgstr "Välj de format som du vill aktivera"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:22
+msgid "Small"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:23
+#: vendor/advanced-custom-fields/acf.php:768
+msgid "Large"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:24
+msgid "Extra large"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:25
+msgid "Uppercase"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:26
+msgid "Lowercase"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:27
+msgid "Capitalize"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:28
+msgid "Drak gray"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:29
+msgid "Highlight"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:30
+msgid "Mark"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:31
+msgid "Mark yellow"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:32
+msgid "Mark blue"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:33
+msgid "Mark green"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:34
+msgid "Mark red"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:35
+msgid "Mark purple"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:37
+msgid "Light button"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:38
+msgid "Button: First color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:39
+msgid "Button: Second color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:40
+msgid "Button: Third color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:41
+msgid "Button: Fourth color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:42
+msgid "Button: Fifth color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:43
+msgid "Primary button"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:91
+msgid "Plugins"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:103
+msgid "MceButtons"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-favicon.php:25
 msgid "Type"
@@ -544,18 +681,6 @@ msgstr "Under footerinnehåll"
 #: library/AcfFields/php/options-theme-footer-logotype.php:45
 msgid "Vertical position"
 msgstr "Vertikal positionering"
-
-#: library/AcfFields/php/options-theme-google-analytics.php:15
-msgid "Google Analytics UA"
-msgstr "Google Analytics UA"
-
-#: library/AcfFields/php/options-theme-google-analytics.php:18
-msgid ""
-"To activate Google Analytics please insert your Google Analytics UA."
-"<br>Usally a string like this: UA-XXXXX-Y"
-msgstr ""
-"För att aktivera Google Analytics anger du ditt Google Analytics UA här."
-"<br>Brukar vara formaterat såhär: UA-XXXXX-Y"
 
 #: library/AcfFields/php/options-theme-google-translate.php:12
 msgid "Do not show"
@@ -1116,7 +1241,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:52 library/Admin/Options/Theme.php:53
-#: library/Theme/Sidebars.php:81
+#: library/Theme/Sidebars.php:84
 msgid "Footer"
 msgstr "Sidfot"
 
@@ -1133,27 +1258,27 @@ msgstr "Sök"
 msgid "Blog & Archives"
 msgstr "Bloggar & Arkiv"
 
-#: library/Admin/Options/Theme.php:108
+#: library/Admin/Options/Theme.php:100
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:109
+#: library/Admin/Options/Theme.php:101
 msgid "Post Types"
 msgstr "Inläggstyper"
 
-#: library/Admin/Options/Theme.php:116
+#: library/Admin/Options/Theme.php:108
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:117
+#: library/Admin/Options/Theme.php:109
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:124
+#: library/Admin/Options/Theme.php:116
 msgid "Custom CSS/JS Editor"
 msgstr "Egen CSS/JS"
 
-#: library/Admin/Options/Theme.php:125
+#: library/Admin/Options/Theme.php:117
 msgid "Custom CSS/JS"
 msgstr "Egen CSS/JS"
 
@@ -1198,20 +1323,20 @@ msgstr "Töm cache för sidan"
 msgid "Purge Varnish"
 msgstr "Töm varnish"
 
-#: library/Comment/CommentsFilters.php:21
+#: library/Comment/CommentsFilters.php:44
 msgid ""
 "Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
 msgstr ""
 "Municipio: konstant ‘g_recaptcha_key’ eller ‘g_recaptcha_secret’ är inte "
 "definierade."
 
-#: library/Comment/CommentsFilters.php:38
+#: library/Comment/CommentsFilters.php:62
 #: vendor/advanced-custom-fields/core/actions/export.php:26
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
 msgid "Error"
 msgstr "Fel"
 
-#: library/Comment/CommentsFilters.php:38
+#: library/Comment/CommentsFilters.php:62
 msgid "reCaptcha verification failed"
 msgstr "Verifiering av robotfilter misslyckades"
 
@@ -1229,56 +1354,56 @@ msgstr "Kunde inte verifiera att du är mänsklig (ett dolt fält är manipulera
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
-#: library/Content/CustomPostType.php:55
+#: library/Content/CustomPostType.php:58
 msgid "Add new"
 msgstr "Skapa ny"
 
-#: library/Content/CustomPostType.php:56
+#: library/Content/CustomPostType.php:59
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: library/Content/CustomPostType.php:57
+#: library/Content/CustomPostType.php:60
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: library/Content/CustomPostType.php:58
+#: library/Content/CustomPostType.php:61
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: library/Content/CustomPostType.php:59
+#: library/Content/CustomPostType.php:62
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: library/Content/CustomPostType.php:60
+#: library/Content/CustomPostType.php:63
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: library/Content/CustomPostType.php:61
+#: library/Content/CustomPostType.php:64
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: library/Content/CustomPostType.php:62
+#: library/Content/CustomPostType.php:65
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: library/Content/CustomPostType.php:63
+#: library/Content/CustomPostType.php:66
 #, php-format
 msgid "No %s found"
 msgstr "Inga %s hittades"
 
-#: library/Content/CustomPostType.php:64
+#: library/Content/CustomPostType.php:67
 #, php-format
 msgid "No %s found in trash"
 msgstr "Inga %s hittades i papperskorgen"
 
-#: library/Content/CustomPostType.php:74
+#: library/Content/CustomPostType.php:77
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
@@ -1294,7 +1419,7 @@ msgstr ""
 msgid "to"
 msgstr "till"
 
-#: library/Helper/NavigationTree.php:486
+#: library/Helper/NavigationTree.php:487
 #, fuzzy
 #| msgid "Dropdown sub-menus"
 msgid "Show submenu"
@@ -1354,15 +1479,15 @@ msgstr "Fullbredd"
 msgid "One page (no article)"
 msgstr "Fullbredd (utan artikel)"
 
-#: library/Theme/Enqueue.php:166
+#: library/Theme/Enqueue.php:165
 msgid "No matching content found…"
 msgstr "Inga matchande filter hittades…"
 
-#: library/Theme/Enqueue.php:174
+#: library/Theme/Enqueue.php:173
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/General.php:156
+#: library/Theme/General.php:157
 msgid "Print"
 msgstr "Skriv ut"
 
@@ -1386,80 +1511,80 @@ msgstr "Sidomeny"
 msgid "Home"
 msgstr "Hem"
 
-#: library/Theme/Sidebars.php:82
+#: library/Theme/Sidebars.php:85
 msgid "The footer area"
 msgstr "Footer-arean"
 
-#: library/Theme/Sidebars.php:94
+#: library/Theme/Sidebars.php:97
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
-#: library/Theme/Sidebars.php:95
+#: library/Theme/Sidebars.php:98
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:107
+#: library/Theme/Sidebars.php:110
 msgid "Content area (above article)"
 msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:108
+#: library/Theme/Sidebars.php:111
 msgid "The area above the content"
 msgstr "Arean ovanför huvudinnehållet"
 
-#: library/Theme/Sidebars.php:118
+#: library/Theme/Sidebars.php:121
 msgid "Content area (below article)"
 msgstr "Innehållsarea (nedanför artikel)"
 
-#: library/Theme/Sidebars.php:119
+#: library/Theme/Sidebars.php:122
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:129
+#: library/Theme/Sidebars.php:132
 msgid "Main container bottom"
 msgstr "Under artikel"
 
-#: library/Theme/Sidebars.php:130
+#: library/Theme/Sidebars.php:133
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:140
+#: library/Theme/Sidebars.php:143
 msgid "Left sidebar"
 msgstr "Vänster sidofält (övre sektion)"
 
-#: library/Theme/Sidebars.php:141
+#: library/Theme/Sidebars.php:144
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:153
+#: library/Theme/Sidebars.php:156
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Theme/Sidebars.php:154
+#: library/Theme/Sidebars.php:157
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:166
+#: library/Theme/Sidebars.php:169
 msgid "Right sidebar"
 msgstr "Höger sidofält"
 
-#: library/Theme/Sidebars.php:167
+#: library/Theme/Sidebars.php:170
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Sidebars.php:179
+#: library/Theme/Sidebars.php:182
 msgid "Top sidebar (full-width)"
 msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:180
+#: library/Theme/Sidebars.php:183
 #, php-format
 msgid "Sidebar that sits below the hero, takes up 100% of the widht."
 msgstr ""
 
-#: library/Theme/Sidebars.php:192
+#: library/Theme/Sidebars.php:195
 msgid "Bottom sidebar (full-width)"
 msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:193
+#: library/Theme/Sidebars.php:196
 #, php-format
 msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
 msgstr ""
@@ -1762,10 +1887,6 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/acf.php:767
 msgid "Medium"
-msgstr ""
-
-#: vendor/advanced-custom-fields/acf.php:768
-msgid "Large"
 msgstr ""
 
 #: vendor/advanced-custom-fields/acf.php:769
@@ -3056,14 +3177,6 @@ msgstr ""
 msgid "Enter your choices one per line"
 msgstr ""
 
-#: vendor/advanced-custom-fields/core/fields/radio.php:150
-msgid "Red"
-msgstr "Röd"
-
-#: vendor/advanced-custom-fields/core/fields/radio.php:151
-msgid "Blue"
-msgstr "Blå"
-
 #: vendor/advanced-custom-fields/core/fields/radio.php:175
 msgid "Add 'other' choice to allow for custom values"
 msgstr ""
@@ -3643,10 +3756,6 @@ msgstr "Exportera med AcfExportManager verktyget. "
 msgid "Exported %d fieldgroup(s)."
 msgstr "Exporterade %d fältgrupper."
 
-#: views/404.blade.php:22
-msgid "Error 404"
-msgstr "Felinformation"
-
 #: views/archive-event.blade.php:69
 msgctxt "Event archive"
 msgid "Date"
@@ -3665,6 +3774,26 @@ msgstr "Inga inlägg att visa"
 #: views/author.blade.php:34
 msgid "Posts by"
 msgstr "Inlägg av"
+
+#: views/partials/404/default.blade.php:18
+msgid "Error 404"
+msgstr "Felinformation"
+
+#: views/partials/404/event.blade.php:5
+msgid "The ticket could not be found"
+msgstr "Ärendet kunde inte hittas"
+
+#: views/partials/404/event.blade.php:7
+msgid "View all tickets"
+msgstr "Visa alla ärenden"
+
+#: views/partials/404/ticket.blade.php:5
+msgid "The event could not be found"
+msgstr "Evenemanget kunde inte hittas"
+
+#: views/partials/404/ticket.blade.php:7
+msgid "Go back to events archive"
+msgstr "Tillbaka till alla evenemang"
 
 #: views/partials/archive-filters.blade.php:19
 msgid "From"
@@ -3785,6 +3914,16 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
 
+#~ msgid "Google Analytics UA"
+#~ msgstr "Google Analytics UA"
+
+#~ msgid ""
+#~ "To activate Google Analytics please insert your Google Analytics UA."
+#~ "<br>Usally a string like this: UA-XXXXX-Y"
+#~ msgstr ""
+#~ "För att aktivera Google Analytics anger du ditt Google Analytics UA här."
+#~ "<br>Brukar vara formaterat såhär: UA-XXXXX-Y"
+
 #~ msgid "Navigation settings"
 #~ msgstr "Navigationsinställningar"
 
@@ -3805,15 +3944,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "gray"
 #~ msgstr "grå"
-
-#~ msgid "Gray"
-#~ msgstr "Grå"
-
-#~ msgid "Green"
-#~ msgstr "Grön"
-
-#~ msgid "Purple"
-#~ msgstr "Lila"
 
 #~ msgid "Cookie consent"
 #~ msgstr "Cookie-medgivande"

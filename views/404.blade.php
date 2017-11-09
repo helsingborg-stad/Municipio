@@ -2,16 +2,10 @@
 
 @section('content')
 
+    @if(file_exists(MUNICIPIO_PATH . '/views/partials/404/' . $post_type . '.blade.php'))
+        @include('partials.404.' . $post_type)
+    @else
+        @include('partials.404.default')
+    @endif
 
-
-@if ($is_event)
-  
-  @include('event404')
-   
-
-@else
-
- @include('default404')
-
-@endif
 @stop
