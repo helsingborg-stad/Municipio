@@ -228,7 +228,7 @@ class News
             'description'          => __('News stories', 'municipio-intranet'),
             'menu_icon'            => $icon,
             'public'               => true,
-            'publicly_queryable'   => true,
+            'publicly_queriable'   => true,
             'show_ui'              => true,
             'show_in_nav_menus'    => true,
             'menu_position'        => 4,
