@@ -26,10 +26,10 @@ class TargetGroups
         //add_action('pre_get_posts', array($this, 'doGroupRestriction'));
 
         // Restruct modules
-        add_filter('Modularity/Display/Markup', array($this, 'restrictModules'), 10, 2);
+        //add_filter('Modularity/Display/Markup', array($this, 'restrictModules'), 10, 2);
 
         // Shortcode
-        add_shortcode('target', array($this, 'shortcodeTarget'));
+        //add_shortcode('target', array($this, 'shortcodeTarget'));
 
         // Editor shortcode button
         add_action('admin_init', array($this, 'initTargetedContentButton'));
