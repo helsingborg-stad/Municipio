@@ -240,7 +240,7 @@ class News
             'hierarchical'         => false,
             'exclude_from_search'  => false,
             'taxonomies'           => array('category'),
-            'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author', 'comments')
+            'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author', 'excerpt', 'comments')
         );
 
         register_post_type(self::$postTypeSlug, $args);
