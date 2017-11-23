@@ -239,7 +239,7 @@ class News
             ),
             'hierarchical'         => false,
             'exclude_from_search'  => false,
-            'taxonomies'           => array('category'),
+            'taxonomies'           => array(),
             'supports'             => array('title', 'revisions', 'editor', 'thumbnail', 'author', 'excerpt', 'comments')
         );
 
