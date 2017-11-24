@@ -4,35 +4,63 @@ namespace Municipio\Controller;
 
 class E404 extends \Municipio\Controller\BaseController
 {
+
+    public $query;
+
     public function init()
     {
+
+        //Get local instance of wp_query
+        $this->globalToLocal('wp_query', 'query');
+
+        //Get Search keyword
         $searchKeyword = $_SERVER['REQUEST_URI'];
         $searchKeyword = str_replace('/', ' ', $searchKeyword);
         $searchKeyword = trim($searchKeyword);
 
         $this->data['keyword'] = $searchKeyword;
 
+        //Get current post type to view
+        $this->getRequestedPostType();
 
-        //Checks if attempt to access event.
+        //Get archive link to view
+        $this->getRequestedPostTypeArchivePermalink();
+    }
 
-        $urlPaths = explode('/', $_SERVER['REQUEST_URI']);
-		$firstPath = $urlPaths[1];
+    /**
+     * Allcolates $post_type with current post type
+     * @return  string / null
+     */
 
-		if($firstPath == "event")
-		{
-			$this->data['is_event'] = TRUE;
-			
-			//Sends status 200 to prevent Google Search Console 404-error.
-			http_response_code(200);
+    public function getRequestedPostType()
+    {
+        if (!is_a($this->query, 'WP_Query')) {
+            return null;
+        }
 
-		
-			//Link to archive for events .
-			$url = get_post_type_archive_link( 'event' );
+        if (isset($this->query->query) && isset($this->query->query['post_type'])) {
+            return $this->data['post_type'] = $this->query->query['post_type'];
+        } else {
+            return $this->data['post_type'] = null;
+        }
 
-			$this->data['event_redirect'] = $url;
-			
+    }
 
+    /**
+     * Allcolates $post_type_permalink with link to archive
+     * @return void
+     */
 
-		}
+    public function getRequestedPostTypeArchivePermalink()
+    {
+        $requested_post_type = $this->getRequestedPostType();
+
+        if (!is_null($requested_post_type)) {
+            $this->data['post_type_permalink']  = get_post_type_archive_link($requested_post_type);
+        } else {
+            $this->data['post_type_permalink'] = false;
+        }
+
+        return;
     }
 }
