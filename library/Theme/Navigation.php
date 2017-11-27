@@ -8,6 +8,8 @@ class Navigation
     {
         $this->registerMenus();
 
+        add_action('after_setup_theme', array($this, 'registerDropDownLinksMenu'));
+
         if (in_array('mainmenu', (array)get_field('search_display', 'option'))) {
             add_filter('wp_nav_menu_items', array($this, 'addSearchMagnifier'), 10, 2);
             add_filter('Municipio/main_menu/wrapper_end', array($this, 'addSearchMagnifier'), 10, 2);
@@ -126,6 +128,37 @@ class Navigation
         }
 
         register_nav_menus($menus);
+    }
+
+    /**
+     * Register dropdown links menu
+     * @return void
+     */
+    public function registerDropDownLinksMenu()
+    {
+        if (get_field('header_dropdown_links', 'option') === true) {
+            register_nav_menu('dropdown-links-menu', __('Dropdown Links', 'municipio'));
+        }
+    }
+
+    /**
+     * Output dropdown links menu markup
+     * @return string menu markup
+     */
+    public static function outputDropdownLinksMenu()
+    {
+        if (!\Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu')) {
+            return;
+        }
+
+        $args = array(
+            'menu' => \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu'),
+            'container' =>  false,
+            'menu_class' => 'dropdown-menu',
+            'echo' => false
+        );
+
+        return wp_nav_menu($args);
     }
 
     /**

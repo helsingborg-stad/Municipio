@@ -3,6 +3,19 @@
     "title": "Header",
     "fields": [
         {
+            "key": "field_56a22aaa83835",
+            "label": "Layout",
+            "name": "header_layout",
+            "type": "radio",
+            "value": null,
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layout": "vertical",
             "choices": {
                 "business": "Business (default)",
@@ -14,30 +27,14 @@
             "other_choice": 0,
             "save_other_choice": 0,
             "allow_null": 0,
-            "return_format": "value",
-            "key": "field_56a22aaa83835",
-            "label": "Layout",
-            "name": "header_layout",
-            "type": "radio",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
+            "return_format": "value"
         },
         {
-            "default_value": 0,
-            "message": "Header should stick to view (floats when scrolling)",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
             "key": "field_58737dd1dc762",
             "label": "Sticky",
             "name": "header_sticky",
             "type": "true_false",
+            "value": null,
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -45,18 +42,19 @@
                 "width": "33.3333%",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": 0,
-            "message": "Transparent header on front page",
+            "message": "Header should stick to view (floats when scrolling)",
             "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_58737dd1dc763",
             "label": "Transparent",
             "name": "header_transparent",
             "type": "true_false",
+            "value": null,
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -64,18 +62,19 @@
                 "width": "33.3333%",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": 0,
-            "message": "Center all contents of the header",
+            "message": "Transparent header on front page",
             "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_58737dd1dc76345",
             "label": "Centered",
             "name": "header_centered",
             "type": "true_false",
+            "value": null,
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -83,23 +82,19 @@
                 "width": "33.3333%",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": 0,
+            "message": "Center all contents of the header",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         },
         {
-            "layout": "vertical",
-            "choices": {
-                "light": "Light",
-                "dark": "Dark"
-            },
-            "default_value": "light",
-            "other_choice": 0,
-            "save_other_choice": 0,
-            "allow_null": 0,
-            "return_format": "value",
             "key": "field_56a22aaa83835wef",
             "label": "Header content color",
             "name": "header_content_color",
             "type": "radio",
+            "value": null,
             "instructions": "",
             "required": 1,
             "conditional_logic": [
@@ -115,7 +110,45 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "layout": "vertical",
+            "choices": {
+                "light": "Light",
+                "dark": "Dark"
+            },
+            "default_value": "light",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_5a1c07c1e0a55",
+            "label": "Activate dropdown links",
+            "name": "header_dropdown_links",
+            "type": "true_false",
+            "value": null,
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_56a22aaa83835",
+                        "operator": "==",
+                        "value": "jumbo"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -134,7 +167,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 

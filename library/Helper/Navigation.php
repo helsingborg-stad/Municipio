@@ -271,4 +271,17 @@ class Navigation
                     ' . $menu->render(false) . '
                 </nav>';
     }
+
+    /**
+     * Get menu name by menu location
+     * @param mixed $location slug or ID of registered menu
+     * @return  string menu name
+     */
+    public static function getMenuNameByLocation($location)
+    {
+        if(!has_nav_menu($location)) return false;
+        $menus = get_nav_menu_locations();
+        $menuTitle = wp_get_nav_menu_object($menus[$location])->name;
+        return $menuTitle;
+    }
 }
