@@ -23,7 +23,7 @@
 
                     @if (get_field('nav_primary_enable', 'option') === true)
                     <div class="{{ get_field('header_centered', 'option') ? 'grid-md-12' : 'grid-md-8 text-right' }} {!! apply_filters('Municipio/desktop_menu_breakpoint', 'hidden-xs hidden-sm'); !!}">
-                        <nav class="nav-group-overflow" data-btn-width="100">
+                        <nav class="{!! apply_filters('Municipio/Jumbo/NavGroupClass', 'nav-group-overflow'); !!}" data-btn-width="100">
                             {!! $navigation['mainMenu'] !!}
 
                             <span class="dropdown">
