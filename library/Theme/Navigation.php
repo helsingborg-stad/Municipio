@@ -136,7 +136,7 @@ class Navigation
      */
     public function registerDropDownLinksMenu()
     {
-        if (get_field('header_dropdown_links', 'option') === true) {
+        if (get_field('header_dropdown_links', 'option') == true) {
             register_nav_menu('dropdown-links-menu', __('Dropdown Links', 'municipio'));
         }
     }
