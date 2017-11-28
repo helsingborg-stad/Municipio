@@ -33,8 +33,7 @@
 
                             @if (get_field('header_dropdown_links', 'option') === true && \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu'))
                                 <span class="dropdown">
-                                    <span class="btn btn-primary dropdown-toggle">{{ \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu')}}</span>
-
+                                    <span class="btn btn-primary dropdown-toggle dropdown-links-menu">{{ \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu')}}</span>
                                     {!! \Municipio\Theme\Navigation::outputDropdownLinksMenu() !!}
                                 </span>
                             @endif
