@@ -38,7 +38,7 @@
                 <div class="grid">
                     <div class="grid-md-12">
                         @if (get_field('footer_logotype', 'option') != 'hide')
-                        {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
+                        {!! municipio_get_logotype(get_field('footer_logotype', 'option'), false, true, false, false) !!}
                         @endif
 
                         <nav class="{{ !get_field('footer_signature_show', 'option') ? 'pull-right' : '' }}">
@@ -79,57 +79,43 @@
                 {{-- ## Footer header begin ## --}}
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom' && get_field('footer_logotype', 'option') != 'hide')
                 <div class="grid no-margin-top">
-                    <div class="grid-md-6">
-                        {!! municipio_get_logotype(get_field('footer_logotype', 'option')) !!}
-                    </div>
-                    <div class="grid-md-6">
-                        @if(have_rows('footer_icons_repeater', 'option'))
-                            <ul class="icons-list">
-                                @foreach(get_field('footer_icons_repeater', 'option') as $link)
-                                    <li>
-                                        <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
-                                            {!! $link['link_icon'] !!}
-
-                                            @if (isset($link['link_title']))
-                                            <span class="sr-only">{{ $link['link_title'] }}</span>
-                                            @endif
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
+                    <div class="grid-xs-12">
+                        {!! municipio_get_logotype(get_field('footer_logotype', 'option'), false, true, false, false) !!}
                     </div>
                 </div>
                 @endif
                 {{-- ## Footer header end ## --}}
-
-                @if (get_field('footer_logotype_vertical_position', 'option') == 'top' && have_rows('footer_icons_repeater', 'option'))
-                    <div class="grid no-margin-top">
-                        <div class="grid-md-12">
-                            <ul class="icons-list">
-                                @foreach(get_field('footer_icons_repeater', 'option') as $link)
-                                    <li>
-                                        <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
-                                            {!! $link['link_icon'] !!}
-
-                                            @if (isset($link['link_title']))
-                                            <span class="sr-only">{{ $link['link_title'] }}</span>
-                                            @endif
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
             </div>
 
             {{-- ## Footer signature ## --}}
             @if (get_field('footer_signature_show', 'option'))
                 <div class="grid-md-2 text-right">
-                    {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se"><img src="' . get_template_directory_uri() . '/assets/dist/images/helsingborg.svg" alt="Helsingborg Stad" class="footer-signature"></a>') !!}
+                    {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se"><img src="' . get_template_directory_uri() . '/assets/dist/images/helsingborg_gray.svg" alt="Helsingborg Stad" class="footer-signature"></a>') !!}
                 </div>
             @endif
         </div>
+
+
+        {{-- ## Social icons ## --}}
+        @if (have_rows('footer_icons_repeater', 'option'))
+            <div class="grid">
+                <div class="grid-xs-12">
+                    <ul class="icons-list">
+                        @foreach(get_field('footer_icons_repeater', 'option') as $link)
+                            <li>
+                                <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
+                                    {!! $link['link_icon'] !!}
+
+                                    @if (isset($link['link_title']))
+                                    <span class="sr-only">{{ $link['link_title'] }}</span>
+                                    @endif
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
     </div>
 </footer>
