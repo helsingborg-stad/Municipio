@@ -17,7 +17,10 @@ class Archives
 
             $postcount = get_field('archive_utbildningar_number_of_posts', 'option'); 
 
-            $query->set( 'posts_per_page', $postcount );
+            if(!empty($postcount))
+            {
+                $query->set( 'posts_per_page', $postcount );
+            }
         }
     }
 
