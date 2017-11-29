@@ -174,15 +174,7 @@ class BaseController
 
     public function getFooterLayout()
     {
-        switch (get_field('footer_layout', 'option')) {
-            case 'compressed':
-                $this->data['footerLayout'] = 'compressed';
-                break;
-
-            default:
-                $this->data['footerLayout'] = 'default';
-                break;
-        }
+        $this->data['footerLayout'] = 'default';
     }
 
     public function getVerticalMenu()
