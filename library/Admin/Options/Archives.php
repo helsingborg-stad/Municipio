@@ -7,6 +7,18 @@ class Archives
     public function __construct()
     {
         add_action('admin_init', array($this, 'addArchiveOptions'));
+        add_action( 'pre_get_posts', array($this, 'get_specific_number_of_posts') );
+    }
+
+
+    public function get_specific_number_of_posts( $query ) 
+    {
+        if( !is_admin() && $query->is_main_query() && is_post_type_archive( 'utbildningar' ) ) {
+
+            $postcount = get_field('archive_utbildningar_number_of_posts', 'option'); 
+
+            $query->set( 'posts_per_page', $postcount );
+        }
     }
 
     /**
@@ -191,6 +203,29 @@ class Archives
                     'placeholder' => '',
                     'disabled' => 0,
                     'readonly' => 0,
+                );
+
+                 // Number of posts
+                $fieldArgs['fields'][] = array(
+                    'key' => 'field_56a8c593647ab_' . md5($posttype),
+                    'label' => 'Post count',
+                    'name' => 'archive_' . sanitize_title($posttype) . '_number_of_posts',
+                    "type" => "number",
+                    "instructions" => __('Number of posts in one page', 'municipio'),
+                    "required" => 0,
+                    "conditional_logic" => 0,
+                    "wrapper" => array(
+                        "width" => "",
+                        "class" => "",
+                        "id" => ""
+                    ),
+                    "default_value" => "",
+                    "placeholder" => "",
+                    "prepend" => "",
+                    "append" => "",
+                    "maxlength" => "",
+                    "readonly" => 0,
+                    "disabled" => 0
                 );
 
                 $fieldArgs['fields'][] = array(
