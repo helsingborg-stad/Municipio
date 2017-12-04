@@ -187,6 +187,95 @@ class Editor
                 )
             ),
 
+            'Heading size' => array(
+                'heading-1' => array(
+                    'title' => 'Heading 1',
+                    'inline' => 'span',
+                    'classes' => 'h1'
+                ),
+                'heading-2' => array(
+                    'title' => 'Heading 2',
+                    'inline' => 'span',
+                    'classes' => 'h2'
+                ),
+                'heading-3' => array(
+                    'title' => 'Heading 3',
+                    'inline' => 'span',
+                    'classes' => 'h3'
+                ),
+                'heading-4' => array(
+                    'title' => 'Heading 4',
+                    'inline' => 'span',
+                    'classes' => 'h4'
+                ),
+                'heading-5' => array(
+                    'title' => 'Heading 5',
+                    'inline' => 'span',
+                    'classes' => 'h5'
+                ),
+                'heading-6' => array(
+                    'title' => 'Heading 6',
+                    'inline' => 'span',
+                    'classes' => 'h6'
+                )
+            ),
+
+            'Font weight' => array(
+                'weight-300' => array(
+                    'title' => 'Light (300)',
+                    'inline' => 'span',
+                    'classes' => 'weight-300'
+                ),
+                'weight-400' => array(
+                    'title' => 'Regular (400)',
+                    'inline' => 'span',
+                    'classes' => 'weight-400'
+                ),
+                'weight-500' => array(
+                    'title' => 'Medium (500)',
+                    'inline' => 'span',
+                    'classes' => 'weight-500'
+                ),
+                'weight-700' => array(
+                    'title' => 'Bold (700)',
+                    'inline' => 'span',
+                    'classes' => 'weight-700'
+                ),
+                'weight-900' => array(
+                    'title' => 'Black (900)',
+                    'inline' => 'span',
+                    'classes' => 'weight-900'
+                )
+            ),
+
+            'Text color' => array(
+                'text-color-1' => array(
+                    'title' => 'Color 1',
+                    'inline' => 'span',
+                    'classes' => 'text-color-1'
+                ),
+                'text-color-2' => array(
+                    'title' => 'Color 2',
+                    'inline' => 'span',
+                    'classes' => 'text-color-2'
+                ),
+                'text-color-3' => array(
+                    'title' => 'Color 3',
+                    'inline' => 'span',
+                    'classes' => 'text-color-3'
+                ),
+                'text-color-4' => array(
+                    'title' => 'Color 4',
+                    'inline' => 'span',
+                    'classes' => 'text-color-4'
+                ),
+                'text-color-5' => array(
+                    'title' => 'Color 5',
+                    'inline' => 'span',
+                    'classes' => 'text-color-5'
+                )
+            ),
+
             'Text transform' => array(
                 'uppercase' => array(
                     'title' => 'Uppercase',

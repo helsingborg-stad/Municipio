@@ -55,7 +55,7 @@ if (!function_exists('municipio_get_thumbnail_source')) {
  * @return string           HTML markup
  */
 if (!function_exists('municipio_get_logotype')) {
-    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true, $tagline = false)
+    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true, $tagline = false, $use_text_replacement = true)
     {
         if ($type == '') {
             $type = 'standard';
@@ -80,7 +80,11 @@ if (!function_exists('municipio_get_logotype')) {
         }
 
         // Get the symbol to use (blog name or image)
-        $symbol = '<span class="h1 no-margin no-padding">' . $siteName . '</span>';
+        if ($use_text_replacement) {
+            $symbol = '<span class="h1 no-margin no-padding">' . $siteName . '</span>';
+        } else {
+            $symbol = "";
+        }
 
         if (isset($logotype[$type]['url']) && $logo_include === false) {
             $symbol = sprintf(
@@ -232,9 +236,9 @@ if (!function_exists('municipio_get_user_profile_url')) {
             $user = get_user_by('ID', $user);
         } elseif (is_string($user)) {
             if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
-              $user = get_user_by('email', $user);
+                $user = get_user_by('email', $user);
             } else {
-              $user = get_user_by('slug', $user);
+                $user = get_user_by('slug', $user);
             }
         }
 

@@ -174,15 +174,7 @@ class BaseController
 
     public function getFooterLayout()
     {
-        switch (get_field('footer_layout', 'option')) {
-            case 'compressed':
-                $this->data['footerLayout'] = 'compressed';
-                break;
-
-            default:
-                $this->data['footerLayout'] = 'default';
-                break;
-        }
+        $this->data['footerLayout'] = 'default';
     }
 
     public function getVerticalMenu()
@@ -234,5 +226,21 @@ class BaseController
     public function getData()
     {
         return apply_filters('HbgBlade/data', $this->data);
+    }
+
+    /**
+     * Creates a local copy of the global instance
+     * @param string $global The name of global varable that should be made local
+     * @param string $local Handle the global with the name of this string locally
+     * @return void
+     */
+    public function globalToLocal($global, $local = null)
+    {
+        global $$global;
+        if (is_null($local)) {
+            $this->$global = $$global;
+        } else {
+            $this->$local = $$global;
+        }
     }
 }

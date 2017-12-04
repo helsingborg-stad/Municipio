@@ -3,40 +3,6 @@
     "title": "Footer layout",
     "fields": [
         {
-            "multiple": 0,
-            "allow_null": 0,
-            "choices": {
-                "default": "Default style",
-                "compressed": "Compressed"
-            },
-            "default_value": [
-                "default"
-            ],
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "return_format": "value",
-            "key": "field_5710cd81d4a19",
-            "label": "Footer layout",
-            "name": "footer_layout",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "disabled": 0,
-            "readonly": 0
-        },
-        {
-            "default_value": 0,
-            "message": "Enable footer signature",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
             "key": "field_56e8050730333",
             "label": "Footer signature",
             "name": "footer_signature_show",
@@ -48,7 +14,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": 0,
+            "message": "Enable footer signature",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -67,7 +38,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 
