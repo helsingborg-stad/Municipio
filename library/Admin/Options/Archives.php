@@ -7,19 +7,17 @@ class Archives
     public function __construct()
     {
         add_action('admin_init', array($this, 'addArchiveOptions'));
-        add_action( 'pre_get_posts', array($this, 'get_specific_number_of_posts') );
+        add_action('pre_get_posts', array($this, 'getSpecificNumberOfPosts'));
     }
 
 
-    public function get_specific_number_of_posts( $query ) 
+    public function getSpecificNumberOfPosts($query)
     {
-        if( !is_admin() && $query->is_main_query() && is_post_type_archive( 'utbildningar' ) ) {
+        if (!is_admin() && $query->is_main_query() && is_post_type_archive('utbildningar')) {
+            $postcount = get_field('archive_utbildningar_number_of_posts', 'option');
 
-            $postcount = get_field('archive_utbildningar_number_of_posts', 'option'); 
-
-            if(!empty($postcount))
-            {
-                $query->set( 'posts_per_page', $postcount );
+            if (!empty($postcount)) {
+                $query->set('posts_per_page', $postcount);
             }
         }
     }
@@ -65,9 +63,9 @@ class Archives
                 'key' => 'group_' . md5($posttype),
                 'title' => __('Archive for', 'municipio') . ': ' . $args->label,
                 'fields' => array(),
-                'location' => array (
-                    array (
-                        array (
+                'location' => array(
+                    array(
+                        array(
                             'param' => 'options_page',
                             'operator' => '==',
                             'value' => 'acf-options-archives',
@@ -86,7 +84,7 @@ class Archives
 
             if ($args->has_archive || $args->name === 'post') {
                 // Feed display label
-                $fieldArgs['fields'][] = array (
+                $fieldArgs['fields'][] = array(
                     'key' => 'field_570e104caf1b2_' . md5($posttype),
                     'label' => 'Archive feed display settings',
                     'name' => 'archive_' . sanitize_title($posttype) . '_feed_display_settings',
@@ -94,7 +92,7 @@ class Archives
                     'instructions' => 'The below settings will apply for the archive feed.',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => 'municipio-theme-options-label',
                         'id' => '',
@@ -135,12 +133,12 @@ class Archives
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array (
+                    'choices' => array(
                         'full' => 'Full',
                         'collapsed' => 'Collapsed',
                         'compressed' => 'Compressed',
@@ -149,7 +147,7 @@ class Archives
                         'newsitem' => 'News items',
                         'list' => 'List'
                     ),
-                    'default_value' => array (
+                    'default_value' => array(
                         0 => 'full',
                     ),
                     'allow_null' => 0,
@@ -169,34 +167,34 @@ class Archives
                     'type' => 'select',
                     'instructions' => '',
                     'required' => 0,
-                    'conditional_logic' => array (
-                        array (
-                            array (
+                    'conditional_logic' => array(
+                        array(
+                            array(
                                 'field' => 'field_56f00fe21f918_' . md5($posttype),
                                 'operator' => '==',
                                 'value' => 'grid',
                             ),
                         ),
-                        array (
-                            array (
+                        array(
+                            array(
                                 'field' => 'field_56f00fe21f918_' . md5($posttype),
                                 'operator' => '==',
                                 'value' => 'cards',
                             ),
                         ),
                     ),
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array (
+                    'choices' => array(
                         'grid-md-12' => 1,
                         'grid-md-6' => 2,
                         'grid-md-4' => 3,
                         'grid-md-3' => 4,
                     ),
-                    'default_value' => array (
+                    'default_value' => array(
                         0 => 'grid-md-12',
                     ),
                     'allow_null' => 0,
@@ -238,16 +236,16 @@ class Archives
                     'type' => 'true_false',
                     'instructions' => '',
                     'required' => 0,
-                    'conditional_logic' => array (
-                        array (
-                            array (
+                    'conditional_logic' => array(
+                        array(
+                            array(
                                 'field' => 'field_56f00fe21f918_' . md5($posttype),
                                 'operator' => '==',
                                 'value' => 'grid',
                             ),
                         )
                     ),
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '100%',
                         'class' => '',
                         'id' => '',
@@ -277,13 +275,13 @@ class Archives
                     'instructions' => '',
                     'required' => 1,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '50%',
                         'class' => '',
                         'id' => '',
                     ),
                     'choices' => apply_filters('Municipio/archive/sort_keys', $metaKeys, $posttype),
-                    'default_value' => array (
+                    'default_value' => array(
                         0 => 'post_date',
                     ),
                     'allow_null' => 0,
@@ -303,7 +301,7 @@ class Archives
                     'instructions' => '',
                     'required' => 1,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '50%',
                         'class' => '',
                         'id' => '',
@@ -312,7 +310,7 @@ class Archives
                         'asc' => 'Ascending',
                         'desc' => 'Descending'
                     ),
-                    'default_value' => array (
+                    'default_value' => array(
                         0 => 'desc',
                     ),
                     'allow_null' => 0,
@@ -333,12 +331,12 @@ class Archives
                     'instructions' => '',
                     'required' => 1,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '50%',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array (
+                    'choices' => array(
                         'false' => 'Do not show',
                         'datetime' => 'Date and time',
                         'date' => 'Date only',
@@ -359,7 +357,7 @@ class Archives
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '50%',
                         'class' => '',
                         'id' => '',
@@ -369,7 +367,7 @@ class Archives
                 );
 
                 // Post filters
-                $fieldArgs['fields'][] = array (
+                $fieldArgs['fields'][] = array(
                     'key' => 'field_570e104caf1b5_' . md5($posttype),
                     'label' => 'Archive filtering settings',
                     'name' => 'archive_' . sanitize_title($posttype) . '_feed_filtering_settings',
@@ -377,7 +375,7 @@ class Archives
                     'instructions' => 'The below settings will decide for which taxonomy filters should be shown in the archive filtering.',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => 'municipio-theme-options-label',
                         'id' => '',
@@ -395,16 +393,16 @@ class Archives
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array (
+                    'choices' => array(
                         'text_search' => 'Text search',
                         'date_range' => 'Date range'
                     ),
-                    'default_value' => array (
+                    'default_value' => array(
                     ),
                     'layout' => 'horizontal',
                     'toggle' => 0,
@@ -420,13 +418,13 @@ class Archives
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array (
+                        'wrapper' => array(
                             'width' => '',
                             'class' => '',
                             'id' => '',
                         ),
                         'choices' => $taxonomies,
-                        'default_value' => array (
+                        'default_value' => array(
                         ),
                         'layout' => 'horizontal',
                         'toggle' => 0,
@@ -448,12 +446,12 @@ class Archives
                                 'value' => $taxName
                             )
                         )),
-                        'wrapper' => array (
+                        'wrapper' => array(
                             'width' => '50%',
                             'class' => '',
                             'id' => '',
                         ),
-                        'choices' => array (
+                        'choices' => array(
                             'primary' => 'Primary',
                             'row' => 'Row',
                             'folded' => 'Folded'
@@ -478,12 +476,12 @@ class Archives
                                 'value' => $taxName
                             )
                         )),
-                        'wrapper' => array (
+                        'wrapper' => array(
                             'width' => '50%',
                             'class' => '',
                             'id' => '',
                         ),
-                        'choices' => array (
+                        'choices' => array(
                             'single' => 'Single choice',
                             'multi' => 'Multiple choices'
                         ),
@@ -497,7 +495,7 @@ class Archives
 
             // Post display label
             if (!isset($args->is_author_archive) || $args->is_author_archive !== true) {
-                $fieldArgs['fields'][] = array (
+                $fieldArgs['fields'][] = array(
                     'key' => 'field_570e104caf1b3_' . md5($posttype),
                     'label' => 'Post display settings',
                     'name' => 'archive_' . sanitize_title($posttype) . '_post_display_settings',
@@ -505,7 +503,7 @@ class Archives
                     'instructions' => 'The below settings will apply for single post view.',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => 'municipio-theme-options-label',
                         'id' => '',
@@ -523,12 +521,12 @@ class Archives
                     'instructions' => '',
                     'required' => 1,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array (
+                    'choices' => array(
                         'false' => 'Do not show',
                         'datetime' => 'Date and time',
                         'date' => 'Date only',
@@ -541,7 +539,7 @@ class Archives
                 );
 
                 // Info to display
-                $fieldArgs['fields'][] = array (
+                $fieldArgs['fields'][] = array(
                     'key' => 'field_56fcc62b8ab02_' . md5($posttype),
                     'label' => 'Info to display',
                     'name' => 'archive_' . sanitize_title($posttype) . '_post_display_info',
@@ -549,12 +547,12 @@ class Archives
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array (
+                    'wrapper' => array(
                         'width' => '',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array (
+                    'choices' => array(
                         'author' => 'Show author',
                         'author_image' => 'Show autor image (only if show author)',
                     ),
@@ -566,7 +564,7 @@ class Archives
 
                 // Taxonomy info to display
                 if (count($taxonomies) > 0) {
-                    $fieldArgs['fields'][] = array (
+                    $fieldArgs['fields'][] = array(
                         'key' => 'field_56fcc62b8ab03_' . md5($posttype),
                         'label' => 'Taxonomies to display',
                         'name' => 'archive_' . sanitize_title($posttype) . '_post_taxonomy_display',
@@ -574,7 +572,7 @@ class Archives
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array (
+                        'wrapper' => array(
                             'width' => '',
                             'class' => '',
                             'id' => '',
