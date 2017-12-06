@@ -174,7 +174,7 @@ class Navigation
             return '';
         }
 
-        return '<ul class="nav-mobile">' . $menu->render(false) . '</ul>';
+        return '<ul class="nav-mobile">' . apply_filters( 'Municipio/Helper/Navigation/MobileMenuAutoItems', $menu->render(false) ) . '</ul>';
     }
 
     /**
