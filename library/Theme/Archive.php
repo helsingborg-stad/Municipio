@@ -8,6 +8,7 @@ class Archive
     {
         add_filter('wp_title', array($this, 'pageTitle'));
         add_filter('get_the_archive_title', array($this, 'pageHeader'));
+        add_filter('excerpt_more', array($this, 'readMore'));
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
     }
@@ -98,5 +99,20 @@ class Archive
         // Modify query to check for page instead of post_type
         $query->set('post_type', 'page');
         $query->set('child_of', $pageForPostType);
+    }
+
+    /**
+     * Filter the "read more" excerpt string link to the post.
+     * @param   string $more "Read more" excerpt string.
+     * @return  string       Modified "read more" excerpt string.
+     */
+    public function readMore($more)
+    {
+        $more = sprintf( ' <a class="excerpt-more" href="%1$s">%2$s...</a>',
+            get_permalink(get_the_ID()),
+            __('read more', 'municipio')
+        );
+
+        return $more;
     }
 }
