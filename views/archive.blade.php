@@ -2,7 +2,9 @@
 
 @section('content')
 
-@include('partials.archive-filters')
+@if (!get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option'))
+    @include('partials.archive-filters')
+@endif
 
 <div class="container main-container">
     @include('partials.breadcrumbs')
@@ -56,6 +58,11 @@
             @if (in_array($template, array('list')))
                 @include('partials.blog.type.post-' . $template)
             @else
+            @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option'))
+                <div class="grid filter-content">
+                    @include('partials.archive-filters')
+                </div>
+            @endif
                 <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
                     @if (have_posts())
                         <?php $postNum = 0; ?>
