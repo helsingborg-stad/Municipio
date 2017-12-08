@@ -87,6 +87,10 @@
 
         @include('partials.footer')
 
+        @if (isset($fab['menu']))
+            @include('partials.fixed-action-bar')
+        @endif
+
         @include('partials.vertical-menu')
 
         @if (in_array(get_field('show_google_translate', 'option'), array('footer', 'fold')))

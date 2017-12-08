@@ -284,4 +284,25 @@ class Navigation
         $menuTitle = wp_get_nav_menu_object($menus[$location])->name;
         return $menuTitle;
     }
+
+    /*
+    *   Get menus
+    *   @return array
+    */
+    public static function getMenuList()
+    {
+        $menus = get_terms('nav_menu');
+
+        if (! isset($menus) && empty($menus)) {
+            return;
+        }
+
+        $menuList = array();
+
+        foreach ($menus as $menu) {
+            $menuList[] = $menu->name;
+        }
+
+        return $menus;
+    }
 }
