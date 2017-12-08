@@ -197,9 +197,14 @@ class Enqueue
      */
     public function googleReCaptcha()
     {
-        if(is_single() && comments_open() && !is_user_logged_in() && get_option('comment_registration') == 0) {
-            wp_register_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', '', '1.0.0', true);
-            wp_enqueue_script('google-recaptcha');
+        if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
+            wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit', '', '1.0.0', true);
+            wp_add_inline_script( 'google-recaptcha', '
+            var CaptchaCallback = function() {
+                jQuery(\'.g-recaptcha\').each(function(index, el) {
+                    grecaptcha.render(el, {\'sitekey\' : \'' . G_RECAPTCHA_KEY . '\'});
+                });
+            };', 'before');
         }
     }
 
