@@ -455,7 +455,8 @@ class Archives
                         'choices' => array(
                             'primary' => 'Primary',
                             'row' => 'Row',
-                            'folded' => 'Folded'
+                            'folded' => 'Folded',
+                            'highlighted' => 'Highlighted'
                         ),
                         'other_choice' => 0,
                         'save_other_choice' => 0,
