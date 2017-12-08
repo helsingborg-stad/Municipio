@@ -20,7 +20,7 @@ class FixedActionBar
         $field['choices'] = array();
 
         foreach ($menus as $menu) {
-            $field['choices'][$menu->term_id] = $menu->name . ' (' . $menu->term_id . ')';
+            $field['choices'][$menu->term_id] = $menu->name . ' (ID: ' . $menu->term_id . ')';
         }
 
         return $field;
@@ -55,7 +55,7 @@ class FixedActionBar
 
     /**
      * Generate fab style classes
-     * @return string
+     * @return string/boolean
      */
     public static function generateClasses()
     {
@@ -76,7 +76,7 @@ class FixedActionBar
     /**
      * Generate WP Menu
      * @param string/int $menuId ID to wordpress menu
-     * @return string wp menu markup
+     * @return string
      */
     public static function wpMenu($menuId)
     {
