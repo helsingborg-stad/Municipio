@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message"><?php _e('Message', 'municipio'); ?></label>
-                        <textarea name="message" id="message" placeholder="<?php _e('Message', 'municipio'); ?>"></textarea>
+                        <textarea name="message" id="message" rows="4" placeholder="<?php _e('Message', 'municipio'); ?>"></textarea>
                     </div>
                     @if (!is_user_logged_in())
                         <div class="form-group">
