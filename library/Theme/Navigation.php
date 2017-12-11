@@ -154,7 +154,7 @@ class Navigation
         $args = array(
             'menu' => \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu'),
             'container' =>  false,
-            'menu_class' => 'dropdown-menu',
+            'menu_class' => 'o-dropdown-links',
             'echo' => false
         );
 

@@ -85,7 +85,7 @@ class FixedActionBar
             'echo'          => false,
             'depth'         => 0,
             'container'     => '',
-            'menu_class'    => 'dropdown-menu dropdown-menu-arrow dropdown-menu-arrow-right dropdown-menu--up dropdown-menu--right'
+            'menu_class'    => 'o-dropdown-links'
         );
 
         return wp_nav_menu($args);
