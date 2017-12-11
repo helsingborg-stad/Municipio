@@ -6,16 +6,16 @@ Muncipio.Ajax.ShareEmail = (function ($) {
     function ShareEmail() {
         $('.social-share-email').on('submit', function (e) {
             e.preventDefault();
-            var $target = $(e.target);
-            $target.find('input[type="submit"]').hide();
-            $target.find('.modal-footer').append('<div class="loading"><div></div><div></div><div></div><div></div></div>');
-
-            var data = new FormData(this);
+            var $target = $(this),
+                data = new FormData(this);
                 data.append('action', 'share_email');
 
             if (data.get('g-recaptcha-response') === '') {
                 return false;
             }
+
+            $target.find('input[type="submit"]').hide();
+            $target.find('.modal-footer').append('<div class="loading"><div></div><div></div><div></div><div></div></div>');
 
             $.ajax({
                 url: ajaxurl,

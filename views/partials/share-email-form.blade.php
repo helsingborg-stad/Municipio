@@ -14,16 +14,16 @@
                     @if (!is_user_logged_in())
                         <div class="form-group">
                             <label for="sender-name"><?php _e('Your name', 'municipio'); ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="sender_name" id="sender-name" placeholder="Your name" required>
+                            <input type="text" name="sender_name" id="sender-name" placeholder="<?php _e('Your name', 'municipio'); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="sender-email"><?php _e('Your email', 'municipio'); ?> <span class="text-danger">*</span></label>
-                            <input type="email" name="sender_email" id="sender-email" placeholder="Your email" required>
+                            <input type="email" name="sender_email" id="sender-email" placeholder="<?php _e('Your email', 'municipio'); ?>" required>
                         </div>
                     @endif
                     <div class="form-group">
                         <label for="recipient-email"><?php _e('Recipient email', 'municipio'); ?> <span class="text-danger">*</span></label>
-                        <input type="email" name="recipient_email" id="recipient-email" placeholder="Recipient email" required>
+                        <input type="email" name="recipient_email" id="recipient-email" placeholder="<?php _e('Recipient email', 'municipio'); ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="message"><?php _e('Message', 'municipio'); ?></label>
