@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-12-11 09:07+0100\n"
+"POT-Creation-Date: 2017-12-11 09:44+0100\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1546,6 +1546,10 @@ msgstr ""
 
 #: library/Theme/Archive.php:148
 msgid "sent you a link via"
+msgstr ""
+
+#: library/Theme/Archive.php:156
+msgid "The message was sent successfully"
 msgstr ""
 
 #: library/Theme/CustomTemplates.php:10
@@ -3664,14 +3668,17 @@ msgid "Share as e-mail"
 msgstr ""
 
 #: views/partials/share-email-form.blade.php:16
+#: views/partials/share-email-form.blade.php:17
 msgid "Your name"
 msgstr ""
 
 #: views/partials/share-email-form.blade.php:20
+#: views/partials/share-email-form.blade.php:21
 msgid "Your email"
 msgstr ""
 
 #: views/partials/share-email-form.blade.php:25
+#: views/partials/share-email-form.blade.php:26
 msgid "Recipient email"
 msgstr ""
 

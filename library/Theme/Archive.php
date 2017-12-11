@@ -129,7 +129,7 @@ class Archive
             $reCaptcha = \Municipio\Helper\ReCaptcha::controlReCaptcha($response);
 
             if (!$reCaptcha) {
-                wp_send_json_error('Something went wrong, please try again', 'municipio');
+                wp_send_json_error(__('Something went wrong, please try again', 'municipio'));
             }
         }
 
@@ -153,6 +153,6 @@ class Archive
             )
         );
 
-        wp_send_json_success('The message was sent successfully', 'municipio');
+        wp_send_json_success(__('The message was sent successfully', 'municipio'));
     }
 }
