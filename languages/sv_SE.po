@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-12-11 09:07+0100\n"
-"PO-Revision-Date: 2017-12-11 09:26+0100\n"
+"POT-Creation-Date: 2017-12-11 09:44+0100\n"
+"PO-Revision-Date: 2017-12-11 09:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1612,6 +1612,10 @@ msgstr "Meddelandet skickades av %s via %s"
 #: library/Theme/Archive.php:148
 msgid "sent you a link via"
 msgstr "har delat en länk via"
+
+#: library/Theme/Archive.php:156
+msgid "The message was sent successfully"
+msgstr "Meddelandet har skickats"
 
 #: library/Theme/CustomTemplates.php:10
 msgid "Full width"
@@ -4007,14 +4011,17 @@ msgid "Share as e-mail"
 msgstr "Dela med e-post"
 
 #: views/partials/share-email-form.blade.php:16
+#: views/partials/share-email-form.blade.php:17
 msgid "Your name"
 msgstr "Ditt namn"
 
 #: views/partials/share-email-form.blade.php:20
+#: views/partials/share-email-form.blade.php:21
 msgid "Your email"
 msgstr "Din e-postadress"
 
 #: views/partials/share-email-form.blade.php:25
+#: views/partials/share-email-form.blade.php:26
 msgid "Recipient email"
 msgstr "Mottagarens e-postadress"
 
