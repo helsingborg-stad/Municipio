@@ -17,4 +17,11 @@
             <span><?php _e('Share on', 'municipio'); ?> LinkedIn</span>
         </a>
     </li>
+    <li>
+        <a class="share-social-email" data-action="share-email" href="#modal-target-{{ the_ID() }}" data-tooltip="<?php _e('Share as e-mail', 'municipio'); ?>">
+            <i class="pricon pricon-email"></i>
+            <span><?php _e('Share with e-mail', 'municipio'); ?></span>
+        </a>
+        @include('partials.share-email-form')
+    </li>
 </ul>

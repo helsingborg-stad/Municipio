@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-12-07 08:36+0100\n"
-"PO-Revision-Date: 2017-12-07 08:36+0100\n"
+"POT-Creation-Date: 2017-12-11 09:44+0100\n"
+"PO-Revision-Date: 2017-12-11 09:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -211,6 +211,8 @@ msgstr "Aktivera"
 #: vendor/advanced-custom-fields/core/fields/message.php:19
 #: vendor/advanced-custom-fields/core/fields/message.php:70
 #: vendor/advanced-custom-fields/core/fields/true_false.php:79
+#: views/partials/share-email-form.blade.php:29
+#: views/partials/share-email-form.blade.php:30
 msgid "Message"
 msgstr "Meddelande"
 
@@ -680,6 +682,61 @@ msgstr ""
 "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden "
 "kommer bara den senast specificerade att användas."
 
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:6
+msgid "Fixed action bar (FAB)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:10
+#, fuzzy
+#| msgid "Below Settings"
+msgid "FAB settings"
+msgstr "Under inställningar"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:23
+#, fuzzy
+#| msgid "Disable blog"
+msgid "Disabled"
+msgstr "Inaktivera blogg"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:24
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:35
+#: library/AcfFields/php/options-theme-primary-navigation.php:31
+#: library/AcfFields/php/options-theme-sub-navigation.php:32
+msgid "WP Menu"
+msgstr "WP Meny"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:56
+msgid "huvudmeny"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:57
+msgid "Länkar"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:70
+msgid "Visabllity"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:91
+msgid "Hide on extra small devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:92
+#, fuzzy
+#| msgid "Hide from sidebar menu"
+msgid "Hide on small devices"
+msgstr "Dölj från sidebar-menyn"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:93
+msgid "Hide on medium devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:94
+#, fuzzy
+#| msgid "Hide from sidebar menu"
+msgid "Hide on large devices"
+msgstr "Dölj från sidebar-menyn"
+
 #: library/AcfFields/php/options-theme-footer-icons.php:644
 msgid "Titel"
 msgstr "Titel"
@@ -993,11 +1050,6 @@ msgstr "Inaktivera sidor"
 #: library/AcfFields/php/options-theme-sub-navigation.php:31
 msgid "Automatically generated"
 msgstr "Automatiskt genererad"
-
-#: library/AcfFields/php/options-theme-primary-navigation.php:31
-#: library/AcfFields/php/options-theme-sub-navigation.php:32
-msgid "WP Menu"
-msgstr "WP Meny"
 
 #: library/AcfFields/php/options-theme-primary-navigation.php:39
 #: library/AcfFields/php/options-theme-sub-navigation.php:40
@@ -1529,28 +1581,41 @@ msgstr "Administratörsnotis"
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Archive.php:30
+#: library/Theme/Archive.php:32
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr ""
 
-#: library/Theme/Archive.php:32
+#: library/Theme/Archive.php:34
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr ""
 
-#: library/Theme/Archive.php:34
+#: library/Theme/Archive.php:36
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr ""
 
-#: library/Theme/Archive.php:48
+#: library/Theme/Archive.php:50
 msgid "Archive"
 msgstr "Arkiv"
 
-#: library/Theme/Archive.php:113
+#: library/Theme/Archive.php:115
 msgid "read more"
 msgstr "läs mer"
+
+#: library/Theme/Archive.php:143
+#, php-format
+msgid "This message was sent by %s via %s"
+msgstr "Meddelandet skickades av %s via %s"
+
+#: library/Theme/Archive.php:148
+msgid "sent you a link via"
+msgstr "har delat en länk via"
+
+#: library/Theme/Archive.php:156
+msgid "The message was sent successfully"
+msgstr "Meddelandet har skickats"
 
 #: library/Theme/CustomTemplates.php:10
 msgid "Full width"
@@ -3940,6 +4005,30 @@ msgstr "Vad letar du efter?"
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
+#: views/partials/share-email-form.blade.php:6
+#: views/partials/social-share.blade.php:21
+msgid "Share as e-mail"
+msgstr "Dela med e-post"
+
+#: views/partials/share-email-form.blade.php:16
+#: views/partials/share-email-form.blade.php:17
+msgid "Your name"
+msgstr "Ditt namn"
+
+#: views/partials/share-email-form.blade.php:20
+#: views/partials/share-email-form.blade.php:21
+msgid "Your email"
+msgstr "Din e-postadress"
+
+#: views/partials/share-email-form.blade.php:25
+#: views/partials/share-email-form.blade.php:26
+msgid "Recipient email"
+msgstr "Mottagarens e-postadress"
+
+#: views/partials/share-email-form.blade.php:41
+msgid "Send"
+msgstr "Skicka"
+
 #: views/partials/social-share.blade.php:3
 #: views/partials/social-share.blade.php:5
 #: views/partials/social-share.blade.php:9
@@ -3948,6 +4037,12 @@ msgstr "Hittade inga matchande resultat för din sökning…"
 #: views/partials/social-share.blade.php:17
 msgid "Share on"
 msgstr "Dela på"
+
+#: views/partials/social-share.blade.php:23
+#, fuzzy
+#| msgid "Share the page"
+msgid "Share with e-mail"
+msgstr "Dela sidan"
 
 #: views/partials/timestamps.blade.php:42
 msgid "Last updated"

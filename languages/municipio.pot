@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-12-07 08:36+0100\n"
+"POT-Creation-Date: 2017-12-11 09:44+0100\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -209,6 +209,8 @@ msgstr ""
 #: vendor/advanced-custom-fields/core/fields/message.php:19
 #: vendor/advanced-custom-fields/core/fields/message.php:70
 #: vendor/advanced-custom-fields/core/fields/true_false.php:79
+#: views/partials/share-email-form.blade.php:29
+#: views/partials/share-email-form.blade.php:30
 msgid "Message"
 msgstr ""
 
@@ -656,6 +658,53 @@ msgid ""
 "the latest specified icon will be used."
 msgstr ""
 
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:6
+msgid "Fixed action bar (FAB)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:10
+msgid "FAB settings"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:23
+msgid "Disabled"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:24
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:35
+#: library/AcfFields/php/options-theme-primary-navigation.php:31
+#: library/AcfFields/php/options-theme-sub-navigation.php:32
+msgid "WP Menu"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:56
+msgid "huvudmeny"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:57
+msgid "Länkar"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:70
+msgid "Visabllity"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:91
+msgid "Hide on extra small devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:92
+msgid "Hide on small devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:93
+msgid "Hide on medium devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:94
+msgid "Hide on large devices"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-footer-icons.php:644
 msgid "Titel"
 msgstr ""
@@ -952,11 +1001,6 @@ msgstr ""
 #: library/AcfFields/php/options-theme-primary-navigation.php:30
 #: library/AcfFields/php/options-theme-sub-navigation.php:31
 msgid "Automatically generated"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-primary-navigation.php:31
-#: library/AcfFields/php/options-theme-sub-navigation.php:32
-msgid "WP Menu"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-primary-navigation.php:39
@@ -1472,27 +1516,40 @@ msgstr ""
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr ""
 
-#: library/Theme/Archive.php:30
+#: library/Theme/Archive.php:32
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr ""
 
-#: library/Theme/Archive.php:32
+#: library/Theme/Archive.php:34
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr ""
 
-#: library/Theme/Archive.php:34
+#: library/Theme/Archive.php:36
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr ""
 
-#: library/Theme/Archive.php:48
+#: library/Theme/Archive.php:50
 msgid "Archive"
 msgstr ""
 
-#: library/Theme/Archive.php:113
+#: library/Theme/Archive.php:115
 msgid "read more"
+msgstr ""
+
+#: library/Theme/Archive.php:143
+#, php-format
+msgid "This message was sent by %s via %s"
+msgstr ""
+
+#: library/Theme/Archive.php:148
+msgid "sent you a link via"
+msgstr ""
+
+#: library/Theme/Archive.php:156
+msgid "The message was sent successfully"
 msgstr ""
 
 #: library/Theme/CustomTemplates.php:10
@@ -3605,6 +3662,30 @@ msgstr ""
 msgid "Found no matching results on your search…"
 msgstr ""
 
+#: views/partials/share-email-form.blade.php:6
+#: views/partials/social-share.blade.php:21
+msgid "Share as e-mail"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:16
+#: views/partials/share-email-form.blade.php:17
+msgid "Your name"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:20
+#: views/partials/share-email-form.blade.php:21
+msgid "Your email"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:25
+#: views/partials/share-email-form.blade.php:26
+msgid "Recipient email"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:41
+msgid "Send"
+msgstr ""
+
 #: views/partials/social-share.blade.php:3
 #: views/partials/social-share.blade.php:5
 #: views/partials/social-share.blade.php:9
@@ -3612,6 +3693,10 @@ msgstr ""
 #: views/partials/social-share.blade.php:15
 #: views/partials/social-share.blade.php:17
 msgid "Share on"
+msgstr ""
+
+#: views/partials/social-share.blade.php:23
+msgid "Share with e-mail"
 msgstr ""
 
 #: views/partials/timestamps.blade.php:42
