@@ -19,8 +19,14 @@ class BaseController
         $this->getHelperVariables();
         $this->getFilterData();
         $this->getVerticalMenu();
+        $this->getFixedActionBar();
 
         $this->init();
+    }
+
+    public function getFixedActionBar()
+    {
+        $this->data['fab'] = \Municipio\Theme\FixedActionBar::getFab();
     }
 
     public function getFilterData()

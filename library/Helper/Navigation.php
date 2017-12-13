@@ -174,7 +174,7 @@ class Navigation
             return '';
         }
 
-        return '<ul class="nav-mobile">' . $menu->render(false) . '</ul>';
+        return '<ul class="nav-mobile">' . apply_filters( 'Municipio/Helper/Navigation/MobileMenuAutoItems', $menu->render(false) ) . '</ul>';
     }
 
     /**
@@ -283,5 +283,26 @@ class Navigation
         $menus = get_nav_menu_locations();
         $menuTitle = wp_get_nav_menu_object($menus[$location])->name;
         return $menuTitle;
+    }
+
+    /*
+    *   Get menus
+    *   @return array
+    */
+    public static function getMenuList()
+    {
+        $menus = get_terms('nav_menu');
+
+        if (! isset($menus) && empty($menus)) {
+            return;
+        }
+
+        $menuList = array();
+
+        foreach ($menus as $menu) {
+            $menuList[] = $menu->name;
+        }
+
+        return $menus;
     }
 }

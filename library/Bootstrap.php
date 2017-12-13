@@ -81,6 +81,7 @@ add_action('init', function () {
         'options-theme-post-timestamps'    => 'group_56cacd2f1873f',
         'options-theme-post-types'         => 'group_56c6ba934d682',
         'options-theme-primary-navigation' => 'group_56e935ea546ce',
+        'options-theme-fixed-action-bar'   => 'group_5a2957d095e95',
         'options-theme-scroll-elevator'    => 'group_5825be470579f',
         'options-theme-search'             => 'group_569fa7edcdd6b',
         'options-theme-search-display'     => 'group_56a72f6430912',

@@ -145,7 +145,8 @@ class Archives
                         'grid' => 'Grid',
                         'cards' => 'Post cards',
                         'newsitem' => 'News items',
-                        'list' => 'List'
+                        'list' => 'List',
+                        'horizontal-cards' => 'Horizontal cards'
                     ),
                     'default_value' => array(
                         0 => 'full',
@@ -454,7 +455,8 @@ class Archives
                         'choices' => array(
                             'primary' => 'Primary',
                             'row' => 'Row',
-                            'folded' => 'Folded'
+                            'folded' => 'Folded',
+                            'highlighted' => 'Highlighted'
                         ),
                         'other_choice' => 0,
                         'save_other_choice' => 0,
@@ -491,6 +493,36 @@ class Archives
                         'layout' => 'horizontal',
                     );
                 }
+
+                // Filter position
+                
+                $fieldArgs['fields'][] = array(
+                    'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
+                    'label' => 'Filter position',
+                    'name' => 'archive_' . sanitize_title($posttype) . '_filter_position',
+                    'type' => 'checkbox',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => array(array(
+                        array(
+                            'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
+                            'operator' => '==',
+                            'value' => $taxName
+                        )
+                    )),
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        'content area' => 'Content area'
+                    ),
+                    'default_value' => array(
+                    ),
+                    'layout' => 'horizontal',
+                    'toggle' => 0,
+                );
             }
 
             // Post display label

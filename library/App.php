@@ -34,6 +34,7 @@ class App
         new \Municipio\Theme\CustomTemplates();
         new \Municipio\Theme\Font();
         new \Municipio\Theme\ColorScheme();
+        new \Municipio\Theme\FixedActionBar();
 
         new \Municipio\Search\General();
 

@@ -1,0 +1,118 @@
+[{
+    "key": "group_5a2957d095e95",
+    "title": "Fixed action bar (FAB)",
+    "fields": [
+        {
+            "key": "field_5a2957f44818b",
+            "label": "FAB settings",
+            "name": "fab_settings",
+            "type": "radio",
+            "value": null,
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "disabled": "Disabled",
+                "wp": "WP Menu"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5a29586d4818c",
+            "label": "WP Menu",
+            "name": "fab_wp_menu",
+            "type": "select",
+            "value": null,
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5a2957f44818b",
+                        "operator": "==",
+                        "value": "wp"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "2": "huvudmeny",
+                "14": "L\u00e4nkar"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_5a295c4ba850a",
+            "label": "Visabllity",
+            "name": "fab_visabllity",
+            "type": "checkbox",
+            "value": null,
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5a2957f44818b",
+                        "operator": "!=",
+                        "value": "disabled"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "hidden-xs": "Hide on extra small devices",
+                "hidden-sm": "Hide on small devices",
+                "hidden-md": "Hide on medium devices",
+                "hidden-lg": "Hide on large devices"
+            },
+            "allow_custom": 0,
+            "save_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-navigation"
+            }
+        ]
+    ],
+    "menu_order": 20,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+

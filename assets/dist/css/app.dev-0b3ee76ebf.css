@@ -303,3 +303,14 @@
 
 .creamy .input-group-addon {
   background-color: #fcfcfb; }
+
+.fab {
+  position: fixed;
+  z-index: 99999;
+  bottom: 1.5rem; }
+
+.fab--right {
+  right: 1.5rem; }
+
+.fab--left {
+  left: 1.5rem; }

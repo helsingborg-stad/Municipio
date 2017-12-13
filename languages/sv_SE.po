@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-11-09 11:13+0100\n"
-"PO-Revision-Date: 2017-11-09 11:14+0100\n"
+"POT-Creation-Date: 2017-12-11 09:44+0100\n"
+"PO-Revision-Date: 2017-12-11 09:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -43,7 +43,7 @@ msgid "Show author"
 msgstr "Visa författare"
 
 #: library/AcfFields/php/options-page-display.php:53
-#: library/Admin/Options/Archives.php:34
+#: library/Admin/Options/Archives.php:47
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
 msgid "Author"
 msgstr "Författare"
@@ -211,11 +211,13 @@ msgstr "Aktivera"
 #: vendor/advanced-custom-fields/core/fields/message.php:19
 #: vendor/advanced-custom-fields/core/fields/message.php:70
 #: vendor/advanced-custom-fields/core/fields/true_false.php:79
+#: views/partials/share-email-form.blade.php:29
+#: views/partials/share-email-form.blade.php:30
 msgid "Message"
 msgstr "Meddelande"
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:61
-#: library/AcfFields/php/options-theme-editor-formats.php:36
+#: library/AcfFields/php/options-theme-editor-formats.php:37
 msgid "Button"
 msgstr "Knapp"
 
@@ -452,100 +454,176 @@ msgstr ""
 msgid "Formats"
 msgstr "Inläggsformat"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:13
+#: library/AcfFields/php/options-theme-editor-formats.php:14
 msgid "Check the formats you would like to enable"
 msgstr "Välj de format som du vill aktivera"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:22
+#: library/AcfFields/php/options-theme-editor-formats.php:23
 msgid "Small"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:23
+#: library/AcfFields/php/options-theme-editor-formats.php:24
 #: vendor/advanced-custom-fields/acf.php:768
 msgid "Large"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:24
+#: library/AcfFields/php/options-theme-editor-formats.php:25
 msgid "Extra large"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:25
+#: library/AcfFields/php/options-theme-editor-formats.php:26
 msgid "Uppercase"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:26
+#: library/AcfFields/php/options-theme-editor-formats.php:27
 msgid "Lowercase"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:27
+#: library/AcfFields/php/options-theme-editor-formats.php:28
 msgid "Capitalize"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:28
+#: library/AcfFields/php/options-theme-editor-formats.php:29
 msgid "Drak gray"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:29
+#: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Highlight"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:30
+#: library/AcfFields/php/options-theme-editor-formats.php:31
 msgid "Mark"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:31
+#: library/AcfFields/php/options-theme-editor-formats.php:32
 msgid "Mark yellow"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:32
+#: library/AcfFields/php/options-theme-editor-formats.php:33
 msgid "Mark blue"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:33
+#: library/AcfFields/php/options-theme-editor-formats.php:34
 msgid "Mark green"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:34
+#: library/AcfFields/php/options-theme-editor-formats.php:35
 msgid "Mark red"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:35
+#: library/AcfFields/php/options-theme-editor-formats.php:36
 msgid "Mark purple"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:37
+#: library/AcfFields/php/options-theme-editor-formats.php:38
 msgid "Light button"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:38
+#: library/AcfFields/php/options-theme-editor-formats.php:39
 msgid "Button: First color"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:39
+#: library/AcfFields/php/options-theme-editor-formats.php:40
 msgid "Button: Second color"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:40
+#: library/AcfFields/php/options-theme-editor-formats.php:41
 msgid "Button: Third color"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:41
+#: library/AcfFields/php/options-theme-editor-formats.php:42
 msgid "Button: Fourth color"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:42
+#: library/AcfFields/php/options-theme-editor-formats.php:43
 msgid "Button: Fifth color"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:43
+#: library/AcfFields/php/options-theme-editor-formats.php:44
 msgid "Primary button"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:91
+#: library/AcfFields/php/options-theme-editor-formats.php:45
+msgid "Heading 1"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:46
+msgid "Heading 2"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:47
+msgid "Heading 3"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:48
+msgid "Heading 4"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:49
+msgid "Heading 5"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:50
+msgid "Heading 6"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:51
+#, fuzzy
+#| msgid "Light"
+msgid "Light (300)"
+msgstr "Ljus"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:52
+msgid "Regular (400)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:53
+msgid "Medium (500)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:54
+msgid "Bold (700)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:55
+msgid "Black (900)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:56
+#, fuzzy
+#| msgid "Color scheme"
+msgid "Color 1"
+msgstr "Färgschema"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:57
+#, fuzzy
+#| msgid "Color scheme"
+msgid "Color 2"
+msgstr "Färgschema"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:58
+#, fuzzy
+#| msgid "Color scheme"
+msgid "Color 3"
+msgstr "Färgschema"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:59
+#, fuzzy
+#| msgid "Color scheme"
+msgid "Color 4"
+msgstr "Färgschema"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:60
+#, fuzzy
+#| msgid "Color scheme"
+msgid "Color 5"
+msgstr "Färgschema"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:132
 msgid "Plugins"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:103
+#: library/AcfFields/php/options-theme-editor-formats.php:145
 msgid "MceButtons"
 msgstr ""
 
@@ -604,6 +682,61 @@ msgstr ""
 "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden "
 "kommer bara den senast specificerade att användas."
 
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:6
+msgid "Fixed action bar (FAB)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:10
+#, fuzzy
+#| msgid "Below Settings"
+msgid "FAB settings"
+msgstr "Under inställningar"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:23
+#, fuzzy
+#| msgid "Disable blog"
+msgid "Disabled"
+msgstr "Inaktivera blogg"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:24
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:35
+#: library/AcfFields/php/options-theme-primary-navigation.php:31
+#: library/AcfFields/php/options-theme-sub-navigation.php:32
+msgid "WP Menu"
+msgstr "WP Meny"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:56
+msgid "huvudmeny"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:57
+msgid "Länkar"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:70
+msgid "Visabllity"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:91
+msgid "Hide on extra small devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:92
+#, fuzzy
+#| msgid "Hide from sidebar menu"
+msgid "Hide on small devices"
+msgstr "Dölj från sidebar-menyn"
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:93
+msgid "Hide on medium devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:94
+#, fuzzy
+#| msgid "Hide from sidebar menu"
+msgid "Hide on large devices"
+msgstr "Dölj från sidebar-menyn"
+
 #: library/AcfFields/php/options-theme-footer-icons.php:644
 msgid "Titel"
 msgstr "Titel"
@@ -635,32 +768,24 @@ msgstr ""
 "Facebook, Twitter och LinkedIn.<style>.acf-field-font-awesome .fa-live-"
 "preview {display:none;}</style>"
 
-#: library/AcfFields/php/options-theme-footer-layout.php:12
-msgid "Default style"
-msgstr "Standard"
-
-#: library/AcfFields/php/options-theme-footer-layout.php:13
-msgid "Compressed"
-msgstr "Komprimerad"
-
-#: library/AcfFields/php/options-theme-footer-layout.php:23
+#: library/AcfFields/php/options-theme-footer-layout.php:6
 msgid "Footer layout"
 msgstr "Sidfotslayout"
 
-#: library/AcfFields/php/options-theme-footer-layout.php:39
-msgid "Enable footer signature"
-msgstr "Aktivera avsändare i sidfoten"
-
-#: library/AcfFields/php/options-theme-footer-layout.php:44
+#: library/AcfFields/php/options-theme-footer-layout.php:10
 msgid "Footer signature"
 msgstr "Avsändare i sidfoten"
 
-#: library/AcfFields/php/options-theme-footer-layout.php:47
+#: library/AcfFields/php/options-theme-footer-layout.php:13
 msgid ""
 "If enabled a predefined footer signature logo will be appended to the footer."
 msgstr ""
 "Om du aktiverar alternativet så kommer en fördefinierad avsändare-logotyp "
 "att visas i sidfoten."
+
+#: library/AcfFields/php/options-theme-footer-layout.php:22
+msgid "Enable footer signature"
+msgstr "Aktivera avsändare i sidfoten"
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:13
 msgid "Hide logotype in footer"
@@ -786,23 +911,12 @@ msgstr "Slogan"
 msgid "Tagline text"
 msgstr "Slogantext"
 
-#: library/AcfFields/php/options-theme-header.php:11
-msgid "Business (default)"
-msgstr "Business (standardval)"
+#: library/AcfFields/php/options-theme-header.php:6
+#: library/Admin/Options/Theme.php:36 library/Admin/Options/Theme.php:37
+msgid "Header"
+msgstr "Sidhuvud"
 
-#: library/AcfFields/php/options-theme-header.php:12
-msgid "Casual"
-msgstr "Casual"
-
-#: library/AcfFields/php/options-theme-header.php:13
-msgid "Jumbo"
-msgstr "Jumbo"
-
-#: library/AcfFields/php/options-theme-header.php:14
-msgid "Contrasted navbar"
-msgstr "Kontrasterad huvudmeny"
-
-#: library/AcfFields/php/options-theme-header.php:22
+#: library/AcfFields/php/options-theme-header.php:10
 #: library/AcfFields/php/options-theme-search-result.php:50
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:183
 #: vendor/advanced-custom-fields/core/fields/message.php:20
@@ -811,41 +925,61 @@ msgstr "Kontrasterad huvudmeny"
 msgid "Layout"
 msgstr "Layout"
 
-#: library/AcfFields/php/options-theme-header.php:36
-msgid "Header should stick to view (floats when scrolling)"
-msgstr "Headern ska fastna i vyn när man scrollar"
+#: library/AcfFields/php/options-theme-header.php:24
+msgid "Business (default)"
+msgstr "Business (standardval)"
 
-#: library/AcfFields/php/options-theme-header.php:41
+#: library/AcfFields/php/options-theme-header.php:25
+msgid "Casual"
+msgstr "Casual"
+
+#: library/AcfFields/php/options-theme-header.php:26
+msgid "Jumbo"
+msgstr "Jumbo"
+
+#: library/AcfFields/php/options-theme-header.php:27
+msgid "Contrasted navbar"
+msgstr "Kontrasterad huvudmeny"
+
+#: library/AcfFields/php/options-theme-header.php:37
 msgid "Sticky"
 msgstr "Klibbig"
 
-#: library/AcfFields/php/options-theme-header.php:55
-msgid "Transparent header on front page"
-msgstr "Genomskinlig header på startsidan"
+#: library/AcfFields/php/options-theme-header.php:50
+msgid "Header should stick to view (floats when scrolling)"
+msgstr "Headern ska fastna i vyn när man scrollar"
 
-#: library/AcfFields/php/options-theme-header.php:60
+#: library/AcfFields/php/options-theme-header.php:57
 msgid "Transparent"
 msgstr "Genomskinlig"
 
-#: library/AcfFields/php/options-theme-header.php:74
-msgid "Center all contents of the header"
-msgstr "Centrera innehåll i header"
+#: library/AcfFields/php/options-theme-header.php:70
+msgid "Transparent header on front page"
+msgstr "Genomskinlig header på startsidan"
 
-#: library/AcfFields/php/options-theme-header.php:79
+#: library/AcfFields/php/options-theme-header.php:77
 msgid "Centered"
 msgstr "Centrerad"
 
-#: library/AcfFields/php/options-theme-header.php:94
+#: library/AcfFields/php/options-theme-header.php:90
+msgid "Center all contents of the header"
+msgstr "Centrera innehåll i header"
+
+#: library/AcfFields/php/options-theme-header.php:97
+msgid "Header content color"
+msgstr "Färg för innehåll i header"
+
+#: library/AcfFields/php/options-theme-header.php:119
 msgid "Light"
 msgstr "Ljus"
 
-#: library/AcfFields/php/options-theme-header.php:95
+#: library/AcfFields/php/options-theme-header.php:120
 msgid "Dark"
 msgstr "Mörk"
 
-#: library/AcfFields/php/options-theme-header.php:103
-msgid "Header content color"
-msgstr "Färg för innehåll i header"
+#: library/AcfFields/php/options-theme-header.php:130
+msgid "Activate dropdown links"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-logotype.php:20
 msgid "Standard logotype"
@@ -916,11 +1050,6 @@ msgstr "Inaktivera sidor"
 #: library/AcfFields/php/options-theme-sub-navigation.php:31
 msgid "Automatically generated"
 msgstr "Automatiskt genererad"
-
-#: library/AcfFields/php/options-theme-primary-navigation.php:31
-#: library/AcfFields/php/options-theme-sub-navigation.php:32
-msgid "WP Menu"
-msgstr "WP Meny"
 
 #: library/AcfFields/php/options-theme-primary-navigation.php:39
 #: library/AcfFields/php/options-theme-sub-navigation.php:40
@@ -1211,13 +1340,17 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Options/Archives.php:51
+#: library/Admin/Options/Archives.php:64
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Archives.php:97
+#: library/Admin/Options/Archives.php:110
 msgid "Leave empty to hide title"
 msgstr "Lämna tomt för att dölja titel"
+
+#: library/Admin/Options/Archives.php:216
+msgid "Number of posts in one page"
+msgstr ""
 
 #: library/Admin/Options/GoogleTranslate.php:15
 msgid "None (link to #translate to show)"
@@ -1226,10 +1359,6 @@ msgstr ""
 #: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
 msgstr "Temainställningar"
-
-#: library/Admin/Options/Theme.php:36 library/Admin/Options/Theme.php:37
-msgid "Header"
-msgstr "Sidhuvud"
 
 #: library/Admin/Options/Theme.php:44 library/Admin/Options/Theme.php:45
 #: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:24
@@ -1241,12 +1370,12 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:52 library/Admin/Options/Theme.php:53
-#: library/Theme/Sidebars.php:84
+#: library/Theme/Sidebars.php:83
 msgid "Footer"
 msgstr "Sidfot"
 
 #: library/Admin/Options/Theme.php:60 library/Admin/Options/Theme.php:61
-#: library/Theme/Navigation.php:180
+#: library/Theme/Navigation.php:213
 #: vendor/advanced-custom-fields/core/fields/relationship.php:634
 #: views/partials/archive-filters.blade.php:7
 #: views/partials/archive-filters.blade.php:10
@@ -1452,24 +1581,41 @@ msgstr "Administratörsnotis"
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Archive.php:29
+#: library/Theme/Archive.php:32
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr ""
 
-#: library/Theme/Archive.php:31
+#: library/Theme/Archive.php:34
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr ""
 
-#: library/Theme/Archive.php:33
+#: library/Theme/Archive.php:36
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr ""
 
-#: library/Theme/Archive.php:47
+#: library/Theme/Archive.php:50
 msgid "Archive"
 msgstr "Arkiv"
+
+#: library/Theme/Archive.php:115
+msgid "read more"
+msgstr "läs mer"
+
+#: library/Theme/Archive.php:143
+#, php-format
+msgid "This message was sent by %s via %s"
+msgstr "Meddelandet skickades av %s via %s"
+
+#: library/Theme/Archive.php:148
+msgid "sent you a link via"
+msgstr "har delat en länk via"
+
+#: library/Theme/Archive.php:156
+msgid "The message was sent successfully"
+msgstr "Meddelandet har skickats"
 
 #: library/Theme/CustomTemplates.php:10
 msgid "Full width"
@@ -1491,100 +1637,106 @@ msgstr "Infoga sidbrytning för utskrift"
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/Navigation.php:116
+#: library/Theme/Navigation.php:118
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:117
+#: library/Theme/Navigation.php:119
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:121
+#: library/Theme/Navigation.php:123
 msgid "Main menu"
 msgstr "Huvudmeny"
 
-#: library/Theme/Navigation.php:125
+#: library/Theme/Navigation.php:127
 msgid "Sidebar menu"
 msgstr "Sidomeny"
 
-#: library/Theme/Navigation.php:212 library/Theme/Navigation.php:213
+#: library/Theme/Navigation.php:140
+#, fuzzy
+#| msgid "Below Links"
+msgid "Dropdown Links"
+msgstr "Under länkar"
+
+#: library/Theme/Navigation.php:245 library/Theme/Navigation.php:246
 msgid "Home"
 msgstr "Hem"
 
-#: library/Theme/Sidebars.php:85
+#: library/Theme/Sidebars.php:84
 msgid "The footer area"
 msgstr "Footer-arean"
 
-#: library/Theme/Sidebars.php:97
+#: library/Theme/Sidebars.php:96
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
-#: library/Theme/Sidebars.php:98
+#: library/Theme/Sidebars.php:97
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:110
+#: library/Theme/Sidebars.php:109
 msgid "Content area (above article)"
 msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:111
+#: library/Theme/Sidebars.php:110
 msgid "The area above the content"
 msgstr "Arean ovanför huvudinnehållet"
 
-#: library/Theme/Sidebars.php:121
+#: library/Theme/Sidebars.php:120
 msgid "Content area (below article)"
 msgstr "Innehållsarea (nedanför artikel)"
 
-#: library/Theme/Sidebars.php:122
+#: library/Theme/Sidebars.php:121
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:132
+#: library/Theme/Sidebars.php:131
 msgid "Main container bottom"
 msgstr "Under artikel"
 
-#: library/Theme/Sidebars.php:133
+#: library/Theme/Sidebars.php:132
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:143
+#: library/Theme/Sidebars.php:142
 msgid "Left sidebar"
 msgstr "Vänster sidofält (övre sektion)"
 
-#: library/Theme/Sidebars.php:144
+#: library/Theme/Sidebars.php:143
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:156
+#: library/Theme/Sidebars.php:155
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Theme/Sidebars.php:157
+#: library/Theme/Sidebars.php:156
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:169
+#: library/Theme/Sidebars.php:168
 msgid "Right sidebar"
 msgstr "Höger sidofält"
 
-#: library/Theme/Sidebars.php:170
+#: library/Theme/Sidebars.php:169
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Sidebars.php:182
+#: library/Theme/Sidebars.php:181
 msgid "Top sidebar (full-width)"
 msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:183
+#: library/Theme/Sidebars.php:182
 #, php-format
 msgid "Sidebar that sits below the hero, takes up 100% of the widht."
 msgstr ""
 
-#: library/Theme/Sidebars.php:195
+#: library/Theme/Sidebars.php:194
 msgid "Bottom sidebar (full-width)"
 msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:196
+#: library/Theme/Sidebars.php:195
 #, php-format
 msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
 msgstr ""
@@ -3779,21 +3931,13 @@ msgstr "Inlägg av"
 msgid "Error 404"
 msgstr "Felinformation"
 
-#: views/partials/404/event.blade.php:5
+#: views/partials/404/event.blade.php:5 views/partials/404/ticket.blade.php:5
 msgid "The ticket could not be found"
 msgstr "Ärendet kunde inte hittas"
 
-#: views/partials/404/event.blade.php:7
+#: views/partials/404/event.blade.php:7 views/partials/404/ticket.blade.php:7
 msgid "View all tickets"
 msgstr "Visa alla ärenden"
-
-#: views/partials/404/ticket.blade.php:5
-msgid "The event could not be found"
-msgstr "Evenemanget kunde inte hittas"
-
-#: views/partials/404/ticket.blade.php:7
-msgid "Go back to events archive"
-msgstr "Tillbaka till alla evenemang"
 
 #: views/partials/archive-filters.blade.php:19
 msgid "From"
@@ -3861,6 +4005,30 @@ msgstr "Vad letar du efter?"
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
+#: views/partials/share-email-form.blade.php:6
+#: views/partials/social-share.blade.php:21
+msgid "Share as e-mail"
+msgstr "Dela med e-post"
+
+#: views/partials/share-email-form.blade.php:16
+#: views/partials/share-email-form.blade.php:17
+msgid "Your name"
+msgstr "Ditt namn"
+
+#: views/partials/share-email-form.blade.php:20
+#: views/partials/share-email-form.blade.php:21
+msgid "Your email"
+msgstr "Din e-postadress"
+
+#: views/partials/share-email-form.blade.php:25
+#: views/partials/share-email-form.blade.php:26
+msgid "Recipient email"
+msgstr "Mottagarens e-postadress"
+
+#: views/partials/share-email-form.blade.php:41
+msgid "Send"
+msgstr "Skicka"
+
 #: views/partials/social-share.blade.php:3
 #: views/partials/social-share.blade.php:5
 #: views/partials/social-share.blade.php:9
@@ -3869,6 +4037,12 @@ msgstr "Hittade inga matchande resultat för din sökning…"
 #: views/partials/social-share.blade.php:17
 msgid "Share on"
 msgstr "Dela på"
+
+#: views/partials/social-share.blade.php:23
+#, fuzzy
+#| msgid "Share the page"
+msgid "Share with e-mail"
+msgstr "Dela sidan"
 
 #: views/partials/timestamps.blade.php:42
 msgid "Last updated"
@@ -3913,6 +4087,18 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Default style"
+#~ msgstr "Standard"
+
+#~ msgid "Compressed"
+#~ msgstr "Komprimerad"
+
+#~ msgid "The event could not be found"
+#~ msgstr "Evenemanget kunde inte hittas"
+
+#~ msgid "Go back to events archive"
+#~ msgstr "Tillbaka till alla evenemang"
 
 #~ msgid "Google Analytics UA"
 #~ msgstr "Google Analytics UA"
