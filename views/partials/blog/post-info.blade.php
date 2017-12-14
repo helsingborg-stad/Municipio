@@ -27,8 +27,6 @@
     </li>
     @endif
 
-    <?php do_action('Municipio/blog/post_info', $post); ?>
-
     @if (comments_open() && get_option('comment_registration') == 0 || comments_open() && is_user_logged_in())
     <li class="post-comments">
         <a href="{{ comments_link() }}">
@@ -37,4 +35,6 @@
         </a>
     </li>
     @endif
+
+    <?php do_action('Municipio/blog/post_info', $post); ?>
 </ul>
