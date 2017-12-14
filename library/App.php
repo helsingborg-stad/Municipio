@@ -68,7 +68,6 @@ class App
          * Admin
          */
         new \Municipio\Admin\General();
-        new \Municipio\Admin\Customizer();
 
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
