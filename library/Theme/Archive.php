@@ -8,7 +8,7 @@ class Archive
     {
         add_filter('wp_title', array($this, 'pageTitle'));
         add_filter('get_the_archive_title', array($this, 'pageHeader'));
-        add_filter('excerpt_more', array($this, 'readMore'));
+        //add_filter('excerpt_more', array($this, 'readMore'));
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
         add_action('wp_ajax_share_email', array($this, 'socialShareEmail'));
