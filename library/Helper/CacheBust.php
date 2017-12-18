@@ -8,10 +8,15 @@ class CacheBust
      * Returns the revved/cache-busted file name of an asset.
      * @param string $name Asset name (array key) from rev-mainfest.json
      * @param boolean $childTheme Set child or parent theme path (defaults to parent)
+     * @param boolean $returnName Returns $name if set to true while in dev mode
      * @return string filename of the asset (including directory above)
      */
-    public static function name($name, $childTheme = false)
+    public static function name($name, $childTheme = false, $returnName = false)
     {
+        if ($returnName == true && defined('DEV_MODE') && DEV_MODE == true) {
+            return $name;
+        }
+
         static $revManifestParent;
         static $revManifestChild;
 
