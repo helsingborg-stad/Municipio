@@ -162,22 +162,22 @@
 .nav-accessibility li + li {
   margin-left: 20px; }
 
-.nav-accessibility a {
+.nav-accessibility a, .nav-accessibility span {
   font-size: .9rem;
   font-weight: 200;
   color: #464646; }
-  .nav-accessibility a:hover {
+  .nav-accessibility a:hover, .nav-accessibility span:hover {
     text-decoration: none;
     color: #333; }
-    .theme-red .nav-accessibility a:hover {
+    .theme-red .nav-accessibility a:hover, .theme-red .nav-accessibility span:hover {
       color: #cb0050; }
-    .theme-blue .nav-accessibility a:hover {
+    .theme-blue .nav-accessibility a:hover, .theme-blue .nav-accessibility span:hover {
       color: #0069b4; }
-    .theme-green .nav-accessibility a:hover {
+    .theme-green .nav-accessibility a:hover, .theme-green .nav-accessibility span:hover {
       color: #50811b; }
-    .theme-purple .nav-accessibility a:hover {
+    .theme-purple .nav-accessibility a:hover, .theme-purple .nav-accessibility span:hover {
       color: #712082; }
-  .nav-accessibility a .pricon {
+  .nav-accessibility a .pricon, .nav-accessibility span .pricon {
     margin-right: .2em; }
 
 .filter-dropdown {
