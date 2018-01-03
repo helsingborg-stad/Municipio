@@ -322,7 +322,8 @@
   right: 0;
   z-index: 99;
   background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 3px;
   overflow: hidden;
   font-size: 1em; }
