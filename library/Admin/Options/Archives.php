@@ -13,12 +13,18 @@ class Archives
 
     public function getSpecificNumberOfPosts($query)
     {
-        if (!is_admin() && $query->is_main_query() && is_post_type_archive('utbildningar')) {
-            $postcount = get_field('archive_utbildningar_number_of_posts', 'option');
+        if (!is_admin() && $query->is_main_query()){
 
-            if (!empty($postcount)) {
-                $query->set('posts_per_page', $postcount);
+            foreach (get_post_types() as $key => $postType) {
+
+                $postcount = get_field('archive_' . $postType . '_number_of_posts', 'option');
+
+                if(!empty($postcount))
+                {
+                     $query->set('posts_per_page', $postcount);
+                }
             }
+
         }
     }
 
@@ -476,6 +482,11 @@ class Archives
                                 'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
                                 'operator' => '==',
                                 'value' => $taxName
+                            ),
+                            array(
+                                'field' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_placement'),
+                                'operator' => '!=',
+                                'value' => 'highlighted'
                             )
                         )),
                         'wrapper' => array(
@@ -492,15 +503,52 @@ class Archives
                         'default_value' => 'datetime',
                         'layout' => 'horizontal',
                     );
+
+                    $fieldArgs['fields'][] = array(
+                        'key' => 'field_43fgg987tess_' . md5($posttype . '_' . $taxName . '_type'),
+                        'label' => $taxLabel . ': Type',
+                        'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_type',
+                        'type' => 'select',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => array(array(
+                            array(
+                                'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
+                                'operator' => '==',
+                                'value' => $taxName
+                            ),
+                            array(
+                                'field' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_placement'),
+                                'operator' => '==',
+                                'value' => 'highlighted'
+                            )
+                        )),
+                        'wrapper' => array(
+                            'width' => '50%',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => array(
+                            'multi' => 'Multiple choices'
+                        ),
+                        'other_choice' => 0,
+                        'save_other_choice' => 0,
+                        'default_value' => 'datetime',
+                        'layout' => 'horizontal',
+                    );
+
                 }
 
                 // Filter position
+
+               
                 
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
                     'label' => 'Filter position',
                     'name' => 'archive_' . sanitize_title($posttype) . '_filter_position',
-                    'type' => 'checkbox',
+                    //'type' => 'checkbox',
+                    'type' => 'radio',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => array(array(
@@ -516,13 +564,18 @@ class Archives
                         'id' => '',
                     ),
                     'choices' => array(
+                        'top' => 'Top',
+                        'content' => 'Content'
+                    ),/*,
+                    'choices' => array(
                         'content area' => 'Content area'
-                    ),
-                    'default_value' => array(
-                    ),
+                    ),*/
+                    'default_value' => 'top',
                     'layout' => 'horizontal',
                     'toggle' => 0,
                 );
+
+             
             }
 
             // Post display label
