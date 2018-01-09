@@ -5,8 +5,8 @@
             <span class="post-author-image" style="background-image:url('{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))['url'] }}');"><img src="{{ get_field('user_profile_picture', 'user_' . get_the_author_meta('ID'))['url'] }}" alt="{{ (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name'))) ? get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')  : get_the_author() }}"></span>
         @endif
 
-        @if (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name')))
-            <span class="post-author-name">{{ get_the_author_meta('first_name') }} {{ get_the_author_meta('last_name') }}</span>
+        @if (!empty($post->post_author) && !empty(get_the_author_meta('first_name', $post->post_author)) && !empty(get_the_author_meta('last_name', $post->post_author)))
+            <span class="post-author-name">{{ get_the_author_meta('first_name', $post->post_author) }} {{ get_the_author_meta('last_name', $post->post_author) }}</span>
         @else
             <span class="post-author-name">{{ get_the_author() }}</span>
         @endif
@@ -27,8 +27,6 @@
     </li>
     @endif
 
-    <?php do_action('Municipio/blog/post_info', $post); ?>
-
     @if (comments_open() && get_option('comment_registration') == 0 || comments_open() && is_user_logged_in())
     <li class="post-comments">
         <a href="{{ comments_link() }}">
@@ -37,4 +35,6 @@
         </a>
     </li>
     @endif
+
+    <?php do_action('Municipio/blog/post_info', $post); ?>
 </ul>

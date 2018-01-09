@@ -1,4 +1,4 @@
-<div id="modal-target-{{ the_ID() }}" class="modal modal-backdrop-2 modal-xs text-left" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-target-{{ get_the_ID() }}" class="modal modal-backdrop-2 modal-xs text-left" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-content material-shadow-lg">
         <form class="social-share-email">
             <div class="modal-header">
@@ -9,7 +9,7 @@
                 <article>
                     <div class="form-group">
                         <label>URL</label>
-                        <a href="{{ the_permalink() }}" target="_blank">{{ the_permalink() }}</a>
+                        <a href="{{ get_the_permalink() }}" target="_blank">{{ get_the_permalink() }}</a>
                     </div>
                     @if (!is_user_logged_in())
                         <div class="form-group">

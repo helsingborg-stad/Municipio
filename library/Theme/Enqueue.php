@@ -144,7 +144,8 @@ class Enqueue
         wp_localize_script($this->defaultPrimeName, 'HbgPrimeArgs', array(
             'api' => array(
                 'root' => esc_url_raw(rest_url()),
-                'nonce' => wp_create_nonce('wp_rest')
+                'nonce' => wp_create_nonce('wp_rest'),
+                'postTypeRestUrl' => \Municipio\Helper\PostType::postTypeRestUrl()
             ),
             'cookieConsent' => array(
                 'show'      => get_field('cookie_consent_active', 'option'),

@@ -86,6 +86,8 @@ class CustomPostType
                         'supports'           => $supports,
                         'menu_position'      => (int) $type_definition['menu_position'],
                         'has_archive'        => true,
+                        'show_in_rest'       => true,
+                        'rest_base'          => sanitize_title($type_definition['slug'])
                     );
 
                     //Get custom menu icon

@@ -35,4 +35,22 @@ class PostType
 
         return $postTypes;
     }
+
+    /**
+     * Get post type REST URL
+     * @param  string|null $postType Post type slug
+     * @return string                Post types REST URL
+     */
+    public static function postTypeRestUrl($postType = null)
+    {
+        $restUrl = null;
+        $postType = !$postType ? get_post_type() : $postType;
+        $postTypeObj = get_post_type_object($postType);
+
+        if ($postTypeObj && !empty($postTypeObj->show_in_rest) && !empty($postTypeObj->rest_base)) {
+            $restUrl = esc_url_raw(get_rest_url() . 'wp/v2/' . $postTypeObj->rest_base);
+        }
+
+        return $restUrl;
+    }
 }

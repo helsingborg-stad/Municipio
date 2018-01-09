@@ -1,0 +1,27 @@
+#search-suggestions {
+    ul {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        right: 0;
+        z-index: 99;
+        background-color: #fff;
+        box-shadow: 0 3px 10px rgba(#000, .13);
+        border: 1px solid rgba(#000, .13);
+        border-radius: 3px;
+        overflow: hidden;
+        font-size: 1em;
+
+        li {
+            font-size: .9em;
+            display: block;
+            color: $gray-dark;
+            padding: 4px 10px;
+
+            &:hover, &.selected {
+                cursor: pointer;
+                background-color: rgba($palette-gray-2, .03);
+            }
+        }
+    }
+}
