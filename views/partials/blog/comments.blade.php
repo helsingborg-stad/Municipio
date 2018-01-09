@@ -44,7 +44,7 @@
                                 {!! Municipio\Controller\Single::likeButton($comment->comment_ID) !!}
                             </span>
                             @endif
-                            @if($comment->comment_parent == 0)
+                            @if(isset($comment->comment_parent) && $comment->comment_parent == 0)
                                 <span class="reply">
                                     {{comment_reply_link($replyArgs,$comment->comment_ID,$comment->comment_post_ID)}}
                                 </span>
