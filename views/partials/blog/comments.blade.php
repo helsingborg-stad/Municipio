@@ -98,9 +98,6 @@
                                                 {!! Municipio\Controller\Single::likeButton($answer->comment_ID) !!}
                                             </span>
                                             @endif
-                                            <span class="reply">
-                                                {{comment_reply_link($replyArgs,$answer->comment_ID,$answer->comment_post_ID)}}
-                                            </span>
                                         </div>
                                     </div>
                                 </li>
