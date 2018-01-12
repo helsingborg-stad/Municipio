@@ -18,16 +18,14 @@ abstract class BaseWidget extends \WP_Widget
         if (isset($setup['id']) &&
             isset($setup['name']) &&
             isset($setup['description']) &&
-            isset($setup['template'])) {
+            isset($setup['template']))
+        {
             $this->viewPath = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
                 get_stylesheet_directory() . '/views/',
                 get_template_directory() . '/views/'
             ));
-
             $this->viewPath = array_unique($this->viewPath);
-
             $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
-
             $this->template = $setup['template'];
 
             parent::__construct(
