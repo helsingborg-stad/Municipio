@@ -89,7 +89,8 @@ add_action('init', function () {
         'options-theme-share'              => 'group_56c431971df46',
         'options-theme-sub-navigation'     => 'group_56e941cae1ed2',
         'user-author-image'                => 'group_56c714b46105e',
-        'widget-contact'                   => 'group_56c58bade87dc'
+        'widget-contact'                   => 'group_56c58bade87dc',
+        'widget-navigation-menu'           => 'group_5a58ce68e8b61'
     ));
     $acfExportManager->import();
 });
