@@ -1,0 +1,49 @@
+[{
+    "key": "group_5a58ce68e8b61",
+    "title": "Widget - Navigation menu",
+    "fields": [
+        {
+            "key": "field_5a58ce7a48379",
+            "label": "Select WP menu",
+            "name": "widget_navigation_menu",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "2": "Primary (Menu ID: 2)",
+                "3": "ROFL (Menu ID: 3)"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "widget",
+                "operator": "==",
+                "value": "navigation_menu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+

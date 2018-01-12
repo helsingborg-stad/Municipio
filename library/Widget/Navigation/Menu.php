@@ -1,0 +1,44 @@
+<?php
+
+namespace Municipio\Widget\Navigation;
+
+class Menu extends \Municipio\Widget\Source\BaseWidget
+{
+    public function setup()
+    {
+        add_filter('acf/load_field/name=widget_navigation_menu', array($this, 'populateSelectField'));
+
+        $widget = array(
+            'id'            => 'navigation_menu',
+            'name'          => 'Navigation Menu',
+            'description'   => 'Display wordpress or auto generated menu, used in navigation',
+            'template'      => 'navigation-menu.blade.php'
+        );
+
+        return $widget;
+    }
+
+    public function init($args, $instance)
+    {
+        if ($this->get_field('widget_navigation_menu')) {
+            $this->data['menu'] = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_navigation_menu'));
+        }
+    }
+
+    /**
+     * Populate ACF field with WP menus
+     * @param array $field ACF fields
+     * @return array
+     */
+    public function populateSelectField($field)
+    {
+        $menus = \Municipio\Helper\Navigation::getMenuList();
+        $field['choices'] = array();
+
+        foreach ($menus as $menu) {
+            $field['choices'][$menu->term_id] = $menu->name . ' (Menu ID: ' . $menu->term_id . ')';
+        }
+
+        return $field;
+    }
+}

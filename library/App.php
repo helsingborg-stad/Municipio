@@ -53,6 +53,7 @@ class App
          */
         new \Municipio\Widget\RichEditor();
         new \Municipio\Widget\Contact();
+        new \Municipio\Widget\Widgets();
 
         /**
          * Comments
