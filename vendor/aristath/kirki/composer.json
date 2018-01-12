@@ -1,0 +1,35 @@
+{
+  "name": "aristath/kirki",
+  "type": "library",
+  "keywords": ["WordPress", "Customizer"],
+  "description": "Extending the WordPress customizer",
+  "homepage": "https://aristath.github.io/kirki",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "aristath",
+      "email": "aristath@gmail.com",
+      "homepage": "https://aristath.github.io",
+      "role":"Developer"
+    },
+    {
+      "name": "fovoc",
+      "email": "kalliris.d@gmail.com",
+      "homepage": "https://github.com/fovoc",
+      "role":"Developer"
+    }
+  ],
+  "autoload": {
+      "files": ["kirki.php"]
+  },
+  "require": {
+    "php": ">=5.2"
+  },
+  "require-dev": {
+    "composer/installers": "~1.0",
+    "phpunit/phpunit": "~4.8",
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "wimg/php-compatibility": "*",
+    "wp-coding-standards/wpcs": "*"
+  }
+}

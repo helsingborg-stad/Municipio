@@ -791,5 +791,63 @@
         ],
         "description": "The Illuminate View package.",
         "homepage": "https://laravel.com"
+    },
+    {
+        "name": "aristath/kirki",
+        "version": "v3.0.22",
+        "version_normalized": "3.0.22.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aristath/kirki.git",
+            "reference": "638afa48b99887b8e7b8806e3eef462365a8b831"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aristath/kirki/zipball/638afa48b99887b8e7b8806e3eef462365a8b831",
+            "reference": "638afa48b99887b8e7b8806e3eef462365a8b831",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "require-dev": {
+            "composer/installers": "~1.0",
+            "dealerdirect/phpcodesniffer-composer-installer": "*",
+            "phpunit/phpunit": "~4.8",
+            "wimg/php-compatibility": "*",
+            "wp-coding-standards/wpcs": "*"
+        },
+        "time": "2017-12-24T07:50:06+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "kirki.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "aristath",
+                "email": "aristath@gmail.com",
+                "homepage": "https://aristath.github.io",
+                "role": "Developer"
+            },
+            {
+                "name": "fovoc",
+                "email": "kalliris.d@gmail.com",
+                "homepage": "https://github.com/fovoc",
+                "role": "Developer"
+            }
+        ],
+        "description": "Extending the WordPress customizer",
+        "homepage": "https://aristath.github.io/kirki",
+        "keywords": [
+            "customizer",
+            "wordpress"
+        ]
     }
 ]
