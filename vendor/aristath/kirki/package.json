@@ -1,0 +1,34 @@
+{
+  "name": "kirki-toolkit",
+  "version": "3.0.21",
+  "author": "Aristeides Stathopoulos",
+  "homepage": "https://kirki.org",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aristath/kirki"
+  },
+  "bugs": {
+    "url": "https://github.com/aristath/kirki/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-curl": "*",
+    "grunt-wp-readme-to-markdown": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-jscs": "*"
+  }
+}
