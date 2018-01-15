@@ -13,18 +13,14 @@ class Archives
 
     public function getSpecificNumberOfPosts($query)
     {
-        if (!is_admin() && $query->is_main_query()){
-
+        if (!is_admin() && $query->is_main_query()) {
             foreach (get_post_types() as $key => $postType) {
-
                 $postcount = get_field('archive_' . $postType . '_number_of_posts', 'option');
 
-                if(!empty($postcount))
-                {
-                     $query->set('posts_per_page', $postcount);
+                if (!empty($postcount)) {
+                    $query->set('posts_per_page', $postcount);
                 }
             }
-
         }
     }
 
@@ -536,13 +532,12 @@ class Archives
                         'default_value' => 'datetime',
                         'layout' => 'horizontal',
                     );
-
                 }
 
                 // Filter position
 
-               
-                
+
+
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
                     'label' => 'Filter position',
@@ -574,8 +569,6 @@ class Archives
                     'layout' => 'horizontal',
                     'toggle' => 0,
                 );
-
-             
             }
 
             // Post display label
