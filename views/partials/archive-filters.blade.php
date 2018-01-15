@@ -1,5 +1,11 @@
 @if (!empty($enabledHeaderFilters))
-<section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
+
+@if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
+    <section class="gutter sidebar-content-area archive-filters">
+@else
+    <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
+@endif
+
     <form method="get" action="{{ $archiveUrl }}" class="container" id="archive-filter">
 
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
