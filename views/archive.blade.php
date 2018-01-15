@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if (!get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option'))
+@if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'top')
     @include('partials.archive-filters')
 @endif
 
@@ -58,7 +58,7 @@
             @if (in_array($template, array('list')))
                 @include('partials.blog.type.post-' . $template)
             @else
-            @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option'))
+            @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
                 <div class="grid filter-content">
                     @include('partials.archive-filters')
                 </div>
