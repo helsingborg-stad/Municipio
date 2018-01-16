@@ -12,7 +12,7 @@ class Customizer
 
     public function config()
     {
-        \Kirki::add_config( 'municipio_config', array(
+        \Kirki::add_config('municipio_config', array(
             'capability'    => 'edit_theme_options',
             'option_type'   => 'theme_mod',
         ));
