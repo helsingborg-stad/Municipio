@@ -34,32 +34,35 @@ class BaseController
     public function customizerHeader()
     {
         $this->data['headerLayout']['customizer'] = true;
-        $this->data['headerLayout']['template'] = 'customizer';
-        $this->data['headerLayout']['classes'] = 'c-site-header t-site-header';
-        $this->data['headerLayout']['navbars'] = $this->mapCustomizerNavbars();
+        $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
+        $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-site-header t-site-header');
+        $this->data['headerLayout']['attributes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Attributes', '');
+        $this->data['headerLayout']['panels'] = $this->mapCustomizerHeaderPanels();
     }
 
-    public function mapCustomizerNavbars()
+    public function mapCustomizerHeaderPanels()
     {
         $widgetAreas = \Municipio\Customizer\Header\HeaderPanel::getHeaderWidgetAreas();
         $navbars = array();
 
+        //Map sections (widget areas)
         foreach ($widgetAreas as $sidebar) {
             $section = array(
                 'id' => $sidebar['id'],
-                'classes' => 'c-navbar__section c-navbar__section_' . $sidebar['alignment']
+                'classes' => 'c-site-header__panel_item c-site-header__panel_item--' . $sidebar['alignment']
             );
 
-            $navbars[$sidebar['position']]['sections'][] = $section;
+            $navbars[$sidebar['position']]['items'][] = $section;
         }
 
+        //Add classes & attributes
         foreach ($navbars as $key => $value) {
-            $navbars[$key]['classes'] = 'c-navbar t-navbar c-navbar--' . $key;
-            $navbars[$key]['bodyClasses'] = "c-nabar__body container";
+            $navbars[$key]['classes'] = 'c-site-header__panel c-site-header__panel--' . $key;
+            $navbars[$key]['bodyClasses'] = "c-site-header__panel_row container";
             $navbars[$key]['attributes'] = "";
         }
 
-        $navbars = apply_filters('Municipio/Controller/BaseController/mapCustomizerNavbars', $navbars);
+        $navbars = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeaderPanels', $navbars);
 
         if (!empty($navbars)) {
             return $navbars;

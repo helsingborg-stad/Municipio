@@ -1,8 +1,5 @@
 @if (isset($headerLayout['customizer']) && $headerLayout['customizer'])
-    <header class="{{$headerLayout['classes']}}">
-        @include('partials.header.' . $headerLayout['template'])
-    </header>
-
+    @include('partials.header.' . $headerLayout['template'])
     @include('partials.hero')
 @else
     <header id="site-header" class="site-header {{ $headerLayout['classes'] }}">
