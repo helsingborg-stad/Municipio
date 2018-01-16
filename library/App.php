@@ -40,6 +40,12 @@ class App
         new \Municipio\Search\Algolia();
 
         /**
+         * Customizer
+         */
+
+        new \Municipio\Customizer\Customizer();
+
+        /**
          * Content
          */
         new \Municipio\Content\CustomPostType();
