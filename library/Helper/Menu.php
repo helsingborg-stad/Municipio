@@ -47,6 +47,12 @@ class Menu
 
     protected function mapChildren()
     {
+
+        //If not valid children, return false.
+        if (!isset($this->children) || !is_array($this->children) || empty($this->children)) {
+            return false;
+        }
+
         foreach ($this->children as $item) {
             if (isset($this->children[$item->menu_item_parent])) {
                 $this->childrenExist('children', $item->menu_item_parent);
@@ -60,6 +66,8 @@ class Menu
                 $this->wpMenu[$item->menu_item_parent]->children[$item->ID] = $item;
             }
         }
+
+        return true;
     }
 
     protected function childrenExist($array, $key)
