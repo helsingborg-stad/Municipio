@@ -90,7 +90,8 @@ add_action('init', function () {
         'options-theme-sub-navigation'     => 'group_56e941cae1ed2',
         'user-author-image'                => 'group_56c714b46105e',
         'widget-contact'                   => 'group_56c58bade87dc',
-        'widget-navigation-menu'           => 'group_5a58ce68e8b61'
+        'widget-navigation-menu'           => 'group_5a58ce68e8b61',
+        'widget-navigation-logotype'       => 'group_5a5ca31651f08'
     ));
     $acfExportManager->import();
 });
