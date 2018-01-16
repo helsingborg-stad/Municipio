@@ -49,18 +49,25 @@ class Menu
     {
         foreach ($this->children as $item) {
             if (isset($this->children[$item->menu_item_parent])) {
-                $this->children[$item->menu_item_parent]->children = (isset($this->children[$item->menu_item_parent]->children)) ? $this->children[$item->menu_item_parent]->children : array();
-
+                $this->childrenExist('children', $item->menu_item_parent);
                 $this->children[$item->menu_item_parent]->children[$item->ID] = $item;
             }
         }
 
         foreach ($this->children as $item) {
             if (isset($this->wpMenu[$item->menu_item_parent])) {
-                $this->wpMenu[$item->menu_item_parent]->children = (isset($this->wpMenu[$item->menu_item_parent]->children)) ? $this->wpMenu[$item->menu_item_parent]->children : array();
-
+                $this->childrenExist('wpMenu', $item->menu_item_parent);
                 $this->wpMenu[$item->menu_item_parent]->children[$item->ID] = $item;
             }
         }
+    }
+
+    protected function childrenExist($array, $key)
+    {
+        if (!isset($this->$array) || !is_array($this->$array)) {
+            return;
+        }
+
+        $this->$array[$key]->children = (isset($this->$array[$key]->children)) ? $this->$array[$key]->children : array();
     }
 }
