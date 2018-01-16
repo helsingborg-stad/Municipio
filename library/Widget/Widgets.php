@@ -12,5 +12,6 @@ class Widgets
     public function customWidgets()
     {
         register_widget(new \Municipio\Widget\Navigation\Menu);
+        register_widget(new \Municipio\Widget\Navigation\Logo);
     }
 }
