@@ -39,6 +39,12 @@ class App
         new \Municipio\Search\General();
 
         /**
+         * Customizer
+         */
+
+        new \Municipio\Customizer\Customizer();
+
+        /**
          * Content
          */
         new \Municipio\Content\CustomPostType();
