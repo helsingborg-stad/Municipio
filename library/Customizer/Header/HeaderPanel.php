@@ -88,16 +88,18 @@ class HeaderPanel
         $bars = get_theme_mod('header_widget_areas_settings');
         $navbars = array();
 
-        foreach ($bars as $bar) {
-            $propeties = explode('-', $bar);
+        if (is_array($bars) && !empty($bars)) {
+            foreach ($bars as $bar) {
+                $propeties = explode('-', $bar);
 
-            if (count($propeties) == 3) {
-                $navbars[] = array(
-                    'id' => $bar,
-                    'name' => ucfirst($propeties[0]) . ' ' . ucfirst($propeties[1]) . ' ' . ucfirst($propeties[2]),
-                    'alignment' => $propeties[2],
-                    'position' => $propeties[0]
-                );
+                if (count($propeties) == 3) {
+                    $navbars[] = array(
+                        'id' => $bar,
+                        'name' => ucfirst($propeties[0]) . ' ' . ucfirst($propeties[1]) . ' ' . ucfirst($propeties[2]),
+                        'alignment' => $propeties[2],
+                        'position' => $propeties[0]
+                    );
+                }
             }
         }
 
