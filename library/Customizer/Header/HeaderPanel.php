@@ -13,6 +13,7 @@ class HeaderPanel
         $this->addPanel();
         $this->addSection();
         $this->headerWidgetAreas();
+        $this->moveHeaderWidgets();
     }
 
     public function addPanel()
@@ -31,6 +32,19 @@ class HeaderPanel
             'panel'          => self::PANEL_ID,
             'priority'       => 20,
         ));
+    }
+
+    public function moveHeaderWidgets()
+    {
+        add_filter('customizer_widgets_section_args', function ($section_args, $section_id, $sidebar_id) {
+            if (self::getHeaderWidgetAreas(false) &&
+                is_array(self::getHeaderWidgetAreas(false)) &&
+                in_array($sidebar_id, self::getHeaderWidgetAreas(false))) {
+                $section_args['panel'] = self::PANEL_ID;
+            }
+
+            return $section_args;
+        }, 10, 3);
     }
 
     public function headerWidgetAreas()
@@ -83,10 +97,14 @@ class HeaderPanel
         }
     }
 
-    public static function getHeaderWidgetAreas()
+    public static function getHeaderWidgetAreas($formatted = true)
     {
         $bars = get_theme_mod('header_widget_areas_settings');
         $navbars = array();
+
+        if (!$formatted) {
+            return $bars;
+        }
 
         if (is_array($bars) && !empty($bars)) {
             foreach ($bars as $bar) {
