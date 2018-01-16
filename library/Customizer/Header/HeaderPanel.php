@@ -18,9 +18,9 @@ class HeaderPanel
     public function addPanel()
     {
         \Kirki::add_panel(self::PANEL_ID, array(
-            'priority'    => 1,
-            'title'       => esc_attr__('Theme header', 'municipio'),
-            'description' => esc_attr__('Theme header settings', 'municipio'),
+            'priority'    => 80,
+            'title'       => esc_attr__('Header', 'municipio'),
+            'description' => esc_attr__('Header settings', 'municipio'),
         ));
     }
 
