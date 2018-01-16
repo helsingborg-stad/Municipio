@@ -12,16 +12,60 @@ class BaseController
 
     public function __construct()
     {
-        $this->getLogotype();
-        $this->getHeaderLayout();
-        $this->getFooterLayout();
-        $this->getNavigationMenus();
+        $customizer = apply_filters('Municipio/Controller/BaseController/Customizer', false);
+
+        if ($customizer) {
+             $this->customizerHeader();
+        } else {
+            $this->getLogotype();
+            $this->getHeaderLayout();
+            $this->getFooterLayout();
+            $this->getNavigationMenus();
+        }
+
         $this->getHelperVariables();
         $this->getFilterData();
         $this->getVerticalMenu();
         $this->getFixedActionBar();
 
         $this->init();
+    }
+
+    public function customizerHeader()
+    {
+        $this->data['headerLayout']['customizer'] = true;
+        $this->data['headerLayout']['template'] = 'customizer';
+        $this->data['headerLayout']['classes'] = 'c-site-header t-site-header';
+        $this->data['headerLayout']['navbars'] = $this->mapCustomizerNavbars();
+    }
+
+    public function mapCustomizerNavbars()
+    {
+        $widgetAreas = \Municipio\Customizer\Header\HeaderPanel::getHeaderWidgetAreas();
+        $navbars = array();
+
+        foreach ($widgetAreas as $sidebar) {
+            $section = array(
+                'id' => $sidebar['id'],
+                'classes' => 'c-navbar__section c-navbar__section_' . $sidebar['alignment']
+            );
+
+            $navbars[$sidebar['position']]['sections'][] = $section;
+        }
+
+        foreach ($navbars as $key => $value) {
+            $navbars[$key]['classes'] = 'c-navbar t-navbar c-navbar--' . $key;
+            $navbars[$key]['bodyClasses'] = "c-nabar__body container";
+            $navbars[$key]['attributes'] = "";
+        }
+
+        $navbars = apply_filters('Municipio/Controller/BaseController/mapCustomizerNavbars', $navbars);
+
+        if (!empty($navbars)) {
+            return $navbars;
+        }
+
+        return false;
     }
 
     public function getFixedActionBar()
