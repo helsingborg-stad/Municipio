@@ -13,18 +13,18 @@ class Archives
 
     public function getSpecificNumberOfPosts($query)
     {
+            
         if (!is_admin() && $query->is_main_query()){
+        
+            $posttype =$query->query["post_type"];
 
-            foreach (get_post_types() as $key => $postType) {
+        
+            $postcount = get_field('archive_' . $posttype . '_number_of_posts', 'option');
 
-                $postcount = get_field('archive_' . $postType . '_number_of_posts', 'option');
-
-                if(!empty($postcount))
-                {
-                     $query->set('posts_per_page', $postcount);
-                }
+            if(!empty($postcount))
+            {
+                 $query->set('posts_per_page', $postcount);
             }
-
         }
     }
 
@@ -212,6 +212,7 @@ class Archives
                     'disabled' => 0,
                     'readonly' => 0,
                 );
+                
 
                  // Number of posts
                 $fieldArgs['fields'][] = array(
@@ -227,7 +228,7 @@ class Archives
                         "class" => "",
                         "id" => ""
                     ),
-                    "default_value" => "",
+                    "default_value" => 9,
                     "placeholder" => "",
                     "prepend" => "",
                     "append" => "",
