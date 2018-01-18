@@ -12,7 +12,7 @@ class Archive
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
         add_action('wp_ajax_share_email', array($this, 'socialShareEmail'));
         add_action('wp_ajax_nopriv_share_email', array($this, 'socialShareEmail'));
-        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 1, 1);
+        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
     }
 
     /**
