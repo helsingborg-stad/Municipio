@@ -10,27 +10,6 @@ class Archive extends \Municipio\Controller\BaseController
     private static $gridRow = array();
     private static $gridColumns = array();
 
-    public function __construct()
-    {
-        add_action('pre_get_posts', array($this, 'getSpecificNumberOfPosts'));
-    }
-
-    /**
-     * Function to set number of posts in display list.
-     */
-    public function getSpecificNumberOfPosts($query)
-    {
-        if (!is_admin() && $query->is_main_query()) {
-            if (isset($query->query["post_type"]) && post_type_exists($query->query["post_type"])) {
-                $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
-
-                if (!empty($postCount) && is_numeric($postCount)) {
-                    $query->set('posts_per_page', $postCount);
-                }
-            }
-        }
-    }
-
     public function init()
     {
         $postType = get_post_type();
