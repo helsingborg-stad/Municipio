@@ -86,6 +86,7 @@ add_action('init', function () {
         'options-theme-search'             => 'group_569fa7edcdd6b',
         'options-theme-search-display'     => 'group_56a72f6430912',
         'options-theme-search-result'      => 'group_586df81d53d0f',
+        'options-theme-search-algolia'     => 'group_5a61b852f3f8c',
         'options-theme-share'              => 'group_56c431971df46',
         'options-theme-sub-navigation'     => 'group_56e941cae1ed2',
         'user-author-image'                => 'group_56c714b46105e',
