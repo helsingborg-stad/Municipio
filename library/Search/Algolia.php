@@ -37,6 +37,18 @@ class Algolia
                 return false;
             }
         }
+
+        //Attachments
+        if (isset($post->post_type) && $post->post_type = 'attachment') {
+            $indexable_mimes = apply_filters('algolia_indexable_attachment_mime_types', array(
+                'application/pdf'
+            ));
+
+            if (!in_array(get_post_mime_type($post->ID), $indexable_mimes)) {
+                return false;
+            }
+        }
+
         return true;
     }
 }
