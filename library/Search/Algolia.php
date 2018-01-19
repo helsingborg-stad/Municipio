@@ -12,7 +12,8 @@ class Algolia
         }
 
         //Algolia search modifications
-        add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'));
+        //add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'));
+        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'))
     }
 
 
@@ -22,8 +23,11 @@ class Algolia
      * @return bool True if add, false if not indexable
      */
 
-    public function shouldIndexPost($post)
+    public function shouldIndexPost($should_index, $post)
     {
+
+        error_log("Should index post run");
+
         //Get post type object
         if (isset($post->post_type) && $postTypeObject = get_post_type_object($post->post_type)) {
 
@@ -49,6 +53,6 @@ class Algolia
             }
         }
 
-        return true;
+        return $should_index;
     }
 }
