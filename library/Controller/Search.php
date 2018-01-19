@@ -6,8 +6,12 @@ class Search extends \Municipio\Controller\BaseController
 {
     public function init()
     {
+
+        //Determine what type of searchengine that should be used
         if (get_field('use_google_search', 'option') === true) {
             $this->googleSearch();
+        } elseif (get_field('use_algolia_search', 'option') === true) {
+            $this->algoliaSearch();
         } else {
             $this->wpSearch();
         }
@@ -25,6 +29,15 @@ class Search extends \Municipio\Controller\BaseController
         global $wp_query;
         $this->data['resultCount'] = $wp_query->found_posts;
         $this->data['keyword'] = get_search_query();
+    }
+
+    /**
+     * Algolia search
+     * @return void
+     */
+    public function algoliaSearch()
+    {
+        $this->data['results'] = array();
     }
 
     /**
