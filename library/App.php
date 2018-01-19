@@ -37,6 +37,7 @@ class App
         new \Municipio\Theme\FixedActionBar();
 
         new \Municipio\Search\General();
+        new \Municipio\Search\Algolia();
 
         /**
          * Content

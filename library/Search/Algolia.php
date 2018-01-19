@@ -13,9 +13,9 @@ class Algolia
     public $currentIndex = 1;
     public $resultsPerPage = null;
 
-    public function __construct($keyword, $startingIndex = 1)
+    public function __construct()
     {
-       /* $this->apiKey = get_field('algolia_search_api_key', 'option');
+        /* $this->apiKey = get_field('algolia_search_api_key', 'option');
         $this->appId = get_field('algolia_search_app_id', 'option');
 
         $this->keyword = $keyword;
@@ -26,6 +26,11 @@ class Algolia
 
 
 */
+
+        //Do not run if not enabled
+        if (!get_field('use_algolia_search', 'option')) {
+            return false;
+        }
 
 
         //Algolia search modifications
