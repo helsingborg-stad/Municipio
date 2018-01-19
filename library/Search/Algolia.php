@@ -13,7 +13,7 @@ class Algolia
 
         //Algolia search modifications
         //add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'));
-        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'))
+        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2)
     }
 
 
