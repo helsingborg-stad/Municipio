@@ -14,8 +14,52 @@ class Algolia
 
         //Algolia search modifications
         add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2);
+
+        //Exclude from search UI
+        add_action('post_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
+        add_action('attachment_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
+        add_action('save_post', array($this, 'saveExcludeFromSearch'));
+        add_action('edit_attachment', array($this, 'saveExcludeFromSearch'));
     }
 
+    /**
+     * Adds form field for exclude from search
+     * @return void
+     */
+
+    public function excludeFromSearchCheckbox()
+    {
+        global $post;
+
+        //Only show if not set to not index
+        if (!$this->shouldIndexPost(true, $post, false)) {
+            return false;
+        }
+
+        if (is_object($post) && isset($post->ID)) {
+            $checked = checked(true, get_post_meta($post->ID, 'exclude_from_search', true), false);
+            echo '
+            <div class="misc-pub-section">
+                <label><input type="checkbox" name="algolia-exclude-from-search" value="true" ' . $checked . '> ' . __('Exclude from search', 'municipio') . '</label>
+            </div>
+            ';
+        }
+    }
+
+    /**
+     * Saves the "exclude from search" value
+     * @param  int $postId The post id
+     * @return void
+     */
+
+    public function saveExcludeFromSearch($postId)
+    {
+        if (!isset($_POST['algolia-exclude-from-search']) || $_POST['algolia-exclude-from-search'] != 'true') {
+            delete_post_meta($postId, 'exclude_from_search');
+            return;
+        }
+        update_post_meta($postId, 'exclude_from_search', true);
+    }
 
     /**
      * Remove post types from index that are hidden for the user
@@ -23,12 +67,12 @@ class Algolia
      * @return bool True if add, false if not indexable
      */
 
-    public function shouldIndexPost($should_index, $post)
+    public function shouldIndexPost($should_index, $post, $includeCheckbox = true)
     {
 
-        //Default value
-        if (is_null($should_index)) {
-            $should_index = true;
+        //Do not index if excluded
+        if ($includeCheckbox && isset($post->ID) && get_post_meta($post->ID, 'exclude_from_search', true) == "1") {
+            return false;
         }
 
         //Get post type object
@@ -41,6 +85,10 @@ class Algolia
             if (in_array($post->post_type, $defaultIndexableTypes)) {
                 return true;
             }
+        }
+
+        //Get post type object
+        if (isset($post->post_type)) {
 
             //Get post object details
             $postTypeObject = get_post_type_object($post->post_type);
