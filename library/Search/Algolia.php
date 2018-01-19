@@ -63,7 +63,9 @@ class Algolia
 
     /**
      * Remove post types from index that are hidden for the user
-     * @param $post The post that should be indexed or not
+     * @param bool $should_index The decition originally done by algolia
+     * @param WpPost $post The post that should be indexed or not
+     * @param bool $includeCheckbox If the check should take the users decition in consideration
      * @return bool True if add, false if not indexable
      */
 
