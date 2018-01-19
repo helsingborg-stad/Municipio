@@ -37,7 +37,16 @@ class Search extends \Municipio\Controller\BaseController
      */
     public function algoliaSearch()
     {
-        $this->data['results'] = array();
+        //Disable results when instant search is on
+        if (get_option('algolia_override_native_search') == "instantsearch") {
+            $this->data['results'] = array();
+            $this->data['search'] = $search;
+            return;
+        }
+
+        //Mimic wp-search
+        $this->data['search'] = $search;
+        $this->data['results'] = $search->results;
     }
 
     /**
