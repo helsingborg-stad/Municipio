@@ -6,6 +6,7 @@ class Algolia
 {
     public function __construct()
     {
+
         //Do not run if not enabled
         if (!get_field('use_algolia_search', 'option')) {
             return false;
@@ -31,7 +32,18 @@ class Algolia
         }
 
         //Get post type object
-        if (isset($post->post_type) && $postTypeObject == get_post_type_object($post->post_type)) {
+        if (isset($post->post_type)) {
+
+            //Default to index pages (discard other stuff below)
+            $defaultIndexableTypes = apply_filters('algolia_indexable_post_types', array(
+                'page'
+            ));
+            if (in_array($post->post_type, $defaultIndexableTypes)) {
+                return true;
+            }
+
+            //Get post object details
+            $postTypeObject = get_post_type_object($post->post_type);
 
             //Do not index post that are not searchable
             if (isset($postTypeObject->exclude_from_search)) {
@@ -42,7 +54,7 @@ class Algolia
 
             //Do not index posts that are not public
             if (isset($postTypeObject->publicly_queryable)) {
-                if (empty($postTypeObject->publicly_queryable)) {
+                if ($postTypeObject->publicly_queryable === false) {
                     return false;
                 }
             }
