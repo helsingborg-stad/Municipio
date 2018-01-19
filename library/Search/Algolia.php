@@ -12,8 +12,7 @@ class Algolia
         }
 
         //Algolia search modifications
-        //add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'));
-        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2)
+        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2);
     }
 
 
@@ -26,24 +25,31 @@ class Algolia
     public function shouldIndexPost($should_index, $post)
     {
 
-        error_log("Should index post run");
+        //Default value
+        if (is_null($should_index)) {
+            $should_index = true;
+        }
 
         //Get post type object
-        if (isset($post->post_type) && $postTypeObject = get_post_type_object($post->post_type)) {
+        if (isset($post->post_type) && $postTypeObject == get_post_type_object($post->post_type)) {
 
             //Do not index post that are not searchable
-            if ($postTypeObject->exclude_from_search) {
-                return false;
+            if (isset($postTypeObject->exclude_from_search)) {
+                if ($postTypeObject->exclude_from_search) {
+                    return false;
+                }
             }
 
             //Do not index posts that are not public
-            if (!$postTypeObject->publicly_queryable) {
-                return false;
+            if (isset($postTypeObject->publicly_queryable)) {
+                if (empty($postTypeObject->publicly_queryable)) {
+                    return false;
+                }
             }
         }
 
         //Attachments
-        if (isset($post->post_type) && $post->post_type = 'attachment') {
+        if (isset($post->post_type) && $post->post_type == 'attachment') {
             $indexable_mimes = apply_filters('algolia_indexable_attachment_mime_types', array(
                 'application/pdf'
             ));
