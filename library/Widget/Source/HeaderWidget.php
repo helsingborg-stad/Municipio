@@ -4,12 +4,31 @@ namespace Municipio\Widget\Source;
 
 abstract class HeaderWidget extends BaseWidget
 {
+    protected function afterSetup()
+    {
+        if (isset($this->config['id'])) {
+            $this->config['id'] = str_replace('widget_header_', '', $this->config['id']);
+            $this->config['id'] = 'widget_header_' . $this->config['id'];
+        }
+    }
+
     protected function beforeInit()
+    {
+        $this->addWrapperClass();
+        $this->visibilityClasses();
+    }
+
+    protected function afterInit()
+    {
+        $this->implodeWrapperClass();
+    }
+
+    protected function addWrapperClass()
     {
         $this->data['widgetWrapperClass'] = array('c-site-header__widget');
     }
 
-    protected function afterInit()
+    protected function implodeWrapperClass()
     {
         if (is_array($this->data['widgetWrapperClass'])) {
             $this->data['widgetWrapperClass'] = implode(' ', $this->data['widgetWrapperClass']);
@@ -18,7 +37,7 @@ abstract class HeaderWidget extends BaseWidget
 
     protected function visibilityClasses()
     {
-        if (!$this->get_field('navigation_widget_visibility') || !is_array($this->get_field('navigation_widget_visibility')) || empty($this->get_field('navigation_widget_visibility'))) {
+        if (!$this->get_field('widget_header_visibility') || !is_array($this->get_field('widget_header_visibility')) || empty($this->get_field('widget_header_visibility'))) {
 
             return false;
         }
@@ -34,14 +53,16 @@ abstract class HeaderWidget extends BaseWidget
 
         $classes = array();
 
-        foreach ($this->get_field('navigation_widget_visibility') as $device) {
+        foreach ($this->get_field('widget_header_visibility') as $device) {
             if (isset($options[$device])) {
                 $classes[] = $options[$device];
             }
         }
 
         if (!empty($classes)) {
-            return $classes;
+            $this->data['widgetWrapperClass'] = array_merge($this->data['widgetWrapperClass'], $classes);
+
+            return true;
         }
 
         return false;

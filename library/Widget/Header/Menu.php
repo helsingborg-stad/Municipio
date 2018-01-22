@@ -1,18 +1,18 @@
 <?php
 
-namespace Municipio\Widget\Navigation;
+namespace Municipio\Widget\Header;
 
-class Menu extends \Municipio\Widget\Source\BaseWidget
+class Menu extends \Municipio\Widget\Source\HeaderWidget
 {
     public function setup()
     {
-        add_filter('acf/load_field/name=widget_navigation_menu', array($this, 'populateSelectField'));
+        add_filter('acf/load_field/name=widget_header_menu', array($this, 'populateSelectField'));
 
         $widget = array(
-            'id'            => 'navigation_menu',
-            'name'          => 'Navigation Menu',
-            'description'   => 'Display wordpress or auto generated menu, used in navigation',
-            'template'      => 'navigation-menu.blade.php'
+            'id'            => 'menu',
+            'name'          => 'Header widget: Menu',
+            'description'   => 'Display wordpress or auto generated menu, used in header',
+            'template'      => 'header-menu.blade.php'
         );
 
         return $widget;
@@ -20,8 +20,8 @@ class Menu extends \Municipio\Widget\Source\BaseWidget
 
     public function init($args, $instance)
     {
-        if ($this->get_field('widget_navigation_menu')) {
-            $this->data['menu'] = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_navigation_menu'));
+        if ($this->get_field('widget_header_menu')) {
+            $this->data['menu'] = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_header_menu'));
         }
     }
 
