@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2017-12-11 09:44+0100\n"
-"PO-Revision-Date: 2017-12-11 09:45+0100\n"
+"POT-Creation-Date: 2018-01-22 11:23+0100\n"
+"PO-Revision-Date: 2018-01-22 11:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.5\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -43,7 +43,7 @@ msgid "Show author"
 msgstr "Visa författare"
 
 #: library/AcfFields/php/options-page-display.php:53
-#: library/Admin/Options/Archives.php:47
+#: library/Admin/Options/Archives.php:34
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
 msgid "Author"
 msgstr "Författare"
@@ -147,7 +147,8 @@ msgstr "Använd %s för att skriva ut föreslagen sökfras"
 #: library/AcfFields/php/options-theme-author.php:48
 #: library/AcfFields/php/options-theme-google-translate.php:96
 #: library/AcfFields/php/options-theme-scroll-elevator.php:32
-#: library/AcfFields/php/options-theme-search.php:15
+#: library/AcfFields/php/options-theme-search-algolia.php:10
+#: library/AcfFields/php/options-theme-search.php:10
 #: library/AcfFields/php/options-theme-share.php:10
 msgid "Enable"
 msgstr "Aktivera"
@@ -163,7 +164,7 @@ msgstr "Länka namn till arkivet för författaren"
 #: library/AcfFields/php/options-theme-color-scheme.php:6
 #: library/AcfFields/php/options-theme-color-scheme.php:10
 msgid "Color scheme"
-msgstr ""
+msgstr "Färgschema"
 
 #: library/AcfFields/php/options-theme-color-scheme.php:22
 msgid "Gray"
@@ -417,7 +418,7 @@ msgstr "Trackbacks"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:242
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:101
-#: views/partials/blog/post-info.blade.php:36
+#: views/partials/blog/post-info.blade.php:34
 msgid "Comments"
 msgstr "Kommentarer"
 
@@ -1022,7 +1023,7 @@ msgid "Post footer timestamps"
 msgstr "Tidstämplar under inlägg"
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:40
-#: views/partials/archive-filters.blade.php:17
+#: views/partials/archive-filters.blade.php:50
 msgid "Date published"
 msgstr "Publiceringsdatum"
 
@@ -1158,6 +1159,14 @@ msgstr "Under"
 msgid "Tooltip position"
 msgstr "Positionering av tooltip"
 
+#: library/AcfFields/php/options-theme-search-algolia.php:6
+msgid "Algolia Search"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:21
+msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-search-display.php:42
 msgid "Search field label"
 msgstr "Sökfältets titel"
@@ -1210,15 +1219,19 @@ msgstr ""
 msgid "Grid columns"
 msgstr "Kolumner i rutnät"
 
-#: library/AcfFields/php/options-theme-search.php:10
+#: library/AcfFields/php/options-theme-search.php:6
+msgid "Google Search"
+msgstr "Google Sök"
+
+#: library/AcfFields/php/options-theme-search.php:22
 msgid "Use Google Site Search"
 msgstr "Använd Google Site Search"
 
-#: library/AcfFields/php/options-theme-search.php:34
+#: library/AcfFields/php/options-theme-search.php:29
 msgid "Google API Key"
 msgstr "Google API Key"
 
-#: library/AcfFields/php/options-theme-search.php:63
+#: library/AcfFields/php/options-theme-search.php:58
 msgid "Google Api CX"
 msgstr "Google Api CX"
 
@@ -1340,15 +1353,15 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Options/Archives.php:64
+#: library/Admin/Options/Archives.php:51
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Archives.php:110
+#: library/Admin/Options/Archives.php:97
 msgid "Leave empty to hide title"
 msgstr "Lämna tomt för att dölja titel"
 
-#: library/Admin/Options/Archives.php:216
+#: library/Admin/Options/Archives.php:203
 msgid "Number of posts in one page"
 msgstr ""
 
@@ -1377,9 +1390,9 @@ msgstr "Sidfot"
 #: library/Admin/Options/Theme.php:60 library/Admin/Options/Theme.php:61
 #: library/Theme/Navigation.php:213
 #: vendor/advanced-custom-fields/core/fields/relationship.php:634
-#: views/partials/archive-filters.blade.php:7
-#: views/partials/archive-filters.blade.php:10
-#: views/partials/archive-filters.blade.php:46
+#: views/partials/archive-filters.blade.php:40
+#: views/partials/archive-filters.blade.php:43
+#: views/partials/archive-filters.blade.php:79
 msgid "Search"
 msgstr "Sök"
 
@@ -1562,6 +1575,10 @@ msgstr ""
 "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
 "webbläsare."
 
+#: library/Search/Algolia.php:43
+msgid "Exclude from search"
+msgstr "Exkludera från sökresultat"
+
 #: library/Template.php:49
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:85
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:86
@@ -1581,39 +1598,39 @@ msgstr "Administratörsnotis"
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
 
-#: library/Theme/Archive.php:32
+#: library/Theme/Archive.php:49
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr ""
 
-#: library/Theme/Archive.php:34
+#: library/Theme/Archive.php:51
 msgctxt "monthly archives date format"
 msgid "F Y"
 msgstr ""
 
-#: library/Theme/Archive.php:36
+#: library/Theme/Archive.php:53
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr ""
 
-#: library/Theme/Archive.php:50
+#: library/Theme/Archive.php:67
 msgid "Archive"
 msgstr "Arkiv"
 
-#: library/Theme/Archive.php:115
-msgid "read more"
-msgstr "läs mer"
+#: library/Theme/Archive.php:134
+msgid "Something went wrong, please try again"
+msgstr ""
 
-#: library/Theme/Archive.php:143
+#: library/Theme/Archive.php:145
 #, php-format
 msgid "This message was sent by %s via %s"
 msgstr "Meddelandet skickades av %s via %s"
 
-#: library/Theme/Archive.php:148
+#: library/Theme/Archive.php:150
 msgid "sent you a link via"
 msgstr "har delat en länk via"
 
-#: library/Theme/Archive.php:156
+#: library/Theme/Archive.php:158
 msgid "The message was sent successfully"
 msgstr "Meddelandet har skickats"
 
@@ -1625,11 +1642,11 @@ msgstr "Fullbredd"
 msgid "One page (no article)"
 msgstr "Fullbredd (utan artikel)"
 
-#: library/Theme/Enqueue.php:165
+#: library/Theme/Enqueue.php:166
 msgid "No matching content found…"
 msgstr "Inga matchande filter hittades…"
 
-#: library/Theme/Enqueue.php:173
+#: library/Theme/Enqueue.php:174
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -3919,7 +3936,7 @@ msgid "Location"
 msgstr "Plats"
 
 #: views/archive-event.blade.php:100 views/archive-listing.blade.php:94
-#: views/archive.blade.php:77 views/author.blade.php:50
+#: views/archive.blade.php:84 views/author.blade.php:50
 msgid "No posts to show"
 msgstr "Inga inlägg att visa"
 
@@ -3939,23 +3956,23 @@ msgstr "Ärendet kunde inte hittas"
 msgid "View all tickets"
 msgstr "Visa alla ärenden"
 
-#: views/partials/archive-filters.blade.php:19
+#: views/partials/archive-filters.blade.php:52
 msgid "From"
 msgstr "Från"
 
-#: views/partials/archive-filters.blade.php:20
+#: views/partials/archive-filters.blade.php:53
 msgid "From date"
 msgstr "Från datum"
 
-#: views/partials/archive-filters.blade.php:21
+#: views/partials/archive-filters.blade.php:54
 msgid "To"
 msgstr "Till"
 
-#: views/partials/archive-filters.blade.php:22
+#: views/partials/archive-filters.blade.php:55
 msgid "To date"
 msgstr "Till datum"
 
-#: views/partials/archive-filters.blade.php:42
+#: views/partials/archive-filters.blade.php:75
 msgid "Clear filters"
 msgstr "Återställ filter"
 
@@ -4087,6 +4104,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "read more"
+#~ msgstr "läs mer"
 
 #~ msgid "Default style"
 #~ msgstr "Standard"
@@ -4284,9 +4304,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Sök"
 #~ msgstr "Sök"
-
-#~ msgid "Google Search"
-#~ msgstr "Google Sök"
 
 #~ msgid "Sub navigation"
 #~ msgstr "Sekundär meny"
