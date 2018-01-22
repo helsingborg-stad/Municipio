@@ -260,7 +260,7 @@ class Enqueue
             return $url;
         }
 
-        if (false !== strpos($url, 'hbg-prime')) {
+        if (false !== strpos($url, $this->defaultPrimeName)) {
             return $url;
         }
 
