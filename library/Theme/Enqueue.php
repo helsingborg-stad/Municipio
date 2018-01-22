@@ -260,6 +260,10 @@ class Enqueue
             return $url;
         }
 
+        if (false !== strpos($url, 'hbg-prime')) {
+            return $url;
+        }
+
         if (isset($_GET['gf_page']) && $_GET['gf_page'] == 'preview') {
             return $url;
         }
