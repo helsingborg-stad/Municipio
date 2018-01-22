@@ -7,13 +7,13 @@ class Algolia
     public function __construct()
     {
 
+        //Algolia search modifications
+        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2);
+
         //Do not run if not enabled
         if (!get_field('use_algolia_search', 'option')) {
             return false;
         }
-
-        //Algolia search modifications
-        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2);
 
         //Exclude from search UI
         add_action('post_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
