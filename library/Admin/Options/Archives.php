@@ -538,7 +538,39 @@ class Archives
                         'layout' => 'horizontal',
                     );
 
+
                 }
+
+
+        
+
+                foreach ($taxonomies as $taxName => $taxLabel) {
+
+                         //Filter logic
+                $fieldArgs['fields'][] = array(
+                    'key' => 'field_32drr8543765p_' . md5($taxName),
+                    'label' => 'Filter logic ('. $taxLabel . ')',
+                    'name' => 'archive_' . sanitize_title($taxName) . '_filter_logic',
+                    'type' => 'radio',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '50%',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        'AND' => 'AND',
+                        'OR' => 'OR',
+                    ),
+                    'other_choice' => 0,
+                    'save_other_choice' => 0,
+                    'default_value' => 'and',
+                    'layout' => 'horizontal',
+                );
+
+                 }
 
                 // Filter position
 

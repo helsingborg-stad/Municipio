@@ -17,6 +17,7 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
         @endif
 
         <div class="box-content">
+
             @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && isset(get_the_category()[0]->name))
             <span class="box-post-brick-category">{{ get_the_category()[0]->name }}</span>
             @endif
@@ -29,6 +30,20 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
                 </time>
             </span>
             @endif
+
+            @foreach (get_post_taxonomies() as $key=>$value) 
+           
+                <?php $terms = (array) wp_get_post_terms($post->ID, $value); ?>
+                   
+                @foreach ($terms as $term) 
+
+                    <?php $term = (array) $term; ?>
+                        
+                    <span class="box-post-brick-category">{{ $term["name"] }}</span>
+            
+                @endforeach
+
+            @endforeach
 
             <h3 class="post-title">{{ the_title() }}</h3>
         </div>

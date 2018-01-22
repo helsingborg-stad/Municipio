@@ -235,24 +235,50 @@ class PostFilters
             return $query;
         }
 
-        $taxQuery = array('relation' => 'AND');
+        
+        $taxQuery = array('relation' => 'AND');   
 
-        foreach ($filterable as $key => $value) {
+        $taxQueryOR = array('relation' => 'OR');   
+
+       foreach ($filterable as $key => $value) {
+            
             if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
                 continue;
             }
 
+            $filterLogic = get_field('archive_' . $key . '_filter_logic', 'option');
+
+            if($filterLogic != 'AND' && $filterLogic != 'OR'){
+                $filterLogic = 'AND';   
+            }
+
             $terms = (array) $_GET['filter'][$key];
 
-            $taxQuery[] = array(
-                'taxonomy' => $key,
-                'field' => 'slug',
-                'terms' => $terms,
-                'operator' => 'IN'
-            );
+            if($filterLogic == 'AND')
+            {
+                $taxQuery[] = array(
+                    'taxonomy' => $key,
+                    'field' => 'slug',
+                    'terms' => $terms,
+                    'operator' => 'AND'
+                );
+            }
+            else if($filterLogic == 'OR')
+            {
+                 $taxQueryOR[] = array(
+                    'taxonomy' => $key,
+                    'field' => 'slug',
+                    'terms' => $terms,
+                    'operator' => 'IN'
+                );
+            }
         }
 
+        $taxQuery[] = $taxQueryOR;
+
+
         if (is_tax() || is_category() || is_tag()) {
+
             $taxQuery = array(
                 'relation' => 'AND',
                 array(
@@ -270,6 +296,7 @@ class PostFilters
 
         $query->set('tax_query', $taxQuery);
         $query->set('post_type', $this->getPostType());
+
         return $query;
     }
 

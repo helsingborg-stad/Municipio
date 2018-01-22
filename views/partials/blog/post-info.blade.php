@@ -6,9 +6,17 @@
         @endif
 
         @if (!empty(get_the_author_meta('first_name')) && !empty(get_the_author_meta('last_name')))
-            <span class="post-author-name">{{ get_the_author_meta('first_name') }} {{ get_the_author_meta('last_name') }}</span>
+            @if (get_field('page_link_to_author_archive', 'option'))
+                <a href="{{ get_author_posts_url(get_the_author_meta('ID')) }}"><span class="post-author-name">{{ get_the_author_meta('first_name') }} {{get_the_author_meta('last_name') }}</span></a>
+            @else
+                <span class="post-author-name">{{ get_the_author_meta('first_name') }} {{ get_the_author_meta('last_name') }}</span>
+            @endif
         @else
-            <span class="post-author-name">{{ get_the_author() }}</span>
+            @if (get_field('page_link_to_author_archive', 'option'))
+                <a href="{{ get_author_posts_url(get_the_author_meta('ID')) }}"><span class="post-author-name">{{ get_the_author() }}</span></a>
+            @else
+                <span class="post-author-name">{{ get_the_author() }}</span>
+            @endif
         @endif
     </li>
     @endif

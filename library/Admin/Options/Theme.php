@@ -15,6 +15,10 @@ class Theme
                 $submenu[$themeOptionsParent][] = array( '', 'read', '', '', 'wp-menu-separator');
             }, 11);
 
+
+            //Removes gravatar options
+            add_filter( 'option_show_avatars', '__return_false' );
+
             acf_add_options_sub_page(array(
                 'page_title'    => __('Theme Options', 'municipio'),
                 'menu_title'    => __('Theme Options', 'municipio'),
