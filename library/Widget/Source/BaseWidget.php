@@ -7,18 +7,27 @@ use Philo\Blade\Blade as Blade;
 abstract class BaseWidget extends \WP_Widget
 {
     protected $data = array();
+    protected $config = array();
 
     abstract protected function setup();
     abstract protected function init($args, $instance);
 
     public function __construct()
     {
-        $setup = $this->setup();
+        if (method_exists($this, 'beforeSetup')) {
+            $this->beforeSetup();
+        }
 
-        if (isset($setup['id']) &&
-            isset($setup['name']) &&
-            isset($setup['description']) &&
-            isset($setup['template']))
+        $this->config = $this->setup();
+
+        if (method_exists($this, 'afterSetup')) {
+            $this->afterSetup();
+        }
+
+        if (isset($this->config['id']) &&
+            isset($this->config['name']) &&
+            isset($this->config['description']) &&
+            isset($this->config['template']))
         {
             $this->viewPath = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
                 get_stylesheet_directory() . '/views/',
@@ -26,12 +35,12 @@ abstract class BaseWidget extends \WP_Widget
             ));
             $this->viewPath = array_unique($this->viewPath);
             $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
-            $this->template = $setup['template'];
+            $this->template = $this->config['template'];
 
             parent::__construct(
-                $setup['id'],
-                __($setup['name'], 'municipio'),
-                array( 'description' => __($setup['description'], 'municipio'), )
+                $this->config['id'],
+                __($this->config['name'], 'municipio'),
+                array( 'description' => __($this->config['description'], 'municipio'), )
             );
         }
     }
@@ -42,8 +51,15 @@ abstract class BaseWidget extends \WP_Widget
         $this->data['args'] = $args;
         $this->data['instance'] = $instance;
 
+        if (method_exists($this, 'beforeInit')) {
+            $this->beforeInit();
+        }
+
         $this->init($args, $instance);
 
+        if (method_exists($this, 'afterInit')) {
+            $this->afterInit();
+        }
 
         $blade = new Blade($this->viewPath, $this->cachePath);
         echo $blade->view()->make('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
