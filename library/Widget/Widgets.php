@@ -6,12 +6,12 @@ class Widgets
 {
     public function __construct()
     {
-        add_action('widgets_init', array($this, 'customWidgets'));
+        add_action('widgets_init', array($this, 'headerWidgets'));
     }
 
-    public function customWidgets()
+    public function headerWidgets()
     {
-        register_widget(new \Municipio\Widget\Navigation\Menu);
-        register_widget(new \Municipio\Widget\Navigation\Logo);
+        register_widget(new \Municipio\Widget\Header\Menu);
+        register_widget(new \Municipio\Widget\Header\Logo);
     }
 }

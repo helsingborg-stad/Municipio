@@ -1,16 +1,16 @@
 <?php
 
-namespace Municipio\Widget\Navigation;
+namespace Municipio\Widget\Header;
 
-class Logo extends \Municipio\Widget\Source\BaseWidget
+class Logo extends \Municipio\Widget\Source\HeaderWidget
 {
     public function setup()
     {
         $widget = array(
-            'id'            => 'navigation_logo',
-            'name'          => 'Navigation Logotype',
-            'description'   => 'Display website logotype, used in navigation',
-            'template'      => 'navigation-logo.blade.php'
+            'id'            => 'header_widget_logo',
+            'name'          => 'Header widget: Logo',
+            'description'   => 'Display website logotype, used in header',
+            'template'      => 'header-logo.blade.php'
         );
 
         return $widget;
@@ -18,14 +18,14 @@ class Logo extends \Municipio\Widget\Source\BaseWidget
 
     public function init($args, $instance)
     {
-        if ($this->get_field('widget_navigation_logotype')) {
-            switch ($this->checkFiletype($this->get_field('widget_navigation_logotype'))) {
+        if ($this->get_field('widget_header_logotype')) {
+            switch ($this->checkFiletype($this->get_field('widget_header_logotype'))) {
                 case 'svg':
-                    $path = \Municipio\Helper\Image::urlToPath($this->get_field('widget_navigation_logotype')['url']);
+                    $path = \Municipio\Helper\Image::urlToPath($this->get_field('widget_header_logotype')['url']);
                     $this->data['logotype'] = \Municipio\Helper\Svg::extract($path);
                 break;
                 case 'png':
-                    $this->data['logotype'] = '<img src="' . $this->get_field('widget_navigation_logotype')['url'] . '">';
+                    $this->data['logotype'] = '<img src="' . $this->get_field('widget_header_logotype')['url'] . '">';
                 break;
             }
         } else {

@@ -1,11 +1,11 @@
 [{
     "key": "group_5a5ca31651f08",
-    "title": "Widget - Navigation Logotype",
+    "title": "Widget header - Logotype",
     "fields": [
         {
             "key": "field_5a5ca31c83a1c",
             "label": "Upload logotype",
-            "name": "widget_navigation_logotype",
+            "name": "widget_header_logotype",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -25,6 +25,27 @@
             "max_height": "",
             "max_size": "",
             "mime_types": "svg,png"
+        },
+        {
+            "key": "field_5a65d7db67c96",
+            "label": "",
+            "name": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_5a65d5e7e913b"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
         }
     ],
     "location": [
@@ -32,7 +53,7 @@
             {
                 "param": "widget",
                 "operator": "==",
-                "value": "navigation_logo"
+                "value": "widget_header_header_widget_logo"
             }
         ]
     ],
