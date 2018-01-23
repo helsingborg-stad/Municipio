@@ -31,41 +31,61 @@ class BaseController
         $this->init();
     }
 
+    /**
+     * Sends necessary data to the view for customizer header
+     * @return array | false
+     */
     public function customizerHeader()
     {
         $this->data['headerLayout']['customizer'] = true;
         $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
         $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-site-header t-site-header');
         $this->data['headerLayout']['attributes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Attributes', '');
-        $this->data['headerLayout']['panels'] = $this->mapCustomizerHeaderPanels();
+        $this->data['headerLayout']['panels'] = $this->mapCustomizerHeader();
     }
 
-    public function mapCustomizerHeaderPanels()
+    /**
+     * Returns mapped array that builds up the customizer header
+     * @return array | false
+     */
+    public function mapCustomizerHeader()
     {
-        $widgetAreas = \Municipio\Customizer\Header\HeaderPanel::getHeaderWidgetAreas();
-        $navbars = array();
+        $panelRows = array();
+        $panelItems = \Municipio\Customizer\Header\HeaderPanel::getHeaderWidgetAreas();
 
-        //Map sections (widget areas)
-        foreach ($widgetAreas as $sidebar) {
-            $section = array(
-                'id' => $sidebar['id'],
-                'classes' => 'c-site-header__panel_item c-site-header__panel_item--' . $sidebar['alignment']
+        if (!is_array($panelItems) || empty($panelItems)) {
+            return false;
+        }
+
+        $classes = array(
+            'item' => 'c-site-header__panel_item',
+            'itemModifier' => 'c-site-header__panel_item--',
+            'row' => 'c-site-header__panel',
+            'rowModifier' => 'c-site-header__panel--',
+            'rowBody' => 'c-site-header__panel_row container'
+        );
+
+        $classes = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeader/classes', $classes);
+
+        //Map row & items
+        foreach ($panelItems as $panelItem) {
+            $panelRows[$panelItem['position']]['items'][] = array(
+                'id' => $panelItem['id'],
+                'classes' => $classes['item'] . ' ' . $classes['itemModifier'] . $panelItem['alignment']
             );
-
-            $navbars[$sidebar['position']]['items'][] = $section;
         }
 
-        //Add classes & attributes
-        foreach ($navbars as $key => $value) {
-            $navbars[$key]['classes'] = 'c-site-header__panel c-site-header__panel--' . $key;
-            $navbars[$key]['bodyClasses'] = "c-site-header__panel_row container";
-            $navbars[$key]['attributes'] = "";
+        //Add classes & attributes to row
+        foreach ($panelRows as $position => $panelRow) {
+            $panelRows[$position]['classes'] = $classes['row'] . ' ' . $classes['rowModifier'] . $position;
+            $panelRows[$position]['bodyClasses'] = $classes['rowBody'];
+            $panelRows[$position]['attributes'] = "";
         }
 
-        $navbars = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeaderPanels', $navbars);
+        $panelRows = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeader/rows', $panelRows);
 
-        if (!empty($navbars)) {
-            return $navbars;
+        if (!empty($panelRows)) {
+            return $panelRows;
         }
 
         return false;
