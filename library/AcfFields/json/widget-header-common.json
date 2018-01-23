@@ -3,6 +3,23 @@
     "title": "Widget header - Common",
     "fields": [
         {
+            "key": "field_5a67574c78160",
+            "label": "Display options",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_5a65d5f15bffd",
             "label": "Visibility",
             "name": "widget_header_visibility",

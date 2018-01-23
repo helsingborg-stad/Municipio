@@ -6,6 +6,23 @@
     'title' => __('Widget header - Common', 'municipio'),
     'fields' => array(
         0 => array(
+            'key' => 'field_5a67574c78160',
+            'label' => __('Display options', 'municipio'),
+            'name' => '',
+            'type' => 'accordion',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'open' => 0,
+            'multi_expand' => 0,
+            'endpoint' => 0,
+        ),
+        1 => array(
             'key' => 'field_5a65d5f15bffd',
             'label' => __('Visibility', 'municipio'),
             'name' => 'widget_header_visibility',
