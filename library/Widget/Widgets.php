@@ -13,5 +13,6 @@ class Widgets
     {
         register_widget(new \Municipio\Widget\Header\Menu);
         register_widget(new \Municipio\Widget\Header\Logo);
+        register_widget(new \Municipio\Widget\Header\Links);
     }
 }
