@@ -47,34 +47,117 @@ class HeaderPanel
         }, 10, 3);
     }
 
+    public static function avalibleWidgetAreas()
+    {
+        $avalibleWidgetAreas = array(
+            [
+                'id'            => 'top-header-left',
+                'name'          => 'Top header left',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'top',
+                'alignment'     => 'left'
+            ],
+            [
+                'id'            => 'top-header-center',
+                'name'          => 'Top header center',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'top',
+                'alignment'     => 'center'
+            ],
+            [
+                'id'            => 'top-header-right',
+                'name'          => 'Top header right',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'top',
+                'alignment'     => 'right'
+            ],
+            [
+                'id'            => 'primary-header-left',
+                'name'          => 'Primary header left',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'primary',
+                'alignment'     => 'left'
+            ],
+            [
+                'id'            => 'primary-header-center',
+                'name'          => 'Primary header center',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'primary',
+                'alignment'     => 'center'
+            ],
+            [
+                'id'            => 'primary-header-right',
+                'name'          => 'Primary header right',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'primary',
+                'alignment'     => 'right'
+            ],
+            [
+                'id'            => 'bottom-header-left',
+                'name'          => 'Bottom header left',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'bottom',
+                'alignment'     => 'left'
+            ],
+            [
+                'id'            => 'bottom-header-center',
+                'name'          => 'Bottom header center',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'bottom',
+                'alignment'     => 'center'
+            ],
+            [
+                'id'            => 'bottom-header-right',
+                'name'          => 'Bottom header right',
+                'description'   => 'Maecenas sed diam eget risus varius blandit sit amet non magna.',
+                'position'      => 'bottom',
+                'alignment'     => 'right'
+            ]
+        );
+
+        return apply_filters('Municipio/Customizer/Header/HeaderPanel/avalibleWidgetAreas', $avalibleWidgetAreas);
+    }
+
+    public static function defaultWidgetAreas()
+    {
+        $defaults = array(
+            'primary-header-left',
+            'primary-header-right'
+        );
+
+        return apply_filters('Municipio/Customizer/Header/HeaderPanel/defaultWidgetAreas', $defaults);
+    }
+
     public function headerWidgetAreas()
     {
-        $defaults = apply_filters('Municipio/Customizer/Header/HeaderPanel/headerWidgetAreas/Defaults', array(
-            'navbar-left',
-            'navbar-right'
-        ));
+        if (!is_array(self::avalibleWidgetAreas()) || empty(self::avalibleWidgetAreas())) {
+            return false;
+        }
 
-        $headerWidgetAreas = apply_filters('Municipio/Customizer/Header/HeaderPanel/headerWidgetAreas', array(
-            'top-header-left' => esc_attr__('Top header left', 'municipio'),
-            'top-header-center' => esc_attr__('Top header center', 'municipio'),
-            'top-header-right' => esc_attr__('Top header right', 'municipio'),
-            'primary-header-left' => esc_attr__('Primary header left', 'municipio'),
-            'primary-header-center' => esc_attr__('Primary header center', 'municipio'),
-            'primary-header-right' => esc_attr__('Primary header right', 'municipio'),
-            'bottom-header-left' => esc_attr__('Bottom header left', 'municipio'),
-            'bottom-header-center' => esc_attr__('Bottom header center', 'municipio'),
-            'bottom-header-right' => esc_attr__('Bottom header right', 'municipio')
-        ));
+        $options = array();
 
-        \Kirki::add_field('municipio_config', array(
-            'type'        => 'multicheck',
-            'settings'    => 'header_widget_areas_settings',
-            'label'       => esc_attr__('Header widget areas', 'municipio'),
-            'section'     => 'header_widget_areas',
-            'default'     => $defaults,
-            'priority'    => 10,
-            'choices'     => $headerWidgetAreas,
-        ));
+        foreach (self::avalibleWidgetAreas() as $widgetArea) {
+            if (isset($widgetArea['id']) && isset($widgetArea['name'])) {
+                $options[$widgetArea['id']] = esc_attr__($widgetArea['name'], 'municipio');
+            }
+        }
+
+        if (is_array($options) && !empty($options)) {
+            \Kirki::add_field('municipio_config', array(
+                'type'        => 'multicheck',
+                'settings'    => 'header_widget_areas_settings',
+                'label'       => esc_attr__('Header widget areas', 'municipio'),
+                'section'     => 'header_widget_areas',
+                'default'     => self::defaultWidgetAreas(),
+                'priority'    => 10,
+                'choices'     => $options,
+            ));
+
+
+            return true;
+        }
+
+        return false;
     }
 
     public function registerWidgetAreas()
@@ -99,30 +182,27 @@ class HeaderPanel
 
     public static function getHeaderWidgetAreas($formatted = true)
     {
-        $bars = get_theme_mod('header_widget_areas_settings');
-        $navbars = array();
+        $activeWidgetAreas = get_theme_mod('header_widget_areas_settings');
 
-        if (!$formatted) {
-            return $bars;
+        if (!is_array($activeWidgetAreas) || empty($activeWidgetAreas)) {
+            return false;
         }
 
-        if (is_array($bars) && !empty($bars)) {
-            foreach ($bars as $bar) {
-                $propeties = explode('-', $bar);
+        if (!$formatted) {
+            return $activeWidgetAreas;
+        }
 
-                if (count($propeties) == 3) {
-                    $navbars[] = array(
-                        'id' => $bar,
-                        'name' => ucfirst($propeties[0]) . ' ' . ucfirst($propeties[1]) . ' ' . ucfirst($propeties[2]),
-                        'alignment' => $propeties[2],
-                        'position' => $propeties[0]
-                    );
-                }
+        $avalibleWidgetAreas = self::avalibleWidgetAreas();
+        $widgetAreas = array();
+
+        foreach ($avalibleWidgetAreas as $widgetArea) {
+            if (in_array($widgetArea['id'], $activeWidgetAreas)) {
+                $widgetAreas[] = $widgetArea;
             }
         }
 
-        if (!empty($navbars)) {
-            return $navbars;
+        if (!empty($widgetAreas)) {
+            return $widgetAreas;
         }
 
         return false;
