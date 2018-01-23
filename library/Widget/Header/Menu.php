@@ -18,7 +18,7 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
         return $widget;
     }
 
-    public function init($args, $instance)
+    public function viewController($args, $instance)
     {
         if ($this->get_field('widget_header_menu')) {
             $this->data['menu'] = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_header_menu'));
@@ -41,4 +41,12 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
 
         return $field;
     }
+
+    /**
+     * Available methods for BaseWidget and extensions:
+     *
+     * @method array setup() Used to construct the widget instance. Required return array keys: id, name, description & template
+     * @method void viewController($args, $instance) Used to send data to the view
+     *
+     */
 }
