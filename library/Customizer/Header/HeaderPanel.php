@@ -12,10 +12,14 @@ class HeaderPanel
 
         $this->addPanel();
         $this->addSection();
-        $this->headerWidgetAreas();
+        $this->headerWidgetSettings();
         $this->moveHeaderWidgets();
     }
 
+    /**
+     * Setup wrapper for sections
+     * @return void
+     */
     public function addPanel()
     {
         \Kirki::add_panel(self::PANEL_ID, array(
@@ -25,6 +29,10 @@ class HeaderPanel
         ));
     }
 
+    /**
+     * Setup section
+     * @return void
+     */
     public function addSection()
     {
         \Kirki::add_section('header_widget_areas', array(
@@ -34,6 +42,10 @@ class HeaderPanel
         ));
     }
 
+    /**
+     * Move activaed widget areas to header panel in customizer
+     * @return void
+     */
     public function moveHeaderWidgets()
     {
         add_filter('customizer_widgets_section_args', function ($section_args, $section_id, $sidebar_id) {
@@ -47,6 +59,10 @@ class HeaderPanel
         }, 10, 3);
     }
 
+    /**
+     * Get avalible widget areas
+     * @return array
+     */
     public static function avalibleWidgetAreas()
     {
         $avalibleWidgetAreas = array(
@@ -118,6 +134,10 @@ class HeaderPanel
         return apply_filters('Municipio/Customizer/Header/HeaderPanel/avalibleWidgetAreas', $avalibleWidgetAreas);
     }
 
+    /**
+     * Returns array of widget area id's that will be used as default options
+     * @return array
+     */
     public static function defaultWidgetAreas()
     {
         $defaults = array(
@@ -128,7 +148,11 @@ class HeaderPanel
         return apply_filters('Municipio/Customizer/Header/HeaderPanel/defaultWidgetAreas', $defaults);
     }
 
-    public function headerWidgetAreas()
+    /**
+     * Appends checkboxes in the customizer for each avalible widget areas
+     * @return boolean
+     */
+    public function headerWidgetSettings()
     {
         if (!is_array(self::avalibleWidgetAreas()) || empty(self::avalibleWidgetAreas())) {
             return false;
@@ -160,6 +184,10 @@ class HeaderPanel
         return false;
     }
 
+    /**
+     * Registers new widget areas based on activated widget areas
+     * @return void
+     */
     public function registerWidgetAreas()
     {
         $navbars = self::getHeaderWidgetAreas();
@@ -180,7 +208,12 @@ class HeaderPanel
         }
     }
 
-    public static function getHeaderWidgetAreas($formatted = true)
+    /**
+     * Get activated widget areas
+     * @param boolean $mapped Determine if the returned array should be mapped or not (default to true)
+     * @return array | boolean
+     */
+    public static function getHeaderWidgetAreas($mapped = true)
     {
         $activeWidgetAreas = get_theme_mod('header_widget_areas_settings');
 
@@ -188,7 +221,7 @@ class HeaderPanel
             return false;
         }
 
-        if (!$formatted) {
+        if (!$mapped) {
             return $activeWidgetAreas;
         }
 
