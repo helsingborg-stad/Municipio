@@ -4,7 +4,39 @@ namespace Municipio\Widget\Source;
 
 abstract class HeaderWidget extends BaseWidget
 {
+    /**
+     * Method to manipulate config data after setup() method
+     * @return void
+     */
     protected function afterSetup()
+    {
+        $this->prefixWidgetId();
+    }
+
+    /**
+     * Method that runs before the viewController() method
+     * @return void
+     */
+    protected function beforeViewController()
+    {
+        $this->addWrapperClass();
+        $this->visibilityClasses();
+    }
+
+    /**
+     * Method that runs after the viewController() method
+     * @return void
+     */
+    protected function afterViewController()
+    {
+        $this->implodeWrapperClass();
+    }
+
+    /**
+     * Method to add prefix widget ID
+     * @return void
+     */
+    protected function prefixWidgetId()
     {
         if (isset($this->config['id'])) {
             $this->config['id'] = str_replace('widget_header_', '', $this->config['id']);
@@ -12,22 +44,19 @@ abstract class HeaderWidget extends BaseWidget
         }
     }
 
-    protected function beforeInit()
-    {
-        $this->addWrapperClass();
-        $this->visibilityClasses();
-    }
-
-    protected function afterInit()
-    {
-        $this->implodeWrapperClass();
-    }
-
+    /**
+     * Method to add default wrapper class used by all header widgets
+     * @return void
+     */
     protected function addWrapperClass()
     {
         $this->data['widgetWrapperClass'] = array('c-site-header__widget');
     }
 
+    /**
+     * Method to convert wrapper class array to string
+     * @return void
+     */
     protected function implodeWrapperClass()
     {
         if (is_array($this->data['widgetWrapperClass'])) {
@@ -35,6 +64,10 @@ abstract class HeaderWidget extends BaseWidget
         }
     }
 
+    /**
+     * Method to add visibility classes to widget wrapper based on ACF field
+     * @return void
+     */
     protected function visibilityClasses()
     {
         if (!$this->get_field('widget_header_visibility') || !is_array($this->get_field('widget_header_visibility')) || empty($this->get_field('widget_header_visibility'))) {

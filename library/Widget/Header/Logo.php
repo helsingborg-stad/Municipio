@@ -16,7 +16,7 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
         return $widget;
     }
 
-    public function init($args, $instance)
+    public function viewController($args, $instance)
     {
         if ($this->get_field('widget_header_logotype')) {
             switch ($this->checkFiletype($this->get_field('widget_header_logotype'))) {
@@ -49,4 +49,14 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
 
         return false;
     }
+
+
+    /**
+     * Available methods & vars for BaseWidget and extensions:
+     *
+     * @method array setup() Used to construct the widget instance. Required return array keys: id, name, description & template
+     * @method void viewController($args, $instance) Used to send data to the view;
+     *
+     *
+     */
 }
