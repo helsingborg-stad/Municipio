@@ -261,7 +261,7 @@ class Enqueue
         }
 
         if (false !== strpos($url, $this->defaultPrimeName)) {
-            return $url;
+            return $url . "' async='async";
         }
 
         if (isset($_GET['gf_page']) && $_GET['gf_page'] == 'preview') {
