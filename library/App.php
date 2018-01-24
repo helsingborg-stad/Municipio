@@ -7,6 +7,11 @@ class App
     public function __construct()
     {
         /**
+         * Custom ACF fields
+         */
+        new \Municipio\Admin\Acf\CustomFieldTypes();
+
+        /**
          * Helpers
          */
         new \Municipio\Helper\GravityForm();
