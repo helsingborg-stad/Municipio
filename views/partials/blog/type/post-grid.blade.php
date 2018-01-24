@@ -29,6 +29,8 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
                     {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
                 </time>
             </span>
+            <br>
+            <br>
             @endif
 
             @foreach (get_post_taxonomies() as $key=>$value) 
@@ -39,7 +41,7 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
 
                     <?php $term = (array) $term; ?>
                         
-                    <span class="box-post-brick-category">{{ $term["name"] }}</span>
+                    <span class="label label-theme">{{ $term["name"] }}</span>
             
                 @endforeach
 
