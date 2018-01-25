@@ -39,7 +39,7 @@ class BaseController
     {
         $this->data['headerLayout']['customizer'] = true;
         $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
-        $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-site-header t-site-header');
+        $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-site-header t-municipio');
         $this->data['headerLayout']['attributes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Attributes', '');
         $this->data['headerLayout']['panels'] = $this->mapCustomizerHeader();
     }

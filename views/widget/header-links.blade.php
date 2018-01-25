@@ -1,7 +1,7 @@
 @if (is_array($links) && !empty($links))
 @extends('widget.header-widget')
     @section('widget')
-        <ul class="c-navbar c-navbar--widget-links {{$themeClass}}">
+        <ul class="c-navbar c-navbar--header-widget-links {{$themeClass}}">
             @foreach ($links as $link)
                 <li class="c-navbar__item">
                     @if (isset($link['url']))

@@ -22,6 +22,7 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
     {
         if ($this->get_field('widget_header_menu')) {
             $this->data['menu'] = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_header_menu'));
+            $this->data['themeClass'] = apply_filters('Municipio/Widget/Source/HeaderWidget/Menu/ThemeClass', 't-municipio');
         }
     }
 
