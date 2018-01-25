@@ -1,3 +1,93 @@
+jQuery(function () {
+    /* init Algolia client */
+    var client = algoliasearch(algolia.application_id, algolia.search_api_key);
+
+    /* setup default sources */
+    var sources = [];
+    jQuery.each(algolia.autocomplete.sources, function (i, config) {
+      var suggestion_template = wp.template(config['tmpl_suggestion']);
+      sources.push({
+        source: algoliaAutocomplete.sources.hits(client.initIndex(config['index_name']), {
+          hitsPerPage: config['max_suggestions'],
+          attributesToSnippet: [
+            'content:10'
+          ],
+          highlightPreTag: '__ais-highlight__',
+          highlightPostTag: '__/ais-highlight__'
+        }),
+        templates: {
+          header: function () {
+            return wp.template('autocomplete-header')({
+              label: _.escape(config['label'])
+            });
+          },
+          suggestion: function (hit) {
+            for (var key in hit._highlightResult) {
+              /* We do not deal with arrays. */
+              if (typeof hit._highlightResult[key].value !== 'string') {
+                continue;
+              }
+              hit._highlightResult[key].value = _.escape(hit._highlightResult[key].value);
+              hit._highlightResult[key].value = hit._highlightResult[key].value.replace(/__ais-highlight__/g, '<em>').replace(/__\/ais-highlight__/g, '</em>');
+            }
+
+            for (var key in hit._snippetResult) {
+              /* We do not deal with arrays. */
+              if (typeof hit._snippetResult[key].value !== 'string') {
+                continue;
+              }
+
+              hit._snippetResult[key].value = _.escape(hit._snippetResult[key].value);
+              hit._snippetResult[key].value = hit._snippetResult[key].value.replace(/__ais-highlight__/g, '<em>').replace(/__\/ais-highlight__/g, '</em>');
+            }
+
+            return suggestion_template(hit);
+          }
+        }
+      });
+
+    });
+
+    /* Setup dropdown menus */
+    jQuery(algolia.autocomplete.input_selector).each(function (i) {
+      var $searchInput = jQuery(this);
+
+      var config = {
+        debug: algolia.debug,
+        hint: false,
+        openOnFocus: true,
+        appendTo: 'body',
+        templates: {
+          empty: wp.template('autocomplete-empty')
+        }
+      };
+
+      if (algolia.powered_by_enabled) {
+        config.templates.footer = wp.template('autocomplete-footer');
+      }
+
+      /* Instantiate autocomplete.js */
+      var autocomplete = algoliaAutocomplete($searchInput[0], config, sources)
+      .on('autocomplete:selected', function (e, suggestion) {
+        /* Redirect the user when we detect a suggestion selection. */
+        window.location.href = suggestion.permalink;
+      });
+
+      /* Force the dropdown to be re-drawn on scroll to handle fixed containers. */
+      jQuery(window).scroll(function() {
+        if(autocomplete.autocomplete.getWrapper().style.display === "block") {
+          autocomplete.autocomplete.close();
+          autocomplete.autocomplete.open();
+        }
+      });
+    });
+
+    jQuery(document).on("click", ".algolia-powered-by-link", function (e) {
+      e.preventDefault();
+      window.location = "https://www.algolia.com/?utm_source=WordPress&utm_medium=extension&utm_content=" + window.location.hostname + "&utm_campaign=poweredby";
+    });
+  });
+
 var Muncipio = {};
 
 (function(){function aa(a,b,c){return a.call.apply(a.bind,arguments)}function ba(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function p(a,b,c){p=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?aa:ba;return p.apply(null,arguments)}var q=Date.now||function(){return+new Date};function ca(a,b){this.a=a;this.m=b||a;this.c=this.m.document}var da=!!window.FontFace;function t(a,b,c,d){b=a.c.createElement(b);if(c)for(var e in c)c.hasOwnProperty(e)&&("style"==e?b.style.cssText=c[e]:b.setAttribute(e,c[e]));d&&b.appendChild(a.c.createTextNode(d));return b}function u(a,b,c){a=a.c.getElementsByTagName(b)[0];a||(a=document.documentElement);a.insertBefore(c,a.lastChild)}function v(a){a.parentNode&&a.parentNode.removeChild(a)}
