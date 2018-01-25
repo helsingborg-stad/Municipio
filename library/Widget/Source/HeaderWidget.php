@@ -39,8 +39,7 @@ abstract class HeaderWidget extends BaseWidget
     protected function prefixWidgetId()
     {
         if (isset($this->config['id'])) {
-            $this->config['id'] = str_replace('widget_header_', '', $this->config['id']);
-            $this->config['id'] = 'widget_header_' . $this->config['id'];
+            $this->config['id'] = 'widget_header_' . str_replace('widget_header_', '', $this->config['id']);
         }
     }
 
