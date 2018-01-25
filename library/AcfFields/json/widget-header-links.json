@@ -41,7 +41,7 @@
                             "key": "field_5a6748a5ac324",
                             "label": "Text",
                             "name": "text",
-                            "type": "pricons",
+                            "type": "text",
                             "instructions": "",
                             "required": 1,
                             "conditional_logic": 0,
@@ -50,7 +50,11 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "class"
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
                         },
                         {
                             "key": "field_5a67504cefd55",
