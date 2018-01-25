@@ -24,8 +24,15 @@ class Icons
         $url = apply_filters('Municipio/Theme/Icons/Pricons/Url', 'https:' . MUNICIPIO_STYLEGUIDE_URI . 'pricons.json');
         $json = \Municipio\Helper\Data::getRemoteJson($url);
 
-        if ($json) {
-             set_site_transient($transientKey, $json, 10);
+        if ($json && is_array($json) && !empty($json)) {
+            $pricons = array();
+
+            //Convert values to array
+            foreach ($json as $icon) {
+                $pricons[$icon->name] = get_object_vars($icon);
+            }
+
+             set_site_transient($transientKey, $pricons, 10);
              return get_site_transient($transientKey);
         }
 
