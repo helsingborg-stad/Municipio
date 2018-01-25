@@ -1,13 +1,15 @@
 @if (is_array($links) && !empty($links))
 @extends('widget.header-widget')
     @section('widget')
-        <ul class="c-navbar t-navbar c-navbar--widget-links">
+        <ul class="c-navbar c-navbar--widget-links {{$themeClass}}">
             @foreach ($links as $link)
-                <li class="c-navbar__item {{$link['classes']}}">
+                <li class="c-navbar__item">
                     @if (isset($link['url']))
-                        <a href="{{$link['url']}}">{{$link['text']}}</a>
-                    @else
-                        <a>{{$link['text']}}</a>
+                        <a class="{{$link['classes']}}" {!!$link['attributes']!!} href="{{$link['url']}}">
+                            @if (isset($link['hide_text']) && $link['hide_text'])<span class="hidden">@endif
+                                {{$link['text']}}
+                            @if (isset($link['hide_text']) && $link['hide_text'])</span>@endif
+                        </a>
                     @endif
                 </li>
             @endforeach

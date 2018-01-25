@@ -19,6 +19,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
     public function viewController($args, $instance)
     {
         $this->data['links'] = $this->mapLinks();
+        $this->data['themeClass'] = apply_filters( 'Municipio/Widget/Header/Links/ThemeClass', 't-municipio');
     }
 
     /**
@@ -31,29 +32,52 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
             return false;
         }
 
-        $classes = array(
-            'external_link'     => 'c-navbar__item--external',
-            'internal_link'     => 'c-navbar__item--internal',
-            'search_trigger'    => 'c-navbar__item--menu',
-            'menu_trigger'      => 'c-navbar__item--trigger',
-            'translate_trigger' => 'c-navbar__item--translate'
+        $avalibleLinkTypes = array(
+            'external_link' => array(
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--external',
+                'attributes'    => ''
+            ),
+            'internal_link' => array(
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--internal',
+                'attributes'    => ''
+            ),
+            'search_trigger' => array(
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--search js-search-trigger pricon pricon-search',
+                'attributes'    => 'onclick="return false;"',
+                'text'          => 'Search'
+            ),
+            'menu_trigger' => array(
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--menu o-burger-menu js-menu-trigger',
+                'attributes'    => 'onclick="return false;" data-menu-target="js-mobile-menu"',
+                'text'          => 'Menu'
+            ),
+            'translate_trigger' => array(
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--translate js-translate-trigger',
+                'attributes'    => 'onclick="return false;"',
+                'text'          => 'Translate'
+            )
         );
 
-        $classes = apply_filters('Municipio/Widget/Header/Links/MapLinks/Classes', $classes, $this->data['args'], $this->data['instance']);
+        $avalibleLinkTypes = apply_filters('Municipio/Widget/Header/Links/MapLinks/avalibleLinkTypes', $avalibleLinkTypes, $this->data['args'], $this->data['instance']);
+
         $links = array();
-
-
         foreach ($this->get_field('widget_header_links') as $key => $link) {
-            $links[$key] = $link;
-            $links[$key]['classes'] = "";
+            //Check if ACF layout key exists within $avalibleLinkTypes
+            if (isset($avalibleLinkTypes[$link['acf_fc_layout']])) {
+                $links[$key] = array_merge($link, $avalibleLinkTypes[$link['acf_fc_layout']]);
 
-            if (isset($classes[$link['acf_fc_layout']])) {
-                $links[$key]['classes'] = $classes[$link['acf_fc_layout']];
+                //Add icon classes if icon exists
+                if (isset($link['icon']) && $link['icon']) {
+                    $links[$key]['classes'] .= ' c-navbar__item_link--icon pricon ' .  $link['icon'];
+                }
+
+                if (!isset($link['url'])) {
+                     $links[$key]['url'] = '#';
+                }
             }
         }
 
         $links = apply_filters('Municipio/Widget/Header/Links/MapLinks', $links, $this->data['args'], $this->data['instance']);
-
         return $links;
     }
 
