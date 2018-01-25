@@ -56,7 +56,7 @@
             0 => array(
                 'param' => 'widget',
                 'operator' => '==',
-                'value' => 'widget_header_header_widget_logo',
+                'value' => 'widget_header_logo',
             ),
         ),
     ),
