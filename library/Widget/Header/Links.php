@@ -19,7 +19,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
     public function viewController($args, $instance)
     {
         $this->data['links'] = $this->mapLinks();
-        $this->data['themeClass'] = apply_filters( 'Municipio/Widget/Header/Links/ThemeClass', 't-municipio');
+        $this->data['themeClass'] = apply_filters('Municipio/Widget/Header/Links/ThemeClass', 't-municipio');
     }
 
     /**
@@ -72,7 +72,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
                 }
 
                 if (!isset($link['url'])) {
-                     $links[$key]['url'] = '#';
+                    $links[$key]['url'] = '#';
                 }
             }
         }
