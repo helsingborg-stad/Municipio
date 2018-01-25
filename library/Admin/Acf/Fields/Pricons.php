@@ -17,7 +17,8 @@ class Pricons extends \acf_field
     *  @return  n/a
     */
 
-    function __construct() {
+    public function __construct()
+    {
 
         /*
         *  name (string) Single word, no spaces. Underscores allowed
@@ -45,7 +46,7 @@ class Pricons extends \acf_field
         */
 
         $this->defaults = array(
-            'font_size' => 14,
+            'return_format' => 'class'
         );
 
 
@@ -68,7 +69,6 @@ class Pricons extends \acf_field
 
         // do not delete!
         parent::__construct();
-
     }
 
 
@@ -85,7 +85,8 @@ class Pricons extends \acf_field
     *  @return  n/a
     */
 
-    function render_field_settings( $field ) {
+    public function render_field_settings($field)
+    {
 
         /*
         *  acf_render_field_setting
@@ -97,14 +98,24 @@ class Pricons extends \acf_field
         *  Please note that you must also have a matching $defaults value for the field name (font_size)
         */
 
-        acf_render_field_setting( $field, array(
-            'label'         => __('Font Size','municipio'),
-            'instructions'  => __('Customise the input font size','municipio'),
-            'type'          => 'number',
-            'name'          => 'font_size',
-            'prepend'       => 'px',
-        ));
+        /**
+         * TODO
+         *
+         * => Add settings to filter out icons specific icons
+         */
 
+        acf_render_field_setting( $field, array(
+            'label'         => __('Return Format','municipio'),
+            'instructions'  => '',
+            'type'          => 'radio',
+            'name'          => 'return_format',
+            'choices'       => array(
+                'class'     => __("Icon class",'municipio'),
+                'name'      => __("Icon name",'municipio'),
+                'unicode'   => __("Icon unicode",'municipio'),
+            ),
+            'layout'    =>  'horizontal',
+        ));
     }
 
 
@@ -124,28 +135,75 @@ class Pricons extends \acf_field
     *  @return  n/a
     */
 
-    function render_field( $field ) {
-
-
+    public function render_field($field)
+    {
         /*
         *  Review the data of $field.
         *  This will show what data is available
         */
 
-        echo '<pre>';
-            print_r( $field );
-        echo '</pre>';
+        /**
+         * TODO
+         *
+         * => Render out icons within the select options
+         */
 
 
-        /*
-        *  Create a simple text input using the 'font_size' setting.
-        */
+        //echo '<pre>';
+        //print_r($field);
+        //echo '</pre>';
 
-        ?>
-        <input type="text" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo esc_attr($field['value']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" />
-        <?php
+        if (!is_array($this->dropdownOptions($field)) || empty($this->dropdownOptions($field))) {
+            return;
+        }
+
+        $output = '';
+
+        $output .= '<select class="c-pricons-dropdown" name="' . $field['name'] . '">';
+
+        if ($field['value'] == "") {
+            $output .= '<option class="c-pricons-dropdown__option" value="" selected>Select an icon</option>';
+        } else {
+            $output .= '<option class="c-pricons-dropdown__option" value="">Select an icon</option>';
+        }
+
+
+        foreach ($this->dropdownOptions($field) as $value => $label) {
+            if ($value == $field['value']) {
+                $output .= '<option class="c-pricons-dropdown__option" value="' . $value . '" selected>' . $label . '</option>';
+            } else {
+                $output .= '<option class="c-pricons-dropdown__option" value="' . $value . '">' . $label . '</option>';
+            }
+        }
+
+        $output .= '</select>';
+
+        echo $output;
     }
 
+    public function dropdownOptions($field)
+    {
+        /**
+         * TODO
+         *
+         * => Add filter based on setting
+         */
+
+        $options = array();
+        $pricons = \Municipio\Theme\Icons::getPricons();
+
+        if (!is_array($pricons) || empty($pricons)) {
+            return false;
+        }
+
+        foreach ($pricons as $icon) {
+            if (isset($field['return_format']) && isset($icon[$field['return_format']])) {
+                $options[$icon[$field['return_format']]] = $icon['name'];
+            }
+        }
+
+        return $options;
+    }
 
     /*
     *  input_admin_enqueue_scripts()
