@@ -26,7 +26,7 @@
                             "key": "field_5a674879ac323",
                             "label": "Icon",
                             "name": "icon",
-                            "type": "select",
+                            "type": "pricons",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -35,25 +35,13 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": {
-                                "icon1": "Icon 1",
-                                "icon2": "Icon 2",
-                                "icon3": "Icon 3",
-                                "icon4": "Icon 4"
-                            },
-                            "default_value": [],
-                            "allow_null": 1,
-                            "multiple": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "return_format": "value",
-                            "placeholder": ""
+                            "return_format": "class"
                         },
                         {
                             "key": "field_5a6748a5ac324",
                             "label": "Text",
                             "name": "text",
-                            "type": "text",
+                            "type": "pricons",
                             "instructions": "",
                             "required": 1,
                             "conditional_logic": 0,
@@ -62,11 +50,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": ""
+                            "return_format": "class"
                         },
                         {
                             "key": "field_5a67504cefd55",
@@ -117,7 +101,7 @@
                             "key": "field_5a6748b3ac326",
                             "label": "Icon",
                             "name": "icon",
-                            "type": "select",
+                            "type": "pricons",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -126,19 +110,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": {
-                                "icon1": "Icon 1",
-                                "icon2": "Icon 2",
-                                "icon3": "Icon 3",
-                                "icon4": "Icon 4"
-                            },
-                            "default_value": [],
-                            "allow_null": 1,
-                            "multiple": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "return_format": "value",
-                            "placeholder": ""
+                            "return_format": "class"
                         },
                         {
                             "key": "field_5a6748b3ac327",
@@ -211,7 +183,7 @@
                             "key": "field_5a674d92e25bc",
                             "label": "Icon",
                             "name": "icon",
-                            "type": "select",
+                            "type": "pricons",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -220,19 +192,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": {
-                                "icon1": "Icon 1",
-                                "icon2": "Icon 2",
-                                "icon3": "Icon 3",
-                                "icon4": "Icon 4"
-                            },
-                            "default_value": [],
-                            "allow_null": 1,
-                            "multiple": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "return_format": "value",
-                            "placeholder": ""
+                            "return_format": "class"
                         },
                         {
                             "key": "field_5a674d99e25bd",
@@ -286,7 +246,7 @@
                             "key": "field_5a674db4e25bf",
                             "label": "Icon",
                             "name": "icon",
-                            "type": "select",
+                            "type": "pricons",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -295,19 +255,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": {
-                                "icon1": "Icon 1",
-                                "icon2": "Icon 2",
-                                "icon3": "Icon 3",
-                                "icon4": "Icon 4"
-                            },
-                            "default_value": [],
-                            "allow_null": 1,
-                            "multiple": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "return_format": "value",
-                            "placeholder": ""
+                            "return_format": "class"
                         },
                         {
                             "key": "field_5a674db4e25c0",
@@ -361,7 +309,7 @@
                             "key": "field_5a674e21cb6c1",
                             "label": "Icon",
                             "name": "icon",
-                            "type": "select",
+                            "type": "pricons",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -370,19 +318,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": {
-                                "icon1": "Icon 1",
-                                "icon2": "Icon 2",
-                                "icon3": "Icon 3",
-                                "icon4": "Icon 4"
-                            },
-                            "default_value": [],
-                            "allow_null": 1,
-                            "multiple": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "return_format": "value",
-                            "placeholder": ""
+                            "return_format": "class"
                         },
                         {
                             "key": "field_5a674e21cb6c2",
