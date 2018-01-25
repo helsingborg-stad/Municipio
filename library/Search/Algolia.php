@@ -36,7 +36,7 @@ class Algolia
         if ($file === 'autocomplete.php') {
             $locations[] = 'views/partials/search/algolia-autocomplete.php';
         } elseif ($file === 'instantsearch.php') {
-            $locations[] = 'views/partials/search/search/algolia-instantsearch.php';
+            $locations[] = 'views/partials/search/algolia-instantsearch.php';
         }
 
         return $locations;
