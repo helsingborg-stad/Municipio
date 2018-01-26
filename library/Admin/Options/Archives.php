@@ -194,6 +194,7 @@ class Archives
                     'readonly' => 0,
                 );
 
+
                  // Number of posts
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_56a8c593647ab_' . md5($posttype),
@@ -208,7 +209,7 @@ class Archives
                         "class" => "",
                         "id" => ""
                     ),
-                    "default_value" => "",
+                    "default_value" => 9,
                     "placeholder" => "",
                     "prepend" => "",
                     "append" => "",
@@ -517,12 +518,38 @@ class Archives
                         'default_value' => 'datetime',
                         'layout' => 'horizontal',
                     );
+
+
                 }
 
-                // Filter position
+                //Add field for selecting AND / OR behaviour
+                foreach ($taxonomies as $taxName => $taxLabel) {
 
+                    $fieldArgs['fields'][] = array(
+                        'key' => 'field_32drr8543765p_' . md5($taxName),
+                        'label' => 'Filter logic ('. $taxLabel . ')',
+                        'name' => 'archive_' . sanitize_title($taxName) . '_filter_logic',
+                        'type' => 'radio',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50%',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => array(
+                            'AND' => 'AND',
+                            'OR' => 'OR',
+                        ),
+                        'other_choice' => 0,
+                        'save_other_choice' => 0,
+                        'default_value' => 'and',
+                        'layout' => 'horizontal',
+                    );
+                }
 
-
+                // Adds the option to select where the filter should appear
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
                     'label' => 'Filter position',
