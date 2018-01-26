@@ -116,11 +116,11 @@ class PostFilters
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
-                $html .= '<label class="checkbox">';
-                   $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
-                $html .= '</label>';
+            $html .= '<label class="checkbox">';
+            $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
+            $html .= '</label>';
 
-                $html .= self::getMultiTaxDropdown($tax, $term->term_id);
+            $html .= self::getMultiTaxDropdown($tax, $term->term_id);
             $html .= '</li>';
         }
 
@@ -237,21 +237,44 @@ class PostFilters
 
         $taxQuery = array('relation' => 'AND');
 
+        $taxQueryOR = array('relation' => 'OR');
+
         foreach ($filterable as $key => $value) {
             if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
                 continue;
             }
 
-            $terms = (array) $_GET['filter'][$key];
+            //Saved filter logic
+            $filterLogic = get_field('archive_' . $key . '_filter_logic', 'option');
 
-            $taxQuery[] = array(
-                'taxonomy' => $key,
-                'field' => 'slug',
-                'terms' => $terms,
-                'operator' => 'IN'
-            );
+            //Default to OR filter
+            if (!in_array($filterLogic, array("AND", "OR"))) {
+                $filterLogic = "OR";
+            }
+
+            //Get terms
+            if (isset($_GET['filter']) && isset($_GET['filter'][$key])) {
+                $terms = (array) $_GET['filter'][$key];
+            }
+
+            if ($filterLogic == 'AND') {
+                $taxQuery[] = array(
+                    'taxonomy' => $key,
+                    'field' => 'slug',
+                    'terms' => $terms,
+                    'operator' => 'AND'
+                );
+            } elseif ($filterLogic == 'OR') {
+                $taxQuery[] = array(
+                    'taxonomy' => $key,
+                    'field' => 'slug',
+                    'terms' => $terms,
+                    'operator' => 'IN'
+                );
+            }
         }
 
+        //Limit to currect cat/tax/tag
         if (is_tax() || is_category() || is_tag()) {
             $taxQuery = array(
                 'relation' => 'AND',
@@ -270,6 +293,7 @@ class PostFilters
 
         $query->set('tax_query', $taxQuery);
         $query->set('post_type', $this->getPostType());
+
         return $query;
     }
 
