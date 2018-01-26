@@ -235,8 +235,8 @@ class PostFilters
             return $query;
         }
 
-        $taxQuery = array('relation' => 'AND');
-
+        //Declare taxonomy query
+        $taxQuery   = array('relation' => 'AND');
         $taxQueryOR = array('relation' => 'OR');
 
         foreach ($filterable as $key => $value) {
@@ -244,18 +244,16 @@ class PostFilters
                 continue;
             }
 
-            //Saved filter logic
+            //Get saved value for filter logic
             $filterLogic = get_field('archive_' . $key . '_filter_logic', 'option');
 
-            //Default to OR filter
+            //Default to a filter logic
             if (!in_array($filterLogic, array("AND", "OR"))) {
-                $filterLogic = "OR";
+                $filterLogic = "AND";
             }
 
-            //Get terms
-            if (isset($_GET['filter']) && isset($_GET['filter'][$key])) {
-                $terms = (array) $_GET['filter'][$key];
-            }
+            //Get terms / continue if empty
+            $terms = (array) $_GET['filter'][$key];
 
             if ($filterLogic == 'AND') {
                 $taxQuery[] = array(
@@ -265,7 +263,7 @@ class PostFilters
                     'operator' => 'AND'
                 );
             } elseif ($filterLogic == 'OR') {
-                $taxQuery[] = array(
+                $taxQueryOR[] = array(
                     'taxonomy' => $key,
                     'field' => 'slug',
                     'terms' => $terms,
@@ -274,7 +272,12 @@ class PostFilters
             }
         }
 
-        //Limit to currect cat/tax/tag
+        //Add OR query
+        if (isset($taxQueryOR) && !empty($taxQueryOR)) {
+            $taxQuery[] = $taxQueryOR;
+        }
+
+        //Append on taxonomys
         if (is_tax() || is_category() || is_tag()) {
             $taxQuery = array(
                 'relation' => 'AND',
