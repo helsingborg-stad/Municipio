@@ -20,6 +20,6 @@ class Customizer
 
     public function init()
     {
-        new \Municipio\Customizer\Header\HeaderPanel();
+        new \Municipio\Customizer\Header();
     }
 }

@@ -39,7 +39,7 @@ class BaseController
     {
         $this->data['headerLayout']['customizer'] = true;
         $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
-        $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-site-header t-municipio');
+        $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-header c-header--customizer t-municipio');
         $this->data['headerLayout']['attributes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Attributes', '');
         $this->data['headerLayout']['panels'] = $this->mapCustomizerHeader();
     }
@@ -51,18 +51,18 @@ class BaseController
     public function mapCustomizerHeader()
     {
         $panelRows = array();
-        $panelItems = \Municipio\Customizer\Header\HeaderPanel::getHeaderWidgetAreas();
+        $panelItems = \Municipio\Customizer\Header::enabledWidgets();
 
         if (!is_array($panelItems) || empty($panelItems)) {
             return false;
         }
 
         $classes = array(
-            'item' => 'c-site-header__panel_item',
-            'itemModifier' => 'c-site-header__panel_item--',
-            'row' => 'c-site-header__panel',
-            'rowModifier' => 'c-site-header__panel--',
-            'rowBody' => 'c-site-header__panel_row container'
+            'item' => 'c-header__panel_item',
+            'itemModifier' => 'c-header__panel_item--',
+            'row' => 'c-header__panel',
+            'rowModifier' => 'c-header__panel--',
+            'rowBody' => 'c-header__panel_row container'
         );
 
         $classes = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeader/classes', $classes);
