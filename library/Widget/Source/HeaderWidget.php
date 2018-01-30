@@ -39,7 +39,7 @@ abstract class HeaderWidget extends BaseWidget
     protected function prefixWidgetId()
     {
         if (isset($this->config['id'])) {
-            $this->config['id'] = 'widget_header_' . str_replace('widget_header_', '', $this->config['id']);
+            $this->config['id'] = 'widget-header-' . str_replace('widget-header-', '', $this->config['id']);
         }
     }
 
@@ -49,7 +49,7 @@ abstract class HeaderWidget extends BaseWidget
      */
     protected function addWrapperClass()
     {
-        $this->data['widgetWrapperClass'] = array('c-site-header__widget');
+        $this->data['widgetWrapperClass'] = array('c-header__widget');
     }
 
     /**

@@ -301,7 +301,7 @@
             0 => array(
                 'param' => 'widget',
                 'operator' => '==',
-                'value' => 'widget_header_links',
+                'value' => 'widget-header-links',
             ),
         ),
     ),

@@ -7,7 +7,7 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
     public function setup()
     {
         $widget = array(
-            'id'            => 'widget_header_logo',
+            'id'            => 'widget-header-logo',
             'name'          => 'Header widget: Logo',
             'description'   => 'Display website logotype, used in header',
             'template'      => 'header-logo.blade.php'

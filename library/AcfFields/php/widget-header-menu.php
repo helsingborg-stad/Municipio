@@ -58,7 +58,7 @@
             0 => array(
                 'param' => 'widget',
                 'operator' => '==',
-                'value' => 'widget_header_menu',
+                'value' => 'widget-header-menu',
             ),
         ),
     ),
