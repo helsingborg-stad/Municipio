@@ -13,7 +13,8 @@ class Header
     {
         add_action('widgets_init', array($this, 'registerWidgetAreas'));
         add_filter('customizer_widgets_section_args', array($this, 'moveWidgetAreas'), 10, 3);
-        add_filter('Municipio/Theme/Header/headerClasses', array($this, 'appendHeaderVisibility'), 10, 2);
+        add_filter('Municipio/Theme/CustomizerHeader/headerClasses', array($this, 'appendHeaderVisibility'), 10, 2);
+
         $this->customizerPanels();
         $this->widgetAreas();
         $this->widgetSettings();

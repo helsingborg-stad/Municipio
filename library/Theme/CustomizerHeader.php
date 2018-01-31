@@ -15,6 +15,8 @@ class CustomizerHeader
             $this->headerClasses($header);
             $this->itemClasses($header['items'], $header['id']);
         }
+
+        $this->headers = apply_filters('Municipio/Theme/CustomizerHeader/Headers', $this->headers);
     }
 
     public function itemClasses($items, $headerId)
@@ -28,7 +30,7 @@ class CustomizerHeader
             $itemClasses[] = 'c-header__item';
             $itemClasses[] = 'c-header__item--' . $item['alignment'];
 
-            $itemClasses = apply_filters('Municipio/Theme/Header/itemClasses', $itemClasses, $headerId);
+            $itemClasses = apply_filters('Municipio/Theme/CustomizerHeader/itemClasses', $itemClasses, $headerId);
 
             $items[$i]['classes'] = $itemClasses;
             $items[$i]['class'] = implode(' ', $itemClasses);
@@ -45,13 +47,13 @@ class CustomizerHeader
         $headerClasses[] = 'c-header--customizer';
         $headerClasses[] = 't-municipio';
 
-        $headerClasses = apply_filters('Municipio/Theme/Header/headerClasses', $headerClasses, $header);
+        $headerClasses = apply_filters('Municipio/Theme/CustomizerHeader/headerClasses', $headerClasses, $header);
 
         $rowClasses = array();
         $rowClasses[] = 'c-header__row';
         $rowClasses[] = 'container';
 
-        $rowClasses = apply_filters('Municipio/Theme/Header/rowClasses', $rowClasses, $header);
+        $rowClasses = apply_filters('Municipio/Theme/CustomizerHeader/rowClasses', $rowClasses, $header);
 
         $header['classes'] = $headerClasses;
         $header['class'] = implode(' ', $headerClasses);
