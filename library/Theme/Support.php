@@ -11,6 +11,7 @@ class Support
         self::addFilters();
         self::removeTheGenerator();
         self::removeXmlRpc();
+        self::removeGravatar();
 
         add_action('template_redirect', array($this, 'blockAuthorPages'), 5);
         add_action('init', array($this, 'removePostPostType'), 11);
@@ -176,6 +177,17 @@ class Support
     public static function removeXmlRpc()
     {
         add_filter('xmlrpc_enabled', '__return_false');
+    }
+
+    /**
+     * Removes the gravatar from the adminpanel
+     */
+    public static function removeGravatar()
+    {
+        if(is_admin())
+        {
+            add_filter( 'option_show_avatars', '__return_false' );
+        }
     }
 
     public static function removeDashboardMetaboxes()

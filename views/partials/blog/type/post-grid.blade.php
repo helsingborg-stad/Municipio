@@ -33,20 +33,22 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
             <br>
             @endif
 
-            @foreach (get_post_taxonomies() as $key=>$value) 
-           
-                <?php $terms = (array) wp_get_post_terms($post->ID, $value); ?>
-                   
-                @foreach ($terms as $term) 
+                @foreach (get_post_taxonomies() as $key=>$value) 
+               
+                    <?php $terms =  wp_get_post_terms($post->ID, $value); ?>
 
-                    <?php $term = (array) $term; ?>
-                        
-                    <span class="label label-theme">{{ $term["name"] }}</span>
-            
-                @endforeach
+                        <ul class="tags tags-{{$value}}">
+                       
+                            @foreach ($terms as $term) 
 
-            @endforeach
+                                <li class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}">{{ $term->name }}</li>
+                    
+                            @endforeach
 
+                        </ul>
+
+                @endforeach  
+                 
             <h3 class="post-title">{{ the_title() }}</h3>
         </div>
         <div class="box-post-brick-lead">
