@@ -1,17 +1,21 @@
-@if (isset($headerLayout['panels']) && $headerLayout['panels'] && !empty($headerLayout['panels']))
-    <header class="{{$headerLayout['classes']}}" {{$headerLayout['attributes']}}>
-        @foreach ($headerLayout['panels'] as $panel)
-            <div class="{{$panel['classes']}}" {{$panel['attributes']}}>
-                @if (isset($panel['items']) && !empty($panel['items']))
-                    <div class="{{$panel['bodyClasses']}}">
-                        @foreach ($panel['items'] as $item)
-                            <div class="{{$item['classes']}}">
+@if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
+    <header class="c-site-header">
+
+        @foreach ($headerLayout['headers'] as $header)
+            <div class="{{$header['class']}}">
+                @if (isset($header['items']) && !empty($header['items']))
+                    <div class="{{$header['rowClass']}}">
+
+                        @foreach ($header['items'] as $item)
+                            <div class="{{$item['class']}}">
                                 <?php dynamic_sidebar($item['id']); ?>
                             </div>
                         @endforeach
+
                     </div>
                 @endif
             </div>
         @endforeach
+
     </header>
 @endif

@@ -39,56 +39,12 @@ class BaseController
     {
         $this->data['headerLayout']['customizer'] = true;
         $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
-        $this->data['headerLayout']['classes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Classes', 'c-header c-header--customizer t-municipio');
-        $this->data['headerLayout']['attributes'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Attributes', '');
-        $this->data['headerLayout']['panels'] = $this->mapCustomizerHeader();
-    }
 
-    /**
-     * Returns mapped array that builds up the customizer header
-     * @return array | false
-     */
-    public function mapCustomizerHeader()
-    {
-        $panelRows = array();
-        $panelItems = \Municipio\Customizer\Header::enabledWidgets();
+        $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
 
-        if (!is_array($panelItems) || empty($panelItems)) {
-            return false;
+        if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
+            $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
         }
-
-        $classes = array(
-            'item' => 'c-header__panel_item',
-            'itemModifier' => 'c-header__panel_item--',
-            'row' => 'c-header__panel',
-            'rowModifier' => 'c-header__panel--',
-            'rowBody' => 'c-header__panel_row container'
-        );
-
-        $classes = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeader/classes', $classes);
-
-        //Map row & items
-        foreach ($panelItems as $panelItem) {
-            $panelRows[$panelItem['position']]['items'][] = array(
-                'id' => $panelItem['id'],
-                'classes' => $classes['item'] . ' ' . $classes['itemModifier'] . $panelItem['alignment']
-            );
-        }
-
-        //Add classes & attributes to row
-        foreach ($panelRows as $position => $panelRow) {
-            $panelRows[$position]['classes'] = $classes['row'] . ' ' . $classes['rowModifier'] . $position;
-            $panelRows[$position]['bodyClasses'] = $classes['rowBody'];
-            $panelRows[$position]['attributes'] = "";
-        }
-
-        $panelRows = apply_filters('Municipio/Controller/BaseController/mapCustomizerHeader/rows', $panelRows);
-
-        if (!empty($panelRows)) {
-            return $panelRows;
-        }
-
-        return false;
     }
 
     public function getFixedActionBar()

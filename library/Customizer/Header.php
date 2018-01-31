@@ -13,11 +13,93 @@ class Header
     {
         add_action('widgets_init', array($this, 'registerWidgetAreas'));
         add_filter('customizer_widgets_section_args', array($this, 'moveWidgetAreas'), 10, 3);
-
+        add_filter('Municipio/Theme/Header/headerClasses', array($this, 'appendHeaderVisibility'), 10, 2);
         $this->customizerPanels();
         $this->widgetAreas();
         $this->widgetSettings();
-        $this->setupHeaders();
+        $this->headerFields();
+    }
+
+    public function appendHeaderVisibility($classes, $header)
+    {
+        if (is_array(get_theme_mod($header['id'] . '-header-visibility')) && !empty(get_theme_mod($header['id'] . '-header-visibility'))) {
+            $classes = array_merge($classes, get_theme_mod($header['id'] . '-header-visibility'));
+        }
+
+        return $classes;
+    }
+
+    /**
+     * Get active headers
+     * @return array | boolean
+     */
+    public static function enabledHeaders()
+    {
+        $activeAreas = self::enabledWidgets();
+        $activePanels = array();
+
+        foreach ($activeAreas as $area) {
+            $activePanels[] = $area['position'];
+        }
+
+        if (!empty($activePanels)) {
+            return array_unique($activePanels);
+        }
+
+        return false;
+    }
+
+    public static function avalibleHeaders()
+    {
+        $enabledWidgets = self::enabledWidgets();
+
+        if (!is_array($enabledWidgets) || empty($enabledWidgets)) {
+            return false;
+        }
+
+        $headers = array();
+
+        foreach ($enabledWidgets as $widgetArea) {
+            $headers[$widgetArea['position']]['items'][] = $widgetArea;
+            $headers[$widgetArea['position']]['classes'] = array();
+        }
+
+        $headers = apply_filters('Municipio/Customizer/Header/avalibleHeaders', $headers);
+
+        return $headers;
+    }
+
+    public function headerVisibility($header)
+    {
+        $options = array(
+            'hidden-xs' => 'Hide XS',
+            'hidden-sm' => 'Hide SM',
+            'hidden-md' => 'Hide MD',
+            'hidden-lg' => 'Hide LG'
+        );
+
+        $default = array(
+            'top' => array(
+                'hidden-xs',
+                'hidden-sm'
+            ),
+            'bottom' => array(
+                'hidden-xs',
+                'hidden-sm'
+            )
+        );
+
+        $default = (isset($default[$header])) ? $default[$header] : array();
+
+        \Kirki::add_field('municipio_config', array(
+            'type'        => 'multicheck',
+            'settings'    => $header . '-header-visibility',
+            'label'       => esc_attr__('Visibility settings', 'municipio'),
+            'section'     => 'header_' . $header,
+            'default'     => $default,
+            'priority'    => 10,
+            'choices'     => $options,
+        ));
     }
 
     public function headerLinkColor($header)
@@ -42,7 +124,7 @@ class Header
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer .c-header__panel--' . $header . ' a',
+                    'element' => '.c-header--customizer.c-header--' . $header . ' a',
                     'property' => 'color'
                 )
             )
@@ -68,7 +150,7 @@ class Header
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer .c-header__panel--' . $header,
+                    'element' => '.c-header--customizer.c-header--' . $header,
                     'property' => 'background-color'
                 )
             )
@@ -112,7 +194,7 @@ class Header
         ));
     }
 
-    public function setupHeaders()
+    public function headerFields()
     {
         $headers = self::enabledHeaders();
 
@@ -124,6 +206,7 @@ class Header
             $this->headerSection($header);
             $this->headerBackground($header);
             $this->headerLinkColor($header);
+            $this->headerVisibility($header);
         }
     }
 
@@ -187,7 +270,7 @@ class Header
         \Kirki::add_section('header_widget_settings', array(
             'title'          => esc_attr__('Widget settings', 'municipio'),
             'panel'          => self::PANEL_ID,
-            'priority'       => 20,
+            'priority'       => 100,
         ));
 
         $options = array();
@@ -237,26 +320,6 @@ class Header
             'title'       => esc_attr__('Header widgets', 'municipio'),
             'description' => esc_attr__('Header settings', 'municipio'),
         ));
-    }
-
-    /**
-     * Get active headers
-     * @return array | boolean
-     */
-    public static function enabledHeaders()
-    {
-        $activeAreas = self::enabledWidgets();
-        $activePanels = array();
-
-        foreach ($activeAreas as $area) {
-            $activePanels[] = $area['position'];
-        }
-
-        if (!empty($activePanels)) {
-            return array_unique($activePanels);
-        }
-
-        return false;
     }
 
     /**
