@@ -42,19 +42,21 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
                 'attributes'    => ''
             ),
             'search_trigger' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--search js-search-trigger pricon pricon-search',
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--search js-search-trigger pricon pricon-search toggle-search-top',
                 'attributes'    => 'onclick="return false;"',
                 'text'          => 'Search'
             ),
             'menu_trigger' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--menu o-burger-menu js-menu-trigger',
-                'attributes'    => 'onclick="return false;" data-menu-target="js-mobile-menu"',
-                'text'          => 'Menu'
+                'classes'       => 'c-navbar__item_link c-navbar__item_link--menu menu-trigger u-no-decoration u-nowrap',
+                'attributes'    => 'onclick="jQuery(this).children(\'.o-burger-icon\').toggleClass(\'is-open\');" data-target="#mobile-menu"',
+                'text'          => 'Menu',
+                'beforeText'    => '<div class="o-burger-icon"><span></span><span></span><span></span></div>'
             ),
             'translate_trigger' => array(
                 'classes'       => 'c-navbar__item_link c-navbar__item_link--translate js-translate-trigger',
-                'attributes'    => 'onclick="return false;"',
-                'text'          => 'Translate'
+                'attributes'    => '',
+                'text'          => 'Translate',
+                'url'           => '#translate'
             )
         );
 
@@ -71,7 +73,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
                     $links[$key]['classes'] .= ' c-navbar__item_link--icon pricon ' .  $link['icon'];
                 }
 
-                if (!isset($link['url'])) {
+                if (!isset($links[$key]['url'])) {
                     $links[$key]['url'] = '#';
                 }
             }
