@@ -33,18 +33,25 @@ class BaseController
 
     /**
      * Sends necessary data to the view for customizer header
-     * @return array | false
+     * @return void
      */
     public function customizerHeader()
     {
-        $this->data['headerLayout']['customizer'] = true;
-        $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
-
         $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
 
         if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
             $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
         }
+
+        $this->data['headerLayout']['customizer'] = true;
+        $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
+
+        //Old mobile menu
+        $navigation = new \Municipio\Helper\Navigation();
+        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+
+        //Old search
     }
 
     public function getFixedActionBar()
