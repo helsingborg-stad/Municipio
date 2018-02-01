@@ -6,7 +6,16 @@ class Widgets
 {
     public function __construct()
     {
-        add_action('widgets_init', array($this, 'headerWidgets'));
+       add_action('after_setup_theme', array($this, 'customizerWidgets'));
+    }
+
+    public function customizerWidgets()
+    {
+        $customizerWidgets = apply_filters('Municipio/Widget/Widgets/CustomizerWidgets', false);
+
+        if ($customizerWidgets) {
+            add_action('widgets_init', array($this, 'headerWidgets'));
+        }
     }
 
     public function headerWidgets()
