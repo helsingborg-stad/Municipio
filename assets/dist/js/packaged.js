@@ -1,4 +1,7 @@
 jQuery(function () {
+  /* Check if algolia is running */
+  if(typeof algoliasearch !== "undefined") {
+
     /* init Algolia client */
     var client = algoliasearch(algolia.application_id, algolia.search_api_key);
 
@@ -86,7 +89,8 @@ jQuery(function () {
       e.preventDefault();
       window.location = "https://www.algolia.com/?utm_source=WordPress&utm_medium=extension&utm_content=" + window.location.hostname + "&utm_campaign=poweredby";
     });
-  });
+  }
+});
 
 var Muncipio = {};
 
