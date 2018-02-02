@@ -577,7 +577,6 @@ class Archives
                     'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
                     'label' => 'Filter position',
                     'name' => 'archive_' . sanitize_title($posttype) . '_filter_position',
-                    //'type' => 'checkbox',
                     'type' => 'radio',
                     'instructions' => '',
                     'required' => 0,
@@ -596,10 +595,7 @@ class Archives
                     'choices' => array(
                         'top' => 'Top',
                         'content' => 'Content'
-                    ),/*,
-                    'choices' => array(
-                        'content area' => 'Content area'
-                    ),*/
+                    ),
                     'default_value' => 'top',
                     'layout' => 'horizontal',
                     'toggle' => 0,
