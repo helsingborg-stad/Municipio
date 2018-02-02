@@ -1,0 +1,67 @@
+[{
+    "key": "group_5a65d5e7e913b",
+    "title": "Widget header - Common",
+    "fields": [
+        {
+            "key": "field_5a67574c78160",
+            "label": "Display options",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_5a65d5f15bffd",
+            "label": "Visibility",
+            "name": "widget_header_visibility",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "xs": "Hide on extra small devices (XS)",
+                "sm": "Hide on small devices (SM)",
+                "md": "Hide on medium devices (MD)",
+                "lg": "Hide on large devices (LG)"
+            },
+            "allow_custom": 0,
+            "save_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 0,
+    "description": ""
+}]
+

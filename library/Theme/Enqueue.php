@@ -106,16 +106,27 @@ class Enqueue
         //Load from local developement enviroment
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
             wp_register_style($this->defaultPrimeName, '//hbgprime.dev/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.dev.css', '', '1.0.0');
+
+            //BEM Stylesheet
+            wp_register_style($this->defaultPrimeName . '-bem', '//hbgprime.dev/dist/css-bem/hbg-prime-' . self::getStyleguideTheme() . '.dev.css', '', '1.0.0');
         } else {
             //Check for version number lock files.
             if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
                 wp_register_style($this->defaultPrimeName, $this->styleguideUri . STYLEGUIDE_VERSION . '/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', STYLEGUIDE_VERSION);
             } else {
                 wp_register_style($this->defaultPrimeName, $this->styleguideUri . 'css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
+
+                //BEM Stylesheet
+                wp_register_style($this->defaultPrimeName . '-bem', $this->styleguideUri . 'css-bem/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
             }
         }
 
         wp_enqueue_style($this->defaultPrimeName);
+
+        $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
+        if ($enqueueBem) {
+            wp_enqueue_style($this->defaultPrimeName . '-bem');
+        }
 
         wp_register_style('municipio', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/app.min.css'), '', null);
         wp_enqueue_style('municipio');

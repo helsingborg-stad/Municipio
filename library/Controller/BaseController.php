@@ -12,16 +12,46 @@ class BaseController
 
     public function __construct()
     {
-        $this->getLogotype();
-        $this->getHeaderLayout();
-        $this->getFooterLayout();
-        $this->getNavigationMenus();
+        $customizer = apply_filters('Municipio/Controller/BaseController/Customizer', false);
+
+        if ($customizer) {
+             $this->customizerHeader();
+        } else {
+            $this->getLogotype();
+            $this->getHeaderLayout();
+            $this->getFooterLayout();
+            $this->getNavigationMenus();
+        }
+
         $this->getHelperVariables();
         $this->getFilterData();
         $this->getVerticalMenu();
         $this->getFixedActionBar();
 
         $this->init();
+    }
+
+    /**
+     * Sends necessary data to the view for customizer header
+     * @return void
+     */
+    public function customizerHeader()
+    {
+        $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
+
+        if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
+            $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
+        }
+
+        $this->data['headerLayout']['customizer'] = true;
+        $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
+
+        //Old mobile menu
+        $navigation = new \Municipio\Helper\Navigation();
+        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+
+        //Old search
     }
 
     public function getFixedActionBar()

@@ -7,6 +7,11 @@ class App
     public function __construct()
     {
         /**
+         * Custom ACF fields
+         */
+        new \Municipio\Admin\Acf\CustomFieldTypes();
+
+        /**
          * Helpers
          */
         new \Municipio\Helper\GravityForm();
@@ -40,6 +45,18 @@ class App
         new \Municipio\Search\Algolia();
 
         /**
+         * Customizer
+         */
+
+        new \Municipio\Customizer\Customizer();
+
+        /**
+         * Customizer
+         */
+
+        new \Municipio\Customizer\Customizer();
+
+        /**
          * Content
          */
         new \Municipio\Content\CustomPostType();
@@ -53,6 +70,7 @@ class App
          */
         new \Municipio\Widget\RichEditor();
         new \Municipio\Widget\Contact();
+        new \Municipio\Widget\Widgets();
 
         /**
          * Comments

@@ -305,4 +305,13 @@ class Navigation
 
         return $menus;
     }
+
+    public static function wpMenu($menu)
+    {
+        $menu = new \Municipio\Helper\Menu($menu);
+
+        if (is_array($menu->wpMenu) && !empty($menu->wpMenu)) {
+            return $menu->wpMenu;
+        }
+    }
 }
