@@ -200,11 +200,9 @@ class Support
     {
         global $wp_query;
 
-        if (
-            (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
+        if ((defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
             ||
-            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))
-        ) {
+            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))) {
             return;
         }
 
