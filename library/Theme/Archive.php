@@ -13,6 +13,34 @@ class Archive
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
         add_action('wp_ajax_share_email', array($this, 'socialShareEmail'));
         add_action('wp_ajax_nopriv_share_email', array($this, 'socialShareEmail'));
+        add_action('pre_get_posts', array($this, 'getSpecificNumberOfPosts'));
+    }
+
+    /*
+    * Filter number of posts that should be displayed in archive list
+    * @param $WP_Query The query to show current archive page return
+    * @return bool True or false depending on if the query has been altered or not.
+    */
+    public function getSpecificNumberOfPosts($query) : bool
+    {
+        if (!is_admin() && $query->is_main_query()) {
+
+            //Check that posttype is valid
+            if (!isset($query->query["post_type"])) {
+                return false;
+            }
+
+            //Get current post count
+            $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
+
+            //If not set, use default value
+            if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {
+                $query->set('posts_per_page', $postCount);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

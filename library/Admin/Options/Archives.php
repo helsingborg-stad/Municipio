@@ -7,27 +7,6 @@ class Archives
     public function __construct()
     {
         add_action('admin_init', array($this, 'addArchiveOptions'));
-        add_action('pre_get_posts', array($this, 'getSpecificNumberOfPosts'));
-    }
-
-
-    public function getSpecificNumberOfPosts($query)
-    {
-        if (!is_admin() && $query->is_main_query()) {
-
-            //Check that posttype is valid
-            if (!isset($query->query["post_type"])) {
-                return false;
-            }
-
-            //Get current post count
-            $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
-
-            //If not set, use default value
-            if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {
-                $query->set('posts_per_page', $postCount);
-            }
-        }
     }
 
     /**
