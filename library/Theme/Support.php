@@ -11,6 +11,7 @@ class Support
         self::addFilters();
         self::removeTheGenerator();
         self::removeXmlRpc();
+        self::removeGravatar();
 
         add_action('template_redirect', array($this, 'blockAuthorPages'), 5);
         add_action('init', array($this, 'removePostPostType'), 11);
@@ -110,7 +111,6 @@ class Support
     private static function addFilters()
     {
         add_filter('intermediate_image_sizes_advanced', '\Municipio\Theme\Support::filterThumbnailSizes');
-        //add_filter('gettext', '\Municipio\Theme\Support::changeDefaultTemplateName', 10, 3);
     }
 
     /**
@@ -150,18 +150,6 @@ class Support
     }
 
     /**
-     * Change "Default template" to "Article".
-     */
-    public static function changeDefaultTemplateName($translation, $text, $domain)
-    {
-        if ($text == 'Default Template') {
-            return __('Article', 'municipio');
-        }
-
-        return $translation;
-    }
-
-    /**
      * Removes the generator meta tag from <head> & admin-footer.
      */
     public static function removeTheGenerator()
@@ -176,6 +164,16 @@ class Support
     public static function removeXmlRpc()
     {
         add_filter('xmlrpc_enabled', '__return_false');
+    }
+
+    /**
+     * Removes the gravatar from the adminpanel
+     */
+    public static function removeGravatar()
+    {
+        if (is_admin()) {
+            add_filter('option_show_avatars', '__return_false');
+        }
     }
 
     public static function removeDashboardMetaboxes()
@@ -202,11 +200,9 @@ class Support
     {
         global $wp_query;
 
-        if (
-            (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
+        if ((defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
             ||
-            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))
-        ) {
+            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))) {
             return;
         }
 

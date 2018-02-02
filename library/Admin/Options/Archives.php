@@ -436,7 +436,7 @@ class Archives
                             )
                         )),
                         'wrapper' => array(
-                            'width' => '50%',
+                            'width' => '33%',
                             'class' => '',
                             'id' => '',
                         ),
@@ -472,7 +472,7 @@ class Archives
                             )
                         )),
                         'wrapper' => array(
-                            'width' => '50%',
+                            'width' => '33%',
                             'class' => '',
                             'id' => '',
                         ),
@@ -506,7 +506,7 @@ class Archives
                             )
                         )),
                         'wrapper' => array(
-                            'width' => '50%',
+                            'width' => '33%',
                             'class' => '',
                             'id' => '',
                         ),
@@ -520,21 +520,23 @@ class Archives
                     );
 
 
-                }
-
-                //Add field for selecting AND / OR behaviour
-                foreach ($taxonomies as $taxName => $taxLabel) {
-
+                    //Filter logic
                     $fieldArgs['fields'][] = array(
                         'key' => 'field_32drr8543765p_' . md5($taxName),
-                        'label' => 'Filter logic ('. $taxLabel . ')',
+                        'label' => $taxLabel . ': Filter logic',
                         'name' => 'archive_' . sanitize_title($taxName) . '_filter_logic',
-                        'type' => 'radio',
+                        'type' => 'select',
                         'instructions' => '',
                         'required' => 0,
-                        'conditional_logic' => 0,
+                        'conditional_logic' => array(array(
+                                array(
+                                    'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
+                                    'operator' => '==',
+                                    'value' => $taxName
+                                )
+                         )),
                         'wrapper' => array(
-                            'width' => '50%',
+                            'width' => '33%',
                             'class' => '',
                             'id' => '',
                         ),
@@ -544,17 +546,19 @@ class Archives
                         ),
                         'other_choice' => 0,
                         'save_other_choice' => 0,
-                        'default_value' => 'and',
+                        'default_value' => 'OR',
                         'layout' => 'horizontal',
                     );
                 }
 
-                // Adds the option to select where the filter should appear
+                // Filter position
+
+               
+                
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
                     'label' => 'Filter position',
                     'name' => 'archive_' . sanitize_title($posttype) . '_filter_position',
-                    //'type' => 'checkbox',
                     'type' => 'radio',
                     'instructions' => '',
                     'required' => 0,
@@ -573,10 +577,7 @@ class Archives
                     'choices' => array(
                         'top' => 'Top',
                         'content' => 'Content'
-                    ),/*,
-                    'choices' => array(
-                        'content area' => 'Content area'
-                    ),*/
+                    ),
                     'default_value' => 'top',
                     'layout' => 'horizontal',
                     'toggle' => 0,
