@@ -111,7 +111,6 @@ class Support
     private static function addFilters()
     {
         add_filter('intermediate_image_sizes_advanced', '\Municipio\Theme\Support::filterThumbnailSizes');
-        //add_filter('gettext', '\Municipio\Theme\Support::changeDefaultTemplateName', 10, 3);
     }
 
     /**
@@ -148,18 +147,6 @@ class Support
         unset($sizes['medium']);
 
         return $sizes;
-    }
-
-    /**
-     * Change "Default template" to "Article".
-     */
-    public static function changeDefaultTemplateName($translation, $text, $domain)
-    {
-        if ($text == 'Default Template') {
-            return __('Article', 'municipio');
-        }
-
-        return $translation;
     }
 
     /**
