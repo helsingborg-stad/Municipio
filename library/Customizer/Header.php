@@ -37,6 +37,11 @@ class Header
     public static function enabledHeaders()
     {
         $activeAreas = self::enabledWidgets();
+
+        if (!is_array($activeAreas) || empty($activeAreas)) {
+            return false;
+        }
+
         $activePanels = array();
 
         foreach ($activeAreas as $area) {
