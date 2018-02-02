@@ -171,9 +171,8 @@ class Support
      */
     public static function removeGravatar()
     {
-        if(is_admin())
-        {
-            add_filter( 'option_show_avatars', '__return_false' );
+        if (is_admin()) {
+            add_filter('option_show_avatars', '__return_false');
         }
     }
 
