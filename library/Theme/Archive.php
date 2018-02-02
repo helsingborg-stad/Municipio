@@ -12,7 +12,7 @@ class Archive
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
         add_action('wp_ajax_share_email', array($this, 'socialShareEmail'));
         add_action('wp_ajax_nopriv_share_email', array($this, 'socialShareEmail'));
-        add_action('pre_get_posts', array($this, 'getSpecificNumberOfPosts'));
+        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
     }
 
     /*
@@ -20,7 +20,7 @@ class Archive
     * @param $WP_Query The query to show current archive page return
     * @return bool True or false depending on if the query has been altered or not.
     */
-    public function getSpecificNumberOfPosts($query) : bool
+    public function filterNumberOfPostsInArchive($query) : bool
     {
         if (!is_admin() && $query->is_main_query()) {
 
