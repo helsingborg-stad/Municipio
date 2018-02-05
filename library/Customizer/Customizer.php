@@ -6,8 +6,16 @@ class Customizer
 {
     public function __construct()
     {
+        add_filter( 'kirki/config', 'kirkiConfig' );
+
         $this->config();
         $this->init();
+    }
+
+    public function kirkiConfig($config)
+    {
+        $config['url_path'] = get_template_directory_uri() . '/vendor/aristath/kirki/';
+        return $config;
     }
 
     public function config()
