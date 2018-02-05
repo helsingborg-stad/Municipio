@@ -35,5 +35,11 @@
         "installer-paths" : {
             "vendor/{$name}/": ["type:wordpress-plugin"]
         }
+    },
+
+    "scripts": {
+        "post-update-cmd": [
+            "rm vendor/aristath/kirki/.gitignore"
+        ]
     }
 }
