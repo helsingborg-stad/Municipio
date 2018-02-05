@@ -35,11 +35,13 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
 
             <h3 class="post-title">{{ the_title() }}</h3>
 
-            @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
-                @foreach ($terms as $term)
-                    <a href="{{ get_term_link($term, $taxonomy) }}" class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}" style="display: inline;">{{ $term->name }}</a>
+            <ul class="tags">
+                @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
+                    @foreach ($terms as $term)
+                        <li class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}">{{ $term->name }}</li>
+                    @endforeach
                 @endforeach
-            @endforeach
+            </ul>
 
         </div>
         <div class="box-post-brick-lead">
