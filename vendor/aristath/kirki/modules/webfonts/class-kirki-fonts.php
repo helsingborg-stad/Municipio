@@ -120,41 +120,46 @@ final class Kirki_Fonts {
 	 */
 	public static function get_google_fonts() {
 
-		if ( null === self::$google_fonts || empty( self::$google_fonts ) ) {
+		// Get fonts from cache.
+		self::$google_fonts = get_site_transient( 'kirki_googlefonts_cache' );
 
-			ob_start();
-			include wp_normalize_path( dirname( __FILE__ ) . '/webfonts.json' );
-			$fonts_json = ob_get_clean();
-			$fonts      = json_decode( $fonts_json, true );
-
-			$google_fonts = array();
-			if ( is_array( $fonts ) ) {
-				foreach ( $fonts['items'] as $font ) {
-					$google_fonts[ $font['family'] ] = array(
-						'label'    => $font['family'],
-						'variants' => $font['variants'],
-						'subsets'  => $font['subsets'],
-						'category' => $font['category'],
-					);
-				}
-			}
-
-			self::$google_fonts = apply_filters( 'kirki_fonts_google_fonts', $google_fonts );
-
+		// If we're debugging, don't use cached.
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			self::$google_fonts = false;
 		}
 
+		// If cache is populated, return cached fonts array.
+		if ( self::$google_fonts ) {
+			return self::$google_fonts;
+		}
+
+		// If we got this far, cache was empty so we need to get from JSON.
+		ob_start();
+		include wp_normalize_path( dirname( __FILE__ ) . '/webfonts.json' );
+
+		$fonts_json = ob_get_clean();
+		$fonts      = json_decode( $fonts_json, true );
+
+		$google_fonts = array();
+		if ( is_array( $fonts ) ) {
+			foreach ( $fonts['items'] as $font ) {
+				$google_fonts[ $font['family'] ] = array(
+					'label'    => $font['family'],
+					'variants' => $font['variants'],
+					'category' => $font['category'],
+				);
+			}
+		}
+
+		// Apply the 'kirki_fonts_google_fonts' filter.
+		self::$google_fonts = apply_filters( 'kirki_fonts_google_fonts', $google_fonts );
+
+		// Save the array in cache.
+		$cache_time = apply_filters( 'kirki_googlefonts_transient_time', HOUR_IN_SECONDS );
+		set_site_transient( 'kirki_googlefonts_cache', self::$google_fonts, $cache_time );
+
 		return self::$google_fonts;
-
 	}
-
-	/**
-	 * Dummy function to avoid issues with backwards-compatibility.
-	 * This is not functional, but it will prevent PHP Fatal errors.
-	 *
-	 * @static
-	 * @access public
-	 */
-	public static function get_google_font_uri() {}
 
 	/**
 	 * Returns an array of all available subsets.
@@ -183,6 +188,15 @@ final class Kirki_Fonts {
 			'thai'         => 'Thai',
 		);
 	}
+
+	/**
+	 * Dummy function to avoid issues with backwards-compatibility.
+	 * This is not functional, but it will prevent PHP Fatal errors.
+	 *
+	 * @static
+	 * @access public
+	 */
+	public static function get_google_font_uri() {}
 
 	/**
 	 * Returns an array of all available variants.

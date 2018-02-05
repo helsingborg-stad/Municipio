@@ -276,7 +276,10 @@ class AcfExportManager
     public function translate(array $fieldgroup) : array
     {
         foreach ($fieldgroup['fields'] as &$field) {
-            $field = acf_translate_field($field);
+            if (function_exists('\acf_translate_field')) {
+                $field = \acf_translate_field($field);
+            }
+
         }
 
         return $fieldgroup;
@@ -301,7 +304,9 @@ class AcfExportManager
 
         if (isset($field['sub_fields']) && is_array($field['sub_fields'])) {
             foreach ($field['sub_fields'] as &$subfield) {
-                $subfield = acf_translate_field($subfield);
+                if (function_exists('\acf_translate_field')) {
+                    $subfield = \acf_translate_field($subfield);
+                }
             }
         }
 

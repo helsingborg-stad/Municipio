@@ -26,8 +26,6 @@ rm -rf controls/css/*.map
 rm -rf controls/js/src
 rm -rf controls/scss
 rm -rf docs
-rm modules/collapsible/*.scss
-rm modules/collapsible/*.map
 rm modules/custom-sections/*.scss
 rm modules/custom-sections/*.map
 rm modules/tooltips/*.scss
@@ -42,6 +40,7 @@ rm .gitignore
 rm .jscsrc
 rm .jshintignore
 rm .jshintrc
+rm .jhintrc
 rm .simplecov
 rm .travis.yml
 rm CODE_OF_CONDUCT.md
@@ -52,6 +51,7 @@ rm Gruntfile.js
 rm package.json
 rm phpcs.ruleset.xml
 rm phpunit.xml
+rm phpunit.xml.dist
 rm README.md
 rm *.sh
 rm package-lock.json
