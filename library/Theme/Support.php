@@ -8,7 +8,6 @@ class Support
     {
         self::removeActions();
         self::addActions();
-        self::addFilters();
         self::removeTheGenerator();
         self::removeXmlRpc();
         self::removeGravatar();
@@ -106,14 +105,6 @@ class Support
     }
 
     /**
-     * Add filters.
-     */
-    private static function addFilters()
-    {
-        add_filter('intermediate_image_sizes_advanced', '\Municipio\Theme\Support::filterThumbnailSizes');
-    }
-
-    /**
      * Add theme support.
      */
     public static function themeSupport()
@@ -135,18 +126,6 @@ class Support
                 'chat'
             )
         );
-    }
-
-    /**
-     * Remove medium thumbnail size for all uploaded images.
-     * @param array $sizes Default sizes
-     * @return array New sizes
-     */
-    public static function filterThumbnailSizes($sizes)
-    {
-        unset($sizes['medium']);
-
-        return $sizes;
     }
 
     /**
