@@ -140,7 +140,7 @@ class Enqueue
     {
         //Load from local developement enviroment
         if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-            wp_register_script($this->defaultPrimeName, '//hbgprime.dev/dist/js/hbg-prime.min.js', '', '1.0.0', true);
+            wp_register_script($this->defaultPrimeName, '//hbgprime.dev/dist/js/hbg-prime.dev.js', '', '1.0.0', true);
         } else {
 
             //Check for version number lock files.
