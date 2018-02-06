@@ -283,7 +283,7 @@ class Navigation
                 }
             } else {
                 if (is_home()) {
-                    $title = single_post_title();
+                    $title = single_post_title("", false);
                 } elseif (is_tax()) {
                     $title = single_cat_title(null, false);
                 } elseif (is_category() && $title = get_the_category()) {
