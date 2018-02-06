@@ -286,8 +286,8 @@ class Navigation
                     $title = single_post_title();
                 } elseif (is_tax()) {
                     $title = single_cat_title(null, false);
-                } elseif (is_category()) {
-                    $title = get_the_category();
+                } elseif (is_category() && $title = get_the_category()) {
+                    $title = $title[0]->name;
                 } elseif (is_archive()) {
                     $title = post_type_archive_title(null, false);
                 } else {
