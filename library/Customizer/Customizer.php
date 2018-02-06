@@ -6,7 +6,7 @@ class Customizer
 {
     public function __construct()
     {
-        add_filter( 'kirki/config', 'kirkiConfig' );
+        add_filter('kirki/config', array($this, 'kirkiConfig'));
 
         $this->config();
         $this->init();
