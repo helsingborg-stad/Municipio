@@ -17,6 +17,14 @@
             @endif
 
             <h3 class="post-title">{{ $title }}</h3>
+
+            <ul class="tags">
+                @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
+                    @foreach ($terms as $term)
+                        <li class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}">{{ $term->name }}</li>
+                    @endforeach
+                @endforeach
+            </ul>
         </div>
 
         @if (is_null(get_field('search_result_display_options', 'option')) || in_array('lead', (array)get_field('search_result_display_options', 'option')))
