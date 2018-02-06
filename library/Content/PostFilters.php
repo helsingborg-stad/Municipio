@@ -86,10 +86,25 @@ class PostFilters
             $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
             $data['enabledTaxonomyFilters'] = $this->getEnabledTaxonomies($data['postType']);
             $data['queryString'] = (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) ? true : false;
-            $data['archiveUrl'] = get_post_type_archive_link($postType);
+            $data['archiveUrl'] = $this->getArchiveSlug($postType);
 
             return $data;
         });
+    }
+
+    /**
+     * Get the current archive slug, include category if isset.
+     * @param $postType A struing containing av slug of a valid posttype
+     * @return string
+     */
+
+    public function getArchiveSlug($postType)
+    {
+        if (is_category()) {
+            return get_category_link(get_query_var('cat'));
+        }
+
+        return get_post_type_archive_link($postType);
     }
 
     public static function getMultiTaxDropdown($tax, int $parent = 0, string $class = '')
@@ -120,7 +135,7 @@ class PostFilters
                    $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
                 $html .= '</label>';
 
-            $html .= self::getMultiTaxDropdown($tax, $term->term_id);
+                $html .= self::getMultiTaxDropdown($tax, $term->term_id);
             $html .= '</li>';
         }
 
@@ -237,10 +252,7 @@ class PostFilters
 
         $taxQuery = array('relation' => 'AND');
 
-        $taxQueryOR = array('relation' => 'OR');   
-
-       foreach ($filterable as $key => $value) {
-            
+        foreach ($filterable as $key => $value) {
             if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
                 continue;
             }
@@ -255,14 +267,7 @@ class PostFilters
             );
         }
 
-        //Add OR query
-        if (isset($taxQueryOR) && !empty($taxQueryOR)) {
-            $taxQuery[] = $taxQueryOR;
-        }
-
-        //Append on taxonomys
         if (is_tax() || is_category() || is_tag()) {
-
             $taxQuery = array(
                 'relation' => 'AND',
                 array(
@@ -280,7 +285,6 @@ class PostFilters
 
         $query->set('tax_query', $taxQuery);
         $query->set('post_type', $this->getPostType());
-
         return $query;
     }
 
