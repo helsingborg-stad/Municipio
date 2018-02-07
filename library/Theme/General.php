@@ -115,8 +115,7 @@ class General
      */
     public function theLead($text)
     {
-        $text = strip_shortcodes($text);
-        return '<p class="lead">' . $text . '</p>';
+        return '<p class="lead">' . strip_shortcodes($text) . '</p>';
     }
 
     /**
