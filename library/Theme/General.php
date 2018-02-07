@@ -139,9 +139,20 @@ class General
      */
     public function isChildTheme($classes)
     {
+
+        //Is childtheme class
         if (is_child_theme()) {
             $classes[] = "is-child-theme";
         }
+
+        //Theme specific class
+        if (is_child_theme()) {
+            $themeObject = wp_get_theme();
+        } else {
+            $themeObject = wp_get_theme(get_template());
+        }
+
+        $classes[] = sanitize_title($themeObject->get("Name"));
 
         return $classes;
     }
