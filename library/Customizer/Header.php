@@ -139,7 +139,7 @@ class Header
 
     public function headerBackground($header)
     {
-        $colors = array_merge(\Municipio\Helper\Colors::themeColors(), \Municipio\Helper\Colors::neturalColors());
+        $colors = array_merge((array) \Municipio\Helper\Colors::themeColors(), (array) \Municipio\Helper\Colors::neturalColors());
         $default = self::defaultHeaderColors();
 
         $default = (isset($default[$header]['background'])) ? $default[$header]['background'] : '#000000';
