@@ -2,7 +2,7 @@
 
 namespace Municipio\Theme;
 
-class CustomizerHeader
+class CustomizerHeader extends Customizer
 {
     public $headers = array();
 
@@ -45,7 +45,11 @@ class CustomizerHeader
         $headerClasses[] = 'c-header';
         $headerClasses[] = 'c-header--' . $header['id'];
         $headerClasses[] = 'c-header--customizer';
-        $headerClasses[] = 't-municipio';
+        $headerClasses[] = 't-' . $this->getThemeKey(false);
+
+        if (is_child_theme()) {
+            $headerClasses[] = 't-' . $this->getThemeKey(true);
+        }
 
         $headerClasses = apply_filters('Municipio/Theme/CustomizerHeader/headerClasses', $headerClasses, $header);
 
