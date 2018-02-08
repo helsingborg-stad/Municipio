@@ -33,6 +33,10 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
         }
 
         $this->data['home'] = get_bloginfo('url');
+
+        $this->data['language'] = array(
+            'logoLabel' => __("Go to homepage", 'municipio'),
+        );
     }
 
     public function checkFiletype($attachment)
