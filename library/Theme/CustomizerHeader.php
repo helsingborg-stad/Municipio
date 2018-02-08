@@ -45,6 +45,7 @@ class CustomizerHeader extends Customizer
         $headerClasses[] = 'c-header';
         $headerClasses[] = 'c-header--' . $header['id'];
         $headerClasses[] = 'c-header--customizer';
+        $headerClasses[] = MUNICIPIO_BEM_THEME_NAME;
 
         $headerClasses = apply_filters('Municipio/Theme/CustomizerHeader/headerClasses', $headerClasses, $header);
 

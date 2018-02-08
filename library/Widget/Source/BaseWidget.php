@@ -54,8 +54,7 @@ abstract class BaseWidget extends \WP_Widget
         if (isset($this->config['id']) &&
             isset($this->config['name']) &&
             isset($this->config['description']) &&
-            isset($this->config['template']))
-        {
+            isset($this->config['template'])) {
             $this->viewPath = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
                 get_stylesheet_directory() . '/views/',
                 get_template_directory() . '/views/'
@@ -87,6 +86,10 @@ abstract class BaseWidget extends \WP_Widget
         $this->data['args'] = $args;
         $this->data['instance'] = $instance;
 
+        if (defined('MUNICIPIO_BEM_THEME_NAME')) {
+            $this->data['themeClass'] = MUNICIPIO_BEM_THEME_NAME;
+        }
+
         if (method_exists($this, 'beforeViewController')) {
             $this->beforeViewController();
         }
@@ -116,10 +119,16 @@ abstract class BaseWidget extends \WP_Widget
         }
         // Widget admin form?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+            <label for="<?php echo $this->get_field_id('title');
+        ?>"><?php _e('Title:');
+        ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('title');
+        ?>" name="<?php echo $this->get_field_name('title');
+        ?>" type="text" value="<?php echo esc_attr($title);
+        ?>" />
         </p>
         <?php
+
     }
 
    /**

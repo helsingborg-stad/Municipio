@@ -1,4 +1,4 @@
-@if (isset($menu) && is_array($menu) && !empty($menu))
+0@if (isset($menu) && is_array($menu) && !empty($menu))
 @extends('widget.header-widget')
     @section('widget')
         <nav>

@@ -6,6 +6,9 @@ class General
 {
     public function __construct()
     {
+        add_action('init', array($this, 'bemItClassDefinition'));
+
+        add_filter('body_class', array($this, 'appendBEMITCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));
 
@@ -22,6 +25,29 @@ class General
 
         remove_filter('template_redirect', 'redirect_canonical');
         //add_action('add_meta_boxes', array($this, 'removeDisplaySettings'), 9999);
+    }
+
+    /**
+     * Defines global BEM class for theme
+     * @return void
+     */
+    public function bemItClassDefinition()
+    {
+        //Classes
+        $classes = array();
+
+        //Theme specific class
+        $themeObject = wp_get_theme();
+        $classes[] = "t-" . sanitize_title($themeObject->get("Name"));
+
+        //Child theme specific class
+        if (is_child_theme()) {
+            $childThemeObject = wp_get_theme(get_template());
+            $classes[] = "t-" . sanitize_title($childThemeObject->get("Name"));
+        }
+
+        //Define const for later use
+        define("MUNICIPIO_BEM_THEME_NAME", implode(" ", $classes));
     }
 
     /**
@@ -42,7 +68,10 @@ class General
 
     public function e404classes($classes)
     {
-        $classes[] = 'error404-2';
+        if (is_404()) {
+            $classes[] = 'error404';
+        }
+
         return $classes;
     }
 
@@ -133,35 +162,29 @@ class General
     }
 
     /**
+     * Append body theme class in BEMIT format
+     * @param  array  $classes Default classes
+     * @return array           Modified calsses
+     */
+    public function appendBEMITCssClass($classes)
+    {
+        if (defined('MUNICIPIO_BEM_THEME_NAME')) {
+            $classes[] = MUNICIPIO_BEM_THEME_NAME;
+        }
+        return $classes;
+    }
+
+    /**
      * is-child-theme body class
      * @param  array  $classes Default classes
      * @return array           Modified calsses
      */
     public function isChildTheme($classes)
     {
-
         //Is childtheme class
         if (is_child_theme()) {
             $classes[] = "is-child-theme";
         }
-
-        //Theme specific class
-        $themeObject = wp_get_theme();
-        $classes[] = "t-" . sanitize_title($themeObject->get("Name"));
-
-        //Child theme specific class
-        if (is_child_theme()) {
-            $childThemeObject = wp_get_theme(get_template());
-            $classes[] = "t-" . sanitize_title($childThemeObject->get("Name"));
-        }
-
-        //Define const for later use
-        if (!is_child_theme()) {
-            define("MUNICIPIO_BEM_THEME_NAME", "t-" . sanitize_title($themeObject->get("Name")));
-        } else {
-            define("MUNICIPIO_BEM_THEME_NAME", "t-" . sanitize_title($themeObject->get("Name")) . " t-" . sanitize_title($childThemeObject->get("Name")));
-        }
-
         return $classes;
     }
 

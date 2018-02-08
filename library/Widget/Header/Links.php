@@ -19,7 +19,6 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
     public function viewController($args, $instance)
     {
         $this->data['links'] = $this->mapLinks();
-        $this->data['themeClass'] = apply_filters('Municipio/Widget/Header/Links/ThemeClass', 't-municipio');
     }
 
     /**
