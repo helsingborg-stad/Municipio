@@ -44,6 +44,13 @@ Constant that load local verrsion of the styleguide.
 define('DEV_MODE', true);
 ```
 
+#### CSS class in BEMIT style for theme name
+Constant that contains the current theme name in BEM format. Usable when you wnat to connect component styling directly to the theme.You cannot change this. 
+
+```
+MUNICIPIO_BEM_THEME_NAME
+```
+
 ## Actions
 
 #### Municipio/blog/post_info
