@@ -18,6 +18,9 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
 
     public function viewController($args, $instance)
     {
+        $this->data['maxWidth'] = 999;
+
+        //Image or text logotype
         if ($this->get_field('widget_header_logotype')) {
             switch ($this->checkFiletype($this->get_field('widget_header_logotype'))) {
                 case 'svg':
@@ -28,6 +31,11 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
                     $this->data['logotype'] = '<img src="' . $this->get_field('widget_header_logotype')['url'] . '">';
                 break;
             }
+
+            if ($maxWidth = $this->get_field('widget_header_max_width')) {
+                $this->data['maxWidth'] = $maxWidth;
+            }
+
         } else {
             $this->data['logotype'] = '<h1>' . get_bloginfo('name') . '</h1>';
         }
