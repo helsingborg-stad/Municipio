@@ -146,13 +146,21 @@ class General
         }
 
         //Theme specific class
+        $themeObject = wp_get_theme();
+        $classes[] = "t-" . sanitize_title($themeObject->get("Name"));
+
+        //Child theme specific class
         if (is_child_theme()) {
-            $themeObject = wp_get_theme();
-        } else {
-            $themeObject = wp_get_theme(get_template());
+            $childThemeObject = wp_get_theme(get_template());
+            $classes[] = "t-" . sanitize_title($childThemeObject->get("Name"));
         }
 
-        $classes[] = sanitize_title($themeObject->get("Name"));
+        //Define const for later use
+        if (!is_child_theme()) {
+            define("MUNICIPIO_BEM_THEME_NAME", "t-" . sanitize_title($themeObject->get("Name")));
+        } else {
+            define("MUNICIPIO_BEM_THEME_NAME", "t-" . sanitize_title($themeObject->get("Name")) . " t-" . sanitize_title($childThemeObject->get("Name")));
+        }
 
         return $classes;
     }
