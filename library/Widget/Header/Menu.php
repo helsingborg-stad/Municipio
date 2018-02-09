@@ -12,7 +12,7 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
             'id'            => 'menu',
             'name'          => 'Header widget: Menu',
             'description'   => 'Display wordpress or auto generated menu, used in header',
-            'template'      => 'header-menu.blade.php'
+            'template'      => 'header-menu.header-menu.blade.php'
         );
 
         return $widget;

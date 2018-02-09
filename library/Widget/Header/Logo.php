@@ -10,7 +10,7 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
             'id'            => 'widget-header-logo',
             'name'          => 'Header widget: Logo',
             'description'   => 'Display website logotype, used in header',
-            'template'      => 'header-logo.blade.php'
+            'template'      => 'header-logo.header-logo.blade.php'
         );
 
         return $widget;

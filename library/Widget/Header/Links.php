@@ -10,7 +10,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
             'id'            => 'links',
             'name'          => 'Header widget: Links',
             'description'   => 'Display links with icons or text, used in header',
-            'template'      => 'header-links.blade.php'
+            'template'      => 'header-links.header-links.blade.php'
         );
 
         return $widget;
