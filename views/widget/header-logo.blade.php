@@ -1,11 +1,12 @@
 @extends('widget.header-widget')
 @section('widget')
+    <style scoped>
+        .c-header__logo.t-municipio a img,
+        .c-header__logo.t-municipio a svg {
+            width: {{ $maxWidth }}px;
+        }
+    </style>
     <div class="c-header__logo {{$themeClass}}" data-tooltip="{{ $language['logoLabel'] }}">
-        <style scoped><!-- Logotype settings -->
-            a {
-                max-width: {{ $maxWidth }}px;
-            }
-        </style>
         <a href="{{$home}}" title="{{ $language['logoLabel'] }}">
             {!! $logotype !!}
         </a>
