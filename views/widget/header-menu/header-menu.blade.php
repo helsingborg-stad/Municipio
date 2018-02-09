@@ -4,7 +4,7 @@
         <nav>
             <ul class="c-navbar c-navbar--header-widget-menu {{$themeClass}}">
                 @foreach ($menu as $link)
-                    <li class="c-navbar__item">
+                    <li class="c-navbar__item @if($link->object_id == $currentPageID) c-navbar__item--current @endif">
                         <a href="{{$link->url}}">{{$link->title}}</a>
                         @if(isset($link->children) && is_array($link->children) && !empty($link->children))
                             <ul class="c-navbar__sub">
