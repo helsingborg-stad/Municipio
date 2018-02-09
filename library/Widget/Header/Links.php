@@ -34,22 +34,25 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
         $avalibleLinkTypes = array(
             'external_link' => array(
                 'classes'       => 'c-navbar__item_link c-navbar__item_link--external',
-                'attributes'    => ''
+                'attributes'    => '',
+                'template'      => 'widget.header-links.partials.link'
             ),
             'internal_link' => array(
                 'classes'       => 'c-navbar__item_link c-navbar__item_link--internal',
-                'attributes'    => ''
+                'attributes'    => '',
+                'template'      => 'widget.header-links.partials.link'
             ),
             'search_trigger' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--search js-search-trigger pricon pricon-search toggle-search-top',
+                'classes'       => 'o-reset-button u-nowrap c-navbar__item_button c-navbar__item_button--search js-search-trigger pricon pricon-search toggle-search-top',
                 'attributes'    => 'onclick="return false;"',
-                'text'          => 'Search'
+                'text'          => 'Search',
+                'template'      => 'widget.header-links.partials.button'
             ),
             'menu_trigger' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--menu menu-trigger u-no-decoration u-nowrap',
-                'attributes'    => 'onclick="jQuery(this).children(\'.o-burger-icon\').toggleClass(\'is-open\');" data-target="#mobile-menu"',
-                'text'          => 'Menu',
-                'beforeText'    => '<div class="o-burger-icon"><span></span><span></span><span></span></div>'
+                'classes'       => 'u-nowrap hamburger hamburger--slider menu-trigger',
+                'attributes'    => 'aria-controls="navigation" aria-expanded="true/false" onclick="jQuery(this).toggleClass(\'is-active\');" data-target="#mobile-menu"',
+                'text'          => __("Menu", 'municipio'),
+                'template'      =>  'widget.header-links.partials.burger'
             ),
             'translate_trigger' => array(
                 'classes'       => 'c-navbar__item_link c-navbar__item_link--translate js-translate-trigger',
@@ -69,7 +72,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
 
                 //Add icon classes if icon exists
                 if (isset($link['icon']) && $link['icon']) {
-                    $links[$key]['classes'] .= ' c-navbar__item_link--icon pricon ' .  $link['icon'];
+                    $links[$key]['classes'] .= ' u-nowrap c-navbar__item_link--icon pricon ' .  $link['icon'];
                 }
 
                 if (!isset($links[$key]['url'])) {
