@@ -130,7 +130,7 @@ class Header
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer.c-header--' . $header . ' a',
+                    'element' => '.c-header--customizer.c-header--' . $header . ' a, .c-header--customizer.c-header--' . $header,
                     'property' => 'color'
                 )
             )
