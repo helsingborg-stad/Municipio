@@ -16,13 +16,14 @@ class BaseController
 
         if ($customizer) {
              $this->customizerHeader();
+
         } else {
             $this->getLogotype();
             $this->getHeaderLayout();
-            $this->getFooterLayout();
-            $this->getNavigationMenus();
         }
 
+        $this->getFooterLayout();
+        $this->getNavigationMenus();
         $this->getHelperVariables();
         $this->getFilterData();
         $this->getVerticalMenu();
