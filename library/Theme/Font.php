@@ -4,13 +4,12 @@ namespace Municipio\Theme;
 
 class Font
 {
-
     public function __construct()
     {
         if (defined('WEB_FONT') && WEB_FONT != "") {
-            add_action('wp_head', array($this, 'renderFontJS'),10);
-            add_action('wp_head', array($this, 'renderFontVar'),10);
-            add_action('wp_head', array($this, 'renderFontLibrary'),5);
+            add_action('wp_head', array($this, 'renderFontJS'), 10);
+            add_action('wp_head', array($this, 'renderFontVar'), 10);
+            add_action('wp_head', array($this, 'renderFontLibrary'), 5);
         }
     }
 
@@ -20,6 +19,10 @@ class Font
      */
     public function renderFontVar()
     {
+        if (defined('WEB_FONT_DISABLE_INLINE') && WEB_FONT_DISABLE_INLINE != "") {
+            return;
+        }
+
         echo "
             <style>
             body {
@@ -57,7 +60,7 @@ class Font
     {
         if (!defined('WEB_FONT_REMOTE') && file_exists(MUNICIPIO_PATH . '/assets/source/js/font.js')) {
             echo '<script>';
-                readfile(MUNICIPIO_PATH . '/assets/source/js/font.js');
+            readfile(MUNICIPIO_PATH . '/assets/source/js/font.js');
             echo '</script>';
         } else {
             wp_enqueue_script('webfont-loader', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', array(), '1.0.0', false);
