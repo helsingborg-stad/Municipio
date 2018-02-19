@@ -50,6 +50,12 @@ class PostFilters
      */
     public function initFilters()
     {
+
+        //Only run on frontend
+        if (is_admin()) {
+            return;
+        }
+
         global $wp_query;
 
         if ((is_category() || is_tax() || is_tag()) && !get_post_type()) {
@@ -255,6 +261,12 @@ class PostFilters
      */
     public function doPostTaxonomyFiltering($query)
     {
+
+        //Only run on frontend
+        if (is_admin()) {
+            return $query;
+        }
+
         // Do not execute this in admin view
         if (is_admin() || !(is_archive() || is_home() || is_category() || is_tax() || is_tag()) || !$query->is_main_query()) {
             return $query;
@@ -312,6 +324,12 @@ class PostFilters
      */
     public function doPostDateFiltering($where)
     {
+
+        //Only run on frontend
+        if (is_admin()) {
+            return $where;
+        }
+
         global $wpdb;
 
         $from = null;
