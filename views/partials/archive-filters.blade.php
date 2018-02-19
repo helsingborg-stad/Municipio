@@ -1,4 +1,4 @@
-@if (!empty($enabledHeaderFilters))
+@if (!empty($enabledHeaderFilters) || !empty($enabledTaxonomyFilters))
 
 @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
     <section class="gutter sidebar-content-area archive-filters grid-xs-12">

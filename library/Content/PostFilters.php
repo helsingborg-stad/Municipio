@@ -79,13 +79,30 @@ class PostFilters
         }
 
         add_action('HbgBlade/data', function ($data) use ($wp_query, $postType) {
+
+            //Get current post type enabledTaxonomyFilters
             if (!isset($data['postType']) || !$data['postType']) {
                 $data['postType'] = $postType;
             }
 
-            $data['enabledHeaderFilters'] = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option');
-            $data['enabledTaxonomyFilters'] = $this->getEnabledTaxonomies($data['postType']);
+            //Get header filters
+            if ($enabledHeaderFilters = get_field('archive_' . $data['postType'] . '_post_filters_header', 'option')) {
+                $data['enabledHeaderFilters'] = $enabledHeaderFilters;
+            } else {
+                $data['enabledHeaderFilters'] = array();
+            }
+
+            //Get taxonomy filters
+            if ($enabledTaxonomyFilters = $this->getEnabledTaxonomies($data['postType'])) {
+                $data['enabledTaxonomyFilters'] = $enabledTaxonomyFilters;
+            } else {
+                $data['enabledTaxonomyFilters'] = array();
+            }
+
+            //Is query string present?
             $data['queryString'] = (isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING'])) ? true : false;
+
+            //The archive url
             $data['archiveUrl'] = $this->getArchiveSlug($postType);
 
             return $data;
@@ -131,11 +148,11 @@ class PostFilters
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
-                $html .= '<label class="checkbox">';
-                   $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
-                $html .= '</label>';
+            $html .= '<label class="checkbox">';
+            $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
+            $html .= '</label>';
 
-                $html .= self::getMultiTaxDropdown($tax, $term->term_id);
+            $html .= self::getMultiTaxDropdown($tax, $term->term_id);
             $html .= '</li>';
         }
 
