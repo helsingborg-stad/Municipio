@@ -45,8 +45,15 @@
                             <h1>{{ the_archive_title() }}</h1>
                         @endif
                     @endif
+                    @include('partials.accessibility-menu')
                 </div>
             </div>
+            @else
+                <div class="grid">
+                    <div class="grid-xs-12">
+                        @include('partials.accessibility-menu')
+                    </div>
+                </div>
             @endif
 
             @if (is_active_sidebar('content-area-top'))
