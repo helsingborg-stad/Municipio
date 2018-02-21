@@ -3,10 +3,10 @@
     <style scoped>
         .c-header__logo.t-municipio a img,
         .c-header__logo.t-municipio a svg {
-            @media (max-width: 599px) {
+            @media screen and (max-width: 599px) {
                 max-width: {{ $maxWidth }}px;
             }
-            @media (min-width: 600px) {
+            @media screen and (min-width: 600px) {
                 width: {{ $maxWidth }}px;
             }
         }
