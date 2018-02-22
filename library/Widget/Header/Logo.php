@@ -26,6 +26,7 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
                 case 'svg':
                     $path = \Municipio\Helper\Image::urlToPath($this->get_field('widget_header_logotype')['url']);
                     $this->data['logotype'] = \Municipio\Helper\Svg::extract($path);
+                    $this->data['imageRatio'] = $this->getSvgRatio($path);
                 break;
                 case 'png':
                     $this->data['logotype'] = '<img src="' . $this->get_field('widget_header_logotype')['url'] . '">';
@@ -35,7 +36,6 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
             if ($maxWidth = $this->get_field('widget_header_max_width')) {
                 $this->data['maxWidth'] = $maxWidth;
             }
-
         } else {
             $this->data['logotype'] = '<h1>' . get_bloginfo('name') . '</h1>';
         }
@@ -45,6 +45,7 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
         $this->data['language'] = array(
             'logoLabel' => __("Go to homepage", 'municipio'),
         );
+
     }
 
     public function checkFiletype($attachment)
@@ -57,6 +58,23 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
 
         if (isset($url['extension'])) {
             return $url['extension'];
+        }
+
+        return false;
+    }
+
+    public function getSvgRatio($file)
+    {
+        $dimensions = array();
+
+        if ($file && $xml = simplexml_load_file($file)) {
+            $viewBox = list($x_start, $y_start, $x_end, $y_end) = explode(' ', $xml['viewBox']);
+
+            if (count($viewBox) == 4) {
+                $dimensions['width']    = (int) ($viewBox[2] - $viewBox[0]);
+                $dimensions['height']   = (int) ($viewBox[3] - $viewBox[1]);
+                return round(($dimensions['height'] / $dimensions['width']) * 100, 2);
+            }
         }
 
         return false;
