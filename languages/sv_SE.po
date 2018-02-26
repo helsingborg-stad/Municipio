@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2018-02-26 16:03+0100\n"
-"PO-Revision-Date: 2018-02-26 16:04+0100\n"
+"PO-Revision-Date: 2018-02-26 16:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -721,11 +721,11 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-fixed-action-bar.php:70
 msgid "Visabllity"
-msgstr ""
+msgstr "Synbarhet"
 
 #: library/AcfFields/php/options-theme-fixed-action-bar.php:91
 msgid "Hide on extra small devices"
-msgstr ""
+msgstr "Göm på små enheter"
 
 #: library/AcfFields/php/options-theme-fixed-action-bar.php:92
 #, fuzzy
@@ -735,7 +735,7 @@ msgstr "Dölj från sidebar-menyn"
 
 #: library/AcfFields/php/options-theme-fixed-action-bar.php:93
 msgid "Hide on medium devices"
-msgstr ""
+msgstr "Göm på medelstora enheter"
 
 #: library/AcfFields/php/options-theme-fixed-action-bar.php:94
 #, fuzzy
@@ -1180,11 +1180,11 @@ msgstr "Positionering av tooltip"
 
 #: library/AcfFields/php/options-theme-search-algolia.php:6
 msgid "Algolia Search"
-msgstr ""
+msgstr "Algolia Sök"
 
 #: library/AcfFields/php/options-theme-search-algolia.php:21
 msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
-msgstr ""
+msgstr "Aktivera Algolia sök (Kräver Algolias WordPress plugin)"
 
 #: library/AcfFields/php/options-theme-search-display.php:42
 msgid "Search field label"
@@ -1370,23 +1370,23 @@ msgstr ""
 
 #: library/AcfFields/php/widget-header-common.php:27
 msgid "Visibility"
-msgstr ""
+msgstr "Synbarhet"
 
 #: library/AcfFields/php/widget-header-common.php:39
 msgid "Hide on extra small devices (XS)"
-msgstr ""
+msgstr "Göm på extra små enheter"
 
 #: library/AcfFields/php/widget-header-common.php:40
 msgid "Hide on small devices (SM)"
-msgstr ""
+msgstr "Göm på små enheter"
 
 #: library/AcfFields/php/widget-header-common.php:41
 msgid "Hide on medium devices (MD)"
-msgstr ""
+msgstr "Göm på medelstora enheter"
 
 #: library/AcfFields/php/widget-header-common.php:42
 msgid "Hide on large devices (LG)"
-msgstr ""
+msgstr "Göm på stora enheter"
 
 #: library/AcfFields/php/widget-header-links.php:6
 msgid "Widget header - Links"
@@ -1394,31 +1394,31 @@ msgstr ""
 
 #: library/AcfFields/php/widget-header-links.php:10
 msgid "Links"
-msgstr ""
+msgstr "Länkar"
 
 #: library/AcfFields/php/widget-header-links.php:25
 msgid "External link"
-msgstr ""
+msgstr "Externa länkar"
 
 #: library/AcfFields/php/widget-header-links.php:104
 msgid "Internal link"
-msgstr ""
+msgstr "Interna länkar"
 
 #: library/AcfFields/php/widget-header-links.php:188
 msgid "Search trigger"
-msgstr ""
+msgstr "Sök utlösare"
 
 #: library/AcfFields/php/widget-header-links.php:217
 msgid "Menu trigger"
-msgstr ""
+msgstr "Meny utlösare"
 
 #: library/AcfFields/php/widget-header-links.php:246
 msgid "Translate trigger"
-msgstr ""
+msgstr "Översättning utlösare"
 
 #: library/AcfFields/php/widget-header-links.php:273
 msgid "Add link"
-msgstr ""
+msgstr "Lägg till länk"
 
 #: library/AcfFields/php/widget-header-logotype.php:6
 msgid "Widget header - Logotype"
@@ -1426,15 +1426,15 @@ msgstr ""
 
 #: library/AcfFields/php/widget-header-logotype.php:10
 msgid "Upload logotype"
-msgstr ""
+msgstr "Ladda upp logotyp"
 
 #: library/AcfFields/php/widget-header-logotype.php:34
 msgid "Max width"
-msgstr ""
+msgstr "Maxbredd"
 
 #: library/AcfFields/php/widget-header-logotype.php:37
 msgid "Choose the max width of the logo."
-msgstr ""
+msgstr "Välj maxbredden på logotypen"
 
 #: library/AcfFields/php/widget-header-logotype.php:48
 msgid "px"
@@ -1446,7 +1446,7 @@ msgstr ""
 
 #: library/AcfFields/php/widget-header-menu.php:10
 msgid "Select WP menu"
-msgstr ""
+msgstr "Välj WordPress meny"
 
 #: library/AcfFields/php/widget-header-menu.php:22
 msgid "Primary (Menu ID: 2)"
@@ -1462,7 +1462,7 @@ msgstr ""
 
 #: library/Admin/Acf/Fields/Pricons.php:59
 msgid "Error! Please enter a higher value"
-msgstr ""
+msgstr "Fel! Välj ett högre värde"
 
 #: library/Admin/Acf/Fields/Pricons.php:108
 #: vendor/advanced-custom-fields/core/fields/relationship.php:556
@@ -1473,15 +1473,15 @@ msgstr "Inläggsformat"
 
 #: library/Admin/Acf/Fields/Pricons.php:113
 msgid "Icon class"
-msgstr ""
+msgstr "Ikonens klass"
 
 #: library/Admin/Acf/Fields/Pricons.php:114
 msgid "Icon name"
-msgstr ""
+msgstr "Ikonens namn"
 
 #: library/Admin/Acf/Fields/Pricons.php:115
 msgid "Icon unicode"
-msgstr ""
+msgstr "Ikonens teckenkod"
 
 #: library/Admin/General.php:104
 msgid "Only for logged in users"
@@ -1502,7 +1502,7 @@ msgstr "Lämna tomt för att dölja titel"
 
 #: library/Admin/Options/Archives.php:204
 msgid "Number of posts in one page"
-msgstr ""
+msgstr "Antalet inlägg på en sida"
 
 #: library/Admin/Options/GoogleTranslate.php:15
 msgid "None (link to #translate to show)"
@@ -1691,11 +1691,11 @@ msgstr "Automatiskt genererade posttyper från inställningspanel"
 
 #: library/Controller/Single.php:17
 msgid "Reply"
-msgstr ""
+msgstr "Svara"
 
 #: library/Controller/Single.php:18
 msgid "Log in to Reply"
-msgstr ""
+msgstr "Logga in för att svara"
 
 #: library/Customizer/Header.php:103
 msgid "Visibility settings"
@@ -4975,12 +4975,12 @@ msgstr ""
 
 #: vendor/aristath/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:59
 msgid "Customizing"
-msgstr ""
+msgstr "Anpassar"
 
 #: vendor/aristath/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:62
 #, php-format
 msgid "Customizing &#9656; %s"
-msgstr ""
+msgstr "Anpassar &#9656; %s"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:210
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:211
@@ -5061,7 +5061,7 @@ msgstr ""
 
 #: vendor/aristath/kirki/upgrade-notifications.php:30
 msgid "Important Upgrade Notice:"
-msgstr ""
+msgstr "Viktigt uppgraderingsmeddelande: "
 
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:362
 msgid "Export with AcfExportManager"
@@ -5162,7 +5162,7 @@ msgstr "Vad letar du efter?"
 
 #: views/partials/search/algolia-autocomplete.php:79
 msgid "No results matched your query "
-msgstr ""
+msgstr "Inga träffar matchade din sökfråga"
 
 #: views/partials/search/algolia.blade.php:37
 #: views/partials/search/google.blade.php:24
