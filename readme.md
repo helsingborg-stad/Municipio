@@ -9,6 +9,9 @@ $ npm install
 $ composer install
 ```
 
+## Dependencies
+Municipio requires [ACF PRO](https://www.advancedcustomfields.com/pro/).
+
 ## Coding standards
 For PHP, use PSR-2 and PSR-4 where applicable.
 
