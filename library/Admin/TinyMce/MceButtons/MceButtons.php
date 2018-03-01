@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin\TinyMce\MceButtons;
 
+use \Municipio\Helper\Styleguide;
+
 class MceButtons extends \Municipio\Admin\TinyMce\PluginClass
 {
     public function init()
@@ -10,6 +12,6 @@ class MceButtons extends \Municipio\Admin\TinyMce\PluginClass
         $this->pluginSlug = 'mce_hbg_buttons';
 
         $this->data['themeUrl'] = get_template_directory_uri();
-        $this->data['styleSheet'] = MUNICIPIO_STYLEGUIDE_URI. 'css/hbg-prime-' . \Municipio\Theme\Enqueue::getStyleguideTheme() . '.min.css';
+        $this->data['styleSheet'] = Styleguide::getStylePath();
     }
 }

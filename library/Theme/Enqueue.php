@@ -2,17 +2,14 @@
 
 namespace Municipio\Theme;
 
+use \Municipio\Helper\Styleguide;
+
 class Enqueue
 {
     public $defaultPrimeName = 'hbg-prime';
-    public $styleguideUri;
 
     public function __construct()
     {
-
-        //Set stylegudei url
-        add_action('init', array($this, 'init'));
-
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
         add_action('wp_enqueue_scripts', array($this, 'script'), 5);
@@ -40,29 +37,6 @@ class Enqueue
         add_filter('gform_init_scripts_footer', '__return_true');
         add_filter('gform_cdata_open', array($this, 'wrapGformCdataOpen'));
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
-    }
-
-
-    /**
-     * Set url to styleguide
-     * @return void
-     */
-    public function init()
-    {
-        $this->styleguideUri = rtrim(apply_filters('Municipio/theme/styleguide_uri', "//helsingborg-stad.github.io/styleguide-web/dist/"), '/') . '/';
-
-        if ($this->styleguideUri && !defined('MUNICIPIO_STYLEGUIDE_URI')) {
-            define('MUNICIPIO_STYLEGUIDE_URI', $this->styleguideUri);
-        }
-    }
-
-    /**
-     * Set current theme from db.
-     * @return bool
-     */
-    public static function getStyleguideTheme()
-    {
-        return apply_filters('Municipio/theme/key', get_field('color_scheme', 'option'));
     }
 
     public function wrapGformCdataOpen($content)
@@ -96,31 +70,14 @@ class Enqueue
      */
     public function style()
     {
-
         // Tell jquery dependents to wait for prime instead.
         if (!apply_filters('Municipio/load-wp-jquery', false)) {
             wp_deregister_script('jquery');
             add_action('wp_enqueue_scripts', array($this, 'waitForPrime'));
         }
 
-        //Load from local developement enviroment
-        if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-            wp_register_style($this->defaultPrimeName, '//hbgprime.dev/dist/css/hbg-prime-' . self::getStyleguideTheme() . '.dev.css', '', '1.0.0');
-
-            //BEM Stylesheet
-            wp_register_style($this->defaultPrimeName . '-bem', '//hbgprime.dev/dist/css-bem/hbg-prime-' . self::getStyleguideTheme() . '.dev.css', '', '1.0.0');
-        } else {
-            //Check for version number lock files.
-            if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-                wp_register_style($this->defaultPrimeName, $this->styleguideUri . STYLEGUIDE_VERSION . '/css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', STYLEGUIDE_VERSION);
-            } else {
-                wp_register_style($this->defaultPrimeName, $this->styleguideUri . 'css/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
-
-                //BEM Stylesheet
-                wp_register_style($this->defaultPrimeName . '-bem', $this->styleguideUri . 'css-bem/hbg-prime-' . self::getStyleguideTheme() . '.min.css', '', 'latest');
-            }
-        }
-
+        wp_register_style($this->defaultPrimeName, Styleguide::getStylePath(false));
+        wp_register_style($this->defaultPrimeName . '-bem', Styleguide::getStylePath(true));
         wp_enqueue_style($this->defaultPrimeName);
 
         $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
@@ -138,18 +95,7 @@ class Enqueue
      */
     public function script()
     {
-        //Load from local developement enviroment
-        if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-            wp_register_script($this->defaultPrimeName, '//hbgprime.dev/dist/js/hbg-prime.dev.js', '', '1.0.0', true);
-        } else {
-
-            //Check for version number lock files.
-            if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-                wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/js/hbg-prime.min.js', '', STYLEGUIDE_VERSION);
-            } else {
-                wp_register_script($this->defaultPrimeName, '//helsingborg-stad.github.io/styleguide-web/dist/js/hbg-prime.min.js', '', 'latest');
-            }
-        }
+        wp_register_script($this->defaultPrimeName, Styleguide::getScriptPath());
 
         //Localization
         wp_localize_script($this->defaultPrimeName, 'HbgPrimeArgs', array(

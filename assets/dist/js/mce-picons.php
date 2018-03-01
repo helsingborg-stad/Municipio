@@ -1,6 +1,9 @@
 <?php
-    $icons = file_get_contents('https://helsingborg-stad.github.io/styleguide-web/dist/pricons.json');
-    $icons = json_decode($icons);
+    use \Municipio\Helper\Styleguide;
+
+    $styleUri = Styleguide::getPath('css/hbg-prime-icons.min.css');
+    $iconUri = Styleguide::getPath('pricons.json');
+    $icons = json_decode(file_get_contents($iconUri));
 ?>
 <!doctype html>
 <html class="no-js" lang="sv">
@@ -11,8 +14,8 @@
 
     <title>Test</title>
 
-    <link rel="stylesheet" href="https://helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-icons.min.css">
-        
+    <link rel="stylesheet" href="<?php echo $styleUri ?>">
+
     <style>
         body {
             font-size: 16px;
