@@ -111,8 +111,25 @@ class PostFilters
             //The archive url
             $data['archiveUrl'] = $this->getArchiveSlug($postType);
 
+            $data['searchQuery'] = $this->getSearchQuery();
+
             return $data;
         });
+    }
+
+    /**
+     * Returns escaped search query
+     * @return string Search query
+     */
+    public function getSearchQuery() {
+        $searchQuery = '';
+        if (!empty(get_search_query())) {
+            $searchQuery = get_search_query();
+        } elseif (!empty($_GET['s'])) {
+            $searchQuery = esc_attr($_GET['s']);
+        }
+
+        return $searchQuery;
     }
 
     /**
@@ -311,6 +328,8 @@ class PostFilters
                 $taxQuery
             );
         }
+
+        $taxQuery = apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
 
         $query->set('tax_query', $taxQuery);
         $query->set('post_type', $this->getPostType());
