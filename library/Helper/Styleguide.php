@@ -5,7 +5,6 @@ namespace Municipio\Helper;
 class Styleguide
 {
     private static $_uri = '//helsingborg-stad.github.io/styleguide-web/dist';
-    private static $_devUri = '//hbgprime.dev/dist';
 
     /**
      * Returns true if development mode is enabled.
@@ -27,10 +26,6 @@ class Styleguide
      */
     private static function _getBaseUri()
     {
-        if (self::_isDevMode()) {
-            return self::$_devUri;
-        }
-
         if (defined('MUNICIPIO_STYLEGUIDE_URI') && MUNICIPIO_STYLEGUIDE_URI != "") {
             $uri = MUNICIPIO_STYLEGUIDE_URI;
         } else {
