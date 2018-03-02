@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin\UI;
 
+use \Municipio\Helper\Styleguide;
+
 class Editor
 {
     public function __construct()
@@ -63,16 +65,7 @@ class Editor
      */
     public function editorStyle()
     {
-        if ((defined('DEV_MODE') && DEV_MODE === true) || (isset($_GET['DEV_MODE']) && $_GET['DEV_MODE'] === 'true')) {
-            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//hbgprime.dev/dist/css/hbg-prime-' . \Municipio\Theme\Enqueue::getStyleguideTheme() . '.dev.css'));
-            return;
-        }
-
-        if (defined('STYLEGUIDE_VERSION') && STYLEGUIDE_VERSION != "") {
-            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web/dist/' . STYLEGUIDE_VERSION . '/css/hbg-prime-' . \Municipio\Theme\Enqueue::getStyleguideTheme() . '.min.css'));
-        } else {
-            add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', '//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-' . \Municipio\Theme\Enqueue::getStyleguideTheme() . '.min.css'));
-        }
+        add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', Styleguide::getStylePath()));
     }
 
     /**

@@ -33,6 +33,13 @@ Author pages is blocked by default. To "unblock" add the following constant to w
 define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 ```
 
+#### Load styleguide from a different host
+Constants for setting the base URI to the styleguide. Useful for third-party sites.
+
+```
+define('MUNICIPIO_STYLEGUIDE_URI', '//example.com/style/guide');
+```
+
 #### Load specific version of styleguide
 Constants that lock version of the styleguide. Comes in handy when you want to enshure maximum stability of a site. 
 
