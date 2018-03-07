@@ -5,7 +5,6 @@ namespace Municipio\Helper;
 class Styleguide
 {
     private static $_uri = '//helsingborg-stad.github.io/styleguide-web/dist';
-    private static $_devUri = '//hbgprime.dev/dist';
 
     /**
      * Returns true if development mode is enabled.
@@ -27,10 +26,6 @@ class Styleguide
      */
     private static function _getBaseUri()
     {
-        if (self::_isDevMode()) {
-            return self::$_devUri;
-        }
-
         if (defined('MUNICIPIO_STYLEGUIDE_URI') && MUNICIPIO_STYLEGUIDE_URI != "") {
             $uri = MUNICIPIO_STYLEGUIDE_URI;
         } else {
@@ -44,6 +39,22 @@ class Styleguide
         }
 
         return $uri;
+    }
+
+    /**
+     * Returns the currently selected color scheme.
+     *
+     * @return string
+     */
+    private static function _getTheme()
+    {
+        $theme = trim(get_field('color_scheme', 'option'));
+
+        if ($theme == '') {
+            trigger_error("Missing color scheme in theme options.");
+        }
+
+        return apply_filters('Municipio/theme/key', $theme);
     }
 
     /**
@@ -69,8 +80,7 @@ class Styleguide
     {
         $directory = $isBem ? '/css-bem' : '/css';
         $extension = self::_isDevMode() ? 'dev' : 'min';
-        $field = get_field('color_scheme', 'option');
-        $theme = apply_filters('Municipio/theme/key', $field);
+        $theme = self::_getTheme();
 
         return self::getPath("$directory/hbg-prime-$theme.$extension.css");
     }
