@@ -159,41 +159,50 @@ msgid "Link name to author archive"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-color-scheme.php:6
-#: library/AcfFields/php/options-theme-color-scheme.php:10
+#: library/AcfFields/php/options-theme-color-scheme.php:29
+#: library/AcfFields/php/options-theme-color-scheme.php:67
 msgid "Color scheme"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:22
+#: library/AcfFields/php/options-theme-color-scheme.php:10
+msgid "Custom color scheme"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:21
+msgid "Use custom color scheme"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:49
 msgid "Gray"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:23
+#: library/AcfFields/php/options-theme-color-scheme.php:50
 #: vendor/advanced-custom-fields/core/fields/radio.php:150
 msgid "Red"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:24
+#: library/AcfFields/php/options-theme-color-scheme.php:51
 #: vendor/advanced-custom-fields/core/fields/radio.php:151
 msgid "Blue"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:25
+#: library/AcfFields/php/options-theme-color-scheme.php:52
 msgid "Green"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:26
+#: library/AcfFields/php/options-theme-color-scheme.php:53
 msgid "Purple"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:27
+#: library/AcfFields/php/options-theme-color-scheme.php:54
 msgid "Familjen helsingborg"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:28
+#: library/AcfFields/php/options-theme-color-scheme.php:55
 msgid "Åstorps kommun"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-color-scheme.php:29
+#: library/AcfFields/php/options-theme-color-scheme.php:56
 msgid "Hultsfreds kommun"
 msgstr ""
 

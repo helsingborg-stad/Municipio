@@ -47,6 +47,22 @@ class Styleguide
     }
 
     /**
+     * Returns the currently selected color scheme.
+     *
+     * @return string
+     */
+    private static function _getTheme()
+    {
+        $theme = trim(get_field('color_scheme', 'option'));
+
+        if ($theme == '') {
+            trigger_error("Missing color scheme in theme options.");
+        }
+
+        return apply_filters('Municipio/theme/key', $theme);
+    }
+
+    /**
      * Returns the complete path to a file.
      *
      * @param string $path The path to append.
@@ -69,8 +85,7 @@ class Styleguide
     {
         $directory = $isBem ? '/css-bem' : '/css';
         $extension = self::_isDevMode() ? 'dev' : 'min';
-        $field = get_field('color_scheme', 'option');
-        $theme = apply_filters('Municipio/theme/key', $field);
+        $theme = self::_getTheme();
 
         return self::getPath("$directory/hbg-prime-$theme.$extension.css");
     }
