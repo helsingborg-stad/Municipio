@@ -252,8 +252,10 @@ class Archives
 
                 $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($posttype);
 
-                foreach ($metaKeysRaw as $metaKey) {
-                    $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
+                if (isset($metaKeysRaw) && is_array($metaKeysRaw) && !empty($metaKeysRaw)) {
+                    foreach ($metaKeysRaw as $metaKey) {
+                        $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
+                    }
                 }
 
                 $fieldArgs['fields'][] = array(
@@ -552,9 +554,6 @@ class Archives
                 }
 
                 // Filter position
-
-               
-                
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_84fcc953ddgyt_' . md5($posttype . '_positon'),
                     'label' => 'Filter position',
@@ -562,13 +561,6 @@ class Archives
                     'type' => 'radio',
                     'instructions' => '',
                     'required' => 0,
-                    'conditional_logic' => array(array(
-                        array(
-                            'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
-                            'operator' => '==',
-                            'value' => $taxName
-                        )
-                    )),
                     'wrapper' => array(
                         'width' => '',
                         'class' => '',
