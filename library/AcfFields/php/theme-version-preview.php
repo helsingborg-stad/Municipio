@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5aa14b41551ae',
-    'title' => __('3.0 Enabler', 'municipio'),
+    'title' => __('2.0 Enabler', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_5aa14b67f559f',
@@ -30,7 +30,7 @@ Our amibition is that all functionality should be fully functional in this mode.
         1 => array(
             'key' => 'field_5aa14c887cb26',
             'label' => __('Activate', 'municipio'),
-            'name' => 'theme_mode_3',
+            'name' => 'theme_mode_2',
             'type' => 'true_false',
             'instructions' => '',
             'required' => 0,
@@ -40,7 +40,7 @@ Our amibition is that all functionality should be fully functional in this mode.
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('Yes, enable 3.0 preview mode', 'municipio'),
+            'message' => __('Yes, enable 2.0 preview mode', 'municipio'),
             'default_value' => 0,
             'ui' => 0,
             'ui_on_text' => '',
