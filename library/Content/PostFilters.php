@@ -185,6 +185,52 @@ class PostFilters
     }
 
     /**
+     * Get filter options as list (refined getMultiTaxDropdown())
+     * @return string unordered list of terms as checkbox/radio
+     */
+    public static function getFilterOptionsByTax($tax, int $parent = 0, string $class = '')
+    {
+        $termArgs = array(
+            'hide_empty' => false,
+            'parent' => $parent
+        );
+
+        $terms = get_terms($tax->slug, $termArgs);
+
+        if (!isset($terms) || !is_array($terms) || empty($terms)) {
+            return;
+        }
+
+        $inputType = $tax->type === 'single' ? 'radio' : 'checkbox';
+
+        $html = '<ul';
+
+        if (!empty($class)) {
+            $html .= ' class="' . $class . '"';
+        }
+
+        $html .= '>';
+
+        foreach ($terms as $term) {
+            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug, $_GET['filter'][$tax->slug]));
+            $checked = checked(true, $isChecked, false);
+
+            $html .= '<li>';
+            $html .= '<input id="filter-option-'. $term->slug .'" type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '>';
+            $html .= '<label for="filter-option-'. $term->slug .'" class="checkbox">';
+            $html .= $term->name;
+            $html .= '</label>';
+
+            $html .= self::getMultiTaxDropdown($tax, $term->term_id);
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+        return $html;
+    }
+
+    /**
      * Get filterable taxonomies
      * @return array Taxonomies
      */
