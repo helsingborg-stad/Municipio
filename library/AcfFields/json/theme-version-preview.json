@@ -1,0 +1,60 @@
+[{
+    "key": "group_5aa14b41551ae",
+    "title": "3.0 Enabler",
+    "fields": [
+        {
+            "key": "field_5aa14b67f559f",
+            "label": "Were moving to BEM(IT)",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "In the upcoming months we are moving to a complete BEM style of our frontend. This is eased in and hidden by default (enable checkbox below to preview). Out main focus will be: \r\n\r\n- Enabling the use of the customizer\r\n- Introduce BEM in all views\r\n\r\nOur amibition is that all functionality should be fully functional in this mode. But i't may break existing modifications.",
+            "new_lines": "br",
+            "esc_html": 0
+        },
+        {
+            "key": "field_5aa14c887cb26",
+            "label": "Activate",
+            "name": "theme_mode_3",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Yes, enable 3.0 preview mode",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-theme-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+

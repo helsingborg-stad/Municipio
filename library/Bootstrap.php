@@ -94,7 +94,8 @@ add_action('init', function () {
         'widget-header-common'             => 'group_5a65d5e7e913b',
         'widget-header-menu'               => 'group_5a58ce68e8b61',
         'widget-header-logotype'           => 'group_5a5ca31651f08',
-        'widget-header-links'              => 'group_5a6744018083f'
+        'widget-header-links'              => 'group_5a6744018083f',
+        'theme-version-preview'            => 'group_5aa14b41551ae',
     ));
     $acfExportManager->import();
 });
