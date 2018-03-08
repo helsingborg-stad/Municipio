@@ -159,7 +159,7 @@
 .nav-accessibility li + li::before {
   display: none; }
 
-.nav-accessibility li + li {
+.nav-accessibility > li + li {
   margin-left: 20px; }
 
 .nav-accessibility a, .nav-accessibility span {
