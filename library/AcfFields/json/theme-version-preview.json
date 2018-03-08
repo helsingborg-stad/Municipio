@@ -21,9 +21,9 @@
         },
         {
             "key": "field_5aa14c887cb26",
-            "label": "Activate",
-            "name": "theme_mode_2",
-            "type": "true_false",
+            "label": "Choose theme mode",
+            "name": "theme_mode",
+            "type": "select",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -32,11 +32,19 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Yes, enable 2.0 preview mode",
-            "default_value": 0,
+            "choices": {
+                "1": "1.0",
+                "2": "2.0"
+            },
+            "default_value": [
+                1
+            ],
+            "allow_null": 0,
+            "multiple": 0,
             "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
         }
     ],
     "location": [
