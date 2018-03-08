@@ -18,7 +18,7 @@
         display: none;
     }
 
-    li + li {
+    > li + li {
         margin-left: 20px;
     }
 
