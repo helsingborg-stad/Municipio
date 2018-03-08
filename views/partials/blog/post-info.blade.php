@@ -45,4 +45,17 @@
     @endif
 
     <?php do_action('Municipio/blog/post_info', $post); ?>
+
+    @if (is_single() && is_array($settingItems) && !empty($settingItems))
+    <li>
+        <a href="#" data-dropdown=".post-settings" class="post-settings-toggle">
+            <i class="pricon pricon-menu-dots"></i>
+        </a>
+        <ul class="post-settings dropdown-menu dropdown-menu-arrow dropdown-menu-arrow-left">
+            @foreach($settingItems as $item)
+                <li>{!! $item !!}</li>
+            @endforeach
+        </ul>
+    </li>
+    @endif
 </ul>

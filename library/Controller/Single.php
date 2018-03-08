@@ -21,9 +21,10 @@ class Single extends \Municipio\Controller\BaseController
             'after'      => '',
             'max_depth'  => get_option('thread_comments_depth')
         );
+        $this->data['settingItems'] = apply_filters('Municipio/blog/post_settings', array(), $post);
         $this->data['g_recaptcha_key'] = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
 
-        if(defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && ! MUNICIPIO_BLOCK_AUTHOR_PAGES) {
+        if (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && ! MUNICIPIO_BLOCK_AUTHOR_PAGES) {
             $this->data['authorPages'] = true;
         }
     }
@@ -35,13 +36,13 @@ class Single extends \Municipio\Controller\BaseController
      */
     public static function likeButton($id)
     {
-        if(! is_user_logged_in()) {
+        if (! is_user_logged_in()) {
             return;
         }
 
-        $likes = get_comment_meta( $id, '_likes', true );
+        $likes = get_comment_meta($id, '_likes', true);
 
-        if(empty($likes) || is_array($likes) == false) {
+        if (empty($likes) || is_array($likes) == false) {
             $count = 0;
         } else {
             $count = count($likes);
@@ -49,7 +50,7 @@ class Single extends \Municipio\Controller\BaseController
 
         $classes = array('like-button');
 
-        if(is_array($likes) == true && in_array(get_current_user_id(), $likes)) {
+        if (is_array($likes) == true && in_array(get_current_user_id(), $likes)) {
             $classes[] = 'active';
         }
 
