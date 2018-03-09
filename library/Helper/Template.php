@@ -54,14 +54,20 @@ class Template
 
         $searchPaths = array_merge($defaultPaths, $additionalPaths);
 
-        foreach ($searchPaths as $path) {
-            $file = $path . '/' . str_replace('.blade.php', '', basename($template)) . '.blade.php';
+        $searchPaths = apply_filters('Municipio/blade/view_paths', $searchPaths);
 
-            if (!file_exists($file)) {
-                continue;
+        if (isset($searchPaths) && is_array($searchPaths) && !empty($searchPaths)) {
+            foreach ($searchPaths as $path) {
+                $file = $path . '/' . str_replace('.blade.php', '', basename($template)) . '.blade.php';
+
+                if (!file_exists($file)) {
+                    continue;
+                }
+
+                return $file;
             }
-
-            return $file;
+        } else {
+            error_log("Muncipio error: No template search paths defined in " . __DIR__ . __FILE__);
         }
 
         return false;

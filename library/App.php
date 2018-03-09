@@ -12,6 +12,11 @@ class App
         new \Municipio\Admin\Acf\CustomFieldTypes();
 
         /**
+         * Feature toggle
+         */
+        new \Municipio\Feature();
+
+        /**
          * Helpers
          */
         new \Municipio\Helper\GravityForm();

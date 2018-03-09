@@ -23,7 +23,9 @@ class Template
          */
         $this->VIEWS_PATHS = apply_filters('Municipio/blade/view_paths', array(
             get_stylesheet_directory() . '/views',
-            get_template_directory() . '/views'
+            get_stylesheet_directory(),
+            get_template_directory() . '/views',
+            get_template_directory()
         ));
 
         $this->VIEWS_PATHS = array_unique($this->VIEWS_PATHS);
