@@ -26,6 +26,9 @@ class Feature
 
         //Add bem-view path
         add_filter('Municipio/blade/view_paths', array($this, 'addBemViewPath'));
+
+        //Enable template version 3 for modularity
+        add_filter('Modularity/Module/TemplateVersion3', array($this, 'toogleFeatures'));
     }
 
     /**
