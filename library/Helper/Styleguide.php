@@ -78,11 +78,11 @@ class Styleguide
      */
     public static function getStylePath($isBem = false)
     {
-        $directory = $isBem ? '/css-bem' : '/css';
+        $directory = $isBem ? 'css-bem' : 'css';
         $extension = self::_isDevMode() ? 'dev' : 'min';
         $theme = self::_getTheme();
 
-        return self::getPath("$directory/hbg-prime-$theme.$extension.css");
+        return self::getPath($directory . "/". "hbg-prime-" . $theme . "." . $extension . ".css");
     }
 
     /**
