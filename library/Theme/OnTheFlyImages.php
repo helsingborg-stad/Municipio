@@ -93,7 +93,8 @@ class OnTheFlyImages
         return "{$upload_url}{$rel_path}.{$ext}";
     }
 
-    /* Upscale images when thhey are to small
+    /* Upscale images when they are to small
+     * Fixes issues where images get skewed due to forced ratio
      *
      * @param  int     $orig_w        Original width
      * @param  int     $orig_h        Original height
