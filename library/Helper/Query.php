@@ -14,11 +14,11 @@ class Query
 
         $data = array();
 
-        $data['postType'] = $wp_query->query['post_type'];
-        $data['postCount'] = $wp_query->post_count;
-        $data['postTotal'] = $wp_query->found_posts;
+        $data['postType'] = (isset($wp_query->query['post_type'])) ? $wp_query->query['post_type'] : '';
+        $data['postCount'] = (isset($wp_query->post_count)) ? $wp_query->post_count : '';
+        $data['postTotal'] = (isset($wp_query->found_posts) ? $wp_query->found_posts : '');
         $data['pageIndex'] = ($wp_query->query['paged']) ? intval($wp_query->query['paged']) : 1;
-        $data['pageTotal'] = $wp_query->max_num_pages;
+        $data['pageTotal'] = (isset($wp_query->max_num_pages)) ? $wp_query->max_num_pages : '';
 
         return $data;
     }
