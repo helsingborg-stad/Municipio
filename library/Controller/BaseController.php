@@ -24,6 +24,7 @@ class BaseController
         //Main
         $this->getGeneral();
         $this->getAjaxUrl();
+        $this->getBodyClass();
 
         $this->getFooterLayout();
         $this->getNavigationMenus();
@@ -49,6 +50,11 @@ class BaseController
     public function getAjaxUrl()
     {
         $this->data['ajaxUrl'] = apply_filters('Municipio/ajax_url_in_head', admin_url('admin-ajax.php'));
+    }
+
+    public function getBodyClass()
+    {
+        $this->data['bodyClass'] = join(' ', get_body_class('no-js'));
     }
 
     /**

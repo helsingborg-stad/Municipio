@@ -15,13 +15,12 @@
     <meta name="format-detection" content="telephone=yes">
     <meta name="HandheldFriendly" content="true" />
 
-    <script>
-        var ajaxurl = '{!! $ajaxUrl !!}';
-    </script>
+    <script> var ajaxurl = '{!! $ajaxUrl !!}';</script>
 
     {!! wp_head() !!}
+
 </head>
-<body {!! body_class('no-js') !!}>
+<body class="{{ $bodyClass }}">
 
     <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1"><?php _e('Jump to the main menu', 'municipio'); ?></a>
     <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2"><?php _e('Jump to the main content', 'municipio'); ?></a>
