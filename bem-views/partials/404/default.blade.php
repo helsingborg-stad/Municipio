@@ -52,8 +52,8 @@
                                 <li>
                                     <div class="search-result-item">
                                         <span class="search-result-date">{{ date(get_option('date_format'), strtotime($item->post_date)) }}</span>
-                                        <h3><a href="#" class="link-item">{{ $item->post_title }}</a></h3>
-                                        <p>{{ wp_trim_excerpt(get_the_excerpt($item)) }}</p>
+                                        <h3><a href="{{ get_permalink($item->ID) }}" class="link-item">{{ $item->post_title }}</a></h3>
+                                        <p>{{ wp_trim_words(wp_strip_all_tags($item->post_content, 55, ""), true) }}</p>
                                         <div class="search-result-info">
                                             <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ get_permalink($item->ID) }}">{{ get_permalink($item->ID) }}</a></span>
                                         </div>
