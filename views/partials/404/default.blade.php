@@ -38,20 +38,31 @@
             </ul>
 
             @if(is_array($related) && !empty($related))
-                <ul class="search-result-list">
-                    @foreach($related as $item)
-                        <li>
-                            <div class="search-result-item">
-                                <span class="search-result-date">{{ date(get_option('date_format'), strtotime($item->post_date)) }}</span>
-                                <h3><a href="#" class="link-item">{{ $item->post_title }}</a></h3>
-                                <p>{{ wp_trim_excerpt(get_the_excerpt($item)) }}</p>
-                                <div class="search-result-info">
-                                    <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ get_permalink($item->ID) }}">{{ get_permalink($item->ID) }}</a></span>
-                                </div>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
+
+                <div class="grid">
+                    <div class="grid-xs-12">
+                         <h3><?php _e("We made a search for you, maybe you were looking for...", 'municipio'); ?></h3>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="grid-xs-12">
+                        <ul class="search-result-list">
+                            @foreach($related as $item)
+                                <li>
+                                    <div class="search-result-item">
+                                        <span class="search-result-date">{{ date(get_option('date_format'), strtotime($item->post_date)) }}</span>
+                                        <h3><a href="#" class="link-item">{{ $item->post_title }}</a></h3>
+                                        <p>{{ wp_trim_excerpt(get_the_excerpt($item)) }}</p>
+                                        <div class="search-result-info">
+                                            <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ get_permalink($item->ID) }}">{{ get_permalink($item->ID) }}</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             @endif
 
         </div>

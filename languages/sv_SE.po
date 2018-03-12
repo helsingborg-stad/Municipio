@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-02-26 16:03+0100\n"
-"PO-Revision-Date: 2018-02-26 16:12+0100\n"
+"POT-Creation-Date: 2018-03-12 14:43+0100\n"
+"PO-Revision-Date: 2018-03-12 14:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -19,6 +19,24 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: bem-views/layout/master.blade.php:26 views/templates/master.blade.php:54
+msgid "Jump to the main menu"
+msgstr "Hoppa till huvudmenyn"
+
+#: bem-views/layout/master.blade.php:27 views/templates/master.blade.php:55
+msgid "Jump to the main content"
+msgstr "Hoppa till innehåll"
+
+#: bem-views/partials/404/default.blade.php:18
+#: views/partials/404/default.blade.php:18
+msgid "Error 404"
+msgstr "Felinformation"
+
+#: bem-views/partials/404/default.blade.php:44
+#: views/partials/404/default.blade.php:44
+msgid "We made a search for you, maybe you were looking for..."
+msgstr "Vi gjorde en sökning på webbplatsen till dig, kanske letade du efter:"
 
 #: library/AcfFields/php/options-page-display.php:10
 msgid "Show featured image in single template"
@@ -1323,6 +1341,39 @@ msgstr "Alla"
 msgid "Only active level's subitems"
 msgstr "Bara aktiva sidans undersidor"
 
+#: library/AcfFields/php/theme-version-preview.php:6
+msgid "2.0 Enabler"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:10
+msgid "Were moving to BEM(IT)"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:21
+msgid ""
+"In the upcoming months we are moving to a complete BEM style of our "
+"frontend. This is eased in and hidden by default (enable checkbox below to "
+"preview). Out main focus will be: \r\n"
+"\r\n"
+"- Enabling the use of the customizer\r\n"
+"- Introduce BEM in all views\r\n"
+"\r\n"
+"Our amibition is that all functionality should be fully functional in this "
+"mode. But i't may break existing modifications."
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:32
+msgid "Choose theme mode"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:44
+msgid "1.0"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:45
+msgid "2.0"
+msgstr ""
+
 #: library/AcfFields/php/user-author-image.php:20
 msgid "Profile picture"
 msgstr "Profilbild"
@@ -1761,21 +1812,21 @@ msgstr ""
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
-#: library/Template.php:49
+#: library/Template.php:51
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:85
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:86
 msgid "Page"
 msgstr "Sida"
 
-#: library/Template.php:53
+#: library/Template.php:55
 msgid "Front page"
 msgstr "Startsida"
 
-#: library/Template.php:132
+#: library/Template.php:134
 msgid "Admin notice"
 msgstr "Administratörsnotis"
 
-#: library/Template.php:132
+#: library/Template.php:134
 #, php-format
 msgid "View [%s] was not found. Defaulting to [page.blade.php]."
 msgstr "Mallen [%s] hittades inte. Använder [page.blade.php] istället."
@@ -1807,11 +1858,11 @@ msgstr "Fullbredd"
 msgid "One page (no article)"
 msgstr "Fullbredd (utan artikel)"
 
-#: library/Theme/Enqueue.php:177
+#: library/Theme/Enqueue.php:123
 msgid "No matching content found…"
 msgstr "Inga matchande filter hittades…"
 
-#: library/Theme/Enqueue.php:185
+#: library/Theme/Enqueue.php:131
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -5100,10 +5151,6 @@ msgstr "Inga inlägg att visa"
 msgid "Posts by"
 msgstr "Inlägg av"
 
-#: views/partials/404/default.blade.php:18
-msgid "Error 404"
-msgstr "Felinformation"
-
 #: views/partials/404/event.blade.php:5 views/partials/404/ticket.blade.php:5
 msgid "The ticket could not be found"
 msgstr "Ärendet kunde inte hittas"
@@ -5229,14 +5276,6 @@ msgstr "Pris"
 #: views/single-listing.blade.php:61
 msgid "Attached files"
 msgstr "Bifogade filer"
-
-#: views/templates/master.blade.php:54
-msgid "Jump to the main menu"
-msgstr "Hoppa till huvudmenyn"
-
-#: views/templates/master.blade.php:55
-msgid "Jump to the main content"
-msgstr "Hoppa till innehåll"
 
 #. Theme Name of the plugin/theme
 msgid "Municipio"
