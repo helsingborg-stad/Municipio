@@ -25,13 +25,16 @@ class E404 extends \Municipio\Controller\BaseController
 
         //Get archive link to view
         $this->getRequestedPostTypeArchivePermalink();
+
+        //Get related posts
+        $this->data['related'] = $this->getRelatedPosts(3, $searchKeyword);
+
     }
 
     /**
      * Allcolates $post_type with current post type
      * @return  string / null
      */
-
     public function getRequestedPostType()
     {
         if (!is_a($this->query, 'WP_Query')) {
@@ -43,14 +46,12 @@ class E404 extends \Municipio\Controller\BaseController
         } else {
             return $this->data['post_type'] = null;
         }
-
     }
 
     /**
      * Allcolates $post_type_permalink with link to archive
      * @return void
      */
-
     public function getRequestedPostTypeArchivePermalink()
     {
         $requested_post_type = $this->getRequestedPostType();
@@ -62,5 +63,32 @@ class E404 extends \Municipio\Controller\BaseController
         }
 
         return;
+    }
+
+    /**
+     * Recommended pages (search)
+     * @param integer $numberOfPosts Number of posts to return
+     * @return Wp_post / false
+     */
+    public function getRelatedPosts($numberOfPosts = 3, $keyword = "")
+    {
+        //Google has a pay-per-search (do not waste them)
+        if (get_field('use_google_search', 'options')) {
+            return false;
+        }
+
+        //Search for pages containing words of the removed post
+        $query = new \WP_Query(array(
+            's' => $keyword,
+            'post_type' => get_post_types(array('public' => true)),
+            'posts_per_page' => $numberOfPosts,
+        ));
+
+        //Return if not null
+        if (isset($query) && isset($query->posts) && !empty($query->posts)) {
+            return $query->posts;
+        }
+
+        return false;
     }
 }
