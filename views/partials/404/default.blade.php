@@ -44,7 +44,7 @@
                             <div class="search-result-item">
                                 <span class="search-result-date">{{ date(get_option('date_format'), strtotime($item->post_date)) }}</span>
                                 <h3><a href="#" class="link-item">{{ $item->post_title }}</a></h3>
-                                <p>{{ wp_trim_excerpt($item->post_content) }}</p>
+                                <p>{{ wp_trim_excerpt(get_the_excerpt($item)) }}</p>
                                 <div class="search-result-info">
                                     <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ get_permalink($item->ID) }}">{{ get_permalink($item->ID) }}</a></span>
                                 </div>
