@@ -25,6 +25,7 @@ class BaseController
         $this->getGeneral();
         $this->getAjaxUrl();
         $this->getBodyClass();
+        $this->getLanguageAttributes();
 
         $this->getFooterLayout();
         $this->getNavigationMenus();
@@ -40,11 +41,11 @@ class BaseController
     {
         //General blog details / title
         $this->data['wpTitle'] = apply_filters('Municipio/pageTitle', wp_title('|', false, 'right') . get_bloginfo('name'));
-        $this->data['description'] = bloginfo('description');
+        $this->data['description'] = get_bloginfo('description');
 
         //Timestamps for post
-        $this->data['published'] = the_time('Y-m-d');
-        $this->data['modified'] = the_modified_time('Y-m-d');
+        $this->data['published'] = get_the_time('Y-m-d');
+        $this->data['modified'] = get_the_modified_time('Y-m-d');
     }
 
     public function getAjaxUrl()
@@ -55,6 +56,11 @@ class BaseController
     public function getBodyClass()
     {
         $this->data['bodyClass'] = join(' ', get_body_class('no-js'));
+    }
+
+    public function getLanguageAttributes()
+    {
+        $this->data['languageAttributes'] = get_language_attributes();
     }
 
     /**
