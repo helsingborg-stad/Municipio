@@ -15,12 +15,15 @@ class BaseController
         $customizer = apply_filters('Municipio/Controller/BaseController/Customizer', false);
 
         if ($customizer) {
-             $this->customizerHeader();
-
+            $this->customizerHeader();
         } else {
             $this->getLogotype();
             $this->getHeaderLayout();
         }
+
+        //Main
+        $this->getGeneral();
+        $this->getAjaxUrl();
 
         $this->getFooterLayout();
         $this->getNavigationMenus();
@@ -30,6 +33,22 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+    }
+
+    public function getGeneral()
+    {
+        //General blog details / title
+        $this->data['wpTitle'] = apply_filters('Municipio/pageTitle', wp_title('|', false, 'right') . get_bloginfo('name'));
+        $this->data['description'] = bloginfo('description');
+
+        //Timestamps for post
+        $this->data['published'] = the_time('Y-m-d');
+        $this->data['modified'] = the_modified_time('Y-m-d');
+    }
+
+    public function getAjaxUrl()
+    {
+        $this->data['ajaxUrl'] = apply_filters('Municipio/ajax_url_in_head', admin_url('admin-ajax.php'));
     }
 
     /**

@@ -4,11 +4,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
     <meta charset="utf-8">
 
-    <title><?php echo apply_filters('Municipio/pageTitle', wp_title('|', false, 'right') . get_bloginfo('name')); ?></title>
+    <title>{{$wpTitle}}</title>
 
-    <meta name="description" content="{{ bloginfo('description') }}" />
-    <meta name="pubdate" content="{{ the_time('Y-m-d') }}">
-    <meta name="moddate" content="{{ the_modified_time('Y-m-d') }}">
+    <meta name="description" content="{{ $description }}" />
+    <meta name="pubdate" content="{{ $published }}">
+    <meta name="moddate" content="{{ $modified }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,7 +16,7 @@
     <meta name="HandheldFriendly" content="true" />
 
     <script>
-        var ajaxurl = '{!! apply_filters('Municipio/ajax_url_in_head', admin_url('admin-ajax.php')) !!}';
+        var ajaxurl = '{!! $ajaxUrl !!}';
     </script>
 
     {!! wp_head() !!}
