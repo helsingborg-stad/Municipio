@@ -108,7 +108,7 @@ if (function_exists('get_field')) {
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {
         add_action('admin_notices', function () {
-            echo '<div class="notice notice-error"><p>To get the full expirience of the <strong>Municpio</strong> theme, please activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields Pro plugin</a>.</p></div>';
+            echo '<div class="notice notice-error"><p>To get the full expirience of the <strong>Municpio</strong> theme, please activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields Pro</a> plugin.</p></div>';
         });
     }
 }
