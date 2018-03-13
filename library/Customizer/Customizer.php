@@ -29,5 +29,6 @@ class Customizer
     public function init()
     {
         new \Municipio\Customizer\Header();
+        new \Municipio\Customizer\Footer();
     }
 }

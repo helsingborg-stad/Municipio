@@ -2,9 +2,9 @@
 
 namespace Municipio\Customizer;
 
-class Header
+class Footer
 {
-    const PANEL_ID = 'panel_header';
+    const PANEL_ID = 'panel_footer';
 
     public $avalibleAreas = array();
     public $enabledAreas = array();
@@ -13,28 +13,28 @@ class Header
     {
         add_action('widgets_init', array($this, 'registerWidgetAreas'));
         add_filter('customizer_widgets_section_args', array($this, 'moveWidgetAreas'), 10, 3);
-        add_filter('Municipio/Theme/CustomizerHeader/headerClasses', array($this, 'appendHeaderVisibility'), 10, 2);
+        add_filter('Municipio/Theme/CustomizerFooter/footerClasses', array($this, 'appendFooterVisibility'), 10, 2);
 
         $this->customizerPanels();
         $this->widgetAreas();
         $this->widgetSettings();
-        $this->headerFields();
+        $this->footerFields();
     }
 
-    public function appendHeaderVisibility($classes, $header)
+    public function appendFooterVisibility($classes, $footer)
     {
-        if (is_array(get_theme_mod($header['id'] . '-header-visibility')) && !empty(get_theme_mod($header['id'] . '-header-visibility'))) {
-            $classes = array_merge($classes, get_theme_mod($header['id'] . '-header-visibility'));
+        if (is_array(get_theme_mod($footer['id'] . '-footer-visibility')) && !empty(get_theme_mod($footer['id'] . '-footer-visibility'))) {
+            $classes = array_merge($classes, get_theme_mod($footer['id'] . '-footer-visibility'));
         }
 
         return $classes;
     }
 
     /**
-     * Get active headers
+     * Get active footers
      * @return array | boolean
      */
-    public static function enabledHeaders()
+    public static function enabledFooters()
     {
         $activeAreas = self::enabledWidgets();
 
@@ -55,7 +55,7 @@ class Header
         return false;
     }
 
-    public static function avalibleHeaders()
+    public static function avaliblefooters()
     {
         $enabledWidgets = self::enabledWidgets();
 
@@ -63,19 +63,19 @@ class Header
             return false;
         }
 
-        $headers = array();
+        $footers = array();
 
         foreach ($enabledWidgets as $widgetArea) {
-            $headers[$widgetArea['position']]['items'][] = $widgetArea;
-            $headers[$widgetArea['position']]['classes'] = array();
+            $footers[$widgetArea['position']]['items'][] = $widgetArea;
+            $footers[$widgetArea['position']]['classes'] = array();
         }
 
-        $headers = apply_filters('Municipio/Customizer/Header/avalibleHeaders', $headers);
+        $footers = apply_filters('Municipio/Customizer/footer/avaliblefooters', $footers);
 
-        return $headers;
+        return $footers;
     }
 
-    public function headerVisibility($header)
+    public function footerVisibility($footer)
     {
         $options = array(
             'hidden-xs' => 'Hide XS',
@@ -95,34 +95,34 @@ class Header
             )
         );
 
-        $default = (isset($default[$header])) ? $default[$header] : array();
+        $default = (isset($default[$footer])) ? $default[$footer] : array();
 
         \Kirki::add_field('municipio_config', array(
             'type'        => 'multicheck',
-            'settings'    => $header . '-header-visibility',
+            'settings'    => $footer . '-footer-visibility',
             'label'       => esc_attr__('Visibility settings', 'municipio'),
-            'section'     => 'header_' . $header,
+            'section'     => 'footer_' . $footer,
             'default'     => $default,
             'priority'    => 10,
             'choices'     => $options,
         ));
     }
 
-    public function headerLinkColor($header)
+    public function footerLinkColor($footer)
     {
         $colors = array(
             '#000000',
             '#ffffff'
         );
 
-        $default = self::defaultHeaderColors();
-        $default = (isset($default[$header]['link'])) ? $default[$header]['link'] : '#000000';
+        $default = self::defaultfooterColors();
+        $default = (isset($default[$footer]['link'])) ? $default[$footer]['link'] : '#000000';
 
         \Kirki::add_field('municipio_config', array(
             'type'        => 'color-palette',
-            'settings'    => $header . '-header-link-color',
-            'label'       => esc_attr__(ucfirst($header) . ' header link color', 'municipio'),
-            'section'     => 'header_' . $header,
+            'settings'    => $footer . '-footer-link-color',
+            'label'       => esc_attr__(ucfirst($footer) . ' footer link color', 'municipio'),
+            'section'     => 'footer_' . $footer,
             'default'     => $default,
             'choices'     => array(
                 'colors' => $colors,
@@ -130,25 +130,25 @@ class Header
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer.c-header--' . $header . ' a, .c-header--customizer.c-header--' . $header,
+                    'element' => '.c-footer--customizer.c-footer--' . $footer . ' a, .c-footer--customizer.c-footer--' . $footer,
                     'property' => 'color'
                 )
             )
         ));
     }
 
-    public function headerBackground($header)
+    public function footerBackground($footer)
     {
         $colors = array_merge((array) \Municipio\Helper\Colors::themeColors(), (array) \Municipio\Helper\Colors::neturalColors());
-        $default = self::defaultHeaderColors();
+        $default = self::defaultfooterColors();
 
-        $default = (isset($default[$header]['background'])) ? $default[$header]['background'] : '#000000';
+        $default = (isset($default[$footer]['background'])) ? $default[$footer]['background'] : '#000000';
 
         \Kirki::add_field('municipio_config', array(
             'type'        => 'color-palette',
-            'settings'    => $header . '-header-background',
-            'label'       => esc_attr__(ucfirst($header) . ' header background', 'municipio'),
-            'section'     => 'header_' . $header,
+            'settings'    => $footer . '-footer-background',
+            'label'       => esc_attr__(ucfirst($footer) . ' footer background', 'municipio'),
+            'section'     => 'footer_' . $footer,
             'default'     => $default,
             'choices'     => array(
                 'colors' => $colors,
@@ -156,14 +156,14 @@ class Header
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer.c-header--' . $header,
+                    'element' => '.c-footer--customizer.c-footer--' . $footer,
                     'property' => 'background-color'
                 )
             )
         ));
     }
 
-    public static function defaultHeaderColors()
+    public static function defaultfooterColors()
     {
         $themeColors = \Municipio\Helper\Colors::themeColors();
 
@@ -188,31 +188,31 @@ class Header
     }
 
     /**
-     * Setup section for each active header
+     * Setup section for each active footer
      * @return void
      */
-    public function headerSection($header)
+    public function footerSection($footer)
     {
-        \Kirki::add_section('header_' . $header, array(
-            'title'          => esc_attr__(ucfirst($header) . ' header', 'municipio'),
+        \Kirki::add_section('footer_' . $footer, array(
+            'title'          => esc_attr__(ucfirst($footer) . ' footer', 'municipio'),
             'panel'          => self::PANEL_ID,
-            'priority'       => 20,
+            'priority'       => 30,
         ));
     }
 
-    public function headerFields()
+    public function footerFields()
     {
-        $headers = self::enabledHeaders();
+        $footers = self::enabledFooters();
 
-        if (!is_array($headers) || empty($headers)) {
+        if (!is_array($footers) || empty($footers)) {
             return;
         }
 
-        foreach ($headers as $header) {
-            $this->headerSection($header);
-            $this->headerBackground($header);
-            $this->headerLinkColor($header);
-            $this->headerVisibility($header);
+        foreach ($footers as $footer) {
+            $this->footerSection($footer);
+            $this->footerBackground($footer);
+            $this->footerLinkColor($footer);
+            $this->footerVisibility($footer);
         }
     }
 
@@ -223,7 +223,7 @@ class Header
     public function registerWidgetAreas()
     {
         $avalibleAreas = self::avalibleWidgets();
-        $enabledAreas = get_theme_mod('active_header_widgets');
+        $enabledAreas = get_theme_mod('active_footer_widgets');
 
         if (!is_array($avalibleAreas) || empty($avalibleAreas) || !is_array($enabledAreas) || empty($enabledAreas)) {
             return;
@@ -255,13 +255,13 @@ class Header
     }
 
     /**
-     * Move activaed widget areas to header widgets panel in customizer
+     * Move activaed widget areas to footer widgets panel in customizer
      * @return void
      */
     public function moveWidgetAreas($section_args, $section_id, $sidebar_id)
     {
-        if (get_theme_mod('active_header_widgets') && is_array(get_theme_mod('active_header_widgets')) && in_array($sidebar_id, get_theme_mod('active_header_widgets'))) {
-            $section_args['panel'] = 'panel_header_widgets';
+        if (get_theme_mod('active_footer_widgets') && is_array(get_theme_mod('active_footer_widgets')) && in_array($sidebar_id, get_theme_mod('active_footer_widgets'))) {
+            $section_args['panel'] = 'panel_footer_widgets';
         }
 
         return $section_args;
@@ -273,7 +273,7 @@ class Header
             return;
         }
 
-        \Kirki::add_section('header_widget_settings', array(
+        \Kirki::add_section('footer_widget_settings', array(
             'title'          => esc_attr__('Widget settings', 'municipio'),
             'panel'          => self::PANEL_ID,
             'priority'       => 100,
@@ -286,17 +286,17 @@ class Header
         }
 
         $defaults = array(
-            'primary-header-left',
-            'primary-header-right'
+            'primary-footer-left',
+            'primary-footer-right'
         );
 
-        $defaults = apply_filters('Municipio/Customizer/Header/WidgetSettings/Defaults', $defaults);
+        $defaults = apply_filters('Municipio/Customizer/Footer/WidgetSettings/Defaults', $defaults);
 
         \Kirki::add_field('municipio_config', array(
             'type'        => 'multicheck',
-            'settings'    => 'active_header_widgets',
+            'settings'    => 'active_footer_widgets',
             'label'       => esc_attr__('Widget settings', 'municipio'),
-            'section'     => 'header_widget_settings',
+            'section'     => 'footer_widget_settings',
             'default'     => $defaults,
             'priority'    => 10,
             'choices'     => $options,
@@ -317,14 +317,14 @@ class Header
     {
         \Kirki::add_panel(self::PANEL_ID, array(
             'priority'    => 80,
-            'title'       => esc_attr__('Header', 'municipio'),
-            'description' => esc_attr__('Header settings', 'municipio'),
+            'title'       => esc_attr__('footer', 'municipio'),
+            'description' => esc_attr__('footer settings', 'municipio'),
         ));
 
-        \Kirki::add_panel('panel_header_widgets', array(
+        \Kirki::add_panel('panel_footer_widgets', array(
             'priority'    => 80,
-            'title'       => esc_attr__('Header widgets', 'municipio'),
-            'description' => esc_attr__('Header settings', 'municipio'),
+            'title'       => esc_attr__('footer widgets', 'municipio'),
+            'description' => esc_attr__('footer settings', 'municipio'),
         ));
     }
 
@@ -335,18 +335,18 @@ class Header
      */
     public static function enabledWidgets($mapped = true)
     {
-        if (!is_array(get_theme_mod('active_header_widgets')) || empty(get_theme_mod('active_header_widgets') || !is_array(self::avalibleWidgets()) || empty(self::avalibleWidgets()))) {
+        if (!is_array(get_theme_mod('active_footer_widgets')) || empty(get_theme_mod('active_footer_widgets') || !is_array(self::avalibleWidgets()) || empty(self::avalibleWidgets()))) {
             return false;
         }
 
         if (!$mapped) {
-            return get_theme_mod('active_header_widgets');
+            return get_theme_mod('active_footer_widgets');
         }
 
         $widgets = array();
 
         foreach (self::avalibleWidgets() as $widgetArea) {
-            if (in_array($widgetArea['id'], get_theme_mod('active_header_widgets'))) {
+            if (in_array($widgetArea['id'], get_theme_mod('active_footer_widgets'))) {
                 $widgets[] = $widgetArea;
             }
         }
@@ -366,70 +366,70 @@ class Header
     {
         $avalibleWidgets = array(
             [
-                'id'            => 'top-header-left',
-                'name'          => 'Top header left',
-                'description'   => 'Header widget area',
+                'id'            => 'top-footer-left',
+                'name'          => 'Top footer left',
+                'description'   => 'Footer widget area',
                 'position'      => 'top',
                 'alignment'     => 'left'
             ],
             [
-                'id'            => 'top-header-center',
-                'name'          => 'Top header center',
-                'description'   => 'Header widget area',
+                'id'            => 'top-footer-center',
+                'name'          => 'Top footer center',
+                'description'   => 'Footer widget area',
                 'position'      => 'top',
                 'alignment'     => 'center'
             ],
             [
-                'id'            => 'top-header-right',
-                'name'          => 'Top header right',
-                'description'   => 'Header widget area',
+                'id'            => 'top-footer-right',
+                'name'          => 'Top footer right',
+                'description'   => 'Footer widget area',
                 'position'      => 'top',
                 'alignment'     => 'right'
             ],
             [
-                'id'            => 'primary-header-left',
-                'name'          => 'Primary header left',
-                'description'   => 'Header widget area',
+                'id'            => 'primary-footer-left',
+                'name'          => 'Primary footer left',
+                'description'   => 'Footer widget area',
                 'position'      => 'primary',
                 'alignment'     => 'left'
             ],
             [
-                'id'            => 'primary-header-center',
-                'name'          => 'Primary header center',
-                'description'   => 'Header widget area',
+                'id'            => 'primary-footer-center',
+                'name'          => 'Primary footer center',
+                'description'   => 'Footer widget area',
                 'position'      => 'primary',
                 'alignment'     => 'center'
             ],
             [
-                'id'            => 'primary-header-right',
-                'name'          => 'Primary header right',
-                'description'   => 'Header widget area',
+                'id'            => 'primary-footer-right',
+                'name'          => 'Primary footer right',
+                'description'   => 'Footer widget area',
                 'position'      => 'primary',
                 'alignment'     => 'right'
             ],
             [
-                'id'            => 'bottom-header-left',
-                'name'          => 'Bottom header left',
-                'description'   => 'Header widget area',
+                'id'            => 'bottom-footer-left',
+                'name'          => 'Bottom footer left',
+                'description'   => 'Footer widget area',
                 'position'      => 'bottom',
                 'alignment'     => 'left'
             ],
             [
-                'id'            => 'bottom-header-center',
-                'name'          => 'Bottom header center',
-                'description'   => 'Header widget area',
+                'id'            => 'bottom-footer-center',
+                'name'          => 'Bottom footer center',
+                'description'   => 'Footer widget area',
                 'position'      => 'bottom',
                 'alignment'     => 'center'
             ],
             [
-                'id'            => 'bottom-header-right',
-                'name'          => 'Bottom header right',
-                'description'   => 'Header widget area',
+                'id'            => 'bottom-footer-right',
+                'name'          => 'Bottom footer right',
+                'description'   => 'Footer widget area',
                 'position'      => 'bottom',
                 'alignment'     => 'right'
             ]
         );
 
-        return apply_filters('Municipio/Customizer/Header/Widgets/avalibleWidgets', $avalibleWidgets);
+        return apply_filters('Municipio/Customizer/Footer/Widgets/avalibleWidgets', $avalibleWidgets);
     }
 }
