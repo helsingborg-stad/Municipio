@@ -65,7 +65,6 @@ class Html
         return;
     }
 
-
     /**
      * Strip tags & attributes from String
      * @param string $content String to get HTML attributes from
@@ -73,7 +72,6 @@ class Html
      */
     public static function stripTagsAndAtts($content, $allowedTags = '', $allowedAtts = '')
     {
-
         if (isset($allowedTags) && is_array($allowedTags)) {
             $content = strip_tags($content, implode($allowedTags));
         } else {
@@ -94,7 +92,6 @@ class Html
                 $content = str_replace($att, "", $content);
             }
         }
-
 
         return $content;
     }
