@@ -4,7 +4,7 @@ namespace Municipio\Customizer;
 
 class Footer
 {
-    const PANEL_ID = 'panel_footer';
+    private static $panelID = 'panel_footer';
 
     public $avalibleAreas = array();
     public $enabledAreas = array();
@@ -195,7 +195,7 @@ class Footer
     {
         \Kirki::add_section('footer_' . $footer, array(
             'title'          => esc_attr__(ucfirst($footer) . ' footer', 'municipio'),
-            'panel'          => self::PANEL_ID,
+            'panel'          => self::$panelID,
             'priority'       => 30,
         ));
     }
@@ -245,7 +245,7 @@ class Footer
             register_sidebar(array(
                 'id'            => $area['id'],
                 'name'          => __($area['name'], 'municipio'),
-                'description'   => __('Sidebar that sits just before the footer, takes up 100% of the widht.', 'municipio'),
+                'description'   => __('Sidebar that sits in the footer, takes up 100% of the widht.', 'municipio'),
                 'before_widget' => '<div class="%2$s">',
                 'after_widget'  => '</div>',
                 'before_title'  => '<h3>',
@@ -275,7 +275,7 @@ class Footer
 
         \Kirki::add_section('footer_widget_settings', array(
             'title'          => esc_attr__('Widget settings', 'municipio'),
-            'panel'          => self::PANEL_ID,
+            'panel'          => self::$panelID,
             'priority'       => 100,
         ));
 
@@ -295,7 +295,7 @@ class Footer
         \Kirki::add_field('municipio_config', array(
             'type'        => 'multicheck',
             'settings'    => 'active_footer_widgets',
-            'label'       => esc_attr__('Widget settings', 'municipio'),
+            'label'       => esc_attr__('Footer widget settings', 'municipio'),
             'section'     => 'footer_widget_settings',
             'default'     => $defaults,
             'priority'    => 10,
@@ -315,16 +315,16 @@ class Footer
      */
     public function customizerPanels()
     {
-        \Kirki::add_panel(self::PANEL_ID, array(
+        \Kirki::add_panel(self::$panelID, array(
             'priority'    => 80,
-            'title'       => esc_attr__('footer', 'municipio'),
-            'description' => esc_attr__('footer settings', 'municipio'),
+            'title'       => esc_attr__('Footer', 'municipio'),
+            'description' => esc_attr__('Footer settings', 'municipio'),
         ));
 
         \Kirki::add_panel('panel_footer_widgets', array(
             'priority'    => 80,
-            'title'       => esc_attr__('footer widgets', 'municipio'),
-            'description' => esc_attr__('footer settings', 'municipio'),
+            'title'       => esc_attr__('Footer widgets', 'municipio'),
+            'description' => esc_attr__('Footer settings', 'municipio'),
         ));
     }
 

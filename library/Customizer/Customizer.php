@@ -14,7 +14,12 @@ class Customizer
 
     public function kirkiConfig($config)
     {
+        if (!is_array($config)) {
+            $config = array();
+        }
+
         $config['url_path'] = get_template_directory_uri() . '/vendor/aristath/kirki/';
+
         return $config;
     }
 

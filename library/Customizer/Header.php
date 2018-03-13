@@ -4,7 +4,7 @@ namespace Municipio\Customizer;
 
 class Header
 {
-    const PANEL_ID = 'panel_header';
+    private static $panelID = 'panel_header';
 
     public $avalibleAreas = array();
     public $enabledAreas = array();
@@ -195,7 +195,7 @@ class Header
     {
         \Kirki::add_section('header_' . $header, array(
             'title'          => esc_attr__(ucfirst($header) . ' header', 'municipio'),
-            'panel'          => self::PANEL_ID,
+            'panel'          => self::$panelID,
             'priority'       => 20,
         ));
     }
@@ -245,7 +245,7 @@ class Header
             register_sidebar(array(
                 'id'            => $area['id'],
                 'name'          => __($area['name'], 'municipio'),
-                'description'   => __('Sidebar that sits just before the footer, takes up 100% of the widht.', 'municipio'),
+                'description'   => __('Sidebar that sits in the header, takes up 100% of the widht.', 'municipio'),
                 'before_widget' => '<div class="%2$s">',
                 'after_widget'  => '</div>',
                 'before_title'  => '<h3>',
@@ -274,8 +274,8 @@ class Header
         }
 
         \Kirki::add_section('header_widget_settings', array(
-            'title'          => esc_attr__('Widget settings', 'municipio'),
-            'panel'          => self::PANEL_ID,
+            'title'          => esc_attr__('Header widget settings', 'municipio'),
+            'panel'          => self::$panelID,
             'priority'       => 100,
         ));
 
@@ -315,7 +315,7 @@ class Header
      */
     public function customizerPanels()
     {
-        \Kirki::add_panel(self::PANEL_ID, array(
+        \Kirki::add_panel(self::$panelID, array(
             'priority'    => 80,
             'title'       => esc_attr__('Header', 'municipio'),
             'description' => esc_attr__('Header settings', 'municipio'),
