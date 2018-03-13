@@ -41,10 +41,6 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
-
-        add_filter('HbgBlade/data', function ($var) {
-            return $var;
-        });
     }
 
     /**
