@@ -107,8 +107,13 @@ if (function_exists('get_field')) {
     new Municipio\App();
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {
-        add_action('admin_notices', function () {
-            echo '<div class="notice notice-error"><p>To get the full expirience of the <strong>Municpio</strong> theme, please activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields Pro</a> plugin.</p></div>';
-        });
+        if (is_admin()) {
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-error"><p>To run <strong>Municpio</strong> theme, please install & activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields <strong>PRO</strong></a> plugin.</p></div>';
+            });
+        }
+        if (!is_admin() && $_SERVER["SCRIPT_FILENAME"] != ABSPATH . "wp-login.php") {
+            wp_die('<div class="notice notice-error"><p>To run <strong>Municpio</strong> theme, please install & activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields <strong>PRO</strong></a> plugin.</p>', "ACF Pro Required");
+        }
     }
 }
