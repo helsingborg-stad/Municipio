@@ -14,8 +14,6 @@ class Colors
 
     public static function neturalColors()
     {
-        $colors = array('#000000', '#222222', '#444444', '#666666', '#888888', '#aaaaaa', '#cccccc', '#eeeeee', '#ffffff');
-
-        return $colors;
+        return array('#000000', '#222222', '#444444', '#666666', '#888888', '#aaaaaa', '#cccccc', '#eeeeee', '#ffffff');
     }
 }
