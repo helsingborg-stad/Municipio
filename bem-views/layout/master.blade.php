@@ -22,8 +22,8 @@
 </head>
 <body class="{{ $bodyClass }}">
 
-    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1"><?php _e('Jump to the main menu', 'municipio'); ?></a>
-    <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2"><?php _e('Jump to the main content', 'municipio'); ?></a>
+    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1">{{ $lang['jumoToMainMenu'] }}</a>
+    <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2">{{ $lang['jumpToMainContent'] }}</a>
 
     <div id="wrapper">
         @if (isset($notice) && !empty($notice))

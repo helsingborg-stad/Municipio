@@ -12,9 +12,9 @@ class BaseController
 
     public function __construct()
     {
-        $customizer = apply_filters('Municipio/Controller/BaseController/Customizer', false);
 
-        if ($customizer) {
+        /* Preview mode 2.0 */
+        if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
             $this->customizerHeader();
         } else {
             $this->getLogotype();
@@ -27,6 +27,12 @@ class BaseController
         $this->getBodyClass();
         $this->getLanguageAttributes();
 
+        //Language
+        $this->data['lang'] = array(
+            'jumpToMainMenu' => __('Jump to the main menu', 'municipio'),
+            'jumpToMainContent' => __('Jump to the main content', 'municipio'),
+        );
+
         $this->getFooterLayout();
         $this->getNavigationMenus();
         $this->getHelperVariables();
@@ -35,32 +41,52 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+
+        add_filter('HbgBlade/data', function ($var) {
+            return $var;
+        });
     }
 
+    /**
+     * General site data (meta tags)
+     * @return void
+     */
     public function getGeneral()
     {
         //General blog details / title
         $this->data['wpTitle'] = apply_filters('Municipio/pageTitle', wp_title('|', false, 'right') . get_bloginfo('name'));
-        $this->data['description'] = get_bloginfo('description');
+        $this->data['description']  = apply_filters('Municipio/description', get_bloginfo('description'));
 
         //Timestamps for post
         $this->data['published'] = get_the_time('Y-m-d');
         $this->data['modified'] = get_the_modified_time('Y-m-d');
     }
 
-    public function getAjaxUrl()
-    {
-        $this->data['ajaxUrl'] = apply_filters('Municipio/ajax_url_in_head', admin_url('admin-ajax.php'));
-    }
-
-    public function getBodyClass()
-    {
-        $this->data['bodyClass'] = join(' ', get_body_class('no-js'));
-    }
-
+    /**
+     * Get language attributes
+     * @return void
+     */
     public function getLanguageAttributes()
     {
         $this->data['languageAttributes'] = get_language_attributes();
+    }
+
+    /**
+     * Creates a ajax url
+     * @return void
+     */
+    public function getAjaxUrl()
+    {
+        $this->data['ajaxUrl'] = apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "2.0", "Municpio/ajaxUrl");
+    }
+
+    /**
+     * Get body class
+     * @return void
+     */
+    public function getBodyClass()
+    {
+        $this->data['bodyClass'] = join(' ', get_body_class('no-js'));
     }
 
     /**
@@ -82,8 +108,6 @@ class BaseController
         $navigation = new \Municipio\Helper\Navigation();
         $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
         $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
-
-        //Old search
     }
 
     public function getFixedActionBar()
@@ -279,25 +303,28 @@ class BaseController
     }
 
     /**
-     * Bind to a custom template file
-     * @return void
-     */
-    public static function registerTemplate()
-    {
-        // \Municipio\Helper\Template::add('Front page', 'front-page.blade.php');
-    }
-
-    /**
      * Returns the data
      * @return array Data
      */
     public function getData()
     {
-        return apply_filters('HbgBlade/data', $this->data);
+        //Create filters for all data vars
+        if (isset($this->data) && !empty($this->data) && is_array($this->data)) {
+            foreach ($this->data as $key => $value) {
+                $this->data[$key] = apply_filters('Municipio/' . $key, $value);
+            }
+        }
+
+        //Old depricated filter
+        $this->data = apply_filters_deprecated('HbgBlade/data', array($this->data), "2.0", "Municipio/ViewData");
+
+        //General filter
+        return apply_filters('Municipio/ViewData', $this->data);
     }
 
     /**
      * Creates a local copy of the global instance
+     * The target var should be defined in class header as private or public
      * @param string $global The name of global varable that should be made local
      * @param string $local Handle the global with the name of this string locally
      * @return void
