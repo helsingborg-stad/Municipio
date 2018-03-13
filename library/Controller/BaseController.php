@@ -50,8 +50,8 @@ class BaseController
     public function getGeneral()
     {
         //General blog details / title
-        $this->data['wpTitle'] = apply_filters('Municipio/pageTitle', wp_title('|', false, 'right') . get_bloginfo('name'));
-        $this->data['description']  = apply_filters('Municipio/description', get_bloginfo('description'));
+        $this->data['wpTitle'] = wp_title('|', false, 'right') . get_bloginfo('name');
+        $this->data['description']  = get_bloginfo('description');
 
         //Timestamps for post
         $this->data['published'] = get_the_time('Y-m-d');
