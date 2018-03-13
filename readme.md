@@ -318,7 +318,7 @@ The goal of version 2.0 is to restructure the theme frontend and move towards th
 ## Filters
 
 ### Depricated filters
-- HbgBlade/data replaced with Municipio/ViewData
+- HbgBlade/data replaced with Municipio/viewData
 - Municipio/ajax_url_in_head replaced with Municipio/ajaxUrl
 
 ### Blade view filter
@@ -332,5 +332,5 @@ apply_filters('Municipio/{{KEY}}', $var);
 You may prefer to get a full array of everything sent to a view. After the filter above has run, a global filter will be applied. This replaces the old  filter. 
 
 ```php
-apply_filters('Municipio/ViewData', $var);
+apply_filters('Municipio/viewData', $var);
 ```
