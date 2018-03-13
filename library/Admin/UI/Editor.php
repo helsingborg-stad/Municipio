@@ -16,18 +16,10 @@ class Editor
         // Custom plugins
         $this->metaData();
         $this->pricons();
-        //$this->printBreak();
 
         // Filters
-        add_filter('embed_oembed_html', '\Municipio\Admin\UI\Editor::oembed', 10, 4);
-
-        add_filter('the_content', function ($content) {
-            $content = str_replace('<!--printbreak-->', '<div style="page-break-before:always;" class="clearfix print-only"></div>', $content);
-            $content = str_replace('<p><div style="page-break-after:before;" class="clearfix print-only"></div></p>', '<div style="page-break-after:before;" class="clearfix print-only"></div>', $content);
-            return $content;
-        });
-
-        add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags'));
+        add_filter('embed_oembed_html', '\Municipio\Admin\UI\Editor::oembed', 10, 4); // Enables oembed features
+        add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
     }
 
     /**
@@ -409,23 +401,6 @@ class Editor
             }
 
             array_splice($buttons, 2, 0, array('metadata'));
-            return $buttons;
-        });
-    }
-
-    /**
-     * Metadata plugin
-     * @return void
-     */
-    public function printBreak()
-    {
-        add_filter('mce_external_plugins', function ($plugins) {
-            $plugins['print_break'] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-print-break.js');
-            return $plugins;
-        });
-
-        add_filter('mce_buttons', function ($buttons) {
-            array_splice($buttons, count($buttons)-2, 0, array('printbreak'));
             return $buttons;
         });
     }

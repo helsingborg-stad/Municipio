@@ -33,7 +33,6 @@ class FrontEnd
 		}
 		</style>
 		<?php
-
         }
     }
 }
