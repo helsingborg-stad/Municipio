@@ -5,9 +5,11 @@ namespace Municipio\Helper;
 class Colors
 {
     public static function themeColors()
-    {   $colors = get_option('color_scheme_palette');
-
-        return $colors;
+    {
+        if (!function_exists('get_option')) {
+            return self::neturalColors();
+        }
+        return (array) get_option('color_scheme_palette');
     }
 
     public static function neturalColors()
