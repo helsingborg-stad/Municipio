@@ -328,7 +328,7 @@ All variables sent (created) in a controller will automatically go trough a filt
 apply_filters('Municipio/{{KEY}}', $var);
 ```
 
-## Global blade view filter
+## Global view filter
 You may prefer to get a full array of everything sent to a view. After the filter above has run, a global filter will be applied. This replaces the old  filter. 
 
 ```php
