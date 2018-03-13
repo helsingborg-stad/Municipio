@@ -33,5 +33,3 @@
 
     </header>
 @endif
-
-
