@@ -6,7 +6,7 @@ class Widgets
 {
     public function __construct()
     {
-       add_action('after_setup_theme', array($this, 'customizerWidgets'));
+        add_action('after_setup_theme', array($this, 'customizerWidgets'));
     }
 
     public function customizerWidgets()

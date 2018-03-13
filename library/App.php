@@ -74,8 +74,6 @@ class App
         /**
          * Widget
          */
-        new \Municipio\Widget\RichEditor();
-        new \Municipio\Widget\Contact();
         new \Municipio\Widget\Widgets();
 
         /**
@@ -84,10 +82,6 @@ class App
         new \Municipio\Comment\HoneyPot();
         new \Municipio\Comment\LikeButton();
         new \Municipio\Comment\CommentsFilters();
-
-        add_action('widgets_init', function () {
-            register_widget('\Municipio\Widget\Contact');
-        });
 
         /**
          * Admin
