@@ -312,3 +312,20 @@ Municipio is integrated with google web-fonts. It enables smart loading of fonts
 define('WEB_FONT', 'Roboto'); //The google fonts name (without weights)
 define('WEB_FONT_REMOTE', true); //Load font kit from cdn
 ```
+# Version 2.0
+The goal of version 2.0 is to restructure the theme frontend and move towards the BEM (IT) standard for markup. More filters will be added in a automatic manner, mutch like ACF doe's it. These will for now, be documented below. 
+
+
+## Blade view filter
+All variables sent (created) in a controller will automatically go trough a filter named with the variable key. 
+
+```php
+apply_filters('Municipio/{{KEY}}', $var);
+```
+
+## Global blade view filter
+You may prefer to get a full array of everything sent to a view. After the filter above has run, a global filter will be applied. This replaces the old HbgBlade/data filter. 
+
+```php
+apply_filters('Municipio/ViewData', $var);
+```
