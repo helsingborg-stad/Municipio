@@ -104,15 +104,15 @@ class Pricons extends \acf_field
          * => Add settings to filter out icons specific icons
          */
 
-        acf_render_field_setting( $field, array(
-            'label'         => __('Return Format','municipio'),
+        acf_render_field_setting($field, array(
+            'label'         => __('Return Format', 'municipio'),
             'instructions'  => '',
             'type'          => 'radio',
             'name'          => 'return_format',
             'choices'       => array(
-                'class'     => __("Icon class",'municipio'),
-                'name'      => __("Icon name",'municipio'),
-                'unicode'   => __("Icon unicode",'municipio'),
+                'class'     => __("Icon class", 'municipio'),
+                'name'      => __("Icon name", 'municipio'),
+                'unicode'   => __("Icon unicode", 'municipio'),
             ),
             'layout'    =>  'horizontal',
         ));
