@@ -72,8 +72,6 @@ class Editor
         if (\Municipio\Helper\User::hasRole('editor')) {
             wp_redirect(admin_url());
             exit;
-        } else {
-            header('Theme auth-system: Yay! Admins are permitted to do this.');
         }
     }
 
