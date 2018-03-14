@@ -16,6 +16,7 @@ class BaseController
         /* Preview mode 2.0 */
         if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
             $this->customizerHeader();
+            $this->customizerFooter();
         } else {
             $this->getLogotype();
             $this->getHeaderLayout();
@@ -99,6 +100,27 @@ class BaseController
 
         $this->data['headerLayout']['customizer'] = true;
         $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
+
+        //Old mobile menu
+        $navigation = new \Municipio\Helper\Navigation();
+        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+    }
+
+    /**
+     * Sends necessary data to the view for customizer footer
+     * @return void
+     */
+    public function customizerFooter()
+    {
+        $footerWidgetAreas = \Municipio\Customizer\Footer::enabledWidgets();
+
+        if (is_array($footerWidgetAreas) && !empty($footerWidgetAreas)) {
+            $this->data['footerLayout']['footers'] = (new \Municipio\Theme\CustomizerFooter($footerWidgetAreas))->footers;
+        }
+
+        $this->data['footerLayout']['customizer'] = true;
+        $this->data['footerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerFooter/Template', 'customizer');
 
         //Old mobile menu
         $navigation = new \Municipio\Helper\Navigation();
