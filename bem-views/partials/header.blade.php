@@ -32,6 +32,15 @@
         </nav>
 
     </header>
+
+@else
+    @include('partials.notice',
+        ['notice' =>
+            ['class' => "info theme-admin-warning",
+            'icon' => "pricon pricon-info-o",
+            'text' => "You have not configured any header. You can add a header in the customizer."]
+        ]
+    )
 @endif
 
 @include('partials.hero')
