@@ -261,7 +261,7 @@ class Header
     public function moveWidgetAreas($section_args, $section_id, $sidebar_id)
     {
         if (get_theme_mod('active_header_widgets') && is_array(get_theme_mod('active_header_widgets')) && in_array($sidebar_id, get_theme_mod('active_header_widgets'))) {
-            $section_args['panel'] = 'panel_header_widgets';
+            $section_args['panel'] = self::$panelID . '_widgets';
         }
 
         return $section_args;
@@ -321,7 +321,7 @@ class Header
             'description' => esc_attr__('Header settings', 'municipio'),
         ));
 
-        \Kirki::add_panel('panel_header_widgets', array(
+        \Kirki::add_panel(self::$panelID . '_widgets', array(
             'priority'    => 80,
             'title'       => esc_attr__('Header widgets', 'municipio'),
             'description' => esc_attr__('Header settings', 'municipio'),
