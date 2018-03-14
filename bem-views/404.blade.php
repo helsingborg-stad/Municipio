@@ -5,7 +5,7 @@
     @if(file_exists(MUNICIPIO_PATH . '/views/partials/404/' . $post_type . '.blade.php'))
         @include('partials.404.' . $post_type)
     @else
-        @include('bem-views.partials.404.default')
+        @include('partials.404.default')
     @endif
 
 @stop

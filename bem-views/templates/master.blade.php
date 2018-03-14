@@ -22,10 +22,11 @@
 </head>
 <body class="{{ $bodyClass }}">
 
-    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1">{{ $lang['jumoToMainMenu'] }}</a>
+    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1">{{ $lang['jumpToMainMenu'] }}</a>
     <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2">{{ $lang['jumpToMainContent'] }}</a>
 
     <div id="wrapper">
+
         @if (isset($notice) && !empty($notice))
             <div class="notices">
             @if (!isset($notice['text']) && is_array($notice))
@@ -43,6 +44,8 @@
         @endif
 
         @include('partials.header')
+
+        @include('partials.hero')
 
         <main id="main-content" class="clearfix main-content">
             @yield('content')

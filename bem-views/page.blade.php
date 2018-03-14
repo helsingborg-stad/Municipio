@@ -1,4 +1,4 @@
-@extends('bem-views.templates.master')
+@extends('templates.master')
 
 @section('content')
 
