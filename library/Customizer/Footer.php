@@ -12,7 +12,7 @@ class Footer
     public function __construct()
     {
         add_action('widgets_init', array($this, 'registerWidgetAreas'));
-        add_filter('customizer_widgets_section_args', array($this, 'moveWidgetAreas'), 10, 3);
+        add_filter('customizer_widgets_section_args', array($this, 'moveWidgetAreas'), 15, 3);
         add_filter('Municipio/Theme/CustomizerFooter/footerClasses', array($this, 'appendFooterVisibility'), 10, 2);
 
         $this->customizerPanels();
@@ -55,7 +55,7 @@ class Footer
         return false;
     }
 
-    public static function avaliblefooters()
+    public static function avalibleFooters()
     {
         $enabledWidgets = self::enabledWidgets();
 
@@ -70,7 +70,7 @@ class Footer
             $footers[$widgetArea['position']]['classes'] = array();
         }
 
-        $footers = apply_filters('Municipio/Customizer/footer/avaliblefooters', $footers);
+        $footers = apply_filters('Municipio/Customizer/Footer/avalibleFooters', $footers);
 
         return $footers;
     }
@@ -115,7 +115,7 @@ class Footer
             '#ffffff'
         );
 
-        $default = self::defaultfooterColors();
+        $default = self::defaultFooterColors();
         $default = (isset($default[$footer]['link'])) ? $default[$footer]['link'] : '#000000';
 
         \Kirki::add_field('municipio_config', array(
@@ -140,7 +140,7 @@ class Footer
     public function footerBackground($footer)
     {
         $colors = array_merge((array) \Municipio\Helper\Colors::themeColors(), (array) \Municipio\Helper\Colors::neturalColors());
-        $default = self::defaultfooterColors();
+        $default = self::defaultFooterColors();
 
         $default = (isset($default[$footer]['background'])) ? $default[$footer]['background'] : '#000000';
 
@@ -163,7 +163,7 @@ class Footer
         ));
     }
 
-    public static function defaultfooterColors()
+    public static function defaultFooterColors()
     {
         $themeColors = \Municipio\Helper\Colors::themeColors();
 
@@ -196,7 +196,7 @@ class Footer
         \Kirki::add_section('footer_' . $footer, array(
             'title'          => esc_attr__(ucfirst($footer) . ' footer', 'municipio'),
             'panel'          => self::$panelID,
-            'priority'       => 30,
+            'priority'       => 20,
         ));
     }
 
@@ -255,13 +255,13 @@ class Footer
     }
 
     /**
-     * Move activaed widget areas to footer widgets panel in customizer
+     * Move activated widget areas to footer widgets panel in customizer
      * @return void
      */
     public function moveWidgetAreas($section_args, $section_id, $sidebar_id)
     {
         if (get_theme_mod('active_footer_widgets') && is_array(get_theme_mod('active_footer_widgets')) && in_array($sidebar_id, get_theme_mod('active_footer_widgets'))) {
-            $section_args['panel'] = 'panel_footer_widgets';
+            $section_args['panel'] = self::$panelID . '_widgets';
         }
 
         return $section_args;
@@ -274,7 +274,7 @@ class Footer
         }
 
         \Kirki::add_section('footer_widget_settings', array(
-            'title'          => esc_attr__('Widget settings', 'municipio'),
+            'title'          => esc_attr__('Footer widget settings', 'municipio'),
             'panel'          => self::$panelID,
             'priority'       => 100,
         ));
@@ -295,7 +295,7 @@ class Footer
         \Kirki::add_field('municipio_config', array(
             'type'        => 'multicheck',
             'settings'    => 'active_footer_widgets',
-            'label'       => esc_attr__('Footer widget settings', 'municipio'),
+            'label'       => esc_attr__('Widget settings', 'municipio'),
             'section'     => 'footer_widget_settings',
             'default'     => $defaults,
             'priority'    => 10,
@@ -321,7 +321,7 @@ class Footer
             'description' => esc_attr__('Footer settings', 'municipio'),
         ));
 
-        \Kirki::add_panel('panel_footer_widgets', array(
+        \Kirki::add_panel(self::$panelID . '_widgets', array(
             'priority'    => 80,
             'title'       => esc_attr__('Footer widgets', 'municipio'),
             'description' => esc_attr__('Footer settings', 'municipio'),
