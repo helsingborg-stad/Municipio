@@ -34,6 +34,13 @@ class BaseController
             'jumpToMainContent' => __('Jump to the main content', 'municipio'),
         );
 
+        //Admin notices (show incomplete configuration to administrator)
+        if (is_user_logged_in() && current_user_can('edit_themes')) {
+            $this->data['showAdminNotices'] = true;
+        } else {
+            $this->data['showAdminNotices'] = false;
+        }
+
         $this->getFooterLayout();
         $this->getNavigationMenus();
         $this->getHelperVariables();

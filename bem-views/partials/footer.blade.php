@@ -1,5 +1,5 @@
 @if (isset($footerLayout['footers']) && is_array($footerLayout['footers']) && !empty($footerLayout['footer']))
-    <footer class="c-site-footer">
+    <footer id="footer" class="c-site-footer">
         @foreach ($footerLayout['headers'] as $footer)
             <div class="{{$footer['class']}}">
                 @if (isset($footer['items']) && !empty($footer['items']))
@@ -16,7 +16,7 @@
             </div>
         @endforeach
     </footer>
-@elseif(is_user_logged_in())
+@elseif($showAdminNotices === true)
     @include('partials.notice',
         ['notice' =>
             ['class' => "info theme-admin-warning",

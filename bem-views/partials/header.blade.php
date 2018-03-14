@@ -1,7 +1,8 @@
 @include('partials.search-top')
 
 @if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
-    <header class="c-site-header">
+
+    <header id="header" class="c-site-header">
 
         @foreach ($headerLayout['headers'] as $header)
             <div class="{{$header['class']}}">
@@ -25,7 +26,7 @@
 
     </header>
 
-@elseif(is_user_logged_in())
+@elseif($showAdminNotices === true)
     @include('partials.notice',
         ['notice' =>
             ['class' => "info theme-admin-warning",
