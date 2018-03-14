@@ -6,9 +6,9 @@ use Philo\Blade\Blade as Blade;
 
 class Template
 {
-    private $VIEWS_PATHS;
-    private $CONTROLLER_PATH;
-    private $CACHE_PATH;
+    private $viewPaths;
+    private $controllerPath;
+    private $cachePath;
 
     public function __construct()
     {
@@ -21,20 +21,20 @@ class Template
         /**
          * Set paths
          */
-        $this->VIEWS_PATHS = apply_filters('Municipio/blade/view_paths', array(
+        $this->viewPaths = apply_filters('Municipio/blade/view_paths', array(
             get_stylesheet_directory() . '/views',
             get_stylesheet_directory(),
             get_template_directory() . '/views',
             get_template_directory()
         ));
 
-        $this->VIEWS_PATHS = array_unique($this->VIEWS_PATHS);
-        $this->CONTROLLER_PATH = get_template_directory() . '/library/Controller';
-        $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
+        $this->viewPaths = array_unique($this->viewPaths);
+        $this->controllerPath = get_template_directory() . '/library/Controller';
+        $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
-        if (!file_exists($this->CACHE_PATH)) {
-            if (!mkdir($this->CACHE_PATH, 0777, true)) {
-                die("Could not create cache folder: " . $this->CACHE_PATH);
+        if (!file_exists($this->cachePath)) {
+            if (!mkdir($this->cachePath, 0777, true)) {
+                die("Could not create cache folder: " . $this->cachePath);
             }
         }
 
@@ -204,7 +204,7 @@ class Template
     {
         $data = apply_filters('Municipio/blade/data', $data);
 
-        $blade = new Blade($this->VIEWS_PATHS, $this->CACHE_PATH);
+        $blade = new Blade($this->viewPaths, $this->cachePath);
         echo $blade->view()->make($view, $data)->render();
     }
 
@@ -274,7 +274,7 @@ class Template
 
     public function cleanViewPath($view)
     {
-        foreach ($this->VIEWS_PATHS as $path) {
+        foreach ($this->viewPaths as $path) {
             $view = str_replace($path . '/', '', $view);
         }
 
