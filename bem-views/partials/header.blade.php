@@ -1,15 +1,7 @@
+@include('partials.search-top')
+
 @if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
     <header class="c-site-header">
-
-        <div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!} hidden-print" id="search">
-            <div class="container">
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        {{ get_search_form() }}
-                    </div>
-                </div>
-            </div>
-        </div>
 
         @foreach ($headerLayout['headers'] as $header)
             <div class="{{$header['class']}}">
@@ -33,7 +25,7 @@
 
     </header>
 
-@else
+@elseif(is_user_logged_in())
     @include('partials.notice',
         ['notice' =>
             ['class' => "info theme-admin-warning",
