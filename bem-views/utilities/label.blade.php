@@ -1,3 +1,3 @@
 @if($text)
-<label for="{{$target}}">{{$text}}</label>
+<label class="{{$class}}" for="{{$target}}">{{$text}}</label>
 @endif
