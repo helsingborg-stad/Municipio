@@ -362,5 +362,9 @@ bem-views
 │   │
 └───utilities
     │   [Small pieces used by components like button.blade.php]
+│   │
+└───widgets
+    │   [Widgetized components]
+    │
 
 ```
