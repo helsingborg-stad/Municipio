@@ -27,8 +27,6 @@
 
     <div id="wrapper">
 
-        @include('utilities.button', ['link' => 'http://google.se', 'text' => 'Test button', 'class' => 'btn-md btn-primary']);
-
         @if (isset($notice) && !empty($notice))
             <div class="notices">
             @if (!isset($notice['text']) && is_array($notice))
