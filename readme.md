@@ -347,3 +347,20 @@ apply_filters('Municipio/viewData', $var);
 ```
 ## Constants 
 MUNICIPIO_FRAGMENT_CACHE - Set to false to remove fragment cache. 
+
+## Theme view structure
+
+```
+bem-views 
+│   [Main folder for  theme views, containing WordPress templates like page.blade.php] 
+│
+└───components
+│   │   [Components for the theme like card.blade.php]
+│   │
+└───templates
+    │   [General templates that are included in main WordPress views like master.blade.php]
+│   │
+└───utilities
+    │   [Small pieces used by components like button.blade.php]
+
+```
