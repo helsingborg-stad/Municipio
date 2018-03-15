@@ -27,13 +27,19 @@
     </header>
 
 @elseif($showAdminNotices === true)
-    @include('partials.notice',
-        ['notice' =>
-            ['class' => "info theme-admin-warning",
-            'icon' => "pricon pricon-info-o",
-            'text' => "You have not configured any header. You can add a header in the customizer."]
-        ]
-    )
+    <div class="container">
+        <div class="grid">
+            <div class="grid-xs-12">
+                @include('partials.notice',
+                    ['notice' =>
+                        ['class' => "info theme-admin-warning",
+                        'icon' => "pricon pricon-info-o",
+                        'text' => "You have not configured any header. You can add a header in the customizer."]
+                    ]
+                )
+            </div>
+        </div>
+    </div>
 @endif
 
 @include('partials.hero')
