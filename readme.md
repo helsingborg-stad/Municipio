@@ -357,6 +357,9 @@ bem-views
 └───components
 │   │   [Components for the theme like card.blade.php]
 │   │
+└───partials
+│   │   [Big chunks that are reused in templates footer.blade.php]
+│   │
 └───templates
     │   [General templates that are included in main WordPress views like master.blade.php]
 │   │
