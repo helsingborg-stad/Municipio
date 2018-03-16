@@ -27,6 +27,16 @@
                         'text' => "You have not configured any footer. You can add a footer in the customizer."]
                     ]
                 )
+
+                @component('component.notice', ['type' => 'danger'])
+
+                    @slot('icon')
+                    ICON
+                    @endslot
+
+                    You have not configured any footer. You can add a footer in the customizer.
+                @endcomponent
+
             </div>
         </div>
     </div>

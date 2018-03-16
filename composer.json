@@ -39,7 +39,7 @@
 
     "scripts": {
         "post-update-cmd": [
-            "rm vendor/aristath/kirki/.gitignore"
+
         ]
     }
 }

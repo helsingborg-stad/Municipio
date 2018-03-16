@@ -1,48 +1,5 @@
 [
     {
-        "name": "philo/laravel-blade",
-        "version": "v3.1",
-        "version_normalized": "3.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PhiloNL/Laravel-Blade.git",
-            "reference": "3f0ce2ee198604c53c25188110e6d7b5e887527a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PhiloNL/Laravel-Blade/zipball/3f0ce2ee198604c53c25188110e6d7b5e887527a",
-            "reference": "3f0ce2ee198604c53c25188110e6d7b5e887527a",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/events": "~5",
-            "illuminate/view": "~5"
-        },
-        "time": "2015-12-04T09:42:42+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Philo\\Blade\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Philo Hermans",
-                "email": "me@philohermans.com"
-            }
-        ],
-        "description": "Use the simple and yet powerful Laravel Blade templating engine as a standalone component.",
-        "keywords": [
-            "blade",
-            "laravel"
-        ]
-    },
-    {
         "name": "psr/log",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -3231,5 +3188,48 @@
         ],
         "description": "Symfony Yaml Component",
         "homepage": "https://symfony.com"
+    },
+    {
+        "name": "philo/laravel-blade",
+        "version": "v3.1",
+        "version_normalized": "3.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PhiloNL/Laravel-Blade.git",
+            "reference": "3f0ce2ee198604c53c25188110e6d7b5e887527a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PhiloNL/Laravel-Blade/zipball/3f0ce2ee198604c53c25188110e6d7b5e887527a",
+            "reference": "3f0ce2ee198604c53c25188110e6d7b5e887527a",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/events": "~5",
+            "illuminate/view": "~5"
+        },
+        "time": "2015-12-04T09:42:42+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Philo\\Blade\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Philo Hermans",
+                "email": "me@philohermans.com"
+            }
+        ],
+        "description": "Use the simple and yet powerful Laravel Blade templating engine as a standalone component.",
+        "keywords": [
+            "blade",
+            "laravel"
+        ]
     }
 ]
