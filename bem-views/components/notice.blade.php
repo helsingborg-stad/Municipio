@@ -1,6 +1,7 @@
-<div class="alert alert-danger">
+<div class="notice {{$type}}">
+    {{$icon}}
 
-    @slot('button')
+    {{$slot}}
 
-    {{ $slot }}
+    {{$button}}
 </div>

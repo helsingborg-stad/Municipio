@@ -20,14 +20,12 @@
     <div class="container">
         <div class="grid">
             <div class="grid-xs-12">
-                @include('partials.notice',
-                    ['notice' =>
-                        ['class' => "info",
-                        'icon' => "pricon pricon-info-o",
-                        'text' => "You have not configured any footer. You can add a footer in the customizer."]
-                    ]
-                )
-
+                @component('components.notice', ['type' => 'info'])
+                    @slot('icon')
+                        @include('utilities.icon', ['id' => 'notice-info'])
+                    @endslot
+                    You have not configured any footer. You can add a footer in the customizer.
+                @endcomponent
             </div>
         </div>
     </div>
