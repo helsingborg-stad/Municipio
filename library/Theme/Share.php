@@ -49,6 +49,12 @@ class Share
         // Send the email
         $mail = false;
         if (is_array($recipients) && !empty($recipients)) {
+
+            // Do additional actions when notifying recipients
+            if ($user) {
+                do_action('Municipio/sharePost/recipients', $postId, $user, $recipients, $shareType);
+            }
+
             foreach ($recipients as $recipient) {
                 $mail = wp_mail(
                     $recipient,
