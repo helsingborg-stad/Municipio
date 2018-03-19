@@ -21,8 +21,11 @@
 
 </head>
 <body class="{{ $bodyClass }}">
+
+    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1">{{ $lang['jumpToMainMenu'] }}</a>
+
     <div id="wrapper">
-        @include('partials.stripe')
+        @include('utilities.stripe')
 
         <div class="container">
             <div class="grid">
