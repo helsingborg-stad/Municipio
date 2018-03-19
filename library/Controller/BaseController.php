@@ -20,13 +20,14 @@ class BaseController
         } else {
             $this->getLogotype();
             $this->getHeaderLayout();
+            $this->getFooterLayout();
         }
 
         //Main
         $this->getGeneral();
-        $this->getAjaxUrl();
-        $this->getBodyClass();
-        $this->getLanguageAttributes();
+        $this->data['ajaxUrl'] = $this->getAjaxUrl();
+        $this->data['bodyClass'] = $this->getBodyClass();
+        $this->data['languageAttributes'] = $this->languageAttributes();
 
         //Language
         $this->data['lang'] = array(
@@ -48,7 +49,6 @@ class BaseController
             $this->data['showAdminNotices'] = false;
         }
 
-        $this->getFooterLayout();
         $this->getNavigationMenus();
         $this->getHelperVariables();
         $this->getFilterData();
@@ -79,7 +79,7 @@ class BaseController
      */
     public function getLanguageAttributes()
     {
-        $this->data['languageAttributes'] = get_language_attributes();
+        return get_language_attributes();
     }
 
     /**
@@ -88,7 +88,7 @@ class BaseController
      */
     public function getAjaxUrl()
     {
-        $this->data['ajaxUrl'] = apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "2.0", "Municpio/ajaxUrl");
+        return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "2.0", "Municpio/ajaxUrl");
     }
 
     /**
@@ -97,7 +97,7 @@ class BaseController
      */
     public function getBodyClass()
     {
-        $this->data['bodyClass'] = join(' ', get_body_class('no-js'));
+        return join(' ', get_body_class('no-js'));
     }
 
     /**
@@ -169,7 +169,6 @@ class BaseController
         } elseif ($this->data['hasLeftSidebar'] && !$this->data['hasRightSidebar']) {
             $contentGridSize = 'grid-md-8 grid-lg-9';
         }
-
 
         $this->data['contentGridSize'] = $contentGridSize;
     }
