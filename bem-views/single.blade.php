@@ -1,1 +1,1 @@
-@include('page.blade.php');
+@include('page');
