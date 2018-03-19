@@ -76,22 +76,17 @@
                         @while(have_posts())
                             {!! the_post() !!}
 
-
-                            @component('components.box')
+                            @component('components.box', ["type" => $template])
                                 @slot('title')
                                     {{the_title()}}
                                 @endslot
+
+                                @slot('date')
+                                    {{the_date()}}
+                                @endslot
+
                                 {{the_content()}}
                             @endcomponent
-
-
-                            @if (in_array($template, array('full', 'compressed', 'collapsed', 'horizontal-cards')))
-                                <div class="grid-xs-12 post">
-                                    @include('partials.blog.type.post-' . $template)
-                                </div>
-                            @else
-                                @include('partials.blog.type.post-' . $template)
-                            @endif
 
                             <?php $postNum++; ?>
                         @endwhile

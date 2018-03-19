@@ -76,7 +76,7 @@
                         @while(have_posts())
                             {!! the_post() !!}
 
-                            @component('components.box', ["class" => $template])
+                            @component('components.box', ["type" => $template])
                                 @slot('title')
                                     {{the_title()}}
                                 @endslot
