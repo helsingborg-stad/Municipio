@@ -32,6 +32,13 @@ class BaseController
         $this->data['lang'] = array(
             'jumpToMainMenu' => __('Jump to the main menu', 'municipio'),
             'jumpToMainContent' => __('Jump to the main content', 'municipio'),
+            'ago'   => __("ago", 'municipio'),
+            'since'   => __("since", 'municipio'),
+            'weeks'   => __("weeks", 'municipio'),
+            'days'   => __("days", 'municipio'),
+            'hours'   => __("hours", 'municipio'),
+            'minutes'   => __("minutes", 'municipio'),
+            'seconds'   => __("seconds", 'municipio'),
         );
 
         //Admin notices (show incomplete configuration to administrator)
