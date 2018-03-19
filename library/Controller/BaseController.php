@@ -27,7 +27,7 @@ class BaseController
         $this->getGeneral();
         $this->data['ajaxUrl'] = $this->getAjaxUrl();
         $this->data['bodyClass'] = $this->getBodyClass();
-        $this->data['languageAttributes'] = $this->languageAttributes();
+        $this->data['languageAttributes'] = $this->getLanguageAttributes();
 
         //Language
         $this->data['lang'] = array(
