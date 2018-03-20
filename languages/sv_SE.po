@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-03-12 14:43+0100\n"
-"PO-Revision-Date: 2018-03-12 14:43+0100\n"
+"POT-Creation-Date: 2018-03-20 09:12+0100\n"
+"PO-Revision-Date: 2018-03-20 09:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -237,11 +237,12 @@ msgid "Active"
 msgstr "Aktivera"
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:34
+#: library/Theme/Share.php:42
 #: vendor/advanced-custom-fields/core/fields/message.php:19
 #: vendor/advanced-custom-fields/core/fields/message.php:70
 #: vendor/advanced-custom-fields/core/fields/true_false.php:79
-#: views/partials/share-email-form.blade.php:29
 #: views/partials/share-email-form.blade.php:30
+#: views/partials/share-email-form.blade.php:31
 msgid "Message"
 msgstr "Meddelande"
 
@@ -1896,20 +1897,37 @@ msgstr "Under länkar"
 msgid "Home"
 msgstr "Hem"
 
-#: library/Theme/Share.php:26
+#: library/Theme/Share.php:25 library/Theme/Share.php:74
 msgid "Something went wrong, please try again"
 msgstr ""
 
 #: library/Theme/Share.php:39
-#, php-format
-msgid "This message was sent by %s via %s"
+msgid "has invited you to join the group"
+msgstr ""
+
+#: library/Theme/Share.php:39
+#, fuzzy
+#| msgid "Share the page"
+msgid "shared the post"
+msgstr "Dela sidan"
+
+#: library/Theme/Share.php:43
+#, fuzzy
+#| msgid "This message was sent by %s via %s"
+msgid "This message was sent by"
 msgstr "Meddelandet skickades av %s via %s"
 
-#: library/Theme/Share.php:44
-msgid "sent you a link via"
-msgstr "har delat en länk via"
+#: library/Theme/Share.php:61
+#, fuzzy
+#| msgid "Sub navigation"
+msgid "Group invitation"
+msgstr "Sekundär meny"
 
-#: library/Theme/Share.php:52
+#: library/Theme/Share.php:61
+msgid "shared a post via"
+msgstr ""
+
+#: library/Theme/Share.php:72
 msgid "The message was sent successfully"
 msgstr "Meddelandet har skickats"
 
@@ -5242,11 +5260,15 @@ msgid "Your email"
 msgstr "Din e-postadress"
 
 #: views/partials/share-email-form.blade.php:25
-#: views/partials/share-email-form.blade.php:26
+#: views/partials/share-email-form.blade.php:27
 msgid "Recipient email"
 msgstr "Mottagarens e-postadress"
 
-#: views/partials/share-email-form.blade.php:41
+#: views/partials/share-email-form.blade.php:26
+msgid "Enter one or many e-mail addresses. Separate with comma."
+msgstr "Ange en eller flera e-postadresser. Separera med kommatecken."
+
+#: views/partials/share-email-form.blade.php:43
 msgid "Send"
 msgstr "Skicka"
 
@@ -5260,10 +5282,8 @@ msgid "Share on"
 msgstr "Dela på"
 
 #: views/partials/social-share.blade.php:23
-#, fuzzy
-#| msgid "Share the page"
 msgid "Share with e-mail"
-msgstr "Dela sidan"
+msgstr "Dela med e-post"
 
 #: views/partials/timestamps.blade.php:42
 msgid "Last updated"
@@ -5300,6 +5320,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "sent you a link via"
+#~ msgstr "har delat en länk via"
 
 #~ msgid "Article"
 #~ msgstr "Artikel"
@@ -5503,9 +5526,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Sök"
 #~ msgstr "Sök"
-
-#~ msgid "Sub navigation"
-#~ msgstr "Sekundär meny"
 
 #~ msgid "sub"
 #~ msgstr "sub"

@@ -23,7 +23,7 @@
                     @endif
                     <div class="form-group">
                         <label for="recipient-email"><?php _e('Recipient email', 'municipio'); ?> <span class="text-danger">*</span></label>
-                        <small><?php _e('Enter one or many e-mail addresses. Separate wih comma.', 'municipio-intranet'); ?></small>
+                        <small><?php _e('Enter one or many e-mail addresses. Separate with comma.', 'municipio'); ?></small>
                         <input type="text" name="recipient_email" id="recipient-email" placeholder="<?php _e('Recipient email', 'municipio'); ?>" required>
                     </div>
                     <div class="form-group">
