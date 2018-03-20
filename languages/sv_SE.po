@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2018-03-20 09:12+0100\n"
-"PO-Revision-Date: 2018-03-20 09:20+0100\n"
+"PO-Revision-Date: 2018-03-20 09:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1899,33 +1899,27 @@ msgstr "Hem"
 
 #: library/Theme/Share.php:25 library/Theme/Share.php:74
 msgid "Something went wrong, please try again"
-msgstr ""
+msgstr "Något gick fel, vänligen försök igen"
 
 #: library/Theme/Share.php:39
 msgid "has invited you to join the group"
-msgstr ""
+msgstr "har bjudit in dig att gå med i gruppen"
 
 #: library/Theme/Share.php:39
-#, fuzzy
-#| msgid "Share the page"
 msgid "shared the post"
-msgstr "Dela sidan"
+msgstr "delade sidan"
 
 #: library/Theme/Share.php:43
-#, fuzzy
-#| msgid "This message was sent by %s via %s"
 msgid "This message was sent by"
-msgstr "Meddelandet skickades av %s via %s"
+msgstr "Meddelandet skickades av"
 
 #: library/Theme/Share.php:61
-#, fuzzy
-#| msgid "Sub navigation"
 msgid "Group invitation"
-msgstr "Sekundär meny"
+msgstr "Inbjudan till grupp"
 
 #: library/Theme/Share.php:61
 msgid "shared a post via"
-msgstr ""
+msgstr "delade en sida via"
 
 #: library/Theme/Share.php:72
 msgid "The message was sent successfully"
