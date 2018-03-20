@@ -23,7 +23,8 @@
                     @endif
                     <div class="form-group">
                         <label for="recipient-email"><?php _e('Recipient email', 'municipio'); ?> <span class="text-danger">*</span></label>
-                        <input type="email" name="recipient_email" id="recipient-email" placeholder="<?php _e('Recipient email', 'municipio'); ?>" required>
+                        <small><?php _e('Enter one or many e-mail addresses. Separate wih comma.', 'municipio-intranet'); ?></small>
+                        <input type="text" name="recipient_email" id="recipient-email" placeholder="<?php _e('Recipient email', 'municipio'); ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="message"><?php _e('Message', 'municipio'); ?></label>
@@ -31,13 +32,14 @@
                     </div>
                     @if (!is_user_logged_in())
                         <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="{{ $g_recaptcha_key }}"></div>
+                            <div class="g-recaptcha" data-sitekey="{{ defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '' }}"></div>
                         </div>
                     @endif
                 </article>
             </div>
             <div class="modal-footer">
                 <input type="hidden" name="post_id" value="{{ the_ID() }}">
+                <input type="hidden" name="share_type" value="share">
                 <input type="submit" class="btn btn-primary" value="<?php _e('Send', 'municipio'); ?>">
             </div>
         </form>

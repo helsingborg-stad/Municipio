@@ -29,8 +29,6 @@ class Archive extends \Municipio\Controller\BaseController
         if ($this->data['grid_alter']) {
             $this->gridAlterColumns();
         }
-
-        $this->data['g_recaptcha_key'] = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
     }
 
     public function gridAlterColumns()
