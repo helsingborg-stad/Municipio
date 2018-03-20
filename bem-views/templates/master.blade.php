@@ -22,55 +22,21 @@
 </head>
 <body class="{{ $bodyClass }}">
 
-    <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1">{{ $lang['jumpToMainMenu'] }}</a>
-    <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2">{{ $lang['jumpToMainContent'] }}</a>
-
-    <div id="wrapper">
-
-        @if (isset($notice) && !empty($notice))
-            <div class="notices">
-            @if (!isset($notice['text']) && is_array($notice))
-                @foreach ($notice as $notice)
-                    @include('partials.notice')
-                @endforeach
-            @else
-                @include('partials.notice')
-            @endif
-            </div>
-        @endif
-
-        @if (get_field('show_google_translate', 'option') == 'header')
-            @include('partials.translate')
-        @endif
-
+    @section('site-header')
         @include('partials.header')
+    @show
 
-        @include('partials.hero')
-
-        <main id="main-content" class="clearfix main-content">
-            @yield('content')
-
-            @if (is_active_sidebar('content-area-bottom'))
-            <div class="container gutter-xl gutter-vertical sidebar-content-area-bottom">
-                <div class="grid">
-                    <?php dynamic_sidebar('content-area-bottom'); ?>
-                </div>
+    <main id="main">
+        @section('site-body')
+            <div class="container">
+                @yield('content')
             </div>
-            @endif
-        </main>
+        @show
+    </main>
 
+    @section('site-footer')
         @include('partials.footer')
-
-        @if (isset($fab['menu']))
-            @include('partials.fixed-action-bar')
-        @endif
-
-        @include('partials.vertical-menu')
-
-        @if (in_array(get_field('show_google_translate', 'option'), array('footer', 'fold')))
-            @include('partials.translate')
-        @endif
-     </div>
+    @show
 
     {!! wp_footer() !!}
 

@@ -1,4 +1,4 @@
-@include('partials.search-top')
+@include('partials.navigation.search-top')
 
 @if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
 
