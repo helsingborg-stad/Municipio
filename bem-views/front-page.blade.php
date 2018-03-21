@@ -1,6 +1,6 @@
 @extends('templates.master')
 
-@section('main')
+@section('site-body')
     @if (is_active_sidebar('content-area'))
     <section class="creamy creamy-border-bottom gutter-xl gutter-vertical sidebar-content-area s-content-area">
         <div class="container">
