@@ -52,7 +52,7 @@ class Share
 
             // Do additional actions when notifying recipients
             if ($user) {
-                do_action('Municipio/sharePost/recipients', $postId, $user, $recipients, $shareType);
+                do_action('Municipio/share_post/recipients', $postId, $user, $recipients, $shareType);
             }
 
             foreach ($recipients as $recipient) {
