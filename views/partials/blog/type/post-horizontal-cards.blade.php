@@ -13,7 +13,7 @@
                 <ul class="inline-block nav-horizontal tags">
                     @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
                         @foreach ($terms as $term)
-                            <li><span class="label label-sm">{{ $term->name }}</span></li>
+                            <li><span class="label label-sm" style="{{ apply_filters('Municipio/taxonomy/tag_style', '', $term, $taxonomy) }}">{{ $term->name }}</span></li>
                         @endforeach
                     @endforeach
                 </ul>
