@@ -73,6 +73,17 @@ Blog post info header (single)
 do_action('Municipio/author_display/name', $post);
 ```
 
+#### Municipio/share_post/recipients
+
+Do action on sharing post by email, e.g. send a notification
+
+- ```@param object $user``` - User object for the sender
+- ```@param array $recipients``` - List with e-mail addresses
+
+```php
+do_action('Municipio/share_post/recipients', $user, $recipients);
+```
+
 ## Filters
 
 #### Municipio/theme/key
@@ -287,6 +298,26 @@ Dictates what sidebars that sould be active on the current page to show the vert
 apply_filters('Municipio/Menu/Vertical/EnabledSidebars', $sidebars);
 ```
 
+#### Municipio/archive/tax_query
+Additional taxonomy queries. 
+
+- ```@param array $taxQuery``` - Holds the taxonomy query.
+- ```@param object $query``` - Current query object.
+
+```php
+apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
+```
+
+#### Municipio/taxonomy/tag_style
+Adds custom style to taxonomy labels. 
+
+- ```@param string $style``` - Custom CSS.
+- ```@param string $term``` - The term.
+- ```@param string $taxonomy``` - Taxonomy.
+
+```php
+apply_filters('Municipio/taxonomy/tag_style', $style, $term, $taxonomy);
+```
 
 #### Municipio/Menu/Vertical/Items
 Items that should be visible in the vertical navigation menus. Represented as dots with hover-labels. 
