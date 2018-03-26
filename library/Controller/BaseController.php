@@ -65,16 +65,24 @@ class BaseController
      */
     public function layout()
     {
-        $this->data['layout']['content']  = 'grid-md-12';
+        $this->data['layout']['content']  = 'grid-s-12';
         $this->data['layout']['sidebarLeft'] = 'grid-s-12 grid-lg-3';
         $this->data['layout']['sidebarRight'] = 'grid-s-12 grid-lg-3';
 
-        if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
-            $this->data['layout']['content'] = 'grid-md-8 grid-lg-6';
+        if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
+            $sidebarLeft = true;
+        }
+        if (is_active_sidebar('left-sidebar')) {
+            $sidebarLeft = true;
+        }
+        if (is_active_sidebar('right-sidebar')) {
+            $sidebarRight = true;
+        }
 
-        } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
-
-            $this->data['layout']['content'] = 'grid-md-12 grid-lg-9';
+        if (isset($sidebarRight) && $sidebarRight && isset($sidebarLeft) && $sidebarLeft) {
+            $this->data['layout']['content']  = 'grid-s-12 grid-lg-6';
+        } elseif (isset($sidebarRight) && $sidebarRight || isset($sidebarLeft) && $sidebarLeft) {
+            $this->data['layout']['content']  = 'grid-s-12 grid-lg-9';
         }
     }
 
