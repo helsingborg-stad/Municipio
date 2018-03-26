@@ -1,5 +1,5 @@
 <?php global $post; ?>
-<article class="clearfix">
+<article class="c-article s-article">
     <h1>{{ the_title() }}</h1>
 
     @include('partials.accessibility-menu')
