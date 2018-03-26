@@ -21,6 +21,10 @@ class OnTheFlyImages
     public function runResizeImage($downsize, $id, $size)
     {
 
+        $id = ;
+
+        var_dump($id["width"]);
+
         if (is_array($size) && count($size) == 2 && !empty($id)) {
 
             //Check for image
@@ -30,7 +34,16 @@ class OnTheFlyImages
 
             //Check that sizes are numeric
             if (!is_numeric($size[0]) ||!is_numeric($size[1])) {
-                return false;
+
+                $attachmentMetaData = wp_get_attachment_metadata($id);
+
+                if(!is_numeric($size[0]) && isset($attachmentMetaData['height']) && is_numeric($attachmentMetaData['height'])) {
+                    $size[0] = $attachmentMetaData['height'];
+                }
+
+                if(!is_numeric($size[1]) && isset($attachmentMetaData['width']) && is_numeric($attachmentMetaData['width'])) {
+                    $size[1] = $attachmentMetaData['width'];
+                }
             }
 
             //Normalize size (do not create humungous images)
