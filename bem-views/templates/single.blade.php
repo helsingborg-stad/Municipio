@@ -10,7 +10,7 @@
 @section('sidebar-left')
     @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
 
-    @if (get_field('nav_sub_enable', 'option') && isset($layout['sidebarLeft']) && $layout['sidebarLeft'] == true)
+    @if (get_field('nav_sub_enable', 'option'))
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
@@ -34,4 +34,5 @@
 @stop
 
 @section('below')
+    @include('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
 @stop

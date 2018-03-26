@@ -16,7 +16,7 @@
 @section('sidebar-left')
     @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
 
-    @if (get_field('nav_sub_enable', 'option') && isset($layout['sidebarLeft']) && $layout['sidebarLeft'] == true)
+    @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
@@ -24,6 +24,7 @@
 @stop
 
 @section('content')
+    @include('components.dynamic-sidebar', ['id' => 'content-area-top'])
 
     @if (have_posts())
         <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
@@ -33,10 +34,10 @@
 
                 @if (in_array($template, array('full', 'compressed', 'collapsed', 'horizontal-cards')))
                     <div class="grid-xs-12 post">
-                        @include('partials.blog.type.post-' . $template)
+                        @include('partials.archive.post.post-' . $template)
                     </div>
                 @else
-                    @include('partials.blog.type.post-' . $template)
+                    @include('partials.archive.post.post-' . $template)
                 @endif
 
                 <?php $postNum++; ?>
@@ -46,6 +47,7 @@
         <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show', 'municipio'); ?>…</div>
     @endif
 
+    @include('components.dynamic-sidebar', ['id' => 'content-area'])
 @stop
 
 @section('sidebar-right')
@@ -53,4 +55,5 @@
 @stop
 
 @section('below')
+    @include('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
 @stop
