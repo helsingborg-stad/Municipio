@@ -22,19 +22,55 @@
 </head>
 <body class="{{ $bodyClass }}">
 
-    @section('site-header')
+    @section('header')
         @include('partials.header')
     @show
 
-    <main id="main">
-        @section('site-body')
+    <main id="main" class="c-main s-main">
+
+        @yield('before-layout')
+
+        @section('layout')
             <div class="container">
-                @yield('content')
+                <div class="grid">
+
+                    @hasSection('above')
+                        <div class="grid-s-12">
+                            @yield('above')
+                        </div>
+                    @endif
+
+                    @hasSection('sidebar-left')
+                        <div class="{{$layout['sidebarLeft']}} s-sidebar-left">
+                            @yield('sidebar-left')
+                        </div>
+                    @endif
+
+                    <div class="{{$layout['content']}} s-content">
+                        @yield('content')
+                    </div>
+
+                    @hasSection('sidebar-right')
+                        <div class="{{$layout['sidebarRight']}} s-sidebar-right">
+                            @yield('sidebar-right')
+                        </div>
+                    @endif
+
+                    @hasSection('below')
+                        <div class="grid-s-12">
+                            @yield('below')
+                        </div>
+                    @endif
+
+                </div>
             </div>
         @show
+
+        @yield('after-layout')
+
     </main>
 
-    @section('site-footer')
+    @section('footer')
         @include('partials.footer')
     @show
 
