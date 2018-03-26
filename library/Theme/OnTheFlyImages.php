@@ -21,10 +21,6 @@ class OnTheFlyImages
     public function runResizeImage($downsize, $id, $size)
     {
 
-        $id = ;
-
-        var_dump($id["width"]);
-
         if (is_array($size) && count($size) == 2 && !empty($id)) {
 
             //Check for image
@@ -32,18 +28,28 @@ class OnTheFlyImages
                 return false;
             }
 
-            //Check that sizes are numeric
+            //Get attachmentmeta
             if (!is_numeric($size[0]) ||!is_numeric($size[1])) {
-
                 $attachmentMetaData = wp_get_attachment_metadata($id);
+            }
 
-                if(!is_numeric($size[0]) && isset($attachmentMetaData['height']) && is_numeric($attachmentMetaData['height'])) {
-                    $size[0] = $attachmentMetaData['height'];
+            //Check that we have the needed data to make calculations
+            if(array_filter($size)) {
+
+                //Calc height (from width)
+                if(!is_numeric($size[0])) {
+                    $scale = $size[1] / $attachmentMetaData['height'];
+                    $size[0] = floor($attachmentMetaData['width'] * $scale);
                 }
 
-                if(!is_numeric($size[1]) && isset($attachmentMetaData['width']) && is_numeric($attachmentMetaData['width'])) {
-                    $size[1] = $attachmentMetaData['width'];
+                //Calc width (from height)
+                if(!is_numeric($size[1])) {
+                    $scale = $size[0] / $attachmentMetaData['width'];
+                    $size[1] = floor($attachmentMetaData['height'] * $scale);
                 }
+
+            } else {
+                return false;
             }
 
             //Normalize size (do not create humungous images)
