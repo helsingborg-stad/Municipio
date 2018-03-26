@@ -1,1 +1,1 @@
-@extends('single')
+@extends('templates.single')
