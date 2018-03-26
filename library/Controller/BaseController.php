@@ -17,6 +17,7 @@ class BaseController
         if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
             $this->customizerHeader();
             $this->customizerFooter();
+            $this->layout();
         } else {
             $this->getLogotype();
             $this->getHeaderLayout();
@@ -56,6 +57,25 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+    }
+
+    /**
+     * Set main layout columns
+     * @return void
+     */
+    public function layout()
+    {
+        $this->data['layout']['content']  = 'grid-md-12';
+        $this->data['layout']['sidebarLeft'] = 'grid-s-12 grid-lg-3';
+        $this->data['layout']['sidebarRight'] = 'grid-s-12 grid-lg-3';
+
+        if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
+            $this->data['layout']['content'] = 'grid-md-8 grid-lg-6';
+
+        } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
+
+            $this->data['layout']['content'] = 'grid-md-12 grid-lg-9';
+        }
     }
 
     /**
