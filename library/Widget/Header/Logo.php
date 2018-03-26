@@ -73,7 +73,7 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
             if (count($viewBox) == 4) {
                 $dimensions['width']    = (int) ($viewBox[2] - $viewBox[0]);
                 $dimensions['height']   = (int) ($viewBox[3] - $viewBox[1]);
-                return round(($dimensions['height'] / $dimensions['width']) * 100, 2);
+                return abs(round(($dimensions['height'] / $dimensions['width']) * 100, 2));
             }
         }
 
