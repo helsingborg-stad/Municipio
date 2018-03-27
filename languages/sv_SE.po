@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-03-20 09:12+0100\n"
-"PO-Revision-Date: 2018-03-20 09:59+0100\n"
+"POT-Creation-Date: 2018-03-27 14:45+0200\n"
+"PO-Revision-Date: 2018-03-27 14:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1902,8 +1902,8 @@ msgid "Something went wrong, please try again"
 msgstr "Något gick fel, vänligen försök igen"
 
 #: library/Theme/Share.php:39
-msgid "has invited you to join the group"
-msgstr "har bjudit in dig att gå med i gruppen"
+msgid "has invited you to join"
+msgstr "har bjudit in dig att gå med i"
 
 #: library/Theme/Share.php:39
 msgid "shared the post"
@@ -1914,8 +1914,8 @@ msgid "This message was sent by"
 msgstr "Meddelandet skickades av"
 
 #: library/Theme/Share.php:61
-msgid "Group invitation"
-msgstr "Inbjudan till grupp"
+msgid "Invitation"
+msgstr "Inbjudan"
 
 #: library/Theme/Share.php:61
 msgid "shared a post via"
@@ -5314,6 +5314,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Group invitation"
+#~ msgstr "Inbjudan till grupp"
 
 #~ msgid "sent you a link via"
 #~ msgstr "har delat en länk via"
