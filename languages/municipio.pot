@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-03-20 09:12+0100\n"
+"POT-Creation-Date: 2018-03-27 14:45+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1833,7 +1833,7 @@ msgid "Something went wrong, please try again"
 msgstr ""
 
 #: library/Theme/Share.php:39
-msgid "has invited you to join the group"
+msgid "has invited you to join"
 msgstr ""
 
 #: library/Theme/Share.php:39
@@ -1845,7 +1845,7 @@ msgid "This message was sent by"
 msgstr ""
 
 #: library/Theme/Share.php:61
-msgid "Group invitation"
+msgid "Invitation"
 msgstr ""
 
 #: library/Theme/Share.php:61
