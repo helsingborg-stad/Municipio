@@ -104,7 +104,6 @@ class App
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
 
-        new \Municipio\Admin\UI\VarnishPurge();
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
         new \Municipio\Admin\UI\Editor();
