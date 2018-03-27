@@ -133,7 +133,7 @@ class Support
      */
     public static function removeTheGenerator()
     {
-        add_filter('the_generator', create_function('', 'return "";'));
+        add_filter('the_generator', '__return_empty_string');
         remove_filter('update_footer', 'core_update_footer');
     }
 
