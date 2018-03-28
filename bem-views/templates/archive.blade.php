@@ -27,19 +27,13 @@
     @include('components.dynamic-sidebar', ['id' => 'content-area-top'])
 
     @if (have_posts())
-        <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
+        <div class="c-archive c-archive--{{sanitize_title($postType)}} grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
             <?php $postNum = 0; ?>
             @while(have_posts())
                 {!! the_post() !!}
-
-                @if (in_array($template, array('full', 'compressed', 'collapsed', 'horizontal-cards')))
-                    <div class="grid-xs-12 post">
-                        @include('partials.archive.post.post-' . $template)
-                    </div>
-                @else
+                <div class="c-archive__item grid-s-12 {{ $grid_size }}">
                     @include('partials.archive.post.post-' . $template)
-                @endif
-
+                </div>
                 <?php $postNum++; ?>
             @endwhile
         </div>
