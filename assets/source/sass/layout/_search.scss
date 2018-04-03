@@ -1,0 +1,70 @@
+.search-level {
+    border-bottom: 1px solid $creamy-darker;
+    font-size: 0;
+    padding: 10px 0 20px 0;
+
+    .nav li {
+        font-size: 1rem;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    .nav li.title {
+        font-size: 1rem;
+        color: #000;
+    }
+
+    .nav a {
+        display: block;
+        color: #000;
+        border-radius: 30px;
+        background-color: $creamy-darker;
+        padding: 5px 15px;
+
+        .label {
+            position: relative;
+            top: -2px;
+            margin-left: 3px;
+            background-color: #fff;
+        }
+    }
+
+    .nav li:last-of-type a {
+        border-right: 1px solid $creamy-darker;
+    }
+
+    .nav li.active a {
+        color: $palette-gray-2;
+        font-weight: bold;
+
+        // Color theme styles
+        @if ($includeThemes == true) {
+            @each $theme, $color in $themes {
+                .theme-#{$theme} & {
+                    background-color: map-get($color, second);
+                    color: map-get($color, secondTextColor);
+                }
+            }
+        }
+    }
+
+    .nav li + li {
+        margin-left: 0;
+    }
+
+    @media #{$screen-below-md} {
+        .nav li.title {
+            display: block;
+        }
+    }
+
+    @media #{$screen-xs} {
+        .nav li {
+            display: block;
+
+            a {
+                display: inline-block;
+            }
+        }
+    }
+}

@@ -7,11 +7,22 @@ class Search extends \Municipio\Controller\BaseController
     public function init()
     {
 
+        //Translations
+        $this->data['translation'] = array(
+            'filter_results' => __("Filter searchresults", 'municipio'),
+            'all_pages' => __("All pages", 'municipio'),
+        );
+
         //Determine what type of searchengine that should be used
         if (get_field('use_google_search', 'option') === true) {
             $this->googleSearch();
         } elseif (get_field('use_algolia_search', 'option') === true) {
-            $this->algoliaSearch();
+
+            if(function_exists('queryAlgoliaSearch')) {
+                $this->algoliaCustomSearch();
+            } else {
+                $this->algoliaSearch();
+            }
         } else {
             $this->wpSearch();
         }
@@ -48,6 +59,17 @@ class Search extends \Municipio\Controller\BaseController
         //Mimic wp-search
         global $wp_query;
         $this->data['resultCount'] = $wp_query->found_posts;
+        $this->data['keyword'] = get_search_query();
+    }
+
+    /**
+     * Algolia custom search
+     * @return void
+     */
+    public function algoliaCustomSearch()
+    {
+        $this->data['results'] = queryAlgoliaSearch(get_search_query());
+        $this->data['resultCount'] = count($this->data['results']);
         $this->data['keyword'] = get_search_query();
     }
 

@@ -244,6 +244,56 @@
   .event-archive_meta p {
     padding-top: 7px; }
 
+.search-level {
+  border-bottom: 1px solid #e7e5e1;
+  font-size: 0;
+  padding: 10px 0 20px 0; }
+  .search-level .nav li {
+    font-size: 1rem;
+    margin-right: 10px;
+    margin-top: 10px; }
+  .search-level .nav li.title {
+    font-size: 1rem;
+    color: #000; }
+  .search-level .nav a {
+    display: block;
+    color: #000;
+    border-radius: 30px;
+    background-color: #e7e5e1;
+    padding: 5px 15px; }
+    .search-level .nav a .label {
+      position: relative;
+      top: -2px;
+      margin-left: 3px;
+      background-color: #fff; }
+  .search-level .nav li:last-of-type a {
+    border-right: 1px solid #e7e5e1; }
+  .search-level .nav li.active a {
+    color: #333;
+    font-weight: bold; }
+    .theme-red .search-level .nav li.active a {
+      background-color: #cb0050;
+      color: #fff; }
+    .theme-blue .search-level .nav li.active a {
+      background-color: #0069b4;
+      color: #fff; }
+    .theme-green .search-level .nav li.active a {
+      background-color: #11a636;
+      color: #000; }
+    .theme-purple .search-level .nav li.active a {
+      background-color: #712082;
+      color: #fff; }
+  .search-level .nav li + li {
+    margin-left: 0; }
+  @media (max-width: 769px) {
+    .search-level .nav li.title {
+      display: block; } }
+  @media (min-width: 0) and (max-width: 468px) {
+    .search-level .nav li {
+      display: block; }
+      .search-level .nav li a {
+        display: inline-block; } }
+
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
 

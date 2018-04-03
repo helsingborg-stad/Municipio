@@ -14,7 +14,7 @@
     @endif
 
     @if (is_null(get_field('search_result_display_options', 'option')) || in_array('lead', (array)get_field('search_result_display_options', 'option')))
-    <p>{{ $lead }}</p>
+    <p>{!! $lead !!}</p>
     @endif
 
     @if (is_null(get_field('search_result_display_options', 'option')) || in_array('url', (array)get_field('search_result_display_options', 'option')))
