@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-03-20 09:12+0100\n"
-"PO-Revision-Date: 2018-03-20 09:59+0100\n"
+"POT-Creation-Date: 2018-04-03 11:30+0200\n"
+"PO-Revision-Date: 2018-04-03 11:32+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -841,6 +841,14 @@ msgstr "Under footerinnehåll"
 msgid "Vertical position"
 msgstr "Vertikal positionering"
 
+#: library/AcfFields/php/options-theme-gdpr.php:6
+msgid "GDPR"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-gdpr.php:10
+msgid "Enable consent field for attachments"
+msgstr "Aktivera samtyckes fält för media"
+
 #: library/AcfFields/php/options-theme-google-translate.php:12
 msgid "Do not show"
 msgstr "Visa inte"
@@ -1565,6 +1573,14 @@ msgstr "Lämna tomt för att dölja titel"
 msgid "Number of posts in one page"
 msgstr "Antalet inlägg på en sida"
 
+#: library/Admin/Options/AttachmentConsent.php:24
+msgid "Consent ID"
+msgstr "Samtyckes ID"
+
+#: library/Admin/Options/AttachmentConsent.php:43
+msgid "Consent comment"
+msgstr "Samtyckes kommentar"
+
 #: library/Admin/Options/GoogleTranslate.php:15
 msgid "None (link to #translate to show)"
 msgstr ""
@@ -1652,18 +1668,6 @@ msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 #: library/Admin/UI/BackEnd.php:51
 msgid "This it the beta-environment. All functionality is not guaranteed."
 msgstr "Detta är en beta-miljö. All funktionalitet är inte garanterad."
-
-#: library/Admin/UI/VarnishPurge.php:38
-msgid "Varnish cache purged for this post!"
-msgstr "Varnish cachen tömd för denna sida"
-
-#: library/Admin/UI/VarnishPurge.php:64
-msgid "Purge Page"
-msgstr "Töm cache för sidan"
-
-#: library/Admin/UI/VarnishPurge.php:77
-msgid "Purge Varnish"
-msgstr "Töm varnish"
 
 #: library/Comment/CommentsFilters.php:44
 msgid ""
@@ -1902,8 +1906,8 @@ msgid "Something went wrong, please try again"
 msgstr "Något gick fel, vänligen försök igen"
 
 #: library/Theme/Share.php:39
-msgid "has invited you to join the group"
-msgstr "har bjudit in dig att gå med i gruppen"
+msgid "has invited you to join"
+msgstr "har bjudit in dig att gå med i"
 
 #: library/Theme/Share.php:39
 msgid "shared the post"
@@ -1914,8 +1918,8 @@ msgid "This message was sent by"
 msgstr "Meddelandet skickades av"
 
 #: library/Theme/Share.php:61
-msgid "Group invitation"
-msgstr "Inbjudan till grupp"
+msgid "Invitation"
+msgstr "Inbjudan"
 
 #: library/Theme/Share.php:61
 msgid "shared a post via"
@@ -5314,6 +5318,18 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Varnish cache purged for this post!"
+#~ msgstr "Varnish cachen tömd för denna sida"
+
+#~ msgid "Purge Page"
+#~ msgstr "Töm cache för sidan"
+
+#~ msgid "Purge Varnish"
+#~ msgstr "Töm varnish"
+
+#~ msgid "Group invitation"
+#~ msgstr "Inbjudan till grupp"
 
 #~ msgid "sent you a link via"
 #~ msgstr "har delat en länk via"

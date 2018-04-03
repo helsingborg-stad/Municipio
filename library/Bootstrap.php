@@ -96,6 +96,7 @@ add_action('init', function () {
         'widget-header-logotype'           => 'group_5a5ca31651f08',
         'widget-header-links'              => 'group_5a6744018083f',
         'theme-version-preview'            => 'group_5aa14b41551ae',
+        'options-theme-gdpr'               => 'group_5ac334058cc33',
     ));
     $acfExportManager->import();
 });

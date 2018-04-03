@@ -36,7 +36,7 @@ class Share
         // Build message
         $message = sprintf('<strong>%s</strong> %s <a href="%s" target="_blank">%s</a><br><br>%s<br><br>---<br>%s %s via <a href="%s" target="_blank">%s</a>',
             $senderName,
-            $shareType == 'invite' ? __('has invited you to join the group', 'municipio') : __('shared the post', 'municipio'),
+            $shareType == 'invite' ? __('has invited you to join', 'municipio') : __('shared the post', 'municipio'),
             get_permalink($postId),
             get_the_title($postId),
             !empty($_POST['message']) ? '<strong>' . __('Message', 'municipio') . '</strong><br>' . $_POST['message'] : '',
@@ -58,7 +58,7 @@ class Share
             foreach ($recipients as $recipient) {
                 $mail = wp_mail(
                     $recipient,
-                    $shareType == 'invite' ? __('Group invitation', 'municipio') : $senderName . ' ' . __('shared a post via', 'municipio') . ': ' . get_site_url(),
+                    $shareType == 'invite' ? __('Invitation', 'municipio') : $senderName . ' ' . __('shared a post via', 'municipio') . ': ' . get_site_url(),
                     $message,
                     array(
                         'From: ' . $senderName . ' <' . $senderEmail . '>',
