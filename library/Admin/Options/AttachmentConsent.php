@@ -21,7 +21,7 @@ class AttachmentConsent
             'fields' => array(
                 array(
                     'key' => 'field_5ac3358e33850',
-                    'label' => 'Consent ID',
+                    'label' => __('Consent ID', 'municipio'),
                     'name' => 'attachment_consent_id',
                     'type' => 'text',
                     'instructions' => '',
@@ -40,7 +40,7 @@ class AttachmentConsent
                 ),
                 array(
                     'key' => 'field_5ac33bad94a8a',
-                    'label' => 'Consent comment',
+                    'label' => __('Consent comment', 'municipio'),
                     'name' => 'attachment_consent_comment',
                     'type' => 'textarea',
                     'instructions' => '',
