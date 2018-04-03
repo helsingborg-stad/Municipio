@@ -19,7 +19,7 @@
         color: #000;
         border-radius: 30px;
         background-color: $creamy-darker;
-        padding: 5px 15px;
+        padding: 5px 10px 5px 10px;
 
         .label {
             position: relative;
@@ -67,4 +67,9 @@
             }
         }
     }
+}
+
+.network-title {
+    display: inline-block;
+    margin-bottom: 10px;
 }

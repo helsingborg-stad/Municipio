@@ -1,17 +1,11 @@
 <div class="search-result-item">
-    @if (is_null(get_field('search_result_display_options', 'option')) || in_array('date', (array)get_field('search_result_display_options', 'option')))
-    <span class="search-result-date">{{ $date }}</span>
-    @endif
 
-    <h3><a class="link-item {{ isset($titleClass) ? $titleClass : '' }}" href="{{ $permalink }}">{{ strip_tags($title) }}</a></h3>
-
-    @if (in_array('image', (array)get_field('search_result_display_options', 'option')))
-    <?php
-    if ($thumbnail) {
-        echo '<a href="' . $permalink . '"><img src="' . $thumbnail . '" class="pull-right gutter gutter-margin gutter-left material-radius"></a>';
-    }
-    ?>
+    @if($label)
+    <span class="network-title label label-sm label-theme">{{ $label }}</span>
     @endif
+    <h3>
+        <a class="link-item {{ isset($titleClass) ? $titleClass : '' }}" href="{{ $permalink }}">{{ strip_tags($title) }}</a>
+    </h3>
 
     @if (is_null(get_field('search_result_display_options', 'option')) || in_array('lead', (array)get_field('search_result_display_options', 'option')))
     <p>{!! $lead !!}</p>

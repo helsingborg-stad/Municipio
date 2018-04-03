@@ -54,29 +54,36 @@
                             <li>
                                 <a href="?s={{ get_search_query() }}">
                                     {{ $translation['all_pages'] }}
+                                    <span class="label label-rounded label-sm">{{ $resultCount }}</span>
                                 </a>
                             </li>
                         @else
                             <li class="active">
                                 <a href="?s={{ get_search_query() }}">
                                     {{ $translation['all_pages'] }}
+                                    <span class="label label-rounded label-sm">{{ $resultCount }}</span>
                                 </a>
                             </li>
                         @endif
 
                         @foreach(ALGOLIA_FRONTEND_INDEXES as $filterKey => $filter)
-                            @if(isset($_GET['index_id']) && in_array($filterKey, explode(",", $_GET['index_id'])))
-                                <li class="active">
-                                    <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}">
-                                        {{ $filter[2] }}
-                                    </a>
-                                </li>
-                            @else
-                                <li>
-                                    <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}">
-                                        {{ $filter[2] }}
-                                    </a>
-                                </li>
+
+                            @if($resultIndexCount[$filterKey])
+                                @if(isset($_GET['index_id']) && in_array($filterKey, explode(",", $_GET['index_id'])))
+                                    <li class="active">
+                                        <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}&count_data={{json_encode($resultIndexCount)}}">
+                                            {{ $filter[2] }}
+                                            <span class="label label-rounded label-sm">{{ $resultIndexCount[$filterKey] }}</span>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}&count_data={{json_encode($resultIndexCount)}}">
+                                            {{ $filter[2] }}
+                                            <span class="label label-rounded label-sm">{{ $resultIndexCount[$filterKey] }}</span>
+                                        </a>
+                                    </li>
+                                @endif
                             @endif
                         @endforeach
                     </ul>
@@ -101,19 +108,19 @@
                         <ul class="search-result-list">
                         @endif
 
-                            @foreach($results as $item)
+                            @foreach($paginatedResults[$pg] as $item)
 
                                 @if($template != 'grid')
                                 <li>
                                 @endif
 
                                 @php
-                                $date = apply_filters('Municipio/search_result/title', $item['post_date'], null);
-                                $permalink = apply_filters('Municipio/search_result/permalink_url', $item['permalink'], null);
-                                $permalinkText = apply_filters('Municipio/search_result/permalink_text', $item['permalink'], null);
-                                $title = apply_filters('Municipio/search_result/title', $item['post_title'], null);
-                                $lead = apply_filters('Municipio/search_result/excerpt', $item['post_excerpt'], null);
-                                $thumbnail = null;
+                                $date               = apply_filters('Municipio/search_result/title', $item['post_date'], null);
+                                $permalink          = apply_filters('Municipio/search_result/permalink_url', $item['permalink'], null);
+                                $permalinkText      = apply_filters('Municipio/search_result/permalink_text', $item['permalink'], null);
+                                $title              = apply_filters('Municipio/search_result/title', $item['post_title'], null);
+                                $lead               = apply_filters('Municipio/search_result/excerpt', $item['post_excerpt'], null);
+                                $label              = apply_filters('Municipio/search_result/label', $item['index_name'], null);
                                 @endphp
 
                                 @if($template === 'grid')
@@ -138,9 +145,24 @@
                     </div>
                 </div>
             </div>
-
             @include('partials.sidebar-right')
         </div>
+
+        @if (count($paginatedResults) > 1)
+            <div class="grid">
+                <div class="grid-lg-12">
+                    <ul class="pagination">
+                        @foreach($paginatedResults as $pageKey => $pageData)
+                            @if(is_numeric($pg) && $pg == $pageKey)
+                                <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}">{{ $pageKey + 1}}</a></li>
+                            @else
+                                <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}">{{ $pageKey + 1}}</a></li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
     </div>
 </section>
 
