@@ -65,7 +65,7 @@
                         @endif
 
                         @foreach(ALGOLIA_FRONTEND_INDEXES as $filterKey => $filter)
-                            @if(isset($_GET['index_id']) && $filterKey == $_GET['index_id'])
+                            @if(isset($_GET['index_id']) && in_array($filterKey, explode(",", $_GET['index_id'])))
                                 <li class="active">
                                     <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}">
                                         {{ $filter[2] }}
