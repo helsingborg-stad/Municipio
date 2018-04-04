@@ -28,13 +28,25 @@
 
 <?php do_action('search_notices'); ?>
 
-@if ($resultCount === 0)
+@if (empty($paginatedResults))
 
 <div class="container gutter gutter-lg gutter-top">
     <div class="grid gutter gutter-lg gutter-top">
         <div class="grid-lg-12">
             <div class="notice info">
                 <i class="fa fa-info-circle"></i> <?php _e('Found no matching results on your search…', 'municipio'); ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+@elseif(!isset($paginatedResults[$pg]))
+
+<div class="container gutter gutter-lg gutter-top">
+    <div class="grid gutter gutter-lg gutter-top">
+        <div class="grid-lg-12">
+            <div class="notice info">
+                <i class="fa fa-info-circle"></i> <?php _e('Whoops, this search result page dosen\'t exist anymore…', 'municipio'); ?>
             </div>
         </div>
     </div>
@@ -153,10 +165,18 @@
                 <div class="grid-lg-12">
                     <ul class="pagination">
                         @foreach($paginatedResults as $pageKey => $pageData)
-                            @if(is_numeric($pg) && $pg == $pageKey)
-                                <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}">{{ $pageKey + 1}}</a></li>
+                            @if(isset($_GET['index_id']))
+                                @if(is_numeric($pg) && $pg == $pageKey)
+                                    <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}&index_id={{ $_GET['index_id'] }}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                @else
+                                    <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}&index_id={{ $_GET['index_id'] }}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                @endif
                             @else
-                                <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}">{{ $pageKey + 1}}</a></li>
+                                @if(is_numeric($pg) && $pg == $pageKey)
+                                    <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                @else
+                                    <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                @endif
                             @endif
                         @endforeach
                     </ul>
