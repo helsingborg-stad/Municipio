@@ -74,31 +74,37 @@ class Search extends \Municipio\Controller\BaseController
         //Get count per index
         $this->data['resultIndexCount'] = $this->algoliaCustomSearchResultCount($this->data['results']);
 
+        $this->data['resultIndexCountUrl'] = implode("-", $this->data['resultIndexCount']);
+
         //Total count
-        if(isset($_GET['count_data']) && json_decode($_GET['count_data'])) {
-            $this->data['resultCount'] = array_sum(json_decode($_GET['count_data']));
+        if(isset($_GET['count_data'])) {
+            $this->data['resultCount'] = array_sum(explode("-", $_GET['count_data']));
         } else {
             $this->data['resultCount'] = count($this->data['results']);
         }
 
         //Pagination
         $this->data['paginatedResults'] = array_chunk($this->data['results'], 30);
-
         $this->data['pg'] = isset($_GET['pg']) && is_numeric($_GET['pg']) ? $_GET['pg'] : 0;
     }
 
     public function algoliaCustomSearchResultCount($result) {
 
         //Get for url if defined
-        if(isset($_GET['count_data']) && json_decode($_GET['count_data'])) {
-            return json_decode($_GET['count_data']);
+        if(isset($_GET['count_data'])) {
+            return explode("-", $_GET['count_data']);
         }
 
         //Get from backend
         $return = array();
         foreach ($result as $item) {
-            $return[$item['index_id']]++;
+            $return[$item['index_id']] = $return[$item['index_id']] +1;
         }
+
+        //Sort
+        ksort($return);
+
+        //Return
         return $return;
     }
 

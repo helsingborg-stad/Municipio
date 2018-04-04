@@ -79,18 +79,17 @@
                         @endif
 
                         @foreach(ALGOLIA_FRONTEND_INDEXES as $filterKey => $filter)
-
-                            @if($resultIndexCount[$filterKey])
+                            @if($resultIndexCount[$filterKey] != 0)
                                 @if(isset($_GET['index_id']) && in_array($filterKey, explode(",", $_GET['index_id'])))
                                     <li class="active">
-                                        <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}&count_data={{json_encode($resultIndexCount)}}">
+                                        <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}&count_data={{$resultIndexCountUrl}}">
                                             {{ $filter[2] }}
                                             <span class="label label-rounded label-sm">{{ $resultIndexCount[$filterKey] }}</span>
                                         </a>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}&count_data={{json_encode($resultIndexCount)}}">
+                                        <a href="?s={{ get_search_query() }}&index_id={{ $filterKey }}&count_data={{$resultIndexCountUrl}}">
                                             {{ $filter[2] }}
                                             <span class="label label-rounded label-sm">{{ $resultIndexCount[$filterKey] }}</span>
                                         </a>
@@ -167,15 +166,15 @@
                         @foreach($paginatedResults as $pageKey => $pageData)
                             @if(isset($_GET['index_id']))
                                 @if(is_numeric($pg) && $pg == $pageKey)
-                                    <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}&index_id={{ $_GET['index_id'] }}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                    <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}&index_id={{ $_GET['index_id'] }}&count_data={{$resultIndexCountUrl}}">{{ $pageKey + 1}}</a></li>
                                 @else
-                                    <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}&index_id={{ $_GET['index_id'] }}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                    <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}&index_id={{ $_GET['index_id'] }}&count_data={{$resultIndexCountUrl}}">{{ $pageKey + 1}}</a></li>
                                 @endif
                             @else
                                 @if(is_numeric($pg) && $pg == $pageKey)
-                                    <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                    <li><a class="page current" href="?s={{ get_search_query() }}&pg={{$pageKey}}&count_data={{$resultIndexCountUrl}}">{{ $pageKey + 1}}</a></li>
                                 @else
-                                    <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}&count_data={{json_encode($resultIndexCount)}}">{{ $pageKey + 1}}</a></li>
+                                    <li><a class="page" href="?s={{ get_search_query() }}&pg={{$pageKey}}&count_data={{$resultIndexCountUrl}}">{{ $pageKey + 1}}</a></li>
                                 @endif
                             @endif
                         @endforeach
