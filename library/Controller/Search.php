@@ -98,7 +98,11 @@ class Search extends \Municipio\Controller\BaseController
         //Get from backend
         $return = array();
         foreach ($result as $item) {
-            $return[$item['index_id']] = $return[$item['index_id']] +1;
+            if (isset($return[$item['index_id']])) {
+                $return[$item['index_id']] = $return[$item['index_id']] +1;
+            } else {
+                $return[$item['index_id']] = 1;
+            }
         }
 
         //Sort
