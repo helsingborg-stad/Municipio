@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                    <?php $answers = get_comments(array('parent' => $comment->comment_ID)); ?>
+                    <?php $answers = get_comments(array('parent' => $comment->comment_ID, 'order' => 'asc')); ?>
                     @if (isset($answers) && $answers)
                         <ul class="answers">
                              @foreach($answers as $answer)
