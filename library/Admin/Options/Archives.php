@@ -6,14 +6,18 @@ class Archives
 {
     public function __construct()
     {
-        add_action('admin_init', array($this, 'addArchiveOptions'));
+        if (isset($_GET['page']) === 'acf-options-archives') {
+            add_action('admin_init', array($this, 'addArchiveOptions'));
+        }
     }
+
 
     /**
      * Adds archive options fields
      */
     public function addArchiveOptions()
     {
+
         if (!function_exists('acf_add_local_field_group')) {
             return;
         }
