@@ -6,7 +6,9 @@ class Archives
 {
     public function __construct()
     {
-        if (isset($_GET['page']) === 'acf-options-archives') {
+        $pageParam = isset($_GET['page']) ? $_GET['page'] : null;
+
+        if ($pageParam  === 'acf-options-archives') {
             add_action('admin_init', array($this, 'addArchiveOptions'));
         }
     }
