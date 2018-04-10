@@ -6,11 +6,13 @@ class Sidebars
 {
     public $headers = array();
     public $panel = '';
+    public $config;
 
     public function __construct($customizerHeader)
     {
         $this->headers = $customizerHeader->headers;
         $this->panel = $customizerHeader->panel;
+        $this->config = $customizerHeader->config;
 
         add_action('widgets_init', array($this, 'registerSidebars'));
         add_filter('customizer_widgets_section_args', array($this, 'moveSidebars'), 10, 3);

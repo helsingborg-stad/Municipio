@@ -6,14 +6,13 @@ class CustomizerHeader
 {
     public $headers = array();
     public $config = '';
-    public $panel = '';
+    public $panel = 'panel_header';
 
     public static $enabledHeaders = array();
 
     public function __construct($customizerManager)
     {
         $this->config = $customizerManager->config;
-        $this->panel = 'panel_header';
 
         $this->establishHeaders();
 

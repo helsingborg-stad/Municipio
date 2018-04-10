@@ -6,11 +6,13 @@ class UserInterface
 {
     public $headers = array();
     public $panel = '';
+    public $config;
 
     public function __construct($customizerHeader)
     {
         $this->headers = $customizerHeader->headers;
         $this->panel = $customizerHeader->panel;
+        $this->config = $customizerHeader->config;
 
         add_action('init', array($this, 'customizerInterface'), 9);
     }
