@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-04-04 09:12+0200\n"
-"PO-Revision-Date: 2018-04-04 09:13+0200\n"
+"POT-Creation-Date: 2018-04-10 15:01+0200\n"
+"PO-Revision-Date: 2018-04-10 15:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -56,12 +56,12 @@ msgid "Share"
 msgstr "Dela"
 
 #: library/AcfFields/php/options-page-display.php:48
-#: library/AcfFields/php/options-theme-author.php:15
+#: library/AcfFields/php/options-theme-author.php:10
 msgid "Show author"
 msgstr "Visa författare"
 
 #: library/AcfFields/php/options-page-display.php:53
-#: library/Admin/Options/Archives.php:34
+#: library/Admin/Options/Archives.php:40
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
 msgid "Author"
 msgstr "Författare"
@@ -160,9 +160,9 @@ msgstr "Text på sök-knapp"
 msgid "Use %s to output suggested search query"
 msgstr "Använd %s för att skriva ut föreslagen sökfras"
 
-#: library/AcfFields/php/options-theme-author.php:10
-#: library/AcfFields/php/options-theme-author.php:29
-#: library/AcfFields/php/options-theme-author.php:48
+#: library/AcfFields/php/options-theme-author.php:22
+#: library/AcfFields/php/options-theme-author.php:41
+#: library/AcfFields/php/options-theme-author.php:60
 #: library/AcfFields/php/options-theme-google-translate.php:96
 #: library/AcfFields/php/options-theme-scroll-elevator.php:32
 #: library/AcfFields/php/options-theme-search-algolia.php:10
@@ -171,11 +171,11 @@ msgstr "Använd %s för att skriva ut föreslagen sökfras"
 msgid "Enable"
 msgstr "Aktivera"
 
-#: library/AcfFields/php/options-theme-author.php:34
+#: library/AcfFields/php/options-theme-author.php:29
 msgid "Show author image"
 msgstr "Visa bild på författare"
 
-#: library/AcfFields/php/options-theme-author.php:53
+#: library/AcfFields/php/options-theme-author.php:48
 msgid "Link name to author archive"
 msgstr "Länka namn till arkivet för författaren"
 
@@ -1383,28 +1383,28 @@ msgstr ""
 msgid "2.0"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:20
+#: library/AcfFields/php/user-author-image.php:10
 msgid "Profile picture"
 msgstr "Profilbild"
 
-#: library/AcfFields/php/user-author-image.php:36
+#: library/AcfFields/php/user-author-image.php:34
 msgid "Facebook profile url"
 msgstr "Url till Facebook-profil"
 
-#: library/AcfFields/php/user-author-image.php:52
+#: library/AcfFields/php/user-author-image.php:50
 msgid "Linkedin profile url"
 msgstr "Url till LinkedIn-profil"
 
-#: library/AcfFields/php/user-author-image.php:68
-#: library/AcfFields/php/user-author-image.php:87
-msgid "@"
-msgstr ""
-
-#: library/AcfFields/php/user-author-image.php:71
+#: library/AcfFields/php/user-author-image.php:66
 msgid "Instagram username"
 msgstr "Användarnamn på Instagram"
 
-#: library/AcfFields/php/user-author-image.php:90
+#: library/AcfFields/php/user-author-image.php:80
+#: library/AcfFields/php/user-author-image.php:99
+msgid "@"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:85
 msgid "Twitter username"
 msgstr "Användarnamn på Twitter"
 
@@ -1561,15 +1561,15 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Options/Archives.php:51
+#: library/Admin/Options/Archives.php:57
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Archives.php:97
+#: library/Admin/Options/Archives.php:103
 msgid "Leave empty to hide title"
 msgstr "Lämna tomt för att dölja titel"
 
-#: library/Admin/Options/Archives.php:204
+#: library/Admin/Options/Archives.php:210
 msgid "Number of posts in one page"
 msgstr "Antalet inlägg på en sida"
 
@@ -1878,6 +1878,14 @@ msgstr "Inga matchande filter hittades…"
 #: library/Theme/Enqueue.php:131
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
+
+#: library/Theme/Enqueue.php:134
+msgid "Are you sure you want to delete the comment?"
+msgstr "Är du säker på att du vill ta bort kommentaren?"
+
+#: library/Theme/Enqueue.php:135
+msgid "Something went wrong, please try again later"
+msgstr "Något gick fel, vänligen försök igen senare"
 
 #: library/Theme/General.php:198
 msgid "Print"
@@ -3495,15 +3503,15 @@ msgstr "Utvald bild"
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:376
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:433
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:44
+#: views/partials/blog/comments.blade.php:60
+#: views/partials/blog/comments.blade.php:123
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:91
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
-#, fuzzy
-#| msgid "Edit %s"
 msgid "Edit"
-msgstr "Redigera %s"
+msgstr "Redigera"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:97
 #: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:53
@@ -5331,6 +5339,11 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#, fuzzy
+#~| msgid "Something went wrong, please try again"
+#~ msgid "Something went wrong"
+#~ msgstr "Något gick fel, vänligen försök igen"
 
 #~ msgid "Varnish cache purged for this post!"
 #~ msgstr "Varnish cachen tömd för denna sida"
