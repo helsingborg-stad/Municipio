@@ -14,10 +14,80 @@ class CustomizerHeader
     {
         $this->config = $customizerManager->config;
 
+        add_action('admin_init', array($this, 'headerOptions'));
+
         $this->establishHeaders();
 
         new \Municipio\Customizer\Header\UserInterface($this);
         new \Municipio\Customizer\Header\Sidebars($this);
+    }
+
+    public function headerOptions()
+    {
+        if (!function_exists('acf_add_local_field_group')) {
+            return;
+        }
+
+        $headers = $this->avalibleHeaders();
+        $optionalHeaders = array();
+
+        foreach ($headers as $header) {
+            if (!isset($header['optional']) || $header['optional'] == false) {
+                continue;
+            }
+
+            $optionalHeaders[$header['id']] = (isset($header['name']) && !empty($header['name']) && is_string($header['name'])) ? 'Enable ' . $header['name'] : 'Enable ' . ucfirst($header['id']) . ' header';
+        }
+
+        if (!is_array($optionalHeaders) || empty($optionalHeaders)) {
+            return;
+        }
+
+        acf_add_local_field_group(array(
+            'key' => 'group_5acccac61171c',
+            'title' => 'Customizer header',
+            'fields' => array(
+                array(
+                    'key' => 'field_5acccad17936d',
+                    'label' => 'Optional headers',
+                    'name' => 'customizer_optional_headers',
+                    'type' => 'checkbox',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => $optionalHeaders,
+                    'allow_custom' => 0,
+                    'save_custom' => 0,
+                    'default_value' => array(
+                    ),
+                    'layout' => 'vertical',
+                    'toggle' => 0,
+                    'return_format' => 'value',
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'options_page',
+                        'operator' => '==',
+                        'value' => 'acf-options-header',
+                    ),
+                ),
+            ),
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => 1,
+            'description' => '',
+        ));
     }
 
     /**
@@ -52,6 +122,12 @@ class CustomizerHeader
                 'name'          => 'Secondary header',
                 'classes'       => ['c-navbar--secondary'],
                 'optional'      => true
+            ),
+            array(
+                'id'            => 'secondary',
+                'name'          => 'Secondary header',
+                'classes'       => ['c-navbar--secondary'],
+                'optional'       => true
             )
         );
 
@@ -71,7 +147,9 @@ class CustomizerHeader
         //Enable by option
         foreach ($avalibleHeaders as $key => $header) {
             if (isset($header['optional']) && $header['optional'] == true) {
-                $avalibleHeaders[$key]['enabled'] = false;
+                if (in_array($header['id'], get_field('customizer_optional_headers', 'options'))) {
+                    $avalibleHeaders[$key]['enabled'] = true;
+                }
             }
         }
 
