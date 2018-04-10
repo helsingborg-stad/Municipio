@@ -14,6 +14,7 @@ class Widgets
         $customizerWidgets = apply_filters('Municipio/Widget/Widgets/CustomizerWidgets', false);
 
         if ($customizerWidgets) {
+            new \Municipio\Widget\HeaderFields();
             add_action('widgets_init', array($this, 'headerWidgets'));
         }
     }

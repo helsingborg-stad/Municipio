@@ -19,8 +19,7 @@
                 'id' => '',
             ),
             'choices' => array(
-                2 => __('Primary (Menu ID: 2)', 'municipio'),
-                3 => __('ROFL (Menu ID: 3)', 'municipio'),
+                5 => __('Primary (Menu ID: 5)', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -30,27 +29,6 @@
             'ajax' => 0,
             'return_format' => 'value',
             'placeholder' => '',
-        ),
-        1 => array(
-            'key' => 'field_5a65d73014a78',
-            'label' => '',
-            'name' => '',
-            'type' => 'clone',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'clone' => array(
-                0 => 'group_5a65d5e7e913b',
-            ),
-            'display' => 'seamless',
-            'layout' => 'block',
-            'prefix_label' => 0,
-            'prefix_name' => 0,
         ),
     ),
     'location' => array(

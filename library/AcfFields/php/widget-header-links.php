@@ -274,27 +274,6 @@
             'min' => '',
             'max' => '',
         ),
-        1 => array(
-            'key' => 'field_5a6745d543e98',
-            'label' => '',
-            'name' => '',
-            'type' => 'clone',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'clone' => array(
-                0 => 'group_5a65d5e7e913b',
-            ),
-            'display' => 'seamless',
-            'layout' => 'block',
-            'prefix_label' => 0,
-            'prefix_name' => 0,
-        ),
     ),
     'location' => array(
         0 => array(

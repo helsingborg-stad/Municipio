@@ -66,7 +66,9 @@ abstract class BaseWidget extends \WP_Widget
             parent::__construct(
                 $this->config['id'],
                 __($this->config['name'], 'municipio'),
-                array( 'description' => __($this->config['description'], 'municipio'), )
+                array(
+                    'description' => __($this->config['description'], 'municipio')
+                )
             );
         }
     }
@@ -85,10 +87,6 @@ abstract class BaseWidget extends \WP_Widget
     {
         $this->data['args'] = $args;
         $this->data['instance'] = $instance;
-
-        if (defined('MUNICIPIO_BEM_THEME_NAME')) {
-            $this->data['themeClass'] = MUNICIPIO_BEM_THEME_NAME;
-        }
 
         if (method_exists($this, 'beforeViewController')) {
             $this->beforeViewController();

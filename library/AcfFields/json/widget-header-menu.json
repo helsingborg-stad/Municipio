@@ -16,8 +16,7 @@
                 "id": ""
             },
             "choices": {
-                "2": "Primary (Menu ID: 2)",
-                "3": "ROFL (Menu ID: 3)"
+                "5": "Primary (Menu ID: 5)"
             },
             "default_value": [],
             "allow_null": 0,
@@ -26,27 +25,6 @@
             "ajax": 0,
             "return_format": "value",
             "placeholder": ""
-        },
-        {
-            "key": "field_5a65d73014a78",
-            "label": "",
-            "name": "",
-            "type": "clone",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "clone": [
-                "group_5a65d5e7e913b"
-            ],
-            "display": "seamless",
-            "layout": "block",
-            "prefix_label": 0,
-            "prefix_name": 0
         }
     ],
     "location": [
