@@ -126,6 +126,7 @@ class Support
                 'chat'
             )
         );
+        add_theme_support('customize-selective-refresh-widgets');
     }
 
     /**
