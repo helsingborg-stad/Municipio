@@ -1,5 +1,23 @@
 @include('partials.navigation.search-top')
 
+@if (isset($headerLayout['bars']) && is_array($headerLayout['bars']) && !empty($headerLayout['bars']))
+    <header class="s-site-header" id="site-header">
+        @foreach ($headerLayout['bars'] as $header)
+            <div {!! $header['attributes'] !!}>
+                <div class="{{$header['container']}}">
+                    <div class="c-navbar__body">
+                        <?php dynamic_sidebar($header['sidebar']); ?>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
+            @include('partials.mobile-menu')
+        </nav>
+    </header>
+@endif
+
 @if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
 
     <header id="header" class="c-site-header">

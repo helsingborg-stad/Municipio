@@ -134,14 +134,19 @@ class BaseController
      */
     public function customizerHeader()
     {
-        $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
+        // $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
 
-        if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
-            $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
+        // if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
+        //     $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
+        // }
+
+        // $this->data['headerLayout']['customizer'] = true;
+        // $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
+
+
+        if (\Municipio\Customizer\Header\CustomizerHeader::getHeaders()) {
+            $this->data['headerLayout']['bars'] = \Municipio\Customizer\Header\CustomizerHeader::getHeaders();
         }
-
-        $this->data['headerLayout']['customizer'] = true;
-        $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
 
         //Old mobile menu
         $navigation = new \Municipio\Helper\Navigation();
@@ -155,19 +160,19 @@ class BaseController
      */
     public function customizerFooter()
     {
-        $footerWidgetAreas = \Municipio\Customizer\Footer::enabledWidgets();
+        // $footerWidgetAreas = \Municipio\Customizer\Footer::enabledWidgets();
 
-        if (is_array($footerWidgetAreas) && !empty($footerWidgetAreas)) {
-            $this->data['footerLayout']['footers'] = (new \Municipio\Theme\CustomizerFooter($footerWidgetAreas))->footers;
-        }
+        // if (is_array($footerWidgetAreas) && !empty($footerWidgetAreas)) {
+        //     $this->data['footerLayout']['footers'] = (new \Municipio\Theme\CustomizerFooter($footerWidgetAreas))->footers;
+        // }
 
-        $this->data['footerLayout']['customizer'] = true;
-        $this->data['footerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerFooter/Template', 'customizer');
+        // $this->data['footerLayout']['customizer'] = true;
+        // $this->data['footerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerFooter/Template', 'customizer');
 
-        //Old mobile menu
-        $navigation = new \Municipio\Helper\Navigation();
-        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
-        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+        // //Old mobile menu
+        // $navigation = new \Municipio\Helper\Navigation();
+        // $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
+        // $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
     }
 
     public function getFixedActionBar()
