@@ -33,7 +33,7 @@ class Sidebars
                 'id'            => $sidebar['sidebar'],
                 'name'          => __($sidebar['name'], 'municipio'),
                 'description'   => __($sidebar['description'], 'municipio'),
-                'before_widget' => '<div class="widget %2$s">',
+                'before_widget' => '<div class="c-navbar__item widget %2$s">',
                 'after_widget'  => '</div>',
                 'before_title'  => '<h3>',
                 'after_title'   => '</h3>'

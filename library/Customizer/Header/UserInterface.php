@@ -80,7 +80,7 @@ class UserInterface
 
         $default = (isset($default[$header]['background'])) ? $default[$header]['background'] : '#000000';
 
-        \Kirki::add_field('municipio_config', array(
+        \Kirki::add_field($this->config, array(
             'type'        => 'color-palette',
             'settings'    => $header . '-header-background',
             'label'       => esc_attr__(ucfirst($header) . ' header background', 'municipio'),
@@ -92,7 +92,7 @@ class UserInterface
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer.c-header--' . $header,
+                    'element' => '.c-navbar--customizer.c-navbar--' . $header,
                     'property' => 'background-color'
                 )
             )
@@ -109,7 +109,7 @@ class UserInterface
         $default = self::defaultHeaderColors();
         $default = (isset($default[$header]['link'])) ? $default[$header]['link'] : '#000000';
 
-        \Kirki::add_field('municipio_config', array(
+        \Kirki::add_field($this->config, array(
             'type'        => 'color-palette',
             'settings'    => $header . '-header-link-color',
             'label'       => esc_attr__(ucfirst($header) . ' header link color', 'municipio'),
@@ -121,7 +121,7 @@ class UserInterface
             ),
             'output' => array(
                 array(
-                    'element' => '.c-header--customizer.c-header--' . $header . ' a, .c-header--customizer.c-header--' . $header,
+                    'element' => '.c-navbar--customizer.c-navbar--' . $header . ' a, .c-navbar--customizer.c-navbar--' . $header,
                     'property' => 'color'
                 )
             )
@@ -150,7 +150,7 @@ class UserInterface
 
         $default = (isset($default[$header])) ? $default[$header] : array();
 
-        \Kirki::add_field('municipio_config', array(
+        \Kirki::add_field($this->config, array(
             'type'        => 'multicheck',
             'settings'    => $header . '-header-visibility',
             'label'       => esc_attr__('Visibility settings', 'municipio'),
