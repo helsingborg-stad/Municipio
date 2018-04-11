@@ -17,7 +17,8 @@ var revReplaceCSS   = require('gulp-rev-css-url');
 gulp.task('sass-dist', function() {
     return gulp.src([
                 'assets/source/sass/app.scss',
-                'assets/source/sass/admin.scss'
+                'assets/source/sass/admin.scss',
+                'assets/source/sass/customizer.scss',
             ])
             .pipe(plumber())
             .pipe(sass())
@@ -33,7 +34,8 @@ gulp.task('sass-dist', function() {
 gulp.task('sass-dev', function() {
     return gulp.src([
                 'assets/source/sass/app.scss',
-                'assets/source/sass/admin.scss'
+                'assets/source/sass/admin.scss',
+                'assets/source/sass/customizer.scss',
             ])
             .pipe(plumber())
             .pipe(sass())
