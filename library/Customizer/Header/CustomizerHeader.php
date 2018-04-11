@@ -115,6 +115,7 @@ class CustomizerHeader
             array(
                 'id'            => 'primary',
                 'name'          => 'Primary header',
+                'classes'       => ['c-navbar--primary'],
                 'enabled'       => true
             ),
             array(
@@ -122,16 +123,16 @@ class CustomizerHeader
                 'name'          => 'Secondary header',
                 'classes'       => ['c-navbar--secondary'],
                 'optional'      => true
-            ),
-            array(
-                'id'            => 'secondary',
-                'name'          => 'Secondary header',
-                'classes'       => ['c-navbar--secondary'],
-                'optional'       => true
             )
         );
 
-        return apply_filters('Municipio/Customizer/Header/avalibleHeaders', $avalibleHeaders);
+        $headers = array();
+
+        foreach ($avalibleHeaders as $header) {
+            $headers[] = apply_filters('Municipio/Customizer/Header/avalibleHeaders', $header, $header['id']);
+        }
+
+        return $headers;
     }
 
     public function establishHeaders()
@@ -180,7 +181,7 @@ class CustomizerHeader
         unset($header['enabled']);
         unset($header['optional']);
 
-        $blockClass = apply_filters('Municipio/Customizer/Header/blockClass', 'c-navbar', $header);
+        $blockClass = apply_filters('Municipio/Customizer/Header/blockClass', 'c-navbar c-navbar--customizer', $header);
 
         //Append container
         $header['container'] = (isset($header['container']) && is_string($header['container'])) ? $header['container'] : 'container';
