@@ -74,7 +74,9 @@ class CommentsActions
 
         ob_start();
         comment_form($args, $postId);
-        $form = str_replace('class="comment-respond"', 'class="comment-respond comment-respond-new comment-update"', ob_get_clean());
+        $form = ob_get_clean();
+        $form = str_replace('class="comment-respond"', 'class="comment-respond comment-respond-new comment-update"', $form);
+        $form = str_replace('id="respond"', 'id="respond-edit"', $form);
 
         wp_send_json_success($form);
     }
