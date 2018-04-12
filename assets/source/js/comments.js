@@ -36,7 +36,7 @@ Muncipio.Post.Comments = (function ($) {
             this.cleanUp();
         }.bind(this));
 
-        $('.comment-reply-link').mousedown(function() {
+        $(document).on('click', '.comment-reply-link', function (e) {
             this.cleanUp();
         }.bind(this));
     };
@@ -75,8 +75,8 @@ Muncipio.Post.Comments = (function ($) {
     };
 
     Comments.prototype.displayEditForm = function(event) {
-        var commentId = $(event.target).data('comment-id'),
-            postId = $(event.target).data('post-id'),
+        var commentId = $(event.currentTarget).data('comment-id'),
+            postId = $(event.currentTarget).data('post-id'),
             $target = $('.comment-body', '#answer-' + commentId + ', #comment-' + commentId).first();
 
         this.cleanUp();
@@ -145,7 +145,7 @@ Muncipio.Post.Comments = (function ($) {
 
     Comments.prototype.cleanUp = function(event) {
         $('.comment-update').remove();
-        $('.dropdown-menu', '.comment').hide();
+        $('.dropdown-menu').hide();
         $('.comment-content, .comment-footer').fadeIn('fast');
     };
 
