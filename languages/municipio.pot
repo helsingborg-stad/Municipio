@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-04-10 15:01+0200\n"
+"POT-Creation-Date: 2018-04-12 11:10+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1608,6 +1608,15 @@ msgstr ""
 msgid "This it the beta-environment. All functionality is not guaranteed."
 msgstr ""
 
+#: library/Comment/CommentsActions.php:67
+#: vendor/advanced-custom-fields/core/api.php:1171
+msgid "Update"
+msgstr ""
+
+#: library/Comment/CommentsActions.php:72
+msgid "Cancel"
+msgstr ""
+
 #: library/Comment/CommentsFilters.php:44
 msgid ""
 "Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
@@ -2246,10 +2255,6 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/actions/export.php:33
 msgid "No ACF groups selected"
-msgstr ""
-
-#: vendor/advanced-custom-fields/core/api.php:1171
-msgid "Update"
 msgstr ""
 
 #: vendor/advanced-custom-fields/core/api.php:1172
@@ -3278,13 +3283,15 @@ msgstr ""
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:376
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:433
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:44
-#: views/partials/blog/comments.blade.php:60
-#: views/partials/blog/comments.blade.php:123
+#: views/partials/blog/comments.blade.php:62
+#: views/partials/blog/comments.blade.php:126
 msgid "Remove"
 msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/image.php:91
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
+#: views/partials/blog/comments.blade.php:59
+#: views/partials/blog/comments.blade.php:123
 msgid "Edit"
 msgstr ""
 
