@@ -129,6 +129,10 @@ class Enqueue
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
+            ),
+            'messages' => array(
+                'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
+                'onError' => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
         wp_enqueue_script('municipio');

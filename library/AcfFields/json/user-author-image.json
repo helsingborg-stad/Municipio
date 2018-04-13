@@ -3,16 +3,6 @@
     "title": "Profilbild",
     "fields": [
         {
-            "return_format": "url",
-            "preview_size": "thumbnail",
-            "library": "all",
-            "min_width": 500,
-            "min_height": 500,
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "jpg, png",
             "key": "field_56c714f8d0a42",
             "label": "Profile picture",
             "name": "user_profile_picture_id",
@@ -24,11 +14,19 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "return_format": "url",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": 500,
+            "min_height": 500,
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg, png"
         },
         {
-            "default_value": "",
-            "placeholder": "",
             "key": "field_5885e2bff8eca",
             "label": "Facebook profile url",
             "name": "user_facebook_url",
@@ -40,11 +38,11 @@
                 "width": "25",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "placeholder": ""
         },
         {
-            "default_value": "",
-            "placeholder": "",
             "key": "field_5885e2e0f8ecb",
             "label": "Linkedin profile url",
             "name": "user_linkedin_url",
@@ -56,14 +54,11 @@
                 "width": "25",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "placeholder": ""
         },
         {
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "@",
-            "append": "",
             "key": "field_5885e2f5f8ecc",
             "label": "Instagram username",
             "name": "user_instagram_username",
@@ -75,14 +70,14 @@
                 "width": "25",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "@",
-            "append": "",
+            "append": ""
+        },
+        {
             "key": "field_5885e306f8ecd",
             "label": "Twitter username",
             "name": "user_twitter_username",
@@ -94,7 +89,12 @@
                 "width": "25",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "@",
+            "append": ""
         }
     ],
     "location": [
@@ -113,7 +113,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 

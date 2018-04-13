@@ -84,6 +84,7 @@ class App
         new \Municipio\Comment\HoneyPot();
         new \Municipio\Comment\LikeButton();
         new \Municipio\Comment\CommentsFilters();
+        new \Municipio\Comment\CommentsActions();
 
         add_action('widgets_init', function () {
             register_widget('\Municipio\Widget\Contact');
