@@ -81,10 +81,12 @@ Muncipio.Post.Comments = (function ($) {
 
         this.cleanUp();
         $('.comment-content, .comment-footer', $target).hide();
+        $target.append('<div class="loading gutter gutter-top gutter-margin"><div></div><div></div><div></div><div></div></div>');
 
         $.when(this.getCommentForm(commentId, postId)).then(function(response) {
             if (response.success) {
                 $target.append(response.data);
+                $('.loading', $target).remove();
 
                 // Re init tinyMce if its used
                 if ($('.tinymce-editor').length) {
@@ -145,6 +147,7 @@ Muncipio.Post.Comments = (function ($) {
 
     Comments.prototype.cleanUp = function(event) {
         $('.comment-update').remove();
+        $('.loading', '.comment-body').remove();
         $('.dropdown-menu').hide();
         $('.comment-content, .comment-footer').fadeIn('fast');
     };
