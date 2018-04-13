@@ -80,11 +80,20 @@ class Search extends \Municipio\Controller\BaseController
         if(isset($_GET['count_data'])) {
             $this->data['resultCount'] = array_sum(explode("-", $_GET['count_data']));
         } else {
-            $this->data['resultCount'] = count($this->data['results']);
+            if(is_array($this->data['results'])) {
+                $this->data['resultCount'] = count($this->data['results']);
+            } else {
+                $this->data['resultCount'] = 0;
+            }
         }
 
         //Pagination
-        $this->data['paginatedResults'] = array_chunk($this->data['results'], 30);
+        if(is_array($this->data['results'])) {
+            $this->data['paginatedResults'] = array_chunk($this->data['results'], 30);
+        } else {
+            $this->data['paginatedResults'] = array();
+        }
+
         $this->data['pg'] = isset($_GET['pg']) && is_numeric($_GET['pg']) ? $_GET['pg'] : 0;
     }
 
@@ -97,11 +106,13 @@ class Search extends \Municipio\Controller\BaseController
 
         //Get from backend
         $return = array();
-        foreach ($result as $item) {
-            if (isset($return[$item['index_id']])) {
-                $return[$item['index_id']] = $return[$item['index_id']] +1;
-            } else {
-                $return[$item['index_id']] = 1;
+        if(is_array($result) && !empty($result)) {
+            foreach ($result as $item) {
+                if (isset($return[$item['index_id']])) {
+                    $return[$item['index_id']] = $return[$item['index_id']] +1;
+                } else {
+                    $return[$item['index_id']] = 1;
+                }
             }
         }
 
