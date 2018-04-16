@@ -69,21 +69,28 @@ class BaseController
         $this->data['layout']['sidebarLeft'] = 'grid-s-12 grid-lg-3';
         $this->data['layout']['sidebarRight'] = 'grid-s-12 grid-lg-3';
 
-        if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
+        $sidebarLeft = false;
+        $sidebarRight = false;
+
+        if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option') && is_post_type_archive() || get_field('nav_sub_enable', 'option') && is_singular()) {
             $sidebarLeft = true;
         }
-        if (is_active_sidebar('left-sidebar')) {
+
+        if (is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom')) {
             $sidebarLeft = true;
         }
+
         if (is_active_sidebar('right-sidebar')) {
             $sidebarRight = true;
         }
 
-        if (isset($sidebarRight) && $sidebarRight && isset($sidebarLeft) && $sidebarLeft) {
+        if ($sidebarLeft && $sidebarRight) {
             $this->data['layout']['content']  = 'grid-s-12 grid-lg-6';
-        } elseif (isset($sidebarRight) && $sidebarRight || isset($sidebarLeft) && $sidebarLeft) {
+        } elseif ($sidebarLeft || $sidebarRight) {
             $this->data['layout']['content']  = 'grid-s-12 grid-lg-9';
         }
+
+        $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
     }
 
     /**
@@ -134,18 +141,12 @@ class BaseController
      */
     public function customizerHeader()
     {
-        // $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
+        if (\Municipio\Customizer\Header\headerPanel::getHeaders()) {
+            $headers = array();
 
-        // if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
-        //     $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
-        // }
-
-        // $this->data['headerLayout']['customizer'] = true;
-        // $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
-
-
-        if (\Municipio\Customizer\Header\CustomizerHeader::getHeaders()) {
-            $this->data['headerLayout']['bars'] = \Municipio\Customizer\Header\CustomizerHeader::getHeaders();
+            foreach (\Municipio\Customizer\Header\headerPanel::getHeaders() as $header) {
+                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header\Navbar($header);
+            }
         }
 
         //Old mobile menu
@@ -160,19 +161,12 @@ class BaseController
      */
     public function customizerFooter()
     {
-        // $footerWidgetAreas = \Municipio\Customizer\Footer::enabledWidgets();
 
-        // if (is_array($footerWidgetAreas) && !empty($footerWidgetAreas)) {
-        //     $this->data['footerLayout']['footers'] = (new \Municipio\Theme\CustomizerFooter($footerWidgetAreas))->footers;
-        // }
-
-        // $this->data['footerLayout']['customizer'] = true;
-        // $this->data['footerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerFooter/Template', 'customizer');
-
-        // //Old mobile menu
-        // $navigation = new \Municipio\Helper\Navigation();
-        // $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
-        // $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+        if (\Municipio\Customizer\Footer\footerPanel::getSidebars()) {
+            foreach(\Municipio\Customizer\Footer\footerPanel::getSidebars() as $sidebar) {
+                $this->data['footerLayout']['sidebars'][] = new \Municipio\Customizer\Footer\Column($sidebar);
+            }
+        }
     }
 
     public function getFixedActionBar()
