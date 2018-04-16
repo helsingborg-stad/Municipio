@@ -11,6 +11,7 @@ class CustomizerManager
         $this->kirkiConfig();
 
         new \Municipio\Customizer\Header\CustomizerHeader($this);
+        new \Municipio\Customizer\Footer\FooterPanel($this);
     }
 
     /**
