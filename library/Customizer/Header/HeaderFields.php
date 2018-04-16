@@ -2,89 +2,75 @@
 
 namespace Municipio\Customizer\Header;
 
-class UserInterface
+class HeaderFields
 {
     public $headers = array();
     public $panel = '';
     public $config;
 
-    public function __construct($customizerHeader)
+    public function __construct($headerPanel)
     {
-        $this->headers = $customizerHeader->headers;
-        $this->panel = $customizerHeader->panel;
-        $this->config = $customizerHeader->config;
+        $this->headers = $headerPanel->headers;
+        $this->panel = $headerPanel->panel;
+        $this->config = $headerPanel->config;
 
-        add_action('init', array($this, 'customizerInterface'), 9);
+        add_action('init', array($this, 'headerFields'), 9);
     }
 
-    public function customizerInterface()
+    public function headerFields()
     {
         if (!is_array($this->headers) || empty($this->headers)) {
             return;
         }
 
-        //Panel (wrapper of sections)
-        $this->customizerPanel();
-
+        //Header fields
         foreach ($this->headers as $header) {
-            //Section (lives within a panel)
-            $this->addSettingsSection($header);
-
-            //Fields (lives within a section)
-            $this->headerBackground($header['id']);
-            $this->headerLinkColor($header['id']);
-            $this->headerVisibility($header['id']);
+            $this->headerBackground($header);
+            $this->headerLinkColor($header);
+            $this->headerVisibility($header);
+            $this->headerSize($header);
         }
     }
 
-    /**
-     * Setup customizer header panel
-     * @return void
-     */
-    public function customizerPanel()
+    public function headerSize($header)
     {
-        if (!isset($this->panel) || !is_string($this->panel) || empty($this->panel)) {
-            return;
-        }
+        $choices = apply_filters('', array(
+            'default' => __('Default', 'municipio'),
+            'c-navbar--sm' => __('Small', 'municipio'),
+            'c-navbar--lg' => __('Large', 'municipio'),
+            'c-navbar--xl' => __('Extra large', 'municipio')
+        ));
 
-        \Kirki::add_panel($this->panel, array(
-            'priority'    => 80,
-            'title'       => esc_attr__('Header', 'municipio'),
-            'description' => esc_attr__('Header settings', 'municipio'),
+        $defaults = array(
+            'top' => 'c-navbar--sm'
+        );
+
+        $default = (isset($defaults[$header['id']])) ? $defaults[$header['id']] : 'default';
+
+        \Kirki::add_field($this->config, array(
+            'type'        => 'radio',
+            'settings'    => $header['id'] . '-header-size',
+            'label'       => __('Header size', 'municipio'),
+            'section'     => $header['section'],
+            'default'     => $default,
+            'priority'    => 10,
+            'multiple'    => 1,
+            'choices'     => $choices,
         ));
     }
-
-    /**
-     * Setup a customizer settings section for each enabled header
-     * @return void
-     */
-    public function addSettingsSection($header)
-    {
-        if (!isset($header['id']) || !isset($header['name']) || !$this->panel) {
-            return;
-        }
-
-        \Kirki::add_section('header_' . $header['id'] . '_settings', array(
-            'title'          => esc_attr__(ucfirst($header['name']) . ' settings', 'municipio'),
-            'panel'          => $this->panel,
-            'priority'       => 20,
-        ));
-    }
-
-
 
     public function headerBackground($header)
     {
         $colors = array_merge((array) \Municipio\Helper\Colors::themeColors(), (array) \Municipio\Helper\Colors::neturalColors());
         $default = self::defaultHeaderColors();
 
-        $default = (isset($default[$header]['background'])) ? $default[$header]['background'] : '#000000';
+        $default = (isset($default[$header['id']]['background'])) ? $default[$header['id']]['background'] : '#000000';
 
         \Kirki::add_field($this->config, array(
             'type'        => 'color-palette',
-            'settings'    => $header . '-header-background',
-            'label'       => esc_attr__(ucfirst($header) . ' header background', 'municipio'),
-            'section'     => 'header_' . $header . '_settings',
+            'settings'    => $header['id']. '-header-background',
+            'label'       => esc_attr__(ucfirst($header['id']) . ' header background', 'municipio'),
+            'section'     => $header['section'],
             'default'     => $default,
             'choices'     => array(
                 'colors' => $colors,
@@ -92,7 +78,7 @@ class UserInterface
             ),
             'output' => array(
                 array(
-                    'element' => '.c-navbar--customizer.c-navbar--' . $header,
+                    'element' => '.c-navbar--customizer.c-navbar--' . $header['id'],
                     'property' => 'background-color'
                 )
             )
@@ -107,13 +93,13 @@ class UserInterface
         );
 
         $default = self::defaultHeaderColors();
-        $default = (isset($default[$header]['link'])) ? $default[$header]['link'] : '#000000';
+        $default = (isset($default[$header['id']]['link'])) ? $default[$header['id']]['link'] : '#000000';
 
         \Kirki::add_field($this->config, array(
             'type'        => 'color-palette',
-            'settings'    => $header . '-header-link-color',
-            'label'       => esc_attr__(ucfirst($header) . ' header link color', 'municipio'),
-            'section'     => 'header_' . $header . '_settings',
+            'settings'    => $header['id'] . '-header-link-color',
+            'label'       => esc_attr__(ucfirst($header['id']) . ' header link color', 'municipio'),
+            'section'     => $header['section'],
             'default'     => $default,
             'choices'     => array(
                 'colors' => $colors,
@@ -121,7 +107,7 @@ class UserInterface
             ),
             'output' => array(
                 array(
-                    'element' => '.c-navbar--customizer.c-navbar--' . $header . ' a, .c-navbar--customizer.c-navbar--' . $header,
+                    'element' => '.c-navbar--customizer.c-navbar--' . $header['id'] . ' a, .c-navbar--customizer.c-navbar--' . $header['id'],
                     'property' => 'color'
                 )
             )
@@ -148,13 +134,13 @@ class UserInterface
             )
         );
 
-        $default = (isset($default[$header])) ? $default[$header] : array();
+        $default = (isset($default[$header['id']])) ? $default[$header['id']] : array();
 
         \Kirki::add_field($this->config, array(
             'type'        => 'multicheck',
-            'settings'    => $header . '-header-visibility',
+            'settings'    => $header['id'] . '-header-visibility',
             'label'       => esc_attr__('Visibility settings', 'municipio'),
-            'section'     => 'header_' . $header . '_settings',
+            'section'     => $header['section'],
             'default'     => $default,
             'priority'    => 10,
             'choices'     => $options,

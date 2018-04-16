@@ -8,11 +8,11 @@ class Sidebars
     public $panel = '';
     public $config;
 
-    public function __construct($customizerHeader)
+    public function __construct($headerPanel)
     {
-        $this->headers = $customizerHeader->headers;
-        $this->panel = $customizerHeader->panel;
-        $this->config = $customizerHeader->config;
+        $this->headers = $headerPanel->headers;
+        $this->panel = $headerPanel->panel;
+        $this->config = $headerPanel->config;
 
         add_action('widgets_init', array($this, 'registerSidebars'));
         add_filter('customizer_widgets_section_args', array($this, 'moveSidebars'), 10, 3);
@@ -25,7 +25,7 @@ class Sidebars
         }
 
         foreach ($this->headers as $sidebar) {
-            if (!isset($sidebar['id']) || !$sidebar['id'] || !isset($sidebar['name']) || !$sidebar['name']) {
+            if (!isset($sidebar['sidebar']) || !$sidebar['sidebar'] || !isset($sidebar['name']) || !$sidebar['name'] || !isset($sidebar['description']) || !$sidebar['description'] ) {
                 continue;
             }
 
@@ -60,7 +60,6 @@ class Sidebars
         }
 
         if (in_array($sidebar_id, $sidebars)) {
-            $section_args['title'] = $section_args['title'] . ' widgets';
             $section_args['panel'] = $this->panel;
         }
 
