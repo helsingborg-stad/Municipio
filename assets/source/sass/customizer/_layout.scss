@@ -16,3 +16,8 @@
 .wp-full-overlay.collapsed .wp-full-overlay-sidebar {
     margin-left: -385px;
 }
+
+//Show hidden controls within widget sections
+.customize-control {
+    display: block !important;
+}
