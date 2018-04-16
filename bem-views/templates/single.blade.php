@@ -8,12 +8,11 @@
 @stop
 
 @section('sidebar-left')
-    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
-
     @if (get_field('nav_sub_enable', 'option'))
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
+    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
     @include('components.dynamic-sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
 
@@ -27,6 +26,8 @@
     @endwhile
 
     @include('components.dynamic-sidebar', ['id' => 'content-area'])
+
+    @include('partials.page-footer')
 @stop
 
 @section('sidebar-right')

@@ -14,12 +14,11 @@
 @stop
 
 @section('sidebar-left')
-    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
-
     @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
+    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
     @include('components.dynamic-sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
 
@@ -31,7 +30,7 @@
             <?php $postNum = 0; ?>
             @while(have_posts())
                 {!! the_post() !!}
-                <div class="c-archive__item grid-s-12 {{ $grid_size }}">
+                <div class="c-archive__item grid-s-12 u-mb-4 {{ $grid_size }}">
                     @include('partials.archive.post.post-' . $template)
                 </div>
                 <?php $postNum++; ?>
