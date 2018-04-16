@@ -11,3 +11,6 @@
 
 .wp-full-overlay.collapsed .wp-full-overlay-sidebar {
   margin-left: -385px; }
+
+.customize-control {
+  display: block !important; }

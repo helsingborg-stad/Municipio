@@ -92,10 +92,10 @@ class Enqueue
         wp_register_style($this->defaultPrimeName . '-bem', Styleguide::getStylePath(true));
         wp_enqueue_style($this->defaultPrimeName);
 
-        // $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
-        // if ($enqueueBem) {
-        //     wp_enqueue_style($this->defaultPrimeName . '-bem');
-        // }
+        $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
+        if ($enqueueBem) {
+            wp_enqueue_style($this->defaultPrimeName . '-bem');
+        }
 
         wp_register_style('municipio', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/app.min.css'), '', null);
         wp_enqueue_style('municipio');
