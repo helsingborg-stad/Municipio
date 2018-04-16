@@ -95,7 +95,7 @@ abstract class HeaderWidget extends BaseWidget
         preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
 
         if (isset($matches[0][1])) {
-            $widgetClass = 'widget widget_' . $this->config['id'] . ' ' . $this->data['widgetWrapperClass'];
+            $widgetClass = 'c-navbar__widget widget widget_' . $this->config['id'] . ' ' . $this->data['widgetWrapperClass'];
             $oldClasses = $matches[0][1];
             $this->data['args']['before_widget'] = str_replace($oldClasses, $widgetClass, $this->data['args']['before_widget']);
         }
