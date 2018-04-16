@@ -42,8 +42,16 @@ class Navbar
         $this->classes[] = 'c-navbar--' . sanitize_title($this->id);
 
         $this->visibility();
+        $this->size();
 
         $this->classes = apply_filters('Municipio/Customizer/Header/Navbar/Classes', $this->classes, $this->id);
+    }
+
+    public function size()
+    {
+        if (get_theme_mod($this->id . '-header-size') && get_theme_mod($this->id . '-header-size') != 'default') {
+            $this->classes[] = get_theme_mod($this->id . '-header-size');
+        }
     }
 
     public function visibility()

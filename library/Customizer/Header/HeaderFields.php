@@ -37,8 +37,7 @@ class HeaderFields
         $choices = apply_filters('', array(
             'default' => __('Default', 'municipio'),
             'c-navbar--sm' => __('Small', 'municipio'),
-            'c-navbar--lg' => __('Large', 'municipio'),
-            'c-navbar--xl' => __('Extra large', 'municipio')
+            'c-navbar--lg' => __('Large', 'municipio')
         ));
 
         $defaults = array(
