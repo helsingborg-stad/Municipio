@@ -30,22 +30,21 @@
             "key": "field_5a7c6d854ae89",
             "label": "Max width",
             "name": "widget_header_max_width",
-            "type": "number",
+            "type": "range",
             "instructions": "Choose the max width of the logo.",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "default_value": 250,
-            "placeholder": "",
+            "default_value": 240,
+            "min": 48,
+            "max": 480,
+            "step": 8,
             "prepend": "",
-            "append": "px",
-            "min": 50,
-            "max": 500,
-            "step": 5
+            "append": "px"
         }
     ],
     "location": [
