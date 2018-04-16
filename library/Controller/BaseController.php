@@ -161,12 +161,19 @@ class BaseController
      */
     public function customizerFooter()
     {
-
+        //Footer Columns
         if (\Municipio\Customizer\Footer\footerPanel::getSidebars()) {
             foreach(\Municipio\Customizer\Footer\footerPanel::getSidebars() as $sidebar) {
                 $this->data['footerLayout']['sidebars'][] = new \Municipio\Customizer\Footer\Column($sidebar);
             }
         }
+
+        //Footer size
+        $this->data['footerLayout']['size'] = '';
+        if (get_theme_mod('footer-size') && get_theme_mod('footer-size') != 'default') {
+            $this->data['footerLayout']['size'] = get_theme_mod('footer-size');
+        }
+
     }
 
     public function getFixedActionBar()

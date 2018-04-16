@@ -21,6 +21,7 @@ class FooterPanel
 
         new \Municipio\Customizer\Footer\Colors($this);
         new \Municipio\Customizer\Footer\Sidebars($this);
+        new \Municipio\Customizer\Footer\Size($this);
     }
 
     public function footerPanel()
