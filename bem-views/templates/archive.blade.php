@@ -14,11 +14,12 @@
 @stop
 
 @section('sidebar-left')
+    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
+
     @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
-    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
     @include('components.dynamic-sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
 
