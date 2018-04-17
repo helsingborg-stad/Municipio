@@ -5,11 +5,8 @@ namespace Municipio\Controller;
 class Search extends \Municipio\Controller\BaseController
 {
 
-    public $activeSearchEngine = null;
-
     public function init()
     {
-
         //Translations
         $this->data['translation'] = array(
             'filter_results' => __("Filter searchresults", 'municipio'),
@@ -19,18 +16,18 @@ class Search extends \Municipio\Controller\BaseController
         //Determine what type of searchengine that should be used
         if (get_field('use_google_search', 'option') === true) {
             $this->googleSearch();
-            $this->activeSearchEngine = "google";
+            $this->data['activeSearchEngine'] = "google";
         } elseif (get_field('use_algolia_search', 'option') === true) {
             if(function_exists('queryAlgoliaSearch')) {
                 $this->algoliaCustomSearch();
-                $this->activeSearchEngine = "algoliacustom";
+                $this->data['activeSearchEngine'] = "algoliacustom";
             } else {
                 $this->algoliaSearch();
-                $this->activeSearchEngine = "algolia";
+                $this->data['activeSearchEngine'] = "algolia";
             }
         } else {
             $this->wpSearch();
-            $this->activeSearchEngine = "wp";
+            $this->data['activeSearchEngine'] = "wp";
         }
 
         $this->data['template'] = is_null(get_field('search_result_layout', 'option')) ? 'default' : get_field('search_result_layout', 'option');
