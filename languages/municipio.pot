@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-03-27 14:45+0200\n"
+"POT-Creation-Date: 2018-04-12 11:10+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,12 +56,12 @@ msgid "Share"
 msgstr ""
 
 #: library/AcfFields/php/options-page-display.php:48
-#: library/AcfFields/php/options-theme-author.php:15
+#: library/AcfFields/php/options-theme-author.php:10
 msgid "Show author"
 msgstr ""
 
 #: library/AcfFields/php/options-page-display.php:53
-#: library/Admin/Options/Archives.php:34
+#: library/Admin/Options/Archives.php:40
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
 msgid "Author"
 msgstr ""
@@ -158,9 +158,9 @@ msgstr ""
 msgid "Use %s to output suggested search query"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-author.php:10
-#: library/AcfFields/php/options-theme-author.php:29
-#: library/AcfFields/php/options-theme-author.php:48
+#: library/AcfFields/php/options-theme-author.php:22
+#: library/AcfFields/php/options-theme-author.php:41
+#: library/AcfFields/php/options-theme-author.php:60
 #: library/AcfFields/php/options-theme-google-translate.php:96
 #: library/AcfFields/php/options-theme-scroll-elevator.php:32
 #: library/AcfFields/php/options-theme-search-algolia.php:10
@@ -169,11 +169,11 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-author.php:34
+#: library/AcfFields/php/options-theme-author.php:29
 msgid "Show author image"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-author.php:53
+#: library/AcfFields/php/options-theme-author.php:48
 msgid "Link name to author archive"
 msgstr ""
 
@@ -804,6 +804,14 @@ msgstr ""
 msgid "Vertical position"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-gdpr.php:6
+msgid "GDPR"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-gdpr.php:10
+msgid "Enable consent field for attachments"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-google-translate.php:12
 msgid "Do not show"
 msgstr ""
@@ -1316,28 +1324,28 @@ msgstr ""
 msgid "2.0"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:20
+#: library/AcfFields/php/user-author-image.php:10
 msgid "Profile picture"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:36
+#: library/AcfFields/php/user-author-image.php:34
 msgid "Facebook profile url"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:52
+#: library/AcfFields/php/user-author-image.php:50
 msgid "Linkedin profile url"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:68
-#: library/AcfFields/php/user-author-image.php:87
-msgid "@"
-msgstr ""
-
-#: library/AcfFields/php/user-author-image.php:71
+#: library/AcfFields/php/user-author-image.php:66
 msgid "Instagram username"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:90
+#: library/AcfFields/php/user-author-image.php:80
+#: library/AcfFields/php/user-author-image.php:99
+msgid "@"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:85
 msgid "Twitter username"
 msgstr ""
 
@@ -1492,16 +1500,24 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: library/Admin/Options/Archives.php:51
+#: library/Admin/Options/Archives.php:57
 msgid "Archive for"
 msgstr ""
 
-#: library/Admin/Options/Archives.php:97
+#: library/Admin/Options/Archives.php:103
 msgid "Leave empty to hide title"
 msgstr ""
 
-#: library/Admin/Options/Archives.php:204
+#: library/Admin/Options/Archives.php:210
 msgid "Number of posts in one page"
+msgstr ""
+
+#: library/Admin/Options/AttachmentConsent.php:24
+msgid "Consent ID"
+msgstr ""
+
+#: library/Admin/Options/AttachmentConsent.php:43
+msgid "Consent comment"
 msgstr ""
 
 #: library/Admin/Options/GoogleTranslate.php:15
@@ -1592,16 +1608,13 @@ msgstr ""
 msgid "This it the beta-environment. All functionality is not guaranteed."
 msgstr ""
 
-#: library/Admin/UI/VarnishPurge.php:38
-msgid "Varnish cache purged for this post!"
+#: library/Comment/CommentsActions.php:67
+#: vendor/advanced-custom-fields/core/api.php:1171
+msgid "Update"
 msgstr ""
 
-#: library/Admin/UI/VarnishPurge.php:64
-msgid "Purge Page"
-msgstr ""
-
-#: library/Admin/UI/VarnishPurge.php:77
-msgid "Purge Varnish"
+#: library/Comment/CommentsActions.php:72
+msgid "Cancel"
 msgstr ""
 
 #: library/Comment/CommentsFilters.php:44
@@ -1685,6 +1698,14 @@ msgstr ""
 
 #: library/Content/CustomPostType.php:77
 msgid "Auto generated cpt from user iterface."
+msgstr ""
+
+#: library/Controller/Search.php:12
+msgid "Filter searchresults"
+msgstr ""
+
+#: library/Controller/Search.php:13
+msgid "All pages"
 msgstr ""
 
 #: library/Controller/Single.php:17
@@ -1798,6 +1819,14 @@ msgstr ""
 
 #: library/Theme/Enqueue.php:131
 msgid "Insert Print Page Break tag"
+msgstr ""
+
+#: library/Theme/Enqueue.php:134
+msgid "Are you sure you want to delete the comment?"
+msgstr ""
+
+#: library/Theme/Enqueue.php:135
+msgid "Something went wrong, please try again later"
 msgstr ""
 
 #: library/Theme/General.php:198
@@ -2226,10 +2255,6 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/actions/export.php:33
 msgid "No ACF groups selected"
-msgstr ""
-
-#: vendor/advanced-custom-fields/core/api.php:1171
-msgid "Update"
 msgstr ""
 
 #: vendor/advanced-custom-fields/core/api.php:1172
@@ -3258,11 +3283,15 @@ msgstr ""
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:376
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:433
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:44
+#: views/partials/blog/comments.blade.php:62
+#: views/partials/blog/comments.blade.php:126
 msgid "Remove"
 msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/image.php:91
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
+#: views/partials/blog/comments.blade.php:59
+#: views/partials/blog/comments.blade.php:123
 msgid "Edit"
 msgstr ""
 
@@ -4889,10 +4918,15 @@ msgstr ""
 msgid "No results matched your query "
 msgstr ""
 
+#: views/partials/search/algolia-customsearch.blade.php:37
 #: views/partials/search/algolia.blade.php:37
 #: views/partials/search/google.blade.php:24
 #: views/partials/search/wp.blade.php:24
 msgid "Found no matching results on your search…"
+msgstr ""
+
+#: views/partials/search/algolia-customsearch.blade.php:49
+msgid "Whoops, this search result page dosen't exist anymore…"
 msgstr ""
 
 #: views/partials/share-email-form.blade.php:6

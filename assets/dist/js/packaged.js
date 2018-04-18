@@ -94,6 +94,170 @@ jQuery(function () {
 
 var Muncipio = {};
 
+Muncipio = Muncipio || {};
+Muncipio.Post = Muncipio.Post || {};
+
+Muncipio.Post.Comments = (function ($) {
+
+    function Comments() {
+        $(function() {
+            this.handleEvents();
+        }.bind(this));
+    }
+
+    /**
+     * Handle events
+     * @return {void}
+     */
+    Comments.prototype.handleEvents = function () {
+        $(document).on('click', '#edit-comment', function (e) {
+            e.preventDefault();
+            this.displayEditForm(e);
+        }.bind(this));
+
+        $(document).on('submit', '#commentupdate', function (e) {
+            e.preventDefault();
+            this.udpateComment(e);
+        }.bind(this));
+
+        $(document).on('click', '#delete-comment', function (e) {
+            e.preventDefault();
+            if (window.confirm(MunicipioLang.messages.deleteComment)) {
+                this.deleteComment(e);
+            }
+        }.bind(this));
+
+        $(document).on('click', '.cancel-update-comment', function (e) {
+            e.preventDefault();
+            this.cleanUp();
+        }.bind(this));
+
+        $(document).on('click', '.comment-reply-link', function (e) {
+            this.cleanUp();
+        }.bind(this));
+    };
+
+    Comments.prototype.udpateComment = function (event) {
+        var $target = $(event.target).closest('.comment-body').find('.comment-content'),
+            data = new FormData(event.target),
+            oldComment = $target.html();
+            data.append('action', 'update_comment');
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'post',
+            context: this,
+            processData: false,
+            contentType: false,
+            data: data,
+            dataType: 'json',
+            beforeSend : function() {
+                // Do expected behavior
+                $target.html(data.get('comment'));
+                this.cleanUp();
+            },
+            success: function(response) {
+                if (!response.success) {
+                    // Undo front end update
+                    $target.html(oldComment);
+                    this.showError($target);
+                }
+            },
+            error: function(jqXHR, textStatus) {
+                $target.html(oldComment);
+                this.showError($target);
+            }
+        });
+    };
+
+    Comments.prototype.displayEditForm = function(event) {
+        var commentId = $(event.currentTarget).data('comment-id'),
+            postId = $(event.currentTarget).data('post-id'),
+            $target = $('.comment-body', '#answer-' + commentId + ', #comment-' + commentId).first();
+
+        this.cleanUp();
+        $('.comment-content, .comment-footer', $target).hide();
+        $target.append('<div class="loading gutter gutter-top gutter-margin"><div></div><div></div><div></div><div></div></div>');
+
+        $.when(this.getCommentForm(commentId, postId)).then(function(response) {
+            if (response.success) {
+                $target.append(response.data);
+                $('.loading', $target).remove();
+
+                // Re init tinyMce if its used
+                if ($('.tinymce-editor').length) {
+                    tinymce.EditorManager.execCommand('mceRemoveEditor', true, 'comment-edit');
+                    tinymce.EditorManager.execCommand('mceAddEditor', true, 'comment-edit');
+                }
+            } else {
+                this.cleanUp();
+                this.showError($target);
+            }
+        });
+    };
+
+    Comments.prototype.getCommentForm = function(commentId, postId) {
+        return $.ajax({
+            url: ajaxurl,
+            type: 'post',
+            dataType: 'json',
+            context: this,
+            data: {
+                action : 'get_comment_form',
+                commentId : commentId,
+                postId : postId
+            }
+        });
+    };
+
+    Comments.prototype.deleteComment = function(event) {
+        var $target = $(event.currentTarget),
+            commentId = $target.data('comment-id'),
+            nonce = $target.data('comment-nonce');
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'post',
+            context: this,
+            dataType: 'json',
+            data: {
+                action : 'remove_comment',
+                id     : commentId,
+                nonce  : nonce
+            },
+            beforeSend : function(response) {
+                // Do expected behavior
+                $target.closest('li.answer, li.comment').fadeOut('fast');
+            },
+            success : function(response) {
+                if (!response.success) {
+                    // Undo front end deletion
+                    this.showError($target);
+                }
+            },
+            error : function(jqXHR, textStatus) {
+                this.showError($target);
+            }
+        });
+    };
+
+    Comments.prototype.cleanUp = function(event) {
+        $('.comment-update').remove();
+        $('.loading', '.comment-body').remove();
+        $('.dropdown-menu').hide();
+        $('.comment-content, .comment-footer').fadeIn('fast');
+    };
+
+    Comments.prototype.showError = function(target) {
+        target.closest('li.answer, li.comment').fadeIn('fast')
+            .find('.comment-body:first').append('<small class="text-danger">' + MunicipioLang.messages.onError + '</small>')
+                .find('.text-danger').delay(4000).fadeOut('fast');
+    };
+
+    return new Comments();
+
+})(jQuery);
+
 (function(){function aa(a,b,c){return a.call.apply(a.bind,arguments)}function ba(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function p(a,b,c){p=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?aa:ba;return p.apply(null,arguments)}var q=Date.now||function(){return+new Date};function ca(a,b){this.a=a;this.m=b||a;this.c=this.m.document}var da=!!window.FontFace;function t(a,b,c,d){b=a.c.createElement(b);if(c)for(var e in c)c.hasOwnProperty(e)&&("style"==e?b.style.cssText=c[e]:b.setAttribute(e,c[e]));d&&b.appendChild(a.c.createTextNode(d));return b}function u(a,b,c){a=a.c.getElementsByTagName(b)[0];a||(a=document.documentElement);a.insertBefore(c,a.lastChild)}function v(a){a.parentNode&&a.parentNode.removeChild(a)}
 function w(a,b,c){b=b||[];c=c||[];for(var d=a.className.split(/\s+/),e=0;e<b.length;e+=1){for(var f=!1,g=0;g<d.length;g+=1)if(b[e]===d[g]){f=!0;break}f||d.push(b[e])}b=[];for(e=0;e<d.length;e+=1){f=!1;for(g=0;g<c.length;g+=1)if(d[e]===c[g]){f=!0;break}f||b.push(d[e])}a.className=b.join(" ").replace(/\s+/g," ").replace(/^\s+|\s+$/,"")}function y(a,b){for(var c=a.className.split(/\s+/),d=0,e=c.length;d<e;d++)if(c[d]==b)return!0;return!1}
 function z(a){if("string"===typeof a.f)return a.f;var b=a.m.location.protocol;"about:"==b&&(b=a.a.location.protocol);return"https:"==b?"https:":"http:"}function ea(a){return a.m.location.hostname||a.a.location.hostname}
