@@ -8,6 +8,7 @@ class Sidebars
     {
         $this->sidebars = $CustomizerFooter->sidebars;
         $this->panel = $CustomizerFooter->panel;
+        $this->config = $CustomizerFooter->config;
 
         add_action('widgets_init', array($this, 'registerSidebars'));
         add_filter('customizer_widgets_section_args', array($this, 'moveSidebars'), 10, 3);
