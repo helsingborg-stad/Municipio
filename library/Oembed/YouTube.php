@@ -102,10 +102,10 @@ class YouTube extends Oembed
             $v = end($v);
 
             $v = (strpos($this->url, 'watch?v=')  !== false ) ?
-                        str_replace('watch?v=','', $this->params['v']) : $v;
+                        str_replace('watch?v=','', $v) : $v;
             $this->params['v'] = $v;
         }
-        
+
         return $this;
     }
 
