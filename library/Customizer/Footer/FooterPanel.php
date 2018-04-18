@@ -77,17 +77,22 @@ class FooterPanel
 
     public function establishSidebars()
     {
+        if (!get_field('customizer_footer_columns', 'options') || !is_array(get_field('customizer_footer_columns', 'options')) || empty(get_field('customizer_footer_columns', 'options'))) {
+            return;
+        }
+
         $sidebars = array();
+        foreach (get_field('customizer_footer_columns', 'options') as $sidebar) {
+            if (!isset($sidebar['sidebar_id']) || empty($sidebar['sidebar_id']) || !is_string($sidebar['sidebar_id'])) {
+                continue;
+            }
 
-        if (get_field('customizer_footer_sidebars', 'options') && get_field('customizer_footer_sidebars', 'options') > 0) {
-            for ($i = 1; $i <= get_field('customizer_footer_sidebars', 'options'); $i++) {
-
-                $id = 'customizer-footer-' . $i;
-                $sidebars[] = array(
-                    'id' => $id,
-                    'name' => 'Footer column ' . $i,
-                    'description' => 'Footer column ' . $i,
-                    'section' => 'sidebar-widgets-' . $id
+            if (!isset($sidebars[sanitize_title($sidebar['sidebar_id'])])) {
+                    $sidebars[sanitize_title($sidebar['sidebar_id'])] = array(
+                        'id' => sanitize_title($sidebar['sidebar_id']),
+                        'name' => $sidebar['sidebar_id'],
+                        'description' => 'Footer column',
+                        'section' => 'sidebar-widgets-' . sanitize_title($sidebar['sidebar_id'])
                 );
             }
         }

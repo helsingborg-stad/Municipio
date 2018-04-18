@@ -3,10 +3,10 @@
     "title": "Customizer footer",
     "fields": [
         {
-            "key": "field_5acf48608921c",
-            "label": "Footer sidebar columns",
-            "name": "customizer_footer_sidebars",
-            "type": "range",
+            "key": "field_5ad7556c5c818",
+            "label": "Footer columns",
+            "name": "customizer_footer_columns",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,12 +15,32 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 4,
-            "min": 1,
-            "max": 12,
-            "step": "",
-            "prepend": "",
-            "append": ""
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5ad755815c819",
+                    "label": "Sidebar ID",
+                    "name": "sidebar_id",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
         }
     ],
     "location": [
