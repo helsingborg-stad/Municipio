@@ -2,14 +2,14 @@
 @extends('widget.header-widget')
     @section('widget')
         <nav>
-            <ul class="c-navbar c-navbar--header-widget-menu {{$themeClass}}">
+            <ul class="c-nav c-nav {{$themeClass}}">
                 @foreach ($menu as $link)
-                    <li class="c-navbar__item @if($link->object_id == $currentId) is-current @endif @if(in_array($link->object_id, $currentAncestorId)) is-current-ancestor @endif">
+                    <li class="c-nav__item @if($link->object_id == $currentId) is-current @endif @if(in_array($link->object_id, $currentAncestorId)) is-current-ancestor @endif">
                         <a href="{{$link->url}}">{{$link->title}}</a>
                         @if(isset($link->children) && is_array($link->children) && !empty($link->children))
-                            <ul class="c-navbar__sub c-navbar__sub-level-0">
+                            <ul class="c-nav__sub c-nav__sub--level-0">
                                 @foreach ($link->children as $child)
-                                    <li class="c-navbar__sub_item @if($child->object_id == $currentId) is-current @endif">
+                                    <li class="c-nav_item c-nav_item--sub @if($child->object_id == $currentId) is-current @endif">
                                         <a href="{{$child->url}}">{{$child->title}}</a>
                                     </li>
                                 @endforeach
