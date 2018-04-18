@@ -134,7 +134,7 @@ class Support
      */
     public static function removeTheGenerator()
     {
-        add_filter('the_generator', create_function('', 'return "";'));
+        add_filter('the_generator', function($a, $b) {return '';}, 9, 2);
         remove_filter('update_footer', 'core_update_footer');
     }
 

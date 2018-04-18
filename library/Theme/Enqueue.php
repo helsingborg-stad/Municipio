@@ -28,7 +28,10 @@ class Enqueue
         add_filter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
 
         // Removes generator tag
-        add_filter('the_generator', create_function('', 'return "";'));
+        add_filter('the_generator', function($a, $b) {
+            return '';
+        }, 9, 2);
+
 
         //Move scripts to footer
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
