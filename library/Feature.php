@@ -17,6 +17,7 @@ class Feature
 
         //Add bem-view path
         add_filter('Municipio/blade/view_paths', array($this, 'addBemViewPath'), 2, 1);
+        add_filter('Municipio/Widget/Source/BaseWidget/viewPath', array($this, 'addBemViewPath'), 2, 1);
 
         //Enable template version 3 for modularity
         add_filter('Modularity/Module/TemplateVersion3', array($this, 'toogleFeatures'));
