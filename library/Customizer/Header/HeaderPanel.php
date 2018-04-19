@@ -69,13 +69,7 @@ class HeaderPanel
             )
         );
 
-        $headers = array();
-
-        foreach ($avalibleHeaders as $header) {
-            $headers[] = apply_filters('Municipio/Customizer/Header/HeaderPanel/avalibleHeaders', $header, $header['id']);
-        }
-
-        return $headers;
+        return apply_filters('Municipio/Customizer/Header/HeaderPanel/avalibleHeaders', $avalibleHeaders);
     }
 
     public function establishHeaders()
