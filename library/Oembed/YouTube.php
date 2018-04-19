@@ -97,10 +97,12 @@ class YouTube extends Oembed
         }
 
         if (strpos($this->url, 'youtu.be') !== false) {
-            $v = $this->url;
+            $v = str_replace('&feature=youtu.be','', $this->url);
             $v = explode('/', $v);
             $v = end($v);
 
+            $v = (strpos($this->url, 'watch?v=')  !== false ) ?
+                        str_replace('watch?v=','', $v) : $v;
             $this->params['v'] = $v;
         }
 
@@ -118,7 +120,7 @@ class YouTube extends Oembed
             return false;
         }
 
-        $this->params['thumbnail'] = 'https://i.ytimg.com/vi/' . $this->params['v'] . '/sddefault.jpg';
+        $this->params['thumbnail'] =  'https://i.ytimg.com/vi/' . $this->params['v'] . '/hqdefault.jpg';
         return true;
     }
 
