@@ -77,12 +77,12 @@ class FooterPanel
 
     public function establishSidebars()
     {
-        if (!get_field('customizer_footer_columns', 'options') || !is_array(get_field('customizer_footer_columns', 'options')) || empty(get_field('customizer_footer_columns', 'options'))) {
+        if (!get_field('customizer_footer_column', 'options') || !is_array(get_field('customizer_footer_column', 'options')) || empty(get_field('customizer_footer_column', 'options'))) {
             return;
         }
 
         $sidebars = array();
-        foreach (get_field('customizer_footer_columns', 'options') as $sidebar) {
+        foreach (get_field('customizer_footer_column', 'options') as $sidebar) {
             if (!isset($sidebar['sidebar_id']) || empty($sidebar['sidebar_id']) || !is_string($sidebar['sidebar_id'])) {
                 continue;
             }
