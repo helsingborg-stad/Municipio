@@ -1,7 +1,7 @@
 @if (is_array($links) && !empty($links))
 @extends('widget.header-widget')
     @section('widget')
-        <ul class="c-nav {{$themeClass}}">
+        <ul {!! $attributes !!}>
             @foreach ($links as $link)
                 <li class="c-nav__item">
                     @if (isset($link['template']) && $link['template'])

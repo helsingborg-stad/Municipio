@@ -2,7 +2,7 @@
 @extends('widget.header-widget')
     @section('widget')
         <nav>
-            <ul class="c-nav c-nav {{$themeClass}}">
+            <ul {!! $attributes !!}>
                 @foreach ($menu as $link)
                     <li class="c-nav__item @if($link->object_id == $currentId) is-current @endif @if(in_array($link->object_id, $currentAncestorId)) is-current-ancestor @endif">
                         <a href="{{$link->url}}">{{$link->title}}</a>

@@ -18,6 +18,20 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
 
     public function viewController($args, $instance)
     {
+        $attributes = new \Municipio\Helper\ElementAttribute();
+        $attributes->addClass('c-nav');
+
+        $sizes = array(
+            'small' => 'c-nav--small',
+            'large' => 'c-nav--large'
+        );
+
+        if ($this->get_field('widget_link_size') && isset($sizes[$this->get_field('widget_link_size')])) {
+            $attributes->addClass($sizes[$this->get_field('widget_link_size')]);
+        }
+
+
+        $this->data['attributes'] = $attributes->outputAttributes();
         $this->data['links'] = $this->mapLinks();
     }
 

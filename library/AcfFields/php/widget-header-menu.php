@@ -19,7 +19,8 @@
                 'id' => '',
             ),
             'choices' => array(
-                5 => __('Primary (Menu ID: 5)', 'municipio'),
+                2 => __('Menu (Menu ID: 2)', 'municipio'),
+                6 => __('topmeny (Menu ID: 6)', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -29,6 +30,31 @@
             'ajax' => 0,
             'return_format' => 'value',
             'placeholder' => '',
+        ),
+        1 => array(
+            'key' => 'field_5ad89441c02a1',
+            'label' => __('Link size', 'municipio'),
+            'name' => 'widget_link_size',
+            'type' => 'radio',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+                'default' => __('Default', 'municipio'),
+                'small' => __('Small', 'municipio'),
+                'large' => __('Large', 'municipio'),
+            ),
+            'allow_null' => 0,
+            'other_choice' => 0,
+            'save_other_choice' => 0,
+            'default_value' => '',
+            'layout' => 'horizontal',
+            'return_format' => 'value',
         ),
     ),
     'location' => array(
