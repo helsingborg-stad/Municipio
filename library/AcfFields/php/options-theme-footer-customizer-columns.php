@@ -2,7 +2,7 @@
 
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-    'key' => 'group_5acf485bbf000',
+    'key' => 'group_5ad84ce601a2d',
     'title' => __('Customizer footer', 'municipio'),
     'fields' => array(
         0 => array(
@@ -49,9 +49,9 @@
     'location' => array(
         0 => array(
             0 => array(
-                'param' => 'options_page',
+                'param' => 'post_type',
                 'operator' => '==',
-                'value' => 'acf-options-footer',
+                'value' => 'post',
             ),
         ),
     ),
