@@ -1,11 +1,11 @@
 [{
-    "key": "group_5ad84ce601a2d",
+    "key": "group_5ad84fc9a6ca2",
     "title": "Customizer footer",
     "fields": [
         {
-            "key": "field_5ad7556c5c818",
-            "label": "Footer columns",
-            "name": "customizer_footer_columns",
+            "key": "field_5ad84fdaed1e7",
+            "label": "Register footer columns",
+            "name": "customizer_footer_column",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -22,12 +22,12 @@
             "button_label": "",
             "sub_fields": [
                 {
-                    "key": "field_5ad755815c819",
-                    "label": "Sidebar ID",
+                    "key": "field_5ad84fe6ed1e8",
+                    "label": "Sidebar",
                     "name": "sidebar_id",
                     "type": "text",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
