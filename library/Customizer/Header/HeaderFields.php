@@ -6,7 +6,7 @@ class HeaderFields
 {
     public $headers = array();
     public $panel = '';
-    public $config;
+    public $config = '';
 
     public function __construct($headerPanel)
     {
@@ -28,14 +28,15 @@ class HeaderFields
             $this->headerBackground($header);
             $this->headerLinkColor($header);
             $this->headerVisibility($header);
-            $this->headerSize($header);
+            $this->padding($header);
         }
     }
 
-    public function headerSize($header)
+    public function padding($header)
     {
-        $choices = apply_filters('', array(
+        $choices = apply_filters('Municipio/Customizer/Header/Navbar/Padding', array(
             'default' => __('Default', 'municipio'),
+            'c-navbar--hard' => __('No padding', 'municipio'),
             'c-navbar--sm' => __('Small', 'municipio'),
             'c-navbar--lg' => __('Large', 'municipio')
         ));
@@ -48,8 +49,8 @@ class HeaderFields
 
         \Kirki::add_field($this->config, array(
             'type'        => 'radio',
-            'settings'    => $header['id'] . '-header-size',
-            'label'       => __('Header size', 'municipio'),
+            'settings'    => $header['id'] . '-header-padding',
+            'label'       => __('Header padding', 'municipio'),
             'section'     => $header['section'],
             'default'     => $default,
             'priority'    => 10,

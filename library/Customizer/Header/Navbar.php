@@ -42,15 +42,17 @@ class Navbar
         $this->classes[] = 'c-navbar--' . sanitize_title($this->id);
 
         $this->visibility();
-        $this->size();
+        $this->padding();
+
+
 
         $this->classes = apply_filters('Municipio/Customizer/Header/Navbar/Classes', $this->classes, $this->id);
     }
 
-    public function size()
+    public function padding()
     {
-        if (get_theme_mod($this->id . '-header-size') && get_theme_mod($this->id . '-header-size') != 'default') {
-            $this->classes[] = get_theme_mod($this->id . '-header-size');
+        if (get_theme_mod($this->id . '-header-padding') && get_theme_mod($this->id . '-header-padding') != 'default') {
+            $this->classes[] = get_theme_mod($this->id . '-header-padding');
         }
     }
 
