@@ -41,6 +41,7 @@
                 <input type="hidden" name="post_id" value="{{ the_ID() }}">
                 <input type="hidden" name="share_type" value="share">
                 <input type="submit" class="btn btn-primary" value="<?php _e('Send', 'municipio'); ?>">
+                {!! wp_nonce_field('share-page' . get_the_ID()) !!}
             </div>
         </form>
     </div>
