@@ -1,5 +1,5 @@
 @if (isset($footerLayout['sidebars']) && is_array($footerLayout['sidebars']) && !empty($footerLayout['sidebars']))
-    <footer id="footer" class="c-footer c-footer--customizer {{$footerLayout['size']}}">
+    <footer id="footer" class="c-footer s-footer c-footer--customizer {{$footerLayout['size']}}">
         <div class="container">
             <div class="grid">
                 @foreach ($footerLayout['sidebars'] as $sidebar)
