@@ -37,7 +37,6 @@ class HeaderFields
         $choices = apply_filters('Municipio/Customizer/Header/Navbar/Padding', array(
             'default' => __('Default', 'municipio'),
             'c-navbar--hard' => __('No padding', 'municipio'),
-            'c-navbar--sm' => __('Small', 'municipio'),
             'c-navbar--lg' => __('Large', 'municipio')
         ));
 
