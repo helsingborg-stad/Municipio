@@ -221,10 +221,6 @@ class Enqueue
             return $url;
         }
 
-        if (is_search() || false !== strpos($url, 'styleguide')) {
-            return $url;
-        }
-
         if (isset($_GET['gf_page']) && $_GET['gf_page'] == 'preview') {
             return $url;
         }
