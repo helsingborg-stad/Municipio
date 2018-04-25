@@ -22,8 +22,13 @@ class Search extends \Municipio\Controller\BaseController
                 $this->algoliaCustomSearch();
                 $this->data['activeSearchEngine'] = "algoliacustom";
             } else {
-                $this->algoliaSearch();
-                $this->data['activeSearchEngine'] = "algolia";
+                if(get_option('algolia_override_native_search') == "instantsearch") {
+                    $this->algoliaSearchInstant();
+                    $this->data['activeSearchEngine'] = "algoliainstant";
+                } else {
+                    $this->algoliaSearch();
+                    $this->data['activeSearchEngine'] = "algolia";
+                }
             }
         } else {
             $this->wpSearch();
@@ -51,17 +56,20 @@ class Search extends \Municipio\Controller\BaseController
      */
     public function algoliaSearch()
     {
-        //Disable results when instant search is on
-        if (get_option('algolia_override_native_search') == "instantsearch") {
-            $this->data['results'] = array();
-            $this->data['resultCount'] = "";
-            $this->data['keyword'] = get_search_query();
-            return;
-        }
-
         //Mimic wp-search
         global $wp_query;
         $this->data['resultCount'] = $wp_query->found_posts;
+        $this->data['keyword'] = get_search_query();
+    }
+
+    /**
+     * Algolia search
+     * @return void
+     */
+    public function algoliaSearchInstant()
+    {
+        $this->data['results'] = array();
+        $this->data['resultCount'] = "";
         $this->data['keyword'] = get_search_query();
     }
 
