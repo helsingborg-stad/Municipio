@@ -1,96 +1,101 @@
-jQuery(function () {
-  /* Check if algolia is running */
-  if(typeof algoliasearch !== "undefined") {
+(function() {
+    if(document.getElementById('algolia-search-box')) {
 
-    /* init Algolia client */
-    var client = algoliasearch(algolia.application_id, algolia.search_api_key);
-
-    /* setup default sources */
-    var sources = [];
-    jQuery.each(algolia.autocomplete.sources, function (i, config) {
-      var suggestion_template = wp.template(config['tmpl_suggestion']);
-      sources.push({
-        source: algoliaAutocomplete.sources.hits(client.initIndex(config['index_name']), {
-          hitsPerPage: config['max_suggestions'],
-          attributesToSnippet: [
-            'content:10'
-          ],
-          highlightPreTag: '__ais-highlight__',
-          highlightPostTag: '__/ais-highlight__'
-        }),
-        templates: {
-          header: function () {
-            return wp.template('autocomplete-header')({
-              label: _.escape(config['label'])
-            });
-          },
-          suggestion: function (hit) {
-            for (var key in hit._highlightResult) {
-              /* We do not deal with arrays. */
-              if (typeof hit._highlightResult[key].value !== 'string') {
-                continue;
-              }
-              hit._highlightResult[key].value = _.escape(hit._highlightResult[key].value);
-              hit._highlightResult[key].value = hit._highlightResult[key].value.replace(/__ais-highlight__/g, '<em>').replace(/__\/ais-highlight__/g, '</em>');
+        /* Instantiate instantsearch.js */
+        var search = instantsearch({
+            appId: algolia.application_id,
+            apiKey: algolia.search_api_key,
+            indexName: algolia.indices.searchable_posts.name,
+            urlSync: {
+                mapping: {'q': 's'},
+                trackedParameters: ['query']
+            },
+            searchParameters: {
+                facetingAfterDistinct: true,
+                highlightPreTag: '__ais-highlight__',
+                highlightPostTag: '__/ais-highlight__'
             }
+        });
 
-            for (var key in hit._snippetResult) {
-              /* We do not deal with arrays. */
-              if (typeof hit._snippetResult[key].value !== 'string') {
-                continue;
-              }
+        /* Search box widget */
+        search.addWidget(
+            instantsearch.widgets.searchBox({
+                container: '#algolia-search-box',
+                placeholder: 'Search for...',
+                wrapInput: false,
+                poweredBy: false,
+                cssClasses: {
+                    input: ['form-control', 'form-control-lg']
+                }
+            })
+        );
 
-              hit._snippetResult[key].value = _.escape(hit._snippetResult[key].value);
-              hit._snippetResult[key].value = hit._snippetResult[key].value.replace(/__ais-highlight__/g, '<em>').replace(/__\/ais-highlight__/g, '</em>');
-            }
+        /* Stats widget */
+        search.addWidget(
+            instantsearch.widgets.stats({
+                container: '#algolia-stats',
+                autoHideContainer: false,
+                templates: {
+                    body: wp.template('instantsearch-status')
+                }
+            })
+        );
 
-            return suggestion_template(hit);
-          }
-        }
-      });
+        /* Hits widget */
+        search.addWidget(
+            instantsearch.widgets.hits({
+                container: '#algolia-hits',
+                hitsPerPage: 10,
+                cssClasses: {
+                    root: ['search-result-list'],
+                    item: ['search-result-item']
+                },
+                templates: {
+                    empty: wp.template('instantsearch-empty'),
+                    item: wp.template('instantsearch-hit')
+                },
+                transformData: {
+                    item: function (hit) {
 
-    });
+                        console.log(hit);
 
-    /* Setup dropdown menus */
-    jQuery(algolia.autocomplete.input_selector).each(function (i) {
-      var $searchInput = jQuery(this);
+                        /* Create content snippet */
+                        hit.contentSnippet = hit.content.length > 300 ? hit.content.substring(0, 300 - 3) + '...' : hit.content;
 
-      var config = {
-        debug: algolia.debug,
-        hint: false,
-        openOnFocus: true,
-        appendTo: 'body',
-        templates: {
-          empty: wp.template('autocomplete-empty')
-        }
-      };
+                        /* Create hightlight results */
+                        for(var key in hit._highlightResult) {
+                          if(typeof hit._highlightResult[key].value !== 'string') {
+                            continue;
+                          }
+                          hit._highlightResult[key].value = _.escape(hit._highlightResult[key].value);
+                          hit._highlightResult[key].value = hit._highlightResult[key].value.replace(/__ais-highlight__/g, '<em>').replace(/__\/ais-highlight__/g, '</em>');
+                        }
 
-      if (algolia.powered_by_enabled) {
-        config.templates.footer = wp.template('autocomplete-footer');
-      }
+                        return hit;
+                    }
+                }
+            })
+        );
 
-      /* Instantiate autocomplete.js */
-      var autocomplete = algoliaAutocomplete($searchInput[0], config, sources)
-      .on('autocomplete:selected', function (e, suggestion) {
-        /* Redirect the user when we detect a suggestion selection. */
-        window.location.href = suggestion.permalink;
-      });
+        /* Pagination widget */
+        search.addWidget(
+            instantsearch.widgets.pagination({
+                container: '#algolia-pagination',
+                cssClasses: {
+                    root: ['pagination'],
+                    item: ['page'],
+                    disabled: ['hidden']
+                }
+            })
+        );
 
-      /* Force the dropdown to be re-drawn on scroll to handle fixed containers. */
-      jQuery(window).scroll(function() {
-        if(autocomplete.autocomplete.getWrapper().style.display === "block") {
-          autocomplete.autocomplete.close();
-          autocomplete.autocomplete.open();
-        }
-      });
-    });
+        /* Autofocus on search input */
+        document.getElementById("algolia-search-box").autofocus;
 
-    jQuery(document).on("click", ".algolia-powered-by-link", function (e) {
-      e.preventDefault();
-      window.location = "https://www.algolia.com/?utm_source=WordPress&utm_medium=extension&utm_content=" + window.location.hostname + "&utm_campaign=poweredby";
-    });
-  }
-});
+        /* Start */
+        search.start();
+    }
+})();
 
 var Muncipio = {};
 
