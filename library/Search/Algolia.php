@@ -88,8 +88,8 @@ class Algolia
                 return false;
             }
 
-            //Do not index posts that are not public
-            if (isset($postTypeObject->publicly_queryable) && !$postTypeObject->publicly_queryable) {
+            //Do not index posts that belong to modularity
+            if(preg_match("/mod-/i", $post->post_type)) {
                 return false;
             }
         }
