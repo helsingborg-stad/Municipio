@@ -1,3 +1,4 @@
+
 (function() {
     if(document.getElementById('algolia-search-box')) {
 
