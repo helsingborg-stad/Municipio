@@ -1,5 +1,4 @@
 @extends('templates.master')
-
 @section('content')
     @switch($activeSearchEngine)
         @case("google")
@@ -10,6 +9,9 @@
             @break
         @case("algolia")
             @include('partials.search.algolia')
+            @break
+        @case("algoliainstant")
+            @include('partials.search.algolia-instantsearch')
             @break
         @default
             @include('partials.search.wp')
