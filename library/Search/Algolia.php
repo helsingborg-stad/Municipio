@@ -100,18 +100,6 @@ class Algolia
         //Get post type object
         if (isset($post->post_type)) {
 
-            //Default to index pages (discard other stuff below)
-            $defaultIndexableTypes = apply_filters('algolia_indexable_post_types', array(
-                'page'
-            ));
-            if (in_array($post->post_type, $defaultIndexableTypes)) {
-                return true;
-            }
-        }
-
-        //Get post type object
-        if (isset($post->post_type)) {
-
             //Get post object details
             $postTypeObject = get_post_type_object($post->post_type);
 
