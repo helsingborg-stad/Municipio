@@ -295,8 +295,7 @@
         display: inline-block; } }
 
 .network-title {
-  display: inline-block;
-  margin-bottom: 10px; }
+  display: inline-block; }
 
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }
