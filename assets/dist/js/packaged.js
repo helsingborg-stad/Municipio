@@ -58,8 +58,6 @@
                 transformData: {
                     item: function (hit) {
 
-                        console.log(hit);
-
                         /* Create content snippet */
                         hit.contentSnippet = hit.content.length > 300 ? hit.content.substring(0, 300 - 3) + '...' : hit.content;
 
