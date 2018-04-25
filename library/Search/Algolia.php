@@ -20,26 +20,6 @@ class Algolia
         add_action('attachment_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
         add_action('save_post', array($this, 'saveExcludeFromSearch'));
         add_action('edit_attachment', array($this, 'saveExcludeFromSearch'));
-
-        //Custom views for algolia
-        add_filter('algolia_template_locations', array($this, 'templatePaths'), 10, 2);
-    }
-
-    /**
-     * @param array  $locations
-     * @param string $file
-     *
-     * @return array
-     */
-    public function templatePaths($locations, $file)
-    {
-        if ($file === 'autocomplete.php') {
-            $locations[] = 'views/partials/search/algolia-autocomplete.php';
-        } elseif ($file === 'instantsearch.php') {
-            $locations[] = 'views/partials/search/algolia-instantsearch.php';
-        }
-
-        return $locations;
     }
 
     /**
