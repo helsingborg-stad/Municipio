@@ -84,17 +84,13 @@ class Algolia
             $postTypeObject = get_post_type_object($post->post_type);
 
             //Do not index post that are not searchable
-            if (isset($postTypeObject->exclude_from_search)) {
-                if ($postTypeObject->exclude_from_search) {
-                    return false;
-                }
+            if (isset($postTypeObject->exclude_from_search) && $postTypeObject->exclude_from_search) {
+                return false;
             }
 
             //Do not index posts that are not public
-            if (isset($postTypeObject->publicly_queryable)) {
-                if ($postTypeObject->publicly_queryable === false) {
-                    return false;
-                }
+            if (isset($postTypeObject->publicly_queryable) && !$postTypeObject->publicly_queryable) {
+                return false;
             }
         }
 
