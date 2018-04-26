@@ -28,7 +28,7 @@
 !!}
 
 <div class="container hidden-print">
-    <div class="grid grid-va-middle">
+    <div class="grid grid-table grid-va-middle">
         <div class="grid-auto text-center-xs text-center-sm">
             <div class="grid grid-table grid-va-middle no-padding">
                 <div class="grid-xs-8 grid-sm-8 grid-md-12 text-left-sm text-left-xs">
