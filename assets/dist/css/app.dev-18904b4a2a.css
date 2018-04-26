@@ -152,13 +152,14 @@
   min-height: 1px; }
 
 .nav-accessibility {
-  margin-top: 8px; }
+  margin-top: 4px;
+  font-size: 15px; }
   .nav-accessibility li + li::before {
     display: none; }
   .nav-accessibility > li + li {
     margin-left: 24px; }
   .nav-accessibility a, .nav-accessibility span {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 24px;
     font-weight: 200;
     color: #464646; }

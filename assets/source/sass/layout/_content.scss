@@ -12,7 +12,8 @@
 }
 
 .nav-accessibility {
-    margin-top: 8px;
+    margin-top: 4px;
+    font-size: 15px;
 
     li + li::before {
         display: none;
@@ -23,7 +24,7 @@
     }
 
     a, span {
-        font-size: 14px;
+        font-size: 15px;
         line-height: 24px;
         font-weight: 200;
         color: $gray-dark;
