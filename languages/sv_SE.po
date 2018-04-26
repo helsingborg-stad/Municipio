@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-04-12 11:10+0200\n"
-"PO-Revision-Date: 2018-04-12 11:10+0200\n"
+"POT-Creation-Date: 2018-04-25 15:46+0200\n"
+"PO-Revision-Date: 2018-04-25 15:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -237,7 +237,7 @@ msgid "Active"
 msgstr "Aktivera"
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:34
-#: library/Theme/Share.php:42
+#: library/Theme/Share.php:50
 #: vendor/advanced-custom-fields/core/fields/message.php:19
 #: vendor/advanced-custom-fields/core/fields/message.php:70
 #: vendor/advanced-custom-fields/core/fields/true_false.php:79
@@ -1926,31 +1926,32 @@ msgstr "Under länkar"
 msgid "Home"
 msgstr "Hem"
 
-#: library/Theme/Share.php:25 library/Theme/Share.php:74
+#: library/Theme/Share.php:22 library/Theme/Share.php:32
+#: library/Theme/Share.php:82
 msgid "Something went wrong, please try again"
 msgstr "Något gick fel, vänligen försök igen"
 
-#: library/Theme/Share.php:39
+#: library/Theme/Share.php:47
 msgid "has invited you to join"
 msgstr "har bjudit in dig att gå med i"
 
-#: library/Theme/Share.php:39
+#: library/Theme/Share.php:47
 msgid "shared the post"
 msgstr "delade sidan"
 
-#: library/Theme/Share.php:43
+#: library/Theme/Share.php:51
 msgid "This message was sent by"
 msgstr "Meddelandet skickades av"
 
-#: library/Theme/Share.php:61
+#: library/Theme/Share.php:69
 msgid "Invitation"
 msgstr "Inbjudan"
 
-#: library/Theme/Share.php:61
+#: library/Theme/Share.php:69
 msgid "shared a post via"
 msgstr "delade en sida via"
 
-#: library/Theme/Share.php:72
+#: library/Theme/Share.php:80
 msgid "The message was sent successfully"
 msgstr "Meddelandet har skickats"
 
@@ -5267,6 +5268,18 @@ msgstr "Hittade inga matchande resultat för din sökning…"
 #: views/partials/search/algolia-customsearch.blade.php:49
 msgid "Whoops, this search result page dosen't exist anymore…"
 msgstr "Hoppsan, den här sidan med sökresultat finns inte längre…"
+
+#: views/partials/search/algolia-instantsearch.blade.php:88
+msgid "Could not find any content matching your query."
+msgstr "Kunde inte hitta något innehåll som matchar din sökfråga."
+
+#: views/partials/search/algolia-instantsearch.blade.php:97
+msgid "hits on"
+msgstr "träffar på"
+
+#: views/partials/search/algolia-instantsearch.blade.php:99
+msgid "Query is empty, please type somehing."
+msgstr "Vänligen ange en sökfråga. "
 
 #: views/partials/share-email-form.blade.php:6
 #: views/partials/social-share.blade.php:21
