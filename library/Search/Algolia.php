@@ -20,26 +20,6 @@ class Algolia
         add_action('attachment_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
         add_action('save_post', array($this, 'saveExcludeFromSearch'));
         add_action('edit_attachment', array($this, 'saveExcludeFromSearch'));
-
-        //Custom views for algolia
-        add_filter('algolia_template_locations', array($this, 'templatePaths'), 10, 2);
-    }
-
-    /**
-     * @param array  $locations
-     * @param string $file
-     *
-     * @return array
-     */
-    public function templatePaths($locations, $file)
-    {
-        if ($file === 'autocomplete.php') {
-            $locations[] = 'views/partials/search/algolia-autocomplete.php';
-        } elseif ($file === 'instantsearch.php') {
-            $locations[] = 'views/partials/search/algolia-instantsearch.php';
-        }
-
-        return $locations;
     }
 
     /**
@@ -100,33 +80,17 @@ class Algolia
         //Get post type object
         if (isset($post->post_type)) {
 
-            //Default to index pages (discard other stuff below)
-            $defaultIndexableTypes = apply_filters('algolia_indexable_post_types', array(
-                'page'
-            ));
-            if (in_array($post->post_type, $defaultIndexableTypes)) {
-                return true;
-            }
-        }
-
-        //Get post type object
-        if (isset($post->post_type)) {
-
             //Get post object details
             $postTypeObject = get_post_type_object($post->post_type);
 
             //Do not index post that are not searchable
-            if (isset($postTypeObject->exclude_from_search)) {
-                if ($postTypeObject->exclude_from_search) {
-                    return false;
-                }
+            if (isset($postTypeObject->exclude_from_search) && $postTypeObject->exclude_from_search) {
+                return false;
             }
 
-            //Do not index posts that are not public
-            if (isset($postTypeObject->publicly_queryable)) {
-                if ($postTypeObject->publicly_queryable === false) {
-                    return false;
-                }
+            //Do not index posts that belong to modularity
+            if(preg_match("/mod-/i", $post->post_type)) {
+                return false;
             }
         }
 

@@ -52,7 +52,7 @@ jQuery(function () {
     });
 
     /* Setup dropdown menus */
-    jQuery(algolia.autocomplete.input_selector).each(function (i) {
+    jQuery("#site-header " + algolia.autocomplete.input_selector + ", .hero " + algolia.autocomplete.input_selector).each(function (i) {
       var $searchInput = jQuery(this);
 
       var config = {

@@ -16,6 +16,13 @@ class Share
      */
     public function socialShareEmail()
     {
+
+        //Check nonce
+        if(!isset($_REQUEST['_wpnonce']) ||!wp_verify_nonce($_REQUEST['_wpnonce'], 'share-page' . (isset($_POST['post_id']) ? $_POST['post_id'] : null))) {
+            wp_send_json_error(__('Something went wrong, please try again', 'municipio'));
+            exit;
+        }
+
         //Validate reCaptcha
         if (!is_user_logged_in() && defined('G_RECAPTCHA_KEY')) {
             $response   = isset($_POST['g-recaptcha-response']) ? esc_attr($_POST['g-recaptcha-response']) : '';
@@ -23,6 +30,7 @@ class Share
 
             if (!$reCaptcha) {
                 wp_send_json_error(__('Something went wrong, please try again', 'municipio'));
+                exit;
             }
         }
 
@@ -73,5 +81,6 @@ class Share
         } else {
             wp_send_json_error(__('Something went wrong, please try again', 'municipio'));
         }
+        exit;
     }
 }
