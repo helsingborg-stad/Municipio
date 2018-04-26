@@ -53,7 +53,8 @@
       color: #464646;
       position: absolute;
       top: 50%;
-      transform: translate(0, -50%);
+      -webkit-transform: translate(0, -50%);
+              transform: translate(0, -50%);
       font-family: FontAwesome;
       speak: none;
       font-style: normal;
@@ -91,7 +92,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     z-index: 99;
     width: 30%;
     min-width: 300px; }
@@ -142,6 +144,7 @@
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
   display: block;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding-top: 60px;
@@ -303,7 +306,8 @@
   right: 15px;
   top: 50%;
   z-index: 9999;
-  transform: translateY(-50%); }
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%); }
   @media screen and (max-width: 769px) {
     .scroll-dots {
       right: 7px; } }
