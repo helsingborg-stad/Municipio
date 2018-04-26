@@ -88,10 +88,6 @@ class Algolia
                 return false;
             }
 
-            //Do not index posts that belong to modularity
-            if(strpos($post->post_type, "mod-") === 0) {
-                return false;
-            }
         }
 
         //Attachments
