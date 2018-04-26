@@ -10,13 +10,14 @@
                 {{ the_excerpt() }}
             </article>
             @if (!empty(municipio_post_taxonomies_to_display(get_the_id())))
-                <ul class="inline-block nav-horizontal tags">
-                    @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
+                @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
+                    <strong class="text-sm">{{ count($terms) == 1 ? get_taxonomy($taxonomy)->labels->singular_name : get_taxonomy($taxonomy)->label }}:</strong>
+                    <ul class="inline-block nav-horizontal tags">
                         @foreach ($terms as $term)
-                            <li><span class="label label-sm">{{ $term->name }}</span></li>
+                            <li><a href="{{ get_term_link($term, $taxonomy) }}" class="label label-sm" style="{{ apply_filters('Municipio/taxonomy/tag_style', '', $term, $taxonomy) }}">{{ $term->name }}</a></li>
                         @endforeach
-                    @endforeach
-                </ul>
+                    </ul>
+                @endforeach
             @endif
         </div>
         @if (municipio_get_thumbnail_source(null, array(650, 500)))

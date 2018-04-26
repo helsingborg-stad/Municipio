@@ -3,11 +3,6 @@
     "title": "Author",
     "fields": [
         {
-            "default_value": 1,
-            "message": "Enable",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
             "key": "field_56caee12421d3",
             "label": "Show author",
             "name": "page_show_author",
@@ -19,14 +14,14 @@
                 "width": 33.3333,
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "default_value": 1,
             "message": "Enable",
             "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_56caeec859b73",
             "label": "Show author image",
             "name": "page_show_author_image",
@@ -38,14 +33,14 @@
                 "width": 33.3333,
                 "class": "",
                 "id": ""
-            }
-        },
-        {
-            "default_value": 0,
+            },
+            "default_value": 1,
             "message": "Enable",
             "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_56aaeee859b74",
             "label": "Link name to author archive",
             "name": "page_link_to_author_archive",
@@ -57,7 +52,12 @@
                 "width": 33.3333,
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": 0,
+            "message": "Enable",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -76,7 +76,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 

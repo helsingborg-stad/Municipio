@@ -14,16 +14,19 @@
 }
 
 .nav-accessibility {
+    margin-top: 8px;
+
     li + li::before {
         display: none;
     }
 
     > li + li {
-        margin-left: 20px;
+        margin-left: 24px;
     }
 
     a, span {
-        font-size: .9rem;
+        font-size: 14px;
+        line-height: 24px;
         font-weight: 200;
         color: $gray-dark;
 
@@ -42,7 +45,7 @@
         }
 
         .pricon {
-            margin-right: .2em;
+            margin-right: 8px;
         }
     }
 }

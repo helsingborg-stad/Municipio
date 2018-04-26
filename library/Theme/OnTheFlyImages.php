@@ -28,8 +28,27 @@ class OnTheFlyImages
                 return false;
             }
 
-            //Check that sizes are numeric
+            //Get attachmentmeta
             if (!is_numeric($size[0]) ||!is_numeric($size[1])) {
+                $attachmentMetaData = wp_get_attachment_metadata($id);
+            }
+
+            //Check that we have the needed data to make calculations
+            if(array_filter($size)) {
+
+                //Calc height (from width)
+                if(!is_numeric($size[0])) {
+                    $scale = $size[1] / $attachmentMetaData['height'];
+                    $size[0] = floor($attachmentMetaData['width'] * $scale);
+                }
+
+                //Calc width (from height)
+                if(!is_numeric($size[1])) {
+                    $scale = $size[0] / $attachmentMetaData['width'];
+                    $size[1] = floor($attachmentMetaData['height'] * $scale);
+                }
+
+            } else {
                 return false;
             }
 

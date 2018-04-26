@@ -1,13 +1,19 @@
 @extends('templates.master')
-
 @section('content')
-
-    @if (get_field('use_google_search', 'option') === true)
-        @include('partials.search.google')
-    @elseif(get_field('use_algolia_search', 'option') === true)
-        @include('partials.search.algolia')
-    @else
-        @include('partials.search.wp')
-    @endif
-
+    @switch($activeSearchEngine)
+        @case("google")
+            @include('partials.search.google')
+            @break
+        @case("algoliacustom")
+            @include('partials.search.algolia-customsearch')
+            @break
+        @case("algolia")
+            @include('partials.search.algolia')
+            @break
+        @case("algoliainstant")
+            @include('partials.search.algolia-instantsearch')
+            @break
+        @default
+            @include('partials.search.wp')
+    @endswitch
 @stop
