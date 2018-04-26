@@ -9,4 +9,5 @@
     @endif
 
 @stop
-{{ /* THIS IS A SAMPLE VIEW */ }}
+
+{{-- THIS IS A SAMPLE VIEW --}}
