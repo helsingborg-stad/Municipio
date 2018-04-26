@@ -89,7 +89,7 @@ class Algolia
             }
 
             //Do not index posts that belong to modularity
-            if(preg_match("/mod-/i", $post->post_type)) {
+            if(strpos($post->post_type, "mod-") === 0) {
                 return false;
             }
         }
