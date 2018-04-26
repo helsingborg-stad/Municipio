@@ -26,7 +26,6 @@ class Algolia
      * Adds form field for exclude from search
      * @return void
      */
-
     public function excludeFromSearchCheckbox()
     {
         global $post;
@@ -59,6 +58,18 @@ class Algolia
             return;
         }
         update_post_meta($postId, 'exclude_from_search', true);
+    }
+
+    /**
+     * Add a attribute to algolia search
+     * @param array   $attributes
+     * @param WP_Post $post
+     * @return array
+     */
+    public function addAlgoliaModuleAttribute($attributes, $post)
+    {
+        $attributes['post_status'] = $post->post_status;
+        return $attributes;
     }
 
     /**
