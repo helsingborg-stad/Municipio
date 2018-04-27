@@ -8,6 +8,9 @@
         .ais-search-box--reset-wrapper {
             display: none !important;
         }
+        .suggestion-post-content {
+            padding: 10px 0;
+        }
     </style>
 
     <section class="creamy gutter-vertical gutter-lg clearfix">
@@ -61,24 +64,28 @@
     </section>
 </div>
 
-
 {{-- Search response item. --}}
 @verbatim
 <script type="text/html" id="tmpl-instantsearch-hit">
     <div class="ais-hits--content is-{{ data.post_status }}">
-        <span class="search-result-date">{{ data.post_date_formatted }}</span>
-        <h3 title="{{ data.post_title }}">
+        <h3 style="display: inline;" title="{{ data.post_title }}">
             <a class="link-item " href="{{ data.permalink }}">{{{ data._highlightResult.post_title.value }}}</a>
         </h3>
-        <p>
-            <# if (data.contentSnippet) { #>
-                <# if (data.post_status == "private" && <?php echo is_user_logged_in() ? 'false' : 'true'; ?>) { #>
-                    <span class="suggestion-post-content"><?php _e("This post is not publicly avabile, you will be prompted to login to view this post.", 'municipio'); ?></span>
-                <# } else { #>
-                    <span class="suggestion-post-content">{{{ data.contentSnippet }}}</span>
-                <# } #>
+
+        <# if (data.origin_site) { #>
+            &nbsp; - <span class="label label-theme label-sm">{{{ data.origin_site }}}</span>
+        <# } #>
+
+        <div class="search-result-date">{{ data.post_date_formatted }}</div>
+
+        <# if (data.contentSnippet) { #>
+            <# if (data.post_status == "private" && <?php echo is_user_logged_in() ? 'false' : 'true'; ?>) { #>
+                <div class="suggestion-post-content"><?php _e("This post is not publicly avabile, you will be prompted to login to view this post.", 'municipio'); ?></div>
+            <# } else { #>
+                <div class="suggestion-post-content">{{{ data.contentSnippet }}}</div>
             <# } #>
-        </p>
+        <# } #>
+
         <div class="ais-search-result-info">
             <span class="search-result-url">
                 <i class="fa fa-globe" aria-hidden="true"></i>
