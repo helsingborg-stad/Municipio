@@ -59,14 +59,18 @@
 {{-- Search response item. --}}
 @verbatim
 <script type="text/html" id="tmpl-instantsearch-hit">
-    <div class="ais-hits--content">
+    <div class="ais-hits--content is-{{ data.post_status }}">
         <span class="search-result-date">{{ data.post_date_formatted }}</span>
         <h3 title="{{ data.post_title }}">
             <a class="link-item " href="{{ data.permalink }}">{{{ data._highlightResult.post_title.value }}}</a>
         </h3>
         <p>
             <# if (data.contentSnippet) { #>
-              <span class="suggestion-post-content">{{{ data.contentSnippet }}}</span>
+                <# if (data.post_status == "private" && <?php echo is_user_logged_in() ? 'false' : 'true'; ?>) { #>
+                    <span class="suggestion-post-content"><?php _e("This post is not publicly avabile, you will be prompted to login to view this post.", 'municipio'); ?></span>
+                <# } else { #>
+                    <span class="suggestion-post-content">{{{ data.contentSnippet }}}</span>
+                <# } #>
             <# } #>
         </p>
         <div class="ais-search-result-info">
