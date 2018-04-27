@@ -51,7 +51,10 @@
                     </aside>
                 </div>
                 <div class="grid-md-4 grid-lg-3">
-                    <?php do_action('algolia_instant_search_sidebar'); ?>
+                    <div class="grid">
+                        @includeIf('partials.search.user-widget')
+                        @includeIf('partials.search.system-widget')
+                    </div>
                 </div>
             </div>
         </div>
