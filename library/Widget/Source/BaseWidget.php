@@ -110,11 +110,7 @@ abstract class BaseWidget extends \WP_Widget
      */
     public function form($instance)
     {
-        if (isset($instance[ 'title' ])) {
-            $title = $instance[ 'title' ];
-        } else {
-            $title = __('New title', 'municipio');
-        }
+        $title = (isset($instance[ 'title' ])) ? $instance[ 'title' ] : __('New title', 'municipio');
 
         $output = '';
         $output .= '<p>';
