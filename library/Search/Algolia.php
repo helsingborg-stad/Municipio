@@ -10,6 +10,9 @@ class Algolia
         //Algolia search modifications
         add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2);
 
+        add_filter('algolia_post_shared_attributes', array($this, 'addAlgoliaPostStatus'), 10, 2);
+        add_filter('algolia_searchable_post_shared_attributes', array($this, 'addAlgoliaPostStatus'), 10, 2);
+
         //Do not run if not enabled
         if (!get_field('use_algolia_search', 'option')) {
             return false;
@@ -66,7 +69,7 @@ class Algolia
      * @param WP_Post $post
      * @return array
      */
-    public function addAlgoliaModuleAttribute($attributes, $post)
+    public function addAlgoliaPostStatus($attributes, $post)
     {
         $attributes['post_status'] = $post->post_status;
         return $attributes;
