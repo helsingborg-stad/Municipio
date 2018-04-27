@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-04-25 15:46+0200\n"
-"PO-Revision-Date: 2018-04-25 15:46+0200\n"
+"POT-Creation-Date: 2018-04-27 12:58+0200\n"
+"PO-Revision-Date: 2018-04-27 13:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1830,7 +1830,7 @@ msgstr ""
 "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
 "webbläsare."
 
-#: library/Search/Algolia.php:63
+#: library/Search/Algolia.php:45
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
@@ -5254,10 +5254,6 @@ msgstr "Mer"
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/search/algolia-autocomplete.php:79
-msgid "No results matched your query "
-msgstr "Inga träffar matchade din sökfråga"
-
 #: views/partials/search/algolia-customsearch.blade.php:37
 #: views/partials/search/algolia.blade.php:37
 #: views/partials/search/google.blade.php:24
@@ -5269,15 +5265,23 @@ msgstr "Hittade inga matchande resultat för din sökning…"
 msgid "Whoops, this search result page dosen't exist anymore…"
 msgstr "Hoppsan, den här sidan med sökresultat finns inte längre…"
 
-#: views/partials/search/algolia-instantsearch.blade.php:88
+#: views/partials/search/algolia-instantsearch.blade.php:83
+msgid ""
+"This post is not publicly avabile, you will be prompted to login to view "
+"this post."
+msgstr ""
+"Sidan är inte publikt tillgänglig, du kommer bli tillfrågad om att logga in "
+"för att se den här sidan. "
+
+#: views/partials/search/algolia-instantsearch.blade.php:105
 msgid "Could not find any content matching your query."
 msgstr "Kunde inte hitta något innehåll som matchar din sökfråga."
 
-#: views/partials/search/algolia-instantsearch.blade.php:97
+#: views/partials/search/algolia-instantsearch.blade.php:114
 msgid "hits on"
 msgstr "träffar på"
 
-#: views/partials/search/algolia-instantsearch.blade.php:99
+#: views/partials/search/algolia-instantsearch.blade.php:116
 msgid "Query is empty, please type somehing."
 msgstr "Vänligen ange en sökfråga. "
 
@@ -5357,6 +5361,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "No results matched your query "
+#~ msgstr "Inga träffar matchade din sökfråga"
 
 #, fuzzy
 #~| msgid "Something went wrong, please try again"
