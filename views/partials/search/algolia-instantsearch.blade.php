@@ -42,13 +42,16 @@
     <section class=" gutter-vertical gutter-lg clearfix">
         <div class="container">
             <div class="grid">
-                <div class="grid-lg-12">
+                <div class="grid-md-8 grid-lg-9">
                     <div id="algolia-hits"></div>
                     <div id="algolia-pagination"></div>
                     <aside id="ais-facets">
                         <section class="ais-facets" id="facet-categories"></section>
                         <section class="ais-facets" id="facet-tags"></section>
                     </aside>
+                </div>
+                <div class="grid-md-4 grid-lg-3">
+                    <?php do_action('algolia_instant_search_sidebar'); ?>
                 </div>
             </div>
         </div>
