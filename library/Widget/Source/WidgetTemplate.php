@@ -83,13 +83,61 @@ abstract class WidgetTemplate extends \WP_Widget
         }
     }
 
+    /**
+     * Front-end of the widget. Instantiates the viewController method and renders blade view.
+     *
+     * @param array $args     Display arguments including 'before_title', 'after_title',
+     *                        'before_widget', and 'after_widget'.
+     *
+     * @param array $instance The settings for the particular instance of the widget.
+     *
+     * @return void
+     */
+    public function widget($args, $instance)
+    {
+        $this->data['args'] = $args;
+        $this->data['instance'] = $instance;
+
+        $this->commonFields();
+        $this->beforeViewController();
+        $this->viewController($this->data['args'], $this->data['instance']);
+        $this->afterViewController();
+        $this->widgetAttributes();
+
+        $blade = new Blade($this->viewPath, $this->cachePath);
+        echo $blade->view()->make('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
+    }
+
+    public function beforeViewController()
+    {
+        return;
+    }
+    public function afterViewController()
+    {
+        return;
+    }
+
+    public function commonFields()
+    {
+        if (!isset($this->config['fields']) || !is_array($this->config['fields']) || empty($this->config['fields'])) {
+            return;
+        }
+
+        if (in_array('utilityFields', $this->config['fields'])) {
+            $this->marginUtilities();
+            $this->visibilityUtilities();
+            $this->customCss();
+        }
+    }
+
+
     public function utilityFields()
     {
         if (!isset($this->config['id']) || !is_string($this->config['id']) || !isset($this->config['fields']) || !is_array($this->config['fields']) || empty($this->config['fields'])|| !in_array('utilityFields', $this->config['fields'])) {
             return;
         }
 
-        add_filter('Municipio/Widget/Widgets/HeaderWidgetFields', function ($widgets) {
+        add_filter('Municipio/Widget/Source/UtilityFields/widgets', function ($widgets) {
             $widgets[] = $this->config['id'];
             return $widgets;
         });
@@ -148,50 +196,14 @@ abstract class WidgetTemplate extends \WP_Widget
         return false;
     }
 
-    /**
-     * Front-end of the widget. Instantiates the viewController method and renders blade view.
-     *
-     * @param array $args     Display arguments including 'before_title', 'after_title',
-     *                        'before_widget', and 'after_widget'.
-     *
-     * @param array $instance The settings for the particular instance of the widget.
-     *
-     * @return void
-     */
-    public function widget($args, $instance)
+    public function customCss()
     {
-        $this->data['args'] = $args;
-        $this->data['instance'] = $instance;
 
-        $this->commonFields();
-        $this->beforeViewController();
-        $this->viewController($this->data['args'], $this->data['instance']);
-        $this->afterViewController();
-        $this->widgetAttributes();
-
-        $blade = new Blade($this->viewPath, $this->cachePath);
-        echo $blade->view()->make('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
-    }
-
-    public function beforeViewController()
-    {
-        return;
-    }
-    public function afterViewController()
-    {
-        return;
-    }
-
-    public function commonFields()
-    {
-        if (!isset($this->config['fields']) || !is_array($this->config['fields']) || empty($this->config['fields'])) {
+        if (!$this->get_field('widget_css_classes')) {
             return;
         }
 
-        if (in_array('utilityFields', $this->config['fields'])) {
-            $this->marginUtilities();
-            $this->visibilityUtilities();
-        }
+        $this->wrapperAttributes->addClass(str_replace('.', '', $this->get_field('widget_css_classes')));
     }
 
     /**
@@ -203,8 +215,6 @@ abstract class WidgetTemplate extends \WP_Widget
         if (!isset($this->wrapperAttributes) || !$this->wrapperAttributes) {
             return;
         }
-
-
 
         $str = $this->data['args']['before_widget'];
 

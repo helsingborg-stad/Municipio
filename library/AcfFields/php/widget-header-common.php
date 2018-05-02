@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5a65d5e7e913b',
-    'title' => __('Widget header - Common', 'municipio'),
+    'title' => __('Widget - Common Utility fields', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_5a67574c78160',
@@ -168,6 +168,42 @@
                     'placeholder' => '',
                 ),
             ),
+        ),
+        4 => array(
+            'key' => 'field_5ae9bbb2fedcb',
+            'label' => __('CSS', 'municipio'),
+            'name' => '',
+            'type' => 'accordion',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'open' => 0,
+            'multi_expand' => 0,
+            'endpoint' => 0,
+        ),
+        5 => array(
+            'key' => 'field_5ae9bbc6fedcc',
+            'label' => __('Custom CSS classes', 'municipio'),
+            'name' => 'widget_css_classes',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
         ),
     ),
     'location' => array(

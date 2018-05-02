@@ -15,7 +15,10 @@ class Widgets
 
         if ($customizerWidgets) {
             new \Municipio\Widget\HeaderFields();
+            new \Municipio\Widget\Source\UtilityFields();
+
             add_action('widgets_init', array($this, 'headerWidgets'));
+
         }
     }
 

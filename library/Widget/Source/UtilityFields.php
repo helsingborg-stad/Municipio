@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Widget;
+namespace Municipio\Widget\Source;
 
-class HeaderFields
+class UtilityFields
 {
     public function __construct()
     {
@@ -10,15 +10,16 @@ class HeaderFields
     }
     public function commonFields()
     {
-        $headerWidgets = apply_filters('Municipio/Widget/Widgets/HeaderWidgetFields', array());
+        $widgets = apply_filters('Municipio/Widget/Source/UtilityFields/widgets', array());
 
-        if (!isset($headerWidgets) || !is_array($headerWidgets) || empty($headerWidgets) || !function_exists('acf_add_local_field_group')) {
+        if (!isset($widgets) || !is_array($widgets) || empty($widgets) || !function_exists('acf_add_local_field_group')) {
             return;
         }
 
+        var_dump($widgets);
         $locations = array();
 
-        foreach ($headerWidgets as $id) {
+        foreach ($widgets as $id) {
             if (!is_string($id) || $id == '') {
                 continue;
             }
@@ -37,7 +38,7 @@ class HeaderFields
         }
 
         acf_add_local_field_group(array(
-            'key' => 'group_5a65d5e7e913z',
+            'key' => 'group_5a65d5e7e913y',
             'title' => 'Widget header - Common',
             'fields' => array(
                 array(
@@ -203,6 +204,42 @@ class HeaderFields
                             'placeholder' => '',
                         ),
                     ),
+                ),
+                array(
+                    'key' => 'field_5ae9bbb2fedcb',
+                    'label' => 'CSS',
+                    'name' => '',
+                    'type' => 'accordion',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'open' => 0,
+                    'multi_expand' => 0,
+                    'endpoint' => 0,
+                ),
+                array(
+                    'key' => 'field_5ae9bbc6fedcc',
+                    'label' => 'Custom CSS classes',
+                    'name' => 'widget_css_classes',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
                 ),
             ),
             'location' => $locations,
