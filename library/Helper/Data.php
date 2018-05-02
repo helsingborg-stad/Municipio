@@ -11,7 +11,13 @@ class Data
 
     public static function getRemoteJson($url)
     {
-        $request = wp_remote_get($url);
+        $args = array();
+
+        if (defined('DEV_MODE') && DEV_MODE) {
+            $args['sslverify'] = false;
+        }
+
+        $request = wp_remote_get($url, $args);
 
         if (wp_remote_retrieve_response_code($request) == 200 && self::isJson(wp_remote_retrieve_body($request))) {
             return json_decode(wp_remote_retrieve_body($request));
