@@ -19,6 +19,10 @@ class ElementAttribute
 
         foreach ($classes as $class)
         {
+            if (empty($class)) {
+                continue;
+            }
+
             $this->classes[] = $class;
         }
     }
@@ -40,14 +44,25 @@ class ElementAttribute
         }
     }
 
-    public function addAttribute($attributeName, $values)
+    public function addAttribute($attribute, $values = '')
     {
-        if (!is_string($attributeName) || !is_string($values) && !is_array($values) || empty($attributeName) || empty($values)) {
+        if (!is_string($attribute) && !is_array($attribute) || !is_string($values) && !is_array($values) && !is_array($attribute) || empty($attribute) || is_string($attributes) && empty($values)) {
             return false;
         }
 
-        if (!isset($this->attributes[$attributeName])) {
-            $this->attributes[$attributeName] = array();
+        if (!is_array($attribute)) {
+            $attribute = array($attribute => $values);
+        }
+
+        foreach ($attribute as $attributeKey => $attributeValues) {
+            $this->newAttribute($attributeKey, $attributeValues);
+        }
+    }
+
+    public function newAttribute($attribute, $values)
+    {
+        if (!isset($this->attributes[$attribute])) {
+            $this->attributes[$attribute] = array();
         }
 
         if (is_string($values)) {
@@ -55,7 +70,7 @@ class ElementAttribute
         }
 
         foreach ($values as $value) {
-            $this->attributes[$attributeName][] = $value;
+            $this->attributes[$attribute][] = $value;
         }
     }
 
