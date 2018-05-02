@@ -8,13 +8,13 @@ class CommentsFilters
     {
         add_action('pre_comment_on_post', array($this, 'validateReCaptcha'));
         add_action('admin_notices', array($this, 'recaptchaConstant'));
-        add_filter('comment_text', array($this, 'stripTags'), 10, 3);
+        add_filter('comment_text', array($this, 'stripTags'), 10, 2);
     }
 
     /**
      * Strip html from comment
      */
-    public function stripTags($comment_text, $comment, $args)
+    public function stripTags($comment_text, $comment)
     {
         $allowedTags = array(
             "<h1>", "<h2>", "<h3>", "<h4>",

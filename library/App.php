@@ -76,6 +76,7 @@ class App
         new \Municipio\Comment\HoneyPot();
         new \Municipio\Comment\LikeButton();
         new \Municipio\Comment\CommentsFilters();
+        new \Municipio\Comment\CommentsActions();
 
         /**
          * Admin
@@ -88,11 +89,11 @@ class App
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\Archives();
         new \Municipio\Admin\Options\ContentEditor();
+        new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
 
-        new \Municipio\Admin\UI\VarnishPurge();
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
         new \Municipio\Admin\UI\Editor();

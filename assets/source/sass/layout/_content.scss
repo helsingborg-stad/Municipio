@@ -1,8 +1,6 @@
 .main-container>.grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
-    display: block;
-    display: flex;
+
     padding-top: 60px;
-    width: 100%;
 
     @media screen and (max-width: 960px) {
         padding-top: 20px;
@@ -14,16 +12,20 @@
 }
 
 .nav-accessibility {
+    margin-top: 4px;
+    font-size: 15px;
+
     li + li::before {
         display: none;
     }
 
     > li + li {
-        margin-left: 20px;
+        margin-left: 24px;
     }
 
     a, span {
-        font-size: .9rem;
+        font-size: 15px;
+        line-height: 24px;
         font-weight: 200;
         color: $gray-dark;
 
@@ -42,7 +44,7 @@
         }
 
         .pricon {
-            margin-right: .2em;
+            margin-right: 8px;
         }
     }
 }

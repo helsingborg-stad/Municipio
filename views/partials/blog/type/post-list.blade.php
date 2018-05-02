@@ -14,7 +14,7 @@
                     <span class="grid-xs-4">
                         @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
                             @foreach ($terms as $term)
-                                <a href="{{ get_term_link($term, $taxonomy) }}" class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}" style="display: inline;">{{ $term->name }}</a>
+                                <a href="{{ get_term_link($term, $taxonomy) }}" class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}" style="{{ apply_filters('Municipio/taxonomy/tag_style', 'display: inline;', $term, $taxonomy) }}">{{ $term->name }}</a>
                             @endforeach
                         @endforeach
                     </span>

@@ -476,15 +476,23 @@ class NavigationTree
             $href = $item->url;
         }
 
-        $this->addOutput(sprintf(
-            '<li%1$s><a href="%2$s">%3$s</a>',
-            $this->attributes($attributes),
-            $href,
-            $title
-        ));
+
 
         if ($outputSubmenuToggle) {
-            $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button>');
+            $this->addOutput(sprintf(
+                '<li%1$s><div style="display: flex; align-items: stretch; position: relative;"><a href="%2$s">%3$s</a>',
+                $this->attributes($attributes),
+                $href,
+                $title
+            ));
+            $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button></div>');
+        } else {
+            $this->addOutput(sprintf(
+                '<li%1$s><a href="%2$s">%3$s</a>',
+                $this->attributes($attributes),
+                $href,
+                $title
+            ));
         }
     }
 

@@ -1,5 +1,6 @@
 <?php
-    $reCaptcha = (!is_user_logged_in()) ? '<div class="form-group"><div class="g-recaptcha" data-sitekey="' . $g_recaptcha_key . '"></div></div>' : '';
+	$key = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
+    $reCaptcha = (!is_user_logged_in()) ? '<div class="form-group"><div class="g-recaptcha" data-sitekey="' . $key . '"></div></div>' : '';
 
     ob_start();
     comment_form(array(

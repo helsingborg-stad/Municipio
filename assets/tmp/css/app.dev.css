@@ -143,12 +143,7 @@
   float: right; }
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
-  display: block;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding-top: 60px;
-  width: 100%; }
+  padding-top: 60px; }
   @media screen and (max-width: 960px) {
     .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
       padding-top: 20px; } }
@@ -156,29 +151,31 @@
 .sidebar-left-sidebar {
   min-height: 1px; }
 
-.nav-accessibility li + li::before {
-  display: none; }
-
-.nav-accessibility > li + li {
-  margin-left: 20px; }
-
-.nav-accessibility a, .nav-accessibility span {
-  font-size: .9rem;
-  font-weight: 200;
-  color: #464646; }
-  .nav-accessibility a:hover, .nav-accessibility span:hover {
-    text-decoration: none;
-    color: #333; }
-    .theme-red .nav-accessibility a:hover, .theme-red .nav-accessibility span:hover {
-      color: #cb0050; }
-    .theme-blue .nav-accessibility a:hover, .theme-blue .nav-accessibility span:hover {
-      color: #0069b4; }
-    .theme-green .nav-accessibility a:hover, .theme-green .nav-accessibility span:hover {
-      color: #50811b; }
-    .theme-purple .nav-accessibility a:hover, .theme-purple .nav-accessibility span:hover {
-      color: #712082; }
-  .nav-accessibility a .pricon, .nav-accessibility span .pricon {
-    margin-right: .2em; }
+.nav-accessibility {
+  margin-top: 4px;
+  font-size: 15px; }
+  .nav-accessibility li + li::before {
+    display: none; }
+  .nav-accessibility > li + li {
+    margin-left: 24px; }
+  .nav-accessibility a, .nav-accessibility span {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 200;
+    color: #464646; }
+    .nav-accessibility a:hover, .nav-accessibility span:hover {
+      text-decoration: none;
+      color: #333; }
+      .theme-red .nav-accessibility a:hover, .theme-red .nav-accessibility span:hover {
+        color: #cb0050; }
+      .theme-blue .nav-accessibility a:hover, .theme-blue .nav-accessibility span:hover {
+        color: #0069b4; }
+      .theme-green .nav-accessibility a:hover, .theme-green .nav-accessibility span:hover {
+        color: #50811b; }
+      .theme-purple .nav-accessibility a:hover, .theme-purple .nav-accessibility span:hover {
+        color: #712082; }
+    .nav-accessibility a .pricon, .nav-accessibility span .pricon {
+      margin-right: 8px; }
 
 .filter-dropdown {
   padding: 0;
@@ -243,6 +240,59 @@
   padding: 7px 0; }
   .event-archive_meta p {
     padding-top: 7px; }
+
+.search-level {
+  border-bottom: 1px solid #e7e5e1;
+  font-size: 0;
+  padding: 10px 0 20px 0; }
+  .search-level .nav li {
+    font-size: 1rem;
+    margin-right: 10px;
+    margin-top: 10px; }
+  .search-level .nav li.title {
+    font-size: 1rem;
+    color: #000; }
+  .search-level .nav a {
+    display: block;
+    color: #000;
+    border-radius: 30px;
+    background-color: #e7e5e1;
+    padding: 5px 10px 5px 10px; }
+    .search-level .nav a .label {
+      position: relative;
+      top: -2px;
+      margin-left: 3px;
+      background-color: #fff; }
+  .search-level .nav li:last-of-type a {
+    border-right: 1px solid #e7e5e1; }
+  .search-level .nav li.active a {
+    color: #333;
+    font-weight: bold; }
+    .theme-red .search-level .nav li.active a {
+      background-color: #cb0050;
+      color: #fff; }
+    .theme-blue .search-level .nav li.active a {
+      background-color: #0069b4;
+      color: #fff; }
+    .theme-green .search-level .nav li.active a {
+      background-color: #11a636;
+      color: #000; }
+    .theme-purple .search-level .nav li.active a {
+      background-color: #712082;
+      color: #fff; }
+  .search-level .nav li + li {
+    margin-left: 0; }
+  @media (max-width: 769px) {
+    .search-level .nav li.title {
+      display: block; } }
+  @media (min-width: 0) and (max-width: 468px) {
+    .search-level .nav li {
+      display: block; }
+      .search-level .nav li a {
+        display: inline-block; } }
+
+.network-title {
+  display: inline-block; }
 
 [id*="site-header"] .menu-trigger {
   vertical-align: middle; }

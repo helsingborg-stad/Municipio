@@ -52,7 +52,7 @@ jQuery(function () {
     });
 
     /* Setup dropdown menus */
-    jQuery(algolia.autocomplete.input_selector).each(function (i) {
+    jQuery("#site-header " + algolia.autocomplete.input_selector + ", .hero " + algolia.autocomplete.input_selector).each(function (i) {
       var $searchInput = jQuery(this);
 
       var config = {
@@ -92,7 +92,268 @@ jQuery(function () {
   }
 });
 
+(function() {
+    if(document.getElementById('algolia-search-box')) {
+
+        /* Instantiate instantsearch.js */
+        var search = instantsearch({
+            appId: algolia.application_id,
+            apiKey: algolia.search_api_key,
+            indexName: algolia.indices.searchable_posts.name,
+            urlSync: {
+                mapping: {'q': 's'},
+                trackedParameters: ['query']
+            },
+            searchParameters: {
+                facetingAfterDistinct: true,
+                highlightPreTag: '__ais-highlight__',
+                highlightPostTag: '__/ais-highlight__'
+            }
+        });
+
+        /* Search box widget */
+        search.addWidget(
+            instantsearch.widgets.searchBox({
+                container: '#algolia-search-box',
+                placeholder: 'Search for...',
+                wrapInput: false,
+                poweredBy: false,
+                cssClasses: {
+                    input: ['form-control', 'form-control-lg']
+                }
+            })
+        );
+
+        /* Stats widget */
+        search.addWidget(
+            instantsearch.widgets.stats({
+                container: '#algolia-stats',
+                autoHideContainer: false,
+                templates: {
+                    body: wp.template('instantsearch-status')
+                }
+            })
+        );
+
+        /* Hits widget */
+        search.addWidget(
+            instantsearch.widgets.hits({
+                container: '#algolia-hits',
+                hitsPerPage: 10,
+                cssClasses: {
+                    root: ['search-result-list'],
+                    item: ['search-result-item']
+                },
+                templates: {
+                    empty: wp.template('instantsearch-empty'),
+                    item: wp.template('instantsearch-hit')
+                },
+                transformData: {
+                    item: function (hit) {
+
+                        /* Create content snippet */
+                        hit.contentSnippet = hit.content.length > 300 ? hit.content.substring(0, 300 - 3) + '...' : hit.content;
+
+                        /* Create hightlight results */
+                        for(var key in hit._highlightResult) {
+                          if(typeof hit._highlightResult[key].value !== 'string') {
+                            continue;
+                          }
+                          hit._highlightResult[key].value = _.escape(hit._highlightResult[key].value);
+                          hit._highlightResult[key].value = hit._highlightResult[key].value.replace(/__ais-highlight__/g, '<em>').replace(/__\/ais-highlight__/g, '</em>');
+                        }
+
+                        return hit;
+                    }
+                }
+            })
+        );
+
+        /* Pagination widget */
+        search.addWidget(
+            instantsearch.widgets.pagination({
+                container: '#algolia-pagination',
+                cssClasses: {
+                    root: ['pagination'],
+                    item: ['page'],
+                    disabled: ['hidden']
+                }
+            })
+        );
+
+        /* Autofocus on search input */
+        document.getElementById("algolia-search-box").autofocus;
+
+        /* Start */
+        search.start();
+    }
+})();
+
 var Muncipio = {};
+
+Muncipio = Muncipio || {};
+Muncipio.Post = Muncipio.Post || {};
+
+Muncipio.Post.Comments = (function ($) {
+
+    function Comments() {
+        $(function() {
+            this.handleEvents();
+        }.bind(this));
+    }
+
+    /**
+     * Handle events
+     * @return {void}
+     */
+    Comments.prototype.handleEvents = function () {
+        $(document).on('click', '#edit-comment', function (e) {
+            e.preventDefault();
+            this.displayEditForm(e);
+        }.bind(this));
+
+        $(document).on('submit', '#commentupdate', function (e) {
+            e.preventDefault();
+            this.udpateComment(e);
+        }.bind(this));
+
+        $(document).on('click', '#delete-comment', function (e) {
+            e.preventDefault();
+            if (window.confirm(MunicipioLang.messages.deleteComment)) {
+                this.deleteComment(e);
+            }
+        }.bind(this));
+
+        $(document).on('click', '.cancel-update-comment', function (e) {
+            e.preventDefault();
+            this.cleanUp();
+        }.bind(this));
+
+        $(document).on('click', '.comment-reply-link', function (e) {
+            this.cleanUp();
+        }.bind(this));
+    };
+
+    Comments.prototype.udpateComment = function (event) {
+        var $target = $(event.target).closest('.comment-body').find('.comment-content'),
+            data = new FormData(event.target),
+            oldComment = $target.html();
+            data.append('action', 'update_comment');
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'post',
+            context: this,
+            processData: false,
+            contentType: false,
+            data: data,
+            dataType: 'json',
+            beforeSend : function() {
+                // Do expected behavior
+                $target.html(data.get('comment'));
+                this.cleanUp();
+            },
+            success: function(response) {
+                if (!response.success) {
+                    // Undo front end update
+                    $target.html(oldComment);
+                    this.showError($target);
+                }
+            },
+            error: function(jqXHR, textStatus) {
+                $target.html(oldComment);
+                this.showError($target);
+            }
+        });
+    };
+
+    Comments.prototype.displayEditForm = function(event) {
+        var commentId = $(event.currentTarget).data('comment-id'),
+            postId = $(event.currentTarget).data('post-id'),
+            $target = $('.comment-body', '#answer-' + commentId + ', #comment-' + commentId).first();
+
+        this.cleanUp();
+        $('.comment-content, .comment-footer', $target).hide();
+        $target.append('<div class="loading gutter gutter-top gutter-margin"><div></div><div></div><div></div><div></div></div>');
+
+        $.when(this.getCommentForm(commentId, postId)).then(function(response) {
+            if (response.success) {
+                $target.append(response.data);
+                $('.loading', $target).remove();
+
+                // Re init tinyMce if its used
+                if ($('.tinymce-editor').length) {
+                    tinymce.EditorManager.execCommand('mceRemoveEditor', true, 'comment-edit');
+                    tinymce.EditorManager.execCommand('mceAddEditor', true, 'comment-edit');
+                }
+            } else {
+                this.cleanUp();
+                this.showError($target);
+            }
+        });
+    };
+
+    Comments.prototype.getCommentForm = function(commentId, postId) {
+        return $.ajax({
+            url: ajaxurl,
+            type: 'post',
+            dataType: 'json',
+            context: this,
+            data: {
+                action : 'get_comment_form',
+                commentId : commentId,
+                postId : postId
+            }
+        });
+    };
+
+    Comments.prototype.deleteComment = function(event) {
+        var $target = $(event.currentTarget),
+            commentId = $target.data('comment-id'),
+            nonce = $target.data('comment-nonce');
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'post',
+            context: this,
+            dataType: 'json',
+            data: {
+                action : 'remove_comment',
+                id     : commentId,
+                nonce  : nonce
+            },
+            beforeSend : function(response) {
+                // Do expected behavior
+                $target.closest('li.answer, li.comment').fadeOut('fast');
+            },
+            success : function(response) {
+                if (!response.success) {
+                    // Undo front end deletion
+                    this.showError($target);
+                }
+            },
+            error : function(jqXHR, textStatus) {
+                this.showError($target);
+            }
+        });
+    };
+
+    Comments.prototype.cleanUp = function(event) {
+        $('.comment-update').remove();
+        $('.loading', '.comment-body').remove();
+        $('.dropdown-menu').hide();
+        $('.comment-content, .comment-footer').fadeIn('fast');
+    };
+
+    Comments.prototype.showError = function(target) {
+        target.closest('li.answer, li.comment').fadeIn('fast')
+            .find('.comment-body:first').append('<small class="text-danger">' + MunicipioLang.messages.onError + '</small>')
+                .find('.text-danger').delay(4000).fadeOut('fast');
+    };
+
+    return new Comments();
+
+})(jQuery);
 
 (function(){function aa(a,b,c){return a.call.apply(a.bind,arguments)}function ba(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function p(a,b,c){p=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?aa:ba;return p.apply(null,arguments)}var q=Date.now||function(){return+new Date};function ca(a,b){this.a=a;this.m=b||a;this.c=this.m.document}var da=!!window.FontFace;function t(a,b,c,d){b=a.c.createElement(b);if(c)for(var e in c)c.hasOwnProperty(e)&&("style"==e?b.style.cssText=c[e]:b.setAttribute(e,c[e]));d&&b.appendChild(a.c.createTextNode(d));return b}function u(a,b,c){a=a.c.getElementsByTagName(b)[0];a||(a=document.documentElement);a.insertBefore(c,a.lastChild)}function v(a){a.parentNode&&a.parentNode.removeChild(a)}
 function w(a,b,c){b=b||[];c=c||[];for(var d=a.className.split(/\s+/),e=0;e<b.length;e+=1){for(var f=!1,g=0;g<d.length;g+=1)if(b[e]===d[g]){f=!0;break}f||d.push(b[e])}b=[];for(e=0;e<d.length;e+=1){f=!1;for(g=0;g<c.length;g+=1)if(d[e]===c[g]){f=!0;break}f||b.push(d[e])}a.className=b.join(" ").replace(/\s+/g," ").replace(/^\s+|\s+$/,"")}function y(a,b){for(var c=a.className.split(/\s+/),d=0,e=c.length;d<e;d++)if(c[d]==b)return!0;return!1}
@@ -262,44 +523,62 @@ Muncipio.Ajax = Muncipio.Ajax || {};
 Muncipio.Ajax.ShareEmail = (function ($) {
 
     function ShareEmail() {
-        $('.social-share-email').on('submit', function (e) {
+        $(function(){
+            this.handleEvents();
+        }.bind(this));
+    }
+
+    /**
+     * Handle events
+     * @return {void}
+     */
+    ShareEmail.prototype.handleEvents = function () {
+        $(document).on('submit', '.social-share-email', function (e) {
             e.preventDefault();
-            var $target = $(this),
-                data = new FormData(this);
-                data.append('action', 'share_email');
+            this.share(e);
 
-            if (data.get('g-recaptcha-response') === '') {
-                return false;
-            }
+        }.bind(this));
+    };
 
-            $target.find('input[type="submit"]').hide();
-            $target.find('.modal-footer').append('<div class="loading"><div></div><div></div><div></div><div></div></div>');
+    ShareEmail.prototype.share = function(event) {
+        var $target = $(event.target),
+            data = new FormData(event.target);
+            data.append('action', 'share_email');
 
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: data,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function(response, textStatus, jqXHR) {
-                    if (response.success) {
-                        $('.modal-footer', $target).html('<span class="notice success"><i class="pricon pricon-check"></i> ' + response.data + '</span>');
+        if (data.get('g-recaptcha-response') === '') {
+            return false;
+        }
 
-                    } else {
-                        $('.modal-footer', $target).html('<span class="notice warning"><i class="pricon pricon-notice-warning"></i> ' + response.data + '</span>');
-                    }
-                },
-                complete: function () {
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                $target.find('.modal-footer').prepend('<div class="loading"><div></div><div></div><div></div><div></div></div>');
+                $target.find('.notice').hide();
+            },
+            success: function(response, textStatus, jqXHR) {
+                if (response.success) {
+                    $('.modal-footer', $target).prepend('<span class="notice success gutter gutter-margin gutter-vertical"><i class="pricon pricon-check"></i> ' + response.data + '</span>');
+
                     setTimeout(function() {
                         location.hash = '';
+                        $target.find('.notice').hide();
                     }, 3000);
+                } else {
+                    $('.modal-footer', $target).prepend('<span class="notice warning gutter gutter-margin gutter-vertical"><i class="pricon pricon-notice-warning"></i> ' + response.data + '</span>');
                 }
-            });
-
-            return false;
+            },
+            complete: function () {
+                $target.find('.loading').hide();
+            }
         });
-    }
+
+        return false;
+    };
 
     return new ShareEmail();
 

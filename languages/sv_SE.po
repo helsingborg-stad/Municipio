@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-03-12 14:43+0100\n"
-"PO-Revision-Date: 2018-03-12 14:43+0100\n"
+"POT-Creation-Date: 2018-04-25 15:46+0200\n"
+"PO-Revision-Date: 2018-04-25 15:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -56,12 +56,12 @@ msgid "Share"
 msgstr "Dela"
 
 #: library/AcfFields/php/options-page-display.php:48
-#: library/AcfFields/php/options-theme-author.php:15
+#: library/AcfFields/php/options-theme-author.php:10
 msgid "Show author"
 msgstr "Visa författare"
 
 #: library/AcfFields/php/options-page-display.php:53
-#: library/Admin/Options/Archives.php:34
+#: library/Admin/Options/Archives.php:40
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
 msgid "Author"
 msgstr "Författare"
@@ -160,9 +160,9 @@ msgstr "Text på sök-knapp"
 msgid "Use %s to output suggested search query"
 msgstr "Använd %s för att skriva ut föreslagen sökfras"
 
-#: library/AcfFields/php/options-theme-author.php:10
-#: library/AcfFields/php/options-theme-author.php:29
-#: library/AcfFields/php/options-theme-author.php:48
+#: library/AcfFields/php/options-theme-author.php:22
+#: library/AcfFields/php/options-theme-author.php:41
+#: library/AcfFields/php/options-theme-author.php:60
 #: library/AcfFields/php/options-theme-google-translate.php:96
 #: library/AcfFields/php/options-theme-scroll-elevator.php:32
 #: library/AcfFields/php/options-theme-search-algolia.php:10
@@ -171,11 +171,11 @@ msgstr "Använd %s för att skriva ut föreslagen sökfras"
 msgid "Enable"
 msgstr "Aktivera"
 
-#: library/AcfFields/php/options-theme-author.php:34
+#: library/AcfFields/php/options-theme-author.php:29
 msgid "Show author image"
 msgstr "Visa bild på författare"
 
-#: library/AcfFields/php/options-theme-author.php:53
+#: library/AcfFields/php/options-theme-author.php:48
 msgid "Link name to author archive"
 msgstr "Länka namn till arkivet för författaren"
 
@@ -237,11 +237,12 @@ msgid "Active"
 msgstr "Aktivera"
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:34
+#: library/Theme/Share.php:50
 #: vendor/advanced-custom-fields/core/fields/message.php:19
 #: vendor/advanced-custom-fields/core/fields/message.php:70
 #: vendor/advanced-custom-fields/core/fields/true_false.php:79
-#: views/partials/share-email-form.blade.php:29
 #: views/partials/share-email-form.blade.php:30
+#: views/partials/share-email-form.blade.php:31
 msgid "Message"
 msgstr "Meddelande"
 
@@ -840,6 +841,14 @@ msgstr "Under footerinnehåll"
 msgid "Vertical position"
 msgstr "Vertikal positionering"
 
+#: library/AcfFields/php/options-theme-gdpr.php:6
+msgid "GDPR"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-gdpr.php:10
+msgid "Enable consent field for attachments"
+msgstr "Aktivera samtyckesfält för media"
+
 #: library/AcfFields/php/options-theme-google-translate.php:12
 msgid "Do not show"
 msgstr "Visa inte"
@@ -1374,28 +1383,28 @@ msgstr ""
 msgid "2.0"
 msgstr ""
 
-#: library/AcfFields/php/user-author-image.php:20
+#: library/AcfFields/php/user-author-image.php:10
 msgid "Profile picture"
 msgstr "Profilbild"
 
-#: library/AcfFields/php/user-author-image.php:36
+#: library/AcfFields/php/user-author-image.php:34
 msgid "Facebook profile url"
 msgstr "Url till Facebook-profil"
 
-#: library/AcfFields/php/user-author-image.php:52
+#: library/AcfFields/php/user-author-image.php:50
 msgid "Linkedin profile url"
 msgstr "Url till LinkedIn-profil"
 
-#: library/AcfFields/php/user-author-image.php:68
-#: library/AcfFields/php/user-author-image.php:87
-msgid "@"
-msgstr ""
-
-#: library/AcfFields/php/user-author-image.php:71
+#: library/AcfFields/php/user-author-image.php:66
 msgid "Instagram username"
 msgstr "Användarnamn på Instagram"
 
-#: library/AcfFields/php/user-author-image.php:90
+#: library/AcfFields/php/user-author-image.php:80
+#: library/AcfFields/php/user-author-image.php:99
+msgid "@"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:85
 msgid "Twitter username"
 msgstr "Användarnamn på Twitter"
 
@@ -1552,17 +1561,25 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Options/Archives.php:51
+#: library/Admin/Options/Archives.php:57
 msgid "Archive for"
 msgstr "Arkiv för"
 
-#: library/Admin/Options/Archives.php:97
+#: library/Admin/Options/Archives.php:103
 msgid "Leave empty to hide title"
 msgstr "Lämna tomt för att dölja titel"
 
-#: library/Admin/Options/Archives.php:204
+#: library/Admin/Options/Archives.php:210
 msgid "Number of posts in one page"
 msgstr "Antalet inlägg på en sida"
+
+#: library/Admin/Options/AttachmentConsent.php:24
+msgid "Consent ID"
+msgstr "Samtyckes ID"
+
+#: library/Admin/Options/AttachmentConsent.php:43
+msgid "Consent comment"
+msgstr "Samtyckes kommentar"
 
 #: library/Admin/Options/GoogleTranslate.php:15
 msgid "None (link to #translate to show)"
@@ -1652,17 +1669,14 @@ msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 msgid "This it the beta-environment. All functionality is not guaranteed."
 msgstr "Detta är en beta-miljö. All funktionalitet är inte garanterad."
 
-#: library/Admin/UI/VarnishPurge.php:38
-msgid "Varnish cache purged for this post!"
-msgstr "Varnish cachen tömd för denna sida"
+#: library/Comment/CommentsActions.php:67
+#: vendor/advanced-custom-fields/core/api.php:1171
+msgid "Update"
+msgstr "Uppdatera"
 
-#: library/Admin/UI/VarnishPurge.php:64
-msgid "Purge Page"
-msgstr "Töm cache för sidan"
-
-#: library/Admin/UI/VarnishPurge.php:77
-msgid "Purge Varnish"
-msgstr "Töm varnish"
+#: library/Comment/CommentsActions.php:72
+msgid "Cancel"
+msgstr "Avbryt"
 
 #: library/Comment/CommentsFilters.php:44
 msgid ""
@@ -1748,6 +1762,14 @@ msgstr "Inga %s hittades i papperskorgen"
 #: library/Content/CustomPostType.php:77
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
+
+#: library/Controller/Search.php:12
+msgid "Filter searchresults"
+msgstr "Filtrera sökresultat"
+
+#: library/Controller/Search.php:13
+msgid "All pages"
+msgstr "Alla sidor"
 
 #: library/Controller/Single.php:17
 msgid "Reply"
@@ -1866,6 +1888,14 @@ msgstr "Inga matchande filter hittades…"
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
+#: library/Theme/Enqueue.php:134
+msgid "Are you sure you want to delete the comment?"
+msgstr "Är du säker på att du vill ta bort kommentaren?"
+
+#: library/Theme/Enqueue.php:135
+msgid "Something went wrong, please try again later"
+msgstr "Något gick fel, vänligen försök igen senare"
+
 #: library/Theme/General.php:198
 msgid "Print"
 msgstr "Skriv ut"
@@ -1896,20 +1926,32 @@ msgstr "Under länkar"
 msgid "Home"
 msgstr "Hem"
 
-#: library/Theme/Share.php:26
+#: library/Theme/Share.php:22 library/Theme/Share.php:32
+#: library/Theme/Share.php:82
 msgid "Something went wrong, please try again"
-msgstr ""
+msgstr "Något gick fel, vänligen försök igen"
 
-#: library/Theme/Share.php:39
-#, php-format
-msgid "This message was sent by %s via %s"
-msgstr "Meddelandet skickades av %s via %s"
+#: library/Theme/Share.php:47
+msgid "has invited you to join"
+msgstr "har bjudit in dig att gå med i"
 
-#: library/Theme/Share.php:44
-msgid "sent you a link via"
-msgstr "har delat en länk via"
+#: library/Theme/Share.php:47
+msgid "shared the post"
+msgstr "delade sidan"
 
-#: library/Theme/Share.php:52
+#: library/Theme/Share.php:51
+msgid "This message was sent by"
+msgstr "Meddelandet skickades av"
+
+#: library/Theme/Share.php:69
+msgid "Invitation"
+msgstr "Inbjudan"
+
+#: library/Theme/Share.php:69
+msgid "shared a post via"
+msgstr "delade en sida via"
+
+#: library/Theme/Share.php:80
 msgid "The message was sent successfully"
 msgstr "Meddelandet har skickats"
 
@@ -2308,12 +2350,6 @@ msgstr "Fullständig"
 #: vendor/advanced-custom-fields/core/actions/export.php:33
 msgid "No ACF groups selected"
 msgstr ""
-
-#: vendor/advanced-custom-fields/core/api.php:1171
-#, fuzzy
-#| msgid "To date"
-msgid "Update"
-msgstr "Till datum"
 
 #: vendor/advanced-custom-fields/core/api.php:1172
 #, fuzzy
@@ -3471,15 +3507,17 @@ msgstr "Utvald bild"
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:376
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:433
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:44
+#: views/partials/blog/comments.blade.php:62
+#: views/partials/blog/comments.blade.php:126
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:91
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
-#, fuzzy
-#| msgid "Edit %s"
+#: views/partials/blog/comments.blade.php:59
+#: views/partials/blog/comments.blade.php:123
 msgid "Edit"
-msgstr "Redigera %s"
+msgstr "Redigera"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:97
 #: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:53
@@ -5220,11 +5258,28 @@ msgstr "Vad letar du efter?"
 msgid "No results matched your query "
 msgstr "Inga träffar matchade din sökfråga"
 
+#: views/partials/search/algolia-customsearch.blade.php:37
 #: views/partials/search/algolia.blade.php:37
 #: views/partials/search/google.blade.php:24
 #: views/partials/search/wp.blade.php:24
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
+
+#: views/partials/search/algolia-customsearch.blade.php:49
+msgid "Whoops, this search result page dosen't exist anymore…"
+msgstr "Hoppsan, den här sidan med sökresultat finns inte längre…"
+
+#: views/partials/search/algolia-instantsearch.blade.php:88
+msgid "Could not find any content matching your query."
+msgstr "Kunde inte hitta något innehåll som matchar din sökfråga."
+
+#: views/partials/search/algolia-instantsearch.blade.php:97
+msgid "hits on"
+msgstr "träffar på"
+
+#: views/partials/search/algolia-instantsearch.blade.php:99
+msgid "Query is empty, please type somehing."
+msgstr "Vänligen ange en sökfråga. "
 
 #: views/partials/share-email-form.blade.php:6
 #: views/partials/social-share.blade.php:21
@@ -5242,11 +5297,15 @@ msgid "Your email"
 msgstr "Din e-postadress"
 
 #: views/partials/share-email-form.blade.php:25
-#: views/partials/share-email-form.blade.php:26
+#: views/partials/share-email-form.blade.php:27
 msgid "Recipient email"
 msgstr "Mottagarens e-postadress"
 
-#: views/partials/share-email-form.blade.php:41
+#: views/partials/share-email-form.blade.php:26
+msgid "Enter one or many e-mail addresses. Separate with comma."
+msgstr "Ange en eller flera e-postadresser. Separera med kommatecken."
+
+#: views/partials/share-email-form.blade.php:43
 msgid "Send"
 msgstr "Skicka"
 
@@ -5260,10 +5319,8 @@ msgid "Share on"
 msgstr "Dela på"
 
 #: views/partials/social-share.blade.php:23
-#, fuzzy
-#| msgid "Share the page"
 msgid "Share with e-mail"
-msgstr "Dela sidan"
+msgstr "Dela med e-post"
 
 #: views/partials/timestamps.blade.php:42
 msgid "Last updated"
@@ -5300,6 +5357,26 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#, fuzzy
+#~| msgid "Something went wrong, please try again"
+#~ msgid "Something went wrong"
+#~ msgstr "Något gick fel, vänligen försök igen"
+
+#~ msgid "Varnish cache purged for this post!"
+#~ msgstr "Varnish cachen tömd för denna sida"
+
+#~ msgid "Purge Page"
+#~ msgstr "Töm cache för sidan"
+
+#~ msgid "Purge Varnish"
+#~ msgstr "Töm varnish"
+
+#~ msgid "Group invitation"
+#~ msgstr "Inbjudan till grupp"
+
+#~ msgid "sent you a link via"
+#~ msgstr "har delat en länk via"
 
 #~ msgid "Article"
 #~ msgstr "Artikel"
@@ -5503,9 +5580,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Sök"
 #~ msgstr "Sök"
-
-#~ msgid "Sub navigation"
-#~ msgstr "Sekundär meny"
 
 #~ msgid "sub"
 #~ msgstr "sub"

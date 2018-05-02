@@ -1,5 +1,7 @@
 @if (is_active_sidebar('bottom-sidebar'))
+  <div class="sidebar-bottom-fullwidth">
     <?php dynamic_sidebar('bottom-sidebar'); ?>
+  </div>
 @endif
 
 <footer class="main-footer hidden-print {{ get_field('scroll_elevator_enabled', 'option') ? 'scroll-elevator-toggle' : '' }}">

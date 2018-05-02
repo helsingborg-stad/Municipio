@@ -38,7 +38,7 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
             <ul class="tags">
                 @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
                     @foreach ($terms as $term)
-                        <li class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}">{{ $term->name }}</li>
+                        <li class="tag tag-{{ $term->taxonomy }} tag-{{ $term->slug }}" style="{{ apply_filters('Municipio/taxonomy/tag_style', '', $term, $taxonomy) }}">{{ $term->name }}</li>
                     @endforeach
                 @endforeach
             </ul>
