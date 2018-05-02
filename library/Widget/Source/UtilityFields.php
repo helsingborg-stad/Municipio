@@ -16,7 +16,6 @@ class UtilityFields
             return;
         }
 
-        var_dump($widgets);
         $locations = array();
 
         foreach ($widgets as $id) {
