@@ -54,6 +54,13 @@
                 "operator": "==",
                 "value": "widget-header-logo"
             }
+        ],
+        [
+            {
+                "param": "widget",
+                "operator": "==",
+                "value": "brand-municipio"
+            }
         ]
     ],
     "menu_order": 0,

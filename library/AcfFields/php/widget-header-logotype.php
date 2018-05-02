@@ -58,6 +58,13 @@
                 'value' => 'widget-header-logo',
             ),
         ),
+        1 => array(
+            0 => array(
+                'param' => 'widget',
+                'operator' => '==',
+                'value' => 'brand-municipio',
+            ),
+        ),
     ),
     'menu_order' => 0,
     'position' => 'normal',
