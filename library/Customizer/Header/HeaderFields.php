@@ -108,6 +108,10 @@ class HeaderFields
                 array(
                     'element' => '.c-navbar--customizer.c-navbar--' . $header['id'] . ' a, .c-navbar--customizer.c-navbar--' . $header['id'],
                     'property' => 'color'
+                ),
+                array(
+                    'element' => '.c-navbar--customizer.c-navbar--' . $header['id'] . ' .hamburger-inner, .c-navbar--customizer.c-navbar--' . $header['id'] . ' .hamburger-inner::before, .c-navbar--customizer.c-navbar--' . $header['id'] . ' .hamburger-inner::after',
+                    'property' => 'background'
                 )
             )
         ));
