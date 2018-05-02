@@ -24,7 +24,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
         $attributes = new \Municipio\Helper\ElementAttribute();
         $attributes->addClass('c-nav');
 
-        $sizes = array('small' => 'c-nav--small');
+        $sizes = array('small' => 'c-nav--small', 'large' => 'c-nav--large');
 
         if ($this->get_field('size') && isset($sizes[$this->get_field('size')])) {
             $attributes->addClass($sizes[$this->get_field('size')]);
