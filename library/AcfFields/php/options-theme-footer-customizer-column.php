@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5ad84fc9a6ca2',
-    'title' => __('Customizer footer', 'municipio'),
+    'title' => 'Customizer footer',
     'fields' => array(
         0 => array(
             'key' => 'field_5ad84fdaed1e7',
