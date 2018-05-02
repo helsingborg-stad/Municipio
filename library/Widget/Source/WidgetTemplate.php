@@ -145,13 +145,13 @@ abstract class WidgetTemplate extends \WP_Widget
 
     public function marginUtilities()
     {
-        if (!$this->get_field('widget_header_margin') || !is_array($this->get_field('widget_header_margin')) || empty($this->get_field('widget_header_margin'))) {
+        if (!$this->get_field('widget_utility_margin') || !is_array($this->get_field('widget_utility_margin')) || empty($this->get_field('widget_utility_margin'))) {
             return false;
         }
 
         $margins = array();
 
-        foreach ($this->get_field('widget_header_margin') as $margin) {
+        foreach ($this->get_field('widget_utility_margin') as $margin) {
             if (!isset($margin['direction']) || !isset($margin['margin']) || !isset($margin['breakpoint'])) {
                 continue;
             }
@@ -166,7 +166,7 @@ abstract class WidgetTemplate extends \WP_Widget
 
     public function visibilityUtilities()
     {
-         if (!$this->get_field('widget_header_visibility') || !is_array($this->get_field('widget_header_visibility')) || empty($this->get_field('widget_header_visibility'))) {
+         if (!$this->get_field('widget_utility_visibility') || !is_array($this->get_field('widget_utility_visibility')) || empty($this->get_field('widget_utility_visibility'))) {
             return false;
         }
 
@@ -181,7 +181,7 @@ abstract class WidgetTemplate extends \WP_Widget
 
         $classes = array();
 
-        foreach ($this->get_field('widget_header_visibility') as $device) {
+        foreach ($this->get_field('widget_utility_visibility') as $device) {
             if (isset($options[$device])) {
                 $classes[] = $options[$device];
             }
@@ -199,11 +199,11 @@ abstract class WidgetTemplate extends \WP_Widget
     public function customCss()
     {
 
-        if (!$this->get_field('widget_css_classes')) {
+        if (!$this->get_field('widget_utility_custom_css')) {
             return;
         }
 
-        $this->wrapperAttributes->addClass(str_replace('.', '', $this->get_field('widget_css_classes')));
+        $this->wrapperAttributes->addClass(str_replace('.', '', $this->get_field('widget_utility_custom_css')));
     }
 
     /**

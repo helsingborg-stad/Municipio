@@ -38,7 +38,7 @@ class UtilityFields
 
         acf_add_local_field_group(array(
             'key' => 'group_5a65d5e7e913y',
-            'title' => 'Widget header - Common',
+            'title' => 'Common Widget Utility fields',
             'fields' => array(
                 array(
                     'key' => 'field_5a67574c78160',
@@ -60,7 +60,7 @@ class UtilityFields
                 array(
                     'key' => 'field_5a65d5f15bffd',
                     'label' => 'Visibility',
-                    'name' => 'widget_header_visibility',
+                    'name' => 'widget_utility_visibility',
                     'type' => 'checkbox',
                     'instructions' => '',
                     'required' => 0,
@@ -104,7 +104,7 @@ class UtilityFields
                 array(
                     'key' => 'field_5ac77d3d7a6bc',
                     'label' => 'Margins',
-                    'name' => 'widget_header_margin',
+                    'name' => 'widget_utility_margin',
                     'type' => 'repeater',
                     'instructions' => '',
                     'required' => 0,
@@ -224,7 +224,7 @@ class UtilityFields
                 array(
                     'key' => 'field_5ae9bbc6fedcc',
                     'label' => 'Custom CSS classes',
-                    'name' => 'widget_css_classes',
+                    'name' => 'widget_utility_custom_css',
                     'type' => 'text',
                     'instructions' => '',
                     'required' => 0,
