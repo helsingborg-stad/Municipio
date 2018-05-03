@@ -12,7 +12,7 @@ Muncipio.Ajax.LikeButton = (function ($) {
             this.ajaxCall(e.target);
             return false;
         }.bind(this));
-    }
+    };
 
     Like.prototype.ajaxCall = function(likeButton) {
         var comment_id = $(likeButton).data('comment-id');
