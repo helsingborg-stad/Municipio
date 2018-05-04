@@ -1,4 +1,4 @@
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     if(document.getElementById('algolia-search-box')) {
 
         /* Instantiate instantsearch.js */
@@ -87,10 +87,7 @@
             })
         );
 
-        /* Autofocus on search input */
-        document.getElementById("algolia-search-box").autofocus;
-
         /* Start */
         search.start();
     }
-})();
+});
