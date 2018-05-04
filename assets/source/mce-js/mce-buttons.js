@@ -1,5 +1,4 @@
 (function() {
-    console.log(mce_hbg_buttons);
     if (typeof tinymce !== 'undefined') {
         tinymce.PluginManager.add('mce_hbg_buttons', function(editor, url) {
         editor.addButton('mce_hbg_buttons', {
@@ -24,11 +23,8 @@
                             var btnClass = $iframe.find('#preview a').attr('class');
                             var btnText = $iframe.find('#btnText').val();
                             var btnLink = $iframe.find('#btnLink').val();
-
-                            var button = '<a href="' + btnLink + '" class="' + btnClass + '">'+ btnText +'</a>'
-
+                            var button = '<a href="' + btnLink + '" class="' + btnClass + '">'+ btnText +'</a>';
                             editor.insertContent(button);
-
                             editor.windowManager.close();
                             return true;
                         }
@@ -40,9 +36,6 @@
             }
             );
         });
-        });
-
-    };
-
-
+    });
+    }
 })();

@@ -154,6 +154,17 @@
             .pipe(uglify())
             .pipe(gulp.dest('./assets/tmp/js'));
 
+        var mce = gulp.src([
+                'assets/source/mce-js/*.js'
+            ])
+            .pipe(plumber())
+            .pipe(sourcemaps.init())
+            .pipe(concat('mce.js'))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest('./assets/dist/js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('./assets/tmp/js'));
+
         return [app, vendor, admin];
 
     });
