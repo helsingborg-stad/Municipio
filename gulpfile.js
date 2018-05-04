@@ -121,18 +121,17 @@
    ========================================================================== */
 
     gulp.task('scripts', function() {
-        var app = gulp.src(['assets/source/js/app.js', 'assets/source/js/*.js', 'assets/source/js/*/*.js', '!assets/source/js/admin/*.js'])
+        var app = gulp.src(['assets/source/js/app.js', 'assets/source/js/*.js', 'assets/source/js/*/*.js', '!assets/source/js/admin/*.js', '!assets/source/js/admin/*/*.js'])
             .pipe(plumber())
             .pipe(sourcemaps.init())
             .pipe(jshint({multistr: true}))
-            .pipe(jshint.reporter("default"))
             .pipe(concat('app.js'))
             .pipe(sourcemaps.write())
             .pipe(gulp.dest('./assets/dist/js'))
             .pipe(uglify())
             .pipe(gulp.dest('./assets/tmp/js'));
 
-        var admin = gulp.src(['assets/source/js/admin/*.js'])
+        var admin = gulp.src(['assets/source/js/admin/*.js', 'assets/source/js/admin/*/*.js'])
             .pipe(plumber())
             .pipe(sourcemaps.init())
             .pipe(jshint({multistr: true}))
@@ -165,7 +164,7 @@
             .pipe(uglify())
             .pipe(gulp.dest('./assets/tmp/js'));
 
-        return [app, vendor, admin];
+        return [app, vendor, admin, mce];
 
     });
 

@@ -8,10 +8,10 @@ jQuery(function () {
     /* setup default sources */
     var sources = [];
     jQuery.each(algolia.autocomplete.sources, function (i, config) {
-      var suggestion_template = wp.template(config['tmpl_suggestion']);
+      var suggestion_template = wp.template(config.tmpl_suggestion);
       sources.push({
-        source: algoliaAutocomplete.sources.hits(client.initIndex(config['index_name']), {
-          hitsPerPage: config['max_suggestions'],
+        source: algoliaAutocomplete.sources.hits(client.initIndex(config.index_name), {
+          hitsPerPage: config.max_suggestions,
           attributesToSnippet: [
             'content:10'
           ],
@@ -21,7 +21,7 @@ jQuery(function () {
         templates: {
           header: function () {
             return wp.template('autocomplete-header')({
-              label: _.escape(config['label'])
+              label: _.escape(config.label)
             });
           },
           suggestion: function (hit) {
