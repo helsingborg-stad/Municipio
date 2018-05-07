@@ -147,16 +147,29 @@ class Navigation
      */
     public function mobileMenuAuto()
     {
-        $transientHash = \Municipio\Helper\Hash::short(\Municipio\Helper\Url::getCurrent());
+        //Create common hash for 404 & search
+        if(is_search()) {
+            $transientHash = "is_search";
+            $cacheTtl = 60*60*168; //Cache for a week
+        } elseif(is_404()) {
+            $transientHash = "is_404";
+            $cacheTtl = 60*60*168; //Cache for a week
+        } else {
+            $transientHash = \Municipio\Helper\Hash::short(\Municipio\Helper\Url::getCurrent());
+            $cacheTtl = 60*30; //Cache for an hour
+        }
 
+        //Toggle between logged out / logged in
         $transientType = '';
         if (is_user_logged_in()) {
             $transientType = '_loggedin';
         }
 
-        $menu = false; //get_transient('mobile_menu_' . $transientHash . $transientType);
+        //Get menu cached value
+        $menu = wp_cache_get($transientHash, 'municipioMenuCache' . $transientType);
 
         if (!$menu || (isset($_GET['menu_cache']) && $_GET['menu_cache'] == 'false')) {
+
             $mobileMenuArgs = array(
                 'include_top_level' => true
             );
@@ -165,9 +178,11 @@ class Navigation
                 $mobileMenuArgs['top_level_type'] = 'mobile';
             }
 
+            //Render menu
             $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
-            //set_transient('mobile_menu_' . $transientHash . $transientType, $menu, 60*60*168);
+            //Add to cache
+            wp_cache_add($transientHas, $menu, 'municipioMenuCache' . $transientType, $cacheTtl);
         }
 
         if ($menu->itemCount === 0) {
