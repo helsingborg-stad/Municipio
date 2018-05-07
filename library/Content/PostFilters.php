@@ -28,7 +28,8 @@ class PostFilters
         global $wp_query;
 
         // If taxonomy or category page and post type not isset then it's the "post" post type
-        if (is_home() || ((is_tax() || is_category() || is_tag()) && is_a(get_queried_object(), 'WP_Term') && !get_post_type())) {
+        if (is_home() || ((is_tax() || is_category() || is_tag()) && is_a(get_queried_object(),
+                    'WP_Term') && !get_post_type())) {
             return 'post';
         }
 
@@ -121,7 +122,8 @@ class PostFilters
      * Returns escaped search query
      * @return string Search query
      */
-    public function getSearchQuery() {
+    public function getSearchQuery()
+    {
         $searchQuery = '';
         if (!empty(get_search_query())) {
             $searchQuery = get_search_query();
@@ -147,16 +149,32 @@ class PostFilters
         return get_post_type_archive_link($postType);
     }
 
+    /**
+     * Trying to sort terms natural
+     * @param $terms
+     * @return array
+     */
+    public static function sortTerms($terms)
+    {
+        $sort_terms = array();
+        foreach ($terms as $term) {
+            $sort_terms[$term->name] = $term;
+        }
+        uksort($sort_terms, 'strnatcmp');
+
+        return $sort_terms;
+    }
+
+
     public static function getMultiTaxDropdown($tax, int $parent = 0, string $class = '')
     {
         $termArgs = array(
             'hide_empty' => false,
-            'parent' => $parent,
-            'orderby' => 'name',
-            'order'    => 'DESC'
+            'parent' => $parent
         );
 
         $terms = get_terms($tax->slug, $termArgs);
+        $terms = self::sortTerms($terms);
 
         $inputType = $tax->type === 'single' ? 'radio' : 'checkbox';
 
@@ -169,12 +187,13 @@ class PostFilters
         $html .= '>';
 
         foreach ($terms as $term) {
-            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug, $_GET['filter'][$tax->slug]));
+            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug,
+                        $_GET['filter'][$tax->slug]));
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
             $html .= '<label class="checkbox">';
-            $html .= '<input type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
+            $html .= '<input type="' . $inputType . '" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '> ' . $term->name;
             $html .= '</label>';
 
             $html .= self::getMultiTaxDropdown($tax, $term->term_id);
@@ -214,12 +233,13 @@ class PostFilters
         $html .= '>';
 
         foreach ($terms as $term) {
-            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug, $_GET['filter'][$tax->slug]));
+            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug,
+                        $_GET['filter'][$tax->slug]));
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
-            $html .= '<input id="filter-option-'. $term->slug .'" type="' . $inputType .'" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '>';
-            $html .= '<label for="filter-option-'. $term->slug .'" class="checkbox">';
+            $html .= '<input id="filter-option-' . $term->slug . '" type="' . $inputType . '" name="filter[' . $tax->slug . '][]" value="' . $term->slug . '" ' . $checked . '>';
+            $html .= '<label for="filter-option-' . $term->slug . '" class="checkbox">';
             $html .= $term->name;
             $html .= '</label>';
 
@@ -269,12 +289,14 @@ class PostFilters
                 'hide_empty' => false
             ));
 
-            $placement = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_placement', 'option');
+            $placement = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_placement',
+                'option');
             if (is_null($placement)) {
                 $placement = 'secondary';
             }
 
-            $type = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_type', 'option');
+            $type = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_type',
+                'option');
 
             $grouped[$placement][$tax->name] = array(
                 'label' => $tax->label,
@@ -351,7 +373,7 @@ class PostFilters
                 continue;
             }
 
-            $terms = (array) $_GET['filter'][$key];
+            $terms = (array)$_GET['filter'][$key];
 
             $taxQuery[] = array(
                 'taxonomy' => $key,
@@ -369,7 +391,7 @@ class PostFilters
                     array(
                         'taxonomy' => get_queried_object()->taxonomy,
                         'field' => 'slug',
-                        'terms' => (array) get_queried_object()->slug,
+                        'terms' => (array)get_queried_object()->slug,
                         'operator' => 'IN'
                     )
                 ),
@@ -443,7 +465,8 @@ class PostFilters
         }
 
         // Get orderby key, default to post_date
-        $orderby = (isset($_GET['orderby']) && !empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : get_field('archive_' . sanitize_title($posttype) . '_sort_key', 'option');
+        $orderby = (isset($_GET['orderby']) && !empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : get_field('archive_' . sanitize_title($posttype) . '_sort_key',
+            'option');
         if (empty($orderby)) {
             $orderby = 'post_date';
         }
@@ -455,7 +478,8 @@ class PostFilters
         }
 
         // Get orderby order, default to desc
-        $order = (isset($_GET['order']) && !empty($_GET['order'])) ? sanitize_text_field($_GET['order']) : get_field('archive_' . sanitize_title($posttype) . '_sort_order', 'option');
+        $order = (isset($_GET['order']) && !empty($_GET['order'])) ? sanitize_text_field($_GET['order']) : get_field('archive_' . sanitize_title($posttype) . '_sort_order',
+            'option');
         if (empty($order) || !in_array(strtolower($order), array('asc', 'desc'))) {
             $order = 'desc';
         }
