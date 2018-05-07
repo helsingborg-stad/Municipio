@@ -182,7 +182,7 @@ class Navigation
             $menu = new \Municipio\Helper\NavigationTree($mobileMenuArgs);
 
             //Add to cache
-            wp_cache_add($transientHas, $menu, 'municipioMenuCache' . $transientType, $cacheTtl);
+            wp_cache_add($transientHash, $menu, 'municipioMenuCache' . $transientType, $cacheTtl);
         }
 
         if ($menu->itemCount === 0) {
