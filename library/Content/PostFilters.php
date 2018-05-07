@@ -151,7 +151,9 @@ class PostFilters
     {
         $termArgs = array(
             'hide_empty' => false,
-            'parent' => $parent
+            'parent' => $parent,
+            'orderby' => 'name',
+            'order'    => 'DESC'
         );
 
         $terms = get_terms($tax->slug, $termArgs);
