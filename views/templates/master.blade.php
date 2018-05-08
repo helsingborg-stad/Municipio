@@ -77,8 +77,8 @@
             @yield('content')
 
             @if (is_active_sidebar('content-area-bottom'))
-            <div class="container gutter-xl gutter-vertical sidebar-content-area-bottom">
-                <div class="grid">
+            <div class="container u-py-5 sidebar-content-area-bottom">
+                <div class="grid grid--columns">
                     <?php dynamic_sidebar('content-area-bottom'); ?>
                 </div>
             </div>

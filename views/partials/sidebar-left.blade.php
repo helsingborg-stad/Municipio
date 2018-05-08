@@ -5,7 +5,7 @@
     @endif
 
     @if (is_active_sidebar('left-sidebar'))
-        <div class="grid sidebar-left-sidebar-top hidden-xs hidden-sm hidden-md">
+        <div class="grid grid--columns sidebar-left-sidebar-top hidden-xs hidden-sm hidden-md">
             <?php dynamic_sidebar('left-sidebar'); ?>
         </div>
     @endif
@@ -16,14 +16,14 @@
 
     <!-- Use right sidebar to the left in small-ish devices -->
     @if (is_active_sidebar('left-sidebar')||$hasRightSidebar)
-        <div class="grid sidebar-left-sidebar-top hidden-lg">
+        <div class="grid grid--columns sidebar-left-sidebar-top hidden-lg u-hidden@xl">
             <?php dynamic_sidebar('left-sidebar'); ?>
             <?php dynamic_sidebar('right-sidebar'); ?>
         </div>
     @endif
 
     @if (is_active_sidebar('left-sidebar-bottom'))
-        <div class="grid sidebar-left-sidebar-bottom">
+        <div class="grid grid--columns sidebar-left-sidebar-bottom">
             <?php dynamic_sidebar('left-sidebar-bottom'); ?>
         </div>
     @endif

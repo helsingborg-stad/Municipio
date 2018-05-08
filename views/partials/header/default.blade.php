@@ -28,7 +28,7 @@
 !!}
 
 <div class="container hidden-print">
-    <div class="grid grid-table grid-va-middle">
+    <div class="grid grid-va-middle u-py-3">
         <div class="grid-auto text-center-xs text-center-sm">
             <div class="grid grid-table grid-va-middle no-padding">
                 <div class="grid-xs-8 grid-sm-8 grid-md-12 text-left-sm text-left-xs">
@@ -36,7 +36,7 @@
                 </div>
 
                 @if (strlen($navigation['mobileMenu']) > 0)
-                    <div class="grid-xs-4 grid-sm-4 text-right-sm text-right-xs {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}">
+                    <div class="grid-xs-4 grid-sm-4 text-right-sm text-right-xs {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}  u-hidden@xl">
                         <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> <?php _e('Menu', 'municipio'); ?></a>
                     </div>
                 @endif
