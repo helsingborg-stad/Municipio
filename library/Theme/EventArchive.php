@@ -77,14 +77,14 @@ class EventArchive extends Archive
         }
 
         if (isset($_GET['to']) && !empty($_GET['to'])) {
-            $to = sanitize_text_field($_GET['to']);
+            $to = date('Y-m-d', strtotime("+1 day", strtotime(sanitize_text_field($_GET['to']))));
         }
 
         if (!is_null($from) && !is_null($to)) {
             // USE BETWEEN ON START DATE
             $where = str_replace(
                 "{$this->db->posts}.post_date >= '{$from}'",
-                "{$this->db_table}.start_date BETWEEN '{$from}' AND '{$to}'",
+                "{$this->db_table}.start_date BETWEEN CAST('{$from}' AS DATE) AND CAST('{$to}' AS DATE)",
                 $where
             );
             $where = str_replace(
