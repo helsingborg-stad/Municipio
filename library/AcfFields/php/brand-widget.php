@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5a5ca31651f08',
-    'title' => __('Widget header - Logotype', 'municipio'),
+    'title' => __('Widget - Logotype', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_5a5ca31c83a1c',

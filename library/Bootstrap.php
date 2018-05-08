@@ -93,11 +93,11 @@ add_action('init', function () {
         'widget-contact'                   => 'group_56c58bade87dc',
         'widget-header-common'             => 'group_5a65d5e7e913b',
         'widget-header-menu'               => 'group_5a58ce68e8b61',
-        'widget-header-logotype'           => 'group_5a5ca31651f08',
         'widget-header-links'              => 'group_5a6744018083f',
         'theme-version-preview'            => 'group_5aa14b41551ae',
         'options-theme-footer-customizer-column'  => 'group_5ad84fc9a6ca2',
-        'navigation-widget'                => 'group_5ae64000dd723'
+        'navigation-widget'                => 'group_5ae64000dd723',
+        'brand-widget'                     => 'group_5a5ca31651f08',
     ));
     $acfExportManager->import();
 });
