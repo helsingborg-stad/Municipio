@@ -1,10 +1,10 @@
 [{
-    "key": "group_5ad84fc9a6ca2",
-    "title": "Customizer footer",
+    "key": "group_5af2b0f4ea0bf",
+    "title": "Customizer - Footer",
     "fields": [
         {
-            "key": "field_5ad84fdaed1e7",
-            "label": "Register footer columns",
+            "key": "field_5af2b6d4cc3a8",
+            "label": "Register footer sidebars (columns)",
             "name": "customizer_footer_column",
             "type": "repeater",
             "instructions": "",
@@ -22,8 +22,8 @@
             "button_label": "",
             "sub_fields": [
                 {
-                    "key": "field_5ad84fe6ed1e8",
-                    "label": "Sidebar",
+                    "key": "field_5af2bb59cc3a9",
+                    "label": "Sidebar ID",
                     "name": "sidebar_id",
                     "type": "text",
                     "instructions": "",

@@ -2,12 +2,12 @@
 
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-    'key' => 'group_5ad84fc9a6ca2',
-    'title' => 'Customizer footer',
+    'key' => 'group_5af2b0f4ea0bf',
+    'title' => __('Customizer - Footer', 'municipio'),
     'fields' => array(
         0 => array(
-            'key' => 'field_5ad84fdaed1e7',
-            'label' => __('Register footer columns', 'municipio'),
+            'key' => 'field_5af2b6d4cc3a8',
+            'label' => __('Register footer sidebars (columns)', 'municipio'),
             'name' => 'customizer_footer_column',
             'type' => 'repeater',
             'instructions' => '',
@@ -25,8 +25,8 @@
             'button_label' => '',
             'sub_fields' => array(
                 0 => array(
-                    'key' => 'field_5ad84fe6ed1e8',
-                    'label' => __('Sidebar', 'municipio'),
+                    'key' => 'field_5af2bb59cc3a9',
+                    'label' => __('Sidebar ID', 'municipio'),
                     'name' => 'sidebar_id',
                     'type' => 'text',
                     'instructions' => '',
