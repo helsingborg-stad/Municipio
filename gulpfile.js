@@ -29,6 +29,7 @@
     plumber         =   require('gulp-plumber'),
     jshint          =   require("gulp-jshint"),
     cleanCSS        =   require('gulp-clean-css'),
+    image           =   require('gulp-image'),
     node_modules    =   'node_modules/';
 
 /* ==========================================================================
@@ -50,7 +51,7 @@
    ========================================================================== */
 
     gulp.task('build', function(callback) {
-        runSequence('clean:dist', ['sass', 'scripts'], 'rev', callback);
+        runSequence('clean:dist', ['sass', 'scripts'], 'rev', 'image', callback);
     });
 
     gulp.task('build:sass', function(callback) {
@@ -166,6 +167,16 @@
 
         return [app, vendor, admin, mce];
 
+    });
+
+/* ==========================================================================
+   Image optimization tasks
+   ========================================================================== */
+
+    gulp.task('image', function () {
+        return gulp.src('assets/source/images/**/*',)
+            .pipe(image())
+            .pipe(gulp.dest('./assets/dist/images'));
     });
 
 /* ==========================================================================
