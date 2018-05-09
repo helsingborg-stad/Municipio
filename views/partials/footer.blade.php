@@ -96,7 +96,8 @@
             {{-- ## Footer signature ## --}}
             @if (get_field('footer_signature_show', 'option'))
                 <div class="grid-md-2 text-right">
-                    {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se"><img src="' . get_template_directory_uri() . '/assets/dist/images/helsingborg_gray.svg" alt="Helsingborg Stad" class="footer-signature"></a>') !!}
+                    {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se">' . $footerLogo . '</a>') !!}
+
                 </div>
             @endif
         </div>

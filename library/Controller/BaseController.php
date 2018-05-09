@@ -212,6 +212,12 @@ class BaseController
     public function getFooterLayout()
     {
         $this->data['footerLayout'] = 'default';
+
+        if (get_field('footer_signature_show', 'option')) {
+            $this->data['footerLogo'] =  \Municipio\Helper\Svg::extract(\Municipio\Helper\Image::urlToPath(get_template_directory_uri() . '/assets/dist/images/helsingborg.svg'));
+        }
+
+
     }
 
     public function getVerticalMenu()
