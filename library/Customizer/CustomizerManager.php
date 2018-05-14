@@ -9,9 +9,22 @@ class CustomizerManager
     public function __construct()
     {
         $this->kirkiConfig();
+        $this->headerFeature();
+        $this->footerFeature();
+    }
 
-        new \Municipio\Customizer\Header\HeaderPanel($this);
-        new \Municipio\Customizer\Footer\FooterPanel($this);
+    public function headerFeature()
+    {
+        if (get_field('theme_mode', 'options') >= 2) {
+            new \Municipio\Customizer\Header\Header($this);
+        }
+    }
+
+    public function footerFeature()
+    {
+        if (get_field('theme_mode', 'options') >= 2) {
+            new \Municipio\Customizer\Footer\Footer($this);
+        }
     }
 
     /**

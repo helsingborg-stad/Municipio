@@ -22,7 +22,7 @@
         {
             "key": "field_5a65d5f15bffd",
             "label": "Visibility",
-            "name": "widget_header_visibility",
+            "name": "widget_utility_visibility",
             "type": "checkbox",
             "instructions": "",
             "required": 0,
@@ -65,7 +65,7 @@
         {
             "key": "field_5ac77d3d7a6bc",
             "label": "Margins",
-            "name": "widget_header_margin",
+            "name": "widget_utility_margin",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -182,7 +182,7 @@
         {
             "key": "field_5ae9bbc6fedcc",
             "label": "Custom CSS classes",
-            "name": "widget_css_classes",
+            "name": "widget_utility_custom_css",
             "type": "text",
             "instructions": "",
             "required": 0,

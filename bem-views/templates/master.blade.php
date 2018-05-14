@@ -35,7 +35,7 @@
                 <div class="grid">
 
                     @hasSection('above')
-                        <div class="grid-s-12 s-above">
+                        <div class="grid-xs-12 s-above">
                             @yield('above')
                         </div>
                     @endif
@@ -57,7 +57,7 @@
                     @endif
 
                     @hasSection('below')
-                        <div class="grid-s-12 s-below">
+                        <div class="grid-xs-12 s-below">
                             @yield('below')
                         </div>
                     @endif

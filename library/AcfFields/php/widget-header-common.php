@@ -25,7 +25,7 @@
         1 => array(
             'key' => 'field_5a65d5f15bffd',
             'label' => __('Visibility', 'municipio'),
-            'name' => 'widget_header_visibility',
+            'name' => 'widget_utility_visibility',
             'type' => 'checkbox',
             'instructions' => '',
             'required' => 0,
@@ -69,7 +69,7 @@
         3 => array(
             'key' => 'field_5ac77d3d7a6bc',
             'label' => __('Margins', 'municipio'),
-            'name' => 'widget_header_margin',
+            'name' => 'widget_utility_margin',
             'type' => 'repeater',
             'instructions' => '',
             'required' => 0,
@@ -189,7 +189,7 @@
         5 => array(
             'key' => 'field_5ae9bbc6fedcc',
             'label' => __('Custom CSS classes', 'municipio'),
-            'name' => 'widget_css_classes',
+            'name' => 'widget_utility_custom_css',
             'type' => 'text',
             'instructions' => '',
             'required' => 0,

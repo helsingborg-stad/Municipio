@@ -2,16 +2,13 @@
 
 namespace Municipio\Customizer\Footer;
 
-class Sidebars
+class FooterSidebarFields
 {
-    public function __construct($CustomizerFooter)
+    public function __construct($footer, $config)
     {
-        $this->sidebars = $CustomizerFooter->sidebars;
-        $this->panel = $CustomizerFooter->panel;
-        $this->config = $CustomizerFooter->config;
+        $this->sidebars = $footer['sidebars'];
+        $this->config = $config;
 
-        add_action('widgets_init', array($this, 'registerSidebars'));
-        add_filter('customizer_widgets_section_args', array($this, 'moveSidebars'), 10, 3);
         add_action('init', array($this, 'sidebarFields'), 9);
     }
 
@@ -25,15 +22,17 @@ class Sidebars
             if (!isset($sidebar['section']) || !is_string($sidebar['section']) || empty($sidebar['section'])) {
                 continue;
             }
+
             $this->textAlign($sidebar);
-            $this->columnSize($sidebar);
-            $this->visibilityField($sidebar);
+            $this->size($sidebar);
+            $this->visibility($sidebar);
         }
     }
 
     public function textAlign($sidebar)
     {
         $choices = apply_filters('', array(
+            'none' => __('None', 'municipio'),
             'text-left' => __('Left', 'municipio'),
             'text-center' => __('Center', 'municipio'),
             'text-right' => __('Right', 'municipio')
@@ -41,11 +40,11 @@ class Sidebars
 
         \Kirki::add_field($this->config, array(
             'type'        => 'radio-buttonset',
-            'settings'    => $sidebar['id'] . '-text-align',
+            'settings'    => 'footer-column-text-align-' . $sidebar['id'],
             'label'       => __('Text alignment', 'municipio'),
             'section'     => $sidebar['section'],
             'default'     => 'left',
-            'priority'    => 10,
+            'priority'    => 1,
             'choices'     => $choices
         ));
     }
@@ -55,7 +54,7 @@ class Sidebars
      *
      * @return void
      */
-    public function columnSize($sidebar)
+    public function size($sidebar)
     {
         $breakpoints = \Municipio\Helper\Css::breakpoints(true);
         foreach ($breakpoints as $breakpoint) {
@@ -80,7 +79,7 @@ class Sidebars
 
             \Kirki::add_field($this->config, array(
                 'type'        => 'select',
-                'settings'    => $sidebar['id'] . '-column-' . $breakpoint,
+                'settings'    => 'footer-column-size-'. $breakpoint . '-' . $sidebar['id'],
                 'label'       => __(strtoupper($breakpoint) . ' column size', 'municipio'),
                 'section'     => $sidebar['section'],
                 'default'     => $default,
@@ -91,7 +90,7 @@ class Sidebars
         }
     }
 
-    public function visibilityField($sidebar)
+    public function visibility($sidebar)
     {
         if (!is_array(\Municipio\Helper\Css::hidden()) || empty(\Municipio\Helper\Css::hidden())) {
             return;
@@ -106,60 +105,12 @@ class Sidebars
 
         \Kirki::add_field($this->config, array(
             'type'        => 'multicheck',
-            'settings'    => $sidebar['id'] . '-visibility',
+            'settings'    => 'footer-column-visibility-' . $sidebar['id'],
             'label'       => esc_attr__('Visibility settings', 'municipio'),
             'section'     => $sidebar['section'],
             'default'     => $default,
             'priority'    => 10,
             'choices'     => $options,
         ));
-    }
-
-    /**
-     * Move footer sidebars to Footer panel (within the customizer)
-     * @return void
-     */
-    public function moveSidebars($section_args, $section_id, $sidebar_id)
-    {
-        if (!isset($this->sidebars) || !is_array($this->sidebars) || empty($this->sidebars) || !is_string($this->panel) || empty($this->panel)) {
-            return $section_args;
-        }
-
-        $sidebars = array();
-
-        foreach ($this->sidebars as $sidebar) {
-            if (isset($sidebar['id'])) {
-                $sidebars[] = $sidebar['id'];
-            }
-        }
-
-        if (in_array($sidebar_id, $sidebars)) {
-            $section_args['panel'] = $this->panel;
-        }
-
-        return $section_args;
-    }
-
-    public function registerSidebars()
-    {
-        if (!is_array($this->sidebars) || empty($this->sidebars)) {
-            return;
-        }
-
-        foreach ($this->sidebars as $sidebar) {
-            if (!isset($sidebar['id']) || !$sidebar['id'] || !isset($sidebar['name']) || !$sidebar['name'] || !isset($sidebar['description']) || !$sidebar['description']) {
-                continue;
-            }
-
-            register_sidebar(apply_filters('Municipio/Customizer/Footer/CustomizerFooter/RegisterSidebars', array(
-                'id'            => $sidebar['id'],
-                'name'          => __($sidebar['name'], 'municipio'),
-                'description'   => __($sidebar['description'], 'municipio'),
-                'before_widget' => '<div class="widget %2$s">',
-                'after_widget'  => '</div>',
-                'before_title'  => '<h3>',
-                'after_title'   => '</h3>'
-            ), $sidebar));
-        }
     }
 }

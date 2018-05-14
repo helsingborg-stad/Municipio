@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5a5ca31651f08',
-    'title' => __('Widget - Logotype', 'municipio'),
+    'title' => __('Brand / Logo Widget', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_5a5ca31c83a1c',
@@ -44,7 +44,7 @@
             ),
             'default_value' => 240,
             'min' => 48,
-            'max' => 480,
+            'max' => 1480,
             'step' => 8,
             'prepend' => '',
             'append' => __('px', 'municipio'),

@@ -12,7 +12,6 @@ class BaseController
 
     public function __construct()
     {
-
         /* Preview mode 2.0 */
         if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
             $this->customizerHeader();
@@ -65,9 +64,9 @@ class BaseController
      */
     public function layout()
     {
-        $this->data['layout']['content']  = 'grid-s-12';
-        $this->data['layout']['sidebarLeft'] = 'grid-s-12 grid-lg-3';
-        $this->data['layout']['sidebarRight'] = 'grid-s-12 grid-lg-3';
+        $this->data['layout']['content']  = 'grid-xs-12';
+        $this->data['layout']['sidebarLeft'] = 'grid-xs-12 grid-lg-3';
+        $this->data['layout']['sidebarRight'] = 'grid-xs-12 grid-lg-3';
 
         $sidebarLeft = false;
         $sidebarRight = false;
@@ -85,9 +84,9 @@ class BaseController
         }
 
         if ($sidebarLeft && $sidebarRight) {
-            $this->data['layout']['content']  = 'grid-s-12 grid-lg-6';
+            $this->data['layout']['content']  = 'grid-xs-12 grid-lg-6';
         } elseif ($sidebarLeft || $sidebarRight) {
-            $this->data['layout']['content']  = 'grid-s-12 grid-lg-9';
+            $this->data['layout']['content']  = 'grid-xs-12 grid-lg-9';
         }
 
         $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
@@ -141,11 +140,9 @@ class BaseController
      */
     public function customizerHeader()
     {
-        if (\Municipio\Customizer\Header\headerPanel::getHeaders()) {
-            $headers = array();
-
-            foreach (\Municipio\Customizer\Header\headerPanel::getHeaders() as $header) {
-                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header\Navbar($header);
+        if (\Municipio\Customizer\Header\Header::getHeaders()) {
+            foreach (\Municipio\Customizer\Header\Header::getHeaders() as $header) {
+                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header\HeaderObject($header);
             }
         }
 
@@ -162,18 +159,13 @@ class BaseController
     public function customizerFooter()
     {
         //Footer Columns
-        if (\Municipio\Customizer\Footer\footerPanel::getSidebars()) {
-            foreach(\Municipio\Customizer\Footer\footerPanel::getSidebars() as $sidebar) {
-                $this->data['footerLayout']['sidebars'][] = new \Municipio\Customizer\Footer\Column($sidebar);
-            }
+        if (!is_array(\Municipio\Customizer\Footer\Footer::getFooters()) || empty(\Municipio\Customizer\Footer\Footer::getFooters())) {
+            return;
         }
 
-        //Footer size
-        $this->data['footerLayout']['size'] = '';
-        if (get_theme_mod('footer-size') && get_theme_mod('footer-size') != 'default') {
-            $this->data['footerLayout']['size'] = get_theme_mod('footer-size');
+        foreach (\Municipio\Customizer\Footer\Footer::getFooters() as $footer) {
+            $this->data['footerSections'][] = new \Municipio\Customizer\Footer\FooterObject($footer);
         }
-
     }
 
     public function getFixedActionBar()
@@ -280,6 +272,10 @@ class BaseController
 
     public function getLogotype()
     {
+        if (isset($this->data['logotype'])) {
+            return;
+        }
+
         $this->data['logotype'] = array(
             'standard' => get_field('logotype', 'option'),
             'negative' => get_field('logotype_negative', 'option')

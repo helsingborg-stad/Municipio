@@ -1,14 +1,20 @@
-@if (isset($footerLayout['sidebars']) && is_array($footerLayout['sidebars']) && !empty($footerLayout['sidebars']))
-    <footer id="footer" class="c-footer s-footer c-footer--customizer {{$footerLayout['size']}}">
-        <div class="container">
-            <div class="grid">
-                @foreach ($footerLayout['sidebars'] as $sidebar)
-                    <div {!! $sidebar->getAttributes() !!}>
-                        <?php dynamic_sidebar($sidebar->getSidebar()); ?>
+@if (isset($footerSections) && is_array($footerSections) && !empty($footerSections))
+    <footer class="s-site-footer">
+        @foreach ($footerSections as $footer)
+            <div {!! $footer->attributes->outputAttributes() !!}>
+                <div class="container">
+                    <div class="grid">
+                        @foreach ($footer->columns as $column)
+                            @if (is_active_sidebar($column['sidebar']))
+                                <div {!! $column['attributes']->outputAttributes() !!}>
+                                    <?php dynamic_sidebar($column['sidebar']); ?>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
-        </div>
+        @endforeach
     </footer>
 @elseif($showAdminNotices === true)
     <div class="container">

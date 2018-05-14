@@ -51,15 +51,15 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'method'        => 'wordpressMenu'
             ),
             'external_link' => array(
-                'classes'       => ['c-nav__link'],
+                'classes'       => ['c-nav__action'],
                 'template'      => 'widget.navigation.link'
             ),
             'internal_link' => array(
-                'classes'       => ['c-nav__link'],
+                'classes'       => ['c-nav__action'],
                 'template'      => 'widget.navigation.link'
             ),
             'search_trigger' => array(
-                'classes'       => ['o-reset-button', 'u-nowrap', 'c-nav__link', 'js-search-trigger', 'pricon pricon-search', 'toggle-search-top'],
+                'classes'       => ['o-reset-button', 'u-nowrap', 'c-nav__action', 'js-search-trigger', 'pricon pricon-search', 'toggle-search-top'],
                 'attributes'    => [
                     'onclick' => 'return false;'
                 ],
@@ -67,7 +67,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'template'      => 'widget.navigation.button'
             ),
             'menu_trigger' => array(
-                'classes'       => array('c-nav__link', 'u-nowrap', 'hamburger', 'hamburger--slider','menu-trigger'),
+                'classes'       => array('c-nav__action', 'u-nowrap', 'hamburger', 'hamburger--slider','menu-trigger'),
                 'attributes'    => [
                     'aria-controls' => 'navigation',
                     'aria-expanded' => 'true/false',
@@ -78,7 +78,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'template'      =>  'widget.navigation.burger'
             ),
             'translate_trigger' => array(
-                'classes'       => ['c-nav__link', 'js-translate-trigger'],
+                'classes'       => ['c-nav__action', 'js-translate-trigger'],
                 'text'          => 'Translate',
                 'url'           => '#translate',
                 'template'      => 'widget.navigation.link'

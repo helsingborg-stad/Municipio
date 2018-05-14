@@ -1,4 +1,4 @@
-<li class="c-nav__item">
+<span class="c-nav__item">
     <button {!! $navItem['attributes'] !!} type="button" aria-label="{{$navItem['text']}}">
         @section('content')
             @if (isset($navItem['hide_text']) && $navItem['hide_text'])
@@ -10,4 +10,4 @@
             @endif
         @show
     </button>
-</li>
+</span>

@@ -1,0 +1,124 @@
+<?php 
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+    'key' => 'group_5af4bcfa591d3',
+    'title' => __('Customizer Header', 'municipio'),
+    'fields' => array(
+        0 => array(
+            'key' => 'field_5af4bd6cb2eaa',
+            'label' => __('Site headers', 'municipio'),
+            'name' => 'customizer_headers',
+            'type' => 'repeater',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'collapsed' => 'field_5af4cc022131b',
+            'min' => 1,
+            'max' => 0,
+            'layout' => 'row',
+            'button_label' => '',
+            'sub_fields' => array(
+                0 => array(
+                    'key' => 'field_5af4cc022131b',
+                    'label' => __('Name', 'municipio'),
+                    'name' => 'name',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => 'Header name',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                1 => array(
+                    'key' => 'field_5af58be1b2e22',
+                    'label' => __('ID', 'municipio'),
+                    'name' => 'id',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => 'unique-header-id',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+                2 => array(
+                    'key' => 'field_5af58bf1b2e23',
+                    'label' => __('Description', 'municipio'),
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'new_lines' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'rows' => '',
+                ),
+                3 => array(
+                    'key' => 'field_5af4cbfe2131a',
+                    'label' => __('CSS Class (optional)', 'municipio'),
+                    'name' => 'css_class',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'maxlength' => '',
+                ),
+            ),
+        ),
+    ),
+    'location' => array(
+        0 => array(
+            0 => array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'acf-options-cstomizer',
+            ),
+        ),
+    ),
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => 1,
+    'description' => '',
+));
+}

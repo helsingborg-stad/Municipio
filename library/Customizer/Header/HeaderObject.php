@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Header;
 
-class Navbar
+class HeaderObject
 {
     public $id = '';
     public $classes = array();
@@ -26,7 +26,7 @@ class Navbar
         $this->id = (isset($header['id']) && is_string($header['id']) && !empty($header['id'])) ? $header['id'] : false;
         $this->classes = (isset($header['classes']) && is_array($header['classes']) && !empty($header['classes'])) ? $header['classes'] : array();
         $this->attributes = (isset($header['attributes']) && is_array($header['attributes']) && !empty($header['attributes'])) ? $header['attributes'] : array();
-        $this->sidebar = (isset($header['sidebar']) && is_string($header['sidebar']) && !empty($header['sidebar'])) ? $header['sidebar'] : false;
+        $this->sidebar = (isset($header['sidebar_id']) && is_string($header['sidebar_id']) && !empty($header['sidebar_id'])) ? $header['sidebar_id'] : false;
     }
 
     public function container()
@@ -39,27 +39,22 @@ class Navbar
     {
         $this->classes[] = 'c-navbar';
         $this->classes[] = 'c-navbar--customizer';
-        $this->classes[] = 'c-navbar--' . sanitize_title($this->id);
+        $this->classes[] = 'customizer-header-' . sanitize_title($this->id);
+        $this->classes[] = 's-navbar';
 
-        $this->visibility();
-        $this->padding();
-
-
+        $this->getFieldThenAddClass('header-style__' . $this->id);
+        $this->getFieldThenAddClass('header-size__' . $this->id);
+        $this->getFieldThenAddClass('header-padding__' . $this->id);
+        $this->getFieldThenAddClass('header-visibility__' . $this->id);
+        $this->getFieldThenAddClass('header-border__' . $this->id);
 
         $this->classes = apply_filters('Municipio/Customizer/Header/Navbar/Classes', $this->classes, $this->id);
     }
 
-    public function padding()
+    public function getFieldThenAddClass($field, $nullValue = 'default')
     {
-        if (get_theme_mod($this->id . '-header-padding') && get_theme_mod($this->id . '-header-padding') != 'default') {
-            $this->classes[] = get_theme_mod($this->id . '-header-padding');
-        }
-    }
-
-    public function visibility()
-    {
-       if (is_array(get_theme_mod($this->id . '-header-visibility')) && !empty(get_theme_mod($this->id . '-header-visibility'))) {
-            $this->classes = array_merge($this->classes, get_theme_mod($this->id . '-header-visibility'));
+        if (get_theme_mod($field) && get_theme_mod($field) != $nullValue) {
+            $this->classes[] = (is_array(get_theme_mod($field))) ? implode(' ', get_theme_mod($field)) : get_theme_mod($field);
         }
     }
 
