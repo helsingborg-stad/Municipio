@@ -47,8 +47,6 @@ abstract class WidgetTemplate extends \WP_Widget
 
     public function __construct()
     {
-        $this->wrapperAttributes = new \Municipio\Helper\ElementAttribute();
-
         if (method_exists($this, 'beforeSetup')) {
             $this->beforeSetup();
         }
@@ -58,6 +56,7 @@ abstract class WidgetTemplate extends \WP_Widget
         if (method_exists($this, 'afterSetup')) {
             $this->afterSetup();
         }
+
 
         $this->utilityFields();
 
@@ -95,6 +94,7 @@ abstract class WidgetTemplate extends \WP_Widget
      */
     public function widget($args, $instance)
     {
+        $this->wrapperAttributes = new \Municipio\Helper\ElementAttribute();
         $this->data['args'] = $args;
         $this->data['instance'] = $instance;
 
@@ -148,6 +148,8 @@ abstract class WidgetTemplate extends \WP_Widget
         if (!$this->get_field('widget_utility_margin') || !is_array($this->get_field('widget_utility_margin')) || empty($this->get_field('widget_utility_margin'))) {
             return false;
         }
+
+
 
         $margins = array();
 
