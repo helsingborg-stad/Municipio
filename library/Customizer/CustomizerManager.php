@@ -9,8 +9,8 @@ class CustomizerManager
     public function __construct()
     {
         $this->kirkiConfig();
-        $this->headerFeature();
-        $this->footerFeature();
+        add_action('init', array($this, 'headerFeature'));
+        add_action('init', array($this, 'footerFeature'));
     }
 
     public function headerFeature()

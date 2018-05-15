@@ -9,7 +9,7 @@ class Header
 
     public function __construct($CustomizerManager)
     {
-        add_action('init', array($this, 'headerPanel'), 9);
+        $this->headerPanel();
         $this->createHeaders();
     }
 

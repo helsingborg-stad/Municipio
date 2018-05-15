@@ -7,9 +7,9 @@ class Footer
     public $config = 'municipio_config';
     public $panel = 'panel_footer';
 
-    public function __construct($c)
+    public function __construct($CustomizerManager)
     {
-        add_action('init', array($this, 'footerPanel'), 9);
+        $this->footerPanel();
         $this->createFooters();
     }
 
