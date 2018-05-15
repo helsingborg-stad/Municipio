@@ -27,9 +27,13 @@ class Header
 
     public static function getHeaders()
     {
+        if (!is_array(get_field('customizer__header_sections', 'options')) || empty(get_field('customizer__header_sections', 'options'))) {
+            return;
+        }
+
         $headers = array();
 
-        foreach (get_field('customizer_headers', 'options') as $header) {
+        foreach (get_field('customizer__header_sections', 'options') as $header) {
             if (!isset($header['id'])) {
                 continue;
             }

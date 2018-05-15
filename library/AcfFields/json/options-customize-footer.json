@@ -1,11 +1,11 @@
 [{
-    "key": "group_5af55d5b27c8d",
-    "title": "Customizer Footer",
+    "key": "group_5afa94c88e1aa",
+    "title": "Customize Footer",
     "fields": [
         {
-            "key": "field_5af55d811b976",
-            "label": "Site footers",
-            "name": "customizer_footers",
+            "key": "field_5afa94e13c9cb",
+            "label": "Footer sections",
+            "name": "customizer__footer_sections",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -15,14 +15,14 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "field_5af55d881b977",
-            "min": 1,
+            "collapsed": "",
+            "min": 0,
             "max": 0,
             "layout": "row",
             "button_label": "",
             "sub_fields": [
                 {
-                    "key": "field_5af55d881b977",
+                    "key": "field_5afa94f43c9cc",
                     "label": "Name",
                     "name": "name",
                     "type": "text",
@@ -41,7 +41,7 @@
                     "maxlength": ""
                 },
                 {
-                    "key": "field_5af58e071b457",
+                    "key": "field_5afa94ff3c9cd",
                     "label": "ID",
                     "name": "id",
                     "type": "text",
@@ -60,12 +60,12 @@
                     "maxlength": ""
                 },
                 {
-                    "key": "field_5af55d981b978",
+                    "key": "field_5afa95053c9ce",
                     "label": "Columns",
                     "name": "columns",
                     "type": "number",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -81,8 +81,8 @@
                     "step": 1
                 },
                 {
-                    "key": "field_5af55e2476b0c",
-                    "label": "CSS Class (Optional)",
+                    "key": "field_5afa95123c9cf",
+                    "label": "CSS Class",
                     "name": "css_class",
                     "type": "text",
                     "instructions": "",

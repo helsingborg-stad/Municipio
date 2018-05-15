@@ -27,9 +27,13 @@ class Footer
     }
 
     public static function getFooters() {
+        if (!is_array(get_field('customizer__footer_sections', 'options')) || empty(get_field('customizer__footer_sections', 'options'))) {
+            return;
+        }
+
         $footers = array();
 
-        foreach (get_field('customizer_footers', 'options') as $footer) {
+        foreach (get_field('customizer__footer_sections', 'options') as $footer) {
             if (!isset($footer['id'])) {
                 continue;
             }

@@ -1,11 +1,11 @@
 [{
-    "key": "group_5af4bcfa591d3",
-    "title": "Customizer Header",
+    "key": "group_5afa93c0a25e1",
+    "title": "Customize Header",
     "fields": [
         {
-            "key": "field_5af4bd6cb2eaa",
-            "label": "Site headers",
-            "name": "customizer_headers",
+            "key": "field_5afa93dc00a80",
+            "label": "Header sections",
+            "name": "customizer__header_sections",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -15,14 +15,14 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "field_5af4cc022131b",
-            "min": 1,
+            "collapsed": "",
+            "min": 0,
             "max": 0,
             "layout": "row",
-            "button_label": "",
+            "button_label": "Add section",
             "sub_fields": [
                 {
-                    "key": "field_5af4cc022131b",
+                    "key": "field_5afa943700a81",
                     "label": "Name",
                     "name": "name",
                     "type": "text",
@@ -34,14 +34,14 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "Header name",
+                    "default_value": "",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
                 },
                 {
-                    "key": "field_5af58be1b2e22",
+                    "key": "field_5afa943e00a82",
                     "label": "ID",
                     "name": "id",
                     "type": "text",
@@ -53,34 +53,15 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "unique-header-id",
+                    "default_value": "",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
                 },
                 {
-                    "key": "field_5af58bf1b2e23",
-                    "label": "Description",
-                    "name": "description",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "new_lines": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "rows": ""
-                },
-                {
-                    "key": "field_5af4cbfe2131a",
-                    "label": "CSS Class (optional)",
+                    "key": "field_5afa944200a83",
+                    "label": "CSS Class",
                     "name": "css_class",
                     "type": "text",
                     "instructions": "",

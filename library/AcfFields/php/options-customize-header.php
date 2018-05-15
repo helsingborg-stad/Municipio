@@ -2,13 +2,13 @@
 
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-    'key' => 'group_5af55d5b27c8d',
-    'title' => __('Customizer Footer', 'municipio'),
+    'key' => 'group_5afa93c0a25e1',
+    'title' => __('Customize Header', 'municipio'),
     'fields' => array(
         0 => array(
-            'key' => 'field_5af55d811b976',
-            'label' => __('Site footers', 'municipio'),
-            'name' => 'customizer_footers',
+            'key' => 'field_5afa93dc00a80',
+            'label' => __('Header sections', 'municipio'),
+            'name' => 'customizer__header_sections',
             'type' => 'repeater',
             'instructions' => '',
             'required' => 0,
@@ -18,14 +18,14 @@
                 'class' => '',
                 'id' => '',
             ),
-            'collapsed' => 'field_5af55d881b977',
-            'min' => 1,
+            'collapsed' => '',
+            'min' => 0,
             'max' => 0,
             'layout' => 'row',
-            'button_label' => '',
+            'button_label' => __('Add section', 'municipio'),
             'sub_fields' => array(
                 0 => array(
-                    'key' => 'field_5af55d881b977',
+                    'key' => 'field_5afa943700a81',
                     'label' => __('Name', 'municipio'),
                     'name' => 'name',
                     'type' => 'text',
@@ -44,7 +44,7 @@
                     'maxlength' => '',
                 ),
                 1 => array(
-                    'key' => 'field_5af58e071b457',
+                    'key' => 'field_5afa943e00a82',
                     'label' => __('ID', 'municipio'),
                     'name' => 'id',
                     'type' => 'text',
@@ -63,29 +63,8 @@
                     'maxlength' => '',
                 ),
                 2 => array(
-                    'key' => 'field_5af55d981b978',
-                    'label' => __('Columns', 'municipio'),
-                    'name' => 'columns',
-                    'type' => 'number',
-                    'instructions' => '',
-                    'required' => 1,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'default_value' => 1,
-                    'placeholder' => '',
-                    'prepend' => '',
-                    'append' => '',
-                    'min' => 1,
-                    'max' => 12,
-                    'step' => 1,
-                ),
-                3 => array(
-                    'key' => 'field_5af55e2476b0c',
-                    'label' => __('CSS Class (Optional)', 'municipio'),
+                    'key' => 'field_5afa944200a83',
+                    'label' => __('CSS Class', 'municipio'),
                     'name' => 'css_class',
                     'type' => 'text',
                     'instructions' => '',
