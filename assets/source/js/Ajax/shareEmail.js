@@ -26,10 +26,6 @@ Muncipio.Ajax.ShareEmail = (function ($) {
             data = new FormData(event.target);
             data.append('action', 'share_email');
 
-        if (data.get('g-recaptcha-response') === '') {
-            return false;
-        }
-
         $.ajax({
             url: ajaxurl,
             type: 'POST',
