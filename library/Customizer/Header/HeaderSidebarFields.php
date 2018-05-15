@@ -12,7 +12,7 @@ class headerSidebarFields
         $this->header = $header;
         $this->config = $config;
 
-        add_action('init', array($this, 'headerFields'), 9);
+        $this->headerFields();
     }
 
     public function headerFields()

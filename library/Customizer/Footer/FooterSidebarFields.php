@@ -9,7 +9,7 @@ class FooterSidebarFields
         $this->sidebars = $footer['sidebars'];
         $this->config = $config;
 
-        add_action('init', array($this, 'sidebarFields'), 9);
+        $this->sidebarFields();
     }
 
     public function sidebarFields()

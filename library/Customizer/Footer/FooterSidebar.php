@@ -11,8 +11,7 @@ class FooterSidebar
     {
         $this->footer = $footer;
         $this->panel = $panel;
-
-        add_action('widgets_init', array($this, 'registerSidebars'));
+        $this->registerSidebars();
         add_filter('customizer_widgets_section_args', array($this, 'moveSidebars'), 10, 3);
     }
 

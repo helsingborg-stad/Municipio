@@ -12,8 +12,7 @@ class HeaderSidebar
     {
         $this->header = $header;
         $this->panel = $panel;
-
-        add_action('widgets_init', array($this, 'registerSidebar'));
+        $this->registerSidebar();
         add_filter('customizer_widgets_section_args', array($this, 'moveSidebar'), 10, 3);
     }
 
