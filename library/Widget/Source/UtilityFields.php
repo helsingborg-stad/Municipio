@@ -189,9 +189,10 @@ class UtilityFields
                                 'id' => '',
                             ),
                             'choices' => array(
-                                '@sm' => 'SM and up',
-                                '@md' => 'MD and up',
-                                '@lg' => 'LG and up',
+                                '@xs' => 'XS screen',
+                                '@sm' => 'SM screen',
+                                '@md' => 'MD screen',
+                                '@lg' => 'LG screen',
                             ),
                             'default_value' => array(
                             ),
