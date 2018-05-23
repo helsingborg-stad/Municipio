@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-04-27 12:58+0200\n"
-"PO-Revision-Date: 2018-04-27 13:01+0200\n"
+"POT-Creation-Date: 2018-05-23 08:49+0200\n"
+"PO-Revision-Date: 2018-05-23 08:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -19,6 +19,10 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: algolia/autocomplete.php:79
+msgid "No results matched your query "
+msgstr "Inga träffar matchade din sökfråga"
 
 #: bem-views/layout/master.blade.php:26 views/templates/master.blade.php:54
 msgid "Jump to the main menu"
@@ -1830,7 +1834,7 @@ msgstr ""
 "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
 "webbläsare."
 
-#: library/Search/Algolia.php:45
+#: library/Search/Algolia.php:47
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
@@ -5189,11 +5193,19 @@ msgstr "Inga inlägg att visa"
 msgid "Posts by"
 msgstr "Inlägg av"
 
-#: views/partials/404/event.blade.php:5 views/partials/404/ticket.blade.php:5
+#: views/partials/404/event.blade.php:5
+msgid "The event could not be found"
+msgstr "Evenemanget kunde inte hittas"
+
+#: views/partials/404/event.blade.php:7
+msgid "View all events"
+msgstr "Visa alla evenemang"
+
+#: views/partials/404/ticket.blade.php:5
 msgid "The ticket could not be found"
 msgstr "Ärendet kunde inte hittas"
 
-#: views/partials/404/event.blade.php:7 views/partials/404/ticket.blade.php:7
+#: views/partials/404/ticket.blade.php:7
 msgid "View all tickets"
 msgstr "Visa alla ärenden"
 
@@ -5362,9 +5374,6 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
 
-#~ msgid "No results matched your query "
-#~ msgstr "Inga träffar matchade din sökfråga"
-
 #, fuzzy
 #~| msgid "Something went wrong, please try again"
 #~ msgid "Something went wrong"
@@ -5396,9 +5405,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Compressed"
 #~ msgstr "Komprimerad"
-
-#~ msgid "The event could not be found"
-#~ msgstr "Evenemanget kunde inte hittas"
 
 #~ msgid "Go back to events archive"
 #~ msgstr "Tillbaka till alla evenemang"
