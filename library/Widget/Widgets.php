@@ -7,6 +7,17 @@ class Widgets
     public function __construct()
     {
         add_action('after_setup_theme', array($this, 'customizerWidgets'));
+        add_action('in_widget_form', array($this, 'displayWidgetId'));
+    }
+
+    public function displayWidgetId($widget_instance)
+    {
+        // Check if the widget is already saved or not.
+        if ($widget_instance->number=="__i__") {
+            echo "<p><strong>Widget ID is</strong>: Please save the widget first!</p>"   ;
+        } else {
+           echo "<p><strong>Widget ID is: </strong>" .$widget_instance->id. "</p>";
+        }
     }
 
     public function customizerWidgets()
