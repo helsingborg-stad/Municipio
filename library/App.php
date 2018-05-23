@@ -54,7 +54,7 @@ class App
          * Customizer
          */
 
-        new \Municipio\Customizer\CustomizerManager();
+        new \Municipio\Customizer\Customizer();
 
         /**
          * Content

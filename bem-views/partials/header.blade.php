@@ -4,8 +4,8 @@
     <header class="s-site-header" id="site-header">
         @foreach ($headerLayout['headers'] as $header)
             @if ($header->sidebar)
-                <div {!! $header->getAttributes() !!}>
-                    <div class="{{$header->container}}">
+                <div {!! $header->wrapper !!}>
+                    <div {!! $header->container !!}>
                         <?php dynamic_sidebar($header->sidebar); ?>
                     </div>
                 </div>
@@ -18,6 +18,4 @@
     </header>
 @endif
 
-
-
-@include('partials.hero')
+<?php dynamic_sidebar('top-sidebar'); ?>

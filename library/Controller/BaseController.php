@@ -140,9 +140,11 @@ class BaseController
      */
     public function customizerHeader()
     {
-        if (\Municipio\Customizer\Header\Header::getHeaders()) {
-            foreach (\Municipio\Customizer\Header\Header::getHeaders() as $header) {
-                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header\HeaderObject($header);
+        $customizerHeader = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__header_sections', 'options', 'id');
+
+        if ($customizerHeader->hasItems) {
+            foreach ($customizerHeader->repeater as $headerData) {
+                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header($headerData);
             }
         }
 
@@ -158,13 +160,12 @@ class BaseController
      */
     public function customizerFooter()
     {
-        //Footer Columns
-        if (!is_array(\Municipio\Customizer\Footer\Footer::getFooters()) || empty(\Municipio\Customizer\Footer\Footer::getFooters())) {
-            return;
-        }
+        $customizerFooter = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__footer_sections', 'options', 'id');
 
-        foreach (\Municipio\Customizer\Footer\Footer::getFooters() as $footer) {
-            $this->data['footerSections'][] = new \Municipio\Customizer\Footer\FooterObject($footer);
+        if ($customizerFooter->hasItems) {
+            foreach ($customizerFooter->repeater as $footerData) {
+                $this->data['footerSections'][] = new \Municipio\Customizer\Footer($footerData);
+            }
         }
     }
 

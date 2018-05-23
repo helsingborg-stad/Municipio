@@ -1,13 +1,13 @@
 @if (isset($footerSections) && is_array($footerSections) && !empty($footerSections))
     <footer class="s-site-footer">
         @foreach ($footerSections as $footer)
-            <div {!! $footer->attributes->outputAttributes() !!}>
-                <div class="container">
-                    <div class="grid">
-                        @foreach ($footer->columns as $column)
-                            @if (is_active_sidebar($column['sidebar']))
-                                <div {!! $column['attributes']->outputAttributes() !!}>
-                                    <?php dynamic_sidebar($column['sidebar']); ?>
+            <div {!! $footer->wrapper !!}>
+                <div {!! $footer->container !!}>
+                    <div {!! $footer->grid !!}>
+                        @foreach ($footer->sidebars as $sidebar)
+                            @if (is_active_sidebar($sidebar['id']))
+                                <div {!! $sidebar['attributes'] !!}>
+                                    <?php dynamic_sidebar($sidebar['id']); ?>
                                 </div>
                             @endif
                         @endforeach
