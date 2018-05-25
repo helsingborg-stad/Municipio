@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-05-23 08:49+0200\n"
-"PO-Revision-Date: 2018-05-23 08:49+0200\n"
+"POT-Creation-Date: 2018-04-27 12:58+0200\n"
+"PO-Revision-Date: 2018-04-27 13:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -239,6 +239,15 @@ msgstr "Visa cookie-medgivande för nya användare"
 #: vendor/aristath/kirki/example.php:559
 msgid "Active"
 msgstr "Aktivera"
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:31
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website."
+msgstr ""
+"På den här webbplatsen använder vi cookies (kakor) för att webbplatsen ska "
+"fungera på ett bra sätt för dig. Genom att klicka vidare godkänner du att vi "
+"använder cookies."
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:34
 #: library/Theme/Share.php:50
@@ -5406,6 +5415,9 @@ msgstr "http://www.helsingborg.se"
 #~ msgid "Compressed"
 #~ msgstr "Komprimerad"
 
+#~ msgid "The event could not be found"
+#~ msgstr "Evenemanget kunde inte hittas"
+
 #~ msgid "Go back to events archive"
 #~ msgstr "Tillbaka till alla evenemang"
 
@@ -5442,13 +5454,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Cookie consent"
 #~ msgstr "Cookie-medgivande"
-
-#~ msgid ""
-#~ "This website uses cookies to ensure you get the best experience on our "
-#~ "website."
-#~ msgstr ""
-#~ "Denna hemsida använder cookies för att erbjuda en så bra upplevelse som "
-#~ "möjligt för ditt besök."
 
 #~ msgid "Got it!"
 #~ msgstr "Jag förstår"
