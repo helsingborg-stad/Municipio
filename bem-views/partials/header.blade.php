@@ -6,7 +6,9 @@
             @if ($header->sidebar)
                 <div {!! $header->wrapper !!}>
                     <div {!! $header->container !!}>
-                        <?php dynamic_sidebar($header->sidebar); ?>
+                        <div {!! $header->grid !!}>
+                            <?php dynamic_sidebar($header->sidebar); ?>
+                        </div>
                     </div>
                 </div>
             @endif

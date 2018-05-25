@@ -40,6 +40,12 @@ class Customizer extends CustomizerHelper
         foreach ($headers->repeater as $header) {
             $sidebarId = $header['sidebars'][0];
 
+            //Modify sidebar args
+            $sidebarArgs = array_merge($sidebarHelper->getArgs(), [
+                'before_widget' => '<div class="grid-xs-auto c-header__item widget %2$s">'
+            ]);
+            $sidebarHelper->mergeArgs($sidebarArgs);
+
             //Register sidebar
             $sidebarHelper->registerSidebar($sidebarId, $header['name']);
 
@@ -49,7 +55,7 @@ class Customizer extends CustomizerHelper
             //Add fields to sidebar section
             $sidebarSection = $customizer->getSidebarSection($sidebarId);
             $sidebarSection->keyPrefix = $sidebarId . '__';
-            $sidebarSection->commonHeaderFields('.c-navbar--customizer.' . $header['id']);
+            $sidebarSection->commonHeaderFields('.c-header--customizer.' . $header['id']);
         }
     }
 

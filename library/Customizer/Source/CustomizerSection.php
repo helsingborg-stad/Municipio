@@ -227,8 +227,8 @@ class CustomizerSection
                 'priority'    => 6,
                 'choices'     => array(
                     'default' => __('Default', 'municipio'),
-                    'c-navbar--small s-navbar--small' => __('Small', 'municipio'),
-                    'c-navbar--large s-navbar--large' => __('Large', 'municipio')
+                    'c-header--small s-header--small' => __('Small', 'municipio'),
+                    'c-header--large s-header--large' => __('Large', 'municipio')
                 ),
             ],
             [
@@ -240,8 +240,7 @@ class CustomizerSection
                 'multiple'    => 1,
                 'choices'     => array(
                     'default' => __('Default', 'municipio'),
-                    'c-navbar--hard' => __('No padding', 'municipio'),
-                    'c-navbar--lg' => __('Large', 'municipio')
+                    'c-header--hard' => __('No padding', 'municipio'),
                 ),
             ],
             [

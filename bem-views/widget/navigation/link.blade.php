@@ -1,4 +1,4 @@
-<span class="c-nav__item">
+<span class="c-navbar__item">
     <a {!! $navItem['attributes'] !!} href="{{$navItem['url']}}" aria-label="{{$navItem['text']}}">
         @if (isset($navItem['hide_text']) && $navItem['hide_text'])
             <span class="hidden">

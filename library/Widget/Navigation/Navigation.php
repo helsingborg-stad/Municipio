@@ -22,9 +22,9 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
     public function viewController($args, $instance)
     {
         $attributes = new \Municipio\Helper\ElementAttribute();
-        $attributes->addClass('c-nav');
+        $attributes->addClass('c-navbar');
 
-        $sizes = array('small' => 'c-nav--small', 'large' => 'c-nav--large');
+        $sizes = array('small' => 'c-navbar--small', 'large' => 'c-navbar--large');
 
         if ($this->get_field('size') && isset($sizes[$this->get_field('size')])) {
             $attributes->addClass($sizes[$this->get_field('size')]);
@@ -51,15 +51,15 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'method'        => 'wordpressMenu'
             ),
             'external_link' => array(
-                'classes'       => ['c-nav__action'],
+                'classes'       => ['c-navbar__action'],
                 'template'      => 'widget.navigation.link'
             ),
             'internal_link' => array(
-                'classes'       => ['c-nav__action'],
+                'classes'       => ['c-navbar__action'],
                 'template'      => 'widget.navigation.link'
             ),
             'search_trigger' => array(
-                'classes'       => ['o-reset-button', 'u-nowrap', 'c-nav__action', 'js-search-trigger', 'pricon pricon-search', 'toggle-search-top'],
+                'classes'       => ['o-reset-button', 'u-nowrap', 'c-navbar__action', 'js-search-trigger', 'pricon pricon-search', 'toggle-search-top'],
                 'attributes'    => [
                     'onclick' => 'return false;'
                 ],
@@ -67,7 +67,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'template'      => 'widget.navigation.button'
             ),
             'menu_trigger' => array(
-                'classes'       => array('c-nav__action', 'u-nowrap', 'hamburger', 'hamburger--slider','menu-trigger'),
+                'classes'       => array('c-navbar__action', 'u-nowrap', 'hamburger', 'hamburger--slider','menu-trigger'),
                 'attributes'    => [
                     'aria-controls' => 'navigation',
                     'aria-expanded' => 'true/false',
@@ -78,7 +78,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'template'      =>  'widget.navigation.burger'
             ),
             'translate_trigger' => array(
-                'classes'       => ['c-nav__action', 'js-translate-trigger'],
+                'classes'       => ['c-navbar__action', 'js-translate-trigger'],
                 'text'          => 'Translate',
                 'url'           => '#translate',
                 'template'      => 'widget.navigation.link'
@@ -143,7 +143,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 $menu[$key]->attributes = new \Municipio\Helper\ElementAttribute();
 
                 $menu[$key]->attributes->addClass($link->classes);
-                $menu[$key]->attributes->addClass('c-nav__item');
+                $menu[$key]->attributes->addClass('c-navbar__item');
 
                 if ($link->ID == get_queried_object_id()) {
                     $menu[$key]->attributes->addClass('is-current');

@@ -1,4 +1,4 @@
-<span class="c-nav__item">
+<span class="c-navbar__item">
     <button {!! $navItem['attributes'] !!} type="button" aria-label="{{$navItem['text']}}">
            <span class="hamburger-box">
             <span class="hamburger-inner"></span>
