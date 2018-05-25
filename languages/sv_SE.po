@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-04-27 12:58+0200\n"
-"PO-Revision-Date: 2018-04-27 13:01+0200\n"
+"POT-Creation-Date: 2018-05-25 10:03+0200\n"
+"PO-Revision-Date: 2018-05-25 10:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -19,6 +19,10 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: algolia/autocomplete.php:79
+msgid "No results matched your query "
+msgstr "Inga träffar matchade din sökfråga"
 
 #: bem-views/layout/master.blade.php:26 views/templates/master.blade.php:54
 msgid "Jump to the main menu"
@@ -235,6 +239,15 @@ msgstr "Visa cookie-medgivande för nya användare"
 #: vendor/aristath/kirki/example.php:559
 msgid "Active"
 msgstr "Aktivera"
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:31
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website."
+msgstr ""
+"På den här webbplatsen använder vi cookies (kakor) för att webbplatsen ska "
+"fungera på ett bra sätt för dig. Genom att klicka vidare godkänner du att vi "
+"använder cookies."
 
 #: library/AcfFields/php/options-theme-cookie-consent.php:34
 #: library/Theme/Share.php:50
@@ -1830,7 +1843,7 @@ msgstr ""
 "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
 "webbläsare."
 
-#: library/Search/Algolia.php:45
+#: library/Search/Algolia.php:47
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
@@ -5362,9 +5375,6 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
 
-#~ msgid "No results matched your query "
-#~ msgstr "Inga träffar matchade din sökfråga"
-
 #, fuzzy
 #~| msgid "Something went wrong, please try again"
 #~ msgid "Something went wrong"
@@ -5436,13 +5446,6 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "Cookie consent"
 #~ msgstr "Cookie-medgivande"
-
-#~ msgid ""
-#~ "This website uses cookies to ensure you get the best experience on our "
-#~ "website."
-#~ msgstr ""
-#~ "Denna hemsida använder cookies för att erbjuda en så bra upplevelse som "
-#~ "möjligt för ditt besök."
 
 #~ msgid "Got it!"
 #~ msgstr "Jag förstår"

@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_56bc6b6466df1',
     'title' => 'Cookie consent',
     'fields' => array(
@@ -28,7 +28,7 @@
             'tabs' => 'all',
             'toolbar' => 'basic',
             'media_upload' => 0,
-            'default_value' => 'This website uses cookies to ensure you get the best experience on our website.',
+            'default_value' => __('This website uses cookies to ensure you get the best experience on our website.', 'municipio'),
             'delay' => 0,
             'key' => 'field_56bc6b9e37da2',
             'label' => __('Message', 'municipio'),
@@ -132,4 +132,4 @@
     'description' => '',
     'local' => 'php',
 ));
-}
+}
