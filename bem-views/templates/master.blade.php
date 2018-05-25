@@ -32,7 +32,7 @@
 
         @section('layout')
             <div class="container">
-                <div class="grid">
+                <div class="grid grid--columns">
 
                     @hasSection('above')
                         <div class="grid-xs-12 s-above">
