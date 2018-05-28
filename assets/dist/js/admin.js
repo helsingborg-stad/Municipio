@@ -1,3 +1,11 @@
+(function($) {
+    if (typeof themeColorPalette != 'undefined') {
+        jQuery.wp.wpColorPicker.prototype.options = {
+            palettes: themeColorPalette.colors
+        };
+    }
+})(jQuery);
+
 var Municipio = {};
 
 jQuery('.index-php #screen-meta-links').append('\
