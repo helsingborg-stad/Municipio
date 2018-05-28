@@ -17,5 +17,11 @@ class CustomTemplates
             \Municipio\Helper\Template::locateTemplate('one-page.blade.php'),
             'all'
         );
+
+        \Municipio\Helper\Template::add(
+            __('Page (two columns)', 'municipio'),
+            \Municipio\Helper\Template::locateTemplate('page-two-column.blade.php'),
+            'all'
+        );
     }
 }
