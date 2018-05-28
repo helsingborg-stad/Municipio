@@ -42,7 +42,7 @@
         </div>
     </section>
 
-    <?php do_action('search_notices'); ?>
+    <?php do_action('loop_start'); ?>
 
     <section class=" gutter-vertical gutter-lg clearfix">
         <div class="container">
