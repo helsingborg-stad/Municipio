@@ -64,6 +64,8 @@
     </section>
 </div>
 
+<?php do_action('search_notices'); ?>
+
 {{-- Search response item. --}}
 @verbatim
 <script type="text/html" id="tmpl-instantsearch-hit">
