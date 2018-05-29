@@ -11,6 +11,9 @@
 
 namespace Symfony\Component\Config\Resource;
 
+use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -22,7 +25,7 @@ class ReflectionClassResource implements SelfCheckingResourceInterface, \Seriali
     private $excludedVendors = array();
     private $hash;
 
-    public function __construct(\ReflectionClass $classReflector, $excludedVendors = array())
+    public function __construct(\ReflectionClass $classReflector, array $excludedVendors = array())
     {
         $this->className = $classReflector->name;
         $this->classReflector = $classReflector;
@@ -37,11 +40,11 @@ class ReflectionClassResource implements SelfCheckingResourceInterface, \Seriali
         }
 
         foreach ($this->files as $file => $v) {
-            if (!file_exists($file)) {
+            if (false === $filemtime = @filemtime($file)) {
                 return false;
             }
 
-            if (@filemtime($file) > $timestamp) {
+            if ($filemtime > $timestamp) {
                 return $this->hash === $this->computeHash();
             }
         }
@@ -114,7 +117,9 @@ class ReflectionClassResource implements SelfCheckingResourceInterface, \Seriali
 
     private function generateSignature(\ReflectionClass $class)
     {
-        yield $class->getDocComment().$class->getModifiers();
+        yield $class->getDocComment();
+        yield (int) $class->isFinal();
+        yield (int) $class->isAbstract();
 
         if ($class->isTrait()) {
             yield print_r(class_uses($class->name), true);
@@ -133,49 +138,24 @@ class ReflectionClassResource implements SelfCheckingResourceInterface, \Seriali
             }
         }
 
-        if (defined('HHVM_VERSION')) {
-            foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
-                // workaround HHVM bug with variadics, see https://github.com/facebook/hhvm/issues/5762
-                yield preg_replace('/^  @@.*/m', '', new ReflectionMethodHhvmWrapper($m->class, $m->name));
+        foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
+            yield preg_replace('/^  @@.*/m', '', $m);
+
+            $defaults = array();
+            foreach ($m->getParameters() as $p) {
+                $defaults[$p->name] = $p->isDefaultValueAvailable() ? $p->getDefaultValue() : null;
             }
-        } else {
-            foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
-                yield preg_replace('/^  @@.*/m', '', $m);
-
-                $defaults = array();
-                foreach ($m->getParameters() as $p) {
-                    $defaults[$p->name] = $p->isDefaultValueAvailable() ? $p->getDefaultValue() : null;
-                }
-                yield print_r($defaults, true);
-            }
-        }
-    }
-}
-
-/**
- * @internal
- */
-class ReflectionMethodHhvmWrapper extends \ReflectionMethod
-{
-    public function getParameters()
-    {
-        $params = array();
-
-        foreach (parent::getParameters() as $i => $p) {
-            $params[] = new ReflectionParameterHhvmWrapper(array($this->class, $this->name), $i);
+            yield print_r($defaults, true);
         }
 
-        return $params;
-    }
-}
+        if ($class->isSubclassOf(EventSubscriberInterface::class)) {
+            yield EventSubscriberInterface::class;
+            yield print_r(\call_user_func(array($class->name, 'getSubscribedEvents')), true);
+        }
 
-/**
- * @internal
- */
-class ReflectionParameterHhvmWrapper extends \ReflectionParameter
-{
-    public function getDefaultValue()
-    {
-        return array($this->isVariadic(), $this->isDefaultValueAvailable() ? parent::getDefaultValue() : null);
+        if ($class->isSubclassOf(ServiceSubscriberInterface::class)) {
+            yield ServiceSubscriberInterface::class;
+            yield print_r(\call_user_func(array($class->name, 'getSubscribedServices')), true);
+        }
     }
 }

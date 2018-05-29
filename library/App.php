@@ -57,12 +57,6 @@ class App
         new \Municipio\Customizer\Customizer();
 
         /**
-         * Customizer
-         */
-
-        new \Municipio\Customizer\Customizer();
-
-        /**
          * Content
          */
         new \Municipio\Content\CustomPostType();
@@ -74,8 +68,6 @@ class App
         /**
          * Widget
          */
-        new \Municipio\Widget\RichEditor();
-        new \Municipio\Widget\Contact();
         new \Municipio\Widget\Widgets();
 
         /**
@@ -85,10 +77,6 @@ class App
         new \Municipio\Comment\LikeButton();
         new \Municipio\Comment\CommentsFilters();
         new \Municipio\Comment\CommentsActions();
-
-        add_action('widgets_init', function () {
-            register_widget('\Municipio\Widget\Contact');
-        });
 
         /**
          * Admin

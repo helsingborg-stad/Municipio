@@ -7,7 +7,7 @@
     'fields' => array(
         0 => array(
             'key' => 'field_5a67441743e92',
-            'label' => __('Links', 'municipio'),
+            'label' => __('Länkar', 'municipio'),
             'name' => 'widget_header_links',
             'type' => 'flexible_content',
             'instructions' => '',
@@ -22,7 +22,7 @@
                 '5a67454543e96' => array(
                     'key' => '5a67454543e96',
                     'name' => 'external_link',
-                    'label' => __('External link', 'municipio'),
+                    'label' => __('Externa länkar', 'municipio'),
                     'display' => 'block',
                     'sub_fields' => array(
                         0 => array(
@@ -101,7 +101,7 @@
                 '5a6748b3ac325' => array(
                     'key' => '5a6748b3ac325',
                     'name' => 'internal_link',
-                    'label' => __('Internal link', 'municipio'),
+                    'label' => __('Interna länkar', 'municipio'),
                     'display' => 'block',
                     'sub_fields' => array(
                         0 => array(
@@ -185,7 +185,7 @@
                 '5a6748eaac32a' => array(
                     'key' => '5a6748eaac32a',
                     'name' => 'search_trigger',
-                    'label' => __('Search trigger', 'municipio'),
+                    'label' => __('Sök utlösare', 'municipio'),
                     'display' => 'block',
                     'sub_fields' => array(
                         0 => array(
@@ -214,7 +214,7 @@
                 '5a674db4e25be' => array(
                     'key' => '5a674db4e25be',
                     'name' => 'menu_trigger',
-                    'label' => __('Menu trigger', 'municipio'),
+                    'label' => __('Meny utlösare', 'municipio'),
                     'display' => 'block',
                     'sub_fields' => array(
                         0 => array(
@@ -243,7 +243,7 @@
                 '5a674e21cb6c0' => array(
                     'key' => '5a674e21cb6c0',
                     'name' => 'translate_trigger',
-                    'label' => __('Translate trigger', 'municipio'),
+                    'label' => __('Översättning utlösare', 'municipio'),
                     'display' => 'block',
                     'sub_fields' => array(
                         0 => array(
@@ -270,15 +270,15 @@
                     'max' => '',
                 ),
             ),
-            'button_label' => __('Add link', 'municipio'),
+            'button_label' => __('Lägg till länk', 'municipio'),
             'min' => '',
             'max' => '',
         ),
         1 => array(
-            'key' => 'field_5a6745d543e98',
-            'label' => '',
-            'name' => '',
-            'type' => 'clone',
+            'key' => 'field_5ad888630b6c0',
+            'label' => __('Link size', 'municipio'),
+            'name' => 'widget_link_size',
+            'type' => 'radio',
             'instructions' => '',
             'required' => 0,
             'conditional_logic' => 0,
@@ -287,13 +287,17 @@
                 'class' => '',
                 'id' => '',
             ),
-            'clone' => array(
-                0 => 'group_5a65d5e7e913b',
+            'choices' => array(
+                'default' => __('Default', 'municipio'),
+                'small' => __('Small', 'municipio'),
+                'large' => __('Large', 'municipio'),
             ),
-            'display' => 'seamless',
-            'layout' => 'block',
-            'prefix_label' => 0,
-            'prefix_name' => 0,
+            'allow_null' => 0,
+            'other_choice' => 0,
+            'save_other_choice' => 0,
+            'default_value' => '',
+            'layout' => 'horizontal',
+            'return_format' => 'value',
         ),
     ),
     'location' => array(

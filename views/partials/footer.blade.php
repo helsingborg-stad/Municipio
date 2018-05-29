@@ -8,7 +8,7 @@
     <div class="container">
 
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
-        <div class="grid">
+        <div class="grid grid--columns">
             <div class="grid-sm-12">
                 <nav>
                     <ul class="nav nav-help nav-horizontal">
@@ -41,7 +41,7 @@
 
                 {{-- ## Footer header befin ## --}}
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'top' || !get_field('footer_logotype_vertical_position', 'option'))
-                <div class="grid">
+                <div class="grid grid--columns">
                     <div class="grid-md-12">
                         @if (get_field('footer_logotype', 'option') != 'hide')
                         {!! municipio_get_logotype(get_field('footer_logotype', 'option'), false, true, false, false) !!}
@@ -75,7 +75,7 @@
                 {{-- ## Footer header end ## --}}
 
                 {{-- ## Footer widget area begin ## --}}
-                <div class="grid sidebar-footer-area">
+                <div class="grid grid--columns sidebar-footer-area">
                     @if (is_active_sidebar('footer-area'))
                         <?php dynamic_sidebar('footer-area'); ?>
                     @endif

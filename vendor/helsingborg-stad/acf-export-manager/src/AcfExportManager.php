@@ -160,7 +160,7 @@ class AcfExportManager
     public function maybeCreateExportFolders()
     {
         if (!is_writable($this->exportFolder)) {
-            trigger_error('The export folder (' . $folder .') is not writable. Exports will not be saved.', E_USER_ERROR);
+            trigger_error('The export folder (' . $this->exportFolder .') is not writable. Exports will not be saved.', E_USER_ERROR);
         }
 
         if (!file_exists($this->exportFolder . 'json')) {

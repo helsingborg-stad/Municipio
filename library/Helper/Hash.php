@@ -11,8 +11,7 @@ class Hash
      */
     public static function short($data)
     {
-        $data = self::sanitizeData($data);
-        return substr(base_convert(md5($data), 16, 32), 0, 12);
+        return substr(base_convert(md5(self::sanitizeData($data)), 16, 32), 0, 12);
     }
 
     /**
@@ -25,7 +24,6 @@ class Hash
         if (!is_string($data)) {
             $data = serialize($data);
         }
-
         return $data;
     }
 }

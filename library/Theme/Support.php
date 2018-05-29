@@ -126,6 +126,7 @@ class Support
                 'chat'
             )
         );
+        add_theme_support('customize-selective-refresh-widgets');
     }
 
     /**
@@ -133,7 +134,7 @@ class Support
      */
     public static function removeTheGenerator()
     {
-        add_filter('the_generator', '__return_empty_string');
+        add_filter('the_generator', function($a, $b) {return '';}, 9, 2);
         remove_filter('update_footer', 'core_update_footer');
     }
 

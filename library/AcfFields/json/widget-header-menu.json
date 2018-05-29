@@ -16,8 +16,8 @@
                 "id": ""
             },
             "choices": {
-                "2": "Primary (Menu ID: 2)",
-                "3": "ROFL (Menu ID: 3)"
+                "2": "Menu (Menu ID: 2)",
+                "6": "topmeny (Menu ID: 6)"
             },
             "default_value": [],
             "allow_null": 0,
@@ -28,10 +28,10 @@
             "placeholder": ""
         },
         {
-            "key": "field_5a65d73014a78",
-            "label": "",
-            "name": "",
-            "type": "clone",
+            "key": "field_5ad89441c02a1",
+            "label": "Link size",
+            "name": "widget_link_size",
+            "type": "radio",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -40,13 +40,17 @@
                 "class": "",
                 "id": ""
             },
-            "clone": [
-                "group_5a65d5e7e913b"
-            ],
-            "display": "seamless",
-            "layout": "block",
-            "prefix_label": 0,
-            "prefix_name": 0
+            "choices": {
+                "default": "Default",
+                "small": "Small",
+                "large": "Large"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "",
+            "layout": "horizontal",
+            "return_format": "value"
         }
     ],
     "location": [

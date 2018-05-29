@@ -12,17 +12,43 @@ class BaseController
 
     public function __construct()
     {
-        $customizer = apply_filters('Municipio/Controller/BaseController/Customizer', false);
-
-        if ($customizer) {
-             $this->customizerHeader();
-
+        /* Preview mode 2.0 */
+        if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
+            $this->customizerHeader();
+            $this->customizerFooter();
+            $this->layout();
         } else {
             $this->getLogotype();
             $this->getHeaderLayout();
+            $this->getFooterLayout();
         }
 
-        $this->getFooterLayout();
+        //Main
+        $this->getGeneral();
+        $this->data['ajaxUrl'] = $this->getAjaxUrl();
+        $this->data['bodyClass'] = $this->getBodyClass();
+        $this->data['languageAttributes'] = $this->getLanguageAttributes();
+
+        //Language
+        $this->data['lang'] = array(
+            'jumpToMainMenu' => __('Jump to the main menu', 'municipio'),
+            'jumpToMainContent' => __('Jump to the main content', 'municipio'),
+            'ago'   => __("ago", 'municipio'),
+            'since'   => __("since", 'municipio'),
+            'weeks'   => __("weeks", 'municipio'),
+            'days'   => __("days", 'municipio'),
+            'hours'   => __("hours", 'municipio'),
+            'minutes'   => __("minutes", 'municipio'),
+            'seconds'   => __("seconds", 'municipio'),
+        );
+
+        //Admin notices (show incomplete configuration to administrator)
+        if (is_user_logged_in() && current_user_can('edit_themes')) {
+            $this->data['showAdminNotices'] = true;
+        } else {
+            $this->data['showAdminNotices'] = false;
+        }
+
         $this->getNavigationMenus();
         $this->getHelperVariables();
         $this->getFilterData();
@@ -33,26 +59,118 @@ class BaseController
     }
 
     /**
+     * Set main layout columns
+     * @return void
+     */
+    public function layout()
+    {
+        $this->data['layout']['content']  = 'grid-xs-12';
+        $this->data['layout']['sidebarLeft'] = 'grid-xs-12 grid-lg-3';
+        $this->data['layout']['sidebarRight'] = 'grid-xs-12 grid-lg-3';
+
+        $sidebarLeft = false;
+        $sidebarRight = false;
+
+        if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option') && is_post_type_archive() || get_field('nav_sub_enable', 'option') && is_singular()) {
+            $sidebarLeft = true;
+        }
+
+        if (is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom')) {
+            $sidebarLeft = true;
+        }
+
+        if (is_active_sidebar('right-sidebar')) {
+            $sidebarRight = true;
+        }
+
+        if ($sidebarLeft && $sidebarRight) {
+            $this->data['layout']['content']  = 'grid-xs-12 grid-lg-6';
+        } elseif ($sidebarLeft || $sidebarRight) {
+            $this->data['layout']['content']  = 'grid-xs-12 grid-lg-9';
+        }
+
+        if (is_front_page()) {
+            $this->data['layout']['content']  = 'grid-xs-12';
+        }
+
+        $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
+    }
+
+    /**
+     * General site data (meta tags)
+     * @return void
+     */
+    public function getGeneral()
+    {
+        //General blog details / title
+        $this->data['wpTitle'] = wp_title('|', false, 'right') . get_bloginfo('name');
+        $this->data['description']  = get_bloginfo('description');
+
+        //Timestamps for post
+        $this->data['published'] = get_the_time('Y-m-d');
+        $this->data['modified'] = get_the_modified_time('Y-m-d');
+    }
+
+    /**
+     * Get language attributes
+     * @return void
+     */
+    public function getLanguageAttributes()
+    {
+        return get_language_attributes();
+    }
+
+    /**
+     * Creates a ajax url
+     * @return void
+     */
+    public function getAjaxUrl()
+    {
+        return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "2.0", "Municpio/ajaxUrl");
+    }
+
+    /**
+     * Get body class
+     * @return void
+     */
+    public function getBodyClass()
+    {
+        return join(' ', get_body_class('no-js'));
+    }
+
+    /**
      * Sends necessary data to the view for customizer header
      * @return void
      */
     public function customizerHeader()
     {
-        $headerWidgetAreas = \Municipio\Customizer\Header::enabledWidgets();
+        $customizerHeader = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__header_sections', 'options', 'id');
 
-        if (is_array($headerWidgetAreas) && !empty($headerWidgetAreas)) {
-            $this->data['headerLayout']['headers'] = (new \Municipio\Theme\CustomizerHeader($headerWidgetAreas))->headers;
+        if ($customizerHeader->hasItems) {
+            foreach ($customizerHeader->repeater as $headerData) {
+                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header($headerData);
+            }
         }
-
-        $this->data['headerLayout']['customizer'] = true;
-        $this->data['headerLayout']['template'] = apply_filters('Municipio/Controller/BaseController/customizerHeader/Template', 'customizer');
 
         //Old mobile menu
         $navigation = new \Municipio\Helper\Navigation();
         $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
         $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+    }
 
-        //Old search
+    /**
+     * Sends necessary data to the view for customizer footer
+     * @return void
+     */
+    public function customizerFooter()
+    {
+        $customizerFooter = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__footer_sections', 'options', 'id');
+
+        if ($customizerFooter->hasItems) {
+            foreach ($customizerFooter->repeater as $footerData) {
+                $this->data['footerSections'][] = new \Municipio\Customizer\Footer($footerData);
+            }
+        }
     }
 
     public function getFixedActionBar()
@@ -64,7 +182,7 @@ class BaseController
     {
         $this->data = array_merge(
             $this->data,
-            apply_filters('Municipio/controller/base/view_data', $this->data)
+            apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/ViewData')
         );
     }
 
@@ -82,7 +200,6 @@ class BaseController
         } elseif ($this->data['hasLeftSidebar'] && !$this->data['hasRightSidebar']) {
             $contentGridSize = 'grid-md-8 grid-lg-9';
         }
-
 
         $this->data['contentGridSize'] = $contentGridSize;
     }
@@ -160,6 +277,10 @@ class BaseController
 
     public function getLogotype()
     {
+        if (isset($this->data['logotype'])) {
+            return;
+        }
+
         $this->data['logotype'] = array(
             'standard' => get_field('logotype', 'option'),
             'negative' => get_field('logotype_negative', 'option')
@@ -254,25 +375,28 @@ class BaseController
     }
 
     /**
-     * Bind to a custom template file
-     * @return void
-     */
-    public static function registerTemplate()
-    {
-        // \Municipio\Helper\Template::add('Front page', 'front-page.blade.php');
-    }
-
-    /**
      * Returns the data
      * @return array Data
      */
     public function getData()
     {
-        return apply_filters('HbgBlade/data', $this->data);
+        //Create filters for all data vars
+        if (isset($this->data) && !empty($this->data) && is_array($this->data)) {
+            foreach ($this->data as $key => $value) {
+                $this->data[$key] = apply_filters('Municipio/' . $key, $value);
+            }
+        }
+
+        //Old depricated filter
+        $this->data = apply_filters_deprecated('HbgBlade/data', array($this->data), "2.0", "Municipio/ViewData");
+
+        //General filter
+        return apply_filters('Municipio/viewData', $this->data);
     }
 
     /**
      * Creates a local copy of the global instance
+     * The target var should be defined in class header as private or public
      * @param string $global The name of global varable that should be made local
      * @param string $local Handle the global with the name of this string locally
      * @return void

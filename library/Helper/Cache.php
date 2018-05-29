@@ -181,7 +181,7 @@ class Cache
      */
     private function isActive()
     {
-        if (!defined('WP_USE_MEMCACHED') || defined('WP_USE_MEMCACHED') && !WP_USE_MEMCACHED) {
+        if (defined('MUNICIPIO_FRAGMENT_CACHE') && !MUNICIPIO_FRAGMENT_CACHE) {
             return false;
         }
 

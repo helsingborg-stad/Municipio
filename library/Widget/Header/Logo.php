@@ -45,7 +45,6 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
         $this->data['language'] = array(
             'logoLabel' => __("Go to homepage", 'municipio'),
         );
-
     }
 
     public function checkFiletype($attachment)

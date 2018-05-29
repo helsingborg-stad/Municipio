@@ -35,6 +35,31 @@ class Html
     }
 
     /**
+     * Turn an array of HTML attributes into a string
+     * @param string $content String to get HTML attributes from
+     * @return array       Attributes
+     */
+    public static function attributesToString($attributesArray)
+    {
+        if (!is_array($attributesArray) || empty($attributesArray)) {
+            return false;
+        }
+
+        $attributes = array();
+
+        foreach ($attributesArray as $attribute => $value) {
+            if (!is_array($value) && !is_string($value) || !$value || empty($value)) {
+                continue;
+            }
+
+            $values = (is_array($value)) ? implode(' ', array_unique($value)) : $value;
+            $attributes[] = $attribute . '="' . $values . '"';
+        }
+
+        return implode(' ', $attributes);
+    }
+
+    /**
      * Get HTML attributes from string
      * @param string $content String to get HTML attributes from
      * @return array       Attributes
@@ -65,7 +90,6 @@ class Html
         return;
     }
 
-
     /**
      * Strip tags & attributes from String
      * @param string $content String to get HTML attributes from
@@ -73,7 +97,6 @@ class Html
      */
     public static function stripTagsAndAtts($content, $allowedTags = '', $allowedAtts = '')
     {
-
         if (isset($allowedTags) && is_array($allowedTags)) {
             $content = strip_tags($content, implode($allowedTags));
         } else {
@@ -94,7 +117,6 @@ class Html
                 $content = str_replace($att, "", $content);
             }
         }
-
 
         return $content;
     }

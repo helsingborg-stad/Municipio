@@ -1,5 +1,4 @@
-<div class="{{ $widgetWrapperClass }} {{$args['widget_id']}} {{$themeClass}}" id="{{$args['widget_id']}}">
+{!! $args['before_widget'] !!}
     @yield('widget')
-</div>
-
+{!! $args['after_widget'] !!}
 

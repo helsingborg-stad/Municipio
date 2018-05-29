@@ -12,8 +12,11 @@ class Icons
     public static function getPricons()
     {
         if (!defined('MUNICIPIO_STYLEGUIDE_URI')) {
-            return false;
+            $styleGuideUrl = '//helsingborg-stad.github.io/styleguide-web/dist';
+        } else {
+            $styleGuideUrl = MUNICIPIO_STYLEGUIDE_URI;
         }
+
 
         $transientKey = apply_filters('Municipio/Theme/Icons/Pricons/TransientKey', 'hbg_pricons');
 
@@ -21,7 +24,7 @@ class Icons
             return get_site_transient($transientKey);
         }
 
-        $url = apply_filters('Municipio/Theme/Icons/Pricons/Url', 'https:' . MUNICIPIO_STYLEGUIDE_URI . 'pricons.json');
+        $url = apply_filters('Municipio/Theme/Icons/Pricons/Url', 'https:' . $styleGuideUrl . 'pricons.json');
         $json = \Municipio\Helper\Data::getRemoteJson($url);
 
         if ($json && is_array($json) && !empty($json)) {

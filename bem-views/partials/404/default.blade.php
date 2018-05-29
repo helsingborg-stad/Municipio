@@ -13,10 +13,6 @@
     <div class="grid">
         <div class="grid-lg-8" style="margin: 0 auto;">
             <article class="clearfix">
-                <!--
-                <h1>{{ get_field('404_error_message', 'option') ? get_field('404_error_message', 'option') : 'The page could not be found' }}</h1>
-                <h4 style="margin-top:0;"><?php _e('Error 404', 'municipio'); ?></h4>
-                -->
 
                 {!! get_field('404_error_info', 'option') ? get_field('404_error_info', 'option') : '' !!}
             </article>

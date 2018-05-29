@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container main-container">
+<div class="container main-container u-pb-5">
 
     @include('partials.breadcrumbs')
 
@@ -12,7 +12,7 @@
         <div class="{{ $contentGridSize }} grid-print-12" id="readspeaker-read">
 
             @if (is_active_sidebar('content-area-top'))
-                <div class="grid sidebar-content-area sidebar-content-area-top">
+                <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
                 </div>
             @endif
@@ -24,12 +24,12 @@
             @endwhile
 
             @if (is_active_sidebar('content-area'))
-                <div class="grid sidebar-content-area sidebar-content-area-bottom">
+                <div class="grid grid--columns sidebar-content-area sidebar-content-area-bottom">
                     <?php dynamic_sidebar('content-area'); ?>
                 </div>
             @endif
 
-            <div class="hidden-xs hidden-sm hidden-md hidden-print">
+            <div class="hidden-xs hidden-sm hidden-print">
                 @include('partials.page-footer')
             </div>
         </div>
@@ -38,8 +38,8 @@
         @include('partials.sidebar-right')
     </div>
 
-    <div class="grid hidden-lg hidden-xl">
-        <div class="grid-sm-12">
+    <div class="grid grid--columns hidden-md hidden-lg u-hidden@xl">
+        <div class="grid-md-8 offset-md-4">
             @include('partials.page-footer')
         </div>
     </div>

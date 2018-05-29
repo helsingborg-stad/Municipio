@@ -1,6 +1,6 @@
 [{
     "key": "group_5a65d5e7e913b",
-    "title": "Widget header - Common",
+    "title": "Widget - Common Utility fields",
     "fields": [
         {
             "key": "field_5a67574c78160",
@@ -22,7 +22,7 @@
         {
             "key": "field_5a65d5f15bffd",
             "label": "Visibility",
-            "name": "widget_header_visibility",
+            "name": "widget_utility_visibility",
             "type": "checkbox",
             "instructions": "",
             "required": 0,
@@ -44,18 +44,178 @@
             "layout": "vertical",
             "toggle": 0,
             "return_format": "value"
+        },
+        {
+            "key": "field_5ac77af87a6b3",
+            "label": "Margin options",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_5ac77d3d7a6bc",
+            "label": "Margins",
+            "name": "widget_utility_margin",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5ac77efa7a6bd",
+                    "label": "Direction",
+                    "name": "direction",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "l": "Left",
+                        "r": "Right",
+                        "x": "Left & Right"
+                    },
+                    "default_value": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "return_format": "value",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_5ac77f3e7a6be",
+                    "label": "Margin",
+                    "name": "margin",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "auto": "Auto",
+                        "1": "Small",
+                        "4": "Large",
+                        "0": "None"
+                    },
+                    "default_value": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "return_format": "value",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_5ac77f677a6bf",
+                    "label": "Breakpoint",
+                    "name": "breakpoint",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "@sm": "SM and up",
+                        "@md": "MD and up",
+                        "@lg": "LG and up"
+                    },
+                    "default_value": [],
+                    "allow_null": 1,
+                    "multiple": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "return_format": "value",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_5ae9bbb2fedcb",
+            "label": "CSS",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_5ae9bbc6fedcc",
+            "label": "Custom CSS classes",
+            "name": "widget_utility_custom_css",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "widget",
                 "operator": "==",
-                "value": "post"
+                "value": "widget-header-menu"
+            }
+        ],
+        [
+            {
+                "param": "widget",
+                "operator": "==",
+                "value": "widget-header-logo"
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 100,
     "position": "normal",
     "style": "default",
     "label_placement": "top",

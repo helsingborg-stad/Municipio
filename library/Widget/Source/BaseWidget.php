@@ -66,7 +66,9 @@ abstract class BaseWidget extends \WP_Widget
             parent::__construct(
                 $this->config['id'],
                 __($this->config['name'], 'municipio'),
-                array( 'description' => __($this->config['description'], 'municipio'), )
+                array(
+                    'description' => __($this->config['description'], 'municipio')
+                )
             );
         }
     }
@@ -85,10 +87,6 @@ abstract class BaseWidget extends \WP_Widget
     {
         $this->data['args'] = $args;
         $this->data['instance'] = $instance;
-
-        if (defined('MUNICIPIO_BEM_THEME_NAME')) {
-            $this->data['themeClass'] = MUNICIPIO_BEM_THEME_NAME;
-        }
 
         if (method_exists($this, 'beforeViewController')) {
             $this->beforeViewController();
@@ -112,23 +110,15 @@ abstract class BaseWidget extends \WP_Widget
      */
     public function form($instance)
     {
-        if (isset($instance[ 'title' ])) {
-            $title = $instance[ 'title' ];
-        } else {
-            $title = __('New title', 'municipio');
-        }
-        // Widget admin form?>
-        <p>
-            <label for="<?php echo $this->get_field_id('title');
-        ?>"><?php _e('Title:');
-        ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title');
-        ?>" name="<?php echo $this->get_field_name('title');
-        ?>" type="text" value="<?php echo esc_attr($title);
-        ?>" />
-        </p>
-        <?php
+        $title = (isset($instance[ 'title' ])) ? $instance[ 'title' ] : __('New title', 'municipio');
 
+        $output = '';
+        $output .= '<p>';
+        $output .= '<label for ="' . $this->get_field_id('title') . '">' . _e('Title:') . '</label>';
+        $output .= '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_id('title') . '" type="text" value="' . esc_attr($title) . '">';
+        $output .= '</p>';
+
+        echo $output;
     }
 
    /**

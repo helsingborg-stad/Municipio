@@ -343,3 +343,62 @@ Municipio is integrated with google web-fonts. It enables smart loading of fonts
 define('WEB_FONT', 'Roboto'); //The google fonts name (without weights)
 define('WEB_FONT_REMOTE', true); //Load font kit from cdn
 ```
+# Version 2.0
+The goal of version 2.0 is to restructure the theme frontend and move towards the BEM (IT) standard for markup. More filters will be added in a automatic manner, mutch like ACF doe's it. These will for now, be documented below. 
+
+## Deprecated functionality (notice phase)
+Version 2.0 will introduce some warnings aboute the removal of some prevoius functionality. According to plan, this functionality will be actually be removed in version 3.0. Functions that will be removed in 3.0 are. 
+
+- Gravitiforms optimizations 
+- Honeypot functionality for comments (this will be moved to separate plugin). Will also include google recaptcha.
+- Contact widget (replacement avabile in modularity)
+- RichText Widget (replacement embedded in core)
+- PostType & Taxonomy creator (move to plugin)
+- Upload filters (move to plugin)
+
+## Filters
+
+### Depricated filters
+- HbgBlade/data replaced with Municipio/viewData
+- Municipio/ajax_url_in_head replaced with Municipio/ajaxUrl
+- Modularity/CoreTemplatesSearchPaths
+
+### Blade view filter
+All variables sent (created) in a controller will automatically go trough a filter named with the variable key. 
+
+```php
+apply_filters('Municipio/{{KEY}}', $var);
+```
+
+## Global view filter
+You may prefer to get a full array of everything sent to a view. After the filter above has run, a global filter will be applied. This replaces the old  filter. 
+
+```php
+apply_filters('Municipio/viewData', $var);
+```
+## Constants 
+MUNICIPIO_FRAGMENT_CACHE - Set to false to remove fragment cache. 
+
+## Theme view structure
+
+```
+bem-views 
+│   [Main folder for  theme views, containing WordPress templates like page.blade.php] 
+│
+└───components
+│   │   [Components for the theme like card.blade.php]
+│   │
+└───partials
+│   │   [Big chunks that are reused in templates footer.blade.php]
+│   │
+└───templates
+    │   [General templates that are included in main WordPress views like master.blade.php]
+│   │
+└───utilities
+    │   [Small pieces used by components like button.blade.php]
+│   │
+└───widgets
+    │   [Widgetized components]
+    │
+
+```

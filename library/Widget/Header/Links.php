@@ -18,6 +18,20 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
 
     public function viewController($args, $instance)
     {
+        $attributes = new \Municipio\Helper\ElementAttribute();
+        $attributes->addClass('c-nav');
+
+        $sizes = array(
+            'small' => 'c-nav--small',
+            'large' => 'c-nav--large'
+        );
+
+        if ($this->get_field('widget_link_size') && isset($sizes[$this->get_field('widget_link_size')])) {
+            $attributes->addClass($sizes[$this->get_field('widget_link_size')]);
+        }
+
+
+        $this->data['attributes'] = $attributes->outputAttributes();
         $this->data['links'] = $this->mapLinks();
     }
 
@@ -33,17 +47,17 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
 
         $avalibleLinkTypes = array(
             'external_link' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--external',
+                'classes'       => 'c-nav__link',
                 'attributes'    => '',
                 'template'      => 'widget.header-links.partials.link'
             ),
             'internal_link' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--internal',
+                'classes'       => 'c-nav__link',
                 'attributes'    => '',
                 'template'      => 'widget.header-links.partials.link'
             ),
             'search_trigger' => array(
-                'classes'       => 'o-reset-button u-nowrap c-navbar__item_button c-navbar__item_button--search js-search-trigger pricon pricon-search toggle-search-top',
+                'classes'       => 'o-reset-button u-nowrap c-nav__link js-search-trigger pricon pricon-search toggle-search-top',
                 'attributes'    => 'onclick="return false;"',
                 'text'          => 'Search',
                 'template'      => 'widget.header-links.partials.button'
@@ -55,7 +69,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
                 'template'      =>  'widget.header-links.partials.burger'
             ),
             'translate_trigger' => array(
-                'classes'       => 'c-navbar__item_link c-navbar__item_link--translate js-translate-trigger',
+                'classes'       => 'c-nav__link js-translate-trigger',
                 'attributes'    => '',
                 'text'          => 'Translate',
                 'url'           => '#translate'

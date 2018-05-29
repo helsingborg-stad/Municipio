@@ -29,9 +29,9 @@ class Query
      */
     public static function getTaxQueryTerms()
     {
-         if (!get_query_var('tax_query') || !is_array(get_query_var('tax_query')) || empty(get_query_var('tax_query'))) {
+        if (!get_query_var('tax_query') || !is_array(get_query_var('tax_query')) || empty(get_query_var('tax_query'))) {
             return false;
-         }
+        }
 
         $taxonomies = array();
         foreach (get_query_var('tax_query') as $key => $query) {

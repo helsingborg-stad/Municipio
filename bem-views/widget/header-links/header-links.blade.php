@@ -1,9 +1,9 @@
 @if (is_array($links) && !empty($links))
 @extends('widget.header-widget')
     @section('widget')
-        <ul class="c-navbar c-navbar--header-widget-links {{$themeClass}}">
+        <ul {!! $attributes !!}>
             @foreach ($links as $link)
-                <li class="c-navbar__item">
+                <li class="c-nav__item">
                     @if (isset($link['template']) && $link['template'])
                         @include($link['template'])
                     @else

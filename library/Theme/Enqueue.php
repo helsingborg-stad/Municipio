@@ -17,6 +17,9 @@ class Enqueue
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
 
+        //Customizer Style
+        add_action('customize_controls_enqueue_scripts', array($this, 'customizerStyle'));
+
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
         add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
 
@@ -25,7 +28,10 @@ class Enqueue
         add_filter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
 
         // Removes generator tag
-        add_filter('the_generator', '__return_empty_string');
+        add_filter('the_generator', function($a, $b) {
+            return '';
+        }, 9, 2);
+
 
         //Move scripts to footer
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
@@ -37,6 +43,15 @@ class Enqueue
         add_filter('gform_init_scripts_footer', '__return_true');
         add_filter('gform_cdata_open', array($this, 'wrapGformCdataOpen'));
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
+    }
+
+    public function customizerStyle()
+    {
+        $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
+        if ($enqueueBem) {
+            wp_register_style('municipio-customizer', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/customizer.min.css'), '', null);
+            wp_enqueue_style('municipio-customizer');
+        }
     }
 
     public function wrapGformCdataOpen($content)
@@ -129,10 +144,6 @@ class Enqueue
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
-            ),
-            'messages' => array(
-                'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                'onError' => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
         wp_enqueue_script('municipio');
