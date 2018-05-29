@@ -89,6 +89,10 @@ class BaseController
             $this->data['layout']['content']  = 'grid-xs-12 grid-lg-9';
         }
 
+        if (is_front_page()) {
+            $this->data['layout']['content']  = 'grid-xs-12';
+        }
+
         $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
     }
 
