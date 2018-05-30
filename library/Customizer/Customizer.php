@@ -26,7 +26,7 @@ class Customizer extends CustomizerHelper
     {
         $headers = $this->getRepeaterField('customizer__header_sections');
 
-        if (!$headers->hasItems) {
+        if (!$headers->hasItems()) {
             return;
         }
 
@@ -63,7 +63,7 @@ class Customizer extends CustomizerHelper
     {
         $footers = $this->getRepeaterField('customizer__footer_sections');
 
-        if (!$footers->hasItems) {
+        if (!$footers->hasItems()) {
             return;
         }
 
