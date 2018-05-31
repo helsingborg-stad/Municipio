@@ -217,7 +217,7 @@ class CustomizerSection
                 'label'       => __('Header style', 'textdomain'),
                 'default'     => 'default',
                 'priority'    => 5,
-                'choices'     => $choices,
+                'choices'     => array(),
             ],
             [
                 'type'        => 'radio-buttonset',
