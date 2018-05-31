@@ -11,6 +11,7 @@ class AcfExportManager
 
     public function __construct()
     {
+
         // Single
         add_action('acf/update_field_group', array($this, 'export'));
         //add_action('acf/delete_field_group', array($this, 'deleteExport'));
@@ -75,7 +76,7 @@ class AcfExportManager
     {
         $filename = $this->getExportFilename($fieldgroup);
 
-        $this->maybeUunlink($this->exportFolder . 'php/' . $filename['php']);
+        $this->maybeUnlink($this->exportFolder . 'php/' . $filename['php']);
         $this->maybeUnlink($this->exportFolder . 'json/' . $filename['json']);
 
         return true;
@@ -292,7 +293,8 @@ class AcfExportManager
      */
     public function translateFieldParams(array $field) : array
     {
-        $keys = array('prepend', 'append', 'placeholder');
+
+        $keys = array('prepend', 'append', 'placeholder', 'default_value');
 
         foreach ($keys as $key) {
             if (!isset($field[$key])) {
