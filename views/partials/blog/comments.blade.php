@@ -1,4 +1,4 @@
- <div class="comments-wrapper">
+ <div class="comments-wrapper u-mt-4">
     <ul class="comments comments-new" id="comments">
         @foreach($comments as $comment)
             @if($comment->comment_parent == 0)
