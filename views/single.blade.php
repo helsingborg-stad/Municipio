@@ -8,7 +8,7 @@
     <div class="grid  grid--columns">
         <div class="grid-md-12 grid-lg-9">
             @if (is_single() && is_active_sidebar('content-area-top'))
-                <div class="grid sidebar-content-area sidebar-content-area-top">
+                <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
                 </div>
             @endif

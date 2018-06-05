@@ -15,16 +15,16 @@
             if (is_active_sidebar('right-sidebar') && get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
                 $cols = 'grid-md-8 grid-lg-6';
             } elseif (is_active_sidebar('right-sidebar') || get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option')) {
-                $cols = 'grid-md-12 grid-lg-9';
+                $cols = 'grid-md-8 grid-lg-9';
             } elseif ($hasLeftSidebar) {
-                $cols = 'grid-md-12 grid-lg-9';
+                $cols = 'grid-md-8 grid-lg-9';
             }
         ?>
 
         <div class="{{ $cols }}">
 
             @if (is_active_sidebar('content-area-top'))
-                <div class="grid sidebar-content-area sidebar-content-area-top">
+                <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
                 </div>
             @endif
@@ -53,7 +53,7 @@
             </div>
 
             @if (is_active_sidebar('content-area'))
-                <div class="grid sidebar-content-area sidebar-content-area-bottom">
+                <div class="grid grid--columns sidebar-content-area sidebar-content-area-bottom">
                     <?php dynamic_sidebar('content-area'); ?>
                 </div>
             @endif
