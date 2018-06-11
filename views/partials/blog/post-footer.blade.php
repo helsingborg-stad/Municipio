@@ -1,6 +1,6 @@
 <footer class="post-footer">
     @if (get_field('post_show_share', get_the_id()) !== false && get_field('page_show_share', 'option') !== false && is_single())
-        <div class="grid">
+        <div class="grid u-mb-4">
             <div class="grid-xs-12">
                 <div class="box box-border gutter gutter-horizontal no-margin">
                     <div class="gutter gutter-vertical gutter-sm">
