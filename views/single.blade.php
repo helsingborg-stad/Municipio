@@ -23,7 +23,7 @@
 
             @if (is_single() && comments_open() && get_option('comment_registration') == 0 || is_single() && comments_open() && is_user_logged_in())
                 @if(get_option('comment_order') == 'desc')
-                    <div class="grid u-mb-4">
+                    <div class="grid">
                         <div class="grid-sm-12">
                             @include('partials.blog.comments-form')
                         </div>
