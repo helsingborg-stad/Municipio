@@ -45,7 +45,9 @@
                             <h1>{{ the_archive_title() }}</h1>
                         @endif
                     @endif
-                    @include('partials.accessibility-menu')
+                    <div class="u-mb-3">
+                        @include('partials.accessibility-menu')
+                    </div>
                 </div>
             </div>
             @else
@@ -102,7 +104,7 @@
             @endif
 
             <div class="grid">
-                <div class="grid-sm-12 text-center">
+                <div class="grid-sm-12 text-center u-mb-7">
                     {!!
                         paginate_links(array(
                             'type' => 'list'
