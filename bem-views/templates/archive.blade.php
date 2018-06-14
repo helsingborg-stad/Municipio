@@ -27,7 +27,7 @@
     @include('components.dynamic-sidebar', ['id' => 'content-area-top'])
 
     @if (have_posts())
-        <div class="c-archive c-archive--{{sanitize_title($postType)}} grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
+        <div class="c-archive c-archive--{{sanitize_title($postType)}} grid u-mt-5" @if (in_array($template, array('cards'))) data-equal-container @endif>
             <?php $postNum = 0; ?>
             @while(have_posts())
                 {!! the_post() !!}
@@ -42,6 +42,16 @@
     @endif
 
     @include('components.dynamic-sidebar', ['id' => 'content-area'])
+
+            <div class="grid">
+                <div class="grid-sm-12 text-center">
+                    {!!
+                        paginate_links(array(
+                            'type' => 'list'
+                        ))
+                    !!}
+                </div>
+            </div>
 @stop
 
 @section('sidebar-right')
