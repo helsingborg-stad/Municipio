@@ -11,10 +11,12 @@ if (!function_exists('municipio_show_posts_pag')) {
 /**
  * Get a posts featured image thumbnail by post id
  * @param  int|null $post_id Post id or null
+ * @param array $size Set image width/height eg array(400, 300)
+ * @param string $ratio Sets the image ratio
  * @return string            Thumbnail url
  */
 if (!function_exists('municipio_get_thumbnail_source')) {
-    function municipio_get_thumbnail_source($post_id = null, $size = array())
+    function municipio_get_thumbnail_source($post_id = null, $size = array(), $ratio = '16:9')
     {
 
         //Use current id as default
@@ -30,7 +32,7 @@ if (!function_exists('municipio_get_thumbnail_source')) {
         if (isset($size[0]) && isset($size[1])) {
             $src = wp_get_attachment_image_src(
                 $thumbnail_id,
-                municipio_to_aspect_ratio('16:9', array($size[0], $size[1]))
+                municipio_to_aspect_ratio($ratio, array($size[0], $size[1]))
             );
         } else {
             $src = wp_get_attachment_image_src($thumbnail_id, 'medium');
