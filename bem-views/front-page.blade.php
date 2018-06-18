@@ -1,11 +1,20 @@
-@extends('templates.single')
+@extends('templates.master')
 
-@section('sidebar-left')
-@stop
+@section('layout')
 
-@section('content')
-@include('components.dynamic-sidebar', ['id' => 'content-area'])
-@stop
+@if (is_active_sidebar('content-area'))
+    <section class="creamy creamy-border-bottom  u-py-5 sidebar-content-area">
+        <div class="container">
+            @include('components.dynamic-sidebar', ['id' => 'content-area'])
+        </div>
+    </section>
+@endif
 
-@section('sidebar-right')
+@if (is_active_sidebar('content-area-bottom'))
+    <div class="container u-py-5 sidebar-content-area-bottom">
+        <div class="grid grid--columns">
+                @include('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
+        </div>
+    </div>
+@endif
 @stop
