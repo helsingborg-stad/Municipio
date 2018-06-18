@@ -27,7 +27,7 @@
     @include('components.dynamic-sidebar', ['id' => 'content-area-top'])
 
     @if (have_posts())
-        <div class="c-archive c-archive--{{sanitize_title($postType)}} grid u-mt-5" @if (in_array($template, array('cards'))) data-equal-container @endif>
+        <div class="c-archive c-archive--{{sanitize_title($postType)}} grid u-mt-5" @if (apply_filters('archive_equal_container', false, $postType, $template)) data-equal-container @endif>
             <?php $postNum = 0; ?>
             @while(have_posts())
                 {!! the_post() !!}

@@ -29,6 +29,19 @@ class Archive extends \Municipio\Controller\BaseController
         if ($this->data['grid_alter']) {
             $this->gridAlterColumns();
         }
+
+        add_filter('archive_equal_container', array($this, 'setEqualContainer'), 8, 3);
+    }
+
+    public function setEqualContainer($equalContainer, $postType, $template)
+    {
+        $templatesWithEqualContainer = array('cards');
+
+        if (in_array($template, $templatesWithEqualContainer)) {
+            $equalContainer = true;
+        }
+
+        return $equalContainer;
     }
 
     public function gridAlterColumns()
