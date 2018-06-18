@@ -6,9 +6,8 @@ $thumbnail = municipio_get_thumbnail_source(
     array(500, 500)
 );
 
-$columnSize = \Municipio\Controller\Archive::getColumnSize();
 ?>
-<div class="{{ $columnSize }}">
+
     <a href="{{ the_permalink() }}" class="box box-post-brick <?php echo $grid_alter ? 'brick-columns-' . $gridSize . '"' : ''; ?>">
         @if ($thumbnail)
         <div class="box-image" {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
@@ -48,4 +47,4 @@ $columnSize = \Municipio\Controller\Archive::getColumnSize();
             {{ the_excerpt() }}
         </div>
     </a>
-</div>
+
