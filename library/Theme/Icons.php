@@ -12,7 +12,7 @@ class Icons
     public static function getPricons()
     {
         if (!defined('MUNICIPIO_STYLEGUIDE_URI')) {
-            $styleGuideUrl = '//helsingborg-stad.github.io/styleguide-web/dist';
+            $styleGuideUrl = '//helsingborg-stad.github.io/styleguide-web/dist/';
         } else {
             $styleGuideUrl = MUNICIPIO_STYLEGUIDE_URI;
         }
