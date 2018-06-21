@@ -42,7 +42,7 @@ class Customizer extends CustomizerHelper
 
             //Modify sidebar args
             $sidebarArgs = array_merge($sidebarHelper->getArgs(), [
-                'before_widget' => '<div class="grid-xs-fit-content c-header__item widget %2$s">'
+                'before_widget' => '<div class="grid-xs-auto c-header__item widget %2$s">'
             ]);
             $sidebarHelper->mergeArgs($sidebarArgs);
 
