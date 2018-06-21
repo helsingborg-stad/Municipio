@@ -100,7 +100,7 @@ class Enqueue
             wp_enqueue_style($this->defaultPrimeName . '-bem');
         }
 
-        wp_register_style('municipio', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/app.min.css'));
+        wp_register_style('municipio', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/app.css'));
         wp_enqueue_style('municipio');
     }
 
