@@ -63,7 +63,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
                 'attributes'    => [
                     'onclick' => 'return false;'
                 ],
-                'text'          => 'Search',
+                'text'          =>  __('Search', 'municipio'),
                 'template'      => 'widget.navigation.button'
             ),
             'menu_trigger' => array(
@@ -79,7 +79,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
             ),
             'translate_trigger' => array(
                 'classes'       => ['c-navbar__action', 'js-translate-trigger'],
-                'text'          => 'Translate',
+                'text'          => __('Översätt', 'municipio'),
                 'url'           => '#translate',
                 'template'      => 'widget.navigation.link'
             )

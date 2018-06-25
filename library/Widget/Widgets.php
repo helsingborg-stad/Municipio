@@ -40,5 +40,6 @@ class Widgets
         register_widget(new \Municipio\Widget\Header\Links);
         register_widget(new \Municipio\Widget\Navigation\Navigation);
         register_widget(new \Municipio\Widget\Brand\Brand);
+        register_widget(new \Municipio\Widget\Media\Media);
     }
 }
