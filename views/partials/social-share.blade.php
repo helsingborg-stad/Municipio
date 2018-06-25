@@ -1,3 +1,4 @@
+<!-- Social -->
 <ul class="share share-social share-social-icon-md share-horizontal share-no-labels hidden-print inline-block">
     <li>
         <a class="share-social-facebook" data-action="share-popup" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo str_replace('/wp/','/',site_url()."/".urlencode($_SERVER['REQUEST_URI'])); ?>" data-tooltip="<?php _e('Share on', 'municipio'); ?> Facebook">
