@@ -72,7 +72,7 @@
                     @include('partials.archive-filters')
                 </div>
             @endif
-                <div class="grid" @if (in_array($template, array('cards'))) data-equal-container @endif>
+                <div class="grid grid--columns" @if (in_array($template, array('cards'))) data-equal-container @endif>
                     @if (have_posts())
                         <?php $postNum = 0; ?>
                         @while(have_posts())
