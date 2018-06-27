@@ -6,7 +6,7 @@ class EventArchive extends Archive
 {
 
     private $eventPostType = "event";
-    private $dbTable;
+    private $db_table;
 
     public function __construct()
     {
