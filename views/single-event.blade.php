@@ -15,15 +15,15 @@
         </div>
         <div class="grid-md-4 hidden-sm hidden-xs">
             <div class="grid info">
-                @if (! empty($date))
+                @if (! empty($occasion))
                 <div class="grid-md-12">
                     <div class="info_box">
                         <div class="icon">
                             <i class="pricon pricon-calendar"></i>
                         </div>
                         <div class="text">
-                            <h3>{{ $date['date'] }} {{ $date['month'] }}</h3>
-                            <span>{{ $date['time'] }}</span>
+                            <h3>{{ $occasion['date_parts']['date'] ?? '' }} {{ $occasion['date_parts']['month'] ?? '' }}</h3>
+                            <span>{{ $occasion['date_parts']['time'] ?? '' }}</span>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,11 @@
                                     <article id="article">
                                         <h1>{{ the_title() }}</h1>
                                         @include('partials.accessibility-menu')
-
+                                        @if (isset($occasion['status']) && $occasion['status'] == 'cancelled')
+                                            <p><strong><?php _e('Cancelled', 'municipio'); ?></strong>{{ !empty($occasion['exception_information']) ? ' - ' . $occasion['exception_information'] : ''  }}</p>
+                                        @elseif (isset($occasion['status']) && $occasion['status'] == 'rescheduled')
+                                            <p><strong><?php _e('Rescheduled', 'municipio'); ?></strong>{{ !empty($occasion['exception_information']) ? ' - ' . $occasion['exception_information'] : ''  }}</p>
+                                        @endif
                                         @if (isset(get_extended($post->post_content)['main']) && !empty(get_extended($post->post_content)['main']) && isset(get_extended($post->post_content)['extended']) && !empty(get_extended($post->post_content)['extended']))
 
                                             {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}

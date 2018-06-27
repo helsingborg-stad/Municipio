@@ -7,7 +7,7 @@ class SingleEvent extends \Municipio\Controller\BaseController
     public function init()
     {
         global $post;
-    	$this->data['date'] = $this->singleEventDate($post->ID);
+    	$this->data['occasion'] = $this->singleEventDate($post->ID);
     	$this->data['location'] = get_post_meta($post->ID, 'location', true);
     }
 
@@ -17,22 +17,23 @@ class SingleEvent extends \Municipio\Controller\BaseController
      */
     public function singleEventDate($post_id)
     {
-        $date = null;
+        $singleOccasion = array();
         $get_date = (! empty(get_query_var('date'))) ? get_query_var('date') : false;
-
         $occasions = self::getEventOccasions($post_id);
-        if (count($occasions) == 1) {
-            $date = self::dateParts($occasions[0]->start_date);
-        } elseif ($get_date != false) {
+        if (is_array($occasions) && count($occasions) == 1) {
+            $singleOccasion = $occasions[0];
+            $singleOccasion['date_parts'] = self::dateParts($occasions[0]['start_date']);
+        } elseif (is_array($occasions) && $get_date != false) {
             foreach ($occasions as $occasion) {
-                $event_date = preg_replace('/\D/', '', $occasion->start_date);
+                $event_date = preg_replace('/\D/', '', $occasion['start_date']);
                 if ($get_date == $event_date) {
-                    $date = self::dateParts($occasion->start_date);
+                    $singleOccasion = $occasion;
+                    $singleOccasion['date_parts'] = self::dateParts($occasion['start_date']);
                 }
             }
         }
 
-        return $date;
+        return $singleOccasion;
     }
 
     /**
@@ -71,7 +72,7 @@ class SingleEvent extends \Municipio\Controller\BaseController
         $query .= "ORDER BY {$db_table}.start_date ASC";
 
         $completeQuery = $wpdb->prepare($query, $post_id);
-        $occasions = $wpdb->get_results($completeQuery);
+        $occasions = $wpdb->get_results($completeQuery, ARRAY_A);
 
         return $occasions;
     }
