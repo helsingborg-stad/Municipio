@@ -15,7 +15,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "In the upcoming months we are moving to a complete BEM style of our frontend. This is eased in and hidden by default (enable checkbox below to preview). Out main focus will be: \r\n\r\n- Enabling the use of the customizer\r\n- Introduce BEM in all views\r\n\r\nOur amibition is that all functionality should be fully functional in this mode. But i't may break existing modifications.",
+            "message": "In the upcoming months we are moving to a complete BEM style of our frontend. This is eased in and hidden by default (enable checkbox below to preview). Out main focus will be: 1. Enabling the use of the customizer 2. Introduce BEM in all views. Our amibition is that all functionality should be fully functional in this mode. But i't may break existing modifications.",
             "new_lines": "br",
             "esc_html": 0
         },
@@ -65,4 +65,3 @@
     "active": 1,
     "description": ""
 }]
-
