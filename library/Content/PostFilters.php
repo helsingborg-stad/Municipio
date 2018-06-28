@@ -85,7 +85,7 @@ class PostFilters
             return;
         }
 
-        add_action('Municipio/ViewData', function ($data) use ($wp_query, $postType) {
+        add_action('Municipio/viewData', function ($data) use ($wp_query, $postType) {
 
             //Get current post type enabledTaxonomyFilters
             if (!isset($data['postType']) || !$data['postType']) {

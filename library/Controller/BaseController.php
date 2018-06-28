@@ -388,7 +388,7 @@ class BaseController
         }
 
         //Old depricated filter
-        $this->data = apply_filters_deprecated('HbgBlade/data', array($this->data), "2.0", "Municipio/ViewData");
+        $this->data = apply_filters_deprecated('HbgBlade/data', array($this->data), "2.0", "Municipio/viewData");
 
         //General filter
         return apply_filters('Municipio/viewData', $this->data);
