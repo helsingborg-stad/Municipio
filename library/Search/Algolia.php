@@ -9,6 +9,7 @@ class Algolia
 
         //Algolia search modifications
         add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2); //Determine what to index
+        add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'), 10, 2);
 
         add_filter('algolia_post_shared_attributes', array($this, 'addAlgoliaPostStatus'), 10, 2); //Add post status to index
         add_filter('algolia_searchable_post_shared_attributes', array($this, 'addAlgoliaPostStatus'), 10, 2); // Add post status to index
@@ -87,7 +88,6 @@ class Algolia
 
     public function shouldIndexPost($should_index, $post, $includeCheckbox = true)
     {
-
         //Do not index if excluded
         if ($includeCheckbox && isset($post->ID) && get_post_meta($post->ID, 'exclude_from_search', true) == "1") {
             return false;
