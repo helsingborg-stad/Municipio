@@ -74,7 +74,7 @@
             <a class="link-item " href="{{ data.permalink }}">{{{ data._highlightResult.post_title.value }}}</a>
         </h3>
 
-        <# if (data.origin_site) { #>
+        <# if (data.origin_site && data.origin_site != "<?php echo get_bloginfo('name'); ?>") { #>
             &nbsp; - <span class="label label-theme label-sm">{{{ data.origin_site }}}</span>
         <# } #>
 
