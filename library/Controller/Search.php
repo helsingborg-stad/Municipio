@@ -18,6 +18,8 @@ class Search extends \Municipio\Controller\BaseController
             $this->googleSearch();
             $this->data['activeSearchEngine'] = "google";
         } elseif (get_field('use_algolia_search', 'option') === true) {
+            $displayPostTypes = get_field('algolia_display_post_types', 'option');
+            $this->data['displayPostTypes'] = is_array($displayPostTypes) && !empty(array_filter($displayPostTypes)) ? json_encode($displayPostTypes) : json_encode(array());
             if(function_exists('queryAlgoliaSearch')) {
                 $this->algoliaCustomSearch();
                 $this->data['activeSearchEngine'] = "algoliacustom";

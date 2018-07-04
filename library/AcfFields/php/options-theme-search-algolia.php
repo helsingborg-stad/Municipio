@@ -24,6 +24,26 @@
             'ui_on_text' => '',
             'ui_off_text' => '',
         ),
+        1 => array(
+            'key' => 'field_5b3c6dc1c3210',
+            'label' => __('Display label for post types', 'municipio'),
+            'name' => 'algolia_display_post_types',
+            'type' => 'posttype_select',
+            'instructions' => __('Displays a label for selected post types with their names in the search results.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'allow_null' => 1,
+            'multiple' => 1,
+            'placeholder' => '',
+            'disabled' => 0,
+            'readonly' => 0,
+        ),
     ),
     'location' => array(
         0 => array(

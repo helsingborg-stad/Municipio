@@ -20,6 +20,26 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_5b3c6dc1c3210",
+            "label": "Display label for post types",
+            "name": "algolia_display_post_types",
+            "type": "posttype_select",
+            "instructions": "Displays a label for selected post types with their names in the search results.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_null": 1,
+            "multiple": 1,
+            "placeholder": "",
+            "disabled": 0,
+            "readonly": 0
         }
     ],
     "location": [

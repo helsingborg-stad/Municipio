@@ -78,13 +78,21 @@
             &nbsp; - <span class="label label-theme label-sm">{{{ data.origin_site }}}</span>
         <# } #>
 
-        <div class="search-result-date">{{ data.post_date_formatted }}</div>
+        <div class="search-result-date text-dark-gray">{{ data.post_date_formatted }}</div>
 
         <# if (data.contentSnippet) { #>
             <# if (data.post_status == "private" && <?php echo is_user_logged_in() ? 'false' : 'true'; ?>) { #>
                 <div class="suggestion-post-content"><?php _e("This post is not publicly avabile, you will be prompted to login to view this post.", 'municipio'); ?></div>
             <# } else { #>
-                <div class="suggestion-post-content">{{{ data.contentSnippet }}}</div>
+                <div class="suggestion-post-content">
+                    <# var displayPostTypes = <?php echo $displayPostTypes; ?>; #>
+                    <# if (data.post_type_label && displayPostTypes.length && displayPostTypes.indexOf(data.post_type) != -1) { #>
+                        <div class="gutter gutter-bottom gutter-sm">
+                            <span class="label label-sm">{{{ data.post_type_label }}}</span>
+                        </div>
+                    <# } #>
+                    {{{ data.contentSnippet }}}
+                </div>
             <# } #>
         <# } #>
 
