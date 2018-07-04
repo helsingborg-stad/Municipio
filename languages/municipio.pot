@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-06-27 09:04+0200\n"
+"POT-Creation-Date: 2018-07-04 10:02+0200\n"
 "PO-Revision-Date: 2016-02-24 09:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1333,6 +1333,16 @@ msgstr ""
 msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-search-algolia.php:29
+msgid "Display label for post types"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:32
+msgid ""
+"Displays a label for selected post types with their names in the search "
+"results."
+msgstr ""
+
 #: library/AcfFields/php/options-theme-search-display.php:42
 msgid "Search field label"
 msgstr ""
@@ -2049,7 +2059,7 @@ msgid ""
 "Video playback unavailable, enable JavaScript in your browser to watch video."
 msgstr ""
 
-#: library/Search/Algolia.php:47
+#: library/Search/Algolia.php:48
 msgid "Exclude from search"
 msgstr ""
 
@@ -5112,11 +5122,11 @@ msgctxt "Event archive"
 msgid "Location"
 msgstr ""
 
-#: views/archive-event.blade.php:85
+#: views/archive-event.blade.php:85 views/single-event.blade.php:68
 msgid "Cancelled"
 msgstr ""
 
-#: views/archive-event.blade.php:90
+#: views/archive-event.blade.php:90 views/single-event.blade.php:70
 msgid "Rescheduled"
 msgstr ""
 
@@ -5208,15 +5218,15 @@ msgid ""
 "this post."
 msgstr ""
 
-#: views/partials/search/algolia-instantsearch.blade.php:107
+#: views/partials/search/algolia-instantsearch.blade.php:115
 msgid "Could not find any content matching your query."
 msgstr ""
 
-#: views/partials/search/algolia-instantsearch.blade.php:116
+#: views/partials/search/algolia-instantsearch.blade.php:124
 msgid "hits on"
 msgstr ""
 
-#: views/partials/search/algolia-instantsearch.blade.php:118
+#: views/partials/search/algolia-instantsearch.blade.php:126
 msgid "Query is empty, please type somehing."
 msgstr ""
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-06-27 09:04+0200\n"
-"PO-Revision-Date: 2018-06-27 09:06+0200\n"
+"POT-Creation-Date: 2018-07-04 10:02+0200\n"
+"PO-Revision-Date: 2018-07-04 10:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1401,6 +1401,17 @@ msgstr "Algolia Sök"
 msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
 msgstr "Aktivera Algolia sök (Kräver Algolias WordPress plugin)"
 
+#: library/AcfFields/php/options-theme-search-algolia.php:29
+msgid "Display label for post types"
+msgstr "Visa etikett med posttyp"
+
+#: library/AcfFields/php/options-theme-search-algolia.php:32
+msgid ""
+"Displays a label for selected post types with their names in the search "
+"results."
+msgstr ""
+"Visar en etikett för utvalda posttyper med deras namn bland sökresultaten."
+
 #: library/AcfFields/php/options-theme-search-display.php:42
 msgid "Search field label"
 msgstr "Sökfältets titel"
@@ -2169,7 +2180,7 @@ msgstr ""
 "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
 "webbläsare."
 
-#: library/Search/Algolia.php:47
+#: library/Search/Algolia.php:48
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
@@ -5474,11 +5485,11 @@ msgctxt "Event archive"
 msgid "Location"
 msgstr "Plats"
 
-#: views/archive-event.blade.php:85
+#: views/archive-event.blade.php:85 views/single-event.blade.php:68
 msgid "Cancelled"
 msgstr "Inställt"
 
-#: views/archive-event.blade.php:90
+#: views/archive-event.blade.php:90 views/single-event.blade.php:70
 msgid "Rescheduled"
 msgstr "Omplanerat"
 
@@ -5572,15 +5583,15 @@ msgstr ""
 "Sidan är inte publikt tillgänglig, du kommer bli tillfrågad om att logga in "
 "för att se den här sidan. "
 
-#: views/partials/search/algolia-instantsearch.blade.php:107
+#: views/partials/search/algolia-instantsearch.blade.php:115
 msgid "Could not find any content matching your query."
 msgstr "Kunde inte hitta något innehåll som matchar din sökfråga."
 
-#: views/partials/search/algolia-instantsearch.blade.php:116
+#: views/partials/search/algolia-instantsearch.blade.php:124
 msgid "hits on"
 msgstr "träffar på"
 
-#: views/partials/search/algolia-instantsearch.blade.php:118
+#: views/partials/search/algolia-instantsearch.blade.php:126
 msgid "Query is empty, please type somehing."
 msgstr "Vänligen ange en sökfråga. "
 
