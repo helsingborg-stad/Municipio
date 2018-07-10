@@ -8,6 +8,7 @@ class Feature
     {
         //Enable customiser enabled views
         add_filter('Municipio/Controller/BaseController/Customizer', array($this, 'toogleFeatures'));
+        add_filter('Municipio/Feature/addCustomizerOption', array($this, 'toogleFeatures'));
 
         //Enable customizer widgets
         add_filter('Municipio/Widget/Widgets/CustomizerWidgets', array($this, 'toogleFeatures'));
@@ -21,6 +22,18 @@ class Feature
 
         //Enable template version 3 for modularity
         add_filter('Modularity/Module/TemplateVersion3', array($this, 'toogleFeatures'));
+
+        add_filter('acf/load_field/name=footer_layout', array($this, 'addCustomizerOption'));
+        add_filter('acf/load_field/name=header_layout', array($this, 'addCustomizerOption'));
+    }
+
+    public function addCustomizerOption($field)
+    {
+        if (apply_filters('Municipio/Feature/addCustomizerOption', false)) {
+            $field['choices']['customizer'] = 'Customizer';
+        }
+
+        return $field;
     }
 
     /**
