@@ -182,7 +182,7 @@ class BaseController
     {
         $this->data = array_merge(
             $this->data,
-            apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/ViewData')
+            apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/viewData')
         );
     }
 
