@@ -23,7 +23,9 @@
 <body class="{{ $bodyClass }}">
 
     @section('header')
-        @include('partials.header')
+        @if (isset($headerLayout['template']))
+            @includeIf('partials.header.' . $headerLayout['template'])
+        @endif
     @show
 
     <main id="main" class="c-main s-main">
@@ -71,7 +73,9 @@
     </main>
 
     @section('footer')
-        @include('partials.footer')
+        @if (isset($footerLayout['template']))
+            @includeIf('partials.footer.' . $footerLayout['template'])
+        @endif
     @show
 
     {!! wp_footer() !!}

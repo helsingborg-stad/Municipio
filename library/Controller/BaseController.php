@@ -12,15 +12,15 @@ class BaseController
 
     public function __construct()
     {
+        $this->getLogotype();
+        $this->getHeaderLayout();
+        $this->getFooterLayout();
+
         /* Preview mode 2.0 */
         if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
+            $this->layout();
             $this->customizerHeader();
             $this->customizerFooter();
-            $this->layout();
-        } else {
-            $this->getLogotype();
-            $this->getHeaderLayout();
-            $this->getFooterLayout();
         }
 
         //Main
@@ -144,18 +144,19 @@ class BaseController
      */
     public function customizerHeader()
     {
+        if (get_field('header_layout') !== 'customizer') {
+            return;
+        }
+
         $customizerHeader = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__header_sections', 'options', 'id');
+        $this->data['headerLayout']['classes'] = 's-site-header';
+        $this->data['headerLayout']['template'] = 'customizer';
 
         if ($customizerHeader->hasItems) {
             foreach ($customizerHeader->repeater as $headerData) {
                 $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header($headerData);
             }
         }
-
-        //Old mobile menu
-        $navigation = new \Municipio\Helper\Navigation();
-        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
-        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
     }
 
     /**
@@ -164,7 +165,19 @@ class BaseController
      */
     public function customizerFooter()
     {
+        if (get_field('footer_layout') !== 'customizer') {
+            return;
+        }
+
         $customizerFooter = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__footer_sections', 'options', 'id');
+
+        $classes = array();
+        $classes[] = 's-site-footer';
+        $classes[] = 'hidden-print';
+        $classes[] = (get_field('scroll_elevator_enabled', 'option')) ? 'scroll-elevator-toggle' : '';
+
+        $this->data['footerLayout']['template'] = 'customizer';
+        $this->data['footerLayout']['classes'] = implode(' ', $classes);
 
         if ($customizerFooter->hasItems) {
             foreach ($customizerFooter->repeater as $footerData) {
@@ -285,6 +298,10 @@ class BaseController
             'standard' => get_field('logotype', 'option'),
             'negative' => get_field('logotype_negative', 'option')
         );
+
+        if (get_field('footer_signature_show', 'option')) {
+            $this->data['footerLogo'] =  \Municipio\Helper\Svg::extract(\Municipio\Helper\Image::urlToPath(get_template_directory_uri() . '/assets/dist/images/helsingborg.svg'));
+        }
     }
 
     public function getHeaderLayout()
@@ -292,6 +309,7 @@ class BaseController
         $headerLayoutSetting = get_field('header_layout', 'option');
 
         $classes = array();
+        $classes[] = 'site-header';
         $classes[] = 'header-' . $headerLayoutSetting;
 
         if (is_front_page() && get_field('header_transparent', 'option')) {
@@ -312,33 +330,34 @@ class BaseController
                 break;
         }
 
-
-        if (empty($headerLayoutSetting) || in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
-            $this->data['headerLayout'] = array(
-                'classes'    => implode(' ', $classes),
-                'template' => 'default'
-            );
-
-            return true;
-        }
-
         $this->data['headerLayout'] = array(
-            'classes'    => implode(' ', $classes),
-            'template' => $headerLayoutSetting
+            'classes' => implode(' ', $classes),
+            'template' => 'default'
         );
 
-        return true;
+        if (!empty($headerLayoutSetting) && !in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
+            $this->data['headerLayout']['template'] = $headerLayoutSetting;
+        }
     }
 
     public function getFooterLayout()
     {
-        $this->data['footerLayout'] = 'default';
+        $headerLayoutSetting = (get_field('footer_layout', 'option')) ? get_field('footer_layout', 'option') : 'default';
 
-        if (get_field('footer_signature_show', 'option')) {
-            $this->data['footerLogo'] =  \Municipio\Helper\Svg::extract(\Municipio\Helper\Image::urlToPath(get_template_directory_uri() . '/assets/dist/images/helsingborg.svg'));
+        $classes = array();
+        $classes[] = 'main-footer';
+        $classes[] = 'hidden-print';
+        $classes[] = (get_field('scroll_elevator_enabled', 'option')) ? 'scroll-elevator-toggle' : '';
+        $classes[] = 'header-' . $headerLayoutSetting;
+
+        $this->data['footerLayout'] = array(
+            'classes' => implode(' ', $classes),
+            'template' => 'default'
+        );
+
+        if (!empty($footerLayoutSettings)) {
+            $this->data['footerLayout']['template'] = $headerLayoutSetting;
         }
-
-
     }
 
     public function getVerticalMenu()
