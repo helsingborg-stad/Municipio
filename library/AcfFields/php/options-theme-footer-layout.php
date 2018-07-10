@@ -6,6 +6,29 @@
     'title' => __('Footer layout', 'municipio'),
     'fields' => array(
         0 => array(
+            'key' => 'field_5b44d40efbb2d',
+            'label' => __('Layout', 'municipio'),
+            'name' => 'footer_layout',
+            'type' => 'radio',
+            'instructions' => '',
+            'required' => 1,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+                'default' => __('Default', 'municipio'),
+            ),
+            'allow_null' => 0,
+            'other_choice' => 0,
+            'save_other_choice' => 0,
+            'default_value' => '',
+            'layout' => 'vertical',
+            'return_format' => 'value',
+        ),
+        1 => array(
             'key' => 'field_56e8050730333',
             'label' => __('Footer signature', 'municipio'),
             'name' => 'footer_signature_show',
