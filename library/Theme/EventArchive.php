@@ -19,6 +19,20 @@ class EventArchive extends Archive
         if ($this->db->get_var("SHOW TABLES LIKE '" . $this->db_table . "'") !== null) {
             add_action('pre_get_posts', array($this, 'filterEvents'), 100);
         }
+
+        add_filter('post_type_link', array($this, 'addEventDateQueryArgToPermalinks'), 10, 3);
+    }
+
+    /**
+     * Add date params to permalinks
+     */
+    public function addEventDateQueryArgToPermalinks($permalink, $post, $leavename)
+    {
+        if (!isset($post->start_date) || $post->post_type != 'event') {
+            return $permalink;
+        }
+
+        return esc_url(add_query_arg('date', preg_replace('/\D/', '', $post->start_date), $permalink));
     }
 
     /**
