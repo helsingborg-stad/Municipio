@@ -45,12 +45,15 @@
                             <h1>{{ the_archive_title() }}</h1>
                         @endif
                     @endif
-                    <div class="u-mb-3">
-                        @include('partials.accessibility-menu')
-                    </div>
+
+                    @if (!empty(apply_filters('accessibility_items', array())))
+                        <div class="u-mb-3">
+                            @include('partials.accessibility-menu')
+                        </div>
+                    @endif
                 </div>
             </div>
-            @else
+            @elseif (!empty(apply_filters('accessibility_items', array())))
                 <div class="grid">
                     <div class="grid-xs-12">
                         @include('partials.accessibility-menu')
