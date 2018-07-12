@@ -20,13 +20,29 @@ class EventArchive extends Archive
             add_action('pre_get_posts', array($this, 'filterEvents'), 100);
         }
 
-        add_filter('post_type_link', array($this, 'addEventDateQueryArgToPermalinks'), 10, 3);
+        add_filter('post_type_link', array($this, 'addEventDateArgsToPermalinks'), 10, 3);
+        add_filter('get_the_time', array($this, 'filterEventDate'), 10, 3);
     }
 
     /**
-     * Add date params to permalinks
+     * Show event start & end date intead of publish date when calling "the_time()" within an event archive
      */
-    public function addEventDateQueryArgToPermalinks($permalink, $post, $leavename)
+    public function filterEventDate($the_time, $d, $post) {
+        if ($post->post_type != 'event' || !isset($post->start_date) || !isset($post->end_date) || !method_exists('\Municipio\Helper\Event', 'formatEventDate')) {
+            return $the_time;
+        }
+
+        if (get_option('time_format') == $d) {
+            return '';
+        }
+
+        return \Municipio\Helper\Event::formatEventDate($post->start_date, $post->end_date);
+    }
+
+    /**
+     * Add date arguments to event permalink URL
+     */
+    public function addEventDateArgsToPermalinks($permalink, $post, $leavename)
     {
         if (!isset($post->start_date) || $post->post_type != 'event') {
             return $permalink;
