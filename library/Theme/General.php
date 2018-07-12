@@ -195,7 +195,9 @@ class General
      */
     public function accessibilityItems($items)
     {
-        $items[] = '<a href="#" onclick="window.print();return false;" class=""><i class="pricon pricon-print"></i> ' . __('Print', 'municipio') . '</a>';
+        if (is_single() || is_page()) {
+            $items[] = '<a href="#" onclick="window.print();return false;" class=""><i class="pricon pricon-print"></i> ' . __('Print', 'municipio') . '</a>';
+        }
 
         return $items;
     }
