@@ -71,7 +71,15 @@ class BaseController
         $sidebarLeft = false;
         $sidebarRight = false;
 
-        if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option') && is_post_type_archive() || get_field('nav_sub_enable', 'option') && is_singular()) {
+        if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option') && is_post_type_archive(get_post_type())) {
+            $sidebarLeft = true;
+        }
+
+        //Has child or is parent and nav_sub is enabled
+        if (get_field('nav_sub_enable', 'option') && is_singular() &&
+            !empty(get_children(['post_parent' => get_queried_object_id(), 'numberposts' => 1], ARRAY_A))
+            || get_field('nav_sub_enable', 'option') && is_singular() &&
+            count(get_children(['post_parent' => get_queried_object_id(), 'numberposts' => 1], ARRAY_A)) > 0) {
             $sidebarLeft = true;
         }
 
