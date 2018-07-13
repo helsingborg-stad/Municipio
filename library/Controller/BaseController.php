@@ -152,7 +152,7 @@ class BaseController
      */
     public function customizerHeader()
     {
-        if (get_field('header_layout') !== 'customizer') {
+        if (get_field('header_layout', 'options') !== 'customizer') {
             return;
         }
 
@@ -173,7 +173,7 @@ class BaseController
      */
     public function customizerFooter()
     {
-        if (get_field('footer_layout') !== 'customizer') {
+        if (get_field('footer_layout', 'options') !== 'customizer') {
             return;
         }
 
