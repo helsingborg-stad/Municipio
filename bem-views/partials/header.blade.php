@@ -1,23 +1,24 @@
-@include('partials.navigation.search-top')
+{{-- Above header --}}
+@section('above-header')
+    @include('partials.navigation.search-top')
+@show
 
-@if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
-    <header class="s-site-header" id="site-header">
-        @foreach ($headerLayout['headers'] as $header)
-            @if ($header->sidebar)
-                <div {!! $header->wrapper !!}>
-                    <div {!! $header->container !!}>
-                        <div {!! $header->grid !!}>
-                            <?php dynamic_sidebar($header->sidebar); ?>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        @endforeach
+<header id="site-header" class="{{ apply_filters('Views/Partials/Header/HeaderClass', $headerLayout['classes']) }}">
+    {{-- Before header body --}}
+    @yield('before-header-body')
 
-        <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
-            @include('partials.mobile-menu')
-        </nav>
-    </header>
-@endif
+    {{-- Header body --}}
+    @yield('header-body')
 
-<?php dynamic_sidebar('top-sidebar'); ?>
+    {{-- After header body --}}
+    @yield('after-header-body')
+</header>
+
+{{-- Below header --}}
+@section('below-header')
+    @include('partials.hero')
+
+    @if (is_active_sidebar('top-sidebar'))
+        <?php dynamic_sidebar('top-sidebar'); ?>
+    @endif
+@show

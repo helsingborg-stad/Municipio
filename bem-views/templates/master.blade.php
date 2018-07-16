@@ -22,56 +22,66 @@
 </head>
 <body class="{{ $bodyClass }}">
 
+    {{-- Site header --}}
     @section('header')
-        @include('partials.header')
+        @if (isset($headerLayout['template']))
+            @includeIf('partials.header.' . $headerLayout['template'])
+        @endif
     @show
 
     <main id="main" class="c-main s-main">
-
+        {{-- Before page layout --}}
         @yield('before-layout')
 
+        {{-- Page layout --}}
         @section('layout')
-            <div class="container">
+            <div class="container main-container">
                 <div class="grid grid--columns">
-
+                    {{-- Above --}}
                     @hasSection('above')
                         <div class="grid-xs-12 s-above">
                             @yield('above')
                         </div>
                     @endif
 
+                    {{-- Sidebar left --}}
                     @hasSection('sidebar-left')
                         <div class="{{$layout['sidebarLeft']}} s-sidebar-left">
                             @yield('sidebar-left')
                         </div>
                     @endif
 
+                    {{-- Content --}}
                     <div class="{{$layout['content']}} s-content">
                         @yield('content')
                     </div>
 
+                    {{-- Sidebar right --}}
                     @hasSection('sidebar-right')
                         <div class="{{$layout['sidebarRight']}} s-sidebar-right">
                             @yield('sidebar-right')
                         </div>
                     @endif
 
+                    {{-- Below --}}
                     @hasSection('below')
                         <div class="grid-xs-12 s-below">
                             @yield('below')
                         </div>
                     @endif
-
                 </div>
             </div>
         @show
 
+        {{-- After page layout --}}
         @yield('after-layout')
-
     </main>
 
+    {{-- Site footer --}}
     @section('footer')
-        @include('partials.footer')
+        @if (isset($footerLayout['template']))
+            @includeIf('partials.footer.' . $footerLayout['template'])
+        @endif
     @show
 
     {!! wp_footer() !!}

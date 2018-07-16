@@ -22,14 +22,12 @@ $thumbnail = municipio_get_thumbnail_source(
             @endif
 
             @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
-            <span class="box-post-brick-date">
+            <span class="box-post-brick-date u-mb-3">
                 <time>
                     {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
                     {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
                 </time>
             </span>
-            <br>
-            <br>
             @endif
 
             <h3 class="post-title">{{ the_title() }}</h3>
