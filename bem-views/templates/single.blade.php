@@ -22,8 +22,9 @@
 
     @while(have_posts())
         {!! the_post() !!}
-
-        @include('partials.article')
+        @section('loop')
+            @include('partials.article')
+        @show
     @endwhile
 
     @include('components.dynamic-sidebar', ['id' => 'content-area'])

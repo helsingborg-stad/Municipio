@@ -10,6 +10,11 @@
     </div>
 @stop
 
+@section('after-header-body')
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
+        @include('partials.mobile-menu')
+    </nav>
+@stop
 @section('header-body')
     @if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
         @foreach ($headerLayout['headers'] as $header)
