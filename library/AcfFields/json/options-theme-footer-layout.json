@@ -3,6 +3,29 @@
     "title": "Footer layout",
     "fields": [
         {
+            "key": "field_5b44d40efbb2d",
+            "label": "Layout",
+            "name": "footer_layout",
+            "type": "radio",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "",
+            "layout": "vertical",
+            "return_format": "value"
+        },
+        {
             "key": "field_56e8050730333",
             "label": "Footer signature",
             "name": "footer_signature_show",
