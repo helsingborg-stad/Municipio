@@ -35,7 +35,7 @@
 
         {{-- Page layout --}}
         @section('layout')
-            <div class="container">
+            <div class="container main-container">
                 <div class="grid grid--columns">
                     {{-- Above --}}
                     @hasSection('above')
