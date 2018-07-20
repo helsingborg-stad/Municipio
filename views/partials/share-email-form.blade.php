@@ -9,7 +9,7 @@
                 <article>
                     <div class="form-group">
                         <label>URL</label>
-                        <a href="{{ get_the_permalink() }}" target="_blank">{{ get_the_permalink() }}</a>
+                        <a href="{{ get_permalink(get_the_ID()) }}" target="_blank">{{ get_permalink(get_the_ID()) }}</a>
                     </div>
                     @if (!is_user_logged_in())
                         <div class="form-group">
