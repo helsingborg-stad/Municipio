@@ -10,13 +10,17 @@
             @endif
 
             <article class="u-mb-5" id="article">
-                @if (isset(get_extended($post->post_content)['main']) && !empty(get_extended($post->post_content)['main']) && isset(get_extended($post->post_content)['extended']) && !empty(get_extended($post->post_content)['extended']))
-
-                    {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
-                    {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
-
+                @if (post_password_required($post))
+                    {!! get_the_password_form() !!}
                 @else
-                    {!! apply_filters('the_content', $post->post_content) !!}
+                    @if (isset(get_extended($post->post_content)['main']) && !empty(get_extended($post->post_content)['main']) && isset(get_extended($post->post_content)['extended']) && !empty(get_extended($post->post_content)['extended']))
+
+                        {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
+                        {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
+
+                    @else
+                        {!! apply_filters('the_content', $post->post_content) !!}
+                    @endif
                 @endif
             </article>
 
