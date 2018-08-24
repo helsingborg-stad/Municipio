@@ -84,6 +84,18 @@ Do action on sharing post by email, e.g. send a notification
 do_action('Municipio/share_post/recipients', $user, $recipients);
 ```
 
+#### Municipio/comment/save_like
+
+Do action on comment like
+
+- ```@param object $comment``` - Comment object
+- ```@param int $userId``` - Current user ID
+- ```@param bool $create``` - True if a new like is created. False if it's removed
+
+```php
+do_action('Municipio/comment/save_like', $comment, $userId, $create);
+```
+
 ## Filters
 
 #### Municipio/theme/key
