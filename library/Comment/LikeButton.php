@@ -34,18 +34,22 @@ class LikeButton extends \Municipio\Helper\Ajax
         ignore_user_abort(true);
 
         $commentId = $_REQUEST['comment_id'];
+        $commentObj = get_comment($commentId);
         $like = array();
+        $create = true;
 
         if (is_array(get_comment_meta($commentId, '_likes', true)) == true) {
             $like = array_merge($like, get_comment_meta($commentId, '_likes', true));
         }
         if (in_array(get_current_user_id(), $like)) {
+            $create = false;
             $index = array_search(get_current_user_id(), $like);
             unset($like[$index]);
         } else {
             $like[] = get_current_user_id();
         }
 
+        do_action('Municipio/comment/save_like', $commentObj, get_current_user_id(), $create);
         update_comment_meta($commentId, '_likes', $like);
 
         return true;
