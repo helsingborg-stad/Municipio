@@ -348,12 +348,6 @@ class PostFilters
      */
     public function doPostTaxonomyFiltering($query)
     {
-
-        //Only run on frontend
-        if (is_admin()) {
-            return $query;
-        }
-
         // Do not execute this in admin view
         if (is_admin() || !(is_archive() || is_home() || is_category() || is_tax() || is_tag()) || !$query->is_main_query()) {
             return $query;
@@ -402,7 +396,6 @@ class PostFilters
         $taxQuery = apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
 
         $query->set('tax_query', $taxQuery);
-        $query->set('post_type', $this->getPostType());
         return $query;
     }
 
