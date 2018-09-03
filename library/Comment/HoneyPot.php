@@ -42,12 +42,23 @@ class HoneyPot
      */
     public function fakeImage()
     {
+
         if (isset($_GET[$this->field_name]) && $_GET[$this->field_name] == $this->field_content) {
+
+            if (!session_id()) {
+                session_start();
+            }
+
             //Send svg header
             header('Content-type: image/svg+xml');
 
+            //Do not cache this response
+            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+            header("Cache-Control: post-check=0, pre-check=0", false);
+            header("Pragma: no-cache");
+
             //Set cookie
-            setcookie($this->field_name, $this->field_content, time() + 3600, "/");
+            $_SESSION[$this->field_name] = $this->field_content;
 
             //Return something tha looks like a image
             die('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>');
@@ -59,7 +70,7 @@ class HoneyPot
      */
     public function fakeImageCookieCheck($data)
     {
-        if (isset($_COOKIE[$this->field_name]) && $_COOKIE[$this->field_name] == $this->field_content) {
+        if (isset($_SESSION[$this->field_name]) && $_SESSION[$this->field_name] == $this->field_content) {
             return $data;
         }
 
