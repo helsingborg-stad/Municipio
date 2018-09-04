@@ -414,3 +414,8 @@ bem-views
     │
 
 ```
+
+## Tested with support from BrowserStack
+This software is tested with the awesome tools from Browserstack.
+
+<a href="https://browserstack.com"><img src="https://utveckling.helsingborg.se/wp-content/uploads/sites/19/2018/09/browserstack-logo.png"/></a>
