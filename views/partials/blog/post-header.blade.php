@@ -3,4 +3,6 @@
 
     @include('partials.blog.post-info')
 
+    @include('partials.accessibility-menu')
+
 </header>
