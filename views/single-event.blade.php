@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 @endif
-                @if (! empty($location))
+                @if (! empty($location = get_post_meta($post->ID, 'location', true)))
                     <div class="grid-md-12">
                         <div class="info_box">
                             <div class="icon">
