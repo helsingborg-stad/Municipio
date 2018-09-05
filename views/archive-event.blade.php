@@ -61,15 +61,17 @@
                                     <div class="grid">
                                         <div class="grid-md-9 event-archive__data">
                                             <h2>
-                                                <a href="{{ esc_url(add_query_arg('date', preg_replace('/\D/', '', $post->start_date), the_permalink())) }}">{{ the_title() }}</a>
+                                                <a href="{{ the_permalink() }}">{{ the_title() }}</a>
                                             </h2>
                                             <div class="event-archive__meta">
+                                                @if(method_exists('\EventManagerIntegration\App', 'formatEventDate'))
                                                 <p>
                                                     <small><i class="pricon pricon-calendar"></i>
-                                                            <strong><?php _ex('Date', 'Event archive', 'municipio'); ?>:</strong>
-                                                        {{ \Municipio\Helper\Event::formatEventDate($post->start_date, $post->end_date) }}
+                                                        <strong><?php _ex('Date', 'Event archive', 'municipio'); ?>:</strong>
+                                                        {{ \EventManagerIntegration\App::formatEventDate($post->start_date, $post->end_date) }}
                                                     </small>
                                                 </p>
+                                                @endif
 
                                                 <?php $location = get_field('location'); ?>
                                                 @if (!empty($location['title']))
