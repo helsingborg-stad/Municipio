@@ -81,7 +81,7 @@ class Editor
 
         // Check if there's a oembed class for the provider
         if (!class_exists('\Municipio\Oembed\\' . $provider) || !$shouldFilter) {
-            return '<div class="ratio-16-9">' . $html . '</div>';
+            return $html;
         }
 
         $class = '\Municipio\Oembed\\' . $provider;
