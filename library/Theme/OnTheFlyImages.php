@@ -8,6 +8,7 @@ class OnTheFlyImages
     {
         add_filter('image_downsize', array($this, 'runResizeImage'), 5, 3);
         add_filter('image_resize_dimensions', array($this, 'upscaleThumbnail'), 10, 6);
+        add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
     }
 
     /* Hook to image resize function
@@ -20,7 +21,6 @@ class OnTheFlyImages
      */
     public function runResizeImage($downsize, $id, $size)
     {
-
         if (is_array($size) && count($size) == 2 && !empty($id)) {
 
             //Check for image
@@ -34,20 +34,19 @@ class OnTheFlyImages
             }
 
             //Check that we have the needed data to make calculations
-            if(array_filter($size)) {
+            if (array_filter($size)) {
 
                 //Calc height (from width)
-                if(!is_numeric($size[0])) {
+                if (!is_numeric($size[0])) {
                     $scale = $size[1] / $attachmentMetaData['height'];
                     $size[0] = floor($attachmentMetaData['width'] * $scale);
                 }
 
                 //Calc width (from height)
-                if(!is_numeric($size[1])) {
+                if (!is_numeric($size[1])) {
                     $scale = $size[0] / $attachmentMetaData['width'];
                     $size[1] = floor($attachmentMetaData['height'] * $scale);
                 }
-
             } else {
                 return false;
             }
@@ -155,5 +154,51 @@ class OnTheFlyImages
         }
 
         return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
+    }
+
+    /* Increase the sharpness of images to make them look crispier
+     *
+     * @param string $resizedFile   The image file
+     * @return string $resizedFile  The new image file as resized variant.
+     */
+
+    public function sharpenThumbnail($resizedFile)
+    {
+
+        //Bail if imagic is missing
+        if (!class_exists('Imagick')) {
+            return $resizedFile;
+        }
+
+        //Create image
+        $image = new \Imagick($resizedFile);
+
+        //Get image size
+        $imageSize = @getimagesize($resizedFile);
+        if (!$imageSize) {
+            return $resizedFile;
+        }
+
+        list($originalWidth, $originalHeight, $originalType) = $imageSize;
+
+        //Check if JPEG
+        if ($originalType != IMAGETYPE_JPEG) {
+            return $resizedFile;
+        }
+
+        // Sharpen the image (the default is via the Lanczos algorithm) [Radius, Sigma, Sharpening, Threshold]
+        $image->unsharpMaskImage(0, 0.5, 1, 0);
+
+        // Store the JPG file, with as default a compression quality of 92 (default WordPress = 90, default ImageMagick = 85...)
+        $image->setImageFormat("jpg");
+        $image->setImageCompression(\Imagick::COMPRESSION_JPEG);
+        $image->setImageCompressionQuality(92);
+        $image->writeImage($resizedFile);
+
+        // Remove the JPG from memory
+        $image->destroy();
+
+        //Return sharpened image
+        return $resizedFile;
     }
 }
