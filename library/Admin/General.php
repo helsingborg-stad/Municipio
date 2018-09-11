@@ -54,10 +54,12 @@ class General
         if (is_array($colorPalette) && !empty($colorPalette)) {
             echo "
             <script>
-            acf.add_filter('color_picker_args', function( args, \$field ){
-                args.palettes = ['". implode("', '", $colorPalette) ."']
-                return args;
-            });
+            if (typeof(acf) != 'undefined') {
+                acf.add_filter('color_picker_args', function( args, \$field ){
+                    args.palettes = ['". implode("', '", $colorPalette) ."']
+                    return args;
+                });
+            }
             </script>
             ";
         }
