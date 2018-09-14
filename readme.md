@@ -415,6 +415,12 @@ bem-views
 
 ```
 
+
+## Image compression
+Municipio supports image compression with shortpixel. This will enque a cronjob with a slight delay to compress newly uploaded images. Simpley define SHORTPIXEL_API_KEY constant in your config file and that's it! 
+
+Compression level will be medium/glossy for high quality photos. 
+
 ## Tested with support from BrowserStack
 This software is tested with the awesome tools from Browserstack.
 
