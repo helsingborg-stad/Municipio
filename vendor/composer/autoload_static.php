@@ -10,6 +10,8 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         'ff94b54cc49d91067b6c55e8792511c4' => __DIR__ . '/..' . '/aristath/kirki/kirki.php',
+        '8ec4222c68e580a23520eef4abe4380f' => __DIR__ . '/..' . '/shortpixel/shortpixel-php/lib/ShortPixel.php',
+        'c93afce03290e70ec0d051b69a50edb0' => __DIR__ . '/..' . '/shortpixel/shortpixel-php/lib/ShortPixel/Exception.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -19,6 +21,7 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Debug\\' => 24,
+            'ShortPixel\\' => 11,
         ),
         'P' => 
         array (
@@ -66,6 +69,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'Symfony\\Component\\Debug\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
+        'ShortPixel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/shortpixel/shortpixel-php/lib/ShortPixel',
         ),
         'Psr\\SimpleCache\\' => 
         array (

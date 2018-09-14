@@ -1,0 +1,1 @@
+../../shortpixel-php-test/test/integration.php

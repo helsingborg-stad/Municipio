@@ -29,7 +29,8 @@
         "symfony/debug": "^3.0",
         "wpackagist-plugin/advanced-custom-fields": "^4.4.7",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "aristath/kirki": "^3.0"
+        "aristath/kirki": "^3.0",
+        "shortpixel/shortpixel-php": "^1.4"
     },
     "extra" : {
         "installer-paths" : {

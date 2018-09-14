@@ -9,4 +9,6 @@ return array(
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '72579e7bd17821bb1321b87411366eae' => $vendorDir . '/illuminate/support/helpers.php',
     'ff94b54cc49d91067b6c55e8792511c4' => $vendorDir . '/aristath/kirki/kirki.php',
+    '8ec4222c68e580a23520eef4abe4380f' => $vendorDir . '/shortpixel/shortpixel-php/lib/ShortPixel.php',
+    'c93afce03290e70ec0d051b69a50edb0' => $vendorDir . '/shortpixel/shortpixel-php/lib/ShortPixel/Exception.php',
 );

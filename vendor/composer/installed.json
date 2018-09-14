@@ -1084,7 +1084,7 @@
         "dist": {
             "type": "zip",
             "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.12.zip",
-            "reference": null,
+            "reference": "tags/4.4.12",
             "shasum": null
         },
         "require": {
@@ -1093,5 +1093,62 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/advanced-custom-fields/"
+    },
+    {
+        "name": "shortpixel/shortpixel-php",
+        "version": "1.4.1",
+        "version_normalized": "1.4.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/short-pixel-optimizer/shortpixel-php.git",
+            "reference": "15806c395082fad9f9ccc2a543af713dae0b2c15"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/15806c395082fad9f9ccc2a543af713dae0b2c15",
+            "reference": "15806c395082fad9f9ccc2a543af713dae0b2c15",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "lib-curl": ">=7.20.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0",
+            "symfony/yaml": "~2.0"
+        },
+        "time": "2018-07-21T04:59:46+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/ShortPixel.php",
+                "lib/ShortPixel/Exception.php"
+            ],
+            "psr-4": {
+                "ShortPixel\\": "lib/ShortPixel/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Simon Duduica",
+                "email": "simon@shortpixel.com"
+            }
+        ],
+        "description": "ShortPixel PHP SDK. Read more at https://shortpixel.com/api-tools",
+        "homepage": "https://shortpixel.com/api",
+        "keywords": [
+            "api",
+            "compress",
+            "images",
+            "optimize",
+            "shortpixel"
+        ]
     }
 ]

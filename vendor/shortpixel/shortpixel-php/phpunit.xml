@@ -1,0 +1,13 @@
+<!--<phpunit bootstrap="test/helper.php" colors="true">-->
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="ShortPixel PHP Test Suite">
+            <directory suffix="Test.php">test</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>lib</directory>
+        </whitelist>
+    </filter>
+</phpunit>
