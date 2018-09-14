@@ -17,6 +17,7 @@ class Navigation
 
         if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
             add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
+            add_filter('Municipio/main_menu/wrapper_end', array($this, 'addTranslate'), 10, 2);
         }
 
         add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
@@ -169,7 +170,11 @@ class Navigation
      */
     public function addTranslate($items, $args = null)
     {
-        if ($args->theme_location != get_field('google_translate_menu', 'option')) {
+        if (!is_object($args)) {
+            $args = (object)$args;
+        }
+        
+        if ($args && $args->theme_location != get_field('google_translate_menu', 'option')) {
             return $items;
         }
 
@@ -185,7 +190,13 @@ class Navigation
             $label = '<i class="pricon pricon-globe"></i> Translate';
         }
 
-        $items .= '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
+        $translate = '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
+
+        if (isset($args->include_top_level)) {
+            $items = $translate . $items;
+        } else {
+            $items .= $translate;
+        }
 
         return $items;
     }
