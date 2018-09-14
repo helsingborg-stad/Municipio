@@ -16,7 +16,7 @@ class OnTheFlyImages
         //Modify image quality if shortpixel
         if (defined('SHORTPIXEL_API_KEY') && !empty('SHORTPIXEL_API_KEY')) {
             $this->imageQuality = 100;
-            add_filter('jpeg_quality', function ($arg) {return 100;});
+            add_filter('jpeg_quality', function ($arg) {return 100;}, 15); // Other filter in ImageSize Filter is set at priority 10
         }
 
         //Resizing
