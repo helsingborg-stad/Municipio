@@ -9,9 +9,8 @@ class OnTheFlyImages
 
     public function __construct()
     {
-
         //Respect image quality
-        $this->imageQuality = apply_filters('jpeg_quality', $quality, 'image_resize');
+        $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
 
         //Modify image quality if shortpixel
         if (defined('SHORTPIXEL_API_KEY') && !empty('SHORTPIXEL_API_KEY')) {
