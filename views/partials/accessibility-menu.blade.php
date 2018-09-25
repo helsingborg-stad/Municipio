@@ -9,7 +9,7 @@
 			{!! $item !!}
 		</li>
 	@endforeach
-	@if (is_single() && !empty(apply_filters('Municipio/blog/post_settings', array(), $post)))
+	@if (is_page() && !empty(apply_filters('Municipio/blog/post_settings', array(), $post)))
 	<li>
 	  	<span class="dropdown">
 		    <i class="pricon pricon-menu-dots dropdown-toggle"></i>
