@@ -7,6 +7,8 @@
 namespace ShortPixel;
 
 interface Persister {
+
+    static function IGNORED_BY_DEFAULT();
     function __construct($options);
     function isOptimized($path);
     function getOptimizationData($path);

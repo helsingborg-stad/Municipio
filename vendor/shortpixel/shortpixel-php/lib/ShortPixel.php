@@ -4,7 +4,7 @@ namespace ShortPixel;
 
 class ShortPixel {
     const LIBRARY_CODE = "sp-sdk";
-    const VERSION = "1.4.1";
+    const VERSION = "1.5.2";
     const DEBUG_LOG = false;
 
     const MAX_ALLOWED_FILES_PER_CALL = 10;
@@ -28,6 +28,8 @@ class ShortPixel {
         "resize_height" => null, // in pixels. null means no resize
         "cmyk2rgb" => 1, // convert CMYK to RGB: 1 yes, 0 no
         "convertto" => "", // if '+webp' then also the WebP version will be generated
+        "user" => "", //set the user needed for HTTP AUTH of the base_url
+        "pass" => "", //se the pass needed for HTTP AUTH of the base_url
         // **** return options ****
         "notify_me" => null, // should contain full URL of of notification script (notify.php) - to be implemented
         "wait" => 30, // seconds
@@ -41,6 +43,7 @@ class ShortPixel {
         "persist_type" => null, // null - don't persist, otherwise "text" (.shortpixel text file in each folder), "exif" (mark in the EXIF that the image has been optimized) or "mysql" (to be implemented)
         "persist_name" => ".shortpixel",
         "notify_progress" => false,
+            "cache_time" => 0 // number of seconds to cache the folder results - the *Persister classes will cache the getTodo results and retrieve them from memcache if it's available.
         //"persist_user" => "user", // only for mysql
         //"persist_pass" => "pass" // only for mysql
         // "" => null,
@@ -343,3 +346,23 @@ function normalizePath($path) {
     return preg_replace($patterns, $replacements, $path);
 }
 
+function getMemcache() {
+    $mc = false;
+    if(class_exists('\Memcached')) {
+        $mc = new \Memcached();
+        $mc->addServer('127.0.0.1', '11211');
+        if(!@$mc->getStats()) {
+            $mc = false;
+        }
+    }
+    elseif(class_exists('\Memcache')) {
+        $mc = new \Memcache();
+        $mc->addServer('127.0.0.1', '11211');
+        if(!@$mc->connect('127.0.0.1', '11211')) {
+            $mc = false;
+        } else {
+            $mc->close();
+        }
+    }
+    return $mc;
+}

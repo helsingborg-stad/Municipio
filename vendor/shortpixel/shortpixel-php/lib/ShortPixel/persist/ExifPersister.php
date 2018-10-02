@@ -16,6 +16,10 @@ class ExifPersister implements Persister {
         // nothing to do, the ExifPersister doesn't need any configuration
     }
 
+    public static function IGNORED_BY_DEFAULT() {
+        return array();
+    }
+
     function isOptimized($path)
     {
         switch(exif_imagetype($path)) {

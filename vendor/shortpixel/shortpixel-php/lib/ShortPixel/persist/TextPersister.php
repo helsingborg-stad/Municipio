@@ -10,6 +10,7 @@ use ShortPixel\ClientException;
 use \ShortPixel\Persister;
 use \ShortPixel\ShortPixel;
 use \ShortPixel\Client;
+use \ShortPixel\SPCache;
 use ShortPixel\SPLog;
 
 /**
@@ -21,6 +22,7 @@ class TextPersister implements Persister {
     private $fp;
     private $options;
     private $logger;
+    private $cache;
     private STATIC $ALLOWED_STATUSES = array('pending', 'success', 'skip', 'deleted');
     private STATIC $ALLOWED_TYPES = array('I', 'D');
 
@@ -29,6 +31,11 @@ class TextPersister implements Persister {
         $this->options = $options;
         $this->fp = array();
         $this->logger = SPLog::Get(SPLog::PRODUCER_PERSISTER);
+        $this->cache = SPCache::Get();
+    }
+
+    public static function IGNORED_BY_DEFAULT() {
+        return array('.','..','.shortpixel','.sp-options','.sp-lock','.sp-progress','ShortPixelBackups');
     }
 
     function isOptimized($path)
@@ -53,7 +60,7 @@ class TextPersister implements Persister {
     }
 
     protected function ignored($exclude) {
-        return array_values(array_merge(array('.','..','.','..','.shortpixel','.sp-options','.sp-lock','.sp-progress','ShortPixelBackups'), is_array($exclude) ? $exclude : array()));
+        return array_values(array_merge(self::IGNORED_BY_DEFAULT(), is_array($exclude) ? $exclude : array()));
     }
 
     /**
@@ -155,7 +162,7 @@ class TextPersister implements Persister {
                     $info->status = 'success';
                 }
                 if($info->status !== 'error') {
-                    $info->todo = $this->getTodo($path, 1, $exclude, $persistPath, ShortPixel::CLIENT_MAX_BODY_SIZE, $recurseDepth);
+                    $info->todo = $this->getTodoInternal($files, $dataArr, $fp, $path, 1, $exclude, $persistPath, ShortPixel::CLIENT_MAX_BODY_SIZE, $recurseDepth);
                 }
             }
             else {
@@ -210,6 +217,22 @@ class TextPersister implements Persister {
         $files = scandir($path);
         $dataArr = $this->readMetaFile($fp);
 
+        $ret = $this->getTodoInternal($files, $dataArr, $fp, $path, $count, $exclude, $persistPath, $maxTotalFileSizeMb, $recurseDepth);
+
+        if($toClose) { $this->closeMetaFile($persistPath); }
+
+        if(count($ret->files) + count($ret->filesPending) + $ret->filesWaiting == 0) {
+            $this->logger->logFirst($path, SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - FOR $path RETURN NONE");
+        } else {
+            $this->logger->clearLogged(SPLog::PRODUCER_PERSISTER, $path);
+            $this->logger->log(SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - FOR $path RETURN", $ret);
+        }
+        return $ret;
+    }
+
+
+    protected function getTodoInternal(&$files, &$dataArr, $fp, $path, $count, $exclude, $persistPath, $maxTotalFileSizeMb, $recurseDepth)
+    {
         $results = array();
         $pendingURLs = array();
         $ignore = $this->ignored($exclude);
@@ -224,12 +247,12 @@ class TextPersister implements Persister {
                 continue; //and do not log
             }
             if(   (!ShortPixel::isProcessable($file) && !is_dir($filePath))
-               || isset($dataArr[$file]) && $dataArr[$file]->status == 'deleted'
-               || isset($dataArr[$file])
-                  && (  $dataArr[$file]->status == 'success' && !$this->isChanged($dataArr[$file], $file, $persistPath, $path)
-                      || $dataArr[$file]->status == 'skip') ) {
+                || isset($dataArr[$file]) && $dataArr[$file]->status == 'deleted'
+                || isset($dataArr[$file])
+                && (  $dataArr[$file]->status == 'success' && !$this->isChanged($dataArr[$file], $file, $persistPath, $path)
+                    || $dataArr[$file]->status == 'skip') ) {
                 if(!isset($dataArr[$file]) || $dataArr[$file]->status !== 'success')
-                $this->logger->logFirst($filePath, SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - SKIPPING $path/$file - status " . (isset($dataArr[$file]) ? $dataArr[$file]->status : "not processable"));
+                    $this->logger->logFirst($filePath, SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - SKIPPING $path/$file - status " . (isset($dataArr[$file]) ? $dataArr[$file]->status : "not processable"));
                 continue;
             }
             //if retried too many times recently {
@@ -249,9 +272,18 @@ class TextPersister implements Persister {
                     $dataArr[$file] = $this->newMeta($filePath);
                     $dataArr[$file]->filePos = $this->appendMeta($dataArr[$file], $fp);
                 }
-                $resultsSubfolder =  $this->getTodo($filePath, $count, $exclude, $targetPath, $maxTotalFileSizeMb, $recurseDepth - 1);
+                $resultsSubfolder = $this->cache->fetch($filePath);
+                if(!$resultsSubfolder) {
+                    $resultsSubfolder =  $this->getTodo($filePath, $count, $exclude, $targetPath, $maxTotalFileSizeMb, $recurseDepth - 1);
+                    if(!count($resultsSubfolder->files)) {
+                        //cache the folders with nothing to do.
+                        $this->logger->log(SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - Nothing to do for: $filePath. Caching.");
+                        $this->cache->store($filePath, $resultsSubfolder);
+                    }
+                } else {
+                    $this->logger->log(SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - Cache says nothing to do for: $filePath");
+                }
                 if(count($resultsSubfolder->files)) {
-                    if($toClose) { $this->closeMetaFile($persistPath); }
                     return $resultsSubfolder;
                 }  elseif($dataArr[$file]->status != 'success' && !$resultsSubfolder->filesWaiting) {//otherwise ignore the folder but mark it as succeeded;
                     $dataArr[$file]->status = 'success';
@@ -269,8 +301,7 @@ class TextPersister implements Persister {
                         $toUpdate = true;
                         if(time() - strtotime($dataArr[$file]->changeDate) < 1800) { //need to refresh the file processing on the server
                             $this->updateMeta($dataArr[$file], $fp);
-                            if($toClose) { $this->closeMetaFile($persistPath); }
-                            return (object)array('files' => array($filePath), 'filesPending' => array(), 'refresh' => true);
+                            return (object)array('files' => array($filePath), 'filesPending' => array(), 'filesWaiting' => 0, 'refresh' => true);
                         }
                     }
                     elseif($dataArr[$file]->status == 'error') {
@@ -285,7 +316,7 @@ class TextPersister implements Persister {
                     }
 
                     elseif($dataArr[$file]->status == 'pending' && preg_match("/http[s]{0,1}:\/\/" . Client::API_DOMAIN() . "/", $dataArr[$file]->message)) {
-                    //elseif($dataArr[$file]->status == 'pending' && strpos($dataArr[$file]->message, str_replace("https://", "http://",\ShortPixel\Client::API_URL())) === 0) {
+                        //elseif($dataArr[$file]->status == 'pending' && strpos($dataArr[$file]->message, str_replace("https://", "http://",\ShortPixel\Client::API_URL())) === 0) {
                         //the file is already uploaded and the call should  be made with the existent URL on the optimization server
                         $apiURL = $dataArr[$file]->message;
                         $pendingURLs[$apiURL] = $filePath;
@@ -320,25 +351,9 @@ class TextPersister implements Persister {
             }
         }
 
-        if($toClose) { $this->closeMetaFile($persistPath); }
-
-/*        if(count($results) == 0) {//folder is empty or completely optimized, if it's a subfolder of another optimized folder, mark it as such in the parent .shortpixel file
-            if(file_exists(dirname($persistPath) . '/' . ShortPixel::opt("persist_name"))) {
-                $this->setOptimized($persistPath);
-            }
-        }
-*/
-        $ret = (object)array('files' => $results, 'filesPending' => $pendingURLs, 'filesWaiting' => $filesWaiting, 'refresh' => false);
-        if(count($results) + count($pendingURLs) + $filesWaiting == 0) {
-            $this->logger->logFirst($path, SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - FOR $path RETURN NONE");
-        } else {
-            $this->logger->clearLogged(SPLog::PRODUCER_PERSISTER, $path);
-            $this->logger->log(SPLog::PRODUCER_PERSISTER, "TextPersister->getTodo - FOR $path RETURN", $ret);
-        }
-        return $ret;
+        return (object)array('files' => $results, 'filesPending' => $pendingURLs, 'filesWaiting' => $filesWaiting, 'refresh' => false);
     }
-
-    /**
+        /**
      * @param $data - the .shortpixel metadata
      * @param $file - the file basename
      * @param $persistPath - the target path for the optimized files and for the .shortpixel metadata

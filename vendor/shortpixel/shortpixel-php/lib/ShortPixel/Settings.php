@@ -57,6 +57,10 @@ class Settings {
         if(isset($post['exclude'])) {
             $data['exclude'] = $post['exclude'];
         }
+        if(isset($post['user']) && isset($post['pass'])) {
+            $data['user'] = $post['user'];
+            $data['pass'] = $post['pass'];
+        }
         if(isset($post['base_url']) && strlen($post['base_url'])) {
             $data['base_url'] = rtrim($post['base_url'], '/');
         } elseif (isset($post['change_base_url']) && strlen($post['change_base_url'])) {

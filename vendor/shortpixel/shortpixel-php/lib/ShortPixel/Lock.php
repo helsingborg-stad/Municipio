@@ -9,7 +9,7 @@ namespace ShortPixel;
 class Lock {
     const FOLDER_LOCK_FILE = '.sp-lock';
 
-    private $processId, $targetFolder, $clearLock, $releaseTo;
+    private $processId, $targetFolder, $clearLock, $releaseTo, $timeout;
 
     /**
      * @param $processId
@@ -18,11 +18,17 @@ class Lock {
      * @param string|false $releaseTo a string that if found in the lock file, will make lock() release the lock instead of updating it
      * - use together with requestLock to pass the lock between concurent processes with different priority (call requestLock with the same value as $requester on the script that should take the lock).
      */
-    function __construct($processId, $targetFolder, $clearLock = false, $releaseTo = false) {
+    function __construct($processId, $targetFolder, $clearLock = false, $releaseTo = false, $timeout = 360) {
         $this->processId = $processId;
         $this->targetFolder = $targetFolder;
         $this->clearLock = $clearLock;
         $this->releaseTo = $releaseTo;
+        $this->timeout = $timeout;
+        $this->logger = SPLog::Get(SPLog::PRODUCER_PERSISTER);
+    }
+
+    function setTimeout($timeout) {
+        $this->timeout = $timeout;
     }
 
     function lockFile() {
@@ -40,8 +46,9 @@ class Lock {
     function lock() {
     //check if the folder is not locked by another ShortPixel process
         if(!$this->clearLock && ($lock = $this->readLock()) !== false) {
-            if(count($lock) >= 2 && $lock[0] != $this->processId && $lock[1] > time() - 360) {
-                //a lock was placed on the file less than 6 min. ago
+            $time = explode('!', $lock[1]);
+            if(count($lock) >= 2 && $lock[0] != $this->processId && $time[0] > time() - (isset($time[1]) ? $time[1] : $this->timeout)) {
+                //a lock was placed on the file and it's not yet expired as per its set timeout
                 throw new \Exception($this->getLockMsg($lock, $this->targetFolder), -19);
             }
             elseif(count($lock) >= 4 && $lock[2] == $this->releaseTo) {
@@ -50,9 +57,10 @@ class Lock {
                 throw new \Exception("A lock release was requested by " . $this->releaseTo, -20);
             }
         }
-        if(FALSE === @file_put_contents($this->lockFile(), $this->processId . "=" . time() . (strlen($this->releaseTo) ? "=" . $this->releaseTo : ''))) {
+        if(FALSE === @file_put_contents($this->lockFile(), $this->processId . "=" . time() . '!' . $this->timeout . (strlen($this->releaseTo) ? "=" . $this->releaseTo : ''))) {
             throw new ClientException("Could not write lock file " . $this->lockFile() . ". Please check rights.", -16);
         }
+        $this->logger->log(SPLog::PRODUCER_PERSISTER, "{$this->processId} locked " . dirname($this->lockFile()) . " for {$this->timeout} sec.");
     }
 
     function requestLock($requester) {

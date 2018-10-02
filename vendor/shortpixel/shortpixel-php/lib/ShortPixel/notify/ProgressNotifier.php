@@ -94,23 +94,7 @@ abstract class ProgressNotifier {
     }
 
     public static function constructNotifier($path) {
-        $mc = false;
-        if(class_exists('\Memcached')) {
-            $mc = new \Memcached();
-            $mc->addServer('127.0.0.1', '11211');
-            if(!@$mc->getStats()) {
-                $mc = false;
-            }
-       }
-        elseif(class_exists('\Memcache')) {
-            $mc = new \Memcache();
-            $mc->addServer('127.0.0.1', '11211');
-            if(!@$mc->connect('127.0.0.1', '11211')) {
-                $mc = false;
-            } else {
-                $mc->close();
-            }
-        }
+        $mc = \ShortPixel\getMemcache();
         if($mc) {
             $notifier = new ProgressNotifierMemcache($path);
             $notifier->setMemcache($mc);

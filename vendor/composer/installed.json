@@ -1,17 +1,17 @@
 [
     {
         "name": "aristath/kirki",
-        "version": "v3.0.33",
-        "version_normalized": "3.0.33.0",
+        "version": "v3.0.34",
+        "version_normalized": "3.0.34.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aristath/kirki.git",
-            "reference": "d2ddc07158cd2e09bb1e3b057a9a98d52b8ec467"
+            "reference": "8fb938f34e8093cbfa887ca9349898dd5a9084af"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aristath/kirki/zipball/d2ddc07158cd2e09bb1e3b057a9a98d52b8ec467",
-            "reference": "d2ddc07158cd2e09bb1e3b057a9a98d52b8ec467",
+            "url": "https://api.github.com/repos/aristath/kirki/zipball/8fb938f34e8093cbfa887ca9349898dd5a9084af",
+            "reference": "8fb938f34e8093cbfa887ca9349898dd5a9084af",
             "shasum": ""
         },
         "require": {
@@ -22,11 +22,11 @@
             "composer/installers": "*",
             "dealerdirect/phpcodesniffer-composer-installer": "*",
             "php-coveralls/php-coveralls": "^2.0",
+            "phpcompatibility/phpcompatibility-wp": "*",
             "phpunit/phpunit": "*",
-            "wimg/php-compatibility": "*",
             "wp-coding-standards/wpcs": "*"
         },
-        "time": "2018-05-17T17:26:03+00:00",
+        "time": "2018-09-14T19:07:16+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -61,17 +61,17 @@
     },
     {
         "name": "composer/installers",
-        "version": "v1.5.0",
-        "version_normalized": "1.5.0.0",
+        "version": "v1.6.0",
+        "version_normalized": "1.6.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "049797d727261bf27f2690430d935067710049c2"
+            "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/049797d727261bf27f2690430d935067710049c2",
-            "reference": "049797d727261bf27f2690430d935067710049c2",
+            "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+            "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
             "shasum": ""
         },
         "require": {
@@ -85,7 +85,7 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "^4.8.36"
         },
-        "time": "2017-12-29T09:13:20+00:00",
+        "time": "2018-08-27T06:10:37+00:00",
         "type": "composer-plugin",
         "extra": {
             "class": "Composer\\Installers\\Plugin",
@@ -290,8 +290,8 @@
     },
     {
         "name": "illuminate/container",
-        "version": "v5.5.40",
-        "version_normalized": "5.5.40.0",
+        "version": "v5.5.43",
+        "version_normalized": "5.5.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/container.git",
@@ -336,8 +336,8 @@
     },
     {
         "name": "illuminate/contracts",
-        "version": "v5.5.40",
-        "version_normalized": "5.5.40.0",
+        "version": "v5.5.43",
+        "version_normalized": "5.5.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/contracts.git",
@@ -382,8 +382,8 @@
     },
     {
         "name": "illuminate/events",
-        "version": "v5.5.40",
-        "version_normalized": "5.5.40.0",
+        "version": "v5.5.43",
+        "version_normalized": "5.5.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/events.git",
@@ -429,8 +429,8 @@
     },
     {
         "name": "illuminate/filesystem",
-        "version": "v5.5.40",
-        "version_normalized": "5.5.40.0",
+        "version": "v5.5.43",
+        "version_normalized": "5.5.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/filesystem.git",
@@ -481,17 +481,17 @@
     },
     {
         "name": "illuminate/support",
-        "version": "v5.5.40",
-        "version_normalized": "5.5.40.0",
+        "version": "v5.5.43",
+        "version_normalized": "5.5.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "5d2ccb17e526ad537bffc16abc1d516457ae5587"
+            "reference": "ebe5d19b3ef3e73bca839b8614287fbe2b06ab7d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/5d2ccb17e526ad537bffc16abc1d516457ae5587",
-            "reference": "5d2ccb17e526ad537bffc16abc1d516457ae5587",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/ebe5d19b3ef3e73bca839b8614287fbe2b06ab7d",
+            "reference": "ebe5d19b3ef3e73bca839b8614287fbe2b06ab7d",
             "shasum": ""
         },
         "require": {
@@ -509,7 +509,7 @@
             "symfony/process": "Required to use the composer class (~3.3).",
             "symfony/var-dumper": "Required to use the dd function (~3.3)."
         },
-        "time": "2018-03-10T15:44:32+00:00",
+        "time": "2018-08-10T19:40:01+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -540,17 +540,17 @@
     },
     {
         "name": "illuminate/view",
-        "version": "v5.5.40",
-        "version_normalized": "5.5.40.0",
+        "version": "v5.5.43",
+        "version_normalized": "5.5.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/view.git",
-            "reference": "59a62ae587caef2cbbf3daec35f852e603eff998"
+            "reference": "6d53e16273cdebd03290307660e0a88fcb987bca"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/view/zipball/59a62ae587caef2cbbf3daec35f852e603eff998",
-            "reference": "59a62ae587caef2cbbf3daec35f852e603eff998",
+            "url": "https://api.github.com/repos/illuminate/view/zipball/6d53e16273cdebd03290307660e0a88fcb987bca",
+            "reference": "6d53e16273cdebd03290307660e0a88fcb987bca",
             "shasum": ""
         },
         "require": {
@@ -562,7 +562,7 @@
             "php": ">=7.0",
             "symfony/debug": "~3.3"
         },
-        "time": "2018-03-24T14:41:33+00:00",
+        "time": "2018-09-02T11:44:56+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -590,17 +590,17 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "1.29.2",
-        "version_normalized": "1.29.2.0",
+        "version": "1.34.0",
+        "version_normalized": "1.34.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "ed6aa898982f441ccc9b2acdec51490f2bc5d337"
+            "reference": "1dbd3cb01c5645f3e7deda7aa46ef780d95fcc33"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ed6aa898982f441ccc9b2acdec51490f2bc5d337",
-            "reference": "ed6aa898982f441ccc9b2acdec51490f2bc5d337",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/1dbd3cb01c5645f3e7deda7aa46ef780d95fcc33",
+            "reference": "1dbd3cb01c5645f3e7deda7aa46ef780d95fcc33",
             "shasum": ""
         },
         "require": {
@@ -611,8 +611,15 @@
             "friendsofphp/php-cs-fixer": "~2",
             "phpunit/phpunit": "^4.8.35 || ^5.7"
         },
-        "time": "2018-05-29T15:23:46+00:00",
+        "time": "2018-09-20T19:36:25+00:00",
         "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Carbon\\Laravel\\ServiceProvider"
+                ]
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
@@ -832,18 +839,75 @@
         ]
     },
     {
-        "name": "symfony/debug",
-        "version": "v3.4.11",
-        "version_normalized": "3.4.11.0",
+        "name": "shortpixel/shortpixel-php",
+        "version": "1.5.2",
+        "version_normalized": "1.5.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/debug.git",
-            "reference": "b28fd73fefbac341f673f5efd707d539d6a19f68"
+            "url": "https://github.com/short-pixel-optimizer/shortpixel-php.git",
+            "reference": "852dfa14e3eaabc3fb0dab06655c79ecb684ae82"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/debug/zipball/b28fd73fefbac341f673f5efd707d539d6a19f68",
-            "reference": "b28fd73fefbac341f673f5efd707d539d6a19f68",
+            "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/852dfa14e3eaabc3fb0dab06655c79ecb684ae82",
+            "reference": "852dfa14e3eaabc3fb0dab06655c79ecb684ae82",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "lib-curl": ">=7.20.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0",
+            "symfony/yaml": "~2.0"
+        },
+        "time": "2018-09-12T07:38:26+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/ShortPixel.php",
+                "lib/ShortPixel/Exception.php"
+            ],
+            "psr-4": {
+                "ShortPixel\\": "lib/ShortPixel/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Simon Duduica",
+                "email": "simon@shortpixel.com"
+            }
+        ],
+        "description": "ShortPixel PHP SDK. Read more at https://shortpixel.com/api-tools",
+        "homepage": "https://shortpixel.com/api",
+        "keywords": [
+            "api",
+            "compress",
+            "images",
+            "optimize",
+            "shortpixel"
+        ]
+    },
+    {
+        "name": "symfony/debug",
+        "version": "v3.4.16",
+        "version_normalized": "3.4.16.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/debug.git",
+            "reference": "b70cfaae39009ecde3164bb8cba4d029220d27b1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/debug/zipball/b70cfaae39009ecde3164bb8cba4d029220d27b1",
+            "reference": "b70cfaae39009ecde3164bb8cba4d029220d27b1",
             "shasum": ""
         },
         "require": {
@@ -856,7 +920,7 @@
         "require-dev": {
             "symfony/http-kernel": "~2.8|~3.0|~4.0"
         },
-        "time": "2018-05-16T14:03:39+00:00",
+        "time": "2018-09-22T18:25:03+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -891,23 +955,23 @@
     },
     {
         "name": "symfony/finder",
-        "version": "v3.4.11",
-        "version_normalized": "3.4.11.0",
+        "version": "v3.4.16",
+        "version_normalized": "3.4.16.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/finder.git",
-            "reference": "472a92f3df8b247b49ae364275fb32943b9656c6"
+            "reference": "e8db87d755e14271e920e31ba834a4ae99483232"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/finder/zipball/472a92f3df8b247b49ae364275fb32943b9656c6",
-            "reference": "472a92f3df8b247b49ae364275fb32943b9656c6",
+            "url": "https://api.github.com/repos/symfony/finder/zipball/e8db87d755e14271e920e31ba834a4ae99483232",
+            "reference": "e8db87d755e14271e920e31ba834a4ae99483232",
             "shasum": ""
         },
         "require": {
             "php": "^5.5.9|>=7.0.8"
         },
-        "time": "2018-05-16T08:49:21+00:00",
+        "time": "2018-09-21T12:47:54+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -942,17 +1006,17 @@
     },
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.8.0",
-        "version_normalized": "1.8.0.0",
+        "version": "v1.9.0",
+        "version_normalized": "1.9.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+            "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
-            "reference": "3296adf6a6454a050679cde90f95350ad604b171",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d0cd638f4634c16d8df4508e847f14e9e43168b8",
+            "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8",
             "shasum": ""
         },
         "require": {
@@ -961,11 +1025,11 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2018-04-26T10:06:28+00:00",
+        "time": "2018-08-06T14:22:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.8-dev"
+                "dev-master": "1.9-dev"
             }
         },
         "installation-source": "dist",
@@ -1003,17 +1067,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v4.1.0",
-        "version_normalized": "4.1.0.0",
+        "version": "v4.1.5",
+        "version_normalized": "4.1.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "16328f5b217cebc8dd4adfe4aeeaa8c377581f5a"
+            "reference": "6e49130ddf150b7bfe9e34edb2f3f698aa1aa43b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/16328f5b217cebc8dd4adfe4aeeaa8c377581f5a",
-            "reference": "16328f5b217cebc8dd4adfe4aeeaa8c377581f5a",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/6e49130ddf150b7bfe9e34edb2f3f698aa1aa43b",
+            "reference": "6e49130ddf150b7bfe9e34edb2f3f698aa1aa43b",
             "shasum": ""
         },
         "require": {
@@ -1039,7 +1103,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2018-05-30T07:26:09+00:00",
+        "time": "2018-09-21T12:49:42+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1093,62 +1157,5 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/advanced-custom-fields/"
-    },
-    {
-        "name": "shortpixel/shortpixel-php",
-        "version": "1.4.1",
-        "version_normalized": "1.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/short-pixel-optimizer/shortpixel-php.git",
-            "reference": "15806c395082fad9f9ccc2a543af713dae0b2c15"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/15806c395082fad9f9ccc2a543af713dae0b2c15",
-            "reference": "15806c395082fad9f9ccc2a543af713dae0b2c15",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "lib-curl": ">=7.20.0",
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.0",
-            "symfony/yaml": "~2.0"
-        },
-        "time": "2018-07-21T04:59:46+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/ShortPixel.php",
-                "lib/ShortPixel/Exception.php"
-            ],
-            "psr-4": {
-                "ShortPixel\\": "lib/ShortPixel/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Simon Duduica",
-                "email": "simon@shortpixel.com"
-            }
-        ],
-        "description": "ShortPixel PHP SDK. Read more at https://shortpixel.com/api-tools",
-        "homepage": "https://shortpixel.com/api",
-        "keywords": [
-            "api",
-            "compress",
-            "images",
-            "optimize",
-            "shortpixel"
-        ]
     }
 ]

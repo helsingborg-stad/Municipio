@@ -13,10 +13,15 @@
  *   - add --verbose parameter for more info during optimization
  *   - add --clearLock to clear a lock that's already placed on the folder. BE SURE you know what you're doing, files might get corrupted if the previous script is still running. The locks expire in 6 min. anyway.
  *   - add --logLevel for different areas of logging - bitwise flags: 4 for metadata handling, 8 for server comm (add them up to log more areas)
+ *   - add --cacheTime=[seconds] to cache the folders which have no new image to process. Useful for large folders for which checking at each pass is slowing down the optimization.
  *   - add --quiet for no output - TBD
  *   - the backup path will be used as parent directory to the backup folder which, if the backup path is outside the optimized folder, will be the basename of the folder, otherwise will be ShortPixelBackup
  * The script will read the .sp-options configuration file and will honour the parameters set there, but the command line parameters take priority
  */
+
+ini_set('memory_limit','256M');
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 require_once("shortpixel-php-req.php");
 
@@ -24,7 +29,8 @@ use \ShortPixel\SPLog;
 
 $processId = uniqid("CLI");
 
-$options = getopt("", array("apiKey::", "folder::", "targetFolder::", "webPath::", "compression::", "resize::", "speed::", "backupBase::", "verbose", "clearLock", "retrySkipped", "exclude::", "recurseDepth::", "logLevel::"));
+$options = getopt("", array("apiKey::", "folder::", "targetFolder::", "webPath::", "compression::", "resize::", "speed::", "backupBase::", "verbose", "clearLock", "retrySkipped",
+                            "exclude::", "recurseDepth::", "logLevel::", "cacheTime::"));
 
 $verbose = isset($options["verbose"]) ? (isset($options["logLevel"]) ? $options["logLevel"] : 0) | SPLog::PRODUCER_CMD_VERBOSE : 0;
 $logger = SPLog::Init($processId, $verbose | SPLog::PRODUCER_CMD, SPLog::TARGET_CONSOLE, false, ($verbose ? SPLog::FLAG_MEMORY : SPLog::FLAG_NONE));
@@ -44,6 +50,7 @@ $clearLock = isset($options["clearLock"]);
 $retrySkipped = isset($options["retrySkipped"]);
 $exclude = isset($options["exclude"]) ? explode(",", $options["exclude"]) : array();
 $recurseDepth = isset($options["recurseDepth"]) && is_numeric($options["recurseDepth"]) && $options["recurseDepth"] >= 0 ? $options["recurseDepth"] : PHP_INT_MAX;
+$cacheTime = isset($options["cacheTime"]) && is_numeric($options["cacheTime"]) && $options["cacheTime"] >= 0 ? $options["cacheTime"] : 0;
 
 if(!function_exists('curl_version')) {
     $logger->bye(SPLog::PRODUCER_CMD, "cURL is not enabled. ShortPixel needs Curl to send the images to optimization and retrieve the results. Please enable cURL and retry.");
@@ -144,7 +151,7 @@ try {
     if(!count($exclude) && isset($folderOptions["exclude"]) && strlen($folderOptions["exclude"])) {
         $exclude = $folderOptions["exclude"];
     }
-    \ShortPixel\ShortPixel::setOptions(array_merge($folderOptions, $overrides, array("persist_type" => "text", "notify_progress" => true)));
+    \ShortPixel\ShortPixel::setOptions(array_merge($folderOptions, $overrides, array("persist_type" => "text", "notify_progress" => true, "cache_time" => $cacheTime)));
 
     $imageCount = $failedImageCount = $sameImageCount = 0;
     $tries = 0;
@@ -152,7 +159,11 @@ try {
     $folderOptimized = false;
     $targetFolderParam = ($targetFolder !== $folder ? $targetFolder : false);
 
+    $splock->setTimeout(7200);
+    $splock->lock();
     $info = \ShortPixel\folderInfo($folder, true, false, $exclude, $targetFolderParam, $recurseDepth, $retrySkipped);
+    $splock->setTimeout(360);
+    $splock->lock();
     $notifier->recordProgress($info, true);
 
     if($info->status == 'error') {
@@ -166,15 +177,22 @@ try {
         $logger->log(SPLog::PRODUCER_CMD, "Congratulations, the folder is optimized.");
     }
     else {
+        $lockTimeout = 360;
         while ($tries < 100000) {
             $crtImageCount = 0;
-
+            $tempus = time();
             try {
                 if ($webPath) {
                     $result = \ShortPixel\fromWebFolder($folder, $webPath, $exclude, $targetFolderParam, $recurseDepth)->wait(300)->toFiles($targetFolder);
                 } else {
                     $speed = ($speed ? $speed : \ShortPixel\ShortPixel::MAX_ALLOWED_FILES_PER_CALL);
                     $result = \ShortPixel\fromFolder($folder, $speed, $exclude, $targetFolderParam, \ShortPixel\ShortPixel::CLIENT_MAX_BODY_SIZE, $recurseDepth)->wait(300)->toFiles($targetFolder);
+                }
+                if(time() - $tempus > $lockTimeout - 100) {
+                    //increase the timeout of the lock file if a pass takes too long (for large folders)
+                    $lockTimeout += time() - $tempus;
+                    $logger->log(SPLog::PRODUCER_CMD_VERBOSE, "Increasing lock timeout to: $lockTimeout");
+                    $splock->setTimeout($lockTimeout);
                 }
             } catch (\ShortPixel\ClientException $ex) {
                 if ($ex->getCode() == \ShortPixel\ClientException::NO_FILE_FOUND || $ex->getCode() == 2) {

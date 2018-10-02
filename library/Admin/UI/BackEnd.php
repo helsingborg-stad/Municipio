@@ -48,7 +48,7 @@ class BackEnd
 
         // Developer
         if ($this->isBeta()) {
-            echo '<div class="hosting-enviroment hosting-red"><strong>' . __('Notice', 'municipio') . ": </strong>" . __('This it the beta-environment. All functionality is not guaranteed.', 'municipio') . '</div>';
+            echo '<div class="hosting-enviroment hosting-red"><strong>' . __('Notice', 'municipio') . ": </strong>" . __('This it the beta-environment. All functionality is not guaranteed. Possibly, the web page content will be restored and synchronized with the live site on Monday.', 'municipio') . '</div>';
         }
 
         // Css
