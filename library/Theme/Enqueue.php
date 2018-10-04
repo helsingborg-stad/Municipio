@@ -211,15 +211,21 @@ class Enqueue
     }
 
     /**
-     * Removes querystring from any scripts/styles loaded from "helsingborg" or "localhost"
+     * Removes querystring from any scripts/styles internally
      * @param  string $src The soruce path
      * @return string      The source path without any querystring
      */
     public function removeScriptVersion($src)
     {
-        $parts = explode('?', $src);
-        if (strpos($parts[0], 'helsingborg') > -1 || strpos($parts[0], 'localhost') > -1) {
-            return $parts[0];
+        $siteUrlComponents = parse_url(get_site_url());
+        $urlComponents = parse_url($src);
+        // Check if the URL is internal or external
+        if (!empty($siteUrlComponents['host'])
+            && !empty($urlComponents['host'])
+            && strcasecmp($urlComponents['host'], $siteUrlComponents['host']) === 0
+            && !is_admin_bar_showing()) {
+            $src = !empty($urlComponents['query']) ? str_replace('?' . $urlComponents['query'], '', $src) : $src;
+            return $src;
         } else {
             return $src;
         }
