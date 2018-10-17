@@ -24,11 +24,11 @@ class General
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
 
         remove_filter('template_redirect', 'redirect_canonical');
-        //add_action('add_meta_boxes', array($this, 'removeDisplaySettings'), 9999);
     }
 
     /**
      * Defines global BEM class for theme
+     *
      * @return void
      */
     public function bemItClassDefinition()
@@ -51,21 +51,12 @@ class General
     }
 
     /**
-     * Remove display settings metabox from non public posttypes
-     * @param  string $postType
+     * Adds a error 404 class to body element
+     *
+     * @param array $classes Array contining previously added classes
+     *
      * @return void
      */
-    public function removeDisplaySettings($postType)
-    {
-        $publicPostTypes = array_keys(\Municipio\Helper\PostType::getPublic());
-        $publicPostTypes[] = 'page';
-
-        if (!in_array($postType, $publicPostTypes)) {
-            remove_meta_box('acf-group_56c33cf1470dc', $postType, 'side');
-            remove_meta_box('group_56d83cff12bb3', $postType, 'side');
-        }
-    }
-
     public function e404classes($classes)
     {
         if (is_404()) {
@@ -77,8 +68,10 @@ class General
 
     /**
      * Returns image for module site grid
-     * @param  string $image
-     * @param  object $site
+     *
+     * @param string $image String containing previous image
+     * @param object $site  The site object
+     *
      * @return string
      */
     public function sitesGridImage($image, $site)
@@ -110,7 +103,9 @@ class General
 
     /**
      * Fixes fieldgroups page-template path
-     * @param  array $fieldgroup Fieldgroup
+     *
+     * @param array $fieldgroup Fieldgroup
+     *
      * @return array
      */
     public function fixFieldgroupLocationPath($fieldgroup)
@@ -132,6 +127,13 @@ class General
         return $fieldgroup;
     }
 
+    /**
+     * Reset title format.
+     *
+     * @param string $format The previously defined format (discarded)
+     *
+     * @return string
+     */
     public function titleFormat($format)
     {
         return '%s';
@@ -139,7 +141,9 @@ class General
 
     /**
      * Creates a lead paragraph
-     * @param  string $text Text
+     *
+     * @param string $text Text
+     *
      * @return string       Markup
      */
     public function theLead($text)
@@ -149,7 +153,9 @@ class General
 
     /**
      * Removes empty p-tags
-     * @param  string $content Text
+     *
+     * @param string $content Text
+     *
      * @return string       Markup
      */
     public function removeEmptyPTag($content)
@@ -163,8 +169,10 @@ class General
 
     /**
      * Append body theme class in BEMIT format
-     * @param  array  $classes Default classes
-     * @return array           Modified calsses
+     *
+     * @param array $classes Default classes
+     *
+     * @return array Modified calsses
      */
     public function appendBEMITCssClass($classes)
     {
@@ -175,9 +183,11 @@ class General
     }
 
     /**
-     * is-child-theme body class
-     * @param  array  $classes Default classes
-     * @return array           Modified calsses
+     * Adds is-child-theme body class
+     *
+     * @param array $classes Default classes
+     *
+     * @return array Modified classes
      */
     public function isChildTheme($classes)
     {
@@ -190,7 +200,9 @@ class General
 
     /**
      * Filter for adding accessibility items
-     * @param  array $items Default item array
+     *
+     * @param array $items Default item array
+     *
      * @return array        Modified item array
      */
     public function accessibilityItems($items)
