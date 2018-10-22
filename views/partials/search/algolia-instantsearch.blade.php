@@ -78,8 +78,6 @@
             &nbsp; - <span class="label label-theme label-sm">{{{ data.origin_site }}}</span>
         <# } #>
 
-        <div class="search-result-date text-dark-gray">{{ data.post_date_formatted }}</div>
-
         <# if (data.contentSnippet) { #>
             <# if (data.post_status == "private" && <?php echo is_user_logged_in() ? 'false' : 'true'; ?>) { #>
                 <div class="suggestion-post-content"><?php _e("This post is not publicly avabile, you will be prompted to login to view this post.", 'municipio'); ?></div>
@@ -111,9 +109,11 @@
 {{-- Empty search response. --}}
 @verbatim
 <script type="text/html" id="tmpl-instantsearch-empty">
+    <div id="before-search-notice"></div>
     <div class="notice info">
          <i class="pricon pricon-info-o"></i> <?php _e("Could not find any content matching your query.", 'municipio'); ?>
     </div>
+    <div id="after-search-notice"></div>
 </script>
 @endverbatim
 
