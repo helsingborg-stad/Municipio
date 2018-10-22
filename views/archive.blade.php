@@ -55,7 +55,7 @@
             </div>
             @elseif (!empty(apply_filters('accessibility_items', array())))
                 <div class="grid">
-                    <div class="grid-xs-12">
+                    <div class="grid-xs-12 u-mb-3">
                         @include('partials.accessibility-menu')
                     </div>
                 </div>
