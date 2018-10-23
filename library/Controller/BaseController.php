@@ -64,9 +64,9 @@ class BaseController
      */
     public function layout()
     {
-        $this->data['layout']['content']  = 'grid-xs-12';
-        $this->data['layout']['sidebarLeft'] = 'grid-xs-12 grid-lg-3';
-        $this->data['layout']['sidebarRight'] = 'grid-xs-12 grid-lg-3';
+        $this->data['layout']['content']  = 'grid-xs-12 order-xs-1 order-md-2';
+        $this->data['layout']['sidebarLeft'] = 'grid-xs-12 grid-md-4 grid-lg-3 order-xs-2 order-md-1';
+        $this->data['layout']['sidebarRight'] = 'grid-xs-12 grid-md-4 grid-lg-3 hidden-xs hidden-sm hidden-md order-md-3';
 
         $sidebarLeft = false;
         $sidebarRight = false;
@@ -92,9 +92,9 @@ class BaseController
         }
 
         if ($sidebarLeft && $sidebarRight) {
-            $this->data['layout']['content']  = 'grid-xs-12 grid-lg-6';
+            $this->data['layout']['content']  = 'grid-xs-12 grid-md-8 grid-lg-6 order-xs-1 order-md-2';
         } elseif ($sidebarLeft || $sidebarRight) {
-            $this->data['layout']['content']  = 'grid-xs-12 grid-lg-9';
+            $this->data['layout']['content']  = 'grid-xs-12 grid-md-8 grid-lg-9 order-xs-1 order-md-2';
         }
 
         if (is_front_page()) {

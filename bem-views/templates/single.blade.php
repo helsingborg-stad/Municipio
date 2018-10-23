@@ -8,12 +8,12 @@
 @stop
 
 @section('sidebar-left')
-    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
-
     @if (get_field('nav_sub_enable', 'option'))
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
+    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
+    @include('components.dynamic-sidebar', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
     @include('components.dynamic-sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
 
@@ -29,7 +29,9 @@
 
     @include('components.dynamic-sidebar', ['id' => 'content-area'])
 
-    @include('partials.page-footer')
+    <div class="hidden-xs hidden-sm">
+        @include('partials.page-footer')
+    </div>
 @stop
 
 @section('sidebar-right')
@@ -37,5 +39,8 @@
 @stop
 
 @section('below')
+    <div class="hidden-md hidden-lg">
+        @include('partials.page-footer')
+    </div>
     @include('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
 @stop

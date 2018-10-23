@@ -46,9 +46,9 @@
 
                     {{-- Sidebar left --}}
                     @hasSection('sidebar-left')
-                        <div class="{{$layout['sidebarLeft']}} s-sidebar-left">
+                        <aside class="{{$layout['sidebarLeft']}} s-sidebar-left">
                             @yield('sidebar-left')
-                        </div>
+                        </aside>
                     @endif
 
                     {{-- Content --}}
@@ -58,14 +58,14 @@
 
                     {{-- Sidebar right --}}
                     @hasSection('sidebar-right')
-                        <div class="{{$layout['sidebarRight']}} s-sidebar-right">
+                        <aside class="{{$layout['sidebarRight']}} s-sidebar-right">
                             @yield('sidebar-right')
-                        </div>
+                        </aside>
                     @endif
 
                     {{-- Below --}}
                     @hasSection('below')
-                        <div class="grid-xs-12 s-below">
+                        <div class="grid-xs-12 s-below order-xs-5">
                             @yield('below')
                         </div>
                     @endif

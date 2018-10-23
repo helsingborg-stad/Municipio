@@ -1,5 +1,5 @@
 <?php global $post; ?>
-<article class="c-article s-article">
+<article class="c-article s-article u-mb-4">
     <h1>{{ the_title() }}</h1>
 
     @include('partials.accessibility-menu')
