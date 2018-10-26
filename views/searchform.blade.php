@@ -8,7 +8,7 @@
     <form method="get" action="{{ apply_filters('Municipio/search_form/action', home_url()) }}" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
         <meta itemprop="target" content="{{ home_url('?s=') }}{search_term_string}">
 
-        @if (is_front_page())
+        @if (rtrim($_SERVER['REQUEST_URI'], "/") == "")
             <label class="label label-lg label-theme" for="searchkeyword-{{ $searchFormNode }}">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
         @else
             <label for="searchkeyword-{{ $searchFormNode }}" class="sr-only">{{ get_field('search_label_text', 'option') ? get_field('search_label_text', 'option') : __('Search', 'municipio') }}</label>
