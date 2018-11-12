@@ -97,6 +97,10 @@ class BaseController
             $this->data['layout']['content']  = 'grid-xs-12 grid-md-8 grid-lg-9 order-xs-1 order-md-2';
         }
 
+        if (!$sidebarLeft && $sidebarRight) {
+            $this->data['layout']['sidebarLeft'] .= ' hidden-lg';
+        }
+
         if (is_front_page()) {
             $this->data['layout']['content']  = 'grid-xs-12';
         }
