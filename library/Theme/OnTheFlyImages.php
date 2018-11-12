@@ -59,15 +59,19 @@ class OnTheFlyImages
     {
 
         //Check if file exists
-        if(!file_exists($resizedFile)) {
+        if (!file_exists($resizedFile)) {
             error_log("Shortpixel: Could not find or open file " . $resizedFile);
             return false;
         }
 
         //Run shortpixel
         if (defined('SHORTPIXEL_API_KEY') && !empty('SHORTPIXEL_API_KEY')) {
-            \ShortPixel\setKey(SHORTPIXEL_API_KEY);
-            \ShortPixel\fromFile($resizedFile)->optimize($this->shortpixelImageQuality)->toFiles(pathinfo($resizedFile)['dirname']);
+            try {
+                \ShortPixel\setKey(SHORTPIXEL_API_KEY);
+                \ShortPixel\fromFile($resizedFile)->optimize($this->shortpixelImageQuality)->toFiles(pathinfo($resizedFile)['dirname']);
+            } catch (Exception $e) {
+                error_log("Municipio shortpixel integration: " . $e);
+            }
         }
     }
 
