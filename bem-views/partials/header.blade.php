@@ -1,11 +1,12 @@
 {{-- Above header --}}
 @section('above-header')
-    @include('partials.navigation.search-top')
 @show
 
 <header id="site-header" class="{{ apply_filters('Views/Partials/Header/HeaderClass', $headerLayout['classes']) }}">
     {{-- Before header body --}}
-    @yield('before-header-body')
+    @section('before-header-body')
+        @include('partials.navigation.search-top')
+    @show
 
     {{-- Header body --}}
     @yield('header-body')
