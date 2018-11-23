@@ -52,7 +52,7 @@ jQuery(function () {
     });
 
     /* Setup dropdown menus */
-    jQuery("#site-header " + algolia.autocomplete.input_selector + ", .hero " + algolia.autocomplete.input_selector + ", .search-top " + algolia.autocomplete.input_selector).each(function (i) {
+    jQuery(".search-top " + algolia.autocomplete.input_selector + ", #site-header " + algolia.autocomplete.input_selector + ", .hero " + algolia.autocomplete.input_selector).each(function (i) {
       var $searchInput = jQuery(this);
 
       var config = {
