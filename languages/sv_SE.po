@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-10-02 15:43+0200\n"
-"PO-Revision-Date: 2018-10-02 15:44+0200\n"
+"POT-Creation-Date: 2018-12-11 15:03+0100\n"
+"PO-Revision-Date: 2018-12-11 15:08+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -104,10 +104,11 @@ msgid "More"
 msgstr "Mer"
 
 #: bem-views/partials/search/wp.blade.php:24
-#: views/partials/search/algolia-customsearch.blade.php:37
-#: views/partials/search/algolia.blade.php:37
+#: views/partials/search/algolia-customsearch.blade.php:41
+#: views/partials/search/algolia-instantsearch.blade.php:118
+#: views/partials/search/algolia.blade.php:41
 #: views/partials/search/google.blade.php:24
-#: views/partials/search/wp.blade.php:24
+#: views/partials/search/wp.blade.php:28
 msgid "Found no matching results on your search…"
 msgstr "Hittade inga matchande resultat för din sökning…"
 
@@ -286,7 +287,7 @@ msgid "Show featured image in single template"
 msgstr "Visa utvald bild i singel-template"
 
 #: library/AcfFields/php/options-page-display.php:15
-#: library/AcfFields/php/options-theme-search-result.php:11
+#: library/AcfFields/php/options-theme-search-result.php:23
 msgid "Featured image"
 msgstr "Utvald bild"
 
@@ -1019,7 +1020,7 @@ msgid "Enter a    url with the format http://example.com"
 msgstr "Ange en url med format: http://exempel.se"
 
 #: library/AcfFields/php/options-theme-footer-icons.php:662
-#: library/AcfFields/php/options-theme-search-result.php:14
+#: library/AcfFields/php/options-theme-search-result.php:26
 msgid "Url"
 msgstr "Url"
 
@@ -1047,7 +1048,7 @@ msgstr "Sidfotslayout"
 
 #: library/AcfFields/php/options-theme-footer-layout.php:10
 #: library/AcfFields/php/options-theme-header.php:10
-#: library/AcfFields/php/options-theme-search-result.php:50
+#: library/AcfFields/php/options-theme-search-result.php:40
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:183
 #: vendor/advanced-custom-fields/core/fields/message.php:20
 #: vendor/advanced-custom-fields/core/fields/radio.php:212
@@ -1472,62 +1473,90 @@ msgid ""
 msgstr ""
 "Visar en etikett för utvalda posttyper med deras namn bland sökresultaten."
 
-#: library/AcfFields/php/options-theme-search-display.php:42
-msgid "Search field label"
-msgstr "Sökfältets titel"
+#: library/AcfFields/php/options-theme-search-display.php:37
+msgid "Sökfältets titel"
+msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:63
-msgid "Search field placeholder"
-msgstr "Sökfältets beskrivning"
+#: library/AcfFields/php/options-theme-search-display.php:58
+msgid "Sökfältets beskrivning"
+msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:84
-msgid "Search button text"
-msgstr "Sök-knappens text"
+#: library/AcfFields/php/options-theme-search-display.php:79
+msgid "Sök-knappens text"
+msgstr ""
 
-#: library/AcfFields/php/options-theme-search-result.php:12
-msgid "Published date"
-msgstr "Publicerad"
+#: library/AcfFields/php/options-theme-search-display.php:90
+msgid "Sök"
+msgstr "Sök"
 
-#: library/AcfFields/php/options-theme-search-result.php:13
-msgid "Lead"
-msgstr "Ingress"
+#: library/AcfFields/php/options-theme-search-display.php:100
+msgid "Empty search result message"
+msgstr "Meddelande för tomt resultat"
 
-#: library/AcfFields/php/options-theme-search-result.php:26
+#: library/AcfFields/php/options-theme-search-display.php:103
+msgid "Add a custom search result message, if the search returns no hits."
+msgstr "Lägg till meddelande när sökning inte returnerar något resultat."
+
+#: library/AcfFields/php/options-theme-search-display.php:112
+msgid "Add message"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:10
 #: library/AcfFields/php/widget-header-common.php:10
 msgid "Display options"
 msgstr "Visningsinställningar"
 
-#: library/AcfFields/php/options-theme-search-result.php:41
+#: library/AcfFields/php/options-theme-search-result.php:24
+msgid "Published date"
+msgstr "Publicerad"
+
+#: library/AcfFields/php/options-theme-search-result.php:25
+msgid "Lead"
+msgstr "Ingress"
+
+#: library/AcfFields/php/options-theme-search-result.php:29
+msgid "date"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:30
+msgid "lead"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:31
+msgid "url"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:53
 msgid "Default (list)"
 msgstr "Standard (lista)"
 
-#: library/AcfFields/php/options-theme-search-result.php:42
+#: library/AcfFields/php/options-theme-search-result.php:54
 msgid "Grid"
 msgstr "Rutnät"
 
-#: library/AcfFields/php/options-theme-search-result.php:66
-msgid "1"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-result.php:67
-msgid "2"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-result.php:68
-msgid "3"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-result.php:69
-msgid "4"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-result.php:79
+#: library/AcfFields/php/options-theme-search-result.php:64
 msgid "Grid columns"
 msgstr "Kolumner i rutnät"
 
-#: library/AcfFields/php/options-theme-search.php:6
-msgid "Google Search"
-msgstr "Google Sök"
+#: library/AcfFields/php/options-theme-search-result.php:86
+msgid "1"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:87
+msgid "2"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:88
+msgid "3"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:89
+msgid "4"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:92
+msgid "grid-md-12"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-search.php:22
 msgid "Use Google Site Search"
@@ -2299,7 +2328,7 @@ msgstr "Är du säker på att du vill ta bort kommentaren?"
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/General.php:199
+#: library/Theme/General.php:211
 msgid "Print"
 msgstr "Skriv ut"
 
@@ -5582,11 +5611,11 @@ msgstr "Visa alla"
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/search/algolia-customsearch.blade.php:49
+#: views/partials/search/algolia-customsearch.blade.php:54
 msgid "Whoops, this search result page dosen't exist anymore…"
 msgstr "Hoppsan, den här sidan med sökresultat finns inte längre…"
 
-#: views/partials/search/algolia-instantsearch.blade.php:85
+#: views/partials/search/algolia-instantsearch.blade.php:83
 msgid ""
 "This post is not publicly avabile, you will be prompted to login to view "
 "this post."
@@ -5594,15 +5623,11 @@ msgstr ""
 "Sidan är inte publikt tillgänglig, du kommer bli tillfrågad om att logga in "
 "för att se den här sidan. "
 
-#: views/partials/search/algolia-instantsearch.blade.php:115
-msgid "Could not find any content matching your query."
-msgstr "Kunde inte hitta något innehåll som matchar din sökfråga."
-
-#: views/partials/search/algolia-instantsearch.blade.php:124
+#: views/partials/search/algolia-instantsearch.blade.php:129
 msgid "hits on"
 msgstr "träffar på"
 
-#: views/partials/search/algolia-instantsearch.blade.php:126
+#: views/partials/search/algolia-instantsearch.blade.php:131
 msgid "Query is empty, please type somehing."
 msgstr "Vänligen ange en sökfråga. "
 
@@ -5682,6 +5707,21 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Search field label"
+#~ msgstr "Sökfältets titel"
+
+#~ msgid "Search field placeholder"
+#~ msgstr "Sökfältets beskrivning"
+
+#~ msgid "Search button text"
+#~ msgstr "Sök-knappens text"
+
+#~ msgid "Google Search"
+#~ msgstr "Google Sök"
+
+#~ msgid "Could not find any content matching your query."
+#~ msgstr "Kunde inte hitta något innehåll som matchar din sökfråga."
 
 #~ msgid "This it the beta-environment. All functionality is not guaranteed."
 #~ msgstr ""
@@ -5898,9 +5938,6 @@ msgstr ""
 
 #~ msgid "Icon in main menu"
 #~ msgstr "Ikon i huvudmenyn"
-
-#~ msgid "Sök"
-#~ msgstr "Sök"
 
 #~ msgid "sub"
 #~ msgstr "sub"
