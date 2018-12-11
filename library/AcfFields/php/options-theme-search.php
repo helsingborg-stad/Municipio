@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_569fa7edcdd6b',
-    'title' => __('Google Search', 'municipio'),
+    'title' => 'Google Search',
     'fields' => array(
         0 => array(
             'key' => 'field_56a227e7a7b31',

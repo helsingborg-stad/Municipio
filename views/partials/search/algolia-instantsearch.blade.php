@@ -111,7 +111,12 @@
 <script type="text/html" id="tmpl-instantsearch-empty">
     <div id="before-search-notice"></div>
     <div class="notice info">
-         <i class="pricon pricon-info-o"></i> <?php _e("Could not find any content matching your query.", 'municipio'); ?>
+         <i class="pricon pricon-info-o"></i>
+        @if(get_field('empty_search_result_message', 'option'))
+            {{get_field('empty_search_result_message', 'option')}}
+        @else
+            <?php _e('Found no matching results on your search…', 'municipio'); ?>
+        @endif
     </div>
     <div id="after-search-notice"></div>
 </script>
