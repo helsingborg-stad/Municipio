@@ -22,11 +22,15 @@
         <div class="grid-lg-12">
             <div class="notice info">
                 <i class="fa fa-info-circle"></i>
-                @if(get_field('empty_search_result_message', 'option'))
-                    {{get_field('empty_search_result_message', 'option')}}
-                @else
-                    <?php _e('Found no matching results on your search…', 'municipio'); ?>
-                @endif
+                @verbatim
+                <?php
+                if ($emptySearchResultMessage) {
+                    echo $emptySearchResultMessage;
+                } else {
+                    _e('Found no matching results on your search…', 'municipio');
+                }
+                ?>
+                @endverbatim
             </div>
         </div>
     </div>
