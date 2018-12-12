@@ -29,22 +29,24 @@
 <?php do_action('search_notices'); ?>
 
 @if ($resultCount === 0)
-
-<div class="container gutter gutter-lg gutter-top">
-    <div class="grid gutter gutter-lg gutter-top">
-        <div class="grid-lg-12">
-            <div class="notice info">
-                <i class="fa fa-info-circle"></i>
-                @if(get_field('empty_search_result_message', 'option'))
-                    {{get_field('empty_search_result_message', 'option')}}
-                @else
-                    <?php _e('Found no matching results on your search…', 'municipio'); ?>
-                @endif
+    @verbatim
+        <div class="container gutter gutter-lg gutter-top">
+            <div class="grid gutter gutter-lg gutter-top">
+                <div class="grid-lg-12">
+                    <div class="notice info">
+                        <i class="fa fa-info-circle"></i>
+                        <?php
+                        if ($emptySearchResultMessage) {
+                            echo $emptySearchResultMessage;
+                        } else {
+                            _e('Found no matching results on your search…', 'municipio');
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
+    @endverbatim
 @else
 
 <section>

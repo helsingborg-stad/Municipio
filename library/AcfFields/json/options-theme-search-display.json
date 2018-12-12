@@ -30,7 +30,7 @@
         },
         {
             "key": "field_56d3fa48a53d6",
-            "label": "S\u00f6kf\u00e4ltets titel",
+            "label": "Search field label",
             "name": "search_label_text",
             "type": "text",
             "instructions": "",
@@ -51,7 +51,7 @@
         },
         {
             "key": "field_56d3fa67a53d7",
-            "label": "S\u00f6kf\u00e4ltets beskrivning",
+            "label": "Search field placeholder",
             "name": "search_placeholder_text",
             "type": "text",
             "instructions": "",
@@ -72,7 +72,7 @@
         },
         {
             "key": "field_56d3fa82a53d8",
-            "label": "S\u00f6k-knappens text",
+            "label": "Search button text",
             "name": "search_button_text",
             "type": "text",
             "instructions": "",
@@ -93,10 +93,10 @@
         },
         {
             "key": "field_5c0fb3bb76405",
-            "label": "Empty search result message",
+            "label": "Meddelande f\u00f6r tomt resultat",
             "name": "empty_search_result_message",
             "type": "textarea",
-            "instructions": "Add a custom search result message, if the search returns no hits.",
+            "instructions": "L\u00e4gg till meddelande n\u00e4r s\u00f6kning inte returnerar n\u00e5got resultat.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -105,7 +105,7 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "Add message",
+            "placeholder": "L\u00e4gg till meddelande\u2026",
             "maxlength": "",
             "rows": "",
             "new_lines": ""

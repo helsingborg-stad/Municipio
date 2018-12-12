@@ -76,7 +76,14 @@
 
 <script type="text/html" id="tmpl-autocomplete-empty">
   <div class="autocomplete-empty">
-      <?php esc_html_e( 'No results matched your query ', 'algolia' ); ?>
+      <?php
+      $search_didnt_match_query_message = get_field('search_didnt_match_query_message', 'option');
+      if ($search_didnt_match_query_message) {
+          echo $search_didnt_match_query_message;
+      } else {
+          esc_html_e( 'No results matched your query ', 'algolia' );
+      }
+      ?>
     <span class="empty-query">"{{ data.query }}"</span>
   </div>
 </script>

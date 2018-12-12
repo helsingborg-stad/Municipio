@@ -13,6 +13,9 @@ class Search extends \Municipio\Controller\BaseController
             'all_pages' => __("All pages", 'municipio'),
         );
 
+        // Custom null result message
+        $this->data['emptySearchResultMessage'] = get_field('empty_search_result_message', 'option');
+
         //Determine what type of searchengine that should be used
         if (get_field('use_google_search', 'option') === true) {
             $this->googleSearch();

@@ -34,7 +34,7 @@
         ),
         1 => array(
             'key' => 'field_56d3fa48a53d6',
-            'label' => __('Sökfältets titel', 'municipio'),
+            'label' => __('Search field label', 'municipio'),
             'name' => 'search_label_text',
             'type' => 'text',
             'instructions' => '',
@@ -55,7 +55,7 @@
         ),
         2 => array(
             'key' => 'field_56d3fa67a53d7',
-            'label' => __('Sökfältets beskrivning', 'municipio'),
+            'label' => __('Search field placeholder', 'municipio'),
             'name' => 'search_placeholder_text',
             'type' => 'text',
             'instructions' => '',
@@ -76,7 +76,7 @@
         ),
         3 => array(
             'key' => 'field_56d3fa82a53d8',
-            'label' => __('Sök-knappens text', 'municipio'),
+            'label' => __('Search button text', 'municipio'),
             'name' => 'search_button_text',
             'type' => 'text',
             'instructions' => '',
@@ -97,10 +97,10 @@
         ),
         4 => array(
             'key' => 'field_5c0fb3bb76405',
-            'label' => __('Empty search result message', 'municipio'),
+            'label' => __('Meddelande för tomt resultat', 'municipio'),
             'name' => 'empty_search_result_message',
             'type' => 'textarea',
-            'instructions' => __('Add a custom search result message, if the search returns no hits.', 'municipio'),
+            'instructions' => __('Lägg till meddelande när sökning inte returnerar något resultat.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -109,7 +109,7 @@
                 'id' => '',
             ),
             'default_value' => '',
-            'placeholder' => __('Add message', 'municipio'),
+            'placeholder' => __('Lägg till meddelande…', 'municipio'),
             'maxlength' => '',
             'rows' => '',
             'new_lines' => '',

@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_5a61b852f3f8c',
-    'title' => __('Algolia Search', 'municipio'),
+    'title' => 'Algolia Sök',
     'fields' => array(
         0 => array(
             'key' => 'field_5a61b85c6e7b8',
-            'label' => __('Enable', 'municipio'),
+            'label' => 'Enable',
             'name' => 'use_algolia_search',
             'type' => 'true_false',
             'instructions' => '',
@@ -18,7 +18,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('Enable the Algolia Search (Requires Algolia WordPress plugin)', 'municipio'),
+            'message' => 'Enable the Algolia Search (Requires Algolia WordPress plugin)',
             'default_value' => 0,
             'ui' => 0,
             'ui_on_text' => '',
@@ -26,10 +26,10 @@
         ),
         1 => array(
             'key' => 'field_5b3c6dc1c3210',
-            'label' => __('Display label for post types', 'municipio'),
+            'label' => __('Visa etikett med posttyp', 'municipio'),
             'name' => 'algolia_display_post_types',
             'type' => 'posttype_select',
-            'instructions' => __('Displays a label for selected post types with their names in the search results.', 'municipio'),
+            'instructions' => __('Visar en etikett för utvalda posttyper med deras namn bland sökresultaten.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -43,6 +43,25 @@
             'placeholder' => '',
             'disabled' => 0,
             'readonly' => 0,
+        ),
+        2 => array(
+            'key' => 'field_5c111b35a3803',
+            'label' => __('Search didn\'t match query message', 'municipio'),
+            'name' => 'search_didnt_match_query_message',
+            'type' => 'text',
+            'instructions' => __('Add a custom query message, if the search doesn\'t match query (Autocomplete).', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => __('Lägg till meddelande…', 'municipio'),
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
         ),
     ),
     'location' => array(

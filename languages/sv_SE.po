@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2018-12-11 15:03+0100\n"
-"PO-Revision-Date: 2018-12-11 15:29+0100\n"
+"POT-Creation-Date: 2018-12-12 15:34+0100\n"
+"PO-Revision-Date: 2018-12-12 15:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: algolia/autocomplete.php:79
+#: algolia/autocomplete.php:84
 msgid "No results matched your query "
 msgstr "Inga träffar matchade din sökfråga "
 
@@ -104,9 +104,9 @@ msgid "More"
 msgstr "Mer"
 
 #: bem-views/partials/search/wp.blade.php:24
-#: views/partials/search/algolia-customsearch.blade.php:41
-#: views/partials/search/algolia-instantsearch.blade.php:118
-#: views/partials/search/algolia.blade.php:41
+#: views/partials/search/algolia-customsearch.blade.php:42
+#: views/partials/search/algolia-instantsearch.blade.php:127
+#: views/partials/search/algolia.blade.php:42
 #: views/partials/search/google.blade.php:24
 #: views/partials/search/wp.blade.php:28
 msgid "Found no matching results on your search…"
@@ -409,7 +409,6 @@ msgstr "Använd %s för att skriva ut föreslagen sökfras"
 #: library/AcfFields/php/options-theme-author.php:60
 #: library/AcfFields/php/options-theme-google-translate.php:96
 #: library/AcfFields/php/options-theme-scroll-elevator.php:32
-#: library/AcfFields/php/options-theme-search-algolia.php:10
 #: library/AcfFields/php/options-theme-search.php:10
 #: library/AcfFields/php/options-theme-share.php:10
 msgid "Enable"
@@ -1454,52 +1453,54 @@ msgstr "Under"
 msgid "Tooltip position"
 msgstr "Positionering av tooltip"
 
-#: library/AcfFields/php/options-theme-search-algolia.php:6
-msgid "Algolia Search"
-msgstr "Algolia Sök"
-
-#: library/AcfFields/php/options-theme-search-algolia.php:21
-msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
-msgstr "Aktivera Algolia sök (Kräver Algolias WordPress plugin)"
-
 #: library/AcfFields/php/options-theme-search-algolia.php:29
-msgid "Display label for post types"
-msgstr "Visa etikett med posttyp"
+msgid "Visa etikett med posttyp"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-search-algolia.php:32
 msgid ""
-"Displays a label for selected post types with their names in the search "
-"results."
-msgstr ""
 "Visar en etikett för utvalda posttyper med deras namn bland sökresultaten."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:49
+msgid "Search didn't match query message"
+msgstr "Din sökning matchade inte frågan meddelande"
+
+#: library/AcfFields/php/options-theme-search-algolia.php:52
+msgid ""
+"Add a custom query message, if the search doesn't match query (Autocomplete)."
+msgstr ""
+"Lägg till ett eget meddelande som visas i Algolia autocomplete när frågan "
+"inte ger något resultat"
+
+#: library/AcfFields/php/options-theme-search-algolia.php:61
+#: library/AcfFields/php/options-theme-search-display.php:112
+msgid "Lägg till meddelande…"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-search-display.php:37
-msgid "Sökfältets titel"
-msgstr ""
+msgid "Search field label"
+msgstr "Sökfältets titel"
 
 #: library/AcfFields/php/options-theme-search-display.php:58
-msgid "Sökfältets beskrivning"
-msgstr ""
+msgid "Search field placeholder"
+msgstr "Sökfältets beskrivning"
 
 #: library/AcfFields/php/options-theme-search-display.php:79
-msgid "Sök-knappens text"
-msgstr ""
+msgid "Search button text"
+msgstr "Sök-knappens text"
 
 #: library/AcfFields/php/options-theme-search-display.php:90
 msgid "Sök"
 msgstr "Sök"
 
 #: library/AcfFields/php/options-theme-search-display.php:100
-msgid "Empty search result message"
-msgstr "Meddelande för tomt resultat"
+msgid "Meddelande för tomt resultat"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-search-display.php:103
-msgid "Add a custom search result message, if the search returns no hits."
-msgstr "Lägg till meddelande när sökning inte returnerar något resultat."
-
-#: library/AcfFields/php/options-theme-search-display.php:112
-msgid "Add message"
-msgstr "Lägg till meddelande…"
+msgid "Lägg till meddelande när sökning inte returnerar något resultat."
+msgstr ""
 
 #: library/AcfFields/php/options-theme-search-result.php:10
 #: library/AcfFields/php/widget-header-common.php:10
@@ -5611,11 +5612,11 @@ msgstr "Visa alla"
 msgid "What are you looking for?"
 msgstr "Vad letar du efter?"
 
-#: views/partials/search/algolia-customsearch.blade.php:54
+#: views/partials/search/algolia-customsearch.blade.php:56
 msgid "Whoops, this search result page dosen't exist anymore…"
 msgstr "Hoppsan, den här sidan med sökresultat finns inte längre…"
 
-#: views/partials/search/algolia-instantsearch.blade.php:83
+#: views/partials/search/algolia-instantsearch.blade.php:89
 msgid ""
 "This post is not publicly avabile, you will be prompted to login to view "
 "this post."
@@ -5623,11 +5624,11 @@ msgstr ""
 "Sidan är inte publikt tillgänglig, du kommer bli tillfrågad om att logga in "
 "för att se den här sidan. "
 
-#: views/partials/search/algolia-instantsearch.blade.php:129
+#: views/partials/search/algolia-instantsearch.blade.php:139
 msgid "hits on"
 msgstr "träffar på"
 
-#: views/partials/search/algolia-instantsearch.blade.php:131
+#: views/partials/search/algolia-instantsearch.blade.php:141
 msgid "Query is empty, please type somehing."
 msgstr "Vänligen ange en sökfråga. "
 
@@ -5708,14 +5709,29 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
-#~ msgid "Search field label"
-#~ msgstr "Sökfältets titel"
+#~ msgid "Algolia Search"
+#~ msgstr "Algolia Sök"
 
-#~ msgid "Search field placeholder"
-#~ msgstr "Sökfältets beskrivning"
+#~ msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
+#~ msgstr "Aktivera Algolia sök (Kräver Algolias WordPress plugin)"
 
-#~ msgid "Search button text"
-#~ msgstr "Sök-knappens text"
+#~ msgid "Display label for post types"
+#~ msgstr "Visa etikett med posttyp"
+
+#~ msgid ""
+#~ "Displays a label for selected post types with their names in the search "
+#~ "results."
+#~ msgstr ""
+#~ "Visar en etikett för utvalda posttyper med deras namn bland sökresultaten."
+
+#~ msgid "Empty search result message"
+#~ msgstr "Meddelande för tomt resultat"
+
+#~ msgid "Add a custom search result message, if the search returns no hits."
+#~ msgstr "Lägg till meddelande när sökning inte returnerar något resultat."
+
+#~ msgid "Add message"
+#~ msgstr "Lägg till meddelande…"
 
 #~ msgid "Google Search"
 #~ msgstr "Google Sök"

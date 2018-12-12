@@ -1,6 +1,6 @@
 [{
     "key": "group_5a61b852f3f8c",
-    "title": "Algolia Search",
+    "title": "Algolia S\u00f6k",
     "fields": [
         {
             "key": "field_5a61b85c6e7b8",
@@ -23,10 +23,10 @@
         },
         {
             "key": "field_5b3c6dc1c3210",
-            "label": "Display label for post types",
+            "label": "Visa etikett med posttyp",
             "name": "algolia_display_post_types",
             "type": "posttype_select",
-            "instructions": "Displays a label for selected post types with their names in the search results.",
+            "instructions": "Visar en etikett f\u00f6r utvalda posttyper med deras namn bland s\u00f6kresultaten.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -40,6 +40,25 @@
             "placeholder": "",
             "disabled": 0,
             "readonly": 0
+        },
+        {
+            "key": "field_5c111b35a3803",
+            "label": "Search didn't match query message",
+            "name": "search_didnt_match_query_message",
+            "type": "text",
+            "instructions": "Add a custom query message, if the search doesn't match query (Autocomplete).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "L\u00e4gg till meddelande\u2026",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
