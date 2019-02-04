@@ -7,13 +7,13 @@
         </a>
     </li>
     <li>
-        <a class="share-social-twitter" data-action="share-popup" href="http://twitter.com/share?url={!! urlencode(get_page_link()) !!}" data-tooltip="<?php _e('Share on', 'municipio'); ?> Twitter">
+        <a class="share-social-twitter" data-action="share-popup" href="http://twitter.com/share?url={!! urlencode(get_permalink()) !!}" data-tooltip="<?php _e('Share on', 'municipio'); ?> Twitter">
             <i class="pricon pricon-twitter"></i>
             <span><?php _e('Share on', 'municipio'); ?> Twitter</span>
         </a>
     </li>
     <li>
-        <a class="share-social-linkedin" data-action="share-popup" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={!! urlencode(get_page_link()) !!}&amp;title={{ urlencode(get_the_title()) }}" data-tooltip="<?php _e('Share on', 'municipio'); ?> LinkedIn">
+        <a class="share-social-linkedin" data-action="share-popup" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={!! urlencode(get_permalink()) !!}&amp;title={{ urlencode(get_permalink()) }}" data-tooltip="<?php _e('Share on', 'municipio'); ?> LinkedIn">
             <i class="pricon pricon-linkedin"></i>
             <span><?php _e('Share on', 'municipio'); ?> LinkedIn</span>
         </a>
