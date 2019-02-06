@@ -23,5 +23,11 @@ class CustomTemplates
             \Municipio\Helper\Template::locateTemplate('page-two-column.blade.php'),
             'all'
         );
+
+        \Municipio\Helper\Template::add(
+            __('Sidebar right', 'municipio'),
+            \Municipio\Helper\Template::locateTemplate('sidebar-right.blade.php'),
+            'all'
+        );
     }
 }
