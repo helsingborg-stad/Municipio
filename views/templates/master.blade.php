@@ -39,7 +39,7 @@
             </div>
         @endif
 
-        @if (get_field('show_google_translate', 'option') == 'header')
+        @if ($translateLocation == 'header')
             @include('partials.translate')
         @endif
 
@@ -65,7 +65,7 @@
 
         @include('partials.vertical-menu')
 
-        @if (in_array(get_field('show_google_translate', 'option'), array('footer', 'fold')))
+        @if (in_array($translateLocation, array('footer', 'fold')))
             @include('partials.translate')
         @endif
      </div>

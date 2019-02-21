@@ -30,6 +30,23 @@
     @show
 
     <main id="main" class="c-main s-main">
+
+        @if (isset($notice) && !empty($notice))
+            <div class="notices">
+            @if (!isset($notice['text']) && is_array($notice))
+                @foreach ($notice as $notice)
+                    @include('partials.notice')
+                @endforeach
+            @else
+                @include('partials.notice')
+            @endif
+            </div>
+        @endif
+
+        @if ($translateLocation == 'header')
+            @include('partials.translate')
+        @endif
+
         {{-- Before page layout --}}
         @yield('before-layout')
 
@@ -83,6 +100,10 @@
             @includeIf('partials.footer.' . $footerLayout['template'])
         @endif
     @show
+
+    @if (in_array($translateLocation, array('footer', 'fold')))
+        @include('partials.translate')
+    @endif
 
     {!! wp_footer() !!}
 

@@ -42,6 +42,9 @@ class BaseController
             'seconds'   => __("seconds", 'municipio'),
         );
 
+        //Google translate location
+        $this->data['translateLocation'] = get_field('show_google_translate', 'option'); 
+
         //Admin notices (show incomplete configuration to administrator)
         if (is_user_logged_in() && current_user_can('edit_themes')) {
             $this->data['showAdminNotices'] = true;
