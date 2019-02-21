@@ -37,7 +37,7 @@ class Enqueue
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
 
         //Enable defered loading
-        add_action('clean_url', array($this, 'deferedLoadingJavascript'));
+        add_filter('script_loader_tag', array($this, 'deferedLoadingJavascript'), 10, 2);
 
         // Plugin filters (script/style related)
         add_filter('gform_init_scripts_footer', '__return_true');
@@ -232,21 +232,28 @@ class Enqueue
     }
 
     /**
-     * Making deffered loading of scripts a posibillity (remnoves unwanted renderblocking js)
-     * @param  string $src The soruce path
-     * @return string      The source path without any querystring
+     * Making deffered loading of scripts a posibillity (removes unwanted renderblocking js)
+     * @param  string $tag    HTML Script tag
+     * @param  string $handle Script handle
+     * @return string         The script tag
      */
-    public function deferedLoadingJavascript($url)
+    public function deferedLoadingJavascript($tag, $handle)
     {
-        if (is_admin() || false !== strpos($url, 'readspeaker.com') || false === strpos($url, '.js')) {
-            return $url;
+        if (is_admin()) {
+            return $tag;
         }
 
-        if (isset($_GET['gf_page']) && $_GET['gf_page'] == 'preview') {
-            return $url;
+        if (isset($_GET['preview']) && $_GET['preview'] == 'true') {
+            return $tag;
         }
 
-        return $url . "' defer='defer";
+        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', array('readspeaker'), $handle);
+
+        if (in_array($handle, $scriptsHandlesToIgnore)) {
+            return $tag;
+        }
+
+       return str_replace(' src', ' defer="defer" src', $tag);
     }
 
     /**
