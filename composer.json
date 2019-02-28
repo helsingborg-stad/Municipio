@@ -26,7 +26,7 @@
     "require": {
         "composer/installers": "^1.0",
         "philo/laravel-blade": "^3.1",
-        "symfony/debug": "^3.0",
+        "symfony/debug": "^4.0",
         "wpackagist-plugin/advanced-custom-fields": "^4.4.7",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "aristath/kirki": "^3.0",
