@@ -7,7 +7,7 @@
         <?php dynamic_sidebar('bottom-sidebar'); ?>
       </div>
     @endif
-@show
+@stop
 
 @section('footer-body')
     <div class="container">
