@@ -1,6 +1,6 @@
 {{-- Above header --}}
 @section('above-header')
-@show
+@stop
 
 <header id="site-header" class="{{ apply_filters('Views/Partials/Header/HeaderClass', $headerLayout['classes']) }}">
     {{-- Before header body --}}
