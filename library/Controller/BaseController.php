@@ -42,6 +42,9 @@ class BaseController
             'seconds'   => __("seconds", 'municipio'),
         );
 
+        //Share url
+        $this->data['socialShareUrl'] = $this->getSocialShareUrl();
+
         //Google translate location
         $this->data['translateLocation'] = get_field('show_google_translate', 'option'); 
 
@@ -142,6 +145,22 @@ class BaseController
     public function getAjaxUrl()
     {
         return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "2.0", "Municpio/ajaxUrl");
+    }
+
+    /**
+     * Get the social share url
+     * @return string
+     */
+    public function getSocialShareUrl()
+    {
+        //Get the post id
+        if(!$postId = get_the_ID()) {
+            global $post; 
+            $postId = $post->ID; 
+        }
+
+        //Return share url
+        return urlencode(get_home_url(null, '?socialShareId=' . $postId, null)); 
     }
 
     /**

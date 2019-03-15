@@ -8,6 +8,49 @@ class Share
     {
         add_action('wp_ajax_share_email', array($this, 'socialShareEmail'));
         add_action('wp_ajax_nopriv_share_email', array($this, 'socialShareEmail'));
+    
+        //Adds redirect to full url
+        add_action('template_redirect', array($this, 'redirectFromShortlink')); 
+
+        //Add new allowed query vars (purpose redirect)
+        add_filter('query_vars', array($this, 'addAllowedQueryVars'));
+    }
+
+    /**
+     * Register new allowed qs
+     * @return array
+     */
+    public function addAllowedQueryVars($vars)
+    {
+        if(!is_array($vars)) {
+            $vars = array(); 
+        }
+
+        $vars[] = "socialShareId"; 
+        
+        return $vars; 
+    }
+
+    /**
+     * Make a redirect to the actiual page 
+     * @return void
+     */
+    public function redirectFromShortlink()
+    {
+
+        //Check if is admin
+        if(is_admin()) {
+            return; 
+        }
+
+        //Get the post id
+        $postId = get_query_var('socialShareId', null); 
+
+        //Do redirect
+        if(!is_null($postId) && is_numeric($postId)) {
+            wp_safe_redirect(get_permalink($postId), 301);
+            exit; 
+        }
     }
 
     /**
