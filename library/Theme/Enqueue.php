@@ -153,7 +153,7 @@ class Enqueue
         wp_enqueue_script('municipio');
 
         //Load polyfill SAAS
-        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v2/polyfill.min.js', 'municipio');
+        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v3/polyfill.min.js', 'municipio');
 
         //Comment reply
         if (is_singular() && get_option('thread_comments')) {
