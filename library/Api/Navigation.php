@@ -19,6 +19,16 @@ class Navigation
 
     public function getSubmenu($data)
     {
+        //Switch blog if differ blog id
+        if(isset($data['blog-id']) && is_numeric($data['blog-id'])) {
+            if($data['blog-id'] != get_current_blog_id()) {
+                switch_to_blog($data['blog-id']);
+                $blogIdswitch = true;
+            } else {
+                $blogIdswitch = false;
+            }
+        }
+
         $submenu = new \Municipio\Helper\NavigationTree(
             array(
                 'include_top_level' => false,
@@ -27,6 +37,11 @@ class Navigation
             ),
             $data['id']
         );
+
+        //Restore blog
+        if($blogIdswitch) {
+            restore_current_blog(); 
+        }
 
         return '<ul class="sub-menu">' . $submenu->render(false) . '</ul>';
     }
