@@ -20,9 +20,9 @@ class Navigation
     public function getSubmenu($data)
     {
         //Switch blog if differ blog id
-        if(isset($data['blog-id']) && is_numeric($data['blog-id'])) {
-            if($data['blog-id'] != get_current_blog_id()) {
-                switch_to_blog($data['blog-id']);
+        if(isset($data['blogId']) && is_numeric($data['blogId'])) {
+            if($data['blogId'] != get_current_blog_id()) {
+                switch_to_blog($data['blogId']);
                 $blogIdswitch = true;
             } else {
                 $blogIdswitch = false;
