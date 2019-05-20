@@ -485,7 +485,7 @@ class NavigationTree
                 $href,
                 $title
             ));
-            $this->addOutput('<button data-load-submenu="' . $objId . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button>');
+            $this->addOutput('<button data-load-submenu="' . $objId . '" data-load-blog-id="' . get_current_blog_id() . '"><span class="sr-only">' . __('Show submenu', 'municipio') . '</span><span class="icon"></span></button>');
         } else {
             $this->addOutput(sprintf(
                 '<li%1$s><a href="%2$s">%3$s</a>',
