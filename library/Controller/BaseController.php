@@ -251,9 +251,22 @@ class BaseController
         $this->data['contentGridSize'] = $contentGridSize;
     }
 
-    public function getNavigationMenus()
+    public function getNavigationMenus($blogId = null, $dataStoragePoint = 'navigation')
     {
-        $this->data['navigation']['headerTabsMenu'] = wp_nav_menu(array(
+        //Reset blog id if null
+        if(is_null($blogId)) {
+            $blogId = get_current_blog_id(); 
+        }
+
+        //Switch blog if differ blog id
+        if($blogId != get_current_blog_id()) {
+            switch_to_blog($blogId);
+            $blogIdswitch = true;
+        } else {
+            $blogIdswitch = false;
+        }
+
+        $this->data[$dataStoragePoint]['headerTabsMenu'] = wp_nav_menu(array(
             'theme_location' => 'header-tabs-menu',
             'container' => 'nav',
             'container_class' => 'menu-header-tabs',
@@ -270,7 +283,7 @@ class BaseController
             'fallback_cb' => '__return_false'
         ));
 
-        $this->data['navigation']['headerHelpMenu'] = wp_nav_menu(array(
+        $this->data[$dataStoragePoint]['headerHelpMenu'] = wp_nav_menu(array(
             'theme_location' => 'help-menu',
             'container' => 'nav',
             'container_class' => 'menu-help',
@@ -291,8 +304,8 @@ class BaseController
         if (is_404()) {
             if (!wp_cache_get('404-menus', 'municipio-navigation')) {
                 $navigation = new \Municipio\Helper\Navigation();
-                $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
-                $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
+                $this->data[$dataStoragePoint]['mainMenu'] = $navigation->mainMenu();
+                $this->data[$dataStoragePoint]['mobileMenu'] = $navigation->mobileMenu();
 
                 wp_cache_add(
                     '404-menus',
@@ -305,20 +318,24 @@ class BaseController
                 );
             } else {
                 $cache = wp_cache_get('404-menus', 'municipio-navigation');
-                $this->data['navigation']['mainMenu'] = $cache['mainMenu'];
-                $this->data['navigation']['mobileMenu'] = $cache['mobileMenu'];
+                $this->data[$dataStoragePoint]['mainMenu'] = $cache['mainMenu'];
+                $this->data[$dataStoragePoint]['mobileMenu'] = $cache['mobileMenu'];
             }
 
-            return;
+        } else {
+            $navigation = new \Municipio\Helper\Navigation();
+            $this->data[$dataStoragePoint]['mainMenu'] = $navigation->mainMenu();
+            $this->data[$dataStoragePoint]['mobileMenu'] = $navigation->mobileMenu();
+
+            global $isSublevel;
+            if ($isSublevel !== true) {
+                $this->data[$dataStoragePoint]['sidebarMenu'] = $navigation->sidebarMenu();
+            }
         }
 
-        $navigation = new \Municipio\Helper\Navigation();
-        $this->data['navigation']['mainMenu'] = $navigation->mainMenu();
-        $this->data['navigation']['mobileMenu'] = $navigation->mobileMenu();
-
-        global $isSublevel;
-        if ($isSublevel !== true) {
-            $this->data['navigation']['sidebarMenu'] = $navigation->sidebarMenu();
+        //Restore blog
+        if($blogIdswitch) {
+            restore_current_blog();
         }
     }
 
