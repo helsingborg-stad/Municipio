@@ -24,6 +24,8 @@ class NavigationTree
 
     protected $isAjaxParent = false;
 
+    private $frontPageIdCache = null; 
+
     public function __construct($args = array(), $parent = false)
     {
         if ($parent) {
@@ -251,6 +253,14 @@ class NavigationTree
             $hasChildren = true;
             $attributes['class'][] = 'has-children';
             $attributes['class'][] = 'has-sub-menu';
+        }
+
+        if(is_null($this->frontPageIdCache)) {
+            $this->frontPageIdCache = get_option('page_on_front'); 
+        }
+
+        if($pageId == $this->frontPageIdCache) {
+            $attributes['class'][] = 'is-front-page';
         }
 
         if ($output) {
