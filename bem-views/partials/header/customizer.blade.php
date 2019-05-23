@@ -1,6 +1,7 @@
 @extends('partials.header')
 
 @section('before-header-body')
+    @include('partials.navigation.search-top')
     <div class="print-only container">
         <div class="grid">
             <div class="grid-sm-12">
