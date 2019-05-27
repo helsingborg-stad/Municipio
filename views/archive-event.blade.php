@@ -73,13 +73,17 @@
                                                 </p>
                                                 @endif
 
-                                                <?php $location = get_field('location'); ?>
-                                                @if (!empty($location['title']))
-                                                    <p>
-                                                        <small><i class="pricon pricon-location-pin"></i>
-                                                            <strong><?php _ex('Location', 'Event archive', 'municipio'); ?>:</strong> {{ $location['title'] }}
-                                                        </small>
-                                                    </p>
+                                                @if(method_exists('\EventManagerIntegration\Helper\SingleEventData', 'getEventLocation'))
+                                                    @php
+                                                        $location = \EventManagerIntegration\Helper\SingleEventData::getEventLocation($post->ID, $post->start_date);
+                                                    @endphp
+                                                    @if(!empty($location['title']))
+                                                        <p>
+                                                            <small><i class="pricon pricon-location-pin"></i>
+                                                                <strong><?php _ex('Location', 'Event archive', 'municipio'); ?>:</strong> {{ $location['title'] }}
+                                                            </small>
+                                                        </p>
+                                                    @endif
                                                 @endif
                                             </div>
                                             @if (isset($post->status) && $post->status == 'cancelled')
