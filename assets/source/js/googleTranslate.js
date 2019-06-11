@@ -1,30 +1,47 @@
-Muncipio = Muncipio || {};
+Muncipio.Google = Muncipio.Google || {};
 
 var googleTranslateLoaded = false;
 
-if (location.href.indexOf('translate=true') > -1) {
-    loadGoogleTranslate();
-}
+Muncipio.Google.Translate = (function ($) {
 
-$('[href="#translate"]').on('click', function (e) {
-    loadGoogleTranslate();
-});
+    function Translate() {
 
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: "sv",
-        autoDisplay: false,
-        gaTrack: HbgPrimeArgs.googleTranslate.gaTrack,
-        gaId: HbgPrimeArgs.googleTranslate.gaUA
-    }, "google-translate-element");
-}
+        //Onclick trigger
+        $('[href="#translate"]').on('click', function (e) {
+            if(this.shouldLoadScript()) {
+                this.loadScript();
+            }
+        });
 
-function loadGoogleTranslate() {
-    if (googleTranslateLoaded) {
-        return;
+        //Onload parameter trigger
+        if(this.shouldLoadScript()) {
+            this.loadScript();
+        }
     }
 
-    $.getScript('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', function() {
+    Translate.prototype.shouldLoadScript = function() {
+
+        //Load google translate, once
+        if(googleTranslateLoaded === true) {
+            return false; 
+        }
+
+        //Check url for loading parameter
+        if (location.href.indexOf('translate=true') > -1) {
+            return true; 
+        }
+
+        return false; 
+    };
+
+    Translate.prototype.loadScript = function() {
+        $.getScript('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', function() {
+            this.rewriteLinks();  
+            googleTranslateLoaded = true;
+        }.bind(this));
+    }; 
+
+    Translate.prototype.rewriteLinks = function() {
         $('a').each(function () {
             var hrefUrl = $(this).attr('href');
 
@@ -33,22 +50,32 @@ function loadGoogleTranslate() {
                 return;
             }
 
-            hrefUrl = updateQueryStringParameter(hrefUrl, 'translate', 'true');
+            hrefUrl = this.parseLinkData(hrefUrl, 'translate', 'true');
 
             $(this).attr('href', hrefUrl);
         });
-
-        googleTranslateLoaded = true;
-    });
-}
-
-function updateQueryStringParameter(uri, key, value) {
-    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
-
-    if (uri.match(re)) {
-        return uri.replace(re, '$1' + key + "=" + value + '$2');
     }
 
-    return uri + separator + key + "=" + value;
-}
+    Translate.prototype.parseLinkData = function(uri, key, value) {
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+    
+        return uri + separator + key + "=" + value;
+    }
+
+    Translate.prototype.runTranslation = function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: "sv",
+            autoDisplay: false,
+            gaTrack: HbgPrimeArgs.googleTranslate.gaTrack,
+            gaId: HbgPrimeArgs.googleTranslate.gaUA
+        }, "google-translate-element");
+    }
+
+    return new Translate();
+
+})(jQuery);

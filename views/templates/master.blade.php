@@ -23,6 +23,10 @@
 </head>
 <body {!! body_class('no-js') !!}>
 
+
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitPageLoad"></script>
+
     <a href="#main-menu" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="1"><?php _e('Jump to the main menu', 'municipio'); ?></a>
     <a href="#main-content" class="btn btn-default btn-block btn-lg btn-offcanvas" tabindex="2"><?php _e('Jump to the main content', 'municipio'); ?></a>
 
@@ -44,6 +48,25 @@
         @endif
 
         @include('partials.header')
+
+
+        <style>#google_translate_element_page_load,.skiptranslate{display:none;}body{top:0!important;}</style>
+        <div id="google_translate_element_page_load"></div>
+        
+        <script>
+            function googleTranslateElementInitPageLoad() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'sv', 
+                    includedLanguages: 'et', 
+                    autoDisplay: false
+                }, 'google_translate_element_page_load');
+                var a = document.querySelector("#google_translate_element_page_load select");
+                a.selectedIndex=1;
+                a.dispatchEvent(new Event('change'));
+            }
+        </script>
+
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitPageLoad"></script>
 
         <main id="main-content" class="clearfix main-content">
             @yield('content')
