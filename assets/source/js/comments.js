@@ -1,51 +1,74 @@
-Muncipio = Muncipio || {};
+var Muncipio = Muncipio || {};
 Muncipio.Post = Muncipio.Post || {};
 
-Muncipio.Post.Comments = (function ($) {
-
+Muncipio.Post.Comments = (function($) {
     function Comments() {
-        $(function() {
-            this.handleEvents();
-        }.bind(this));
+        $(
+            function() {
+                this.handleEvents();
+            }.bind(this)
+        );
     }
 
     /**
      * Handle events
      * @return {void}
      */
-    Comments.prototype.handleEvents = function () {
-        $(document).on('click', '#edit-comment', function (e) {
-            e.preventDefault();
-            this.displayEditForm(e);
-        }.bind(this));
+    Comments.prototype.handleEvents = function() {
+        $(document).on(
+            'click',
+            '#edit-comment',
+            function(e) {
+                e.preventDefault();
+                this.displayEditForm(e);
+            }.bind(this)
+        );
 
-        $(document).on('submit', '#commentupdate', function (e) {
-            e.preventDefault();
-            this.udpateComment(e);
-        }.bind(this));
+        $(document).on(
+            'submit',
+            '#commentupdate',
+            function(e) {
+                e.preventDefault();
+                this.udpateComment(e);
+            }.bind(this)
+        );
 
-        $(document).on('click', '#delete-comment', function (e) {
-            e.preventDefault();
-            if (window.confirm(MunicipioLang.messages.deleteComment)) {
-                this.deleteComment(e);
-            }
-        }.bind(this));
+        $(document).on(
+            'click',
+            '#delete-comment',
+            function(e) {
+                e.preventDefault();
+                if (window.confirm(MunicipioLang.messages.deleteComment)) {
+                    this.deleteComment(e);
+                }
+            }.bind(this)
+        );
 
-        $(document).on('click', '.cancel-update-comment', function (e) {
-            e.preventDefault();
-            this.cleanUp();
-        }.bind(this));
+        $(document).on(
+            'click',
+            '.cancel-update-comment',
+            function(e) {
+                e.preventDefault();
+                this.cleanUp();
+            }.bind(this)
+        );
 
-        $(document).on('click', '.comment-reply-link', function (e) {
-            this.cleanUp();
-        }.bind(this));
+        $(document).on(
+            'click',
+            '.comment-reply-link',
+            function(e) {
+                this.cleanUp();
+            }.bind(this)
+        );
     };
 
-    Comments.prototype.udpateComment = function (event) {
-        var $target = $(event.target).closest('.comment-body').find('.comment-content'),
+    Comments.prototype.udpateComment = function(event) {
+        var $target = $(event.target)
+                .closest('.comment-body')
+                .find('.comment-content'),
             data = new FormData(event.target),
             oldComment = $target.html();
-            data.append('action', 'update_comment');
+        data.append('action', 'update_comment');
 
         $.ajax({
             url: ajaxurl,
@@ -55,7 +78,7 @@ Muncipio.Post.Comments = (function ($) {
             contentType: false,
             data: data,
             dataType: 'json',
-            beforeSend : function() {
+            beforeSend: function() {
                 // Do expected behavior
                 $target.html(data.get('comment'));
                 this.cleanUp();
@@ -70,18 +93,23 @@ Muncipio.Post.Comments = (function ($) {
             error: function(jqXHR, textStatus) {
                 $target.html(oldComment);
                 this.showError($target);
-            }
+            },
         });
     };
 
     Comments.prototype.displayEditForm = function(event) {
         var commentId = $(event.currentTarget).data('comment-id'),
             postId = $(event.currentTarget).data('post-id'),
-            $target = $('.comment-body', '#answer-' + commentId + ', #comment-' + commentId).first();
+            $target = $(
+                '.comment-body',
+                '#answer-' + commentId + ', #comment-' + commentId
+            ).first();
 
         this.cleanUp();
         $('.comment-content, .comment-footer', $target).hide();
-        $target.append('<div class="loading gutter gutter-top gutter-margin"><div></div><div></div><div></div><div></div></div>');
+        $target.append(
+            '<div class="loading gutter gutter-top gutter-margin"><div></div><div></div><div></div><div></div></div>'
+        );
 
         $.when(this.getCommentForm(commentId, postId)).then(function(response) {
             if (response.success) {
@@ -107,10 +135,10 @@ Muncipio.Post.Comments = (function ($) {
             dataType: 'json',
             context: this,
             data: {
-                action : 'get_comment_form',
-                commentId : commentId,
-                postId : postId
-            }
+                action: 'get_comment_form',
+                commentId: commentId,
+                postId: postId,
+            },
         });
     };
 
@@ -125,23 +153,23 @@ Muncipio.Post.Comments = (function ($) {
             context: this,
             dataType: 'json',
             data: {
-                action : 'remove_comment',
-                id     : commentId,
-                nonce  : nonce
+                action: 'remove_comment',
+                id: commentId,
+                nonce: nonce,
             },
-            beforeSend : function(response) {
+            beforeSend: function(response) {
                 // Do expected behavior
                 $target.closest('li.answer, li.comment').fadeOut('fast');
             },
-            success : function(response) {
+            success: function(response) {
                 if (!response.success) {
                     // Undo front end deletion
                     this.showError($target);
                 }
             },
-            error : function(jqXHR, textStatus) {
+            error: function(jqXHR, textStatus) {
                 this.showError($target);
-            }
+            },
         });
     };
 
@@ -153,11 +181,15 @@ Muncipio.Post.Comments = (function ($) {
     };
 
     Comments.prototype.showError = function(target) {
-        target.closest('li.answer, li.comment').fadeIn('fast')
-            .find('.comment-body:first').append('<small class="text-danger">' + MunicipioLang.messages.onError + '</small>')
-                .find('.text-danger').delay(4000).fadeOut('fast');
+        target
+            .closest('li.answer, li.comment')
+            .fadeIn('fast')
+            .find('.comment-body:first')
+            .append('<small class="text-danger">' + MunicipioLang.messages.onError + '</small>')
+            .find('.text-danger')
+            .delay(4000)
+            .fadeOut('fast');
     };
 
     return new Comments();
-
 })(jQuery);

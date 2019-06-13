@@ -1,81 +1,141 @@
-Muncipio.Google = Muncipio.Google || {};
+let googleTranslateLoaded = false;
 
-var googleTranslateLoaded = false;
+/**
+ * Translate class
+ * @type {Translate}
+ */
+const Translate = class {
+    /**
+     * Constructor
+     */
+    constructor() {
+        const self = this;
 
-Muncipio.Google.Translate = (function ($) {
+        document.addEventListener(
+            'click',
+            function(event) {
+                if (!event.target.matches('.translate-icon-btn')) {
+                    return;
+                }
 
-    function Translate() {
+                if (self.shouldLoadScript()) {
+                    self.fetchScript();
+                }
+            },
+            false
+        );
 
-        //Onclick trigger
-        $('[href="#translate"]').on('click', function (e) {
-            if(this.shouldLoadScript()) {
-                this.loadScript();
-            }
-        });
-
-        //Onload parameter trigger
-        if(this.shouldLoadScript()) {
-            this.loadScript();
+        if (this.shouldLoadScript()) {
+            this.fetchScript();
         }
     }
 
-    Translate.prototype.shouldLoadScript = function() {
-
-        //Load google translate, once
-        if(googleTranslateLoaded === true) {
-            return false; 
+    /**
+     * Check if script is loaded
+     * @returns {boolean}
+     */
+    shouldLoadScript() {
+        if (googleTranslateLoaded === true) {
+            return false;
         }
 
-        //Check url for loading parameter
-        if (location.href.indexOf('translate=true') > -1) {
-            return true; 
+        if (document.location.href.indexOf('translate=true') > -1) {
+            return true;
         }
 
-        return false; 
-    };
+        return false;
+    }
 
-    Translate.prototype.loadScript = function() {
-        $.getScript('//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', function() {
-            this.rewriteLinks();  
-            googleTranslateLoaded = true;
-        }.bind(this));
-    }; 
+    /**
+     * Fetching script from Google
+     */
+    fetchScript() {
+        const loadScript = (source, beforeEl, async = true, defer = true) => {
+            return new Promise((resolve, reject) => {
+                let script = document.createElement('script');
+                const prior = beforeEl || document.getElementsByTagName('script')[0];
 
-    Translate.prototype.rewriteLinks = function() {
-        $('a').each(function () {
-            var hrefUrl = $(this).attr('href');
+                script.async = async;
+                script.defer = defer;
 
-            // Check if external or non valid url (do not add querystring)
-            if (hrefUrl == null || hrefUrl.indexOf(location.origin) === -1 || hrefUrl.substr(0, 1) === '#') {
+                function onloadHander(_, isAbort) {
+                    if (
+                        isAbort ||
+                        !script.readyState ||
+                        /loaded|complete/.test(script.readyState)
+                    ) {
+                        script.onload = null;
+                        script.onreadystatechange = null;
+                        script = undefined;
+
+                        if (isAbort) {
+                            reject();
+                        } else {
+                            resolve();
+                        }
+                    }
+                }
+
+                script.onload = onloadHander;
+                script.onreadystatechange = onloadHander;
+
+                script.src = source;
+                prior.parentNode.insertBefore(script, prior);
+            });
+        };
+
+        const scriptUrl =
+            '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+
+        loadScript(scriptUrl).then(
+            () => {
+                this.rewriteLinks();
+                googleTranslateLoaded = true;
+            },
+            () => {
+                console.log('Do! fail to load Translate script');
+            }
+        );
+    }
+
+    /**
+     *  Rewriting all links
+     */
+    rewriteLinks() {
+        const self = this;
+        [].forEach.call(document.querySelectorAll('a'), function(el) {
+            let hrefUrl = el.getAttribute('href');
+            if (
+                hrefUrl == null ||
+                hrefUrl.indexOf(location.origin) === -1 ||
+                hrefUrl.substr(0, 1) === '#'
+            ) {
                 return;
             }
 
-            hrefUrl = this.parseLinkData(hrefUrl, 'translate', 'true');
+            hrefUrl = self.parseLinkData(hrefUrl, 'translate', 'true');
 
-            $(this).attr('href', hrefUrl);
+            el.setAttribute('href', hrefUrl);
         });
     }
 
-    Translate.prototype.parseLinkData = function(uri, key, value) {
-        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
-    
+    /**
+     * Parsing link with keys and values
+     * @param uri
+     * @param key
+     * @param value
+     * @returns {string|*}
+     */
+    parseLinkData(uri, key, value) {
+        const re = new RegExp('([?&])' + key + '=.*?(&|$)', 'i');
+        const separator = uri.indexOf('?') !== -1 ? '&' : '?';
+
         if (uri.match(re)) {
-            return uri.replace(re, '$1' + key + "=" + value + '$2');
+            return uri.replace(re, '$1' + key + '=' + value + '$2');
         }
-    
-        return uri + separator + key + "=" + value;
+
+        return uri + separator + key + '=' + value;
     }
+};
 
-    Translate.prototype.runTranslation = function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: "sv",
-            autoDisplay: false,
-            gaTrack: HbgPrimeArgs.googleTranslate.gaTrack,
-            gaId: HbgPrimeArgs.googleTranslate.gaUA
-        }, "google-translate-element");
-    }
-
-    return new Translate();
-
-})(jQuery);
+new Translate();

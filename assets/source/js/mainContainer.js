@@ -1,14 +1,13 @@
-Municipio = Municipio || {};
+var Municipio = Municipio || {};
 Municipio.Helper = Municipio.Helper || {};
 
-Municipio.Helper.MainContainer = (function ($) {
-
+Municipio.Helper.MainContainer = (function($) {
     function MainContainer() {
         this.removeMainContainer();
     }
 
-    MainContainer.prototype.removeMainContainer = function () {
-        if($.trim($("#main-content").html()) == '') {
+    MainContainer.prototype.removeMainContainer = function() {
+        if ($.trim($('#main-content').html()) == '') {
             $('#main-content').remove();
             return true;
         }
@@ -16,5 +15,4 @@ Municipio.Helper.MainContainer = (function ($) {
     };
 
     return new MainContainer();
-
 })(jQuery);
