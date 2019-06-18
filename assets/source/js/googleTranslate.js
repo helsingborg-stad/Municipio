@@ -25,6 +25,21 @@ const Translate = class {
             false
         );
 
+        document.addEventListener(
+            'change',
+            function(event) {
+                if (event.target.matches('select.goog-te-combo')) {
+                    const searchParams = new URLSearchParams(window.location.search);
+                    searchParams.set('translate', event.target.value);
+                    const newRelativePathQuery =
+                        window.location.pathname + '?' + searchParams.toString();
+                    history.pushState(null, '', newRelativePathQuery);
+                    self.rewriteLinks();
+                }
+            },
+            false
+        );
+
         if (this.shouldLoadScript()) {
             this.fetchScript();
         }
@@ -39,7 +54,7 @@ const Translate = class {
             return false;
         }
 
-        if (document.location.href.indexOf('translate=true') > -1) {
+        if (document.location.href.indexOf('translate=') > -1) {
             return true;
         }
 
@@ -50,10 +65,10 @@ const Translate = class {
      * Fetching script from Google
      */
     fetchScript() {
-        const loadScript = (source, beforeEl, async = true, defer = true) => {
+        const loadScript = (source, beforeElement, async = true, defer = true) => {
             return new Promise((resolve, reject) => {
                 let script = document.createElement('script');
-                const prior = beforeEl || document.getElementsByTagName('script')[0];
+                const prior = beforeElement || document.getElementsByTagName('script')[0];
 
                 script.async = async;
                 script.defer = defer;
@@ -93,7 +108,8 @@ const Translate = class {
                 googleTranslateLoaded = true;
             },
             () => {
-                console.log('Do! fail to load Translate script');
+                console.log('Failed to load Translate script from Google!');
+                return false;
             }
         );
     }
@@ -103,8 +119,8 @@ const Translate = class {
      */
     rewriteLinks() {
         const self = this;
-        [].forEach.call(document.querySelectorAll('a'), function(el) {
-            let hrefUrl = el.getAttribute('href');
+        [].forEach.call(document.querySelectorAll('a'), function(element) {
+            let hrefUrl = element.getAttribute('href');
             if (
                 hrefUrl == null ||
                 hrefUrl.indexOf(location.origin) === -1 ||
@@ -112,10 +128,10 @@ const Translate = class {
             ) {
                 return;
             }
-
-            hrefUrl = self.parseLinkData(hrefUrl, 'translate', 'true');
-
-            el.setAttribute('href', hrefUrl);
+            const searchParams = new URLSearchParams(document.location.search);
+            const changeLang = searchParams.get('translate');
+            hrefUrl = self.parseLinkData(hrefUrl, 'translate', changeLang);
+            element.setAttribute('href', hrefUrl);
         });
     }
 
@@ -136,6 +152,33 @@ const Translate = class {
 
         return uri + separator + key + '=' + value;
     }
+
+    checkLanguageOnLoad() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchParams = new URLSearchParams(document.location.search);
+            const changeLang = searchParams.get('translate');
+
+            let ckDomain;
+            for (ckDomain = window.location.hostname.split('.'); 2 < ckDomain.length; ) {
+                ckDomain.shift();
+            }
+
+            ckDomain = ';domain=' + ckDomain.join('.');
+
+            if (changeLang !== 'sv') {
+                document.cookie =
+                    'googtrans=/sv/' +
+                    changeLang +
+                    '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/' +
+                    ckDomain;
+                document.cookie =
+                    'googtrans=/sv/' +
+                    changeLang +
+                    '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/';
+            }
+        });
+    }
 };
 
-new Translate();
+const GetTranslate = new Translate();
+GetTranslate.checkLanguageOnLoad();
