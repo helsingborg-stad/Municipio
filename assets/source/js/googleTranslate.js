@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 let googleTranslateLoaded = false;
 
 /**
@@ -153,6 +155,9 @@ const Translate = class {
         return uri + separator + key + '=' + value;
     }
 
+    /**
+     * Check if translation is on load
+     */
     checkLanguageOnLoad() {
         document.addEventListener('DOMContentLoaded', function() {
             const searchParams = new URLSearchParams(document.location.search);

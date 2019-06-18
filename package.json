@@ -4,6 +4,7 @@
   "description": "The official website of Helsingborg Stad",
   "main": "Gulpfile.js",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "browser-sync": "^2.24.3",
     "glob": "^7.1.4",
     "gulp-clean-css": "^3.9.4",
@@ -22,6 +23,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "autoprefixer": "^9.6.0",
     "babel-loader": "^8.0.6",
