@@ -190,7 +190,13 @@ class Navigation
             $label = '<i class="pricon pricon-globe"></i> Translate';
         }
 
-        $translate = '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
+        if (isset($_GET['translate']) && !empty($_GET['translate'])){
+            $transQuery = $_GET['translate'];
+        } else {
+            $transQuery = 'true';
+        }
+
+        $translate = '<li class="menu-item-translate"><a href="?translate='.$transQuery.'#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
 
         if (isset($args->include_top_level)) {
             $items = $translate . $items;

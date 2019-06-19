@@ -70,6 +70,7 @@
     @if (in_array($translateLocation, array('footer', 'fold')))
         @include('partials.translate')
     @endif
+
 </div>
 
 {!! wp_footer() !!}

@@ -1,4 +1,5 @@
-<div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!} hidden-print" id="search">
+<div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!} hidden-print"
+     id="search">
     <div class="container">
         <div class="grid">
             <div class="grid-sm-12">
@@ -37,37 +38,39 @@
 
                 @if (strlen($navigation['mobileMenu']) > 0)
                     <div class="grid-xs-4 grid-sm-4 text-right-sm text-right-xs {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!}  u-hidden@xl">
-                        <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span class="menu-icon"></span> <?php _e('Menu', 'municipio'); ?></a>
+                        <a href="#mobile-menu" class=" menu-trigger" data-target="#mobile-menu"><span
+                                    class="menu-icon"></span> <?php _e('Menu', 'municipio'); ?></a>
                     </div>
                 @endif
             </div>
         </div>
 
         @if (get_field('sub_site_title', 'option') && !empty(get_field('sub_site_title', 'option')))
-        <div class="grid-auto text-center hidden-xs hidden-sm hidden-md">
-            <span class="sub-site-title">{!! get_field('sub_site_title', 'option') !!}</span>
-        </div>
+            <div class="grid-auto text-center hidden-xs hidden-sm hidden-md">
+                <span class="sub-site-title">{!! get_field('sub_site_title', 'option') !!}</span>
+            </div>
         @endif
 
         @if ($navigation['headerTabsMenu'] || $navigation['headerHelpMenu'] || (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))))
-        <div class="grid-auto text-center-sm text-center-xs text-right hidden-xs hidden-sm">
+            <div class="grid-auto text-center-sm text-center-xs text-right hidden-xs hidden-sm">
 
-            @if ($navigation['headerTabsMenu'] || (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))))
-            <div>
-                {!! $navigation['headerTabsMenu'] !!}
+                @if ($navigation['headerTabsMenu'] || (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))))
+                    <div>
+                        {!! $navigation['headerTabsMenu'] !!}
 
-                @if ( (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))) )
-                    @include('partials.search.top-search')
+                        @if ( (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))) )
+                            @include('partials.search.top-search')
+                        @endif
+                    </div>
+                @endif
+
+                @if ($navigation['headerHelpMenu'])
+                    {!! $navigation['headerHelpMenu'] !!}
                 @endif
             </div>
-            @endif
-
-            @if ($navigation['headerHelpMenu'])
-            {!! $navigation['headerHelpMenu'] !!}
-            @endif
-        </div>
         @endif
     </div>
+
 </div>
 
 @if (get_field('sub_site_title', 'option'))
@@ -80,13 +83,28 @@
             <div class="grid">
                 <div class="grid-sm-12">
                     {!! $navigation['mainMenu'] !!}
+                    <span class="dropdown">
+                         <span class="btn btn-primary dropdown-toggle hidden"><?php _e('More', 'municipio'); ?></span>
+                          <ul class="dropdown-menu nav-grouped-overflow hidden"></ul>
+                    </span>
+
+
+                    @if (get_field('header_dropdown_links', 'option') === true && \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu'))
+                        <span class="c-dropdown _nav-dropdown t-dropdown js-dropdown hidden-xs hidden-sm hidden-md">
+                            <button class="c-dropdown__toggle c-dropdown__toggle--caret-right js-dropdown__toggle btn btn-primary">{{ \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu')}}</button>
+                            <span class="c-dropdown__menu">
+                                {!! \Municipio\Theme\Navigation::outputDropdownLinksMenu() !!}
+                            </span>
+                          </span>
+                    @endif
                 </div>
             </div>
         </div>
     </nav>
 
     @if (strlen($navigation['mobileMenu']) > 0)
-        <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
+        <nav id="mobile-menu"
+             class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
             @include('partials.mobile-menu')
         </nav>
     @endif

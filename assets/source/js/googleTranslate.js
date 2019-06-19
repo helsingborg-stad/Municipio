@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 
 let googleTranslateLoaded = false;
-
+let resetQuery = false;
 /**
  * Translate class
  * @type {Translate}
@@ -37,6 +37,21 @@ const Translate = class {
                         window.location.pathname + '?' + searchParams.toString();
                     history.pushState(null, '', newRelativePathQuery);
                     self.rewriteLinks();
+
+                    if (event.target.value === 'sv') {
+                        const url = window.location.href;
+                        const afterDomain = url.substring(url.lastIndexOf('/') + 1);
+                        const beforeQueryString = afterDomain.split('?')[0];
+                        window.history.pushState(
+                            'object or string',
+                            'Title',
+                            '/' + beforeQueryString
+                        );
+
+                        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                        resetQuery = true;
+                        self.rewriteLinks();
+                    }
                 }
             },
             false
@@ -130,10 +145,23 @@ const Translate = class {
             ) {
                 return;
             }
+
             const searchParams = new URLSearchParams(document.location.search);
             const changeLang = searchParams.get('translate');
-            hrefUrl = self.parseLinkData(hrefUrl, 'translate', changeLang);
-            element.setAttribute('href', hrefUrl);
+
+            if (changeLang !== 'true' && resetQuery !== true) {
+                hrefUrl = self.parseLinkData(hrefUrl, 'translate', changeLang);
+                element.setAttribute('href', hrefUrl);
+            }
+
+            if (resetQuery) {
+                element.setAttribute(
+                    'href',
+                    element
+                        .getAttribute('href')
+                        .replace(/([&\?]key=val*$|key=val&|[?&]key=val(?=#))/, '')
+                );
+            }
         });
     }
 
@@ -159,6 +187,7 @@ const Translate = class {
      * Check if translation is on load
      */
     checkLanguageOnLoad() {
+        const self = this;
         document.addEventListener('DOMContentLoaded', function() {
             const searchParams = new URLSearchParams(document.location.search);
             const changeLang = searchParams.get('translate');
@@ -180,6 +209,10 @@ const Translate = class {
                     'googtrans=/sv/' +
                     changeLang +
                     '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/';
+            } else {
+                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                resetQuery = true;
+                self.rewriteLinks();
             }
         });
     }
