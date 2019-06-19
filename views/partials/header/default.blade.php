@@ -83,20 +83,6 @@
             <div class="grid">
                 <div class="grid-sm-12">
                     {!! $navigation['mainMenu'] !!}
-                    <span class="dropdown">
-                         <span class="btn btn-primary dropdown-toggle hidden"><?php _e('More', 'municipio'); ?></span>
-                          <ul class="dropdown-menu nav-grouped-overflow hidden"></ul>
-                    </span>
-
-
-                    @if (get_field('header_dropdown_links', 'option') === true && \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu'))
-                        <span class="c-dropdown _nav-dropdown t-dropdown js-dropdown hidden-xs hidden-sm hidden-md">
-                            <button class="c-dropdown__toggle c-dropdown__toggle--caret-right js-dropdown__toggle btn btn-primary">{{ \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu')}}</button>
-                            <span class="c-dropdown__menu">
-                                {!! \Municipio\Theme\Navigation::outputDropdownLinksMenu() !!}
-                            </span>
-                          </span>
-                    @endif
                 </div>
             </div>
         </div>
