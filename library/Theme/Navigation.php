@@ -15,7 +15,8 @@ class Navigation
             add_filter('Municipio/main_menu/wrapper_end', array($this, 'addSearchMagnifier'), 10, 2);
         }
 
-        if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate', 'option')) && get_field('show_google_translate', 'option') !== 'false') {
+        if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate',
+                'option')) && get_field('show_google_translate', 'option') !== 'false') {
             add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
             add_filter('Municipio/main_menu/wrapper_end', array($this, 'addTranslate'), 10, 2);
         }
@@ -47,7 +48,7 @@ class Navigation
 
     /**
      * Fix sidebar nav if "page for post type" is same as the curretn post's post type
-     * @param  array $posts
+     * @param array $posts
      * @return array
      */
     public function pageForPostTypeNavigation($posts)
@@ -154,7 +155,7 @@ class Navigation
 
         $args = array(
             'menu' => \Municipio\Helper\Navigation::getMenuNameByLocation('dropdown-links-menu'),
-            'container' =>  false,
+            'container' => false,
             'menu_class' => 'o-dropdown-links',
             'echo' => false
         );
@@ -164,8 +165,8 @@ class Navigation
 
     /**
      * Appends translate icon to menu
-     * @param  string $items  Items html
-     * @param  array  $args   Menu args
+     * @param string $items Items html
+     * @param array $args Menu args
      * @return string         Items html
      */
     public function addTranslate($items, $args = null)
@@ -173,7 +174,7 @@ class Navigation
         if (!is_object($args)) {
             $args = (object)$args;
         }
-        
+
         if ($args && $args->theme_location != get_field('google_translate_menu', 'option')) {
             return $items;
         }
@@ -190,7 +191,13 @@ class Navigation
             $label = '<i class="pricon pricon-globe"></i> Translate';
         }
 
-        $translate = '<li class="menu-item-translate"><a href="#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
+        if (isset($_GET['translate']) && !empty($_GET['translate'])) {
+            $transQuery = $_GET['translate'];
+        } else {
+            $transQuery = 'true';
+        }
+
+        $translate = '<li class="menu-item-translate"><a href="?translate=' . $transQuery . '#translate" class="translate-icon-btn" aria-label="translate">' . $label . '</a></li>';
 
         if (isset($args->include_top_level)) {
             $items = $translate . $items;
@@ -201,10 +208,11 @@ class Navigation
         return $items;
     }
 
+
     /**
      * Adds a search icon to the main menu
      * @param string $items Menu items html markup
-     * @param object $args  Menu args
+     * @param object $args Menu args
      */
     public function addSearchMagnifier($items, $args = null)
     {
@@ -221,7 +229,9 @@ class Navigation
             return $items;
         }
 
-        $search = '<li class="menu-item-search"><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search', 'municipio') . '"><span data-tooltip="' . __('Search', 'municipio') . '"><i class="pricon pricon-search"></i></span></a></li>';
+        $search = '<li class="menu-item-search"><a href="#search" class="search-icon-btn toggle-search-top" aria-label="' . __('Search',
+                'municipio') . '"><span data-tooltip="' . __('Search',
+                'municipio') . '"><i class="pricon pricon-search"></i></span></a></li>';
 
         if (isset($args->include_top_level)) {
             $items = $search . $items;
@@ -261,8 +271,8 @@ class Navigation
                 $cpt_archive_link = (is_string($post_type->has_archive)) ? get_permalink(get_page_by_path($post_type->has_archive)) : get_post_type_archive_link($post_type->name);
 
                 $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                <a itemprop="item" href="' . $cpt_archive_link . '" title="' .  $post_type->label . '">
-                                <span itemprop="name">' .  $post_type->label . '</span><meta itemprop="position" content="' . $int++ . '"></a>
+                                <a itemprop="item" href="' . $cpt_archive_link . '" title="' . $post_type->label . '">
+                                <span itemprop="name">' . $post_type->label . '</span><meta itemprop="position" content="' . $int++ . '"></a>
                             </li>';
             }
 

@@ -7,7 +7,6 @@
             "label": "Layout",
             "name": "header_layout",
             "type": "radio",
-            "value": null,
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
@@ -34,7 +33,6 @@
             "label": "Sticky",
             "name": "header_sticky",
             "type": "true_false",
-            "value": null,
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -54,7 +52,6 @@
             "label": "Transparent",
             "name": "header_transparent",
             "type": "true_false",
-            "value": null,
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -74,7 +71,6 @@
             "label": "Centered",
             "name": "header_centered",
             "type": "true_false",
-            "value": null,
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -94,7 +90,6 @@
             "label": "Header content color",
             "name": "header_content_color",
             "type": "radio",
-            "value": null,
             "instructions": "",
             "required": 1,
             "conditional_logic": [
@@ -127,18 +122,9 @@
             "label": "Activate dropdown links",
             "name": "header_dropdown_links",
             "type": "true_false",
-            "value": null,
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_56a22aaa83835",
-                        "operator": "==",
-                        "value": "jumbo"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",

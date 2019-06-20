@@ -1,17 +1,19 @@
-Muncipio = Muncipio || {};
+var Muncipio = Muncipio || {};
 Muncipio.Ajax = Muncipio.Ajax || {};
 
-Muncipio.Ajax.LikeButton = (function ($) {
-
+Muncipio.Ajax.LikeButton = (function($) {
     function Like() {
         this.init();
     }
 
     Like.prototype.init = function() {
-        $('a.like-button').on('click', function(e) {
-            this.ajaxCall(e.target);
-            return false;
-        }.bind(this));
+        $('a.like-button').on(
+            'click',
+            function(e) {
+                this.ajaxCall(e.target);
+                return false;
+            }.bind(this)
+        );
     };
 
     Like.prototype.ajaxCall = function(likeButton) {
@@ -20,34 +22,29 @@ Muncipio.Ajax.LikeButton = (function ($) {
         var button = $(likeButton);
 
         $.ajax({
-            url : likeButtonData.ajax_url,
-            type : 'post',
-            data : {
-                action : 'ajaxLikeMethod',
-                comment_id : comment_id,
-                nonce : likeButtonData.nonce
+            url: likeButtonData.ajax_url,
+            type: 'post',
+            data: {
+                action: 'ajaxLikeMethod',
+                comment_id: comment_id,
+                nonce: likeButtonData.nonce,
             },
             beforeSend: function() {
                 var likes = counter.html();
 
-                if(button.hasClass('active')) {
+                if (button.hasClass('active')) {
                     likes--;
-                    button.toggleClass("active");
-                }
-                else {
+                    button.toggleClass('active');
+                } else {
                     likes++;
-                    button.toggleClass("active");
+                    button.toggleClass('active');
                 }
 
-                counter.html( likes );
+                counter.html(likes);
             },
-            success : function( response ) {
-
-            }
+            success: function(response) {},
         });
-
     };
 
     return new Like();
-
 })($);

@@ -7,7 +7,17 @@
                     You can use Google Translate to translate the contents of {{ explode('://', get_home_url())[1] }}. To do that, select the language you would like to translate into in the list below.
                     <br><small>Please bear in mind, since the Google Translate is an automatically generated translation, we do not take any responsibility for errors in the text.</small>
                 </p>
+                <style>iframe.skiptranslate {
+                        display: none;
+                    }
+
+                    body {
+                        top: 0px !important;
+                        position: initial !important;
+                    }</style>
+
                 <div id="google-translate-element" class="gutter gutter-vertical"></div>
+
                 <a href="#" class="btn btn-primary">Close</a>
             </div>
         </div>
