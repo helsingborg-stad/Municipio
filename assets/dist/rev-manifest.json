@@ -1,6 +1,7 @@
 {
   "css/app.css": "css/app.css",
   "js/admin.js": "js/admin.js",
+  "js/ajax.js": "js/ajax.js",
   "js/app.js": "js/app.js",
   "js/mce.js": "js/mce.js"
 }

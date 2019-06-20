@@ -1,5 +1,5 @@
 const path = require('path');
-var glob = require('glob');
+const glob = require('glob');
 const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
@@ -22,6 +22,7 @@ module.exports = {
         'js/mce': glob.sync('./assets/source/mce-js/*.js'),
         'js/app': glob.sync('./assets/source/js/*.js'),
         'js/admin': glob.sync('./assets/source/js/Admin/*.js'),
+        'js/ajax': glob.sync('./assets/source/js/Ajax/*.js'),
         'css/app': './assets/source/sass/app.scss',
     },
 
