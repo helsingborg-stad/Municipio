@@ -19,7 +19,6 @@ class Archives
      */
     public function addArchiveOptions()
     {
-
         if (!function_exists('acf_add_local_field_group')) {
             return;
         }
@@ -201,7 +200,7 @@ class Archives
                 );
 
 
-                 // Number of posts
+                // Number of posts
                 $fieldArgs['fields'][] = array(
                     'key' => 'field_56a8c593647ab_' . md5($posttype),
                     'label' => 'Post count',
@@ -675,6 +674,7 @@ class Archives
                 }
             }
 
+            $fieldArgs = apply_filters('Municipio/Admin/Options/Archives/fieldArgs', $fieldArgs, $posttype, $args, $taxonomies);
 
             acf_add_local_field_group($fieldArgs);
         }
