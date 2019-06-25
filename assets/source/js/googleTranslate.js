@@ -198,7 +198,7 @@ const Translate = class {
             }
 
             ckDomain = ';domain=' + ckDomain.join('.');
-
+            console.log('YO !!!!!!!!');
             if (changeLang !== 'sv') {
                 document.cookie =
                     'googtrans=/sv/' +
