@@ -22,6 +22,7 @@ class Enqueue
 
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
         add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
+        add_action('wp_footer', array($this, 'addGoogleTranslate'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -43,6 +44,8 @@ class Enqueue
         add_filter('gform_init_scripts_footer', '__return_true');
         add_filter('gform_cdata_open', array($this, 'wrapGformCdataOpen'));
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
+
+
     }
 
     public function customizerStyle()
@@ -214,6 +217,24 @@ class Enqueue
                 </script>";
         }, 999);
     }
+
+
+    public function addGoogleTranslate(){
+        echo "<script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'sv',
+                    autoDisplay: false,
+                    gaTrack: HbgPrimeArgs.googleTranslate.gaTrack,
+                    gaId: HbgPrimeArgs.googleTranslate.gaUA,
+                },
+                'google-translate-element'
+            );
+        }
+        </script>";
+    }
+
 
     /**
      * Removes querystring from any scripts/styles internally
