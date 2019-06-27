@@ -41,7 +41,7 @@ class Template
         add_action('init', array($this, 'adminFrontPageTemplates'));
         add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
 
-      
+
     }
 
     public function adminFrontPageTemplates()

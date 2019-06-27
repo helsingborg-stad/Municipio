@@ -200,13 +200,22 @@ const Translate = class {
             ckDomain = ';domain=' + ckDomain.join('.');
 
             if (changeLang !== 'sv') {
+                let lang = 'sv';
+                if (changeLang !== '') {
+                    lang = changeLang;
+                }
+
                 document.cookie =
-                    'googtrans=/sv/' +
+                    'googtrans=/' +
+                    lang +
+                    '/' +
                     changeLang +
                     '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/' +
                     ckDomain;
                 document.cookie =
-                    'googtrans=/sv/' +
+                    'googtrans=/' +
+                    lang +
+                    '/' +
                     changeLang +
                     '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/';
             } else {
