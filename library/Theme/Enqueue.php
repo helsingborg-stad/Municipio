@@ -44,8 +44,6 @@ class Enqueue
         add_filter('gform_init_scripts_footer', '__return_true');
         add_filter('gform_cdata_open', array($this, 'wrapGformCdataOpen'));
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
-
-
     }
 
     public function customizerStyle()
@@ -81,10 +79,8 @@ class Enqueue
         wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/admin.js'));
         wp_enqueue_script('helsingborg-se-admin');
 
-        wp_register_script('helsingborg-se-admin-mce', get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce.js'));
-        wp_enqueue_script('helsingborg-se-admin-mce');
     }
-
+    
     /**
      * Enqueue styles
      * @return void
@@ -157,6 +153,7 @@ class Enqueue
                 'onError' => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
+
         wp_enqueue_script('municipio');
         wp_enqueue_script('municipio-ajax');
 

@@ -19,10 +19,15 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
-        'js/mce': glob.sync('./assets/source/mce-js/*.js'),
         'js/app': glob.sync('./assets/source/js/*.js'),
         'js/admin': glob.sync('./assets/source/js/Admin/*.js'),
         'js/ajax': glob.sync('./assets/source/js/Ajax/*.js'),
+        'js/mce': glob.sync('./assets/source/mce-js/*.js'),
+        'js/mce-metadata': './assets/source/mce-js/mce-metadata.js',
+        'js/mce-buttons': './assets/source/mce-js/mce-buttons.js',
+        'js/mce-pricons': './assets/source/mce-js/mce-pricons.js',
+        'js/mce-print-break': './assets/source/mce-js/mce-print-break.js',
+
         'css/app': './assets/source/sass/app.scss',
     },
 
@@ -38,6 +43,7 @@ module.exports = {
      */
     externals: {
         jquery: 'jQuery',
+        tinymce: 'tinymce',
     },
     module: {
         rules: [

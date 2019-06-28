@@ -184,6 +184,28 @@ const Translate = class {
     }
 
     /**
+     *  Get google cookie
+     * @param cname
+     * @returns {string}
+     */
+    getCookie(cname) {
+        const name = cname + '=';
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
+    /**
      * Check if translation is on load
      */
     checkLanguageOnLoad() {
@@ -200,21 +222,16 @@ const Translate = class {
             ckDomain = ';domain=' + ckDomain.join('.');
 
             if (changeLang !== 'sv') {
-                let lang = 'sv';
-                if (changeLang !== '') {
-                    lang = changeLang;
-                }
-
                 document.cookie =
                     'googtrans=/' +
-                    lang +
+                    changeLang +
                     '/' +
                     changeLang +
                     '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/' +
                     ckDomain;
                 document.cookie =
                     'googtrans=/' +
-                    lang +
+                    changeLang +
                     '/' +
                     changeLang +
                     '; expires=Thu, 07-Mar-2047 20:22:40 GMT; path=/';
