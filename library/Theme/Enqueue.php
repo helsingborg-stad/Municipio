@@ -80,7 +80,7 @@ class Enqueue
         wp_enqueue_script('helsingborg-se-admin');
 
     }
-    
+
     /**
      * Enqueue styles
      * @return void
