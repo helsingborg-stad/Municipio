@@ -50,7 +50,7 @@ class Enqueue
     {
         $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
         if ($enqueueBem) {
-            wp_register_style('municipio-customizer', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/customizer.min.css'), '', null);
+            wp_register_style('municipio-customizer', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/customizer.css'), '', null);
             wp_enqueue_style('municipio-customizer');
         }
     }
@@ -73,7 +73,7 @@ class Enqueue
      */
     public function adminStyle()
     {
-        wp_register_style('helsingborg-se-admin', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/admin.min.css'));
+        wp_register_style('helsingborg-se-admin', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/admin.css'));
         wp_enqueue_style('helsingborg-se-admin');
 
         wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/admin.js'));

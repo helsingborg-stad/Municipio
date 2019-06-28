@@ -29,6 +29,8 @@ module.exports = {
         'js/mce-print-break': './assets/source/mce-js/mce-print-break.js',
 
         'css/app': './assets/source/sass/app.scss',
+        'css/admin': './assets/source/sass/admin.scss',
+        'css/customizer': './assets/source/sass/customizer.scss',
     },
 
     /**

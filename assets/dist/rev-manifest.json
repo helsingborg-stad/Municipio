@@ -1,5 +1,7 @@
 {
+  "css/admin.css": "css/admin.css",
   "css/app.css": "css/app.css",
+  "css/customizer.css": "css/customizer.css",
   "js/admin.js": "js/admin.js",
   "js/ajax.js": "js/ajax.js",
   "js/app.js": "js/app.js",
