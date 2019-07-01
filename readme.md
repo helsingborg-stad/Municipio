@@ -25,13 +25,13 @@ $ gulp
 ```
 
 ## We added support for webpack
-Webpack is a bit faster than gulp. So if you prefer to use webpack instead of gulp, just run the following command.
+Webpack is a bit faster than gulp. So if you prefer to use webpack instead of gulp, just run the following command:
 ```
-$  npm run watch
+$ npm run watch
 ```
-or just for a single build
+or just for a single build:
 ```
-$  npm run build
+$ npm run build
 ```
 
 ## Constants
