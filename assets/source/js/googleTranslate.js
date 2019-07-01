@@ -71,7 +71,10 @@ const Translate = class {
             return false;
         }
 
-        if (document.location.href.indexOf('translate=') > -1) {
+        if (
+            document.location.href.indexOf('translate=') > -1 ||
+            window.location.hash + 'translate'
+        ) {
             return true;
         }
 

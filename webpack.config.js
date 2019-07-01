@@ -11,6 +11,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
+
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
 
 module.exports = {
