@@ -16,12 +16,22 @@ Municipio requires [ACF PRO](https://www.advancedcustomfields.com/pro/).
 For PHP, use PSR-2 and PSR-4 where applicable.
 
 ## Gulp
-We use Gulp to compile, concatenate and minify SASS and JavaScript.
+You can use Gulp to compile, concatenate and minify SASS and JavaScript.
 The compiling of SASS will also automatically add vendor-prefixes where needed.
 
 To compile both js and sass and start the "watch" task run the following command from the theme directory:
 ```
 $ gulp
+```
+
+## We added support for webpack
+Webpack is a bit faster than gulp. So if you prefer to use webpack instead of gulp, just run the following command.
+```
+$  npm run watch
+```
+or just for a single build
+```
+$  npm run build
 ```
 
 ## Constants
