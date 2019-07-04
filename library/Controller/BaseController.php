@@ -154,14 +154,13 @@ class BaseController
     public function getSocialShareUrl()
     {
         //Get the post id
-        /*if(!$postId = get_the_ID()) {
-            global $post; 
-            $postId = $post->ID; 
+        //Get the post id
+        if(!$postId = get_the_ID()) {
+            global $post;
+            $postId = $post->ID;
         }
-
-        */
         //Return share url
-        return urlencode(get_home_url(null, $_SERVER['REQUEST_URI'], null));
+        return urlencode(get_home_url(null, '?socialShareId=' . $postId, null));
     }
 
     /**
