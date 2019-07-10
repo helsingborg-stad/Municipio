@@ -140,8 +140,11 @@ const Translate = class {
     rewriteLinks() {
         const self = this;
         [].forEach.call(document.querySelectorAll('a'), function(element) {
+            const searchParams = new URLSearchParams(document.location.search);
             let hrefUrl = element.getAttribute('href');
+            const isNull = searchParams.get('translate');
             if (
+                isNull === 'null' ||
                 hrefUrl == null ||
                 hrefUrl.indexOf(location.origin) === -1 ||
                 hrefUrl.substr(0, 1) === '#'
@@ -149,7 +152,6 @@ const Translate = class {
                 return;
             }
 
-            const searchParams = new URLSearchParams(document.location.search);
             const changeLang = searchParams.get('translate');
 
             if (changeLang !== 'true' && resetQuery !== true) {
