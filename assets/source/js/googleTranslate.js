@@ -139,35 +139,36 @@ const Translate = class {
      */
     rewriteLinks() {
         const self = this;
-        [].forEach.call(document.querySelectorAll('a'), function(element) {
-            const searchParams = new URLSearchParams(document.location.search);
-            let hrefUrl = element.getAttribute('href');
-            const isNull = searchParams.get('translate');
-            if (
-                isNull === 'null' ||
-                hrefUrl == null ||
-                hrefUrl.indexOf(location.origin) === -1 ||
-                hrefUrl.substr(0, 1) === '#'
-            ) {
-                return;
-            }
+        const searchParams = new URLSearchParams(document.location.search);
+        const changeLang = searchParams.get('translate');
 
-            const changeLang = searchParams.get('translate');
+        if (changeLang !== 'null' && changeLang !== '' && changeLang !== null) {
+            [].forEach.call(document.querySelectorAll('a'), function(element) {
+                let hrefUrl = element.getAttribute('href');
 
-            if (changeLang !== 'true' && resetQuery !== true) {
-                hrefUrl = self.parseLinkData(hrefUrl, 'translate', changeLang);
-                element.setAttribute('href', hrefUrl);
-            }
+                if (
+                    hrefUrl == null ||
+                    hrefUrl.indexOf(location.origin) === -1 ||
+                    hrefUrl.substr(0, 1) === '#'
+                ) {
+                    return;
+                }
 
-            if (resetQuery) {
-                element.setAttribute(
-                    'href',
-                    element
-                        .getAttribute('href')
-                        .replace(/([&\?]key=val*$|key=val&|[?&]key=val(?=#))/, '')
-                );
-            }
-        });
+                if (changeLang !== 'true' && resetQuery !== true) {
+                    hrefUrl = self.parseLinkData(hrefUrl, 'translate', changeLang);
+                    element.setAttribute('href', hrefUrl);
+                }
+
+                if (resetQuery) {
+                    element.setAttribute(
+                        'href',
+                        element
+                            .getAttribute('href')
+                            .replace(/([&\?]key=val*$|key=val&|[?&]key=val(?=#))/, '')
+                    );
+                }
+            });
+        }
     }
 
     /**
