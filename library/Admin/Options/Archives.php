@@ -138,7 +138,8 @@ class Archives
                         'cards' => 'Post cards',
                         'newsitem' => 'News items',
                         'list' => 'List',
-                        'horizontal-cards' => 'Horizontal cards'
+                        'horizontal-cards' => 'Horizontal cards',
+                        'circular' => 'Circular'
                     ),
                     'default_value' => array(
                         0 => 'full',
@@ -173,6 +174,13 @@ class Archives
                                 'field' => 'field_56f00fe21f918_' . md5($posttype),
                                 'operator' => '==',
                                 'value' => 'cards',
+                            ),
+                        ),
+                        array(
+                            array(
+                                'field' => 'field_56f00fe21f918_' . md5($posttype),
+                                'operator' => '==',
+                                'value' => 'circular',
                             ),
                         ),
                     ),
@@ -236,6 +244,13 @@ class Archives
                                 'field' => 'field_56f00fe21f918_' . md5($posttype),
                                 'operator' => '==',
                                 'value' => 'grid',
+                            ),
+                        ),
+                        array(
+                            array(
+                                'field' => 'field_56f00fe21f918_' . md5($posttype),
+                                'operator' => '==',
+                                'value' => 'circular',
                             ),
                         )
                     ),
