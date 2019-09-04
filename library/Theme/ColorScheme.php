@@ -2,6 +2,12 @@
 
 namespace Municipio\Theme;
 
+use \Municipio\Helper\Styleguide;
+
+/**
+ * Class ColorScheme
+ * @package Municipio\Theme
+ */
 class ColorScheme
 {
     private $optionName = "color_scheme_palette";
@@ -45,18 +51,17 @@ class ColorScheme
      */
     public function getRemoteColorScheme($manifestId = "") : bool
     {
-        if (!defined('MUNICIPIO_STYLEGUIDE_URI')) {
-            return false;
-        }
+
+        $styleGuideUri = Styleguide::_getBaseUri();
 
         if (empty($manifestId)) {
             $manifestId = apply_filters('Municipio/theme/key', get_field('color_scheme', 'option'));
         }
-
+        
         $args = (defined('DEV_MODE') && DEV_MODE == true) ? ['sslverify' => false] : array();
 
         //Get remote data
-        $request = wp_remote_get("https:" . MUNICIPIO_STYLEGUIDE_URI . "vars/" . $manifestId . '.json', $args);
+        $request = wp_remote_get("https:" . $styleGuideUri . "/vars/" . $manifestId . '.json', $args);
 
         //Store if valid response
         if (wp_remote_retrieve_response_code($request) == 200) {

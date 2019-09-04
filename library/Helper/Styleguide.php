@@ -24,7 +24,7 @@ class Styleguide
      *
      * @return string
      */
-    private static function _getBaseUri()
+    public static function _getBaseUri()
     {
         if (defined('MUNICIPIO_STYLEGUIDE_URI') && MUNICIPIO_STYLEGUIDE_URI != "") {
             $uri = MUNICIPIO_STYLEGUIDE_URI;
