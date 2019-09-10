@@ -2,4 +2,11 @@
     .np-sync-menu-cont {
         display: none;
     }
+
+    /* Clone post is deactivated */
+    .nestedpages-dropdown .clone-post {
+        display:none !important;
+    }
 }
+
+
