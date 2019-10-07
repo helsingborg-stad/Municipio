@@ -3,11 +3,6 @@
     "title": "Custom JS",
     "fields": [
         {
-            "default_value": "",
-            "new_lines": "",
-            "maxlength": "",
-            "placeholder": "",
-            "rows": 20,
             "key": "field_5731849ed0729",
             "label": "JavaScript",
             "name": "custom_js_input",
@@ -20,8 +15,99 @@
                 "class": "",
                 "id": ""
             },
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": "",
+            "rows": 20,
             "readonly": 0,
             "disabled": 0
+        },
+        {
+            "key": "field_5d9b4091e1fa0",
+            "label": "Script Tags",
+            "name": "custom_js_tags",
+            "type": "repeater",
+            "instructions": "Enter your JS-code here. It will NOT be wrapped with \"script\" tags and included on all pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "row",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5d9b40f4e1fa2",
+                    "label": "JavaScript",
+                    "name": "custom_js_tags_input",
+                    "type": "textarea",
+                    "instructions": "Enter your Script tags here. eg. <script>console.log('hello world');<\/script>",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 5,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_5d9b428dd29cf",
+                    "label": "Location",
+                    "name": "custom_js_tags_location",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "head": "Include script in head",
+                        "footer": "Include script in footer"
+                    },
+                    "default_value": [
+                        "footer"
+                    ],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_5d9b4175e1fa3",
+                    "label": "Disable script",
+                    "name": "custom_js_tags_disabled",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -40,7 +126,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
-    "description": "",
-    "local": "php"
+    "description": ""
 }]
 
