@@ -9,7 +9,7 @@ class Archive
         add_filter('wp_title', array($this, 'pageTitle'));
         add_filter('get_the_archive_title', array($this, 'pageHeader'));
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
-        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'));
+        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
         add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
     }
 
@@ -120,6 +120,11 @@ class Archive
         // Test if wp_query gives results, return if it does
         $testQuery = new \WP_Query($query->query);
         if ($testQuery->have_posts()) {
+            return;
+        }
+
+        // Test if we're in a pagination page, return if we are
+        if (is_paged()) {
             return;
         }
 
