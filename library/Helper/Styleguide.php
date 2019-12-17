@@ -54,7 +54,7 @@ class Styleguide
             trigger_error("Missing color scheme in theme options.");
         }
 
-        return apply_filters('Municipio/theme/key', $theme);
+        return apply_filters('Municipio/theme/key', !empty($theme) ? $theme : 'gray');
     }
 
     /**
