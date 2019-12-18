@@ -164,6 +164,11 @@ class Enqueue
         if (is_singular() && get_option('thread_comments')) {
             wp_enqueue_script('comment-reply');
         }
+
+        //Instant page load 
+        if(!defined('INSTANT_PAGE_DISABLED')) {
+            wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true); 
+        }
     }
 
     public function moveScriptsToFooter()
