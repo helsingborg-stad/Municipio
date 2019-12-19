@@ -4,7 +4,7 @@ namespace Municipio\Walker;
 
 class SidebarMenu extends \Walker_Nav_Menu
 {
-    public function walk($elements, $max_depth)
+    public function walk($elements, $max_depth,...$args)
     {
         global $post;
         $current_page = $post;
