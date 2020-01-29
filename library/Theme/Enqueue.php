@@ -276,8 +276,9 @@ class Enqueue
         }
 
         $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', array('readspeaker'), $handle);
+        $disableDeferedLoading = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
 
-        if (in_array($handle, $scriptsHandlesToIgnore)) {
+        if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
             return $tag;
         }
 
