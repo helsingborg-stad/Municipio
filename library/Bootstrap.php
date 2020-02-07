@@ -21,26 +21,6 @@ require_once MUNICIPIO_PATH . 'library/Vendor/Psr4ClassLoader.php';
 require_once MUNICIPIO_PATH . 'library/Public.php';
 
 /**
- * ACF
- */
-require_once ABSPATH . 'wp-admin/includes/plugin.php';
-if (file_exists(MUNICIPIO_PATH . 'vendor/acf/acf.php') && !is_plugin_active('advanced-custom-fields-pro/acf.php')) {
-    new \Municipio\Acf();
-
-    if (!class_exists('acf')) {
-        require_once MUNICIPIO_PATH . 'vendor/acf/acf.php';
-    }
-}
-
-/**
- * ACF Addon
- */
-require_once ABSPATH . 'wp-admin/includes/plugin.php';
-if (file_exists(MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/acf-font-awesome.php')) {
-    require_once MUNICIPIO_PATH . 'plugins/advanced-custom-fields-font-awesome/acf-font-awesome.php';
-}
-
-/**
  * Initialize autoloader (psr4)
  */
 $loader = new Municipio\Vendor\Psr4ClassLoader();
