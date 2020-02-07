@@ -28,7 +28,6 @@
         "philo/laravel-blade": "^3.1",
         "symfony/debug": "^4.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "aristath/kirki": "^3.0",
         "shortpixel/shortpixel-php": "^1.4"
     },
     "extra" : {
