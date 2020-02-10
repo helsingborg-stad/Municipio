@@ -1,35 +1,41 @@
-@if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
-    <header class="c-site-header">
+@extends('partials.header')
 
-        <div class="search-top {!! apply_filters('Municipio/desktop_menu_breakpoint','hidden-sm'); !!} hidden-print" id="search">
-            <div class="container">
-                <div class="grid">
-                    <div class="grid-sm-12">
-                        {{ get_search_form() }}
-                    </div>
-                </div>
+@section('before-header-body')
+    @include('partials.navigation.search-top')
+    <div class="print-only container">
+        <div class="grid">
+            <div class="grid-sm-12">
+                {!! municipio_get_logotype('standard') !!}
             </div>
         </div>
+    </div>
+@stop
 
+@section('after-header-body')
+    <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
+        @include('partials.mobile-menu')
+    </nav>
+@stop
+@section('header-body')
+    @if (isset($headerLayout['headers']) && is_array($headerLayout['headers']) && !empty($headerLayout['headers']))
         @foreach ($headerLayout['headers'] as $header)
-            <div class="{{$header['class']}}">
-                @if (isset($header['items']) && !empty($header['items']))
-                    <div class="{{$header['rowClass']}}">
-
-                        @foreach ($header['items'] as $item)
-                            <div class="{{$item['class']}}">
-                                <?php dynamic_sidebar($item['id']); ?>
-                            </div>
-                        @endforeach
-
+            @if ($header->sidebar)
+                <div {!! $header->wrapper !!}>
+                    <div {!! $header->container !!}>
+                        <div {!! $header->grid !!}>
+                            <?php dynamic_sidebar($header->sidebar); ?>
+                        </div>
                     </div>
-                @endif
-            </div>
+                </div>
+            @endif
         @endforeach
+    @endif
+@stop
 
-        <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
-            @include('partials.mobile-menu')
-        </nav>
+@section('below-header')
+    @include('partials.hero')
 
-    </header>
-@endif
+    @if (is_active_sidebar('top-sidebar'))
+        <?php dynamic_sidebar('top-sidebar'); ?>
+    @endif
+@stop

@@ -1,5 +1,5 @@
 <?php global $post; ?>
-<article id="article" class="clearfix u-mb-4">
+<article id="article" class="c-article s-article u-mb-4">
     <h1>{{ the_title() }}</h1>
 
     @include('partials.accessibility-menu')
@@ -15,13 +15,14 @@
 
             {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
             {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
-            
+
         @else
             @if (substr($post->post_content, -11) == '<!--more-->')
-                {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
+            {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
             @else
-                {!! the_content() !!}
+            {!! the_content() !!}
             @endif
+
         @endif
     @endif
 

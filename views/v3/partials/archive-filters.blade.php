@@ -3,10 +3,10 @@
 @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
     <section class="u-mb-4 sidebar-content-area archive-filters grid-xs-12">
 @else
-    <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
+    <section class="creamy creamy-border-bottom sidebar-content-area archive-filters">
 @endif
 
-    <form method="get" action="{{ $archiveUrl }}" class="container" id="archive-filter">
+    <form method="get" action="{{ $archiveUrl }}" class="container u-w-100" id="archive-filter">
 
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
         @foreach ($enabledTaxonomyFilters->highlighted as $taxKey => $taxonomy)

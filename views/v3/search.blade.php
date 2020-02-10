@@ -1,5 +1,5 @@
 @extends('templates.master')
-@section('content')
+@section('layout')
     @switch($activeSearchEngine)
         @case("google")
             @include('partials.search.google')
