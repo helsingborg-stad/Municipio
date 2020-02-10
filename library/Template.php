@@ -42,11 +42,11 @@ class Template
      */
     public function createViewPaths($viewPats = array()) {
         
-        $versions = apply_filters('Municipio/blade/view_path_versions', array_flip(array("v1", "v2", "v3"))); 
+        $versions = apply_filters('Municipio/blade/view_path_versions', array_reverse(array("v1", "v2", "v3"))); 
 
-        foreach($versions as $version) {
-            $viewPaths[] = get_stylesheet_directory()   . DIRECTORY_SEPARATOR . $version;
-            $viewPaths[] = get_template_directory()     . DIRECTORY_SEPARATOR . $version;
+        foreach($versions as $versionKey => $version) {
+            $viewPaths[] = get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
+            $viewPaths[] = get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
         }
 
         return apply_filters('Municipio/blade/view_paths', array_unique($viewPaths)); 
