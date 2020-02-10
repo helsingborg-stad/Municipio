@@ -42,7 +42,9 @@ class Template
      */
     public function createViewPaths($viewPats = array()) {
         
-        foreach(array("v1", "v2", "v3") as $version) {
+        $versions = apply_filters('Municipio/blade/view_path_versions', array_flip(array("v1", "v2", "v3"))); 
+
+        foreach($versions as $version) {
             $viewPaths[] = get_stylesheet_directory()   . DIRECTORY_SEPARATOR . $version;
             $viewPaths[] = get_template_directory()     . DIRECTORY_SEPARATOR . $version;
         }
