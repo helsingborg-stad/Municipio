@@ -161,19 +161,6 @@ class Sidebars
         ));
 
         /**
-         * Right Sidebar
-         */
-        register_sidebar(array(
-            'id'            => 'right-sidebar',
-            'name'          => __('Right sidebar', 'municipio'),
-            'description'   => __('The right sidebar area', 'municipio'),
-            'before_widget' => '<div class="grid-xs-12"><div class="%2$s">',
-            'after_widget'  => '</div></div>',
-            'before_title'  => '<h2>',
-            'after_title'   => '</h2>'
-        ));
-
-        /**
          * Full page top
          */
         register_sidebar(array(

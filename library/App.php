@@ -17,11 +17,6 @@ class App
         new \Municipio\Feature();
 
         /**
-         * Helpers
-         */
-        new \Municipio\Helper\GravityForm();
-
-        /**
          * Template
          */
         new \Municipio\Template();
@@ -44,7 +39,6 @@ class App
         new \Municipio\Theme\Font();
         new \Municipio\Theme\ColorScheme();
         new \Municipio\Theme\FixedActionBar();
-        new \Municipio\Theme\Share();
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();

@@ -62,7 +62,7 @@
                         </div>
                     @endif
 
-                    {{-- Sidebar left --}}
+                    {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
                     @hasSection('sidebar-left')
                         <aside class="{{$layout['sidebarLeft']}} s-sidebar-left">
                             @yield('sidebar-left')
