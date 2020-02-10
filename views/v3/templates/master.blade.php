@@ -74,13 +74,6 @@
                         @yield('content')
                     </div>
 
-                    {{-- Sidebar right --}}
-                    @hasSection('sidebar-right')
-                        <aside class="{{$layout['sidebarRight']}} s-sidebar-right">
-                            @yield('sidebar-right')
-                        </aside>
-                    @endif
-
                     {{-- Below --}}
                     @hasSection('below')
                         <div class="grid-xs-12 s-below order-xs-5">
