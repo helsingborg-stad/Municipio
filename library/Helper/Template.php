@@ -44,7 +44,7 @@ class Template
      */
     public static function locateTemplate($template, $additionalPaths = array())
     {
-        $searchPaths = array_merge(self::createViewPaths(), $additionalPaths);
+        $searchPaths = array_merge(self::getViewPaths(), $additionalPaths);
 
         if (isset($searchPaths) && is_array($searchPaths) && !empty($searchPaths)) {
             foreach ($searchPaths as $path) {
@@ -68,9 +68,9 @@ class Template
      * @param  array    $viewPaths   All view paths that are statically entered.
      * @return array    $viewPaths  Contains all view paths avabile. 
      */
-    public static function createViewPaths($viewPaths = array()) {
+    public static function getViewPaths($viewPaths = array()) {
         
-        $versions = apply_filters('Municipio/blade/view_path_versions', array_reverse(array("v1", "v2", "v3"))); 
+        $versions = apply_filters('Municipio/blade/view_versions', array_reverse(array("v1", "v2", "v3"))); 
 
         foreach($versions as $versionKey => $version) {
             $viewPaths[] = get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;

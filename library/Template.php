@@ -6,7 +6,6 @@ use Philo\Blade\Blade as Blade;
 
 class Template
 {
-    private $viewPaths;
     private $controllerPath;
     private $cachePath;
 
@@ -21,7 +20,6 @@ class Template
         /**
          * Set paths
          */
-        $this->viewPaths = \Municipio\Helper\Template::createViewPaths(); 
         $this->controllerPath = get_template_directory() . '/library/Controller';
         $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
@@ -197,7 +195,7 @@ class Template
     {
         $data = apply_filters('Municipio/blade/data', $data);
 
-        $blade = new Blade($this->viewPaths, $this->cachePath);
+        $blade = new Blade(\Municipio\Helper\Template::getViewPaths(), $this->cachePath);
         echo $blade->view()->make($view, $data)->render();
     }
 
@@ -267,7 +265,7 @@ class Template
 
     public function cleanViewPath($view)
     {
-        foreach ($this->viewPaths as $path) {
+        foreach (\Municipio\Helper\Template::getViewPaths() as $path) {
             $view = str_replace($path . '/', '', $view);
         }
 
