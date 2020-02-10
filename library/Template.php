@@ -21,14 +21,7 @@ class Template
         /**
          * Set paths
          */
-        $this->viewPaths = apply_filters('Municipio/blade/view_paths', array(
-            get_stylesheet_directory() . '/views',
-            get_stylesheet_directory(),
-            get_template_directory() . '/views',
-            get_template_directory()
-        ));
-
-        $this->viewPaths = array_unique($this->viewPaths);
+        $this->viewPaths = $this->createViewPaths(); 
         $this->controllerPath = get_template_directory() . '/library/Controller';
         $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
@@ -41,8 +34,22 @@ class Template
         add_action('init', array($this, 'adminFrontPageTemplates'));
         add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
 
-
     }
+
+    /**
+     * Creates view paths dynamicly 
+     * @return array
+     */
+    public function createViewPaths($viewPats = array()) {
+        
+        foreach(array("v1", "v2", "v3") as $version) {
+            $viewPaths[] = get_stylesheet_directory()   . DIRECTORY_SEPARATOR . $version;
+            $viewPaths[] = get_template_directory()     . DIRECTORY_SEPARATOR . $version;
+        }
+
+        return apply_filters('Municipio/blade/view_paths', array_unique($viewPaths)); 
+    }
+
 
     public function adminFrontPageTemplates()
     {
