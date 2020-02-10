@@ -21,7 +21,7 @@ class Template
         /**
          * Set paths
          */
-        $this->viewPaths = $this->createViewPaths(); 
+        $this->viewPaths = \Municipio\Helper\Template::createViewPaths(); 
         $this->controllerPath = get_template_directory() . '/library/Controller';
         $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
@@ -33,25 +33,7 @@ class Template
 
         add_action('init', array($this, 'adminFrontPageTemplates'));
         add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
-
     }
-
-    /**
-     * Creates view paths dynamicly 
-     * @return array
-     */
-    public function createViewPaths($viewPats = array()) {
-        
-        $versions = apply_filters('Municipio/blade/view_path_versions', array_reverse(array("v1", "v2", "v3"))); 
-
-        foreach($versions as $versionKey => $version) {
-            $viewPaths[] = get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
-            $viewPaths[] = get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
-        }
-
-        return apply_filters('Municipio/blade/view_paths', array_unique($viewPaths)); 
-    }
-
 
     public function adminFrontPageTemplates()
     {

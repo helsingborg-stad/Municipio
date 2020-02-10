@@ -45,16 +45,7 @@ class Template
      */
     public static function locateTemplate($template, $additionalPaths = array())
     {
-        $defaultPaths = array(
-            get_stylesheet_directory() . '/views',
-            get_stylesheet_directory(),
-            get_template_directory() . '/views',
-            get_template_directory()
-        );
-
-        $searchPaths = array_merge($defaultPaths, $additionalPaths);
-
-        $searchPaths = apply_filters('Municipio/blade/view_paths', $searchPaths);
+        $searchPaths = array_merge(self::createViewPaths(), $additionalPaths);
 
         if (isset($searchPaths) && is_array($searchPaths) && !empty($searchPaths)) {
             foreach ($searchPaths as $path) {
@@ -69,8 +60,24 @@ class Template
         } else {
             error_log("Muncipio error: No template search paths defined in " . __DIR__ . __FILE__);
         }
-
+        
         return false;
+    }
+
+    /**
+     * Creates view paths dynamicly 
+     * @return array
+     */
+    public static function createViewPaths($viewPats = array()) {
+        
+        $versions = apply_filters('Municipio/blade/view_path_versions', array_reverse(array("v1", "v2", "v3"))); 
+
+        foreach($versions as $versionKey => $version) {
+            $viewPaths[] = get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
+            $viewPaths[] = get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
+        }
+
+        return apply_filters('Municipio/blade/view_paths', array_unique($viewPaths)); 
     }
 
     /**
