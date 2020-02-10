@@ -49,7 +49,7 @@ class Template
 
         if (isset($searchPaths) && is_array($searchPaths) && !empty($searchPaths)) {
             foreach ($searchPaths as $path) {
-                $file = $path . '/' . str_replace('.blade.php', '', basename($template)) . '.blade.php';
+                $file = $path . DIRECTORY_SEPARATOR . str_replace('.blade.php', '', basename($template)) . '.blade.php';
 
                 if (!file_exists($file)) {
                     continue;
@@ -60,15 +60,16 @@ class Template
         } else {
             error_log("Muncipio error: No template search paths defined in " . __DIR__ . __FILE__);
         }
-        
+
         return false;
     }
 
     /**
      * Creates view paths dynamicly 
-     * @return array
+     * @param  array    $viewPaths   All view paths that are statically entered.
+     * @return array    $viewPaths  Contains all view paths avabile. 
      */
-    public static function createViewPaths($viewPats = array()) {
+    public static function createViewPaths($viewPaths = array()) {
         
         $versions = apply_filters('Municipio/blade/view_path_versions', array_reverse(array("v1", "v2", "v3"))); 
 
