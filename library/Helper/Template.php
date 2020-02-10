@@ -17,8 +17,7 @@ class Template
 
         add_action('init', function () use ($templateName, $templatePath, $postTypes, $templateFile) {
             if ((is_string($postTypes) && $postTypes === 'all') || (is_array($postTypes) && in_array('all', $postTypes))) {
-                $postTypes = array_keys(\Municipio\Helper\PostType::getPublic());
-                $postTypes[] = 'page';
+                $postTypes = array_keys(\Municipio\Helper\PostType::getPublic([]));
             }
 
             foreach ($postTypes as $postType) {

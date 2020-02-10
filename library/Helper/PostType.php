@@ -9,14 +9,14 @@ class PostType
      * @param  array  $filter Don't get these
      * @return array
      */
-    public static function getPublic($filter = array())
+    public static function getPublic($filter = array('page'))
     {
         $postTypes = array();
 
         foreach (get_post_types() as $key => $postType) {
             $args = get_post_type_object($postType);
 
-            if (!$args->public || $args->name === 'page') {
+            if (!$args->public) {
                 continue;
             }
 
