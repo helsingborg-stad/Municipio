@@ -1,6 +1,6 @@
 {
-  "name": "This-is-Helsingborg",
-  "version": "1.0.0",
+  "name": "Municipio",
+  "version": "3.0.0",
   "description": "The official website of Helsingborg Stad",
   "main": "Gulpfile.js",
   "dependencies": {
