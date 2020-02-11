@@ -18,6 +18,7 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Debug\\' => 24,
@@ -28,7 +29,6 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
-            'Philo\\Blade\\' => 12,
         ),
         'I' => 
         array (
@@ -39,6 +39,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
+        'H' => 
+        array (
+            'HelsingborgStad\\Blade\\' => 22,
+        ),
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
@@ -46,6 +50,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
+        ),
+        'B' => 
+        array (
+            'BladeComponentLibrary\\' => 22,
         ),
         'A' => 
         array (
@@ -57,6 +65,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/contracts',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
@@ -86,10 +98,6 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Philo\\Blade\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/philo/laravel-blade/src',
-        ),
         'Illuminate\\View\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/view',
@@ -114,6 +122,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'HelsingborgStad\\Blade\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/helsingborg-stad/laravel-blade/src',
+        ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
@@ -121,6 +133,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+        ),
+        'BladeComponentLibrary\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/helsingborg-stad/blade-component-library/src',
         ),
         'AcfExportManager\\' => 
         array (

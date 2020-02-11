@@ -1,0 +1,21 @@
+{
+    "name": "helsingborg-stad/blade-component-library",
+    "description": "A component library based upon blade engine.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Thulin",
+            "email": "sebastian.thulin@helsingborg.se"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BladeComponentLibrary\\": "src"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "helsingborg-stad/laravel-blade": "^5.5"
+    }
+}

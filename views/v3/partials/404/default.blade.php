@@ -2,8 +2,8 @@
     <div class="container">
         <div class="grid-lg-12 text-center">
             <div class="gutter gutter-xl">
-                <h1 class="error404-title">404</h1>
-                <span class="error404-subtitle">{{ get_field('404_error_message', 'option') ? get_field('404_error_message', 'option') : 'The page could not be found' }}</span>
+                <h1 class="error404-title">{{ $heading }}</h1>
+                <span class="error404-subtitle">{{ $subheading }}</span>
             </div>
         </div>
     </div>
@@ -14,7 +14,6 @@
         <div class="grid-lg-8" style="margin: 0 auto;">
             <article class="clearfix">
 
-                {!! get_field('404_error_info', 'option') ? get_field('404_error_info', 'option') : '' !!}
             </article>
 
             <ul class="actions">

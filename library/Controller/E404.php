@@ -13,52 +13,63 @@ class E404 extends \Municipio\Controller\BaseController
         //Get local instance of wp_query
         $this->globalToLocal('wp_query', 'query');
 
-        //Get Search keyword
-        $searchKeyword = $_SERVER['REQUEST_URI'];
-        $searchKeyword = str_replace('/', ' ', $searchKeyword);
-        $searchKeyword = trim($searchKeyword);
-
-        $this->data['keyword'] = $searchKeyword;
-
         //Get current post type to view
-        $this->getRequestedPostType();
+        $this->data['postType']         = $this->getRequestedPostType();
 
         //Get archive link to view
-        $this->getRequestedPostTypeArchivePermalink();
+        $this->data['archiveLink']      = $this->getPostTypeArchivePermalink();
+
+        //Content
+        $this->data['heading']          = $this->getHeading(); 
+        $this->data['subheading']       = $this->getSubheading(); 
 
     }
 
     /**
-     * Allcolates $post_type with current post type
-     * @return  string / null
+     * Returns the heading
+     * @return  string
      */
-    public function getRequestedPostType()
+    protected function getHeading()
+    {
+        return apply_filters('Municipio/404/Heading', __("404", 'municipio'), $this->getRequestedPostType()); 
+    }
+
+    /**
+     * Returns the body
+     * @return string
+     */
+    protected function getSubheading()
+    {
+        return str_replace("%s", $this->getRequestedPostType(), apply_filters('Municipio/404/Body', __("The %s could not be found", 'municipio') , $this->getRequestedPostType())); 
+    }
+
+    /**
+     * Returns the posttype requested
+     * @return string / null
+     */
+    private function getRequestedPostType()
     {
         if (!is_a($this->query, 'WP_Query')) {
-            return null;
+            $postType = null;
         }
 
         if (isset($this->query->query) && isset($this->query->query['post_type'])) {
-            return $this->data['post_type'] = $this->query->query['post_type'];
+            $postType = $this->query->query['post_type'];
         } else {
-            return $this->data['post_type'] = null;
+            $postType = null;
         }
+
+        return apply_filters('Municipio/404/PostType', $postType); 
     }
 
     /**
-     * Allcolates $post_type_permalink with link to archive
+     * Returns link to archive or null, if not found
      * @return void
      */
-    public function getRequestedPostTypeArchivePermalink()
+    private function getPostTypeArchivePermalink()
     {
-        $requested_post_type = $this->getRequestedPostType();
-
-        if (!is_null($requested_post_type)) {
-            $this->data['post_type_permalink']  = get_post_type_archive_link($requested_post_type);
-        } else {
-            $this->data['post_type_permalink'] = false;
-        }
-
-        return;
+        return apply_filters('Municipio/404/ArchivePermalink',
+            !is_null($this->getRequestedPostType()) ? get_post_type_archive_link($this->getRequestedPostType()) : null
+        ); 
     }
 }

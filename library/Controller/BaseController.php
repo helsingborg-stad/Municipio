@@ -26,7 +26,7 @@ class BaseController
         $this->data['logotype']             = $this->getLogotype();
 
         //Navigation
-        $this->data['breadcrumb']           = $this->getBreadcrumbArray(); 
+        $this->data['breadcrumb']           = $this->getBreadcrumb(); 
 
         //Language
         $this->data['lang'] = array(
