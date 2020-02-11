@@ -114,7 +114,7 @@ class BaseController
      * Get post published
      * @return string
      */
-    public function getPostPublished()
+    public function getPostPublished() : string
     {
         return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
     }
@@ -123,61 +123,61 @@ class BaseController
      * Get post modified
      * @return string
      */
-    public function getPostModified()
+    public function getPostModified() : string
     {
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
 
     /**
      * Get language attributes
-     * @return void
+     * @return string
      */
-    public function getBlogDescription()
+    public function getBlogDescription() : string
     {
         return apply_filters('Municipio/blogDescription', get_bloginfo('description'));
     }
     
     /**
      * Get post title
-     * @return void
+     * @return string
      */
-    public function getPostTitle()
+    public function getPostTitle() : string
     {
         return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
     }
 
     /**
      * Get language attributes
-     * @return void
+     * @return string
      */
-    public function getLanguageAttrs()
+    public function getLanguageAttrs() : string
     {
          return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
     }
 
     /**
      * Creates a ajax url
-     * @return void
+     * @return string
      */
-    public function getAjaxUrl()
+    public function getAjaxUrl() : string
     {
         return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "3.0", "Municpio/ajaxUrl");
     }
 
     /**
      * Get body class
-     * @return void
+     * @return string
      */
-    public function getBodyClass()
+    public function getBodyClass() : string
     {
         return apply_filters('Municipio/bodyClass', join(' ', get_body_class('no-js')));
     }
 
     /**
      * Get breadcrumb array
-     * @return void
+     * @return array
      */
-    public function getBreadcrumbArray()
+    public function getBreadcrumb() : array
     {
         return apply_filters('Municipio/breadcrumbArray', []);
     }
