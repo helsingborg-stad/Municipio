@@ -114,7 +114,7 @@ class BaseController
      * Get post published
      * @return string
      */
-    public function getPostPublished() : string
+    protected function getPostPublished() : string
     {
         return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
     }
@@ -123,7 +123,7 @@ class BaseController
      * Get post modified
      * @return string
      */
-    public function getPostModified() : string
+    protected function getPostModified() : string
     {
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
@@ -132,7 +132,7 @@ class BaseController
      * Get language attributes
      * @return string
      */
-    public function getBlogDescription() : string
+    protected function getBlogDescription() : string
     {
         return apply_filters('Municipio/blogDescription', get_bloginfo('description'));
     }
@@ -141,7 +141,7 @@ class BaseController
      * Get post title
      * @return string
      */
-    public function getPostTitle() : string
+    protected function getPostTitle() : string
     {
         return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
     }
@@ -150,7 +150,7 @@ class BaseController
      * Get language attributes
      * @return string
      */
-    public function getLanguageAttrs() : string
+    protected function getLanguageAttrs() : string
     {
          return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
     }
@@ -159,7 +159,7 @@ class BaseController
      * Creates a ajax url
      * @return string
      */
-    public function getAjaxUrl() : string
+    protected function getAjaxUrl() : string
     {
         return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "3.0", "Municpio/ajaxUrl");
     }
@@ -168,7 +168,7 @@ class BaseController
      * Get body class
      * @return string
      */
-    public function getBodyClass() : string
+    protected function getBodyClass() : string
     {
         return apply_filters('Municipio/bodyClass', join(' ', get_body_class('no-js')));
     }
@@ -177,7 +177,7 @@ class BaseController
      * Get breadcrumb array
      * @return array
      */
-    public function getBreadcrumb() : array
+    protected function getBreadcrumb() : array
     {
         return apply_filters('Municipio/breadcrumbArray', []);
     }
