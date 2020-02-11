@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?php echo apply_filters('Municipio/pageTitle', wp_title('|', false, 'right')); ?></title>
+    <title>{{ $postTitle }}</title>
 
-    <meta name="pubdate" content="{{ the_time('Y-m-d') }}">
-    <meta name="moddate" content="{{ the_modified_time('Y-m-d') }}">
+    <meta name="pubdate" content="{{ $postPublished }}">
+    <meta name="moddate" content="{{ $postModified }}">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=yes">
@@ -17,34 +17,18 @@
         var ajaxurl = '{!! $ajaxUrl !!}';
     </script>
 
+    {{-- Wordpress required call --}}
     {!! wp_head() !!}
+
 </head>
 <body class="{{ $bodyClass }}">
 
     {{-- Site header --}}
     @section('header')
-        @if (isset($headerLayout['template']))
-            @includeIf('partials.header.' . $headerLayout['template'])
-        @endif
+        @include('partials.header')
     @show
 
-    <main id="main" class="c-main s-main">
-
-        @if (isset($notice) && !empty($notice))
-            <div class="notices">
-            @if (!isset($notice['text']) && is_array($notice))
-                @foreach ($notice as $notice)
-                    @include('partials.notice')
-                @endforeach
-            @else
-                @include('partials.notice')
-            @endif
-            </div>
-        @endif
-
-        @if ($translateLocation == 'header')
-            @include('partials.translate')
-        @endif
+    <main id="main">
 
         {{-- Before page layout --}}
         @yield('before-layout')
@@ -88,15 +72,10 @@
 
     {{-- Site footer --}}
     @section('footer')
-        @if (isset($footerLayout['template']))
-            @includeIf('partials.footer.' . $footerLayout['template'])
-        @endif
+        @includeIf('partials.footer')
     @show
 
-    @if (in_array($translateLocation, array('footer', 'fold')))
-        @include('partials.translate')
-    @endif
-
+    {{-- Wordpress required call --}}
     {!! wp_footer() !!}
 
 </body>

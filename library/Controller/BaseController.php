@@ -8,31 +8,34 @@ class BaseController
      * Holds the view's data
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     public function __construct()
     {
-        $this->getLogotype();
-        $this->getHeaderLayout();
-        $this->getFooterLayout();
+        //Html data 
+        $this->data['ajaxUrl']              = $this->getAjaxUrl();
+        $this->data['bodyClass']            = $this->getBodyClass();
+        $this->data['languageAttributes']   = $this->getLanguageAttrs();
 
-        //Main
-        $this->getGeneral();
-        $this->data['ajaxUrl'] = $this->getAjaxUrl();
-        $this->data['bodyClass'] = $this->getBodyClass();
-        $this->data['languageAttributes'] = $this->getLanguageAttributes();
+        //Post data 
+        $this->data['postTitle']            = $this->getPostTitle(); 
+        $this->data['postPublished']        = $this->getPostPublished(); 
+        $this->data['postModified']         = $this->getPostModified(); 
+
+        //Logotypes 
+        $this->data['logotype']             = $this->getLogotype();
 
         //Language
         $this->data['lang'] = array(
-            'jumpToMainMenu' => __('Jump to the main menu', 'municipio'),
-            'jumpToMainContent' => __('Jump to the main content', 'municipio'),
-            'ago'   => __("ago", 'municipio'),
-            'since'   => __("since", 'municipio'),
-            'weeks'   => __("weeks", 'municipio'),
-            'days'   => __("days", 'municipio'),
-            'hours'   => __("hours", 'municipio'),
-            'minutes'   => __("minutes", 'municipio'),
-            'seconds'   => __("seconds", 'municipio'),
+            'jumpToMainMenu'        => __('Jump to the main menu', 'municipio'),
+            'jumpToMainContent'     => __('Jump to the main content', 'municipio'),
+            'ago'                   => __("ago", 'municipio'),
+            'since'                 => __("since", 'municipio'),
+            'weeks'                 => __("weeks", 'municipio'),
+            'days'                  => __("days", 'municipio'),
+            'hours'                 => __("hours", 'municipio'),
+            'minutes'               => __("minutes", 'municipio'),
+            'seconds'               => __("seconds", 'municipio'),
         );
 
         //Google translate location
@@ -105,27 +108,48 @@ class BaseController
     }
 
     /**
-     * General site data (meta tags)
-     * @return void
+     * Get post published
+     * @return string
      */
-    public function getGeneral()
+    public function getPostPublished()
     {
-        //General blog details / title
-        $this->data['wpTitle'] = wp_title('|', false, 'right') . get_bloginfo('name');
-        $this->data['description']  = get_bloginfo('description');
+        return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
+    }
 
-        //Timestamps for post
-        $this->data['published'] = get_the_time('Y-m-d');
-        $this->data['modified'] = get_the_modified_time('Y-m-d');
+    /**
+     * Get post modified
+     * @return string
+     */
+    public function getPostModified()
+    {
+        return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
 
     /**
      * Get language attributes
      * @return void
      */
-    public function getLanguageAttributes()
+    public function getBlogDescription()
     {
-        return get_language_attributes();
+        return apply_filters('Municipio/blogDescription', get_bloginfo('description'));
+    }
+    
+    /**
+     * Get post title
+     * @return void
+     */
+    public function getPostTitle()
+    {
+        return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
+    }
+
+    /**
+     * Get language attributes
+     * @return void
+     */
+    public function getLanguageAttrs()
+    {
+         return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
     }
 
     /**
@@ -143,55 +167,7 @@ class BaseController
      */
     public function getBodyClass()
     {
-        return join(' ', get_body_class('no-js'));
-    }
-
-    /**
-     * Sends necessary data to the view for customizer header
-     * @return void
-     */
-    public function customizerHeader()
-    {
-        if (get_field('header_layout', 'options') !== 'customizer') {
-            return;
-        }
-
-        $customizerHeader = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__header_sections', 'options', 'id');
-        $this->data['headerLayout']['classes'] = 's-site-header';
-        $this->data['headerLayout']['template'] = 'customizer';
-
-        if ($customizerHeader->hasItems) {
-            foreach ($customizerHeader->repeater as $headerData) {
-                $this->data['headerLayout']['headers'][] = new \Municipio\Customizer\Header($headerData);
-            }
-        }
-    }
-
-    /**
-     * Sends necessary data to the view for customizer footer
-     * @return void
-     */
-    public function customizerFooter()
-    {
-        if (get_field('footer_layout', 'options') !== 'customizer') {
-            return;
-        }
-
-        $customizerFooter = new \Municipio\Customizer\Source\CustomizerRepeaterInput('customizer__footer_sections', 'options', 'id');
-
-        $classes = array();
-        $classes[] = 's-site-footer';
-        $classes[] = 'hidden-print';
-        $classes[] = (get_field('scroll_elevator_enabled', 'option')) ? 'scroll-elevator-toggle' : '';
-
-        $this->data['footerLayout']['template'] = 'customizer';
-        $this->data['footerLayout']['classes'] = implode(' ', $classes);
-
-        if ($customizerFooter->hasItems) {
-            foreach ($customizerFooter->repeater as $footerData) {
-                $this->data['footerSections'][] = new \Municipio\Customizer\Footer($footerData);
-            }
-        }
+        return apply_filters('Municipio/bodyClass', join(' ', get_body_class('no-js')));
     }
 
     public function getFixedActionBar()
@@ -319,17 +295,13 @@ class BaseController
     public function getLogotype()
     {
         if (isset($this->data['logotype'])) {
-            return;
+            return $this->data['logotype'];
         }
 
-        $this->data['logotype'] = array(
+        return (object) array(
             'standard' => get_field('logotype', 'option'),
             'negative' => get_field('logotype_negative', 'option')
         );
-
-        if (get_field('footer_signature_show', 'option')) {
-            $this->data['footerLogo'] =  \Municipio\Helper\Svg::extract(\Municipio\Helper\Image::urlToPath(get_template_directory_uri() . '/assets/dist/images/helsingborg.svg'));
-        }
     }
 
     public function getHeaderLayout()
@@ -438,7 +410,7 @@ class BaseController
         $this->data = apply_filters_deprecated('HbgBlade/data', array($this->data), "2.0", "Municipio/viewData");
 
         //General filter
-        return apply_filters('Municipio/viewData', $this->data);
+        return $this->data;
     }
 
     /**
