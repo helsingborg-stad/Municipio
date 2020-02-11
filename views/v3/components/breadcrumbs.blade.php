@@ -1,1 +1,0 @@
-{{ \Municipio\Theme\Navigation::outputBreadcrumbs() }}

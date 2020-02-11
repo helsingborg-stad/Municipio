@@ -16,13 +16,6 @@ class BaseController
         $this->getHeaderLayout();
         $this->getFooterLayout();
 
-        /* Preview mode 2.0 */
-        if (apply_filters('Municipio/Controller/BaseController/Customizer', false)) {
-            $this->layout();
-            $this->customizerHeader();
-            $this->customizerFooter();
-        }
-
         //Main
         $this->getGeneral();
         $this->data['ajaxUrl'] = $this->getAjaxUrl();
@@ -41,9 +34,6 @@ class BaseController
             'minutes'   => __("minutes", 'municipio'),
             'seconds'   => __("seconds", 'municipio'),
         );
-
-        //Share url
-        $this->data['socialShareUrl'] = $this->getSocialShareUrl();
 
         //Google translate location
         $this->data['translateLocation'] = get_field('show_google_translate', 'option'); 
@@ -144,23 +134,7 @@ class BaseController
      */
     public function getAjaxUrl()
     {
-        return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "2.0", "Municpio/ajaxUrl");
-    }
-
-    /**
-     * Get the social share url
-     * @return string
-     */
-    public function getSocialShareUrl()
-    {
-        //Get the post id
-        //Get the post id
-        if(!$postId = get_the_ID()) {
-            global $post;
-            $postId = $post->ID;
-        }
-        //Return share url
-        return urlencode(get_home_url(null, '?socialShareId=' . $postId, null));
+        return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "3.0", "Municpio/ajaxUrl");
     }
 
     /**
@@ -235,6 +209,9 @@ class BaseController
 
     public function getHelperVariables()
     {
+
+        // TODO: Remove left sidebar, rename right to "has sidebar"
+
         $this->data['hasRightSidebar'] = get_field('right_sidebar_always', 'option') || is_active_sidebar('right-sidebar');
         $this->data['hasLeftSidebar'] = (isset($this->data['navigation']['sidebarMenu']) && strlen($this->data['navigation']['sidebarMenu']) > 0) || is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom');
 

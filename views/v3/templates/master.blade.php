@@ -16,7 +16,7 @@
     <meta name="HandheldFriendly" content="true" />
 
     <script>
-        var ajaxurl = '{!! apply_filters('Municipio/ajax_url_in_head', admin_url('admin-ajax.php')) !!}';
+        var ajaxurl = '{!! $ajaxUrl !!}';
     </script>
 
     {!! wp_head() !!}
