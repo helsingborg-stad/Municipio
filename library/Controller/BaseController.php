@@ -25,6 +25,9 @@ class BaseController
         //Logotypes 
         $this->data['logotype']             = $this->getLogotype();
 
+        //Navigation
+        $this->data['breadcrumb']           = $this->getBreadcrumbArray(); 
+
         //Language
         $this->data['lang'] = array(
             'jumpToMainMenu'        => __('Jump to the main menu', 'municipio'),
@@ -168,6 +171,15 @@ class BaseController
     public function getBodyClass()
     {
         return apply_filters('Municipio/bodyClass', join(' ', get_body_class('no-js')));
+    }
+
+    /**
+     * Get breadcrumb array
+     * @return void
+     */
+    public function getBreadcrumbArray()
+    {
+        return apply_filters('Municipio/breadcrumbArray', []);
     }
 
     public function getFixedActionBar()
