@@ -25,10 +25,11 @@
     ],
     "require": {
         "composer/installers": "^1.0",
-        "philo/laravel-blade": "^3.1",
-        "symfony/debug": "^4.0",
+        "symfony/debug": "^3.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "shortpixel/shortpixel-php": "^1.4"
+        "shortpixel/shortpixel-php": "^1.4",
+        "helsingborg-stad/blade-component-library": "^0.2.0",
+        "helsingborg-stad/global-blade-engine": "^1.2"
     },
     "extra" : {
         "installer-paths" : {

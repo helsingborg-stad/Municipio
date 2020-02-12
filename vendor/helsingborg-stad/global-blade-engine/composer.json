@@ -1,0 +1,21 @@
+{
+    "name": "helsingborg-stad/global-blade-engine",
+    "description": "A static instance of blade engine to be used cross-package.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Thulin",
+            "email": "sebastian.thulin@helsingborg.se"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "HelsingborgStad\\": "src"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "benjamincrozat/blade": "^2.0"
+    }
+}

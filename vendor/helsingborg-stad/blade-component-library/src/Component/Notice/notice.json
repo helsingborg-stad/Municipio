@@ -1,0 +1,26 @@
+{
+    "slug": "notice",
+    "default": {
+        "type": null,
+        "message": [],
+        "icon": []
+    },
+    "description": {
+        "isSuccess": "Green'ish message",
+        "isWarning": "Yellow'ish message",
+        "isDanger": "Red'ish message",
+        "isInfo": "Blue'ish message",
+        "message": "an array with two parameters: text and size",
+        "icon": "An array of the icon properties. See icon component."
+    },
+    "view": "notice.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "notice",
+                "icon",
+                "typography"
+            ]
+        }
+    }
+}

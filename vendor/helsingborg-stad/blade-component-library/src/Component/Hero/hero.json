@@ -1,0 +1,44 @@
+{
+    "slug": "hero",
+    "default": {
+        "height": 50,
+        "headline": "",
+        "content": "",
+        "byline": "",
+        "textColor": "light",
+        "gradientColor": "",
+        "backgroundImage": "",
+        "complementaryImage": "",
+        "backgroundColor": "#eee",
+        "componentElement": "section",
+        "headingElement": "h1",
+        "bylineElement": "h2",
+        "contentElement": "div",
+        "verticalTextAlignment": "middle",
+        "brandSymbol": false
+    },
+    "description": {
+        "height": "Vh-height of the hero",
+        "headline": "The headline to show",
+        "byline": "The byline",
+        "content": "The content",
+        "textColor": "The color of the text (dark, light)",
+        "gradientColor": "The color of the gradient (dark, light, none or empty)",
+        "backgroundImage": "A large background image (hi-res)",
+        "backgroundColor": "The body background color (shows when loading image)",
+        "componentElement": "The element wrapping hero content.",
+        "headingElement": "The heading element",
+        "bylineElement": "The byline element",
+        "contentElement": "The content element",
+        "verticalTextAlignment": "Vertical alignment attribute.",
+        "brandSymbol": "Path to a local svg. Default to show in lower right. Must be SVG."
+    },
+    "view": "hero.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "hero"
+            ]
+        }
+    }
+}

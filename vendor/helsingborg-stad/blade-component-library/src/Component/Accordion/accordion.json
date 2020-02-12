@@ -1,0 +1,35 @@
+{
+    "slug": "accordion",
+    "default": {
+        "id": "",
+        "list": [],
+        "beforeHeading": "",
+        "afterHeading": "",
+        "beforeContent": "<p>",
+        "afterContent": "</p>",
+        "componentElement": "div",
+        "sectionElement": "div",
+        "sectionHeadingElement": "button",
+        "sectionContentElement": "div"
+    },
+    "description": {
+        "id": "ID for the accordion",
+        "list": "List of accordion section",
+        "beforeHeading": "Insert before heading",
+        "afterHeading": "Insert after heading",
+        "beforeContent": "Insert before content",
+        "afterContent": "Insert after content",
+        "componentElement": "Component element",
+        "sectionElement": "Section element",
+        "sectionHeadingElement": "Section heading component",
+        "sectionContentElement": "Section content component"
+    },
+    "view": "accordion.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "accordion"
+            ]
+        }
+    }
+}

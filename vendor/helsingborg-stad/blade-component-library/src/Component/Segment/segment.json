@@ -1,0 +1,39 @@
+{
+    "slug": "segment",
+    "default": {
+        "template": "split",
+        "background_color": "",
+        "background_image": "",
+        "backgroundImage": "",
+        "height": "md",
+        "padding": 5,
+        "parallax": false,
+        "text_alignment": "left",
+        "reverse_layout": false,
+        "contain_content": true,
+        "heading": "",
+        "body": "",
+        "image": "",
+        "image_focus": {
+            "vertical": "center",
+            "horizontal": "center"
+        },
+        "content_alignment": {
+            "vertical": "center",
+            "horizontal": "center"
+        },
+        "mobile_layout": {
+            "graphics": "below"
+        },
+        "cta_align": "right",
+        "cta": {}
+    },
+    "description": {
+        "template": "Which layout template to use",
+        "background_color": "A hex code for the background of a full segement",
+        "reverse_layout": "If the layout should have a reversed order",
+        "containContent": "Contains the content in a container or allows full width",
+        "mobile_layout": "An array containing rules for the structure in mobile view"
+    },
+    "view": "segment.blade.php"
+}

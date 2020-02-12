@@ -1,0 +1,19 @@
+{
+    "slug": "listing",
+    "default": {
+        "list": [],
+        "elementType": "ul"
+    },
+    "description": {
+        "list": "List of arrays containing at least 'label' but can also contain 'href'.",
+        "elementType": "The type of list, ul, ol."
+    },
+    "view": "listing.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "list"
+            ]
+        }
+    }
+}

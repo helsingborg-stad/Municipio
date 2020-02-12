@@ -1,0 +1,21 @@
+{
+    "slug": "date",
+    "default": {
+        "date": "24/12/2019",
+        "time_since": false,
+        "time_since_cap": "6 months"
+    },
+    "description": {
+        "date": "The date",
+        "time_since": "Will return the date since.",
+        "time_since_cap": "How long back to spell out time since"
+    },
+    "view": "date.blade.php",
+    "dependency": {
+        "sass": {
+        }
+    }
+}
+ 
+ 
+ 

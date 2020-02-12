@@ -1,0 +1,19 @@
+{
+    "slug":"link",
+    "default":{
+       "slot":"Undefined label",
+       "href":"#",
+       "target":"_top"
+    },
+    "description":{
+      "slot":"The label/content of the link",
+      "href":"Where should the link go to?",
+      "target":"Open a new tab or not?"
+    },
+    "view":"link.blade.php",
+    "dependency": {
+      "sass": {
+
+      }
+    }
+ }

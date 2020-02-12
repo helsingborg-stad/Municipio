@@ -1,0 +1,20 @@
+{
+    "slug": "tooltip",
+    "default": {
+        "componentElement": "a",
+        "href": "#",
+        "placement": "bottom",
+        "title": "",
+        "slot": "",
+        "beforeContent": "",
+        "afterContent": ""
+    },
+    "view": "tooltip.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "tooltip"
+            ]
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "slug": "fab",
+    "default": {
+        "position": "bottom-right",
+        "spacing": "md",
+        "button": []
+    },
+    "description": {
+        "position": "Where on the screen the FAB should be positioned",
+        "spacing": "The amount of space between the edges and the element",
+        "button": "Settings for the button element"
+    },
+    "view": "fab.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "fab",
+                "button"
+            ]
+        }
+    }
+}

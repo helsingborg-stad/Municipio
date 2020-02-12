@@ -1,0 +1,28 @@
+{
+    "slug": "menu",
+    "default": {
+        "activeIndex": false,
+        "items": [],
+        "elementType": "nav",
+        "activeClass": "--active",
+        "wrapper": true,
+        "isHorizontal": false
+    },
+    "description": {
+        "activeIndex": "The currently active index",
+        "items": "List of arrays containing at least 'label' and 'href' option 'icon' name as string.",
+        "elementType": "The type of wrapper.",
+        "activeClass": "The name of currently active class.",
+        "wrapper": "Wrap component with <nav> etc.",
+        "isHorizontal": "If the menu should render as horizontal. Default to vertical menu."
+    },
+    "view": "menu.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "menu",
+                "icon"
+            ]
+        }
+    }
+}

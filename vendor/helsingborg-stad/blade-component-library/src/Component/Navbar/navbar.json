@@ -1,0 +1,24 @@
+{
+    "slug": "navbar",
+    "default": {
+        "logo": "",
+        "items": [],
+        "sidebar": false
+    },
+
+    "description":{
+        "logo":"A link to a logo",
+        "items": "An array of links",
+        "sidebar": "If set to true the toggle will toggle sidebar"
+    },
+    "view": "navbar.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "navbar",
+                "image",
+                "button"
+            ]
+        }
+    }
+}

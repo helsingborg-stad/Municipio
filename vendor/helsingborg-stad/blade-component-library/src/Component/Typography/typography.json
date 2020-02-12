@@ -1,0 +1,21 @@
+{
+    "slug": "typography",
+    "default": {
+        "variant": "p",
+        "element": "p",
+        "slot": ""
+    },
+    "description": {
+        "variant": "What element the component should base its looks off of.",
+        "element": "What element the markup will use.",
+        "slot": "The content"
+    },
+    "view": "typography.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "typography"
+            ]
+        }
+    }
+}

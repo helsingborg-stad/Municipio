@@ -1,0 +1,28 @@
+{
+    "slug": "alert",
+    "default": {
+        "title": "",
+        "slot": "",
+        "dismiss": "",
+        "accept": "",
+        "overlay": "light"
+    },
+    "description": {
+        "title": "The title of the alert or confirm.",
+        "slot": "The main content of this component.",
+        "dismiss": "A dismiss button label.",
+        "accept": "A accept button label.",
+        "hasBackdrop": "Cover the background with a transparent layer.",
+        "top": "Slot place at the top",
+        "bottom": "Slot at the bottom"
+    },
+    "view": "alert.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "button",
+                "typography"
+            ]
+        }
+    }
+}

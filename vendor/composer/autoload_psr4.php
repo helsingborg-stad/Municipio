@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
-    'Symfony\\Contracts\\' => array($vendorDir . '/symfony/contracts'),
+    'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
     'Symfony\\Component\\Debug\\' => array($vendorDir . '/symfony/debug'),
@@ -22,9 +22,11 @@ return array(
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
     'HelsingborgStad\\Blade\\' => array($vendorDir . '/helsingborg-stad/laravel-blade/src'),
+    'HelsingborgStad\\' => array($vendorDir . '/helsingborg-stad/global-blade-engine/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
     'BladeComponentLibrary\\' => array($vendorDir . '/helsingborg-stad/blade-component-library/src'),
+    'BC\\Blade\\' => array($vendorDir . '/benjamincrozat/blade/src'),
     'AcfExportManager\\' => array($vendorDir . '/helsingborg-stad/acf-export-manager/src'),
     '' => array($vendorDir . '/nesbot/carbon/src'),
 );

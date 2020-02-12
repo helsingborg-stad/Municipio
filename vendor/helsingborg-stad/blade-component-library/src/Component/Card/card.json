@@ -1,0 +1,54 @@
+{
+    "slug": "card",
+    "default": {
+        "image": "",
+        "href": "",
+        "alt": "",
+        "content": "",
+        "title": [],
+        "byline": [],
+        "slot": "",
+        "top": "",
+        "bottom": "",
+        "hasRipple": true,
+        "buttons": [],
+        "icons": [],
+        "avatar": [],
+        "dropdown": [],
+        "accordion": [],
+        "dark_background": false
+    },
+    "description": {
+        "image": "A url to a image.",
+        "href": "Link to a larger version of the image.",
+        "alt": "The alt text.",
+        "content": "The card content",
+        "title": "Array of the card title. Key: 'text' for text and 'position' (top | body).",
+        "byline": "Array of the small(er) text below the title, single row. Key: 'text' for text and 'position' (top | body).",
+        "slot": "Empty slot placed in the middle of card.",
+        "top": "Empty slot placed in the top of card.",
+        "bottom": "Empty slot placed in the bottom of card.",
+        "hasRipple": "Enable / disable ripple fx",
+        "buttons": "Array with buttons that has parameters like href, text and attributeList.",
+        "icons": "Array with icons that has parameters like name, size, attributeList, classList.",
+        "avatar": "Array with the avatar data such as image and name.",
+        "dropdown": "Array with the dropdown parameters as items as an array, direction: top, right, bottom, left, position: top, bottom ",
+        "accordion": "Array with the accordion parameters such as heading and content data",
+        "dark_background": "Set the background of the card to a dark color"
+    },
+    "view": "card.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "card",
+                "paper",
+                "dropdown",
+                "icon",
+                "accordion",
+                "image",
+                "typography",
+                "avatar"
+            ]
+        }
+    }
+}

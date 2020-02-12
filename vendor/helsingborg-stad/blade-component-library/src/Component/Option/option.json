@@ -1,0 +1,22 @@
+{
+    "slug": "option",
+    "default": {
+        "label": "",
+        "required": false,
+        "value": ""
+    },
+    "description": {
+        "label": "Array of label items like labelText.",
+        "required": "HTML5 validation on fields",
+        "value": "option value"
+    },
+    "view": "option.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "option",
+                "icon"
+            ]
+        }
+    }
+}

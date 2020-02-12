@@ -18,7 +18,7 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Contracts\\' => 18,
+            'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Debug\\' => 24,
@@ -42,6 +42,7 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'H' => 
         array (
             'HelsingborgStad\\Blade\\' => 22,
+            'HelsingborgStad\\' => 16,
         ),
         'D' => 
         array (
@@ -54,6 +55,7 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'B' => 
         array (
             'BladeComponentLibrary\\' => 22,
+            'BC\\Blade\\' => 9,
         ),
         'A' => 
         array (
@@ -66,9 +68,9 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Contracts\\' => 
+        'Symfony\\Contracts\\Translation\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/contracts',
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
@@ -126,6 +128,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/laravel-blade/src',
         ),
+        'HelsingborgStad\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/helsingborg-stad/global-blade-engine/src',
+        ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
@@ -138,6 +144,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/blade-component-library/src',
         ),
+        'BC\\Blade\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/benjamincrozat/blade/src',
+        ),
         'AcfExportManager\\' => 
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/acf-export-manager/src',
@@ -148,12 +158,23 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
+    public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'UpdateHelper\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/kylekatarnls/update-helper/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$prefixDirsPsr4;
             $loader->fallbackDirsPsr4 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

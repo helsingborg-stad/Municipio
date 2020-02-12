@@ -1,0 +1,19 @@
+{
+    "slug": "header",
+    "default": {
+        "componentElement": "header",
+        "logotypeHref": "/"
+    },
+    "descriptions": {
+        "componentElement": "The element tag to render",
+        "logotypeHref": "The url to link the logotype to."
+    },
+    "view": "header.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "header"
+            ]
+        }
+    }
+}

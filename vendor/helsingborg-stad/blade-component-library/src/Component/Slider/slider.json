@@ -1,0 +1,21 @@
+{
+    "slug": "slider",
+    "default": {
+        "showStepper": true
+    },
+    "description": {
+        "showStepper": "Option to hide or show stepper."
+    },
+    "view": "slider.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+                "slider",
+                "button",
+                "steppers"
+            ]
+        }
+    }
+}
+
+
