@@ -55,6 +55,8 @@ ShortPixel\fromUrls("https://your.site/img/unoptimized.png")->toFiles("/path/to/
 ShortPixel\fromFile("/path/to/your/local/unoptimized.png")->toFiles("/path/to/save/to");
 // Compress with default settings from several local files
 ShortPixel\fromFiles(array("/path/to/your/local/unoptimized1.png", "/path/to/your/local/unoptimized2.png"))->toFiles("/path/to/save/to");
+//Compres and rename each file
+\ShortPixel\fromFiles(array("/path/to/your/local/unoptimized1.png", "/path/to/your/local/unoptimized2.png"))->toFiles("/path/to/save/to", ['renamed-one.png', 'renamed-two.png']);
 
 // Compress with a specific compression level: 0 - lossless, 1 - lossy (default), 2 - glossy
 ShortPixel\fromFile("/path/to/your/local/unoptimized.png")->optimize(2)->toFiles("/path/to/save/to");
@@ -87,6 +89,10 @@ $ret = ShortPixel\fromFolder("/path/to/your/local/folder")->wait(300)->toFiles("
 //Recurse only <<N>> levels down into the subfolders of the folder ( N == 0 means do not recurse )
 $ret = ShortPixel\fromFolder("/path/to/your/local/folder", 0, array(), false, ShortPixel::CLIENT_MAX_BODY_SIZE, <<N>>)->wait(300)->toFiles("/path/to/save/to");
 
+//Set custom cURL options (proxy)
+\ShortPixel\setCurlOptions(array(CURLOPT_PROXY => '66.96.200.39:80', CURLOPT_REFERER => 'https://shortpixel.com/'));
+
+
 //A simple loop to optimize all images from a folder
 $stop = false;
 while(!$stop) {
@@ -95,6 +101,13 @@ while(!$stop) {
         $stop = true;
     }
 }
+
+//Compress from an image in memory
+$myImage = file_get_contents($pathTo_shortpixel.png);
+$ret = \ShortPixel\fromBuffer('shortpixel.png', $myImage)->wait(300)->toFiles(self::$tempDir);
+
+//Get account status and credits info:
+$ret = \ShortPixel\ShortPixel::getClient()->apiStatus(YOUR_API_KEY);
 
 ```
 There are more code examples in the [examples/integration.php](https://github.com/short-pixel-optimizer/shortpixel-php/blob/master/examples/integration.php ) file.

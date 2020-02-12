@@ -59,21 +59,19 @@ class DebugClassLoaderTest extends TestCase
         $this->fail('DebugClassLoader did not register');
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage boo
-     */
     public function testThrowingClass()
     {
+        $this->expectException('Exception');
+        $this->expectExceptionMessage('boo');
         try {
-            class_exists(__NAMESPACE__.'\Fixtures\Throwing');
+            class_exists(Fixtures\Throwing::class);
             $this->fail('Exception expected');
         } catch (\Exception $e) {
             $this->assertSame('boo', $e->getMessage());
         }
 
         // the second call also should throw
-        class_exists(__NAMESPACE__.'\Fixtures\Throwing');
+        class_exists(Fixtures\Throwing::class);
     }
 
     public function testUnsilencing()
@@ -92,7 +90,7 @@ class DebugClassLoaderTest extends TestCase
 
         // See below: this will fail with parse error
         // but this should not be @-silenced.
-        @class_exists(__NAMESPACE__.'\TestingUnsilencing', true);
+        @class_exists(TestingUnsilencing::class, true);
 
         $output = ob_get_clean();
 
@@ -139,34 +137,28 @@ class DebugClassLoaderTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Case mismatch between loaded and declared class names
-     */
     public function testNameCaseMismatch()
     {
-        class_exists(__NAMESPACE__.'\TestingCaseMismatch', true);
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Case mismatch between loaded and declared class names');
+        class_exists(TestingCaseMismatch::class, true);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Case mismatch between class and real file names
-     */
     public function testFileCaseMismatch()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Case mismatch between class and real file names');
         if (!file_exists(__DIR__.'/Fixtures/CaseMismatch.php')) {
             $this->markTestSkipped('Can only be run on case insensitive filesystems');
         }
 
-        class_exists(__NAMESPACE__.'\Fixtures\CaseMismatch', true);
+        class_exists(Fixtures\CaseMismatch::class, true);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Case mismatch between loaded and declared class names
-     */
     public function testPsr4CaseMismatch()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Case mismatch between loaded and declared class names');
         class_exists(__NAMESPACE__.'\Fixtures\Psr4CaseMismatch', true);
     }
 
@@ -182,7 +174,7 @@ class DebugClassLoaderTest extends TestCase
 
     public function testClassAlias()
     {
-        $this->assertTrue(class_exists(__NAMESPACE__.'\Fixtures\ClassAlias', true));
+        $this->assertTrue(class_exists(Fixtures\ClassAlias::class, true));
     }
 
     /**
@@ -224,7 +216,7 @@ class DebugClassLoaderTest extends TestCase
         $e = error_reporting(0);
         trigger_error('', E_USER_NOTICE);
 
-        class_exists('Test\\'.__NAMESPACE__.'\\NonDeprecatedInterfaceClass', true);
+        class_exists('Test\\'.NonDeprecatedInterfaceClass::class, true);
 
         error_reporting($e);
         restore_error_handler();
@@ -272,7 +264,7 @@ class DebugClassLoaderTest extends TestCase
         $e = error_reporting(0);
         trigger_error('', E_USER_NOTICE);
 
-        class_exists('Test\\'.__NAMESPACE__.'\\Float', true);
+        class_exists('Test\\'.Float::class, true);
 
         error_reporting($e);
         restore_error_handler();
@@ -297,7 +289,7 @@ class DebugClassLoaderTest extends TestCase
         require __DIR__.'/Fixtures/FinalClasses.php';
 
         $i = 1;
-        while (class_exists($finalClass = __NAMESPACE__.'\\Fixtures\\FinalClass'.$i++, false)) {
+        while (class_exists($finalClass = Fixtures\FinalClass::class.$i++, false)) {
             spl_autoload_call($finalClass);
             class_exists('Test\\'.__NAMESPACE__.'\\Extends'.substr($finalClass, strrpos($finalClass, '\\') + 1), true);
         }
@@ -323,7 +315,7 @@ class DebugClassLoaderTest extends TestCase
         set_error_handler(function ($type, $msg) use (&$deprecations) { $deprecations[] = $msg; });
         $e = error_reporting(E_USER_DEPRECATED);
 
-        class_exists(__NAMESPACE__.'\\Fixtures\\ExtendedFinalMethod', true);
+        class_exists(Fixtures\ExtendedFinalMethod::class, true);
 
         error_reporting($e);
         restore_error_handler();
@@ -342,7 +334,7 @@ class DebugClassLoaderTest extends TestCase
         $e = error_reporting(0);
         trigger_error('', E_USER_NOTICE);
 
-        class_exists('Test\\'.__NAMESPACE__.'\\ExtendsAnnotatedClass', true);
+        class_exists('Test\\'.ExtendsAnnotatedClass::class, true);
 
         error_reporting($e);
         restore_error_handler();
@@ -359,7 +351,7 @@ class DebugClassLoaderTest extends TestCase
         set_error_handler(function ($type, $msg) use (&$deprecations) { $deprecations[] = $msg; });
         $e = error_reporting(E_USER_DEPRECATED);
 
-        class_exists('Test\\'.__NAMESPACE__.'\\ExtendsInternals', true);
+        class_exists('Test\\'.ExtendsInternals::class, true);
 
         error_reporting($e);
         restore_error_handler();
@@ -378,7 +370,7 @@ class DebugClassLoaderTest extends TestCase
         set_error_handler(function ($type, $msg) use (&$deprecations) { $deprecations[] = $msg; });
         $e = error_reporting(E_USER_DEPRECATED);
 
-        class_exists('Test\\'.__NAMESPACE__.'\\UseTraitWithInternalMethod', true);
+        class_exists('Test\\'.UseTraitWithInternalMethod::class, true);
 
         error_reporting($e);
         restore_error_handler();
@@ -388,7 +380,7 @@ class DebugClassLoaderTest extends TestCase
 
     public function testEvaluatedCode()
     {
-        $this->assertTrue(class_exists(__NAMESPACE__.'\Fixtures\DefinitionInEvaluatedCode', true));
+        $this->assertTrue(class_exists(Fixtures\DefinitionInEvaluatedCode::class, true));
     }
 }
 
@@ -407,11 +399,11 @@ class ClassLoader
     {
         $fixtureDir = __DIR__.\DIRECTORY_SEPARATOR.'Fixtures'.\DIRECTORY_SEPARATOR;
 
-        if (__NAMESPACE__.'\TestingUnsilencing' === $class) {
+        if (TestingUnsilencing::class === $class) {
             eval('-- parse error --');
-        } elseif (__NAMESPACE__.'\TestingStacking' === $class) {
+        } elseif (TestingStacking::class === $class) {
             eval('namespace '.__NAMESPACE__.'; class TestingStacking { function foo() {} }');
-        } elseif (__NAMESPACE__.'\TestingCaseMismatch' === $class) {
+        } elseif (TestingCaseMismatch::class === $class) {
             eval('namespace '.__NAMESPACE__.'; class TestingCaseMisMatch {}');
         } elseif (__NAMESPACE__.'\Fixtures\Psr4CaseMismatch' === $class) {
             return $fixtureDir.'psr4'.\DIRECTORY_SEPARATOR.'Psr4CaseMismatch.php';
@@ -421,31 +413,33 @@ class ClassLoader
             return $fixtureDir.'notPsr0Bis.php';
         } elseif ('Symfony\Bridge\Debug\Tests\Fixtures\ExtendsDeprecatedParent' === $class) {
             eval('namespace Symfony\Bridge\Debug\Tests\Fixtures; class ExtendsDeprecatedParent extends \\'.__NAMESPACE__.'\Fixtures\DeprecatedClass {}');
-        } elseif ('Test\\'.__NAMESPACE__.'\DeprecatedParentClass' === $class) {
+        } elseif ('Test\\'.DeprecatedParentClass::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class DeprecatedParentClass extends \\'.__NAMESPACE__.'\Fixtures\DeprecatedClass {}');
-        } elseif ('Test\\'.__NAMESPACE__.'\DeprecatedInterfaceClass' === $class) {
+        } elseif ('Test\\'.DeprecatedInterfaceClass::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class DeprecatedInterfaceClass implements \\'.__NAMESPACE__.'\Fixtures\DeprecatedInterface {}');
-        } elseif ('Test\\'.__NAMESPACE__.'\NonDeprecatedInterfaceClass' === $class) {
+        } elseif ('Test\\'.NonDeprecatedInterfaceClass::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class NonDeprecatedInterfaceClass implements \\'.__NAMESPACE__.'\Fixtures\NonDeprecatedInterface {}');
-        } elseif ('Test\\'.__NAMESPACE__.'\Float' === $class) {
+        } elseif ('Test\\'.Float::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class Float {}');
-        } elseif (0 === strpos($class, 'Test\\'.__NAMESPACE__.'\ExtendsFinalClass')) {
+        } elseif (0 === strpos($class, 'Test\\'.ExtendsFinalClass::class)) {
             $classShortName = substr($class, strrpos($class, '\\') + 1);
             eval('namespace Test\\'.__NAMESPACE__.'; class '.$classShortName.' extends \\'.__NAMESPACE__.'\Fixtures\\'.substr($classShortName, 7).' {}');
-        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsAnnotatedClass' === $class) {
+        } elseif ('Test\\'.ExtendsAnnotatedClass::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsAnnotatedClass extends \\'.__NAMESPACE__.'\Fixtures\AnnotatedClass {
                 public function deprecatedMethod() { }
             }');
-        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsInternals' === $class) {
+        } elseif ('Test\\'.ExtendsInternals::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsInternals extends ExtendsInternalsParent {
                 use \\'.__NAMESPACE__.'\Fixtures\InternalTrait;
 
                 public function internalMethod() { }
             }');
-        } elseif ('Test\\'.__NAMESPACE__.'\ExtendsInternalsParent' === $class) {
+        } elseif ('Test\\'.ExtendsInternalsParent::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class ExtendsInternalsParent extends \\'.__NAMESPACE__.'\Fixtures\InternalClass implements \\'.__NAMESPACE__.'\Fixtures\InternalInterface { }');
-        } elseif ('Test\\'.__NAMESPACE__.'\UseTraitWithInternalMethod' === $class) {
+        } elseif ('Test\\'.UseTraitWithInternalMethod::class === $class) {
             eval('namespace Test\\'.__NAMESPACE__.'; class UseTraitWithInternalMethod { use \\'.__NAMESPACE__.'\Fixtures\TraitWithInternalMethod; }');
         }
+
+        return null;
     }
 }

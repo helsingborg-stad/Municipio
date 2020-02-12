@@ -1,65 +1,5 @@
 [
     {
-        "name": "aristath/kirki",
-        "version": "v3.0.34",
-        "version_normalized": "3.0.34.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/aristath/kirki.git",
-            "reference": "8fb938f34e8093cbfa887ca9349898dd5a9084af"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/aristath/kirki/zipball/8fb938f34e8093cbfa887ca9349898dd5a9084af",
-            "reference": "8fb938f34e8093cbfa887ca9349898dd5a9084af",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "require-dev": {
-            "codacy/coverage": "dev-master",
-            "composer/installers": "*",
-            "dealerdirect/phpcodesniffer-composer-installer": "*",
-            "php-coveralls/php-coveralls": "^2.0",
-            "phpcompatibility/phpcompatibility-wp": "*",
-            "phpunit/phpunit": "*",
-            "wp-coding-standards/wpcs": "*"
-        },
-        "time": "2018-09-14T19:07:16+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "kirki.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "aristath",
-                "email": "aristath@gmail.com",
-                "homepage": "https://aristath.github.io",
-                "role": "Developer"
-            },
-            {
-                "name": "fovoc",
-                "email": "kalliris.d@gmail.com",
-                "homepage": "https://github.com/fovoc",
-                "role": "Developer"
-            }
-        ],
-        "description": "Extending the WordPress customizer",
-        "homepage": "https://aristath.github.io/kirki",
-        "keywords": [
-            "customizer",
-            "wordpress"
-        ]
-    },
-    {
         "name": "benjamincrozat/blade",
         "version": "2.0.1",
         "version_normalized": "2.0.1.0",
@@ -110,17 +50,17 @@
     },
     {
         "name": "composer/installers",
-        "version": "v1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "v1.8.0",
+        "version_normalized": "1.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+            "reference": "7d610d50aae61ae7ed6675e58efeabdf279bb5e3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-            "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+            "url": "https://api.github.com/repos/composer/installers/zipball/7d610d50aae61ae7ed6675e58efeabdf279bb5e3",
+            "reference": "7d610d50aae61ae7ed6675e58efeabdf279bb5e3",
             "shasum": ""
         },
         "require": {
@@ -134,7 +74,7 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "^4.8.36"
         },
-        "time": "2018-08-27T06:10:37+00:00",
+        "time": "2020-02-07T10:39:20+00:00",
         "type": "composer-plugin",
         "extra": {
             "class": "Composer\\Installers\\Plugin",
@@ -170,6 +110,7 @@
             "Kanboard",
             "Lan Management System",
             "MODX Evo",
+            "MantisBT",
             "Mautic",
             "Maya",
             "OXID",
@@ -178,6 +119,7 @@
             "RadPHP",
             "SMF",
             "Thelia",
+            "Whmcs",
             "WolfCMS",
             "agl",
             "aimeos",
@@ -200,6 +142,7 @@
             "installer",
             "itop",
             "joomla",
+            "known",
             "kohana",
             "laravel",
             "lavalite",
@@ -222,6 +165,7 @@
             "shopware",
             "silverstripe",
             "sydes",
+            "sylius",
             "symfony",
             "typo3",
             "wordpress",
@@ -411,54 +355,6 @@
         "description": "A static instance of blade engine to be used cross-package."
     },
     {
-        "name": "helsingborg-stad/laravel-blade",
-        "version": "5.5.1",
-        "version_normalized": "5.5.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/helsingborg-stad/laravel-blade.git",
-            "reference": "078bf5078da443559b73f20a40ec96a8a744ac5f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/helsingborg-stad/laravel-blade/zipball/078bf5078da443559b73f20a40ec96a8a744ac5f",
-            "reference": "078bf5078da443559b73f20a40ec96a8a744ac5f",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/events": "5.5.43",
-            "illuminate/view": "5.5.41",
-            "php": "^7.0"
-        },
-        "time": "2019-03-22T10:22:52+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "HelsingborgStad\\Blade\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Philo Hermans",
-                "email": "me@philohermans.com"
-            },
-            {
-                "name": "Sebastian Thulin",
-                "email": "sebastian.thulin@helsingborg.se"
-            }
-        ],
-        "description": "Use the simple and yet powerful Laravel Blade templating engine as a standalone component.",
-        "keywords": [
-            "blade",
-            "laravel"
-        ]
-    },
-    {
         "name": "illuminate/container",
         "version": "v5.5.44",
         "version_normalized": "5.5.44.0",
@@ -552,17 +448,17 @@
     },
     {
         "name": "illuminate/events",
-        "version": "v5.5.43",
-        "version_normalized": "5.5.43.0",
+        "version": "v5.5.44",
+        "version_normalized": "5.5.44.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/events.git",
-            "reference": "1b558bfa1013f25b35e593c83fce7990d20c4d97"
+            "reference": "11b4b917c3f02140b528e849f883a4a9e7ff8af7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/events/zipball/1b558bfa1013f25b35e593c83fce7990d20c4d97",
-            "reference": "1b558bfa1013f25b35e593c83fce7990d20c4d97",
+            "url": "https://api.github.com/repos/illuminate/events/zipball/11b4b917c3f02140b528e849f883a4a9e7ff8af7",
+            "reference": "11b4b917c3f02140b528e849f883a4a9e7ff8af7",
             "shasum": ""
         },
         "require": {
@@ -710,17 +606,17 @@
     },
     {
         "name": "illuminate/view",
-        "version": "v5.5.41",
-        "version_normalized": "5.5.41.0",
+        "version": "v5.5.44",
+        "version_normalized": "5.5.44.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/view.git",
-            "reference": "d101d49ebf6a4876f28b8a5ed1f205b0a73fd8c9"
+            "reference": "892aa32a1b496cbafa5125bcc3f97ff795265f95"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/view/zipball/d101d49ebf6a4876f28b8a5ed1f205b0a73fd8c9",
-            "reference": "d101d49ebf6a4876f28b8a5ed1f205b0a73fd8c9",
+            "url": "https://api.github.com/repos/illuminate/view/zipball/892aa32a1b496cbafa5125bcc3f97ff795265f95",
+            "reference": "892aa32a1b496cbafa5125bcc3f97ff795265f95",
             "shasum": ""
         },
         "require": {
@@ -732,7 +628,7 @@
             "php": ">=7.0",
             "symfony/debug": "~3.3"
         },
-        "time": "2018-01-06T12:12:26+00:00",
+        "time": "2018-10-04T14:46:49+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -921,27 +817,27 @@
     },
     {
         "name": "psr/log",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
+        "version": "1.1.2",
+        "version_normalized": "1.1.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-fig/log.git",
-            "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
+            "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-            "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/446d54b4cb6bf489fc9d75f55843658e6f25d801",
+            "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2018-11-20T15:27:04+00:00",
+        "time": "2019-11-01T11:05:21+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.0.x-dev"
+                "dev-master": "1.1.x-dev"
             }
         },
         "installation-source": "dist",
@@ -1020,17 +916,17 @@
     },
     {
         "name": "shortpixel/shortpixel-php",
-        "version": "1.5.2",
-        "version_normalized": "1.5.2.0",
+        "version": "v1.6.2",
+        "version_normalized": "1.6.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/short-pixel-optimizer/shortpixel-php.git",
-            "reference": "852dfa14e3eaabc3fb0dab06655c79ecb684ae82"
+            "reference": "c009c1b6728ec8686760e4d2ab1a2606dc0a2695"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/852dfa14e3eaabc3fb0dab06655c79ecb684ae82",
-            "reference": "852dfa14e3eaabc3fb0dab06655c79ecb684ae82",
+            "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/c009c1b6728ec8686760e4d2ab1a2606dc0a2695",
+            "reference": "c009c1b6728ec8686760e4d2ab1a2606dc0a2695",
             "shasum": ""
         },
         "require": {
@@ -1043,7 +939,7 @@
             "phpunit/phpunit": "~4.0",
             "symfony/yaml": "~2.0"
         },
-        "time": "2018-09-12T07:38:26+00:00",
+        "time": "2019-12-10T12:42:58+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1077,17 +973,17 @@
     },
     {
         "name": "symfony/debug",
-        "version": "v3.4.23",
-        "version_normalized": "3.4.23.0",
+        "version": "v3.4.37",
+        "version_normalized": "3.4.37.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/debug.git",
-            "reference": "8d8a9e877b3fcdc50ddecf8dcea146059753f782"
+            "reference": "70dd18e93bb8bdf3c4db7fde832619fef9828cf8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/debug/zipball/8d8a9e877b3fcdc50ddecf8dcea146059753f782",
-            "reference": "8d8a9e877b3fcdc50ddecf8dcea146059753f782",
+            "url": "https://api.github.com/repos/symfony/debug/zipball/70dd18e93bb8bdf3c4db7fde832619fef9828cf8",
+            "reference": "70dd18e93bb8bdf3c4db7fde832619fef9828cf8",
             "shasum": ""
         },
         "require": {
@@ -1100,7 +996,7 @@
         "require-dev": {
             "symfony/http-kernel": "~2.8|~3.0|~4.0"
         },
-        "time": "2019-02-24T15:45:11+00:00",
+        "time": "2020-01-08T16:36:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1381,27 +1277,5 @@
             "interoperability",
             "standards"
         ]
-    },
-    {
-        "name": "wpackagist-plugin/advanced-custom-fields",
-        "version": "4.4.12",
-        "version_normalized": "4.4.12.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/advanced-custom-fields/",
-            "reference": "tags/4.4.12"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.12.zip",
-            "reference": "tags/4.4.12",
-            "shasum": null
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/advanced-custom-fields/"
     }
 ]
