@@ -81,23 +81,6 @@ class Template
     }
 
     /**
-     * Creates view paths dynamicly 
-     * @param  array    $viewPaths   All view paths that are statically entered.
-     * @return array    $viewPaths  Contains all view paths avabile. 
-     */
-    public static function getControllerPaths($controllerPaths = array()) {
-
-        $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("v3"))); 
-
-        foreach($versions as $versionKey => $version) {
-            $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
-            $controllerPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
-        }
-
-        return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths)); 
-    }
-
-    /**
      * Check if template has blade.php extension
      * @param  string  $template Template path
      * @return boolean

@@ -21,19 +21,7 @@ class Controller
             $controllers[] = self::camelCase($matches[1][0]);
         }
 
-        $searchPaths = array(
-            get_stylesheet_directory() . '/library/Controller',
-            get_template_directory() . '/library/Controller',
-        );
-
-        /**
-         * Apply filter to $searchPaths
-         * @since 0.1.0
-         * @var   array
-         */
-        $searchPaths = apply_filters('Municipio/blade/controllers_search_paths', $searchPaths);
-
-        foreach ($searchPaths as $path) {
+        foreach (self::getControllerPaths() as $path) {
             foreach ($controllers as $controller) {
                 $file = $path . '/' . $controller . '.php';
 
@@ -46,6 +34,23 @@ class Controller
         }
 
         return false;
+    }
+
+    /**
+     * Creates view paths dynamicly 
+     * @param  array    $viewPaths   All view paths that are statically entered.
+     * @return array    $viewPaths  Contains all view paths avabile. 
+     */
+    public static function getControllerPaths($controllerPaths = array()) {
+
+        $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("", "v3"))); 
+
+        foreach($versions as $versionKey => $version) {
+            $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+            $controllerPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+        }
+
+        return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths)); 
     }
 
     /**
