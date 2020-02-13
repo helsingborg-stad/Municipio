@@ -9,7 +9,7 @@ class Template
      * \Municipio\Helper\Template::add($templateName, $templatePath);
      * @param string $templateName Template name
      * @param string $templatePath Template path (relative to theme path)
-     * @param array  $postTypes Post types that can use the template (string "all" for all public psot types)
+     * @param array  $postTypes Post types that can use the template (string "all" for all public post types)
      */
     public static function add($templateName, $templatePath, $postTypes = array('page'))
     {
