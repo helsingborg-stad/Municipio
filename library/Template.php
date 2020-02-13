@@ -13,37 +13,24 @@ class Template
     public function __construct()
     {
         add_action('template_include', array($this, 'registerViewPaths'), 8);
-        add_filter('template_include', array($this, 'load'), 10);
-        //add_action('template_include', array($this, 'registerControllerPaths'));
 
-
-
-
-
-        /*add_filter('template_redirect', array($this, 'addTemplateFilters'));
+        add_filter('template_redirect', array($this, 'addTemplateFilters'));
         add_filter('template_include', array($this, 'load'));
         add_filter('get_search_form', array($this, 'getSearchForm'));
 
         $this->initCustomTemplates();
-        /* 
-        /**
-         * Set paths
-         */
-        /*$this->controllerPath = get_template_directory() . '/library/Controller';
-        $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
-        if (!file_exists($this->cachePath)) {
-            if (!mkdir($this->cachePath, 0777, true)) {
-                die("Could not create cache folder: " . $this->cachePath);
-            }
-        }
-
+        $this->controllerPath = get_template_directory() . '/library/Controller';
+    
         add_action('init', array($this, 'adminFrontPageTemplates'));
-        add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));*/
+        add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
     }
 
-
-    public function registerViewPaths() {
+    /**
+     * Register paths containing views
+     * @return void
+     */
+    public function registerViewPaths($template) {
         if($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
             foreach($viewPaths as $path) {
                 Blade::addViewPath(rtrim($path, DIRECTORY_SEPARATOR));
@@ -51,6 +38,8 @@ class Template
         } else {
             wp_die("No view paths registered, please register at least one."); 
         }
+
+        return $template;
     }
 
     public function registerControllerPaths() {
@@ -138,6 +127,9 @@ class Template
      */
     public function load($template)
     {
+
+        var_dump($template); 
+
         if ((is_page() || is_single() || is_front_page()) && !empty(get_page_template_slug()) && get_page_template_slug() != $template) {
             if (\Municipio\Helper\Template::locateTemplate(get_page_template_slug())) {
                 $template = get_page_template_slug();
@@ -170,6 +162,8 @@ class Template
         if ($controller) {
             $data = $controller->getData();
         }
+
+        var_dump($view); 
 
         $this->render($view, $data);
 
@@ -224,7 +218,7 @@ class Template
     public function render($view, $data = array())
     {
         $data = apply_filters('Municipio/blade/data', $data);
-        
+
         echo Blade::instance()->make($view, $data)->render();
     }
 

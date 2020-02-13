@@ -70,7 +70,7 @@ class Template
      */
     public static function getViewPaths($viewPaths = array()) {
 
-        $versions = apply_filters('Municipio/blade/viewVersions', array_reverse(array("", "v1", "v2", "v3"))); 
+        $versions = apply_filters('Municipio/blade/viewVersions', array_reverse(array("v3"))); 
 
         foreach($versions as $versionKey => $version) {
             $viewPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
@@ -86,8 +86,8 @@ class Template
      * @return array    $viewPaths  Contains all view paths avabile. 
      */
     public static function getControllerPaths($controllerPaths = array()) {
-        
-        $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("", "v1", "v2", "v3"))); 
+
+        $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("v3"))); 
 
         foreach($versions as $versionKey => $version) {
             $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
