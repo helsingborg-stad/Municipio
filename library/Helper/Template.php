@@ -70,7 +70,9 @@ class Template
      */
     public static function getViewPaths($viewPaths = array()) {
         
-        $versions = apply_filters('Municipio/blade/view_versions', array_reverse(array("v1", "v2", "v3"))); 
+        // TODO: Activate all versions (fallback)
+        //$versions = apply_filters('Municipio/blade/view_versions', array_reverse(array("v1", "v2", "v3"))); 
+        $versions = apply_filters('Municipio/blade/view_versions', array_reverse(array("v3"))); 
 
         foreach($versions as $versionKey => $version) {
             $viewPaths[] = get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
