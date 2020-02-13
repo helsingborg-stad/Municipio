@@ -12,11 +12,6 @@ class App
         new \Municipio\Admin\Acf\CustomFieldTypes();
 
         /**
-         * Feature toggle
-         */
-        new \Municipio\Feature();
-
-        /**
          * Template
          */
         new \Municipio\Template();
