@@ -69,17 +69,32 @@ class Template
      * @return array    $viewPaths  Contains all view paths avabile. 
      */
     public static function getViewPaths($viewPaths = array()) {
-        
-        // TODO: Activate all versions (fallback)
-        //$versions = apply_filters('Municipio/blade/view_versions', array_reverse(array("v1", "v2", "v3"))); 
-        $versions = apply_filters('Municipio/blade/view_versions', array_reverse(array("v3"))); 
+
+        $versions = apply_filters('Municipio/blade/viewVersions', array_reverse(array("", "v1", "v2", "v3"))); 
 
         foreach($versions as $versionKey => $version) {
-            $viewPaths[] = get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
-            $viewPaths[] = get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version;
+            $viewPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+            $viewPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
         }
 
-        return apply_filters('Municipio/blade/view_paths', array_unique($viewPaths)); 
+        return apply_filters('Municipio/viewPaths', array_unique($viewPaths)); 
+    }
+
+    /**
+     * Creates view paths dynamicly 
+     * @param  array    $viewPaths   All view paths that are statically entered.
+     * @return array    $viewPaths  Contains all view paths avabile. 
+     */
+    public static function getControllerPaths($controllerPaths = array()) {
+        
+        $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("", "v1", "v2", "v3"))); 
+
+        foreach($versions as $versionKey => $version) {
+            $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+            $controllerPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+        }
+
+        return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths)); 
     }
 
     /**

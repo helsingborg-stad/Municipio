@@ -2,7 +2,8 @@
 
 namespace Municipio;
 
-use Philo\Blade\Blade as Blade;
+//use Philo\Blade\Blade as Blade;
+use HelsingborgStad\GlobalBladeEngine as Blade;
 
 class Template
 {
@@ -11,16 +12,24 @@ class Template
 
     public function __construct()
     {
-        add_filter('template_redirect', array($this, 'addTemplateFilters'));
+        add_action('template_include', array($this, 'registerViewPaths'), 8);
+        add_filter('template_include', array($this, 'load'), 10);
+        //add_action('template_include', array($this, 'registerControllerPaths'));
+
+
+
+
+
+        /*add_filter('template_redirect', array($this, 'addTemplateFilters'));
         add_filter('template_include', array($this, 'load'));
         add_filter('get_search_form', array($this, 'getSearchForm'));
 
         $this->initCustomTemplates();
-
+        /* 
         /**
          * Set paths
          */
-        $this->controllerPath = get_template_directory() . '/library/Controller';
+        /*$this->controllerPath = get_template_directory() . '/library/Controller';
         $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
         if (!file_exists($this->cachePath)) {
@@ -30,7 +39,28 @@ class Template
         }
 
         add_action('init', array($this, 'adminFrontPageTemplates'));
-        add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
+        add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));*/
+    }
+
+
+    public function registerViewPaths() {
+        if($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
+            foreach($viewPaths as $path) {
+                Blade::addViewPath(rtrim($path, DIRECTORY_SEPARATOR));
+            }
+        } else {
+            wp_die("No view paths registered, please register at least one."); 
+        }
+    }
+
+    public function registerControllerPaths() {
+        if($controllerPaths = \Municipio\Helper\Template::getControllerPaths()) {
+            foreach($controllerPaths as $path) {
+                Blade::addControllerPath(rtrim($path, DIRECTORY_SEPARATOR));
+            }
+        } else {
+            wp_die("No view paths registered, please register at least one."); 
+        }
     }
 
     public function adminFrontPageTemplates()
@@ -194,9 +224,8 @@ class Template
     public function render($view, $data = array())
     {
         $data = apply_filters('Municipio/blade/data', $data);
-
-        $blade = new Blade(\Municipio\Helper\Template::getViewPaths(), $this->cachePath);
-        echo $blade->view()->make($view, $data)->render();
+        
+        echo Blade::instance()->make($view, $data)->render();
     }
 
     public function addTemplateFilters()
