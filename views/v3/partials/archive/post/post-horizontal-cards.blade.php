@@ -28,7 +28,7 @@
     <footer class="post-footer">
         @if (get_field('post_show_share', get_the_id()) !== false)
             <div class="text-right">
-                @include('partials.social-share')
+                {{-- OLD SOCIAL SHARE LOCATION --}}
             </div>
         @endif
     </footer>

@@ -128,8 +128,6 @@ class Template
     public function load($template)
     {
 
-        var_dump($template); 
-
         if ((is_page() || is_single() || is_front_page()) && !empty(get_page_template_slug()) && get_page_template_slug() != $template) {
             if (\Municipio\Helper\Template::locateTemplate(get_page_template_slug())) {
                 $template = get_page_template_slug();
@@ -162,8 +160,6 @@ class Template
         if ($controller) {
             $data = $controller->getData();
         }
-
-        var_dump($view); 
 
         $this->render($view, $data);
 
