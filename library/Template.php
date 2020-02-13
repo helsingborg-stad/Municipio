@@ -82,6 +82,8 @@ class Template
      * Initializes custom templates
      * @return void
      */
+
+    //TODO: Enable template controllers to be versionated as in Helpers/Controller -> L12     
     public function initCustomTemplates()
     {
         $directory = MUNICIPIO_PATH . 'library/Controller/';
@@ -107,6 +109,7 @@ class Template
      * @param  string $searchform Original markup
      * @return mixed
      */
+    //TODO: Enable template controllers to be versionated as in Helpers/Controller -> L12    
     public function getSearchForm($searchform)
     {
         if ($view = \Municipio\Helper\Template::locateTemplate('searchform.blade.php')) {
@@ -135,18 +138,18 @@ class Template
         }
 
         if (!\Municipio\Helper\Template::isBlade($template)) {
-            $path = $template;
 
             // Return path if file exists, else default to page.blade.php
-            if (file_exists($path)) {
-                return $path;
-            } else {
-                if (current_user_can('administrator')) {
-                    \Municipio\Helper\Notice::add('<strong>' . __('Admin notice', 'municipio') . ':</strong> ' . sprintf(__('View [%s] was not found. Defaulting to [page.blade.php].', 'municipio'), $template), 'warning', 'pricon pricon-notice-warning');
-                }
-
-                $template = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
+            if (file_exists($template)) {
+                return $template;
             }
+
+            if (current_user_can('administrator')) {
+                \Municipio\Helper\Notice::add('<strong>' . __('Admin notice', 'municipio') . ':</strong> ' . sprintf(__('View [%s] was not found. Defaulting to [page.blade.php].', 'municipio'), $template), 'warning', 'pricon pricon-notice-warning');
+            }
+
+            //TODO: Check why we include views/ prefix here 
+            $template = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
         }
 
         // Clean the view path
@@ -155,14 +158,15 @@ class Template
         // Load view controller
         $controller = $this->loadController($view);
 
-        // Render the view
-        $data = null;
+        // Get controller data 
         if ($controller) {
             $data = $controller->getData();
         }
 
-        $this->render($view, $data);
+        // Render view with data, if any
+        $this->render($view, isset($data) ? $data : null);
 
+        //Stor excec
         return false;
     }
 
@@ -173,6 +177,11 @@ class Template
      */
     public function loadController($template)
     {
+
+        //TODO Replace actions with camel cased alternatives. 
+
+
+
         $template = basename($template) . '.php';
 
         do_action('Municipio/blade/before_load_controller');
@@ -181,6 +190,7 @@ class Template
             $template = 'e404.php';
         }
 
+        //TODO: Change this to a filter
         switch ($template) {
             case 'author.php':
                 if (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES) {
@@ -240,6 +250,7 @@ class Template
             'attachment' => 'attachment.blade.php',
         );
 
+        // TODO: Depricate, change to camel cased alternative. 
         $types = apply_filters('Municipio/blade/template_types', $types);
 
         if (isset($types) && !empty($types) && is_array($types)) {
