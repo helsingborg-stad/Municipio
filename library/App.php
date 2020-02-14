@@ -16,6 +16,8 @@ class App
          */
         new \Municipio\Template();
 
+        
+
         /**
          * Theme
          */

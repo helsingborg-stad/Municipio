@@ -12,13 +12,17 @@ class Template
 
     public function __construct()
     {
-        add_action('template_include', array($this, 'registerViewPaths'), 8);
+        add_action('init', function() {
+            $this->registerViewPaths(); 
+            $this->initCustomTemplates();
+            new \BladeComponentLibrary\init();
+        }); 
 
         add_filter('template_redirect', array($this, 'addTemplateFilters'));
         add_filter('template_include', array($this, 'load'));
         add_filter('get_search_form', array($this, 'getSearchForm'));
 
-        $this->initCustomTemplates();
+        
 
         $this->controllerPath = get_template_directory() . '/library/Controller';
     
@@ -30,22 +34,10 @@ class Template
      * Register paths containing views
      * @return void
      */
-    public function registerViewPaths($template) {
+    public function registerViewPaths() {
         if($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
             foreach($viewPaths as $path) {
-                Blade::addViewPath(rtrim($path, DIRECTORY_SEPARATOR));
-            }
-        } else {
-            wp_die("No view paths registered, please register at least one."); 
-        }
-
-        return $template;
-    }
-
-    public function registerControllerPaths() {
-        if($controllerPaths = \Municipio\Helper\Template::getControllerPaths()) {
-            foreach($controllerPaths as $path) {
-                Blade::addControllerPath(rtrim($path, DIRECTORY_SEPARATOR));
+                Blade::addViewPath(rtrim($path, DIRECTORY_SEPARATOR), true);
             }
         } else {
             wp_die("No view paths registered, please register at least one."); 
@@ -225,6 +217,7 @@ class Template
     {
         $data = apply_filters('Municipio/blade/data', $data);
 
+        var_dump(Blade::getViewPaths()); 
         echo Blade::instance()->make($view, $data)->render();
     }
 
