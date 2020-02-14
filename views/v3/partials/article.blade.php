@@ -1,11 +1,20 @@
 <?php global $post; ?>
 <article id="article" class="c-article s-article u-mb-4">
-    <h1>{{ the_title() }}</h1>
+    @typography([
+        "variant" => "h1",
+        "element" => "h1"
+    ])
+        the_title()
+    @endtypography
+    @include('partials.accessibility-menu')
 
-    {{-- OLD ACCESSIBILITY --}}
 
     @if (get_field('post_single_show_featured_image') === true)
-        <img src="{{ municipio_get_thumbnail_source(null, array(700,700)) }}" alt="{{ the_title() }}">
+        @image([
+            'src'=> municipio_get_thumbnail_source(null, array(700,700)),
+            'alt' => the_title()
+        ])
+        @endimage
     @endif
 
     @if (post_password_required($post))
