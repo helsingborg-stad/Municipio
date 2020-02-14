@@ -1,10 +1,5 @@
 <?php global $post; ?>
 <article id="article" class="c-article s-article u-mb-4">
-<<<<<<< Updated upstream
-    <h1>{{ the_title() }}</h1>
-
-    {{-- OLD ACCESSIBILITY --}}
-=======
     @typography([
         "variant" => "h1",
         "element" => "h1"
@@ -12,7 +7,7 @@
         the_title()
     @endtypography
     @include('partials.accessibility-menu')
->>>>>>> Stashed changes
+
 
     @if (get_field('post_single_show_featured_image') === true)
         @image([
