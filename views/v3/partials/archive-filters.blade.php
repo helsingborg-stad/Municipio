@@ -14,21 +14,21 @@
     ])
 
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
-            @include('partials.archive.filters.archive-highlighted')
+            @include('partials.archive.filter.archive-highlighted')
         @endif
 
         <div class="grid">
 
             @if (in_array('text_search', $enabledHeaderFilters))
-                @include('partials.archive.filters.archive-search')
+                @include('partials.archive.filter.archive-search')
             @endif
 
             @if (in_array('date_range', $enabledHeaderFilters))
-                @include('partials.archive.filters.archive-date-range')
+                @include('partials.archive.filter.archive-date-range')
             @endif
 
             @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
-                @include('partials.archive.filters.archive-primary')
+                @include('partials.archive.filter.archive-primary')
             @endif
 
             @if($queryString)
@@ -57,12 +57,13 @@
                 <input type="submit" value="<?php _e('Search', 'municipio'); ?>" class="btn btn-primary btn-block">
             </div>
         </div>
+
         @if (isset($enabledTaxonomyFilters->row) && !empty($enabledTaxonomyFilters->row))
-            @include('partials.archive.filters.archive-row')
+            @include('partials.archive.filter.archive-row')
         @endif
 
         @if (isset($enabledTaxonomyFilters->folded) && !empty($enabledTaxonomyFilters->folded))
-            @include('partials.archive.filters.archive-folded')
+            @include('partials.archive.filter.archive-folded')
         @endif
 
     @endform
