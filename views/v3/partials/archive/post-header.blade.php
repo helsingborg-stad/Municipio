@@ -1,4 +1,14 @@
 <header>
-    <h1><a href="{{ the_permalink() }}">{{ the_title() }}</a></h1>
+        @link([
+            'href' => the_permalink()
+        ])
+            @typography([
+                "variant" => "h1",
+                "element" => "h1",
+            ])
+                the_title()
+            @endtypography
+    @endlink
+
     @include('partials.archive.post-info')
 </header>
