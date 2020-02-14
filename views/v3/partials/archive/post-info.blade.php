@@ -1,4 +1,4 @@
-{{-- TODO: HUR SKA VI FÅR DET HÄR SNYGGT ? --}}
+{{-- TODO: NEED COMPONENT FIX --}}
 <ul class="u-display-flex">
     @if (in_array('author', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && get_field('post_show_author', get_the_id()) !== false )
     <li class="post-author">

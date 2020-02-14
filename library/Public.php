@@ -83,23 +83,13 @@ if (!function_exists('municipio_get_logotype')) {
 
         // Get the symbol to use (blog name or image)
         if ($use_text_replacement) {
-            $symbol = '<span class="h1 no-margin no-padding">' . $siteName . '</span>';
-        } else {
-            $symbol = "";
-        }
-
-        if (isset($logotype[$type]['url']) && $logo_include === false) {
-            $symbol = sprintf(
-                '<img src="%s" alt="%s">',
-                $logotype[$type]['url'],
-                $siteName
-            );
+            $logoText = $siteName;
         }
 
         // Get the symbol to use (by file include)
-        if (isset($logotype[$type]['id']) && $logo_include === true) {
-            $symbol = \Municipio\Helper\Svg::extract(get_attached_file($logotype[$type]['id']));
-        }
+        //if (isset($logotype[$type]['id']) && $logo_include === true) {
+            $logoSvg = \Municipio\Helper\Svg::extract(get_attached_file($logotype[$type]['id']));
+        //}
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));
         $tooltip = apply_filters('Municipio/logotype_tooltip', $tooltip);
@@ -112,20 +102,21 @@ if (!function_exists('municipio_get_logotype')) {
                 $taglineText = get_field('header_tagline_text', 'option');
             }
 
-            $taglineHtml = '<span class="tagline">' . $taglineText . '</span>';
+            $taglineHtml = $taglineText;
         }
 
         // Build the markup
-        $markup = sprintf(
-            '<a href="%s" class="%s" %s>%s%s</a>',
-            home_url(),
-            implode(' ', $classes),
-            ($tooltip !== false && !empty($tooltip)) ? 'data-tooltip="' . $tooltip . '"' : '',
-            $symbol,
-            $taglineHtml
-        );
+        $logoData = [
+            'url'               => home_url(),
+            'src'               => $logoinfo['url'],
+            'text'              => $logoText,
+            'classList'         => implode(' ', $classes),
+            'attributeList'     => ($tooltip !== false && !empty($tooltip)) ?
+                ['data-tooltip' => $tooltip] : [],
+            'tagline'           => $taglineHtml
+        ];
 
-        return $markup;
+        return $logoData;
     }
 }
 
