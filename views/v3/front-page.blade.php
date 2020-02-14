@@ -1,7 +1,7 @@
 @extends('templates.master')
 
 @section('layout')
-
+test
 @if (is_active_sidebar('content-area'))
     <section class="creamy creamy-border-bottom sidebar-content-area">
         <div class="container main-container">
