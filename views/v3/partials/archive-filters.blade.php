@@ -6,53 +6,160 @@
     <section class="creamy creamy-border-bottom sidebar-content-area archive-filters">
 @endif
 
-    <form method="get" action="{{ $archiveUrl }}" class="container u-w-100" id="archive-filter">
+    @form([
+        'method' => 'get',
+        'action' => $archiveUrl
+        'classList' => ['container','u-w-100'],
+        'id' => 'archive-filter'
+    ])
 
-        @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
+
+    @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
         @foreach ($enabledTaxonomyFilters->highlighted as $taxKey => $taxonomy)
-        @if(count($taxonomy->values) > 1)
-        <div class="gutter gutter-top">
-        <div class="grid">
-            <div class="grid-xs-12">
-                <ul>
-                    <li class="highlighted-title"><h3>{{ $taxonomy->label }}</h3></li>
-                    <ul class="nav nav-pills nav-horizontal nav-pills--badge">
-                    @foreach ($taxonomy->values as $term)
-                        <li>
-                            <input id="segment-id-{{ $taxKey }}-{{ $term->slug }}" type="checkbox" name="filter[{{ $taxKey }}][]" value="{{ $term->slug }}" {{ checked(true, isset($_GET['filter'][$taxKey]) && is_array($_GET['filter'][$taxKey]) && in_array($term->slug, $_GET['filter'][$taxKey])) }}>
-                            <a>
-                                <label for="segment-id-{{ $taxKey }}-{{ $term->slug }}" class="checkbox inline-block">{{ $term->name }}</label>
-                            </a>
+            @if(count($taxonomy->values) > 1)
+            <div class="gutter gutter-top">
+            <div class="grid">
+                <div class="grid-xs-12">
+                    {{-- TODO: HUR KOMMER MAN KUNNA LOOPA I EN @list komponent ?????? --}}
+                    <ul>
+                        <li class="highlighted-title">
+                            @typography([
+                                "variant" => "h3",
+                                "element" => "h3",
+                            ])
+                                $taxonomy->label
+                            @endtypography
                         </li>
-                    @endforeach
+                        <ul class="nav nav-pills nav-horizontal nav-pills--badge">
+                        @foreach ($taxonomy->values as $term)
+                            <li>
+
+                                @option([
+                                    'type' => 'checkbox',
+                                    'attributeList' => [
+                                        'name' => 'filter['.$taxKey.'][]',
+                                        'checked' => checked(true, isset($_GET["filter"][$taxKey])
+                                                && is_array($_GET["filter"][$taxKey])
+                                            && in_array($term->slug, $_GET["filter"][$taxKey])),
+                                        'value' => $term->slug,
+                                        'id' => 'segment-id-'.$taxKey.'-'.$term->slug
+                                    ],
+                                    'label' => $term->name
+                                ])
+                                @endoption
+
+                            </li>
+                        @endforeach
+                        </ul>
                     </ul>
-                </ul>
+                </div>
             </div>
-        </div>
-        </div>
-        @endif
+            </div>
+            @endif
         @endforeach
-        @endif
+    @endif
 
         <div class="grid">
             @if (in_array('text_search', $enabledHeaderFilters))
             <div class="grid-sm-12 grid-md-auto">
-                <label for="filter-keyword" class="text-sm sr-only"><strong><?php _e('Search', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" name="s" id="filter-keyword" class="form-control" value="{{ $searchQuery }}" placeholder="<?php _e('Search', 'municipio'); ?>">
+
+                    @icon([
+                        'icon' => 'search',
+                        'size' => 'xl',
+                        'color' => 'Primary'
+                    ])
+                    @endicon
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'search',
+                            'name' => 's',
+                            'required' => false,
+                            'id' => 'filter-keyword',
+                            'value' => $searchQuery
+                        ],
+                        'label' => _e('Search', 'municipio'),
+                        'classList' => ['text-sm' 'sr-only']
+                    ])
+                    @endfield
+
                 </div>
+
             </div>
             @endif
 
             @if (in_array('date_range', $enabledHeaderFilters))
             <div class="grid-sm-12 grid-md-auto">
-                <label for="filter-date-from" class="text-sm sr-only"><strong><?php _e('Date published', 'municipio'); ?>:</strong></label>
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _e('From', 'municipio'); ?>:</span>
-                    <input type="text" name="from" placeholder="<?php _e('From date', 'municipio'); ?>…" id="filter-date-from" class="form-control datepicker-range datepicker-range-from" value="{{ isset($_GET['from']) && !empty($_GET['from']) ? sanitize_text_field($_GET['from']) : '' }}" readonly>
-                    <span class="input-group-addon"><?php _e('To', 'municipio'); ?>:</span>
-                    <input type="text" name="to" placeholder="<?php _e('To date', 'municipio'); ?>" class="form-control datepicker-range datepicker-range-to" value="{{ isset($_GET['to']) && !empty($_GET['to']) ? sanitize_text_field($_GET['to']) : '' }}" readonly>
+
+                    @field([
+                        'type' => 'datepicker',
+                        'value' => isset($_GET['from']) && !empty($_GET['from']) ?
+                                        sanitize_text_field($_GET['from']) : '',
+                        'label' =>  _e('Date published', 'municipio'),
+                        'id' => 'filter-date-from',
+                        'name' => 'from',
+                        'attributeList' => [
+                            'type' => 'text',
+                            'name' => 'text',
+                            'data-invalid-message' => "You need to add a valid date!",
+                            'readonly' => 'readonly'
+                        ],
+                        'required' => false,
+                        'classList' => [
+                            'form-control',
+                            'datepicker-range',
+                            'datepicker-range-from'
+                        ],
+                        'datepicker' => [
+                            'title'                 => 'Välj ett datum',
+                            'minDate'               => false,
+                            'maxDate'               => false,
+                            'required'              => true,
+                            'showResetButton'       => true,
+                            'showDaysOutOfMonth'    => true,
+                            'showClearButton'       => true,
+                            'hideOnBlur'            => true,
+                            'hideOnSelect'          => false,
+                        ]
+                    ])
+                    @endfield
+
+                    @field([
+                        'type' => 'datepicker',
+                        'value' => isset($_GET["to"]) && !empty($_GET["to"]) ?
+                                        sanitize_text_field($_GET["to"]) : '',
+                        'label' =>   _e('To date', 'municipio'),
+                        'id' => 'filter-date-from',
+                        'name' => 'to',
+                        'attributeList' => [
+                            'type' => 'text',
+                            'name' => 'text',
+                            'data-invalid-message' => "You need to add a valid date!",
+                            'readonly' => 'readonly'
+                        ],
+                        'required' => false,
+                        'classList' => [
+                            'form-control',
+                            'datepicker-range',
+                            'datepicker-range-to'
+                        ],
+                        'datepicker' => [
+                            'title'                 => 'Välj ett datum',
+                            'minDate'               => false,
+                            'maxDate'               => false,
+                            'required'              => true,
+                            'showResetButton'       => true,
+                            'showDaysOutOfMonth'    => true,
+                            'showClearButton'       => true,
+                            'hideOnBlur'            => true,
+                            'hideOnSelect'          => false,
+                        ]
+                    ])
+                    @endfield
+
                 </div>
             </div>
             @endif
@@ -128,6 +235,6 @@
         </div>
         @endif
 
-    </form>
+    @endform
 </section>
 @endif
