@@ -1,10 +1,10 @@
 @php
+    // Fetching logo data
     $logo = municipio_get_logotype (
                 get_field('header_logotype', 'option'),
                 get_field('logotype_tooltip', 'option'), true,
                 get_field('header_tagline_enable', 'option')
     );
-
 @endphp
 
 @link([
