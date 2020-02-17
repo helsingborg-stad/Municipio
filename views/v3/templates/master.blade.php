@@ -25,7 +25,7 @@
 
     {{-- Site header --}}
     @section('header')
-        @include('partials.header')
+        @includeIf('partials.header')
     @show
 
   

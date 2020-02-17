@@ -3,7 +3,7 @@
     <div class="grid-xs-12">
         <div class="post post-single">
 
-            @include('partials.blog.post-header')
+            @includeIf('partials.blog.post-header')
 
             @if (get_field('post_single_show_featured_image') === true)
                 <img src="{{ municipio_get_thumbnail_source(null, array(700,700)) }}" alt="{{ the_title() }}">
@@ -29,4 +29,4 @@
     </div>
 </div>
 
-@include('partials.blog.post-footer')
+@includeIf('partials.blog.post-footer')

@@ -1,6 +1,6 @@
 <?php global $post; ?>
 <div class="post post-collapsed">
-    @include('partials.blog.post-header')
+    @includeIf('partials.blog.post-header')
 
     <article>
         @if (isset(get_extended($post->post_content)['main']) && strlen(get_extended($post->post_content)['main']) > 0 && isset(get_extended($post->post_content)['extended']) && strlen(get_extended($post->post_content)['extended']) > 0)
@@ -13,5 +13,5 @@
         @endif
     </article>
 
-    @include('partials.blog.post-footer')
+    @includeIf('partials.blog.post-footer')
 </div>

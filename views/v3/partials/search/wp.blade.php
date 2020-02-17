@@ -66,7 +66,7 @@
                                             $thumbnail = $thumbnail[0];
                                         }
                                         ?>
-                                        @include('partials.search.result-item-grid')
+                                        @includeIf('partials.search.result-item-grid')
                                 @endwhile
                             </div>
                         @else
@@ -89,7 +89,7 @@
                                             $thumbnail = $thumbnail[0];
                                         }
                                         ?>
-                                        @include('partials.search.result-item')
+                                        @includeIf('partials.search.result-item')
                                     </li>
                                 @endwhile
                             </ul>

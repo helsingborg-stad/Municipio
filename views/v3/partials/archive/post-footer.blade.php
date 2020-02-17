@@ -26,7 +26,7 @@
         <div class="grid grid-table">
             <div class="grid-md-12">
                 @foreach (municipio_post_taxonomies_to_display(get_the_id()) as $taxonomy => $terms)
-                    @include('partials.blog.post-terms')
+                    @includeIf('partials.blog.post-terms')
                 @endforeach
             </div>
         </div>

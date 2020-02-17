@@ -6,7 +6,7 @@
     ])
         the_title()
     @endtypography
-    @include('partials.accessibility-menu')
+    @includeIf('partials.accessibility-menu')
 
 
     @if (get_field('post_single_show_featured_image') === true)

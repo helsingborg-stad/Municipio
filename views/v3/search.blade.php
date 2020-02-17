@@ -2,12 +2,12 @@
 @section('layout')
     @switch($activeSearchEngine)
         @case("google")
-            @include('partials.search.google')
+            @includeIf('partials.search.google')
             @break
         @case("algolia")
-            @include('partials.search.algolia')
+            @includeIf('partials.search.algolia')
             @break
         @default
-            @include('partials.search.wp')
+            @includeIf('partials.search.wp')
     @endswitch
 @stop

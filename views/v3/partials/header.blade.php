@@ -5,7 +5,7 @@
 <header id="site-header" class="{{ $headerLayout['classes'] }}">
     {{-- Before header body --}}
     @section('before-header-body')
-        @include('partials.navigation.search-top')
+        @includeIf('partials.navigation.search-top')
     @show
 
     {{-- Header body --}}
@@ -17,7 +17,7 @@
 
 {{-- Below header --}}
 @section('below-header')
-    @include('partials.hero')
+    @includeIf('partials.hero')
 
     @if (is_active_sidebar('top-sidebar'))
         <?php dynamic_sidebar('top-sidebar'); ?>

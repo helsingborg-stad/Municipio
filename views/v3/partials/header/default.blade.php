@@ -38,7 +38,7 @@
                 <div class="grid grid-table grid-va-middle no-padding">
                     <div class="grid-xs-8 grid-sm-8 grid-md-12 text-left-sm text-left-xs">
                         {{-- SITE LOGO TYPE --}}
-                        @include('partials.header.logo')
+                        @includeIf('partials.header.logo')
                     </div>
 
                     @if (strlen($navigation['mobileMenu']) > 0)
@@ -63,7 +63,7 @@
                     {!! $navigation['headerTabsMenu'] !!}
 
                     @if ( (is_array(get_field('search_display', 'option')) && in_array('header', get_field('search_display', 'option'))) || (!is_front_page() && is_array(get_field('search_display', 'option')) && in_array('header_sub', get_field('search_display', 'option'))) )
-                        @include('partials.search.top-search')
+                        @includeIf('partials.search.top-search')
                     @endif
                 </div>
                 @endif
@@ -93,7 +93,7 @@
 
         @if (strlen($navigation['mobileMenu']) > 0)
             <nav id="mobile-menu" class="nav-mobile-menu nav-toggle nav-toggle-expand {!! apply_filters('Municipio/mobile_menu_breakpoint','hidden-md hidden-lg'); !!} hidden-print">
-                @include('partials.mobile-menu')
+                @includeIf('partials.mobile-menu')
             </nav>
         @endif
     @endif

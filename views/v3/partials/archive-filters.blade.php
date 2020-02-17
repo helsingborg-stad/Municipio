@@ -14,21 +14,21 @@
     ])
 
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
-            @include('partials.archive.filter.archive-highlighted')
+            @includeIf('partials.archive.filter.archive-highlighted')
         @endif
 
         <div class="grid">
 
             @if (in_array('text_search', $enabledHeaderFilters))
-                @include('partials.archive.filter.archive-search')
+                @includeIf('partials.archive.filter.archive-search')
             @endif
 
             @if (in_array('date_range', $enabledHeaderFilters))
-                @include('partials.archive.filter.archive-date-range')
+                @includeIf('partials.archive.filter.archive-date-range')
             @endif
 
             @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
-                @include('partials.archive.filter.archive-primary')
+                @includeIf('partials.archive.filter.archive-primary')
             @endif
 
             @if($queryString)
@@ -59,11 +59,11 @@
         </div>
 
         @if (isset($enabledTaxonomyFilters->row) && !empty($enabledTaxonomyFilters->row))
-            @include('partials.archive.filter.archive-row')
+            @includeIf('partials.archive.filter.archive-row')
         @endif
 
         @if (isset($enabledTaxonomyFilters->folded) && !empty($enabledTaxonomyFilters->folded))
-            @include('partials.archive.filter.archive-folded')
+            @includeIf('partials.archive.filter.archive-folded')
         @endif
 
     @endform

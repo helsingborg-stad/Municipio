@@ -63,9 +63,9 @@
 @stop
 
 @section('sidebar-right')
-    @include('components.dynamic-sidebar', ['id' => 'right-sidebar'])
+    @includeIf('components.dynamic-sidebar', ['id' => 'right-sidebar'])
 @stop
 
 @section('below')
-    @include('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
+    @includeIf('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
 @stop

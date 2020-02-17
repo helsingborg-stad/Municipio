@@ -21,5 +21,5 @@
         </div>
     </a>
 
-    @include('partials.blog.post-footer')
+    @includeIf('partials.blog.post-footer')
 </div>
