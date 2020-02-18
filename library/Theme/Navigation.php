@@ -301,13 +301,13 @@ class Navigation
             $post_type = get_post_type_object($post->post_type);
             $pageData = array();
 
-            $id = self::mkUniqueId();
+            $id = \Municipio\Helper\Hash::mkUniqueId();
             $pageData[$id]['label'] = __('Home');
             $pageData[$id]['href'] = get_home_url();
             $pageData[$id]['current'] = false;
 
             if (is_single() && $post_type->has_archive) {
-                $id = self::mkUniqueId();
+                $id = \Municipio\Helper\Hash::mkUniqueId();
                 $pageData[$id]['label'] = $post_type->label;
                 $pageData[$id]['href'] = (is_string($post_type->has_archive))
                     ? get_permalink(get_page_by_path($post_type->has_archive))
@@ -322,20 +322,20 @@ class Navigation
 
                     foreach ($anc as $ancestor) {
                         if (get_post_status($ancestor) !== 'private') {
-                            $id = self::mkUniqueId();
+                            $id = \Municipio\Helper\Hash::mkUniqueId();
                             $pageData[$id]['label'] = get_the_title($ancestor);
                             $pageData[$id]['href'] = get_permalink($ancestor);
                             $pageData[$id]['current'] = false;
                         }
                     }
 
-                    $id = self::mkUniqueId();
+                    $id = \Municipio\Helper\Hash::mkUniqueId();
                     $pageData[$id]['label'] = $title;
                     $pageData[$id]['href'] = '';
                     $pageData[$id]['current'] = true;
 
                 } else {
-                    $id = self::mkUniqueId();
+                    $id = \Municipio\Helper\Hash::mkUniqueId();
                     $pageData[$id]['label'] = get_the_title();
                     $pageData[$id]['href'] = '';
                     $pageData[$id]['current'] = true;
@@ -355,7 +355,7 @@ class Navigation
                     $title = get_the_title();
                 }
 
-                $id = self::mkUniqueId();
+                $id = \Municipio\Helper\Hash::mkUniqueId();
                 $pageData[$id]['label'] = $title;
                 $pageData[$id]['href'] = '';
                 $pageData[$id]['current'] = false;

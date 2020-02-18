@@ -26,4 +26,29 @@ class Hash
         }
         return $data;
     }
+
+    /**
+     * mkUniqueId
+     * Creates a unique Id
+     * @param int $length
+     * @return false|string
+     * @throws \Exception
+     */
+    public static function mkUniqueId($length = 8)
+    {
+        if (function_exists("random_bytes")) {
+            $bytes = random_bytes(ceil($length / 2));
+        } else if (function_exists("openssl_random_pseudo_bytes")) {
+
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $isSourceStrong);
+            if (false === $isSourceStrong || false === $bytes) {
+                throw new \RuntimeException('IV generation failed');
+            }
+
+        } else {
+            $bytes = mt_rand(0,99999999);
+            throw new Exception("no cryptographically secure random id function available");
+        }
+        return substr(bin2hex($bytes), 0, $length);
+    }
 }
