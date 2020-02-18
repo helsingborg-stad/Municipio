@@ -48,11 +48,13 @@ class Enqueue
 
     public function customizerStyle()
     {
+        /**
         $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
         if ($enqueueBem) {
             wp_register_style('municipio-customizer', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/customizer.css'), '', null);
             wp_enqueue_style('municipio-customizer');
         }
+        */
     }
 
     public function wrapGformCdataOpen($content)
@@ -88,6 +90,7 @@ class Enqueue
     public function style()
     {
         // Tell jquery dependents to wait for prime instead.
+        /*
         if (!apply_filters('Municipio/load-wp-jquery', false)) {
             wp_deregister_script('jquery');
             add_action('wp_enqueue_scripts', array($this, 'waitForPrime'));
@@ -97,10 +100,15 @@ class Enqueue
         wp_register_style($this->defaultPrimeName . '-bem', Styleguide::getStylePath(true));
         wp_enqueue_style($this->defaultPrimeName);
 
-        $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
+       $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
         if ($enqueueBem) {
             wp_enqueue_style($this->defaultPrimeName . '-bem');
         }
+        */
+
+
+        wp_register_style('style-guide-css', 'https://v2.styleguide.helsingborg.se/assets/dist/css/styleguide-css.min.css');
+        wp_enqueue_style('style-guide-css');
 
         wp_register_style('municipio', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/app.css'));
         wp_enqueue_style('municipio');
@@ -169,6 +177,11 @@ class Enqueue
         if(!defined('INSTANT_PAGE_DISABLED')) {
             wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true); 
         }
+
+
+        // TEMP STYLEGUIDE Javascript ---------
+        wp_register_script('style-guide-js', 'https://v2.styleguide.helsingborg.se/assets/dist/js/styleguide-js.min.js');
+        wp_enqueue_script('style-guide-js');
     }
 
     public function moveScriptsToFooter()

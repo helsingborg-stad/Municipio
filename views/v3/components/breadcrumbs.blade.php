@@ -1,1 +1,5 @@
-{{ \Municipio\Theme\Navigation::outputBreadcrumbs() }}
+@breadcrumb([
+    'list' => \Municipio\Theme\Navigation::breadCrumbData()
+])
+@endbreadcrumb
+

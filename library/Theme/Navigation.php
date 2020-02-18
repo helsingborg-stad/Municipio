@@ -2,8 +2,16 @@
 
 namespace Municipio\Theme;
 
+/**
+ * Class Navigation
+ * @package Municipio\Theme
+ */
 class Navigation
 {
+
+    /**
+     * Navigation constructor.
+     */
     public function __construct()
     {
         $this->registerMenus();
@@ -27,6 +35,9 @@ class Navigation
         add_action('after_setup_theme', array($this, 'submenuAjaxEndpoint'));
     }
 
+    /**
+     * SubmenuAjax
+     */
     public function submenuAjaxEndpoint()
     {
         if (!isset($_GET['load-submenu-id']) || !is_numeric($_GET['load-submenu-id'])) {
@@ -114,6 +125,9 @@ class Navigation
         }
     }
 
+    /**
+     * Register Menus
+     */
     public function registerMenus()
     {
         $menus = array(
@@ -167,7 +181,7 @@ class Navigation
      * Appends translate icon to menu
      * @param string $items Items html
      * @param array $args Menu args
-     * @return string         Items html
+     * @return string  Items html
      */
     public function addTranslate($items, $args = null)
     {
@@ -208,11 +222,11 @@ class Navigation
         return $items;
     }
 
-
     /**
      * Adds a search icon to the main menu
-     * @param string $items Menu items html markup
-     * @param object $args Menu args
+     * @param $items Menu items html markup
+     * @param null $args Menu args
+     * @return string
      */
     public function addSearchMagnifier($items, $args = null)
     {
@@ -241,12 +255,40 @@ class Navigation
 
         return $items;
     }
+    
+    /**
+     * mkUniqueId
+     * Creates a unique Id
+     * @param int $length
+     * @return false|string
+     * @throws \Exception
+     */
+    public static function mkUniqueId($length = 8)
+    {
+        if (function_exists("random_bytes")) {
+            $bytes = random_bytes(ceil($length / 2));
+        } else if (function_exists("openssl_random_pseudo_bytes")) {
+
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $isSourceStrong);
+            if (false === $isSourceStrong || false === $bytes) {
+                throw new \RuntimeException('IV generation failed');
+            }
+
+        } else {
+            $bytes = mt_rand(0,99999999);
+            throw new Exception("no cryptographically secure random id function available");
+        }
+        return substr(bin2hex($bytes), 0, $length);
+    }
+
 
     /**
-     * Outputs the html for the breadcrumb
-     * @return void
+     * BreadCrumbData
+     * Fetching data for breadcrumbs
+     * @return array|void
+     * @throws \Exception
      */
-    public static function outputBreadcrumbs()
+    public static function breadCrumbData()
     {
         global $post;
 
@@ -254,55 +296,53 @@ class Navigation
             return;
         }
 
-        $title = get_the_title();
-        $post_type = get_post_type_object($post->post_type);
-        $output = array();
-
-        echo '<ol class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">';
-
         if (!is_front_page()) {
-            $int = 1;
-            $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="' . get_home_url() . '" title="' . __('Home') . '">
-                            <span itemprop="name">' . __('Home') . '</span><meta itemprop="position" content="' . $int++ . '"></a>
-                        </li>';
+
+            $post_type = get_post_type_object($post->post_type);
+            $pageData = array();
+
+            $id = self::mkUniqueId();
+            $pageData[$id]['label'] = __('Home');
+            $pageData[$id]['href'] = get_home_url();
+            $pageData[$id]['current'] = false;
 
             if (is_single() && $post_type->has_archive) {
-                $cpt_archive_link = (is_string($post_type->has_archive)) ? get_permalink(get_page_by_path($post_type->has_archive)) : get_post_type_archive_link($post_type->name);
-
-                $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                <a itemprop="item" href="' . $cpt_archive_link . '" title="' . $post_type->label . '">
-                                <span itemprop="name">' . $post_type->label . '</span><meta itemprop="position" content="' . $int++ . '"></a>
-                            </li>';
+                $id = self::mkUniqueId();
+                $pageData[$id]['label'] = $post_type->label;
+                $pageData[$id]['href'] = (is_string($post_type->has_archive))
+                    ? get_permalink(get_page_by_path($post_type->has_archive))
+                    : get_post_type_archive_link($post_type->name);
+                $pageData[$id]['current'] = false;
             }
 
-            if (is_page() || (is_single() && $post_type->hierarchical == true)) {
+            if (is_page() || (is_single() && $post_type->hierarchical === true)) {
                 if ($post->post_parent) {
                     $anc = array_reverse(get_post_ancestors($post->ID));
                     $title = get_the_title();
 
                     foreach ($anc as $ancestor) {
-                        if (get_post_status($ancestor) != 'private') {
-                            $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                            <a itemprop="item" href="' . get_permalink($ancestor) . '" title="' . get_the_title($ancestor) . '">
-                                                <span itemprop="name">' . get_the_title($ancestor) . '</span>
-                                                <meta itemprop="position" content="' . $int++ . '" />
-                                            </a>
-                                       </li>';
+                        if (get_post_status($ancestor) !== 'private') {
+                            $id = self::mkUniqueId();
+                            $pageData[$id]['label'] = get_the_title($ancestor);
+                            $pageData[$id]['href'] = get_permalink($ancestor);
+                            $pageData[$id]['current'] = false;
                         }
                     }
 
-                    $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                    <span itemprop="name" class="breadcrumbs-current" title="' . $title . '">' . $title . '</span>
-                                    <meta itemprop="position" content="' . ($int++) . '" />
-                                </li>';
+                    $id = self::mkUniqueId();
+                    $pageData[$id]['label'] = $title;
+                    $pageData[$id]['href'] = '';
+                    $pageData[$id]['current'] = true;
+
                 } else {
-                    $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                    <span itemprop="name" class="breadcrumbs-current">' . get_the_title() . '</span>
-                                    <meta itemprop="position" content="1" />
-                                </li>';
+                    $id = self::mkUniqueId();
+                    $pageData[$id]['label'] = get_the_title();
+                    $pageData[$id]['href'] = '';
+                    $pageData[$id]['current'] = true;
                 }
+
             } else {
+
                 if (is_home()) {
                     $title = single_post_title("", false);
                 } elseif (is_tax()) {
@@ -314,15 +354,14 @@ class Navigation
                 } else {
                     $title = get_the_title();
                 }
-                $output[] = '<li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                                <span itemprop="name">' . $title . '</span><meta itemprop="position" content="' . $int++ . '" />
-                            </li>';
+
+                $id = self::mkUniqueId();
+                $pageData[$id]['label'] = $title;
+                $pageData[$id]['href'] = '';
+                $pageData[$id]['current'] = false;
             }
+
+            return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
         }
-
-        $output = apply_filters('Municipio/Breadcrumbs/Items', $output, get_queried_object());
-
-        echo implode("\n", $output);
-        echo '</ol>';
     }
 }

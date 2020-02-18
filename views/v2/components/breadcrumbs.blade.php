@@ -1,1 +1,1 @@
-{{ \Municipio\Theme\Navigation::outputBreadcrumbs() }}
+{{ \Municipio\Theme\Navigation::breadCrumbData() }}

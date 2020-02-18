@@ -12,7 +12,12 @@ class BaseController
 
     public function __construct()
     {
-        //Html data 
+        //Html data
+
+        $this->getLogotype();
+        $this->getHeaderLayout();
+        $this->getFooterLayout();
+
         $this->data['ajaxUrl']              = $this->getAjaxUrl();
         $this->data['bodyClass']            = $this->getBodyClass();
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
@@ -350,6 +355,7 @@ class BaseController
         if (!empty($headerLayoutSetting) && !in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
             $this->data['headerLayout']['template'] = $headerLayoutSetting;
         }
+
     }
 
     public function getFooterLayout()

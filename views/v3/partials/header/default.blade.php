@@ -39,6 +39,7 @@
                     <div class="grid-xs-8 grid-sm-8 grid-md-12 text-left-sm text-left-xs">
                         {{-- SITE LOGO TYPE --}}
                         @includeIf('partials.header.logo')
+
                     </div>
 
                     @if (strlen($navigation['mobileMenu']) > 0)
