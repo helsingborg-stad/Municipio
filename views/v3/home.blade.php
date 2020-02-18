@@ -1,5 +1,4 @@
 @extends('templates.master')
-
 @section('layout')
 
     @if (is_active_sidebar('content-area'))

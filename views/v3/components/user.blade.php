@@ -6,7 +6,7 @@
 
 <{{$blocktype}} href="{{$link}}" class="user user--horizontal">
 
-    @include('utilities.image', ['src' => $src, 'class' => 'u-rounded-circle'])
+    @includeIf('utilities.image', ['src' => $src, 'class' => 'u-rounded-circle'])
 
     <div class="details">
 
