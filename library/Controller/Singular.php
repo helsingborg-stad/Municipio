@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller;
 
-class Single extends \Municipio\Controller\BaseController
+class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
     {

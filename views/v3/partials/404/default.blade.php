@@ -32,34 +32,12 @@
                 @endif
             </ul>
 
-            @if(is_array($related) && !empty($related))
-
-                <div class="grid">
-                    <div class="grid-xs-12">
-                         <h3><?php _e("We made a search for you, maybe you were looking for...", 'municipio'); ?></h3>
-                    </div>
-                </div>
-
-                <div class="grid">
-                    <div class="grid-xs-12">
-                        <ul class="search-result-list">
-                            @foreach($related as $item)
-                                <li>
-                                    <div class="search-result-item">
-                                        <span class="search-result-date">{{ date(get_option('date_format'), strtotime($item->post_date)) }}</span>
-                                        <h3><a href="{{ get_permalink($item->ID) }}" class="link-item">{{ $item->post_title }}</a></h3>
-                                        <p>{{ wp_trim_words(wp_strip_all_tags($item->post_content, true), 55, "") }}</p>
-                                        <div class="search-result-info">
-                                            <span class="search-result-url"><i class="fa fa-globe"></i> <a href="{{ get_permalink($item->ID) }}">{{ get_permalink($item->ID) }}</a></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
+            
 
         </div>
     </div>
 </div>
+
+@if($errorMessage) 
+    <pre style="padding: 16px;"><h3>{{ $debugHeading }}</h3>{{ $errorMessage }}</pre>
+@endif

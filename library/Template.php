@@ -2,297 +2,242 @@
 
 namespace Municipio;
 
-//use Philo\Blade\Blade as Blade;
-use HelsingborgStad\GlobalBladeEngine as Blade;
+use \HelsingborgStad\GlobalBladeEngine as Blade;
+use BladeComponentLibrary as ComponentLibrary;
 
 class Template
 {
-    private $controllerPath;
-    private $cachePath;
-
-    public function __construct()
-    {
-        add_action('init', function() {
-            $this->registerViewPaths(); 
-            $this->initCustomTemplates();
-            new \BladeComponentLibrary\init();
-        }); 
-
-        add_filter('template_redirect', array($this, 'addTemplateFilters'));
-        add_filter('template_include', array($this, 'load'));
-        add_filter('get_search_form', array($this, 'getSearchForm'));
-
-        
-
-        $this->controllerPath = get_template_directory() . '/library/Controller';
+  public function __construct() {
+    add_action('init', array($this, 'registerViewPaths'), 10); 
+    add_action('init', array($this, 'initComonentLibrary'), 15); 
     
-        add_action('init', array($this, 'adminFrontPageTemplates'));
-        add_action('save_post', array($this, 'adminFrontPageTemplatesSave'));
+    add_filter('template_redirect', array($this, 'addTemplateFilters'), 10);
+    
+    add_filter('template_include', array($this, 'sanitizeViewName'), 10);
+    add_filter('template_include', array($this, 'loadViewData'), 15);
+  }
+
+  /**
+   * Init the component library
+   * @return void
+   */
+  public static function initComonentLibrary() {
+    new ComponentLibrary\init();
+  }
+
+  /**
+   * Register paths containing views
+   * @return void
+   */
+  public static function registerViewPaths() {
+    if($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
+      foreach($viewPaths as $path) {
+        Blade::addViewPath(rtrim($path, DIRECTORY_SEPARATOR), true);
+      }
+    } else {
+      wp_die("No view paths registered, please register at least one."); 
+    }
+  }
+
+  /**
+   * @param $view
+   */
+  public function sanitizeViewName($view) { 
+    return $this->getViewNameFromPath($view); 
+  }
+
+  /**
+   * @param $view
+   * @param array $data
+   */
+  public function loadViewData($view, $data = array()) { 
+
+    //Get controller data
+    $viewData = $this->accessProtected(
+                  $this->loadController($this->getControllerNameFromView($view)),
+                  'data'
+                );
+
+    //Render the view 
+    return $this->renderView(
+      (string)  $view, 
+      (array)   apply_filters('Municipio/blade/data', $viewData)
+    );
+  }
+
+  /**
+  * Loads controller for view template
+  * @param  string $template Path to template
+  * @return object           The controller
+  */
+  public function loadController($template)
+  {
+    //Do something before controller creation
+    do_action_deprecated('Municipio/blade/before_load_controller', $template, '3.0', 'Municipio/blade/beforeLoadController'); 
+
+    //Handle 404 renaming
+    if ($template == '404') {
+        $template = 'E404';
     }
 
-    /**
-     * Register paths containing views
-     * @return void
-     */
-    public function registerViewPaths() {
-        if($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
-            foreach($viewPaths as $path) {
-                Blade::addViewPath(rtrim($path, DIRECTORY_SEPARATOR), true);
+    //Locate controller
+    if (!$controller = \Municipio\Helper\Controller::locateController($template)) {
+        $controller = \Municipio\Helper\Controller::locateController('BaseController');
+    }
+
+    //Filter 
+    $controller = apply_filters('Municipio/blade/controller', $controller);
+
+    //Require controller
+    require_once $controller;
+    $namespace = \Municipio\Helper\Controller::getNamespace($controller);
+    $class = '\\' . $namespace . '\\' . basename($controller, '.php');
+
+    //Do something after controller creation
+    do_action_deprecated('Municipio/blade/after_load_controller', $template, '3.0', 'Municipio/blade/afterLoadController'); 
+
+    return new $class();
+  }
+
+  /**
+   * @param $view
+   * @param array $data
+   */
+  public function renderView($view, $data = array())
+  {
+    try {
+        echo Blade::instance()->make(
+            $view,
+            array_merge(
+              $data,
+              array('errorMessage' => false)
+            )
+        )->render();
+    } catch (\Throwable $e) {
+        echo Blade::instance()->make(
+            '404',
+            array_merge(
+                $data,
+                array(
+                  'errorMessage' => $e,
+                  'post_type' => null,
+                  'heading' => __("Sorry! ", 'municipio'),
+                  'subheading' => __("Something went wrong on this page. If this error is persistent please contact us!", 'municipio'),
+                  'debugHeading' => __("Detailed information", 'municipio')
+                )
+            )
+        )->render();
+    }
+
+    return false;
+  }
+
+  /**
+   * Get a view clean view path
+   * @param  string $view The view path
+   * @return void
+   */
+  private function getViewNameFromPath($view) {
+    //Remove all paths
+    $view = str_replace(
+              \Municipio\Helper\Template::getViewPaths(), 
+              "", 
+              $view
+            ); // Remove view path
+    
+    //Remove suffix
+    $view = trim(str_replace(".blade.php", "", $view), "/");
+    
+    return str_replace("/", ".", $view); 
+  }
+
+  /**
+   * Get a controller name
+   * @param  string $view The view path
+   * @return void
+   */
+  private function getControllerNameFromView($view) {
+    return str_replace(".", "", ucwords($view)); 
+  }
+
+  /**
+   * Filter template name (what to look for)
+   * @return string
+   */
+  public function addTemplateFilters()
+  {
+      $types = array(
+          'index'      => 'index.blade.php',
+          'home'       => 'archive.blade.php',
+          'single'     => 'single.blade.php',
+          'page'       => 'page.blade.php',
+          '404'        => '404.blade.php',
+          'archive'    => 'archive.blade.php',
+          'author'     => 'author.blade.php',
+          'category'   => 'category.blade.php',
+          'tag'        => 'tag.blade.php',
+          'taxonomy'   => 'taxonomy.blade.php',
+          'date'       => 'date.blade.php',
+          'front-page' => 'front-page.blade.php',
+          'paged'      => 'paged.blade.php',
+          'search'     => 'search.blade.php',
+          'single'     => 'single.blade.php',
+          'singular'   => 'singular.blade.php',
+          'attachment' => 'attachment.blade.php',
+      );
+
+      $types = apply_filters_deprecated('Municipio/blade/template_types', [$types], '3.0', 'Municipio/blade/templateTypes'); 
+
+      if (isset($types) && !empty($types) && is_array($types)) {
+        foreach ($types as $key => $type) {
+          add_filter($key . '_template', function ($original) use ($key, $type, $types) {
+            
+            //Fron page
+            if (empty($original) && is_front_page()) {
+              $type = $types['front-page'];
             }
-        } else {
-            wp_die("No view paths registered, please register at least one."); 
-        }
-    }
 
-    public function adminFrontPageTemplates()
-    {
-        if (!is_admin() || !isset($_GET['post']) || $_GET['post'] != get_option('page_on_front')) {
-            return;
-        }
+            $templatePath = \Municipio\Helper\Template::locateTemplate($type);
 
-        \Municipio\Helper\Template::add(__('Page', 'municipio'), \Municipio\Helper\Template::locateTemplate('page.blade.php'));
+            // Look for post type archive
+            global $wp_query;
+            if (is_post_type_archive() && isset($wp_query->query['post_type'])) {
+              $search = 'archive-' . $wp_query->query['post_type'] . '.blade.php';
 
-        add_filter('gettext', function ($translation, $text, $domain) {
-            if ($text == 'Default Template') {
-                return __('Front page', 'municipio');
+              if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
+                $templatePath = $found;
+              }
             }
 
-            return $translation;
-        }, 10, 3);
-    }
-
-    public function adminFrontPageTemplatesSave($postId)
-    {
-        if (!isset($_POST['page_template']) || empty($_POST['page_template'])) {
-            return;
-        }
-
-        update_post_meta($postId, '_wp_page_template', $_POST['page_template']);
-    }
-
-    /**
-     * Initializes custom templates
-     * @return void
-     */
-
-    //TODO: Enable template controllers to be versionated as in Helpers/Controller -> L12     
-    public function initCustomTemplates()
-    {
-        $directory = MUNICIPIO_PATH . 'library/Controller/';
-
-        foreach (@glob($directory . "*.php") as $file) {
-            $class = '\Municipio\Controller\\' . basename($file, '.php');
-
-            if (!class_exists($class)) {
-                continue;
+            // Look for post type single page
+            if (is_single() && isset($wp_query->query['post_type'])) {
+              $search = 'single-' . $wp_query->query['post_type'] . '.blade.php';
+              if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
+                $templatePath = $found;
+              }
             }
 
-            if (!method_exists($class, 'registerTemplate')) {
-                continue;
+            // Transformation made 
+            if ($templatePath) {
+              return $templatePath;
             }
 
-            $class::registerTemplate();
-            unset($class);
+            // No changes needed
+            return $original;
+
+          });
         }
+      }
     }
 
-    /**
-     * Get searchform template
-     * @param  string $searchform Original markup
-     * @return mixed
-     */
-    //TODO: Enable template controllers to be versionated as in Helpers/Controller -> L12    
-    public function getSearchForm($searchform)
-    {
-        if ($view = \Municipio\Helper\Template::locateTemplate('searchform.blade.php')) {
-            $view = $this->cleanViewPath($view);
-            $this->loadController($view);
-            $this->render($view);
-            return false;
-        }
-
-        return $searchform;
-    }
-
-    /**
-     * Load controller and view
-     * @param  string $template Template
-     * @return mixed            Exception or false, false to make sure no
-     *                          standard template file from wordpres is beeing included
-     */
-    public function load($template)
-    {
-
-        if ((is_page() || is_single() || is_front_page()) && !empty(get_page_template_slug()) && get_page_template_slug() != $template) {
-            if (\Municipio\Helper\Template::locateTemplate(get_page_template_slug())) {
-                $template = get_page_template_slug();
-            }
-        }
-
-        if (!\Municipio\Helper\Template::isBlade($template)) {
-
-            // Return path if file exists, else default to page.blade.php
-            if (file_exists($template)) {
-                return $template;
-            }
-
-            if (current_user_can('administrator')) {
-                \Municipio\Helper\Notice::add('<strong>' . __('Admin notice', 'municipio') . ':</strong> ' . sprintf(__('View [%s] was not found. Defaulting to [page.blade.php].', 'municipio'), $template), 'warning', 'pricon pricon-notice-warning');
-            }
-
-            //TODO: Check why we include views/ prefix here 
-            $template = \Municipio\Helper\Template::locateTemplate('views/page.blade.php');
-        }
-
-        // Clean the view path
-        $view = $this->cleanViewPath($template);
-
-        // Load view controller
-        $controller = $this->loadController($view);
-
-        // Get controller data 
-        if ($controller) {
-            $data = $controller->getData();
-        }
-
-        // Render view with data, if any
-        $this->render($view, isset($data) ? $data : null);
-
-        //Stor excec
-        return false;
-    }
-
-    /**
-     * Loads controller for view template
-     * @param  string $template Path to template
-     * @return bool             True if controller loaded, else false
-     */
-    public function loadController($template)
-    {
-
-        //TODO Replace actions with camel cased alternatives. 
-
-
-
-        $template = basename($template) . '.php';
-
-        do_action('Municipio/blade/before_load_controller');
-
-        if (basename($template) == '404.php') {
-            $template = 'e404.php';
-        }
-
-        //TODO: Change this to a filter
-        switch ($template) {
-            case 'author.php':
-                if (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES) {
-                    $template = 'archive.php';
-                }
-                break;
-        }
-
-        $controller = \Municipio\Helper\Controller::locateController($template);
-
-        if (!$controller) {
-            $controller = \Municipio\Helper\Controller::locateController('BaseController');
-        }
-
-        $controller = apply_filters('Municipio/blade/controller', $controller);
-
-        require_once $controller;
-        $namespace = \Municipio\Helper\Controller::getNamespace($controller);
-        $class = '\\' . $namespace . '\\' . basename($controller, '.php');
-
-        do_action('Municipio/blade/after_load_controller');
-
-        return new $class();
-    }
-
-    /**
-     * Render a view
-     * @param  string $view The view path
-     * @return void
-     */
-    public function render($view, $data = array())
-    {
-        $data = apply_filters('Municipio/blade/data', $data);
-
-        var_dump(Blade::getViewPaths()); 
-        echo Blade::instance()->make($view, $data)->render();
-    }
-
-    public function addTemplateFilters()
-    {
-        $types = array(
-            'index'      => 'index.blade.php',
-            'home'       => 'archive.blade.php',
-            'single'     => 'single.blade.php',
-            'page'       => 'page.blade.php',
-            '404'        => '404.blade.php',
-            'archive'    => 'archive.blade.php',
-            'author'     => 'author.blade.php',
-            'category'   => 'category.blade.php',
-            'tag'        => 'tag.blade.php',
-            'taxonomy'   => 'taxonomy.blade.php',
-            'date'       => 'date.blade.php',
-            'front-page' => 'front-page.blade.php',
-            'paged'      => 'paged.blade.php',
-            'search'     => 'search.blade.php',
-            'single'     => 'single.blade.php',
-            'singular'   => 'singular.blade.php',
-            'attachment' => 'attachment.blade.php',
-        );
-
-        // TODO: Depricate, change to camel cased alternative. 
-        $types = apply_filters('Municipio/blade/template_types', $types);
-
-        if (isset($types) && !empty($types) && is_array($types)) {
-            foreach ($types as $key => $type) {
-                add_filter($key . '_template', function ($original) use ($key, $type, $types) {
-                    if (empty($original) && is_front_page()) {
-                        $type = $types['front-page'];
-                    }
-
-                    $templatePath = \Municipio\Helper\Template::locateTemplate($type);
-
-                    // Look for post type archive
-                    global $wp_query;
-                    if (is_post_type_archive() && isset($wp_query->query['post_type'])) {
-                        $search = 'archive-' . $wp_query->query['post_type'] . '.blade.php';
-                        $found = \Municipio\Helper\Template::locateTemplate($search);
-
-                        if ($found) {
-                            $templatePath = $found;
-                        }
-                    }
-
-                    // Look for post type single page
-                    if (is_single() && isset($wp_query->query['post_type'])) {
-                        $search = 'single-' . $wp_query->query['post_type'] . '.blade.php';
-                        $found = \Municipio\Helper\Template::locateTemplate($search);
-
-                        if ($found) {
-                            $templatePath = $found;
-                        }
-                    }
-
-                    if ($templatePath) {
-                        return $templatePath;
-                    }
-
-                    return $original;
-                });
-            }
-        }
-    }
-
-    public function cleanViewPath($view)
-    {
-        foreach (\Municipio\Helper\Template::getViewPaths() as $path) {
-            $view = str_replace($path . '/', '', $view);
-        }
-
-        $view = str_replace('.blade.php', '', $view);
-        return $view;
-    }
+  /**
+   * Proxy for accessing provate props
+   * @return mixed Array of values
+   */
+  public function accessProtected($obj, $prop) {
+      $reflection = new \ReflectionClass($obj);
+      $property = $reflection->getProperty($prop);
+      $property->setAccessible(true);
+      return $property->getValue($obj);
+  }
 }
