@@ -13,7 +13,6 @@ class BaseController
     public function __construct()
     {
         //Html data
-
         $this->getLogotype();
         $this->getHeaderLayout();
         $this->getFooterLayout();
@@ -33,6 +32,18 @@ class BaseController
         //Navigation
         $this->data['breadcrumb']           = $this->getBreadcrumb(); 
 
+        //Google translate location
+        $this->data['translateLocation']    = get_field('show_google_translate', 'option'); 
+
+        //User is authenticated 
+        $this->data['isAuthenticated']      = is_user_logged_in(); 
+
+        //User role
+        $this->data['userRole']             = $this->getUserRole(); 
+
+        //Show admin notices
+        $this->data['showAdminNotices']     = $this->showAdminNotices();
+
         //Language
         $this->data['lang'] = array(
             'jumpToMainMenu'        => __('Jump to the main menu', 'municipio'),
@@ -46,16 +57,7 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
         );
 
-        //Google translate location
-        $this->data['translateLocation'] = get_field('show_google_translate', 'option'); 
-
-        //Admin notices (show incomplete configuration to administrator)
-        if (is_user_logged_in() && current_user_can('edit_themes')) {
-            $this->data['showAdminNotices'] = true;
-        } else {
-            $this->data['showAdminNotices'] = false;
-        }
-
+        //Structural
         $this->getNavigationMenus();
         $this->getHelperVariables();
         $this->getFilterData();
@@ -63,6 +65,37 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+    }
+
+    /**
+     * Should show admin notices
+     */
+    public function showAdminNotices() {
+        if (is_user_logged_in() && current_user_can('edit_themes')) {
+            return true;
+        }
+        return false; 
+    }
+
+    /**
+     * Get current user role
+     * @return mixed    String or false with role
+     */
+    public function getUserRole() {
+
+        //Check login
+        if(!is_user_logged_in()) {
+            return false; 
+        }
+
+        //Return user role
+        if($userRoles = wp_get_current_user()->roles) {
+            if(is_array($userRoles) && !empty($userRoles)) {
+                return array_pop($userRoles); 
+            }
+        }
+
+        return false; 
     }
 
     /**
@@ -408,7 +441,7 @@ class BaseController
      */
     public function init()
     {
-        // Method body
+        do_action('Municipio/Controller/Init'); 
     }
 
     /**

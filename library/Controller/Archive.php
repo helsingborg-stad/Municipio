@@ -12,6 +12,9 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function init()
     {
+        
+        
+        /*
         $postType = get_post_type();
         if (is_author()) {
             $postType = 'author';
@@ -31,6 +34,8 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         add_filter('archive_equal_container', array($this, 'setEqualContainer'), 8, 3);
+
+        */ 
     }
 
     public function setEqualContainer($equalContainer, $postType, $template)
