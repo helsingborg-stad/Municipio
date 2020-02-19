@@ -1,25 +1,55 @@
 <?php global $post; ?>
 <div class="post post-compressed">
-    <a href="{{ the_permalink() }}" class="box box-news box-news-horizontal">
+
+        @link([
+            'href' =>  the_permalink(),
+            'classList' => [
+            'box',
+            'box-news',
+            'box-news-horizontal'
+        ]
+        ])
+
         @if (municipio_get_thumbnail_source(null,array(400,250)))
         <div class="box-image-container">
-            <img src="{{ municipio_get_thumbnail_source(null,array(400,250)) }}">
+            @image([
+                'src'=> municipio_get_thumbnail_source(null,array(400,250))
+            ])
+            @endimage
         </div>
         @endif
 
         <div class="box-content">
-            <h3 class="text-highlight">{{ the_title() }}</h3>
+
+            @typography([
+                'element'=> 'h3',
+                'classList' => ['text-highlight']
+            ])
+                the_title()
+            @endtypography
 
             @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
-            <time>
-                {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
-                {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
-            </time>
+                @php
+                    $date = in_array(get_field('archive_' . sanitize_title(get_post_type()) .
+                        '_feed_date_published', 'option'), array('datetime', 'date')) ?
+                        the_time(get_option('date_format')) : '' ;
+
+                    $time =  in_array(get_field('archive_' . sanitize_title(get_post_type()) .
+                        '_feed_date_published', 'option'), array('datetime', 'time')) ?
+                        the_time(get_option('time_format')) : '';
+
+                @endphp
+
+                @date([
+                    'action' => 'formatDate',
+                    'timestamp' =>  $date . ' ' . $time
+                ])
+                @enddate
             @endif
 
             {{ the_excerpt() }}
         </div>
-    </a>
+    @endlink
 
     @includeIf('partials.blog.post-footer')
 </div>

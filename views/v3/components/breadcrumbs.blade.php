@@ -1,5 +1,5 @@
 @breadcrumb([
-    'list' => \Municipio\Theme\Navigation::breadCrumbData()
+    'list' => \Municipio\Theme\Navigation::breadcrumbData()
 ])
 @endbreadcrumb
 

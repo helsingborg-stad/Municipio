@@ -6,7 +6,12 @@
             @includeIf('partials.blog.post-header')
 
             @if (get_field('post_single_show_featured_image') === true)
-                <img src="{{ municipio_get_thumbnail_source(null, array(700,700)) }}" alt="{{ the_title() }}">
+                @image([
+                    'src'=> municipio_get_thumbnail_source(null, array(700,700)),
+                    'alt' => the_title()
+                ])
+                @endimage
+
             @endif
 
             <article id="article">

@@ -1,32 +1,67 @@
-<?php
+@php
 global $post;
 
 $thumbnail = municipio_get_thumbnail_source(
     $post->ID,
     array(500, 500)
 );
+;
+@endphp
+@link([
+    'href' =>  the_permalink(),
+    'classList' => [
+        'box',
+        'box-post-brick',
+        $grid_alter ? 'brick-columns-' . $gridSize : ''
+    ]
+])
 
-?>
 
-    <a href="{{ the_permalink() }}" class="box box-post-brick <?php echo $grid_alter ? 'brick-columns-' . $gridSize . '"' : ''; ?>">
         @if ($thumbnail)
         <div class="box-image" {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
-            <img src="{{ municipio_get_thumbnail_source(null,array(500,500)) }}" alt="{{ the_title() }}">
+
+            @image([
+                'src'=> municipio_get_thumbnail_source(null,array(500,500)),
+                'alt' => the_title()
+            ])
+            @endimage
+
         </div>
         @endif
 
         <div class="box-content">
 
             @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && isset(get_the_category()[0]->name))
-            <span class="box-post-brick-category">{{ get_the_category()[0]->name }}</span>
+
+                @typography([
+                    'variant'=> 'span',
+                    'classList' => ['box-post-brick-category']
+                ])
+                    get_the_category()[0]->name
+                @endtypography
+
             @endif
 
             @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
             <span class="box-post-brick-date u-mb-3">
-                <time>
-                    {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'date')) ? the_time(get_option('date_format')) : '' }}
-                    {{ in_array(get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'time')) ? the_time(get_option('time_format')) : '' }}
-                </time>
+
+                @php
+                    $date = in_array(get_field('archive_' . sanitize_title(get_post_type()) .
+                        '_feed_date_published', 'option'), array('datetime', 'date')) ?
+                        the_time(get_option('date_format')) : '' ;
+
+                    $time =  in_array(get_field('archive_' . sanitize_title(get_post_type()) .
+                        '_feed_date_published', 'option'), array('datetime', 'time')) ?
+                        the_time(get_option('time_format')) : '';
+
+                @endphp
+
+                @date([
+                    'action' => 'formatDate',
+                    'timestamp' =>  $date . ' ' . $time
+                ])
+                @enddate
+
             </span>
             @endif
 
@@ -44,5 +79,5 @@ $thumbnail = municipio_get_thumbnail_source(
         <div class="box-post-brick-lead">
             {{ the_excerpt() }}
         </div>
-    </a>
+@endlink
 

@@ -1,3 +1,6 @@
+
+{{-- TODO: reformat as card component --}}
+
 <?php global $post; ?>
 <div class="c-card">
     @if (get_field('post_single_show_featured_image') === true)

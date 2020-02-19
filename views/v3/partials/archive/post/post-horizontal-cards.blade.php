@@ -1,10 +1,22 @@
+{{-- TODO: reformat as card component --}}
 <?php global $post; ?>
 <div class="post post-horizontal">
     <div class="grid">
         <div class="{{ municipio_get_thumbnail_source(null, array(400, 350)) ? 'grid-md-7 grid-sm-12' : 'grid-md-12' }} post-horizontal__content">
             <header class="post-header">
-                <h2><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
+                @link([
+                    'href' => the_permalink()
+                ])
+                    @typography([
+                        "variant" => "h2",
+                        "element" => "h2",
+                    ])
+                        the_title()
+                    @endtypography
+                @endlink
+
                 @includeIf('partials.blog.post-info')
+
             </header>
             <article>
                 {{ the_excerpt() }}
