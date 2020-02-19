@@ -263,7 +263,7 @@ class Navigation
      * @return array|void
      * @throws \Exception
      */
-    public static function breadCrumbData()
+    public static function breadcrumbData()
     {
         global $post;
 
