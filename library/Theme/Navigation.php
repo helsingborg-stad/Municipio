@@ -256,31 +256,6 @@ class Navigation
         return $items;
     }
     
-    /**
-     * mkUniqueId
-     * Creates a unique Id
-     * @param int $length
-     * @return false|string
-     * @throws \Exception
-     */
-    public static function mkUniqueId($length = 8)
-    {
-        if (function_exists("random_bytes")) {
-            $bytes = random_bytes(ceil($length / 2));
-        } else if (function_exists("openssl_random_pseudo_bytes")) {
-
-            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $isSourceStrong);
-            if (false === $isSourceStrong || false === $bytes) {
-                throw new \RuntimeException('IV generation failed');
-            }
-
-        } else {
-            $bytes = mt_rand(0,99999999);
-            throw new Exception("no cryptographically secure random id function available");
-        }
-        return substr(bin2hex($bytes), 0, $length);
-    }
-
 
     /**
      * BreadCrumbData
@@ -307,20 +282,24 @@ class Navigation
             $pageData[$id]['current'] = false;
 
             if (is_single() && $post_type->has_archive) {
+
                 $id = \Municipio\Helper\Hash::mkUniqueId();
                 $pageData[$id]['label'] = $post_type->label;
+
                 $pageData[$id]['href'] = (is_string($post_type->has_archive))
                     ? get_permalink(get_page_by_path($post_type->has_archive))
                     : get_post_type_archive_link($post_type->name);
+
                 $pageData[$id]['current'] = false;
             }
 
             if (is_page() || (is_single() && $post_type->hierarchical === true)) {
                 if ($post->post_parent) {
-                    $anc = array_reverse(get_post_ancestors($post->ID));
+
+                    $ancestors = array_reverse(get_post_ancestors($post->ID));
                     $title = get_the_title();
 
-                    foreach ($anc as $ancestor) {
+                    foreach ($ancestors as $ancestor) {
                         if (get_post_status($ancestor) !== 'private') {
                             $id = \Municipio\Helper\Hash::mkUniqueId();
                             $pageData[$id]['label'] = get_the_title($ancestor);
