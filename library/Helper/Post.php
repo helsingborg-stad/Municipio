@@ -5,6 +5,53 @@ namespace Municipio\Helper;
 class Post
 {
     /**
+     * Add filtered data to post object
+     * 
+     */
+    public static function complementObject($postObject, $appendFields = array('post_content_filtered', 'post_title_filtered', 'permalink'))
+    {
+        if(!is_a($postObject, 'WP_Post')) {
+            return $postObject; 
+        }
+
+        $appendFields = apply_filters('Municipio/Post/complementPostObject', $appendFields); 
+
+        if(in_array('permalink', $appendFields)) {
+            $postObject->permalink              = get_permalink($postObject); 
+        }
+
+        if(in_array('post_content_filtered', $appendFields)) {
+            $postObject->post_content_filtered  = apply_filters('the_content', $postObject->post_content); 
+        }
+
+        if(in_array('post_title_filtered', $appendFields)) {
+            $postObject->post_title_filtered    = apply_filters('the_title', $postObject->post_title); 
+        }
+
+        return $postObject; 
+    }
+
+    public static function mapArrayKeys(callable $f, array $xs) {
+        $out = array();
+        foreach ($xs as $key => $value) {
+          $out[$f($key)] = is_array($value) ? mapArrayKeys($f, $value) : $value;
+        }
+        return $out;
+      }
+
+    /**
+     * Add filtered data to post object
+     * 
+     */
+    public static function camelCaseObject($postObject)
+    {
+        return (object) self::mapArrayKeys(function($str) {
+            return lcfirst(implode('', array_map('ucfirst', explode('_', $str))));
+        }, (array) $postObject);
+    }
+
+
+    /**
      * Lists all meta-keys existing for the given posttype
      *
      * Attention: Since this method is using the database to get the

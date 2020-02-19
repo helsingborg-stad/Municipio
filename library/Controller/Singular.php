@@ -6,11 +6,17 @@ class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
     {
-        global $post;
+        //Get post data 
+        $this->data['post'] = \Municipio\Helper\Post::complementObject(get_post());
+        $this->data['post'] = \Municipio\Helper\Post::camelCaseObject($this->data['post']);
+        
+        //Comments
         $this->data['comments'] = get_comments(array(
-            'post_id'   => $post->ID,
+            'post_id'   => $this->data['post']->ID,
             'order'     => get_option('comment_order')
         ));
+
+        //Replies
         $this->data['replyArgs'] = array(
             'add_below'  => 'comment',
             'respond_id' => 'respond',
@@ -21,11 +27,12 @@ class Singular extends \Municipio\Controller\BaseController
             'after'      => '',
             'max_depth'  => get_option('thread_comments_depth')
         );
-        $this->data['settingItems'] = apply_filters('Municipio/blog/post_settings', array(), $post);
 
-        if (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && ! MUNICIPIO_BLOCK_AUTHOR_PAGES) {
-            $this->data['authorPages'] = true;
-        }
+        //Post settings
+        $this->data['settingItems'] = apply_filters_deprecated('Municipio/blog/post_settings', array($this->data['post']), '3.0', 'Municipio/blog/postSettings'); 
+
+        //Should link author page
+        $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
     }
 
     /**

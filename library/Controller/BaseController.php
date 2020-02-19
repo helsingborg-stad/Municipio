@@ -13,7 +13,6 @@ class BaseController
     public function __construct()
     {
         //Html data
-
         $this->getLogotype();
         $this->getHeaderLayout();
         $this->getFooterLayout();
@@ -23,15 +22,29 @@ class BaseController
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
 
         //Post data 
-        $this->data['postTitle']            = $this->getPostTitle(); 
-        $this->data['postPublished']        = $this->getPostPublished(); 
-        $this->data['postModified']         = $this->getPostModified(); 
+        $this->data['pageTitle']            = $this->getPageTitle(); 
+        $this->data['pagePublished']        = $this->getPagePublished(); 
+        $this->data['pageModified']         = $this->getPageModified(); 
+        $this->data['pageID']               = $this->getPageID(); 
+        $this->data['pageParentID']         = $this->getPageParentID(); 
 
         //Logotypes 
         $this->data['logotype']             = $this->getLogotype();
 
         //Navigation
         $this->data['breadcrumb']           = $this->getBreadcrumb(); 
+
+        //Google translate location
+        $this->data['translateLocation']    = get_field('show_google_translate', 'option'); 
+
+        //User is authenticated 
+        $this->data['isAuthenticated']      = is_user_logged_in(); 
+
+        //User role
+        $this->data['userRole']             = $this->getUserRole(); 
+
+        //Show admin notices
+        $this->data['showAdminNotices']     = $this->showAdminNotices();
 
         //Language
         $this->data['lang'] = array(
@@ -46,16 +59,9 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
         );
 
-        //Google translate location
-        $this->data['translateLocation'] = get_field('show_google_translate', 'option'); 
+        $this->getNavigation(); 
 
-        //Admin notices (show incomplete configuration to administrator)
-        if (is_user_logged_in() && current_user_can('edit_themes')) {
-            $this->data['showAdminNotices'] = true;
-        } else {
-            $this->data['showAdminNotices'] = false;
-        }
-
+        //Structural
         $this->getNavigationMenus();
         $this->getHelperVariables();
         $this->getFilterData();
@@ -63,6 +69,59 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+
+        //var_dump($this->data); 
+    }
+
+    /**
+     * Should show admin notices
+     */
+    public function getPageID() {
+        return get_queried_object_id(); 
+    }
+
+    public function getPageParentID() {
+        return wp_get_post_parent_id($this->getPageID());  
+    }
+
+    /**
+     * Should show admin notices
+     */
+    public function getNavigation() {
+
+        var_dump(get_pages([])); 
+        
+    }
+
+    /**
+     * Should show admin notices
+     */
+    public function showAdminNotices() {
+        if (is_user_logged_in() && current_user_can('edit_themes')) {
+            return true;
+        }
+        return false; 
+    }
+
+    /**
+     * Get current user role
+     * @return mixed    String or false with role
+     */
+    public function getUserRole() {
+
+        //Check login
+        if(!is_user_logged_in()) {
+            return false; 
+        }
+
+        //Return user role
+        if($userRoles = wp_get_current_user()->roles) {
+            if(is_array($userRoles) && !empty($userRoles)) {
+                return array_pop($userRoles); 
+            }
+        }
+
+        return false; 
     }
 
     /**
@@ -119,7 +178,7 @@ class BaseController
      * Get post published
      * @return string
      */
-    protected function getPostPublished() : string
+    protected function getPagePublished() : string
     {
         return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
     }
@@ -128,7 +187,7 @@ class BaseController
      * Get post modified
      * @return string
      */
-    protected function getPostModified() : string
+    protected function getPageModified() : string
     {
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
@@ -146,7 +205,7 @@ class BaseController
      * Get post title
      * @return string
      */
-    protected function getPostTitle() : string
+    protected function getPageTitle() : string
     {
         return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
     }
@@ -408,7 +467,7 @@ class BaseController
      */
     public function init()
     {
-        // Method body
+        do_action('Municipio/Controller/Init'); 
     }
 
     /**
