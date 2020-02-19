@@ -5,6 +5,20 @@ namespace Municipio\Helper;
 class Post
 {
     /**
+     * Prepare post object before sending to view
+     * Appends useful variables for views (generic). 
+     * 
+     * @param   object   $post    WP_Post object
+     * 
+     * @return  object   $post    Transformed WP_Post object
+     */
+    public static function preparePostObject($post) {
+        $post = self::complementObject($post);
+        $post = self::camelCaseObject($post); 
+        return $post; 
+    }
+
+    /**
      * Add post data on post object
      * 
      * @param   object   $postObject    The post object

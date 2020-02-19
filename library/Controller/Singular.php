@@ -7,12 +7,12 @@ class Singular extends \Municipio\Controller\BaseController
     public function init()
     {
         //Get post data 
-        $this->data['post'] = \Municipio\Helper\Post::complementObject(get_post());
-        $this->data['post'] = \Municipio\Helper\Post::camelCaseObject($this->data['post']);
+        $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post());
+
         var_dump($this->data['post']); 
         //Comments
         $this->data['comments'] = get_comments(array(
-            'post_id'   => $this->data['post']->ID,
+            'post_id'   => $this->data['post']->id,
             'order'     => get_option('comment_order')
         ));
 
