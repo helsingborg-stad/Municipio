@@ -7,8 +7,8 @@ class Singular extends \Municipio\Controller\BaseController
     public function init()
     {
         //Get post data 
-        $this->data['post'] = get_post();
-        $this->data['post']->permalink = get_permalink($this->data['post']); 
+        $this->data['post'] = \Municipio\Helper\Post::complementObject(get_post());
+        $this->data['post'] = \Municipio\Helper\Post::camelCaseObject($this->data['post']);
         
         //Comments
         $this->data['comments'] = get_comments(array(

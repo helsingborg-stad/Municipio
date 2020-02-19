@@ -20,13 +20,12 @@
 @section('content')
     @include('components.dynamic-sidebar', ['id' => 'content-area-top'])
 
-    @while(have_posts())
-        {!! the_post() !!}
-        @section('loop')
-            @include('partials.article', $post)
-        @show
-    @endwhile
-
+    @section('loop')
+        @if($post)
+            @include('partials.article', (array) $post)
+        @endif
+    @show
+    
     @include('components.dynamic-sidebar', ['id' => 'content-area'])
 
     <div class="hidden-xs hidden-sm">

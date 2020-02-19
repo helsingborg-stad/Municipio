@@ -22,9 +22,11 @@ class BaseController
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
 
         //Post data 
-        $this->data['postTitle']            = $this->getPostTitle(); 
-        $this->data['postPublished']        = $this->getPostPublished(); 
-        $this->data['postModified']         = $this->getPostModified(); 
+        $this->data['pageTitle']            = $this->getPageTitle(); 
+        $this->data['pagePublished']        = $this->getPagePublished(); 
+        $this->data['pageModified']         = $this->getPageModified(); 
+        $this->data['pageID']               = $this->getPageID(); 
+        $this->data['pageParentID']         = $this->getPageParentID(); 
 
         //Logotypes 
         $this->data['logotype']             = $this->getLogotype();
@@ -57,6 +59,8 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
         );
 
+        $this->getNavigation(); 
+
         //Structural
         $this->getNavigationMenus();
         $this->getHelperVariables();
@@ -65,6 +69,28 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+
+        //var_dump($this->data); 
+    }
+
+    /**
+     * Should show admin notices
+     */
+    public function getPageID() {
+        return get_queried_object_id(); 
+    }
+
+    public function getPageParentID() {
+        return wp_get_post_parent_id($this->getPageID());  
+    }
+
+    /**
+     * Should show admin notices
+     */
+    public function getNavigation() {
+
+        var_dump(get_pages([])); 
+        
     }
 
     /**
@@ -152,7 +178,7 @@ class BaseController
      * Get post published
      * @return string
      */
-    protected function getPostPublished() : string
+    protected function getPagePublished() : string
     {
         return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
     }
@@ -161,7 +187,7 @@ class BaseController
      * Get post modified
      * @return string
      */
-    protected function getPostModified() : string
+    protected function getPageModified() : string
     {
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
@@ -179,7 +205,7 @@ class BaseController
      * Get post title
      * @return string
      */
-    protected function getPostTitle() : string
+    protected function getPageTitle() : string
     {
         return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
     }
