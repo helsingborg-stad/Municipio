@@ -23,7 +23,7 @@
     @while(have_posts())
         {!! the_post() !!}
         @section('loop')
-            @include('partials.article')
+            @include('partials.article', $post)
         @show
     @endwhile
 
