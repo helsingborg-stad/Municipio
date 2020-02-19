@@ -9,7 +9,6 @@ class Singular extends \Municipio\Controller\BaseController
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post());
 
-        var_dump($this->data['post']); 
         //Comments
         $this->data['comments'] = get_comments(array(
             'post_id'   => $this->data['post']->id,
