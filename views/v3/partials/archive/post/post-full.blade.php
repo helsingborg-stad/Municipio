@@ -1,5 +1,8 @@
 
-{{-- TODO: reformat as card component --}}
+{{-- TODO: reformat as card component  (WHAT TODO WITH THE INCLUDES!!?!?!?!?!?!?)--}}
+
+
+
 
 <?php global $post; ?>
 <div class="c-card">
@@ -25,5 +28,14 @@
 
     <div class="c-card__footer">
         @includeIf('partials.archive.post-footer')
+
     </div>
 </div>
+
+
+
+
+
+
+
+

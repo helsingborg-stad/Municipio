@@ -71,10 +71,5 @@
             </div>
         @endif
 
-        @if (get_field('post_show_share', get_the_id()) !== false && get_field('page_show_share', 'option') !== false && !is_single())
-            <div class="{{ in_array('author', (array) get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) ? 'grid-md-6' : 'grid-md-12' }} text-right">
-                {{-- OLD SOCIAL SHARE LOCATION --}}
-            </div>
-        @endif
     </div>
 </footer>
