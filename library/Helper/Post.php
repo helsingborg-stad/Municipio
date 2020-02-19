@@ -5,25 +5,36 @@ namespace Municipio\Helper;
 class Post
 {
     /**
-     * Add filtered data to post object
+     * Add post data on post object
      * 
+     * @param   object   $postObject    The post object
+     * @param   object   $appendFields  Data to append on object
+     * 
+     * @return  object   $postObject    The post object, with appended data
      */
     public static function complementObject($postObject, $appendFields = array('post_content_filtered', 'post_title_filtered', 'permalink'))
     {
+
+        //Check that a post object is entered
         if(!is_a($postObject, 'WP_Post')) {
             return $postObject; 
+            throw new WP_Error("Complement object must recive a WP_Post class"); 
         }
 
+        //More? Less? 
         $appendFields = apply_filters('Municipio/Post/complementPostObject', $appendFields); 
 
+        //Get permalink
         if(in_array('permalink', $appendFields)) {
             $postObject->permalink              = get_permalink($postObject); 
         }
 
+        //Get filtered content
         if(in_array('post_content_filtered', $appendFields)) {
             $postObject->post_content_filtered  = apply_filters('the_content', $postObject->post_content); 
         }
 
+        //Get filtered post title
         if(in_array('post_title_filtered', $appendFields)) {
             $postObject->post_title_filtered    = apply_filters('the_title', $postObject->post_title); 
         }
@@ -31,13 +42,21 @@ class Post
         return $postObject; 
     }
 
-    public static function mapArrayKeys(callable $f, array $xs) {
-        $out = array();
-        foreach ($xs as $key => $value) {
-          $out[$f($key)] = is_array($value) ? mapArrayKeys($f, $value) : $value;
+    /**
+     * Replaces old keys with new (recursivley)
+     * 
+     * @param   function    $func    Function for transformation of key
+     * @param   array       $array   The array to filter
+     * 
+     * @return  array       $return  The array with renamed keys
+     */
+    public static function mapArrayKeys(callable $func, array $array) {
+        $return = array();
+        foreach ($array as $key => $value) {
+          $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
         }
-        return $out;
-      }
+        return $return;
+    }
 
     /**
      * Camel case snake_case object 
@@ -48,11 +67,10 @@ class Post
      */
     public static function camelCaseObject($postObject)
     {
-        return (object) self::mapArrayKeys(function($str) {
-            return lcfirst(implode('', array_map('ucfirst', explode('_', $str))));
+        return (object) self::mapArrayKeys(function($string) {
+            return lcfirst(implode('', array_map('ucfirst', explode('_', strtolower($string)))));
         }, (array) $postObject);
     }
-
 
     /**
      * Lists all meta-keys existing for the given posttype

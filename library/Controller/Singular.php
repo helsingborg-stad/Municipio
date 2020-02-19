@@ -9,7 +9,7 @@ class Singular extends \Municipio\Controller\BaseController
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::complementObject(get_post());
         $this->data['post'] = \Municipio\Helper\Post::camelCaseObject($this->data['post']);
-        
+        var_dump($this->data['post']); 
         //Comments
         $this->data['comments'] = get_comments(array(
             'post_id'   => $this->data['post']->ID,
