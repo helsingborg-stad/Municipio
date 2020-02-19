@@ -46,8 +46,10 @@
             @endwhile
         </div>
     @else
-        <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show', 'municipio'); ?>…</div>
+        {{-- TODO: add a notice component --}}
+        <?php _e('No posts to show', 'municipio'); ?>
     @endif
+
 
     @include('components.dynamic-sidebar', ['id' => 'content-area'])
 
@@ -62,9 +64,11 @@
             </div>
 @stop
 
+
 @section('sidebar-right')
     @includeIf('components.dynamic-sidebar', ['id' => 'right-sidebar'])
 @stop
+
 
 @section('below')
     @includeIf('components.dynamic-sidebar', ['id' => 'content-area-bottom'])

@@ -18,15 +18,15 @@ $thumbnail = municipio_get_thumbnail_source(
 
 
         @if ($thumbnail)
-        <div class="box-image" {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
+            <div class="box-image" {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
 
-            @image([
-                'src'=> municipio_get_thumbnail_source(null,array(500,500)),
-                'alt' => the_title()
-            ])
-            @endimage
+                @image([
+                    'src'=> municipio_get_thumbnail_source(null,array(500,500)),
+                    'alt' => the_title()
+                ])
+                @endimage
 
-        </div>
+            </div>
         @endif
 
         <div class="box-content">
@@ -45,20 +45,10 @@ $thumbnail = municipio_get_thumbnail_source(
             @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
             <span class="box-post-brick-date u-mb-3">
 
-                @php
-                    $date = in_array(get_field('archive_' . sanitize_title(get_post_type()) .
-                        '_feed_date_published', 'option'), array('datetime', 'date')) ?
-                        the_time(get_option('date_format')) : '' ;
-
-                    $time =  in_array(get_field('archive_' . sanitize_title(get_post_type()) .
-                        '_feed_date_published', 'option'), array('datetime', 'time')) ?
-                        the_time(get_option('time_format')) : '';
-
-                @endphp
-
+                {{-- TODO: $post->dateObject  something from them post object - use right var --}}
                 @date([
                     'action' => 'formatDate',
-                    'timestamp' =>  $date . ' ' . $time
+                    'timestamp' =>  $post->dateObject
                 ])
                 @enddate
 

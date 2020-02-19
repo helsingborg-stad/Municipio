@@ -41,19 +41,10 @@
                     <span class="grid-xs-2">
                         @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
 
-                            @php
-                                $date = in_array(get_field('archive_' . sanitize_title
-                                            (get_post_type()) . '_feed_date_published', 'option'), array('datetime', 'date'))
-                                        ? the_time(get_option('date_format')) : '';
-
-                                $time =  in_array(get_field('archive_' . sanitize_title(get_post_type()) .
-                                            '_feed_date_published', 'option'), array('datetime', 'time'))
-                                        ? the_time(get_option('time_format')) : '';
-                            @endphp
-
+                            {{-- TODO: $post->dateObject  something from them post object - use right var --}}
                             @date([
                                 'action' => 'formatDate',
-                                'timestamp' =>  $date . ' ' . $time
+                                'timestamp' =>  $post->dateObject
                             ])
                             @enddate
 
