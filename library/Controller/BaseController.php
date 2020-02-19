@@ -41,10 +41,10 @@ class BaseController
         $this->data['isAuthenticated']      = is_user_logged_in(); 
 
         //User role
-        $this->data['userRole']             = $this->getUserRole(); 
+        $this->data['userRole']             = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
 
         //Show admin notices
-        $this->data['showAdminNotices']     = $this->showAdminNotices();
+        $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
         //Language
         $this->data['lang'] = array(
@@ -70,7 +70,6 @@ class BaseController
 
         $this->init();
 
-        //var_dump($this->data); 
     }
 
     /**

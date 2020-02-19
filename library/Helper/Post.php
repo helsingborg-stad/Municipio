@@ -40,8 +40,11 @@ class Post
       }
 
     /**
-     * Add filtered data to post object
+     * Camel case snake_case object 
      * 
+     * @param   object   $postObject The post object, snake case
+     * 
+     * @return  object   $postObject The post object, camel case
      */
     public static function camelCaseObject($postObject)
     {
