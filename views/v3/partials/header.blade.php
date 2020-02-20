@@ -11,15 +11,9 @@
     {{-- Header body --}}
     @yield('header-body')
 
-    @navbar(['parameter' => 'value'])
+    {{-- TODO: Move class to controller --}}
+    @navbar(['items' => \Municipio\Helper\Nav::getTopLevel()])
     @endnavbar
-
-
-
-    <?php 
-        new Municipio\Helper\Nav('', 'top'); 
-
-?>
 
     {{-- After header body --}}
     @yield('after-header-body')

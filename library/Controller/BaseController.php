@@ -87,34 +87,6 @@ class BaseController
      * Should show admin notices
      */
     public function getNavigation() {
-
-        //var_dump(get_pages([])); 
-
-
-        $pages = wp_list_pages(['id' => 'sitemap',
-        'title' => false,
-        'parent' => false, /* Child of */
-        'authors' => false,
-        'depth' => 0, /* 1 (any depth), 0 (all pages), 1 (top level only), or depth number */
-        'sort_solumn' => 'menu_order',
-        'date_format' => 'j D Y', /* or get_option( 'date_format' ) */
-        'show_date' => false,
-        'exclude' => false,
-        'link_before' => false,
-        'link_after' => false,
-        'poststatus' => false,
-        'item_spacing' => false,
-        'walker' => false,
-        'list_style' => 'none',]); 
-
-        var_dump($pages); 
-
-        /*
-        if(is_array($pages) && !empty($pages)) {
-            foreach($pages as $page) {
-
-            }
-        }*/ 
         
     }
 

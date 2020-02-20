@@ -11,27 +11,34 @@
   class Nav
   {
 
-    private static $db; 
+    private static $db;
+    public static $items; 
 
-    public function __construct($postType, $level) {
+    public static function getTopLevel() {
 
-      //Creates a local instance of wbdb
       self::globalToLocal('wpdb', 'db'); 
-
-      if($level == "top") {
-        return self::complementObjects(
+      
+      return self::convertItemsToArray(
+        self::complementObjects(
           self::getItems()
-        ); 
-      }
+        )
+      ); 
+    }
+
+    // TODO: Not this, fix fix fix! 
+    private static function convertItemsToArray($objects) {
+      return json_decode(json_encode($objects), true); 
     }
 
     private static function complementObjects($objects) {
-      foreach($objects as &$object) {
-       
-        $object = self::appendPermalink($object); 
-        $object = self::camelCaseObject($object); 
-        var_dump($object); 
+      
+      if(is_array($objects) && !empty($objects)) {
+        foreach($objects as &$object) {
+          $object = self::appendHref($object); 
+          $object = self::transformObject($object);  
+        }
       }
+
       return $objects; 
     }
 
@@ -43,13 +50,32 @@
      * 
      * @return  object   $postObject    The post object, with appended data
      */
-    public static function appendPermalink($object, $leavename = true)
+    public static function appendHref($object, $leavename = false)
     {
         if(!is_a($object, 'stdClass')) {
           return new \WP_Error("Append permalink object must recive a stdClass."); 
         }
 
-        $object->permalink = get_permalink($object, $leavename);
+        $object->href = get_permalink($object->ID, $leavename);
+
+        return $object; 
+    }
+
+    /**
+     * Add post data on post object
+     * 
+     * @param   object   $postObject    The post object
+     * @param   object   $appendFields  Data to append on object
+     * 
+     * @return  object   $postObject    The post object, with appended data
+     */
+    public static function transformObject($object)
+    {
+        if(!is_a($object, 'stdClass')) {
+          return new \WP_Error("Transform object object must recive a stdClass."); 
+        }
+
+        $object->label = $object->post_title;
 
         return $object; 
     }
@@ -96,36 +122,6 @@
         ORDER BY menu_order ASC 
         LIMIT 99
       ");
-    }
-
-    /**
-     * Replaces old keys with new (recursivley)
-     * 
-     * @param   function    $func    Function for transformation of key
-     * @param   array       $array   The array to filter
-     * 
-     * @return  array       $return  The array with renamed keys
-     */
-    public static function mapArrayKeys(callable $func, array $array) {
-      $return = array();
-      foreach ($array as $key => $value) {
-        $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
-      }
-      return $return;
-    }
-
-    /**
-     * Camel case snake_case object 
-     * 
-     * @param   object   $postObject The post object, snake case
-     * 
-     * @return  object   $postObject The post object, camel case
-     */
-    public static function camelCaseObject($postObject)
-    {
-      return (object) self::mapArrayKeys(function($string) {
-          return lcfirst(implode('', array_map('ucfirst', explode('_', strtolower($string)))));
-      }, (array) $postObject);
     }
 
     /**
