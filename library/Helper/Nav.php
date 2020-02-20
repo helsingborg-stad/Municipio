@@ -29,8 +29,8 @@
       foreach($objects as &$object) {
        
         $object = self::appendPermalink($object); 
+        $object = self::camelCaseObject($object); 
         var_dump($object); 
-        
       }
       return $objects; 
     }
@@ -69,6 +69,15 @@
         return new \WP_Error("Could not get navigation menu for " . $postType . "since it dosen't exist."); 
       }
 
+      //Check if if valid post type array
+      if(is_array($postType)) {
+        foreach($postType as $item) {
+          if(!post_type_exists($item)) {
+            return new \WP_Error("Could not get navigation menu for " . $item . "since it dosen't exist."); 
+          }
+        }
+      }
+
       //Handle post type cases
       if($postType == 'all') {
         $postTypeSQL = "post_type IN(" . implode(", ", get_post_types(['public' => true])) . ")"; 
@@ -87,6 +96,36 @@
         ORDER BY menu_order ASC 
         LIMIT 99
       ");
+    }
+
+    /**
+     * Replaces old keys with new (recursivley)
+     * 
+     * @param   function    $func    Function for transformation of key
+     * @param   array       $array   The array to filter
+     * 
+     * @return  array       $return  The array with renamed keys
+     */
+    public static function mapArrayKeys(callable $func, array $array) {
+      $return = array();
+      foreach ($array as $key => $value) {
+        $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
+      }
+      return $return;
+    }
+
+    /**
+     * Camel case snake_case object 
+     * 
+     * @param   object   $postObject The post object, snake case
+     * 
+     * @return  object   $postObject The post object, camel case
+     */
+    public static function camelCaseObject($postObject)
+    {
+      return (object) self::mapArrayKeys(function($string) {
+          return lcfirst(implode('', array_map('ucfirst', explode('_', strtolower($string)))));
+      }, (array) $postObject);
     }
 
     /**
