@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,6 +22,7 @@
     {!! wp_head() !!}
 
 </head>
+
 <body class="{{ $bodyClass }}">
 
 {{-- Site header --}}
