@@ -73,7 +73,7 @@
 
 {{-- Site footer --}}
 @section('footer')
-    @includeIf('partials.footer')
+    @includeIf('partials.footer.default')
 @show
 
 {{-- Wordpress required call --}}
