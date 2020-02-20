@@ -24,7 +24,7 @@
             'element' => 'span',
             'classList' => ['no-margin', 'no-padding']
         ])
-            $logo['text']
+            {{$logo['text']}}
         @endtypography
     @endif
 @endlink

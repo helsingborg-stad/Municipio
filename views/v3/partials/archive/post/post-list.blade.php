@@ -4,7 +4,7 @@
         'element'=> 'h4',
         'classList' => ['box-title']
     ])
-        get_the_archive_title()
+        {{get_the_archive_title()}}
     @endtypography
 
     <ul>

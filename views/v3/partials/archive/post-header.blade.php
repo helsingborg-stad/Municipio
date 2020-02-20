@@ -6,7 +6,7 @@
                 "variant" => "h1",
                 "element" => "h1",
             ])
-                the_title()
+                {{the_title()}}
             @endtypography
     @endlink
 

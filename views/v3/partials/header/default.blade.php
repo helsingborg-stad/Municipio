@@ -15,7 +15,7 @@
             "element" => "span",
             "variant" => "h4"
         ])
-            get_field('sub_site_title', 'option')
+            {{get_field('sub_site_title', 'option')}}
         @endtypography
     @endif
 

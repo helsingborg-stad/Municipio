@@ -21,7 +21,7 @@
             @typography([
                 "variant" => "h3"
             ])
-                the_title()
+                {{the_title()}}
             @endtypography
 
             @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')

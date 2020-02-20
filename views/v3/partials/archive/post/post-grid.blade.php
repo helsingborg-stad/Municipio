@@ -37,7 +37,7 @@ $thumbnail = municipio_get_thumbnail_source(
                     'variant'=> 'span',
                     'classList' => ['box-post-brick-category']
                 ])
-                    get_the_category()[0]->name
+                    {{get_the_category()[0]->name}}
                 @endtypography
 
             @endif

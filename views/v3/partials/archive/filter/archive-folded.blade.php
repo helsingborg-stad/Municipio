@@ -7,7 +7,7 @@
                         "variant" => "h4",
                         "element" => "h4",
                     ])
-                        $taxonomy->label
+                        {{$taxonomy->label}}
                     @endtypography
                     <div class="box-content">
                         <?php $taxonomy->slug = $taxKey; $dropdown = \Municipio\Content\PostFilters::getMultiTaxDropdown($taxonomy, 0, 'list-hierarchical'); ?>
