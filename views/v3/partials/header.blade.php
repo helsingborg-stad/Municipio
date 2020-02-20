@@ -11,6 +11,16 @@
     {{-- Header body --}}
     @yield('header-body')
 
+    @navbar(['parameter' => 'value'])
+    @endnavbar
+
+
+
+    <?php 
+        new Municipio\Helper\Nav('', 'top'); 
+
+?>
+
     {{-- After header body --}}
     @yield('after-header-body')
 </header>
