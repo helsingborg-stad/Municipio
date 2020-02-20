@@ -34,6 +34,9 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
     }
 
+
+    // TODO: ADD LIKE BUTTON. MOVE TO OWN CLASS/HELPER.
+
     /**
      * Display comment like button
      * @param int $id Comment ID
