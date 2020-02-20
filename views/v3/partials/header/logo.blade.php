@@ -1,3 +1,4 @@
+{{-- TODO: Controller to take care of data --}}
 @php
     // Fetching logo data
     $logo = municipio_get_logotype (
