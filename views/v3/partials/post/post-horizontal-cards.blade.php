@@ -32,16 +32,10 @@
             @endif
         </div>
         @if (municipio_get_thumbnail_source(null, array(650, 500)))
-            <div class="grid-md-5 grid-sm-12 post-horizontal__image-container">
-                <div class="post-horizontal__image" style="background:url('{!! municipio_get_thumbnail_source(null, array(650, 500)) !!}') no-repeat center center;"></div>
-            </div>
+            <div class="post-horizontal__image" style="background:url('{!! municipio_get_thumbnail_source(null, array(650, 500)) !!}') no-repeat center center;"></div>
         @endif
     </div>
     <footer class="post-footer">
-        @if (get_field('post_show_share', get_the_id()) !== false)
-            <div class="text-right">
-                {{-- OLD SOCIAL SHARE LOCATION --}}
-            </div>
-        @endif
+        {{-- Contains something --}}
     </footer>
 </div>

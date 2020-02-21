@@ -77,7 +77,17 @@
 
                 {{-- ## Footer header begin ## --}}
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom' && get_field('footer_logotype', 'option') != 'hide')
-                    {!! municipio_get_logotype(get_field('footer_logotype', 'option'), false, true, false, false) !!}
+                    @if (get_field('header_logotype', 'option') === 'negative')
+                        @includeIf('partials.logo', [
+                            'logo' => get_field('logotype_negative', 'option'),
+                            'logoTooltip' => get_field('logotype_tooltip', 'option')
+                            ])
+                    @else
+                        @includeIf('partials.logo', [
+                            'logo' => get_field('logotype', 'option'),
+                            'logoTooltip' => get_field('logotype_tooltip', 'option')
+                            ])
+                    @endif
                 @endif
                 {{-- ## Footer header end ## --}}
             </div>

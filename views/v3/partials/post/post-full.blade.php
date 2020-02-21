@@ -7,7 +7,7 @@
     @endif
 
     <div class="c-card__body u-pb-0">
-        @includeIf('partials.archive.post-header')
+        @includeIf('partials.post.post-header')
     </div>
     <div class="c-card__body">
         <div class="c-card__text">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="c-card__footer">
-        @includeIf('partials.archive.post-footer')
+        @includeIf('partials.post.post-footer')
 
     </div>
 </div>

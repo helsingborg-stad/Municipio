@@ -4,7 +4,10 @@
 @stop
 
 @section('above')
-    @include('components.breadcrumbs')
+    @breadcrumb([
+        'list' => \Municipio\Theme\Navigation::breadcrumbData()
+    ])
+    @endbreadcrumb
 @stop
 
 @section('sidebar-left')

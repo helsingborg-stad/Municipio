@@ -42,5 +42,5 @@
             </div>
         @endlink
 
-    @includeIf('partials.blog.post-footer')
+    @includeIf('partials.post.post-footer')
 </div>

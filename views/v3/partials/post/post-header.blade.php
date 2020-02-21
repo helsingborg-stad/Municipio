@@ -10,5 +10,5 @@
             @endtypography
     @endlink
 
-    @include('partials.archive.post-info')
+    @include('partials.post.post-info')
 </header>

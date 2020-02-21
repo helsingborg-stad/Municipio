@@ -7,7 +7,17 @@
     @includeIf('partials.header.tabs-nav')
 
     {{-- SITE LOGO TYPE --}}
-    @includeIf('partials.header.logo')
+    @if (get_field('header_logotype', 'option') === 'negative')
+        @includeIf('partials.logo', [
+            'logo' => get_field('logotype_negative', 'option'),
+            'logoTooltip' => get_field('logotype_tooltip', 'option')
+            ])
+    @else
+        @includeIf('partials.logo', [
+            'logo' => get_field('logotype', 'option'),
+            'logoTooltip' => get_field('logotype_tooltip', 'option')
+            ])
+    @endif
 
     {{-- SITE SUB TITLE --}}
     @if (get_field('sub_site_title', 'option') && !empty(get_field('sub_site_title', 'option')))

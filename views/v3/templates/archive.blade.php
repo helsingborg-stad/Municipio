@@ -4,13 +4,17 @@
 @section('before-layout')
 
     @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'top')
-        @includeFirst(["partials.archive-" . sanitize_title($postType) . "-filters", "partials.archive-filters"])
+        @includeFirst(["partials.archive.archive-" . sanitize_title($postType) . "-filters",
+        "partials.archive.archive-filters"])
     @endif
 
 @stop
 
 @section('above')
-    @include('components.breadcrumbs')
+    @breadcrumb([
+        'list' => \Municipio\Theme\Navigation::breadcrumbData()
+    ])
+    @endbreadcrumb
 @stop
 
 @section('sidebar-left')
@@ -35,7 +39,8 @@
             @if (apply_filters('archive_equal_container', false, $postType, $template)) data-equal-container @endif>
 
             @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
-                @includeFirst(["partials.archive-" . sanitize_title($postType) . "-filters", "partials.archive-filters"])
+                @includeFirst(["partials.archive.archive-" . sanitize_title($postType) .
+                "-filters", "partials.archive-filters"])
             @endif
 
 
@@ -43,7 +48,7 @@
             @while(have_posts())
                 {!! the_post() !!}
                 <div class="grid-xs-12 {{ $grid_size }}">
-                    @includeIf('partials.archive.post.post-' . $template)
+                    @includeIf('partials.post.post-' . $template)
                 </div>
                 <?php $postNum++; ?>
             @endwhile
