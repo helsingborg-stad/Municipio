@@ -63,10 +63,6 @@
 
 {{-- TODO: Segments replace Hero--}}
 
+@includeIf('partials.navigation.helper-nav')
 
-@if (is_active_sidebar('top-sidebar'))
-    @php //dynamic_sidebar('top-sidebar'); @endphp
-@endif
-
-
-
+@includeIf('partials.sidebar.default', ['id' => 'top-sidebar'])
