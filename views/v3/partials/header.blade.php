@@ -75,4 +75,4 @@
 
 @includeIf('partials.navigation.helper-nav')
 
-@includeIf('partials.sidebar.default', ['id' => 'top-sidebar'])
+@includeIf('partials.sidebar', ['id' => 'top-sidebar'])

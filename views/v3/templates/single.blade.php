@@ -15,14 +15,14 @@
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
-    @include('partials.sidebar.default', ['id' => 'left-sidebar'])
-    @include('partials.sidebar.default', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
-    @include('partials.sidebar.default', ['id' => 'left-sidebar-bottom'])
+    @include('partials.sidebar', ['id' => 'left-sidebar'])
+    @include('partials.sidebar', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
+    @include('partials.sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
 
 @section('content')
 
-    @includeIf('partials.sidebar.default', ['id' => 'content-area-top'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
     @section('loop')
         @if($post)
@@ -30,14 +30,14 @@
         @endif
     @show
 
-    @includeIf('partials.sidebar.default', ['id' => 'content-area'])
+    @includeIf('partials.sidebar', ['id' => 'content-area'])
 
 @stop
 
 @section('sidebar-right')
-    @includeIf('partials.sidebar.default', ['id' => 'right-sidebar'])
+    @includeIf('partials.sidebar', ['id' => 'right-sidebar'])
 @stop
 
 @section('below')
-    @includeIf('partials.sidebar.default', ['id' => 'content-area-bottom'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-bottom'])
 @stop

@@ -45,7 +45,7 @@
 
                 {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
                 @hasSection('sidebar-left')
-                    @includeIf('partials.sidebar.default', ['id' => 'sidebar-left'])
+                    @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
                 @endif
 
                 {{-- Content --}}

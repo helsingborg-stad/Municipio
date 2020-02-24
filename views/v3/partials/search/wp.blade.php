@@ -139,7 +139,6 @@
                 @endif
             </div>
 
-            @include('partials.sidebar-right')
         </div>
     </div>
 </section>

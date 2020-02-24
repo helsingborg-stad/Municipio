@@ -19,17 +19,17 @@
 
 @section('sidebar-left')
 
-    @includeIf('partials.sidebar.default', ['id' => 'left-sidebar'])
+    @includeIf('partials.sidebar', ['id' => 'left-sidebar'])
     @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
         {!! $navigation['sidebarMenu'] !!}
     @endif
 
-    @includeIf('partials.sidebar.default', ['id' => 'left-sidebar-bottom'])
+    @includeIf('partials.sidebar', ['id' => 'left-sidebar-bottom'])
 
 @stop
 
 @section('content')
-    @includeIf('partials.sidebar.default', ['id' => 'content-area-top'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
     @include('partials.archive.archive-title')
 
@@ -72,10 +72,10 @@
 
 
 @section('sidebar-right')
-    @includeIf('partials.sidebar.default', ['id' => 'right-sidebar'])
+    @includeIf('partials.sidebar', ['id' => 'right-sidebar'])
 @stop
 
 
 @section('below')
-    @includeIf('partials.sidebar.default', ['id' => 'content-area-bottom'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-bottom'])
 @stop

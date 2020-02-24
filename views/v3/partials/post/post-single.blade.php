@@ -24,7 +24,7 @@
 </article>
 
 @if (is_single() && is_active_sidebar('content-area'))
-    @includeIf('partials.sidebar.default', ['id' => 'content-area'])
+    @includeIf('partials.sidebar', ['id' => 'content-area'])
 @endif
 
 
