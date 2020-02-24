@@ -18,7 +18,7 @@ $thumbnail = municipio_get_thumbnail_source(
 
 
     @if ($thumbnail)
-        <div class="box-image" {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
+        <div {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
 
             @image([
                 'src'=> municipio_get_thumbnail_source(null,array(500,500)),
