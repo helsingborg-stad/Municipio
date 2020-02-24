@@ -1,17 +1,20 @@
 <?php global $post; ?>
-<div class="post post-collapsed">
-    @includeIf('partials.post.post-header')
 
-    <article>
-        @if (isset(get_extended($post->post_content)['main']) && strlen(get_extended($post->post_content)['main']) > 0 && isset(get_extended($post->post_content)['extended']) && strlen(get_extended($post->post_content)['extended']) > 0)
+@includeIf('partials.post.post-header')
 
-            {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
-            {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
+<article>
+    @if (isset(get_extended($post->post_content)['main']) &&
+            strlen(get_extended($post->post_content)['main']) > 0 &&
+            isset(get_extended($post->post_content)['extended']) &&
+            strlen(get_extended($post->post_content)['extended']) > 0)
 
-        @else
-            {!! the_content() !!}
-        @endif
-    </article>
+        {!! apply_filters('the_lead', get_extended($post->post_content)['main']) !!}
+        {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
 
-    @includeIf('partials.post.post-footer')
-</div>
+    @else
+        {!! the_content() !!}
+    @endif
+</article>
+
+@includeIf('partials.post.post-footer')
+

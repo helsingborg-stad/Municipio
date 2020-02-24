@@ -1,5 +1,5 @@
 <?php global $post; ?>
-<div class="post post-compressed">
+
 
         @link([
             'href' =>  the_permalink(),
@@ -11,7 +11,7 @@
         ])
 
             @if (municipio_get_thumbnail_source(null,array(400,250)))
-                <div class="box-image-container">
+
                     @image([
                         'src'=> municipio_get_thumbnail_source(null,array(400,250))
                     ])
@@ -19,7 +19,6 @@
                 </div>
             @endif
 
-            <div class="box-content">
 
                 @typography([
                     'element'=> 'h3',
@@ -39,8 +38,8 @@
 
                 {{ the_excerpt() }}
 
-            </div>
+
         @endlink
 
     @includeIf('partials.post.post-footer')
-</div>
+
