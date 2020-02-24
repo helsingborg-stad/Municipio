@@ -7,32 +7,13 @@
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
 
             <nav>
-                <ul class="nav nav-help nav-horizontal">
-                    {!!
-                        wp_nav_menu(array(
-                            'theme_location' => 'help-menu',
-                            'container' => false,
-                            'container_class' => 'menu-{menu-slug}-container',
-                            'container_id' => '',
-                            'menu_class' => '',
-                            'menu_id' => 'help-menu-top',
-                            'echo' => false,
-                            'before' => '',
-                            'after' => '',
-                            'link_before' => '',
-                            'link_after' => '',
-                            'items_wrap' => '%3$s',
-                            'depth' => 1,
-                            'fallback_cb' => '__return_false'
-                        ));
-                    !!}
-                </ul>
+                {{-- NAVIGATION HELPER NAV --}}
+                @includeIf('partials.navigation.helper-nav')
             </nav>
 
         @endif
 
-        <div class="grid">
-            <div class="{{ get_field('footer_signature_show', 'option') ? 'grid-md-10' : 'grid-md-12' }}">
+
 
                 {{-- ## Footer header befin ## --}}
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'top' || !get_field('footer_logotype_vertical_position', 'option'))
@@ -42,26 +23,8 @@
                     @endif
 
                     <nav class="{{ !get_field('footer_signature_show', 'option') ? 'pull-right' : '' }}">
-                        <ul class="nav nav-help nav-horizontal">
-                            {!!
-                                wp_nav_menu(array(
-                                    'theme_location' => 'help-menu',
-                                    'container' => false,
-                                    'container_class' => 'menu-{menu-slug}-container',
-                                    'container_id' => '',
-                                    'menu_class' => '',
-                                    'menu_id' => 'help-menu-top',
-                                    'echo' => false,
-                                    'before' => '',
-                                    'after' => '',
-                                    'link_before' => '',
-                                    'link_after' => '',
-                                    'items_wrap' => '%3$s',
-                                    'depth' => 1,
-                                    'fallback_cb' => '__return_false'
-                                ));
-                            !!}
-                        </ul>
+                        {{-- NAVIGATION HELPER NAV --}}
+                        @includeIf('partials.navigation.helper-nav')
                     </nav>
 
                 @endif
@@ -90,13 +53,13 @@
                     @endif
                 @endif
                 {{-- ## Footer header end ## --}}
-            </div>
+
 
             {{-- ## Footer signature ## --}}
             @if (get_field('footer_signature_show', 'option'))
                 {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se">' . $footerLogo . '</a>') !!}
             @endif
-        </div>
+
 
 
         {{-- ## Social icons ## --}}
@@ -105,13 +68,21 @@
             <ul class="icons-list">
                 @foreach(get_field('footer_icons_repeater', 'option') as $link)
                     <li>
-                        <a href="{{ $link['link_url'] }}" target="_blank" class="link-item-light">
+                        @link([
+                            'href' => {{ $link['link_url'] }}
+                        ])
+
                             {!! $link['link_icon'] !!}
 
                             @if (isset($link['link_title']))
-                                <span class="sr-only">{{ $link['link_title'] }}</span>
+                                @typography([
+                                    'element' => 'span',
+                                ])
+                                {{ $link['link_title'] }}
+                                @endtypography
+
                             @endif
-                        </a>
+                         @endlink
                     </li>
                 @endforeach
             </ul>
