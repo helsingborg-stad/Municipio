@@ -49,7 +49,7 @@
                 @endif
 
                 {{-- Content --}}
-                <div class="{{$layout['content']}} s-content">
+                <div class="{{$layout['content']}} content">
                     @yield('content')
                 </div>
 

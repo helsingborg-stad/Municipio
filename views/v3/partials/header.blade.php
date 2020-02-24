@@ -4,7 +4,7 @@
     @includeIf('partials.search.search-form')
 
     {{-- TAB MENU --}}
-    @includeIf('partials.header.tabs-nav')
+    @includeIf('partials.header.tabs')
 
     {{-- SITE LOGO TYPE --}}
     @if (get_field('header_logotype', 'option') === 'negative')
@@ -30,13 +30,13 @@
     @endif
 
     {{-- NAVIGATION PRIMARY NAV --}}
-    @includeIf('partials.navigation.primary-nav')
+    @includeIf('partials.navigation.primary')
 
     {{-- NAVIGATION MOBILE NAV --}}
-    @includeIf('partials.navigation.mobile-nav')
+    @includeIf('partials.navigation.mobile')
 
     {{-- NAVIGATION HELPER NAV --}}
-    @includeIf('partials.navigation.helper-nav')
+    @includeIf('partials.navigation.helper')
 
 
     {{-- TODO: find out ??? keep or drop.--}}
@@ -73,6 +73,6 @@
 
 {{-- TODO: Segments replace Hero--}}
 
-@includeIf('partials.navigation.helper-nav')
+@includeIf('partials.navigation.helper')
 
 @includeIf('partials.sidebar', ['id' => 'top-sidebar'])

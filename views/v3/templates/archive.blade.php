@@ -47,9 +47,9 @@
             <?php $postNum = 0; ?>
             @while(have_posts())
                 {!! the_post() !!}
-                <div class="grid-xs-12 {{ $grid_size }}">
+
                     @includeIf('partials.post.post-' . $template)
-                </div>
+
                 <?php $postNum++; ?>
             @endwhile
         </div>

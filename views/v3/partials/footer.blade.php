@@ -9,7 +9,7 @@
 
             <nav>
                 {{-- NAVIGATION HELPER NAV --}}
-                @includeIf('partials.navigation.helper-nav')
+                @includeIf('partials.navigation.helper')
             </nav>
 
         @endif
@@ -25,7 +25,7 @@
 
                     <nav class="{{ !get_field('footer_signature_show', 'option') ? 'pull-right' : '' }}">
                         {{-- NAVIGATION HELPER NAV --}}
-                        @includeIf('partials.navigation.helper-nav')
+                        @includeIf('partials.navigation.helper')
                     </nav>
 
                 @endif
