@@ -27,7 +27,7 @@
 
     {{-- Site header --}}
 
-    @includeIf('partials.header.default')
+    @includeIf('partials.header')
 
     <main id="main">
 
@@ -68,7 +68,7 @@
 
     {{-- Site footer --}}
     @section('footer')
-        @includeIf('partials.footer.default')
+        @includeIf('partials.footer')
     @show
     
     {{-- Wordpress required call --}}

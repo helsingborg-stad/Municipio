@@ -1,6 +1,7 @@
 @if (is_active_sidebar('bottom-sidebar'))
     <?php dynamic_sidebar('bottom-sidebar'); ?>
 @endif
+
 <footer id="site-footer" class="{{ apply_filters('Views/Partials/Header/FooterClass', $footerLayout['classes']) }}">
     @section('footer-body')
 
@@ -68,26 +69,30 @@
             <ul class="icons-list">
                 @foreach(get_field('footer_icons_repeater', 'option') as $link)
                     <li>
-                        @link([
-                            'href' => {{ $link['link_url'] }}
-                        ])
 
-                            {!! $link['link_icon'] !!}
+                        @link([
+                            'href' =>  $link['link_url']
+                        ])
+                            {{$link['link_icon']}}
+
 
                             @if (isset($link['link_title']))
                                 @typography([
-                                    'element' => 'span',
+                                    'element' => 'span'
                                 ])
                                 {{ $link['link_title'] }}
                                 @endtypography
 
                             @endif
-                         @endlink
+                        @endlink
+
                     </li>
                 @endforeach
             </ul>
 
         @endif
+
+
     @stop
 
 </footer>
