@@ -11,7 +11,7 @@
         <li>
 
             @link([
-                'href' =>  get_the_permalink(),
+                'href' =>  $post->permalink,
                 'classList' => ['grid-xs-6']
             ])
                 get_the_title()
@@ -35,10 +35,9 @@
 
             @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
 
-                {{-- TODO: $post->dateObject  something from them post object - use right var --}}
                 @date([
                     'action' => 'formatDate',
-                    'timestamp' =>  $post->dateObject
+                    'timestamp' =>  $post->postDate
                 ])
                 @enddate
 

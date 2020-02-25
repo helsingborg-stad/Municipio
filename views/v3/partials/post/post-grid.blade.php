@@ -1,12 +1,4 @@
-@php
-global $post;
 
-$thumbnail = municipio_get_thumbnail_source(
-    $post->ID,
-    array(500, 500)
-);
-
-@endphp
 @link([
     'href' =>  the_permalink(),
     'classList' => [
@@ -16,13 +8,12 @@ $thumbnail = municipio_get_thumbnail_source(
     ]
 ])
 
-
-    @if ($thumbnail)
-        <div {!! $thumbnail ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
+    @if (municipio_get_thumbnail_source($post->id,array(500, 500)))
+        <div {!! municipio_get_thumbnail_source($post->id,array(500, 500)) ? 'style="background-image:url(' . $thumbnail . ');"' : '' !!}>
 
             @image([
                 'src'=> municipio_get_thumbnail_source(null,array(500,500)),
-                'alt' => the_title()
+                'alt' => $post->postTitle
             ])
             @endimage
 
@@ -31,11 +22,12 @@ $thumbnail = municipio_get_thumbnail_source(
 
 
 
-    @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option')) && isset(get_the_category()[0]->name))
+    @if (in_array('category', (array)get_field('archive_' . sanitize_title(get_post_type()) . '_post_display_info', 'option'))
+        && isset(get_the_category()[0]->name))
 
         @typography([
             'variant'=> 'span',
-            'classList' => ['box-post-brick-category']
+            'classList' => ['']
         ])
             {{get_the_category()[0]->name}}
         @endtypography
@@ -43,18 +35,18 @@ $thumbnail = municipio_get_thumbnail_source(
     @endif
 
     @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
-        {{-- TODO: $post->dateObject  something from them post object - use right var --}}
+
         @date([
             'action' => 'formatDate',
-            'timestamp' =>  $post->dateObject
+            'timestamp' =>  $post->postDate
         ])
         @enddate
     @endif
 
     @typography([
-    'element'=> 'h3'
+        'element'=> 'h3'
     ])
-        {{ the_title() }}
+        {{ $post->title }}
     @endtypography
 
     <ul class="tags">
@@ -65,7 +57,7 @@ $thumbnail = municipio_get_thumbnail_source(
         @endforeach
     </ul>
 
-    {{ the_excerpt() }}
+    {{ $post->postExcerpt }}
 
 @endlink
 
