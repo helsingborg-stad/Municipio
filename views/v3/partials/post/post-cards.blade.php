@@ -1,17 +1,6 @@
-
-@php
-
-    if (municipio_get_thumbnail_source(null,array(400,225))) {
-        $image = municipio_get_thumbnail_source(null,array(400,225));
-    }
-
-
-
- @endphp
-
 @card([
         'href' => $post->permalink,
-        'image' => $post-thumbnail,
+        'image' =>  municipio_get_thumbnail_source(null,array(400,225)),
         'title' => [
             'text' => $post->postTitle,
             'position' => 'body'
