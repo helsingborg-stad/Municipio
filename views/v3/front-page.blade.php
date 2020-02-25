@@ -8,4 +8,5 @@
     @if (is_active_sidebar('content-area-bottom'))
         @includeIf('partials.sidebar', ['id' => 'content-area-bottom'])
     @endif
+
 @stop
