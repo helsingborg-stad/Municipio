@@ -25,6 +25,17 @@
       ); 
     }
 
+    public static function getNested() {
+
+      self::globalToLocal('wpdb', 'db'); 
+
+      return self::convertItemsToArray(
+        self::complementObjects(
+          self::getItems()
+        )
+      ); 
+    }
+
     // TODO: Not this, fix fix fix! 
     private static function convertItemsToArray($objects) {
       return json_decode(json_encode($objects), true); 
@@ -35,7 +46,8 @@
       if(is_array($objects) && !empty($objects)) {
         foreach($objects as &$object) {
           $object = self::appendHref($object); 
-          $object = self::transformObject($object);  
+          $object = self::customTitle($object); 
+          $object = self::transformObject($object);
         }
       }
 
@@ -187,23 +199,46 @@
         SELECT post_id, meta_value 
         FROM ". self::$db->postmeta ." 
         WHERE meta_key = '$metaKey'
-        AND meta_value <> ''
+        AND meta_value != ''
       "); 
-
+      
       //Declare result
       $pageTitles = []; 
 
       //Add visible page ids
       if(is_array($result) && !empty($result)) {
-        foreach($pageTitles as $pageTitle) {
-          if(empty($pageTitle->meta_value)) {
+        foreach($result as $result) {
+          if(empty($result->meta_value)) {
             continue; 
           }
-          $pageTitles[$pageTitle->post_id] = $pageTitle->meta_value; 
+          $pageTitles[$result->post_id] = $result->meta_value; 
         }
       }
 
       return $pageTitles; 
+    }
+
+
+    /**
+     * Replace native title with custom menu name
+     * 
+     * @param object $object
+     * 
+     * @return object
+     */
+    public static function customTitle($object) : object
+    {
+
+      $customTitles = self::getMenuTitle(); 
+
+
+      var_dump($customTitles); 
+
+      if(isset($customTitles[$object->ID])) {
+        $object->post_title = $customTitles[$object->ID]; 
+      }
+
+      return $object; 
     }
 
     /**
