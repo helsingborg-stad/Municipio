@@ -18,6 +18,9 @@
 
       self::globalToLocal('wpdb', 'db'); 
       
+
+      var_dump(self::getHiddenPostIds()); 
+
       return self::convertItemsToArray(
         self::complementObjects(
           self::getItems()
@@ -113,15 +116,56 @@
         $postTypeSQL = "post_type = '" . $postType . "'"; 
       }
 
-      //Run query
+      //Run query TODO: Prepare Query
       return self::$db->get_results("
         SELECT ID, post_title, post_parent 
         FROM " . self::$db->posts . " 
         WHERE post_parent = '" . $parent . "'
         AND " . $postTypeSQL . "
+        AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
         ORDER BY menu_order ASC 
         LIMIT 99
       ");
+    }
+
+    /**
+     * Get a list of hidden post id's
+     * 
+     * Optimzing: We are getting all meta keys since it's the 
+     * fastest way of doing this due to missing indexes in database. 
+     * 
+     * This is a calculated risk that should be caught 
+     * by the object cache. Tests have been made to enshure
+     * good performance. 
+     * 
+     * @param string $metaKey The meta key to get data from
+     * 
+     * @return array
+     */
+    public static function getHiddenPostIds($metaKey = "hide_in_menu")
+    {
+
+      //Get meta TODO: Prepare Query
+      $result = (array) self::$db->get_results("
+        SELECT post_id, meta_value 
+        FROM ". self::$db->postmeta ." 
+        WHERE meta_key = '$metaKey'
+      "); 
+
+      //Declare result
+      $hiddenPages = []; 
+
+      //Add visible page ids
+      if(is_array($result) && !empty($result)) {
+        foreach($result as $item) {
+          if($item->meta_value != "1") {
+            continue; 
+          }
+          $hiddenPages[] = $item->post_id; 
+        }
+      }
+
+      return $hiddenPages; 
     }
 
     /**
