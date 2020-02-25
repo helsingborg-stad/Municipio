@@ -17,9 +17,6 @@
     public static function getTopLevel() {
 
       self::globalToLocal('wpdb', 'db'); 
-      
-
-      var_dump(self::getHiddenPostIds()); 
 
       return self::convertItemsToArray(
         self::complementObjects(
@@ -142,7 +139,7 @@
      * 
      * @return array
      */
-    public static function getHiddenPostIds($metaKey = "hide_in_menu")
+    public static function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
     {
 
       //Get meta TODO: Prepare Query
@@ -166,6 +163,47 @@
       }
 
       return $hiddenPages; 
+    }
+
+    /**
+     * Get a list of custom page titles
+     * 
+     * Optimzing: We are getting all meta keys since it's the 
+     * fastest way of doing this due to missing indexes in database. 
+     * 
+     * This is a calculated risk that should be caught 
+     * by the object cache. Tests have been made to enshure
+     * good performance. 
+     * 
+     * @param string $metaKey The meta key to get data from
+     * 
+     * @return array
+     */
+    public static function getMenuTitle(string $metaKey = "custom_menu_title") : array
+    {
+
+      //Get meta TODO: Prepare Query
+      $result = (array) self::$db->get_results("
+        SELECT post_id, meta_value 
+        FROM ". self::$db->postmeta ." 
+        WHERE meta_key = '$metaKey'
+        AND meta_value <> ''
+      "); 
+
+      //Declare result
+      $pageTitles = []; 
+
+      //Add visible page ids
+      if(is_array($result) && !empty($result)) {
+        foreach($pageTitles as $pageTitle) {
+          if(empty($pageTitle->meta_value)) {
+            continue; 
+          }
+          $pageTitles[$pageTitle->post_id] = $pageTitle->meta_value; 
+        }
+      }
+
+      return $pageTitles; 
     }
 
     /**
