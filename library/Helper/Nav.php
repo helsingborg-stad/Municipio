@@ -201,7 +201,7 @@
         WHERE meta_key = '$metaKey'
         AND meta_value != ''
       "); 
-      
+
       //Declare result
       $pageTitles = []; 
 
@@ -230,10 +230,7 @@
     {
 
       $customTitles = self::getMenuTitle(); 
-
-
-      var_dump($customTitles); 
-
+      
       if(isset($customTitles[$object->ID])) {
         $object->post_title = $customTitles[$object->ID]; 
       }
