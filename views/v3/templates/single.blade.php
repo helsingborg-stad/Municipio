@@ -4,7 +4,10 @@
 @stop
 
 @section('above')
-    @include('components.breadcrumbs')
+    @breadcrumb([
+        'list' => \Municipio\Theme\Navigation::breadcrumbData()
+    ])
+    @endbreadcrumb
 @stop
 
 @section('sidebar-left')
@@ -12,34 +15,29 @@
     {!! $navigation['sidebarMenu'] !!}
     @endif
 
-    @include('components.dynamic-sidebar', ['id' => 'left-sidebar'])
-    @include('components.dynamic-sidebar', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
-    @include('components.dynamic-sidebar', ['id' => 'left-sidebar-bottom'])
+    @include('partials.sidebar', ['id' => 'left-sidebar'])
+    @include('partials.sidebar', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
+    @include('partials.sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
 
 @section('content')
-    @include('components.dynamic-sidebar', ['id' => 'content-area-top'])
+
+    @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
     @section('loop')
         @if($post)
             @include('partials.article', (array) $post)
         @endif
     @show
-    
-    @include('components.dynamic-sidebar', ['id' => 'content-area'])
 
-    <div class="hidden-xs hidden-sm">
-        @include('partials.page-footer')
-    </div>
+    @includeIf('partials.sidebar', ['id' => 'content-area'])
+
 @stop
 
 @section('sidebar-right')
-    @include('components.dynamic-sidebar', ['id' => 'right-sidebar'])
+    @includeIf('partials.sidebar', ['id' => 'right-sidebar'])
 @stop
 
 @section('below')
-    <div class="hidden-md hidden-lg">
-        @include('partials.page-footer')
-    </div>
-    @include('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-bottom'])
 @stop

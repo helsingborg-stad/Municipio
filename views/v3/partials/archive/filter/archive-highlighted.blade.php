@@ -8,7 +8,7 @@
                     "variant" => "h3",
                     "element" => "h3",
                 ])
-                    $taxonomy->label
+                    {{$taxonomy->label}}
                 @endtypography
             </li>
             <ul class="nav nav-pills nav-horizontal nav-pills--badge">

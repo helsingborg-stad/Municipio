@@ -2,18 +2,11 @@
 @section('layout')
 
     @if (is_active_sidebar('content-area'))
-        <section class="creamy creamy-border-bottom sidebar-content-area">
-            <div class="container main-container">
-                @includeIf('components.dynamic-sidebar', ['id' => 'content-area'])
-            </div>
-        </section>
+        @includeIf('partials.sidebar', ['id' => 'content-area'])
     @endif
 
     @if (is_active_sidebar('content-area-bottom'))
-        <div class="container u-py-5 sidebar-content-area-bottom">
-            <div class="grid grid--columns">
-                @includeIf('components.dynamic-sidebar', ['id' => 'content-area-bottom'])
-            </div>
-        </div>
+        @includeIf('partials.sidebar', ['id' => 'content-area-bottom'])
     @endif
+
 @stop

@@ -5,7 +5,8 @@
             "variant" => "h1",
             "element" => "h1",
         ])
-            get_field('archive_' . sanitize_title($postType) . '_title', 'option') . " : " . single_cat_title()
+            {{get_field('archive_' . sanitize_title($postType) . '_title', 'option') . " : " .
+                single_cat_title()}}
         @endtypography
 
     {!! category_description() !!}
@@ -15,7 +16,8 @@
             "variant" => "h1",
             "element" => "h1",
         ])
-            get_field('archive_' . sanitize_title($postType) . '_title', 'option') . " : " . the_archive_title()
+            {{get_field('archive_' . sanitize_title($postType) . '_title', 'option') . " : " .
+                the_archive_title()}}
         @endtypography
 
     @else
@@ -24,7 +26,8 @@
             "variant" => "h1",
             "element" => "h1",
         ])
-            get_field('archive_' . sanitize_title($postType) . '_title', 'option') . " : " . the_archive_title()
+            {{get_field('archive_' . sanitize_title($postType) . '_title', 'option') . " : " .
+                the_archive_title()}}
         @endtypography
 
     @endif
@@ -35,7 +38,7 @@
             "variant" => "h1",
             "element" => "h1",
         ])
-            single_cat_title()
+            {{single_cat_title()}}
         @endtypography
 
     {!! category_description() !!}
@@ -45,7 +48,7 @@
             "variant" => "h1",
             "element" => "h1",
         ])
-            the_archive_title()
+            {{the_archive_title()}}
         @endtypography
 
     @endif

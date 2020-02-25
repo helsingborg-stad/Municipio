@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
 
-    <title>{{ $pageTitle }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="pubdate" content="{{ $pagePublished }}">
-    <meta name="moddate" content="{{ $pageModified }}">
+        <title>{{ $pageTitle }}</title>
 
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="format-detection" content="telephone=yes">
-    <meta name="HandheldFriendly" content="true" />
+        <meta name="pubdate" content="{{ $pagePublished }}">
+        <meta name="moddate" content="{{ $pageModified }}">
 
-    <script>
-        var ajaxurl = '{!! $ajaxUrl !!}';
-    </script>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="format-detection" content="telephone=yes">
+        <meta name="HandheldFriendly" content="true"/>
 
-    {{-- Wordpress required call --}}
-    {!! wp_head() !!}
+        <script>
+            var ajaxurl = '{!! $ajaxUrl !!}';
+        </script>
 
-</head>
-<body class="{{ $bodyClass }}">
+        {{-- Wordpress required call --}}
+        {!! wp_head() !!}
+
+    </head>
+
+    <body class="{{ $bodyClass }}">
 
     {{-- Site header --}}
-    @section('header')
-        @includeIf('partials.header')
-    @show
+
+    @includeIf('partials.header')
 
     <main id="main">
 
@@ -36,47 +37,42 @@
         {{-- Page layout --}}
         @section('layout')
             <div class="container main-container">
-                <div class="grid grid--columns">
-                    {{-- Above --}}
-                    @hasSection('above')
-                        <div class="grid-xs-12 s-above">
-                            @yield('above')
-                        </div>
-                    @endif
 
-                    {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
-                    @hasSection('sidebar-left')
-                        <aside class="{{$layout['sidebarLeft']}} s-sidebar-left">
-                            @yield('sidebar-left')
-                        </aside>
-                    @endif
+                {{-- Above --}}
+                @hasSection('above')
+                        @yield('above')
+                @endif
 
-                    {{-- Content --}}
-                    <div class="{{$layout['content']}} s-content">
-                        @yield('content')
-                    </div>
+                {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
+                @hasSection('sidebar-left')
+                    @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
+                @endif
 
-                    {{-- Below --}}
-                    @hasSection('below')
-                        <div class="grid-xs-12 s-below order-xs-5">
-                            @yield('below')
-                        </div>
-                    @endif
+                {{-- Content --}}
+                <div class="{{$layout['content']}} content">
+                    @yield('content')
                 </div>
+
+                {{-- Below --}}
+                @hasSection('below')
+                    @yield('below')
+                @endif
             </div>
+
         @show
 
         {{-- After page layout --}}
         @yield('after-layout')
     </main>
 
+
     {{-- Site footer --}}
     @section('footer')
         @includeIf('partials.footer')
     @show
-
+    
     {{-- Wordpress required call --}}
     {!! wp_footer() !!}
 
-</body>
+    </body>
 </html>
