@@ -38,6 +38,13 @@
     {{-- NAVIGATION HELPER NAV --}}
     @includeIf('partials.navigation.helper')
 
+    {{-- TODO: Move class to controller --}}
+    @navbar(['items' => \Municipio\Helper\Nav::getTopLevel()])
+    @endnavbar
+
+    {{-- After header body --}}
+    @yield('after-header-body')
+</header>
 
     {{-- TODO: find out ??? keep or drop.--}}
 
