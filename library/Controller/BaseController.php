@@ -87,8 +87,6 @@ class BaseController
      * Should show admin notices
      */
     public function getNavigation() {
-
-        var_dump(get_pages([])); 
         
     }
 
