@@ -70,6 +70,9 @@ class BaseController
 
         $this->init();
 
+        
+        \Municipio\Helper\Nav::getNested($this->getPageID());
+
     }
 
     /**
