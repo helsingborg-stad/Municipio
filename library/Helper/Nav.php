@@ -216,7 +216,9 @@ class Nav
         return new \WP_Error("Append permalink object must recive an array."); 
       }
 
-      $array['isAncestor'] = (in_array($array['ID'], self::getAncestors(self::$postId))) ? true : false; 
+      if(in_array($array['ID'], self::getAncestors(self::$postId))) {
+        $array['ancestor'] = true; 
+      }
 
       return $array; 
   }
@@ -234,8 +236,10 @@ class Nav
         return new \WP_Error("Append permalink object must recive an array."); 
       }
 
-      $array['isCurrent'] = ($array['ID'] == self::$postId) ? true : false; 
-
+      if($array['ID'] == self::$postId) {
+        $array['active'] = true; 
+      }
+      
       return $array; 
   }
 
