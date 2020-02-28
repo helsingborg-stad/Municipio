@@ -47,8 +47,8 @@ class BaseController
         $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
         //Navigation
-        $this->data['topNavigation']        = \Municipio\Helper\Nav::getTopLevel($this->data['pageID']); 
-        $this->data['sideNavigation']       = \Municipio\Helper\Nav::getNested($this->data['pageID']); 
+        $this->data['topNavigation']        = \Municipio\Helper\Nav::getTopLevel($this->getPageID()); 
+        $this->data['sideNavigation']       = \Municipio\Helper\Nav::getNested($this->getPageID()); 
 
         //Language
         $this->data['lang'] = array(
@@ -73,9 +73,6 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
-
-        
-        \Municipio\Helper\Nav::getNested($this->getPageID());
 
     }
 
