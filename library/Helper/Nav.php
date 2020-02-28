@@ -361,7 +361,6 @@ class Nav
     return $pageTitles; 
   }
 
-
   /**
    * Replace native title with custom menu name
    * 
