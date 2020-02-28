@@ -13,24 +13,19 @@ namespace Municipio\Helper;
 
 class Nav
 {
-
   private static $db;
-  private static $postId = null; 
+  private static $postId = null;
 
   /**
    * Get flat array with top level items
    * 
    * @param   array     $postId             The current post id
+   * @depends           getNested           Must invoke get nested function
    * 
    * @return  array                         Flat top level page array
    */
   public static function getTopLevel($postId) : array 
   {
-    //Store current post id
-    if(is_null(self::$postId)) {
-      self::$postId = $postId; 
-    }
-
     //Get top level
     return self::getNested($postId, true, 1); 
   }
