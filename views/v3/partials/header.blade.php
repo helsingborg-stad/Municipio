@@ -39,7 +39,8 @@
     @includeIf('partials.navigation.helper')
 
     {{-- TODO: Move class to controller --}}
-    @navbar(['items' => \Municipio\Helper\Nav::getTopLevel()])
+    <?php var_dump($topNavigation); ?>
+    @navbar($topNavigation)
     @endnavbar
 
     {{-- After header body --}}

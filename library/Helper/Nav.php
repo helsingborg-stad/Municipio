@@ -183,11 +183,15 @@ class Nav
     
     if(is_array($objects) && !empty($objects)) {
       foreach($objects as $key => $item) {
-        $object[$key] = self::appendHref($item); 
-        $object[$key] = self::customTitle($item); 
-        $object[$key] = self::appendIsCurrentPost($item);
-        $object[$key] = self::appendIsAncestorPost($item);
-        $object[$key] = self::transformObject($item);
+        $objects[$key] = self::transformObject(
+          self::appendIsAncestorPost(
+            self::appendIsCurrentPost(
+              self::customTitle(
+                self::appendHref($item)
+              )
+            )
+          )
+        );
       }
     }
 
@@ -256,9 +260,9 @@ class Nav
    * 
    * @return  array   $array  The post array, with appended data
    */
-  private static function transformObject($array)
+  private static function transformObject($array) : array
   {
-      if(is_array($array)) {
+      if(!is_array($array)) {
         return new \WP_Error("Transform object object must recive an array."); 
       }
 
@@ -362,11 +366,11 @@ class Nav
    */
   private static function customTitle($array) : array
   {
-    $customTitles = self::getMenuTitle(); 
+    /*$customTitles = self::getMenuTitle(); 
 
     if(isset($customTitles[$array['ID']])) {
       $array['post_title'] = $customTitles[$array['ID']]; 
-    }
+    }*/ 
 
     return $array; 
   }
