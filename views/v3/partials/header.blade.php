@@ -38,9 +38,8 @@
     {{-- NAVIGATION HELPER NAV --}}
     @includeIf('partials.navigation.helper')
 
-    {{-- TODO: Move class to controller --}}
-    <?php var_dump($topNavigation); ?>
-    @navbar($topNavigation)
+
+    @navbar(['logotype' => $logotype, 'items' => $topNavigation])
     @endnavbar
 
     {{-- After header body --}}
