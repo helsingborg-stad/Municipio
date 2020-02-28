@@ -78,6 +78,35 @@ class Nav
   }
 
   /**
+   * Check if a post has children
+   * 
+   * @param   array   $postId    The post id
+   * 
+   * @return  array              Flat array with parents
+   */
+  private static function hasChildren($array) : array
+  {  
+    if(!is_array($array)) {
+      return new \WP_Error("Append permalink object must recive an array."); 
+    }
+
+    $children = self::$db->get_results("
+      SELECT ID
+      FROM " . self::$db->posts . " 
+      WHERE post_parent = '". $array['ID'] . "'
+      LIMIT 1
+    ", ARRAY_A);
+
+    if(!empty($children)) {
+      $array['children'] = true; 
+    } else {
+      $array['children'] = false; 
+    }
+
+    return $array; 
+  }
+
+  /**
    * Recusivly traverse flat array and make a nested variant
    * 
    * @param   array   $postId    The current post id
@@ -189,10 +218,12 @@ class Nav
     if(is_array($objects) && !empty($objects)) {
       foreach($objects as $key => $item) {
         $objects[$key] = self::transformObject(
-          self::appendIsAncestorPost(
-            self::appendIsCurrentPost(
-              self::customTitle(
-                self::appendHref($item)
+          self::hasChildren(
+            self::appendIsAncestorPost(
+              self::appendIsCurrentPost(
+                self::customTitle(
+                  self::appendHref($item)
+                )
               )
             )
           )
