@@ -366,11 +366,11 @@ class Nav
    */
   private static function customTitle($array) : array
   {
-    /*$customTitles = self::getMenuTitle(); 
+    $customTitles = self::getMenuTitle(); 
 
     if(isset($customTitles[$array['ID']])) {
       $array['post_title'] = $customTitles[$array['ID']]; 
-    }*/ 
+    }
 
     return $array; 
   }
