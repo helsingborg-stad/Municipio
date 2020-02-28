@@ -173,11 +173,11 @@ class Nav
   }
 
   /**
-   * Calculate add add data to object
+   * Calculate add add data to array
    * 
-   * @param   object   $objects     The post objects
+   * @param   object   $objects     The post array
    * 
-   * @return  array    $objects     The post objects, with appended data
+   * @return  array    $objects     The post array, with appended data
    */
   private static function complementObjects($objects) {
     
@@ -185,10 +185,9 @@ class Nav
       foreach($objects as $key => $item) {
         $object[$key] = self::appendHref($item); 
         $object[$key] = self::customTitle($item); 
+        $object[$key] = self::appendIsCurrentPost($item);
+        $object[$key] = self::appendIsAncestorPost($item);
         $object[$key] = self::transformObject($item);
-
-        //$object[$key] = self::appendIsCurrentPost($item); TODO: Create this
-        //$object[$key] = self::appendIsAncestorPost($item); TODO: Create this
       }
     }
 
@@ -196,12 +195,48 @@ class Nav
   }
 
   /**
-   * Add post data on post object
+   * Add post is ancestor data on post array
    * 
-   * @param   object   $array         The post object
+   * @param   object   $array         The post array
+   * 
+   * @return  array    $postArray     The post array, with appended data
+   */
+  private static function appendIsAncestorPost($array) : array
+  {
+      if(!is_array($array)) {
+        return new \WP_Error("Append permalink object must recive an array."); 
+      }
+
+      $array['isAncestor'] = (in_array($array['ID'], self::getAncestors(self::$postId))) ? true : false; 
+
+      return $array; 
+  }
+
+  /**
+   * Add post is current data on post array
+   * 
+   * @param   object   $array         The post array
+   * 
+   * @return  array    $postArray     The post array, with appended data
+   */
+  private static function appendIsCurrentPost($array) : array
+  {
+      if(!is_array($array)) {
+        return new \WP_Error("Append permalink object must recive an array."); 
+      }
+
+      $array['isCurrent'] = ($array['ID'] == self::$postId) ? true : false; 
+
+      return $array; 
+  }
+
+  /**
+   * Add post href data on post array
+   * 
+   * @param   object   $array         The post array
    * @param   boolean  $leavename     Leave name wp default param
    * 
-   * @return  array    $postArray     The post object, with appended data
+   * @return  array    $postArray     The post array, with appended data
    */
   private static function appendHref($array, $leavename = false) : array
   {
