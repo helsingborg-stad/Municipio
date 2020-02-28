@@ -4,6 +4,7 @@
   "description": "The official website of Helsingborg Stad",
   "main": "Gulpfile.js",
   "dependencies": {
+    "@helsingborg-stad/styleguide": "0.0.2",
     "babel-polyfill": "^6.26.0",
     "browser-sync": "^2.24.3",
     "glob": "^7.1.4",
