@@ -46,6 +46,13 @@
                 {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
                 @hasSection('sidebar-left')
                     @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
+
+                    @sidebar([
+                        'logo' => $logotype,
+                        'items' => $sideNavigation
+                    ])
+                    @endsidebar
+
                 @endif
 
                 {{-- Content --}}
