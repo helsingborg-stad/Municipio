@@ -38,8 +38,8 @@
     {{-- NAVIGATION HELPER NAV --}}
     @includeIf('partials.navigation.helper')
 
-    {{-- TODO: Move class to controller --}}
-    @navbar(['items' => \Municipio\Helper\Nav::getTopLevel()])
+
+    @navbar(['logotype' => $logotype, 'items' => $topNavigation])
     @endnavbar
 
     {{-- After header body --}}
