@@ -1,14 +1,13 @@
 {
   "name": "Municipio",
   "version": "3.0.0",
-  "description": "The official website of Helsingborg Stad",
+  "description": "The official wordpress theme of Helsingborg Stad",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-imports": "webpack --config webpack.import.js",
     "build": "webpack --config webpack.config.js & node-sass --recursive --output-style compressed node_modules/@helsingborg-stad/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
     "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
-    "sass": "node-sass --recursive --watch --output-style compressed source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
-    "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
+    "sass": "node-sass --recursive --watch --output-style compressed node_modules/@helsingborg-stad/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
     "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
     "express-server": "node build/expressServer.js",
     "phpcs-report": "php phpcs.phar source/library --standard=psr2",
@@ -16,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/helsingborg-stad/styleguide.git"
+    "url": "git+https://github.com/helsingborg-stad/Municipio.git"
   },
   "files": [
     "assets/js/*",
@@ -32,7 +31,7 @@
   "author": "HBG Works, Helsingborg Stad",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/helsingborg-stad/styleguide/issues"
+    "url": "https://github.com/helsingborg-stad/Municipio/issues"
   },
   "browserslist": [
     "last 1 version",
@@ -40,7 +39,7 @@
     "maintained node versions",
     "not dead"
   ],
-  "homepage": "https://github.com/helsingborg-stad/styleguide#readme",
+  "homepage": "https://github.com/helsingborg-stad/Municipio#readme",
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
