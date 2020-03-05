@@ -1,39 +1,26 @@
 {
     "slug": "segment",
     "default": {
-        "template": "split",
-        "background_color": "",
+        "title": "",
+        "sub_title": "",
+        "text": "",
+        "layout": "",
         "background_image": "",
-        "backgroundImage": "",
         "height": "md",
-        "padding": 5,
-        "parallax": false,
-        "text_alignment": "left",
-        "reverse_layout": false,
-        "contain_content": true,
-        "heading": "",
-        "body": "",
-        "image": "",
-        "image_focus": {
-            "vertical": "center",
-            "horizontal": "center"
-        },
-        "content_alignment": {
-            "vertical": "center",
-            "horizontal": "center"
-        },
-        "mobile_layout": {
-            "graphics": "below"
-        },
-        "cta_align": "right",
-        "cta": {}
+        "color": "black",
+        "overlay": "",
+        "overlay_opacity": ""
     },
     "description": {
-        "template": "Which layout template to use",
-        "background_color": "A hex code for the background of a full segement",
-        "reverse_layout": "If the layout should have a reversed order",
-        "containContent": "Contains the content in a container or allows full width",
-        "mobile_layout": "An array containing rules for the structure in mobile view"
+        "title": "A title for predefined layout",
+        "sub_title": "A sub-title for predefined layout",
+        "text": "A text for predefined layout",
+        "layout": "Which layouts to use",
+        "background_image": "An url or path to an image to use as background for the segment",
+        "height": "How tall the segment should be",
+        "color": "Color of the text",
+        "overlay": "An overlay of the background",
+        "overlay_opacity": "Sets the opacity of the overlay"
     },
     "view": "segment.blade.php"
 }

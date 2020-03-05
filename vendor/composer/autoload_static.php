@@ -14,6 +14,11 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
     );
 
     public static $prefixLengthsPsr4 = array (
+        'v' => 
+        array (
+            'voku\\tests\\' => 11,
+            'voku\\' => 5,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -49,6 +54,7 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
+            'Carbon\\' => 7,
         ),
         'B' => 
         array (
@@ -62,6 +68,14 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
     );
 
     public static $prefixDirsPsr4 = array (
+        'voku\\tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voku/portable-ascii/tests',
+        ),
+        'voku\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -134,6 +148,10 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
         'BladeComponentLibrary\\' => 
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/blade-component-library/src',
@@ -148,27 +166,11 @@ class ComposerStaticInit4845d6e1e14302c643a104833cfb558a
         ),
     );
 
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
-    );
-
-    public static $prefixesPsr0 = array (
-        'U' => 
-        array (
-            'UpdateHelper\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/kylekatarnls/update-helper/src',
-            ),
-        ),
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4845d6e1e14302c643a104833cfb558a::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

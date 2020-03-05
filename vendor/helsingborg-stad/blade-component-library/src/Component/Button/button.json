@@ -7,7 +7,7 @@
       "size": "md",
       "color": "default",
       "type": "filled",
-      "href":"#",
+      "href":false,
       "target":"_top",
       "componentElement":"button",
       "labelElement":"span",

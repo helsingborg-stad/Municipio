@@ -54,6 +54,10 @@ class Image extends \BladeComponentLibrary\Component\BaseController
 		//Rounded corners radius
 		if ($roundedRadius) {
 			$this->data['classList'][] = $this->getBaseClass() . "--rounded-".$roundedRadius;
-		}
+        }
+        
+        if ($openModal) {
+            $this->data['modalId'] = uniqid();
+        }
 	}
 }

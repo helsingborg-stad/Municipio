@@ -3,7 +3,7 @@
     "default": {
         "position": "bottom-right",
         "spacing": "md",
-        "button": []
+        "button": false
     },
     "description": {
         "position": "Where on the screen the FAB should be positioned",

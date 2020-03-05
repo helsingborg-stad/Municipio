@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'voku\\tests\\' => array($vendorDir . '/voku/portable-ascii/tests'),
+    'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
@@ -24,8 +26,8 @@ return array(
     'HelsingborgStad\\' => array($vendorDir . '/helsingborg-stad/global-blade-engine/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
+    'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'BladeComponentLibrary\\' => array($vendorDir . '/helsingborg-stad/blade-component-library/src'),
     'BC\\Blade\\' => array($vendorDir . '/benjamincrozat/blade/src'),
     'AcfExportManager\\' => array($vendorDir . '/helsingborg-stad/acf-export-manager/src'),
-    '' => array($vendorDir . '/nesbot/carbon/src'),
 );
