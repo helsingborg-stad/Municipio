@@ -18,7 +18,6 @@ class Enqueue
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
 
         //Customizer Style
-        add_action('customize_controls_enqueue_scripts', array($this, 'customizerStyle'));
 
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
         add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
@@ -46,16 +45,6 @@ class Enqueue
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
     }
 
-    public function customizerStyle()
-    {
-        /**
-        $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
-        if ($enqueueBem) {
-            wp_register_style('municipio-customizer', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/customizer.css'), '', null);
-            wp_enqueue_style('municipio-customizer');
-        }
-        */
-    }
 
     public function wrapGformCdataOpen($content)
     {
@@ -75,10 +64,12 @@ class Enqueue
      */
     public function adminStyle()
     {
-        wp_register_style('helsingborg-se-admin', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/admin.css'));
+        wp_register_style('helsingborg-se-admin', get_template_directory_uri(). '/assets/dist/2.0/'
+            . \Municipio\Helper\CacheBust::name('css/admin.css'));
         wp_enqueue_style('helsingborg-se-admin');
 
-        wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/admin.js'));
+        wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/2.0/'
+            . \Municipio\Helper\CacheBust::name('js/admin.js'));
         wp_enqueue_script('helsingborg-se-admin');
 
     }
@@ -89,29 +80,11 @@ class Enqueue
      */
     public function style()
     {
-        // Tell jquery dependents to wait for prime instead.
-        /*
-        if (!apply_filters('Municipio/load-wp-jquery', false)) {
-            wp_deregister_script('jquery');
-            add_action('wp_enqueue_scripts', array($this, 'waitForPrime'));
-        }
+        // Helsingborg Styleguide
+        wp_register_style('style-guide', get_template_directory_uri()
+            .'/assets/dist/3.0/css/styleguide-css.min.css');
+        wp_enqueue_style('style-guide');
 
-        wp_register_style($this->defaultPrimeName, Styleguide::getStylePath(false));
-        wp_register_style($this->defaultPrimeName . '-bem', Styleguide::getStylePath(true));
-        wp_enqueue_style($this->defaultPrimeName);
-
-       $enqueueBem = apply_filters('Municipio/Theme/Enqueue/Bem', false);
-        if ($enqueueBem) {
-            wp_enqueue_style($this->defaultPrimeName . '-bem');
-        }
-        */
-
-
-        wp_register_style('style-guide-css', 'https://v2.styleguide.helsingborg.se/assets/dist/css/styleguide-css.min.css');
-        wp_enqueue_style('style-guide-css');
-
-        wp_register_style('municipio', get_template_directory_uri(). '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/app.css'));
-        wp_enqueue_style('municipio');
     }
 
     /**
@@ -150,8 +123,12 @@ class Enqueue
         ));
         wp_enqueue_script($this->defaultPrimeName);
 
-        wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/app.js'));
-        wp_register_script('municipio-ajax', get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/ajax.js'));
+        wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/2.0/' .
+            \Municipio\Helper\CacheBust::name('js/app.js'));
+
+        wp_register_script('municipio-ajax', get_template_directory_uri() . '/assets/dist/2.0/'
+            . \Municipio\Helper\CacheBust::name('js/ajax.js'));
+
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
@@ -179,9 +156,10 @@ class Enqueue
         }
 
 
-        // TEMP STYLEGUIDE Javascript ---------
-        wp_register_script('style-guide-js', 'https://v2.styleguide.helsingborg.se/assets/dist/js/styleguide-js.min.js');
-        wp_enqueue_script('style-guide-js');
+        // Helsingborg Styleguide
+        wp_register_script('style-guide', get_template_directory_uri()
+            .'/assets/dist/3.0/js/styleguide-js.min.js');
+        wp_enqueue_script('style-guide');
     }
 
     public function moveScriptsToFooter()

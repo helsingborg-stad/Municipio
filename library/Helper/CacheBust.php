@@ -44,7 +44,8 @@ class CacheBust
      */
     public static function getRevManifest($childTheme = false)
     {
-        $themePath = ($childTheme == true) ? get_stylesheet_directory() : get_template_directory();
+        /*$themePath = ($childTheme == true) ? get_stylesheet_directory() :
+        get_template_directory();
         $jsonPath = $themePath . apply_filters('Municipio/Helper/CacheBust/RevManifestPath', '/assets/dist/rev-manifest.json');
 
         if (file_exists($jsonPath)) {
@@ -52,5 +53,6 @@ class CacheBust
         } elseif (WP_DEBUG) {
             echo '<div style="color:red">Error: Assets not built. Go to ' . $themePath . ' and run gulp. See '. $themePath . '/README.md for more info.</div>';
         }
+        */
     }
 }
