@@ -9,27 +9,39 @@ class Grid extends \BladeComponentLibrary\Component\BaseController
         extract($this->data);
 
         if ($container) {
-            $this->data['classList'][] =
-                $this->getBaseClass() . '__container';
-
-            $this->data['classList'][] =
-                $this->getBaseClass() . '__container__gap__col--' . $col_gap;
-
-            $this->data['classList'][] =
-                $this->getBaseClass() . '__container__gap__row--' . $row_gap;
-            return;
+            $this->setContainer($columns, $min_width, $max_width);
         }
 
-        if ($col) {
+        if (isset($col)) {
             $this->setCols($col);
         }
 
-        if ($row) {
+        if (isset($row)) {
             $this->setRows($row);
-        }
-        
+        }        
     }
 
+    public function setContainer($columns, $min_width, $max_width)
+    {
+        if ($columns) {
+            $this->data['attributeList']['style'] =
+                "grid-template-columns: repeat(".$columns.
+                ", minmax(".$min_width.", ".$max_width."));";
+        }
+
+        $this->data['classList'][] =
+            $this->getBaseClass() . '__container';
+    }
+
+    public function setGaps($col_gap, $row_gap)
+    {
+        $this->data['classList'][] =
+            $this->getBaseClass() . '__container__gap__col--' . $col_gap;
+
+        $this->data['classList'][] =
+            $this->getBaseClass() . '__container__gap__row--' . $row_gap;
+        return;
+    }
 
     public function setCols($col)
     {
@@ -43,7 +55,8 @@ class Grid extends \BladeComponentLibrary\Component\BaseController
         
     }
 
-    public function setRows($row) {
+    public function setRows($row)
+    {
         $aliases = [
             'start' => 0,
             'end' => 1

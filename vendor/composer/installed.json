@@ -283,20 +283,20 @@
     },
     {
         "name": "helsingborg-stad/blade-component-library",
-        "version": "0.2.2",
-        "version_normalized": "0.2.2.0",
+        "version": "0.2.3",
+        "version_normalized": "0.2.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-            "reference": "1cfe14b4076ddd0f61552db47e453612f71f8b30"
+            "reference": "2b911c0434527cfbb8bd76ff5f3d4678a7dc517d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/1cfe14b4076ddd0f61552db47e453612f71f8b30",
-            "reference": "1cfe14b4076ddd0f61552db47e453612f71f8b30",
+            "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/2b911c0434527cfbb8bd76ff5f3d4678a7dc517d",
+            "reference": "2b911c0434527cfbb8bd76ff5f3d4678a7dc517d",
             "shasum": ""
         },
-        "time": "2020-03-04T12:07:38+00:00",
+        "time": "2020-03-05T14:13:05+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
