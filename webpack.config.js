@@ -1,7 +1,5 @@
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
     // ...
@@ -13,7 +11,7 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'styleguide-js': glob.sync('./source/js/**/*.js')
+        'styleguide-js': glob.sync('./node_modules/@helsingborg-stad/styleguide/source/**/*.js')
     },
     mode: 'development',
     watch: true,
@@ -26,7 +24,7 @@ module.exports = {
      * Output files
      */
     output: {
-        path: path.resolve(__dirname, 'assets/dist/'),
+        path: path.resolve(__dirname, 'assets/dist/3.0/'),
         filename: 'js/[name].min.js'
     },
     
@@ -49,38 +47,6 @@ module.exports = {
                     }
                 }
             },
-            
-            /**
-             * Fonts - File loader
-             */
-            {
-                test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            outputPath: 'fonts'
-                        }
-                    }
-                ]
-            }
         ]
     },
-    
-    /**
-     * Plugins
-     */
-    plugins: [
-        
-        // Prevent Webpack to create javascript css
-        new FixStyleOnlyEntriesPlugin(),
-        // Lint for scss
-        new StylelintPlugin({
-            context: "./source/sass",
-            configFile: "./.stylelintrc",
-            emitWarning: true,
-            defaultSeverity: "warning"
-        })
-    ]
-    // ...
 };
