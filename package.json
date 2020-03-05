@@ -5,10 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-imports": "webpack --config webpack.import.js",
-    "prebuild": "node build/build.js assets",
-    "build": "webpack --config webpack.config.js & node-sass --recursive --output-style compressed source/sass/main.scss assets/dist/2.0/css/styleguide-css.min.css",
+    "build": "webpack --config webpack.config.js & node-sass --recursive --output-style compressed node_modules/@helsingborg-stad/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
     "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
-    "sass": "node-sass --recursive --watch --output-style compressed source/sass/main.scss assets/dist/2.0/css/styleguide-css.min.css",
+    "sass": "node-sass --recursive --watch --output-style compressed source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
     "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
     "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
     "express-server": "node build/expressServer.js",
