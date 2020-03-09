@@ -1,14 +1,13 @@
+
 @card([
         'href' => $post->permalink,
-        'image' =>  municipio_get_thumbnail_source(null,array(400,225)),
-        'title' => [
-            'text' => $post->postTitle,
-            'position' => 'body'
-        ],
+        'imageFirst' => false,
+        'image' =>  ['src' => $post->featuredimage, 'alt' => 'featured image'],
+        'heading' => $post->postTitle,
         'classList' => ['c-card--shadow-on-hover'],
         'byline' => ['text' => $post->postDate, 'position' => 'body'],
-        'content' => the_excerpt(),
-        'hasRipple' => false
+        'content' => $post->postContent,
+        'buttons' => [['text' => 'Go', 'href' => $post->permalink]],
     ])
 
 @endcard

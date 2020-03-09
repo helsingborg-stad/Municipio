@@ -12,7 +12,11 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function init()
     {
-        
+        $this->data['posts'] = $this->getArchivePosts();
+        $this->data['postType'] = get_post_type();
+        $this->data['template'] = !empty(get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option') : 'collapsed';
+        $this->data['paginationList'] = $this->prepareArchivePagination();
+
         
         /*
         $postType = get_post_type();
@@ -37,6 +41,41 @@ class Archive extends \Municipio\Controller\BaseController
 
         */ 
     }
+    private function prepareArchivePagination(){
+        $pages = [];
+        $this->globalToLocal('wp_query', 'wp_query');
+    
+        for($archivePage = 1; $archivePage <= (int)$this->wp_query->max_num_pages; $archivePage++) {
+            $pages[] = array(
+                'label' => $archivePage,
+                'href' => str_replace('https://' . $_SERVER['SERVER_NAME'], '', get_pagenum_link($archivePage))
+            );
+        }
+
+        return \apply_filters('Municipio/Controller/Archive/prepareArchivePagination', $pages);
+    }
+
+    private function getArchivePosts()
+    {
+        $preparedPosts = [];
+        $this->globalToLocal('posts', 'posts');
+
+        if(is_array($this->posts) && !empty($this->posts)) {
+            foreach($this->posts as $post) {
+                $post->href = $post->permalink;
+
+                if(get_the_post_thumbnail_url($post->ID)){
+                    $post->featuredImage = \get_the_post_thumbnail_url($post->id);
+                }else{
+                    $post->featuredImage = null;
+                }
+                $preparedPosts[] = \Municipio\Helper\Post::preparePostObject($post);
+            }
+
+            return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $preparedPosts);
+        }
+    }
+
 
     public function setEqualContainer($equalContainer, $postType, $template)
     {
