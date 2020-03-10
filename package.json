@@ -1,76 +1,93 @@
 {
   "name": "Municipio",
   "version": "3.0.0",
-  "description": "The official website of Helsingborg Stad",
-  "main": "Gulpfile.js",
-  "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "browser-sync": "^2.24.3",
-    "glob": "^7.1.4",
-    "gulp-clean-css": "^3.9.4",
-    "gulp-jshint": "^2.1.0",
-    "gulp-rev-css-url": "^0.1.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "jshint": "^2.9.5",
-    "run-sequence": "^2.2.1"
-  },
-  "browserslist": [
-    "> 1%",
-    "not dead"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-export-default-from": "^7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "autoprefixer": "^9.6.0",
-    "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
-    "cross-env": "^5.2.0",
-    "css-loader": "^3.0.0",
-    "file-loader": "^4.0.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-copy": "0.0.2",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-image": "^4.3.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-rev": "^8.1.0",
-    "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^1.5.4",
-    "import-glob-loader": "^1.1.0",
-    "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.12.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "postcss-loader": "^3.0.0",
-    "rev-del": "^1.0.5",
-    "sass-loader": "^7.1.0",
-    "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.4",
-    "webpack-config-utils": "^2.3.1",
-    "webpack-dev-server": "^3.7.1",
-    "webpack-fix-style-only-entries": "^0.3.0",
-    "webpack-manifest-plugin": "^2.0.4",
-    "webpack-notifier": "^1.7.0"
-  },
+  "description": "The official wordpress theme of Helsingborg Stad",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "cross-env NODE_ENV=development webpack --watch",
-    "build:dev": "cross-env NODE_ENV=development webpack",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build-imports": "webpack --config webpack.import.js",
+    "build": "webpack --config webpack.config.js & node-sass --recursive --output-style compressed ./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
+    "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
+    "sass": "node-sass --recursive --watch --output-style compressed ./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
+    "lint-autofix": "stylelint \"./source/3.0/sass\" --fix && eslint -c .eslintrc.js source/3.0/js --fix",
+    "phpcs-report": "php phpcs.phar source/library --standard=psr2",
+    "phpcs-fix": "php phpcbf.phar source/library --standard=psr2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/helsingborg-stad/helsingborg.se.git"
+    "url": "git+https://github.com/helsingborg-stad/Municipio.git"
   },
-  "author": "",
+  "files": [
+    "assets/3.0/js/*",
+    "source/3.0/sass/*",
+    "assets/*",
+    "webpack.import.js",
+    "webpack.config.js",
+    "webpack.dev.config.js",
+    "LICENSE"
+  ],
+  "keywords": [],
+  "author": "HBG Works, Helsingborg Stad",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/helsingborg-stad/helsingborg.se/issues"
+    "url": "https://github.com/helsingborg-stad/Municipio/issues"
   },
-  "homepage": "https://github.com/helsingborg-stad/helsingborg.se"
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ],
+  "homepage": "https://github.com/helsingborg-stad/Municipio#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.7.4",
+    "autoprefixer": "^9.7.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^2.1.1",
+    "cssnano": "^4.1.10",
+    "eslint-config-hbg": "^0.1.1",
+    "extract-loader": "^3.1.0",
+    "file-loader": "^3.0.1",
+    "filemanager-webpack-plugin": "^2.0.5",
+    "fs": "0.0.1-security",
+    "hbg-mix": "^2.1.2",
+    "material-design-icons": "^3.0.1",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.13.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "sass": "^1.23.7",
+    "sass-loader": "^7.3.1",
+    "stylelint-webpack-plugin": "^1.1.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-fix-style-only-entries": "^0.2.2",
+    "webpack-shell-plugin": "^0.5.0",
+    "@helsingborg-stad/styleguide": "0.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "clientside-require": "^4.7.2",
+    "cors": "^2.8.5",
+    "glob": "^7.1.6",
+    "handlebars": "^4.7.3",
+    "jquery": "^3.4.1",
+    "masonry-layout": "^4.2.2",
+    "restify": "^8.5.1",
+    "restify-router": "^0.5.1",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "browser": {
+    "child_process": false
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
 }

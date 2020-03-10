@@ -1,5 +1,5 @@
 <span id="{{ $id }}" class="{{ $class }}">
-    @if (isset($button))
+    @if ($button)
         @button($button)
         @endbutton
     @else

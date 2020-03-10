@@ -1,0 +1,26 @@
+{
+    "slug": "grid",
+    "default": {
+        "container": false,
+        "columns": 12,
+        "min_width": "auto",
+        "max_width": "1fr",
+        "col_gap": 0,
+        "row_gap": 0
+    },
+    "descriptions": {
+        "container": "If the component should act as an container",
+        "columns": "How many columns the grid will be divided to",
+        "min-width": "Minimum width of the grid items",
+        "max-width": "Max width of the grid items.",
+        "col_gap": "The gap between columns",
+        "row_gap": "The gap between rows"
+    },
+    "view": "grid.blade.php",
+    "dependency": {
+        "sass": {
+            "components": [
+            ]
+        }
+    }
+}

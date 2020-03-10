@@ -19,7 +19,7 @@ namespace Symfony\Component\Finder\Iterator;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class CustomFilterIterator extends FilterIterator
+class CustomFilterIterator extends \FilterIterator
 {
     private $filters = [];
 
@@ -51,7 +51,7 @@ class CustomFilterIterator extends FilterIterator
         $fileinfo = $this->current();
 
         foreach ($this->filters as $filter) {
-            if (false === \call_user_func($filter, $fileinfo)) {
+            if (false === $filter($fileinfo)) {
                 return false;
             }
         }

@@ -1,7 +1,7 @@
 <!-- image.blade.php -->
 <figure id="{{ $id }}" class="{{ $class }}" {!! $attribute !!}>
     @if($src) 
-        <img src="{{$src}}" alt="{{$alt}}" class="{{$baseClass}}__image @if($modalId){{$baseClass}}__modal @endif" @if($modalId) data-open="{{$modalId}}" @endif />
+        <img src="{{$src}}" alt="{{$alt}}" class="{{$baseClass}}__image @if($openModal){{$baseClass}}__modal @endif" @if($openModal) data-open="{{$modalId}}" @endif />
         @if($caption)
             <figcaption class="{{$baseClass}}__caption">{{$caption}}</figcaption>
         @endif
@@ -11,3 +11,7 @@
         @endif
     @endif
 </figure>
+
+@if ($openModal)
+    @include('image.sub.modal')
+@endif
