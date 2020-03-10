@@ -6,8 +6,23 @@ class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
     {
+
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post());
+        
+        //Get Author data
+        $this->data['authorName'] = $this->getAuthor($this->data['post']->id)->name;
+        $this->data['authorAvatar'] = $this->getAuthor($this->data['post']->id)->avatar;
+
+        //Get published data
+        $this->data['publishedDate'] = $this->getPostDates($this->data['post']->id)->published;
+        $this->data['updatedDate'] = $this->getPostDates($this->data['post']->id)->updated;
+
+        $this->data['publishTranslations'] = array(
+            'updated'   => __('Last updated', 'municipio'),
+            'published' => __('Published date', 'municipio'),
+            'by'        => __('Published by', 'municipio')
+        );
 
         //Comments
         $this->data['comments'] = get_comments(array(
@@ -34,6 +49,23 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
     }
 
+
+    private function getAuthor($id): object
+    {
+        $author = array();
+        $author['name'] = get_the_author_meta( 'display_name', $this->data['post']->postAuthor );  
+        $author['avatar'] = get_avatar_url($id);
+
+        return apply_filters('Municipio/Controller/Singular/author', (object) $author);
+    }
+
+    private function getPostDates($id)
+    {
+        return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
+            'published' => get_the_date(), 
+            'updated' => get_the_modified_date()
+        ]);
+    }
 
     // TODO: ADD LIKE BUTTON. MOVE TO OWN CLASS/HELPER.
 
