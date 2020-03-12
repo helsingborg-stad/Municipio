@@ -24,62 +24,62 @@
     </head>
 
     <body class="{{ $bodyClass }}">
+        <div class="l-docs">
+        {{-- Site header --}}
 
-    {{-- Site header --}}
+        @includeIf('partials.header')
 
-    @includeIf('partials.header')
+        <main id="main" class="container--doc l-docs--content">
 
-    <main id="main">
+            {{-- Before page layout --}}
+            @yield('before-layout')
 
-        {{-- Before page layout --}}
-        @yield('before-layout')
+            {{-- Page layout --}}
+            @section('layout')
+                <div class="container main-container">
 
-        {{-- Page layout --}}
-        @section('layout')
-            <div class="container main-container">
+                    {{-- Above --}}
+                    @hasSection('above')
+                            @yield('above')
+                    @endif
 
-                {{-- Above --}}
-                @hasSection('above')
-                        @yield('above')
-                @endif
+                    {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
+                    @hasSection('sidebar-left')
+                        @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
 
-                {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
-                @hasSection('sidebar-left')
-                    @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
+                        @sidebar([
+                            'logo' => $logotype,
+                            'items' => $sideNavigation
+                        ])
+                        @endsidebar
 
-                    @sidebar([
-                        'logo' => $logotype,
-                        'items' => $sideNavigation
-                    ])
-                    @endsidebar
+                    @endif
 
-                @endif
+                    {{-- Content --}}
+                    <div class="{{$layout['content']}} content">
+                        @yield('content')
+                    </div>
 
-                {{-- Content --}}
-                <div class="{{$layout['content']}} content">
-                    @yield('content')
+                    {{-- Below --}}
+                    @hasSection('below')
+                        @yield('below')
+                    @endif
                 </div>
 
-                {{-- Below --}}
-                @hasSection('below')
-                    @yield('below')
-                @endif
-            </div>
+            @show
 
+            {{-- After page layout --}}
+            @yield('after-layout')
+        </main>
+
+
+        {{-- Site footer --}}
+        @section('footer')
+            @includeIf('partials.footer')
         @show
 
-        {{-- After page layout --}}
-        @yield('after-layout')
-    </main>
-
-
-    {{-- Site footer --}}
-    @section('footer')
-        @includeIf('partials.footer')
-    @show
-    
-    {{-- Wordpress required call --}}
-    {!! wp_footer() !!}
-
+        {{-- Wordpress required call --}}
+        {!! wp_footer() !!}
+        </div>
     </body>
 </html>

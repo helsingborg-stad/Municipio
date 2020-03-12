@@ -1,4 +1,5 @@
 @if (get_field('nav_primary_enable', 'option') === true)
+    <!--
     <nav
         class="navbar navbar-mainmenu hidden-xs hidden-sm hidden-print {{ get_field('header_sticky', 'option') ? 'sticky-scroll' : '' }} {{ is_front_page() && get_field('header_transparent', 'option') ? 'navbar-transparent' : '' }}">
         {!! $navigation['mainMenu'] !!}
@@ -10,5 +11,5 @@
             @includeIf('partials.mobile-menu')
         </nav>
     @endif
-
+    -->
 @endif
