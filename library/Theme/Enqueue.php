@@ -85,6 +85,12 @@ class Enqueue
             .'/assets/dist/3.0/css/styleguide-css.min.css');
         wp_enqueue_style('style-guide');
 
+        // Municipio
+        wp_register_style('municipio', get_template_directory_uri()
+            .'/assets/dist/3.0/css/municipio-css.min.css');
+        wp_enqueue_style('municipio');
+
+
     }
 
     /**

@@ -12,7 +12,7 @@
 
 @section('sidebar-left')
     @if (get_field('nav_sub_enable', 'option'))
-    {!! $navigation['sidebarMenu'] !!}
+        {!! $navigation['sidebarMenu'] !!}
     @endif
 
     @include('partials.sidebar', ['id' => 'left-sidebar'])
