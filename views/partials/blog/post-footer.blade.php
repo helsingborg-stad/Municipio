@@ -17,6 +17,12 @@
             </div>
         </div>
     @endif
+    <!-- Post date and Latest published -->
+    <div class="grid">
+        <div class="grid-xs-12">
+            @include('partials.timestamps')
+        </div>
+    </div>
 
     @if (!empty(municipio_post_taxonomies_to_display(get_the_id())))
     <div class="grid grid-table">
