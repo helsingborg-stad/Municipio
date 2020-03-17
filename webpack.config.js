@@ -25,8 +25,8 @@ module.exports = {
      * Output files
      */
     output: {
-        path: path.resolve(__dirname, 'assets/dist/3.0/'),
-        filename: 'js/[name].min.js'
+        path: path.resolve(__dirname, 'assets/dist/3.0/js/'),
+        filename: '[name].min.js'
     },
     
     /**
