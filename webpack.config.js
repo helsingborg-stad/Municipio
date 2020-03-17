@@ -11,7 +11,8 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'styleguide-js': glob.sync('./node_modules/@helsingborg-stad/styleguide/source/**/*.js')
+        'styleguide-js': glob.sync('./node_modules/@helsingborg-stad/styleguide/source/**/*.js'),
+        'municipio-js': glob.sync('./assets/source/3.0/js/*.js')
     },
     mode: 'development',
     watch: true,
