@@ -1,12 +1,9 @@
-<header id="site-header" class="{{ $headerLayout['classes'] }}">
-
-    {{-- SAERCH MENU --}}
-    @includeIf('partials.search.search-form')
-
+<header id="site-header">
     {{-- TAB MENU --}}
     @includeIf('partials.header.tabs')
 
     {{-- SITE LOGO TYPE --}}
+    {{--
     @if (get_field('header_logotype', 'option') === 'negative')
         @includeIf('partials.logo', [
             'logo' => get_field('logotype_negative', 'option'),
@@ -18,6 +15,7 @@
             'logoTooltip' => get_field('logotype_tooltip', 'option')
             ])
     @endif
+    --}}
 
     {{-- SITE SUB TITLE --}}
     @if (get_field('sub_site_title', 'option') && !empty(get_field('sub_site_title', 'option')))
@@ -44,7 +42,7 @@
 
     {{-- After header body --}}
     @yield('after-header-body')
-</header>
+
 
     {{-- TODO: find out ??? keep or drop.--}}
 

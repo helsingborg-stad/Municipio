@@ -25,9 +25,14 @@
 
 <body class="{{ $bodyClass }}">
 <div class="l-docs">
-    {{-- Site header --}}
+    {{-- SAERCH MENU --}}
+    <div class="container--doc l-docs--content">
+        @includeIf('partials.search.search-form')
+    </div>
 
+    {{-- Site header --}}
     @includeIf('partials.header')
+
 
     <main id="main" class="container--doc l-docs--content">
 
