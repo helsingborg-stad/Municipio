@@ -61,8 +61,27 @@
                 {{-- Content --}}
                 <div class="{{$layout['content']}} content">
                     @yield('content')
+                    
                 </div>
+                @fab([
+                    'position' => 'bottom-right',
+                    'spacing' => 'lg',
+                    'classList' => ['c-fab--show-on-scroll', 'u-visibility--hidden']
+                ])
 
+                    @button([
+                        'type' => 'filled',
+                        'icon' => 'close',
+                        'size' => 'lg',
+                        'text' => 'To the top',
+                        'color' => 'primary',
+                        'icon' => 'keyboard_arrow_up',
+                        'reversePositions' => true
+                        
+                    ])
+                    @endbutton
+
+                @endfab
                 {{-- Below --}}
                 @hasSection('below')
                     @yield('below')
