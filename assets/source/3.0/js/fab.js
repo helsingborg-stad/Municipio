@@ -1,10 +1,7 @@
 export default class Fab{
-    showOnScroll(){
-
-        
+    showOnScroll(){  
         let fabs = document.getElementsByClassName("c-fab--show-on-scroll");
       
-
         Array.prototype.forEach.call(fabs, fab => {
             if(window.scrollY  >= 150){
                 fab.classList.remove('u-visibility--hidden');
@@ -17,14 +14,11 @@ export default class Fab{
 
         window.addEventListener('scroll', function(event) {
             fabs.forEach(fab => {
-                
                 if(this.window.scrollY  >= 150){
-                    fab.classList.remove('u-visibility--hidden')
-                    console.log(fab)
+                    fab.classList.remove('u-visibility--hidden');
                 }else{
-                    fab.classList.add('u-visibility--hidden')
+                    fab.classList.add('u-visibility--hidden');
                 }
-                
             });
         });
     }
