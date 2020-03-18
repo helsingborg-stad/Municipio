@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
-    <head>
+<head>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{ $pageTitle }}</title>
+    <title>{{ $pageTitle }}</title>
 
-        <meta name="pubdate" content="{{ $pagePublished }}">
-        <meta name="moddate" content="{{ $pageModified }}">
+    <meta name="pubdate" content="{{ $pagePublished }}">
+    <meta name="moddate" content="{{ $pageModified }}">
 
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <meta name="format-detection" content="telephone=yes">
-        <meta name="HandheldFriendly" content="true"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="HandheldFriendly" content="true"/>
 
-        <script>
-            var ajaxurl = '{!! $ajaxUrl !!}';
-        </script>
+    <script>
+        var ajaxurl = '{!! $ajaxUrl !!}';
+    </script>
 
-        {{-- Wordpress required call --}}
-        {!! wp_head() !!}
+    {{-- Wordpress required call --}}
+    {!! wp_head() !!}
 
-    </head>
+</head>
 
-    <body class="{{ $bodyClass }}">
+<body class="{{ $bodyClass }}">
+<div class="l-docs">
+    {{-- SAERCH MENU --}}
+    <div class="container--doc l-docs--content">
+        @includeIf('partials.search.search-form')
+    </div>
 
     {{-- Site header --}}
-
     @includeIf('partials.header')
 
-    <main id="main">
+
+    <main id="main" class="container--doc l-docs--content">
 
         {{-- Before page layout --}}
         @yield('before-layout')
@@ -40,19 +45,17 @@
 
                 {{-- Above --}}
                 @hasSection('above')
-                        @yield('above')
+                    @yield('above')
                 @endif
 
                 {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
                 @hasSection('sidebar-left')
                     @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
-
                     @sidebar([
                         'logo' => $logotype,
                         'items' => $sideNavigation
                     ])
                     @endsidebar
-
                 @endif
 
                 {{-- Content --}}
@@ -77,9 +80,9 @@
     @section('footer')
         @includeIf('partials.footer')
     @show
-    
+
     {{-- Wordpress required call --}}
     {!! wp_footer() !!}
-
-    </body>
+</div>
+</body>
 </html>

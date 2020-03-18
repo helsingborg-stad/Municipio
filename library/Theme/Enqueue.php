@@ -85,6 +85,12 @@ class Enqueue
             .'/assets/dist/3.0/css/styleguide-css.min.css');
         wp_enqueue_style('style-guide');
 
+        // Municipio
+        wp_register_style('municipio', get_template_directory_uri()
+            .'/assets/dist/3.0/css/municipio-css.min.css');
+        wp_enqueue_style('municipio');
+
+
     }
 
     /**
@@ -122,7 +128,7 @@ class Enqueue
             )
         ));
         wp_enqueue_script($this->defaultPrimeName);
-
+        /*
         wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/2.0/' .
             \Municipio\Helper\CacheBust::name('js/app.js'));
 
@@ -154,12 +160,18 @@ class Enqueue
         if(!defined('INSTANT_PAGE_DISABLED')) {
             wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true); 
         }
+        */
 
 
+        // Municipio
+        wp_register_script('municipio', get_template_directory_uri()
+            .'/assets/dist/3.0/js/municipio-js.min.js');
+        wp_enqueue_script('municipio');
         // Helsingborg Styleguide
         wp_register_script('style-guide', get_template_directory_uri()
             .'/assets/dist/3.0/js/styleguide-js.min.js');
         wp_enqueue_script('style-guide');
+
     }
 
     public function moveScriptsToFooter()

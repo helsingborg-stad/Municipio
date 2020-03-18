@@ -1,11 +1,19 @@
 <article id="article" class="c-article s-article u-mb-4">
-    @typography(["variant" => "h1","element" => "h1"])
-        @link
+   <!-- Title -->
+    @typography(["element" => "h1"])
         {!! $postTitleFiltered !!}
-        @endlink
     @endtypography
-
-    {!! $postContentFiltered !!}
+   <!-- Excerpt ? Byline ...-->
+    @typography([
+        "element" => "p",
+        "classList" => ["byline"]
+    ])
+       asdf<!-- Post Excerpt ?????-->
+    @endtypography
+    <!-- Content -->
+    @paper(['padding' => 3])
+        {!! $postContentFiltered !!}
+    @endpaper
 </article>
 
 {{--

@@ -9,6 +9,7 @@
     "build": "webpack --config webpack.config.js & node-sass --recursive --output-style compressed ./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
     "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
     "sass": "node-sass --recursive --watch --output-style compressed ./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss assets/dist/3.0/css/styleguide-css.min.css",
+    "sass-theme": "node-sass --recursive --watch --output-style compressed assets/source/3.0/sass/main.scss assets/dist/3.0/css/municipio-css.min.css",
     "lint-autofix": "stylelint \"./source/3.0/sass\" --fix && eslint -c .eslintrc.js source/3.0/js --fix",
     "phpcs-report": "php phpcs.phar source/library --standard=psr2",
     "phpcs-fix": "php phpcbf.phar source/library --standard=psr2"
