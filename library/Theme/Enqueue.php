@@ -163,15 +163,15 @@ class Enqueue
         */
 
 
+        // Municipio
+        wp_register_script('municipio', get_template_directory_uri()
+            .'/assets/dist/3.0/js/municipio-js.min.js');
+        wp_enqueue_script('municipio');
         // Helsingborg Styleguide
         wp_register_script('style-guide', get_template_directory_uri()
             .'/assets/dist/3.0/js/styleguide-js.min.js');
         wp_enqueue_script('style-guide');
 
-        // Municipio
-        wp_register_script('style-guide', get_template_directory_uri()
-            .'/assets/dist/3.0/js/municipio-js.min.js');
-        wp_enqueue_script('style-guide');
     }
 
     public function moveScriptsToFooter()
