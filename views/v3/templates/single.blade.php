@@ -27,21 +27,6 @@
     @section('loop')
         @if($post)
             @include('partials.article', (array) $post)
-
-            @avatar(['image' => $authorAvatar])
-            @endavatar
-
-            @typography(['variant' => 'h4', 'element' => 'meta'])
-                {{$publishTranslations['by']}} {{$authorName}}
-            @endtypography
-
-            @typography(['variant' => 'meta'])
-                {{$publishTranslations['published']}} {{$publishedDate}}
-            @endtypography
-
-            @typography(['variant' => 'meta'])
-                {{$publishTranslations['updated']}} {{$updatedDate}}
-            @endtypography
         @endif
     @show
 

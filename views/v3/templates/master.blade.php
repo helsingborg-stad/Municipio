@@ -25,24 +25,18 @@
 
 <body class="{{ $bodyClass }}">
 <div class="l-docs">
-    {{-- SAERCH MENU --}}
-    <div class="container--doc l-docs--content">
-        @includeIf('partials.search.search-form')
-    </div>
-
     {{-- Site header --}}
     @includeIf('partials.header')
 
 
-    <main id="main" class="container--doc l-docs--content">
+    <div class="container--doc l-docs--content">
 
         {{-- Before page layout --}}
         @yield('before-layout')
 
         {{-- Page layout --}}
         @section('layout')
-            <div class="container main-container">
-
+            <section>
                 {{-- Above --}}
                 @hasSection('above')
                     @yield('above')
@@ -59,10 +53,11 @@
                 @endif
 
                 {{-- Content --}}
-                <div class="{{$layout['content']}} content">
-                    @yield('content')
-                    
-                </div>
+                <!-- <div class="{{-- $layout['content'] --}} content"> -->
+
+                @yield('content')
+
+                <!-- FAB -->
                 @fab([
                     'position' => 'bottom-right',
                     'spacing' => 'lg',
@@ -77,31 +72,37 @@
                         'color' => 'primary',
                         'icon' => 'keyboard_arrow_up',
                         'reversePositions' => true
-                        
+
                     ])
                     @endbutton
 
                 @endfab
-                {{-- Below --}}
-                @hasSection('below')
-                    @yield('below')
-                @endif
-            </div>
+
+            </section>
+
+            {{-- Below --}}
+            @hasSection('below')
+                @yield('below')
+            @endif
+
 
         @show
 
         {{-- After page layout --}}
         @yield('after-layout')
-    </main>
+
+        {{-- Site footer --}}
+        @section('footer')
+            @includeIf('partials.footer')
+        @show
+
+    </div>
 
 
-    {{-- Site footer --}}
-    @section('footer')
-        @includeIf('partials.footer')
-    @show
 
     {{-- Wordpress required call --}}
     {!! wp_footer() !!}
 </div>
+
 </body>
 </html>
