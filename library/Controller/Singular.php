@@ -2,6 +2,10 @@
 
 namespace Municipio\Controller;
 
+/**
+ * Class Singular
+ * @package Municipio\Controller
+ */
 class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
@@ -49,7 +53,10 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
     }
 
-
+    /**
+     * @param $id
+     * @return object
+     */
     private function getAuthor($id): object
     {
         $author = array();
@@ -59,6 +66,10 @@ class Singular extends \Municipio\Controller\BaseController
         return apply_filters('Municipio/Controller/Singular/author', (object) $author);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     private function getPostDates($id)
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
@@ -67,37 +78,4 @@ class Singular extends \Municipio\Controller\BaseController
         ]);
     }
 
-    // TODO: ADD LIKE BUTTON. MOVE TO OWN CLASS/HELPER.
-
-    /**
-     * Display comment like button
-     * @param int $id Comment ID
-     * @return string Markup to display button
-     */
-    public static function likeButton($id)
-    {
-        if (! is_user_logged_in()) {
-            return;
-        }
-
-        $likes = get_comment_meta($id, '_likes', true);
-
-        if (empty($likes) || is_array($likes) == false) {
-            $count = 0;
-        } else {
-            $count = count($likes);
-        }
-
-        $classes = array('like-button');
-
-        if (is_array($likes) == true && in_array(get_current_user_id(), $likes)) {
-            $classes[] = 'active';
-        }
-
-        $output = '<a class="' . implode(' ', $classes) . '" href="javascript:void(0)" data-comment-id="' . $id . '">';
-        $output .= '<span id="like-count">' . $count . '</span>';
-        $output .= '</a>';
-
-        return $output;
-    }
 }
