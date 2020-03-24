@@ -1,7 +1,7 @@
 <header id="site-header">
     {{-- TAB MENU --}}
-    @includeIf('partials.header.tabs')
-
+    {{-- @includeIf('partials.header.tabs') --}}
+    @includeIf('partials.search.search-form')
     {{-- SITE LOGO TYPE --}}
     {{--
     @if (get_field('header_logotype', 'option') === 'negative')

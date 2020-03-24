@@ -2,7 +2,10 @@
     <?php dynamic_sidebar('bottom-sidebar'); ?>
 @endif
 
-<footer id="site-footer" class="{{ apply_filters('Views/Partials/Header/FooterClass', $footerLayout['classes']) }}">
+<footer id="site-footer" class="c-footer {{ apply_filters('Views/Partials/Header/FooterClass',
+$footerLayout['classes']) }}">
+    {{-- TODO: remove text --}}
+    Footer area....
     @section('footer-body')
 
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
@@ -29,6 +32,8 @@
                     </nav>
 
                 @endif
+
+
                 {{-- ## Footer header end ## --}}
 
                 {{-- ## Footer widget area begin ## --}}
