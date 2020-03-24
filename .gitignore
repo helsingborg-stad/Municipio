@@ -2,5 +2,5 @@
 node_modules
 composer.lock
 .npmrc
-package-json.lock
+package-lock.json
 assets/dist/3.0/js/*
