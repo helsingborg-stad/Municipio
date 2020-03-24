@@ -3,3 +3,4 @@ node_modules
 composer.lock
 .npmrc
 package-json.lock
+assets/dist/3.0/js/*
