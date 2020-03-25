@@ -12,72 +12,81 @@
 	@endtypography
 	<!-- Content -->
 	@paper(['padding' => 3])
+
+		{{-- Post --}}
 		{!! $postContentFiltered !!}
 
 
-	{{-- Author --}}
-	@grid([
-		"container" => true,
-		"row_gap" => 3
-	])
+
+		{{-- Author --}}
 		@grid([
-			"col_gap" => 8,
-			"col" => [
-				"xs" => [1,3],
-				"sm" => [1,3],
-				"md" => [1,3],
-				"lg" => [1,2],
-				"xl" => [1,2],
-				"lg" => [1,2],
-				"xl" => [1,2]
-			],
-			"row" => [
-				"xs" => [1,2],
-				"sm" => [1,2],
-				"md" => [1,2]
-			]
+			"container" => true,
+			"row_gap" => 3
 		])
+			@grid([
+				"col_gap" => 8,
+				"col" => [
+					"xs" => [1,3],
+					"sm" => [1,3],
+					"md" => [1,3],
+					"lg" => [1,2],
+					"xl" => [1,2],
+					"lg" => [1,2],
+					"xl" => [1,2]
+				],
+				"row" => [
+					"xs" => [1,2],
+					"sm" => [1,2],
+					"md" => [1,2]
+				]
+			])
 
-			@avatar(['size' => 'sm', 'image' => $authorAvatar, 'classList' => ['author']])
-			@endavatar
+				@avatar(['size' => 'sm', 'image' => $authorAvatar, 'classList' => ['author']])
+				@endavatar
 
+			@endgrid
+
+
+			@grid([
+				"row_gap" => 0,
+				"col" => [
+					"xs" => [3,12],
+					"sm" => [2,7],
+					"md" => [2,7],
+					"lg" => [2,5],
+					"xl" => [2,4]
+				],
+				"row" => [
+					"xs" => [1,2],
+					"sm" => [1,2],
+					"md" => [1,2],
+					"lg" => [1,2],
+					"xl" => [1,1]
+				]
+			])
+
+			@typography(['variant' => 'h4', 'element' => 'meta'])
+				{{$publishTranslations['by']}} {{$authorName}}
+			@endtypography
+
+			@typography(['variant' => 'meta'])
+				{{$publishTranslations['published']}} {{$publishedDate}}
+			@endtypography
+
+			@typography(['variant' => 'meta'])
+				{{$publishTranslations['updated']}} {{$updatedDate}}
+			@endtypography
+
+			@endgrid
 		@endgrid
 
-
-		@grid([
-			"row_gap" => 0,
-			"col" => [
-				"xs" => [3,12],
-				"sm" => [2,7],
-				"md" => [2,7],
-				"lg" => [2,5],
-				"xl" => [2,4]
-			],
-			"row" => [
-				"xs" => [1,2],
-				"sm" => [1,2],
-				"md" => [1,2],
-				"lg" => [1,2],
-				"xl" => [1,1]
-			]
-		])
-
-		@typography(['variant' => 'h4', 'element' => 'meta'])
-			{{$publishTranslations['by']}} {{$authorName}}
-		@endtypography
-
-		@typography(['variant' => 'meta'])
-			{{$publishTranslations['published']}} {{$publishedDate}}
-		@endtypography
-
-		@typography(['variant' => 'meta'])
-			{{$publishTranslations['updated']}} {{$updatedDate}}
-		@endtypography
-
-		@endgrid
-	@endgrid
+		{{-- Comments --}}
+		@includeIf('comments')
 
 	@endpaper
+
+
+
 
 </article>
 

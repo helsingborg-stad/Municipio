@@ -1,52 +1,58 @@
-@segment([
-    'template' => 'featured',
-    'containContent' => true,
-    'height' => 'md',
-    'width' => 'lg',
-    'card' => [
-        'isCard' => true,
-        'background' => "gray",
-        'padding' => "10"
-    ],
-    'text_alignment' => 'right',
-    'content_alignment' => [
-        'vertical' => 'center',
-        'horizontal' => 'right'
-    ],
-    'article_heading' => [
-        "variant" => "h1",
-        "element" => "h2",
-        "slot" => ""
-    ],
-        'article_body' => ""
-])
+<?php
+$key = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
+$reCaptcha = (!is_user_logged_in(
+    0)) ? '<div class="g-recaptcha" data-sitekey="' . $key . '"></div></div>' : '';
 
-@php
+ob_start();
+echo '
+<div class="comment-respond comment-respond-new u-mt-4">
+    <textarea name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s"></textarea>
+</div>
+';
 
-@endphp
+
+/*comment_form(array(
+    'class_submit' 			=> 'btn btn-primary',
+    'submit_button' 		=> $reCaptcha . '<div class="form-group"><input  /></div>'
+));*/
+ob_get_clean();
+//echo str_replace('class="comment-respond"','class="comment-respond comment-respond-new u-mt-4"',
+$current_user = wp_get_current_user();
+
+
+$args = array(
+    'id_form'           => 'commentForm',
+    'class_form'        => 'c-form',
+    'id_submit'         => 'submit',
+    'class_submit'      => 'c-button c-button__filled c-button__filled--primary c-button--md',
+    'name_submit'       => 'submit',
+    'submit_button'     => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />',
+    'format'            => 'xhtml',
+    'comment_field'     =>  $reCaptcha. '<div class="c-textarea"><textarea id="comment"
+    name="comment" placeholder="'.__
+        ('Comment
+    text','text-domain').'" aria-required="true">' .'</textarea></div>',
+    'comment_notes_before' => '<p class="comment-notes">' . __( 'Your email address will not be published.','text-domain' ) .'</p>'
+);
+
+comment_form( $args );
+
+?>
+
 
 @foreach($comments as $comment)
     @if($comment->comment_parent == 0)
 
-
-        @if (isset($authorPages) && $authorPages == true &&
-            email_exists($comment->comment_author_email) !== false)
+        @if ($comment->comment_author_email)
 
             @php
-                $userName = get_user_by('email', $comment->comment_author_email);
 
-                $userAvatar = (get_the_author_meta('user_profile_picture', get_user_by('email',
-                $comment->comment_author_email)->ID)) ?
-                    get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID)
-                 :
-                    $userName
-                 ;
+                $userName = (get_user_by('email', $comment->comment_author_email)) ?
+                    (get_user_by('email', $comment->comment_author_email)->data->user_nicename) : '';
+                $userAvatar = (get_user_by('email',$comment->comment_author_email) !== null &&
+                    !empty(get_user_by('email',$comment->comment_author_email)))
+                    ? $userAvatar = get_avatar_url(get_user_by('email', $comment->comment_author_email)->data->ID ) : '';
 
-            @endphp
-        @else
-
-            @php
-                $userName =  $comment->comment_author;
             @endphp
 
         @endif
@@ -54,10 +60,12 @@
         {{-- Comment Thread --}}
         @comment([
             'author' => $userName,
-            'text' => comment_text($comment->comment_ID),
+            'author_url' => 'mailto:'.$comment->comment_author_email,
+            'author_image' => $userAvatar,
+            'text' => get_comment_text($comment->comment_ID),
             'icon' => 'face',
-            'image' => 'https://picsum.photos/70/70?image=64',
-            'date' => date('Y-m-d \k\l\. H:i', strtotime($comment->comment_date))
+            'date' => date('Y-m-d \k\l\. H:i', strtotime($comment->comment_date)),
+            'classList' => ['comment-'.$comment->comment_ID]
         ])
 
 
@@ -70,6 +78,56 @@
             @endif
 
         @endcomment
+
+        @if (is_user_logged_in())
+
+            <div class="u-padding__top--1 ">
+                @button([
+                    'icon' => 'reply',
+                    'reversePositions' => true,
+                    'style' => 'basic',
+                    'color' => 'secondary',
+                    'text' => __('Reply', 'municipio'),
+                    'attributeList' => ['js-toggle-trigger' => 'reply-form-'.$comment->comment_ID],
+                    'classList' => ['u-float--right']
+                ])
+                @endbutton
+            </div>
+
+
+            <div class="u-display--none" js-toggle-item="{{'reply-form-'
+            .$comment->comment_ID}}"
+                 js-toggle-class="u-display--none">
+                @php
+                    $args = array(
+                        'id_form'           => 'commentForm',
+                        'class_form'        => 'comment-form',
+                        'id_submit'         => 'submit',
+                        'class_submit'      => 'c-button c-button__filled
+                        c-button__filled--secondary c-button--md',
+                        'name_submit'       => 'submit',
+                        'submit_button'     => '<input name="%1$s"
+                            type="submit" id="%2$s"
+                            class="%3$s"
+                            value="'.__('Post comment', 'municipio').'" />',
+                        'title_reply'       => '',
+                        'title_reply_to'    => __( 'Reply to %s','text-domain' ),
+                        'cancel_reply_link' => __( 'Cancel comment','text-domain' ),
+                        'label_submit'      => __( 'Post comment','text-domain' ),
+                        'format'            => 'xhtml',
+                        'comment_field'     =>  $reCaptcha. '<div class="c-textarea">
+                            <textarea id="comment" name="comment"
+                            placeholder="'.__('Comment text','text-domain').'"
+                            aria-required="true">' .'</textarea></div>',
+                        'comment_notes_before' => '<p class="comment-notes">'
+                            . __( 'Your email address will not be published.','text-domain' ) .'</p>'
+                    );
+
+                    comment_form( $args );
+                @endphp
+
+            </div>
+        @endif
 
         @php
             $answers = get_comments(array('parent' => $comment->comment_ID, 'order' => 'asc'));
@@ -86,24 +144,37 @@
                 @else
 
                     @php
-                        $displayNameAnswer =  $answer->comment_author;
-                        $userAvatarAnswer = (get_the_author_meta('user_profile_picture', get_user_by('email',
-                        $answer->comment_author_email)->ID)) ?
-                            get_the_author_meta('user_profile_picture', get_user_by('email', $answer->comment_author_email)->ID)
-                         :
-                            $displayNameAnswer
-                         ;
+
+                        $userName = (get_user_by('email', $answers->comment_author_email)->data->user_nicename) ?
+                            (get_user_by('email', $answers->comment_author_email)->data->user_nicename) : '';
+                        $userAvatar = (get_user_by('email',$answers->comment_author_email) !== null &&
+                            !empty(get_user_by('email',$answers->comment_author_email)))
+                            ? $userAvatar = get_avatar_url(get_user_by('email', $answers->comment_author_email)->data->ID ) : '';
+
                     @endphp
+
                 @endif
 
                     @comment([
                         'author' => $displayNameAnswer,
-                        'text' => comment_text($answer->comment_ID),
+                        'author_url' => $answer->comment_author_email,
+                        'author_image' => $userAvatarAnswer,
+                        'text' => get_comment_text($answer->comment_ID),
                         'icon' => 'face',
-                        'image' => $userAvatarAnswer,
                         'date' => date('Y-m-d \k\l\. H:i', strtotime($answer->comment_date)),
                         'is_reply' => true
                     ])
+
+                        @if (\Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
+                            ($$answer->comment_ID)) !== null )
+
+                                <span class="like">
+                                {!! \Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
+                                ($answer->comment_ID)) !!}
+                            </span>
+
+                        @endif
+
                     @endcomment
 
             @endforeach
@@ -111,5 +182,3 @@
 
     @endif
 @endforeach
-
-@endsegment
