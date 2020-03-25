@@ -6,17 +6,29 @@
                 'name' => $icon,
                 'size' => 'lg'
             ],
-            'image' => $image
+            'image' => $author_image
         ])
         @endavatar
 
-        @typography([
-            "variant" => "title",
-            "element" => "h6",
-            "classList" => [$baseClass.'__author']
-        ])
-            {{$author}}
-        @endtypography
+        @if ($author_url)
+            @link([
+                'href' => $author_url,
+                'classList' => ['c-comment__link']
+            ])
+        @endif
+        
+            @typography([
+                "variant" => "title",
+                "element" => "h6",
+                "classList" => [$baseClass.'__author']
+            ])
+                {{$author}}
+            @endtypography
+
+        @if ($author_url)
+            @endlink
+        @endif
+        
 
         @if ($date)
             @typography([

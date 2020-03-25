@@ -6,7 +6,8 @@
       "text": false,
       "size": "md",
       "color": "default",
-      "type": "filled",
+      "type": "button",
+      "style": "filled",
       "href":false,
       "target":"_top",
       "componentElement":"button",
@@ -31,7 +32,8 @@
       "color": "The color scheme for the button.",
       "size": "The size of the button; sm, md, lg.",
       "toggle": "Will toggle the color of the font.",
-      "type": "The type of appearance, can be basic, filled or outlined.",
+      "type": "What button type.",
+      "style": "The type of appearance, can be basic, filled or outlined.",
       "reversePositions": "Reverse the position of icon and text."
    },
    "view":"button.blade.php"

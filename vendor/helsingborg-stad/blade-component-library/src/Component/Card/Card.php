@@ -8,7 +8,6 @@ namespace BladeComponentLibrary\Component\Card;
  */
 class Card extends \BladeComponentLibrary\Component\BaseController
 {
-
 	public function init()
 	{
 		//Extract array for eazy access (fetch only)
@@ -23,13 +22,8 @@ class Card extends \BladeComponentLibrary\Component\BaseController
 			$this->data['classList'][] = $this->getBaseClass() . '--image-first'; 
 		} 
 
-		if($collapsible){
-			$this->data['collapsible'] = 'c-card--collapse';
+		if($collapsible && $content){
+			$this->data['collapsible'] = $this->getBaseClass() . '--collapse';
 		} 
-		
-
 	}
-
-
-
 }

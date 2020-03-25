@@ -283,22 +283,22 @@
     },
     {
         "name": "helsingborg-stad/blade-component-library",
-        "version": "0.2.3",
-        "version_normalized": "0.2.3.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-            "reference": "2b911c0434527cfbb8bd76ff5f3d4678a7dc517d"
+            "reference": "9899959bb12a83405d63323dbe4315976f06b4bf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/2b911c0434527cfbb8bd76ff5f3d4678a7dc517d",
-            "reference": "2b911c0434527cfbb8bd76ff5f3d4678a7dc517d",
+            "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/9899959bb12a83405d63323dbe4315976f06b4bf",
+            "reference": "9899959bb12a83405d63323dbe4315976f06b4bf",
             "shasum": ""
         },
-        "time": "2020-03-05T14:13:05+00:00",
+        "time": "2020-03-24T13:03:43+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "BladeComponentLibrary\\": "src"
@@ -356,17 +356,17 @@
     },
     {
         "name": "illuminate/container",
-        "version": "v7.0.4",
-        "version_normalized": "7.0.4.0",
+        "version": "v7.2.2",
+        "version_normalized": "7.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/container.git",
-            "reference": "d11bae50ad72a4522c13d8c46a24f83f6e7beec4"
+            "reference": "9108edffa95b34df94dc36721d92f380dd59bea3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/container/zipball/d11bae50ad72a4522c13d8c46a24f83f6e7beec4",
-            "reference": "d11bae50ad72a4522c13d8c46a24f83f6e7beec4",
+            "url": "https://api.github.com/repos/illuminate/container/zipball/9108edffa95b34df94dc36721d92f380dd59bea3",
+            "reference": "9108edffa95b34df94dc36721d92f380dd59bea3",
             "shasum": ""
         },
         "require": {
@@ -374,7 +374,7 @@
             "php": "^7.2.5",
             "psr/container": "^1.0"
         },
-        "time": "2020-03-02T15:52:51+00:00",
+        "time": "2020-03-18T13:25:12+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -402,17 +402,17 @@
     },
     {
         "name": "illuminate/contracts",
-        "version": "v7.0.4",
-        "version_normalized": "7.0.4.0",
+        "version": "v7.2.2",
+        "version_normalized": "7.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/contracts.git",
-            "reference": "4e885c85fba40946f75167a2b2ac7902aeb2f2d7"
+            "reference": "075d70c8d621e474d10279bf62c19e121be30e95"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/contracts/zipball/4e885c85fba40946f75167a2b2ac7902aeb2f2d7",
-            "reference": "4e885c85fba40946f75167a2b2ac7902aeb2f2d7",
+            "url": "https://api.github.com/repos/illuminate/contracts/zipball/075d70c8d621e474d10279bf62c19e121be30e95",
+            "reference": "075d70c8d621e474d10279bf62c19e121be30e95",
             "shasum": ""
         },
         "require": {
@@ -420,7 +420,7 @@
             "psr/container": "^1.0",
             "psr/simple-cache": "^1.0"
         },
-        "time": "2020-02-28T16:28:59+00:00",
+        "time": "2020-03-16T13:40:39+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -448,8 +448,8 @@
     },
     {
         "name": "illuminate/events",
-        "version": "v7.0.4",
-        "version_normalized": "7.0.4.0",
+        "version": "v7.2.2",
+        "version_normalized": "7.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/events.git",
@@ -495,8 +495,8 @@
     },
     {
         "name": "illuminate/filesystem",
-        "version": "v7.0.4",
-        "version_normalized": "7.0.4.0",
+        "version": "v7.2.2",
+        "version_normalized": "7.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/filesystem.git",
@@ -550,17 +550,17 @@
     },
     {
         "name": "illuminate/support",
-        "version": "v7.0.4",
-        "version_normalized": "7.0.4.0",
+        "version": "v7.2.2",
+        "version_normalized": "7.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "a76c2791e26e4f6ca4ce3325ba550816307d10d0"
+            "reference": "91066b0b829ea0ab1315eeaefbe7f191cc31d7a1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/a76c2791e26e4f6ca4ce3325ba550816307d10d0",
-            "reference": "a76c2791e26e4f6ca4ce3325ba550816307d10d0",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/91066b0b829ea0ab1315eeaefbe7f191cc31d7a1",
+            "reference": "91066b0b829ea0ab1315eeaefbe7f191cc31d7a1",
             "shasum": ""
         },
         "require": {
@@ -583,7 +583,7 @@
             "symfony/var-dumper": "Required to use the dd function (^5.0).",
             "vlucas/phpdotenv": "Required to use the Env class and env helper (^4.0)."
         },
-        "time": "2020-03-04T04:22:42+00:00",
+        "time": "2020-03-17T14:26:31+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -614,17 +614,17 @@
     },
     {
         "name": "illuminate/view",
-        "version": "v7.0.4",
-        "version_normalized": "7.0.4.0",
+        "version": "v7.2.2",
+        "version_normalized": "7.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/view.git",
-            "reference": "2e7e9be3c99fa5c9dcf71c794b4bff6b1c58d01a"
+            "reference": "c4754754778c47a2177c66ca6a226b0cc174e00a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/view/zipball/2e7e9be3c99fa5c9dcf71c794b4bff6b1c58d01a",
-            "reference": "2e7e9be3c99fa5c9dcf71c794b4bff6b1c58d01a",
+            "url": "https://api.github.com/repos/illuminate/view/zipball/c4754754778c47a2177c66ca6a226b0cc174e00a",
+            "reference": "c4754754778c47a2177c66ca6a226b0cc174e00a",
             "shasum": ""
         },
         "require": {
@@ -636,7 +636,7 @@
             "illuminate/support": "^7.0",
             "php": "^7.2.5"
         },
-        "time": "2020-03-03T16:09:18+00:00",
+        "time": "2020-03-19T19:59:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -787,23 +787,23 @@
     },
     {
         "name": "psr/log",
-        "version": "1.1.2",
-        "version_normalized": "1.1.2.0",
+        "version": "1.1.3",
+        "version_normalized": "1.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-fig/log.git",
-            "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801"
+            "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/log/zipball/446d54b4cb6bf489fc9d75f55843658e6f25d801",
-            "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
+            "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2019-11-01T11:05:21+00:00",
+        "time": "2020-03-23T09:12:05+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1251,17 +1251,17 @@
     },
     {
         "name": "voku/portable-ascii",
-        "version": "1.4.8",
-        "version_normalized": "1.4.8.0",
+        "version": "1.4.10",
+        "version_normalized": "1.4.10.0",
         "source": {
             "type": "git",
             "url": "https://github.com/voku/portable-ascii.git",
-            "reference": "a3801f5facf187a28cc2cae7b98a540c36406dc4"
+            "reference": "240e93829a5f985fab0984a6e55ae5e26b78a334"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/voku/portable-ascii/zipball/a3801f5facf187a28cc2cae7b98a540c36406dc4",
-            "reference": "a3801f5facf187a28cc2cae7b98a540c36406dc4",
+            "url": "https://api.github.com/repos/voku/portable-ascii/zipball/240e93829a5f985fab0984a6e55ae5e26b78a334",
+            "reference": "240e93829a5f985fab0984a6e55ae5e26b78a334",
             "shasum": ""
         },
         "require": {
@@ -1273,7 +1273,7 @@
         "suggest": {
             "ext-intl": "Use Intl for transliterator_transliterate() support"
         },
-        "time": "2020-02-06T21:46:48+00:00",
+        "time": "2020-03-13T01:23:26+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

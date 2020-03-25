@@ -12,14 +12,14 @@
               {{ $item['label'] }}
             </span>
           </a>
-          @include('listing.sub') {{--- Recursive action ---}}
+          @include('Listing.sub') {{--- Recursive action ---}}
         </li>
         @else
         <li class="{{$baseClass}}__item {{$baseClass}}__item-{{ $loop->index }}">
           <span class="{{$baseClass}}__label">
             {{ $item['label'] }}
           </span>
-          @include('listing.sub') {{--- Recursive action ---}}
+          @include('Listing.sub') {{--- Recursive action ---}}
         </li>
         @endif
 

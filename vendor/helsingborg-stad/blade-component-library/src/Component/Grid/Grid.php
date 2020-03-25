@@ -18,9 +18,16 @@ class Grid extends \BladeComponentLibrary\Component\BaseController
 
         if (isset($row)) {
             $this->setRows($row);
-        }        
+        }
+
+        $this->setGaps($col_gap, $row_gap);
     }
 
+    /**
+     * @param $columns
+     * @param $min_width
+     * @param $max_width
+     */
     public function setContainer($columns, $min_width, $max_width)
     {
         if ($columns) {
@@ -33,6 +40,10 @@ class Grid extends \BladeComponentLibrary\Component\BaseController
             $this->getBaseClass() . '__container';
     }
 
+    /**
+     * @param $col_gap
+     * @param $row_gap
+     */
     public function setGaps($col_gap, $row_gap)
     {
         $this->data['classList'][] =
@@ -43,6 +54,9 @@ class Grid extends \BladeComponentLibrary\Component\BaseController
         return;
     }
 
+    /**
+     * @param $col
+     */
     public function setCols($col)
     {
         foreach ($col as $bp => $value) {
@@ -55,6 +69,9 @@ class Grid extends \BladeComponentLibrary\Component\BaseController
         
     }
 
+    /**
+     * @param $row
+     */
     public function setRows($row)
     {
         $aliases = [

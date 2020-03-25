@@ -1,19 +1,17 @@
 
-@buttonGroup(['attributeList' => ['js-split' => ''], 'borderColor' => $borderColor])
-    @button(['background' => $backgroundColor, 'text' => $buttonText])
+@buttonGroup(['attributeList' => ['js-split' => '']])
+    @button(['text' => $buttonText])
     @endbutton
     @dropdown([
-    'items' => $items,
-    'direction' => $dropdownDirection,
-    'popup' => 'click',
-    'itemElement' => 'div'
+        'items' => $items,
+        'direction' => $dropdownDirection,
+        'popup' => 'click',
+        'itemElement' => 'div'
     ])
         @button([
-            'isIconButton' => true,
+            'style' => 'filled',
             'icon' => $icon,
-            'size' => 'md',
-            'background' => $backgroundColor
-            
+            'size' => 'md'
         ])
         @endbutton
     @enddropdown

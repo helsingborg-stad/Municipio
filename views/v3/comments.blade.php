@@ -61,13 +61,13 @@
         ])
 
 
-        @if (\Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
-                ($comment->comment_ID)) !== null )
-            <span class="like">
-                {!! \Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
-                ($comment->comment_ID)) !!}
-            </span>
-        @endif
+            @if (\Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
+                    ($comment->comment_ID)) !== null )
+                <span class="like">
+                    {!! \Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
+                    ($comment->comment_ID)) !!}
+                </span>
+            @endif
 
         @endcomment
 
@@ -75,6 +75,7 @@
             $answers = get_comments(array('parent' => $comment->comment_ID, 'order' => 'asc'));
         @endphp
 
+        {{-- COMMENTS ANSWERS --}}
         @if (isset($answers) && $answers)
             @foreach($answers as $answer)
 
@@ -95,16 +96,15 @@
                     @endphp
                 @endif
 
-                {{-- Comment Answers --}}
-                @comment([
-                    'author' => $displayNameAnswer,
-                    'text' => comment_text($answer->comment_ID),
-                    'icon' => 'face',
-                    'image' => $userAvatarAnswer,
-                    'date' => date('Y-m-d \k\l\. H:i', strtotime($answer->comment_date)),
-                    'is_reply' => true
-                ])
-                @endcomment
+                    @comment([
+                        'author' => $displayNameAnswer,
+                        'text' => comment_text($answer->comment_ID),
+                        'icon' => 'face',
+                        'image' => $userAvatarAnswer,
+                        'date' => date('Y-m-d \k\l\. H:i', strtotime($answer->comment_date)),
+                        'is_reply' => true
+                    ])
+                    @endcomment
 
             @endforeach
         @endif

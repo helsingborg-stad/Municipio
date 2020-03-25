@@ -8,7 +8,7 @@
             @button([
                 'icon' => 'more_vert',
                 'size' => 'lg',
-                'type' => 'basic'
+                'style' => 'basic'
             ])
             @endbutton
         @enddropdown
@@ -32,11 +32,11 @@
     </div>
     @if($collapsible)
         @button([
-        'type' => 'basic',
-        'size' => 'md',
-        "attributeList" => ['js-toggle-trigger' => $id],
-        'icon' => 'expand_more',
-        'classList' => ['c-card__title-expand-button']
+            'style' => 'basic',
+            'size' => 'md',
+            "attributeList" => ['js-toggle-trigger' => $id],
+            'icon' => 'expand_more',
+            'classList' => [$baseClass . '__title-expand-button']
         ])
         @endbutton
     @endif

@@ -2,18 +2,22 @@
     "slug": "comment",
     "default": {
         "author": "",
+        "author_url": "",
+        "author_image": "",
         "text": "",
         "icon": "",
-        "image": "",
+        
         "date": "01/02/2019",
         "componentElement": "div",
         "is_reply": false
     },
     "description": {
         "author": "Name of the commenter",
+        "author_url": "URL to the profile of the author",
+        "author_image": "A link to an image",
         "text": "Content of the comment",
         "icon": "Which icon to show",
-        "image": "A link to an image",
+        
         "date": "The date when the comment was posted",
         "componentElement": "Element of the component",
         "is_reply": "If true the comment will be displayed as a reply"

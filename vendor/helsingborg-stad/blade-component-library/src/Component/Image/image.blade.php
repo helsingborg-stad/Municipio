@@ -13,5 +13,5 @@
 </figure>
 
 @if ($openModal)
-    @include('image.sub.modal')
+    @include('Image.sub.modal')
 @endif

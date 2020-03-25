@@ -12,11 +12,13 @@ class Button extends \BladeComponentLibrary\Component\BaseController
 
 		$this->data['id'] = uniqid("", true);
 
-		$typeClass = '__' . $type;
-		$colorClass = '__' . $type . '--' . $color;
+		$styleClass = '__' . $style;
+        $colorClass = '__' . $style . '--' . $color;
 	
-		$this->addToClassList(true, $typeClass, $colorClass);
-		$this->setSize($text, $icon, $size);
+		$this->addToClassList(true, $styleClass, $colorClass);
+        $this->setSize($text, $icon, $size);
+        
+        $this->data['attributeList']['type'] = $type;
 
 		if($toggle) $this->setToggleAttributes();
 		if($ripple) $this->setRipple();
