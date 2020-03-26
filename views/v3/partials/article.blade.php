@@ -11,7 +11,10 @@
 	   <!-- Post Excerpt ?????-->
 	@endtypography
 	<!-- Content -->
-	@paper(['padding' => 3])
+	@paper([
+		'padding' => 3,
+		'c-paper--article'
+	])
 
 		{{-- Post --}}
 		{!! $postContentFiltered !!}
