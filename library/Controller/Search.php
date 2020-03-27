@@ -89,8 +89,8 @@ class Search extends \Municipio\Controller\BaseController
         global $wp_query;
         $posts = $wp_query->posts;
         $searchResult = [];
-/*         die(print_r($posts));
- */        foreach($posts as $post){
+        /* die(print_r($posts)); */
+        foreach($posts as $post){
             //$excerpt = get_the_excerpt($post->ID);
 
             $searchResult[] = array(
@@ -98,7 +98,8 @@ class Search extends \Municipio\Controller\BaseController
                 'date' =>  $post->post_date,
                 'title' => $post->post_title,
                 'permalink' => get_permalink( $post->ID),
-                'excerpt' => wp_trim_words($post->post_content)
+                'excerpt' => wp_trim_words($post->post_content),
+                'featuredImage' => get_the_post_thumbnail_url($post->ID)
             );
         }
 

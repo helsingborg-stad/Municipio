@@ -1,25 +1,2 @@
-// temporary - sass structure - theme sass
-// TODO: will move css to structured sasss
-
-// content - characters per row
-// https://en.wikipedia.org/wiki/Line_length
-// Longest - 95 CPL
-//--------
-p {
-    max-width: 95ch;
-}
-
-.title-link{
-    text-decoration: none;
-    color:unset;
-}
-
-.title-link:visited{
-    text-decoration: none;
-    color:unset;
-}
-
-.title-link:hover{
-    text-decoration: none;
-    color:unset;
-}
+@import "./generic.scss";
+@import "./search.scss";

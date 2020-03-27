@@ -44,13 +44,16 @@
     <?php _e('Found no matching results on your search…', 'municipio'); ?>
 @else
 
-<section class="u-mt-0">
+<section class="u-mt-0 u-margin__top--2">
 
 
     @if ($wp_query->max_num_pages > 1)
 
-        @pagination(['list' => $pagination,
-        'current' => isset($_GET['pagination']) ? $_GET['pagination'] : 1])
+        @pagination([
+            'list' => $pagination,
+            'current' => isset($_GET['pagination']) ? $_GET['pagination'] : 1,
+            'classList' => ['u-margin__bottom--2']
+        ])
         @endpagination
 
     @endif
@@ -78,10 +81,11 @@
         @endwhile
 
     @else
-
-            @foreach($searchResult as $result)
-                    @includeIf('partials.search.result-item', ['searchResult' => $result])
-            @endforeach
+           
+                @foreach($searchResult as $result)
+                        @includeIf('partials.search.result-item', ['searchResult' => $result])
+                @endforeach
+           
         </ul>
     @endif
 

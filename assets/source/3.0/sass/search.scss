@@ -1,0 +1,31 @@
+.search-result-item{
+    width:800 px;
+    &__title-link,
+    &__title-link:visited,
+    &__title-link:hover,
+    &__title-link:active{
+        text-decoration: none;
+        color:#ec6701;
+    }
+
+    & .c-typography__variant--meta{
+        display:flex;
+        align-items: center;
+        & .c-icon{
+            margin-right: 12px;
+        }
+    }
+    &__content-container{
+        
+    }
+    & img{
+        
+        width:100px;
+        height: 100px;
+        float:left;
+        margin-right: 10px;
+        margin-bottom: 10px;
+
+    }
+}
+

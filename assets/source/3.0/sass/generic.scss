@@ -1,0 +1,29 @@
+// temporary - sass structure - theme sass
+// TODO: will move css to structured sasss
+
+// content - characters per row
+// https://en.wikipedia.org/wiki/Line_length
+// Longest - 95 CPL
+//--------
+
+
+p {
+    max-width: 95ch;
+}
+
+p.form-submit {
+    max-width: unset;
+}
+
+.g-divider{
+ 
+    border-color: #ec6701;
+    border-style: solid;
+    
+    &--lg{
+        width: 100%;
+        margin-top:24px;
+        margin-bottom:24px;
+    }
+
+}

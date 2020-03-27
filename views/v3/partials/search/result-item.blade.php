@@ -1,30 +1,34 @@
 
-@paper(['classList' => ['u-padding--2', 'u-margin__bottom--2']])
 
-
-    @typography(['variant' => 'h3', 'element' => 'h3'])
+@paper(['classList' => ['search-result-item', 'u-padding--2', 'u-margin__bottom--1']])
+    @typography(['variant' => 'h2', 'element' => 'h2'])
         @link([
             'href' => $result['permalink'],
-            'classList' => ['title-link']
+            'classList' => ['search-result-item__title-link']
         ])
             {{$result['title']}}
         @endlink
         
     @endtypography
-
-    @typography([])
+ 
+    <p style="display: inline-block;">
+        @if($result['featuredImage'])
+            <img src="{{$result['featuredImage']}}">
+        @endif
         {{$result['excerpt']}}
-    @endtypography
+    </p>
+
+    <div class="g-divider g-divider--lg"></div>
 
     @typography(['variant' => 'meta'])
-        @icon(['icon' => 'date_range', 'size' => 'sm'])
+        @icon(['icon' => 'date_range', 'size' => 'md'])
         @endicon
         
-        {{$result['date']}}
+        <span class="">{{$result['date']}}</span>
     @endtypography
 
     @typography(['variant' => 'meta'])
-        @icon(['icon' => 'link', 'size' => 'sm'])
+        @icon(['icon' => 'link', 'size' => 'md'])
         @endicon
 
         @link([
@@ -34,7 +38,9 @@
         @endlink
 
     @endtypography
-    
-@endpaper
+@endpaper    
+
+
+
 
 
