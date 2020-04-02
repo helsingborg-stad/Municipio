@@ -239,8 +239,10 @@ class Result {
                             throw new Exception("Cannot create backup folder " . $bkCrtPath, -1);
                         }
                         $bkCrtFilePath = $bkCrtPath . MB_basename($originalPath);
-                        if(!copy($originalPath, $bkCrtFilePath) && !file_exists($bkCrtFilePath)) {
-                            throw new Exception("Cannot copy to backup folder " . $bkCrtPath, -1);
+                        if(!file_exists($bkCrtFilePath)) { //just make sure we're not overwriting the original in any case
+                            if (!copy($originalPath, $bkCrtFilePath) && !file_exists($bkCrtFilePath)) {
+                                throw new Exception("Cannot copy to backup folder " . $bkCrtPath, -1);
+                            }
                         }
                     }
 
@@ -372,7 +374,10 @@ class Result {
             "compressionType" => $cmds["lossy"] == 1 ? 'lossy' : ($cmds["lossy"] == 2 ? 'glossy' : 'lossless'),
             "keepExif" => isset($cmds['keep_exif']) ? $cmds['keep_exif'] : ShortPixel::opt("keep_exif"),
             "cmyk2rgb" => isset($cmds['cmyk2rgb']) ? $cmds['cmyk2rgb'] : ShortPixel::opt("cmyk2rgb"),
-            "resize" => isset($cmds['resize_width']) ? $cmds['resize_width'] : ShortPixel::opt("resize_width") ? 1 : 0,
+            "resize" => isset($cmds['resize'])
+                        ? $cmds['resize']
+                        : ((isset($cmds['resize_width']) && $cmds['resize_width'] > 0)
+                           ? 1 : (ShortPixel::opt("resize_width") ? 1 : 0)),
             "resizeWidth" => isset($cmds['resize_width']) ? $cmds['resize_width'] : ShortPixel::opt("resize_width"),
             "resizeHeight" => isset($cmds['resize_height']) ? $cmds['resize_height'] : ShortPixel::opt("resize_height"),
             "percent" => isset($item->PercentImprovement) ? number_format(100.0 - 100.0 * $optimizedSize / $item->OriginalSize, 2) : 0, //$item->PercentImprovement : 0,

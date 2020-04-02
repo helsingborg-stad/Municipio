@@ -7,7 +7,9 @@
         "componentElement": "nav",
         "listElement": "ul",
         "listItem": "li",
-        "linkPrefix": "?pagination="
+        "linkPrefix": "?pagination=",
+        "previousDisabled": "false",
+        "nextDisabled": "false"
     },
     "description": {
         "list": "Array with pages",

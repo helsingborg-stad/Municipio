@@ -2,16 +2,15 @@
     <?php dynamic_sidebar('bottom-sidebar'); ?>
 @endif
 
-<footer id="site-footer" class="c-footer {{ apply_filters('Views/Partials/Header/FooterClass',
+{{-- <footer id="site-footer" class="c-footer {{ apply_filters('Views/Partials/Header/FooterClass',
 $footerLayout['classes']) }}">
-    {{-- TODO: remove text --}}
+  
     Footer area....
     @section('footer-body')
 
         @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
 
             <nav>
-                {{-- NAVIGATION HELPER NAV --}}
                 @includeIf('partials.navigation.helper')
             </nav>
 
@@ -19,7 +18,6 @@ $footerLayout['classes']) }}">
 
 
 
-                {{-- ## Footer header befin ## --}}
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'top' || !get_field('footer_logotype_vertical_position', 'option'))
 
                     @if (get_field('footer_logotype', 'option') != 'hide')
@@ -27,24 +25,19 @@ $footerLayout['classes']) }}">
                     @endif
 
                     <nav class="{{ !get_field('footer_signature_show', 'option') ? 'pull-right' : '' }}">
-                        {{-- NAVIGATION HELPER NAV --}}
                         @includeIf('partials.navigation.helper')
                     </nav>
 
                 @endif
 
 
-                {{-- ## Footer header end ## --}}
 
-                {{-- ## Footer widget area begin ## --}}
 
                 @if (is_active_sidebar('footer-area'))
-                    <?php dynamic_sidebar('footer-area'); ?>
+             
                 @endif
 
-                {{-- ## Footer widget area end ## --}}
 
-                {{-- ## Footer header begin ## --}}
                 @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom' && get_field('footer_logotype', 'option') != 'hide')
                     @if (get_field('header_logotype', 'option') === 'negative')
                         @includeIf('partials.logo', [
@@ -58,17 +51,14 @@ $footerLayout['classes']) }}">
                             ])
                     @endif
                 @endif
-                {{-- ## Footer header end ## --}}
 
 
-            {{-- ## Footer signature ## --}}
             @if (get_field('footer_signature_show', 'option'))
                 {!! apply_filters('Municipio/footer_signature', '<a href="http://www.helsingborg.se">' . $footerLogo . '</a>') !!}
             @endif
 
 
 
-        {{-- ## Social icons ## --}}
         @if (have_rows('footer_icons_repeater', 'option'))
 
             <ul class="icons-list">
@@ -99,5 +89,10 @@ $footerLayout['classes']) }}">
 
     @stop
 
-</footer>
+</footer> --}}
 
+@footer([
+    'logotype' => $logotype->negative['url']
+])
+    
+@endfooter

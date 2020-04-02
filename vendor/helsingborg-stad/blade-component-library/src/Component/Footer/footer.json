@@ -2,7 +2,8 @@
     "slug": "footer",
     "default": {
         "componentElement": "footer",
-        "logotypeHref": "/"
+        "logotype": "/",
+        "links": {}
     },
     "descriptions": {
         "componentElement": "The element tag to render",

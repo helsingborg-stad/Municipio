@@ -2,7 +2,6 @@
     "slug":"sidebar",
     "default":{
         "logo": "",
-        "logoCondensed": "/assets/img/logotype-grey.svg",
         "items": [],
         "showHideButton": false
     },

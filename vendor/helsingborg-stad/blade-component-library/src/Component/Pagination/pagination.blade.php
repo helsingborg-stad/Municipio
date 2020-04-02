@@ -2,17 +2,15 @@
 @if($list)
 <{{$componentElement}} id="{{ $id }}" class="{{ $class }}" role="navigation" aria-label="Pagination Navigation" {!! $attribute !!}>
     <{{$listElement}} class="{{$baseClass}}__list">
-
-        @if($previous)
-          <{{$listItem}} class="{{$baseClass}}__item {{$baseClass}}__item--previous">
-            <a class="{{$baseClass}}__link" href="{{ $previous }}" aria-label="Previous page">
-              <span class="{{$baseClass}}__label">
-                @icon(['icon' => 'chevron_left'])
-                @endicon
-              </span>
-            </a>
-          </{{$listItem}}>
-        @endif
+        @button([
+          'style' => 'basic',
+          'color' => 'primary',
+          'icon' => 'chevron_left',
+          'attributeList' => ['disabled' => $previousDisabled],
+          'href' => $previous,
+          'classList' => [$baseClass . '__item--previous', $baseClass . '__item']
+        ])
+        @endbutton
 
         @foreach($list as $item) 
           @if($loop->index+1 == $current)
@@ -34,17 +32,15 @@
           @endif
         @endforeach
 
-
-        @if($next)
-          <{{$listItem}} class="{{$baseClass}}__item {{$baseClass}}__item--next">
-            <a class="{{$baseClass}}__link" href="{{ $next }}" aria-label="Next page">
-              <span class="{{$baseClass}}__label">
-                @icon(['icon' => 'chevron_right'])
-                @endicon
-              </span>
-            </a>
-          </{{$listItem}}>
-        @endif
+        @button([
+          'style' => 'basic',
+          'color' => 'primary',
+          'icon' => 'chevron_right',
+          'attributeList' => ['disabled' => $nextDisabled],
+          'href' => $next,
+          'classList' => [$baseClass . '__item--next', $baseClass . '__item']
+        ])
+        @endbutton
 
     </{{$listElement}}>
 </{{$componentElement}}>
