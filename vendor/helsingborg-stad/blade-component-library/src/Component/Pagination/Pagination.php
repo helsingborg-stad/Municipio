@@ -18,14 +18,16 @@ class Pagination extends \BladeComponentLibrary\Component\BaseController
         if($this->data['current'] != 1) {
             $this->data['previous'] = $linkPrefix . ($this->data['current'] - 1); 
         } else {
-            $this->data['previous'] = false; 
+            $this->data['previous'] = ''; 
+            $this->data['previousDisabled'] = 'true'; 
         }
 
         //Next data
         if((count($this->data['list'])) != $this->data['current']) {
             $this->data['next'] = $linkPrefix . ($this->data['current'] + 1); 
         } else {
-            $this->data['next'] = false; 
+            $this->data['next'] = ''; 
+            $this->data['nextDisabled'] = 'true'; 
         }
     }
 }

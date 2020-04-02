@@ -1,9 +1,9 @@
 @if ($top_level)
-    <div class="c-sidebar__subcontainer--top">
+    <div class="{{$baseClass}}__subcontainer--top">
 @else
-    <div class="c-sidebar__subcontainer"
+    <div class="{{$baseClass}}__subcontainer"
         js-toggle-item="{{$appendID}}"
-        js-toggle-class="c-sidebar__item--is-expanded">
+        js-toggle-class="{{$baseClass}}__item--is-expanded">
 @endif
 
     @foreach ($items as $item)

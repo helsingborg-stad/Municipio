@@ -81,13 +81,13 @@ ShortPixel\fromUrls("https://your.site/img/unoptimized.png")->generateWebP()->to
 //Save to the same folder, set wait time to 300 to allow enough time for the images to be processed
 $ret = ShortPixel\fromFolder("/path/to/your/local/folder")->wait(300)->toFiles("/path/to/your/local/folder");
 //Save to a different folder. CURRENT LIMITATION: When using the text persist type and saving to a different folder, you also need to specify the destination folder as the fourth parameter to fromFolder ( it indicates where the persistence files should be created)
-$ret = ShortPixel\fromFolder("/path/to/your/local/folder", 0, array, "/different/path/to/save/to")->wait(300)->toFiles("/different/path/to/save/to");
+$ret = ShortPixel\fromFolder("/path/to/your/local/folder", 0, array(), "/different/path/to/save/to")->wait(300)->toFiles("/different/path/to/save/to");
 //use a URL to map the folder to a WEB path in order for our servers to download themselves the images instead of receiving them via POST - faster and less exposed to connection timeouts
 $ret = ShortPixel\fromWebFolder("/path/to/your/local/folder", "http://web.path/to/your/local/folder")->wait(300)->toFiles("/path/to/save/to");
 //let ShortPixel back-up all your files, before overwriting them (third parameter of toFiles).
 $ret = ShortPixel\fromFolder("/path/to/your/local/folder")->wait(300)->toFiles("/path/to/save/to", null, "/back-up/path");
-//Recurse only <<N>> levels down into the subfolders of the folder ( N == 0 means do not recurse )
-$ret = ShortPixel\fromFolder("/path/to/your/local/folder", 0, array(), false, ShortPixel::CLIENT_MAX_BODY_SIZE, <<N>>)->wait(300)->toFiles("/path/to/save/to");
+//Recurse only $N levels down into the subfolders of the folder ( N == 0 means do not recurse )
+$ret = ShortPixel\fromFolder("/path/to/your/local/folder", 0, array(), false, ShortPixel::CLIENT_MAX_BODY_SIZE, $N)->wait(300)->toFiles("/path/to/save/to");
 
 //Set custom cURL options (proxy)
 \ShortPixel\setCurlOptions(array(CURLOPT_PROXY => '66.96.200.39:80', CURLOPT_REFERER => 'https://shortpixel.com/'));
@@ -97,7 +97,7 @@ $ret = ShortPixel\fromFolder("/path/to/your/local/folder", 0, array(), false, Sh
 $stop = false;
 while(!$stop) {
     $ret = ShortPixel\fromFolder("/path/to/your/local/folder")->wait(300)->toFiles("/path/to/save/to");
-    if(count($ret->->succeeded) + count($ret->failed) + count($ret->same) + count($ret->pending) == 0) {
+    if(count($ret->succeeded) + count($ret->failed) + count($ret->same) + count($ret->pending) == 0) {
         $stop = true;
     }
 }
