@@ -9,19 +9,9 @@
 ])
     {{ $subheading }}
 @endtypography
-
+{{-- 
 <ul class="actions">
-    @if (is_array(get_field('404_display', 'option')) &&
-        in_array('search', get_field('404_display', 'option')))
-        <li>
-            @link([
-                'href' => {{ home_url() }}?s={{ $keyword }}
-            ])
-            {{ sprintf(get_field('404_display', 'option') ? get_field('404_search_link_text',
-            'option') : 'Search "%s"', $keyword) }}
-            @endlink
-        </li>
-    @endif
+
 
     @if (is_array(get_field('404_display', 'option')) &&
             in_array('home', get_field('404_display', 'option')))
@@ -47,6 +37,8 @@
         </li>
     @endif
 </ul>
+
+--}}
 
 @if($errorMessage)
     @typography([
