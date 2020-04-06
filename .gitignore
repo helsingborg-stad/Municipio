@@ -4,3 +4,4 @@ composer.lock
 .npmrc
 package-lock.json
 assets/dist/3.0/js/*
+vendor/
