@@ -1,61 +1,21 @@
 @typography([
     "element" => "h1",
+    "slot" => $heading
 ])
-    {{ $heading }}
 @endtypography
 
 @typography([
     "element" => "span",
+    "slot" => $subheading
 ])
-    {{ $subheading }}
 @endtypography
 
-<ul class="actions">
-    @if (is_array(get_field('404_display', 'option')) &&
-        in_array('search', get_field('404_display', 'option')))
-        <li>
-            @link([
-                'href' => {{ home_url() }}?s={{ $keyword }}
-            ])
-            {{ sprintf(get_field('404_display', 'option') ? get_field('404_search_link_text',
-            'option') : 'Search "%s"', $keyword) }}
-            @endlink
-        </li>
-    @endif
-
-    @if (is_array(get_field('404_display', 'option')) &&
-            in_array('home', get_field('404_display', 'option')))
-        <li>
-            @link([
-                'href' => {{ home_url() }}
-            ])
-                {{ get_field('404_home_link_text', 'option') ?
-                        get_field('404_home_link_text', 'option') : 'Go to home' }}
-            @endlink
-        </li>
-    @endif
-
-    @if (is_array(get_field('404_display', 'option')) &&
-        in_array('back', get_field('404_display', 'option')))
-        <li>
-            @link([
-                'href' => 'javascript:history.go(-1);'
-            ])
-                {{ get_field('404_back_button_text', 'option') ?
-                        get_field('404_back_button_text', 'option') : 'Go back' }}
-            @endlink
-        </li>
-    @endif
-</ul>
-
-@if($errorMessage)
-    @typography([
-        "element" => "h3",
+@foreach($actionButtons as $button) 
+    @button([
+        'text' => $button->label,
+        'color' => 'primary',
+        'style' => 'basic',
+        'href' => $button->href
     ])
-        {{ $debugHeading }}
-    @endtypography
-
-    @code(['language' => 'php', 'content' => ''])
-        {{ $errorMessage }}
-    @endcode
-@endif
+    @endbutton
+@endforeach

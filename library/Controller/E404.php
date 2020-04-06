@@ -22,6 +22,12 @@ class E404 extends \Municipio\Controller\BaseController
         //Content
         $this->data['heading']          = $this->getHeading(); 
         $this->data['subheading']       = $this->getSubheading(); 
+        
+        //Actions
+        $this->data['actionButtons'] = (object) array(
+            'goBack' => (object) ['label' => __("Go back", 'municipio'), 'href' => 'javascript:history.go(-1);'],
+            'goHome' => (object) ['label' => __("Go to startpage", 'municipio'), 'href' => '/'],
+        ); 
 
     }
 
