@@ -16,6 +16,7 @@
         'color' => 'primary',
         'style' => 'basic',
         'href' => $button->href
+
     ])
     @endbutton
 @endforeach

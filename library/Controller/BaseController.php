@@ -376,8 +376,8 @@ class BaseController
         }
 
         return (object) array(
-            'standard' => get_field('logotype', 'option'),
-            'negative' => get_field('logotype_negative', 'option')
+            'standard' => array_merge(['url' => ""], (array) get_field('logotype_standard', 'option')),
+            'negative' => array_merge(['url' => ""], (array) get_field('logotype_negative', 'option'))
         );
     }
 
