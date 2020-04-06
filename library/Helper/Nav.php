@@ -308,6 +308,7 @@ class Nav
 
       //Move post_title to label key
       $array['label'] = $array['post_title'];
+      $array['id'] = $array['ID'];
       
       //Unset data not needed
       unset($array['post_title']); 
