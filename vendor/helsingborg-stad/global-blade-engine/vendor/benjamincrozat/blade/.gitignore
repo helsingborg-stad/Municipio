@@ -1,7 +1,0 @@
-.DS_Store
-/.idea
-/.phpintel
-/.vscode
-/vendor
-composer.lock
-Thumbs.db
