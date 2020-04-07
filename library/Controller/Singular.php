@@ -25,7 +25,8 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['publishTranslations'] = array(
             'updated'   => __('Last updated', 'municipio'),
             'published' => __('Published date', 'municipio'),
-            'by'        => __('Published by', 'municipio')
+            'by'        => __('Published by', 'municipio'),
+            'on'        => __('on', 'municipio'),
         );
 
         //Comments

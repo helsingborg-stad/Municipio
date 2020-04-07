@@ -1,19 +1,32 @@
 <article id="article" class="c-article s-article u-mb-4">
-   <!-- Title -->
-	@typography(["element" => "h1"])
-		{!! $postTitleFiltered !!}
-	@endtypography
-   <!-- Excerpt ? Byline ...-->
-	@typography([
-		"element" => "p",
-		"classList" => ["byline"]
-	])
-	   <!-- Post Excerpt ?????-->
-	@endtypography
-	<!-- Content -->
+  
 	@paper(['padding' => 3])
-		{!! $postContentFiltered !!}
 
+		<!-- Title -->
+		@typography(["element" => "h1"])
+			{!! $postTitleFiltered !!}
+		@endtypography
+
+		<!-- Blog post style author -->
+		@if($postTypeDetails->hierarchical)
+
+			@avatar(['size' => 'sm', 'image' => $authorAvatar, 'classList' => ['author']])
+			@endavatar
+
+			@typography(['variant' => 'span', 'element' => 'meta', 'classList' => ['author-name']])
+				{{$authorName}}
+			@endtypography
+
+			@date([
+					'action' => 'formatDate',
+					'timestamp' => $publishedDate
+			])
+			@enddate
+
+		@endif
+
+		<!-- Content -->
+		{!! $postContentFiltered !!}
 
 	{{-- Author --}}
 	@grid([
@@ -62,17 +75,29 @@
 			]
 		])
 
-		@typography(['variant' => 'h4', 'element' => 'meta'])
-			{{$publishTranslations['by']}} {{$authorName}}
-		@endtypography
+		@if($postTypeDetails->hierarchical)
+			@typography(['variant' => 'h4', 'element' => 'meta'])
+				{{$publishTranslations['by']}} {{$authorName}}
+			@endtypography
 
-		@typography(['variant' => 'meta'])
-			{{$publishTranslations['published']}} {{$publishedDate}}
-		@endtypography
+			@typography(['variant' => 'meta'])
+				{{$publishTranslations['published']}}
+				@date([
+					'action' => 'formatDate',
+					'timestamp' => $publishedDate
+				])
+				@enddate
+			@endtypography
 
-		@typography(['variant' => 'meta'])
-			{{$publishTranslations['updated']}} {{$updatedDate}}
-		@endtypography
+			@typography(['variant' => 'meta'])
+				{{$publishTranslations['updated']}}
+				@date([
+					'action' => 'formatDate',
+					'timestamp' => $updatedDate
+				])
+				@enddate
+			@endtypography
+		@endif
 
 		@endgrid
 	@endgrid

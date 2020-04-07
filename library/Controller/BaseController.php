@@ -50,6 +50,9 @@ class BaseController
         $this->data['topNavigation']        = \Municipio\Helper\Nav::getTopLevel($this->getPageID()); 
         $this->data['sideNavigation']       = \Municipio\Helper\Nav::getNested($this->getPageID()); 
 
+        //Current posttype
+        $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails(); 
+
         //Language
         $this->data['lang'] = array(
             'jumpToMainMenu'        => __('Jump to the main menu', 'municipio'),
@@ -173,6 +176,17 @@ class BaseController
         }
 
         $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
+    }
+
+    
+
+    /**
+     * Get getPostTypeDetails
+     * @return string
+     */
+    protected function getPostTypeDetails() : object
+    {
+        return apply_filters('Municipio/postTypeDetails', (object) get_post_type_object(get_post_type()));
     }
 
     /**

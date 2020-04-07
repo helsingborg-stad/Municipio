@@ -14,7 +14,7 @@ class Post
      */
     public static function preparePostObject($post) {
         $post = self::complementObject($post);
-        $post = self::camelCaseObject($post); 
+        $post = \Municipio\Helper\FormatObject::camelCase($post); 
         return $post; 
     }
 
@@ -52,38 +52,8 @@ class Post
         if(in_array('post_title_filtered', $appendFields)) {
             $postObject->post_title_filtered    = apply_filters('the_title', $postObject->post_title); 
         }
-
+        
         return $postObject; 
-    }
-
-    /**
-     * Replaces old keys with new (recursivley)
-     * 
-     * @param   function    $func    Function for transformation of key
-     * @param   array       $array   The array to filter
-     * 
-     * @return  array       $return  The array with renamed keys
-     */
-    public static function mapArrayKeys(callable $func, array $array) {
-        $return = array();
-        foreach ($array as $key => $value) {
-          $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
-        }
-        return $return;
-    }
-
-    /**
-     * Camel case snake_case object 
-     * 
-     * @param   object   $postObject The post object, snake case
-     * 
-     * @return  object   $postObject The post object, camel case
-     */
-    public static function camelCaseObject($postObject)
-    {
-        return (object) self::mapArrayKeys(function($string) {
-            return lcfirst(implode('', array_map('ucfirst', explode('_', strtolower($string)))));
-        }, (array) $postObject);
     }
 
     /**
