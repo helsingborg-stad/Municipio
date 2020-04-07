@@ -46,7 +46,7 @@
                 @hasSection('sidebar-left')
                     @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
                     @sidebar([
-                        'logo' => $logotype,
+                        'logo' => $logotype->standard['url'],
                         'items' => $sideNavigation
                     ])
                     @endsidebar

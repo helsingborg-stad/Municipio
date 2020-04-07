@@ -1,5 +1,5 @@
 @link([
-    'href' => "/"
+    'href' => $homeUrl
 ])
     @if ($logo)
         @logotype([
