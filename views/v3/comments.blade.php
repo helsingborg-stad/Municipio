@@ -14,12 +14,15 @@
 
     $args = array(
         'id_form'           => 'commentform',
+        'logged_in_as'      => '',
+        'must_log_in'       => '',
         'class_form'        => 'c-form',
         'id_submit'         => 'submit',
-        'class_submit'      => 'c-button c-button__filled c-button__filled--primary c-button--md
-        u-float--right u-margin__bottom--3',
+        'class_submit'      => 'c-button u-float--right comment-reply-link c-button__basic c-button__basic--secondary c-button--md',
         'name_submit'       => 'submit',
-        'submit_button'     => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" />',
+        'submit_button'     => '<div class="comment--actions">
+            <input name="%1$s" type="submit" id="%2$s" class="u-padding__top--1
+            u-padding__bottom--3%3$s" value="%4$s" /></div>',
         'format'            => 'html5',
         'cancel_reply_link' => __( 'Cancel reply' ),
         'comment_field'     =>  $reCaptcha. '<div class="c-textarea"><textarea id="comment"
@@ -33,7 +36,7 @@
 
 ?>
 
-
+<div class="comment">
 @foreach($comments as $comment)
     @if($comment->comment_parent == 0)
 
@@ -50,10 +53,15 @@
             @endphp
 
         @endif
+        @if (\Municipio\Comment\Likes::likeButton($comment->comment_ID) !== null )
+            @php
+                $likeButton = \Municipio\Comment\Likes::likeButton($comment->comment_ID);
+var_dump($likeButton);
+            @endphp
+        @endif
 
-        <div class="comment byuser comment-author-johan bypostauthor even thread-even depth-1
-        parent" id="div-comment-{{$comment->comment_ID}}">
-            <a name="comment-{{$comment->comment_ID}}"></a>
+        <div class="even parent" id="div-comment-{{$comment->comment_ID}}">
+            <a name="comment--id-{{$comment->comment_ID}}"></a>
             {{-- Comment Thread --}}
             @comment([
                 'author' => $userName,
@@ -65,22 +73,27 @@
                 'classList' => ['comment-'.$comment->comment_ID, 'comment-reply-link']
             ])
 
-                @if (\Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
-                        ($comment->comment_ID)) !== null )
-                    <span class="like">
-                        {!! \Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
-                        ($comment->comment_ID)) !!}
-                    </span>
-                @endif
-
             @endcomment
+
         </div>
-
-
 
         @if (is_user_logged_in())
 
-            <div class="u-padding__top--1 u-padding__bottom--3 reply">
+            <div class="reply comment--actions">
+                <span id="comment-likes-{{$comment->comment_ID}} u-float--left"
+                      class="comment--likes">
+                    @icon([
+                        'icon' => 'thumb_up',
+                        'size' => 'sm',
+                        'classList' => ['comment--likes-icon']
+                    ])
+                    @endicon
+                    <span data-likes="{{$likeButton['count']}}"
+                          id="comment-likes-{{$comment->comment_ID}}">
+                            {{$likeButton['count']}}</span>
+
+                </span>
+
                 @button([
                     'icon' => 'reply',
                     'reversePositions' => true,
@@ -101,6 +114,23 @@
                     'classList' => ['u-float--right', 'comment-reply-link']
                 ])
                 @endbutton
+
+                @button([
+                    'icon' => 'thumb_up',
+                    'reversePositions' => true,
+                    'style' => 'basic',
+                    'color' => 'secondary',
+                    'text' => __('Like', 'municipio'),
+                    'componentElement' => 'div',
+                    'attributeList' => [
+                    'data-commentid' => $comment->comment_ID,
+
+                ],
+                    'classList' => ['u-float--right', $likeButton['classList']]
+
+                ])
+                @endbutton
+
             </div>
         @endif
 
@@ -142,9 +172,10 @@
                         'is_reply' => true
                     ])
 
-                        @if (\Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton($answer->comment_ID)) !== null )
+                        @if (\Municipio\Helper\Hash::short(\Municipio\Comment\Likes::likeButton
+                            ($answer->comment_ID)) !== null )
                             <span class="like">
-                                {!! \Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
+                                {!! \Municipio\Helper\Hash::short(\Municipio\Comment\Likes::likeButton
                                 ($answer->comment_ID)) !!}
                             </span>
                         @endif
@@ -156,3 +187,4 @@
 
     @endif
 @endforeach
+</div>
