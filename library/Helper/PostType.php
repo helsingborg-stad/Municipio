@@ -53,4 +53,15 @@ class PostType
 
         return $restUrl;
     }
+
+    /**
+     * Get post type details
+
+     * @return object  Information about the current posttype
+     */
+    public static function postTypeDetails() 
+    {
+        $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(get_post_type_object(get_post_type())); 
+        return apply_filters('Municipio/postTypeDetails',$postTypeDetails);  
+    }
 }
