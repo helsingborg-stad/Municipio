@@ -37,7 +37,7 @@
     @includeIf('partials.navigation.helper')
 
 
-    @navbar(['logotype' => $logotype, 'items' => $topNavigation])
+    @navbar(['logo' => $logotype->standard['url'], 'items' => $topNavigation])
     @endnavbar
 
     {{-- After header body --}}

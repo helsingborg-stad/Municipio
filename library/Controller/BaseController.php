@@ -12,14 +12,13 @@ class BaseController
 
     public function __construct()
     {
-        //Html data
-        $this->getLogotype();
-        $this->getHeaderLayout();
-        $this->getFooterLayout();
 
+        //Basic
         $this->data['ajaxUrl']              = $this->getAjaxUrl();
         $this->data['bodyClass']            = $this->getBodyClass();
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
+        $this->data['homeUrl']              = $this->getHomeUrl();
+        $this->data['adminUrl']             = $this->getAdminUrl();
 
         //Post data 
         $this->data['pageTitle']            = $this->getPageTitle(); 
@@ -52,8 +51,9 @@ class BaseController
 
         //Language
         $this->data['lang'] = array(
-            'jumpToMainMenu'        => __('Jump to the main menu', 'municipio'),
-            'jumpToMainContent'     => __('Jump to the main content', 'municipio'),
+            'goToHomepage'          => __("Go to homepage", 'municipio'),
+            'jumpToMainMenu'        => __("Jump to the main menu", 'municipio'),
+            'jumpToMainContent'     => __("Jump to the main content", 'municipio'),
             'ago'                   => __("ago", 'municipio'),
             'since'                 => __("since", 'municipio'),
             'weeks'                 => __("weeks", 'municipio'),
@@ -173,6 +173,24 @@ class BaseController
         }
 
         $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
+    }
+
+    /**
+     * Get home url
+     * @return string
+     */
+    protected function getHomeUrl() : string
+    {
+        return apply_filters('Municipio/homeUrl', get_home_url());
+    }
+
+    /**
+     * Get admin url
+     * @return string
+     */
+    protected function getAdminUrl() : string
+    {
+        return apply_filters('Municipio/adminUrl', get_admin_url());
     }
 
     /**
@@ -371,12 +389,14 @@ class BaseController
 
     public function getLogotype()
     {
-        if (isset($this->data['logotype'])) {
+        //Cache, early bailout
+        if (isset($this->data['logotype']) && empty($this->data['logotype'])) {
             return $this->data['logotype'];
         }
 
+        //Get fresh logotypes 
         return (object) array(
-            'standard' => array_merge(['url' => ""], (array) get_field('logotype_standard', 'option')),
+            'standard' => array_merge(['url' => ""], (array) get_field('logotype', 'option')),
             'negative' => array_merge(['url' => ""], (array) get_field('logotype_negative', 'option'))
         );
     }
