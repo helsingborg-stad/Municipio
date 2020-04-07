@@ -45,7 +45,7 @@
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/polyfill": "^7.7.0",
     "@babel/preset-env": "^7.7.4",
-    "@helsingborg-stad/styleguide": "0.0.8",
+    "@helsingborg-stad/styleguide": "^0.3.11",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
     "copyfiles": "^2.2.0",
@@ -71,6 +71,8 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
+    "acorn": "^7.1.1",
+    "acorn-jsx": "^5.2.0",
     "body-parser": "^1.19.0",
     "clientside-require": "^4.7.2",
     "cors": "^2.8.5",
@@ -80,6 +82,7 @@
     "masonry-layout": "^4.2.2",
     "restify": "^8.5.1",
     "restify-router": "^0.5.1",
+    "stylelint": "^13.3.0",
     "webpack-dev-server": "^3.9.0"
   },
   "browser": {
