@@ -120,7 +120,7 @@ var_dump($likeButton);
                     'reversePositions' => true,
                     'style' => 'basic',
                     'color' => 'secondary',
-                    'text' => __('Like', 'municipio'),
+                    'text' => __('Like ', 'municipio'),
                     'componentElement' => 'div',
                     'attributeList' => [
                     'data-commentid' => $comment->comment_ID,

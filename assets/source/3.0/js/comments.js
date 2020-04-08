@@ -107,7 +107,7 @@ export default class Comments {
                     context: self,
                     body: params
                 }).then(response => {
-          
+                    console.log('ajax');
                     let likes = commentCounter.getAttribute('data-likes');
                     if (this.classList.contains('u-disabled')) {
                         likes--;
