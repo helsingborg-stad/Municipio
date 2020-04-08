@@ -125,7 +125,11 @@ class Enqueue
             ),
             'tableFilter' => array(
                 'empty' => apply_filters('municipio/tablefilter/empty', __('No matching content found…', 'municipio'))
+            ),
+            'comments' => array(
+                'dislike' => __('Dislike ', 'municipio')
             )
+
         ));
         wp_enqueue_script($this->defaultPrimeName);
         /*

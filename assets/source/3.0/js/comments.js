@@ -107,18 +107,19 @@ export default class Comments {
                     context: self,
                     body: params
                 }).then(response => {
-                    console.log('ajax');
+    
                     let likes = commentCounter.getAttribute('data-likes');
+                    
                     if (this.classList.contains('u-disabled')) {
                         likes--;
                         this.classList.remove('u-disabled');
                     } else {
                         likes++;
-                        console.log(likes);
-                        this.add('u-disabled');
+                        this.querySelector('.c-button__label span').innerHTML = HbgPrimeArgs.comments.dislike;
+                        this.setAttribute('data-like-unset','true');
                     }
                     
-                    commentCounter.html(likes);
+                    commentCounter.innerHTML = likes;
                     commentCounter.setAttribute('data-likes', likes);
                 });
             });
