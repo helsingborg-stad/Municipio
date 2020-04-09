@@ -14,8 +14,6 @@ class Algolia
         add_filter('algolia_post_shared_attributes', array($this, 'addAlgoliaPostStatus'), 10, 2); //Add post status to index
         add_filter('algolia_searchable_post_shared_attributes', array($this, 'addAlgoliaPostStatus'), 10, 2); // Add post status to index
 
-        add_filter('algolia_should_filter_query', array($this, 'disableArchiveSearch'), 10, 2); // Turn off search on archives
-
         //Do not run if not enabled
         if (!get_field('use_algolia_search', 'option')) {
             return false;
@@ -117,19 +115,5 @@ class Algolia
         }
 
         return $should_index;
-    }
-
-    /**
-     * Disables search on archive pages when searcing. Municipio requires the use of local search here.
-     * @param bool $state The previous state of archive search enabler/disabler
-     * @param WP_Query $query The current page query object
-     * @return bool The modified toggle between algolia search on/off
-     */
-    public function disableArchiveSearch($state, $query) : bool
-    {
-        if ($query->is_archive()) {
-            return false;
-        }
-        return $state;
     }
 }
