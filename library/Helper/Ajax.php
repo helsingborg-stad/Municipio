@@ -46,6 +46,7 @@ abstract class Ajax
      */
     public function hook($functionName, $private = true)
     {
+
         if(! method_exists($this, $functionName) || is_bool($private) == false) {
             return false;
         }

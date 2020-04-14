@@ -56,7 +56,10 @@
         @if (\Municipio\Comment\Likes::likeButton($comment->comment_ID) !== null )
             @php
                 $likeButton = \Municipio\Comment\Likes::likeButton($comment->comment_ID);
-var_dump($likeButton);
+                $likButtonIcon = (strpos($likeButton['classList'], 'active')) ? 'thumb_down' :
+                    'thumb_up';
+                $likeButtonTxt = (strpos($likeButton['classList'], 'active')) ? __('Dislike ',
+                'municipio') : __('Like ', 'municipio');
             @endphp
         @endif
 
@@ -80,14 +83,14 @@ var_dump($likeButton);
         @if (is_user_logged_in())
 
             <div class="reply comment--actions">
-                <span id="comment-likes-{{$comment->comment_ID}} u-float--left"
-                      class="comment--likes">
+                <span class="comment--likes">
                     @icon([
                         'icon' => 'thumb_up',
                         'size' => 'sm',
                         'classList' => ['comment--likes-icon']
                     ])
                     @endicon
+
                     <span data-likes="{{$likeButton['count']}}"
                           id="comment-likes-{{$comment->comment_ID}}">
                             {{$likeButton['count']}}</span>
@@ -116,11 +119,11 @@ var_dump($likeButton);
                 @endbutton
 
                 @button([
-                    'icon' => 'thumb_up',
+                    'icon' => $likButtonIcon,
                     'reversePositions' => true,
                     'style' => 'basic',
                     'color' => 'secondary',
-                    'text' => __('Like ', 'municipio'),
+                    'text' => $likeButtonTxt,
                     'componentElement' => 'div',
                     'attributeList' => [
                     'data-commentid' => $comment->comment_ID,
@@ -162,26 +165,63 @@ var_dump($likeButton);
 
                 @endif
 
-                    @comment([
-                        'author' => $displayNameAnswer,
-                        'author_url' => $answer->comment_author_email,
-                        'author_image' => $userAvatarAnswer,
-                        'text' => get_comment_text($answer->comment_ID),
-                        'icon' => 'face',
-                        'date' => date('Y-m-d \k\l\. H:i', strtotime($answer->comment_date)),
-                        'is_reply' => true
-                    ])
+                @comment([
+                    'author' => $displayNameAnswer,
+                    'author_url' => $answer->comment_author_email,
+                    'author_image' => $userAvatarAnswer,
+                    'text' => get_comment_text($answer->comment_ID),
+                    'icon' => 'face',
+                    'date' => date('Y-m-d \k\l\. H:i', strtotime($answer->comment_date)),
+                    'is_reply' => true
+                ])
 
-                        @if (\Municipio\Helper\Hash::short(\Municipio\Comment\Likes::likeButton
-                            ($answer->comment_ID)) !== null )
-                            <span class="like">
-                                {!! \Municipio\Helper\Hash::short(\Municipio\Comment\Likes::likeButton
-                                ($answer->comment_ID)) !!}
+                @endcomment
+
+                @if (is_user_logged_in())
+
+                    @if (\Municipio\Comment\Likes::likeButton($answer->comment_ID) !== null )
+                        @php
+                            $likeButtonAnswer = \Municipio\Comment\Likes::likeButton($answer->comment_ID);
+                            $likButtonIconAnswer = (strpos($likeButtonAnswer['classList'], 'active')) ?
+                            'thumb_down' : 'thumb_up';
+                            $likeButtonTxtAnswer = (strpos($likeButtonAnswer['classList'], 'active')) ?
+                                __('Dislike ','municipio') : __('Like ', 'municipio');
+                        @endphp
+                    @endif
+
+                    <div class="reply comment--actions">
+                        <span class="comment--likes-answer">
+                            @icon([
+                                'icon' => 'thumb_up',
+                                'size' => 'sm',
+                                'classList' => ['comment--likes-icon']
+                            ])
+                            @endicon
+
+                            <span data-likes="{{$likeButtonAnswer['count']}}"
+                                  id="comment-likes-{{$answer->comment_ID}}">
+                                    {{$likeButtonAnswer['count']}}</span>
+
                             </span>
-                        @endif
 
-                    @endcomment
+                            @button([
+                                'icon' => $likButtonIconAnswer,
+                                'reversePositions' => true,
+                                'style' => 'basic',
+                                'color' => 'secondary',
+                                'text' => $likeButtonTxtAnswer,
+                                'componentElement' => 'div',
+                                'attributeList' => [
+                                    'data-commentid' => $answer->comment_ID,
 
+                                ],
+                                'classList' => ['u-float--right', $likeButtonAnswer['classList']]
+
+                            ])
+                            @endbutton
+
+                    </div>
+                @endif
             @endforeach
         @endif
 

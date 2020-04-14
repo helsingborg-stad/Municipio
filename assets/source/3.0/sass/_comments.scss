@@ -1,0 +1,21 @@
+.comment {
+
+    &--actions {
+        padding-bottom: 24px;
+        padding-top: 8px;
+        position: relative;
+    }
+
+    &--likes {
+        padding-left: 8px;
+    }
+    &--likes-answer {
+        padding-left:48px;
+    }
+
+    &--likes-icon {
+        position:relative;
+        top:2px
+    }
+
+}

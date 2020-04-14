@@ -35,6 +35,7 @@ class Likes extends \Municipio\Helper\Ajax
 
         $commentId = $_REQUEST['comment_id'];
         $commentObj = get_comment($commentId);
+
         $like = array();
         $create = true;
 
@@ -67,7 +68,6 @@ class Likes extends \Municipio\Helper\Ajax
         }
 
         $likes = get_comment_meta($id, '_likes', true);
-
         if (empty($likes) || is_array($likes) == false) {
             $count = 0;
         } else {

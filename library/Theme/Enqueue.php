@@ -127,7 +127,8 @@ class Enqueue
                 'empty' => apply_filters('municipio/tablefilter/empty', __('No matching content found…', 'municipio'))
             ),
             'comments' => array(
-                'dislike' => __('Dislike ', 'municipio')
+                'dislike' => __('Dislike ', 'municipio'),
+                'like' => __('Like ', 'municipio')
             )
 
         ));
@@ -161,9 +162,9 @@ class Enqueue
         ));
 
         //Comment reply
-       //if (is_singular() && get_option('thread_comments')) {
+       if (is_singular() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
-        //}
+       }
 
         //Instant page load
         if(!defined('INSTANT_PAGE_DISABLED')) {

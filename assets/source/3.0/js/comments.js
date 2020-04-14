@@ -90,14 +90,15 @@ export default class Comments {
                 
                 const commentId = this.getAttribute('data-commentid');
                 const commentCounter = document.getElementById('comment-likes-'+commentId);
-    
+
                 const formQueries = new FormData();
                 formQueries.append('action', 'ajaxLikeMethod');
-                formQueries.append('id', commentId);
-                
+                formQueries.append('comment_id', commentId);
+                formQueries.append('nonce', likeButtonData.nonce);
+        
                 const params = new URLSearchParams(formQueries);
                 
-                fetch(ajaxurl, {
+                fetch(likeButtonData.ajax_url, {
                     method: "POST",
                     credentials: 'same-origin',
                     headers: {
@@ -109,14 +110,19 @@ export default class Comments {
                 }).then(response => {
     
                     let likes = commentCounter.getAttribute('data-likes');
-                    
-                    if (this.classList.contains('u-disabled')) {
+                    if (this.classList.contains('active')) {
+                        
                         likes--;
-                        this.classList.remove('u-disabled');
+                        this.querySelector('.c-button__label i').innerHTML = 'thumb_up';
+                        this.querySelector('.c-button__label span').innerHTML = HbgPrimeArgs.comments.like;
+                        this.classList.remove('active');
+                        
                     } else {
+                        
                         likes++;
+                        this.querySelector('.c-button__label i').innerHTML = 'thumb_down';
                         this.querySelector('.c-button__label span').innerHTML = HbgPrimeArgs.comments.dislike;
-                        this.setAttribute('data-like-unset','true');
+                        this.classList.add('active');
                     }
                     
                     commentCounter.innerHTML = likes;
