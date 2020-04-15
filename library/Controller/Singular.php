@@ -13,6 +13,9 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post());
+
+        //Get feature image data
+        $this->data['feature_image'] = $this->getFeatureImage($this->data['post']->id);
         
         //Get Author data
         $this->data['authorName'] = $this->getAuthor($this->data['post']->id)->name;
@@ -77,6 +80,23 @@ class Singular extends \Municipio\Controller\BaseController
             'published' => get_the_date(), 
             'updated' => get_the_modified_date()
         ]);
+    }
+
+    /**
+     * @param $id Post id
+     * @param $size Name or array for size of image
+     * @return array An array of data related to the image
+     */
+    private function getFeatureImage($id, $size = [1920,1080])
+    {
+        $image = [];
+        $image['id'] = get_post_thumbnail_id($id);
+        $image['src'] = (wp_get_attachment_image_src($image['id'], $size));
+        $image['alt'] = get_post_meta($image['id'], '_wp_attachment_image_alt', TRUE);
+        $image['title'] = get_the_title($image['id']);
+
+        return $image;
+
     }
 
 }
