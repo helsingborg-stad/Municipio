@@ -1,11 +1,11 @@
 <article id="article" class="c-article s-article">
 
-    <!-- Featured Image -->
-    @if ($feature_image['src'][0])
+    <!-- Feature Image -->
+    @if ($feature_image)
     @image([
-        'src'=> $feature_image['src'][0],
-        'alt' => $feature_image['alt'],
-        'caption' => $feature_image['title'],
+        'src'=> $feature_image->src[0],
+        'alt' => $feature_image->alt,
+        'caption' => $feature_image->title,
         'classList' => ['c-article__feature-image']
     ])
     @endimage

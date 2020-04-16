@@ -16,7 +16,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Get feature image data
         $this->data['feature_image'] = $this->getFeatureImage($this->data['post']->id);
-        
+
         //Get Author data
         $this->data['authorName'] = $this->getAuthor($this->data['post']->id)->name;
         $this->data['authorAvatar'] = $this->getAuthor($this->data['post']->id)->avatar;
@@ -89,14 +89,17 @@ class Singular extends \Municipio\Controller\BaseController
      */
     private function getFeatureImage($id, $size = [1920,1080])
     {
-        $image = [];
-        $image['id'] = get_post_thumbnail_id($id);
-        $image['src'] = (wp_get_attachment_image_src($image['id'], $size));
-        $image['alt'] = get_post_meta($image['id'], '_wp_attachment_image_alt', TRUE);
-        $image['title'] = get_the_title($image['id']);
+        $image_id = get_post_thumbnail_id($id);
 
-        return $image;
+        if (!$image_id) return false;
 
+        $featuredImageObject = (object) [
+            'id' => get_post_thumbnail_id($id), 
+            'src' => wp_get_attachment_image_src($image_id, $size),
+            'alt' => get_post_meta($image_id, '_wp_attachment_image_alt', TRUE),
+            'title' => get_the_title($image_id)
+        ];
+         
+        return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
     }
-
 }
