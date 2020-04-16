@@ -1,109 +1,33 @@
-<article id="article" class="c-article s-article u-mb-4">
-  
-	@paper(['padding' => 3])
+<article id="article" class="c-article s-article">
 
-		<!-- Title -->
-		@typography(["element" => "h1"])
-			{!! $postTitleFiltered !!}
-		@endtypography
+    <!-- Feature Image -->
+    @if ($feature_image)
+    @image([
+        'src'=> $feature_image->src[0],
+        'alt' => $feature_image->alt,
+        'caption' => $feature_image->title,
+        'classList' => ['c-article__feature-image']
+    ])
+    @endimage
+    @endif
 
-		<!-- Blog post style author -->
-		@if($postTypeDetails->hierarchical)
+    <!-- Title -->
+    @typography(["element" => "h1"])
+        {!! $postTitleFiltered !!}
+    @endtypography
 
-			@avatar(['size' => 'sm', 'image' => $authorAvatar, 'classList' => ['author']])
-			@endavatar
+    <!-- Content -->
+    {!! $postContentFiltered !!}
 
-			@typography(['variant' => 'span', 'element' => 'meta', 'classList' => ['author-name']])
-				{{$authorName}}
-			@endtypography
-
-			@date([
-					'action' => 'formatDate',
-					'timestamp' => $publishedDate
-			])
-			@enddate
-
-		@endif
-
-		<!-- Content -->
-		{!! $postContentFiltered !!}
-
-	{{-- Author --}}
-	@grid([
-		"container" => true,
-		"row_gap" => 3
-	])
-		@grid([
-			"col_gap" => 8,
-			"col" => [
-				"xs" => [1,3],
-				"sm" => [1,3],
-				"md" => [1,3],
-				"lg" => [1,2],
-				"xl" => [1,2],
-				"lg" => [1,2],
-				"xl" => [1,2]
-			],
-			"row" => [
-				"xs" => [1,2],
-				"sm" => [1,2],
-				"md" => [1,2]
-			]
-		])
-
-			@avatar(['size' => 'sm', 'image' => $authorAvatar, 'classList' => ['author']])
-			@endavatar
-
-		@endgrid
-
-
-		@grid([
-			"row_gap" => 0,
-			"col" => [
-				"xs" => [3,12],
-				"sm" => [2,7],
-				"md" => [2,7],
-				"lg" => [2,5],
-				"xl" => [2,4]
-			],
-			"row" => [
-				"xs" => [1,2],
-				"sm" => [1,2],
-				"md" => [1,2],
-				"lg" => [1,2],
-				"xl" => [1,1]
-			]
-		])
-
-		@if($postTypeDetails->hierarchical)
-			@typography(['variant' => 'h4', 'element' => 'meta'])
-				{{$publishTranslations['by']}} {{$authorName}}
-			@endtypography
-
-			@typography(['variant' => 'meta'])
-				{{$publishTranslations['published']}}
-				@date([
-					'action' => 'formatDate',
-					'timestamp' => $publishedDate
-				])
-				@enddate
-			@endtypography
-
-			@typography(['variant' => 'meta'])
-				{{$publishTranslations['updated']}}
-				@date([
-					'action' => 'formatDate',
-					'timestamp' => $updatedDate
-				])
-				@enddate
-			@endtypography
-		@endif
-
-		@endgrid
-	@endgrid
-
-	@endpaper
-
+    <!-- Signature -->
+    @if($postTypeDetails->hierarchical)
+        @signature([
+            'author' => $authorName,
+            'avatar' => $authorAvatar,
+            'published' => $publishedDate,
+            'updated' => $updatedDate])
+        @endsignature
+    @endif
 </article>
 
 {{--
