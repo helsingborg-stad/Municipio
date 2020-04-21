@@ -9,8 +9,8 @@ export default class Comments {
     constructor() {
         this.initFancyCancelReply();
         this.cancelReplyOnClick();
-        this.adminDeleteComment();
         this.likeComment();
+        this.changeTextareaHeight();
     }
     
     /**
@@ -52,31 +52,27 @@ export default class Comments {
     }
     
     /**
-     * Delete Comment eventListner
+     * Listen to commentform typing
      */
-    adminDeleteComment() {
-        const deleteButton = document.querySelectorAll('.delete-comment');
-        for (let int = 0; int < deleteButton.length; int++) {
-            deleteButton[int].addEventListener('click', function (element) {
-                
-                let commentId = element.getAttribute('comment-id'),
-                    nonce = element.getAttribute('comment-nonce');
-                
-                fetch(ajaxurl, {
-                    method: "POST",
-                    context: self,
-                    body: {
-                        action: 'remove_comment',
-                        id: commentId,
-                        nonce: nonce,
-                    }
-                }).then(response => {
-                    if (!response.success) {
-                        // Undo front end deletion
-                        //this.showError($target);
-                    }
-                });
-            });
+    changeTextareaHeight() {
+        const self = this;
+        document.getElementById('comment').addEventListener('keydown', function (event) {
+            self.textareaHeight(event);
+        }, false);
+        document.getElementById('comment').addEventListener('keyup', function (event) {
+            self.textareaHeight(event);
+        }, false);
+    }
+    
+    /**
+     * Change height of textarea
+     * @param event
+     */
+    textareaHeight(event){
+        if (event.keyCode !== 8 && event.keyCode !== 46 || event.keyCode === 8 || event.keyCode === 46) {
+            let text = document.getElementById('comment').value + String.fromCharCode(event.keyCode);
+            document.getElementById('comment').rows = text.split(/\r\n|\r|\n/).length;
+            console.log('SMAXK');
         }
     }
     
@@ -113,15 +109,11 @@ export default class Comments {
                     if (this.classList.contains('active')) {
                         
                         likes--;
-                        this.querySelector('.c-button__label i').innerHTML = 'thumb_up';
-                        this.querySelector('.c-button__label span').innerHTML = HbgPrimeArgs.comments.like;
                         this.classList.remove('active');
                         
                     } else {
                         
                         likes++;
-                        this.querySelector('.c-button__label i').innerHTML = 'thumb_down';
-                        this.querySelector('.c-button__label span').innerHTML = HbgPrimeArgs.comments.dislike;
                         this.classList.add('active');
                     }
                     

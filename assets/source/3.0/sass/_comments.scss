@@ -1,3 +1,7 @@
+.c-textarea textarea {
+    min-height:40px;
+    padding-bottom: 24px;
+}
 .comment {
 
     &--actions {
@@ -13,9 +17,43 @@
         padding-left:48px;
     }
 
-    &--likes-icon {
-        position:relative;
-        top:2px
+
+    .comment--likes {
+        position: relative;
+        top:16px;
+        float:right;
+
+        .like-button {
+            position: relative;
+            top: -2px;
+            right: -8px;
+
+            &.active i {
+                color: #ae0b05;
+            }
+
+            i:hover {
+                color: #ae0b05;
+            }
+
+            &.active i:hover {
+                color: #000;
+            }
+        }
+
+        span {
+            position: relative;
+            right: 10px;
+            font-weight:bold;
+        }
+
+    }
+
+
+    .c-comment__date {
+        align-self: flex-end;
+        margin-left: 12px;
+
     }
 
 }
