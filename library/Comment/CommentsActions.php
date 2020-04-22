@@ -101,10 +101,10 @@ class CommentsActions
             'class_form'        => 'c-form',
             'id_submit'         => 'submit',
             'class_submit'      => 'c-button 
-                                    u-float--right 
                                     comment-reply-link 
-                                    c-button__basic 
-                                    c-button__basic--secondary 
+                                    c-button 
+                                    c-button__filled 
+                                    c-button__filled--primary 
                                     c-button--md',
             'name_submit'       => 'submit',
             'submit_button'     => '
@@ -113,7 +113,7 @@ class CommentsActions
                     name="%1$s" 
                     type="submit" 
                     id="%2$s" 
-                    class="u-padding__top--1 u-padding__bottom--3%3$s" 
+                    class="u-padding__bottom--3%3$s" 
                     value="%4$s" /></div>',
             'format'            => 'html5',
             'cancel_reply_link' => __( 'Cancel reply' ),
