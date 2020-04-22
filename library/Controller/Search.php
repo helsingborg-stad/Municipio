@@ -7,6 +7,8 @@ class Search extends \Municipio\Controller\BaseController
 
     public function init()
     {
+        /* global $wp_query;
+        die(print_r(array_keys(get_object_vars($wp_query)))); */
         //Translations
         $this->data['translation'] = array(
             'filter_results' => __("Filter searchresults", 'municipio'),
@@ -40,12 +42,14 @@ class Search extends \Municipio\Controller\BaseController
             $this->data['activeSearchEngine'] = "wp";
         }
 
+        $this->data['searchResult'] = $this->prepareSearchResultObject();
         $this->data['template'] = is_null(get_field('search_result_layout', 'option')) ? 'default' : get_field('search_result_layout', 'option');
         $this->data['gridSize'] = get_field('search_result_grid_columns', 'option');
+        $this->data['pagination'] = $this->preparePaginationObject();
     }
 
     /**
-     * Default wordpress search
+     * Retrieve search results
      * @return void
      */
     public function wpSearch()
@@ -53,6 +57,54 @@ class Search extends \Municipio\Controller\BaseController
         global $wp_query;
         $this->data['resultCount'] = $wp_query->found_posts;
         $this->data['keyword'] = get_search_query();
+    }
+
+    private function preparePaginationObject(){
+        global $wp_query;
+        $pagination = [];
+        $paginationLinks = paginate_links([
+                'type' => 'array', 
+                'prev_next' => false, 
+                'show_all' => true, 
+                'current' => $wp_query->max_num_pages + 1
+        ]);
+
+        for($i = 0; $i < count($paginationLinks); $i++){
+            $anchor = new \SimpleXMLElement($paginationLinks[$i]);
+            $pagination[] = array(
+               'href' => (string) $anchor['href']  . '&pagination=' . (string) ($i + 1),
+               'label' => (string) $i + 1
+            );
+        }
+
+        return \apply_filters('Municipio/Controller/Search/prepareSearchResultObject', $pagination); 
+    }
+
+    /**
+     * Default wordpress search
+     * @return object
+     */
+    public function prepareSearchResultObject()
+    {
+        global $wp_query;
+        $posts = $wp_query->posts;
+        $searchResult = [];
+        /* die(print_r($posts)); */
+        foreach($posts as $post){
+            //$excerpt = get_the_excerpt($post->ID);
+
+            $searchResult[] = array(
+                'author' => get_the_author_meta( 'display_name', $post->post_author ),
+                'date' =>  $post->post_date,
+                'title' => $post->post_title,
+                'permalink' => get_permalink( $post->ID),
+                'excerpt' => wp_trim_words($post->post_content),
+                'featuredImage' => get_the_post_thumbnail_url($post->ID)
+            );
+        }
+
+        return \apply_filters('Municipio/Controller/Search/prepareSearchResultObject', $searchResult);
+
     }
 
     /**
@@ -134,7 +186,6 @@ class Search extends \Municipio\Controller\BaseController
 
         //Sort
         ksort($return);
-
         //Return
         return $return;
     }

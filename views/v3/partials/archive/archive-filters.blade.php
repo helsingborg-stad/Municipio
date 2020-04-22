@@ -8,7 +8,7 @@
 
     @form([
         'method' => 'get',
-        'action' => $archiveUrl
+        'action' => $archiveUrl,
         'classList' => ['container','u-w-100'],
         'id' => 'archive-filter'
     ])

@@ -1,8 +1,7 @@
 .DS_Store
-.php_cs.cache
 node_modules
 composer.lock
+.npmrc
 package-lock.json
-vendor
+assets/dist/3.0/js/*
 vendor/
-vendor/*
