@@ -5,17 +5,12 @@
 // https://en.wikipedia.org/wiki/Line_length
 // Longest - 95 CPL
 //--------
-p {
-    max-width: 95ch;
-}
+
 
 // Comments
-#respond {
-    margin-top:24px;
-    small a {
-        float:right;
-    }
-}
 
-
+@import 'generic';
+@import 'search';
+@import 'article';
 @import 'comments';
+
