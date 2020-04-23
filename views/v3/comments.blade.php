@@ -2,7 +2,7 @@
  && comments_open() && is_user_logged_in())
 
     <div class="comment">
-    {{Municipio\Comment\CommentsActions::getInitialCommentForm()}}
+        {{Municipio\Comment\CommentsActions::getInitialCommentForm()}}
 
         <div class="comment__conversation">
             @foreach($comments as $comment)
