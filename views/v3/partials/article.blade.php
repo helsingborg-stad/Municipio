@@ -23,6 +23,7 @@
     @if($postTypeDetails->hierarchical)
         @signature([
             'author' => $authorName,
+            'avatar_size' => 'sm',
             'avatar' => $authorAvatar,
             'published' => $publishedDate,
             'updated' => $updatedDate])
