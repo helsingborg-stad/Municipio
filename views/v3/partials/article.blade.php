@@ -34,7 +34,6 @@
 </article>
 
 
-
 {{--
 <article id="article" class="c-article s-article u-mb-4">
 	@typography([
