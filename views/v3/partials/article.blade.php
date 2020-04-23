@@ -23,12 +23,16 @@
     @if($postTypeDetails->hierarchical)
         @signature([
             'author' => $authorName,
+            'avatar_size' => 'sm',
             'avatar' => $authorAvatar,
             'published' => $publishedDate,
             'updated' => $updatedDate])
         @endsignature
     @endif
+
+    @includeIf('comments')
 </article>
+
 
 {{--
 <article id="article" class="c-article s-article u-mb-4">

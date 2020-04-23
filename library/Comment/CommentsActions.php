@@ -82,6 +82,54 @@ class CommentsActions
     }
 
     /**
+     *
+     */
+    public static function getInitialCommentForm() {
+        $key = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
+        $reCaptcha = (!is_user_logged_in(0)) ?
+            '<div class="g-recaptcha" data-sitekey="' . $key . '"></div></div>' : '';
+
+        ob_start();
+        ob_get_clean();
+
+        $current_user = wp_get_current_user();
+
+        $args = array(
+            'id_form'           => 'commentform',
+            'logged_in_as'      => '',
+            'must_log_in'       => '',
+            'class_form'        => 'c-form',
+            'id_submit'         => 'submit',
+            'class_submit'      => 'c-button 
+                                    comment-reply-link 
+                                    c-button 
+                                    c-button__filled 
+                                    c-button__filled--primary 
+                                    c-button--md',
+            'name_submit'       => 'submit',
+            'submit_button'     => '
+                <div class="comment--actions">
+                <input 
+                    name="%1$s" 
+                    type="submit" 
+                    id="%2$s" 
+                    class="u-padding__bottom--3%3$s" 
+                    value="%4$s" /></div>',
+            'format'            => 'html5',
+            'cancel_reply_link' => __( 'Cancel reply' ),
+            'comment_field'     =>
+                $reCaptcha. '<div class="c-textarea">
+                                <textarea 
+                                    id="comment"
+                                    name="comment"
+                                    placeholder="'.__('Comment text','text-domain').'" 
+                                    aria-required="true"></textarea></div>'
+        );
+
+        comment_form( $args );
+    }
+
+    /**
      * Delete comment. Works similar as 'wp_ajax_delete_comment',
      * but this allows all user roles to delete their own comments.
      * @return void

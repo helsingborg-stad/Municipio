@@ -56,7 +56,7 @@ class App
          * Comments
          */
         new \Municipio\Comment\HoneyPot();
-        new \Municipio\Comment\LikeButton();
+        new \Municipio\Comment\Likes();
         new \Municipio\Comment\CommentsFilters();
         new \Municipio\Comment\CommentsActions();
 

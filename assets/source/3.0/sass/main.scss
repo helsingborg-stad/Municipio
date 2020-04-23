@@ -1,3 +1,11 @@
-@import "./generic.scss";
-@import "./search.scss";
-@import "./article.scss";
+
+// content - characters per row
+// https://en.wikipedia.org/wiki/Line_length
+// Longest - 95 CPL
+//--------
+
+@import 'generic';
+@import 'search';
+@import 'article';
+@import 'comments';
+

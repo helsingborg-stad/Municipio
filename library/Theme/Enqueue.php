@@ -126,6 +126,7 @@ class Enqueue
             'tableFilter' => array(
                 'empty' => apply_filters('municipio/tablefilter/empty', __('No matching content found…', 'municipio'))
             )
+
         ));
         wp_enqueue_script($this->defaultPrimeName);
         /*
@@ -134,6 +135,17 @@ class Enqueue
 
         wp_register_script('municipio-ajax', get_template_directory_uri() . '/assets/dist/2.0/'
             . \Municipio\Helper\CacheBust::name('js/ajax.js'));
+
+
+
+        wp_enqueue_script('municipio');
+        wp_enqueue_script('municipio-ajax');
+
+        //Load polyfill SAAS
+        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v3/polyfill.min.js', 'municipio');
+
+
+        */
 
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
@@ -145,23 +157,15 @@ class Enqueue
             )
         ));
 
-        wp_enqueue_script('municipio');
-        wp_enqueue_script('municipio-ajax');
-
-        //Load polyfill SAAS
-        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v3/polyfill.min.js', 'municipio');
-
         //Comment reply
-        if (is_singular() && get_option('thread_comments')) {
-            wp_enqueue_script('comment-reply');
-        }
+       if (is_singular() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+       }
 
-        //Instant page load 
+        //Instant page load
         if(!defined('INSTANT_PAGE_DISABLED')) {
-            wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true); 
+            wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true);
         }
-        */
-
 
         // Municipio
         wp_register_script('municipio', get_template_directory_uri()

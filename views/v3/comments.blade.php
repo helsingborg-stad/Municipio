@@ -1,115 +1,121 @@
-@segment([
-    'template' => 'featured',
-    'containContent' => true,
-    'height' => 'md',
-    'width' => 'lg',
-    'card' => [
-        'isCard' => true,
-        'background' => "gray",
-        'padding' => "10"
-    ],
-    'text_alignment' => 'right',
-    'content_alignment' => [
-        'vertical' => 'center',
-        'horizontal' => 'right'
-    ],
-    'article_heading' => [
-        "variant" => "h1",
-        "element" => "h2",
-        "slot" => ""
-    ],
-        'article_body' => ""
-])
+@if( is_singular() && comments_open() && get_option('comment_registration') === 0 || is_singular()
+ && comments_open() && is_user_logged_in())
 
-@php
+    <div class="comment">
+        {{Municipio\Comment\CommentsActions::getInitialCommentForm()}}
 
-@endphp
+        <div class="comment__conversation">
+            @foreach($comments as $comment)
+                @if($comment->comment_parent == 0)
 
-@foreach($comments as $comment)
-    @if($comment->comment_parent == 0)
+                    <div class="parent" id="div-comment-{{$comment->comment_ID}}">
 
+                        @if (is_user_logged_in())
+                            <div class="comment--likes">
+                                @button([
+                                    'icon' => 'thumb_up',
+                                    'size' => 'sm',
+                                    'color' => '',
+                                    'style' => 'basic',
+                                    'type' => 'button',
+                                    'classList' => ['comment--likes-icon', \Municipio\Comment\Likes::likeButton($comment->comment_ID)['classList']],
+                                    'attributeList' => [
+                                        'data-commentid' => $comment->comment_ID,
+                                    ],
+                                ])
+                                @endbutton
 
-        @if (isset($authorPages) && $authorPages == true &&
-            email_exists($comment->comment_author_email) !== false)
+                                <span data-likes="{{\Municipio\Comment\Likes::likeButton($comment->comment_ID)['count']}}"
+                                      id="comment-likes-{{$comment->comment_ID}}">
+                                        {{\Municipio\Comment\Likes::likeButton($comment->comment_ID)['count']}}
+                                </span>
+                            </div>
+                        @endif
 
-            @php
-                $userName = get_user_by('email', $comment->comment_author_email);
+                        <a name="comment-{{$comment->comment_ID}}"></a>
+                        @comment([
+                            'author' => $comment->comment_author,
+                            'author_url' => 'mailto:'.$comment->comment_author_email,
+                            'author_image' => get_avatar_url(get_user_by('email', $comment->comment_author_email)->data->ID ),
+                            'href' => '',
+                            'text' => get_comment_text($comment->comment_ID),
+                            'icon' => 'face',
+                            'bubble_color' => 'dark',
+                            'date_suffix' => __('ago', 'municipio'),
+                            'date' => date('Y-m-d H:i', strtotime($comment->comment_date)),
+                            'classList' => ['comment-'.$comment->comment_ID, 'comment-reply-link'],
+                        ])
+                        @endcomment
+                    </div>
 
-                $userAvatar = (get_the_author_meta('user_profile_picture', get_user_by('email',
-                $comment->comment_author_email)->ID)) ?
-                    get_the_author_meta('user_profile_picture', get_user_by('email', $comment->comment_author_email)->ID)
-                 :
-                    $userName
-                 ;
+                    <div class="reply comment--actions">
+                        @button([
+                            'icon' => 'reply',
+                            'reversePositions' => true,
+                            'style' => 'basic',
+                            'color' => 'secondary',
+                            'text' => __('Reply', 'municipio'),
+                            'componentElement' => 'div',
+                            'attributeList' => [
+                                'data-commentid' => $comment->comment_ID,
+                                'data-postid' => $post->id,
+                                'data-belowelement' => 'div-comment-'.$comment->comment_ID,
+                                'data-respondelement' => 'respond',
+                                'rev' => 'nofollow',
+                                'js-toggle-trigger' => 'hide-reply-'.$comment->comment_ID,
+                                'js-toggle-item' => 'hide-reply-'.$comment->comment_ID,
+                                'js-toggle-class' => 'u-display--none'
+                            ],
+                            'classList' => ['comment-reply-link']
+                        ])
+                        @endbutton
+                    </div>
 
-            @endphp
-        @else
+                    @if (!empty(get_comments(array('parent' => $comment->comment_ID, 'order' => 'asc'))))
+                        @foreach(get_comments(array('parent' => $comment->comment_ID, 'order' => 'asc'))  as $answer)
 
-            @php
-                $userName =  $comment->comment_author;
-            @endphp
+                            <div class="child" id="div-comment-{{$answer->comment_ID}}">
+                                @if (is_user_logged_in())
+                                    <div class="comment--likes">
+                                        @button([
+                                            'icon' => 'thumb_up',
+                                            'size' => 'sm',
+                                            'color' => '',
+                                            'style' => 'basic',
+                                            'type' => 'button',
+                                            'classList' => ['comment--likes-icon', \Municipio\Comment\Likes::likeButton($answer->comment_ID)['classList']],
+                                            'attributeList' => [
+                                                'data-commentid' => $answer->comment_ID,
+                                            ],
+                                        ])
+                                        @endbutton
 
-        @endif
+                                        <span data-likes="{{\Municipio\Comment\Likes::likeButton($answer->comment_ID)['count']}}"
+                                              id="comment-likes-{{$answer->comment_ID}}">
+                                            {{\Municipio\Comment\Likes::likeButton($answer->comment_ID)['count']}}
+                                        </span>
+                                    </div>
+                                @endif
 
-        {{-- Comment Thread --}}
-        @comment([
-            'author' => $userName,
-            'text' => comment_text($comment->comment_ID),
-            'icon' => 'face',
-            'image' => 'https://picsum.photos/70/70?image=64',
-            'date' => date('Y-m-d \k\l\. H:i', strtotime($comment->comment_date))
-        ])
-
-
-            @if (\Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
-                    ($comment->comment_ID)) !== null )
-                <span class="like">
-                    {!! \Municipio\Helper\Hash::short(\Municipio\Helper\Likes::likeButton
-                    ($comment->comment_ID)) !!}
-                </span>
-            @endif
-
-        @endcomment
-
-        @php
-            $answers = get_comments(array('parent' => $comment->comment_ID, 'order' => 'asc'));
-        @endphp
-
-        {{-- COMMENTS ANSWERS --}}
-        @if (isset($answers) && $answers)
-            @foreach($answers as $answer)
-
-                @if (isset($authorPages) && $authorPages == true && email_exists($answer->comment_author_email) !== false)
-                    @php
-                        $displayNameAnswer = get_user_by('email', $answer->comment_author_email);
-                    @endphp
-                @else
-
-                    @php
-                        $displayNameAnswer =  $answer->comment_author;
-                        $userAvatarAnswer = (get_the_author_meta('user_profile_picture', get_user_by('email',
-                        $answer->comment_author_email)->ID)) ?
-                            get_the_author_meta('user_profile_picture', get_user_by('email', $answer->comment_author_email)->ID)
-                         :
-                            $displayNameAnswer
-                         ;
-                    @endphp
+                                <a name="comment-{{$answer->comment_ID}}"></a>
+                                @comment([
+                                    'author' => $answer->comment_author,
+                                    'author_url' => 'mailto:'.$answer->comment_author_email,
+                                    'author_image' => get_avatar_url(get_user_by('email', $answer->comment_author_email)->data->ID ),
+                                    'href' => '',
+                                    'text' => get_comment_text($answer->comment_ID),
+                                    'icon' => 'face',
+                                    'bubble_color' => 'dark',
+                                    'date_suffix' => __('ago', 'municipio'),
+                                    'date' => date('Y-m-d H:i', strtotime($answer->comment_date)),
+                                    'is_reply' => true
+                                ])
+                                @endcomment
+                            </div>
+                        @endforeach
+                    @endif
                 @endif
-
-                    @comment([
-                        'author' => $displayNameAnswer,
-                        'text' => comment_text($answer->comment_ID),
-                        'icon' => 'face',
-                        'image' => $userAvatarAnswer,
-                        'date' => date('Y-m-d \k\l\. H:i', strtotime($answer->comment_date)),
-                        'is_reply' => true
-                    ])
-                    @endcomment
-
             @endforeach
-        @endif
-
-    @endif
-@endforeach
-
-@endsegment
+        </div>
+    </div>
+@endif

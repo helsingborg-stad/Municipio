@@ -50,6 +50,8 @@ class Singular extends \Municipio\Controller\BaseController
             'max_depth'  => get_option('thread_comments_depth')
         );
 
+
+
         //Post settings
         $this->data['settingItems'] = apply_filters_deprecated('Municipio/blog/post_settings', array($this->data['post']), '3.0', 'Municipio/blog/postSettings'); 
 
