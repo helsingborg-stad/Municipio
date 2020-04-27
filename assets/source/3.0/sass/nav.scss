@@ -1,0 +1,29 @@
+.nav-helper {
+    width: 100%;
+    max-width: 1328px;
+
+    .nav-accessibility {
+        float: right;
+        margin-top: -50px;
+        list-style: none;
+    }
+
+    .nav-accessibility a,
+    .nav-accessibility a:visited,
+    .nav-accessibility a:hover {
+        color:#000;
+        font-weight:600;
+        text-decoration:none;
+    }
+
+    .nav-accessibility .c-icon {
+        position:relative;
+        top:5px;
+    }
+}
+
+
+
+
+
+

@@ -91,18 +91,11 @@
         {{-- After page layout --}}
         @yield('after-layout')
 
-        {{-- Site footer --}}
-        @section('footer')
-            @includeIf('partials.footer')
-        @show
-
     </div>
-
-
-
     {{-- Wordpress required call --}}
-    {!! wp_footer() !!}
 </div>
-
+@section('footer')
+    @includeIf('partials.footer')
+@show
 </body>
 </html>

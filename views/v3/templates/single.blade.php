@@ -4,11 +4,15 @@
 @stop
 
 @section('above')
-    @breadcrumb([
-        'list' => \Municipio\Theme\Navigation::breadcrumbData()
-    ])
-    @endbreadcrumb
+    <div class="nav-helper">
+        @breadcrumb([
+            'list' => \Municipio\Theme\Navigation::breadcrumbData()
+        ])
+        @endbreadcrumb
+        @includeIf('partials.navigation.accessibility')
+    </div>
 @stop
+
 
 @section('sidebar-left')
     @if (get_field('nav_sub_enable', 'option'))
@@ -24,13 +28,13 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
-    @section('loop')
-        @if($post)
-            @include('partials.article', (array) $post)
-        @endif
-    @show
+@section('loop')
+    @if($post)
+        @include('partials.article', (array) $post)
+    @endif
+@show
 
-    @includeIf('partials.sidebar', ['id' => 'content-area'])
+@includeIf('partials.sidebar', ['id' => 'content-area'])
 @stop
 
 @section('sidebar-right')

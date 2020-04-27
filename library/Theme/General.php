@@ -205,12 +205,24 @@ class General
      *
      * @return array        Modified item array
      */
+
+    /**
+     * Filter for adding accessibility items
+     * @param $items  Default item array
+     * @return array
+     */
     public function accessibilityItems($items)
     {
         if (is_single() || is_page()) {
-            $items[] = '<a href="#" onclick="window.print();return false;" class=""><i class="pricon pricon-print"></i> ' . __('Print', 'municipio') . '</a>';
-        }
 
-        return $items;
+            $items[] =  array(
+                'icon' => 'print',
+                'href' => '#',
+                'script' => 'window.print();return false;',
+                'text' => __('Print', 'municipio')
+            );
+
+            return $items;
+        }
     }
 }
