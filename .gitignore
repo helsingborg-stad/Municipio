@@ -9,3 +9,4 @@ vendor/
 .php_cs.cache
 
 
+/assets/dist/3.0/css/municipio-css.min.css
