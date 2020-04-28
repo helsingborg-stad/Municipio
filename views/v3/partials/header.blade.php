@@ -1,4 +1,16 @@
 <header id="site-header">
+    @navbar([
+        'logo' => $logotype->standard['url'], 
+        'items' => $topNavigation, 
+        'expanded_prev' => $pageParentID, 
+        'expanded_current' => $pageID, 
+        'expanded_menu' => $topNavigation, 
+        'childItemsUrl' => 'wp/wp-json/municipio/v1/navigation', 
+        'isDynamic' => true, 
+        'pageID' => $pageID,
+        'pageParentID' => $pageParentID
+    ])
+    @endnavbar
     {{-- TAB MENU --}}
     {{-- @includeIf('partials.header.tabs') --}}
     @includeIf('partials.search.search-form')
@@ -37,9 +49,8 @@
     @includeIf('partials.navigation.helper')
 
 
-    @navbar(['logo' => $logotype->standard['url'], 'items' => $topNavigation])
-    @endnavbar
 
+  
     {{-- After header body --}}
     @yield('after-header-body')
 
