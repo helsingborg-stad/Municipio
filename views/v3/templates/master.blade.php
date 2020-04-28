@@ -24,7 +24,7 @@
 </head>
 
 <body class="{{ $bodyClass }}">
-<div class="l-docs">
+
     {{-- Site header --}}
     @includeIf('partials.header')
 
@@ -102,7 +102,7 @@
 
     {{-- Wordpress required call --}}
     {!! wp_footer() !!}
-</div>
+
 
 </body>
 </html>

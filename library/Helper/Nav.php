@@ -201,6 +201,7 @@ class Nav
       WHERE post_parent IN(" . $parent . ")
       AND " . $postTypeSQL . "
       AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
+      AND post_status='publish'
       ORDER BY menu_order ASC 
       LIMIT 500
     ", ARRAY_A);
