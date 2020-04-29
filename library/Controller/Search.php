@@ -68,8 +68,8 @@ class Search extends \Municipio\Controller\BaseController
                 'show_all' => true, 
                 'current' => $wp_query->max_num_pages + 1
         ]);
-
-        for($i = 0; $i < count($paginationLinks); $i++){
+       
+        for($i = 0; $i < count((array) $paginationLinks); $i++){
             $anchor = new \SimpleXMLElement($paginationLinks[$i]);
             $pagination[] = array(
                'href' => (string) $anchor['href']  . '&pagination=' . (string) ($i + 1),

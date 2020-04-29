@@ -1,7 +1,6 @@
 <header id="site-header">
     @navbar([
         'logo' => $logotype->standard['url'], 
-        'items' => $topNavigation, 
         'expanded_prev' => $pageParentID, 
         'expanded_current' => $pageID, 
         'expanded_menu' => $topNavigation, 
@@ -10,6 +9,27 @@
         'pageID' => $pageID,
         'pageParentID' => $pageParentID
     ])
+
+        @button([
+            'color' => 'default',
+            'style' => 'basic',
+            'icon' => 'people',
+            'size' => 'lg',
+            'text' => 'Login',
+            'classList' => ['c-button--show-search']
+        ])
+        @endbutton
+
+        @button([
+            'color' => 'default',
+            'style' => 'basic',
+            'icon' => 'search',
+            'size' => 'lg',
+            'text' => 'Search',
+            'classList' => ['c-button--show-search'],
+            'attributeList' => ['data-open' => 'm-search-modal__trigger']
+        ])
+        @endbutton
     @endnavbar
     {{-- TAB MENU --}}
     {{-- @includeIf('partials.header.tabs') --}}

@@ -5,7 +5,7 @@
     &__title-link:hover,
     &__title-link:active{
         text-decoration: none;
-        color:#ec6701;
+       
     }
 
     & .c-typography__variant--meta{
@@ -29,3 +29,23 @@
     }
 }
 
+.search-modal{
+    background-color: unset;
+    box-shadow: none;
+    
+    & {
+        .c-field,
+        .c-button {
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .c-field{
+            & input {
+                width:600px;
+            }
+        }
+    }
+
+    
+}
