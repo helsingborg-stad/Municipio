@@ -1,85 +1,39 @@
 {{-- SEARCH: Form, Field and button component --}}
-
-@button([
-    'color' => 'primary',
-    'style' => 'basic',
-    'icon' => 'search',
-    'size' => 'lg',
-    'text' => _x( 'Search', 'label' ),
-    'classList' => ['c-button--show-search']
+@modal([
+    'id' => 'm-search-modal__trigger', 
+    'classList' => ['search-modal'], 
+    'size' => 'xl', 
+    'overlay' => 'dark', 
+    'isPanel' => true
 ])
-@endbutton
-
-@form([
-    'method' => 'get',
-    'action' => esc_url( home_url( '/' ) ),
-    'classList' => ['c-form--hidden']
-])
-    @grid([
-        "container" => true,
-        "col_gap" => 8,
-        "row_gap" => 3
+    @form([
+        'method' => 'get',
+        'action' => esc_url( home_url( '/' ) ),
+        'classList' => ['c-form--hidden']
     ])
-
-        @grid([
-            "col" => [
-            "xs" => [1,10],
-            "sm" => [1,10],
-            "md" => [1,10],
-            "lg" => [1,10],
-            "xl" => [1,10]
-        ],
-            "row" => [
-            "xs" => [1,2],
-            "sm" => [1,2],
-            "md" => [1,2],
-            "lg" => [1,2],
-            "xl" => [1,2]
-        ]
-        ])
-
-            @field([
-                'type' => 'text',
-                'value' => get_search_query(),
-                'attributeList' => [
-                    'type' => 'search',
-                    'name' => 's',
-                    'required' => false,
-                ],
-                'label' => _x( 'Search for:', 'label' )
-            ])
-            @endfield
-
-        @endgrid
-
-        @grid([
-            "col" => [
-                "xs" => [1,2],
-                "sm" => [1,2],
-                "md" => [10,2],
-                "lg" => [10,2],
-                "xl" => [10,2]
+        @field([
+            'type' => 'text',
+            'value' => get_search_query(),
+            'attributeList' => [
+                'type' => 'search',
+                'name' => 's',
+                'required' => false,
             ],
-                "row" => [
-                "xs" => [1,2],
-                "sm" => [1,2],
-                "md" => [1,2],
-                "lg" => [1,2],
-                "xl" => [1,2]
-        ]
+            'label' => _x( 'Search', 'label' )
         ])
-            @button([
-                'type' => 'filled',
-                'icon' => 'search',
-                'size' => 'md',
-                'color' => 'secondary',
-                'attributeList' => [
-                    'type' => 'submit'
-                ]
-            ])
-            @endbutton
+        @endfield
 
-        @endgrid
+        @button([
+            'style' => 'outlined',
+            'icon' => 'search',
+            'size' => 'lg',
+            'color' => 'primary',
+            'attributeList' => [
+            'type' => 'submit'
+            ],
+            'classList' => ['u-color__text--primary']
+        ])
+        @endbutton
+    @endform
 
-    @endgrid
-@endform
+@endmodal

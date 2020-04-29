@@ -10,6 +10,16 @@
         'pageID' => $pageID,
         'pageParentID' => $pageParentID
     ])
+        @button([
+            'color' => 'default',
+            'style' => 'basic',
+            'icon' => 'search',
+            'size' => 'lg',
+            'text' => 'Search',
+            'classList' => ['c-button--show-search'],
+            'attributeList' => ['data-open' => 'm-search-modal__trigger']
+        ])
+        @endbutton
     @endnavbar
     {{-- TAB MENU --}}
     {{-- @includeIf('partials.header.tabs') --}}
