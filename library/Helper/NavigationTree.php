@@ -296,10 +296,8 @@ class NavigationTree
      */
     protected function getCurrentPage()
     {
-        
         if (is_post_type_archive()) {
             $pageForPostType = get_option('page_for_' . get_post_type());
-
             return get_post($pageForPostType);
         }
 
