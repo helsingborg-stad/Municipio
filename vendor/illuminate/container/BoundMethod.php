@@ -17,9 +17,6 @@ class BoundMethod
      * @param  array  $parameters
      * @param  string|null  $defaultMethod
      * @return mixed
-     *
-     * @throws \ReflectionException
-     * @throws \InvalidArgumentException
      */
     public static function call($container, $callback, array $parameters = [], $defaultMethod = null)
     {
@@ -52,7 +49,7 @@ class BoundMethod
         // We will assume an @ sign is used to delimit the class name from the method
         // name. We will split on this @ sign and then build a callable array that
         // we can pass right back into the "call" method for dependency binding.
-        $method = count($segments) === 2
+        $method = count($segments) == 2
                         ? $segments[1] : $defaultMethod;
 
         if (is_null($method)) {
@@ -110,8 +107,6 @@ class BoundMethod
      * @param  callable|string  $callback
      * @param  array  $parameters
      * @return array
-     *
-     * @throws \ReflectionException
      */
     protected static function getMethodDependencies($container, $callback, array $parameters = [])
     {
@@ -127,10 +122,8 @@ class BoundMethod
     /**
      * Get the proper reflection instance for the given callback.
      *
-     * @param  callable|string $callback
+     * @param  callable|string  $callback
      * @return \ReflectionFunctionAbstract
-     *
-     * @throws \ReflectionException
      */
     protected static function getCallReflector($callback)
     {
@@ -150,7 +143,7 @@ class BoundMethod
      * @param  \ReflectionParameter  $parameter
      * @param  array  $parameters
      * @param  array  $dependencies
-     * @return void
+     * @return mixed
      */
     protected static function addDependencyForCallParameter($container, $parameter,
                                                             array &$parameters, &$dependencies)
@@ -159,10 +152,6 @@ class BoundMethod
             $dependencies[] = $parameters[$parameter->name];
 
             unset($parameters[$parameter->name]);
-        } elseif ($parameter->getClass() && array_key_exists($parameter->getClass()->name, $parameters)) {
-            $dependencies[] = $parameters[$parameter->getClass()->name];
-
-            unset($parameters[$parameter->getClass()->name]);
         } elseif ($parameter->getClass()) {
             $dependencies[] = $container->make($parameter->getClass()->name);
         } elseif ($parameter->isDefaultValueAvailable()) {

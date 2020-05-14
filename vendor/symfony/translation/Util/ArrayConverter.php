@@ -27,7 +27,7 @@ class ArrayConverter
 {
     /**
      * Converts linear messages array to tree-like array.
-     * For example this array('foo.bar' => 'value') will be converted to ['foo' => ['bar' => 'value']].
+     * For example this rray('foo.bar' => 'value') will be converted to array('foo' => array('bar' => 'value')).
      *
      * @param array $messages Linear messages array
      *
@@ -35,7 +35,7 @@ class ArrayConverter
      */
     public static function expandToTree(array $messages)
     {
-        $tree = [];
+        $tree = array();
 
         foreach ($messages as $id => $value) {
             $referenceToElement = &self::getElementByPath($tree, explode('.', $id));
@@ -69,7 +69,7 @@ class ArrayConverter
             $elem = &$elem[$part];
         }
 
-        if ($elem && \is_array($elem) && $parentOfElem) {
+        if (\is_array($elem) && \count($elem) > 0 && $parentOfElem) {
             /* Process next case:
              *    'foo.bar': 'test1'
              *    'foo': 'test2'
@@ -84,7 +84,7 @@ class ArrayConverter
         return $elem;
     }
 
-    private static function cancelExpand(array &$tree, string $prefix, array $node)
+    private static function cancelExpand(array &$tree, $prefix, array $node)
     {
         $prefix .= '.';
 

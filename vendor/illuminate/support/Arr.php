@@ -55,10 +55,10 @@ class Arr
                 continue;
             }
 
-            $results[] = $values;
+            $results = array_merge($results, $values);
         }
 
-        return array_merge([], ...$results);
+        return $results;
     }
 
     /**
@@ -213,14 +213,10 @@ class Arr
 
             if (! is_array($item)) {
                 $result[] = $item;
+            } elseif ($depth === 1) {
+                $result = array_merge($result, array_values($item));
             } else {
-                $values = $depth === 1
-                    ? array_values($item)
-                    : static::flatten($item, $depth - 1);
-
-                foreach ($values as $value) {
-                    $result[] = $value;
-                }
+                $result = array_merge($result, static::flatten($item, $depth - 1));
             }
         }
 
@@ -275,7 +271,7 @@ class Arr
      * Get an item from an array using "dot" notation.
      *
      * @param  \ArrayAccess|array  $array
-     * @param  string|int  $key
+     * @param  string  $key
      * @param  mixed   $default
      * @return mixed
      */
@@ -317,9 +313,17 @@ class Arr
      */
     public static function has($array, $keys)
     {
+        if (is_null($keys)) {
+            return false;
+        }
+
         $keys = (array) $keys;
 
-        if (! $array || $keys === []) {
+        if (! $array) {
+            return false;
+        }
+
+        if ($keys === []) {
             return false;
         }
 
@@ -381,7 +385,7 @@ class Arr
     {
         $results = [];
 
-        [$value, $key] = static::explodePluckParameters($value, $key);
+        list($value, $key) = static::explodePluckParameters($value, $key);
 
         foreach ($array as $item) {
             $itemValue = data_get($item, $value);
@@ -537,18 +541,11 @@ class Arr
      * Shuffle the given array and return the result.
      *
      * @param  array  $array
-     * @param  int|null  $seed
      * @return array
      */
-    public static function shuffle($array, $seed = null)
+    public static function shuffle($array)
     {
-        if (is_null($seed)) {
-            shuffle($array);
-        } else {
-            mt_srand($seed);
-            shuffle($array);
-            mt_srand();
-        }
+        shuffle($array);
 
         return $array;
     }
@@ -589,17 +586,6 @@ class Arr
     }
 
     /**
-     * Convert the array into a query string.
-     *
-     * @param  array  $array
-     * @return string
-     */
-    public static function query($array)
-    {
-        return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
-    }
-
-    /**
      * Filter the array using the given callback.
      *
      * @param  array  $array
@@ -612,17 +598,13 @@ class Arr
     }
 
     /**
-     * If the given value is not an array and not null, wrap it in one.
+     * If the given value is not an array, wrap it in one.
      *
      * @param  mixed  $value
      * @return array
      */
     public static function wrap($value)
     {
-        if (is_null($value)) {
-            return [];
-        }
-
-        return is_array($value) ? $value : [$value];
+        return ! is_array($value) ? [$value] : $value;
     }
 }

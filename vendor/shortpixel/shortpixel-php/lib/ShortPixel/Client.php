@@ -5,7 +5,7 @@ namespace ShortPixel;
 
 class Client {
 
-    private $options, $customOptions;
+    private $options;
     public static function API_DOMAIN() {
         return "api.shortpixel.com";
         //* DEVELOPMENT !! */ return "devapi.shortpixel.com";
@@ -23,18 +23,6 @@ class Client {
         return self::API_URL() . "/v2/post-reducer.php";
     }
 
-    public static function API_STATUS_ENDPOINT() {
-        return self::API_URL() . "/v2/api-status.php";
-    }
-
-    public static function IMAGE_STATUS_ENDPOINT() {
-        return self::API_URL() . "/v2/image-status.php";
-    }
-
-    public static function CLEANUP_ENDPOINT() {
-        return self::API_URL() . "/v2/cleanup.php";
-    }
-
     public static function userAgent() {
         $curl = curl_version();
         return "ShortPixel/" . ShortPixel::VERSION . " PHP/" . PHP_VERSION . " curl/" . $curl["version"];
@@ -44,9 +32,8 @@ class Client {
         return dirname(__DIR__) . "/data/shortpixel.crt";
     }
 
-    function __construct($curlOptions) {
-        $this->customOptions = $curlOptions;
-        $this->options = $curlOptions + array(
+    function __construct() {
+        $this->options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_BINARYTRANSFER => true,
             CURLOPT_HEADER => true,
@@ -124,8 +111,7 @@ class Client {
                 }
             }
         }
-        if (isset($body["files"]) && count($body["files"]) ||
-            isset($body["buffers"]) && count($body["buffers"])) {
+        if (isset($body["files"]) && count($body["files"])) {
             unset($body["pendingURLs"]);
             $retFiles = $this->requestInternal($method, $body, $header);
         }
@@ -172,7 +158,7 @@ class Client {
             $body["file_urls"] = $urls;
             $this->prepareJSONRequest(self::API_UPLOAD_ENDPOINT(), $request, $body, $method, $header);
         }
-        elseif (isset($body["files"]) || isset($body["buffers"])) {
+        elseif (isset($body["files"])) {
             $files = $this->prepareMultiPartRequest($request, $body, $header);
         }
         else {
@@ -181,10 +167,7 @@ class Client {
 
         //spdbgd(rawurldecode($body['urllist'][1]), "body");
 
-        list($details, $headers, $status, $response) = $this->sendRequest($request,6);
-
-        //TODO delete later
-/*        for($i = 0; $i < 6; $i++) { //curl_setopt($request, CURLOPT_TIMEOUT, 120);curl_setopt($request, CURLOPT_VERBOSE, true);
+        for($i = 0; $i < 6; $i++) { //curl_setopt($request, CURLOPT_TIMEOUT, 120);curl_setopt($request, CURLOPT_VERBOSE, true);
             $response = curl_exec($request);
             if(!curl_errno($request)) {
                 break;
@@ -212,7 +195,7 @@ class Client {
         $details = json_decode($body);
 
         if (!$details) {
-            $message = sprintf("Error while parsing response (Status: %s): %s (#%d)", $status,
+            $message = sprintf("Error while parsing response: %s (#%d)",
                 PHP_VERSION_ID >= 50500 ? json_last_error_msg() : "Error",
                 json_last_error());
             $details = (object) array(
@@ -222,7 +205,7 @@ class Client {
                 "Status" => (object)array("Code" => -1, "Message" => "ParseError: " . $message)
             );
         }
-*/
+
         if(getenv("SHORTPIXEL_DEBUG")) {
             $info = "DETAILS\n";
             if(is_array($details)) {
@@ -260,51 +243,9 @@ class Client {
         throw Exception::create($details->message, $details->error, $status);
     }
 
-    protected function sendRequest($request, $tries) {
-        for($i = 0; $i < $tries; $i++) { //curl_setopt($request, CURLOPT_TIMEOUT, 120);curl_setopt($request, CURLOPT_VERBOSE, true);
-            $response = curl_exec($request);
-            if(!curl_errno($request)) {
-                break;
-            } else {
-                ShortPixel::log("CURL ERROR: " . curl_error($request) . " (BODY: $response)");
-            }
-        }
-
-        if(curl_errno($request)) {
-            throw new ConnectionException("Error while connecting: " . curl_error($request) . "");
-        }
-        if (!is_string($response)) {
-            $message = sprintf("%s (#%d)", curl_error($request), curl_errno($request));
-            curl_close($request);
-            throw new ConnectionException("Error while connecting: " . $message);
-        }
-
-        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
-        $headerSize = curl_getinfo($request, CURLINFO_HEADER_SIZE);
-        curl_close($request);
-
-        $headers = self::parseHeaders(substr($response, 0, $headerSize));
-        $body = substr($response, $headerSize);
-
-        $details = json_decode($body);
-
-        if (!$details) {
-            $message = sprintf("Error while parsing response (Status: %s): %s (#%d)", $status,
-                PHP_VERSION_ID >= 50500 ? json_last_error_msg() : "Error",
-                json_last_error());
-            $details = (object) array(
-                "raw" => $body,
-                "error" => "ParseError",
-                "message" => $message . "( " . $body . ")",
-                "Status" => (object)array("Code" => -1, "Message" => "ParseError: " . $message)
-            );
-        }
-        return array($details, $headers, $status, $response);
-    }
-
     protected function prepareJSONRequest($endpoint, $request, $body, $method, $header) {
         //to escape the + from "+webp"
-        if(isset($body["convertto"]) && $body["convertto"]) {
+        if($body["convertto"]) {
             $body["convertto"] = urlencode($body["convertto"]);
         }
 //        if(isset($body["urllist"])) {
@@ -330,29 +271,18 @@ class Client {
         if($body["convertto"]) {
             $body["convertto"] = urlencode($body["convertto"]);
         }
-        if(isset($body["files"])) {
-            foreach($body["files"] as $filePath) {
-                $files["file" . $fileCount] = $filePath;
-                $fileCount++;
-            }
+        foreach($body["files"] as $filePath) {
+            $files["file" . $fileCount] = $filePath;
+            $fileCount++;
         }
-        $buffers = array();
-        if(isset($body["buffers"])) {
-            foreach($body["buffers"] as $name => $contents) {
-                $files["file" . $fileCount] = $name;
-                $buffers["file" . $fileCount] = $contents;
-                $fileCount++;
-            }
-            unset($body["buffers"]);
-        }
-        $body["file_paths"] = json_encode($files);
         unset($body["files"]);
+        $body["file_paths"] = json_encode($files);
         curl_setopt($request, CURLOPT_URL, Client::API_UPLOAD_ENDPOINT());
-        $this->curl_custom_postfields($request, $body, $files, $header, $buffers);
+        $this->curl_custom_postfields($request, $body, $files, $header);
         return $files;
     }
 
-    function curl_custom_postfields($ch, array $assoc = array(), array $files = array(), $header = array(), $buffers = array()) {
+    function curl_custom_postfields($ch, array $assoc = array(), array $files = array(), $header = array()) {
 
         // invalid characters for "name" and "filename"
         static $disallow = array("\0", "\"", "\r", "\n");
@@ -368,20 +298,15 @@ class Client {
         }
 
         // build file parameters
-        $fileContents = array();
         foreach ($files as $k => $v) {
             switch (true) {
-                case true === $v = realpath(filter_var($v)):
-                case is_file($v):
-                case is_readable($v):
-                    $fileContents[$k] = file_get_contents($v);
-                    // continue; // or return false, throw new InvalidArgumentException
+                case false === $v = realpath(filter_var($v)):
+                case !is_file($v):
+                case !is_readable($v):
+                    continue; // or return false, throw new InvalidArgumentException
             }
-        }
-        $fileContents = array_merge($fileContents, $buffers);
-
-        foreach ($fileContents as $k => $data) {
-            $pp = explode(DIRECTORY_SEPARATOR, $files[$k]);
+            $data = file_get_contents($v);
+            $pp = explode(DIRECTORY_SEPARATOR, $v);
             $v = end($pp);
             $k = str_replace($disallow, "_", $k);
             $v = str_replace($disallow, "_", $v);
@@ -451,9 +376,8 @@ class Client {
 
         $ch = curl_init($sourceURL);
         // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // enable if you want
-        curl_setopt_array($ch, $this->customOptions);
         curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false); //previously 1. Changed it because it conflicts with some clients open_basedir (php.ini) settings (https://secure.helpscout.net/conversation/859529984/16086?folderId=1117588)
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10000);      // some large value to allow curl to run for a long time
         curl_setopt($ch, CURLOPT_USERAGENT, $this->options[CURLOPT_USERAGENT]);
         // curl_setopt($ch, CURLOPT_VERBOSE, true);   // Enable this line to see debug prints
@@ -473,63 +397,5 @@ class Client {
             return -$actualSize; //will retry
         }
         return true;
-    }
-
-    function apiStatus($key, $domainToCheck = false, $imgCount = 0, $thumbsCount = 0) {
-        $request = curl_init();
-        curl_setopt_array($request, $this->options);
-        //$this->prepareJSONRequest(self::API_STATUS_ENDPOINT(), $request, array('key' => $key), 'post', array());
-        curl_setopt($request, CURLOPT_URL, self::API_STATUS_ENDPOINT());
-        curl_setopt($request, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($request, CURLOPT_HTTPHEADER, array());
-        $params = array('key' => $key);
-        if($domainToCheck) {
-            $params['DomainCheck'] = $domainToCheck;
-            $params['ImagesCount'] = $imgCount;
-            $params['ThumbsCount'] = $thumbsCount;
-            
-        }
-        curl_setopt($request, CURLOPT_POSTFIELDS, $params);
-        return $this->sendRequest($request, 1);
-    }
-
-    /**
-     * Method that checks the status of an image being optimized
-     * @param $key
-     * @param $url
-     * @return array
-     * @throws ConnectionException
-     */
-    function imageStatus($key, $url) {
-        $request = curl_init();
-        curl_setopt_array($request, $this->options);
-        //$this->prepareJSONRequest(self::API_STATUS_ENDPOINT(), $request, array('key' => $key), 'post', array());
-        curl_setopt($request, CURLOPT_URL, self::IMAGE_STATUS_ENDPOINT());
-        curl_setopt($request, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($request, CURLOPT_HTTPHEADER, array());
-        $params = array('key' => $key, 'url' => $url);
-        curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($params));
-        return $this->sendRequest($request, 1);
-    }
-
-    /**
-     * method that dumps the image from the optimization queue so the optimized version isn't available any more.
-     * Useful when you MIGHT need to optimize another image with the same URL - but with different contents - in the next
-     * hour and you don't want to have to keep a status to tell you if you need to use refresh() or not...
-     * @param $key
-     * @param $urllist
-     * @return array
-     * @throws ConnectionException
-     */
-    function imageCleanup($key, $urllist) {
-        $request = curl_init();
-        curl_setopt_array($request, $this->options);
-        //$this->prepareJSONRequest(self::API_STATUS_ENDPOINT(), $request, array('key' => $key), 'post', array());
-        curl_setopt($request, CURLOPT_URL, self::CLEANUP_ENDPOINT());
-        curl_setopt($request, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($request, CURLOPT_HTTPHEADER, array());
-        $params = array('key' => $key, 'urllist' => $urllist);
-        curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($params));
-        return $this->sendRequest($request, 1);
     }
 }

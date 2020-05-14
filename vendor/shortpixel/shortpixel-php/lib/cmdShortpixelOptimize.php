@@ -9,7 +9,6 @@
  *   - add --backupBase=/full/path/to/your/backup/basedir
  *   - add --targetFolder to specify a different destination for the optimized files.
  *   - add --webPath=http://yoursites.address/img/folder/ to map the folder to a web URL and have our servers download the images instead of posting them (less heavy on memory for large files)
- *   - add --keepExif to keep the EXIF data
  *   - add --speeed=x x between 1 and 10 - default is 10 but if you have large images it will eat up a lot of memory when creating the post messages so sometimes you might need to lower it. Not needed when using the webPath mapping.
  *   - add --verbose parameter for more info during optimization
  *   - add --clearLock to clear a lock that's already placed on the folder. BE SURE you know what you're doing, files might get corrupted if the previous script is still running. The locks expire in 6 min. anyway.
@@ -30,7 +29,7 @@ use \ShortPixel\SPLog;
 
 $processId = uniqid("CLI");
 
-$options = getopt("", array("apiKey::", "folder::", "targetFolder::", "webPath::", "compression::", "resize::", "createWebP", "keepExif", "speed::", "backupBase::", "verbose", "clearLock", "retrySkipped",
+$options = getopt("", array("apiKey::", "folder::", "targetFolder::", "webPath::", "compression::", "resize::", "speed::", "backupBase::", "verbose", "clearLock", "retrySkipped",
                             "exclude::", "recurseDepth::", "logLevel::", "cacheTime::"));
 
 $verbose = isset($options["verbose"]) ? (isset($options["logLevel"]) ? $options["logLevel"] : 0) | SPLog::PRODUCER_CMD_VERBOSE : 0;
@@ -45,8 +44,6 @@ $targetFolder = isset($options["targetFolder"]) ? verifyFolder($options["targetF
 $webPath = isset($options["webPath"]) ? filter_var($options["webPath"], FILTER_VALIDATE_URL) : false;
 $compression = isset($options["compression"]) ? intval($options["compression"]) : false;
 $resizeRaw =  isset($options["resize"]) ? $options["resize"] : false;
-$createWebP = isset($options["createWebP"]);
-$keepExif = isset($options["keepExif"]);
 $speed = isset($options["speed"]) ? intval($options["speed"]) : false;
 $bkBase = isset($options["backupBase"]) ? verifyFolder($options["backupBase"]) : false;
 $clearLock = isset($options["clearLock"]);
@@ -123,10 +120,6 @@ try {
     //try to get optimization options from the folder .sp-options
     $optionsHandler = new \ShortPixel\Settings();
     $folderOptions = $optionsHandler->readOptions($targetFolder);
-    if(count($folderOptions)) {
-        $logger->log(SPLog::PRODUCER_CMD_VERBOSE, "Options from .sp-options file: ", $folderOptions);
-    }
-
     if((!isset($webPath) || !$webPath) && isset($folderOptions["base_url"]) && strlen($folderOptions["base_url"])) {
         $webPath = $folderOptions["base_url"];
         $logger->log(SPLog::PRODUCER_CMD_VERBOSE, "Using Web Path from settings: $webPath");
@@ -151,12 +144,6 @@ try {
             $logger->bye(SPLog::PRODUCER_CMD, "Malformed parameter --resize, should be --resize=[width]x[height]/[type] type being 1 for outer and 3 for inner");
         }
     }
-    if($createWebP !== false) {
-        $overrides['convertto'] = '+webp';
-    }
-    if($keepExif !== false) {
-        $overrides['keep_exif'] = 1;
-    }
 
     if($bkFolderRel) {
         $overrides['backup_path'] = $bkFolderRel;
@@ -164,9 +151,7 @@ try {
     if(!count($exclude) && isset($folderOptions["exclude"]) && strlen($folderOptions["exclude"])) {
         $exclude = $folderOptions["exclude"];
     }
-    $optimizationOptions = array_merge($folderOptions, $overrides, array("persist_type" => "text", "notify_progress" => true, "cache_time" => $cacheTime));
-    $logger->log(SPLog::PRODUCER_CMD_VERBOSE, "Using OPTIONS: ", $optimizationOptions);
-    \ShortPixel\ShortPixel::setOptions($optimizationOptions);
+    \ShortPixel\ShortPixel::setOptions(array_merge($folderOptions, $overrides, array("persist_type" => "text", "notify_progress" => true, "cache_time" => $cacheTime)));
 
     $imageCount = $failedImageCount = $sameImageCount = 0;
     $tries = 0;

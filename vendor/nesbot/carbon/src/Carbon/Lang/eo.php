@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -9,65 +9,23 @@
  * file that was distributed with this source code.
  */
 
-/*
- * Authors:
- * - Josh Soref
- * - François B
- * - Mia Nordentoft
- * - JD Isaacks
- */
-return [
+return array(
     'year' => ':count jaro|:count jaroj',
-    'a_year' => 'jaro|:count jaroj',
-    'y' => ':count j.',
+    'y' => ':count jaro|:count jaroj',
     'month' => ':count monato|:count monatoj',
-    'a_month' => 'monato|:count monatoj',
-    'm' => ':count mo.',
+    'm' => ':count monato|:count monatoj',
     'week' => ':count semajno|:count semajnoj',
-    'a_week' => 'semajno|:count semajnoj',
-    'w' => ':count sem.',
+    'w' => ':count semajno|:count semajnoj',
     'day' => ':count tago|:count tagoj',
-    'a_day' => 'tago|:count tagoj',
-    'd' => ':count t.',
+    'd' => ':count tago|:count tagoj',
     'hour' => ':count horo|:count horoj',
-    'a_hour' => 'horo|:count horoj',
-    'h' => ':count h.',
+    'h' => ':count horo|:count horoj',
     'minute' => ':count minuto|:count minutoj',
-    'a_minute' => 'minuto|:count minutoj',
-    'min' => ':count min.',
+    'min' => ':count minuto|:count minutoj',
     'second' => ':count sekundo|:count sekundoj',
-    'a_second' => 'sekundoj|:count sekundoj',
-    's' => ':count sek.',
+    's' => ':count sekundo|:count sekundoj',
     'ago' => 'antaŭ :time',
-    'from_now' => 'post :time',
+    'from_now' => 'je :time',
     'after' => ':time poste',
     'before' => ':time antaŭe',
-    'diff_yesterday' => 'Hieraŭ',
-    'diff_tomorrow' => 'Morgaŭ',
-    'formats' => [
-        'LT' => 'HH:mm',
-        'LTS' => 'HH:mm:ss',
-        'L' => 'YYYY-MM-DD',
-        'LL' => 'D[-a de] MMMM, YYYY',
-        'LLL' => 'D[-a de] MMMM, YYYY HH:mm',
-        'LLLL' => 'dddd, [la] D[-a de] MMMM, YYYY HH:mm',
-    ],
-    'calendar' => [
-        'sameDay' => '[Hodiaŭ je] LT',
-        'nextDay' => '[Morgaŭ je] LT',
-        'nextWeek' => 'dddd [je] LT',
-        'lastDay' => '[Hieraŭ je] LT',
-        'lastWeek' => '[pasinta] dddd [je] LT',
-        'sameElse' => 'L',
-    ],
-    'ordinal' => ':numbera',
-    'meridiem' => ['a.t.m.', 'p.t.m.'],
-    'months' => ['januaro', 'februaro', 'marto', 'aprilo', 'majo', 'junio', 'julio', 'aŭgusto', 'septembro', 'oktobro', 'novembro', 'decembro'],
-    'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aŭg', 'sep', 'okt', 'nov', 'dec'],
-    'weekdays' => ['dimanĉo', 'lundo', 'mardo', 'merkredo', 'ĵaŭdo', 'vendredo', 'sabato'],
-    'weekdays_short' => ['dim', 'lun', 'mard', 'merk', 'ĵaŭ', 'ven', 'sab'],
-    'weekdays_min' => ['di', 'lu', 'ma', 'me', 'ĵa', 've', 'sa'],
-    'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 1,
-    'list' => [', ', ' kaj '],
-];
+);

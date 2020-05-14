@@ -9,7 +9,6 @@ use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\View\Engine;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Support\MessageProvider;
@@ -17,10 +16,6 @@ use Illuminate\Contracts\View\View as ViewContract;
 
 class View implements ArrayAccess, ViewContract
 {
-    use Macroable {
-        __call as macroCall;
-    }
-
     /**
      * The view factory instance.
      *
@@ -80,7 +75,7 @@ class View implements ArrayAccess, ViewContract
      * Get the string contents of the view.
      *
      * @param  callable|null  $callback
-     * @return array|string
+     * @return string
      *
      * @throws \Throwable
      */
@@ -147,7 +142,7 @@ class View implements ArrayAccess, ViewContract
      *
      * @return array
      */
-    public function gatherData()
+    protected function gatherData()
     {
         $data = array_merge($this->factory->getShared(), $this->data);
 
@@ -163,9 +158,7 @@ class View implements ArrayAccess, ViewContract
     /**
      * Get the sections of the rendered view.
      *
-     * @return array
-     *
-     * @throws \Throwable
+     * @return string
      */
     public function renderSections()
     {
@@ -384,7 +377,7 @@ class View implements ArrayAccess, ViewContract
      * Remove a piece of bound data from the view.
      *
      * @param  string  $key
-     * @return void
+     * @return bool
      */
     public function __unset($key)
     {
@@ -402,14 +395,8 @@ class View implements ArrayAccess, ViewContract
      */
     public function __call($method, $parameters)
     {
-        if (static::hasMacro($method)) {
-            return $this->macroCall($method, $parameters);
-        }
-
         if (! Str::startsWith($method, 'with')) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $method
-            ));
+            throw new BadMethodCallException("Method [$method] does not exist on view.");
         }
 
         return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
@@ -419,8 +406,6 @@ class View implements ArrayAccess, ViewContract
      * Get the string contents of the view.
      *
      * @return string
-     *
-     * @throws \Throwable
      */
     public function __toString()
     {

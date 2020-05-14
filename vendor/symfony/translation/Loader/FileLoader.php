@@ -23,7 +23,7 @@ abstract class FileLoader extends ArrayLoader
     /**
      * {@inheritdoc}
      */
-    public function load($resource, string $locale, string $domain = 'messages')
+    public function load($resource, $locale, $domain = 'messages')
     {
         if (!stream_is_local($resource)) {
             throw new InvalidResourceException(sprintf('This is not a local file "%s".', $resource));
@@ -37,7 +37,7 @@ abstract class FileLoader extends ArrayLoader
 
         // empty resource
         if (null === $messages) {
-            $messages = [];
+            $messages = array();
         }
 
         // not an array

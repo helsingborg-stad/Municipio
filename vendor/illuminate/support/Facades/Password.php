@@ -2,14 +2,7 @@
 
 namespace Illuminate\Support\Facades;
 
-use Illuminate\Contracts\Auth\PasswordBroker;
-
 /**
- * @method static string sendResetLink(array $credentials)
- * @method static mixed reset(array $credentials, \Closure $callback)
- * @method static void validator(\Closure $callback)
- * @method static bool validateNewPassword(array $credentials)
- *
  * @see \Illuminate\Auth\Passwords\PasswordBroker
  */
 class Password extends Facade
@@ -19,35 +12,35 @@ class Password extends Facade
      *
      * @var string
      */
-    const RESET_LINK_SENT = PasswordBroker::RESET_LINK_SENT;
+    const RESET_LINK_SENT = 'passwords.sent';
 
     /**
      * Constant representing a successfully reset password.
      *
      * @var string
      */
-    const PASSWORD_RESET = PasswordBroker::PASSWORD_RESET;
+    const PASSWORD_RESET = 'passwords.reset';
 
     /**
      * Constant representing the user not found response.
      *
      * @var string
      */
-    const INVALID_USER = PasswordBroker::INVALID_USER;
+    const INVALID_USER = 'passwords.user';
 
     /**
      * Constant representing an invalid password.
      *
      * @var string
      */
-    const INVALID_PASSWORD = PasswordBroker::INVALID_PASSWORD;
+    const INVALID_PASSWORD = 'passwords.password';
 
     /**
      * Constant representing an invalid token.
      *
      * @var string
      */
-    const INVALID_TOKEN = PasswordBroker::INVALID_TOKEN;
+    const INVALID_TOKEN = 'passwords.token';
 
     /**
      * Get the registered name of the component.

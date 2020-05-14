@@ -75,8 +75,7 @@ namespace ShortPixel\persist;
              if ( !$buf || strlen( $buf ) < 4 ) {
                  throw new Exception( __METHOD__ . ": Read error" );
              }
-             $chunk = unpack( "N", $buf );
-             $chunk_size = $chunk[1];
+             $chunk_size = unpack( "N", $buf )[1];
 
              if ( $chunk_size < 0 ) {
                  throw new Exception( __METHOD__ . ": Chunk size too big for unpack" );

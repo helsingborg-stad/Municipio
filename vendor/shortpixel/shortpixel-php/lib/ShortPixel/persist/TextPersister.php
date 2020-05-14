@@ -246,9 +246,6 @@ class TextPersister implements Persister {
             if(in_array($file, $ignore)) {
                 continue; //and do not log
             }
-            if(!file_exists($filePath)) {
-                continue; // strange but found this for a client..., on windows: HS ID 711715228 
-            }
             if(   (!ShortPixel::isProcessable($file) && !is_dir($filePath))
                 || isset($dataArr[$file]) && $dataArr[$file]->status == 'deleted'
                 || isset($dataArr[$file])
@@ -294,7 +291,6 @@ class TextPersister implements Persister {
                 }
             } else {
                 $toUpdate = false; //will defer updating the record only if we finally add the image (if the image is too large for this set will not add it in the end
-                clearstatcache(true, $targetPath);
                 if(isset($dataArr[$file])) {
                     if(    ($dataArr[$file]->status == 'success')
                         && (filesize($targetPath) !== $dataArr[$file]->optimizedSize)) {
@@ -331,7 +327,6 @@ class TextPersister implements Persister {
                     $dataArr[$file]->filePos = $this->appendMeta($dataArr[$file], $fp);
                 }
 
-                clearstatcache(true, $filePath);
                 if(filesize($filePath) + $totalFileSize > $maxTotalFileSize){
                     if(filesize($filePath) > $maxTotalFileSize) { //skip this as it won't ever be selected with current settings
                         $dataArr[$file]->status = 'skip';
@@ -366,7 +361,6 @@ class TextPersister implements Persister {
      * @return bool true if the image is optimized but needs to be reoptimized because it changed
      */
     protected function isChanged($data, $file, $persistPath, $sourcePath ) {
-        clearstatcache(true, $sourcePath);
         return $persistPath === $sourcePath && filesize($sourcePath . '/' . $file) != $data->optimizedSize
             || $persistPath !== $sourcePath && $data->originalSize > 0 && filesize($sourcePath . '/' . $file) != $data->originalSize;
     }

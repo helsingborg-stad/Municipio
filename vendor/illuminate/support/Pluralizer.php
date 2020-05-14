@@ -45,8 +45,6 @@ class Pluralizer
         'pokemon',
         'police',
         'rain',
-        'recommended',
-        'related',
         'rice',
         'series',
         'sheep',
@@ -66,7 +64,7 @@ class Pluralizer
      */
     public static function plural($value, $count = 2)
     {
-        if ((int) abs($count) === 1 || static::uncountable($value)) {
+        if ((int) $count === 1 || static::uncountable($value)) {
             return $value;
         }
 

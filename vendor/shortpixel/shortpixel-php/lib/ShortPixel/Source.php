@@ -126,13 +126,8 @@ class Source {
         throw new ClientException("Couldn't find any processable file at given path ($path).", 2);
     }
 
-    public function fromBuffer($name, $contents) {
-        return new Commander(array(
-            "plugin_version" => ShortPixel::LIBRARY_CODE . " " . ShortPixel::VERSION,
-            "key" =>  ShortPixel::getKey(),
-            "buffers" => array($name => $contents),
-            // don't add it if false, otherwise will overwrite the refresh command //"refresh" => false
-        ), $this);
+    public function fromBuffer($string) {
+        throw new ClientException("fromBuffer not implemented");
     }
 
     /**
@@ -144,7 +139,7 @@ class Source {
         if(!is_array($urls)) {
             $urls = array($urls);
         }
-        if(count($urls) > ShortPixel::MAX_API_ALLOWED_FILES_PER_WEB_CALL) {
+        if(count($urls) > 100) {
             throw new ClientException("Maximum 100 images allowed per call.");
         }
 

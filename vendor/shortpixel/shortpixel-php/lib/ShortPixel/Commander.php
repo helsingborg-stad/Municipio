@@ -105,8 +105,7 @@ class Commander {
         if (method_exists("ShortPixel\Result", $method)) {
             //execute the commands and forward to Result
             if(isset($this->data["files"]) && !count($this->data["files"]) ||
-               isset($this->data["urllist"]) && !count($this->data["urllist"]) ||
-               isset($this->data["buffers"]) && !count($this->data["buffers"])) {
+               isset($this->data["urllist"]) && !count($this->data["urllist"])) {
                 //empty data - no files, no need to send anything, just return an empty result
                 return (object) array(
                     'status' => array('code' => 2, 'message' => 'success'),
@@ -117,7 +116,7 @@ class Commander {
             }
             for($i = 0; $i < 6; $i++) {
                 $return = $this->execute(true);
-                if(!isset($return->body->Status->Code) || !in_array($return->body->Status->Code, array(-305, -404, -500))) {
+                if(!isset($return->body->Status->Code) || !in_array($return->body->Status->Code, [-305, -404, -500])) {
                     break;
                 }
                 // error -404: The maximum number of URLs in the optimization queue reached, wait a bit and retry.

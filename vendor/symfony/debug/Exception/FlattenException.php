@@ -15,13 +15,11 @@ use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
- * FlattenException wraps a PHP Error or Exception to be able to serialize it.
+ * FlattenException wraps a PHP Exception to be able to serialize it.
  *
  * Basically, this class removes all objects from the trace.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @deprecated since Symfony 4.4, use Symfony\Component\ErrorHandler\Exception\FlattenException instead.
  */
 class FlattenException
 {
@@ -29,25 +27,13 @@ class FlattenException
     private $code;
     private $previous;
     private $trace;
-    private $traceAsString;
     private $class;
     private $statusCode;
     private $headers;
     private $file;
     private $line;
 
-    /**
-     * @return static
-     */
-    public static function create(\Exception $exception, $statusCode = null, array $headers = [])
-    {
-        return static::createFromThrowable($exception, $statusCode, $headers);
-    }
-
-    /**
-     * @return static
-     */
-    public static function createFromThrowable(\Throwable $exception, int $statusCode = null, array $headers = [])
+    public static function create(\Exception $exception, $statusCode = null, array $headers = array())
     {
         $e = new static();
         $e->setMessage($exception->getMessage());
@@ -66,15 +52,17 @@ class FlattenException
 
         $e->setStatusCode($statusCode);
         $e->setHeaders($headers);
-        $e->setTraceFromThrowable($exception);
-        $e->setClass($exception instanceof FatalThrowableError ? $exception->getOriginalClassName() : \get_class($exception));
+        $e->setTraceFromException($exception);
+        $e->setClass(\get_class($exception));
         $e->setFile($exception->getFile());
         $e->setLine($exception->getLine());
 
         $previous = $exception->getPrevious();
 
-        if ($previous instanceof \Throwable) {
-            $e->setPrevious(static::createFromThrowable($previous));
+        if ($previous instanceof \Exception) {
+            $e->setPrevious(static::create($previous));
+        } elseif ($previous instanceof \Throwable) {
+            $e->setPrevious(static::create(new FatalThrowableError($previous)));
         }
 
         return $e;
@@ -82,13 +70,13 @@ class FlattenException
 
     public function toArray()
     {
-        $exceptions = [];
-        foreach (array_merge([$this], $this->getAllPrevious()) as $exception) {
-            $exceptions[] = [
+        $exceptions = array();
+        foreach (array_merge(array($this), $this->getAllPrevious()) as $exception) {
+            $exceptions[] = array(
                 'message' => $exception->getMessage(),
                 'class' => $exception->getClass(),
                 'trace' => $exception->getTrace(),
-            ];
+            );
         }
 
         return $exceptions;
@@ -99,14 +87,9 @@ class FlattenException
         return $this->statusCode;
     }
 
-    /**
-     * @return $this
-     */
     public function setStatusCode($code)
     {
         $this->statusCode = $code;
-
-        return $this;
     }
 
     public function getHeaders()
@@ -114,14 +97,9 @@ class FlattenException
         return $this->headers;
     }
 
-    /**
-     * @return $this
-     */
     public function setHeaders(array $headers)
     {
         $this->headers = $headers;
-
-        return $this;
     }
 
     public function getClass()
@@ -129,14 +107,9 @@ class FlattenException
         return $this->class;
     }
 
-    /**
-     * @return $this
-     */
     public function setClass($class)
     {
-        $this->class = 'c' === $class[0] && 0 === strpos($class, "class@anonymous\0") ? get_parent_class($class).'@anonymous' : $class;
-
-        return $this;
+        $this->class = $class;
     }
 
     public function getFile()
@@ -144,14 +117,9 @@ class FlattenException
         return $this->file;
     }
 
-    /**
-     * @return $this
-     */
     public function setFile($file)
     {
         $this->file = $file;
-
-        return $this;
     }
 
     public function getLine()
@@ -159,14 +127,9 @@ class FlattenException
         return $this->line;
     }
 
-    /**
-     * @return $this
-     */
     public function setLine($line)
     {
         $this->line = $line;
-
-        return $this;
     }
 
     public function getMessage()
@@ -174,20 +137,9 @@ class FlattenException
         return $this->message;
     }
 
-    /**
-     * @return $this
-     */
     public function setMessage($message)
     {
-        if (false !== strpos($message, "class@anonymous\0")) {
-            $message = preg_replace_callback('/class@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', function ($m) {
-                return class_exists($m[0], false) ? get_parent_class($m[0]).'@anonymous' : $m[0];
-            }, $message);
-        }
-
         $this->message = $message;
-
-        return $this;
     }
 
     public function getCode()
@@ -195,14 +147,9 @@ class FlattenException
         return $this->code;
     }
 
-    /**
-     * @return $this
-     */
     public function setCode($code)
     {
         $this->code = $code;
-
-        return $this;
     }
 
     public function getPrevious()
@@ -210,19 +157,14 @@ class FlattenException
         return $this->previous;
     }
 
-    /**
-     * @return $this
-     */
     public function setPrevious(self $previous)
     {
         $this->previous = $previous;
-
-        return $this;
     }
 
     public function getAllPrevious()
     {
-        $exceptions = [];
+        $exceptions = array();
         $e = $this;
         while ($e = $e->getPrevious()) {
             $exceptions[] = $e;
@@ -236,30 +178,15 @@ class FlattenException
         return $this->trace;
     }
 
-    /**
-     * @deprecated since 4.1, use {@see setTraceFromThrowable()} instead.
-     */
     public function setTraceFromException(\Exception $exception)
     {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.1, use "setTraceFromThrowable()" instead.', __METHOD__), E_USER_DEPRECATED);
-
-        $this->setTraceFromThrowable($exception);
+        $this->setTrace($exception->getTrace(), $exception->getFile(), $exception->getLine());
     }
 
-    public function setTraceFromThrowable(\Throwable $throwable)
-    {
-        $this->traceAsString = $throwable->getTraceAsString();
-
-        return $this->setTrace($throwable->getTrace(), $throwable->getFile(), $throwable->getLine());
-    }
-
-    /**
-     * @return $this
-     */
     public function setTrace($trace, $file, $line)
     {
-        $this->trace = [];
-        $this->trace[] = [
+        $this->trace = array();
+        $this->trace[] = array(
             'namespace' => '',
             'short_class' => '',
             'class' => '',
@@ -267,8 +194,8 @@ class FlattenException
             'function' => '',
             'file' => $file,
             'line' => $line,
-            'args' => [],
-        ];
+            'args' => array(),
+        );
         foreach ($trace as $entry) {
             $class = '';
             $namespace = '';
@@ -278,7 +205,7 @@ class FlattenException
                 $namespace = implode('\\', $parts);
             }
 
-            $this->trace[] = [
+            $this->trace[] = array(
                 'namespace' => $namespace,
                 'short_class' => $class,
                 'class' => isset($entry['class']) ? $entry['class'] : '',
@@ -286,82 +213,51 @@ class FlattenException
                 'function' => isset($entry['function']) ? $entry['function'] : null,
                 'file' => isset($entry['file']) ? $entry['file'] : null,
                 'line' => isset($entry['line']) ? $entry['line'] : null,
-                'args' => isset($entry['args']) ? $this->flattenArgs($entry['args']) : [],
-            ];
+                'args' => isset($entry['args']) ? $this->flattenArgs($entry['args']) : array(),
+            );
         }
-
-        return $this;
     }
 
-    private function flattenArgs(array $args, int $level = 0, int &$count = 0): array
+    private function flattenArgs($args, $level = 0, &$count = 0)
     {
-        $result = [];
+        $result = array();
         foreach ($args as $key => $value) {
             if (++$count > 1e4) {
-                return ['array', '*SKIPPED over 10000 entries*'];
+                return array('array', '*SKIPPED over 10000 entries*');
             }
             if ($value instanceof \__PHP_Incomplete_Class) {
                 // is_object() returns false on PHP<=7.1
-                $result[$key] = ['incomplete-object', $this->getClassNameFromIncomplete($value)];
+                $result[$key] = array('incomplete-object', $this->getClassNameFromIncomplete($value));
             } elseif (\is_object($value)) {
-                $result[$key] = ['object', \get_class($value)];
+                $result[$key] = array('object', \get_class($value));
             } elseif (\is_array($value)) {
                 if ($level > 10) {
-                    $result[$key] = ['array', '*DEEP NESTED ARRAY*'];
+                    $result[$key] = array('array', '*DEEP NESTED ARRAY*');
                 } else {
-                    $result[$key] = ['array', $this->flattenArgs($value, $level + 1, $count)];
+                    $result[$key] = array('array', $this->flattenArgs($value, $level + 1, $count));
                 }
             } elseif (null === $value) {
-                $result[$key] = ['null', null];
+                $result[$key] = array('null', null);
             } elseif (\is_bool($value)) {
-                $result[$key] = ['boolean', $value];
+                $result[$key] = array('boolean', $value);
             } elseif (\is_int($value)) {
-                $result[$key] = ['integer', $value];
+                $result[$key] = array('integer', $value);
             } elseif (\is_float($value)) {
-                $result[$key] = ['float', $value];
+                $result[$key] = array('float', $value);
             } elseif (\is_resource($value)) {
-                $result[$key] = ['resource', get_resource_type($value)];
+                $result[$key] = array('resource', get_resource_type($value));
             } else {
-                $result[$key] = ['string', (string) $value];
+                $result[$key] = array('string', (string) $value);
             }
         }
 
         return $result;
     }
 
-    private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value): string
+    private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value)
     {
         $array = new \ArrayObject($value);
 
         return $array['__PHP_Incomplete_Class_Name'];
-    }
-
-    public function getTraceAsString()
-    {
-        return $this->traceAsString;
-    }
-
-    public function getAsString()
-    {
-        $message = '';
-        $next = false;
-
-        foreach (array_reverse(array_merge([$this], $this->getAllPrevious())) as $exception) {
-            if ($next) {
-                $message .= 'Next ';
-            } else {
-                $next = true;
-            }
-            $message .= $exception->getClass();
-
-            if ('' != $exception->getMessage()) {
-                $message .= ': '.$exception->getMessage();
-            }
-
-            $message .= ' in '.$exception->getFile().':'.$exception->getLine().
-                "\nStack trace:\n".$exception->getTraceAsString()."\n\n";
-        }
-
-        return rtrim($message);
     }
 }
