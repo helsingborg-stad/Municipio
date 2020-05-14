@@ -30,27 +30,27 @@ abstract class ProgressNotifier {
         if(isset($info->same)) {
             $data->same = (isset($data->same) ? $data->same : 0) + (is_array($info->same) ? count($info->same) : 0 + $info->same);
         }
-        $succeeded = [];
+        $succeeded = array();
         if(isset($info->succeeded)) {
             $data->succeeded = (isset($data->succeeded) ? $data->succeeded : 0) + (is_array($info->succeeded) ? count($info->succeeded) : 0 + $info->succeeded);
             if(is_array($info->succeeded)) {
                 $succeeded = $info->succeeded;
             }
         }
-        $data->succeededList = array_slice(array_merge($succeeded, (isset($data->succeededList) ? $data->succeededList : [])), 0, 20);
+        $data->succeededList = array_slice(array_merge($succeeded, (isset($data->succeededList) ? $data->succeededList : array())), 0, 20);
         if(!count($data->succeededList)) unset($data->succeededList);
 
-        $same = [];
+        $same = array();
         if(isset($info->same)) {
             $data->same = (isset($data->same) ? $data->same : 0) + (is_array($info->same) ? count($info->same) : 0 + $info->same);
             if(is_array($info->same)) {
                 $same = $info->same;
             }
         }
-        $data->sameList = array_slice(array_merge($same, (isset($data->sameList) ? $data->sameList : [])), 0, 20);
+        $data->sameList = array_slice(array_merge($same, (isset($data->sameList) ? $data->sameList : array())), 0, 20);
         if(!count($data->sameList)) unset($data->sameList);
 
-        $failed = [];
+        $failed = array();
         if(isset($info->failed)) {
             $data->failed = (isset($data->failed) ? $data->failed : 0) + (is_array($info->failed) ? count($info->failed) : 0 + $info->failed);
             if(is_array($info->failed)) {
@@ -60,7 +60,7 @@ abstract class ProgressNotifier {
                 $failed = $info->failed;
             }
         }
-        $data->failedList = array_slice(array_merge($failed, (isset($data->failedList) ? $data->failedList : [])), 0, 100);
+        $data->failedList = array_slice(array_merge($failed, (isset($data->failedList) ? $data->failedList : array())), 0, 100);
         if(!count($data->failedList)) unset($data->failedList);
 
         $this->setData($data);

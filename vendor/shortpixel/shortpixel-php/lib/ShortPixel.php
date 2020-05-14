@@ -4,11 +4,12 @@ namespace ShortPixel;
 
 class ShortPixel {
     const LIBRARY_CODE = "sp-sdk";
-    const VERSION = "1.5.2";
+    const VERSION = "1.6.3";
     const DEBUG_LOG = false;
 
     const MAX_ALLOWED_FILES_PER_CALL = 10;
     const MAX_ALLOWED_FILES_PER_WEB_CALL = 30;
+    const MAX_API_ALLOWED_FILES_PER_WEB_CALL = 150;
     const CLIENT_MAX_BODY_SIZE = 48; // in MBytes.
     const MAX_RETRIES = 6;
 
@@ -48,6 +49,7 @@ class ShortPixel {
         //"persist_pass" => "pass" // only for mysql
         // "" => null,
     );
+    private static $curlOptions = array();
 
     public static $PROCESSABLE_EXTENSIONS = array('jpg', 'jpeg', 'jpe', 'jfif', 'jif', 'gif', 'png', 'pdf');
 
@@ -77,6 +79,15 @@ class ShortPixel {
      */
     public static function setOptions($options) {
         self::$options = array_merge(self::$options, $options);
+    }
+
+    /**
+     * add custom cURL options. These provided options will take precedence to the default options that are passed to all cURL calls but not to others that are specific to each call (CURLOPT_TIMEOUT, CURLOPT_CUSTOMREQUEST)
+     * or to library's user agent.
+     * @param array $curlOptions Key-value pairs
+     */
+    public static function setCurlOptions($curlOptions) {
+        self::$curlOptions = $curlOptions + self::$curlOptions;
     }
 
     /**
@@ -111,7 +122,7 @@ class ShortPixel {
         }
 
         if (!self::$client) {
-            self::$client = new Client();
+            self::$client = new Client(self::$curlOptions);
         }
 
         return self::$client;
@@ -173,6 +184,14 @@ function setKey($key) {
  */
 function setOptions($options) {
     return ShortPixel::setOptions($options);
+}
+
+/**
+ * stub for ShortPixel::setOptions()
+ * @return the current options array
+ */
+function setCurlOptions($options) {
+    return ShortPixel::setCurlOptions($options);
 }
 
 /**
@@ -246,9 +265,9 @@ function fromWebFolder($path, $webPath, $exclude = array(), $persistFolder = fal
     return $source->fromWebFolder($path, $webPath, $exclude, $persistFolder, $recurseDepth);
 }
 
-function fromBuffer($string) {
+function fromBuffer($name, $contents) {
     $source = new Source();
-    return $source->fromBuffer($string);
+    return $source->fromBuffer($name, $contents);
 }
 
 /**
@@ -317,7 +336,7 @@ function MB_basename($Path, $suffix = false){
     $Separator = " qq ";
     $qqPath = preg_replace("/[^ ]/u", $Separator."\$0".$Separator, $Path);
     if(!$qqPath) { //this is not an UTF8 string!!
-        $pathElements = explode(DIRECTORY_SEPARATOR, $Path);
+        $pathElements = explode('/', $Path);
         $fileName = end($pathElements);
         $pos = strpos($fileName, $suffix);
         if($pos !== false) {
@@ -331,6 +350,20 @@ function MB_basename($Path, $suffix = false){
     return $Base;
 }
 
+if(!function_exists('mb_detect_encoding')) {
+    function mb_detect_encoding($string, $enc=null) {
+
+        static $list = array('utf-8', 'iso-8859-1', 'windows-1251');
+
+        foreach ($list as $item) {
+            $sample = @iconv($item, $item, $string);
+            if (md5($sample) == md5($string)) {
+                if ($enc == $item) { return true; } else { return $item; }
+            }
+        }
+        return null;
+    }
+}
 
 function spdbg($var, $msg) {
     echo("DEBUG $msg : "); var_dump($var);
@@ -365,4 +398,61 @@ function getMemcache() {
         }
     }
     return $mc;
+}
+
+if ( ! function_exists( 'json_last_error_msg' ) ) {
+    /**
+     * Retrieves the error string of the last json_encode() or json_decode() call.
+     *
+     * @since 4.4.0
+     *
+     * @internal This is a compatibility function for PHP <5.5
+     *
+     * @return bool|string Returns the error message on success, "No Error" if no error has occurred,
+     *                     or false on failure.
+     */
+    function json_last_error_msg()
+    {
+        // See https://core.trac.wordpress.org/ticket/27799.
+        if (!function_exists('json_last_error')) {
+            return false;
+        }
+
+        $last_error_code = json_last_error();
+
+        // Just in case JSON_ERROR_NONE is not defined.
+        $error_code_none = defined('JSON_ERROR_NONE') ? JSON_ERROR_NONE : 0;
+
+        switch (true) {
+            case $last_error_code === $error_code_none:
+                return 'No error';
+
+            case defined('JSON_ERROR_DEPTH') && JSON_ERROR_DEPTH === $last_error_code:
+                return 'Maximum stack depth exceeded';
+
+            case defined('JSON_ERROR_STATE_MISMATCH') && JSON_ERROR_STATE_MISMATCH === $last_error_code:
+                return 'State mismatch (invalid or malformed JSON)';
+
+            case defined('JSON_ERROR_CTRL_CHAR') && JSON_ERROR_CTRL_CHAR === $last_error_code:
+                return 'Control character error, possibly incorrectly encoded';
+
+            case defined('JSON_ERROR_SYNTAX') && JSON_ERROR_SYNTAX === $last_error_code:
+                return 'Syntax error';
+
+            case defined('JSON_ERROR_UTF8') && JSON_ERROR_UTF8 === $last_error_code:
+                return 'Malformed UTF-8 characters, possibly incorrectly encoded';
+
+            case defined('JSON_ERROR_RECURSION') && JSON_ERROR_RECURSION === $last_error_code:
+                return 'Recursion detected';
+
+            case defined('JSON_ERROR_INF_OR_NAN') && JSON_ERROR_INF_OR_NAN === $last_error_code:
+                return 'Inf and NaN cannot be JSON encoded';
+
+            case defined('JSON_ERROR_UNSUPPORTED_TYPE') && JSON_ERROR_UNSUPPORTED_TYPE === $last_error_code:
+                return 'Type is not supported';
+
+            default:
+                return 'An unknown error occurred';
+        }
+    }
 }

@@ -8,6 +8,7 @@ use OpenCloud\Rackspace;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use League\Flysystem\AdapterInterface;
+use League\Flysystem\Sftp\SftpAdapter;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\Filesystem as Flysystem;
@@ -58,7 +59,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Get a filesystem instance.
      *
-     * @param  string  $name
+     * @param  string|null  $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function drive($name = null)
@@ -69,7 +70,7 @@ class FilesystemManager implements FactoryContract
     /**
      * Get a filesystem instance.
      *
-     * @param  string  $name
+     * @param  string|null  $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     public function disk($name = null)
@@ -159,7 +160,7 @@ class FilesystemManager implements FactoryContract
             : LocalAdapter::DISALLOW_LINKS;
 
         return $this->adapt($this->createFlysystem(new LocalAdapter(
-            $config['root'], LOCK_EX, $links, $permissions
+            $config['root'], $config['lock'] ?? LOCK_EX, $links, $permissions
         ), $config));
     }
 
@@ -173,6 +174,19 @@ class FilesystemManager implements FactoryContract
     {
         return $this->adapt($this->createFlysystem(
             new FtpAdapter($config), $config
+        ));
+    }
+
+    /**
+     * Create an instance of the sftp driver.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Contracts\Filesystem\Filesystem
+     */
+    public function createSftpDriver(array $config)
+    {
+        return $this->adapt($this->createFlysystem(
+            new SftpAdapter($config), $config
         ));
     }
 
@@ -205,8 +219,8 @@ class FilesystemManager implements FactoryContract
     {
         $config += ['version' => 'latest'];
 
-        if ($config['key'] && $config['secret']) {
-            $config['credentials'] = Arr::only($config, ['key', 'secret']);
+        if (! empty($config['key']) && ! empty($config['secret'])) {
+            $config['credentials'] = Arr::only($config, ['key', 'secret', 'token']);
         }
 
         return $config;
@@ -222,7 +236,7 @@ class FilesystemManager implements FactoryContract
     {
         $client = new Rackspace($config['endpoint'], [
             'username' => $config['username'], 'apiKey' => $config['key'],
-        ]);
+        ], $config['options'] ?? []);
 
         $root = $config['root'] ?? null;
 
@@ -304,11 +318,13 @@ class FilesystemManager implements FactoryContract
      *
      * @param  string  $name
      * @param  mixed  $disk
-     * @return void
+     * @return $this
      */
     public function set($name, $disk)
     {
         $this->disks[$name] = $disk;
+
+        return $this;
     }
 
     /**
@@ -340,6 +356,21 @@ class FilesystemManager implements FactoryContract
     public function getDefaultCloudDriver()
     {
         return $this->app['config']['filesystems.cloud'];
+    }
+
+    /**
+     * Unset the given disk instances.
+     *
+     * @param  array|string  $disk
+     * @return $this
+     */
+    public function forgetDisk($disk)
+    {
+        foreach ((array) $disk as $diskName) {
+            unset($this->disks[$diskName]);
+        }
+
+        return $this;
     }
 
     /**

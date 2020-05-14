@@ -18,7 +18,7 @@ class SPCache {
 
     private function __construct() {
         $this->time = \ShortPixel\opt("cache_time");
-        $this->mc = false;//\ShortPixel\getMemcache();
+        $this->mc = \ShortPixel\getMemcache();
         if(!$this->mc) {
             $this->local = array();
         }

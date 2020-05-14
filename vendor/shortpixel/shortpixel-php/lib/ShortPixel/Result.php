@@ -29,7 +29,7 @@ class Result {
 
     /**
      * @param null $path - path to save the file to
-     * @param null $fileName - filename of the saved file
+     * @param null $fileName - filename of the saved file. If it's an array, then one entry for each optimized file, in the same order.
      * @param null $bkPath - the path to save a backup of the original file
      * @return object containig lists with succeeded, pending, failed and same items (same means the image did not need optimization)
      * @throws AccountException
@@ -39,7 +39,7 @@ class Result {
 
 //        echo(" PATH: $path BkPath: $bkPath");
 //        spdbgd($this->ctx, 'context');
-        $thisDir = str_replace(DIRECTORY_SEPARATOR, '/', __DIR__);
+        $thisDir = str_replace(DIRECTORY_SEPARATOR, '/', (getcwd() ? getcwd() : __DIR__));
 
         if($path) {
             if(   (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && preg_match('/^[a-zA-Z]:\//', $path) === 0) //it's Windows and no drive letter X:
@@ -114,11 +114,31 @@ class Result {
                     $targetPath .= '/' . $relativePath;
                 }
 
-                $fn = ($fileName ? $fileName . ($i > 0 ? "_" . $i : "") : $origFileName);
+                if($fileName) {
+                    if(is_array($fileName)) {
+                        if(!isset($fileName[$i])) {
+                            throw new ClientException('Names array contains less names than the files sent to optimization');
+                        }
+                        $fn = $fileName[$i];
+                    } else {
+                        if($i > 0) {
+                            $dotExt = '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+                            $fn = basename($fileName, $dotExt) . "_" . $i . $dotExt;
+                        } else {
+                            $fn = $fileName;
+                        }
+                    }
+                } else {
+                    $fn = $origFileName;
+                }
                 $target = $targetPath . '/' . $fn;
 
-                if($originalPath) { $item->OriginalFile = $originalPath; }
+                if($originalPath) {
+                    $item->OriginalFile = $originalPath;
+                    if(!mb_detect_encoding($originalPath, 'UTF-8', true)) { $item->OriginalFileUTF8 = utf8_encode($originalPath); }
+                }
                 $item->SavedFile = $target;
+                if(!mb_detect_encoding($target, 'UTF-8', true)) { $item->SavedFileUTF8 = utf8_encode($target); }
 
                 //TODO: that one is a hack until the API waiting bug is fixed. Afterwards, just throw an exception
                 if(    $item->Status->Code == 2
@@ -171,7 +191,7 @@ class Result {
                     continue;
                 }
                 //IF file is locally accessible, the source file size should be the same as the size downloaded by (or posted to) ShortPixel servers
-                elseif(file_exists($originalPath) && filesize($originalPath) != $item->OriginalSize) {
+                elseif(clearstatcache(true, $originalPath) || file_exists($originalPath) && filesize($originalPath) != $item->OriginalSize) {
                     $item->Status->Code = -110;
                     $item->Status->Message = "Wrong original size. Expected (local source file): " . filesize($originalPath) . " downloaded by ShortPixel: " . $item->OriginalSize;
                     $status = $this->persist($item, $cmds, 'error');
@@ -187,6 +207,7 @@ class Result {
                 elseif($item->PercentImprovement == 0) {
                     //sometimes the percent is 0 and the size is different (by some octets) so put the correct size in place
                     if(file_exists($originalPath)) {
+                        clearstatcache(true, $originalPath);
                         if($cmds["lossy"] > 0) {
                             $item->LossySize = filesize($originalPath);
                         } else {
@@ -218,8 +239,10 @@ class Result {
                             throw new Exception("Cannot create backup folder " . $bkCrtPath, -1);
                         }
                         $bkCrtFilePath = $bkCrtPath . MB_basename($originalPath);
-                        if(!copy($originalPath, $bkCrtFilePath) && !file_exists($bkCrtFilePath)) {
-                            throw new Exception("Cannot copy to backup folder " . $bkCrtPath, -1);
+                        if(!file_exists($bkCrtFilePath)) { //just make sure we're not overwriting the original in any case
+                            if (!copy($originalPath, $bkCrtFilePath) && !file_exists($bkCrtFilePath)) {
+                                throw new Exception("Cannot copy to backup folder " . $bkCrtPath, -1);
+                            }
                         }
                     }
 
@@ -296,8 +319,11 @@ class Result {
             }
         }
 
+        $message = ShortPixel::opt('persist_type') == 'text' ? 'pending' : ($pending ? 'pending' : ($failed ? 'error' : 'success'));
         $ret = (object) array(
-            'status' => array('code' => 1, 'message' => 'pending'),
+            'status' => array(
+                'code' => ($message == 'success' ? 2 : 1),
+                'message' => $message),
             'succeeded' => $succeeded,
             'pending' => $pending,
             'failed' => $failed,
@@ -315,7 +341,7 @@ class Result {
     private function checkSaveWebP($item, $target, $cmds)
     {
         if (isset($item->WebPLossyURL) && $item->WebPLossyURL !== 'NA') { //a WebP image was generated as per the options, download and save it too
-            $webpTarget = $targetWebPFile = dirname($target) . DIRECTORY_SEPARATOR . MB_basename($target, '.' . pathinfo($target, PATHINFO_EXTENSION)) . ".webp";
+            $webpTarget = $targetWebPFile = dirname($target) . '/' . MB_basename($target, '.' . pathinfo($target, PATHINFO_EXTENSION)) . ".webp";
             $optWebPURL = $cmds["lossy"] > 0 ? $item->WebPLossyURL : $item->WebPLosslessURL;
             ShortPixel::getClient()->download($optWebPURL, $webpTarget);
             $item->WebPSavedFile = $webpTarget;
@@ -348,7 +374,10 @@ class Result {
             "compressionType" => $cmds["lossy"] == 1 ? 'lossy' : ($cmds["lossy"] == 2 ? 'glossy' : 'lossless'),
             "keepExif" => isset($cmds['keep_exif']) ? $cmds['keep_exif'] : ShortPixel::opt("keep_exif"),
             "cmyk2rgb" => isset($cmds['cmyk2rgb']) ? $cmds['cmyk2rgb'] : ShortPixel::opt("cmyk2rgb"),
-            "resize" => isset($cmds['resize_width']) ? $cmds['resize_width'] : ShortPixel::opt("resize_width") ? 1 : 0,
+            "resize" => isset($cmds['resize'])
+                        ? $cmds['resize']
+                        : ((isset($cmds['resize_width']) && $cmds['resize_width'] > 0)
+                           ? 1 : (ShortPixel::opt("resize_width") ? 1 : 0)),
             "resizeWidth" => isset($cmds['resize_width']) ? $cmds['resize_width'] : ShortPixel::opt("resize_width"),
             "resizeHeight" => isset($cmds['resize_height']) ? $cmds['resize_height'] : ShortPixel::opt("resize_height"),
             "percent" => isset($item->PercentImprovement) ? number_format(100.0 - 100.0 * $optimizedSize / $item->OriginalSize, 2) : 0, //$item->PercentImprovement : 0,

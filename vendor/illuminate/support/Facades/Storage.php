@@ -5,6 +5,8 @@ namespace Illuminate\Support\Facades;
 use Illuminate\Filesystem\Filesystem;
 
 /**
+ * @method static \Illuminate\Contracts\Filesystem\Filesystem disk(string $name = null)
+ *
  * @see \Illuminate\Filesystem\FilesystemManager
  */
 class Storage extends Facade
@@ -14,7 +16,7 @@ class Storage extends Facade
      *
      * @param  string|null  $disk
      *
-     * @return void
+     * @return \Illuminate\Filesystem\Filesystem
      */
     public static function fake($disk = null)
     {
@@ -24,22 +26,26 @@ class Storage extends Facade
             $root = storage_path('framework/testing/disks/'.$disk)
         );
 
-        static::set($disk, self::createLocalDriver(['root' => $root]));
+        static::set($disk, $fake = self::createLocalDriver(['root' => $root]));
+
+        return $fake;
     }
 
     /**
      * Replace the given disk with a persistent local testing disk.
      *
      * @param  string|null  $disk
-     * @return void
+     * @return \Illuminate\Filesystem\Filesystem
      */
     public static function persistentFake($disk = null)
     {
         $disk = $disk ?: self::$app['config']->get('filesystems.default');
 
-        static::set($disk, self::createLocalDriver([
+        static::set($disk, $fake = self::createLocalDriver([
             'root' => storage_path('framework/testing/disks/'.$disk),
         ]));
+
+        return $fake;
     }
 
     /**
