@@ -327,14 +327,17 @@ class PostFilters
     public function enablePostTypeArchiveSearch($template)
     {
         $template = \Municipio\Helper\Template::locateTemplate($template);
+        global $wp_query;
+
+        $postType = isset($wp_query->query['post_type']) ? $wp_query->query['post_type'] : false;
 
         if ((is_post_type_archive() || is_category() || is_date() || is_tax() || is_tag()) && is_search()) {
-            $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
-
+            $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . $postType . '.blade.php');
+            
             if (!$archiveTemplate) {
                 $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive.blade.php');
             }
-
+            
             $template = $archiveTemplate;
         }
 
