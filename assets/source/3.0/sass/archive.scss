@@ -1,3 +1,6 @@
+.filterDiv{
+
+}
 .archive-list{
     list-style: none;
 
@@ -8,15 +11,31 @@
 }
 
 .archive-compressed{
-    & .c-typography {
-        overflow-wrap: anywhere;
-        hyphens: auto;
+    &__title-link, &__title-link:link, &__title-link:visited, &__title-link:visited:hover{
+        text-decoration: none;
+        color:#AE0B05;
     }
+    &__article{
+        & .c-typography {
+            overflow-wrap: anywhere;
+            hyphens: auto;
+        }
+    
+        & h1{
+            color:#AE0B05;
+        }
+    
+        &__date{
+            font-weight: 900;
+            color: #3D3D3D;
+        }
+    
+        & a{
+    
+        }
+    }
+    
 
-    & img{  
-        height: 500px;
-        object-fit: cover;
-    }
 }
 
 .archive-card{

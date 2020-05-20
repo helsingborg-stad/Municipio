@@ -2,7 +2,7 @@ export default class ArchiveFilter{
 
     constructor(){
         this.addListenerToItems();
-        this.openOnPageLoad();
+        //this.openOnPageLoad();
         this.showFilterDiv();
     }
 
@@ -43,7 +43,6 @@ export default class ArchiveFilter{
 
         const toggleFilterDivButton = document.querySelector('[js-toggle-trigger="filterDiv"]');
         const filterDiv = document.querySelector('[js-toggle-item="filterDiv"]');
-        const isPressed = toggleFilterDivButton.getAttribute('aria-pressed');
 
         if(localStorage.getItem('showFilterDiv') === 'true') {
             filterDiv.classList.toggle('u-display--none');
@@ -51,21 +50,13 @@ export default class ArchiveFilter{
         }else {
             toggleFilterDivButton.setAttribute('aria-pressed', 'false');
         }
-        
-        if(isPressed !== 'true'){
-            
-        }else {
-            
-        }
 
         toggleFilterDivButton.addEventListener('click', (event) => {
             
-            if(isPressed !== 'true'){
-                localStorage.setItem('showFilterDiv', 'true');
-                toggleFilterDivButton.setAttribute('aria-pressed', 'false');
-            }else {
+            if(localStorage.getItem('showFilterDiv') === 'true'){
                 localStorage.setItem('showFilterDiv', 'false');
-                toggleFilterDivButton.setAttribute('aria-pressed', 'true');
+            }else {
+                localStorage.setItem('showFilterDiv', 'true');
             }
         });
     }

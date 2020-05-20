@@ -37,6 +37,7 @@
     @include('partials.archive.archive-title')
 
     @if (!empty($posts))
+  
         <div
             class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive grid"
             @if (apply_filters('archive_equal_container', false, $postType, $template))  @endif>
