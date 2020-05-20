@@ -12,68 +12,171 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function init()
     {
-        $this->data['posts'] = $this->getArchivePosts();
+        
         $this->data['postType'] = get_post_type();
         $this->data['template'] = !empty(get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option') : 'collapsed';
-        $this->data['paginationList'] = $this->prepareArchivePagination();
+        $this->data['posts'] = $this->getPosts();
+        $this->data['paginationList'] = $this->preparePaginationObject();
+        $this->data['queryParameters'] = $this->setQueryParameters();
+        $this->data['taxonomies'] = $this->getTaxonomies(); 
 
+        //die(var_dump($this->data['posts']));
         
-        /*
-        $postType = get_post_type();
-        if (is_author()) {
-            $postType = 'author';
-            $this->data['hasLeftSidebar'] = true;
-        }
-
-        $this->data['postType'] = $postType;
-        $this->data['template'] = !empty(get_field('archive_' . sanitize_title($postType) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($postType) . '_post_style', 'option') : 'collapsed';
-        $this->data['grid_size'] = !empty(get_field('archive_' . sanitize_title($postType) . '_grid_columns', 'option')) ? get_field('archive_' . sanitize_title($postType) . '_grid_columns', 'option') : 'grid-md-6';
-
-        $this->data['grid_alter'] = get_field('archive_' . sanitize_title($postType) . '_grid_columns_alter', 'option') ? true : false;
-        $this->data['gridSize'] = (int)str_replace('-', '', filter_var($this->data['grid_size'], FILTER_SANITIZE_NUMBER_INT));
-        self::$gridSize = $this->data['gridSize'];
-
-        if ($this->data['grid_alter']) {
-            $this->gridAlterColumns();
-        }
-
-        add_filter('archive_equal_container', array($this, 'setEqualContainer'), 8, 3);
-
-        */ 
     }
-    private function prepareArchivePagination(){
-        $pages = [];
-        $this->globalToLocal('wp_query', 'wp_query');
+
+    private function preparePaginationObject(){
+        global $wp_query;
+        $pagination = [];
+        $numberOfPages = $wp_query->max_num_pages + 1;
+        $archiveUrl = get_post_type_archive_link($this->data['postType']);
+        $href = '';
+        $currentPage = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        if($numberOfPages > 1){
+            for($i = 1; $i < $numberOfPages; $i++){
+
+                $href = $archiveUrl . 'page/' . $i . '?' . $this->setQueryString($i);
     
-        for($archivePage = 1; $archivePage <= (int)$this->wp_query->max_num_pages; $archivePage++) {
-            $pages[] = array(
-                'label' => $archivePage,
-                'href' => str_replace('https://' . $_SERVER['SERVER_NAME'], '', get_pagenum_link($archivePage))
-            );
+                $pagination[] = array(
+                    'href' => $href,
+                    'label' => (string) $i
+                );
+            }
         }
-
-        return \apply_filters('Municipio/Controller/Archive/prepareArchivePagination', $pages);
+        
+        return \apply_filters('Municipio/Controller/Search/prepareSearchResultObject', $pagination); 
     }
 
-    private function getArchivePosts()
+    private function setQueryString($number) {
+        parse_str($_SERVER['QUERY_STRING'],$queryArgList);
+        $queryArgList['pagination'] = $number;
+        $queryString = http_build_query($queryArgList) . "\n";
+
+        return $queryString;
+    }
+
+    private function setQueryParameters() 
     {
-        $preparedPosts = [];
+        $queryParameters = [
+            'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
+            'from' =>  isset($_GET['from']) ? $_GET['from'] : '',
+            'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
+        ];
+
+        return \apply_filters('Municipio/Controller/Archive/setQueryParameters', 
+                (object) $queryParameters);
+    }
+
+    private function getTaxonomies() 
+    {
+       
+        $taxonomies = get_object_taxonomies($this->data['postType']);
+        
+        $taxonomiesList = [];
+        
+        foreach($taxonomies as $taxonomy){
+            $text = str_replace('-',' ',$taxonomy);
+            $currentTerm = null;
+            $terms = get_terms( array(
+                'taxonomy' => $taxonomy,
+                'hide_empty' => false,
+                ) );
+
+            if(isset($_GET['filter'][$taxonomy])){
+                $currentTerm = get_term_by('slug', $_GET['filter'][$taxonomy], $taxonomy);
+            }
+            
+            $taxonomiesList[$text]['currentSlug'] = (isset($currentTerm)) ? $currentTerm->name : $text;
+            $taxonomiesList[$text]['categories'][] = ['text' => $taxonomy, 'link' => "filter[{$taxonomy}]=delete"];
+
+
+            foreach($terms as $term){
+                $taxonomiesList[$text]['categories'][] = ['text' => $term->name, 'link' => "filter[{$taxonomy}]={$term->slug}"];
+            }
+            
+        }
+
+        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomiesList);
+    }
+
+    private function getPosts()
+    {        
+        
         $this->globalToLocal('posts', 'posts');
-
+        $template = $this->data['template'];
+        $items    = null;
         if(is_array($this->posts) && !empty($this->posts)) {
-            foreach($this->posts as $post) {
-                $post->href = $post->permalink;
 
-                if(get_the_post_thumbnail_url($post->ID)){
-                    $post->featuredImage = \get_the_post_thumbnail_url($post->id);
-                }else{
-                    $post->featuredImage = null;
-                }
-                $preparedPosts[] = \Municipio\Helper\Post::preparePostObject($post);
+            if ($template == 'list') {
+                $items = $this->getListItems($this->posts);
+            } elseif ($template == 'cards') {
+                $items = $this->getCardItems($this->posts);
+            } elseif ($template == 'compressed') {
+                $items = $this->getCardItems($this->posts);
             }
 
-            return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $preparedPosts);
+            return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $items);
         }
+        
+    }
+
+    private function getCardItems($posts)
+    {
+        $preparedPosts = [];
+
+        foreach($posts as $post) {
+            $post->href = get_permalink($post->ID);
+            $post->featuredImage = $this->getFeaturedImage($post);
+            $post->excerpt =  wp_trim_words($post->post_content, 15);
+            $preparedPosts[] = \Municipio\Helper\Post::preparePostObject($post);
+        }
+        
+        return $preparedPosts;
+    }
+
+    private function getListItems($posts)
+    {
+        
+        $preparedPosts = [
+            'items' => [],
+            'headings' => ['Title', 'Published', 'Updated']
+        ];
+
+        foreach($posts as $post) {
+            $postDate = \date('Y-m-d', strtotime($post->post_date));
+            $postModified = \date('Y-m-d', strtotime($post->post_modified));
+
+
+            $preparedPosts['items'][] = 
+            [
+                'href' => get_permalink($post->ID),
+                'columns' => [
+                    $post->post_title,
+                    $post->post_date = $postDate,
+                    $post->post_modified = $postModified
+                ]
+                
+            ];
+        }
+        
+        return $preparedPosts;
+    }
+
+    private function getFeaturedImage($post) 
+    {
+        $featuredImageID = get_post_thumbnail_id();
+        $featuredImageSRC = \get_the_post_thumbnail_url($post->ID);
+        $featuredImageAlt = get_post_meta($featuredImageID, '_wp_attachment_image_alt', TRUE);
+        $featuredImageTitle = get_the_title($featuredImageID);
+
+        $featuredImage = [
+            'src' => $featuredImageSRC ? $featuredImageSRC : null,
+            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
+            'title' => $featuredImageTitle ? $featuredImageTitle : null
+        ];
+
+        return $featuredImage;
+        
     }
 
 

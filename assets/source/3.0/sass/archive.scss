@@ -1,0 +1,26 @@
+.archive-list{
+    list-style: none;
+
+    & li:nth-child(even) { 
+        background-color:#f5f5f5;
+        
+    }
+}
+
+.archive-compressed{
+    & .c-typography {
+        overflow-wrap: anywhere;
+        hyphens: auto;
+    }
+
+    & img{  
+        height: 500px;
+        object-fit: cover;
+    }
+}
+
+.archive-card{
+    overflow-wrap: break-word;
+    max-width: 280px;
+}
+
