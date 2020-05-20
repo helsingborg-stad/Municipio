@@ -1,6 +1,5 @@
 @extends('templates.master')
 
-
 @section('before-layout')
 
     @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'top')
@@ -29,33 +28,32 @@
 @stop
 
 @section('content')
+    
+   
+        
+    
     @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
     @include('partials.archive.archive-title')
 
-    @if (have_posts())
+    @if (!empty($posts))
+  
         <div
             class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive grid"
             @if (apply_filters('archive_equal_container', false, $postType, $template))  @endif>
 
             @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
-                @includeFirst(["partials.archive.archive-" . sanitize_title($postType) .
-                "-filters", "partials.archive-filters"])
+                @include("partials.archive.archive-filters")
             @endif
-
-
-            <?php $postNum = 0; ?>
-            @grid(['container' => true,"columns" => "auto-fit","min_width" => "300px"])
-                @while(have_posts())
-                    {!! the_post() !!}
-                        @grid([])
-                            @includeIf('partials.post.post-cards', ['post' => $posts[$postNum]])
-                        @endgrid
-                    <?php $postNum++; ?>
-                @endwhile
-            @endgrid
+                        
+            @includeIf('partials.post.post-' . $template, ['posts' => $posts])
         </div>
-        @pagination(['list' => $paginationList])
+
+        @pagination([
+            'list' => $paginationList, 
+            'classList' => ['u-margin__top--4'], 
+            'current' => isset($_GET['pagination']) ? $_GET['pagination'] : 1
+        ])
         @endpagination
     @else
         {{-- TODO: add a notice component --}}
