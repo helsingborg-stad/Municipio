@@ -1,11 +1,11 @@
 <article id="article" class="c-article s-article">
 
     <!-- Feature Image -->
-    @if ($feature_image)
+    @if (isset($feature_image->src))
     @image([
-        'src'=> $feature_image->src[0],
+        'src'=> $feature_image->src,
         'alt' => $feature_image->alt,
-        'caption' => $feature_image->title,
+		'caption' => $feature_image->title,
         'classList' => ['c-article__feature-image']
     ])
     @endimage
@@ -16,8 +16,11 @@
         {!! $postTitleFiltered !!}
     @endtypography
 
-    <!-- Content -->
-    {!! $postContentFiltered !!}
+	<!-- Content -->
+	@typography([])
+		{!! $postContentFiltered !!}
+	@endtypography	
+    
 
     <!-- Signature -->
     @if($postTypeDetails->hierarchical)
@@ -29,8 +32,18 @@
             'updated' => $updatedDate])
         @endsignature
     @endif
+	
+	@if(isset($permalink))
+		
+		@typography(['variant' => 'meta'])
+			@link(['href' => $permalink])
+				{{$permalink}}
+			@endlink
+		@endtypography
+	@endif
 
-    @includeIf('comments')
+	@includeIf('comments')
+	
 </article>
 
 
