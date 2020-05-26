@@ -1,37 +1,35 @@
 
-        @link([
-            'href' =>  $post->permalink,
-        ])
+@foreach($posts as $post)
+    <article id="article" class="archive-compressed__article u-margin__bottom--12">
 
-            @if (municipio_get_thumbnail_source(null,array(400,250)))
+        <!-- Title -->
+        @typography(["element" => "h4", 'classList' => ['u-margin__bottom--2']])
+            {{ ucfirst($postType) }}
+        @endtypography
 
-                @image([
-                    'src'=> municipio_get_thumbnail_source(null,array(400,250))
-                ])
-                @endimage
+        <!-- Title -->
+        @typography(["element" => "h1"])
+            @link(['href' =>  $post->href, 'classList' => ['archive-compressed__title-link']])
+                {{ $post->postTitle }}
+            @endlink
+        @endtypography
+        
+        <!-- Content -->
+        @typography([])
+            {!! $post->postContentFiltered !!}
+        @endtypography	
 
-            @endif
+        <!-- Dates -->
+        @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
+            Published: {{$post->postDate}}
+        @endtypography	
 
-                @typography([
-                    'element'=> 'h3',
-                    'classList' => ['text-highlight']
-                ])
-                    {{$post->postTitle}}
-                @endtypography
-
-                @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
-
-                    @date([
-                        'action' => 'formatDate',
-                        'timestamp' =>  $post->postDate
-                    ])
-                    @enddate
-
-                @endif
-
-                {{ $post->postExcerpt }}
-
-        @endlink
-
-    @includeIf('partials.post.post-footer')
-
+        @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date']])
+            Updated: {{$post->postModified}}
+        @endtypography	
+        
+        <!-- Comments -->
+        @includeIf('comments')
+        
+    </article>
+@endforeach

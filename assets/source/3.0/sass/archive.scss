@@ -1,0 +1,36 @@
+.archive-list{
+    list-style: none;
+
+    & li:nth-child(even) { 
+        background-color:#f5f5f5;
+    }
+}
+
+.archive-compressed{
+    &__title-link, &__title-link:link, &__title-link:visited, &__title-link:visited:hover{
+        text-decoration: none;
+        color:#AE0B05;
+    }
+    
+    &__article{
+        & .c-typography {
+            overflow-wrap: anywhere;
+            hyphens: auto;
+        }
+    
+        & h1{
+            color:#AE0B05;
+        }
+    
+        &__date{
+            font-weight: 900;
+            color: #3D3D3D;
+        }
+    }
+}
+
+.archive-card{
+    overflow-wrap: break-word;
+    max-width: 280px;
+}
+

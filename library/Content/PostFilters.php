@@ -360,23 +360,22 @@ class PostFilters
             return $query;
         }
 
-        $taxQuery = array('relation' => 'AND');
-
+        $taxQuery = array('relation' => 'OR');
         foreach ($filterable as $key => $value) {
             if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
                 continue;
             }
-
-            $terms = (array)$_GET['filter'][$key];
-
+            
+            $terms = $_GET['filter'][$key];
+            
             $taxQuery[] = array(
                 'taxonomy' => $key,
                 'field' => 'slug',
                 'terms' => $terms,
-                'operator' => 'IN'
+                'operator' => 'AND'
             );
         }
-
+        
         if (is_tax() || is_category() || is_tag()) {
             $taxQuery = array(
                 'relation' => 'AND',
@@ -387,18 +386,19 @@ class PostFilters
                         'field' => 'slug',
                         'terms' => (array)get_queried_object()->slug,
                         'operator' => 'IN'
-                    )
-                ),
-                $taxQuery
-            );
+                        )
+                    ),
+                    $taxQuery
+                );
+            }
+            
+            $taxQuery = apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
+            
+            $query->set('tax_query', $taxQuery);
+                        
+            return $query;
         }
-
-        $taxQuery = apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
-
-        $query->set('tax_query', $taxQuery);
-        return $query;
-    }
-
+        
     /**
      * Add where clause to post query based on active filters
      * @param  string $where Original where clause
@@ -419,10 +419,12 @@ class PostFilters
 
         if (isset($_GET['from']) && !empty($_GET['from'])) {
             $from = sanitize_text_field($_GET['from']);
+            $from = date('Y-m-d', \strtotime(str_replace('/', '-', $from)));
         }
 
         if (isset($_GET['to']) && !empty($_GET['to'])) {
             $to = sanitize_text_field($_GET['to']);
+            $to = date('Y-m-d', \strtotime(str_replace('/', '-', $to)));
         }
 
         if (!is_null($from) && !is_null($to)) {
