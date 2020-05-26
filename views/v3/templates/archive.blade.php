@@ -29,9 +29,6 @@
 
 @section('content')
     
-   
-        
-    
     @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
     @include('partials.archive.archive-title')
@@ -40,6 +37,7 @@
   
         <div
             class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive grid"
+            
             @if (apply_filters('archive_equal_container', false, $postType, $template))  @endif>
 
             @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')

@@ -2,14 +2,14 @@
     @foreach($posts as $post)
     
         @card([
-                'href' => $post->permalink,
-                'imageFirst' => true,
-                'image' =>  ['src' => $post->featuredImage['src'], 'alt' => 'featured image'],
-                'heading' => $post->postTitle,
-                'classList' => ['archive-card'],
-                'byline' => ['text' => $post->postDate, 'position' => 'body'],
-                'content' => $post->excerpt,
-                'buttons' => [['text' => 'Go', 'href' => $post->permalink]],
+            'href' => $post->permalink,
+            'imageFirst' => true,
+            'image' =>  ['src' => $post->featuredImage['src'], 'alt' => 'featured image'],
+            'heading' => $post->postTitle,
+            'classList' => ['archive-card'],
+            'byline' => ['text' => $post->postDate, 'position' => 'body'],
+            'content' => $post->excerpt,
+            'buttons' => [['text' => 'Go', 'href' => $post->permalink]]
             ])
         @endcard
     

@@ -12,7 +12,6 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function init()
     {
-        
         $this->data['postType'] = get_post_type();
         $this->data['template'] = !empty(get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option') : 'collapsed';
         $this->data['posts'] = $this->getPosts();
@@ -56,7 +55,7 @@ class Archive extends \Municipio\Controller\BaseController
         $queryArgList['pagination'] = $number;
         $queryString = http_build_query($queryArgList) . "\n";
 
-        return $queryString;
+        return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString); 
     }
 
     private function setQueryParameters() 
@@ -73,18 +72,18 @@ class Archive extends \Municipio\Controller\BaseController
 
     private function getTaxonomies() 
     {
-       
         $taxonomies = get_object_taxonomies($this->data['postType']);
-        
         $taxonomiesList = [];
         
         foreach($taxonomies as $taxonomy){
             $text = str_replace('-',' ',$taxonomy);
             $currentTerm = null;
-            $terms = get_terms( array(
-                'taxonomy' => $taxonomy,
-                'hide_empty' => false,
-                ) );
+            $terms = get_terms( 
+                array(
+                    'taxonomy' => $taxonomy,
+                    'hide_empty' => false
+                ) 
+            );
 
             if(isset($_GET['filter'][$taxonomy])){
                 $currentTerm = get_term_by('slug', $_GET['filter'][$taxonomy], $taxonomy);
@@ -137,9 +136,7 @@ class Archive extends \Municipio\Controller\BaseController
             $preparedPosts[] = $post;
         }
         
-        
-        
-        return $preparedPosts;
+        return \apply_filters('Municipio/Controller/Archive/getItems', $preparedPosts);
     }
 
     private function getListItems($posts)
@@ -167,7 +164,7 @@ class Archive extends \Municipio\Controller\BaseController
             ];
         }
         
-        return $preparedPosts;
+        return \apply_filters('Municipio/Controller/Archive/getListItems', $preparedPosts);
     }
 
     private function getFeaturedImage($post) 
@@ -183,7 +180,7 @@ class Archive extends \Municipio\Controller\BaseController
             'title' => $featuredImageTitle ? $featuredImageTitle : null
         ];
 
-        return $featuredImage;
+        return \apply_filters('Municipio/Controller/Archive/getFeaturedImage', $featuredImage);
         
     }
 
@@ -194,7 +191,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         return apply_filters( "Municipio/Controller/Archive/getParentPost", $parentPost);
     } 
-
 
     public function setEqualContainer($equalContainer, $postType, $template)
     {

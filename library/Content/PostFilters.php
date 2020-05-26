@@ -368,7 +368,6 @@ class PostFilters
             
             $terms = $_GET['filter'][$key];
             
-            
             $taxQuery[] = array(
                 'taxonomy' => $key,
                 'field' => 'slug',
@@ -393,14 +392,10 @@ class PostFilters
                 );
             }
             
-            
-            
             $taxQuery = apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
             
             $query->set('tax_query', $taxQuery);
-            
-            /* die(print("<pre>".print_r($taxQuery,true)."</pre>")); */
-            
+                        
             return $query;
         }
         
@@ -430,7 +425,6 @@ class PostFilters
         if (isset($_GET['to']) && !empty($_GET['to'])) {
             $to = sanitize_text_field($_GET['to']);
             $to = date('Y-m-d', \strtotime(str_replace('/', '-', $to)));
-            //die(var_dump($to));
         }
 
         if (!is_null($from) && !is_null($to)) {
@@ -503,21 +497,4 @@ class PostFilters
 
         return $query;
     }
-
-    public function filterByDate ($query)
-        {
-            $from = date('Y/m/d', (1580511600000 / 1000));
-            $to   = date('yy-m-d', (1583017200000 / 1000));
-           
-                    $query->set('date_query', [
-                        [
-                            'column'    => 'post_date',
-                            'after'     => $from,
-                            'before'    => $to
-                        
-                        ]
-                    ]
-                );
-            
-        }
 }

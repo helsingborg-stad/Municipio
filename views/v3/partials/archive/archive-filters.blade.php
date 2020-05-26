@@ -4,21 +4,21 @@
     ])
 
     @grid(['container' => true, 'columns' => "2", 'col_gap' => '1'])
-    @grid([]) 
-        @field([
-            'type' => 'text',
-            'value' => $queryParameters->search,
-            'label' => 'Search for '. $postType,
-            'classList' => ['u-width--100','u-margin__top--4', 'u-margin__bottom--4', 'u-display--inline-block'],
-            'attributeList' => [
+        @grid([]) 
+            @field([
                 'type' => 'text',
-                'name' => 's'
-            ],
-            'required' => false,
-            
-            ])
-        @endfield
-    @endgrid
+                'value' => $queryParameters->search,
+                'label' => 'Search for '. $postType,
+                'classList' => ['u-width--100','u-margin__top--4', 'u-margin__bottom--4', 'u-display--inline-block'],
+                'attributeList' => [
+                    'type' => 'text',
+                    'name' => 's'
+                ],
+                'required' => false,
+                
+                ])
+            @endfield
+        @endgrid
 
         @grid(['classList' => ['u-display--inline-flex', 'u-align-items--center']])
             @button([
@@ -91,19 +91,19 @@
     @endgrid
 
     @grid(['container' => true, 'columns' => 'auto-fit', 'col_gap' => 2])
-    @foreach($taxonomies as $taxonomy => $terms)
-        
-        @grid([])
-        @splitbutton([
-            'items' => $terms['categories'],
-            'buttonText' => $terms['currentSlug'],
-            'icon' => 'expand_more',
-            'dropdownDirection' => 'down',
-            'classList' => ['u-margin__bottom--4', 'u-margin__right--4']
-        ])
-        @endsplitbutton
-        @endgrid
+        @foreach($taxonomies as $taxonomy => $terms)
+            
+            @grid([])
+                @splitbutton([
+                    'items' => $terms['categories'],
+                    'buttonText' => $terms['currentSlug'],
+                    'icon' => 'expand_more',
+                    'dropdownDirection' => 'down',
+                    'classList' => ['u-margin__bottom--4', 'u-margin__right--4']
+                ])
+                @endsplitbutton
+            @endgrid
 
-    @endforeach
+        @endforeach
     @endgrid
 </div>

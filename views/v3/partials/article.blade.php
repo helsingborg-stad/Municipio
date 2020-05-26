@@ -2,13 +2,13 @@
 
     <!-- Feature Image -->
     @if (isset($feature_image->src))
-    @image([
-        'src'=> $feature_image->src,
-        'alt' => $feature_image->alt,
-		'caption' => $feature_image->title,
-        'classList' => ['c-article__feature-image']
-    ])
-    @endimage
+		@image([
+			'src'=> $feature_image->src,
+			'alt' => $feature_image->alt,
+			'caption' => $feature_image->title,
+			'classList' => ['c-article__feature-image']
+		])
+		@endimage
     @endif
 
     <!-- Title -->
@@ -34,7 +34,6 @@
     @endif
 	
 	@if(isset($permalink))
-		
 		@typography(['variant' => 'meta'])
 			@link(['href' => $permalink])
 				{{$permalink}}

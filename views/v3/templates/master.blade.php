@@ -28,7 +28,6 @@
     {{-- Site header --}}
     @includeIf('partials.header')
 
-
     <div class="">
 
         {{-- Before page layout --}}
@@ -38,7 +37,7 @@
         @section('layout')
             <section>
                 @grid(["container" => true, 'classList' => ['u-margin__top--12']])
-                @grid([
+                    @grid([
                         "col" => [
                             "xs" => [1,13],
                             "sm" => [1,13],
@@ -54,39 +53,40 @@
                             "xl" => [1,2]
                         ]
                     ])
-                {{-- Above --}}
-                @hasSection('above')
-                    @yield('above')
-                @endif
+                        {{-- Above --}}
+                        @hasSection('above')
+                            @yield('above')
+                        @endif
+                    @endgrid
                 @endgrid
-                @endgrid
+
                 @grid(["container" => true, 'classList' => ['u-margin__top--8']])
-                @grid([
-                        "col" => [
-                            "xs" => [1,13],
-                            "sm" => [1,13],
-                            "md" => [1,13],
-                            "lg" => [1,9],
-                            "xl" => [1,10]
-                        ],
-                        "row" => [
-                            "xs" => [1,2],
-                            "sm" => [1,2],
-                            "md" => [1,2],
-                            "lg" => [1,2],
-                            "xl" => [1,2]
-                        ]
-                    ])
-                {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
-                @hasSection('sidebar-left')
-                    @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
-                    @sidebar([
-                        'logo' => $logotype->standard['url'],
-                        'items' => $sideNavigation
-                    ])
-                    @endsidebar
-                @endif
-                @endgrid
+                    @grid([
+                            "col" => [
+                                "xs" => [1,13],
+                                "sm" => [1,13],
+                                "md" => [1,13],
+                                "lg" => [1,9],
+                                "xl" => [1,10]
+                            ],
+                            "row" => [
+                                "xs" => [1,2],
+                                "sm" => [1,2],
+                                "md" => [1,2],
+                                "lg" => [1,2],
+                                "xl" => [1,2]
+                            ]
+                        ])
+                    {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
+                        @hasSection('sidebar-left')
+                            @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
+                            @sidebar([
+                                'logo' => $logotype->standard['url'],
+                                'items' => $sideNavigation
+                            ])
+                            @endsidebar
+                        @endif
+                    @endgrid
 
                 {{-- Content --}}
                 <!-- <div class="{{-- $layout['content'] --}} content"> -->
