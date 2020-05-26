@@ -1,7 +1,9 @@
-.c-textarea textarea {
+.c-textarea textarea, #comment textarea {
     min-height:40px;
     padding-bottom: 24px;
     max-width: 900px;
+    background-color: #e1e1e1;
+
 }
 
 .comment {
