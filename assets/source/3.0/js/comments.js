@@ -18,6 +18,7 @@ export default class Comments {
      */
     removeClass() {
         const replyLink = document.querySelectorAll('.comment-reply-link');
+        
         for (let int = 0; int < replyLink.length; int++) {
             if (replyLink[int].classList.contains('u-display--none')) {
                 replyLink[int].classList.remove('u-display--none');
@@ -30,7 +31,11 @@ export default class Comments {
      */
     cancelReplyOnClick() {
         const cancelOnClick = document.getElementById('cancel-comment-reply-link');
-        cancelOnClick.addEventListener('click', this.removeClass);
+        
+        if (cancelOnClick !== null) {
+            cancelOnClick.addEventListener('click', this.removeClass);
+        }
+       
     }
     
     /**
@@ -56,12 +61,19 @@ export default class Comments {
      */
     changeTextareaHeight() {
         const self = this;
-        document.getElementById('comment').addEventListener('keydown', function (event) {
-            self.textareaHeight(event);
-        }, false);
-        document.getElementById('comment').addEventListener('keyup', function (event) {
-            self.textareaHeight(event);
-        }, false);
+        const comment = document.getElementById('comment');
+        
+        if (comment !== null){
+            comment.addEventListener('keydown', function (event) {
+                self.textareaHeight(event);
+            }, false);
+    
+            comment.addEventListener('keyup', function (event) {
+                self.textareaHeight(event);
+            }, false);
+            
+        }
+        
     }
     
     /**
@@ -72,7 +84,6 @@ export default class Comments {
         if (event.keyCode !== 8 && event.keyCode !== 46 || event.keyCode === 8 || event.keyCode === 46) {
             let text = document.getElementById('comment').value + String.fromCharCode(event.keyCode);
             document.getElementById('comment').rows = text.split(/\r\n|\r|\n/).length;
-            console.log('SMAXK');
         }
     }
     
