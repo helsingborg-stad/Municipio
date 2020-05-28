@@ -12,6 +12,5 @@
             'buttons' => [['text' => 'Go', 'href' => $post->permalink]]
             ])
         @endcard
-    
     @endforeach
 @endgrid
