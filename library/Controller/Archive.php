@@ -251,7 +251,7 @@ class Archive extends \Municipio\Controller\BaseController
         $gridRand = array();
 
         switch ($this->data['gridSize']) {
-            
+
             case 6:
                 $gridRand = array(
                     array(12),
