@@ -131,15 +131,10 @@ class Archives
                         'id' => '',
                     ),
                     'choices' => array(
-                        'full' => 'Full',
-                        'collapsed' => 'Collapsed',
                         'compressed' => 'Compressed',
-                        'grid' => 'Grid',
                         'cards' => 'Post cards',
                         'newsitem' => 'News items',
                         'list' => 'List',
-                        'horizontal-cards' => 'Horizontal cards',
-                        'circular' => 'Circular'
                     ),
                     'default_value' => array(
                         0 => 'full',
@@ -166,23 +161,9 @@ class Archives
                             array(
                                 'field' => 'field_56f00fe21f918_' . md5($posttype),
                                 'operator' => '==',
-                                'value' => 'grid',
-                            ),
-                        ),
-                        array(
-                            array(
-                                'field' => 'field_56f00fe21f918_' . md5($posttype),
-                                'operator' => '==',
                                 'value' => 'cards',
                             ),
-                        ),
-                        array(
-                            array(
-                                'field' => 'field_56f00fe21f918_' . md5($posttype),
-                                'operator' => '==',
-                                'value' => 'circular',
-                            ),
-                        ),
+                        )
                     ),
                     'wrapper' => array(
                         'width' => '',
@@ -229,38 +210,6 @@ class Archives
                     "maxlength" => "",
                     "readonly" => 0,
                     "disabled" => 0
-                );
-
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_570ded8a4720erg_' . md5($posttype),
-                    'label' => 'Alter grid column size',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_grid_columns_alter',
-                    'type' => 'true_false',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => array(
-                        array(
-                            array(
-                                'field' => 'field_56f00fe21f918_' . md5($posttype),
-                                'operator' => '==',
-                                'value' => 'grid',
-                            ),
-                        ),
-                        array(
-                            array(
-                                'field' => 'field_56f00fe21f918_' . md5($posttype),
-                                'operator' => '==',
-                                'value' => 'circular',
-                            ),
-                        )
-                    ),
-                    'wrapper' => array(
-                        'width' => '100%',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'message' => 'Yes, alter grid column size',
-                    'default_value' => 0,
                 );
 
                 // Post sorting
@@ -657,7 +606,7 @@ class Archives
                     ),
                     'choices' => array(
                         'author' => 'Show author',
-                        'author_image' => 'Show autor image (only if show author)',
+                        'author_image' => 'Show author image (only if show author)',
                     ),
                     'other_choice' => 0,
                     'save_other_choice' => 0,

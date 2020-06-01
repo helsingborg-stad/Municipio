@@ -1,35 +1,32 @@
-@link([
-    'href' => the_permalink()
-])
-    @if (municipio_get_thumbnail_source(null,array(400,250)))
+@if ($posts)
+    @foreach($posts as $post)
 
-        @image([
-            'src'=> municipio_get_thumbnail_source(null,array(400,250)),
-            'alt' => $post->postTitle,
-            'classList' => ['']
+        @link([
+            'href' => the_permalink()
         ])
-        @endimage
+           @segment([
+                'layout' => 'col-left',
+                'title' => $post->postTitle,
+                'sub_title' => $post->postDate,
+                'text' => $post->postContent ?? $post->postContent,
+                'overlay' => 'blur'
+            ])
 
-    @endif
+            @if (municipio_get_thumbnail_source(null,array(400,250)))
 
+                    @image([
+                        'src'=> municipio_get_thumbnail_source(null,array(400,250)),
+                        'alt' => $post->postTitle,
+                        'classList' => ['']
+                    ])
+                    @endimage
 
-    @typography([
-        "variant" => "h3"
-    ])
-        {{$post->postTitle}}
-    @endtypography
+                @endif
 
-    @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
+            @endsegment
+        @endlink
 
-        @date([
-            'action' => 'formatDate',
-            'timestamp' =>  $post->dateObject
-        ])
-        @enddate
+    @endforeach
+@endif
 
-    @endif
-
-    {{ $post->postExcerpt }}
-
-@endlink
 

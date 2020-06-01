@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56caee123c53f',
-    'title' => 'Author',
+    'title' => __('Author', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56caee12421d3',
@@ -78,7 +78,7 @@
     'label_placement' => 'top',
     'instruction_placement' => 'label',
     'hide_on_screen' => '',
-    'active' => 1,
+    'active' => true,
     'description' => '',
 ));
 }

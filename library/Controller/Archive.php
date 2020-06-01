@@ -133,9 +133,9 @@ class Archive extends \Municipio\Controller\BaseController
 
             if ($template == 'list') {
                 $items = $this->getListItems($this->posts);
-            } elseif ($template == 'cards' || $template == 'compressed') {
+            }else {
                 $items = $this->getItems($this->posts);
-            } 
+            }
 
             return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $items);
         }
