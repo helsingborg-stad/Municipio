@@ -23,17 +23,7 @@
         ])
         @endfield
 
-        @button([
-            'style' => 'outlined',
-            'icon' => 'search',
-            'size' => 'lg',
-            'color' => 'primary',
-            'attributeList' => [
-            'type' => 'submit'
-            ],
-            'classList' => ['u-color__text--primary']
-        ])
-        @endbutton
+     
     @endform
 
 @endmodal

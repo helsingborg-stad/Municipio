@@ -1,32 +1,44 @@
 .search-result-item{
-    width:800 px;
-    &__title-link,
-    &__title-link:visited,
-    &__title-link:hover,
-    &__title-link:active{
-        text-decoration: none;
-       
-    }
+    /* Auto Layout */
+
+    padding: 16px 0px;
+    color: #565656;
     
-    & .c-typography__variant--meta{
-        display:flex;
-        align-items: center;
-        & .c-icon{
-            margin-right: 12px;
-        }
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    /* or 21px */
+
+    letter-spacing: 0.0025em;
+
+    /* Mono / Mörkare */
+
+    color: #565656;
+
+  
+    
+    &__title-link, &__title-link:link, &__title-link:visited, &__title-link:visited:hover {
+        text-decoration: none;
+        color:#AE0B05;
     }
-    &__content-container{
-        
+
+    &__parent-title-link, &__parent-title-link:link, &__parent-title-link:visited, &__parent-title-link:visited:hover {
+        text-decoration: none;
+        color:#3D3D3D;
     }
-    & img{
-        
-        width:100px;
-        height: 100px;
-        float:left;
-        margin-right: 10px;
-        margin-bottom: 10px;
+
+
+    &__link-prefix{
+        font-weight: 700;
 
     }
+   
+}
+
+.search-result-count{
+    border-bottom: 1px solid #E5E5E5;
+    max-width: max-content;
 }
 
 .search-modal{

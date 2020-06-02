@@ -39,8 +39,6 @@ class Navigation
                     'href' => $array['href'] = get_permalink($child->ID),
                     'preview' => wp_trim_words(get_post_field('post_content', $child->ID), 30)
                 );
-
-                //var_dump($child);
                 
                 $subMenu['items'][] = $child;
             }
