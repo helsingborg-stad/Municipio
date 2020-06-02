@@ -15,7 +15,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['postType'] = get_post_type();
         $this->data['template'] = !empty(get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option') : 'collapsed';
         $this->data['posts'] = $this->getPosts();
-        $this->data['paginationList'] = $this->preparePaginationObject();
+        $this->data['paginationList'] = $this->getPagination();
         $this->data['queryParameters'] = $this->setQueryParameters();
         $this->data['taxonomies'] = $this->getTaxonomies(); 
         $this->data['archiveTitle'] = $this->getArchiveTitle();
@@ -24,10 +24,36 @@ class Archive extends \Municipio\Controller\BaseController
     private function getArchiveTitle()
     {
         $title = \ucfirst($this->data['postType']);
+
         return \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $title);  
     }
 
-    private function preparePaginationObject(){
+    private function getPostTerms($postID)
+    {
+        $terms = wp_get_post_terms($postID);
+        $taxonomies = get_taxonomies('', 'names');
+        $termsList = [];
+
+        foreach($taxonomies as $taxonomy) {
+            $terms = wp_get_post_terms($postID, $taxonomy);
+
+            if(!empty($terms)){
+
+                foreach($terms as $term){
+                    $termsList[] = [
+                        'label' => $term->name,
+                        'href' => get_term_link( $term->term_id )
+                    ];
+                }
+
+            }
+
+        }
+
+        return \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $termsList);  
+    }
+
+    private function getPagination(){
         global $wp_query;
         $pagination = [];
         $numberOfPages = $wp_query->max_num_pages + 1;
@@ -38,7 +64,7 @@ class Archive extends \Municipio\Controller\BaseController
         if($numberOfPages > 1){
             for($i = 1; $i < $numberOfPages; $i++){
 
-                $href = $archiveUrl . 'page/' . $i . '?' . $this->setQueryString($i);
+                $href = $archiveUrl . '?' . $this->setQueryString($i);
     
                 $pagination[] = array(
                     'href' => $href,
@@ -52,7 +78,7 @@ class Archive extends \Municipio\Controller\BaseController
 
     private function setQueryString($number) {
         parse_str($_SERVER['QUERY_STRING'],$queryArgList);
-        $queryArgList['pagination'] = $number;
+        $queryArgList['paged'] = $number;
         $queryString = http_build_query($queryArgList) . "\n";
 
         return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString); 
@@ -112,7 +138,7 @@ class Archive extends \Municipio\Controller\BaseController
 
             if ($template == 'list') {
                 $items = $this->getListItems($this->posts);
-            } elseif ($template == 'cards' || $template == 'compressed') {
+            } else{
                 $items = $this->getItems($this->posts);
             } 
 
@@ -126,12 +152,14 @@ class Archive extends \Municipio\Controller\BaseController
         $preparedPosts = [];
         
         foreach($posts as $post) {
+          
             $post = \Municipio\Helper\Post::preparePostObject($post);
             $post->href = get_permalink($post->id);
             $post->featuredImage = $this->getFeaturedImage($post);
             $post->excerpt =  wp_trim_words($post->postContent, 15);
             $post->postDate = \date('Y-m-d', strtotime($post->postDate));
             $post->postModified = \date('Y-m-d', strtotime($post->postModified));
+            $post->terms = $this->getPostTerms($post->id);
 
             $preparedPosts[] = $post;
         }
