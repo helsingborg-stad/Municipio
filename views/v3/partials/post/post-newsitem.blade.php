@@ -1,32 +1,39 @@
 @if ($posts)
-    @foreach($posts as $post)
+    <div class="arcive-news-items">
 
-        @link([
-            'href' => the_permalink()
-        ])
-           @segment([
-                'layout' => 'col-left',
-                'title' => $post->postTitle,
-                'sub_title' => $post->postDate,
-                'text' => $post->postContent ?? $post->postContent,
-                'overlay' => 'blur'
+        @foreach($posts as $post)
+
+            @link([
+                'href' => get_the_permalink(),
+                'slot' => ' '
             ])
 
-            @if (municipio_get_thumbnail_source(null,array(400,250)))
+               @segment([
+                    'layout' => 'col-left',
+                    'title' => $post->postTitle,
+                    'sub_title' => $post->excerpt,
+                    'height' => 'sm',
+                    'overlay' => 'blur'
+                ])
+                @slot('top')
+                <span class="c-segment__top-date"> {{$post->postDate}} </span>
+                @endslot
+                @if (municipio_get_thumbnail_source(null,array(400,250)))
 
-                    @image([
-                        'src'=> municipio_get_thumbnail_source(null,array(400,250)),
-                        'alt' => $post->postTitle,
-                        'classList' => ['']
-                    ])
-                    @endimage
+                        @image([
+                            'src'=> municipio_get_thumbnail_source(null,array(400,250)),
+                            'alt' => $post->postTitle,
+                            'classList' => ['']
+                        ])
+                        @endimage
 
                 @endif
 
-            @endsegment
-        @endlink
+                @endsegment
+            @endlink
 
-    @endforeach
+        @endforeach
+    </div>
 @endif
 
 
