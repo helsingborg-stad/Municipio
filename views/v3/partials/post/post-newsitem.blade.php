@@ -22,8 +22,7 @@
 
                         @image([
                             'src'=> municipio_get_thumbnail_source($post->id, array(400,250)),
-                            'alt' => $post->postTitle,
-                            'classList' => ['']
+                            'alt' => $post->postTitle
                         ])
                         @endimage
 

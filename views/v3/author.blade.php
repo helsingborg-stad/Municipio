@@ -25,7 +25,7 @@
             {{_e('Posts by', 'municipio')}}
             {{municipio_get_author_full_name() ? municipio_get_author_full_name() : get_the_author_meta('nicename') }}
         @endtypography
-        
+
         @if (in_array($template, array('cards', 'compressed', 'list', 'newsitem')))
             @include('partials.post.post-' . $template)
         @else
@@ -39,10 +39,10 @@
     @pagination([
         'list' => $paginationList,
         'classList' => ['u-margin__top--4'],
-        'current' => isset($_GET['pagination']) ? $_GET['pagination'] : 1
+        'current' => isset($_GET['paged']) ? $_GET['paged'] : 1,
+        'linkPrefix' => '?paged='
     ])
     @endpagination
-
 @stop
 
 @section('sidebar-right')

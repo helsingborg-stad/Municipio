@@ -11,7 +11,13 @@ class Author extends \Municipio\Controller\Archive
     public function init()
     {
         $this->data['postType'] = get_post_type();
-        $this->data['template'] = !empty(get_field('archive_' . sanitize_title('author') . '_post_style', 'option')) ? get_field('archive_' . sanitize_title('author') . '_post_style', 'option') : 'collapsed';
+        
+        if (!empty(get_field('archive_' . sanitize_title('author') . '_post_style', 'option'))) {
+            $this->data['template'] = get_field('archive_' . sanitize_title('author') . '_post_style', 'option');
+        } else {
+            $this->data['template'] = 'collapsed';
+        }
+
         $this->data['posts'] = $this->getPosts();
         $this->data['paginationList'] = $this->preparePaginationObject();
         $this->data['queryParameters'] = $this->setQueryParameters();
