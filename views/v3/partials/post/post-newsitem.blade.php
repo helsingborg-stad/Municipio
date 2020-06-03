@@ -1,6 +1,5 @@
 @if ($posts)
     <div class="arcive-news-items">
-
         @foreach($posts as $post)
 
             @link([
@@ -16,12 +15,13 @@
                     'overlay' => 'blur'
                 ])
                 @slot('top')
-                <span class="c-segment__top-date"> {{$post->postDate}} </span>
+
+                <span class="c-segment__top-date"> {{date_i18n('l d F Y', strtotime($post->postDate))}} </span>
                 @endslot
-                @if (municipio_get_thumbnail_source(null,array(400,250)))
+                @if (municipio_get_thumbnail_source($post->id,array(400,250)))
 
                         @image([
-                            'src'=> municipio_get_thumbnail_source(null,array(400,250)),
+                            'src'=> municipio_get_thumbnail_source($post->id, array(400,250)),
                             'alt' => $post->postTitle,
                             'classList' => ['']
                         ])

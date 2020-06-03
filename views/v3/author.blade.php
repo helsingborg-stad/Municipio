@@ -25,7 +25,7 @@
             {{_e('Posts by', 'municipio')}}
             {{municipio_get_author_full_name() ? municipio_get_author_full_name() : get_the_author_meta('nicename') }}
         @endtypography
-
+        
         @if (in_array($template, array('cards', 'compressed', 'list', 'newsitem')))
             @include('partials.post.post-' . $template)
         @else

@@ -37,16 +37,19 @@
 .arcive-news-items {
 
     .c-segment {
-        padding:18px 0 14px 0;
+        padding: 18px 0 14px 0;
+        justify-content: left;
     }
+
     a h2 {
-        text-decoration:none;
+        text-decoration: none;
     }
+
     .c-segment__top-date {
-        font-weight:600;
+        font-weight: 600;
         color: #ae0b05;
-        position:relative;
-        clear:left;
+        position: relative;
+        clear: left;
     }
 }
 
