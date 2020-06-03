@@ -11,7 +11,7 @@ class Author extends \Municipio\Controller\Archive
     public function init()
     {
         $this->data['postType'] = get_post_type();
-        
+
         if (!empty(get_field('archive_' . sanitize_title('author') . '_post_style', 'option'))) {
             $this->data['template'] = get_field('archive_' . sanitize_title('author') . '_post_style', 'option');
         } else {
