@@ -4,7 +4,8 @@
 
     @form([
         'method' => 'get',
-        'action' => esc_url( home_url( '/' ) )
+        'action' => esc_url( home_url( '/' ) ),
+        'classList' => ['u-margin__bottom--4']
     ])
 
 
@@ -20,21 +21,13 @@
     ])
     @endfield
 
-    @button([
-        'type' => 'filled',
-        'icon' => 'search',
-        'size' => 'md',
-        'color' => 'secondary',
-        'attributeList' => [
-            'type' => 'submit'
-        ]
-    ])
-    @endbutton
-
     @endform
 
-     <strong>{{ $resultCount }}</strong> träffar på <strong>"{{ get_search_query() }}"</strong> inom {{ ucfirst(explode('//', home_url(), 2)[1]) }}
-
+    <div class="search-result-count">
+        @typography(['variant' => 'h2', 'element' => 'h2'])
+        Found {{ $resultCount }} hits 
+        @endtypography
+    </div>
 
 </section>
 
@@ -45,18 +38,6 @@
 @else
 
 <section class="u-mt-0 u-margin__top--2">
-
-
-    @if ($wp_query->max_num_pages > 1)
-
-        @pagination([
-            'list' => $pagination,
-            'current' => isset($_GET['pagination']) ? $_GET['pagination'] : 1,
-            'classList' => ['u-margin__bottom--2']
-        ])
-        @endpagination
-
-    @endif
 
     @if ($template === 'grid')
                 
