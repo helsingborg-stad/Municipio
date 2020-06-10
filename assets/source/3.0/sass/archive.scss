@@ -34,3 +34,22 @@
     max-width: 280px;
 }
 
+.arcive-news-items {
+
+    .c-segment {
+        padding: 18px 0 14px 0;
+        justify-content: left;
+    }
+
+    a h2 {
+        text-decoration: none;
+    }
+
+    .c-segment__top-date {
+        font-weight: 600;
+        color: #ae0b05;
+        position: relative;
+        clear: left;
+    }
+}
+

@@ -21,14 +21,14 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveTitle'] = $this->getArchiveTitle();
     }
 
-    private function getArchiveTitle()
+    protected function getArchiveTitle()
     {
         $title = \ucfirst($this->data['postType']);
 
         return \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $title);  
     }
 
-    private function getPostTerms($postID)
+    protected function getPostTerms($postID)
     {
         $terms = wp_get_post_terms($postID);
         $taxonomies = get_taxonomies('', 'names');
@@ -53,7 +53,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $termsList);  
     }
 
-    private function getPagination(){
+    protected function getPagination(){
         global $wp_query;
         $pagination = [];
         $numberOfPages = $wp_query->max_num_pages + 1;
@@ -76,7 +76,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/prepareSearchResultObject', $pagination); 
     }
 
-    private function setQueryString($number) {
+    protected function setQueryString($number) {
         parse_str($_SERVER['QUERY_STRING'],$queryArgList);
         $queryArgList['paged'] = $number;
         $queryString = http_build_query($queryArgList) . "\n";
@@ -84,7 +84,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString); 
     }
 
-    private function setQueryParameters() 
+    protected function setQueryParameters() 
     {
         $queryParameters = [
             'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
@@ -96,7 +96,7 @@ class Archive extends \Municipio\Controller\BaseController
                 (object) $queryParameters);
     }
 
-    private function getTaxonomies() 
+    protected function getTaxonomies() 
     {
         $taxonomies = get_object_taxonomies($this->data['postType']);
         $taxonomiesList = [];
@@ -128,7 +128,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomiesList);
     }
 
-    private function getPosts()
+    protected function getPosts()
     {        
         
         $this->globalToLocal('posts', 'posts');
@@ -147,7 +147,7 @@ class Archive extends \Municipio\Controller\BaseController
         
     }
 
-    private function getItems($posts)
+    protected function getItems($posts)
     {
         $preparedPosts = [];
         
@@ -167,7 +167,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getItems', $preparedPosts);
     }
 
-    private function getListItems($posts)
+    protected function getListItems($posts)
     {
         
         $preparedPosts = [
@@ -195,7 +195,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getListItems', $preparedPosts);
     }
 
-    private function getFeaturedImage($post) 
+    protected function getFeaturedImage($post) 
     {
         $featuredImageID = get_post_thumbnail_id();
         $featuredImageSRC = \get_the_post_thumbnail_url($post->id);
@@ -212,7 +212,7 @@ class Archive extends \Municipio\Controller\BaseController
         
     }
 
-    private function getParentPost($postID) 
+    protected function getParentPost($postID) 
     {
         $parentPostID = wp_get_post_parent_id( $postID );
         $parentPost = get_post($parentPostID);

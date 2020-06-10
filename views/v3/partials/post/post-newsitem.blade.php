@@ -1,35 +1,38 @@
-@link([
-    'href' => the_permalink()
-])
-    @if (municipio_get_thumbnail_source(null,array(400,250)))
+@if ($posts)
+    <div class="arcive-news-items">
+        @foreach($posts as $post)
 
-        @image([
-            'src'=> municipio_get_thumbnail_source(null,array(400,250)),
-            'alt' => $post->postTitle,
-            'classList' => ['']
-        ])
-        @endimage
+            @link([
+                'href' => get_the_permalink(),
+                'slot' => ' '
+            ])
 
-    @endif
+               @segment([
+                    'layout' => 'col-left',
+                    'title' => $post->postTitle,
+                    'sub_title' => $post->excerpt,
+                    'height' => 'sm',
+                    'overlay' => 'blur'
+                ])
+                @slot('top')
 
+                <span class="c-segment__top-date"> {{date_i18n('l d F Y', strtotime($post->postDate))}} </span>
+                @endslot
+                @if (municipio_get_thumbnail_source($post->id,array(400,250)))
 
-    @typography([
-        "variant" => "h3"
-    ])
-        {{$post->postTitle}}
-    @endtypography
+                        @image([
+                            'src'=> municipio_get_thumbnail_source($post->id, array(400,250)),
+                            'alt' => $post->postTitle
+                        ])
+                        @endimage
 
-    @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
+                @endif
 
-        @date([
-            'action' => 'formatDate',
-            'timestamp' =>  $post->dateObject
-        ])
-        @enddate
+                @endsegment
+            @endlink
 
-    @endif
+        @endforeach
+    </div>
+@endif
 
-    {{ $post->postExcerpt }}
-
-@endlink
 
