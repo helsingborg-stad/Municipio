@@ -8,11 +8,11 @@ class Template
 {
     public function __construct()
     {
-        $viewPaths = \Municipio\Helper\Template::getViewPaths();
-        $bladeInit = new BladeInitator(['/Users/hiq/sites/municipio/wp-content/themes/municipio/views/v3']);
+        $viewPaths = $this->registerViewPaths();
+        $bladeInit = new BladeInitator($viewPaths);
         $this->bladeEngine = $bladeInit->getEngine();
 
-        add_action('init', array($this, 'registerViewPaths'), 10);
+        /* add_action('init', array($this, 'registerViewPaths'), 10); */
 
         $this->initCustomTemplates();
 
@@ -37,14 +37,14 @@ class Template
      * Register paths containing views
      * @return void
      */
-    public function registerViewPaths(): void
+    public function registerViewPaths(): array
     {
         if ($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
             
-            foreach ($viewPaths as $path) {
-                $this->bladeEngine->addViewPath(rtrim($path, DIRECTORY_SEPARATOR), true);
+            foreach ($viewPaths as &$path) {
+                $path = str_replace('themes/municipio', 'themes/Municipio', rtrim($path, DIRECTORY_SEPARATOR));
             }
-            //die(var_dump($this->bladeEngine));
+            return $viewPaths;
         } else {
             wp_die("No view paths registered, please register at least one.");
         }
