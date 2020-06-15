@@ -3,7 +3,7 @@
     <!-- Feature Image -->
     @if (isset($feature_image->src))
 		@image([
-			'src'=> $feature_image->src,
+			'src'=> $feature_image->src[0],
 			'alt' => $feature_image->alt,
 			'caption' => $feature_image->title,
 			'classList' => ['c-article__feature-image']
