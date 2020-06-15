@@ -70,8 +70,6 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
         );
 
-        $this->getNavigation(); 
-
         //Structural
         $this->getNavigationMenus();
         $this->getHelperVariables();
