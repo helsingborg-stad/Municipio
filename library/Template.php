@@ -6,6 +6,9 @@ use BladeComponentLibrary\Init as BladeInitator;
 
 class Template
 {
+
+    private $bladeEngine = null;
+
     public function __construct()
     {
         $viewPaths = $this->registerViewPaths();
@@ -92,14 +95,16 @@ class Template
 
         //Get controller data
         $viewData = $this->accessProtected(
-            $this->loadController($this->getControllerNameFromView($view)),
+            $this->loadController(
+                $this->getControllerNameFromView($view)
+            ),
             'data'
         );
 
         //Render the view
         return $this->renderView(
-            (string)$view,
-            (array)apply_filters('Municipio/blade/data', $viewData)
+            (string) $view,
+            (array) apply_filters('Municipio/blade/data', $viewData)
         );
     }
 
