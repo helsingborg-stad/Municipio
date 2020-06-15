@@ -25,7 +25,8 @@ class PostType
 
         if (!empty($filter)) {
             $postTypes = array_filter($postTypes, function ($item) use ($filter) {
-                if (substr($item, 0, 4) === 'mod-') {
+
+                if (substr((is_object($item) ? $item->name : $item), 0, 4) === 'mod-') {
                     return false;
                 }
 
