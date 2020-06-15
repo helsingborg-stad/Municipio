@@ -25,9 +25,7 @@
     ],
     "require": {
         "composer/installers": "^1.0",
-        "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "shortpixel/shortpixel-php": "^1.4",
-        "helsingborg-stad/blade-component-library": "dev-master#0.5.1",
+        "helsingborg-stad/blade-component-library": "dev-master#0.5.2",
         "helsingborg-stad/global-blade-engine": "^1.2",
         "symfony/debug": "^4.2",
         "symfony/finder": "4.4.8",
