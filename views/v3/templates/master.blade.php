@@ -18,8 +18,8 @@
         var ajaxurl = '{!! $ajaxUrl !!}';
     </script>
 
-    {{-- Wordpress required call --}}
-    {!! wp_head() !!}
+    {{-- Wordpress required call to wp_header() --}}
+    {!! $wpHeader !!}
 
 </head>
 
@@ -153,6 +153,9 @@
 @section('footer')
     @includeIf('partials.footer')
 @show
+
+{{-- Wordpress required call to wp_footer() --}}
+{!! $wpFooter !!}
 
 </body>
 </html>

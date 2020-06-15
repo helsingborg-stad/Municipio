@@ -13,6 +13,10 @@ class BaseController
     public function __construct()
     {
 
+        //Header & Footer
+        $this->data['wpHeader']             = $this->getWpHeader();
+        $this->data['wpFooter']             = $this->getWpFooter();
+
         //Basic
         $this->data['ajaxUrl']              = $this->getAjaxUrl();
         $this->data['bodyClass']            = $this->getBodyClass();
@@ -80,21 +84,37 @@ class BaseController
     }
 
     /**
-     * Should show admin notices
+     * Get WordPress header
+     */
+    public function getWpHeader() {
+        ob_start();
+        wp_head();
+        return apply_filters('Municipio/HeaderHTML', ob_get_clean());
+    }
+
+    /**
+     * Get WordPress footer
+     */
+    public function getWpFooter() {
+        ob_start();
+        wp_footer();
+        return apply_filters('Municipio/FooterHTML', ob_get_clean());
+    }
+
+    /**
+     * Get current page ID
      */
     public function getPageID() {
         return get_queried_object_id(); 
     }
 
+    /**
+     * Get current parent ID
+     *
+     * @return integer
+     */
     public function getPageParentID() {
         return wp_get_post_parent_id($this->getPageID());  
-    }
-
-    /**
-     * Should show admin notices
-     */
-    public function getNavigation() {
-        
     }
 
     /**
