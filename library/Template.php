@@ -6,7 +6,6 @@ use BladeComponentLibrary\Init as BladeInitator;
 
 class Template
 {
-
     private $bladeEngine = null;
 
     public function __construct()
@@ -23,8 +22,6 @@ class Template
 
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
-
-
     }
 
     /**
@@ -43,15 +40,10 @@ class Template
     public function registerViewPaths(): array
     {
         if ($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
-            
-            foreach ($viewPaths as &$path) {
-                $path = str_replace('themes/municipio', 'themes/Municipio', rtrim($path, DIRECTORY_SEPARATOR));
-            }
             return $viewPaths;
         } else {
             wp_die("No view paths registered, please register at least one.");
         }
-
     }
 
     /**
@@ -147,7 +139,7 @@ class Template
      * @param array $data
      */
     public function renderView($view, $data = array())
-    {   
+    {
         try {
             echo $this->bladeEngine->make(
                 $view,
@@ -156,7 +148,6 @@ class Template
                     array('errorMessage' => false)
                 )
             )->render();
-
         } catch (\Throwable $e) {
             echo '<pre>' . var_dump($e) . '</pre>';
         }
@@ -263,7 +254,6 @@ class Template
 
                     // No changes needed
                     return $original;
-
                 });
             }
         }
