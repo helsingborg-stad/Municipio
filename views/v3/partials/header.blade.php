@@ -1,36 +1,45 @@
 <header id="site-header">
-    @navbar([
-        'logo' => $logotype->standard['url'], 
-        'expanded_prev' => $pageParentID, 
-        'expanded_current' => $pageID, 
-        'expanded_menu' => $topNavigation, 
-        'childItemsUrl' => 'wp/wp-json/municipio/v1/navigation', 
-        'isDynamic' => true, 
-        'pageID' => $pageID,
-        'pageParentID' => $pageParentID
-    ])
+    <?php
+        $arr = [];
+        foreach (wp_get_nav_menu_items(get_nav_menu_locations()['main-menu']) as $item) {
+            $post =  $item->to_array();
+            $arr[$post['ID']] = [
+                'label' => $post['title'],
+                'href' => $post['url'],
+        ];
+        }
+    ?>
 
-        @button([
-            'color' => 'default',
-            'style' => 'basic',
-            'icon' => 'people',
-            'size' => 'lg',
-            'text' => 'Login',
-            'classList' => ['c-button--show-search']
+    @if (has_nav_menu('main-menu'))
+        @navbar([
+            'logo' => $logotype->standard['url'],
+            'expanded_menu' => $arr,
         ])
-        @endbutton
 
-        @button([
-            'color' => 'default',
-            'style' => 'basic',
-            'icon' => 'search',
-            'size' => 'lg',
-            'text' => 'Search',
-            'classList' => ['c-button--show-search'],
-            'attributeList' => ['data-open' => 'm-search-modal__trigger']
-        ])
-        @endbutton
-    @endnavbar
+            @button([
+                'color' => 'default',
+                'style' => 'basic',
+                'icon' => 'people',
+                'size' => 'lg',
+                'text' => 'Login',
+                'classList' => ['c-button--show-search']
+            ])
+            @endbutton
+
+            @button([
+                'color' => 'default',
+                'style' => 'basic',
+                'icon' => 'search',
+                'size' => 'lg',
+                'text' => 'Search',
+                'classList' => ['c-button--show-search'],
+                'attributeList' => ['data-open' => 'm-search-modal__trigger']
+            ])
+            @endbutton
+        @endnavbar
+    @endif
+
+
     {{-- TAB MENU --}}
     {{-- @includeIf('partials.header.tabs') --}}
     @includeIf('partials.search.search-form')
