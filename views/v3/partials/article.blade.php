@@ -24,13 +24,23 @@
 
     <!-- Signature -->
     @if($postTypeDetails->hierarchical)
-        @signature([
-            'author' => $authorName,
-            'avatar_size' => 'sm',
-            'avatar' => $authorAvatar,
-            'published' => $publishedDate,
-            'updated' => $updatedDate])
-        @endsignature
+        @typography([
+            "variant" => "meta",
+            "classList" => [
+                "u-color__text--darker"
+            ]
+        ])
+            <b><?php _e("Published", 'municipio')?>: </b> {{$publishedDate}}
+        @endtypography
+
+        @typography([
+            "variant" => "meta",
+            "classList" => [
+                "u-color__text--darker"
+            ]
+        ])
+            <b><?php _e("Last updated", 'municipio')?>: </b> {{$updatedDate}}
+        @endtypography
     @endif
 	
 	@if(isset($permalink))
