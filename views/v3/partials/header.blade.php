@@ -1,26 +1,11 @@
 <header id="site-header">
-    <?php
-    if (has_nav_menu('main-menu')) {
-        $arr = [];
-
-        foreach (wp_get_nav_menu_items(get_nav_menu_locations()['main-menu']) as $item) {
-            $post =  $item->to_array();
-            $arr[$post['ID']] = [
-                'label' => $post['title'],
-                'href' => $post['url'],
-            ];
-        }
-    }
-
-    ?>
-
-    @if (has_nav_menu('main-menu'))
+    @if (!empty($mainMenuItems))
         @navbar([
             'logo' => $logotype->standard['url'],
-            'expanded_menu' => $arr,
+            'items' => $mainMenuItems,
         ])
 
-            @button([
+            {{-- @button([
                 'color' => 'default',
                 'style' => 'basic',
                 'icon' => 'people',
@@ -39,7 +24,7 @@
                 'classList' => ['c-button--show-search'],
                 'attributeList' => ['data-open' => 'm-search-modal__trigger']
             ])
-            @endbutton
+            @endbutton --}}
         @endnavbar
     @endif
 
