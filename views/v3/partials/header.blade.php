@@ -1,13 +1,17 @@
 <header id="site-header">
     <?php
+    if (has_nav_menu('main-menu')) {
         $arr = [];
+
         foreach (wp_get_nav_menu_items(get_nav_menu_locations()['main-menu']) as $item) {
             $post =  $item->to_array();
             $arr[$post['ID']] = [
                 'label' => $post['title'],
                 'href' => $post['url'],
-        ];
+            ];
         }
+    }
+
     ?>
 
     @if (has_nav_menu('main-menu'))
