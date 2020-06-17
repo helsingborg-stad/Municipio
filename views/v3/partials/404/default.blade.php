@@ -1,13 +1,9 @@
-@typography([
-    "element" => "h1",
-    "slot" => $heading
-])
+@typography(["element" => "h1"])
+    {{ $heading }}
 @endtypography
 
-@typography([
-    "element" => "span",
-    "slot" => $subheading
-])
+@typography(["element" => "span"])
+    {{ $subheading }}
 @endtypography
 
 @foreach($actionButtons as $button) 
@@ -16,7 +12,5 @@
         'color' => 'primary',
         'style' => 'basic',
         'href' => $button->href
-
-    ])
-    @endbutton
+    ])@endbutton
 @endforeach
