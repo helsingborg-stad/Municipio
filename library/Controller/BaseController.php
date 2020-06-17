@@ -24,24 +24,26 @@ class BaseController
         $this->data['homeUrl']              = $this->getHomeUrl();
         $this->data['adminUrl']             = $this->getAdminUrl();
 
-        //Post data 
-        $this->data['pageTitle']            = $this->getPageTitle(); 
-        $this->data['pagePublished']        = $this->getPagePublished(); 
-        $this->data['pageModified']         = $this->getPageModified(); 
-        $this->data['pageID']               = $this->getPageID(); 
-        $this->data['pageParentID']         = $this->getPageParentID(); 
+        //Post data
+        $this->data['pageTitle']            = $this->getPageTitle();
+        $this->data['pagePublished']        = $this->getPagePublished();
+        $this->data['pageModified']         = $this->getPageModified();
+        $this->data['pageID']               = $this->getPageID();
+        $this->data['pageParentID']         = $this->getPageParentID();
 
-        //Logotypes 
+        //Logotypes
         $this->data['logotype']             = $this->getLogotype();
 
         //Navigation
-        $this->data['breadcrumb']           = $this->getBreadcrumb(); 
+        $this->data['breadcrumb']           = $this->getBreadcrumb();
+
+        $this->data['mainMenuItems']        = $this->getMenuItems('main-menu');
 
         //Google translate location
-        $this->data['translateLocation']    = get_field('show_google_translate', 'option'); 
+        $this->data['translateLocation']    = get_field('show_google_translate', 'option');
 
-        //User is authenticated 
-        $this->data['isAuthenticated']      = is_user_logged_in(); 
+        //User is authenticated
+        $this->data['isAuthenticated']      = is_user_logged_in();
 
         //User role
         $this->data['userRole']             = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
@@ -50,11 +52,11 @@ class BaseController
         $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
         //Navigation
-        $this->data['topNavigation']        = \Municipio\Helper\Nav::getTopLevel($this->getPageID()); 
-        $this->data['sideNavigation']       = \Municipio\Helper\Nav::getNested($this->getPageID()); 
+        $this->data['topNavigation']        = \Municipio\Helper\Nav::getTopLevel($this->getPageID());
+        $this->data['sideNavigation']       = \Municipio\Helper\Nav::getNested($this->getPageID());
 
         //Current posttype
-        $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails(); 
+        $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
 
         //Language
         $this->data['lang'] = array(
@@ -78,13 +80,32 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
+    }
 
+    public function getMenuItems($menu)
+    {
+        if (has_nav_menu($menu)) {
+            $arr = [];
+
+            foreach (wp_get_nav_menu_items(get_nav_menu_locations()[$menu]) as $item) {
+                $post =  $item->to_array();
+                $arr[$post['ID']] = [
+                    'label' => $post['title'],
+                    'href' => $post['url'],
+                ];
+            }
+
+            return $arr;
+        }
+
+        return false;
     }
 
     /**
      * Get WordPress header
      */
-    public function getWpHeader() {
+    public function getWpHeader()
+    {
         ob_start();
         wp_head();
         return apply_filters('Municipio/HeaderHTML', ob_get_clean());
@@ -93,7 +114,8 @@ class BaseController
     /**
      * Get WordPress footer
      */
-    public function getWpFooter() {
+    public function getWpFooter()
+    {
         ob_start();
         wp_footer();
         return apply_filters('Municipio/FooterHTML', ob_get_clean());
@@ -102,8 +124,9 @@ class BaseController
     /**
      * Get current page ID
      */
-    public function getPageID() {
-        return get_queried_object_id(); 
+    public function getPageID()
+    {
+        return get_queried_object_id();
     }
 
     /**
@@ -111,39 +134,42 @@ class BaseController
      *
      * @return integer
      */
-    public function getPageParentID() {
-        return wp_get_post_parent_id($this->getPageID());  
+    public function getPageParentID()
+    {
+        return wp_get_post_parent_id($this->getPageID());
     }
 
     /**
      * Should show admin notices
      */
-    public function showAdminNotices() {
+    public function showAdminNotices()
+    {
         if (is_user_logged_in() && current_user_can('edit_themes')) {
             return true;
         }
-        return false; 
+        return false;
     }
 
     /**
      * Get current user role
      * @return mixed    String or false with role
      */
-    public function getUserRole() {
+    public function getUserRole()
+    {
 
         //Check login
-        if(!is_user_logged_in()) {
-            return false; 
+        if (!is_user_logged_in()) {
+            return false;
         }
 
         //Return user role
-        if($userRoles = wp_get_current_user()->roles) {
-            if(is_array($userRoles) && !empty($userRoles)) {
-                return array_pop($userRoles); 
+        if ($userRoles = wp_get_current_user()->roles) {
+            if (is_array($userRoles) && !empty($userRoles)) {
+                return array_pop($userRoles);
             }
         }
 
-        return false; 
+        return false;
     }
 
     /**
@@ -267,7 +293,7 @@ class BaseController
      */
     protected function getLanguageAttrs() : string
     {
-         return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
+        return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
     }
 
     /**
@@ -334,12 +360,12 @@ class BaseController
     public function getNavigationMenus($blogId = null, $dataStoragePoint = 'navigation')
     {
         //Reset blog id if null
-        if(is_null($blogId)) {
-            $blogId = get_current_blog_id(); 
+        if (is_null($blogId)) {
+            $blogId = get_current_blog_id();
         }
 
         //Switch blog if differ blog id
-        if($blogId != get_current_blog_id()) {
+        if ($blogId != get_current_blog_id()) {
             switch_to_blog($blogId);
             $blogIdswitch = true;
         } else {
@@ -401,7 +427,6 @@ class BaseController
                 $this->data[$dataStoragePoint]['mainMenu'] = $cache['mainMenu'];
                 $this->data[$dataStoragePoint]['mobileMenu'] = $cache['mobileMenu'];
             }
-
         } else {
             $navigation = new \Municipio\Helper\Navigation();
             $this->data[$dataStoragePoint]['mainMenu'] = $navigation->mainMenu();
@@ -414,7 +439,7 @@ class BaseController
         }
 
         //Restore blog
-        if($blogIdswitch) {
+        if ($blogIdswitch) {
             restore_current_blog();
         }
     }
@@ -426,7 +451,7 @@ class BaseController
             return $this->data['logotype'];
         }
 
-        //Get fresh logotypes 
+        //Get fresh logotypes
         return (object) array(
             'standard' => array_merge(['url' => ""], (array) get_field('logotype', 'option')),
             'negative' => array_merge(['url' => ""], (array) get_field('logotype_negative', 'option'))
@@ -467,7 +492,6 @@ class BaseController
         if (!empty($headerLayoutSetting) && !in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
             $this->data['headerLayout']['template'] = $headerLayoutSetting;
         }
-
     }
 
     public function getFooterLayout()
@@ -520,7 +544,7 @@ class BaseController
      */
     public function init()
     {
-        do_action('Municipio/Controller/Init'); 
+        do_action('Municipio/Controller/Init');
     }
 
     /**
