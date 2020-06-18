@@ -82,6 +82,12 @@ class BaseController
         $this->init();
     }
 
+    /**
+     * Get menu items
+     *
+     * @param string $menu The menu id to get
+     * @return bool|array
+     */
     public function getMenuItems($menu)
     {
         if (has_nav_menu($menu)) {
@@ -103,8 +109,10 @@ class BaseController
 
     /**
      * Get WordPress header
+     * 
+     * @return string
      */
-    public function getWpHeader()
+    public function getWpHeader() : string
     {
         ob_start();
         wp_head();
@@ -113,8 +121,10 @@ class BaseController
 
     /**
      * Get WordPress footer
+     * 
+     * @return string
      */
-    public function getWpFooter()
+    public function getWpFooter() :  string
     {
         ob_start();
         wp_footer();
