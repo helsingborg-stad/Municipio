@@ -349,93 +349,6 @@ class BaseController
         $this->data['contentGridSize'] = $contentGridSize;
     }
 
-    public function getNavigationMenus($blogId = null, $dataStoragePoint = 'navigation')
-    {
-        //Reset blog id if null
-        if (is_null($blogId)) {
-            $blogId = get_current_blog_id();
-        }
-
-        //Switch blog if differ blog id
-        if ($blogId != get_current_blog_id()) {
-            switch_to_blog($blogId);
-            $blogIdswitch = true;
-        } else {
-            $blogIdswitch = false;
-        }
-
-        $this->data[$dataStoragePoint]['headerTabsMenu'] = wp_nav_menu(array(
-            'theme_location' => 'header-tabs-menu',
-            'container' => 'nav',
-            'container_class' => 'menu-header-tabs',
-            'container_id' => '',
-            'menu_class' => 'nav nav-tabs',
-            'menu_id' => 'help-menu-top',
-            'echo' => false,
-            'before' => '',
-            'after' => '',
-            'link_before' => '',
-            'link_after' => '',
-            'items_wrap' => '<ul class="%2$s">%3$s</ul>',
-            'depth' => 1,
-            'fallback_cb' => '__return_false'
-        ));
-
-        $this->data[$dataStoragePoint]['headerHelpMenu'] = wp_nav_menu(array(
-            'theme_location' => 'help-menu',
-            'container' => 'nav',
-            'container_class' => 'menu-help',
-            'container_id' => '',
-            'menu_class' => 'nav nav-help nav-horizontal',
-            'menu_id' => 'help-menu-top',
-            'echo' => false,
-            'before' => '',
-            'after' => '',
-            'link_before' => '',
-            'link_after' => '',
-            'items_wrap' => '<ul class="%2$s">%3$s</ul>',
-            'depth' => 1,
-            'fallback_cb' => '__return_false'
-        ));
-
-        // If 404, fragment cache the navigation and return
-        if (is_404()) {
-            if (!wp_cache_get('404-menus', 'municipio-navigation')) {
-                $navigation = new \Municipio\Helper\Navigation();
-                $this->data[$dataStoragePoint]['mainMenu'] = $navigation->mainMenu();
-                $this->data[$dataStoragePoint]['mobileMenu'] = $navigation->mobileMenu();
-
-                wp_cache_add(
-                    '404-menus',
-                    array(
-                        'mainMenu' => $this->data['navigation']['mainMenu'],
-                        'mobileMenu' => $this->data['navigation']['mobileMenu']
-                    ),
-                    'municipio-navigation',
-                    86400
-                );
-            } else {
-                $cache = wp_cache_get('404-menus', 'municipio-navigation');
-                $this->data[$dataStoragePoint]['mainMenu'] = $cache['mainMenu'];
-                $this->data[$dataStoragePoint]['mobileMenu'] = $cache['mobileMenu'];
-            }
-        } else {
-            $navigation = new \Municipio\Helper\Navigation();
-            $this->data[$dataStoragePoint]['mainMenu'] = $navigation->mainMenu();
-            $this->data[$dataStoragePoint]['mobileMenu'] = $navigation->mobileMenu();
-
-            global $isSublevel;
-            if ($isSublevel !== true) {
-                $this->data[$dataStoragePoint]['sidebarMenu'] = $navigation->sidebarMenu();
-            }
-        }
-
-        //Restore blog
-        if ($blogIdswitch) {
-            restore_current_blog();
-        }
-    }
-
     public function getLogotype()
     {
         //Cache, early bailout
@@ -450,7 +363,7 @@ class BaseController
         );
     }
 
-    public function getHeaderLayout()
+    public function getHeaderLayout() //TODO: Do we need this? 
     {
         $headerLayoutSetting = get_field('header_layout', 'option');
 
@@ -486,7 +399,7 @@ class BaseController
         }
     }
 
-    public function getFooterLayout()
+    public function getFooterLayout() //TODO: Do we need this?
     {
         $headerLayoutSetting = (get_field('footer_layout', 'option')) ? get_field('footer_layout', 'option') : 'default';
 
@@ -506,7 +419,7 @@ class BaseController
         }
     }
 
-    public function getVerticalMenu()
+    public function getVerticalMenu() //TODO: Do we need this?
     {
         //Define
         $abortFunction = true;
