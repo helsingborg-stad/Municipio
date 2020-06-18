@@ -41,9 +41,9 @@ class BaseController
         $this->data['logotype']             = $this->getLogotype();
 
         //Navigation
-        $this->data['breadcrumb']           = $this->getBreadcrumb();
-        $this->data['mainMenuItems']        = \Municipio\Helper\Nav::getWpMenuItems('main-menu', true);     //True = Fallback to page structure
-        $this->data['sideMenuItems']        = \Municipio\Helper\Nav::getWpMenuItems('main-menu', true);     //True = Fallback to page structure
+        $this->data['breadcrumbItems']      = \Municipio\Helper\Nav::getBreadcrumbItems();
+        $this->data['primaryMenuItems']     = \Municipio\Helper\Nav::getWpMenuItems('main-menu', true);     //True = Fallback to page structure
+        $this->data['secondaryMenuItems']   = \Municipio\Helper\Nav::getWpMenuItems('main-menu', true);     //True = Fallback to page structure
         $this->data['tabMenuItems']         = \Municipio\Helper\Nav::getWpMenuItems('header-tabs-menu');
         $this->data['helpMenuItems']        = \Municipio\Helper\Nav::getWpMenuItems('help-menu');
         $this->data['dropdownMenuItems']    = \Municipio\Helper\Nav::getWpMenuItems('dropdown-links-menu');
@@ -314,7 +314,7 @@ class BaseController
      */
     protected function getBreadcrumb() : array
     {
-        return apply_filters('Municipio/breadcrumbArray', []);
+        return apply_filters('Municipio/breadcrumbArray', breadcrumb());
     }
 
     public function getFixedActionBar()
