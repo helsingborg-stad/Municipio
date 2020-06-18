@@ -1,8 +1,8 @@
 <header id="site-header">
-    @if (!empty($mainMenuItems))
+    @if (!empty($primaryMenuItems))
         @navbar([
             'logo' => $logotype->standard['url'],
-            'items' => $mainMenuItems,
+            'items' => $primaryMenuItems,
         ])
 
             {{-- @button([
