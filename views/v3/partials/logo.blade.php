@@ -16,9 +16,9 @@
         @endtypography
     @endif
 @endlink
-
+{{-- TODO: REMOVE FUNCTIONS. LOCATION: BASE CONTROLLER. --}}
 @if (get_field('header_tagline_type', 'option') === 'custom' &&
-    get_field('header_tagline_enable', 'option'))
+    get_field('header_tagline_enable', 'option')) 
 
     @typography([
         'element' => 'span',
