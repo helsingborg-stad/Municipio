@@ -24,6 +24,12 @@ class BaseController
         $this->data['homeUrl']              = $this->getHomeUrl();
         $this->data['adminUrl']             = $this->getAdminUrl();
 
+        //View porperties
+        $this->data['isFrontPage']          = is_front_page(); 
+        $this->data['isSingular']           = is_singular(); 
+        $this->data['isSingle']             = is_single(); 
+        $this->data['isSticky']             = is_sticky(); 
+
         //Post data
         $this->data['pageTitle']            = $this->getPageTitle();
         $this->data['pagePublished']        = $this->getPagePublished();
