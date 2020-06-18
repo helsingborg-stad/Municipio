@@ -10,9 +10,7 @@
 @stop
 
 @section('above')
-    @breadcrumb([
-        'list' => \Municipio\Theme\Navigation::breadcrumbData()
-    ])
+    @breadcrumb(['list' => $breadcrumbItems])
     @endbreadcrumb
 @stop
 

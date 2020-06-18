@@ -5,10 +5,7 @@
 
 @section('above')
     <div class="nav-helper">
-        @breadcrumb([
-            'list' => \Municipio\Theme\Navigation::breadcrumbData()
-        ])
-        @endbreadcrumb
+        @includeIf('partials.navigation.breadcrumb')
         @includeIf('partials.navigation.accessibility')
     </div>
 @stop
