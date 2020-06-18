@@ -417,6 +417,31 @@ class Nav
   }
 
   /**
+   * Get WordPress menu items (from default menu management)
+   *
+   * @param string $menu The menu id to get
+   * @return bool|array
+   */
+  public static function getWpMenuItems($menu, $fallbackToPageTree = false)
+  {
+      if (has_nav_menu($menu)) {
+          $arr = [];
+
+          foreach (wp_get_nav_menu_items(get_nav_menu_locations()[$menu]) as $item) {
+              $post =  $item->to_array();
+              $arr[$post['ID']] = [
+                  'label' => $post['title'],
+                  'href' => $post['url'],
+              ];
+          }
+
+          return $arr;
+      }
+
+      return false;
+  }
+
+  /**
    * Creates a local copy of the global instance
    * The target var should be defined in class header as private or public
    * 

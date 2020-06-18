@@ -42,12 +42,12 @@ class BaseController
 
         //Navigation
         $this->data['breadcrumb']           = $this->getBreadcrumb();
-        $this->data['mainMenuItems']        = $this->getMenuItems('main-menu', true);
-        $this->data['tabMenuItems']         = $this->getMenuItems('header-tabs-menu');
-        $this->data['helpMenuItems']        = $this->getMenuItems('help-menu');
-        $this->data['dropdownMenuItems']    = $this->getMenuItems('dropdown-links-menu');
-        $this->data['sidebarMenuItems']     = $this->getMenuItems('dropdown-links-menu', true);
-    
+        $this->data['mainMenuItems']        = \Municipio\Helper\Nav::getWpMenuItems('main-menu', true);     //True = Fallback to page structure
+        $this->data['sideMenuItems']        = \Municipio\Helper\Nav::getWpMenuItems('main-menu', true);     //True = Fallback to page structure
+        $this->data['tabMenuItems']         = \Municipio\Helper\Nav::getWpMenuItems('header-tabs-menu');
+        $this->data['helpMenuItems']        = \Municipio\Helper\Nav::getWpMenuItems('help-menu');
+        $this->data['dropdownMenuItems']    = \Municipio\Helper\Nav::getWpMenuItems('dropdown-links-menu');
+        
         //Google translate location
         $this->data['translateLocation']    = get_field('show_google_translate', 'option');
 
@@ -89,31 +89,6 @@ class BaseController
         $this->getFixedActionBar();
 
         $this->init();
-    }
-
-    /**
-     * Get menu items
-     *
-     * @param string $menu The menu id to get
-     * @return bool|array
-     */
-    public function getMenuItems($menu, $fallbackToPageTree = false)
-    {
-        if (has_nav_menu($menu)) {
-            $arr = [];
-
-            foreach (wp_get_nav_menu_items(get_nav_menu_locations()[$menu]) as $item) {
-                $post =  $item->to_array();
-                $arr[$post['ID']] = [
-                    'label' => $post['title'],
-                    'href' => $post['url'],
-                ];
-            }
-
-            return $arr;
-        }
-
-        return false;
     }
 
     /**
