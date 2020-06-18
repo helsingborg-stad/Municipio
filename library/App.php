@@ -88,8 +88,8 @@ class App
         new \Municipio\Api\Navigation();
 
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
-            $paths[] = get_stylesheet_directory() . '/views';
-            $paths[] = get_template_directory() . '/views';
+            $paths[] = get_stylesheet_directory() . '/views/v3';
+            $paths[] = get_template_directory() . '/views/v3';
             return $paths;
         });
     }
