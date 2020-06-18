@@ -17,10 +17,6 @@
 @section('sidebar-left')
 
     @includeIf('partials.sidebar', ['id' => 'left-sidebar'])
-    @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
-        {!! $navigation['sidebarMenu'] !!}
-    @endif
-
     @includeIf('partials.sidebar', ['id' => 'left-sidebar-bottom'])
 
 @stop
