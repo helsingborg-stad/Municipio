@@ -82,7 +82,7 @@
                             @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
                             @sidebar([
                                 'logo' => $logotype->standard['url'],
-                                'items' => $sideNavigation
+                                'items' => $secondaryMenuItems
                             ])
                             @endsidebar
                         @endif
@@ -90,8 +90,6 @@
 
                 {{-- Content --}}
                 <!-- <div class="{{-- $layout['content'] --}} content"> -->
-
-                    
                     @grid([
                         "col" => [
                             "xs" => [1,13],
