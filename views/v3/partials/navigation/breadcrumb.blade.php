@@ -1,0 +1,2 @@
+@breadcrumb(['list' => $breadcrumbItems])
+@endbreadcrumb
