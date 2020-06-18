@@ -12,10 +12,6 @@
 
 
 @section('sidebar-left')
-    @if (get_field('nav_sub_enable', 'option'))
-        {!! $navigation['sidebarMenu'] !!}
-    @endif
-
     @include('partials.sidebar', ['id' => 'left-sidebar'])
     @include('partials.sidebar', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
     @include('partials.sidebar', ['id' => 'left-sidebar-bottom'])

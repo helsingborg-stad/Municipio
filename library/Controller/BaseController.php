@@ -82,11 +82,9 @@ class BaseController
         );
 
         //Structural
-        $this->getNavigationMenus();
+
         $this->getHelperVariables();
         $this->getFilterData();
-        $this->getVerticalMenu();
-        $this->getFixedActionBar();
 
         $this->init();
     }

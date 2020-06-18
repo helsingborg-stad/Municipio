@@ -17,22 +17,10 @@ class Navigation
         $this->registerMenus();
 
         add_action('after_setup_theme', array($this, 'registerDropDownLinksMenu'));
+        add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2); //TODO: Do we need this?
+        add_filter('the_posts', array($this, 'pageForPostTypeNavigation')); //TODO: Move to addon plugin if needed
 
-        if (in_array('mainmenu', (array)get_field('search_display', 'option'))) {
-            add_filter('wp_nav_menu_items', array($this, 'addSearchMagnifier'), 10, 2);
-            add_filter('Municipio/main_menu/wrapper_end', array($this, 'addSearchMagnifier'), 10, 2);
-        }
-
-        if (!empty(get_field('google_translate_menu', 'option')) && !empty(get_field('show_google_translate',
-                'option')) && get_field('show_google_translate', 'option') !== 'false') {
-            add_filter('wp_nav_menu_items', array($this, 'addTranslate'), 10, 2);
-            add_filter('Municipio/main_menu/wrapper_end', array($this, 'addTranslate'), 10, 2);
-        }
-
-        add_action('save_post', array($this, 'purgeTreeMenuTransient'), 10, 2);
-        add_filter('the_posts', array($this, 'pageForPostTypeNavigation'));
-
-        add_action('after_setup_theme', array($this, 'submenuAjaxEndpoint'));
+        add_action('after_setup_theme', array($this, 'submenuAjaxEndpoint')); //TODO: Do we need this? 
     }
 
     /**
