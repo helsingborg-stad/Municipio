@@ -42,9 +42,12 @@ class BaseController
 
         //Navigation
         $this->data['breadcrumb']           = $this->getBreadcrumb();
-
-        $this->data['mainMenuItems']        = $this->getMenuItems('main-menu');
-
+        $this->data['mainMenuItems']        = $this->getMenuItems('main-menu', true);
+        $this->data['tabMenuItems']         = $this->getMenuItems('header-tabs-menu');
+        $this->data['helpMenuItems']        = $this->getMenuItems('help-menu');
+        $this->data['dropdownMenuItems']    = $this->getMenuItems('dropdown-links-menu');
+        $this->data['sidebarMenuItems']     = $this->getMenuItems('dropdown-links-menu', true);
+    
         //Google translate location
         $this->data['translateLocation']    = get_field('show_google_translate', 'option');
 
@@ -94,7 +97,7 @@ class BaseController
      * @param string $menu The menu id to get
      * @return bool|array
      */
-    public function getMenuItems($menu)
+    public function getMenuItems($menu, $fallbackToPageTree = false)
     {
         if (has_nav_menu($menu)) {
             $arr = [];
