@@ -27,7 +27,13 @@ class E404 extends \Municipio\Controller\BaseController
         $this->data['actionButtons'] = (object) array(
             'goBack' => (object) ['label' => __("Go back", 'municipio'), 'href' => 'javascript:history.go(-1);'],
             'goHome' => (object) ['label' => __("Go to startpage", 'municipio'), 'href' => '/'],
-        ); 
+        );
+
+        //Change to go back link if is archive
+        if($this->getPostTypeArchivePermalink() !== null) {
+            $this->data['actionButtons']->goBack->label = __("Show all", 'municipio'); 
+            $this->data['actionButtons']->goBack->href = $this->data['archiveLink']; 
+        }
 
     }
 
@@ -37,7 +43,7 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return apply_filters('Municipio/404/Heading', __("404", 'municipio'), $this->getRequestedPostType()); 
+        return apply_filters('Municipio/404/Heading', __("404 - Not found", 'municipio'), $this->getRequestedPostType()); 
     }
 
     /**
@@ -50,19 +56,19 @@ class E404 extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Returns the posttype requested
-     * @return string / null
+     * Returns the posttype requested, if post found, default to post. 
+     * @return string
      */
     private function getRequestedPostType()
     {
-        if (!is_a($this->query, 'WP_Query')) {
-            $postType = null;
-        }
-
+        //Get queried posttype
         if (isset($this->query->query) && isset($this->query->query['post_type'])) {
             $postType = $this->query->query['post_type'];
-        } else {
-            $postType = null;
+        }
+
+        //Default to page if not set
+        if(!isset($postType) || is_null($postType)) {
+            $postType = __("post"); 
         }
 
         return apply_filters('Municipio/404/PostType', $postType); 
@@ -75,7 +81,7 @@ class E404 extends \Municipio\Controller\BaseController
     private function getPostTypeArchivePermalink()
     {
         return apply_filters('Municipio/404/ArchivePermalink',
-            !is_null($this->getRequestedPostType()) ? get_post_type_archive_link($this->getRequestedPostType()) : null
+            !is_null($this->getRequestedPostType()) && $this->getRequestedPostType() != "post" ? get_post_type_archive_link($this->getRequestedPostType()) : null
         ); 
     }
 }
