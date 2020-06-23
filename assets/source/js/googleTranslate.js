@@ -2,6 +2,7 @@ import 'babel-polyfill';
 
 let googleTranslateLoaded = false;
 let resetQuery = false;
+
 /**
  * Translate class
  * @type {Translate}
