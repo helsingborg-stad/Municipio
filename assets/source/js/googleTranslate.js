@@ -91,7 +91,7 @@ const Translate = class {
                 const prior = beforeElement || document.getElementsByTagName('script')[0];
 
                 script.async = async;
-                script.defer = defer;
+                script.defer = defer; 
 
                 function onloadHander(_, isAbort) {
                     if (

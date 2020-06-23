@@ -55,7 +55,15 @@
                     <input type="text" name="to" placeholder="<?php _e('To date', 'municipio'); ?>" class="form-control datepicker-range datepicker-range-to" value="{{ isset($_GET['to']) && !empty($_GET['to']) ? sanitize_text_field($_GET['to']) : '' }}" readonly>
                 </div>
             </div>
-            @endif
+            @endif   
+                    
+            <script>
+                document.addEventListener('click', event => {
+                    if(event.target === document.getElementById('filter-date-from') || event.target === document.getElementById('filter-date-to') ){
+                        document.getElementById('ui-datepicker-div').classList.add('notranslate');
+                    }
+                });
+            </script>
 
             @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
                 @foreach ($enabledTaxonomyFilters->primary as $taxKey => $tax)
