@@ -10,8 +10,7 @@
 @stop
 
 @section('above')
-    @breadcrumb(['list' => $breadcrumbItems])
-    @endbreadcrumb
+    @include('partials.navigation.breadcrumb')
 @stop
 
 @section('sidebar-left')
