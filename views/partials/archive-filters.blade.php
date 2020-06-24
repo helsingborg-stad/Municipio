@@ -60,11 +60,13 @@
             @endif   
 
             <script>
-                document.addEventListener('click', event => {
-                    if(event.target === document.getElementById('filter-date-from') || event.target === document.getElementById('filter-date-to') ){
+                let els = [ document.getElementById('filter-date-from'), document.getElementById('filter-date-to')];
+                for(let el of els){
+                    el.addEventListener('click', event => {
                         document.getElementById('ui-datepicker-div').classList.add('notranslate');
-                    }
-                });
+                    });
+                }
+
                 loadQueryString = () => { 
                     let parameters = {}; 
                     let searchString = location.search.substr(1); 
