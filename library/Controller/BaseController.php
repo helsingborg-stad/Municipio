@@ -81,12 +81,31 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
         );
 
+        //Wordpress hooks
+        $this->data['hook'] = array(
+            'loopStart' => $this->hook('loop_start'),
+            'loopEnd' => $this->hook('loop_end')
+        ); 
+
         //Structural
 
         $this->getHelperVariables();
         $this->getFilterData();
 
         $this->init();
+    }
+
+    /**
+     * Run WordPress hooks
+     *
+     * @param string $hookKey
+     * 
+     * @return mixed Returns the output of the hook, mixed values. 
+     */
+    public function hook($hookKey) {
+        ob_start();
+        do_action($hookKey); 
+        return apply_filters('Municipio/Hook/' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
     }
 
     /**
