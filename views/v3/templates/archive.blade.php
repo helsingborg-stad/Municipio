@@ -26,6 +26,8 @@
 
     @include('partials.archive.archive-title')
 
+    {!! $hook->loopStart !!}
+
     @if (!empty($posts))
   
         <div
@@ -52,6 +54,7 @@
         <?php _e('No posts to show', 'municipio'); ?>
     @endif
 
+    {!! $hook->loopEnd !!}
 
     @includeIf('partials.sidebar.default', ['id' => 'content-area'])
 

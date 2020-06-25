@@ -82,7 +82,7 @@ class BaseController
         );
 
         //Wordpress hooks
-        $this->data['hook'] = array(
+        $this->data['hook'] = (object) array(
             'loopStart' => $this->hook('loop_start'),
             'loopEnd' => $this->hook('loop_end')
         ); 
