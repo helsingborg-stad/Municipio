@@ -11,7 +11,7 @@ namespace Municipio\Helper;
 * @package  Municipio\Theme
 */
 
-class Nav
+class Navigation
 {
   private static $db;
   private static $postId = null;
