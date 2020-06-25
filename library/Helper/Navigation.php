@@ -428,10 +428,11 @@ class Navigation
           $arr = [];
 
           foreach (wp_get_nav_menu_items(get_nav_menu_locations()[$menu]) as $item) {
-              $post =  $item->to_array();
+              $post = $item->to_array();
               $arr[$post['ID']] = [
                   'label' => $post['title'],
                   'href' => $post['url'],
+                  'children' => []
               ];
           }
 
