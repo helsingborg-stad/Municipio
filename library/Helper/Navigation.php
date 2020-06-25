@@ -424,7 +424,7 @@ class Navigation
    * @param string $menu The menu id to get
    * @return bool|array
    */
-  public static function getWpMenuItems($menu, $fallbackToPageTree = false)
+  public static function getWpMenuItems($menu, $fallbackToPageTree = false, $pageId = null)
   {
 
       //Check for existing wp menu
@@ -451,6 +451,10 @@ class Navigation
           }
 
       }
+
+      if($fallbackToPageTree === true && is_numeric($pageId)) {
+        return self::getNested($pageId); 
+      } 
 
       return false;
   }
