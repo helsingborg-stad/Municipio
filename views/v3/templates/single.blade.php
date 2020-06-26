@@ -21,13 +21,16 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top'])
 
-@section('loop')
-    @if($post)
-        @include('partials.article', (array) $post)
-    @endif
-@show
+    @section('loop')
+        {!! $hook->loopStart !!}
+        @if($post)
+            @include('partials.article', (array) $post)
+        @endif
+        {!! $hook->loopEnd !!}
+    @show
 
-@includeIf('partials.sidebar', ['id' => 'content-area'])
+    @includeIf('partials.sidebar', ['id' => 'content-area'])
+
 @stop
 
 @section('sidebar-right')
