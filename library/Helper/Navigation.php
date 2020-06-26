@@ -11,7 +11,7 @@ namespace Municipio\Helper;
 * @package  Municipio\Theme
 */
 
-class Nav
+class Navigation
 {
   private static $db;
   private static $postId = null;
@@ -138,7 +138,9 @@ class Nav
           $children = self::buildTree($elements, $element['ID']);
 
           if ($children) {
-              $element['children'] = $children;
+            $element['children'] = $children;
+          } else {
+            $element['children'] = []; 
           }
 
           $branch[] = $element;
@@ -422,21 +424,37 @@ class Nav
    * @param string $menu The menu id to get
    * @return bool|array
    */
-  public static function getWpMenuItems($menu, $fallbackToPageTree = false)
+  public static function getWpMenuItems($menu, $fallbackToPageTree = false, $pageId = null)
   {
-      if (has_nav_menu($menu)) {
-          $arr = [];
 
-          foreach (wp_get_nav_menu_items(get_nav_menu_locations()[$menu]) as $item) {
-              $post =  $item->to_array();
-              $arr[$post['ID']] = [
-                  'label' => $post['title'],
-                  'href' => $post['url'],
-              ];
+      //Check for existing wp menu
+      if (has_nav_menu($menu)) {
+          
+          $menuItems = wp_get_nav_menu_items(get_nav_menu_locations()[$menu]); 
+
+          if(is_array($menuItems) && !empty($menuItems)) {
+
+            $result = []; //Storage of result
+
+            foreach ($menuItems as $item) {
+                $result[$item->ID] = [
+                    'ID' => $item->ID,
+                    'label' => $item->title,
+                    'href' => $item->url,
+                    'children' => [],
+                    'post_parent' => $item->menu_item_parent
+                ];
+            }
+
+            return self::buildTree($result); //Format with child tree
+
           }
 
-          return $arr;
       }
+
+      if($fallbackToPageTree === true && is_numeric($pageId)) {
+        return self::getNested($pageId); 
+      } 
 
       return false;
   }
