@@ -9,7 +9,6 @@ class NavigationTree
     protected $postStatuses = array('publish');
 
     protected $currentPage = null;
-    protected $currentNavigation = null;
     protected $ancestors = null;
 
     protected $topLevelPages = null;
@@ -29,8 +28,6 @@ class NavigationTree
 
     public function __construct($args = array(), $parent = false)
     {
-        $this->currentNavigation = $this->getCurrentNavigation();
-
         if ($parent) {
             $parent = get_post($parent);
             $this->isAjaxParent = true;
@@ -118,10 +115,7 @@ class NavigationTree
             }
         } else {
             $ancestors = $this->getAncestors($this->currentPage);
-
-            $navigationBase = $this->currentNavigation ? $this->currentNavigation : $this->currentPage;
-
-            $page = isset($ancestors[0]) ? $ancestors[0] : $navigationBase;
+            $page = isset($ancestors[0]) ? $ancestors[0] : $this->currentPage;
 
             if ($page) {
                 $this->startWrapper();
@@ -273,7 +267,7 @@ class NavigationTree
             $this->startItem($page, $attributes, $hasChildren);
         }
 
-        if ($this->isActiveItem($this->getCurrentPage()->ID) && count($children) > 0 && ($this->args['depth'] <= 0 || $depth < $this->args['depth'])) {
+        if ($this->isActiveItem($pageId) && count($children) > 0 && ($this->args['depth'] <= 0 || $depth < $this->args['depth'])) {
             if ($output) {
                 $this->startSubmenu($page);
             }
@@ -308,18 +302,6 @@ class NavigationTree
         }
 
         return $post;
-    }
-
-    /**
-     * Gets the page object to base navigation on
-     * @return object
-     */
-    protected function getCurrentNavigation()
-    {
-        if (get_option('page_for_' . get_post_type() . '_navigation')) {
-            return get_post(get_option('page_for_' . get_post_type() . '_navigation'));
-        }
-        return;
     }
 
     /**
@@ -503,6 +485,8 @@ class NavigationTree
         if (isset($item->type) && $item->type == 'custom') {
             $href = $item->url;
         }
+
+
 
         if ($outputSubmenuToggle) {
             $this->addOutput(sprintf(
