@@ -8,6 +8,7 @@ class ImageSizeFilter
     {
         add_filter('jpeg_quality', array($this, 'setImageQuality'), 10);
         add_filter('wp_editor_set_quality', array($this, 'setImageQuality'));
+        add_image_size('icon', 44, 44, true);
     }
 
     public function setImageQuality($quaility)
