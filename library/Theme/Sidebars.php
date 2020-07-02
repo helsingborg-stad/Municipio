@@ -112,8 +112,7 @@ class Sidebars
         register_sidebar(array(
             'id'            => 'content-area',
             'name'          => __('Content area (below article)', 'municipio'),
-            'description'   => __('The area below the content', 'municipio'),
-            'before_widget' => '<div class="grid-sm-12"><div class="%2$s">'
+            'description'   => __('The area below the content', 'municipio')
         ));
 
         /**
