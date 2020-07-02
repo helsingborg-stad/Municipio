@@ -33,7 +33,7 @@
         @endtypography	
         
         <!-- Comments -->
-        @includeIf('comments')
+        @includeIf('partials.comments')
         
     </article>
 @endforeach
