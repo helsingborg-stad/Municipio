@@ -82,8 +82,6 @@ class Sidebars
             'id'            => 'footer-area',
             'name'          => __('Footer', 'municipio'),
             'description'   => __('The footer area', 'municipio'),
-            'before_widget' => '<div class="grid-lg-4"><div class="%2$s">',
-            'after_widget'  => '</div></div>',
             'before_title'  => '<h2 class="footer-title">',
             'after_title'   => '</h2>'
         ));
@@ -95,8 +93,6 @@ class Sidebars
             'id'            => 'slider-area',
             'name'          => __('Hero', 'municipio'),
             'description'   => __('The hero area', 'municipio'),
-            'before_widget' => '<div class="%2$s">',
-            'after_widget'  => '</div>',
             'before_title'  => '<h3>',
             'after_title'   => '</h3>'
         ));
@@ -107,9 +103,7 @@ class Sidebars
         register_sidebar(array(
             'id'            => 'content-area-top',
             'name'          => __('Content area (above article)', 'municipio'),
-            'description'   => __('The area above the content', 'municipio'),
-            'before_widget' => '<div class="grid-sm-12"><div class="%2$s">',
-            'after_widget'  => '</div></div>'
+            'description'   => __('The area above the content', 'municipio')
         ));
 
         /**
@@ -119,8 +113,7 @@ class Sidebars
             'id'            => 'content-area',
             'name'          => __('Content area (below article)', 'municipio'),
             'description'   => __('The area below the content', 'municipio'),
-            'before_widget' => '<div class="grid-sm-12"><div class="%2$s">',
-            'after_widget'  => '</div></div>'
+            'before_widget' => '<div class="grid-sm-12"><div class="%2$s">'
         ));
 
         /**
@@ -129,9 +122,7 @@ class Sidebars
         register_sidebar(array(
             'id'            => 'content-area-bottom',
             'name'          => __('Main container bottom', 'municipio'),
-            'description'   => __('The area below the main container', 'municipio'),
-            'before_widget' => '<div class="grid-sm-12 grid-md-6 grid-lg-6"><div class="%2$s">',
-            'after_widget'  => '</div></div>'
+            'description'   => __('The area below the main container', 'municipio')
         ));
 
         /**
@@ -141,8 +132,6 @@ class Sidebars
             'id'            => 'left-sidebar',
             'name'          => __('Left sidebar', 'municipio'),
             'description'   => __('The left sidebar area', 'municipio'),
-            'before_widget' => '<div class="grid-xs-12"><div class="%2$s">',
-            'after_widget'  => '</div></div>',
             'before_title'  => '<h2>',
             'after_title'   => '</h2>'
         ));
@@ -154,8 +143,6 @@ class Sidebars
             'id'            => 'left-sidebar-bottom',
             'name'          => __('Left sidebar bottom', 'municipio'),
             'description'   => __('The area below the left sidebar content', 'municipio'),
-            'before_widget' => '<div class="grid-xs-12"><div class="%2$s">',
-            'after_widget'  => '</div></div>',
             'before_title'  => '<h2>',
             'after_title'   => '</h2>'
         ));
@@ -167,8 +154,6 @@ class Sidebars
             'id'            => 'top-sidebar',
             'name'          => __('Top sidebar (full-width)', 'municipio'),
             'description'   => __('Sidebar that sits below the hero, takes up 100% of the widht.', 'municipio'),
-            'before_widget' => '<div class="%2$s">',
-            'after_widget'  => '</div>',
             'before_title'  => '<h3>',
             'after_title'   => '</h3>'
         ));
@@ -180,8 +165,6 @@ class Sidebars
             'id'            => 'bottom-sidebar',
             'name'          => __('Bottom sidebar (full-width)', 'municipio'),
             'description'   => __('Sidebar that sits just before the footer, takes up 100% of the widht.', 'municipio'),
-            'before_widget' => '<div class="%2$s">',
-            'after_widget'  => '</div>',
             'before_title'  => '<h3>',
             'after_title'   => '</h3>'
         ));
