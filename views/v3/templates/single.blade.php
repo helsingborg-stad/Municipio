@@ -10,7 +10,6 @@
     </div>
 @stop
 
-
 @section('sidebar-left')
     @include('partials.sidebar', ['id' => 'left-sidebar'])
     @include('partials.sidebar', ['id' => 'right-sidebar', 'classes' => 'hidden-lg'])
