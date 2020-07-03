@@ -32,10 +32,10 @@
 
         {{-- Notices Notice::add() --}}
         @if($notice) 
-            @foreach ($notice as $noticeItem) {
+            @foreach ($notice as $noticeItem)
                 @notice($noticeItem)
                 @endnotice
-            }
+            @endforeach
         @endif
 
         {{-- Before page layout --}}
