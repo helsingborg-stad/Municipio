@@ -30,6 +30,14 @@
 
     <div class="">
 
+        {{-- Notices Notice::add() --}}
+        @if($notice) 
+            @foreach ($notice as $noticeItem) {
+                @notice($noticeItem)
+                @endnotice
+            }
+        @endif
+
         {{-- Before page layout --}}
         @yield('before-layout')
 

@@ -12,12 +12,18 @@ class Notice
     public static function add($text, $class = 'warning', $icon = null, $buttons = null)
     {
         add_filter('Municipio/viewData', function ($data) use ($text, $class, $icon, $buttons) {
-            $data['notice'][] = array(
-                'class' => $class,
-                'icon' => $icon,
-                'text' => $text,
-                'buttons' => $buttons
-            );
+            $data['notice'][] = [
+                'type' => $class,
+                'message' => [
+                    'text' => $text,
+                    'size' => 'sm'
+                ],
+                'icon' => [
+                    'name' => $icon,
+                    'size' => 'md',
+                    'color' => 'white'
+                ]
+            ]; 
             return $data;
         });
     }
