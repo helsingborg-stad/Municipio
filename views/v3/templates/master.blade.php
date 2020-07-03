@@ -153,7 +153,6 @@
         @yield('after-layout')
 
     </div>
-    {{-- Wordpress required call --}}
 </div>
 
 @section('footer')
