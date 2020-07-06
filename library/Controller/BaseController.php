@@ -85,6 +85,7 @@ class BaseController
 
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
+        $this->data['postType']             = $this->data['postTypeDetails']->name; 
 
         //Notice storage
         $this->data['notice']               = []; 

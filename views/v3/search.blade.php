@@ -60,7 +60,8 @@
                         'text' => $lang['viewPage'],
                         'href' => $post->permalink
                     ],
-                ]
+                ],
+                'classList' => ['u-margin__top--4']
             ])
             @endcard
         @endforeach
@@ -72,7 +73,8 @@
             @if ($paginationList)
                 @pagination([
                     'list' => $paginationList,
-                    'current' => $currentPagePagination
+                    'current' => $currentPagePagination,
+                    'classList' => ['u-margin__top--8', 'u-margin__left--auto']
                 ])
                 @endpagination
             @endif
