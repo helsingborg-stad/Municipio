@@ -16,6 +16,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['template'] = !empty(get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option')) ? get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option') : 'collapsed';
         $this->data['posts'] = $this->getPosts();
         $this->data['paginationList'] = $this->getPagination();
+        $this->data['currentPagePagination'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
         $this->data['queryParameters'] = $this->setQueryParameters();
         $this->data['taxonomies'] = $this->getTaxonomies(); 
         $this->data['archiveTitle'] = $this->getArchiveTitle();
@@ -128,10 +129,10 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomiesList);
     }
 
-    protected function getPosts()
+    public function getPosts()
     {        
         
-        $this->globalToLocal('posts', 'posts');
+        $this->globalToLocal('posts', 'posts'); // Todo: No neeed to define second parameter if the name is identical. Might be placed better in construct
         $template = $this->data['template'];
         $items    = null;
         if(is_array($this->posts) && !empty($this->posts)) {
@@ -212,7 +213,7 @@ class Archive extends \Municipio\Controller\BaseController
         
     }
 
-    protected function getParentPost($postID) 
+    public function getParentPost($postID) 
     {
         $parentPostID = wp_get_post_parent_id( $postID );
         $parentPost = get_post($parentPostID);
