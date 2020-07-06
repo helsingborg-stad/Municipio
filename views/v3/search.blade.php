@@ -53,6 +53,14 @@
             @card([
                 'heading' => $post->postTitleFiltered,
                 'content' => $post->postExcerpt,
+                'buttons' => [
+                    [
+                        'type' => 'filled', 
+                        'color' => 'primary', 
+                        'text' => $lang['viewPage'],
+                        'href' => $post->permalink
+                    ],
+                ]
             ])
             @endcard
         @endforeach

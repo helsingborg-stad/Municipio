@@ -16,6 +16,7 @@ class Search extends \Municipio\Controller\Archive
         $this->data['lang']['found']            = __("Found", 'municipio'); 
         $this->data['lang']['results']          = __("results", 'municipio'); 
         $this->data['lang']['searchFor']        = __("Search for", 'municipio'); 
+        $this->data['lang']['viewPage']         = __("View page", 'municipio'); 
 
         //Search general data  
         $this->data['resultCount']              = $this->wpQuery->found_posts;
