@@ -17,6 +17,12 @@ class BaseController
     protected $wpQuery = null;
 
     /**
+     * WordPress Posts object
+     * @var object
+     */
+    protected $posts = null;
+
+    /**
      * Init data fetching
      * @var object
      */
@@ -24,7 +30,8 @@ class BaseController
     {
 
         //Store globals
-        $this->globalToLocal('wp_query', 'wpQuery'); 
+        $this->globalToLocal('wp_query', 'wpQuery');
+        $this->globalToLocal('posts');
 
         //Send globals to view
         $this->data['wpQuery']              = $this->wpQuery;

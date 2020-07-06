@@ -131,8 +131,6 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function getPosts()
     {        
-        
-        $this->globalToLocal('posts', 'posts'); // Todo: No neeed to define second parameter if the name is identical. Might be placed better in construct
         $template = $this->data['template'];
         $items    = null;
         if(is_array($this->posts) && !empty($this->posts)) {
