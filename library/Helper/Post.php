@@ -46,7 +46,7 @@ class Post
                 $postObject->post_excerpt = wp_trim_words(
                     $postObject->post_content,
                     apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
-                    apply_filters('Municipio/Helper/Post/MoreTag', "..."),
+                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
 
                 //No content in post
