@@ -3,7 +3,6 @@ node_modules
 composer.lock
 .npmrc
 package-lock.json
-assets/dist/3.0/js/*
-assets/dist/3.0/css/*
+assets/dist/*
 vendor/
 .php_cs.cache
