@@ -1,14 +1,6 @@
 <ul class="nav-accessibility nav-horizontal hidden-print rs_skip rs_preserve">
-
-	@if (function_exists('ReadSpeakerHelper_playButton') && (is_single() || is_page()))
+	@foreach (apply_filters('accessibility_items', array()) as $item) {{-- TODO: Move to controller. --}}
 		<li>
-        	{!! ReadSpeakerHelper_playButton() !!}
-    	</li>
-    @endif
-
-	@foreach (apply_filters('accessibility_items', array()) as $item)
-		<li>
-
 			@icon([
 				'icon' => $item['icon'],
 				'size' => 'md'
@@ -21,12 +13,7 @@
 			])
 				{{$item['text']}}
 			@endbutton
-
 		</li>
 	@endforeach
 
 </ul>
-
-@if (function_exists('ReadSpeakerHelper_player') && (is_single() ||is_page()))
-    {!! ReadSpeakerHelper_player() !!}
-@endif
