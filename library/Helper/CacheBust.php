@@ -6,6 +6,31 @@ class CacheBust
 {
     /**
      * Returns the revved/cache-busted file name of an asset.
+     */
+    public static function getFilename($name)
+    {
+        static $revManifest;
+        if (!isset($revManifest)) {
+            $revManifestPath =
+                get_stylesheet_directory() . '/assets/dist/manifest.json';
+            if (file_exists($revManifestPath)) {
+                $revManifest = json_decode(
+                    file_get_contents($revManifestPath),
+                    true
+                );
+            } elseif (WP_DEBUG) {
+                echo '<div style="color:red">Error: Assets not built. Go to ' .
+                    get_stylesheet_directory() .
+                    ' and run gulp. See ' .
+                    get_stylesheet_directory() .
+                    '/README.md for more info.</div>';
+            }
+        }
+        return $revManifest[$name];
+    }
+
+    /**
+     * Returns the revved/cache-busted file name of an asset.
      * @param string $name Asset name (array key) from rev-mainfest.json
      * @param boolean $childTheme Set child or parent theme path (defaults to parent)
      * @param boolean $returnName Returns $name if set to true while in dev mode
