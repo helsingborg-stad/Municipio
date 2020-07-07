@@ -6,6 +6,7 @@ class CacheBust
 {
     /**
      * Returns the revved/cache-busted file name of an asset.
+     * TODO: Generalize this method so it fits plugin/themes/childthemes etc and remove old
      */
     public static function getFilename($name)
     {
