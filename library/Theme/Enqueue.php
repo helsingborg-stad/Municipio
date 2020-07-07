@@ -80,17 +80,28 @@ class Enqueue
      */
     public function style()
     {
-        // Helsingborg Styleguide
-        wp_register_style('style-guide', get_template_directory_uri()
-            .'/assets/dist/3.0/css/styleguide-css.min.css');
-        wp_enqueue_style('style-guide');
 
-        // Municipio
-        wp_register_style('municipio', get_template_directory_uri()
-            .'/assets/dist/3.0/css/municipio-css.min.css');
-        wp_enqueue_style('municipio');
+        // TODO: Make decision where icon fonts should live
+        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons' );
+        wp_enqueue_style('material-icons');
 
+        wp_register_style('municipio-css', get_template_directory_uri(). '/assets/dist/'
+            . \Municipio\Helper\CacheBust::getFilename('css/municipio.css'));
+        wp_enqueue_style('municipio-css');
 
+        wp_register_script('municipio-js', get_template_directory_uri(). '/assets/dist/'
+            . \Municipio\Helper\CacheBust::getFilename('js/municipio.js'));
+        wp_enqueue_script('municipio-js');
+
+        // // Helsingborg Styleguide
+        // wp_register_style('style-guide', get_template_directory_uri()
+        //     .'/assets/dist/3.0/css/styleguide-css.min.css');
+        // wp_enqueue_style('style-guide');
+
+        // // Municipio
+        // wp_register_style('municipio', get_template_directory_uri()
+        //     .'/assets/dist/3.0/css/municipio-css.min.css');
+        // wp_enqueue_style('municipio');
     }
 
     /**
@@ -168,13 +179,13 @@ class Enqueue
         }
 
         // Municipio
-        wp_register_script('municipio', get_template_directory_uri()
-            .'/assets/dist/3.0/js/municipio-js.min.js');
-        wp_enqueue_script('municipio');
-        // Helsingborg Styleguide
-        wp_register_script('style-guide', get_template_directory_uri()
-            .'/assets/dist/3.0/js/styleguide-js.min.js');
-        wp_enqueue_script('style-guide');
+        // wp_register_script('municipio', get_template_directory_uri()
+        //     .'/assets/dist/3.0/js/municipio-js.min.js');
+        // wp_enqueue_script('municipio');
+        // // Helsingborg Styleguide
+        // wp_register_script('style-guide', get_template_directory_uri()
+        //     .'/assets/dist/3.0/js/styleguide-js.min.js');
+        // wp_enqueue_script('style-guide');
 
     }
 
