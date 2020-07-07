@@ -26,7 +26,7 @@ class Post
      * 
      * @return  object   $postObject    The post object, with appended data
      */
-    public static function complementObject($postObject, $appendFields = array('post_content_filtered', 'post_title_filtered', 'permalink'))
+    public static function complementObject($postObject, $appendFields = array('excerpt', 'post_content_filtered', 'post_title_filtered', 'permalink'))
     {
 
         //Check that a post object is entered
@@ -36,7 +36,25 @@ class Post
         }
 
         //More? Less? 
-        $appendFields = apply_filters('Municipio/Post/complementPostObject', $appendFields); 
+        $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
+
+        //Generate excerpt
+        if(in_array('excerpt', $appendFields)) {
+            if(empty($postObject->post_excerpt)) {
+                
+                //Create excerpt if not defined by editor
+                $postObject->post_excerpt = wp_trim_words(
+                    $postObject->post_content,
+                    apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
+                    apply_filters('Municipio/Helper/Post/MoreTag', "..."),
+                );
+
+                //No content in post
+                if(empty($postObject->post_excerpt)) {
+                    $postObject->post_excerpt = __("Item is missing content", 'municipio'); 
+                }
+            }
+        }
 
         //Get permalink
         if(in_array('permalink', $appendFields)) {

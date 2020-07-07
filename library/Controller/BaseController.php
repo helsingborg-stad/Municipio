@@ -10,8 +10,31 @@ class BaseController
      */
     protected $data = [];
 
+    /**
+     * WordPress Global states
+     * @var object
+     */
+    protected $wpQuery = null;
+
+    /**
+     * WordPress Posts object
+     * @var object
+     */
+    protected $posts = null;
+
+    /**
+     * Init data fetching
+     * @var object
+     */
     public function __construct()
     {
+
+        //Store globals
+        $this->globalToLocal('wp_query', 'wpQuery');
+        $this->globalToLocal('posts');
+
+        //Send globals to view
+        $this->data['wpQuery']              = $this->wpQuery;
 
         //Header & Footer
         $this->data['wpHeader']             = $this->getWpHeader();
@@ -62,6 +85,10 @@ class BaseController
 
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
+        $this->data['postType']             = $this->data['postTypeDetails']->name; 
+
+        //Notice storage
+        $this->data['notice']               = []; 
 
         //Language
         $this->data['lang'] = array(
@@ -84,7 +111,6 @@ class BaseController
         ); 
 
         //Structural
-
         $this->getHelperVariables();
         $this->getFilterData();
 
@@ -246,7 +272,7 @@ class BaseController
      */
     protected function getHomeUrl() : string
     {
-        return apply_filters('Municipio/homeUrl', get_home_url());
+        return apply_filters('Municipio/homeUrl', esc_url(get_home_url()));
     }
 
     /**
