@@ -1,4 +1,8 @@
-<article id="article" class="c-article s-article">
+<article id="article" class="c-article s-article" style="padding: 0;">
+    <!-- Title -->
+    @typography(["element" => "h1"])
+        {!! $postTitleFiltered !!}
+    @endtypography
 
     <!-- Feature Image -->
     @if (isset($feature_image->src))
@@ -10,11 +14,6 @@
 		])
 		@endimage
     @endif
-
-    <!-- Title -->
-    @typography(["element" => "h1"])
-        {!! $postTitleFiltered !!}
-    @endtypography
 
 	<!-- Content -->
 	@typography([])
