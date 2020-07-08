@@ -19,6 +19,7 @@ $grid-gutter: $grid-gutter-map;
 
 .o-row {
     display: flex;
+    flex-wrap: wrap;
 }
 
 %o-column-common {
