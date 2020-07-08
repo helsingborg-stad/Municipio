@@ -1,0 +1,122 @@
+$t-breakpoint-suffix-breakpoints: $breakpoints-map !default;
+
+@function breakpoint-suffix($screen) {
+    @if map-has-key($t-breakpoint-suffix-breakpoints, $screen) {
+        @if map-get($t-breakpoint-suffix-breakpoints, $screen) == 0 {
+            @return '';
+        } @else {
+            @return \@#{$screen};
+        }
+    }
+}
+
+$grid-columns: 12;
+$grid-gutter-map: (
+    xs : 30px,
+    md : 30px,
+);
+$grid-gutter: $grid-gutter-map;
+
+.o-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+%o-column-common {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+}
+
+//Gutter
+@each $screen, $gutter in $grid-gutter {
+    @if map-has-key($breakpoints-map, $screen) {
+        $suffix: breakpoint-suffix($screen);
+        @include mq($screen) {
+            .o-row {
+                margin-left: $gutter / -2;
+                margin-right: $gutter / -2;
+            }
+            %o-column-common {
+                padding-left: $gutter / 2;
+                padding-right: $gutter / 2;
+            }
+
+            .o-row.o-row--grid {
+                > [class^="o-col-"],
+                > .o-col {
+                    margin-bottom: $gutter;
+                }
+            }
+        }
+    }
+}
+
+.o-row.o-row--no-gutter {
+    margin-left: 0;
+    margin-right: 0;
+
+    > [class*="o-col"],
+    > .o-col {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+//Column
+@each $screen in map-keys($breakpoints-map) {
+    $suffix: breakpoint-suffix($screen);
+
+    @for $i from 1 through $grid-columns {
+        $width: (($i / $grid-columns) * 100);
+        .o-col-#{$i}#{$suffix},
+        .o-col-fit#{$suffix} {
+            @extend %o-column-common;
+        }
+    }
+
+    .o-col#{$suffix},
+    .o-col-fit#{$suffix} {
+        @extend %o-column-common;
+    }
+
+    @include mq($screen) {
+        @for $i from 1 through $grid-columns {
+            $width: (($i / $grid-columns) * 100);
+            .o-col-#{$i}#{$suffix} {
+                flex: 0 0 #{$width * 1%};
+                max-width: #{$width * 1%};
+            }
+        }
+        .o-col#{$suffix} {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
+
+        //Fit content column (eg .grid-md-fit-content)
+        .o-col-fit#{$suffix} {
+            flex: 0 0 auto;
+            width: auto;
+            max-width: none;
+        }
+
+        //Order (eg .order-md-6)
+        @for $i from 1 to $grid-columns + 1 {
+            .o-col-order-#{$i}#{$suffix} {
+                order: $i;
+            }
+        }
+
+        //Offset (eg .offset-md-6)
+        @for $i from 1 to $grid-columns + 1 {
+            .o-col-offset-#{$i}#{$suffix} {
+                margin-left: #{$i / $grid-columns * 100 * 1%};
+            }
+        }
+    }
+}
+
+.o-col__inner {
+    width: 100%;
+}

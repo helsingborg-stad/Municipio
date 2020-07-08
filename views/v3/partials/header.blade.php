@@ -79,4 +79,5 @@
 
 @includeIf('partials.navigation.helper')
 
+@includeIf('partials.hero')
 @includeIf('partials.sidebar', ['id' => 'top-sidebar'])
