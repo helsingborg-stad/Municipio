@@ -125,6 +125,17 @@ class Sidebars
         ));
 
         /**
+         * Right Sidebar
+         */
+        register_sidebar(array(
+            'id'            => 'right-sidebar',
+            'name'          => __('Right sidebar', 'municipio'),
+            'description'   => __('The right sidebar area', 'municipio'),
+            'before_title'  => '<h2>',
+            'after_title'   => '</h2>'
+        ));
+
+        /**
          * Left Sidebar
          */
         register_sidebar(array(
