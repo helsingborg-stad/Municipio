@@ -11,6 +11,12 @@
 @stop
 
 @section('sidebar-left')
+
+    <!-- Secondary Navigation -->
+    @if (!empty($secondaryMenuItems) && is_array($secondaryMenuItems))
+        @include('partials.navigation.secondary', ['items' => $secondaryMenuItems])
+    @endif
+
     @include('partials.sidebar', ['id' => 'left-sidebar'])
     @include('partials.sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
