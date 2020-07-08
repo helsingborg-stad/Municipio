@@ -51,13 +51,13 @@
                         </div>
                     </div>
                     <div class="o-row">
-                        <div class="o-col-3">
+                        <div class="o-col-12 o-col-3@md o-col-order-2 o-col-order-1@md">
                             @yield('sidebar-left')
                         </div>
-                        <div class="o-col-6">
+                        <div class="o-col-12 o-col-6@md o-col-order-1 o-col-order-2@md">
                             @yield('content')
                         </div>
-                        <div class="o-col-auto">
+                        <div class="o-col-12 o-col-3@md o-col-order-3 o-col-order-3@md">
                             @yield('sidebar-right')
                         </div>
                     </div>
