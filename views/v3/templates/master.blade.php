@@ -73,7 +73,6 @@
         {{-- After page layout --}}
         @yield('after-layout')
 
-    </div>
 </div>
 
 @section('footer')

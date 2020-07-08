@@ -16,10 +16,7 @@
     @endif
 
 	<!-- Content -->
-	@typography([])
-		{!! $postContentFiltered !!}
-	@endtypography	
-    
+	{!! $postContentFiltered !!}
 
     <!-- Signature -->
     @if($postTypeDetails->hierarchical)
