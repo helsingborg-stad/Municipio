@@ -43,110 +43,31 @@
 
         {{-- Page layout --}}
         @section('layout')
-            <section>
-                @grid(["container" => true, 'classList' => ['u-margin__top--12']])
-                    @grid([
-                        "col" => [
-                            "xs" => [1,13],
-                            "sm" => [1,13],
-                            "md" => [1,13],
-                            "lg" => [3,9],
-                            "xl" => [2,10]
-                        ],
-                        "row" => [
-                            "xs" => [1,2],
-                            "sm" => [1,2],
-                            "md" => [1,2],
-                            "lg" => [1,2],
-                            "xl" => [1,2]
-                        ]
-                    ])
-                        {{-- Above --}}
-                        @hasSection('above')
+            <main>
+                <div class="o-container">
+                    <div class="o-row">
+                        <div class="o-col-12">
                             @yield('above')
-                        @endif
-                    @endgrid
-                @endgrid
-
-                @grid(["container" => true, 'classList' => ['u-margin__top--8']])
-                    @grid([
-                            "col" => [
-                                "xs" => [1,13],
-                                "sm" => [1,13],
-                                "md" => [1,13],
-                                "lg" => [1,9],
-                                "xl" => [1,10]
-                            ],
-                            "row" => [
-                                "xs" => [1,2],
-                                "sm" => [1,2],
-                                "md" => [1,2],
-                                "lg" => [1,2],
-                                "xl" => [1,2]
-                            ]
-                        ])
-                    {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
-                        @hasSection('sidebar-left')
-                            @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
-                            @sidebar([
-                                'logo' => $logotype->standard['url'],
-                                'items' => $secondaryMenuItems
-                            ])
-                            @endsidebar
-                        @endif
-                    @endgrid
-
-                {{-- Content --}}
-                <!-- <div class="{{-- $layout['content'] --}} content"> -->
-                    @grid([
-                        "col" => [
-                            "xs" => [1,13],
-                            "sm" => [1,13],
-                            "md" => [1,13],
-                            "lg" => [3,9],
-                            "xl" => [3,10]
-                        ],
-                        "row" => [
-                            "xs" => [1,2],
-                            "sm" => [1,2],
-                            "md" => [1,2],
-                            "lg" => [1,2],
-                            "xl" => [1,2]
-                        ]
-                    ])
-                    @yield('content')
-                    @endgrid
-                @endgrid
-
-                <!-- FAB -->
-                @fab([
-                    'position' => 'bottom-right',
-                    'spacing' => 'lg',
-                    'classList' => ['c-fab--show-on-scroll', 'u-visibility--hidden']
-                ])
-
-                    @button([
-                        'type' => 'filled',
-                        'icon' => 'close',
-                        'size' => 'lg',
-                        'text' => 'To the top',
-                        'color' => 'primary',
-                        'icon' => 'keyboard_arrow_up',
-                        'reversePositions' => true
-
-                    ])
-                    @endbutton
-
-                @endfab
-
-            </section>
-
-            {{-- Below --}}
-            @hasSection('below')
-                @yield('below')
-            @endif
-
-
+                        </div>
+                    </div>
+                    <div class="o-row">
+                        <div class="o-col-3">
+                            @yield('sidebar-left')
+                        </div>
+                        <div class="o-col-6">
+                            @yield('content')
+                        </div>
+                        <div class="o-col-auto">
+                            @yield('sidebar-right')
+                        </div>
+                    </div>
+                    <div class="o-row">
+                        <div class="o-col-12">
+                            @yield('below')
+                        </div>
+                    </div>
+                </div>
+            </main>
         @show
 
         {{-- After page layout --}}
