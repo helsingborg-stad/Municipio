@@ -6,7 +6,7 @@ namespace Municipio\Controller;
  * Class Singular
  * @package Municipio\Controller
  */
-class Singular extends \Municipio\Controller\BaseController
+class Single extends \Municipio\Controller\BaseController
 {
     public function init()
     {
