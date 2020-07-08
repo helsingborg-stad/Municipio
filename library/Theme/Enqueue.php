@@ -28,7 +28,7 @@ class Enqueue
         add_filter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
 
         // Removes generator tag
-        add_filter('the_generator', function($a, $b) {
+        add_filter('the_generator', function ($a, $b) {
             return '';
         }, 9, 2);
 
@@ -71,7 +71,6 @@ class Enqueue
         wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/2.0/'
             . \Municipio\Helper\CacheBust::name('js/admin.js'));
         wp_enqueue_script('helsingborg-se-admin');
-
     }
 
     /**
@@ -82,8 +81,16 @@ class Enqueue
     {
 
         // TODO: Make decision where icon fonts should live
-        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons' );
+        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
         wp_enqueue_style('material-icons');
+
+        wp_register_style('styleguide-css', get_template_directory_uri(). '/assets/dist/'
+            . \Municipio\Helper\CacheBust::getFilename('css/styleguide.css'));
+        wp_enqueue_style('styleguide-css');
+
+        wp_register_script('styleguide-js', get_template_directory_uri(). '/assets/dist/'
+            . \Municipio\Helper\CacheBust::getFilename('js/styleguide.js'));
+        wp_enqueue_script('styleguide-js');
 
         wp_register_style('municipio-css', get_template_directory_uri(). '/assets/dist/'
             . \Municipio\Helper\CacheBust::getFilename('css/municipio.css'));
@@ -92,6 +99,8 @@ class Enqueue
         wp_register_script('municipio-js', get_template_directory_uri(). '/assets/dist/'
             . \Municipio\Helper\CacheBust::getFilename('js/municipio.js'));
         wp_enqueue_script('municipio-js');
+
+
 
         // // Helsingborg Styleguide
         // wp_register_style('style-guide', get_template_directory_uri()
@@ -169,12 +178,12 @@ class Enqueue
         ));
 
         //Comment reply
-       if (is_singular() && get_option('thread_comments')) {
-        wp_enqueue_script('comment-reply');
-       }
+        if (is_singular() && get_option('thread_comments')) {
+            wp_enqueue_script('comment-reply');
+        }
 
         //Instant page load
-        if(!defined('INSTANT_PAGE_DISABLED')) {
+        if (!defined('INSTANT_PAGE_DISABLED')) {
             wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true);
         }
 
@@ -186,7 +195,6 @@ class Enqueue
         // wp_register_script('style-guide', get_template_directory_uri()
         //     .'/assets/dist/3.0/js/styleguide-js.min.js');
         // wp_enqueue_script('style-guide');
-
     }
 
     public function moveScriptsToFooter()
@@ -204,7 +212,7 @@ class Enqueue
     {
         if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
             wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit', '', '1.0.0', true);
-            wp_add_inline_script( 'google-recaptcha', '
+            wp_add_inline_script('google-recaptcha', '
             var CaptchaCallback = function() {
                 jQuery(\'.g-recaptcha\').each(function(index, el) {
                     grecaptcha.render(el, {\'sitekey\' : \'' . G_RECAPTCHA_KEY . '\'});
@@ -239,7 +247,8 @@ class Enqueue
     }
 
 
-    public function addGoogleTranslate(){
+    public function addGoogleTranslate()
+    {
         echo "<script>
         function googleTranslateElementInit() {
             new google.translate.TranslateElement(
@@ -300,7 +309,7 @@ class Enqueue
             return $tag;
         }
 
-       return str_replace(' src', ' defer="defer" src', $tag);
+        return str_replace(' src', ' defer="defer" src', $tag);
     }
 
     /**

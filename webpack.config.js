@@ -23,6 +23,8 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
+        'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+        'js/styleguide': './assets/source/3.0/js/styleguide.js',
         'css/municipio': './assets/source/3.0/sass/main.scss',
         'js/municipio': './assets/source/3.0/js/municipio.js',
     },
@@ -220,6 +222,6 @@ module.exports = {
             },
         }))
     ]).filter(Boolean),
-    devtool: ifProduction('source-map', 'eval-source-map'),
+    devtool: ifProduction('none', 'eval-source-map'),
     stats: { children: false }
 };
