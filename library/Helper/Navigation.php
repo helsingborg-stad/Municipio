@@ -380,8 +380,14 @@ class Navigation
   {
     $customTitles = self::getMenuTitle(); 
 
+    //Get custom title
     if(isset($customTitles[$array['ID']])) {
       $array['post_title'] = $customTitles[$array['ID']]; 
+    }
+
+    //Replace empty titles
+    if($array['post_title'] == "") {
+      $array['post_title'] = __("Untitled page", 'municipio'); 
     }
 
     return $array; 
