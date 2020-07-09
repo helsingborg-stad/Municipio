@@ -158,16 +158,11 @@ class Navigation
       $postTypeSQL = "post_type = '" . $postType . "'"; 
     }
 
-    //Default to parent = 0
-    if(empty($parent)) {
-      $parent = 0; 
-    }
-
     //Support multi level query
     if(!is_array($parent)) {
       $parent = [$parent]; 
     }
-    $parent = implode(", ", $parent); 
+    $parent = implode(", ", array_filter($parent)); 
 
     //Run query
     return self::$db->get_results("
