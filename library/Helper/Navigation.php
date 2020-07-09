@@ -274,7 +274,18 @@ class Navigation
       unset($array['post_title']); 
       unset($array['ID']); 
 
-      return $array; 
+      //Sort
+      return array_merge(
+        array(
+          'id' => null,
+          'post_parent' => null,
+          'active' => null,
+          'ancestor' => null,
+          'children' => null,
+          'label' => null,
+          'href' => null
+        ), $array
+      ); 
   }
 
   /**
