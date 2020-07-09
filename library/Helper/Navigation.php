@@ -57,21 +57,21 @@ class Navigation
   private static function hasChildren(array $array) : array
   {  
 
-    $children = self::$db->get_results(
+    $children = self::$db->get_var(
       self::$db->prepare("
         SELECT ID 
         FROM " . self::$db->posts . " 
         WHERE post_parent = %d 
+        AND post_status = 'publish'
+        AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
         LIMIT 1
       ", $array['ID'])
-    , ARRAY_A);
+    );
 
-    if(!empty($children)) {
-      $array['hasChildren'] = true; 
-    } else {
-      $array['hasChildren'] = false; 
-    }
+    //If null, no children
+    $array['hasChildren'] = is_null($children) ? false : true; 
 
+    //Return result
     return $array; 
   }
 

@@ -71,8 +71,6 @@ class BaseController
         $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);
         $this->data['mobileMenuItems']      = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);      
 
-
-//        var_dump($this->data['secondaryMenuItems']);
         //Complementary navigations
         $this->data['tabMenuItems']         = \Municipio\Helper\Navigation::getWpMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = \Municipio\Helper\Navigation::getWpMenuItems('help-menu', $this->getPageID());
