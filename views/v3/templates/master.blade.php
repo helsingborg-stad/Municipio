@@ -42,33 +42,43 @@
         @yield('before-layout')
 
         {{-- Page layout --}}
-        @section('layout')
-            <main>
-                <div class="o-container">
-                    <div class="o-row">
-                        <div class="o-col-12">
-                            @yield('above')
+        <main>
+                @section('layout')
+                    <div class="o-container">
+                        @hasSection('above')
+                            <div class="o-row">
+                                <div class="o-col-12">
+                                    @yield('above')
+                                </div>
+                            </div>
+                        @endif
+                        <div class="o-row">
+                            @hasSection('sidebar-left')                           
+                                <div class="o-col-12 o-col-3@md o-col-order-2 o-col-order-1@md">
+                                    @yield('sidebar-left')
+                                </div>
+                            @endif
+                                
+                            <div class="o-col o-col-order-1 o-col-order-2@md">
+                                @yield('content')
+                            </div>
+
+                            @hasSection('sidebar-right')
+                                <div class="o-col-12 o-col-3@md o-col-order-3 o-col-order-3@md">
+                                    @yield('sidebar-right')
+                                </div>
+                            @endif
                         </div>
+                        @hasSection('below')
+                            <div class="o-row">
+                                <div class="o-col-12">
+                                    @yield('below')
+                                </div>
+                            </div>
+                        @endif
                     </div>
-                    <div class="o-row">
-                        <div class="o-col-12 o-col-3@md o-col-order-2 o-col-order-1@md">
-                            @yield('sidebar-left')
-                        </div>
-                        <div class="o-col-12 o-col-6@md o-col-order-1 o-col-order-2@md">
-                            @yield('content')
-                        </div>
-                        <div class="o-col-12 o-col-3@md o-col-order-3 o-col-order-3@md">
-                            @yield('sidebar-right')
-                        </div>
-                    </div>
-                    <div class="o-row">
-                        <div class="o-col-12">
-                            @yield('below')
-                        </div>
-                    </div>
-                </div>
-            </main>
-        @show
+                @show
+        </main>
 
         {{-- After page layout --}}
         @yield('after-layout')
