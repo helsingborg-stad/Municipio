@@ -67,9 +67,9 @@ class Navigation
     , ARRAY_A);
 
     if(!empty($children)) {
-      $array['has_children'] = true; 
+      $array['hasChildren'] = true; 
     } else {
-      $array['has_children'] = false; 
+      $array['hasChildren'] = false; 
     }
 
     return $array; 
