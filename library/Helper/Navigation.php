@@ -446,7 +446,7 @@ class Navigation
         } else {
            return self::buildTree(
             $result,
-            self::getAncestors($pageId)[1]
+            isset (self::getAncestors($pageId)[1]) ? self::getAncestors($pageId)[1] : 0
           );
         }
       }
