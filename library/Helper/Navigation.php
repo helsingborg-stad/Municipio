@@ -267,7 +267,8 @@ class Navigation
   {
       //Move post_title to label key
       $array['label'] = $array['post_title'];
-      $array['id'] = $array['ID'];
+      $array['id'] = (int) $array['ID'];
+      $array['post_parent'] = (int) $array['post_parent'];
       
       //Unset data not needed
       unset($array['post_title']); 

@@ -70,7 +70,7 @@ class BaseController
         $this->data['primaryMenuItems']     = \Municipio\Helper\Navigation::getMenuItems('main-menu', $this->getPageID(), true, true);
         $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getMenuItems('secondary-menu', $this->getPageID(), true, true);
         $this->data['mobileMenuItems']      = \Municipio\Helper\Navigation::getMenuItems('main-menu', $this->getPageID(), true, true);      
-
+var_dump($this->data['mobileMenuItems'] );
         //Complementary navigations
         $this->data['tabMenuItems']         = \Municipio\Helper\Navigation::getMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = \Municipio\Helper\Navigation::getMenuItems('help-menu', $this->getPageID());
