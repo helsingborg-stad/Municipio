@@ -56,16 +56,15 @@ class Navigation
    */
   private static function hasChildren(array $array) : array
   {  
-    if(!is_array($array)) {
-      return new \WP_Error("Append permalink object must recive an array."); 
-    }
 
-    $children = self::$db->get_results("
-      SELECT ID
-      FROM " . self::$db->posts . " 
-      WHERE post_parent = '". $array['ID'] . "'
-      LIMIT 1
-    ", ARRAY_A);
+    $children = self::$db->get_results(
+      self::$db->prepare("
+        SELECT ID 
+        FROM " . self::$db->posts . " 
+        WHERE post_parent = %d 
+        LIMIT 1
+      ", $array['ID'])
+    , ARRAY_A);
 
     if(!empty($children)) {
       $array['has_children'] = true; 
