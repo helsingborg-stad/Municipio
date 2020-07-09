@@ -216,6 +216,8 @@ class Navigation
   {
       if(in_array($array['ID'], self::getAncestors(self::$postId))) {
         $array['ancestor'] = true; 
+      } else {
+        $array['ancestor'] = false; 
       }
 
       return $array; 
@@ -232,6 +234,8 @@ class Navigation
   {
       if($array['ID'] == self::$postId) {
         $array['active'] = true; 
+      } else {
+        $array['active'] = false; 
       }
       
       return $array; 
