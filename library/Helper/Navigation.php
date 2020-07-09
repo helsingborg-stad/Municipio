@@ -414,7 +414,7 @@ class Navigation
                   'id' => $item->ID,
                   'label' => $item->title,
                   'href' => $item->url,
-                  'children' => [],
+                  'children' => false,
                   'post_parent' => $item->menu_item_parent
               ];
             }
