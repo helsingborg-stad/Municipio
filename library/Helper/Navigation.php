@@ -89,6 +89,7 @@ class Navigation
     if(isset(self::$cache['ancestors'])) {
       return self::$cache['ancestors']; 
     }
+
     return self::$cache['ancestors'] = array_merge([0], array_reverse(get_post_ancestors($postId)));
   }
 
@@ -434,10 +435,6 @@ class Navigation
         }
       }
 
-      //Remove top level
-      if($includeTopLevel === false) {
-        $result = self::removeTopLevel($result);
-      }
 
       //Create nested array
       if(isset($result) && !empty($result)) {
@@ -445,8 +442,7 @@ class Navigation
           return self::buildTree($result);
         } else {
            return self::buildTree(
-            $result,
-            isset (self::getAncestors($pageId)[1]) ? self::getAncestors($pageId)[1] : 0
+            $result
           );
         }
       }
