@@ -24,7 +24,7 @@ class Navigation
    * 
    * @return  array                         Nested page array
    */
-  public static function getNested($postId) : array
+  public static function getNested($postId, $includeTopLevel = true) : array
   {
 
     //Store current post id
@@ -36,7 +36,7 @@ class Navigation
     self::globalToLocal('wpdb', 'db');
 
     //Get all ancestors
-    $parents = array_merge((array) self::getAncestors($postId));
+    $parents = array_merge((array) self::getAncestors($postId, $includeTopLevel));
 
     //Get all parents
     $result = self::getItems($parents); 
@@ -83,9 +83,21 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private static function getAncestors(int $postId) : array
-  {  
-    return array_merge([0], array_reverse(get_post_ancestors($postId)));
+  private static function getAncestors(int $postId, $includeTopLevel = true) : array
+  { 
+    //Fetch from cache
+    if(isset(self::$cache['ancestors']['top-level-' . (string) $includeTopLevel])) {
+      return self::$cache['ancestors']['top-level-' . (string) $includeTopLevel]; 
+    }
+
+    //Include top level
+    if($includeTopLevel === true) {
+      $result = array_merge([0], array_reverse(get_post_ancestors($postId)));
+    } else {
+      $result = array_reverse(get_post_ancestors($postId));
+    }
+
+    return self::$cache['ancestors']['top-level-' . (string) $includeTopLevel] = $result; 
   }
 
   /**
@@ -426,7 +438,7 @@ class Navigation
       } else {
         //Get page tree
         if($fallbackToPageTree === true && is_numeric($pageId)) {
-          $result =  self::getNested($pageId); 
+          $result =  self::getNested($pageId, $includeTopLevel); 
         }
       }
 
