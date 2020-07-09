@@ -162,7 +162,7 @@ class Navigation
     if(!is_array($parent)) {
       $parent = [$parent]; 
     }
-    $parent = implode(", ", array_filter($parent)); 
+    $parent = implode(", ", $parent); 
 
     //Run query
     return self::$db->get_results("
