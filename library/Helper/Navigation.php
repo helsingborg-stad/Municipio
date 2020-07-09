@@ -172,7 +172,7 @@ class Navigation
       AND " . $postTypeSQL . "
       AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
       AND post_status='publish'
-      ORDER BY menu_order ASC 
+      ORDER BY post_title, menu_order ASC 
       LIMIT 500
     ", ARRAY_A);
   }
