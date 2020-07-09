@@ -1,7 +1,7 @@
 @if ($posts)
     <div class="o-row">
         @foreach($posts as $post)
-            <div class="o-col-4">
+        <div class="o-col-12 {{$gridColumnClass}}">
 
                 @card([
                     'href' => $post->permalink,
