@@ -393,7 +393,7 @@ class Navigation
 
             foreach ($menuItems as $item) {
               $result[$item->ID] = [
-                  'ID' => $item->ID,
+                  'id' => $item->ID,
                   'label' => $item->title,
                   'href' => $item->url,
                   'children' => [],
@@ -401,11 +401,11 @@ class Navigation
               ];
             }
           }
-      }
-
-      //Get page tree
-      if($fallbackToPageTree === true && is_numeric($pageId)) {
-        $result =  self::getNested($pageId); 
+      } else {
+        //Get page tree
+        if($fallbackToPageTree === true && is_numeric($pageId)) {
+          $result =  self::getNested($pageId); 
+        }
       }
 
       //Create nested array
