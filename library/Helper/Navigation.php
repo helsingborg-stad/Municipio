@@ -435,13 +435,13 @@ class Navigation
       }
 
       //Remove top level
-      if(!$includeTopLevel) {
+      if($includeTopLevel === false) {
         $result = self::removeTopLevel($result);
       }
 
       //Create nested array
       if(isset($result) && !empty($result)) {
-        if(!$includeTopLevel) {
+        if($includeTopLevel === true) {
           return self::buildTree($result);
         } else {
            return self::buildTree(
