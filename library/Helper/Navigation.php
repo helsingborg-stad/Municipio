@@ -17,29 +17,13 @@ class Navigation
   private static $postId = null;
 
   /**
-   * Get flat array with top level items
-   * 
-   * @param   array     $postId             The current post id
-   * @depends           getNested           Must invoke get nested function
-   * 
-   * @return  array                         Flat top level page array
-   */
-  public static function getTopLevel($postId) : array 
-  {
-    //Get top level
-    return self::getNested($postId, true, 1); 
-  }
-
-  /**
    * Get nested array representing page structure
    * 
    * @param   array     $postId             The current post id
-   * @param   bool      $includeTopLevel    Include top level in response
-   * @param   int|bool  $maxLevels          The maximum levels to traverse
    * 
    * @return  array                         Nested page array
    */
-  public static function getNested($postId, $includeTopLevel = true, $maxLevels = false) : array
+  public static function getNested($postId) : array
   {
 
     //Store current post id
@@ -50,28 +34,14 @@ class Navigation
     //Create local instance of wpdb
     self::globalToLocal('wpdb', 'db');
 
-    //Get all ancestors, append top level if true
-    if($includeTopLevel === true) {
-      $parents = array_merge([0], (array) self::getAncestors($postId));
-    } else {
-      $parents = array_merge((array) self::getAncestors($postId));
-    }
-
-    //Max level limiter
-    if($maxLevels != false && is_numeric($maxLevels)) {
-      $parents = array_slice($parents, 0, $maxLevels);
-    }
+    //Get all ancestors
+    $parents = array_merge((array) self::getAncestors($postId));
 
     //Get all parents
     $result = self::getItems($parents); 
 
     //Format response 
     $result = self::complementObjects($result);
-
-    //Restructure array to get tree, if multi level
-    if($maxLevels === false || (is_numeric($maxLevels) && $maxLevels != 1)) {
-      $result = self::buildTree($result);
-    }
 
     //Return done
     return $result; 
@@ -84,7 +54,7 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private static function hasChildren($array) : array
+  private static function hasChildren(array $array) : array
   {  
     if(!is_array($array)) {
       return new \WP_Error("Append permalink object must recive an array."); 
@@ -113,7 +83,7 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private static function getAncestors($postId) : array
+  private static function getAncestors(int $postId) : array
   {  
     return array_reverse(get_post_ancestors($postId));
   }
@@ -154,8 +124,8 @@ class Navigation
   /**
    * Get pages/posts 
    * 
-   * @param   integer  $parent    Post parent
-   * @param   string   $postType  The post type to query
+   * @param   integer|array  $parent    Post parent
+   * @param   string|array   $postType  The post type to query
    * 
    * @return  array               Array of post id:s, post_titles and post_parent
    */
@@ -212,11 +182,11 @@ class Navigation
   /**
    * Calculate add add data to array
    * 
-   * @param   object   $objects     The post array
+   * @param   array    $objects     The post array
    * 
    * @return  array    $objects     The post array, with appended data
    */
-  private static function complementObjects($objects) {
+  private static function complementObjects(array $objects) {
     
     if(is_array($objects) && !empty($objects)) {
       foreach($objects as $key => $item) {
@@ -244,12 +214,8 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendIsAncestorPost($array) : array
+  private static function appendIsAncestorPost(array $array) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Append permalink object must recive an array."); 
-      }
-
       if(in_array($array['ID'], self::getAncestors(self::$postId))) {
         $array['ancestor'] = true; 
       }
@@ -264,12 +230,8 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendIsCurrentPost($array) : array
+  private static function appendIsCurrentPost(array $array) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Append permalink object must recive an array."); 
-      }
-
       if($array['ID'] == self::$postId) {
         $array['active'] = true; 
       }
@@ -285,12 +247,8 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendHref($array, $leavename = false) : array
+  private static function appendHref(array $array, bool $leavename = false) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Append permalink object must recive an array."); 
-      }
-
       $array['href'] = get_permalink($array['ID'], $leavename);
 
       return $array; 
@@ -303,12 +261,8 @@ class Navigation
    * 
    * @return  array   $array  The post array, with appended data
    */
-  private static function transformObject($array) : array
+  private static function transformObject(array $array) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Transform object object must recive an array."); 
-      }
-
       //Move post_title to label key
       $array['label'] = $array['post_title'];
       $array['id'] = $array['ID'];
@@ -407,7 +361,7 @@ class Navigation
    * 
    * @return object
    */
-  private static function customTitle($array) : array
+  private static function customTitle(array $array) : array
   {
     $customTitles = self::getMenuTitle(); 
 
@@ -424,7 +378,7 @@ class Navigation
    * @param string $menu The menu id to get
    * @return bool|array
    */
-  public static function getWpMenuItems($menu, $fallbackToPageTree = false, $pageId = null)
+  public static function getWpMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true)
   {
 
       //Check for existing wp menu
@@ -437,24 +391,26 @@ class Navigation
             $result = []; //Storage of result
 
             foreach ($menuItems as $item) {
-                $result[$item->ID] = [
-                    'ID' => $item->ID,
-                    'label' => $item->title,
-                    'href' => $item->url,
-                    'children' => [],
-                    'post_parent' => $item->menu_item_parent
-                ];
+              $result[$item->ID] = [
+                  'ID' => $item->ID,
+                  'label' => $item->title,
+                  'href' => $item->url,
+                  'children' => [],
+                  'post_parent' => $item->menu_item_parent
+              ];
             }
-
-            return self::buildTree($result); //Format with child tree
-
           }
-
       }
 
+      //Get page tree
       if($fallbackToPageTree === true && is_numeric($pageId)) {
-        return self::getNested($pageId); 
+        $result =  self::getNested($pageId); 
       } 
+
+      //Create nested array
+      if(isset($result) && !empty($result)) {
+        return self::buildTree($result);
+      }
 
       return false;
   }
