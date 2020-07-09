@@ -36,7 +36,7 @@ class Navigation
     self::globalToLocal('wpdb', 'db');
 
     //Get all ancestors
-    $parents = array_merge((array) self::getAncestors($postId));
+    $parents = self::getAncestors($postId);
 
     //Get all parents
     $result = self::getItems($parents); 
