@@ -70,7 +70,7 @@ class Navigation
     );
 
     //If null, no children
-    $array['hasChildren'] = is_null($children) ? false : true; 
+    $array['children'] = is_null($children) ? false : true; 
 
     //Return result
     return $array; 
@@ -109,8 +109,6 @@ class Navigation
 
           if ($children) {
             $element['children'] = $children;
-          } else {
-            $element['children'] = []; 
           }
 
           $branch[] = $element;
