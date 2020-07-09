@@ -105,7 +105,7 @@ class Navigation
       foreach ($elements as $element) {
         if ($element['post_parent'] == $parentId) {
 
-          $children = self::buildTree($elements, $element['ID']);
+          $children = self::buildTree($elements, $element['id']);
 
           if ($children) {
             $element['children'] = $children;
@@ -166,7 +166,7 @@ class Navigation
     }
     $parent = implode(", ", $parent); 
 
-    //Run query TODO: Prepare Query
+    //Run query
     return self::$db->get_results("
       SELECT ID, post_title, post_parent 
       FROM " . self::$db->posts . " 
@@ -269,6 +269,7 @@ class Navigation
       
       //Unset data not needed
       unset($array['post_title']); 
+      unset($array['ID']); 
 
       return $array; 
   }
