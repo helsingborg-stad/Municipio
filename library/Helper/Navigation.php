@@ -58,19 +58,27 @@ class Navigation
   private static function hasChildren(array $array) : array
   {  
 
-    $children = self::$db->get_var(
-      self::$db->prepare("
-        SELECT ID 
-        FROM " . self::$db->posts . " 
-        WHERE post_parent = %d 
-        AND post_status = 'publish'
-        AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
-        LIMIT 1
-      ", $array['ID'])
-    );
+    if($array['ID'] == self::$postId) {
+      $children = self::getItems($array['ID']); 
+    } else {
+      $children = self::$db->get_var(
+        self::$db->prepare("
+          SELECT ID 
+          FROM " . self::$db->posts . " 
+          WHERE post_parent = %d 
+          AND post_status = 'publish'
+          AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
+          LIMIT 1
+        ", $array['ID'])
+      );
+    }
 
     //If null, no children
-    $array['children'] = is_null($children) ? false : true; 
+    if(is_array($children)) {
+      $array['children'] = $result = self::complementObjects($children);
+    } else {
+      $array['children'] = is_null($children) ? false : true; 
+    }
 
     //Return result
     return $array; 
@@ -274,7 +282,7 @@ class Navigation
       unset($array['post_title']); 
       unset($array['ID']); 
 
-      //Sort
+      //Sort & return
       return array_merge(
         array(
           'id' => null,
