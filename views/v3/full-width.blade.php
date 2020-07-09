@@ -1,4 +1,4 @@
 @extends('templates.master')
 
-@section('content')
+@section('layout')
 @stop

@@ -1,26 +1,21 @@
 @if ($posts)
-    @grid([
-        'container' => true,
-        "columns" => "auto-fit",
-
-        'max_width' => "230px",
-        'row_gap' => 6,
-        'col_gap' => '4'
-    ])
+    <div class="o-row">
         @foreach($posts as $post)
+        <div class="o-col-12 {{$gridColumnClass}}">
 
-            @card([
-                'href' => $post->permalink,
-                'imageFirst' => true,
-                'image' =>  ['src' => $post->featuredImage['src'], 'alt' => 'featured image'],
-                'heading' => $post->postTitle,
-                'classList' => ['archive-card'],
-                'byline' => ['text' => $post->postDate, 'position' => 'body'],
-                'content' => $post->excerpt,
-                'buttons' => [['text' => 'Go', 'href' => $post->permalink]]
-                ])
-            @endcard
+                @card([
+                    'href' => $post->permalink,
+                    'imageFirst' => true,
+                    'image' =>  ['src' => $post->featuredImage['src'], 'alt' => 'featured image'],
+                    'heading' => $post->postTitle,
+                    'classList' => ['archive-card'],
+                    'byline' => ['text' => $post->postDate, 'position' => 'body'],
+                    'content' => $post->excerpt,
+                    'buttons' => [['text' => 'Go', 'href' => $post->permalink]]
+                    ])
+                @endcard
 
+            </div>
         @endforeach
-    @endgrid
+    </div>
 @endif
