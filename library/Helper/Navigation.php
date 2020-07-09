@@ -68,9 +68,9 @@ class Navigation
     ", ARRAY_A);
 
     if(!empty($children)) {
-      $array['children'] = true; 
+      $array['has_children'] = true; 
     } else {
-      $array['children'] = false; 
+      $array['has_children'] = false; 
     }
 
     return $array; 
@@ -85,7 +85,7 @@ class Navigation
    */
   private static function getAncestors(int $postId) : array
   {  
-    return array_reverse(get_post_ancestors($postId));
+    return array_merge([0], array_reverse(get_post_ancestors($postId)));
   }
 
   /**
@@ -406,7 +406,7 @@ class Navigation
       //Get page tree
       if($fallbackToPageTree === true && is_numeric($pageId)) {
         $result =  self::getNested($pageId); 
-      } 
+      }
 
       //Create nested array
       if(isset($result) && !empty($result)) {

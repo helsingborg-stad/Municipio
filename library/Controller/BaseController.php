@@ -67,14 +67,16 @@ class BaseController
         $this->data['breadcrumbItems']      = \Municipio\Helper\Navigation::getBreadcrumbItems();
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
-        //$this->data['primaryMenuItems']     = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);
-        $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, false);
-        //$this->data['mobileMenuItems']      = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);      
-        
+        $this->data['primaryMenuItems']     = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);
+        $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);
+        $this->data['mobileMenuItems']      = \Municipio\Helper\Navigation::getWpMenuItems('main-menu', $this->getPageID(), true, true);      
+
+
+//        var_dump($this->data['secondaryMenuItems']);
         //Complementary navigations
-        //$this->data['tabMenuItems']         = \Municipio\Helper\Navigation::getWpMenuItems('header-tabs-menu', $this->getPageID());
-        //$this->data['helpMenuItems']        = \Municipio\Helper\Navigation::getWpMenuItems('help-menu', $this->getPageID());
-        //$this->data['dropdownMenuItems']    = \Municipio\Helper\Navigation::getWpMenuItems('dropdown-links-menu', $this->getPageID());
+        $this->data['tabMenuItems']         = \Municipio\Helper\Navigation::getWpMenuItems('header-tabs-menu', $this->getPageID());
+        $this->data['helpMenuItems']        = \Municipio\Helper\Navigation::getWpMenuItems('help-menu', $this->getPageID());
+        $this->data['dropdownMenuItems']    = \Municipio\Helper\Navigation::getWpMenuItems('dropdown-links-menu', $this->getPageID());
         
         //Google translate location
         $this->data['translateLocation']    = get_field('show_google_translate', 'option');
