@@ -312,7 +312,7 @@ class Navigation
     ); 
 
     //Declare result
-    $hiddenPages = []; 
+    $hiddenPages = [PHP_INT_MAX]; 
 
     //Add visible page ids
     if(is_array($result) && !empty($result)) {
