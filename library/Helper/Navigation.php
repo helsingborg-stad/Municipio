@@ -472,7 +472,16 @@ class Navigation
    */
   public static function removeTopLevel(array $result) : array {
     foreach($result as $key => $item) {
-      if($item['post_parent'] == self::$postId) {
+      
+      $id = array_filter(self::getAncestors(self::$postId)); 
+
+      if(!empty($id) && isset($id[0])) {
+        $id = array_pop($id);
+      } else {
+        $id = self::$postId; 
+      }
+
+      if($item['post_parent'] == $id) {
         return $item; 
       }
     }
