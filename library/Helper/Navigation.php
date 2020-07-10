@@ -61,16 +61,7 @@ class Navigation
     if($array['ID'] == self::$postId) {
       $children = self::getItems($array['ID']); 
     } else {
-      $children = self::$db->get_var(
-        self::$db->prepare("
-          SELECT ID 
-          FROM " . self::$db->posts . " 
-          WHERE post_parent = %d 
-          AND post_status = 'publish'
-          AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
-          LIMIT 1
-        ", $array['ID'])
-      );
+      $children = self::getChildren($array['ID']);
     }
 
     //If null, no children
@@ -82,6 +73,36 @@ class Navigation
 
     //Return result
     return $array; 
+  }
+
+  /**
+   * Get posts children
+   * 
+   * @param   array   $postId    The post id
+   * 
+   * @return  array              Array of childrens
+   */
+  public static function getChildren($postId)
+  {  
+
+    $children = self::$db->get_var(
+      self::$db->prepare("
+        SELECT ID 
+        FROM " . self::$db->posts . " 
+        WHERE post_parent = %d 
+        AND post_status = 'publish'
+        AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
+        LIMIT 1
+      ", $postId)
+    );
+    
+    //If null, no children
+    if(is_array($children) && !empty($children)) {
+      return self::complementObjects($children);
+    }
+
+    return false; 
+    
   }
 
   /**
