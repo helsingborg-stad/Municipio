@@ -289,9 +289,9 @@ class Navigation
           'post_parent' => null,
           'active' => null,
           'ancestor' => null,
-          'children' => null,
           'label' => null,
-          'href' => null
+          'href' => null,
+          'children' => null
         ), $array
       ); 
   }
@@ -455,9 +455,8 @@ class Navigation
         if($includeTopLevel === true) {
           return self::buildTree($result);
         } else {
-           return self::buildTree(
-            $result
-          );
+          //var_dump(self::buildTree($result));
+           return self::removeTopLevel(self::buildTree($result));
         }
       }
 
@@ -473,8 +472,8 @@ class Navigation
    */
   public static function removeTopLevel(array $result) : array {
     foreach($result as $key => $item) {
-      if($item['post_parent'] == 0) {
-        unset($result[$key]);
+      if($item['post_parent'] == self::$postId) {
+        return $item; 
       }
     }
     return $result; 
