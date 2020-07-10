@@ -455,8 +455,10 @@ class Navigation
         if($includeTopLevel === true) {
           return self::buildTree($result);
         } else {
-          //var_dump(self::buildTree($result));
-           return self::removeTopLevel(self::buildTree($result));
+
+          $tree = self::buildTree($result); 
+
+           return self::removeTopLevel($tree);
         }
       }
 
@@ -475,17 +477,17 @@ class Navigation
       
       $id = array_filter(self::getAncestors(self::$postId)); 
 
-      if(!empty($id) && isset($id[0])) {
-        $id = array_pop($id);
+      if(!empty($id) && $val = array_shift($id)) {
+        $id = $val;
       } else {
         $id = self::$postId; 
       }
 
-      if($item['post_parent'] == $id) {
-        return $item; 
+      if($item['id'] == $id) {
+        return $item['children']; 
       }
     }
-    return $result; 
+    return []; 
   }
 
   /**
