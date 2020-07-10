@@ -124,8 +124,10 @@ class Navigation
         );
 
         if (get_field('nav_primary_enable', 'option')) {
-            $menus['main-menu'] = __('Main menu', 'municipio');
+            $menus['main-menu'] = __('Primary menu', 'municipio');
         }
+
+        $menus['secondary-menu'] = __('Secondary menu', 'municipio');
 
         if (get_field('nav_sub_enable', 'option')) {
             $menus['sidebar-menu'] = __('Sidebar menu', 'municipio');

@@ -3,7 +3,6 @@
 namespace Municipio\Helper;
 
 /**
-* TODO: CHANGE NAME OF THIS CLASS
 * Navigation items
 *
 * @author   Sebastian Thulin <sebastian.thulin@helsingborg.se>
@@ -15,31 +14,16 @@ class Navigation
 {
   private static $db;
   private static $postId = null;
-
-  /**
-   * Get flat array with top level items
-   * 
-   * @param   array     $postId             The current post id
-   * @depends           getNested           Must invoke get nested function
-   * 
-   * @return  array                         Flat top level page array
-   */
-  public static function getTopLevel($postId) : array 
-  {
-    //Get top level
-    return self::getNested($postId, true, 1); 
-  }
+  private static $cache = []; 
 
   /**
    * Get nested array representing page structure
    * 
    * @param   array     $postId             The current post id
-   * @param   bool      $includeTopLevel    Include top level in response
-   * @param   int|bool  $maxLevels          The maximum levels to traverse
    * 
    * @return  array                         Nested page array
    */
-  public static function getNested($postId, $includeTopLevel = true, $maxLevels = false) : array
+  public static function getNested($postId) : array
   {
 
     //Store current post id
@@ -50,17 +34,8 @@ class Navigation
     //Create local instance of wpdb
     self::globalToLocal('wpdb', 'db');
 
-    //Get all ancestors, append top level if true
-    if($includeTopLevel === true) {
-      $parents = array_merge([0], (array) self::getAncestors($postId));
-    } else {
-      $parents = array_merge((array) self::getAncestors($postId));
-    }
-
-    //Max level limiter
-    if($maxLevels != false && is_numeric($maxLevels)) {
-      $parents = array_slice($parents, 0, $maxLevels);
-    }
+    //Get all ancestors
+    $parents = self::getAncestors($postId);
 
     //Get all parents
     $result = self::getItems($parents); 
@@ -68,42 +43,66 @@ class Navigation
     //Format response 
     $result = self::complementObjects($result);
 
-    //Restructure array to get tree, if multi level
-    if($maxLevels === false || (is_numeric($maxLevels) && $maxLevels != 1)) {
-      $result = self::buildTree($result);
-    }
-
     //Return done
     return $result; 
   }
 
   /**
-   * Check if a post has children
+   * Check if a post has children. If this is the current post, 
+   * fetch the actual children array. 
    * 
    * @param   array   $postId    The post id
    * 
    * @return  array              Flat array with parents
    */
-  private static function hasChildren($array) : array
+  private static function hasChildren(array $array) : array
   {  
-    if(!is_array($array)) {
-      return new \WP_Error("Append permalink object must recive an array."); 
-    }
 
-    $children = self::$db->get_results("
-      SELECT ID
-      FROM " . self::$db->posts . " 
-      WHERE post_parent = '". $array['ID'] . "'
-      LIMIT 1
-    ", ARRAY_A);
-
-    if(!empty($children)) {
-      $array['children'] = true; 
+    if($array['ID'] == self::$postId) {
+      $children = self::getItems($array['ID']); 
     } else {
-      $array['children'] = false; 
+      $children = self::getChildren($array['ID']);
     }
 
+    //If null, no children
+    if(is_array($children)) {
+      $array['children'] = self::complementObjects($children);
+    } else {
+      $array['children'] = is_null($children) ? false : true; 
+    }
+
+    //Return result
     return $array; 
+  }
+
+  /**
+   * Get posts children
+   * 
+   * @param   array   $postId    The post id
+   * 
+   * @return  array              Array of childrens
+   */
+  public static function getChildren($postId)
+  {  
+
+    $children = self::$db->get_var(
+      self::$db->prepare("
+        SELECT ID 
+        FROM " . self::$db->posts . " 
+        WHERE post_parent = %d 
+        AND post_status = 'publish'
+        AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
+        LIMIT 1
+      ", $postId)
+    );
+    
+    //If null, no children
+    if(is_array($children) && !empty($children)) {
+      return self::complementObjects($children);
+    }
+
+    return false; 
+    
   }
 
   /**
@@ -113,9 +112,14 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private static function getAncestors($postId) : array
-  {  
-    return array_reverse(get_post_ancestors($postId));
+  private static function getAncestors(int $postId) : array
+  { 
+    //Fetch from cache
+    if(isset(self::$cache['ancestors'])) {
+      return self::$cache['ancestors']; 
+    }
+
+    return self::$cache['ancestors'] = array_merge([0], array_reverse(get_post_ancestors($postId)));
   }
 
   /**
@@ -135,12 +139,10 @@ class Navigation
       foreach ($elements as $element) {
         if ($element['post_parent'] == $parentId) {
 
-          $children = self::buildTree($elements, $element['ID']);
+          $children = self::buildTree($elements, $element['id']);
 
           if ($children) {
             $element['children'] = $children;
-          } else {
-            $element['children'] = []; 
           }
 
           $branch[] = $element;
@@ -154,8 +156,8 @@ class Navigation
   /**
    * Get pages/posts 
    * 
-   * @param   integer  $parent    Post parent
-   * @param   string   $postType  The post type to query
+   * @param   integer|array  $parent    Post parent
+   * @param   string|array   $postType  The post type to query
    * 
    * @return  array               Array of post id:s, post_titles and post_parent
    */
@@ -164,14 +166,14 @@ class Navigation
 
     //Check if if valid post type string
     if($postType != 'all' && !is_array($postType) && !post_type_exists($postType)) {
-      return new \WP_Error("Could not get navigation menu for " . $postType . "since it dosen't exist."); 
+      return new \WP_Error("Could not get navigation menu for " . $postType . " since it dosen't exist."); 
     }
 
     //Check if if valid post type array
     if(is_array($postType)) {
       foreach($postType as $item) {
         if(!post_type_exists($item)) {
-          return new \WP_Error("Could not get navigation menu for " . $item . "since it dosen't exist."); 
+          return new \WP_Error("Could not get navigation menu for " . $item . " since it dosen't exist."); 
         }
       }
     }
@@ -185,18 +187,13 @@ class Navigation
       $postTypeSQL = "post_type = '" . $postType . "'"; 
     }
 
-    //Default to parent = 0
-    if(empty($parent)) {
-      $parent = 0; 
-    }
-
     //Support multi level query
     if(!is_array($parent)) {
       $parent = [$parent]; 
     }
     $parent = implode(", ", $parent); 
 
-    //Run query TODO: Prepare Query
+    //Run query
     return self::$db->get_results("
       SELECT ID, post_title, post_parent 
       FROM " . self::$db->posts . " 
@@ -204,7 +201,7 @@ class Navigation
       AND " . $postTypeSQL . "
       AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
       AND post_status='publish'
-      ORDER BY menu_order ASC 
+      ORDER BY post_title, menu_order ASC 
       LIMIT 500
     ", ARRAY_A);
   }
@@ -212,11 +209,11 @@ class Navigation
   /**
    * Calculate add add data to array
    * 
-   * @param   object   $objects     The post array
+   * @param   array    $objects     The post array
    * 
    * @return  array    $objects     The post array, with appended data
    */
-  private static function complementObjects($objects) {
+  private static function complementObjects(array $objects) {
     
     if(is_array($objects) && !empty($objects)) {
       foreach($objects as $key => $item) {
@@ -244,14 +241,12 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendIsAncestorPost($array) : array
+  private static function appendIsAncestorPost(array $array) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Append permalink object must recive an array."); 
-      }
-
       if(in_array($array['ID'], self::getAncestors(self::$postId))) {
         $array['ancestor'] = true; 
+      } else {
+        $array['ancestor'] = false; 
       }
 
       return $array; 
@@ -264,14 +259,12 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendIsCurrentPost($array) : array
+  private static function appendIsCurrentPost(array $array) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Append permalink object must recive an array."); 
-      }
-
       if($array['ID'] == self::$postId) {
         $array['active'] = true; 
+      } else {
+        $array['active'] = false; 
       }
       
       return $array; 
@@ -285,12 +278,8 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendHref($array, $leavename = false) : array
+  private static function appendHref(array $array, bool $leavename = false) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Append permalink object must recive an array."); 
-      }
-
       $array['href'] = get_permalink($array['ID'], $leavename);
 
       return $array; 
@@ -303,20 +292,29 @@ class Navigation
    * 
    * @return  array   $array  The post array, with appended data
    */
-  private static function transformObject($array) : array
+  private static function transformObject(array $array) : array
   {
-      if(!is_array($array)) {
-        return new \WP_Error("Transform object object must recive an array."); 
-      }
-
       //Move post_title to label key
       $array['label'] = $array['post_title'];
-      $array['id'] = $array['ID'];
+      $array['id'] = (int) $array['ID'];
+      $array['post_parent'] = (int) $array['post_parent'];
       
       //Unset data not needed
       unset($array['post_title']); 
+      unset($array['ID']); 
 
-      return $array; 
+      //Sort & return
+      return array_merge(
+        array(
+          'id' => null,
+          'post_parent' => null,
+          'active' => null,
+          'ancestor' => null,
+          'label' => null,
+          'href' => null,
+          'children' => null
+        ), $array
+      ); 
   }
 
   /**
@@ -336,15 +334,22 @@ class Navigation
   private static function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
   {
 
-    //Get meta TODO: Prepare Query
-    $result = (array) self::$db->get_results("
-      SELECT post_id, meta_value 
-      FROM ". self::$db->postmeta ." 
-      WHERE meta_key = '$metaKey'
-    "); 
+    //Get cached result
+    if(isset(self::$cache['getHiddenPostIds'])) {
+      return self::$cache['getHiddenPostIds']; 
+    }
+
+    //Get meta
+    $result = (array) self::$db->get_results(
+      self::$db->prepare("
+        SELECT post_id, meta_value 
+        FROM ". self::$db->postmeta ." 
+        WHERE meta_key = %s
+      ", $metaKey)
+    ); 
 
     //Declare result
-    $hiddenPages = []; 
+    $hiddenPages = [PHP_INT_MAX]; 
 
     //Add visible page ids
     if(is_array($result) && !empty($result)) {
@@ -356,7 +361,7 @@ class Navigation
       }
     }
 
-    return $hiddenPages; 
+    return self::$cache['getHiddenPostIds'] = $hiddenPages; 
   }
 
   /**
@@ -376,13 +381,20 @@ class Navigation
   private static function getMenuTitle(string $metaKey = "custom_menu_title") : array
   {
 
-    //Get meta TODO: Prepare Query
-    $result = (array) self::$db->get_results("
-      SELECT post_id, meta_value 
-      FROM ". self::$db->postmeta ." 
-      WHERE meta_key = '$metaKey'
-      AND meta_value != ''
-    "); 
+    //Get cached result
+    if(isset(self::$cache['getMenuTitle'])) {
+      return self::$cache['getMenuTitle']; 
+    }
+
+    //Get meta
+    $result = (array) self::$db->get_results(
+      self::$db->prepare("
+        SELECT post_id, meta_value 
+        FROM ". self::$db->postmeta ." 
+        WHERE meta_key = %s
+        AND meta_value != ''
+      ", $metaKey)
+    ); 
 
     //Declare result
     $pageTitles = []; 
@@ -397,7 +409,7 @@ class Navigation
       }
     }
 
-    return $pageTitles; 
+    return self::$cache['getMenuTitle'] = $pageTitles; 
   }
 
   /**
@@ -407,12 +419,18 @@ class Navigation
    * 
    * @return object
    */
-  private static function customTitle($array) : array
+  private static function customTitle(array $array) : array
   {
     $customTitles = self::getMenuTitle(); 
 
+    //Get custom title
     if(isset($customTitles[$array['ID']])) {
       $array['post_title'] = $customTitles[$array['ID']]; 
+    }
+
+    //Replace empty titles
+    if($array['post_title'] == "") {
+      $array['post_title'] = __("Untitled page", 'municipio'); 
     }
 
     return $array; 
@@ -424,7 +442,7 @@ class Navigation
    * @param string $menu The menu id to get
    * @return bool|array
    */
-  public static function getWpMenuItems($menu, $fallbackToPageTree = false, $pageId = null)
+  public static function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true)
   {
 
       //Check for existing wp menu
@@ -437,116 +455,150 @@ class Navigation
             $result = []; //Storage of result
 
             foreach ($menuItems as $item) {
-                $result[$item->ID] = [
-                    'ID' => $item->ID,
-                    'label' => $item->title,
-                    'href' => $item->url,
-                    'children' => [],
-                    'post_parent' => $item->menu_item_parent
-                ];
+              $result[$item->ID] = [
+                  'id' => $item->ID,
+                  'label' => $item->title,
+                  'href' => $item->url,
+                  'children' => false,
+                  'post_parent' => $item->menu_item_parent
+              ];
             }
-
-            return self::buildTree($result); //Format with child tree
-
           }
-
+      } else {
+        //Get page tree
+        if($fallbackToPageTree === true && is_numeric($pageId)) {
+          $result =  self::getNested($pageId); 
+        }
       }
 
-      if($fallbackToPageTree === true && is_numeric($pageId)) {
-        return self::getNested($pageId); 
-      } 
+      //Create nested array
+      if(isset($result) && !empty($result)) {
+        if($includeTopLevel === true) {
+          return self::buildTree($result);
+        } else {
+
+          $tree = self::buildTree($result); 
+
+           return self::removeTopLevel($tree);
+        }
+      }
 
       return false;
   }
 
   /**
-     * BreadCrumbData
-     * Fetching data for breadcrumbs
-     * @return array|void
-     * @throws \Exception
-     */
-    public static function getBreadcrumbItems()
-    {
-        global $post;
+   * Removes top level items
+   *
+   * @param   array   $result    The unfiltered result set
+   * 
+   * @return  array   $result    The filtered result set (without top level)
+   */
+  public static function removeTopLevel(array $result) : array {
+    foreach($result as $key => $item) {
+      
+      $id = array_filter(self::getAncestors(self::$postId)); 
 
-        if (!is_a($post, 'WP_Post')) {
-            return;
-        }
+      if(!empty($id) && $val = array_shift($id)) {
+        $id = $val;
+      } else {
+        $id = self::$postId; 
+      }
 
-        if (!is_front_page()) {
-
-            $post_type = get_post_type_object($post->post_type);
-            $pageData = array();
-
-            $id = \Municipio\Helper\Hash::mkUniqueId();
-
-            $pageData[$id]['label'] = __('Home');
-            $pageData[$id]['href'] = get_home_url();
-            $pageData[$id]['current'] = false;
-            $pageData[$id]['icon'] = "home"; 
-
-            if (is_single() && $post_type->has_archive) {
-
-                $id = \Municipio\Helper\Hash::mkUniqueId();
-                $pageData[$id]['label'] = $post_type->label;
-
-                $pageData[$id]['href'] = (is_string($post_type->has_archive))
-                    ? get_permalink(get_page_by_path($post_type->has_archive))
-                    : get_post_type_archive_link($post_type->name);
-
-                $pageData[$id]['current'] = false;
-            }
-
-            if (is_page() || (is_single() && $post_type->hierarchical === true)) {
-                if ($post->post_parent) {
-
-                    $ancestors = array_reverse(get_post_ancestors($post->ID));
-                    $title = get_the_title();
-
-                    foreach ($ancestors as $ancestor) {
-                        if (get_post_status($ancestor) !== 'private') {
-                            $id = \Municipio\Helper\Hash::mkUniqueId();
-                            $pageData[$id]['label'] = get_the_title($ancestor);
-                            $pageData[$id]['href'] = get_permalink($ancestor);
-                            $pageData[$id]['current'] = false;
-                        }
-                    }
-
-                    $id = \Municipio\Helper\Hash::mkUniqueId();
-                    $pageData[$id]['label'] = $title;
-                    $pageData[$id]['href'] = '';
-                    $pageData[$id]['current'] = true;
-
-                } else {
-                    $id = \Municipio\Helper\Hash::mkUniqueId();
-                    $pageData[$id]['label'] = get_the_title();
-                    $pageData[$id]['href'] = '';
-                    $pageData[$id]['current'] = true;
-                }
-
-            } else {
-
-                if (is_home()) {
-                    $title = single_post_title("", false);
-                } elseif (is_tax()) {
-                    $title = single_cat_title(null, false);
-                } elseif (is_category() && $title = get_the_category()) {
-                    $title = $title[0]->name;
-                } elseif (is_archive()) {
-                    $title = post_type_archive_title(null, false);
-                } else {
-                    $title = get_the_title();
-                }
-
-                $id = \Municipio\Helper\Hash::mkUniqueId();
-                $pageData[$id]['label'] = $title;
-                $pageData[$id]['href'] = '';
-                $pageData[$id]['current'] = false;
-            }
-
-            return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
-        }
+      if($item['id'] == $id) {
+        return $item['children']; 
+      }
     }
+    return []; 
+  }
+
+  /**
+   * BreadCrumbData
+   * Fetching data for breadcrumbs
+   * @return array|void
+   * @throws \Exception
+   */
+  public static function getBreadcrumbItems()
+  {
+      global $post;
+
+      if (!is_a($post, 'WP_Post')) {
+          return;
+      }
+
+      if (!is_front_page()) {
+
+          $post_type = get_post_type_object($post->post_type);
+          $pageData = array();
+
+          $id = \Municipio\Helper\Hash::mkUniqueId();
+
+          $pageData[$id]['label'] = __('Home');
+          $pageData[$id]['href'] = get_home_url();
+          $pageData[$id]['current'] = false;
+          $pageData[$id]['icon'] = "home"; 
+
+          if (is_single() && $post_type->has_archive) {
+
+              $id = \Municipio\Helper\Hash::mkUniqueId();
+              $pageData[$id]['label'] = $post_type->label;
+
+              $pageData[$id]['href'] = (is_string($post_type->has_archive))
+                  ? get_permalink(get_page_by_path($post_type->has_archive))
+                  : get_post_type_archive_link($post_type->name);
+
+              $pageData[$id]['current'] = false;
+          }
+
+          if (is_page() || (is_single() && $post_type->hierarchical === true)) {
+              if ($post->post_parent) {
+
+                  $ancestors = array_reverse(get_post_ancestors($post->ID));
+                  $title = get_the_title();
+
+                  foreach ($ancestors as $ancestor) {
+                      if (get_post_status($ancestor) !== 'private') {
+                          $id = \Municipio\Helper\Hash::mkUniqueId();
+                          $pageData[$id]['label'] = get_the_title($ancestor);
+                          $pageData[$id]['href'] = get_permalink($ancestor);
+                          $pageData[$id]['current'] = false;
+                      }
+                  }
+
+                  $id = \Municipio\Helper\Hash::mkUniqueId();
+                  $pageData[$id]['label'] = $title;
+                  $pageData[$id]['href'] = '';
+                  $pageData[$id]['current'] = true;
+
+              } else {
+                  $id = \Municipio\Helper\Hash::mkUniqueId();
+                  $pageData[$id]['label'] = get_the_title();
+                  $pageData[$id]['href'] = '';
+                  $pageData[$id]['current'] = true;
+              }
+
+          } else {
+
+              if (is_home()) {
+                  $title = single_post_title("", false);
+              } elseif (is_tax()) {
+                  $title = single_cat_title(null, false);
+              } elseif (is_category() && $title = get_the_category()) {
+                  $title = $title[0]->name;
+              } elseif (is_archive()) {
+                  $title = post_type_archive_title(null, false);
+              } else {
+                  $title = get_the_title();
+              }
+
+              $id = \Municipio\Helper\Hash::mkUniqueId();
+              $pageData[$id]['label'] = $title;
+              $pageData[$id]['href'] = '';
+              $pageData[$id]['current'] = false;
+          }
+
+          return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+      }
+  }
 
   /**
    * Creates a local copy of the global instance
