@@ -3,7 +3,6 @@
 namespace Municipio\Helper;
 
 /**
-* TODO: CHANGE NAME OF THIS CLASS
 * Navigation items
 *
 * @author   Sebastian Thulin <sebastian.thulin@helsingborg.se>
@@ -49,7 +48,8 @@ class Navigation
   }
 
   /**
-   * Check if a post has children
+   * Check if a post has children. If this is the current post, 
+   * fetch the actual children array. 
    * 
    * @param   array   $postId    The post id
    * 
@@ -75,7 +75,7 @@ class Navigation
 
     //If null, no children
     if(is_array($children)) {
-      $array['children'] = $result = self::complementObjects($children);
+      $array['children'] = self::complementObjects($children);
     } else {
       $array['children'] = is_null($children) ? false : true; 
     }
@@ -450,7 +450,6 @@ class Navigation
         }
       }
 
-
       //Create nested array
       if(isset($result) && !empty($result)) {
         if($includeTopLevel === true) {
@@ -482,93 +481,93 @@ class Navigation
   }
 
   /**
-     * BreadCrumbData
-     * Fetching data for breadcrumbs
-     * @return array|void
-     * @throws \Exception
-     */
-    public static function getBreadcrumbItems()
-    {
-        global $post;
+   * BreadCrumbData
+   * Fetching data for breadcrumbs
+   * @return array|void
+   * @throws \Exception
+   */
+  public static function getBreadcrumbItems()
+  {
+      global $post;
 
-        if (!is_a($post, 'WP_Post')) {
-            return;
-        }
+      if (!is_a($post, 'WP_Post')) {
+          return;
+      }
 
-        if (!is_front_page()) {
+      if (!is_front_page()) {
 
-            $post_type = get_post_type_object($post->post_type);
-            $pageData = array();
+          $post_type = get_post_type_object($post->post_type);
+          $pageData = array();
 
-            $id = \Municipio\Helper\Hash::mkUniqueId();
+          $id = \Municipio\Helper\Hash::mkUniqueId();
 
-            $pageData[$id]['label'] = __('Home');
-            $pageData[$id]['href'] = get_home_url();
-            $pageData[$id]['current'] = false;
-            $pageData[$id]['icon'] = "home"; 
+          $pageData[$id]['label'] = __('Home');
+          $pageData[$id]['href'] = get_home_url();
+          $pageData[$id]['current'] = false;
+          $pageData[$id]['icon'] = "home"; 
 
-            if (is_single() && $post_type->has_archive) {
+          if (is_single() && $post_type->has_archive) {
 
-                $id = \Municipio\Helper\Hash::mkUniqueId();
-                $pageData[$id]['label'] = $post_type->label;
+              $id = \Municipio\Helper\Hash::mkUniqueId();
+              $pageData[$id]['label'] = $post_type->label;
 
-                $pageData[$id]['href'] = (is_string($post_type->has_archive))
-                    ? get_permalink(get_page_by_path($post_type->has_archive))
-                    : get_post_type_archive_link($post_type->name);
+              $pageData[$id]['href'] = (is_string($post_type->has_archive))
+                  ? get_permalink(get_page_by_path($post_type->has_archive))
+                  : get_post_type_archive_link($post_type->name);
 
-                $pageData[$id]['current'] = false;
-            }
+              $pageData[$id]['current'] = false;
+          }
 
-            if (is_page() || (is_single() && $post_type->hierarchical === true)) {
-                if ($post->post_parent) {
+          if (is_page() || (is_single() && $post_type->hierarchical === true)) {
+              if ($post->post_parent) {
 
-                    $ancestors = array_reverse(get_post_ancestors($post->ID));
-                    $title = get_the_title();
+                  $ancestors = array_reverse(get_post_ancestors($post->ID));
+                  $title = get_the_title();
 
-                    foreach ($ancestors as $ancestor) {
-                        if (get_post_status($ancestor) !== 'private') {
-                            $id = \Municipio\Helper\Hash::mkUniqueId();
-                            $pageData[$id]['label'] = get_the_title($ancestor);
-                            $pageData[$id]['href'] = get_permalink($ancestor);
-                            $pageData[$id]['current'] = false;
-                        }
-                    }
+                  foreach ($ancestors as $ancestor) {
+                      if (get_post_status($ancestor) !== 'private') {
+                          $id = \Municipio\Helper\Hash::mkUniqueId();
+                          $pageData[$id]['label'] = get_the_title($ancestor);
+                          $pageData[$id]['href'] = get_permalink($ancestor);
+                          $pageData[$id]['current'] = false;
+                      }
+                  }
 
-                    $id = \Municipio\Helper\Hash::mkUniqueId();
-                    $pageData[$id]['label'] = $title;
-                    $pageData[$id]['href'] = '';
-                    $pageData[$id]['current'] = true;
+                  $id = \Municipio\Helper\Hash::mkUniqueId();
+                  $pageData[$id]['label'] = $title;
+                  $pageData[$id]['href'] = '';
+                  $pageData[$id]['current'] = true;
 
-                } else {
-                    $id = \Municipio\Helper\Hash::mkUniqueId();
-                    $pageData[$id]['label'] = get_the_title();
-                    $pageData[$id]['href'] = '';
-                    $pageData[$id]['current'] = true;
-                }
+              } else {
+                  $id = \Municipio\Helper\Hash::mkUniqueId();
+                  $pageData[$id]['label'] = get_the_title();
+                  $pageData[$id]['href'] = '';
+                  $pageData[$id]['current'] = true;
+              }
 
-            } else {
+          } else {
 
-                if (is_home()) {
-                    $title = single_post_title("", false);
-                } elseif (is_tax()) {
-                    $title = single_cat_title(null, false);
-                } elseif (is_category() && $title = get_the_category()) {
-                    $title = $title[0]->name;
-                } elseif (is_archive()) {
-                    $title = post_type_archive_title(null, false);
-                } else {
-                    $title = get_the_title();
-                }
+              if (is_home()) {
+                  $title = single_post_title("", false);
+              } elseif (is_tax()) {
+                  $title = single_cat_title(null, false);
+              } elseif (is_category() && $title = get_the_category()) {
+                  $title = $title[0]->name;
+              } elseif (is_archive()) {
+                  $title = post_type_archive_title(null, false);
+              } else {
+                  $title = get_the_title();
+              }
 
-                $id = \Municipio\Helper\Hash::mkUniqueId();
-                $pageData[$id]['label'] = $title;
-                $pageData[$id]['href'] = '';
-                $pageData[$id]['current'] = false;
-            }
+              $id = \Municipio\Helper\Hash::mkUniqueId();
+              $pageData[$id]['label'] = $title;
+              $pageData[$id]['href'] = '';
+              $pageData[$id]['current'] = false;
+          }
 
-            return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
-        }
-    }
+          return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+      }
+  }
 
   /**
    * Creates a local copy of the global instance
