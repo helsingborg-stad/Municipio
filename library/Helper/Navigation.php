@@ -39,7 +39,28 @@ class Navigation
 
     //Get all parents
     $result = self::getItems($parents); 
+    
+    //Format response 
+    $result = self::complementObjects($result);
 
+    //Return done
+    return $result; 
+  }
+
+  public static function getSubItems($postId) : array
+  {
+
+    //Store current post id
+    if(is_null(self::$postId)) {
+      self::$postId = $postId; 
+    }
+
+    //Create local instance of wpdb
+    self::globalToLocal('wpdb', 'db');
+
+    //Get all parents
+    $result = self::getItems($postId); 
+    
     //Format response 
     $result = self::complementObjects($result);
 
@@ -62,6 +83,7 @@ class Navigation
       $children = self::getItems($array['ID']); 
     } else {
       $children = self::getChildren($array['ID']);
+      
     }
 
     //If null, no children
@@ -96,12 +118,11 @@ class Navigation
       ", $postId)
     );
     
-    //If null, no children
-    if(is_array($children) && !empty($children)) {
-      return self::complementObjects($children);
+    if(is_null($children)) {
+      return $children;
+    } else {
+      return true;
     }
-
-    return false; 
     
   }
 
@@ -205,6 +226,7 @@ class Navigation
       LIMIT 500
     ", ARRAY_A);
   }
+  
 
   /**
    * Calculate add add data to array

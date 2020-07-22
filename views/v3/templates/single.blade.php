@@ -12,7 +12,10 @@
 
 @section('sidebar-left')
    
-    @sidebar(['items' => $secondaryMenuItems])
+    @sidebar([
+        'items' => $secondaryMenuItems,
+        'childItemsUrl' => '/wp/wp-json/municipio/v1/navigation/sidebar'
+    ])
     @endsidebar
 
     @include('partials.sidebar', ['id' => 'left-sidebar'])
