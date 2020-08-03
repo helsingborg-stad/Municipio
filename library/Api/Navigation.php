@@ -18,16 +18,16 @@ class Navigation
 
         register_rest_route('municipio/v1', '/navigation/sidebar', array(
             'methods' => 'GET',
-            'callback' => array($this, 'getSubItems'),
+            'callback' => array($this, 'getPostChildren'),
         ));
     }
 
-    public function getSubItems($data)
+    public function getPostChildren($data)
     {
         $parentId = $data->get_params()['parentID'];
 
         if(isset($parentId)){
-            return \Municipio\Helper\Navigation::getSubItems($parentId);
+            return \Municipio\Helper\Navigation::getPostChildren($parentId);
         }
     }
 

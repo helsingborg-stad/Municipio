@@ -47,7 +47,7 @@ class Navigation
     return $result; 
   }
 
-  public static function getSubItems($postId) : array
+  public static function getPostChildren($postId) : array
   {
 
     //Store current post id
