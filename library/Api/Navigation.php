@@ -15,6 +15,20 @@ class Navigation
             'methods' => 'GET',
             'callback' => array($this, 'getSubmenu'),
         ));
+
+        register_rest_route('municipio/v1', '/navigation/sidebar', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'getPostChildren'),
+        ));
+    }
+
+    public function getPostChildren($data)
+    {
+        $parentId = $data->get_params()['parentID'];
+
+        if(isset($parentId)){
+            return \Municipio\Helper\Navigation::getPostChildren($parentId);
+        }
     }
 
     public function getSubmenu($data)
