@@ -11,10 +11,14 @@
 @stop
 
 @section('sidebar-left')
-   
+
     @sidebar([
         'items' => $secondaryMenuItems,
-        'childItemsUrl' => '/wp/wp-json/municipio/v1/navigation/sidebar'
+        'endpoints' => [
+            'children' => '/wp/wp-json/municipio/v1/navigation/children',
+            'active' => '/wp/wp-json/municipio/v1/navigation/active'
+],
+        'pageId' => $pageID
     ])
     @endsidebar
 
