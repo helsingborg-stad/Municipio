@@ -23,8 +23,7 @@
 
 </head>
 
-<body class="{{ $bodyClass }}">
-
+<body class="{{ $bodyClass }}" page-id="{{$pageID}}">
     {{-- Site header --}}
     @includeIf('partials.header')
 
