@@ -83,7 +83,8 @@ abstract class PluginClass
     */
     public function addTinyMcePlugin($plugins)
     {
-        $plugins[$this->pluginSlug] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/' . $this->jsFile);
+        $plugins[$this->pluginSlug] = get_template_directory_uri() . '/assets/dist/' .
+            \Municipio\Helper\CacheBust::getFilename('js/mce.js');
         return $plugins;
     }
 

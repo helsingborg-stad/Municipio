@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const path = require('path');
+const glob = require('glob');
 
 const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -27,6 +28,8 @@ module.exports = {
         'js/styleguide': './assets/source/3.0/js/styleguide.js',
         'css/municipio': './assets/source/3.0/sass/main.scss',
         'js/municipio': './assets/source/3.0/js/municipio.js',
+        /* Legacy 2.0  */
+        'js/mce': glob.sync('./assets/source/2.0/mce-js/*.js'),
     },
     /**
      * Output settings
