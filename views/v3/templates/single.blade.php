@@ -15,10 +15,11 @@
     @sidebar([
         'items' => $secondaryMenuItems,
         'endpoints' => [
-            'children' => '/wp/wp-json/municipio/v1/navigation/children',
-            'active' => '/wp/wp-json/municipio/v1/navigation/active'
-],
-        'pageId' => $pageID
+            'children' => '/wp-json/municipio/v1/navigation/children',
+            'active' => '/wp-json/municipio/v1/navigation/active'
+    ],
+        'pageId' => $pageID,
+        'sidebar' => true
     ])
     @endsidebar
 
