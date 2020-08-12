@@ -15,8 +15,8 @@
     @sidebar([
         'items' => $secondaryMenuItems,
         'endpoints' => [
-            'children' => '/wp-json/municipio/v1/navigation/children',
-            'active' => '/wp-json/municipio/v1/navigation/active'
+            'children' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+            'active' => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
     ],
         'pageId' => $pageID,
         'sidebar' => true
