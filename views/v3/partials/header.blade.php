@@ -1,8 +1,9 @@
 <header id="site-header">
     @if (!empty($primaryMenuItems))
         @navbar([
-            'logo' => $logotype->standard['url'],
-            'items' => $primaryMenuItems,
+            'logo'      => $logotype->standard['url'],
+            'items'     => $primaryMenuItems,
+            'sidebar'   => ['trigger' => "js-mobile-sidebar"]
         ])
 
             {{-- @button([
