@@ -46,6 +46,7 @@ class BaseController
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
         $this->data['homeUrl']              = $this->getHomeUrl();
         $this->data['adminUrl']             = $this->getAdminUrl();
+        $this->data['homeUrlPath']          = parse_url(get_home_url( ), PHP_URL_PATH);
 
         //View porperties
         $this->data['isFrontPage']          = is_front_page(); 
