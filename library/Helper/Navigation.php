@@ -151,7 +151,7 @@ class Navigation
    * 
    * @return  array               Nested array representing page structure
    */
-  private static function buildTree(array $elements, int $parentId = 0) : array 
+  private static function buildTree(array $elements, $parentId = 0) : array 
   {
 
     $branch = array();
@@ -493,6 +493,28 @@ class Navigation
         }
       }
 
+      //Page for posttype
+      foreach($result as $key => $item) {
+        $subset = []; 
+        if(array_key_exists($item['id'], self::getPageForPostTypeIds())) {
+          
+          $result[$key]['children'] = true;
+          
+          $subset = self::getItems(0, self::getPageForPostTypeIds()[$item['id']]); 
+          
+          foreach($subset as $subKey => $subItem) {
+            $subset[$subKey]['post_parent'] = $item['id'];
+          }
+
+          $subset = self::complementObjects($subset);
+
+          $result = array_merge($result, $subset);
+        }
+      }
+
+      //Filter for appending and removing objects from navgation
+      $result = apply_filters('Municipio/Navigation/Items', $result); 
+
       //Create nested array
       if(isset($result) && !empty($result)) {
         if($includeTopLevel === true) {
@@ -501,7 +523,7 @@ class Navigation
 
           $tree = self::buildTree($result); 
 
-           return self::removeTopLevel($tree);
+          return self::removeTopLevel($tree);
         }
       }
 
@@ -620,6 +642,30 @@ class Navigation
 
           return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
       }
+  }
+
+  /**
+   * Get all post id's mapped as a post type container. 
+   *
+   * @return array
+   */
+  public static function getPageForPostTypeIds() : array {
+
+      $result = array();
+
+      $postTypes = get_post_types(['public' => true]); 
+
+      if(is_countable($postTypes)) {
+        foreach($postTypes as $postType) {
+          $postId = get_option('page_for_' . $postType, true);
+
+          if(is_numeric($postId)) {
+            $result[$postId] = $postType; 
+          }
+        }
+      }
+
+      return $result; 
   }
 
   /**
