@@ -65,7 +65,7 @@ class Navigation
     $result = self::complementObjects($result);
 
     //Add support to page for posttype
-    $result = self::appendPageForPostTypeItems($result); 
+    $result = self::appendPageForPostTypeItems($result, false); 
     
     //Return done
     return $result; 
@@ -488,29 +488,34 @@ class Navigation
                   'post_parent' => $item->menu_item_parent
               ];
             }
+          } else {
+            $result = [];
           }
       } else {
         //Get page tree
         if($fallbackToPageTree === true && is_numeric($pageId)) {
           $result =  self::getNested($pageId); 
+        } else {
+          $result = [];
         }
       }
 
-      //Add support to page for posttype
-      $result = self::appendPageForPostTypeItems($result); 
-
       //Filter for appending and removing objects from navgation
-      $result = apply_filters('Municipio/Navigation/Items', $result); 
+      $result = apply_filters('Municipio/Navigation/Items', $result);
 
       //Create nested array
-      if(isset($result) && !empty($result)) {
+      if(!empty($result) && is_array($result)) {
+
+        //Add support to page for posttype
+        $result = self::appendPageForPostTypeItems($result); 
+
+        //Wheter to include top level or not
         if($includeTopLevel === true) {
           return self::buildTree($result);
         } else {
-
-          $tree = self::buildTree($result); 
-
-          return self::removeTopLevel($tree);
+          return self::removeTopLevel(
+            self::buildTree($result)
+          );
         }
       }
 
@@ -672,10 +677,11 @@ class Navigation
   /**
    * Appends items from page for post type menu mapping plugin
    *
-   * @param array $result 
-   * @return array $result Menu with appended pfp items. 
+   * @param   array $result   The page structure
+   * @param   bool  $getItems Boolean indicating wheter to fetch childs, or just a indicator of childs. 
+   * @return  array $result   Menu with appended pfp items. 
    */
-  public static function appendPageForPostTypeItems($result) {
+  public static function appendPageForPostTypeItems($result, $getItems = true) {
 
     if(is_countable($result)) {
       foreach($result as $key => $item) {
@@ -686,24 +692,28 @@ class Navigation
         if(is_array($pageForPostTypeIds) && array_key_exists($item['id'], $pageForPostTypeIds)) {
           
           $result[$key]['children'] = true;
-          
-          $subset = self::getItems(0, $pageForPostTypeIds[$item['id']]); 
-          
-          if(is_countable($subset)) {
+
+          if($getItems === true) {
             
-            //Update post parent, if top level before. 
-            foreach($subset as $subKey => $subItem) {
-              if($subset[$subKey]['post_parent'] == 0) {
-                $subset[$subKey]['post_parent'] = $item['id'];
+            $subset = self::getItems(0, $pageForPostTypeIds[$item['id']]); 
+            
+            if(is_countable($subset)) {
+              
+              //Update post parent, if top level before. 
+              foreach($subset as $subKey => $subItem) {
+                if($subset[$subKey]['post_parent'] == 0) {
+                  $subset[$subKey]['post_parent'] = $item['id'];
+                }
               }
+
+              //Restructure result 
+              $subset = self::complementObjects($subset); 
             }
 
-            //Restructure result 
-            $subset = self::complementObjects($subset); 
-          }
+            //Merge origon menu
+            $result = array_merge($result, (array) $subset);
 
-          //Merge origon menu
-          $result = array_merge($result, (array) $subset);
+          }
         }
       }
     }
