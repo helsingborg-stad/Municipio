@@ -493,24 +493,8 @@ class Navigation
         }
       }
 
-      //Page for posttype
-      foreach($result as $key => $item) {
-        $subset = []; 
-        if(array_key_exists($item['id'], self::getPageForPostTypeIds())) {
-          
-          $result[$key]['children'] = true;
-          
-          $subset = self::getItems(0, self::getPageForPostTypeIds()[$item['id']]); 
-          
-          foreach($subset as $subKey => $subItem) {
-            $subset[$subKey]['post_parent'] = $item['id'];
-          }
-
-          $subset = self::complementObjects($subset);
-
-          $result = array_merge($result, $subset);
-        }
-      }
+      //Add support to page for posttype
+      $result = self::appendPageForPostTypeItems($result); 
 
       //Filter for appending and removing objects from navgation
       $result = apply_filters('Municipio/Navigation/Items', $result); 
@@ -651,21 +635,60 @@ class Navigation
    */
   public static function getPageForPostTypeIds() : array {
 
-      $result = array();
+    //Get cached result
+    if(isset(self::$cache['pageForPostType'])) {
+      return self::$cache['pageForPostType']; 
+    }
 
-      $postTypes = get_post_types(['public' => true]); 
+    //Declare results array 
+    $result = array();
 
-      if(is_countable($postTypes)) {
-        foreach($postTypes as $postType) {
-          $postId = get_option('page_for_' . $postType, true);
+    //Only supported for hierarchical
+    $postTypes = get_post_types(['public' => true, 'hierarchical' => true]); 
 
-          if(is_numeric($postId)) {
-            $result[$postId] = $postType; 
-          }
+    //Check for results 
+    if(is_countable($postTypes)) {
+      foreach($postTypes as $postType) {
+        
+        //Fetch mapping ID
+        $postId = get_option('page_for_' . $postType, true);
+
+        //Validate mapping ID
+        if(is_numeric($postId)) {
+          $result[$postId] = $postType; 
         }
       }
+    }
 
-      return $result; 
+    return $cache['pageForPostType'] = $result; 
+  }
+
+  /**
+   * Appends items from page for post type menu mapping plugin
+   *
+   * @param array $result 
+   * @return array $result Menu with appended pfp items. 
+   */
+  public static function appendPageForPostTypeItems($result) {
+    foreach($result as $key => $item) {
+      $subset = []; 
+      if(array_key_exists($item['id'], self::getPageForPostTypeIds())) {
+        
+        $result[$key]['children'] = true;
+        
+        $subset = self::getItems(0, self::getPageForPostTypeIds()[$item['id']]); 
+        
+        foreach($subset as $subKey => $subItem) {
+          $subset[$subKey]['post_parent'] = $item['id'];
+        }
+
+        $subset = self::complementObjects($subset);
+
+        $result = array_merge($result, $subset);
+      }
+    }
+
+    return $result;
   }
 
   /**
