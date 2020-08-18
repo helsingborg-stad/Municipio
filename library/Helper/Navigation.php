@@ -65,7 +65,7 @@ class Navigation
     $result = self::complementObjects($result);
 
     //Add support to page for posttype
-    $result = self::appendPageForPostTypeItems($result, false); 
+    $result = self::appendPageForPostTypeItems($result); 
     
     //Return done
     return $result; 
