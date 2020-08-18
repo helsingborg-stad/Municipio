@@ -60,10 +60,13 @@ class Navigation
 
     //Get all parents
     $result = self::getItems($postId); 
-    
+
     //Format response 
     $result = self::complementObjects($result);
 
+    //Add support to page for posttype
+    $result = self::appendPageForPostTypeItems($result); 
+    
     //Return done
     return $result; 
   }
@@ -644,7 +647,10 @@ class Navigation
     $result = array();
 
     //Only supported for hierarchical
-    $postTypes = get_post_types(['public' => true, 'hierarchical' => true]); 
+    $postTypes = get_post_types([
+      'public' => true, 
+      'hierarchical' => true
+    ]); 
 
     //Check for results 
     if(is_countable($postTypes)) {
@@ -670,21 +676,35 @@ class Navigation
    * @return array $result Menu with appended pfp items. 
    */
   public static function appendPageForPostTypeItems($result) {
-    foreach($result as $key => $item) {
-      $subset = []; 
-      if(array_key_exists($item['id'], self::getPageForPostTypeIds())) {
+
+    if(is_countable($result)) {
+      foreach($result as $key => $item) {
+        $subset = [];
         
-        $result[$key]['children'] = true;
+        $pageForPostTypeIds = self::getPageForPostTypeIds(); 
         
-        $subset = self::getItems(0, self::getPageForPostTypeIds()[$item['id']]); 
-        
-        foreach($subset as $subKey => $subItem) {
-          $subset[$subKey]['post_parent'] = $item['id'];
+        if(is_array($pageForPostTypeIds) && array_key_exists($item['id'], $pageForPostTypeIds)) {
+          
+          $result[$key]['children'] = true;
+          
+          $subset = self::getItems(0, $pageForPostTypeIds[$item['id']]); 
+          
+          if(is_countable($subset)) {
+            
+            //Update post parent, if top level before. 
+            foreach($subset as $subKey => $subItem) {
+              if($subset[$subKey]['post_parent'] == 0) {
+                $subset[$subKey]['post_parent'] = $item['id'];
+              }
+            }
+
+            //Restructure result 
+            $subset = self::complementObjects($subset); 
+          }
+
+          //Merge origon menu
+          $result = array_merge($result, (array) $subset);
         }
-
-        $subset = self::complementObjects($subset);
-
-        $result = array_merge($result, $subset);
       }
     }
 
