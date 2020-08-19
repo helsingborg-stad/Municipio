@@ -143,6 +143,27 @@ class Navigation
       return self::$cache['ancestors']; 
     }
 
+    //Get current post type structure
+    $currentPostTypeAncestors = get_post_ancestors($postId);
+
+    //Get the master page ids for posttypes 
+    $pageForPostTypeIds       = self::getPageForPostTypeIds(); 
+
+    //Check if current post type is member of "pageForPostTypeIds". 
+    if(in_array(get_post_type($postId), $pageForPostTypeIds)) {
+
+      //Set Top level item to be child of the pageForPostTypeId
+      $currentPostTypeAncestors[0] = array_flip($pageForPostTypeIds)[get_post_type($postId)]; 
+
+      //Get ancestors of pageForPostTypeId
+      $currentPageIDAncestors = get_post_ancestors($currentPostTypeAncestors[0]);
+
+      //Merge & return result
+      return self::$cache['ancestors'] = array_merge([0], array_reverse($currentPageIDAncestors), array_reverse($currentPostTypeAncestors));
+
+    }
+    
+    //Non page for posttype return
     return self::$cache['ancestors'] = array_merge([0], array_reverse(get_post_ancestors($postId)));
   }
 
