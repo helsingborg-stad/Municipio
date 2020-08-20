@@ -69,7 +69,7 @@ class BaseController
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
         $this->data['primaryMenuItems']     = \Municipio\Helper\Navigation::getMenuItems('main-menu', $this->getPageID(), true, true);
-        $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getMenuItems('secondary-menu', $this->getPageID(), true, false);
+        $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getMenuItems('secondary-menu', $this->getPageID(), true, true);
         $this->data['mobileMenuItems']      = \Municipio\Helper\Navigation::getMenuItems('main-menu', $this->getPageID(), true, true);      
 
         //Complementary navigations
