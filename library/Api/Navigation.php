@@ -38,8 +38,12 @@ class Navigation
         if(isset($pageId)){
             $ancestors = get_post_ancestors($pageId);
 
-            array_pop($ancestors);
             $ancestors = array_reverse($ancestors);
+
+            $ancestors = array_map(function($value) {
+                return strval($value);
+            }, $ancestors);
+
             array_push($ancestors, $pageId);
    
 
