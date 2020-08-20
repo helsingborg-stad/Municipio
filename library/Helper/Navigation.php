@@ -38,7 +38,7 @@ class Navigation
     $parents = self::getAncestors($postId);
 
     //Get all parents
-    $result = self::getItems($parents); 
+    $result = self::getItems($parents, ['page', 'lovprogram']); 
     
     //Format response 
     $result = self::complementObjects($result);
@@ -138,33 +138,61 @@ class Navigation
    */
   private static function getAncestors(int $postId) : array
   { 
-    //Fetch from cache
-    if(isset(self::$cache['ancestors'])) {
-      return self::$cache['ancestors']; 
-    }
 
-    //Get current post type structure
-    $currentPostTypeAncestors = get_post_ancestors($postId);
+    //Check if not a standard page
+    if(get_post_type($postId) !== 'page') {
 
-    //Get the master page ids for posttypes 
-    $pageForPostTypeIds       = self::getPageForPostTypeIds(); 
+      //Get the master page ids for posttypes 
+      $pageForPostTypeIds = self::getPageForPostTypeIds(); 
 
-    //Check if current post type is member of "pageForPostTypeIds". 
-    if(in_array(get_post_type($postId), $pageForPostTypeIds)) {
+      //Check if current post type is member of "pageForPostTypeIds". 
+      if(in_array($currentPostType = get_post_type($postId), $pageForPostTypeIds)) {
+        
+        //Get the id of the page where posttype is mounted
+        $mountPageId = (int) array_flip($pageForPostTypeIds)[$currentPostType]; 
 
-      //Set Top level item to be child of the pageForPostTypeId
-      $currentPostTypeAncestors[0] = array_flip($pageForPostTypeIds)[get_post_type($postId)]; 
+        //Get page structure
+        $pages =  array_reverse(
+                    array_merge(
+                      get_ancestors($mountPageId, 'page')
+                    )
+                  );
 
-      //Get ancestors of pageForPostTypeId
-      $currentPageIDAncestors = get_post_ancestors($currentPostTypeAncestors[0]);
+        //Append the mount page id
+        $pages[] = $mountPageId;
 
-      //Merge & return result
-      return self::$cache['ancestors'] = array_merge([0], array_reverse($currentPageIDAncestors), array_reverse($currentPostTypeAncestors));
+        //Append current post type sturcture
+        $pages = array_merge (
+          $pages, 
+          array_reverse(
+            get_ancestors($postId, $currentPostType)
+          )
+        ); 
+
+        //Append current id
+        $pages[] = $postId;
+        $pages = array_merge([0], $pages);  
+
+        var_dump($pages); 
+
+        foreach($pages as $pageId) {
+          echo get_the_title($pageId). "
+";
+        }
+        die; 
+
+        return $pages;
+      }
 
     }
     
     //Non page for posttype return
-    return self::$cache['ancestors'] = array_merge([0], array_reverse(get_post_ancestors($postId)));
+    return array_reverse(
+      array_merge(
+        [0], 
+        get_ancestors($postId, 'page')
+      )
+    );
   }
 
   /**
@@ -227,7 +255,7 @@ class Navigation
     if($postType == 'all') {
       $postTypeSQL = "post_type IN(" . implode(", ", get_post_types(['public' => true])) . ")"; 
     } elseif(is_array($postType)) {
-      $postTypeSQL = "post_type IN(" . implode(", ", $postType ) . ")"; 
+      $postTypeSQL = "post_type IN('" . implode("', '", $postType ) . "')"; 
     } else {
       $postTypeSQL = "post_type = '" . $postType . "'"; 
     }
@@ -394,9 +422,6 @@ class Navigation
       ", $metaKey)
     ); 
 
-    //Declare result
-    $hiddenPages = [PHP_INT_MAX]; 
-
     //Add visible page ids
     if(is_array($result) && !empty($result)) {
       foreach($result as $item) {
@@ -405,6 +430,12 @@ class Navigation
         }
         $hiddenPages[] = $item->post_id; 
       }
+    }
+
+    //Do not let the array return be empty
+    if(empty($hiddenPages)) {
+      //Declare result
+      $hiddenPages = [PHP_INT_MAX]; 
     }
 
     return self::$cache['getHiddenPostIds'] = $hiddenPages; 
@@ -582,79 +613,46 @@ class Navigation
           return;
       }
 
-      if (!is_front_page()) {
+      //Define data storage
+      $pageData = []; 
 
-          $post_type = get_post_type_object($post->post_type);
-          $pageData = array();
+      //Homepage 
+      $pageData[get_option('page_on_front')] = array(
+        'label' => __("Home"), 
+        'href' => get_home_url(),
+        'current' => is_front_page() ? true : false,
+        'icon' => 'home'
+      ); 
+      
+      if(!is_front_page()) {
 
-          $id = \Municipio\Helper\Hash::mkUniqueId();
+        //Get all ancestors to page
+        $ancestors = self::getAncestors($post->ID);
 
-          $pageData[$id]['label'] = __('Home');
-          $pageData[$id]['href'] = get_home_url();
-          $pageData[$id]['current'] = false;
-          $pageData[$id]['icon'] = "home"; 
-
-          if (is_single() && $post_type->has_archive) {
-
-              $id = \Municipio\Helper\Hash::mkUniqueId();
-              $pageData[$id]['label'] = $post_type->label;
-
-              $pageData[$id]['href'] = (is_string($post_type->has_archive))
-                  ? get_permalink(get_page_by_path($post_type->has_archive))
-                  : get_post_type_archive_link($post_type->name);
-
-              $pageData[$id]['current'] = false;
+        //Create dataset
+        if(is_countable($ancestors)) {
+          
+          foreach($ancestors as $id) {
+            $pageData[$id]['label'] = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
+            $pageData[$id]['href'] = get_permalink($id);
+            $pageData[$id]['current'] = false;
+            $pageData[$id]['icon'] = 'chevron_right';
           }
+          //Archive fix. 
+          if(is_archive()) {
+            array_pop($pageData);
 
-          if (is_page() || (is_single() && $post_type->hierarchical === true)) {
-              if ($post->post_parent) {
-
-                  $ancestors = array_reverse(get_post_ancestors($post->ID));
-                  $title = get_the_title();
-
-                  foreach ($ancestors as $ancestor) {
-                      if (get_post_status($ancestor) !== 'private') {
-                          $id = \Municipio\Helper\Hash::mkUniqueId();
-                          $pageData[$id]['label'] = get_the_title($ancestor);
-                          $pageData[$id]['href'] = get_permalink($ancestor);
-                          $pageData[$id]['current'] = false;
-                      }
-                  }
-
-                  $id = \Municipio\Helper\Hash::mkUniqueId();
-                  $pageData[$id]['label'] = $title;
-                  $pageData[$id]['href'] = '';
-                  $pageData[$id]['current'] = true;
-
-              } else {
-                  $id = \Municipio\Helper\Hash::mkUniqueId();
-                  $pageData[$id]['label'] = get_the_title();
-                  $pageData[$id]['href'] = '';
-                  $pageData[$id]['current'] = true;
-              }
-
-          } else {
-
-              if (is_home()) {
-                  $title = single_post_title("", false);
-              } elseif (is_tax()) {
-                  $title = single_cat_title(null, false);
-              } elseif (is_category() && $title = get_the_category()) {
-                  $title = $title[0]->name;
-              } elseif (is_archive()) {
-                  $title = post_type_archive_title(null, false);
-              } else {
-                  $title = get_the_title();
-              }
-
-              $id = \Municipio\Helper\Hash::mkUniqueId();
-              $pageData[$id]['label'] = $title;
-              $pageData[$id]['href'] = '';
-              $pageData[$id]['current'] = false;
+            $pageData[$id]['label'] = post_type_archive_title('', false);
+            $pageData[$id]['href'] = get_permalink();
+            $pageData[$id]['current'] = true;
+            $pageData[$id]['icon'] = 'chevron_right';
           }
-
-          return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+        }
       }
+
+      //Apply filters
+      return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+  
   }
 
   /**
