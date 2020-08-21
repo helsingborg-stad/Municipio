@@ -624,12 +624,14 @@ class Navigation
         //Create dataset
         if(is_countable($ancestors)) {
           
+          //Add items 
           foreach($ancestors as $id) {
             $pageData[$id]['label'] = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
             $pageData[$id]['href'] = get_permalink($id);
             $pageData[$id]['current'] = false;
             $pageData[$id]['icon'] = 'chevron_right';
           }
+
           //Archive fix. 
           if(is_archive()) {
             array_pop($pageData);
