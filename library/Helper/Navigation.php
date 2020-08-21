@@ -38,7 +38,7 @@ class Navigation
     $parents = self::getAncestors($postId);
 
     //Get all parents
-    $result = self::getItems($parents, ['page', 'lovprogram']); 
+    $result = self::getItems($parents); 
     
     //Format response 
     $result = self::complementObjects($result);
@@ -552,7 +552,8 @@ class Navigation
 
         //Add support to page for posttype
         $result = self::appendPageForPostTypeItems($result); 
-
+var_dump(self::buildTree($result)); 
+die;
         //Wheter to include top level or not
         if($includeTopLevel === true) {
           return self::buildTree($result);
@@ -710,6 +711,10 @@ class Navigation
             
             $subset = self::getItems(0, $pageForPostTypeIds[$item['id']]); 
             
+
+            var_dump($subset);
+            die; 
+
             if(is_countable($subset)) {
               
               //Update post parent, if top level before. 
