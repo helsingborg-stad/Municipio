@@ -173,14 +173,6 @@ class Navigation
         $pages[] = $postId;
         $pages = array_merge([0], $pages);  
 
-        var_dump($pages); 
-
-        foreach($pages as $pageId) {
-          echo get_the_title($pageId). "
-";
-        }
-        die; 
-
         return $pages;
       }
 
@@ -729,7 +721,7 @@ class Navigation
               $subset = self::complementObjects($subset); 
             }
 
-            //Merge origon menu
+            //Merge with origin menu
             $result = array_merge($result, (array) $subset);
 
           }
