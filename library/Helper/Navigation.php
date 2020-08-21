@@ -552,8 +552,7 @@ class Navigation
 
         //Add support to page for posttype
         $result = self::appendPageForPostTypeItems($result); 
-var_dump(self::buildTree($result)); 
-die;
+
         //Wheter to include top level or not
         if($includeTopLevel === true) {
           return self::buildTree($result);
@@ -711,10 +710,6 @@ die;
             
             $subset = self::getItems(0, $pageForPostTypeIds[$item['id']]); 
             
-
-            var_dump($subset);
-            die; 
-
             if(is_countable($subset)) {
               
               //Update post parent, if top level before. 
