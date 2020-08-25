@@ -78,8 +78,8 @@ class BaseController
 
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
-        $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', 0, true, true);
-        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', 27992, true, false);
+        $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true);
+        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
         
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('main-menu', $this->getPageID(), true, true);
         
@@ -141,7 +141,7 @@ class BaseController
      * 
      * @return mixed Returns the output of the hook, mixed values. 
      */
-    public function hook($hookKey) {
+    public function hook($hookKey) : string {
         ob_start();
         do_action($hookKey); 
         return apply_filters('Municipio/Hook/' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
@@ -174,9 +174,35 @@ class BaseController
     /**
      * Get current page ID
      */
-    public function getPageID()
+    public function getPageID() : int
     {
-        return get_queried_object_id();
+        //Page for posttype archive mapping result
+        if(is_post_type_archive()) {
+
+            $NavHelper = new \Municipio\Helper\Navigation();
+            $posttypeIds = $NavHelper->getPageForPostTypeIds();
+
+            if(is_array($posttypeIds) && isset($posttypeIds[get_post_type()])) {
+                return $posttypeIds[get_post_type()]; 
+            }
+        }
+
+        //Get the queried page
+        if(get_queried_object_id()) {
+            return get_queried_object_id(); 
+        }
+
+        //Return page for frontpage (fallback)
+        if($frontPageId = get_option('page_on_front')) {
+           return $frontPageId;  
+        }
+
+        //Return page blog (fallback)
+        if($frontPageId = get_option('page_for_posts')) {
+            return $frontPageId;  
+        }
+
+        return new Exception("Whoopsie, could not find anything to build the menu from, sorry!");
     }
 
     /**
@@ -184,7 +210,7 @@ class BaseController
      *
      * @return integer
      */
-    public function getPageParentID()
+    public function getPageParentID() : int
     {
         return wp_get_post_parent_id($this->getPageID());
     }
