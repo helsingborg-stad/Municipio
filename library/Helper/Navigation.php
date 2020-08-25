@@ -82,8 +82,8 @@ class Navigation
   private  function hasChildren(array $array) : array
   {  
 
-    if($array['ID'] == $this->postId) {
-      $children = $this->getItems($array['ID'], get_post_type()); 
+    if($array['ID'] == self::$postId) {
+      $children = self::getItems($array['ID']); 
     } else {
       $children = $this->getChildren($array['ID']);
       
@@ -235,7 +235,7 @@ class Navigation
    * 
    * @return  array               Array of post id:s, post_titles and post_parent
    */
-  private  function getItems($parent = 0, $postType = 'page') 
+  private static function getItems($parent = 0, $postType = 'page') : array 
   {
 
     //Check if if valid post type string
@@ -582,18 +582,16 @@ class Navigation
    * 
    * @return  array   $result    The filtered result set (without top level)
    */
-  public  function removeTopLevel(array $result) {
+  public static function removeTopLevel(array $result) : array {
+    foreach($result as $key => $item) {
+      
+      $id = array_filter(self::getAncestors(self::$postId)); 
 
-    if(is_countable($result)) {
-      foreach($result as $key => $item) {
-        
-        $id = array_filter($this->getAncestors($this->postId)); 
-        
-        if(!empty($id) && $val = array_shift($id)) {
-          $id = $val;
-        } else {
-          $id = $this->postId; 
-        }
+      if(!empty($id) && $val = array_shift($id)) {
+        $id = $val;
+      } else {
+        $id = self::$postId; 
+      }
 
         if($item['id'] == $id) {
           return $item['children']; 
@@ -631,7 +629,7 @@ class Navigation
       if(!is_front_page()) {
 
         //Get all ancestors to page
-        $ancestors = $this->getAncestors($post->ID, false);
+        $ancestors = self::getAncestors($post->ID);
 
         //Create dataset
         if(is_countable($ancestors)) {
