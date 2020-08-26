@@ -59,7 +59,7 @@ class Navigation
     $this->globalToLocal('wpdb', 'db');
 
     //Get all parents
-    $result = $this->getItems($postId); 
+    $result = $this->getItems($postId, get_post_type($postId)); 
 
     //Format response 
     $result = $this->complementObjects($result);
