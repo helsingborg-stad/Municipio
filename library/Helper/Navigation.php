@@ -83,7 +83,7 @@ class Navigation
   {  
 
     if($array['ID'] == $this->postId) {
-      $children = $this->getItems($array['ID'], get_post_type($array['ID'])); 
+      $children = $this->getItems($array['ID'], get_post_type()); 
     } else {
       $children = $this->getChildren($array['ID']);
       
@@ -136,7 +136,7 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private  function getAncestors(int $postId) : array
+  private  function getAncestors(int $postId, $includeTopLevel = true) : array
   { 
 
     //Check if not a standard page
@@ -144,7 +144,6 @@ class Navigation
 
       //Get the master page ids for posttypes 
       $pageForPostTypeIds = $this->getPageForPostTypeIds(); 
-
 
       //Check if current post type is member of "pageForPostTypeIds". 
       if(in_array($currentPostType = get_post_type($postId), $pageForPostTypeIds)) {
@@ -172,7 +171,11 @@ class Navigation
 
         //Append current id
         $pages[] = $postId;
-        $pages = array_merge([0], $pages);  
+
+        //Include top level, if set. 
+        if($includeTopLevel) {
+          $pages = array_merge([0], $pages);  
+        }
 
         return $pages;
       }
@@ -618,7 +621,7 @@ class Navigation
       if(!is_front_page()) {
 
         //Get all ancestors to page
-        $ancestors = $this->getAncestors($post->ID);
+        $ancestors = $this->getAncestors($post->ID, false);
 
         //Create dataset
         if(is_countable($ancestors)) {
