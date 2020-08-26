@@ -183,12 +183,16 @@ class Navigation
     }
     
     //Non page for posttype return
-    return array_reverse(
-      array_merge(
-        [0], 
-        get_ancestors($postId, 'page')
-      )
-    );
+    if($includeTopLevel) {
+      return array_reverse(
+        array_merge(
+          [0], 
+          get_ancestors($postId, 'page')
+        )
+      );
+    } else {
+      return array_reverse(get_ancestors($postId, 'page'));
+    }
   }
 
   /**
@@ -228,7 +232,7 @@ class Navigation
    * 
    * @return  array               Array of post id:s, post_titles and post_parent
    */
-  private  function getItems($parent = 0, $postType = 'page') : array 
+  private  function getItems($parent = 0, $postType = 'page') 
   {
 
     //Check if if valid post type string
@@ -575,19 +579,22 @@ class Navigation
    * 
    * @return  array   $result    The filtered result set (without top level)
    */
-  public  function removeTopLevel(array $result) : array {
-    foreach($result as $key => $item) {
-      
-      $id = array_filter($this->getAncestors($this->postId)); 
-      
-      if(!empty($id) && $val = array_shift($id)) {
-        $id = $val;
-      } else {
-        $id = $this->postId; 
-      }
+  public  function removeTopLevel(array $result) {
 
-      if($item['id'] == $id) {
-        return $item['children']; 
+    if(is_countable($result)) {
+      foreach($result as $key => $item) {
+        
+        $id = array_filter($this->getAncestors($this->postId)); 
+        
+        if(!empty($id) && $val = array_shift($id)) {
+          $id = $val;
+        } else {
+          $id = $this->postId; 
+        }
+
+        if($item['id'] == $id) {
+          return $item['children']; 
+        }
       }
     }
     return []; 
@@ -622,7 +629,7 @@ class Navigation
 
         //Get all ancestors to page
         $ancestors = $this->getAncestors($post->ID, false);
-
+        $ancestors[] = $ancestors; 
         //Create dataset
         if(is_countable($ancestors)) {
           
@@ -636,12 +643,18 @@ class Navigation
 
           //Archive fix. 
           if(is_archive()) {
-            array_pop($pageData);
 
-            $pageData[$id]['label'] = post_type_archive_title('', false);
-            $pageData[$id]['href'] = get_permalink();
-            $pageData[$id]['current'] = true;
-            $pageData[$id]['icon'] = 'chevron_right';
+            //Remove some levels, if page for posttype is used here. 
+            if(in_array(get_post_type(), $this->getPageForPostTypeIds())) {
+              array_pop($pageData); //Remove archive indicator
+              array_pop($pageData); //Remove current
+            } else {
+              $pageData[$id]['label'] = post_type_archive_title('', false);
+              $pageData[$id]['href'] = get_permalink();
+              $pageData[$id]['current'] = true;
+              $pageData[$id]['icon'] = 'chevron_right';
+            }
+
           }
         }
       }
