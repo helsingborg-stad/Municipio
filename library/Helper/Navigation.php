@@ -83,7 +83,7 @@ class Navigation
   {  
 
     if($array['ID'] == $this->postId) {
-      $children = $this->getItems($array['ID']); 
+      $children = $this->getItems($array['ID'], get_post_type($array['ID'])); 
     } else {
       $children = $this->getChildren($array['ID']);
       
