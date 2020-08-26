@@ -254,7 +254,7 @@ class Navigation
 
     //Handle post type cases
     if($postType == 'all') {
-      $postTypeSQL = "post_type IN(" . implode(", ", get_post_types(['public' => true])) . ")"; 
+      $postTypeSQL = "post_type IN('" . implode("', '", get_post_types(['public' => true])) . "')"; 
     } elseif(is_array($postType)) {
       $postTypeSQL = "post_type IN('" . implode("', '", $postType ) . "')"; 
     } else {
