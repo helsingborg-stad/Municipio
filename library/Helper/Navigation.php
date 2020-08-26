@@ -577,7 +577,6 @@ class Navigation
       
       $id = array_filter($this->getAncestors($this->postId)); 
       
-
       if(!empty($id) && $val = array_shift($id)) {
         $id = $val;
       } else {

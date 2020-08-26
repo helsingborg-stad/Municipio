@@ -76,11 +76,9 @@ class BaseController
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems();
 
-        
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true);
         $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
-        
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('main-menu', $this->getPageID(), true, true);
         
         //Complementary navigations
@@ -178,9 +176,10 @@ class BaseController
     {
         //Page for posttype archive mapping result
         if(is_post_type_archive()) {
-
-            $NavHelper = new \Municipio\Helper\Navigation();
-            $posttypeIds = $NavHelper->getPageForPostTypeIds();
+            $NavHelper      = new \Municipio\Helper\Navigation();
+            $posttypeIds    = array_flip(
+                (array) $NavHelper->getPageForPostTypeIds()
+            );
 
             if(is_array($posttypeIds) && isset($posttypeIds[get_post_type()])) {
                 return $posttypeIds[get_post_type()]; 
