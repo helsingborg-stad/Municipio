@@ -26,8 +26,8 @@
         'js-toggle-class'   => 'c-sidebar--collapsed'
     ],
     'endpoints'     => [
-        'children'          => '/wp-json/municipio/v1/navigation/children',
-        'active'            => '/wp-json/municipio/v1/navigation/active'
+        'children'          => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+        'active'            => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
     ],
 ])
 @endsidebar
@@ -37,8 +37,8 @@
     @sidebar([
         'items'     => $secondaryMenuItems,
         'endpoints' => [
-            'children'  => '/wp-json/municipio/v1/navigation/children',
-            'active'    => '/wp-json/municipio/v1/navigation/active'
+            'children'  => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+            'active'    => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
         ],
         'pageId'    => $pageID,
         'classList' => [

@@ -46,6 +46,7 @@ class BaseController
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
         $this->data['homeUrl']              = $this->getHomeUrl();
         $this->data['adminUrl']             = $this->getAdminUrl();
+        $this->data['homeUrlPath']          = parse_url(get_home_url( ), PHP_URL_PATH);
 
         //View porperties
         $this->data['isFrontPage']          = is_front_page(); 
@@ -68,7 +69,7 @@ class BaseController
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
         $this->data['primaryMenuItems']     = \Municipio\Helper\Navigation::getMenuItems('main-menu', $this->getPageID(), true, true);
-        $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getMenuItems('secondary-menu', $this->getPageID(), true, false);
+        $this->data['secondaryMenuItems']   = \Municipio\Helper\Navigation::getMenuItems('secondary-menu', $this->getPageID(), true, true);
         $this->data['mobileMenuItems']      = \Municipio\Helper\Navigation::getMenuItems('main-menu', $this->getPageID(), true, true);      
 
         //Complementary navigations
