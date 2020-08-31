@@ -94,7 +94,7 @@ class Navigation
     if(is_array($children)) {
       $array['children'] = $this->complementObjects($children);
     } else {
-      $array['children'] = $children; 
+      $array['children'] = (bool) $children; 
     }
 
     //Return result
