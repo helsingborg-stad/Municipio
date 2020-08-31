@@ -12,9 +12,13 @@ namespace Municipio\Helper;
 
 class Navigation
 {
-  private static $db;
+  private  $db;
   private  $postId = null;
   private  $cache = []; 
+
+  public function __construct() {
+    $this->globalToLocal('wpdb', 'db');
+  }
 
   /**
    * Get nested array representing page structure
@@ -30,9 +34,6 @@ class Navigation
     if(is_null($this->postId)) {
       $this->postId = $postId; 
     }
-    
-    //Create local instance of wpdb
-    $this->globalToLocal('wpdb', 'db');
     
     //Get all ancestors
     $parents = $this->getAncestors($postId);
@@ -54,9 +55,6 @@ class Navigation
     if(is_null($this->postId)) {
       $this->postId = $postId; 
     }
-
-    //Create local instance of wpdb
-    $this->globalToLocal('wpdb', 'db');
 
     //Get all parents
     $result = $this->getItems($postId, get_post_type($postId)); 
@@ -82,8 +80,8 @@ class Navigation
   private  function hasChildren(array $array) : array
   {  
 
-    if($array['ID'] == self::$postId) {
-      $children = self::getItems($array['ID']); 
+    if($array['ID'] == $this->postId) {
+      $children = $this->getItems($array['ID']); 
     } else {
       $children = $this->getChildren($array['ID']);
       
@@ -110,10 +108,10 @@ class Navigation
   public  function getChildren($postId)
   {  
 
-    $children = self::$db->get_var(
-      self::$db->prepare("
+    $children = $this->db->get_var(
+      $this->db->prepare("
         SELECT ID 
-        FROM " . self::$db->posts . " 
+        FROM " . $this->db->posts . " 
         WHERE post_parent = %d 
         AND post_status = 'publish'
         AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
@@ -235,7 +233,7 @@ class Navigation
    * 
    * @return  array               Array of post id:s, post_titles and post_parent
    */
-  private static function getItems($parent = 0, $postType = 'page') : array 
+  private function getItems($parent = 0, $postType = 'page') : array 
   {
 
     //Check if if valid post type string
@@ -268,9 +266,9 @@ class Navigation
     $parent = implode(", ", $parent); 
     
     //Run query
-    return self::$db->get_results("
+    return $this->db->get_results("
       SELECT ID, post_title, post_parent 
-      FROM " . self::$db->posts . " 
+      FROM " . $this->db->posts . " 
       WHERE post_parent IN(" . $parent . ")
       AND " . $postTypeSQL . "
       AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
@@ -415,10 +413,10 @@ class Navigation
     }
 
     //Get meta
-    $result = (array) self::$db->get_results(
-      self::$db->prepare("
+    $result = (array) $this->db->get_results(
+      $this->db->prepare("
         SELECT post_id, meta_value 
-        FROM ". self::$db->postmeta ." 
+        FROM ". $this->db->postmeta ." 
         WHERE meta_key = %s
       ", $metaKey)
     ); 
@@ -465,10 +463,10 @@ class Navigation
     }
 
     //Get meta
-    $result = (array) self::$db->get_results(
-      self::$db->prepare("
+    $result = (array) $this->db->get_results(
+      $thos->$db->prepare("
         SELECT post_id, meta_value 
-        FROM ". self::$db->postmeta ." 
+        FROM ". $this->db->postmeta ." 
         WHERE meta_key = %s
         AND meta_value != ''
       ", $metaKey)
@@ -582,22 +580,23 @@ class Navigation
    * 
    * @return  array   $result    The filtered result set (without top level)
    */
-  public static function removeTopLevel(array $result) : array {
+  public function removeTopLevel(array $result) : array {
     foreach($result as $key => $item) {
       
-      $id = array_filter(self::getAncestors(self::$postId)); 
+      $id = array_filter($this->getAncestors($this->$postId)); 
 
       if(!empty($id) && $val = array_shift($id)) {
         $id = $val;
       } else {
-        $id = self::$postId; 
+        $id = $this->$postId; 
       }
 
-        if($item['id'] == $id) {
-          return $item['children']; 
-        }
+      if($item['id'] == $id) {
+        return $item['children']; 
       }
+      
     }
+
     return []; 
   }
 
@@ -607,7 +606,7 @@ class Navigation
    * @return array|void
    * @throws \Exception
    */
-  public  function getBreadcrumbItems()
+  public function getBreadcrumbItems()
   {
       global $post;
 
@@ -629,7 +628,7 @@ class Navigation
       if(!is_front_page()) {
 
         //Get all ancestors to page
-        $ancestors = self::getAncestors($post->ID);
+        $ancestors = $this->getAncestors($post->ID);
 
         //Create dataset
         if(is_countable($ancestors)) {
@@ -786,9 +785,9 @@ class Navigation
   {
     global $$global;
     if (is_null($local)) {
-        self::$$global = $$global;
+        $this->$$global = $$global;
     } else {
-        self::$$local = $$global;
+        $this->$$local = $$global;
     }
   }
 
