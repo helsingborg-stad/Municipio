@@ -12,13 +12,11 @@ namespace Municipio\Helper;
 
 class Navigation
 {
-  private  $db;
+  private  static $db;
   private  $postId = null;
   private  $cache = []; 
 
-  public function __construct() {
-    $this->globalToLocal('wpdb', 'db');
-  }
+
 
   /**
    * Get nested array representing page structure
@@ -34,6 +32,9 @@ class Navigation
     if(is_null($this->postId)) {
       $this->postId = $postId; 
     }
+
+    //Create local instance of wpdb
+    $this->globalToLocal('wpdb', 'db');
     
     //Get all ancestors
     $parents = $this->getAncestors($postId);
@@ -55,6 +56,9 @@ class Navigation
     if(is_null($this->postId)) {
       $this->postId = $postId; 
     }
+
+    //Create local instance of wpdb
+    $this->globalToLocal('wpdb', 'db');
 
     //Get all parents
     $result = $this->getItems($postId, get_post_type($postId)); 
@@ -108,10 +112,10 @@ class Navigation
   public  function getChildren($postId)
   {  
 
-    $children = $this->db->get_var(
-      $this->db->prepare("
+    $children = self::$db->get_var(
+      self::$db->prepare("
         SELECT ID 
-        FROM " . $this->db->posts . " 
+        FROM " . self::$db->posts . " 
         WHERE post_parent = %d 
         AND post_status = 'publish'
         AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
@@ -266,9 +270,9 @@ class Navigation
     $parent = implode(", ", $parent); 
     
     //Run query
-    return $this->db->get_results("
+    return self::$db->get_results("
       SELECT ID, post_title, post_parent 
-      FROM " . $this->db->posts . " 
+      FROM " . self::$db->posts . " 
       WHERE post_parent IN(" . $parent . ")
       AND " . $postTypeSQL . "
       AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
@@ -413,10 +417,10 @@ class Navigation
     }
 
     //Get meta
-    $result = (array) $this->db->get_results(
-      $this->db->prepare("
+    $result = (array) self::$db->get_results(
+      self::$db->prepare("
         SELECT post_id, meta_value 
-        FROM ". $this->db->postmeta ." 
+        FROM ". self::$db->postmeta ." 
         WHERE meta_key = %s
       ", $metaKey)
     ); 
@@ -463,10 +467,10 @@ class Navigation
     }
 
     //Get meta
-    $result = (array) $this->db->get_results(
-      $thos->$db->prepare("
+    $result = (array) self::$db->get_results(
+      self::$db->prepare("
         SELECT post_id, meta_value 
-        FROM ". $this->db->postmeta ." 
+        FROM ". self::$db->postmeta ." 
         WHERE meta_key = %s
         AND meta_value != ''
       ", $metaKey)
@@ -583,12 +587,12 @@ class Navigation
   public function removeTopLevel(array $result) : array {
     foreach($result as $key => $item) {
       
-      $id = array_filter($this->getAncestors($this->$postId)); 
+      $id = array_filter($this->getAncestors($this->postId)); 
 
       if(!empty($id) && $val = array_shift($id)) {
         $id = $val;
       } else {
-        $id = $this->$postId; 
+        $id = $this->postId; 
       }
 
       if($item['id'] == $id) {
@@ -785,9 +789,9 @@ class Navigation
   {
     global $$global;
     if (is_null($local)) {
-        $this->$$global = $$global;
+        self::$$global = $$global;
     } else {
-        $this->$$local = $$global;
+        self::$$local = $$global;
     }
   }
 
