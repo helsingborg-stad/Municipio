@@ -85,17 +85,16 @@ class Navigation
   {  
 
     if($array['ID'] == $this->postId) {
-      $children = $this->getItems($array['ID']); 
+      $children = $this->getItems($array['ID'], get_post_type($array['ID'])); 
     } else {
-      $children = $this->getChildren($array['ID']);
-      
+      $children = $this->indicateChildren($array['ID']);
     }
 
     //If null, no children
     if(is_array($children)) {
       $array['children'] = $this->complementObjects($children);
     } else {
-      $array['children'] = is_null($children) ? false : true; 
+      $array['children'] = $children ? true : false; 
     }
 
     //Return result
@@ -103,13 +102,13 @@ class Navigation
   }
 
   /**
-   * Get posts children
+   * Indicate if post has children
    * 
-   * @param   array   $postId    The post id
+   * @param   integer         $postId    The post id
    * 
-   * @return  array              Array of childrens
+   * @return  boolean|null                Tells wheter the post has children or not  
    */
-  public  function getChildren($postId)
+  public  function indicateChildren($postId)
   {  
 
     $children = self::$db->get_var(
@@ -124,7 +123,7 @@ class Navigation
     );
     
     if(is_null($children)) {
-      return $children;
+      return false;
     } else {
       return true;
     }
@@ -268,7 +267,7 @@ class Navigation
       $parent = [$parent]; 
     }
     $parent = implode(", ", $parent); 
-    
+   
     //Run query
     return self::$db->get_results("
       SELECT ID, post_title, post_parent 
@@ -278,8 +277,8 @@ class Navigation
       AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
       AND post_status='publish'
       ORDER BY post_title, menu_order ASC 
-      LIMIT 500
-    ", ARRAY_A);
+      LIMIT 3000
+    ", ARRAY_A); 
   }
   
 
