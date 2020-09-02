@@ -66,13 +66,6 @@
                         window.location.hash='translate';
                 }
 
-                const els = [ document.getElementById('filter-date-from'), document.getElementById('filter-date-to')];
-                for(const el of els){
-                    el.addEventListener('click', event => {
-                        document.getElementById('ui-datepicker-div').classList.add('notranslate');
-                    });
-                }
-
                 function processForm(e) {
                     const oldUrlParams = new URLSearchParams(window.location.search);
                     if(oldUrlParams.get('translate')){
@@ -81,17 +74,24 @@
                     return true;
                 }
                 
-                // Hack to have the translate link in the footer keep all search parameters.
+                // Hack to have the translate link(s) in the footer keep all search parameters.
                 // Relies on the link having the class 'translate-link-js'. 
                 function rewriteTranslateLink(){
-                    const linkEl = document.getElementsByClassName('translate-link-js')[0].firstChild;
                     const urlParams = new URLSearchParams(window.location.search);
                     urlParams.set('translate', true);
-                    linkEl.href = '?' + urlParams.toString() + '#translate';
+                    const linkElements = document.getElementsByClassName('translate-link-js');
+                    Array.from(linkElements).forEach( el => {
+                        if(el.firstChild){
+                            el.firstChild.href = '?' + urlParams.toString() + '#translate';
+                        }
+                    });
                 }
                 
                 document.getElementById('archive-filter').addEventListener("submit", processForm);
-                window.addEventListener('DOMContentLoaded', () => { rewriteTranslateLink(); })
+                window.addEventListener('DOMContentLoaded', () => { 
+                    document.getElementById('ui-datepicker-div')?.classList.add('notranslate');
+                    rewriteTranslateLink(); 
+                })
             </script>
 
             @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
