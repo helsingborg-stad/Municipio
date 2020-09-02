@@ -60,38 +60,38 @@
             @endif   
 
             <script>
-                let els = [ document.getElementById('filter-date-from'), document.getElementById('filter-date-to')];
-                for(let el of els){
+                const urlParams = new URLSearchParams(window.location.search);
+                // If there's an translate parameter, then we need to make sure there's also a translate anchor tag.
+                if(urlParams.get('translate') && urlParams.get('translate') !== '' && !window.location.hash){
+                        window.location.hash='translate';
+                }
+
+                const els = [ document.getElementById('filter-date-from'), document.getElementById('filter-date-to')];
+                for(const el of els){
                     el.addEventListener('click', event => {
                         document.getElementById('ui-datepicker-div').classList.add('notranslate');
                     });
                 }
 
-                loadQueryString = () => { 
-                    let parameters = {}; 
-                    let searchString = location.search.substr(1); 
-                    let pairs = searchString.split("&"); 
-                    let parts;
-                    for(let i = 0; i < pairs.length; i++){
-                        parts = pairs[i].split("=");
-                        let name = parts[0];
-                        let data = decodeURI(parts[1]);
-                        parameters[name] = data;
-                    }    
-                    return parameters;
-                }
-
                 function processForm(e) {
-                    let formElement = document.getElementById('archive-filter');
-                    
-                    let oldUrlParams = loadQueryString();
-                    if(oldUrlParams.translate){
-                        document.getElementById('hidden-translate').value = oldUrlParams.translate;
+                    const oldUrlParams = new URLSearchParams(window.location.search);
+                    if(oldUrlParams.get('translate')){
+                        document.getElementById('hidden-translate').value = oldUrlParams.get('translate');
                     }
                     return true;
                 }
+                
+                // Hack to have the translate link in the footer keep all search parameters.
+                // Relies on the link having the class 'translate-link-js'. 
+                function rewriteTranslateLink(){
+                    const linkEl = document.getElementsByClassName('translate-link-js')[0].firstChild;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    urlParams.set('translate', true);
+                    linkEl.href = '?' + urlParams.toString() + '#translate';
+                }
+                
                 document.getElementById('archive-filter').addEventListener("submit", processForm);
-
+                window.addEventListener('DOMContentLoaded', () => { rewriteTranslateLink(); })
             </script>
 
             @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
