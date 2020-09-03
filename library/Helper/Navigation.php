@@ -610,7 +610,7 @@ class Navigation
    * @return array|void
    * @throws \Exception
    */
-  public function getBreadcrumbItems()
+  public function getBreadcrumbItems($pageId)
   {
       global $post;
 
@@ -632,56 +632,17 @@ class Navigation
       if(!is_front_page()) {
 
         //Get all ancestors to page
-        $ancestors = $this->getAncestors($post->ID);
-
+        $ancestors = $this->getAncestors($pageId);
+        
         //Create dataset
         if(is_countable($ancestors)) {
-
-          //Custom post type
-          if(get_post_type() !== 'page' && !is_archive() && !in_array(get_post_type(), $this->getPageForPostTypeIds())) {
-
-            $postTypeObject = get_post_type_object(get_post_type());
-
-            $pageData[$id]['label'] = $postTypeObject->label;
-            $pageData[$id]['href'] = get_post_type_archive_link(get_post_type());
-            $pageData[$id]['current'] = true;
-            $pageData[$id]['icon'] = 'chevron_right';
-            
-          }
-          
+          array_shift($ancestors);
           //Add items 
           foreach($ancestors as $id) {
             $pageData[$id]['label'] = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
             $pageData[$id]['href'] = get_permalink($id);
             $pageData[$id]['current'] = false;
             $pageData[$id]['icon'] = 'chevron_right';
-          }
-
-          //Archive fix. 
-          if(is_archive()) {
-
-            //Remove some levels, if page for posttype is used here. 
-            if(in_array(get_post_type(), $this->getPageForPostTypeIds())) {
-              
-              array_pop($pageData); //Remove archive indicator
-              array_pop($pageData); //Remove current
-
-              $id = array_flip($this->getPageForPostTypeIds())[get_post_type()]; 
-
-              $pageData[$id]['label'] = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
-              $pageData[$id]['href'] = get_permalink($id);
-              $pageData[$id]['current'] = false;
-              $pageData[$id]['icon'] = 'chevron_right';
-
-            } else {
-
-              $pageData[$id]['label'] = post_type_archive_title('', false);
-              $pageData[$id]['href'] = get_permalink();
-              $pageData[$id]['current'] = true;
-              $pageData[$id]['icon'] = 'chevron_right';
-
-            }
-
           }
         }
       }

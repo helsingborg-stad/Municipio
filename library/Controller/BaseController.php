@@ -74,12 +74,13 @@ class BaseController
         $dropDownMenu = new \Municipio\Helper\Navigation();
 
         //Breadcrumb location helper
-        $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems();
+        $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true);
         $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('main-menu', $this->getPageID(), true, true);
+
 
         //Complementary navigations
         $this->data['tabMenuItems']         = $helpMenu->getMenuItems('header-tabs-menu', $this->getPageID());
@@ -176,14 +177,9 @@ class BaseController
     {
         //Page for posttype archive mapping result
         if(is_post_type_archive()) {
-            $NavHelper      = new \Municipio\Helper\Navigation();
-            $posttypeIds    = array_flip(
-                (array) $NavHelper->getPageForPostTypeIds()
-            );
+            global $post;
 
-            if(is_array($posttypeIds) && isset($posttypeIds[get_post_type()])) {
-                return $posttypeIds[get_post_type()]; 
-            }
+            return get_option('page_for_' . $post->post_type);
         }
 
         //Get the queried page
