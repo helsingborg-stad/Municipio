@@ -13,10 +13,15 @@
 @section('sidebar-left')
 
     @sidebar([
-        'items' => $secondaryMenuItems,
+        'items'     => $secondaryMenuItems,
         'endpoints' => [
-            'children' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
-            'active' => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
+
+            'children'  => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+            'active'    => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
+        ],
+        'classList' => [
+            'u-visibility--hidden@xs',
+            'u-visibility--hidden@sm',
         ],
         'pageId' => $pageID,
         'sidebar' => true
