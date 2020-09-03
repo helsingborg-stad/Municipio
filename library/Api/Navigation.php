@@ -27,7 +27,8 @@ class Navigation
         $parentId = $data->get_params()['pageId'];
 
         if(isset($parentId)){
-            return \Municipio\Helper\Navigation::getPostChildren($parentId);
+            $NavigationInstance = new \Municipio\Helper\Navigation(); 
+            return $NavigationInstance->getPostChildren($parentId);
         }
     }
 

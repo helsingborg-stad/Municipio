@@ -10,6 +10,18 @@
 @stop
 
 @section('sidebar-left')
+
+    @sidebar([
+        'items' => $secondaryMenuItems,
+        'endpoints' => [
+            'children' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+            'active' => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
+        ],
+        'pageId' => $pageID,
+        'sidebar' => true
+    ])
+    @endsidebar
+
     @includeIf('partials.sidebar', ['id' => 'left-sidebar'])
     @includeIf('partials.sidebar', ['id' => 'left-sidebar-bottom'])
 @stop
