@@ -17,7 +17,7 @@
         'endpoints' => [
             'children' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
             'active' => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
-    ],
+        ],
         'pageId' => $pageID,
         'sidebar' => true
     ])

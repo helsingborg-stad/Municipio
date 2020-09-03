@@ -12,9 +12,11 @@ namespace Municipio\Helper;
 
 class Navigation
 {
-  private static $db;
-  private static $postId = null;
-  private static $cache = []; 
+  private  static $db;
+  private  $postId = null;
+  private  $cache = []; 
+
+
 
   /**
    * Get nested array representing page structure
@@ -23,47 +25,50 @@ class Navigation
    * 
    * @return  array                         Nested page array
    */
-  public static function getNested($postId) : array
+  public  function getNested($postId) : array
   {
 
     //Store current post id
-    if(is_null(self::$postId)) {
-      self::$postId = $postId; 
+    if(is_null($this->postId)) {
+      $this->postId = $postId; 
     }
 
     //Create local instance of wpdb
-    self::globalToLocal('wpdb', 'db');
-
+    $this->globalToLocal('wpdb', 'db');
+    
     //Get all ancestors
-    $parents = self::getAncestors($postId);
-
+    $parents = $this->getAncestors($postId);
+    
     //Get all parents
-    $result = self::getItems($parents); 
+    $result = $this->getItems($parents); 
     
     //Format response 
-    $result = self::complementObjects($result);
-
+    $result = $this->complementObjects($result);
+    
     //Return done
     return $result; 
   }
 
-  public static function getPostChildren($postId) : array
+  public  function getPostChildren($postId) : array
   {
 
     //Store current post id
-    if(is_null(self::$postId)) {
-      self::$postId = $postId; 
+    if(is_null($this->postId)) {
+      $this->postId = $postId; 
     }
 
     //Create local instance of wpdb
-    self::globalToLocal('wpdb', 'db');
+    $this->globalToLocal('wpdb', 'db');
 
     //Get all parents
-    $result = self::getItems($postId); 
-    
-    //Format response 
-    $result = self::complementObjects($result);
+    $result = $this->getItems($postId, get_post_type($postId)); 
 
+    //Format response 
+    $result = $this->complementObjects($result);
+
+    //Add support to page for posttype
+    $result = $this->appendPageForPostTypeItems($result); 
+    
     //Return done
     return $result; 
   }
@@ -76,21 +81,20 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private static function hasChildren(array $array) : array
+  private  function hasChildren(array $array) : array
   {  
 
-    if($array['ID'] == self::$postId) {
-      $children = self::getItems($array['ID']); 
+    if($array['ID'] == $this->postId) {
+      $children = $this->getItems($array['ID'], get_post_type($array['ID'])); 
     } else {
-      $children = self::getChildren($array['ID']);
-      
+      $children = $this->indicateChildren($array['ID']);
     }
 
     //If null, no children
     if(is_array($children)) {
-      $array['children'] = self::complementObjects($children);
+      $array['children'] = $this->complementObjects($children);
     } else {
-      $array['children'] = is_null($children) ? false : true; 
+      $array['children'] = (bool) $children; 
     }
 
     //Return result
@@ -98,13 +102,13 @@ class Navigation
   }
 
   /**
-   * Get posts children
+   * Indicate if post has children
    * 
-   * @param   array   $postId    The post id
+   * @param   integer         $postId    The post id
    * 
-   * @return  array              Array of childrens
+   * @return  boolean|null                Tells wheter the post has children or not  
    */
-  public static function getChildren($postId)
+  public  function indicateChildren($postId)
   {  
 
     $children = self::$db->get_var(
@@ -113,13 +117,13 @@ class Navigation
         FROM " . self::$db->posts . " 
         WHERE post_parent = %d 
         AND post_status = 'publish'
-        AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
+        AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
         LIMIT 1
       ", $postId)
     );
     
     if(is_null($children)) {
-      return $children;
+      return false;
     } else {
       return true;
     }
@@ -133,14 +137,66 @@ class Navigation
    * 
    * @return  array              Flat array with parents
    */
-  private static function getAncestors(int $postId) : array
+  private  function getAncestors(int $postId, $includeTopLevel = true) : array
   { 
-    //Fetch from cache
-    if(isset(self::$cache['ancestors'])) {
-      return self::$cache['ancestors']; 
+
+    //Check if not a standard page
+    if(get_post_type($postId) !== 'page') {
+
+      //Get the master page ids for posttypes 
+      $pageForPostTypeIds = $this->getPageForPostTypeIds(); 
+
+      //Check if current post type is member of "pageForPostTypeIds". 
+      if(in_array($currentPostType = get_post_type($postId), $pageForPostTypeIds)) {
+        
+        //Get the id of the page where posttype is mounted
+        $mountPageId = (int) array_flip($pageForPostTypeIds)[$currentPostType]; 
+
+        //Get page structure
+        $pages =  array_reverse(
+                    array_merge(
+                      get_ancestors($mountPageId, 'page')
+                    )
+                  );
+
+        //Append the mount page id
+        $pages[] = $mountPageId;
+
+        //Append current post type sturcture
+        $pages = array_merge (
+          $pages, 
+          array_reverse(
+            get_ancestors($postId, $currentPostType)
+          )
+        ); 
+
+        //Append current id
+        $pages[] = $postId;
+
+        //Include top level, if set. 
+        if($includeTopLevel) {
+          $pages = array_merge([0], $pages);  
+        }
+
+        return $pages;
+      }
+
+    }
+    
+    //Non page for posttype return
+    if($includeTopLevel) {
+      $pages = array_merge(
+        [0], 
+        array_reverse(get_ancestors($postId, 'page'))
+      );
+    } else {
+      $pages = array_reverse(get_ancestors($postId, 'page'));
     }
 
-    return self::$cache['ancestors'] = array_merge([0], array_reverse(get_post_ancestors($postId)));
+    //Append current id
+    $pages[] = $postId;
+
+    return $pages;
   }
 
   /**
@@ -151,26 +207,24 @@ class Navigation
    * 
    * @return  array               Nested array representing page structure
    */
-  private static function buildTree(array $elements, int $parentId = 0) : array 
+  private  function buildTree(array $elements, $parentId = 0) : array 
   {
-
     $branch = array();
 
     if(is_array($elements) && !empty($elements)) {
       foreach ($elements as $element) {
         if ($element['post_parent'] == $parentId) {
-
-          $children = self::buildTree($elements, $element['id']);
-
+          $children = $this->buildTree($elements, $element['id']);
+          
           if ($children) {
             $element['children'] = $children;
           }
-
+          
           $branch[] = $element;
         }
       }
     }
-
+    
     return $branch;
   }
 
@@ -182,7 +236,7 @@ class Navigation
    * 
    * @return  array               Array of post id:s, post_titles and post_parent
    */
-  private static function getItems($parent = 0, $postType = 'page') : array 
+  private function getItems($parent = 0, $postType = 'page') : array 
   {
 
     //Check if if valid post type string
@@ -201,9 +255,9 @@ class Navigation
 
     //Handle post type cases
     if($postType == 'all') {
-      $postTypeSQL = "post_type IN(" . implode(", ", get_post_types(['public' => true])) . ")"; 
+      $postTypeSQL = "post_type IN('" . implode("', '", get_post_types(['public' => true])) . "')"; 
     } elseif(is_array($postType)) {
-      $postTypeSQL = "post_type IN(" . implode(", ", $postType ) . ")"; 
+      $postTypeSQL = "post_type IN('" . implode("', '", $postType ) . "')"; 
     } else {
       $postTypeSQL = "post_type = '" . $postType . "'"; 
     }
@@ -213,18 +267,18 @@ class Navigation
       $parent = [$parent]; 
     }
     $parent = implode(", ", $parent); 
-
+   
     //Run query
     return self::$db->get_results("
       SELECT ID, post_title, post_parent 
       FROM " . self::$db->posts . " 
       WHERE post_parent IN(" . $parent . ")
       AND " . $postTypeSQL . "
-      AND ID NOT IN(" . implode(", ", self::getHiddenPostIds()) . ")
+      AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
       AND post_status='publish'
       ORDER BY post_title, menu_order ASC 
-      LIMIT 500
-    ", ARRAY_A);
+      LIMIT 3000
+    ", ARRAY_A); 
   }
   
 
@@ -235,16 +289,16 @@ class Navigation
    * 
    * @return  array    $objects     The post array, with appended data
    */
-  private static function complementObjects(array $objects) {
+  private  function complementObjects(array $objects) {
     
     if(is_array($objects) && !empty($objects)) {
       foreach($objects as $key => $item) {
-        $objects[$key] = self::transformObject(
-          self::hasChildren(
-            self::appendIsAncestorPost(
-              self::appendIsCurrentPost(
-                self::customTitle(
-                  self::appendHref($item)
+        $objects[$key] = $this->transformObject(
+          $this->hasChildren(
+            $this->appendIsAncestorPost(
+              $this->appendIsCurrentPost(
+                $this->customTitle(
+                  $this->appendHref($item)
                 )
               )
             )
@@ -263,9 +317,9 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendIsAncestorPost(array $array) : array
+  private  function appendIsAncestorPost(array $array) : array
   {
-      if(in_array($array['ID'], self::getAncestors(self::$postId))) {
+      if(in_array($array['ID'], $this->getAncestors($this->postId))) {
         $array['ancestor'] = true; 
       } else {
         $array['ancestor'] = false; 
@@ -281,9 +335,9 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendIsCurrentPost(array $array) : array
+  private  function appendIsCurrentPost(array $array) : array
   {
-      if($array['ID'] == self::$postId) {
+      if($array['ID'] == $this->postId) {
         $array['active'] = true; 
       } else {
         $array['active'] = false; 
@@ -300,7 +354,7 @@ class Navigation
    * 
    * @return  array    $postArray     The post array, with appended data
    */
-  private static function appendHref(array $array, bool $leavename = false) : array
+  private  function appendHref(array $array, bool $leavename = false) : array
   {
       $array['href'] = get_permalink($array['ID'], $leavename);
 
@@ -314,7 +368,7 @@ class Navigation
    * 
    * @return  array   $array  The post array, with appended data
    */
-  private static function transformObject(array $array) : array
+  private  function transformObject(array $array) : array
   {
       //Move post_title to label key
       $array['label'] = $array['post_title'];
@@ -353,12 +407,12 @@ class Navigation
    * 
    * @return array
    */
-  private static function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
+  private  function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
   {
 
     //Get cached result
-    if(isset(self::$cache['getHiddenPostIds'])) {
-      return self::$cache['getHiddenPostIds']; 
+    if(isset($this->cache['getHiddenPostIds'])) {
+      return $this->cache['getHiddenPostIds']; 
     }
 
     //Get meta
@@ -370,9 +424,6 @@ class Navigation
       ", $metaKey)
     ); 
 
-    //Declare result
-    $hiddenPages = [PHP_INT_MAX]; 
-
     //Add visible page ids
     if(is_array($result) && !empty($result)) {
       foreach($result as $item) {
@@ -383,7 +434,13 @@ class Navigation
       }
     }
 
-    return self::$cache['getHiddenPostIds'] = $hiddenPages; 
+    //Do not let the array return be empty
+    if(empty($hiddenPages)) {
+      //Declare result
+      $hiddenPages = [PHP_INT_MAX]; 
+    }
+
+    return $this->cache['getHiddenPostIds'] = $hiddenPages; 
   }
 
   /**
@@ -400,12 +457,12 @@ class Navigation
    * 
    * @return array
    */
-  private static function getMenuTitle(string $metaKey = "custom_menu_title") : array
+  private  function getMenuTitle(string $metaKey = "custom_menu_title") : array
   {
 
     //Get cached result
-    if(isset(self::$cache['getMenuTitle'])) {
-      return self::$cache['getMenuTitle']; 
+    if(isset($this->cache['getMenuTitle'])) {
+      return $this->cache['getMenuTitle']; 
     }
 
     //Get meta
@@ -431,7 +488,7 @@ class Navigation
       }
     }
 
-    return self::$cache['getMenuTitle'] = $pageTitles; 
+    return $this->cache['getMenuTitle'] = $pageTitles; 
   }
 
   /**
@@ -441,9 +498,9 @@ class Navigation
    * 
    * @return object
    */
-  private static function customTitle(array $array) : array
+  private  function customTitle(array $array) : array
   {
-    $customTitles = self::getMenuTitle(); 
+    $customTitles = $this->getMenuTitle(); 
 
     //Get custom title
     if(isset($customTitles[$array['ID']])) {
@@ -464,7 +521,7 @@ class Navigation
    * @param string $menu The menu id to get
    * @return bool|array
    */
-  public static function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true)
+  public  function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true)
   {
 
       //Check for existing wp menu
@@ -485,23 +542,34 @@ class Navigation
                   'post_parent' => $item->menu_item_parent
               ];
             }
+          } else {
+            $result = [];
           }
       } else {
         //Get page tree
         if($fallbackToPageTree === true && is_numeric($pageId)) {
-          $result =  self::getNested($pageId); 
+          $result =  $this->getNested($pageId); 
+        } else {
+          $result = [];
         }
       }
 
+      //Filter for appending and removing objects from navgation
+      $result = apply_filters('Municipio/Navigation/Items', $result);
+
       //Create nested array
-      if(isset($result) && !empty($result)) {
+      if(!empty($result) && is_array($result)) {
+
+        //Add support to page for posttype
+        $result = $this->appendPageForPostTypeItems($result); 
+        //Wheter to include top level or not
         if($includeTopLevel === true) {
-          return self::buildTree($result);
+          return $this->buildTree($result);
         } else {
-
-          $tree = self::buildTree($result); 
-
-           return self::removeTopLevel($tree);
+          
+          return $this->removeTopLevel(
+            $this->buildTree($result)
+          );
         }
       }
 
@@ -515,21 +583,23 @@ class Navigation
    * 
    * @return  array   $result    The filtered result set (without top level)
    */
-  public static function removeTopLevel(array $result) : array {
+  public function removeTopLevel(array $result) : array {
     foreach($result as $key => $item) {
       
-      $id = array_filter(self::getAncestors(self::$postId)); 
+      $id = array_filter($this->getAncestors($this->postId)); 
 
       if(!empty($id) && $val = array_shift($id)) {
         $id = $val;
       } else {
-        $id = self::$postId; 
+        $id = $this->postId; 
       }
 
       if($item['id'] == $id) {
         return $item['children']; 
       }
+      
     }
+
     return []; 
   }
 
@@ -539,7 +609,7 @@ class Navigation
    * @return array|void
    * @throws \Exception
    */
-  public static function getBreadcrumbItems()
+  public function getBreadcrumbItems($pageId)
   {
       global $post;
 
@@ -547,79 +617,123 @@ class Navigation
           return;
       }
 
-      if (!is_front_page()) {
+      //Define data storage
+      $pageData = []; 
 
-          $post_type = get_post_type_object($post->post_type);
-          $pageData = array();
+      //Homepage 
+      $pageData[get_option('page_on_front')] = array(
+        'label' => __("Home"), 
+        'href' => get_home_url(),
+        'current' => is_front_page() ? true : false,
+        'icon' => 'home'
+      ); 
+      
+      if(!is_front_page()) {
 
-          $id = \Municipio\Helper\Hash::mkUniqueId();
-
-          $pageData[$id]['label'] = __('Home');
-          $pageData[$id]['href'] = get_home_url();
-          $pageData[$id]['current'] = false;
-          $pageData[$id]['icon'] = "home"; 
-
-          if (is_single() && $post_type->has_archive) {
-
-              $id = \Municipio\Helper\Hash::mkUniqueId();
-              $pageData[$id]['label'] = $post_type->label;
-
-              $pageData[$id]['href'] = (is_string($post_type->has_archive))
-                  ? get_permalink(get_page_by_path($post_type->has_archive))
-                  : get_post_type_archive_link($post_type->name);
-
-              $pageData[$id]['current'] = false;
+        //Get all ancestors to page
+        $ancestors = $this->getAncestors($pageId);
+        
+        //Create dataset
+        if(is_countable($ancestors)) {
+          array_shift($ancestors);
+          //Add items 
+          foreach($ancestors as $id) {
+            $pageData[$id]['label'] = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
+            $pageData[$id]['href'] = get_permalink($id);
+            $pageData[$id]['current'] = false;
+            $pageData[$id]['icon'] = 'chevron_right';
           }
-
-          if (is_page() || (is_single() && $post_type->hierarchical === true)) {
-              if ($post->post_parent) {
-
-                  $ancestors = array_reverse(get_post_ancestors($post->ID));
-                  $title = get_the_title();
-
-                  foreach ($ancestors as $ancestor) {
-                      if (get_post_status($ancestor) !== 'private') {
-                          $id = \Municipio\Helper\Hash::mkUniqueId();
-                          $pageData[$id]['label'] = get_the_title($ancestor);
-                          $pageData[$id]['href'] = get_permalink($ancestor);
-                          $pageData[$id]['current'] = false;
-                      }
-                  }
-
-                  $id = \Municipio\Helper\Hash::mkUniqueId();
-                  $pageData[$id]['label'] = $title;
-                  $pageData[$id]['href'] = '';
-                  $pageData[$id]['current'] = true;
-
-              } else {
-                  $id = \Municipio\Helper\Hash::mkUniqueId();
-                  $pageData[$id]['label'] = get_the_title();
-                  $pageData[$id]['href'] = '';
-                  $pageData[$id]['current'] = true;
-              }
-
-          } else {
-
-              if (is_home()) {
-                  $title = single_post_title("", false);
-              } elseif (is_tax()) {
-                  $title = single_cat_title(null, false);
-              } elseif (is_category() && $title = get_the_category()) {
-                  $title = $title[0]->name;
-              } elseif (is_archive()) {
-                  $title = post_type_archive_title(null, false);
-              } else {
-                  $title = get_the_title();
-              }
-
-              $id = \Municipio\Helper\Hash::mkUniqueId();
-              $pageData[$id]['label'] = $title;
-              $pageData[$id]['href'] = '';
-              $pageData[$id]['current'] = false;
-          }
-
-          return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+        }
       }
+
+      //Apply filters
+      return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+  
+  }
+
+  /**
+   * Get all post id's mapped as a post type container. 
+   *
+   * @return array
+   */
+  public  function getPageForPostTypeIds() : array {
+
+    //Get cached result
+    if(isset($this->cache['pageForPostType'])) {
+      return $this->cache['pageForPostType']; 
+    }
+
+    //Declare results array 
+    $result = array();
+
+    //Only supported for hierarchical
+    $postTypes = get_post_types([
+      'public' => true, 
+      'hierarchical' => true
+    ]); 
+
+    //Check for results 
+    if(is_countable($postTypes)) {
+      foreach($postTypes as $postType) {
+        
+        //Fetch mapping ID
+        $postId = get_option('page_for_' . $postType, true);
+
+        //Validate mapping ID
+        if(is_numeric($postId)) {
+          $result[$postId] = $postType; 
+        }
+      }
+    }
+
+    return $cache['pageForPostType'] = $result; 
+  }
+
+  /**
+   * Appends items from page for post type menu mapping plugin
+   *
+   * @param   array $result   The page structure
+   * @param   bool  $getItems Boolean indicating wheter to fetch childs, or just a indicator of childs. 
+   * @return  array $result   Menu with appended pfp items. 
+   */
+  public  function appendPageForPostTypeItems($result, $getItems = true) {
+
+    if(is_countable($result)) {
+      foreach($result as $key => $item) {
+        $subset = [];
+        
+        $pageForPostTypeIds = $this->getPageForPostTypeIds(); 
+        
+        if(is_array($pageForPostTypeIds) && array_key_exists($item['id'], $pageForPostTypeIds)) {
+          
+          $result[$key]['children'] = true;
+
+          if($getItems === true) {
+            
+            $subset = $this->getItems(0, $pageForPostTypeIds[$item['id']]); 
+            
+            if(is_countable($subset)) {
+              
+              //Update post parent, if top level before. 
+              foreach($subset as $subKey => $subItem) {
+                if($subset[$subKey]['post_parent'] == 0) {
+                  $subset[$subKey]['post_parent'] = $item['id'];
+                }
+              }
+
+              //Restructure result 
+              $subset = $this->complementObjects($subset); 
+            }
+
+            //Merge with origin menu
+            $result = array_merge($result, (array) $subset);
+
+          }
+        }
+      }
+    }
+
+    return $result;
   }
 
   /**
@@ -631,7 +745,7 @@ class Navigation
    * 
    * @return void
    */
-  private static function globalToLocal($global, $local = null)
+  private  function globalToLocal($global, $local = null)
   {
     global $$global;
     if (is_null($local)) {
