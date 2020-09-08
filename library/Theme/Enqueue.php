@@ -85,11 +85,11 @@ class Enqueue
         wp_enqueue_style('material-icons');
 
         wp_register_style('styleguide-css', get_template_directory_uri(). '/assets/dist/'
-            . \Municipio\Helper\CacheBust::getFilename('css/styleguide.css'));
+            . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         wp_register_style('municipio-css', get_template_directory_uri(). '/assets/dist/'
-            . \Municipio\Helper\CacheBust::getFilename('css/municipio.css'));
+            . \Municipio\Helper\CacheBust::name('css/municipio.css'));
         wp_enqueue_style('municipio-css');
 
 
@@ -181,11 +181,11 @@ class Enqueue
 
 
         wp_register_script('styleguide-js', get_template_directory_uri(). '/assets/dist/'
-            . \Municipio\Helper\CacheBust::getFilename('js/styleguide.js'));
+            . \Municipio\Helper\CacheBust::name('js/styleguide.js'));
         wp_enqueue_script('styleguide-js');
 
         wp_register_script('municipio-js', get_template_directory_uri(). '/assets/dist/'
-            . \Municipio\Helper\CacheBust::getFilename('js/municipio.js'));
+            . \Municipio\Helper\CacheBust::name('js/municipio.js'));
         wp_enqueue_script('municipio-js');
 
         // Municipio
