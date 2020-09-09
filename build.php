@@ -35,9 +35,9 @@ $dirName = basename(dirname(__FILE__));
 $output = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
-    print "---- Running build command $buildCommand for $dirName. ----\n";
+    print "---- Running build command '$buildCommand' for $dirName. ----\n";
     $exitCode = executeCommand($buildCommand);
-    print "---- Done build command $buildCommand for $dirName. ----\n";
+    print "---- Done build command '$buildCommand' for $dirName. ----\n";
     if ($exitCode > 0) {
         exit($exitCode);
     }
