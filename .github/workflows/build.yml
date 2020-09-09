@@ -23,7 +23,6 @@ jobs:
     - name: Cleanup .npmrc
       run: rm ~/.npmrc
 
-    - uses: actions/checkout@master
     - name: Archive Release
       uses: thedoctor0/zip-release@master
       with:
@@ -36,6 +35,7 @@ jobs:
         DRAFT_RELEASE: "false"
         PRE_RELEASE: "false"
         CHANGELOG_FILE: "none"
+        ALLOW_TAG_PREFIX: "true"
       with:
         args: |
             full-release.zip
