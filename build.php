@@ -29,13 +29,15 @@ $removables = [
     'package.json'
 ];
 
+$dirName = dirname(__FILE__);
+
 // Run all build commands.
 $output = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
-    print "Running build command $buildCommand.\n";
-
+    print "---- Running build command $buildCommand for $dirName. ----\n";
     $exitCode = executeCommand($buildCommand);
+    print "---- Done build command $buildCommand for $dirName. ----\n";
     if ($exitCode > 0) {
         exit($exitCode);
     }
@@ -44,7 +46,7 @@ foreach ($buildCommands as $buildCommand) {
 // Remove files and directories.
 foreach ($removables as $removable) {
     if (file_exists($removable)) {
-        print "Removing $removable\n";
+        print "Removing $removable from $dirName\n";
         shell_exec("rm -rf $removable");
     }
 }
