@@ -29,7 +29,7 @@ $removables = [
     'package.json'
 ];
 
-$dirName = dirname(__FILE__);
+$dirName = basename(dirname(__FILE__));
 
 // Run all build commands.
 $output = '';
