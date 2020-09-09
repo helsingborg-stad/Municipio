@@ -24,7 +24,9 @@ $removables = [
     'gulpfile.js',
     'gulpfile.old.js',
     'webpack.config.js',
-    'node_modules'
+    'node_modules',
+    'package-lock.json',
+    'package.json'
 ];
 
 // Run all build commands.
@@ -32,7 +34,8 @@ $output = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
     print "Running build command $buildCommand.\n";
-    exec($buildCommand, $output, $exitCode);
+
+    $exitCode = executeCommand($buildCommand);
     if ($exitCode > 0) {
         exit($exitCode);
     }
@@ -44,4 +47,32 @@ foreach ($removables as $removable) {
         print "Removing $removable\n";
         shell_exec("rm -rf $removable");
     }
+}
+
+/**
+ * Better shell script execution with live output to STDOUT and status code return.
+ * @param  string $command Command to execute in shell.
+ * @return int             Exit code.
+ */
+function executeCommand($command)
+{
+    $proc = popen("$command 2>&1 ; echo Exit status : $?", 'r');
+
+    $liveOutput     = '';
+    $completeOutput = '';
+
+    while (!feof($proc)) {
+        $liveOutput     = fread($proc, 4096);
+        $completeOutput = $completeOutput . $liveOutput;
+        print $liveOutput;
+        @ flush();
+    }
+
+    pclose($proc);
+
+    // Get exit status.
+    preg_match('/[0-9]+$/', $completeOutput, $matches);
+
+    // Return exit status.
+    return intval($matches[0]);
 }
