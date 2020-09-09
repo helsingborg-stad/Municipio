@@ -73,10 +73,12 @@ class Template
         $versions = apply_filters('Municipio/blade/viewVersions', array_reverse(array("v3")));
 
         foreach($versions as $versionKey => $version) {
-            $viewPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
             $viewPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
         }
 
+        $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
+        $viewPaths = array_merge($viewPaths, $externalViewPaths);
+        
         return apply_filters('Municipio/viewPaths', array_unique($viewPaths)); 
     }
 
