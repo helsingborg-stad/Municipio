@@ -18,7 +18,7 @@ jobs:
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
     - name: Run full build.
-      run: ./build.php
+      run: php ./build.php
 
     - name: Cleanup .npmrc
       run: rm ~/.npmrc
