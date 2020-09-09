@@ -28,9 +28,14 @@ $removables = [
 ];
 
 // Run all build commands.
+$output = '';
+$exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
     print "Running build command $buildCommand.\n";
-    shell_exec($buildCommand);
+    exec($buildCommand, $output, $exitCode);
+    if ($exitCode > 0) {
+        exit($exitCode);
+    }
 }
 
 // Remove files and directories.
