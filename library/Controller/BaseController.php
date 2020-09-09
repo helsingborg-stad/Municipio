@@ -46,13 +46,13 @@ class BaseController
         $this->data['languageAttributes']   = $this->getLanguageAttrs();
         $this->data['homeUrl']              = $this->getHomeUrl();
         $this->data['adminUrl']             = $this->getAdminUrl();
-        $this->data['homeUrlPath']          = parse_url(get_home_url( ), PHP_URL_PATH);
+        $this->data['homeUrlPath']          = parse_url(get_home_url(), PHP_URL_PATH);
 
         //View porperties
-        $this->data['isFrontPage']          = is_front_page(); 
-        $this->data['isSingular']           = is_singular(); 
-        $this->data['isSingle']             = is_single(); 
-        $this->data['isSticky']             = is_sticky(); 
+        $this->data['isFrontPage']          = is_front_page();
+        $this->data['isSingular']           = is_singular();
+        $this->data['isSingle']             = is_single();
+        $this->data['isSticky']             = is_sticky();
 
         //Post data
         $this->data['pageTitle']            = $this->getPageTitle();
@@ -101,10 +101,10 @@ class BaseController
 
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
-        $this->data['postType']             = $this->data['postTypeDetails']->name; 
+        $this->data['postType']             = $this->data['postTypeDetails']->name;
 
         //Notice storage
-        $this->data['notice']               = []; 
+        $this->data['notice']               = [];
 
         //Language
         $this->data['lang'] = array(
@@ -124,7 +124,7 @@ class BaseController
         $this->data['hook'] = (object) array(
             'loopStart' => $this->hook('loop_start'),
             'loopEnd' => $this->hook('loop_end')
-        ); 
+        );
 
         //Structural
         $this->getHelperVariables();
@@ -137,18 +137,19 @@ class BaseController
      * Run WordPress hooks
      *
      * @param string $hookKey
-     * 
-     * @return mixed Returns the output of the hook, mixed values. 
+     *
+     * @return mixed Returns the output of the hook, mixed values.
      */
-    public function hook($hookKey) : string {
+    public function hook($hookKey) : string
+    {
         ob_start();
-        do_action($hookKey); 
+        do_action($hookKey);
         return apply_filters('Municipio/Hook/' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
     }
 
     /**
      * Get WordPress header
-     * 
+     *
      * @return string
      */
     public function getWpHeader() : string
@@ -160,7 +161,7 @@ class BaseController
 
     /**
      * Get WordPress footer
-     * 
+     *
      * @return string
      */
     public function getWpFooter() :  string
@@ -176,28 +177,28 @@ class BaseController
     public function getPageID() : int
     {
         //Page for posttype archive mapping result
-        if(is_post_type_archive()) {
+        if (is_post_type_archive()) {
             global $post;
 
             return get_option('page_for_' . $post->post_type);
         }
 
         //Get the queried page
-        if(get_queried_object_id()) {
-            return get_queried_object_id(); 
+        if (get_queried_object_id()) {
+            return get_queried_object_id();
         }
 
         //Return page for frontpage (fallback)
-        if($frontPageId = get_option('page_on_front')) {
-           return $frontPageId;  
+        if ($frontPageId = get_option('page_on_front')) {
+            return $frontPageId;
         }
 
         //Return page blog (fallback)
-        if($frontPageId = get_option('page_for_posts')) {
-            return $frontPageId;  
+        if ($frontPageId = get_option('page_for_posts')) {
+            return $frontPageId;
         }
 
-        return new Exception("Whoopsie, could not find anything to build the menu from, sorry!");
+        return 0;
     }
 
     /**
@@ -442,7 +443,7 @@ class BaseController
         );
     }
 
-    public function getHeaderLayout() //TODO: Do we need this? 
+    public function getHeaderLayout() //TODO: Do we need this?
     {
         $headerLayoutSetting = get_field('header_layout', 'option');
 
