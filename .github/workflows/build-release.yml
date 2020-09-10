@@ -3,7 +3,7 @@ name: Build assets and create a release on version tags
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*.*.*'
 jobs:
   build:
 
