@@ -43,11 +43,13 @@ foreach ($buildCommands as $buildCommand) {
     }
 }
 
-// Remove files and directories.
-foreach ($removables as $removable) {
-    if (file_exists($removable)) {
-        print "Removing $removable from $dirName\n";
-        shell_exec("rm -rf $removable");
+// Remove files and directories if '--cleanup' argument is supplied to save local developers from disasters.
+if (isset($argv[1]) && $argv[1] === '--cleanup') {
+    foreach ($removables as $removable) {
+        if (file_exists($removable)) {
+            print "Removing $removable from $dirName\n";
+            shell_exec("rm -rf $removable");
+        }
     }
 }
 
