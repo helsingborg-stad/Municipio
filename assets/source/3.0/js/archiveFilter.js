@@ -44,6 +44,10 @@ export default class ArchiveFilter{
         const toggleFilterDivButton = document.querySelector('[js-toggle-trigger="filterDiv"]');
         const filterDiv = document.querySelector('[js-toggle-item="filterDiv"]');
 
+        if (!toggleFilterDivButton || !filterDiv) {
+            return;
+        }
+
         if(localStorage.getItem('showFilterDiv') === 'true') {
             filterDiv.classList.toggle('u-display--none');
             toggleFilterDivButton.setAttribute('aria-pressed', 'true');
