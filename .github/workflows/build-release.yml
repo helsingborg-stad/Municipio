@@ -15,7 +15,7 @@ jobs:
     - name: Inject access token in .npmrc
       run: | 
         echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
-        echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
     - name: Run full build.
       run: php ./build.php
