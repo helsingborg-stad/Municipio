@@ -1,4 +1,4 @@
-name: Build assets
+name: Build assets and create a release on version tags
 
 on:
   push:
