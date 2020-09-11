@@ -16,6 +16,8 @@ const autoprefixer = require('autoprefixer');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
 
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin-fixed-hashbug');
+
 
 module.exports = {
     mode: ifProduction('production', 'development'),
@@ -82,7 +84,7 @@ module.exports = {
                     {
                         loader: 'fast-css-loader',
                         options: {
-                            importLoaders: 3, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
+                            importLoaders: 2, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
                             sourceMap: true,
                         },
                     },
@@ -98,8 +100,7 @@ module.exports = {
                         options: {
                             sourceMap: true,
                         }
-                    },
-                    'import-glob-loader'
+                    }
                 ],
             },
 
@@ -243,6 +244,14 @@ module.exports = {
          * Enable build OS notifications (when using watch command)
          */
         new WebpackNotifierPlugin({alwaysNotify: true, skipFirstNotification: true}),
+
+
+        /**
+         * Optimize slow build time during development
+         */
+        ifNotProduction(
+            new HardSourceWebpackPlugin()
+        ),
 
         /**
          * Minimize CSS assets
