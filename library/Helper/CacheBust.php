@@ -22,7 +22,7 @@ class CacheBust
             } elseif (WP_DEBUG) {
                 echo '<div style="color:red">Error: Assets not built. Go to ' .
                     get_stylesheet_directory() .
-                    ' and run gulp. See ' .
+                    ' and run "npm run build". See ' .
                     get_stylesheet_directory() .
                     '/README.md for more info.</div>';
             }
@@ -70,15 +70,15 @@ class CacheBust
      */
     public static function getRevManifest($childTheme = false)
     {
-        /*$themePath = ($childTheme == true) ? get_stylesheet_directory() :
+        $themePath = ($childTheme == true) ? get_stylesheet_directory() :
         get_template_directory();
-        $jsonPath = $themePath . apply_filters('Municipio/Helper/CacheBust/RevManifestPath', '/assets/dist/rev-manifest.json');
+        $jsonPath = $themePath . apply_filters('Municipio/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
 
         if (file_exists($jsonPath)) {
             return json_decode(file_get_contents($jsonPath), true);
         } elseif (WP_DEBUG) {
             echo '<div style="color:red">Error: Assets not built. Go to ' . $themePath . ' and run gulp. See '. $themePath . '/README.md for more info.</div>';
         }
-        */
+        
     }
 }

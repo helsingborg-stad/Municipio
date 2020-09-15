@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const path = require('path');
-const glob = require('glob');
 
 const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -17,6 +16,8 @@ const autoprefixer = require('autoprefixer');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
 
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin-fixed-hashbug');
+
 
 module.exports = {
     mode: ifProduction('production', 'development'),
@@ -29,20 +30,22 @@ module.exports = {
         'css/municipio': './assets/source/3.0/sass/main.scss',
         'js/municipio': './assets/source/3.0/js/municipio.js',
         /* Legacy 2.0  */
-        'js/mce': glob.sync('./assets/source/2.0/mce-js/*.js'),
+        /* TODO: Fix TinyMce Scripts */
+        // 'js/mce': './assets/source/2.0/mce-js/mce.js',
     },
     /**
      * Output settings
      */
     output: {
-        filename: ifProduction('[name].[contenthash].js', '[name].[contenthash].js'),
+        filename: ifProduction('[name].[contenthash].js', '[name].js'),
         path: path.resolve(__dirname, 'assets', 'dist'),
     },
     /**
      * Define external dependencies here
      */
     externals: {
-        jquery: 'jQuery'
+        jquery: 'jQuery',
+        tinymce: 'tinymce'
     },
     module: {
         rules: [
@@ -72,11 +75,16 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     {
-                        loader: 'css-loader',
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
-                            importLoaders: 3, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
+                            hmr: process.env.NODE_ENV === 'development'
+                        }
+                    },
+                    {
+                        loader: 'fast-css-loader',
+                        options: {
+                            importLoaders: 2, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
                             sourceMap: true,
                         },
                     },
@@ -88,12 +96,11 @@ module.exports = {
                         },
                     },
                     {
-                        loader: 'sass-loader',
+                        loader: 'fast-sass-loader',
                         options: {
                             sourceMap: true,
                         }
-                    },
-                    'import-glob-loader'
+                    }
                 ],
             },
 
@@ -106,7 +113,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[contenthash:8].[ext]'),
+                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
                             outputPath: 'images',
                             publicPath: '../images',
                         },
@@ -123,7 +130,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[contenthash:8].[ext]'),
+                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
                             outputPath: 'fonts',
                             publicPath: '../fonts',
                         },
@@ -140,20 +147,42 @@ module.exports = {
         typeof process.env.BROWSER_SYNC_PROXY_URL !== 'undefined' ? new BrowserSyncPlugin(
             // BrowserSync options
             {
-              // browse to http://localhost:3000/ during development
-              host: 'localhost',
-              port: process.env.BROWSER_SYNC_PORT ? process.env.BROWSER_SYNC_PORT : 3000,
-              // proxy the Webpack Dev Server endpoint
-              // (which should be serving on http://localhost:3100/)
-              // through BrowserSync
-              proxy: process.env.BROWSER_SYNC_PROXY_URL
-            },
-            // plugin options
-            {
-              // prevent BrowserSync from reloading the page
-              // and let Webpack Dev Server take care of this
-              reload: false
-            }
+                // browse to http://localhost:3000/ during development
+                host: 'localhost',
+                port: process.env.BROWSER_SYNC_PORT ? process.env.BROWSER_SYNC_PORT : 3000,
+                // proxy the Webpack Dev Server endpoint
+                // (which should be serving on http://localhost:3100/)
+                // through BrowserSync
+                proxy: process.env.BROWSER_SYNC_PROXY_URL,
+                injectCss: true,
+                injectChanges: true,
+                files: [{
+                  // Reload page
+                  match: ['**/*.php', 'assets/dist/js/**/*.js'],
+                  fn: function(event, file) {
+                    if (event === "change") {
+                      const bs = require('browser-sync').get('bs-webpack-plugin');
+                      bs.reload();
+                    }
+                  }
+                },
+                {
+                  // Inject CSS
+                  match: ['assets/dist/css/**/*.css'],
+                  fn: function(event, file) {
+                    if (event === "change") {
+                      const bs = require('browser-sync').get('bs-webpack-plugin');
+                      bs.reload("*.css");
+                    }
+                  }
+                }],
+              },
+              // plugin options
+              {
+                // prevent BrowserSync from reloading the page
+                // and let Webpack Dev Server take care of this
+                reload: false
+              }
         ) : null
         ,
 
@@ -171,7 +200,7 @@ module.exports = {
          * Output CSS files
          */
         new MiniCssExtractPlugin({
-            filename: ifProduction('[name].[contenthash:8].css', '[name].[contenthash:8].css')
+            filename: ifProduction('[name].[contenthash:8].css', '[name].css')
         }),
 
         /**
@@ -215,6 +244,14 @@ module.exports = {
          * Enable build OS notifications (when using watch command)
          */
         new WebpackNotifierPlugin({alwaysNotify: true, skipFirstNotification: true}),
+
+
+        /**
+         * Optimize slow build time during development
+         */
+        ifNotProduction(
+            new HardSourceWebpackPlugin()
+        ),
 
         /**
          * Minimize CSS assets
