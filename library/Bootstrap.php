@@ -41,7 +41,6 @@ add_action('init', function () {
         'options-theme-404'                         => 'group_56d41dbd7e501',
         'options-theme-author'                      => 'group_56caee123c53f',
         'options-theme-color-scheme'                => 'group_56a0a7dcb5c09',
-        'options-theme-cookie-consent'              => 'group_56bc6b6466df1',
         'options-theme-custom-css'                  => 'group_57148a9b42fd5',
         'options-theme-custom-js'                   => 'group_573184999aa2c',
         'options-theme-custom-post-type'            => 'group_56b34353ef1eb',
