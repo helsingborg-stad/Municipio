@@ -120,12 +120,6 @@ class Enqueue
                 'nonce' => wp_create_nonce('wp_rest'),
                 'postTypeRestUrl' => \Municipio\Helper\PostType::postTypeRestUrl()
             ),
-            'cookieConsent' => array(
-                'show'      => get_field('cookie_consent_active', 'option'),
-                'message'   => get_field('cookie_consent_message', 'option'),
-                'button'    => get_field('cookie_consent_button', 'option'),
-                'placement' => get_field('cookie_consent_placement', 'option')
-            ),
             'googleTranslate' => array(
                 'gaTrack' => get_field('google_translate_ga_track', 'option'),
                 'gaUA'    => get_field('google_analytics_ua', 'option')
