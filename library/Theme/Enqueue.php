@@ -111,6 +111,8 @@ class Enqueue
      */
     public function script()
     {
+
+        /*
         wp_register_script($this->defaultPrimeName, Styleguide::getScriptPath());
 
         //Localization
@@ -134,7 +136,8 @@ class Enqueue
             )
 
         ));
-        wp_enqueue_script($this->defaultPrimeName);
+        wp_enqueue_script($this->defaultPrimeName);*/ 
+        
         /*
         wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/2.0/' .
             \Municipio\Helper\CacheBust::name('js/app.js'));
