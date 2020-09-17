@@ -1,7 +1,6 @@
 @section('hero')
     @if (is_active_sidebar('slider-area') === true )
-
-        @php dynamic_sidebar('slider-area'); @endphp
+        @includeIf('partials.sidebar', ['id' => 'slider-area', 'classes' => ['o-row']])
 
         @if (is_front_page() && is_array(get_field('search_display', 'option')) &&
             in_array('hero', get_field('search_display', 'option')))

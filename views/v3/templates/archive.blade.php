@@ -22,8 +22,8 @@
     ])
     @endsidebar
 
-    @includeIf('partials.sidebar', ['id' => 'left-sidebar'])
-    @includeIf('partials.sidebar', ['id' => 'left-sidebar-bottom'])
+    @includeIf('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-row']])
+    @includeIf('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-row']])
 @stop
 
 @section('content')

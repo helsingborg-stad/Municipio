@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @includeIf('partials.sidebar', ['id' => 'content-area-top'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-row']])
 
     @include('partials.archive.archive-filters')
 
@@ -23,7 +23,7 @@
 
     </div>
 
-    @includeIf('partials.sidebar.default', ['id' => 'content-area'])
+    @includeIf('partials.sidebar.default', ['id' => 'content-area', 'classes' => ['o-row']])
 
     @pagination([
         'list' => $paginationList,

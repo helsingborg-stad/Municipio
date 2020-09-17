@@ -28,13 +28,13 @@
     ])
     @endsidebar
 
-    @include('partials.sidebar', ['id' => 'left-sidebar'])
-    @include('partials.sidebar', ['id' => 'left-sidebar-bottom'])
+    @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-row']])
+    @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-row']])
 @stop
 
 @section('content')
 
-    @includeIf('partials.sidebar', ['id' => 'content-area-top'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-row']])
 
     @section('loop')
         {!! $hook->loopStart !!}
@@ -44,14 +44,14 @@
         {!! $hook->loopEnd !!}
     @show
 
-    @includeIf('partials.sidebar', ['id' => 'content-area'])
+    @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-row']])
 
 @stop
 
 @section('sidebar-right')
-    @includeIf('partials.sidebar', ['id' => 'right-sidebar'])
+    @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-row']])
 @stop
 
 @section('below')
-    @includeIf('partials.sidebar', ['id' => 'content-area-bottom'])
+    @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-row']])
 @stop
