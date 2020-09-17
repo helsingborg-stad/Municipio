@@ -17,8 +17,7 @@ class Enqueue
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
 
-        //Customizer Style
-
+        //Google scripts
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
         add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
         add_action('wp_footer', array($this, 'addGoogleTranslate'), 999);
@@ -31,7 +30,6 @@ class Enqueue
         add_filter('the_generator', function ($a, $b) {
             return '';
         }, 9, 2);
-
 
         //Move scripts to footer
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
@@ -64,10 +62,12 @@ class Enqueue
      */
     public function adminStyle()
     {
+        //Load admin css
         wp_register_style('helsingborg-se-admin', get_template_directory_uri(). '/assets/dist/2.0/'
             . \Municipio\Helper\CacheBust::name('css/admin.css'));
         wp_enqueue_style('helsingborg-se-admin');
 
+        // Load admin js
         wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/2.0/'
             . \Municipio\Helper\CacheBust::name('js/admin.js'));
         wp_enqueue_script('helsingborg-se-admin');
@@ -79,30 +79,19 @@ class Enqueue
      */
     public function style()
     {
-
-        // TODO: Make decision where icon fonts should live
+        // Load material icons
         wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
         wp_enqueue_style('material-icons');
 
+        // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri(). '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
+        // Load local municipio css
         wp_register_style('municipio-css', get_template_directory_uri(). '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/municipio.css'));
         wp_enqueue_style('municipio-css');
-
-
-
-        // // Helsingborg Styleguide
-        // wp_register_style('style-guide', get_template_directory_uri()
-        //     .'/assets/dist/3.0/css/styleguide-css.min.css');
-        // wp_enqueue_style('style-guide');
-
-        // // Municipio
-        // wp_register_style('municipio', get_template_directory_uri()
-        //     .'/assets/dist/3.0/css/municipio-css.min.css');
-        // wp_enqueue_style('municipio');
     }
 
     /**
@@ -112,50 +101,7 @@ class Enqueue
     public function script()
     {
 
-        /*
-        wp_register_script($this->defaultPrimeName, Styleguide::getScriptPath());
-
-        //Localization
-        wp_localize_script($this->defaultPrimeName, 'HbgPrimeArgs', array(
-            'api' => array(
-                'root' => esc_url_raw(rest_url()),
-                'nonce' => wp_create_nonce('wp_rest'),
-                'postTypeRestUrl' => \Municipio\Helper\PostType::postTypeRestUrl()
-            ),
-            'googleTranslate' => array(
-                'gaTrack' => get_field('google_translate_ga_track', 'option'),
-                'gaUA'    => get_field('google_analytics_ua', 'option')
-            ),
-            'scrollElevator' => array(
-                'cta' => get_field('scroll_elevator_text', 'option'),
-                'tooltip' => get_field('scroll_elevator_tooltio', 'option'),
-                'tooltipPosition' => get_field('scroll_elevator_tooltio_position', 'option')
-            ),
-            'tableFilter' => array(
-                'empty' => apply_filters('municipio/tablefilter/empty', __('No matching content found…', 'municipio'))
-            )
-
-        ));
-        wp_enqueue_script($this->defaultPrimeName);*/ 
-        
-        /*
-        wp_register_script('municipio', get_template_directory_uri() . '/assets/dist/2.0/' .
-            \Municipio\Helper\CacheBust::name('js/app.js'));
-
-        wp_register_script('municipio-ajax', get_template_directory_uri() . '/assets/dist/2.0/'
-            . \Municipio\Helper\CacheBust::name('js/ajax.js'));
-
-
-
-        wp_enqueue_script('municipio');
-        wp_enqueue_script('municipio-ajax');
-
-        //Load polyfill SAAS
-        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v3/polyfill.min.js', 'municipio');
-
-
-        */
-
+        // Language & parameters 
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
@@ -165,6 +111,9 @@ class Enqueue
                 'onError' => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
+
+        //Enqueue polyfills
+        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v3/polyfill.min.js', 'municipio');
 
         //Comment reply
         if (is_singular() && get_option('thread_comments')) {
@@ -176,25 +125,22 @@ class Enqueue
             wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true);
         }
 
-
+        //Load local styleguide js
         wp_register_script('styleguide-js', get_template_directory_uri(). '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('js/styleguide.js'));
         wp_enqueue_script('styleguide-js');
 
+        //Load local municipio js
         wp_register_script('municipio-js', get_template_directory_uri(). '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('js/municipio.js'));
         wp_enqueue_script('municipio-js');
-
-        // Municipio
-        // wp_register_script('municipio', get_template_directory_uri()
-        //     .'/assets/dist/3.0/js/municipio-js.min.js');
-        // wp_enqueue_script('municipio');
-        // // Helsingborg Styleguide
-        // wp_register_script('style-guide', get_template_directory_uri()
-        //     .'/assets/dist/3.0/js/styleguide-js.min.js');
-        // wp_enqueue_script('style-guide');
     }
 
+    /**
+     * Move all scripts to footer, discard settings. 
+     * 
+     * @return void
+     */
     public function moveScriptsToFooter()
     {
         global $wp_scripts;
@@ -204,6 +150,7 @@ class Enqueue
 
     /**
      * Enqueue Google reCAPTCHA
+     * 
      * @return void
      */
     public function googleReCaptcha()
@@ -221,6 +168,7 @@ class Enqueue
 
     /**
      * Enqueues Google Tag Manager
+     * 
      * @return void
      */
     public function googleTagManager()
@@ -244,7 +192,11 @@ class Enqueue
         }, 999);
     }
 
-
+    /**
+     * Print the google translate element
+     * 
+     * @return void
+     */
     public function addGoogleTranslate()
     {
         echo "<script>
@@ -265,13 +217,16 @@ class Enqueue
 
     /**
      * Removes querystring from any scripts/styles internally
+     * 
      * @param  string $src The soruce path
+     * 
      * @return string      The source path without any querystring
      */
     public function removeScriptVersion($src)
     {
-        $siteUrlComponents = parse_url(get_site_url());
-        $urlComponents = parse_url($src);
+        $siteUrlComponents  = parse_url(get_site_url());
+        $urlComponents      = parse_url($src);
+
         // Check if the URL is internal or external
         if (!empty($siteUrlComponents['host'])
             && !empty($urlComponents['host'])
@@ -286,8 +241,10 @@ class Enqueue
 
     /**
      * Making deffered loading of scripts a posibillity (removes unwanted renderblocking js)
+     * 
      * @param  string $tag    HTML Script tag
      * @param  string $handle Script handle
+     * 
      * @return string         The script tag
      */
     public function deferedLoadingJavascript($tag, $handle)
@@ -308,24 +265,5 @@ class Enqueue
         }
 
         return str_replace(' src', ' defer="defer" src', $tag);
-    }
-
-    /**
-     * Change jquery deps to hbgprime deps
-     * @return void
-     */
-    public function waitForPrime()
-    {
-        $wp_scripts = wp_scripts();
-
-        if (!is_admin() && isset($wp_scripts->registered)) {
-            foreach ($wp_scripts->registered as $key => $item) {
-                if (is_array($item->deps) && !empty($item->deps)) {
-                    foreach ($item->deps as $depkey => $depencency) {
-                        $item->deps[$depkey] = str_replace("jquery", $this->defaultPrimeName, strtolower($depencency));
-                    }
-                }
-            }
-        }
     }
 }
