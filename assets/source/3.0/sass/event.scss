@@ -68,3 +68,21 @@
 .event-module-footer input {
     max-width: 55px;
 }
+
+.event-accordion{
+    &__trigger{
+        &[aria-pressed="true"]{
+            
+            .c-icon {
+                transform: rotate(180deg);
+                transition: ease .3s transform;
+            }
+        }
+        
+        &:hover{
+            
+            cursor: pointer;
+        }
+    }
+}
+    
