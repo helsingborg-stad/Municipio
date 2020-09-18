@@ -68,10 +68,10 @@
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss-loader": "^3.0.0",
     "postcss-object-fit-images": "^1.1.2",
-    "sass": "^1.26.10",
+    "sass": "^1.26.11",
     "sass-loader": "^7.3.1",
     "stylelint-webpack-plugin": "^1.1.2",
-    "webpack": "^4.44.1",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-config-utils": "^2.3.1",
     "webpack-dev-server": "^3.5.1",
@@ -98,7 +98,7 @@
     "object-fit-videos": "^1.0.4",
     "restify": "^8.5.1",
     "restify-router": "^0.5.1",
-    "stylelint": "^13.6.1",
+    "stylelint": "^13.7.1",
     "webpack-dev-server": "^3.11.0"
   },
   "browser": {
