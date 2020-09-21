@@ -34,17 +34,21 @@
 
 @section('content')
 
+    {!! $hook->loopStart !!}
+
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-row']])
 
     @section('loop')
-        {!! $hook->loopStart !!}
+        {!! $hook->innerLoopStart !!}
         @if($post)
             @include('partials.article', (array) $post)
         @endif
-        {!! $hook->loopEnd !!}
+        {!! $hook->innerLoopEnd !!}
     @show
 
     @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-row']])
+
+    {!! $hook->loopEnd !!}
 
 @stop
 

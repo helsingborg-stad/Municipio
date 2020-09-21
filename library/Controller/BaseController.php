@@ -121,6 +121,8 @@ class BaseController
 
         //Wordpress hooks
         $this->data['hook'] = (object) array(
+            'innerLoopStart' => $this->hook('inner_loop_start'),
+            'innerLoopEnd' => $this->hook('inner_loop_end'),
             'loopStart' => $this->hook('loop_start'),
             'loopEnd' => $this->hook('loop_end')
         );
