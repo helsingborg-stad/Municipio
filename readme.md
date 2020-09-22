@@ -1,5 +1,9 @@
 # Municipio 1.0 (for Helsingborg stad)
 
+## Download plugin.
+To download a complete out of the box working plugin without the need to compile or fetch dependencies.  
+Go [here](https://github.com/helsingborg-stad/Municipio/releases) and download the `full-release.zip` from the latest version.  
+
 ## Getting started
 To get started you'll need to install the required npm packages. To install these components you will need to have Node.js installed on your system.
 
@@ -33,6 +37,13 @@ or just for a single build:
 ```
 $ npm run build
 ```
+
+## Composer
+You can install composer dependencies with.
+```
+$ composer install
+```
+
 
 ## Constants
 
