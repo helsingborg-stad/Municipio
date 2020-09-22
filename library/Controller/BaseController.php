@@ -69,7 +69,6 @@ class BaseController
         $secondary = new \Municipio\Helper\Navigation();
         $mobileMenu = new \Municipio\Helper\Navigation();
         $tabMenu = new \Municipio\Helper\Navigation();
-        $≈ = new \Municipio\Helper\Navigation();
         $helpMenu = new \Municipio\Helper\Navigation();
         $dropDownMenu = new \Municipio\Helper\Navigation();
 
@@ -83,7 +82,7 @@ class BaseController
 
 
         //Complementary navigations
-        $this->data['tabMenuItems']         = $helpMenu->getMenuItems('header-tabs-menu', $this->getPageID());
+        $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
         
@@ -122,6 +121,8 @@ class BaseController
 
         //Wordpress hooks
         $this->data['hook'] = (object) array(
+            'innerLoopStart' => $this->hook('inner_loop_start'),
+            'innerLoopEnd' => $this->hook('inner_loop_end'),
             'loopStart' => $this->hook('loop_start'),
             'loopEnd' => $this->hook('loop_end')
         );
