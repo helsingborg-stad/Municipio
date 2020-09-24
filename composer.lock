@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d125dd4366bd7a94097b7c2249f02fc4",
+    "content-hash": "a12891c560f08609010ed58545804e7b",
     "packages": [
         {
             "name": "aristath/kirki",
@@ -358,12 +358,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "b0a20681c8efd5618101f6994b9ee4e94e87ec5f"
+                "reference": "60ae825f377bb935da0f08e855aad19cb73a4796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/b0a20681c8efd5618101f6994b9ee4e94e87ec5f",
-                "reference": "b0a20681c8efd5618101f6994b9ee4e94e87ec5f",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/60ae825f377bb935da0f08e855aad19cb73a4796",
+                "reference": "60ae825f377bb935da0f08e855aad19cb73a4796",
                 "shasum": ""
             },
             "type": "library",
@@ -383,7 +383,7 @@
                 }
             ],
             "description": "A component library based upon blade engine.",
-            "time": "2020-09-18T07:29:43+00:00"
+            "time": "2020-09-24T10:02:53+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -791,12 +791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "47877317e385831030ede076a54414602a868667"
+                "reference": "6a17d129f38fe6c1fecbdb2506517baa3a7afbce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/47877317e385831030ede076a54414602a868667",
-                "reference": "47877317e385831030ede076a54414602a868667",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/6a17d129f38fe6c1fecbdb2506517baa3a7afbce",
+                "reference": "6a17d129f38fe6c1fecbdb2506517baa3a7afbce",
                 "shasum": ""
             },
             "require": {
@@ -862,7 +862,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-09-17T09:12:06+00:00"
+            "time": "2020-09-23T09:41:19+00:00"
         },
         {
             "name": "psr/container",
