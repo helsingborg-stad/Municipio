@@ -7,11 +7,12 @@ use BladeComponentLibrary\Init as BladeInitator;
 class Template
 {
     private $bladeEngine = null;
+    private $viewPaths = null;
 
     public function __construct()
     {
-        $viewPaths = $this->registerViewPaths();
-        $bladeInit = new BladeInitator($viewPaths);
+        $this->viewPaths = $this->registerViewPaths();
+        $bladeInit = new BladeInitator($this->viewPaths);
         $this->bladeEngine = $bladeInit->getEngine();
 
         /* add_action('init', array($this, 'registerViewPaths'), 10); */
@@ -281,5 +282,15 @@ class Template
         $property = $reflection->getProperty($prop);
         $property->setAccessible(true);
         return $property->getValue($obj);
+    }
+
+    public function cleanViewPath($view)
+    {
+        foreach ($this->viewPaths as $path) {
+            $view = str_replace($path . '/', '', $view);
+        }
+
+        $view = str_replace('.blade.php', '', $view);
+        return $view;
     }
 }
