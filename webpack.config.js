@@ -157,7 +157,7 @@ module.exports = {
                 injectChanges: true,
                 files: [{
                   // Reload page
-                  match: ['**/*.php', 'assets/dist/js/**/*.js'],
+                  match: ['views/**/*.blade.php', 'library/**/*.php', 'assets/dist/js/**/*.js'],
                   fn: function(event, file) {
                     if (event === "change") {
                       const bs = require('browser-sync').get('bs-webpack-plugin');
