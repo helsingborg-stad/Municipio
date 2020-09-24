@@ -3,15 +3,18 @@
 namespace Municipio\Controller;
 
 /**
- * Class Page
+ * Class Singular
  * @package Municipio\Controller
  */
-class PageTwoColumn extends \Municipio\Controller\BaseController
+class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
-    {
+    {   
+        
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));
+
+        var_dump($this->data['post']);
 
         //Get feature image data
         $this->data['feature_image'] = $this->getFeatureImage($this->data['post']->id);
@@ -68,7 +71,7 @@ class PageTwoColumn extends \Municipio\Controller\BaseController
         $author['name'] = get_the_author_meta( 'display_name', $this->data['post']->postAuthor );  
         $author['avatar'] = get_avatar_url($id);
 
-        return apply_filters('Municipio/Controller/Page/author', (object) $author);
+        return apply_filters('Municipio/Controller/Singular/author', (object) $author);
     }
 
     /**
@@ -77,7 +80,7 @@ class PageTwoColumn extends \Municipio\Controller\BaseController
      */
     private function getPostDates($id)
     {
-        return apply_filters('Municipio/Controller/Page/publishDate', (object) [
+        return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
             'published' => get_the_date(), 
             'updated' => get_the_modified_date()
         ]);
@@ -101,6 +104,6 @@ class PageTwoColumn extends \Municipio\Controller\BaseController
             'title' => get_the_title($image_id)
         ];
          
-        return apply_filters('Municipio/Controller/Page/featureImage', $featuredImageObject);
+        return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
     }
 }

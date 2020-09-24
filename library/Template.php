@@ -95,6 +95,7 @@ class Template
             ),
             'data'
         );
+        
         $externalViewData = apply_filters( 'Municipio/viewData', [] );
         
         if(!empty($externalViewData)) {
@@ -123,11 +124,20 @@ class Template
             $template = 'E404';
         }
 
+        $singularTemplates = [
+            'Page-two-column',
+            'Page'
+        ];
+
+        $controller = \Municipio\Helper\Controller::locateController($template);
+        
         //Locate controller
-        if (!$controller = \Municipio\Helper\Controller::locateController($template)) {
+         if(in_array($template, $singularTemplates)) {
+            $controller = \Municipio\Helper\Controller::locateController('Singular');
+        }elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
-
+        
         //Filter
         $controller = apply_filters('Municipio/blade/controller', $controller);
 
