@@ -6,13 +6,13 @@ namespace Municipio\Controller;
  * Class Singular
  * @package Municipio\Controller
  */
-class Single extends \Municipio\Controller\BaseController
+class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
-    {
-
+    {   
+        
         //Get post data 
-        $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post());
+        $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));
 
         //Get feature image data
         $this->data['feature_image'] = $this->getFeatureImage($this->data['post']->id);
