@@ -1,6 +1,10 @@
 export default class Fab{
     showOnScroll(){  
         let fabs = document.getElementsByClassName("c-fab--show-on-scroll");
+
+        if (1 > fabs.length) {
+            return;
+        }
       
         Array.prototype.forEach.call(fabs, fab => {
             if(window.scrollY  >= 150){
