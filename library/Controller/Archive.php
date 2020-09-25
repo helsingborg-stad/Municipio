@@ -20,6 +20,10 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['taxonomies'] = $this->getTaxonomies();
         $this->data['archiveTitle'] = $this->getArchiveTitle();
         $this->data['gridColumnClass'] = apply_filters('Municipio/Controller/Archive:gridColumnClass', get_field('archive_' . sanitize_title($this->data['postType']) . '_grid_columns', 'option'), $this->data['postType']);
+    
+        //Language
+        $this->data['lang']['noResult'] = __('No posts to show', 'municipio'); 
+        
     }
 
     protected function getArchiveTitle()

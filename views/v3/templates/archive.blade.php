@@ -38,16 +38,22 @@
             @if (!empty($posts))
                 @includeIf('partials.post.post-' . $template, ['posts' => $posts])
                 
-                    @pagination([
-                        'list' => $paginationList, 
-                        'classList' => ['u-margin__top--4'], 
-                        'current' => isset($_GET['paged']) ? $_GET['paged'] : 1,
-                        'linkPrefix' => '?paged='
-                        ])
+                @pagination([
+                    'list' => $paginationList, 
+                    'classList' => ['u-margin__top--4'], 
+                    'current' => isset($_GET['paged']) ? $_GET['paged'] : 1,
+                    'linkPrefix' => '?paged='
+                    ])
                 @endpagination
             @else
-                {{-- TODO: add a notice component --}}
-                <?php _e('No posts to show', 'municipio'); ?>
+                @notice([
+                    'type' => 'info',
+                    'message' => [
+                        'text' => $lang['noResult'],
+                        'size' => 'md'
+                    ]
+                ])
+                @endnotice
             @endif
         {!! $hook->loopEnd !!}
     </div>
