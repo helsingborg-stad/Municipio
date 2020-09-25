@@ -47,6 +47,7 @@ class BaseController
         $this->data['homeUrl']              = $this->getHomeUrl();
         $this->data['adminUrl']             = $this->getAdminUrl();
         $this->data['homeUrlPath']          = parse_url(get_home_url(), PHP_URL_PATH);
+        $this->data['siteName']             = $this->getSiteName();
 
         //View porperties
         $this->data['isFrontPage']          = is_front_page();
@@ -146,6 +147,16 @@ class BaseController
         ob_start();
         do_action($hookKey);
         return apply_filters('Municipio/Hook/' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
+    }
+
+    /**
+     * Get WordPress header
+     *
+     * @return string
+     */
+    public function getSiteName() : string
+    {
+        return apply_filters('Municipio/SiteName', get_bloginfo('name')); 
     }
 
     /**

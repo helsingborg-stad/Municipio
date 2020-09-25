@@ -1,30 +1,52 @@
 @extends('templates.master')
 @section('layout')
+    
+    <section class="o-container t-searchform u-margin__top--6">
 
-    <section>
+        <div class="o-row">
+            
+            <div class="o-col-12">
+                @form([
+                    'method' => 'get',
+                    'action' => $homeUrl,
+                    'classList' => []
+                ])
+                    @field([
+                        'type' => 'text',
+                        'value' => $keyword,
+                        'attributeList' => [
+                            'type' => 'search',
+                            'name' => 's',
+                            'required' => true,
+                        ],
+                        'label' => $lang['searchFor']
+                    ])
+                    @endfield
 
-        @form([
-            'method' => 'get',
-            'action' => $homeUrl,
-            'classList' => ['u-margin__bottom--4']
-        ])
-            @field([
-                'type' => 'text',
-                'value' => $keyword,
-                'attributeList' => [
-                    'type' => 'search',
-                    'name' => 's',
-                    'required' => true,
-                ],
-                'label' => $lang['searchFor']
-            ])
-            @endfield
-        @endform
+                    @button([
+                        'id' => 'search-form--submit',
+                        'text' => __('Search', 'municipio'),
+                        'color' => 'primary',
+                        'type' => 'basic',
+                        'size' => 'lg',
+                        'attributeList' => [
+                            'id' => 'search-form--submit'
+                        ]
+                    ])
+                    @endbutton 
 
-        <div class="search-result-count">
-            @typography(['variant' => 'h2', 'element' => 'h2'])
-                {{ $lang['found'] }} {{ $resultCount }} {{ $lang['results'] }} 
-            @endtypography
+                @endform
+
+            </div>
+
+            <div class="o-col-12">
+                <div class="search-result-count">
+                    @typography(['variant' => 'meta', 'element' => 'span'])
+                        {{ $lang['found'] }} {{ $resultCount }} {{ $lang['results'] }} 
+                    @endtypography
+                </div>
+            </div>
+
         </div>
 
     </section>
@@ -32,43 +54,60 @@
     {!! $hook->searchNotices !!}
 
     @if (!$resultCount)
-        @notice([
-            'type' => 'info',
-            'message' => [
-                'text' => $lang['noResult'],
-                'size' => 'sm'
-            ],
-            'icon' => [
-                'name' => 'info',
-                'size' => 'md',
-                'color' => 'white'
-            ]
-        ])
-        @endnotice
+
+        <section class="o-container t-searchform u-margin__top--6">
+            <div class="o-row">
+                <div class="o-col-12">
+                    @notice([
+                        'type' => 'info',
+                        'message' => [
+                            'text' => $lang['noResult'],
+                            'size' => 'md'
+                        ]
+                    ])
+                    @endnotice
+                </div>
+            </div>
+        </section>
+        
     @else
 
-        {!! $hook->loopStart !!}
+        <section class="o-container t-searchresult u-margin__top--6">
+            <div class="o-row">
+                <div class="o-col-12">
 
-        @foreach($posts as $post) 
-            @card([
-                'heading' => $post->postTitleFiltered,
-                'content' => $post->postExcerpt,
-                'buttons' => [
-                    [
-                        'type' => 'filled', 
-                        'color' => 'primary', 
-                        'text' => $lang['viewPage'],
-                        'href' => $post->permalink
-                    ],
-                ],
-                'classList' => ['u-margin__top--4']
-            ])
-            @endcard
-        @endforeach
+                    {!! $hook->loopStart !!}
 
-        {!! $hook->loopEnd !!}
+                    @foreach($posts as $post) 
 
-        <section class="u-mt-0 u-margin__top--2">
+                        @card([
+                            'heading' => $post->postTitleFiltered,
+                            'subHeading' => $siteName,
+                            'content' => $post->postExcerpt,
+                            'link' => $post->permalink,
+                            'classList' => ['u-margin__top--4']
+                        ])
+                        
+                        @typography(["variant" => "meta"])
+
+                            @icon(['icon' => 'link', 'size' => 'inherit'])
+                            @endicon
+
+                            {{ $post->permalink }}
+
+                        @endtypography
+
+                        @endcard
+
+                    @endforeach
+
+                    {!! $hook->loopEnd !!}
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="t-searchpagination u-mt-0 u-margin__top--2">
 
             @if ($paginationList)
                 @pagination([

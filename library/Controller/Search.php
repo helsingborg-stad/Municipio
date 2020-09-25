@@ -20,7 +20,7 @@ class Search extends \Municipio\Controller\Archive
 
         //Search general data  
         $this->data['resultCount']              = $this->wpQuery->found_posts;
-        $this->data['keyword']                  = get_search_query();
+        $this->data['keyword']                  = isset($_GET['s']) ? $_GET['s'] : "";
 
         //Result
         $this->data['posts']                    = $this->getSearchResult($this->wpQuery->posts);
