@@ -24,8 +24,8 @@ class Sidebars
             'description'   => __('The footer area', 'municipio'),
             'before_title'  => '<h2 class="footer-title">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="%1$s" id="%2$s">',
-            'after_widget'  => '</div>'
+            'before_widget' => '<div class="grid-lg-4"><div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div></div>'
         ));
 
         /**
