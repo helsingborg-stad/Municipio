@@ -24,10 +24,11 @@
 </head>
 
 <body class="{{ $bodyClass }}" js-page-id="{{$pageID}}">
+    <div class="site-wrapper">
+
     {{-- Site header --}}
     @includeIf('partials.header')
 
-    <div class="">
 
         {{-- Notices Notice::add() --}}
         @if($notice) 
