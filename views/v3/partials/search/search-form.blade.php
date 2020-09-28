@@ -1,5 +1,5 @@
 {{-- SEARCH: Form, Field and button component --}}
-@modal([
+{{-- @modal([
     'id' => 'm-search-modal__trigger', 
     'classList' => ['search-modal'], 
     'size' => 'xl', 
@@ -26,4 +26,4 @@
      
     @endform
 
-@endmodal
+@endmodal --}}
