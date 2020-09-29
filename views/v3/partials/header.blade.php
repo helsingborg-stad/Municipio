@@ -1,4 +1,4 @@
-<header id="site-header">
+<header id="site-header" style="overflow-x: hidden;">
     @if (!empty($primaryMenuItems))
         @navbar([
             'logo'      => $logotype->standard['url'],
