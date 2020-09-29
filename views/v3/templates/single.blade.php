@@ -28,15 +28,15 @@
     ])
     @endsidebar
 
-    @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
-    @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
+    @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid', 'o-grid--equal-elements']])
+    @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid', 'o-grid--equal-elements']])
 @stop
 
 @section('content')
 
     {!! $hook->loopStart !!}
 
-    @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
+    @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid', 'o-grid--equal-elements']])
 
     @section('loop')
         {!! $hook->innerLoopStart !!}
@@ -46,16 +46,16 @@
         {!! $hook->innerLoopEnd !!}
     @show
 
-    @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
+    @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid', 'o-grid--equal-elements']])
 
     {!! $hook->loopEnd !!}
 
 @stop
 
 @section('sidebar-right')
-    @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
+    @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid', 'o-grid--equal-elements']])
 @stop
 
 @section('below')
-    @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
+    @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid', 'o-grid--equal-elements']])
 @stop
