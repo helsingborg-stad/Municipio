@@ -94,12 +94,12 @@
 @import "~@helsingborg-stad/styleguide/source/sass/object/hero";
 @import "~@helsingborg-stad/styleguide/source/sass/object/lead";
 @import "~@helsingborg-stad/styleguide/source/sass/object/ripple";
-@import "container";
-@import "grid";
+@import "~@helsingborg-stad/styleguide/source/sass/object/container";
+@import "~@helsingborg-stad/styleguide/source/sass/object/grid";
 
-// // ***************************************************************
-// // *** Components
-// // ***************************************************************
+// ***************************************************************
+// *** Components
+// ***************************************************************
 @import "~@helsingborg-stad/styleguide/source/sass/component/header";
 @import "~@helsingborg-stad/styleguide/source/sass/component/footer";
 @import "~@helsingborg-stad/styleguide/source/sass/component/avatar";
