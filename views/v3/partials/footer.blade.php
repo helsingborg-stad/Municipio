@@ -1,7 +1,9 @@
 @if (is_active_sidebar('bottom-sidebar'))
-    <div class="grid grid--columns bottom-sidebar">
+<div class="o-container o-container--fullwidth">
+    <div class="o-grid bottom-sidebar">
         <?php dynamic_sidebar('bottom-sidebar'); ?>
     </div>
+</div>
 @endif
 
 <footer id="site-footer" class="{{ apply_filters('Views/Partials/Header/FooterClass', 'site-footer') }}">
@@ -14,8 +16,8 @@
     @section('footer-body')
         <div class="container">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
-                <div class="grid grid--columns">
-                    <div class="grid-sm-12">
+                <div class="o-grid">
+                    <div class="o-grid-12">
                         <nav>
                             <ul class="nav nav-help nav-horizontal">
                                 {!!
@@ -42,8 +44,8 @@
                 </div>
             @endif
 
-            <div class="grid">
-                <div class="grid-sm-12">
+            <div class="o-grid">
+                <div class="o-grid-12">
                     @if (get_field('footer_logotype', 'option') != 'hide')
                         <img class="site-footer__logo" src="{{$logotype->standard['url']}}">
                     @endif
@@ -51,8 +53,8 @@
 
                 {{-- ## Footer widget area begin ## --}}
                 @if (is_active_sidebar('footer-area'))
-                    <div class="grid-md-12">
-                        <div class="grid grid--columns sidebar-footer-area">
+                    <div class="o-grid-12">
+                        <div class="o-grid sidebar-footer-area">
                                 <?php dynamic_sidebar('footer-area'); ?>
                         </div>
                     </div>

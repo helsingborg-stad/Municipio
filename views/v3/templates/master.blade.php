@@ -58,7 +58,7 @@
                             </div>
                         @endif
                             
-                        <div class="o-grid o-order-1 o-order-2@md">
+                        <div class="o-grid-12 o-grid-auto@md o-order-1 o-order-2@md">
                             @yield('content')
                         </div>
 

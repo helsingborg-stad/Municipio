@@ -11,6 +11,20 @@ class Sidebars
 
         add_filter('Modularity/Module/Container/Sidebars', array($this, 'registerSidebarWithContainerSupport'));
         add_filter('Modularity/Module/Container/Modules', array($this, 'registerModulesWithContainerSupport'));
+        
+        add_filter('Modularity/Display/BeforeModule', array($this, 'replaceGridClasses'), 10, 1);
+    }
+
+    public function replaceGridClasses($beforeMarkup)
+    {
+        $beforeMarkup = str_replace('grid-md-12', 'o-grid-12@md', $beforeMarkup);
+        $beforeMarkup = str_replace('grid-md-9', 'o-grid-9@md', $beforeMarkup);
+        $beforeMarkup = str_replace('grid-md-8', 'o-grid-8@md', $beforeMarkup);
+        $beforeMarkup = str_replace('grid-md-6', 'o-grid-6@md', $beforeMarkup);
+        $beforeMarkup = str_replace('grid-md-4', 'o-grid-4@md', $beforeMarkup);
+        $beforeMarkup = str_replace('grid-md-3', 'o-grid-3@md', $beforeMarkup);
+
+        return $beforeMarkup;
     }
 
     public function register()
@@ -24,7 +38,7 @@ class Sidebars
             'description'   => __('The footer area', 'municipio'),
             'before_title'  => '<h2 class="footer-title">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="grid-lg-4"><div class="%1$s" id="%2$s">',
+            'before_widget' => '<div class="o-grid-4@lg"><div class="%1$s" id="%2$s">',
             'after_widget'  => '</div></div>'
         ));
 
