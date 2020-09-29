@@ -45,32 +45,32 @@
             @section('layout')
                 <div class="o-container">
                     @hasSection('above')
-                        <div class="o-row">
-                            <div class="o-col-12">
+                        <div class="o-grid">
+                            <div class="o-grid-12">
                                 @yield('above')
                             </div>
                         </div>
                     @endif
-                    <div class="o-row">
+                    <div class="o-grid">
                         @hasSection('sidebar-left')                           
-                            <div class="o-col-12 o-col-3@md o-col-order-2 o-col-order-1@md">
+                            <div class="o-grid-12 o-grid-3@md o-order-2 o-order-1@md">
                                 @yield('sidebar-left')
                             </div>
                         @endif
                             
-                        <div class="o-col o-col-order-1 o-col-order-2@md">
+                        <div class="o-grid o-order-1 o-order-2@md">
                             @yield('content')
                         </div>
 
                         @hasSection('sidebar-right')
-                            <div class="o-col-12 o-col-3@md o-col-order-3 o-col-order-3@md">
+                            <div class="o-grid-12 o-grid-3@md o-order-3 o-order-3@md">
                                 @yield('sidebar-right')
                             </div>
                         @endif
                     </div>
                     @hasSection('below')
-                        <div class="o-row">
-                            <div class="o-col-12">
+                        <div class="o-grid">
+                            <div class="o-grid-12">
                                 @yield('below')
                             </div>
                         </div>

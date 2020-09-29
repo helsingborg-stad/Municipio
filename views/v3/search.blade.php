@@ -3,8 +3,8 @@
 
     @if($hook->customSearchPage) 
         <section class="o-container t-customsearchpage u-margin__top--6">
-            <div class="o-row">
-                <div class="o-col-12">
+            <div class="o-grid">
+                <div class="o-grid-12">
                     {!! $hook->customSearchPage !!}
                 </div>
             </div>
@@ -13,9 +13,9 @@
     
         <section class="o-container t-searchform u-margin__top--6">
 
-            <div class="o-row">
+            <div class="o-grid">
                 
-                <div class="o-col-12">
+                <div class="o-grid-12">
                     @form([
                         'method' => 'get',
                         'action' => $homeUrl,
@@ -49,7 +49,7 @@
 
                 </div>
 
-                <div class="o-col-12">
+                <div class="o-grid-12">
                     <div class="search-result-count">
                         @typography(['variant' => 'meta', 'element' => 'span'])
                             {{ $lang['found'] }} {{ $resultCount }} {{ $lang['results'] }} 
@@ -67,8 +67,8 @@
         @if (!$resultCount)
 
             <section class="o-container t-searchform u-margin__top--6">
-                <div class="o-row">
-                    <div class="o-col-12">
+                <div class="o-grid">
+                    <div class="o-grid-12">
                         @notice([
                             'type' => 'info',
                             'message' => [
@@ -84,8 +84,8 @@
         @else
 
             <section class="o-container t-searchresult u-margin__top--6">
-                <div class="o-row">
-                    <div class="o-col-12">
+                <div class="o-grid">
+                    <div class="o-grid-12">
 
                         {!! $hook->loopStart !!}
 
