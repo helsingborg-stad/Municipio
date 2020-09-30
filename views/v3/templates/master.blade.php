@@ -26,8 +26,12 @@
 <body class="{{ $bodyClass }}" js-page-id="{{$pageID}}">
     <div class="site-wrapper">
 
-    {{-- Site header --}}
-    @includeIf('partials.header')
+        {{-- Site header --}}
+        @section('site-header')
+            @if (!empty($headerLayout))
+                @includeIf('partials.header.' . $headerLayout)
+            @endif
+        @show
 
 
         {{-- Notices Notice::add() --}}
