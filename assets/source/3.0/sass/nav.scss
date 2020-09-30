@@ -23,5 +23,69 @@
 }
 
 .c-navbar .c-button--lg{
-       font-size: 18px;
+    font-size: 18px;
+}
+
+// Reset styles
+.c-nav {
+    button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+}
+
+.c-nav {
+    display: flex;
+    align-items: center;
+
+    .c-nav__brand {
+        padding: $base * 2 $base;
+    }
+
+    // Logo
+    .c-nav__logo {
+        display: block;
+        height: $base * 8;
+        width: auto;
+
+        @include mq('lg') {
+            height: $base * 9;
+        }
+    }
+
+    // Item
+    .c-nav__link {
+        font-size: 16px;
+        padding: $base * 2 $base;
+        text-decoration: none;
+        color: black;
+    }
+}
+
+// Sizes
+.c-nav.c-nav--sm {
+    .c-nav__link {
+        padding: $base $base;
+    }
+}
+
+.c-nav.c-nav--lg {
+    .c-nav__link {
+        font-size: 16px;
+    }
+}
+
+// Modifiers
+.c-nav.c-nav--stretch {
+    justify-content: stretch;
+
+    .c-nav__link {
+        flex-grow: 1;
+        text-align: center;
+    }
 }
