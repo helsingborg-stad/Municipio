@@ -1,0 +1,15 @@
+
+.c-header.c-header--business {
+
+    .c-header__menu.c-header__menu--primary {
+        border-bottom: solid 1px $color-lighter;
+    }
+    .c-header__menu.c-header__menu--secondary {
+        background-color: $color-primary;
+
+         .c-nav .c-nav__link, 
+         a {
+             color: white;
+         }
+    }
+}

@@ -73,6 +73,8 @@ class BaseController
         $helpMenu = new \Municipio\Helper\Navigation();
         $dropDownMenu = new \Municipio\Helper\Navigation();
 
+        $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
+
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
         
@@ -156,7 +158,7 @@ class BaseController
      */
     public function getSiteName() : string
     {
-        return apply_filters('Municipio/SiteName', get_bloginfo('name')); 
+        return apply_filters('Municipio/SiteName', get_bloginfo('name'));
     }
 
     /**

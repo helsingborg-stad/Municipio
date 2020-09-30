@@ -24,10 +24,15 @@
 </head>
 
 <body class="{{ $bodyClass }}" js-page-id="{{$pageID}}">
-    {{-- Site header --}}
-    @includeIf('partials.header')
+    <div class="site-wrapper">
 
-    <div class="">
+        {{-- Site header --}}
+        @section('site-header')
+            @if (!empty($headerLayout))
+                @includeIf('partials.header.' . $headerLayout)
+            @endif
+        @show
+
 
         {{-- Notices Notice::add() --}}
         @if($notice) 
