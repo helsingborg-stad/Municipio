@@ -1,7 +1,7 @@
 <header class="site-header {{isset($classnames) ? is_array($classnames) ? implode(' ', $classnames) : $classnames : ''}}" id="site-header">
     {{-- Search Form --}}
     @section('search-form')
-        {{-- <h2>Search form</h2> --}}
+        {{-- TODO: Implement search form --}}
     @show
 
     {{-- Navbars --}}
@@ -20,6 +20,34 @@
 
     {{-- Mobile Navigation --}}
     @section('mobile-navigation')
-        @includeIf('partials.navigation.modal')
+        @sidebar([
+                'logo'          => $logotype->standard['url'],
+                'items'         => $primaryMenuItems,
+                'pageId'        => $pageID,
+                'classList'     => [
+                    'l-docs--sidebar',
+                    'c-sidebar--fixed',
+                    'u-visibility--hidden@md',
+                    'u-visibility--hidden@lg',
+                    'u-visibility--hidden@xl'
+                ],
+                
+                'attributeList' => [
+                    'js-toggle-item'    => 'js-mobile-sidebar',
+                    'js-toggle-class'   => 'c-sidebar--collapsed'
+                ],
+                'endpoints'     => [
+                    'children'          => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+                    'active'            => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
+                ],
+            ])
+        @endsidebar
+    @show
+
+    @section('helper-navigation')
+        @includeIf('partials.navigation.helper')
     @show
 </header>
+
+@includeIf('partials.hero')
+@includeIf('partials.sidebar', ['id' => 'top-sidebar'])
