@@ -38,13 +38,13 @@ class Nav
     
     //Get all ancestors
     $parents = $this->getAncestors($postId, true);
-var_dump($parents); 
+
     //Get all parents
-    $result = $this->getItems($parents, 'all'); 
+    $result = $this->getItems($parents, ['page', get_post_type()]); 
     
     //Format response 
     $result = $this->complementObjects($result);
-    
+
     //Return done
     return $result; 
   }
@@ -204,6 +204,7 @@ var_dump($parents);
    * 
    * @return  array               Nested array representing page structure
    */
+  
   private  function buildTree(array $elements, $parentId = 0) : array 
   {
     $branch = array();
@@ -559,13 +560,10 @@ var_dump($parents);
       //Create nested array
       if(!empty($result) && is_array($result)) {
 
-        //Add support to page for posttype
-        $result = $this->appendPageForPostTypeItems($result); 
         //Wheter to include top level or not
         if($includeTopLevel === true) {
           return $this->buildTree($result);
-        } else {
-          
+        } else {    
           return $this->removeTopLevel(
             $this->buildTree($result)
           );
