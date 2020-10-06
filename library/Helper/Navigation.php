@@ -595,11 +595,7 @@ class Navigation
 
       //Filter for appending and removing objects from navgation
       $result = apply_filters('Municipio/Navigation/Items', $result);
-var_dump(
-  $this->removeTopLevel(
-    $this->buildTree($result)
-  )
-); 
+
       //Create nested array
       if(!empty($result) && is_array($result)) {
 
