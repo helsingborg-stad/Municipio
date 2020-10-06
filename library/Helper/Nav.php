@@ -50,7 +50,7 @@ class Nav
     return $result; 
   }
 
-  public  function getPostChildren($postId) : array
+  public  function getPostChildren($postId) : array //TODO: REMOVE??
   {
 
     //Store current post id
@@ -82,15 +82,13 @@ class Nav
   private  function hasChildren(array $array) : array
   {  
     if($array['ID'] == $this->postId) {
-
-       //TODO: PFP, check if pfp page, get posttype childs
       $children = $this->getItems($array['ID'], get_post_type($array['ID'])); 
     } else {
       $children = $this->indicateChildren($array['ID']);
     }
 
     //If null, no children
-    if(is_array($children)) {
+    if(is_array($children) && !empty($children)) {
       $array['children'] = $this->complementObjects($children);
     } else {
       $array['children'] = (bool) $children; 
@@ -103,16 +101,14 @@ class Nav
   /**
    * Indicate if post has children
    * 
-   * @param   integer         $postId    The post id
+   * @param   integer         $postId     The post id
    * 
    * @return  boolean|null                Tells wheter the post has children or not  
    */
   public  function indicateChildren($postId)
   {  
 
-    //TODO: PFP, check if pfp page, get posttype
-
-    $children = self::$db->get_var(
+    $currentPostTypeChildren = self::$db->get_var(
       self::$db->prepare("
         SELECT ID 
         FROM " . self::$db->posts . " 
@@ -122,11 +118,30 @@ class Nav
         LIMIT 1
       ", $postId)
     );
+
+    //Check if posttype has content
+    $pageForPostTypeIds = $this->getPageForPostTypeIds(); 
+    if(array_key_exists($postId, $pageForPostTypeIds)) {
+      $postTypeHasPosts = self::$db->get_var(
+        self::$db->prepare("
+          SELECT ID 
+          FROM " . self::$db->posts . " 
+          WHERE post_parent = 0 
+          AND post_status = 'publish'
+          AND post_type = %s
+          AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
+          LIMIT 1
+        ", $pageForPostTypeIds[$postId])
+      );
+    }
     
-    if(is_null($children)) {
-      return false;
-    } else {
+    //Return indication boolean
+    if(!is_null($currentPostTypeChildren)) {
       return true;
+    } elseif(!is_null($postTypeHasPosts)) {
+      return true; 
+    } else {
+      return false;
     }
     
   }
@@ -563,13 +578,16 @@ class Nav
           } else {
             $result = [];
           }
+
       } else {
+
         //Get page tree
         if($fallbackToPageTree === true && is_numeric($pageId)) {
           $result =  $this->getNested($pageId); 
         } else {
           $result = [];
         }
+        
       }
 
       //Filter for appending and removing objects from navgation
@@ -771,24 +789,4 @@ var_dump($this->buildTree($result));
     }
   }
 
-
-  private function debug($postids) {
-    foreach ($postids as $id) {
-
-      $p = get_post($id);
-      $result[] = [
-        'name' => $p->post_title,
-        'id' => $p->ID,
-        'level' => count(get_post_ancestors($p->ID)),
-        'posttype' => $p->post_type,
-      ]; 
-    }
-
-    echo '<pre>'; 
-      print_r($result); 
-    echo '</pre>'; 
-  }
-
 }
-
-
