@@ -52,7 +52,7 @@ class Navigation
 
   public  function getPostChildren($postId) : array
   {
-    
+
     //Store current post id
     if(is_null($this->postId)) {
       $this->postId = $postId; 
@@ -74,7 +74,7 @@ class Navigation
     //Format response 
     $result = $this->complementObjects($result);
     
-    //Return done
+    //Return
     return $result; 
   }
 
