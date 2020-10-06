@@ -17,8 +17,8 @@ class Nav
   private  $cache = []; 
   private  $masterPostType = 'page'; 
 
-
-  public function __construct() {
+  public function __construct()
+  {
     $this->globalToLocal('wpdb', 'db');
   }
 
@@ -46,12 +46,14 @@ class Nav
     //Format response 
     $result = $this->complementObjects($result);
 
-    //Return done
+    //Return 
     return $result; 
   }
 
-  public  function getPostChildren($postId) : array //TODO: REMOVE??
+  public  function getPostChildren($postId) : array
   {
+
+    //TODO: Verify functionality
 
     //Store current post id
     if(is_null($this->postId)) {
@@ -101,11 +103,11 @@ class Nav
   /**
    * Indicate if post has children
    * 
-   * @param   integer         $postId     The post id
+   * @param   integer   $postId     The post id
    * 
-   * @return  boolean|null                Tells wheter the post has children or not  
+   * @return  boolean               Tells wheter the post has children or not  
    */
-  public  function indicateChildren($postId)
+  public  function indicateChildren($postId) : bool
   {  
 
     $currentPostTypeChildren = self::$db->get_var(
@@ -321,7 +323,8 @@ class Nav
    * 
    * @return  array    $objects     The post array, with appended data
    */
-  private  function complementObjects(array $objects) {
+  private  function complementObjects(array $objects) : array
+  {
     
     if(is_array($objects) && !empty($objects)) {
       foreach($objects as $key => $item) {
@@ -620,7 +623,8 @@ var_dump(
    * 
    * @return  array   $result    The filtered result set (without top level)
    */
-  public function removeTopLevel(array $result) : array {
+  public function removeTopLevel(array $result) : array 
+  {
     foreach($result as $item) {
       if($item['ancestor'] == true && is_array($item['children'])) {
         return $item['children'];
@@ -682,7 +686,8 @@ var_dump(
    *
    * @return array
    */
-  public  function getPageForPostTypeIds() : array {
+  public  function getPageForPostTypeIds() : array 
+  {
 
     //Get cached result
     if(isset($this->cache['pageForPostType'])) {
@@ -722,7 +727,8 @@ var_dump(
    * @param   bool  $getItems Boolean indicating wheter to fetch childs, or just a indicator of childs. 
    * @return  array $result   Menu with appended pfp items. 
    */
-  public  function appendPageForPostTypeItems($result, $getItems = true) {
+  public  function appendPageForPostTypeItems($result, $getItems = true) : array
+  {
 
     if(is_countable($result)) {
       foreach($result as $key => $item) {
