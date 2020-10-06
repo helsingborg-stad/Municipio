@@ -657,11 +657,13 @@ class Navigation
       if(!is_front_page()) {
 
         //Get all ancestors to page
-        $ancestors = $this->getAncestors($pageId);
+        $ancestors = array_reverse($this->getAncestors($pageId));
         
         //Create dataset
         if(is_countable($ancestors)) {
-          array_shift($ancestors);
+
+          array_pop($ancestors); 
+
           //Add items 
           foreach($ancestors as $id) {
             $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
@@ -669,6 +671,7 @@ class Navigation
             $pageData[$id]['current'] = false;
             $pageData[$id]['icon']    = 'chevron_right';
           }
+
         }
       }
 
