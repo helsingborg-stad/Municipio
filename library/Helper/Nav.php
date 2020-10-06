@@ -194,7 +194,7 @@ class Nav
       if($fetchAncestors !== false) {
         //Add to stack (with duplicate prevention)
         if(!in_array($ancestorID, $ancestorStack)) {
-          $ancestorStack[] = $ancestorID; 
+          $ancestorStack[] = (int) $ancestorID; 
         }
         
         //Prepare for next iteration
@@ -592,8 +592,11 @@ class Nav
 
       //Filter for appending and removing objects from navgation
       $result = apply_filters('Municipio/Navigation/Items', $result);
-var_dump($this->buildTree($result));
-
+var_dump(
+  $this->removeTopLevel(
+    $this->buildTree($result)
+  )
+); 
       //Create nested array
       if(!empty($result) && is_array($result)) {
 
@@ -621,7 +624,7 @@ var_dump($this->buildTree($result));
     foreach($result as $key => $item) {
       
       $id = array_filter($this->getAncestors($this->postId)); 
-
+var_dump($id); 
       if(!empty($id) && $val = array_shift($id)) {
         $id = $val;
       } else {
