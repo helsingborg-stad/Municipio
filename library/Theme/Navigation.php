@@ -120,18 +120,12 @@ class Navigation
     {
         $menus = array(
             'help-menu' => __('Help menu', 'municipio'),
-            'header-tabs-menu' => __('Header tabs menu', 'municipio')
+            'header-tabs-menu' => __('Header tabs menu', 'municipio'),
+            'main-menu' => __('Primary menu', 'municipio'),
+            'secondary-menu' => __('Secondary menu', 'municipio'),
+            'sidebar-menu' => __('Sidebar menu', 'municipio'),
+            'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
         );
-
-        if (get_field('nav_primary_enable', 'option')) {
-            $menus['main-menu'] = __('Primary menu', 'municipio');
-        }
-
-        $menus['secondary-menu'] = __('Secondary menu', 'municipio');
-
-        if (get_field('nav_sub_enable', 'option')) {
-            $menus['sidebar-menu'] = __('Sidebar menu', 'municipio');
-        }
 
         register_nav_menus($menus);
     }

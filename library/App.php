@@ -33,6 +33,7 @@ class App
         new \Municipio\Theme\Font();
         new \Municipio\Theme\ColorScheme();
         new \Municipio\Theme\FixedActionBar();
+        new \Municipio\Theme\Navigation();
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
