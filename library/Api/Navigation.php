@@ -15,42 +15,19 @@ class Navigation
             'methods' => 'GET',
             'callback' => array($this, 'getPostChildren'),
         ));
-
-        register_rest_route('municipio/v1', '/navigation/active', array(
-            'methods' => 'GET',
-            'callback' => array($this, 'getActiveNodes'),
-        ));
     }
 
     public function getPostChildren($data)
     {
-        $parentId = $data->get_params()['pageId'];
+        if(isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
+            $parentId = $data->get_params()['pageId'];
 
-        if(isset($parentId)){
-            $NavigationInstance = new \Municipio\Helper\Navigation(); 
-            return $NavigationInstance->getPostChildren($parentId);
+            if(isset($parentId)){
+                $NavigationInstance = new \Municipio\Helper\Navigation(); 
+                return $NavigationInstance->getPostChildren($parentId);
+            }
         }
+
+        return []; 
     }
-
-    public function getActiveNodes($data)
-    {
-        $pageId = $data->get_params()['pageId'];
-        
-        if(isset($pageId)){
-            $ancestors = get_post_ancestors($pageId);
-
-            $ancestors = array_reverse($ancestors);
-
-            $ancestors = array_map(function($value) {
-                return strval($value);
-            }, $ancestors);
-
-            array_push($ancestors, $pageId);
-   
-
-            return $ancestors;
-        }
-    }
-
-    
 }

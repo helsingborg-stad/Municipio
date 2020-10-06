@@ -65,15 +65,17 @@ class BaseController
         //Logotypes
         $this->data['logotype']             = $this->getLogotype();
 
-        $breadcrumb = new \Municipio\Helper\Navigation();
-        $primary = new \Municipio\Helper\Navigation();
-        $secondary = new \Municipio\Helper\Navigation();
-        $mobileMenu = new \Municipio\Helper\Navigation();
-        $tabMenu = new \Municipio\Helper\Navigation();
-        $helpMenu = new \Municipio\Helper\Navigation();
-        $dropDownMenu = new \Municipio\Helper\Navigation();
-
+        //Get header layout
         $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
+
+        //Init class for menus
+        $breadcrumb     = new \Municipio\Helper\Navigation();
+        $primary        = new \Municipio\Helper\Navigation();
+        $secondary      = new \Municipio\Helper\Navigation();
+        $mobileMenu     = new \Municipio\Helper\Navigation();
+        $tabMenu        = new \Municipio\Helper\Navigation();
+        $helpMenu       = new \Municipio\Helper\Navigation();
+        $dropDownMenu   = new \Municipio\Helper\Navigation();
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
@@ -82,7 +84,6 @@ class BaseController
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true);
         $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('main-menu', $this->getPageID(), true, true);
-
 
         //Complementary navigations
         $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
