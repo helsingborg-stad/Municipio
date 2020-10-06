@@ -52,22 +52,27 @@ class Navigation
 
   public  function getPostChildren($postId) : array
   {
-
-    //TODO: Verify functionality
-
+    
     //Store current post id
     if(is_null($this->postId)) {
       $this->postId = $postId; 
     }
 
+    //Page for posttype
+    $pageForPostTypeIds = $this->getPageForPostTypeIds(); 
+    if(array_key_exists($postId, $pageForPostTypeIds)) {
+      $postType = $pageForPostTypeIds[$postId]; 
+      $parentId = 0; 
+    } else {
+      $postType = get_post_type($postId);
+      $parentId = $postId; 
+    }
+
     //Get all parents
-    $result = $this->getItems($postId, get_post_type($postId)); 
+    $result = $this->getItems($parentId, $postType); 
 
     //Format response 
     $result = $this->complementObjects($result);
-
-    //Add support to page for posttype
-    $result = $this->appendPageForPostTypeItems($result); 
     
     //Return done
     return $result; 
@@ -717,54 +722,6 @@ class Navigation
     }
 
     return $cache['pageForPostType'] = $result; 
-  }
-
-  /**
-   * Appends items from page for post type menu mapping plugin
-   *
-   * @param   array $result   The page structure
-   * @param   bool  $getItems Boolean indicating wheter to fetch childs, or just a indicator of childs. 
-   * @return  array $result   Menu with appended pfp items. 
-   */
-  public  function appendPageForPostTypeItems($result, $getItems = true) : array
-  {
-
-    if(is_countable($result)) {
-      foreach($result as $key => $item) {
-        $subset = [];
-        
-        $pageForPostTypeIds = $this->getPageForPostTypeIds(); 
-        
-        if(is_array($pageForPostTypeIds) && array_key_exists($item['id'], $pageForPostTypeIds)) {
-          
-          $result[$key]['children'] = true;
-
-          if($getItems === true) {
-            
-            $subset = $this->getItems(0, $pageForPostTypeIds[$item['id']]); 
-            
-            if(is_countable($subset)) {
-              
-              //Update post parent, if top level before. 
-              foreach($subset as $subKey => $subItem) {
-                if($subset[$subKey]['post_parent'] == 0) {
-                  $subset[$subKey]['post_parent'] = $item['id'];
-                }
-              }
-
-              //Restructure result 
-              $subset = $this->complementObjects($subset); 
-            }
-
-            //Merge with origin menu
-            $result = array_merge($result, (array) $subset);
-
-          }
-        }
-      }
-    }
-
-    return $result;
   }
 
   /**
