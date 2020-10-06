@@ -621,23 +621,12 @@ var_dump(
    * @return  array   $result    The filtered result set (without top level)
    */
   public function removeTopLevel(array $result) : array {
-    foreach($result as $key => $item) {
-      
-      $id = array_filter($this->getAncestors($this->postId)); 
-var_dump($id); 
-      if(!empty($id) && $val = array_shift($id)) {
-        $id = $val;
-      } else {
-        $id = $this->postId; 
+    foreach($result as $item) {
+      if($item['ancestor'] == true && is_array($item['children'])) {
+        return $item['children'];
       }
-
-      if($item['id'] == $id) {
-        return $item['children']; 
-      }
-      
     }
-
-    return []; 
+    return [];
   }
 
   /**
