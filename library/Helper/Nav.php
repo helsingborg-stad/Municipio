@@ -15,6 +15,7 @@ class Nav
   private  static $db;
   private  $postId = null;
   private  $cache = []; 
+  private  $masterPostType = 'page'; 
 
 
   public function __construct() {
@@ -40,7 +41,7 @@ class Nav
     $parents = $this->getAncestors($postId, true);
 
     //Get all parents
-    $result = $this->getItems($parents, ['page', get_post_type()]); 
+    $result = $this->getItems($parents, [$this->masterPostType, get_post_type()]); 
     
     //Format response 
     $result = $this->complementObjects($result);
@@ -80,8 +81,9 @@ class Nav
    */
   private  function hasChildren(array $array) : array
   {  
-
     if($array['ID'] == $this->postId) {
+
+       //TODO: PFP, check if pfp page, get posttype childs
       $children = $this->getItems($array['ID'], get_post_type($array['ID'])); 
     } else {
       $children = $this->indicateChildren($array['ID']);
@@ -107,6 +109,8 @@ class Nav
    */
   public  function indicateChildren($postId)
   {  
+
+    //TODO: PFP, check if pfp page, get posttype
 
     $children = self::$db->get_var(
       self::$db->prepare("
@@ -267,7 +271,7 @@ class Nav
     $parent = implode(", ", $parent); 
 
     $sql = "
-    SELECT ID, post_title, post_parent 
+    SELECT ID, post_title, post_parent, post_type
     FROM " . self::$db->posts . " 
     WHERE post_parent IN(" . $parent . ")
     AND " . $postTypeSQL . "
@@ -277,8 +281,21 @@ class Nav
     LIMIT 3000
   "; 
 
+    $resultSet = self::$db->get_results($sql, ARRAY_A); 
+
+    foreach($resultSet as &$item) {
+      if($item['post_type'] != $this->masterPostType && $item['post_parent'] == 0) {
+
+        $pageForPostTypeIds = array_flip((array) $this->getPageForPostTypeIds()); 
+
+        if(array_key_exists($item['post_type'], $pageForPostTypeIds)) {
+          $item['post_parent'] = $pageForPostTypeIds[$item['post_type']]; 
+        }
+      }
+    }
+
     //Run query
-    return self::$db->get_results($sql, ARRAY_A); 
+    return (array) $resultSet; 
   }
   
 
@@ -384,6 +401,7 @@ class Nav
         array(
           'id' => null,
           'post_parent' => null,
+          'post_type' => null,
           'active' => null,
           'ancestor' => null,
           'label' => null,
@@ -556,6 +574,7 @@ class Nav
 
       //Filter for appending and removing objects from navgation
       $result = apply_filters('Municipio/Navigation/Items', $result);
+var_dump($this->buildTree($result));
 
       //Create nested array
       if(!empty($result) && is_array($result)) {
