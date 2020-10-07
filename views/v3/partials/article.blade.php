@@ -20,32 +20,15 @@
 
     <!-- Signature -->
     @if($postTypeDetails->hierarchical)
-        @typography([
-            "variant" => "meta",
-            "classList" => [
-                "u-color__text--darker"
-            ]
+        @signature([
+            'author' => $authorName, 
+            'published' => $publishedDate,
+            'updated' => $updatedDate,
+            'avatar_size' => 'sm',
+            'avatar' => $authorAvatar
         ])
-            <b><?php _e("Published", 'municipio')?>: </b> {{$publishedDate}}
-        @endtypography
-
-        @typography([
-            "variant" => "meta",
-            "classList" => [
-                "u-color__text--darker"
-            ]
-        ])
-            <b><?php _e("Last updated", 'municipio')?>: </b> {{$updatedDate}}
-        @endtypography
+        @endsignature
     @endif
-	
-	@if(isset($permalink))
-		@typography(['variant' => 'meta'])
-			@link(['href' => $permalink])
-				{{$permalink}}
-			@endlink
-		@endtypography
-	@endif
 
 	@includeIf('partials.comments')
 	
