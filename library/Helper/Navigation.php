@@ -574,15 +574,29 @@ class Navigation
 
             $result = []; //Storage of result
 
+            //Get menu ancestors
+            $ancestors = $this->getWpMenuAncestors(
+              $menuItems, 
+              $this->pageIdToMenuID($menuItems, $pageId)
+            ); 
+
             foreach ($menuItems as $item) {
+
+              $isAncestor = in_array($item->ID, $ancestors); 
+
               $result[$item->ID] = [
                   'id' => $item->ID,
+                  'post_parent' => $item->menu_item_parent,
+                  'post_type' => $item->object,
+                  'active' => ($item->object_id == $pageId) ? true : false,
+                  'ancestor' => $isAncestor,
                   'label' => $item->title,
                   'href' => $item->url,
                   'children' => false,
-                  'post_parent' => $item->menu_item_parent
-              ];
+              ]; 
+
             }
+
           } else {
             $result = [];
           }
@@ -615,6 +629,46 @@ class Navigation
       }
 
       return false;
+  }
+
+  private function pageIdToMenuID($menu, $pageId) {
+    return $menu[array_search($pageId, array_column($menu, 'object_id'))]->ID;  
+  }
+
+  /**
+   * Get a list of menu items with an ancestor relation to page id. 
+   *
+   * @param string $menu The menu id to get
+   * @return bool|array
+   */
+  private function getWpMenuAncestors($menu, $pageId) {
+
+    //Definitions
+    $fetchAncestors = true; 
+    $ancestorStack = []; 
+
+    //Fetch ancestors
+    while($fetchAncestors) {
+
+      //Get index where match exists
+      $parentIndex = array_search($pageId, array_column($menu, 'ID'));
+
+      //Top level, exit
+      if($menu[$parentIndex]->menu_item_parent == 0) {
+        $fetchAncestors = false; 
+      } else {
+
+        //Add to stack (with duplicate prevention)
+        $ancestorStack[] = (int) $menu[$parentIndex]->menu_item_parent; 
+        
+        //Prepare for next iteration
+        $pageId = (int) $menu[$parentIndex]->menu_item_parent;
+
+      }
+
+    }
+
+    return $ancestorStack;
   }
 
   /**
