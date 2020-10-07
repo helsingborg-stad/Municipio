@@ -164,7 +164,7 @@ class Navigation
   { 
 
     //Definitions
-    $ancestorStack = [];
+    $ancestorStack = array($postId);
     $fetchAncestors = true; 
 
     //Fetch ancestors
