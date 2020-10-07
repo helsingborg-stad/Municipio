@@ -641,17 +641,17 @@ class Navigation
    * @param string $menu The menu id to get
    * @return bool|array
    */
-  private function getWpMenuAncestors($menu, $pageId) {
+  private function getWpMenuAncestors($menu, $id) {
 
     //Definitions
     $fetchAncestors = true; 
-    $ancestorStack = []; 
+    $ancestorStack = [$id]; 
 
     //Fetch ancestors
     while($fetchAncestors) {
 
       //Get index where match exists
-      $parentIndex = array_search($pageId, array_column($menu, 'ID'));
+      $parentIndex = array_search($id, array_column($menu, 'ID'));
 
       //Top level, exit
       if($menu[$parentIndex]->menu_item_parent == 0) {
@@ -662,7 +662,7 @@ class Navigation
         $ancestorStack[] = (int) $menu[$parentIndex]->menu_item_parent; 
         
         //Prepare for next iteration
-        $pageId = (int) $menu[$parentIndex]->menu_item_parent;
+        $id = (int) $menu[$parentIndex]->menu_item_parent;
 
       }
 
