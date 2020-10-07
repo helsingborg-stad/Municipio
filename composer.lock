@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0fb6d9155dd2ea470e3ee64d236541c",
+    "content-hash": "7e283584b2ab95386f457e27e0c31919",
     "packages": [
         {
             "name": "aristath/kirki",
@@ -358,12 +358,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "f4c8cc2cbc9140296509d98515036c7c319502eb"
+                "reference": "539556409f575327d3dd41bca2ba31ae064eaf9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/f4c8cc2cbc9140296509d98515036c7c319502eb",
-                "reference": "f4c8cc2cbc9140296509d98515036c7c319502eb",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/539556409f575327d3dd41bca2ba31ae064eaf9b",
+                "reference": "539556409f575327d3dd41bca2ba31ae064eaf9b",
                 "shasum": ""
             },
             "type": "library",
@@ -383,7 +383,7 @@
                 }
             ],
             "description": "A component library based upon blade engine.",
-            "time": "2020-10-01T07:57:20+00:00"
+            "time": "2020-10-06T12:25:20+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -791,12 +791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7f1b28ec23b94125f9fc77cd0fcb2729fbeceffc"
+                "reference": "8690b13ad4da6d54d692afea15aab30b36fee52e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7f1b28ec23b94125f9fc77cd0fcb2729fbeceffc",
-                "reference": "7f1b28ec23b94125f9fc77cd0fcb2729fbeceffc",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8690b13ad4da6d54d692afea15aab30b36fee52e",
+                "reference": "8690b13ad4da6d54d692afea15aab30b36fee52e",
                 "shasum": ""
             },
             "require": {
@@ -862,7 +862,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-10-01T10:09:00+00:00"
+            "time": "2020-10-04T09:11:05+00:00"
         },
         {
             "name": "psr/container",
@@ -1069,12 +1069,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "726b85e69342e767d60e3853b98559a68ff74183"
+                "reference": "888525fe2878f77fd3c62c964a1ae389a133d13d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/726b85e69342e767d60e3853b98559a68ff74183",
-                "reference": "726b85e69342e767d60e3853b98559a68ff74183",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/888525fe2878f77fd3c62c964a1ae389a133d13d",
+                "reference": "888525fe2878f77fd3c62c964a1ae389a133d13d",
                 "shasum": ""
             },
             "require": {
@@ -1089,11 +1089,6 @@
                 "symfony/http-kernel": "^3.4|^4.0|^5.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.4-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Debug\\": ""
@@ -1118,7 +1113,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2020-09-09T05:20:36+00:00"
+            "time": "2020-10-06T15:45:41+00:00"
         },
         {
             "name": "symfony/finder",
