@@ -15,9 +15,7 @@
     @sidebar([
         'items'     => $secondaryMenuItems,
         'endpoints' => [
-
-            'children'  => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
-            'active'    => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
+            'children'  => $homeUrlPath . '/wp-json/municipio/v1/navigation/children'
         ],
         'classList' => [
             'u-visibility--hidden@xs',

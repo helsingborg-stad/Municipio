@@ -22,7 +22,7 @@
     @section('mobile-navigation')
         @sidebar([
                 'logo'          => $logotype->standard['url'],
-                'items'         => $primaryMenuItems,
+                'items'         => $mobileMenuItems,
                 'pageId'        => $pageID,
                 'classList'     => [
                     'l-docs--sidebar',
@@ -37,8 +37,7 @@
                     'js-toggle-class'   => 'c-sidebar--collapsed'
                 ],
                 'endpoints'     => [
-                    'children'          => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
-                    'active'            => $homeUrlPath . '/wp-json/municipio/v1/navigation/active'
+                    'children'          => $homeUrlPath . '/wp-json/municipio/v1/navigation/children'
                 ],
             ])
         @endsidebar

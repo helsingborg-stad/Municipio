@@ -122,8 +122,7 @@ class Navigation
             'help-menu' => __('Help menu', 'municipio'),
             'header-tabs-menu' => __('Header tabs menu', 'municipio'),
             'main-menu' => __('Primary menu', 'municipio'),
-            'secondary-menu' => __('Secondary menu', 'municipio'),
-            'sidebar-menu' => __('Sidebar menu', 'municipio'),
+            'secondary-menu' => __('Secondary menu & mobile menu', 'municipio'),
             'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
         );
 
