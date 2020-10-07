@@ -265,14 +265,14 @@ class Navigation
 
     //Check if if valid post type string
     if($postType != 'all' && !is_array($postType) && !post_type_exists($postType)) {
-      return new \WP_Error("Could not get navigation menu for " . $postType . " since it dosen't exist."); 
+      return []; 
     }
 
     //Check if if valid post type array
     if(is_array($postType)) {
       foreach($postType as $item) {
         if(!post_type_exists($item)) {
-          return new \WP_Error("Could not get navigation menu for " . $item . " since it dosen't exist."); 
+          return []; 
         }
       }
     }
