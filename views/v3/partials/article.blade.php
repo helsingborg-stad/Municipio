@@ -4,6 +4,17 @@
         {!! $postTitleFiltered !!}
     @endtypography
 
+    <!-- Blog style author signature -->
+    @if(!$postTypeDetails->hierarchical && $postType == 'post')
+        @signature([
+            'author' => $authorName, 
+            'avatar_size' => 'sm',
+            'avatar' => $authorAvatar,
+            'authorRole' => $authorRole
+        ])
+        @endsignature
+    @endif
+
     <!-- Feature Image -->
     @if (isset($feature_image->src))
 		@image([
@@ -21,11 +32,18 @@
     <!-- Signature -->
     @if($postTypeDetails->hierarchical)
         @signature([
-            'author' => $authorName, 
-            'published' => $publishedDate,
-            'updated' => $updatedDate,
+            'author' => $signature->name, 
+            'published' => $signature->publish,
+            'updated' => $signature->updated,
             'avatar_size' => 'sm',
-            'avatar' => $authorAvatar
+            'avatar' => $signature->avatar,
+            'authorRole' => $signature->role
+        ])
+        @endsignature
+    @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
+        @signature([
+            'published' => $signature->publish,
+            'updated' => $signature->updated,
         ])
         @endsignature
     @endif
