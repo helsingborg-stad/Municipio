@@ -66,20 +66,19 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getSignature() : object
     {
-        
         $displayAuthor  = get_field('page_show_author', 'option'); 
         $displayAvatar  = get_field('page_show_author_image', 'option'); 
-        $linkAuthor = get_field('page_link_to_author_archive', 'option');
+        $linkAuthor     = get_field('page_link_to_author_archive', 'option');
 
-        $displayPublish = true; 
-        $displayUpdated = true; 
+        $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option')); 
+        $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option')); 
 
         return (object) [
             'avatar' => ($displayAvatar ? $this->getAuthor($this->data['post']->id)->avatar : ""),
             'role' => __("Author", 'municipio'),
             'name' => ($displayAuthor ? $this->getAuthor($this->data['post']->id)->name : ""),
             'publish' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->published : false),
-            'updated' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->updated : false),
+            'updated' => ($displayUpdated ? $this->getPostDates($this->data['post']->id)->updated : false),
             'link' => ($linkAuthor ? $this->getAuthor($this->data['post']->id)->link : ""),
         ]; 
     }
