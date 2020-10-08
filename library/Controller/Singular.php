@@ -10,7 +10,7 @@ class Singular extends \Municipio\Controller\BaseController
 {
     public function init()
     {   
-        
+
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));
 
@@ -20,6 +20,10 @@ class Singular extends \Municipio\Controller\BaseController
         //Get Author data
         $this->data['authorName'] = $this->getAuthor($this->data['post']->id)->name;
         $this->data['authorAvatar'] = $this->getAuthor($this->data['post']->id)->avatar;
+        $this->data['authorRole'] = __("Author", 'municipio'); 
+        
+        //Signature options
+        $this->data['signature'] = $this->getSignature(); 
 
         //Get published data
         $this->data['publishedDate'] = $this->getPostDates($this->data['post']->id)->published;
@@ -50,8 +54,6 @@ class Singular extends \Municipio\Controller\BaseController
             'max_depth'  => get_option('thread_comments_depth')
         );
 
-
-
         //Post settings
         $this->data['settingItems'] = apply_filters_deprecated('Municipio/blog/post_settings', array($this->data['post']), '3.0', 'Municipio/blog/postSettings'); 
 
@@ -60,14 +62,59 @@ class Singular extends \Municipio\Controller\BaseController
     }
 
     /**
+     * @return mixed
+     */
+    public function getSignature() : object
+    {
+        $displayAuthor  = get_field('page_show_author', 'option'); 
+        $displayAvatar  = get_field('page_show_author_image', 'option'); 
+        $linkAuthor     = get_field('page_link_to_author_archive', 'option');
+
+        $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option')); 
+        $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option')); 
+
+        return (object) [
+            'avatar' => ($displayAvatar ? $this->getAuthor($this->data['post']->id)->avatar : ""),
+            'role' => __("Author", 'municipio'),
+            'name' => ($displayAuthor ? $this->getAuthor($this->data['post']->id)->name : ""),
+            'publish' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->published : false),
+            'updated' => ($displayUpdated ? $this->getPostDates($this->data['post']->id)->updated : false),
+            'link' => ($linkAuthor ? $this->getAuthor($this->data['post']->id)->link : ""),
+        ]; 
+    }
+
+    /**
      * @param $id
      * @return object
      */
     private function getAuthor($id): object
     {
-        $author = array();
-        $author['name'] = get_the_author_meta( 'display_name', $this->data['post']->postAuthor );  
-        $author['avatar'] = get_avatar_url($id);
+        $author = array(
+            'id' => $this->data['post']->postAuthor,
+            'link' => get_author_posts_url($this->data['post']->postAuthor),
+            'name' => null,
+            'avatar' => null
+        );
+        
+        //Get setting for username
+        $displayName = get_the_author_meta( 'display_name', $this->data['post']->postAuthor );  
+        
+        //List of less-fancy displaynames
+        $prohoboitedUserNames = [
+            get_the_author_meta( 'user_login', $this->data['post']->postAuthor ),
+            get_the_author_meta( 'nickname', $this->data['post']->postAuthor )
+        ]; 
+
+        //Assign only if fancy variant of name
+        if(!in_array($displayName, $prohoboitedUserNames)) {
+            $author['name'] = $displayName; 
+        }
+
+        //Get avatar url
+        $avatar = get_avatar_url($id, ['default' => 'blank']); 
+        if(!preg_match('/d=blank/i', $avatar)) {
+            $author['avatar'] = $avatar;
+        }
 
         return apply_filters('Municipio/Controller/Singular/author', (object) $author);
     }
@@ -76,7 +123,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $id
      * @return mixed
      */
-    private function getPostDates($id)
+    private function getPostDates($id) : object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
             'published' => get_the_date(), 

@@ -4,6 +4,18 @@
         {!! $postTitleFiltered !!}
     @endtypography
 
+    <!-- Blog style author signature -->
+    @if(!$postTypeDetails->hierarchical && $postType == 'post')
+        @signature([
+            'author' => $authorName, 
+            'avatar_size' => 'sm',
+            'avatar' => $authorAvatar,
+            'authorRole' => $authorRole,
+            'link' => $signature->link
+        ])
+        @endsignature
+    @endif
+
     <!-- Feature Image -->
     @if (isset($feature_image->src))
 		@image([
@@ -20,32 +32,23 @@
 
     <!-- Signature -->
     @if($postTypeDetails->hierarchical)
-        @typography([
-            "variant" => "meta",
-            "classList" => [
-                "u-color__text--darker"
-            ]
+        @signature([
+            'author' => $signature->name, 
+            'published' => $signature->publish,
+            'updated' => $signature->updated,
+            'avatar_size' => 'sm',
+            'avatar' => $signature->avatar,
+            'authorRole' => $signature->role,
+            'link' => $signature->link
         ])
-            <b><?php _e("Published", 'municipio')?>: </b> {{$publishedDate}}
-        @endtypography
-
-        @typography([
-            "variant" => "meta",
-            "classList" => [
-                "u-color__text--darker"
-            ]
+        @endsignature
+    @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
+        @signature([
+            'published' => $signature->publish,
+            'updated' => $signature->updated,
         ])
-            <b><?php _e("Last updated", 'municipio')?>: </b> {{$updatedDate}}
-        @endtypography
+        @endsignature
     @endif
-	
-	@if(isset($permalink))
-		@typography(['variant' => 'meta'])
-			@link(['href' => $permalink])
-				{{$permalink}}
-			@endlink
-		@endtypography
-	@endif
 
 	@includeIf('partials.comments')
 	
