@@ -69,6 +69,7 @@ class Singular extends \Municipio\Controller\BaseController
         
         $displayAuthor  = get_field('page_show_author', 'option'); 
         $displayAvatar  = get_field('page_show_author_image', 'option'); 
+        $linkAuthor = get_field('page_link_to_author_archive', 'option');
 
         $displayPublish = true; 
         $displayUpdated = true; 
@@ -78,7 +79,8 @@ class Singular extends \Municipio\Controller\BaseController
             'role' => __("Author", 'municipio'),
             'name' => ($displayAuthor ? $this->getAuthor($this->data['post']->id)->name : ""),
             'publish' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->published : false),
-            'updated' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->updated : false)
+            'updated' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->updated : false),
+            'link' => ($linkAuthor ? $this->getAuthor($this->data['post']->id)->link : ""),
         ]; 
     }
 
@@ -89,6 +91,8 @@ class Singular extends \Municipio\Controller\BaseController
     private function getAuthor($id): object
     {
         $author = array(
+            'id' => $this->data['post']->postAuthor,
+            'link' => get_author_posts_url($this->data['post']->postAuthor),
             'name' => null,
             'avatar' => null
         );

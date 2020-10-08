@@ -10,7 +10,8 @@
             'author' => $authorName, 
             'avatar_size' => 'sm',
             'avatar' => $authorAvatar,
-            'authorRole' => $authorRole
+            'authorRole' => $authorRole,
+            'link' => $signature->link
         ])
         @endsignature
     @endif
@@ -37,7 +38,8 @@
             'updated' => $signature->updated,
             'avatar_size' => 'sm',
             'avatar' => $signature->avatar,
-            'authorRole' => $signature->role
+            'authorRole' => $signature->role,
+            'link' => $signature->link
         ])
         @endsignature
     @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
