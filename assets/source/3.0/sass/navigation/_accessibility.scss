@@ -1,0 +1,12 @@
+.nav-accessibility.nav-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    li {
+        margin-left: 16px;
+        &:first-of-type {
+            margin-left: 0;
+        }
+    }
+}
