@@ -25,8 +25,20 @@ class E404 extends \Municipio\Controller\BaseController
         
         //Actions
         $this->data['actionButtons'] = (object) array(
-            'goBack' => (object) ['label' => __("Go back", 'municipio'), 'href' => 'javascript:history.go(-1);'],
-            'goHome' => (object) ['label' => __("Go to startpage", 'municipio'), 'href' => '/'],
+            'goBack' => (object) [
+                'label' => __("Go back", 'municipio'), 
+                'href' => 'javascript:history.go(-1);', 
+                'icon' => 'arrow_back', 
+                'color' => 'primary', 
+                'style' => 'filled'
+            ],
+            'goHome' => (object) [
+                'label' => __("Go to homepage", 'municipio'), 
+                'href' => '/', 
+                'icon' => 'home', 
+                'color' => 'secondary', 
+                'style' => 'outlined'
+            ]
         );
 
         //Change to go back link if is archive
@@ -43,7 +55,7 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return apply_filters('Municipio/404/Heading', __("404 - Not found", 'municipio'), $this->getRequestedPostType()); 
+        return apply_filters('Municipio/404/Heading', __("Oops! The page you requested cannot be found.", 'municipio'), $this->getRequestedPostType()); 
     }
 
     /**
@@ -52,7 +64,7 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getSubheading()
     {
-        return str_replace("%s", $this->getRequestedPostType(), apply_filters('Municipio/404/Body', __("The %s could not be found", 'municipio') , $this->getRequestedPostType())); 
+        return str_replace("%s", $this->getRequestedPostType(), apply_filters('Municipio/404/Body', __("The %s you are looking for is either moved or removed.", 'municipio') , $this->getRequestedPostType())); 
     }
 
     /**

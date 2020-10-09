@@ -115,6 +115,9 @@ class Navigation
   public  function indicateChildren($postId) : bool
   {  
 
+    //Define to omit error
+    $postTypeHasPosts = null; 
+
     $currentPostTypeChildren = self::$db->get_var(
       self::$db->prepare("
         SELECT ID 
