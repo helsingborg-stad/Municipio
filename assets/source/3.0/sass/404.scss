@@ -1,0 +1,39 @@
+.t-404 {
+  height: 80vh;
+  display: grid; 
+  align-items: center; 
+  row-gap: $base * 4;
+  align-content: center;
+  max-width: 800px;
+
+  &:after {
+    position: absolute;
+    bottom: 0; 
+    right: 0;
+    color: #eee; 
+    font-size: calc(100px + 20vw);
+    content: '404'; 
+    z-index: $level-1;
+    font-weight: bold;
+    filter: blur(10px);
+  }
+
+  .c-typhography--404-heading {
+    z-index: $level-2;
+    color: $color-primary;
+
+    @include mq(md) {
+      font-size: 3em;
+    }
+  }
+
+  .c-typhography--404-subheading {
+    z-index: $level-2;
+    font-size: 1.2em;
+  }
+
+  .t-404__buttons {
+    z-index: $level-2;
+  }
+
+}
