@@ -358,12 +358,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "eb187e324a068d83bada6acf7064531b7afcd0f0"
+                "reference": "52e4338da9e01d0fbd63abdd602723653f8065ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/eb187e324a068d83bada6acf7064531b7afcd0f0",
-                "reference": "eb187e324a068d83bada6acf7064531b7afcd0f0",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/52e4338da9e01d0fbd63abdd602723653f8065ed",
+                "reference": "52e4338da9e01d0fbd63abdd602723653f8065ed",
                 "shasum": ""
             },
             "type": "library",
@@ -383,7 +383,7 @@
                 }
             ],
             "description": "A component library based upon blade engine.",
-            "time": "2020-10-12T13:54:18+00:00"
+            "time": "2020-10-13T12:38:31+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -791,12 +791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "35959c93ada06469107a05df6b15b65074a960cf"
+                "reference": "e148788eeae9b9b7b87996520358b86faad37b52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/35959c93ada06469107a05df6b15b65074a960cf",
-                "reference": "35959c93ada06469107a05df6b15b65074a960cf",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e148788eeae9b9b7b87996520358b86faad37b52",
+                "reference": "e148788eeae9b9b7b87996520358b86faad37b52",
                 "shasum": ""
             },
             "require": {
@@ -862,7 +862,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-10-10T23:35:06+00:00"
+            "time": "2020-10-12T20:36:09+00:00"
         },
         {
             "name": "psr/container",
@@ -870,21 +870,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "b1fbdff230c2fae8b3e600ead18e711563f05a04"
+                "reference": "381524e8568e07f31d504a945b88556548c8c42e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/b1fbdff230c2fae8b3e600ead18e711563f05a04",
-                "reference": "b1fbdff230c2fae8b3e600ead18e711563f05a04",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/381524e8568e07f31d504a945b88556548c8c42e",
+                "reference": "381524e8568e07f31d504a945b88556548c8c42e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -911,7 +911,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2020-09-18T06:44:01+00:00"
+            "time": "2020-10-13T07:07:53+00:00"
         },
         {
             "name": "psr/log",
