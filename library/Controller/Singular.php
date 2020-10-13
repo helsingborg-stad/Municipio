@@ -77,8 +77,8 @@ class Singular extends \Municipio\Controller\BaseController
             'avatar' => ($displayAvatar ? $this->getAuthor($this->data['post']->id)->avatar : ""),
             'role' => __("Author", 'municipio'),
             'name' => ($displayAuthor ? $this->getAuthor($this->data['post']->id)->name : ""),
-            'publish' => ($displayPublish ? $this->getPostDates($this->data['post']->id)->published : false),
-            'updated' => ($displayUpdated ? $this->getPostDates($this->data['post']->id)->updated : false),
+            'publish' => ($displayPublish ? $this->data['pagePublished'] : false),
+            'updated' => ($displayUpdated ? $this->data['pageModified'] : false),
             'link' => ($linkAuthor ? $this->getAuthor($this->data['post']->id)->link : ""),
         ]; 
     }
