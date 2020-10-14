@@ -44,14 +44,18 @@
     align-items: center;
 
     .c-nav__brand {
-        padding: $base * 2 $base;
+        padding: $base * 3 $base * 1.5;
     }
 
     // Logo
     .c-nav__logo {
         display: block;
-        height: $base * 8;
+        height: $base * 6.5;
         width: auto;
+
+        @include mq('md') {
+            height: $base * 7;
+        }
 
         @include mq('lg') {
             height: $base * 9;
@@ -59,7 +63,8 @@
     }
 
     // Item
-    .c-nav__link {
+    .c-nav__link,
+    .c-nav__action {
         font-size: 16px;
         padding: $base * 2 $base;
         text-decoration: none;
