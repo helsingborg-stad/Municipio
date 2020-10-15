@@ -105,31 +105,45 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $taxonomies = get_object_taxonomies($this->data['postType']);
         $taxonomiesList = [];
-        
+
         foreach ($taxonomies as $taxonomy) {
-            $text = str_replace('-', ' ', $taxonomy);
-            $currentTerm = null;
+
+            //Fetch full object
+            $taxonomy = get_taxonomy($taxonomy); 
+
+            //Get 
             $terms = get_terms(
                 array(
-                    'taxonomy' => $taxonomy,
+                    'taxonomy' => $taxonomy->name,
                     'hide_empty' => false
                 )
-            );
+            ); 
+
+            //Create options
+            if($terms) {
+                foreach($terms as $option) {
+                    $options[$option->slug] = $option->name; 
+                }
+            } else {
+                $options = null;
+            }
+
+            //Data
+            $taxonomyObject = [
+                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                'required' => false,
+                'key' => $taxonomy->name,
+                'options' => $options,
+            ]; 
 
             if (isset($_GET['filter'][$taxonomy])) {
-                $currentTerm = get_term_by('slug', $_GET['filter'][$taxonomy], $taxonomy);
+                $taxonomyObject['preselected'] = get_term_by('slug', $_GET['filter'][$taxonomy], $taxonomy);
             }
-            
-            $taxonomiesList[$text]['currentSlug'] = (isset($currentTerm)) ? $currentTerm->name : $text;
-            $taxonomiesList[$text]['categories'][] = ['text' => $taxonomy, 'link' => "filter[{$taxonomy}]=delete"];
 
-
-            foreach ($terms as $term) {
-                $taxonomiesList[$text]['categories'][] = ['text' => $term->name, 'link' => "filter[{$taxonomy}]={$term->slug}"];
-            }
+            $taxonomyObjects[] = $taxonomyObject;
         }
 
-        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomiesList);
+        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
 
     public function getPosts()

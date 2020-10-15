@@ -1,49 +1,64 @@
+<?php var_dump($_GET); ?>
 @form([
     'method' => 'GET',
     'action' => '?q=form_component'
     ])
 
-    @grid(['container' => true, 'columns' => "2", 'col_gap' => '1'])
-        @grid([]) 
-            @field([
-                'type' => 'text',
-                'value' => $queryParameters->search,
-                'label' => 'Search for '. $postType,
-                'classList' => ['u-width--100','u-margin__top--4', 'u-margin__bottom--4', 'u-display--inline-block'],
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => 's'
-                ],
-                'required' => false,
-                
-                ])
-            @endfield
-        @endgrid
+    <div class="o-grid">
 
-        @grid(['classList' => ['u-display--inline-flex', 'u-align-items--center']])
+        <div class="o-grid-10">
+            @field(
+                [
+                    'type' => 'text',
+                    'value' => $queryParameters->search,
+                    'label' => 'Search for '. $postType,
+                    'classList' => ['u-width--100'],
+                    'attributeList' => [
+                        'type' => 'text',
+                        'name' => 's'
+                    ],
+                    'required' => false,
+                ]
+            )
+            @endfield
+        </div>
+
+        <div class="o-grid-2">
             @button([
-                'text' => 'Filters',
+                'text' => __("Show more filter options", 'municipio'),
                 'icon' => 'filter_list',
                 'toggle' => true,
-                'size' => 'lg',
                 'attributeList' => ['js-toggle-trigger' => 'filterDiv']
             ])
             @endbutton
-        @endgrid
-    @endgrid
-@endform
+        </div>
+        
+
+    </div>
+
+
+    <div class="o-grid-12">
+        @button([
+            'text' => 'Submit',
+            'color' => 'primary',
+            'type' => 'basic'
+        ])
+        @endbutton
+    </div>
+
+
     
 <div class="u-display--none" js-toggle-item="filterDiv" js-toggle-class="u-display--none">
-    @grid(['container' => true, 'columns' => "2", 'col_gap' => '4'])
-        @grid([])
+    <div class="o-grid">
+        <div class="o-grid-6">
             @field([
                 'type' => 'datepicker',
                 'value' => '',
-                'label' => 'Enter a date',
+                'label' => __("From date", 'municipio'),
                 'attributeList' => [
                     'type' => 'text',
                     'name' => 'text',
-                    'data-invalid-message' => "You need to add a valid date!",
+                    'data-invalid-message' => "The date you have entered is not valid.",
                     'js-archive-filter-from'
                 ],
                 'required' => true,
@@ -60,9 +75,8 @@
                 ]
             ])
             @endfield
-        @endgrid
-
-        @grid([])
+        </div>
+        <div class="o-grid-6">
             @field([
                 'type' => 'datepicker',
                 'value' => '',
@@ -85,25 +99,21 @@
                     'hideOnBlur'            => true,
                     'hideOnSelect'          => false,
                     ]
-                    ])
+                ]
+            )
             @endfield
-        @endgrid
-    @endgrid
+        </div>
+    </div>
 
-    @grid(['container' => true, 'columns' => 'auto-fit', 'col_gap' => 2])
+    <div class="o-grid">
         @foreach($taxonomies as $taxonomy => $terms)
-            
-            @grid([])
-                @splitbutton([
-                    'items' => $terms['categories'],
-                    'buttonText' => $terms['currentSlug'],
-                    'icon' => 'expand_more',
-                    'dropdownDirection' => 'down',
-                    'classList' => ['u-margin__bottom--4', 'u-margin__right--4']
-                ])
-                @endsplitbutton
-            @endgrid
-
+            <div class="o-grid-4">
+                @select($terms)
+                @endselect
+            </div>
         @endforeach
-    @endgrid
+    </div>
 </div>
+
+
+@endform
