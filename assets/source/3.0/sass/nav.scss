@@ -1,12 +1,8 @@
 .nav-helper {
     width: 100%;
-    max-width: 1328px;
-
-    .nav-accessibility {
-        float: right;
-        margin-top: -50px;
-        list-style: none;
-    }
+    margin-top: $base * 2;
+    display: flex;
+    justify-content: space-between;
 
     .nav-accessibility a,
     .nav-accessibility a:visited,
