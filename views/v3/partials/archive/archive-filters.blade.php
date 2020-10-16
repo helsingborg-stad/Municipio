@@ -7,13 +7,12 @@
 
     <div class="o-grid">
 
-        <div class="o-grid-6">
+        <div class="o-grid-auto u-flex-grow--1">
             @field(
                 [
                     'type' => 'text',
                     'value' => $queryParameters->search,
                     'label' => 'Search for '. $postType,
-                    'classList' => ['u-width--100'],
                     'attributeList' => [
                         'type' => 'text',
                         'name' => 's'
@@ -24,12 +23,13 @@
             @endfield
         </div>
 
-        <div class="o-grid-2">
+        <div class="o-grid-auto">
             @button([
                 'icon' => 'date_range',
                 'toggle' => true,
                 'attributeList' => ['js-toggle-trigger' => 'dateWrapper'],
                 'style' => 'basic',
+                'size' => 'lg'
             ])
             @endbutton
         </div>
@@ -38,7 +38,7 @@
         
     <div class="{{ $displayDatePickers ? '' : 'u-display--none' }}" js-toggle-item="dateWrapper" js-toggle-class="u-display--none">
         <div class="o-grid">
-            <div class="o-grid-6">
+            <div class="o-grid-auto">
                 @field([
                     'type' => 'datepicker',
                     'value' => $queryParameters->from,
@@ -64,7 +64,7 @@
                 ])
                 @endfield
             </div>
-            <div class="o-grid-6">
+            <div class="o-grid-auto">
                 @field([
                     'type' => 'datepicker',
                     'value' => $queryParameters->to,
@@ -96,7 +96,7 @@
 
     <div class="o-grid">
         @foreach($taxonomies as $taxonomy => $terms)
-            <div class="o-grid-4">
+            <div class="o-grid-auto">
                 @select($terms)
                 @endselect
             </div>
@@ -104,12 +104,13 @@
     </div>
 
     <div class="o-grid">
-        <div class="o-grid-4">
+        <div class="o-grid-auto">
             
             @button([
                 'text' => __("Submit", 'municipio'),
                 'color' => 'primary',
-                'type' => 'basic'
+                'type' => 'basic',
+                'classList' => ['u-margin__left--2 u-float--right']
             ])
             @endbutton
 
@@ -117,7 +118,8 @@
                 @button([
                     'href' => $archiveBaseUrl,
                     'text' => __("Reset", 'municipio'),
-                    'type' => 'basic'
+                    'type' => 'basic',
+                    'classList' => ['u-margin__left--2 u-float--right']
                 ])
                 @endbutton
             @endif
