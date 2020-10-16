@@ -358,12 +358,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "52e4338da9e01d0fbd63abdd602723653f8065ed"
+                "reference": "a4f11d8150fe1146ec7ec1d69e488a75f3232259"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/52e4338da9e01d0fbd63abdd602723653f8065ed",
-                "reference": "52e4338da9e01d0fbd63abdd602723653f8065ed",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/a4f11d8150fe1146ec7ec1d69e488a75f3232259",
+                "reference": "a4f11d8150fe1146ec7ec1d69e488a75f3232259",
                 "shasum": ""
             },
             "type": "library",
@@ -383,7 +383,7 @@
                 }
             ],
             "description": "A component library based upon blade engine.",
-            "time": "2020-10-13T12:38:31+00:00"
+            "time": "2020-10-15T15:05:04+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -791,12 +791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "e148788eeae9b9b7b87996520358b86faad37b52"
+                "reference": "c762e8994a0467b24fa17dd8f10bc52d375e75ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e148788eeae9b9b7b87996520358b86faad37b52",
-                "reference": "e148788eeae9b9b7b87996520358b86faad37b52",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c762e8994a0467b24fa17dd8f10bc52d375e75ff",
+                "reference": "c762e8994a0467b24fa17dd8f10bc52d375e75ff",
                 "shasum": ""
             },
             "require": {
@@ -862,7 +862,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-10-12T20:36:09+00:00"
+            "time": "2020-10-15T06:57:01+00:00"
         },
         {
             "name": "psr/container",
@@ -1069,12 +1069,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "888525fe2878f77fd3c62c964a1ae389a133d13d"
+                "reference": "ba95c0aa9b0a401cff29e1e826f015ab590b5702"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/888525fe2878f77fd3c62c964a1ae389a133d13d",
-                "reference": "888525fe2878f77fd3c62c964a1ae389a133d13d",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/ba95c0aa9b0a401cff29e1e826f015ab590b5702",
+                "reference": "ba95c0aa9b0a401cff29e1e826f015ab590b5702",
                 "shasum": ""
             },
             "require": {
@@ -1089,6 +1089,9 @@
                 "symfony/http-kernel": "^3.4|^4.0|^5.0"
             },
             "type": "library",
+            "extra": {
+                "branch-version": "4.4"
+            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Debug\\": ""
@@ -1113,7 +1116,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2020-10-06T15:45:41+00:00"
+            "time": "2020-10-13T13:20:53+00:00"
         },
         {
             "name": "symfony/finder",
