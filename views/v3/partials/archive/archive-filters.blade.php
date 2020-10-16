@@ -1,109 +1,126 @@
+
+
 @form([
     'method' => 'GET',
     'action' => '?q=form_component'
     ])
 
-    @grid(['container' => true, 'columns' => "2", 'col_gap' => '1'])
-        @grid([]) 
-            @field([
-                'type' => 'text',
-                'value' => $queryParameters->search,
-                'label' => 'Search for '. $postType,
-                'classList' => ['u-width--100','u-margin__top--4', 'u-margin__bottom--4', 'u-display--inline-block'],
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => 's'
-                ],
-                'required' => false,
-                
-                ])
-            @endfield
-        @endgrid
+    <div class="o-grid">
 
-        @grid(['classList' => ['u-display--inline-flex', 'u-align-items--center']])
+        <div class="o-grid-6">
+            @field(
+                [
+                    'type' => 'text',
+                    'value' => $queryParameters->search,
+                    'label' => 'Search for '. $postType,
+                    'classList' => ['u-width--100'],
+                    'attributeList' => [
+                        'type' => 'text',
+                        'name' => 's'
+                    ],
+                    'required' => false,
+                ]
+            )
+            @endfield
+        </div>
+
+        <div class="o-grid-2">
             @button([
-                'text' => 'Filters',
-                'icon' => 'filter_list',
+                'icon' => 'date_range',
                 'toggle' => true,
-                'size' => 'lg',
-                'attributeList' => ['js-toggle-trigger' => 'filterDiv']
+                'attributeList' => ['js-toggle-trigger' => 'dateWrapper'],
+                'style' => 'basic',
             ])
             @endbutton
-        @endgrid
-    @endgrid
-@endform
+        </div>
     
-<div class="u-display--none" js-toggle-item="filterDiv" js-toggle-class="u-display--none">
-    @grid(['container' => true, 'columns' => "2", 'col_gap' => '4'])
-        @grid([])
-            @field([
-                'type' => 'datepicker',
-                'value' => '',
-                'label' => 'Enter a date',
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => 'text',
-                    'data-invalid-message' => "You need to add a valid date!",
-                    'js-archive-filter-from'
-                ],
-                'required' => true,
-                'datepicker' => [
-                    'title'                 => 'Välj ett datum',
-                    'minDate'               => "6/29/1997",
-                    'maxDate'               => "tomorrow",
-                    'required'              => true,
-                    'showResetButton'       => true,
-                    'showDaysOutOfMonth'    => true,
-                    'showClearButton'       => true,
-                    'hideOnBlur'            => true,
-                    'hideOnSelect'          => false,
-                ]
-            ])
-            @endfield
-        @endgrid
-
-        @grid([])
-            @field([
-                'type' => 'datepicker',
-                'value' => '',
-                'label' => 'Enter a date',
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => 'text',
-                    'data-invalid-message' => "You need to add a valid date!",
-                    'js-archive-filter-to' => ''
-                ],
-                'required' => true,
-                'datepicker' => [
-                    'title'                 => 'Välj ett datum',
-                    'minDate'               => "6/29/1997",
-                    'maxDate'               => "tomorrow",
-                    'required'              => true,
-                    'showResetButton'       => true,
-                    'showDaysOutOfMonth'    => true,
-                    'showClearButton'       => true,
-                    'hideOnBlur'            => true,
-                    'hideOnSelect'          => false,
+    </div>
+        
+    <div class="{{ $displayDatePickers ? '' : 'u-display--none' }}" js-toggle-item="dateWrapper" js-toggle-class="u-display--none">
+        <div class="o-grid">
+            <div class="o-grid-6">
+                @field([
+                    'type' => 'datepicker',
+                    'value' => $queryParameters->from,
+                    'label' => __("Choose a from date", 'municipio'),
+                    'attributeList' => [
+                        'type' => 'text',
+                        'name' => 'from',
+                        'data-invalid-message' => __("You need to add a valid date.", 'municipio'),
+                        'js-archive-filter-from'
+                    ],
+                    'required' => false,
+                    'datepicker' => [
+                        'title'                 => __("Choose a from date", 'municipio'),
+                        'minDate'               => "6/29/1997",
+                        'maxDate'               => "tomorrow",
+                        'required'              => true,
+                        'showResetButton'       => true,
+                        'showDaysOutOfMonth'    => true,
+                        'showClearButton'       => true,
+                        'hideOnBlur'            => true,
+                        'hideOnSelect'          => false,
                     ]
-                    ])
-            @endfield
-        @endgrid
-    @endgrid
-
-    @grid(['container' => true, 'columns' => 'auto-fit', 'col_gap' => 2])
-        @foreach($taxonomies as $taxonomy => $terms)
-            
-            @grid([])
-                @splitbutton([
-                    'items' => $terms['categories'],
-                    'buttonText' => $terms['currentSlug'],
-                    'icon' => 'expand_more',
-                    'dropdownDirection' => 'down',
-                    'classList' => ['u-margin__bottom--4', 'u-margin__right--4']
                 ])
-                @endsplitbutton
-            @endgrid
+                @endfield
+            </div>
+            <div class="o-grid-6">
+                @field([
+                    'type' => 'datepicker',
+                    'value' => $queryParameters->to,
+                    'label' => __("Choose a to date", 'municipio'),
+                    'attributeList' => [
+                        'type' => 'text',
+                        'name' => 'to',
+                        'data-invalid-message' => __("You need to add a valid date.", 'municipio'),
+                        'js-archive-filter-to' => ''
+                    ],
+                    'required' => false,
+                    'datepicker' => [
+                        'title'                 => __("Choose a to date", 'municipio'),
+                        'minDate'               => "6/29/1997",
+                        'maxDate'               => "tomorrow",
+                        'required'              => true,
+                        'showResetButton'       => true,
+                        'showDaysOutOfMonth'    => true,
+                        'showClearButton'       => true,
+                        'hideOnBlur'            => true,
+                        'hideOnSelect'          => false,
+                        ]
+                    ]
+                )
+                @endfield
+            </div>
+        </div>
+    </div>
 
+    <div class="o-grid">
+        @foreach($taxonomies as $taxonomy => $terms)
+            <div class="o-grid-4">
+                @select($terms)
+                @endselect
+            </div>
         @endforeach
-    @endgrid
-</div>
+    </div>
+
+    <div class="o-grid">
+        <div class="o-grid-4">
+            
+            @button([
+                'text' => __("Submit", 'municipio'),
+                'color' => 'primary',
+                'type' => 'basic'
+            ])
+            @endbutton
+
+            @if($showFilterResetButton && $archiveBaseUrl) 
+                @button([
+                    'href' => $archiveBaseUrl,
+                    'text' => __("Reset", 'municipio'),
+                    'type' => 'basic'
+                ])
+                @endbutton
+            @endif
+      </div>
+    </div>
+@endform

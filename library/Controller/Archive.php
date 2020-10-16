@@ -1,5 +1,7 @@
 <?php
 
+//TODO: Refactor controller. This one is messy.
+
 namespace Municipio\Controller;
 
 class Archive extends \Municipio\Controller\BaseController
@@ -17,10 +19,16 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['paginationList'] = $this->getPagination();
         $this->data['currentPagePagination'] = (get_query_var('paged')) ? get_query_var('paged') : 1;
         $this->data['queryParameters'] = $this->setQueryParameters();
+        
         $this->data['taxonomies'] = $this->getTaxonomies();
         $this->data['archiveTitle'] = $this->getArchiveTitle();
         $this->data['gridColumnClass'] = apply_filters('Municipio/Controller/Archive:gridColumnClass', get_field('archive_' . sanitize_title($this->data['postType']) . '_grid_columns', 'option'), $this->data['postType']);
-    
+        $this->data['archiveBaseUrl'] = get_post_type_archive_link($this->data['postType']); 
+
+        $this->data['showFilterResetButton'] = !empty(array_filter((array) $this->setQueryParameters())); 
+        $this->data['displayDatePickers'] = ((isset($_GET['from']) && !empty($_GET['from']))||(isset($_GET['to']) && !empty($_GET['to']))) ? true : false; 
+
+
         //Language
         $this->data['lang']['noResult'] = __('No posts to show', 'municipio'); 
         
@@ -95,6 +103,14 @@ class Archive extends \Municipio\Controller\BaseController
             'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
         ];
 
+        //Include taxonomies (dynamic) 
+        $taxonomies = get_object_taxonomies($this->data['postType']);
+        if(is_array($taxonomies) && !empty($taxonomies)) {
+            foreach ($taxonomies as $taxonomy) {
+                $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : ''; 
+            }
+        }
+
         return \apply_filters(
             'Municipio/Controller/Archive/setQueryParameters',
             (object) $queryParameters
@@ -103,33 +119,67 @@ class Archive extends \Municipio\Controller\BaseController
 
     protected function getTaxonomies()
     {
+
+        //Define storage point
+        $taxonomyObjects = []; 
+
+        //Get taxonomys of post type
         $taxonomies = get_object_taxonomies($this->data['postType']);
-        $taxonomiesList = [];
-        
+
         foreach ($taxonomies as $taxonomy) {
-            $text = str_replace('-', ' ', $taxonomy);
-            $currentTerm = null;
+
+            //Fetch full object
+            $taxonomy = get_taxonomy($taxonomy); 
+
+            //Bail if not found
+            if($taxonomy === false) {
+                continue;
+            }
+
+            //Get terms
             $terms = get_terms(
                 array(
-                    'taxonomy' => $taxonomy,
-                    'hide_empty' => false
+                    'taxonomy' => $taxonomy->name,
+                    'hide_empty' => true
                 )
-            );
+            ); 
 
-            if (isset($_GET['filter'][$taxonomy])) {
-                $currentTerm = get_term_by('slug', $_GET['filter'][$taxonomy], $taxonomy);
+            //Bail early if there isen't any options
+            if(empty($terms)) {
+                continue;
             }
-            
-            $taxonomiesList[$text]['currentSlug'] = (isset($currentTerm)) ? $currentTerm->name : $text;
-            $taxonomiesList[$text]['categories'][] = ['text' => $taxonomy, 'link' => "filter[{$taxonomy}]=delete"];
 
+            //Reset options
+            $options = [];
 
-            foreach ($terms as $term) {
-                $taxonomiesList[$text]['categories'][] = ['text' => $term->name, 'link' => "filter[{$taxonomy}]={$term->slug}"];
+            //Fill options
+            if(is_array($terms) && !empty($terms)) {
+                foreach($terms as $option) {
+                    if(!empty($option->name)) {
+                        $options[$option->slug] = $option->name; 
+                    }
+                }
             }
+
+            //Data
+            $taxonomyObject = [
+                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                'required' => false,
+                'attributeList' => [
+                    'type' => 'text',
+                    'name' => $taxonomy->name
+                ],
+                'options' => $options
+            ]; 
+
+            if (isset($_GET[$taxonomy->name])) {
+                $taxonomyObject['preselected'] = $_GET[$taxonomy->name];
+            }
+
+            $taxonomyObjects[] = $taxonomyObject;
         }
 
-        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomiesList);
+        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
 
     public function getPosts()
