@@ -31,6 +31,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Pagination
         $this->data['paginationList']           = $this->getPagination();
+        $this->data['showPagination']           = $this->showPagination();
         $this->data['currentPage']              = $this->getCurrentPage();  
 
         //Filter options 
@@ -219,6 +220,10 @@ class Archive extends \Municipio\Controller\BaseController
         }
         
         return \apply_filters('Municipio/Controller/Archive/prepareSearchResultObject', $pagination);
+    }
+
+    protected function showPagination() {
+        return (bool) empty($this->getPagination()); 
     }
 
     protected function setQueryString($number)

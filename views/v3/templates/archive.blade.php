@@ -73,13 +73,15 @@
 
                 @includeIf('partials.post.post-' . $template, ['posts' => $posts])
                 
-                @pagination([
-                    'list' => $paginationList, 
-                    'classList' => ['u-margin__top--4'], 
-                    'current' => $currentPage,
-                    'linkPrefix' => '?paged='
-                ])
-                @endpagination
+                @if($showPagination)
+                    @pagination([
+                        'list' => $paginationList, 
+                        'classList' => ['u-margin__top--4'], 
+                        'current' => $currentPage,
+                        'linkPrefix' => '?paged='
+                    ])
+                    @endpagination
+                @endif
 
             @else
 
