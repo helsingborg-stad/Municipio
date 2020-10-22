@@ -8,13 +8,12 @@
 
 <footer id="site-footer" class="{{ apply_filters('Views/Partials/Header/FooterClass', 'site-footer') }}">
     
-
     {{-- Before footer body --}}
     @yield('before-footer-body')
 
     {{-- Footer body --}}
     @section('footer-body')
-        <div class="container">
+        <div class="o-container">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
                 <div class="o-grid">
                     <div class="o-grid-12">
