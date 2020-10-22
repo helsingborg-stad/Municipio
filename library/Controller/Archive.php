@@ -22,6 +22,9 @@ class Archive extends \Municipio\Controller\BaseController
 
         //The posts 
         $this->data['posts']                    = $this->getPosts($template);
+
+        //Sidebar
+        $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType); 
         
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
@@ -50,12 +53,16 @@ class Archive extends \Municipio\Controller\BaseController
         
     }
 
+    public function showSidebarNavigation($postType) {
+        return (bool) get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'); 
+    }
+
     public function enableTextSearch($postType) {
-        return in_array('text_search', (array) get_field('archive_event_post_filters_header', 'options')); 
+        return (bool) in_array('text_search', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options')); 
     }
 
     public function enableDateFilter($postType) {
-        return in_array('date_range', (array) get_field('archive_event_post_filters_header', 'options')); 
+        return (bool) in_array('date_range', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options')); 
     }
 
     /**
