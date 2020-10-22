@@ -6,12 +6,13 @@ class Archive
 {
     public function __construct()
     {
+        /*
         add_filter('wp_title', array($this, 'pageTitle'));
         add_filter('get_the_archive_title', array($this, 'pageHeader'));
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
         add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
-        add_filter('Municipio/Controller/Archive:gridColumnClass', array($this, 'replaceGridClasses'), 20, 1);
+        add_filter('Municipio/Controller/Archive/gridColumnClass', array($this, 'replaceGridClasses'), 20, 1);*/ 
     }
 
     public function replaceGridClasses($classname)

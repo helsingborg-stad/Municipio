@@ -28,11 +28,14 @@
 @section('content')
     <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive" @if (apply_filters('archive_equal_container', false, $postType, $template))  @endif>
         {!! $hook->loopStart !!}
-            @include('partials.archive.archive-title')
+            
+
 
             @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
                 @include("partials.archive.archive-filters")
             @endif
+
+            
 
             @if (!empty($posts))
                 @includeIf('partials.post.post-' . $template, ['posts' => $posts])
@@ -40,7 +43,7 @@
                 @pagination([
                     'list' => $paginationList, 
                     'classList' => ['u-margin__top--4'], 
-                    'current' => isset($_GET['paged']) ? $_GET['paged'] : 1,
+                    'current' => $currentPage,
                     'linkPrefix' => '?paged='
                     ])
                 @endpagination

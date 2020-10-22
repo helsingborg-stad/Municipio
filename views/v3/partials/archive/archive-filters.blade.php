@@ -94,10 +94,11 @@
         </div>
     </div>
 
+    {{-- Select dropdowns for filtering --}}
     <div class="o-grid">
-        @foreach($taxonomies as $taxonomy => $terms)
+        @foreach($taxonomySelects as $key => $select)
             <div class="o-grid-4">
-                @select($terms)
+                @select($select)
                 @endselect
             </div>
         @endforeach
@@ -113,7 +114,7 @@
             ])
             @endbutton
 
-            @if($showFilterResetButton && $archiveBaseUrl) 
+            @if($showFilterReset && $archiveBaseUrl) 
                 @button([
                     'href' => $archiveBaseUrl,
                     'text' => __("Reset", 'municipio'),
