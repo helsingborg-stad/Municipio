@@ -1,7 +1,5 @@
 <?php
 
-//TODO: Refactor controller. This one is messy.
-
 namespace Municipio\Controller;
 
 class Archive extends \Municipio\Controller\BaseController
@@ -21,7 +19,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Get template
         $this->data['template']                 = $template;
-        
+
         //The posts 
         $this->data['posts']                    = $this->getPosts($template);
         
@@ -32,11 +30,14 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['paginationList']           = $this->getPagination();
         $this->data['currentPage']              = $this->getCurrentPage();  
 
-        //Create option arrays for selects 
-        $this->data['taxonomySelects']          = $this->getTaxonomies();
-
+        //Filter options 
+        $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType);
+        $this->data['filterPosition']           = $this->getFilterPosition($postType);
+        $this->data['enableTextSearch']         = $this->enableTextSearch($postType);
+        $this->data['enableDateFilter']         = $this->enableDateFilter($postType); 
+        
         //Archive data
-        $this->data['archiveTitle']             = $this->getArchiveTitle();
+        $this->data['archiveTitle']             = $this->getArchiveTitle($postType);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType); 
         $this->data['gridColumnClass']          = $this->getGridClass($postType); 
 
@@ -45,8 +46,27 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
 
         //Language
-        $this->data['lang']['noResult']         = __('No posts to show', 'municipio'); 
+        $this->data['lang']['noResult']         = sprintf(__('No %s to show', 'municipio'), strtolower($this->data['postTypeDetails']->labels->archives)); 
         
+    }
+
+    public function enableTextSearch($postType) {
+        return in_array('text_search', (array) get_field('archive_event_post_filters_header', 'options')); 
+    }
+
+    public function enableDateFilter($postType) {
+        return in_array('date_range', (array) get_field('archive_event_post_filters_header', 'options')); 
+    }
+
+    /**
+     * Get the position of the filter
+     *
+     * @param string $postType
+     * 
+     * @return string
+     */
+    public function getFilterPosition(string $postType) {
+        return (string) get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option'); 
     }
 
     /**
@@ -141,9 +161,12 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    protected function getArchiveTitle()
+    protected function getArchiveTitle($postType)
     {
-        return \apply_filters('Municipio/Controller/Archive/getArchiveTitle', get_the_archive_title());
+        return (string) \apply_filters(
+            'Municipio/Controller/Archive/getArchiveTitle', 
+            get_field('archive_'. $postType .'_title', 'options')
+        );
     }
 
     protected function getPostTerms($postID)
@@ -222,66 +245,69 @@ class Archive extends \Municipio\Controller\BaseController
         );
     }
 
-    protected function getTaxonomies()
+    protected function getTaxonomyFilters($postType)
     {
 
         //Define storage point
         $taxonomyObjects = []; 
 
-        //Get taxonomys of post type
-        $taxonomies = get_object_taxonomies($this->data['postType']);
+        //Get active taxonomy filters
+        $taxonomies = get_field('archive_' . $postType . '_post_filters_sidebar', 'options');
 
-        foreach ($taxonomies as $taxonomy) {
+        if(is_array($taxonomies) && !empty($taxonomies)) {
+            foreach ($taxonomies as $taxonomy) {
 
-            //Fetch full object
-            $taxonomy = get_taxonomy($taxonomy); 
+                //Fetch full object
+                $taxonomy = get_taxonomy($taxonomy); 
 
-            //Bail if not found
-            if($taxonomy === false) {
-                continue;
-            }
+                //Bail if not found
+                if($taxonomy === false) {
+                    continue;
+                }
 
-            //Get terms
-            $terms = get_terms(
-                array(
-                    'taxonomy' => $taxonomy->name,
-                    'hide_empty' => true
-                )
-            ); 
+                //Get terms
+                $terms = get_terms(
+                    array(
+                        'taxonomy' => $taxonomy->name,
+                        'hide_empty' => true
+                    )
+                ); 
 
-            //Bail early if there isen't any options
-            if(empty($terms)) {
-                continue;
-            }
+                //Bail early if there isen't any options
+                if(empty($terms)) {
+                    continue;
+                }
 
-            //Reset options
-            $options = [];
+                //Reset options
+                $options = [];
 
-            //Fill options
-            if(is_array($terms) && !empty($terms)) {
-                foreach($terms as $option) {
-                    if(!empty($option->name)) {
-                        $options[$option->slug] = $option->name; 
+                //Fill options
+                if(is_array($terms) && !empty($terms)) {
+                    foreach($terms as $option) {
+                        if(!empty($option->name)) {
+                            $options[$option->slug] = $option->name; 
+                        }
                     }
                 }
+
+                //Data
+                $taxonomyObject = [
+                    'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                    'required' => false,
+                    'attributeList' => [
+                        'type' => 'text',
+                        'name' => $taxonomy->name
+                    ],
+                    'options' => $options
+                ]; 
+
+                if (isset($_GET[$taxonomy->name])) {
+                    $taxonomyObject['preselected'] = $_GET[$taxonomy->name];
+                }
+
+                $taxonomyObjects[] = $taxonomyObject;
             }
-
-            //Data
-            $taxonomyObject = [
-                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
-                'required' => false,
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => $taxonomy->name
-                ],
-                'options' => $options
-            ]; 
-
-            if (isset($_GET[$taxonomy->name])) {
-                $taxonomyObject['preselected'] = $_GET[$taxonomy->name];
-            }
-
-            $taxonomyObjects[] = $taxonomyObject;
+        
         }
 
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);

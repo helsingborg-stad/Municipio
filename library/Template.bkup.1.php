@@ -75,7 +75,7 @@ class Template
      * @return void
      */
 
-    //TODO: Enable template controllers to be versionated as in Helpers/Controller -> L12     
+    //TODO: Enable template s to be versionated as in Helpers/ -> L12     
     public function initCustomTemplates()
     {
         $directory = MUNICIPIO_PATH . 'library/Controller/';
