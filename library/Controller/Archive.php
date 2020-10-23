@@ -49,9 +49,26 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showFilterReset']          = $this->showFilterReset($this->data['queryParameters']); 
         $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
 
+        //Show filter? 
+        $this->data['showFilter']               = $this->showFilter($postType); 
+
         //Language
         $this->data['lang']['noResult']         = sprintf(__('No %s to show', 'municipio'), strtolower($this->data['postTypeDetails']->labels->archives)); 
         
+    }
+    
+    /**
+     * Determines if view for filter should be rendered.
+     *
+     * @param string $postType
+     * @return boolean
+     */
+    public function showFilter($postType) {
+        return (bool) array_filter([
+            $this->enableTextSearch($postType),
+            $this->enableDateFilter($postType),
+            $this->getTaxonomyFilters($postType)
+        ]); 
     }
 
     /**
