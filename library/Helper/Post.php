@@ -84,8 +84,37 @@ class Post
         if(in_array('post_title_filtered', $appendFields)) {
             $postObject->post_title_filtered    = apply_filters('the_title', $postObject->post_title); 
         }
-        
+
+        //Get post tumbnail image
+        $postObject->thumbnail = self::getFeaturedImage($postObject->ID, [400, 225]); 
+
         return $postObject; 
+    }
+
+    /**
+     * Get the post featured image
+     *
+     * @param integer   $postId         
+     * @return array    $featuredImage  The post thumbnail image, with alt and title
+     */
+    public static function getFeaturedImage($postId, $size = 'full')
+    {
+        $featuredImageID = get_post_thumbnail_id($postId);
+        
+        $featuredImageSRC = \get_the_post_thumbnail_url(
+            $postId,
+            apply_filters('Municipio/Helper/Post/FeaturedImageSize', $size)
+        );
+        $featuredImageAlt   = get_post_meta($featuredImageID, '_wp_attachment_image_alt', true);
+        $featuredImageTitle = get_the_title($featuredImageID);
+
+        $featuredImage = [
+            'src' => $featuredImageSRC ? $featuredImageSRC : null,
+            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
+            'title' => $featuredImageTitle ? $featuredImageTitle : null
+        ];
+
+        return \apply_filters('Municipio/Helper/Post/FeaturedImage', $featuredImage);
     }
 
     /**
