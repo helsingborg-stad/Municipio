@@ -54,14 +54,32 @@ class Archive extends \Municipio\Controller\BaseController
         
     }
 
+    /**
+     * Boolean function to determine if navigation should be shown
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
     public function showSidebarNavigation($postType) {
         return (bool) get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'); 
     }
 
+    /**
+     * Boolean function to determine if text search should be enabled
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
     public function enableTextSearch($postType) {
         return (bool) in_array('text_search', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options')); 
     }
 
+    /**
+     * Boolean function to determine if date filter should be enabled
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
     public function enableDateFilter($postType) {
         return (bool) in_array('date_range', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options')); 
     }
@@ -177,14 +195,21 @@ class Archive extends \Municipio\Controller\BaseController
         );
     }
 
-    protected function getPostTerms($postID, $includeLink = false)
+    /**
+     * Get a list of terms to display on each inlay
+     *
+     * @param integer $postId           The post identifier
+     * @param boolean $includeLink      If a link should be included or not
+     * @return array                    A array of terms to display
+     */
+    protected function getPostTerms($postId, $includeLink = false)
     {
-        $terms = wp_get_post_terms($postID);
-        $taxonomies = get_taxonomies('', 'names');
+        $taxonomies = get_field('archive_'. get_post_type($postId) .'_post_taxonomy_display', 'options');
+
         $termsList = [];
 
         foreach ($taxonomies as $taxonomy) {
-            $terms = wp_get_post_terms($postID, $taxonomy);
+            $terms = wp_get_post_terms($postId, $taxonomy);
 
             if (!empty($terms)) {
                 foreach ($terms as $term) {
@@ -202,9 +227,14 @@ class Archive extends \Municipio\Controller\BaseController
             }
         }
 
-        return \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $termsList);
+        return \apply_filters('Municipio/Controller/Archive/getPostTerms', $termsList, $postId);
     }
 
+    /**
+     * Get pagination
+     *
+     * @return array    Pagination array with label and link
+     */
     protected function getPagination()
     {
         global $wp_query;
@@ -228,10 +258,21 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/prepareSearchResultObject', $pagination);
     }
 
+    /**
+     * Of the pagination should show or no
+     *
+     * @return bool
+     */
     protected function showPagination() {
         return (bool) empty($this->getPagination()); 
     }
 
+    /**
+     * Build a query string with page numer
+     *
+     * @param integer $number
+     * @return void
+     */
     protected function setQueryString($number)
     {
         parse_str($_SERVER['QUERY_STRING'], $queryArgList);
@@ -241,6 +282,11 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString);
     }
 
+    /**
+     * Set default values for query parameters
+     *
+     * @return void
+     */
     protected function setQueryParameters()
     {
         $queryParameters = [
@@ -263,6 +309,12 @@ class Archive extends \Municipio\Controller\BaseController
         );
     }
 
+    /**
+     * Get taxonomy filters to show
+     *
+     * @param   string  $postType           The current post type
+     * @return  array   $taxonomyObjects    Array containing selects with options
+     */
     protected function getTaxonomyFilters($postType)
     {
 
@@ -331,6 +383,13 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
 
+    /**
+     * Get posts in expected format for each component.
+     *
+     * @param   string  $template  The template identifier
+     * 
+     * @return  array   $items     Array of posts
+     */
     public function getPosts($template) : array
     {
         $items = null;
