@@ -216,7 +216,7 @@ class Archive extends \Municipio\Controller\BaseController
                     
                     $item = []; 
 
-                    $item['label'] = $term->name; 
+                    $item['label'] = strtolower($term->name); 
 
                     if($includeLink) {
                         $item['href'] = get_term_link($term->term_id); 
@@ -264,7 +264,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @return bool
      */
     protected function showPagination() {
-        return (bool) empty($this->getPagination()); 
+        return count($this->getPagination()) > 1 ? true : false; 
     }
 
     /**
@@ -355,7 +355,7 @@ class Archive extends \Municipio\Controller\BaseController
                 if(is_array($terms) && !empty($terms)) {
                     foreach($terms as $option) {
                         if(!empty($option->name)) {
-                            $options[$option->slug] = $option->name; 
+                            $options[$option->slug] = ucfirst($option->name) . " (" . $option->count . ")"; 
                         }
                     }
                 }
@@ -422,7 +422,6 @@ class Archive extends \Municipio\Controller\BaseController
 
                 $post                   = \Municipio\Helper\Post::preparePostObject($post);
                 $post->href             = $post->permalink;
-                $post->featuredImage    = $this->getFeaturedImage($post);
                 $post->excerpt          = $post->postExcerpt;
                 $post->postDate         = \date('Y-m-d', strtotime($post->postDate));
                 $post->postModified     = \date('Y-m-d', strtotime($post->postModified));
@@ -469,101 +468,5 @@ class Archive extends \Municipio\Controller\BaseController
         }
         
         return $preparedPosts;
-    }
-
-
-
-
-
-
-
-
-
-    //TODO: MOVE TO POST HELPER PREPARE
-    protected function getFeaturedImage($post)
-    {
-        $featuredImageID = get_post_thumbnail_id();
-        $featuredImageSRC = \get_the_post_thumbnail_url($post->id);
-        $featuredImageAlt = get_post_meta($featuredImageID, '_wp_attachment_image_alt', true);
-        $featuredImageTitle = get_the_title($featuredImageID);
-
-        $featuredImage = [
-            'src' => $featuredImageSRC ? $featuredImageSRC : null,
-            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
-            'title' => $featuredImageTitle ? $featuredImageTitle : null
-        ];
-
-        return \apply_filters('Municipio/Controller/Archive/getFeaturedImage', $featuredImage);
-    }
-
-    //TODO: Remove?
-    public function gridAlterColumns()
-    {
-        $gridRand = array();
-
-        switch ($this->data['gridSize']) {
-            case 12:
-                $gridRand = array(
-                    array(12)
-                );
-                break;
-
-            case 6:
-                $gridRand = array(
-                    array(12),
-                    array(6, 6),
-                    array(6, 6)
-                );
-                break;
-
-            case 4:
-                $gridRand = array(
-                    array(8, 4),
-                    array(4, 4, 4),
-                    array(4, 8)
-                );
-                break;
-
-            case 3:
-                $gridRand = array(
-                    array(6, 3, 3),
-                    array(3, 3, 3, 3),
-                    array(3, 3, 6),
-                    array(3, 3, 3, 3),
-                    array(3, 6, 3)
-                );
-                break;
-
-            default:
-                $gridRand = array(
-                    array(12)
-                );
-                break;
-        }
-
-        self::$randomGridBase = $gridRand;
-    }
-
-    //TODO: Remove? 
-    public static function getColumnSize()
-    {
-        // Fallback if not set
-        if (empty(self::$randomGridBase)) {
-            return 'grid-md-' . self::$gridSize;
-        }
-
-        if (empty(self::$gridRow)) {
-            self::$gridRow = self::$randomGridBase;
-        }
-
-        if (empty(self::$gridColumns)) {
-            self::$gridColumns = self::$gridRow[0];
-            array_shift(self::$gridRow);
-        }
-
-        $columnSize = 'grid-md-' . self::$gridColumns[0];
-        array_shift(self::$gridColumns);
-
-        return $columnSize;
     }
 }

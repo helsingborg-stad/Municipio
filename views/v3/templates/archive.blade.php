@@ -25,7 +25,6 @@
 @stop
 
 @section('before-layout')
-
     @if ($filterPosition == 'top')
         <div class="o-container">
             @includeFirst([

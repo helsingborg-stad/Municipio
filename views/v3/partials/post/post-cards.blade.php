@@ -5,7 +5,7 @@
                 @card([
                     'link' => $post->permalink,
                     'imageFirst' => true,
-                    'image' =>  ['src' => $post->featuredImage['src'], 'alt' => 'featured image'],
+                    'image' =>  $post->thumbnail,
                     'heading' => $post->postTitle,
                     'classList' => ['t-archive-card', 'u-height--100', 'u-height-100'],
                     'byline' => ['text' => $post->postDate, 'position' => 'body'],
