@@ -9,7 +9,8 @@
                     'heading' => $post->postTitle,
                     'classList' => ['t-archive-card', 'u-height--100', 'u-height-100'],
                     'byline' => ['text' => $post->postDate, 'position' => 'body'],
-                    'content' => $post->excerpt
+                    'content' => $post->excerptShort,
+                    'tags' => $post->termsUnlinked
                 ])
                 @endcard
             </div>

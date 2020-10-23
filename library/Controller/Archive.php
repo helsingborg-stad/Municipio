@@ -177,7 +177,7 @@ class Archive extends \Municipio\Controller\BaseController
         );
     }
 
-    protected function getPostTerms($postID)
+    protected function getPostTerms($postID, $includeLink = false)
     {
         $terms = wp_get_post_terms($postID);
         $taxonomies = get_taxonomies('', 'names');
@@ -188,10 +188,16 @@ class Archive extends \Municipio\Controller\BaseController
 
             if (!empty($terms)) {
                 foreach ($terms as $term) {
-                    $termsList[] = [
-                        'label' => $term->name,
-                        'href' => get_term_link($term->term_id)
-                    ];
+                    
+                    $item = []; 
+
+                    $item['label'] = $term->name; 
+
+                    if($includeLink) {
+                        $item['href'] = get_term_link($term->term_id); 
+                    }
+
+                    $termsList[] = $item; 
                 }
             }
         }
@@ -362,6 +368,7 @@ class Archive extends \Municipio\Controller\BaseController
                 $post->postDate         = \date('Y-m-d', strtotime($post->postDate));
                 $post->postModified     = \date('Y-m-d', strtotime($post->postModified));
                 $post->terms            = $this->getPostTerms($post->id);
+                $post->termsUnlinked    = $this->getPostTerms($post->id, false);
     
                 $preparedPosts[] = $post;
             }
