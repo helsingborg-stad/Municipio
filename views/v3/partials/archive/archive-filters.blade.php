@@ -44,7 +44,7 @@
                 @if($enableDateFilter) 
                     <div class="{{ $showDatePickers ? '' : 'u-display--none' }}" js-toggle-item="dateWrapper" js-toggle-class="u-display--none">
                         <div class="o-grid">
-                            <div class="o-grid-auto">
+                            <div class="o-grid-12 o-grid-auto@sm">
                                 @field([
                                     'type' => 'datepicker',
                                     'value' => $queryParameters->from,
@@ -70,7 +70,7 @@
                                 ])
                                 @endfield
                             </div>
-                            <div class="o-grid-auto">
+                            <div class="o-grid-12 o-grid-auto@sm">
                                 @field([
                                     'type' => 'datepicker',
                                     'value' => $queryParameters->to,
