@@ -195,8 +195,9 @@ class BaseController
 
         //Page for posttype archive mapping result
         if (is_post_type_archive()) {
-            global $post;
-            return get_option('page_for_' . $post->post_type);
+            if($pageId = get_option('page_for_' . get_post_type())) {
+                return $pageId; 
+            }
         }
 
         //Get the queried page
