@@ -121,6 +121,7 @@ class BaseController
             'hours'                 => __("hours", 'municipio'),
             'minutes'               => __("minutes", 'municipio'),
             'seconds'               => __("seconds", 'municipio'),
+            'search'                => __("Search", 'municipio'),
         );
 
         //Wordpress hooks
