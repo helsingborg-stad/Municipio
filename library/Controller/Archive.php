@@ -336,12 +336,13 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Include taxonomies (dynamic) 
         $taxonomies = get_object_taxonomies($this->data['postType']);
+
         if(is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
                 $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : ''; 
             }
         }
-
+        
         return \apply_filters(
             'Municipio/Controller/Archive/setQueryParameters',
             (object) $queryParameters
