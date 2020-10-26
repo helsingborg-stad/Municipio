@@ -1,6 +1,6 @@
 
 @if($showFilter)
-    <div class="t-archive-filter t-archive-filter--{{ $filterPosition }} {{ $filterPosition == 'top' ? 'u-margin__top--4' : '' }}">
+    <div class="s-archive-filter s-archive-filter--{{ $filterPosition }} {{ $filterPosition == 'top' ? 'u-margin__top--4' : '' }}">
         <div class="o-container">
             @form([
                 'method' => 'GET',
