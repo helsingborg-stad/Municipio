@@ -237,21 +237,23 @@ class Archive extends \Municipio\Controller\BaseController
 
         $termsList = [];
 
-        foreach ($taxonomies as $taxonomy) {
-            $terms = wp_get_post_terms($postId, $taxonomy);
+        if(is_array($taxonomies) && !empty($taxonomies)) {
+            foreach ($taxonomies as $taxonomy) {
+                $terms = wp_get_post_terms($postId, $taxonomy);
 
-            if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    
-                    $item = []; 
+                if (!empty($terms)) {
+                    foreach ($terms as $term) {
+                        
+                        $item = []; 
 
-                    $item['label'] = strtolower($term->name); 
+                        $item['label'] = strtolower($term->name); 
 
-                    if($includeLink) {
-                        $item['href'] = get_term_link($term->term_id); 
+                        if($includeLink) {
+                            $item['href'] = get_term_link($term->term_id); 
+                        }
+
+                        $termsList[] = $item; 
                     }
-
-                    $termsList[] = $item; 
                 }
             }
         }
