@@ -57,6 +57,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->noResult         = sprintf(__('No %s to show', 'municipio'), strtolower($this->data['postTypeDetails']->labels->archives));
         $this->data['lang']->publish          = __('Published', 'municipio');
         $this->data['lang']->updated          = __('Updated', 'municipio');
+        $this->data['lang']->readMore         = __('Read more', 'municipio');
         
     }
     
