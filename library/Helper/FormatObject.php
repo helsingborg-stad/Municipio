@@ -23,7 +23,7 @@ class FormatObject
                 return self::camelCaseString($item); 
                 break;
             default:
-               throw new Exception("Input is not a array, object or string. Cannot camelCase value.");
+               throw new \Exception("Input is not a array, object or string. Cannot camelCase value.");
         }
     }
 
