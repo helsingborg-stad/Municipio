@@ -52,7 +52,7 @@
 @stop
 
 @section('content')
-    <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive" @if (apply_filters('archive_equal_container', false, $postType, $template))  @endif>
+    <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive">
         {!! $hook->loopStart !!}
             
             @if($archiveTitle)
