@@ -82,6 +82,10 @@ class PostType
             return $wp_query->query['post_type']; 
         }
 
+        if(isset($wp_query->queried_object) && isset($wp_query->queried_object->post_type) && !empty($wp_query->queried_object->post_type)) {
+            return $wp_query->queried_object->post_type; 
+        }
+
         return null;
     }
 }
