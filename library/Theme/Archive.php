@@ -7,8 +7,8 @@ class Archive
     public function __construct()
     {
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'), 10, 1);
-        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
-        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 50, 1);
+        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 10, 1);
+        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 10, 1);
 
         add_filter('Municipio/Controller/Archive/GridColumnClass', array($this, 'replaceGridClasses'), 20, 1); 
     }
@@ -40,9 +40,7 @@ class Archive
             //Get current post count
             $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
 
-          
-
-            //If not set, use default value
+            //Set value
             if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {
                 $query->set('posts_per_page', $postCount);
                 return true;
