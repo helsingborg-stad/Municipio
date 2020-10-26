@@ -87,7 +87,7 @@
                 @notice([
                     'type' => 'info',
                     'message' => [
-                        'text' => $lang['noResult'],
+                        'text' => $lang->noResult,
                         'size' => 'md'
                     ]
                 ])

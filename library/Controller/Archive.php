@@ -53,7 +53,10 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showFilter']               = $this->showFilter($postType); 
 
         //Language
-        $this->data['lang']['noResult']         = sprintf(__('No %s to show', 'municipio'), strtolower($this->data['postTypeDetails']->labels->archives)); 
+        $this->data['lang'] = (object) []; 
+        $this->data['lang']->noResult         = sprintf(__('No %s to show', 'municipio'), strtolower($this->data['postTypeDetails']->labels->archives));
+        $this->data['lang']->publish          = __('Published', 'municipio');
+        $this->data['lang']->updated          = __('Updated', 'municipio');
         
     }
     
