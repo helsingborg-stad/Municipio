@@ -75,7 +75,7 @@
                 @if($showPagination)
                     @pagination([
                         'list' => $paginationList, 
-                        'classList' => ['u-margin__top--4'], 
+                        'classList' => ['u-margin__top--4', 'u-display--flex', 'u-justify-content--center'], 
                         'current' => $currentPage,
                         'linkPrefix' => '?paged='
                     ])
