@@ -14,7 +14,7 @@
                                 [
                                     'type' => 'text',
                                     'value' => $queryParameters->search,
-                                    'label' => 'Search for '. strtolower($postTypeDetails->labels->archives),
+                                    'label' => $lang->searchFor,
                                     'classList' => ['u-width--100'],
                                     'attributeList' => [
                                         'type' => 'text',
@@ -48,16 +48,16 @@
                                 @field([
                                     'type' => 'datepicker',
                                     'value' => $queryParameters->from,
-                                    'label' => __("Choose a from date", 'municipio'),
+                                    'label' => $lang->fromDate,
                                     'attributeList' => [
                                         'type' => 'text',
                                         'name' => 'from',
-                                        'data-invalid-message' => __("You need to add a valid date.", 'municipio'),
+                                        'data-invalid-message' => $lang->dateInvalid,
                                         'js-archive-filter-from'
                                     ],
                                     'required' => false,
                                     'datepicker' => [
-                                        'title'                 => __("Choose a from date", 'municipio'),
+                                        'title'                 => $lang->fromDate,
                                         'minDate'               => "6/29/1997",
                                         'maxDate'               => "tomorrow",
                                         'required'              => true,
@@ -74,16 +74,16 @@
                                 @field([
                                     'type' => 'datepicker',
                                     'value' => $queryParameters->to,
-                                    'label' => __("Choose a to date", 'municipio'),
+                                    'label' => $lang->toDate,
                                     'attributeList' => [
                                         'type' => 'text',
                                         'name' => 'to',
-                                        'data-invalid-message' => __("You need to add a valid date.", 'municipio'),
+                                        'data-invalid-message' => $lang->dateInvalid,
                                         'js-archive-filter-to' => ''
                                     ],
                                     'required' => false,
                                     'datepicker' => [
-                                        'title'                 => __("Choose a to date", 'municipio'),
+                                        'title'                 => $lang->toDate,
                                         'minDate'               => "6/29/1997",
                                         'maxDate'               => "tomorrow",
                                         'required'              => true,
@@ -126,7 +126,7 @@
                 <div class="o-grid">
                     <div class="o-grid-auto">
                         @button([
-                            'text' => __("Submit", 'municipio'),
+                            'text' => $lang->searchBtn,
                             'color' => 'primary',
                             'type' => 'basic'
                         ])
@@ -135,7 +135,7 @@
                         @if($showFilterReset && $archiveBaseUrl) 
                             @button([
                                 'href' => $archiveBaseUrl,
-                                'text' => __("Reset", 'municipio'),
+                                'text' => $lang->resetBtn,
                                 'type' => 'basic'
                             ])
                             @endbutton
