@@ -227,7 +227,7 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Get a list of terms to display on each inlay
      *
-     * @param integer $postId           The post identifier
+     * @param integer $postId           The post identifier 
      * @param boolean $includeLink      If a link should be included or not
      * @return array                    A array of terms to display
      */
@@ -237,9 +237,9 @@ class Archive extends \Municipio\Controller\BaseController
 
         $termsList = [];
 
-        if(is_array($taxonomies) && !empty($taxonomies)) {
+        if(is_array($taxonomies) && !empty($taxonomies)) { 
             foreach ($taxonomies as $taxonomy) {
-                $terms = wp_get_post_terms($postId, $taxonomy);
+                $terms = wp_get_post_terms($postId, $taxonomy); 
 
                 if (!empty($terms)) {
                     foreach ($terms as $term) {
