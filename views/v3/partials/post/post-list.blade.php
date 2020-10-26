@@ -4,4 +4,3 @@
     'classList' => ['archive-list']
 ])
 @endtable
-  

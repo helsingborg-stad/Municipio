@@ -67,6 +67,14 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->searchBtn        = __('Search', 'municipio'); 
         $this->data['lang']->resetBtn         = __('Reset filter', 'municipio'); 
 
+        //Filter
+        $this->data = apply_filters(
+            'Municipio/Controller/Archive/Data', 
+            $this->data, 
+            $postType, 
+            $template
+        ); 
+
     }
     
     /**
@@ -488,6 +496,7 @@ class Archive extends \Municipio\Controller\BaseController
 
                 $preparedPosts['items'][] =
                 [
+                    'id' => $post->id,
                     'href' => get_permalink($post->id),
                     'columns' => [
                         $post->postTitle,
