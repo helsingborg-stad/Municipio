@@ -104,7 +104,7 @@
                 {{-- Select dropdowns for filtering --}}
                 <div class="o-grid">
                     @foreach($taxonomyFilters as $key => $select)
-                        <div class="o-grid-auto">
+                        <div class="o-grid-12 o-grid-auto@sm">
                             @select($select)
                             @endselect
                         </div>
