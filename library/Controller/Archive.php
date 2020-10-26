@@ -54,11 +54,19 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Language
         $this->data['lang'] = (object) []; 
-        $this->data['lang']->noResult         = sprintf(__('No %s to show', 'municipio'), strtolower($this->data['postTypeDetails']->labels->archives));
+        $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found;
         $this->data['lang']->publish          = __('Published', 'municipio');
         $this->data['lang']->updated          = __('Updated', 'municipio');
         $this->data['lang']->readMore         = __('Read more', 'municipio');
-        
+        $this->data['lang']->searchFor        = ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items));
+
+        $this->data['lang']->fromDate         = __('Choose a from date', 'municipio');
+        $this->data['lang']->toDate           = __('Choose a to date', 'municipio');
+        $this->data['lang']->dateInvalid      = __('Select a valid date', 'municipio');
+
+        $this->data['lang']->searchBtn        = __('Search', 'municipio'); 
+        $this->data['lang']->resetBtn         = __('Reset filter', 'municipio'); 
+
     }
     
     /**
