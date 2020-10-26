@@ -42,7 +42,7 @@
                 </div>
             
                 @if($enableDateFilter) 
-                    <div class="{{ $displayDatePickers ? '' : 'u-display--none' }}" js-toggle-item="dateWrapper" js-toggle-class="u-display--none">
+                    <div class="{{ $showDatePickers ? '' : 'u-display--none' }}" js-toggle-item="dateWrapper" js-toggle-class="u-display--none">
                         <div class="o-grid">
                             <div class="o-grid-auto">
                                 @field([
