@@ -1,7 +1,7 @@
 <?php
 
 namespace Municipio\Content;
-
+//TODO: Needs refactoring
 class PostFilters
 {
     public function __construct()
@@ -361,12 +361,14 @@ class PostFilters
         }
 
         $taxQuery = array('relation' => 'OR');
+
         foreach ($filterable as $key => $value) {
-            if (!isset($_GET['filter'][$key]) || empty($_GET['filter'][$key]) || $_GET['filter'][$key] === '-1') {
+
+            if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {
                 continue;
             }
             
-            $terms = $_GET['filter'][$key];
+            $terms = $_GET[$key];
             
             $taxQuery[] = array(
                 'taxonomy' => $key,

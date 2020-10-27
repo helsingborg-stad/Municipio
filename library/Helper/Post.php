@@ -43,16 +43,30 @@ class Post
             if(empty($postObject->post_excerpt)) {
                 
                 //Create excerpt if not defined by editor
-                $postObject->post_excerpt = wp_trim_words(
+                $postObject->excerpt = wp_trim_words(
                     $postObject->post_content,
                     apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
                     apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
 
+                //Create excerpt if not defined by editor
+                $postObject->excerpt_short = wp_trim_words(
+                    $postObject->post_content,
+                    apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
+                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
+                );
+
                 //No content in post
-                if(empty($postObject->post_excerpt)) {
-                    $postObject->post_excerpt = __("Item is missing content", 'municipio'); 
+                if(empty($postObject->excerpt)) {
+                    $postObject->excerpt = __("Item is missing content", 'municipio'); 
                 }
+
+            } else {
+                $postObject->excerpt_short = wp_trim_words(
+                    $postObject->content,
+                    apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
+                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
+                );
             }
         }
 
@@ -70,8 +84,37 @@ class Post
         if(in_array('post_title_filtered', $appendFields)) {
             $postObject->post_title_filtered    = apply_filters('the_title', $postObject->post_title); 
         }
-        
+
+        //Get post tumbnail image
+        $postObject->thumbnail = self::getFeaturedImage($postObject->ID, [400, 225]); 
+
         return $postObject; 
+    }
+
+    /**
+     * Get the post featured image
+     *
+     * @param integer   $postId         
+     * @return array    $featuredImage  The post thumbnail image, with alt and title
+     */
+    public static function getFeaturedImage($postId, $size = 'full')
+    {
+        $featuredImageID = get_post_thumbnail_id($postId);
+        
+        $featuredImageSRC = \get_the_post_thumbnail_url(
+            $postId,
+            apply_filters('Municipio/Helper/Post/FeaturedImageSize', $size)
+        );
+        $featuredImageAlt   = get_post_meta($featuredImageID, '_wp_attachment_image_alt', true);
+        $featuredImageTitle = get_the_title($featuredImageID);
+
+        $featuredImage = [
+            'src' => $featuredImageSRC ? $featuredImageSRC : null,
+            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
+            'title' => $featuredImageTitle ? $featuredImageTitle : null
+        ];
+
+        return \apply_filters('Municipio/Helper/Post/FeaturedImage', $featuredImage);
     }
 
     /**

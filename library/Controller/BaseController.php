@@ -121,6 +121,7 @@ class BaseController
             'hours'                 => __("hours", 'municipio'),
             'minutes'               => __("minutes", 'municipio'),
             'seconds'               => __("seconds", 'municipio'),
+            'search'                => __("Search", 'municipio'),
         );
 
         //Wordpress hooks
@@ -194,8 +195,9 @@ class BaseController
 
         //Page for posttype archive mapping result
         if (is_post_type_archive()) {
-            global $post;
-            return get_option('page_for_' . $post->post_type);
+            if($pageId = get_option('page_for_' . get_post_type())) {
+                return $pageId; 
+            }
         }
 
         //Get the queried page
@@ -419,7 +421,8 @@ class BaseController
     {
         $this->data = array_merge(
             $this->data,
-            apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/viewData')
+            apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/viewData'),
+            apply_filters('Municipio/viewData', $this->data)
         );
     }
 

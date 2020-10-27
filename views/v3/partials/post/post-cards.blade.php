@@ -1,20 +1,18 @@
 @if ($posts)
     <div class="o-grid">
         @foreach($posts as $post)
-        <div class="o-grid-12 {{$gridColumnClass}}">
-
+            <div class="o-grid-12 {{ $gridColumnClass }}">
                 @card([
-                    'href' => $post->permalink,
+                    'link' => $post->permalink,
                     'imageFirst' => true,
-                    'image' =>  ['src' => $post->featuredImage['src'], 'alt' => 'featured image'],
+                    'image' =>  $post->thumbnail,
                     'heading' => $post->postTitle,
-                    'classList' => ['archive-card'],
+                    'classList' => ['t-archive-card', 'u-height--100', 'u-height-100'],
                     'byline' => ['text' => $post->postDate, 'position' => 'body'],
-                    'content' => $post->excerpt,
-                    'buttons' => [['text' => 'Go', 'href' => $post->permalink]]
-                    ])
+                    'content' => $post->excerptShort,
+                    'tags' => $post->termsUnlinked
+                ])
                 @endcard
-
             </div>
         @endforeach
     </div>

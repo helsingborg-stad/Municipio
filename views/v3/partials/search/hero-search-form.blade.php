@@ -10,7 +10,7 @@
             'u-color__text--primary'
         ]
     ])
-        {{ _e('Search', 'municipio') }} helsingborg.se
+        {{ $lang['search'] }} {{ $siteName }}
     @endtypography
 
     @field([
@@ -22,16 +22,16 @@
             'name' => 's',
             'required' => false,
         ],
-        'label' => __('Search', 'municipio')
+        'label' => $lang['search'] . " " . $siteName
     ])
     @endfield
 
     @button([
         'id' => 'search-form--submit',
-        'text' => __('Search', 'municipio'),
+        'text' => $lang['search'],
         'color' => 'primary',
         'type' => 'basic',
-        'size' => 'lg',
+        'size' => 'md',
         'attributeList' => [
             'id' => 'search-form--submit'
         ]

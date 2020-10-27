@@ -133,9 +133,9 @@ class Template
         $controller = \Municipio\Helper\Controller::locateController($template);
         
         //Locate controller
-         if(in_array($template, $singularTemplates)) {
+        if(in_array($template, $singularTemplates)) {
             $controller = \Municipio\Helper\Controller::locateController('Singular');
-        }elseif (!$controller) {
+        } elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
         
