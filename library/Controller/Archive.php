@@ -29,11 +29,6 @@ class Archive extends \Municipio\Controller\BaseController
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
 
-        //Pagination
-        $this->data['paginationList']           = $this->getPagination();
-        $this->data['showPagination']           = $this->showPagination();
-        $this->data['currentPage']              = $this->getCurrentPage();  
-
         //Filter options 
         $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType);
         $this->data['filterPosition']           = $this->getFilterPosition($postType);
@@ -44,6 +39,11 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveTitle']             = $this->getArchiveTitle($postType);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType); 
         $this->data['gridColumnClass']          = $this->getGridClass($postType); 
+
+        //Pagination
+        $this->data['currentPage']              = $this->getCurrentPage();
+        $this->data['paginationList']           = $this->getPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
+        $this->data['showPagination']           = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
 
         //Display functions 
         $this->data['showFilterReset']          = $this->showFilterReset($this->data['queryParameters']); 
@@ -274,27 +274,25 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return array    Pagination array with label and link
      */
-    protected function getPagination()
+    protected function getPagination($postType, $archiveBaseUrl, $wpQuery)
     {
-        global $wp_query;
-        $pagination = [];
-        $numberOfPages = $wp_query->max_num_pages + 1;
-        $archiveUrl = get_post_type_archive_link($this->data['postType']);
-        $href = '';
-        $currentPage = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        $numberOfPages = $wpQuery->max_num_pages; 
 
         if ($numberOfPages > 1) {
             for ($i = 1; $i < $numberOfPages; $i++) {
-                $href = $archiveUrl . '?' . $this->setQueryString($i);
+                
+                $href = $archiveBaseUrl . '?' . $this->setQueryString($i);
     
                 $pagination[] = array(
                     'href' => $href,
                     'label' => (string) $i
                 );
+
             }
         }
-        
-        return \apply_filters('Municipio/Controller/Archive/prepareSearchResultObject', $pagination);
+
+        return \apply_filters('Municipio/Controller/Archive/getPagination', $pagination);
     }
 
     /**
@@ -302,8 +300,8 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return bool
      */
-    protected function showPagination() {
-        return count($this->getPagination()) > 1 ? true : false; 
+    protected function showPagination($postType, $archiveBaseUrl, $wpQuery) {
+        return count($this->getPagination($postType, $archiveBaseUrl, $wpQuery)) > 1 ? true : false; 
     }
 
     /**
