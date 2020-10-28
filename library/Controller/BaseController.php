@@ -35,7 +35,7 @@ class BaseController
 
         //Send globals to view
         $this->data['wpQuery']              = $this->wpQuery;
-
+ 
         //Header & Footer
         $this->data['wpHeader']             = $this->getWpHeader();
         $this->data['wpFooter']             = $this->getWpFooter();
@@ -580,10 +580,17 @@ class BaseController
     public function globalToLocal($global, $local = null)
     {
         global $$global;
+
+        if(is_null($$global)) {
+            return false; 
+        }
+
         if (is_null($local)) {
             $this->$global = $$global;
         } else {
             $this->$local = $$global;
         }
+
+        return true; 
     }
 }

@@ -6,9 +6,9 @@ class Archive
 {
     public function __construct()
     {
-        add_action('pre_get_posts', array($this, 'onlyFirstLevel'), 10, 1);
-        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 10, 1);
-        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 10, 1);
+        add_action('pre_get_posts', array($this, 'onlyFirstLevel'), 100, 1);
+        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 110, 1);
+        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 110, 1);
 
         add_filter('Municipio/Controller/Archive/GridColumnClass', array($this, 'replaceGridClasses'), 20, 1); 
     }

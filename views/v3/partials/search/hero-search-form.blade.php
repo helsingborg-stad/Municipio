@@ -10,7 +10,7 @@
             'u-color__text--primary'
         ]
     ])
-        {{ $lang['search'] }} {{ $siteName }}
+        {{ $lang->search }} {{ $siteName }}
     @endtypography
 
     @field([
@@ -22,13 +22,13 @@
             'name' => 's',
             'required' => false,
         ],
-        'label' => $lang['search'] . " " . $siteName
+        'label' => $lang->search . " " . $siteName
     ])
     @endfield
 
     @button([
         'id' => 'search-form--submit',
-        'text' => $lang['search'],
+        'text' => $lang->search,
         'color' => 'primary',
         'type' => 'basic',
         'size' => 'md',
