@@ -36,7 +36,7 @@
                         @comment([
                             'author' => $comment->comment_author,
                             'author_url' => 'mailto:'.$comment->comment_author_email,
-                            'author_image' => get_avatar_url(get_user_by('email', $comment->comment_author_email)->data->ID ),
+                            'author_image' => get_user_by('email', $comment->comment_author_email) ? get_avatar_url(get_user_by('email', $comment->comment_author_email)->data->ID ) : false,
                             'href' => '',
                             'text' => get_comment_text($comment->comment_ID),
                             'icon' => 'face',
