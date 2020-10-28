@@ -29,7 +29,7 @@
                                 'name' => 's',
                                 'required' => true,
                             ],
-                            'label' => $lang['searchFor']
+                            'label' => $lang->searchFor
                         ])
                         @endfield
 
@@ -52,7 +52,7 @@
                 <div class="o-grid-12">
                     <div class="search-result-count">
                         @typography(['variant' => 'meta', 'element' => 'span'])
-                            {{ $lang['found'] }} {{ $resultCount }} {{ $lang['results'] }} 
+                            {{ $lang->found }} {{ $resultCount }} {{ $lang->results }} 
                         @endtypography
                     </div>
                 </div>
@@ -63,7 +63,6 @@
 
         {!! $hook->searchNotices !!}
 
-
         @if (!$resultCount)
 
             <section class="o-container t-searchform u-margin__top--6">
@@ -72,7 +71,7 @@
                         @notice([
                             'type' => 'info',
                             'message' => [
-                                'text' => $lang['noResult'],
+                                'text' => $lang->noResult,
                                 'size' => 'md'
                             ]
                         ])
