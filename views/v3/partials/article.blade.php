@@ -17,7 +17,7 @@
     @endif
 
     <!-- Feature Image -->
-    @if (isset($feature_image->src))
+    @if (!empty($feature_image->src))
 		@image([
 			'src'=> $feature_image->src[0],
 			'alt' => $feature_image->alt,
