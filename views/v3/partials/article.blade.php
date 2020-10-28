@@ -1,4 +1,4 @@
-<article id="article" class="c-article s-article">
+<article id="article" class="c-article c-article--readable-width s-article">
     <!-- Title -->
     @typography(["element" => "h1"])
         {!! $postTitleFiltered !!}
