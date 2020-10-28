@@ -40,9 +40,6 @@ class Archive
             //Get current post count
             $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
 
-            var_dump($postCount); 
-
-
             //Set value
             if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {
                 $query->set('posts_per_page', $postCount);
