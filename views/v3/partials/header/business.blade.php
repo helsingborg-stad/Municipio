@@ -55,3 +55,7 @@
     @endif
 @stop
 
+{{-- After header body --}}
+@section('mobile-navigation')
+    @includeIf('partials.navigation.drawer')
+@stop
