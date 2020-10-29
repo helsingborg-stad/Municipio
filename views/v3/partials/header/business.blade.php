@@ -27,7 +27,7 @@
                     <img class="c-nav__logo" src="{{$logotype->standard['url']}}">
                 </a>
                 
-                <button js-toggle-trigger="js-mobile-sidebar" class="hamburger hamburger--stacked@sm hamburger--reverse@md hamburger--slider c-header__button c-nav__action u-display--none@lg u-display--none@xl " type="button"
+                <button class="hamburger hamburger--stacked@sm hamburger--reverse@md hamburger--slider c-header__button c-nav__action u-display--none@lg u-display--none@xl js-burger js-trigger-drawer" type="button"
                 aria-label="Menu" aria-controls="navigation">
                     <span class="hamburger-box">
                         <span class="hamburger-inner"></span>
