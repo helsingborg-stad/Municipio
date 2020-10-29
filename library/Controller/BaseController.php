@@ -110,7 +110,7 @@ class BaseController
         $this->data['notice']               = [];
 
         //Language
-        $this->data['lang'] = array(
+        $this->data['lang'] = (object) array(
             'goToHomepage'          => __("Go to homepage", 'municipio'),
             'jumpToMainMenu'        => __("Jump to the main menu", 'municipio'),
             'jumpToMainContent'     => __("Jump to the main content", 'municipio'),
