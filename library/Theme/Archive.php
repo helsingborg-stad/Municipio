@@ -15,7 +15,9 @@ class Archive
 
     public function replaceGridClasses($classname)
     {
+
         $classname = str_replace('grid-md-12', 'o-grid-12@md', $classname);
+        $classname = str_replace('grid-md-6', 'o-grid-6@md', $classname);
         $classname = str_replace('grid-md-4', 'o-grid-4@md', $classname);
         $classname = str_replace('grid-md-3', 'o-grid-3@md', $classname);
         $classname = str_replace('grid-md-2', 'o-grid-2@md', $classname);
