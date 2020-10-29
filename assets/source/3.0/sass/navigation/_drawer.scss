@@ -1,0 +1,49 @@
+$drawer-background: white;
+$drawer-transition-ms: 300ms;
+$drawer-width: $base * 40;
+
+.c-drawer {
+    background-color: $drawer-background;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: $drawer-width;
+    z-index: $level-9;
+    transform: translate(-100%);
+    transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.c-drawer.c-drawer--right {
+    transform: translate(100%);
+    right: 0;
+    left: initial;
+}
+
+.c-drawer.is-open {
+    transition: visibility 0s linear 0s, $drawer-transition-ms ease-out transform, $drawer-transition-ms ease-in opacity;
+    visibility: visible;
+    transform: translate(0%);
+    opacity: 1;
+}
+
+.overlay {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: $level-8;
+    background-color: black;
+    position: fixed;
+    transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in opacity;
+    visibility: hidden;
+}
+
+.c-drawer.is-open + .overlay {
+    opacity: 0.2;
+    transition: visibility 0s linear 0s, $drawer-transition-ms ease-in opacity;
+    visibility: visible;
+}
