@@ -15,14 +15,14 @@
                     'name' => 's',
                     'required' => false,
                 ],
-                'label' => $lang['search'] . " " . $siteName
+                'label' => $lang->search . " " . $siteName
             ])
             @endfield
         </div>
         <div class="o-grid-fit">
             @button([
                 'id' => 'search-form--submit',
-                'text' => $lang['search'],
+                'text' => $lang->search,
                 'color' => 'primary',
                 'type' => 'basic',
                 'size' => 'md',
