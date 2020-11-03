@@ -14,7 +14,7 @@ export default (() => {
                 
                 function cb(e) {
                     drawer.classList.toggle('is-open');
-                    document.body.classList.add('drawer-is-open');
+                    document.body.classList.add('has-open-drawer');
                 }
                 element.addEventListener('click', cb);
             });
@@ -26,7 +26,7 @@ export default (() => {
                     console.log("closed");
 
                     drawer.classList.remove('is-open');
-                    document.body.classList.remove('drawer-is-open');
+                    document.body.classList.remove('has-open-drawer');
                 }
                 element.addEventListener('click', cb);
             });
