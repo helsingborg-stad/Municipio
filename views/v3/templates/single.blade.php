@@ -12,19 +12,18 @@
 
 @section('sidebar-left')
 
-    @sidebar([
-        'items'     => $secondaryMenuItems,
-        'endpoints' => [
-            'children'  => $homeUrlPath . '/wp-json/municipio/v1/navigation/children'
-        ],
+    @nav([
         'classList' => [
+            'c-nav--sidebar',            
             'u-visibility--hidden@xs',
             'u-visibility--hidden@sm',
         ],
-        'pageId' => $pageID,
-        'sidebar' => true
+        'items' => $secondaryMenuItems,
+        'childItemsUrl' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
+        'direction' => 'vertical',
+        'includeToggle' => true
     ])
-    @endsidebar
+    @endnav
 
     @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
     @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
