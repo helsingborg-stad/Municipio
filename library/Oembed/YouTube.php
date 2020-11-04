@@ -35,6 +35,7 @@ class YouTube extends Oembed
         }
 
         $this->getThumbnail();
+        // die(var_dump($this->playerMarkup()));
 
         return $this->playerMarkup();
     }
@@ -45,19 +46,15 @@ class YouTube extends Oembed
 
         if ($this->playerWrapper) {
             if (!empty($this->playlist)) {
-                $html .= '<div class="player-wrapper is-playlist">';
+                $html .= '<div class="modularity-mod-player__wrapper is-playlist">';
             } else {
-                $html .= '<div class="player-wrapper">';
+                $html .= '<div class="modularity-mod-player__wrapper">';
             }
         }
 
-        $html .= '<div class="player ratio-16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">';
+        $html .= '<div class="modularity-mod-player modularity-mod-player__ratio--16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">';
 
-        if (!isset($this->params['list'])) {
-            $html .= '<a href="#video-player-' . $this->params['v'] . '" data-video-id="' . $this->params['v'] . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>';
-        } else {
-            $html .= '<a href="#video-player-' . $this->params['v'] . '" data-list-id="' . $this->params['list'] . '" data-video-id="' . $this->params['v'] . '" data-unavailable="' . __('Video playback unavailable, enable JavaScript in your browser to watch video.', 'municipio') . '"></a>';
-        }
+        $html .= '<iframe type="text/html" width="1080" height="720"src="//www.youtube.com/embed/' . $this->params['v'] . '?autoplay=1&autohide=1&cc_load_policy=0&enablejsapi=1&modestbranding=1&origin=styleguide.dev&showinfo=0&autohide=1&iv_load_policy=3&rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
         $html .= '</div>';
 
