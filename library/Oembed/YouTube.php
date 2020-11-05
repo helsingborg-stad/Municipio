@@ -35,7 +35,6 @@ class YouTube extends Oembed
         }
 
         $this->getThumbnail();
-        // die(var_dump($this->playerMarkup()));
 
         return $this->playerMarkup();
     }
@@ -54,7 +53,12 @@ class YouTube extends Oembed
 
         $html .= '<div class="modularity-mod-player modularity-mod-player__ratio--16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">';
 
-        $html .= '<iframe type="text/html" width="1080" height="720"src="//www.youtube.com/embed/' . $this->params['v'] . '?autoplay=1&autohide=1&cc_load_policy=0&enablejsapi=1&modestbranding=1&origin=styleguide.dev&showinfo=0&autohide=1&iv_load_policy=3&rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
+        if (!isset($this->params['list'])) {
+            $html .= '<iframe type="text/html" width="1080" height="720" src="//www.youtube.com/embed/' . $this->params['v'] . '?autoplay=0&autohide=1&cc_load_policy=0&enablejsapi=1&modestbranding=1&origin=styleguide.dev&showinfo=0&autohide=1&iv_load_policy=3&rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        } else {
+            $html .= '<iframe width="1080" height="720" src="https://www.youtube.com/embed/videoseries?list='. $this->params['list'] .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        }
 
         $html .= '</div>';
 
