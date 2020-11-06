@@ -31,6 +31,8 @@ module.exports = {
         'js/municipio': './assets/source/3.0/js/municipio.js',
         /* Legacy 2.0  */
         'js/mce': './assets/source/3.0/mce-js/mce-test.js',
+        'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
+        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js'
     },
     /**
      * Output settings

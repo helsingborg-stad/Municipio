@@ -85,6 +85,7 @@ abstract class PluginClass
     {
         $plugins[$this->pluginSlug] = get_template_directory_uri() . '/assets/dist/' .
             \Municipio\Helper\CacheBust::getFilename('js/mce.js');
+
         return $plugins;
     }
 

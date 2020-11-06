@@ -5,3 +5,5 @@ assets/dist/*
 vendor/
 .php_cs.cache
 .env
+
+npm-debug.log

@@ -5,28 +5,49 @@ namespace Municipio\Helper;
 class CacheBust
 {
     /**
-     * Returns the revved/cache-busted file name of an asset.
-     * TODO: Generalize this method so it fits plugin/themes/childthemes etc and remove old
+     * Returns the revved/cache-busted file name of an asset fetch from manifest.
+     *
+     * @param   string $name name of the "raw" filename of asset.
+     * @return  string Actual filename of the asset.
      */
     public static function getFilename($name)
     {
+
         static $revManifest;
+
         if (!isset($revManifest)) {
-            $revManifestPath =
-                get_stylesheet_directory() . '/assets/dist/manifest.json';
-            if (file_exists($revManifestPath)) {
-                $revManifest = json_decode(
-                    file_get_contents($revManifestPath),
-                    true
-                );
-            } elseif (WP_DEBUG) {
+            $revManifestPaths = [
+                get_stylesheet_directory() . '/assets/dist/manifest.json',
+                get_template_directory() . '/assets/dist/manifest.json'
+            ];
+
+            foreach ($revManifestPaths as $revManifestPath) {
+                if (file_exists($revManifestPath)) {
+                    $revManifest = json_decode(
+                        file_get_contents($revManifestPath),
+                        true
+                    );
+                    break;
+                }
+            }
+
+            if (WP_DEBUG && !isset($revManifest)) {
+                $directory = '';
+
+                if (is_child_theme()) {
+                    $directory = get_stylesheet_directory();
+                } else {
+                    $directory = get_template_directory();
+                }
+                
                 echo '<div style="color:red">Error: Assets not built. Go to ' .
-                    get_stylesheet_directory() .
+                    $directory .
                     ' and run "npm run build". See ' .
-                    get_stylesheet_directory() .
+                    $directory .
                     '/README.md for more info.</div>';
             }
         }
+
         return $revManifest[$name];
     }
 
