@@ -17,10 +17,10 @@
     @endif
 
     <!-- Feature Image -->
-    @if (!empty($feature_image->src))
+    @if (!empty($featuredImage->src))
 		@image([
-			'src'=> $feature_image->src[0],
-			'alt' => $feature_image->alt,
+			'src'=> $featuredImage->src[0],
+			'alt' => $featuredImage->alt,
 			'classList' => ['c-article__feature-image']
 		])
 		@endimage
@@ -29,8 +29,7 @@
 	<!-- Content -->
 	{!! $postContentFiltered !!}
 
-   
-
+    <!-- Comments -->
 	@includeIf('partials.comments')
 	
 </article>

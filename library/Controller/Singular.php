@@ -15,7 +15,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));
 
         //Get feature image data
-        $this->data['feature_image'] = $this->getFeatureImage($this->data['post']->id);
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id);
 
         //Get Author data
         $this->data['authorName'] = $this->getAuthor($this->data['post']->id)->name;
@@ -132,21 +132,31 @@ class Singular extends \Municipio\Controller\BaseController
     }
 
     /**
-     * @param $id Post id
+     * @param $postId Post id
      * @param $size Name or array for size of image
      * @return array An array of data related to the image
      */
-    private function getFeatureImage($id, $size = [1920,1080])
+    private function getFeaturedImage($postId, $size = [1920,1080])
     {
-        $image_id = get_post_thumbnail_id($id);
 
-        if (!$image_id) return false;
+        //Check option if it should be displayed
+        if(get_field('post_single_show_featured_image', $postId) == false) {
+            return false; 
+        }
+
+        //Get the image id
+        $featuredImageId = get_post_thumbnail_id($postId);
+
+        //Bail out if not found
+        if(!is_numeric($featuredImageId)) {
+            return false; 
+        }
 
         $featuredImageObject = (object) [
-            'id' => get_post_thumbnail_id($id), 
-            'src' => wp_get_attachment_image_src($image_id, $size),
-            'alt' => get_post_meta($image_id, '_wp_attachment_image_alt', TRUE),
-            'title' => get_the_title($image_id)
+            'id'    => $featuredImageId, 
+            'src'   => wp_get_attachment_image_src($featuredImageId, $size),
+            'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
+            'title' => get_the_title($featuredImageId)
         ];
          
         return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
