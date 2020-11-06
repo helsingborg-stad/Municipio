@@ -48,7 +48,10 @@
 @import "~@helsingborg-stad/styleguide/source/sass/mixin/animations/fade-in";
 
 
-
+// ***************************************************************
+// *** Theme specific
+// ***************************************************************
+@import 'wp';
 @import 'print';
 @import 'generic';
 @import 'search';

@@ -1,0 +1,15 @@
+/* =WordPress Core
+-------------------------------------------------------------- */
+
+article:after {
+  overflow: auto;
+}
+
+article p > .c-image__image {
+  width: auto; 
+}
+
+article .u-margin_x--auto {
+  margin-left: auto; 
+  margin-right: auto;
+}

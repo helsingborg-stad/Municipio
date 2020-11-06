@@ -82,14 +82,35 @@ class Post
             $parts = explode("<!--more-->", $postObject->post_content);
 
             if(is_array($parts) && count($parts) > 1) {
-                $excerpt = '<p class="lead">' . array_pop($parts) . "</p>";
+                $excerpt = '<p class="lead">' . array_shift($parts) . "</p>";
                 $content = implode(PHP_EOL, $parts);  
             } else {
                 $excerpt = "";
                 $content = $postObject->post_content; 
             }
 
-            $postObject->post_content_filtered  = $excerpt . apply_filters('the_content', $content); 
+            //Replace builtin css classes to our own
+            $postObject->post_content_filtered  = $excerpt . str_replace(
+                [
+                    'wp-caption',
+                    'c-image-text',
+                    'wp-image-',
+                    'alignleft', 
+                    'alignright', 
+                    'alignnone',
+                    'aligncenter'
+                ],
+                [
+                    'c-image',
+                    'c-image__caption u-margin__top--0',
+                    'c-image__image wp-image-',
+                    'u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2', 
+                    'u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2', 
+                    '',
+                    'u-margin_x--auto'
+                ], 
+                apply_filters('the_content', $content)
+            ); 
 
         }
 
