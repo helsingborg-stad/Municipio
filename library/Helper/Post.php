@@ -77,7 +77,20 @@ class Post
 
         //Get filtered content
         if(in_array('post_content_filtered', $appendFields)) {
-            $postObject->post_content_filtered  = apply_filters('the_content', $postObject->post_content); 
+
+            //Parse lead
+            $parts = explode("<!--more-->", $postObject->post_content);
+
+            if(is_array($parts) && count($parts) > 1) {
+                $excerpt = '<p class="lead">' . array_pop($parts) . "</p>";
+                $content = implode(PHP_EOL, $parts);  
+            } else {
+                $excerpt = "";
+                $content = $postObject->post_content; 
+            }
+
+            $postObject->post_content_filtered  = $excerpt . apply_filters('the_content', $content); 
+
         }
 
         //Get filtered post title
