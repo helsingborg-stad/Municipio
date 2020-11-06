@@ -160,13 +160,35 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-            echo $this->bladeEngine->make(
+            
+            $result = $this->bladeEngine->make(
                 $view,
                 array_merge(
                     $data,
                     array('errorMessage' => false)
                 )
             )->render();
+
+            if(class_exists("tidy")) {
+
+                $tidy = new \tidy;
+                $tidy->parseString($result, array(
+                    'indent'         => true,
+                    'output-xhtml'   => true,
+                    'wrap'           => 10000,
+                    'show-body-only' => false
+                ), 'utf8');
+                
+                $tidy->cleanRepair();
+    
+                if(isset($tidy->value)) {
+                    echo $tidy->value;
+                }
+
+            } else {
+                echo $result; 
+            }
+
         } catch (\Throwable $e) {
             echo '<pre style="border: 3px solid #f00; padding: 10px;">';
                 echo '<strong>' . $e->getMessage() . '</strong>';
