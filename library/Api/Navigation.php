@@ -7,6 +7,7 @@ class Navigation
     public function __construct()
     {
         add_action('rest_api_init', array($this, 'registerEndpoints'));
+        add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
     }
 
     public function registerEndpoints()
@@ -59,5 +60,23 @@ class Navigation
         }
 
         return [];
+    }
+
+    public function appendFetchUrl($item, $identifier)
+    {
+        $targetMenuIdentifiers = ['mobile', 'sidebar'];
+
+        if (!in_array($identifier, $targetMenuIdentifiers)) {
+            return $item;
+        }
+
+
+        $dataFetchUrl = apply_filters('Municipio/homeUrl', esc_url(get_home_url())) . '/wp-json/municipio/v1/navigation/children/render' . '?' . 'pageId=' .  $item['id'] . '&viewPath=' . 'partials.navigation.' . $identifier . '&identifier=' . $identifier;
+
+        $item['attributeList'] = array(
+            'data-fetch-url' => $dataFetchUrl
+        );
+
+        return $item;
     }
 }
