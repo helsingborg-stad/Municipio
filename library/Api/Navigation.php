@@ -19,15 +19,15 @@ class Navigation
 
     public function getPostChildren($data)
     {
-        if(isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
+        if (isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
             $parentId = $data->get_params()['pageId'];
 
-            if(isset($parentId)){
-                $NavigationInstance = new \Municipio\Helper\Navigation(); 
+            if (isset($parentId)) {
+                $NavigationInstance = new \Municipio\Helper\Navigation();
                 return $NavigationInstance->getPostChildren($parentId);
             }
         }
 
-        return []; 
+        return [];
     }
 }
