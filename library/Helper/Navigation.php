@@ -16,9 +16,11 @@ class Navigation
     private $postId = null;
     private $cache = [];
     private $masterPostType = 'page';
+    private $identifier = '';
 
-    public function __construct()
+    public function __construct($identifier = '')
     {
+        $this->identifier = $identifier;
         $this->globalToLocal('wpdb', 'db');
     }
 
@@ -259,8 +261,7 @@ class Navigation
      */
     private function getItems($parent = 0, $postType = 'page') : array
     {
-
-    //Check if if valid post type string
+        //Check if if valid post type string
         if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType)) {
             return [];
         }
@@ -328,7 +329,7 @@ class Navigation
     {
         if (is_array($objects) && !empty($objects)) {
             foreach ($objects as $key => $item) {
-                $objects[$key] = $this->transformObject(
+                $item = $this->transformObject(
                     $this->hasChildren(
                         $this->appendIsAncestorPost(
                             $this->appendIsCurrentPost(
@@ -339,6 +340,8 @@ class Navigation
                         )
                     )
                 );
+
+                $objects[$key] = apply_filters('Municipio/Navigation/Item', $item, $this->identifier, false);
             }
         }
 
@@ -576,7 +579,7 @@ class Navigation
                 foreach ($menuItems as $item) {
                     $isAncestor = in_array($item->ID, $ancestors);
 
-                    $result[$item->ID] = [
+                    $result[$item->ID] = apply_filters('Municipio/Navigation/Item', [
                       'id' => $item->ID,
                       'post_parent' => $item->menu_item_parent,
                       'post_type' => $item->object,
@@ -585,7 +588,7 @@ class Navigation
                       'label' => $item->title,
                       'href' => $item->url,
                       'children' => false,
-                    ];
+                    ], $this->identifier, true);
                 }
             } else {
                 $result = [];
