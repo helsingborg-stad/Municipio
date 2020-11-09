@@ -16,28 +16,28 @@ class Navigation
             'callback' => array($this, 'getPostChildren'),
         ));
 
-        register_rest_route('municipio/v1', '/navigation/render', array(
+        register_rest_route('municipio/v1', '/navigation/children/render', array(
             'methods' => 'GET',
             'callback' => array($this, 'renderPostChildren'),
         ));
     }
 
-    public function renderPostChildren()
+    public function renderPostChildren($data)
     {
+        $params = $data->get_params();
+
         if (isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
-            $parentId = $data->get_params()['pageId'];
-            $viewPath = $data->get_params()['viewPath'];
+            $parentId = !empty($params['pageId']) ? $params['pageId'] : false;
+            $viewPath = !empty($params['viewPath']) ? $params['viewPath'] : false;
 
-
-            if (isset($parentId)) {
+            if (!empty($parentId)) {
                 $NavigationInstance = new \Municipio\Helper\Navigation();
                 $items = $NavigationInstance->getPostChildren($parentId);
                 
                 return array(
-                    'markup' => render_blade_view($viewPath ?: 'partials.navigation.mobile', [
-                        'menuItems' => $items,
-                        'homeUrl' => esc_url(get_home_url())
-                    ])
+                    'parentId' => $parentId,
+                    'viewPath' => $viewPath ?: 'partials.navigation.mobile',
+                    'markup' => render_blade_view($viewPath ?: 'partials.navigation.mobile', ['menuItems' => $items, 'homeUrl' => esc_url(get_home_url())])
                 );
             }
         }
