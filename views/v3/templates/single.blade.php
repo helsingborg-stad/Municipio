@@ -55,13 +55,17 @@
             'avatar_size' => 'sm',
             'avatar' => $signature->avatar,
             'authorRole' => $signature->role,
-            'link' => $signature->link
+            'link' => $signature->link,
+            'updatedLabel' => $publishTranslations->updated,
+            'publishedLabel' => $publishTranslations->publish
         ])
         @endsignature
     @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
         @signature([
             'published' => $signature->publish,
             'updated' => $signature->updated,
+            'updatedLabel' => $publishTranslations->updated,
+            'publishedLabel' => $publishTranslations->publish
         ])
         @endsignature
     @endif

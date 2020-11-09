@@ -29,9 +29,9 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['publishedDate'] = $this->getPostDates($this->data['post']->id)->published;
         $this->data['updatedDate'] = $this->getPostDates($this->data['post']->id)->updated;
 
-        $this->data['publishTranslations'] = array(
-            'updated'   => __('Last updated', 'municipio'),
-            'published' => __('Published date', 'municipio'),
+        $this->data['publishTranslations'] = (object) array(
+            'updated'   => __('Updated', 'municipio'),
+            'publish'   => __('Published', 'municipio'),
             'by'        => __('Published by', 'municipio'),
             'on'        => __('on', 'municipio'),
         );

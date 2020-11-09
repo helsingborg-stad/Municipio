@@ -11,7 +11,9 @@
             'avatar_size' => 'sm',
             'avatar' => $authorAvatar,
             'authorRole' => $authorRole,
-            'link' => $signature->link
+            'link' => $signature->link,
+            'updatedLabel' => $publishTranslations->updated,
+            'publishedLabel' => $publishTranslations->publish
         ])
         @endsignature
     @endif
