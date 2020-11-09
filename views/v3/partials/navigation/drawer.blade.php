@@ -1,4 +1,4 @@
-<div class="c-drawer c-drawer--right js-drawer" data-js-toggle-item="js-drawer">
+<div class="c-drawer c-drawer--right c-drawer--tertiary js-drawer" data-js-toggle-item="js-drawer">
     <div class="c-drawer__header">
         <button class="hamburger hamburger--drawer hamburger--stacked@sm hamburger--reverse@md hamburger--slider is-active js-close-drawer" type="button"
         aria-label="Menu" aria-controls="navigation">
@@ -10,6 +10,7 @@
             </span>
         </button>
     </div>
+
     <div class="c-drawer__body">
         @includeIf('partials.navigation.mobile', ['menuItems' => $mobileMenuItems])
     </div>
