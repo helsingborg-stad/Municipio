@@ -2,7 +2,7 @@
 
 @section('top-navigation')
     {{-- TODO: Replace hard-coded links with wp help-menu --}}
-    <div class="c-header__menu c-header__menu--top">
+    <div class="c-header__menu c-header__menu--top u-display--none@xs u-display--none@sm u-display--none@md">
         <div class="o-container">
             <nav class="c-nav c-nav--sm u-justify-content--center@xs u-justify-content--center@sm u-justify-content--end">
                 <a class="c-nav__link" href="{{$homeUrl}}">
