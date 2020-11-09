@@ -57,7 +57,8 @@
             'authorRole' => $signature->role,
             'link' => $signature->link,
             'updatedLabel' => $publishTranslations->updated,
-            'publishedLabel' => $publishTranslations->publish
+            'publishedLabel' => $publishTranslations->publish,
+            'classList' => ['u-margin__y--2']
         ])
         @endsignature
     @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
@@ -65,7 +66,8 @@
             'published' => $signature->publish,
             'updated' => $signature->updated,
             'updatedLabel' => $publishTranslations->updated,
-            'publishedLabel' => $publishTranslations->publish
+            'publishedLabel' => $publishTranslations->publish,
+            'classList' => ['u-margin__y--2']
         ])
         @endsignature
     @endif

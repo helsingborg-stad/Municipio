@@ -13,7 +13,8 @@
             'authorRole' => $authorRole,
             'link' => $signature->link,
             'updatedLabel' => $publishTranslations->updated,
-            'publishedLabel' => $publishTranslations->publish
+            'publishedLabel' => $publishTranslations->publish,
+            'classList' => ['u-margin__y--2']
         ])
         @endsignature
     @endif
