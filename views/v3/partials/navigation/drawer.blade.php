@@ -11,14 +11,7 @@
         </button>
     </div>
     <div class="c-drawer__body">
-        @nav([
-            'classList' => ['c-nav--drawer'],
-            'items' => $mobileMenuItems,
-            'childItemsUrl' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children',
-            'direction' => 'vertical',
-            'includeToggle' => true
-        ])
-        @endnav
+        @includeIf('partials.navigation.mobile', ['menuItems' => $mobileMenuItems])
     </div>
 </div>
 <div class="drawer-overlay js-close-drawer"></div>
