@@ -71,8 +71,8 @@ class BaseController
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation();
         $primary        = new \Municipio\Helper\Navigation();
-        $secondary      = new \Municipio\Helper\Navigation();
-        $mobileMenu     = new \Municipio\Helper\Navigation();
+        $secondary      = new \Municipio\Helper\Navigation('sidebar');
+        $mobileMenu     = new \Municipio\Helper\Navigation('mobile');
         $tabMenu        = new \Municipio\Helper\Navigation();
         $helpMenu       = new \Municipio\Helper\Navigation();
         $dropDownMenu   = new \Municipio\Helper\Navigation();
