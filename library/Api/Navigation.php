@@ -29,9 +29,10 @@ class Navigation
         if (isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
             $parentId = !empty($params['pageId']) ? $params['pageId'] : false;
             $viewPath = !empty($params['viewPath']) ? $params['viewPath'] : false;
+            $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
             if (!empty($parentId)) {
-                $NavigationInstance = new \Municipio\Helper\Navigation();
+                $NavigationInstance = new \Municipio\Helper\Navigation($identifier);
                 $items = $NavigationInstance->getPostChildren($parentId);
                 
                 return array(
@@ -49,9 +50,10 @@ class Navigation
     {
         if (isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
             $parentId = $data->get_params()['pageId'];
+            $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
             if (isset($parentId)) {
-                $NavigationInstance = new \Municipio\Helper\Navigation();
+                $NavigationInstance = new \Municipio\Helper\Navigation($identifier);
                 return $NavigationInstance->getPostChildren($parentId);
             }
         }
