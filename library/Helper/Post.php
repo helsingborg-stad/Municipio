@@ -107,7 +107,7 @@ class Post
                     'u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2', 
                     'u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2', 
                     '',
-                    'u-margin_x--auto'
+                    'u-margin__x--auto'
                 ], 
                 apply_filters('the_content', $content)
             ); 
