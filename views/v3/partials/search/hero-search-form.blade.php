@@ -14,7 +14,8 @@
                 'name' => 's',
                 'required' => false,
             ],
-            'label' => $lang->search . " " . $siteName
+            'label' => $lang->search . " " . $siteName,
+            'classList' => ['u-flex-grow--1']
         ])
         @endfield
         @button([
