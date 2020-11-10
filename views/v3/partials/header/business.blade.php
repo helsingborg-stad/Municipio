@@ -4,14 +4,14 @@
     @if($tabMenuItems) 
         <div class="c-header__menu c-header__menu--top">
             <div class="o-container">
-                <nav class="u-justify-content--center@xs u-justify-content--center@sm u-justify-content--end">
-                    @group()
+                <nav role="navigation" aria-label="Related websites">
+                    @group(['classList' => ['u-justify-content--center@xs', 'u-justify-content--center@sm', 'u-justify-content--end']])
                         @foreach($tabMenuItems as $item)
                             @button([
                                 'href'  => $item['href'], 
                                 'text'  => $item['label'],
                                 'size'  => 'sm',
-                                'style' => 'basic'
+                                'style' => 'outlined'
                             ])
                             @endbutton
                         @endforeach
