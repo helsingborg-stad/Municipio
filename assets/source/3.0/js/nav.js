@@ -1,78 +1,90 @@
-export default (() => {
-    const getToggleButtons = element => element.querySelectorAll('.js-toggle-children');
+const SELECTOR_TOGGLE_BUTTON = '.js-toggle-children';
+const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
 
-    const fetchData = async (url) => {
-        const response = await fetch(url , {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'credentials': 'same-origin'
-            },
-        });
+const fetchMarkup = async (url) => {
+    const response = await fetch(url , {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'credentials': 'same-origin'
+        },
+    });
 
-        const { markup } = await response.json();
+    const { markup } = await response.json();
 
-        return markup;
-    }
+    return markup;
+}
 
-    const subscribeOnClick = element => {
-        const handleClick = (e) => {
-            // Parent of toggle has all
-            const parentElement = element.parentNode;
-            const parentClassNames = [...parentElement.classList];
-            
-            // States
-            const hasFetched = parentClassNames.includes('has-fetched');
-            const isFetching = parentClassNames.includes('is-fetching');
-            const isLoading = parentClassNames.includes('is-loading');
+const subscribeOnClick = element => {
+    const handleClick = (e) => {
+        // Parent of toggle has all states
+        const parentElement = element.parentNode;
+        const parentClassNames = [...parentElement.classList];
+        
+        // States
+        const hasFetched = parentClassNames.includes('has-fetched');
+        const isFetching = parentClassNames.includes('is-fetching');
+        const isLoading = parentClassNames.includes('is-loading');
 
-            // Input from attributes
-            const fetchUrl = parentElement.getAttribute('data-fetch-url');
-             
-            // Bye
-            if (isFetching) {
-                return;
-            }
-    
-            // Toggle
-            if (hasFetched) {
-                parentElement.classList.toggle('is-open');
-                return;
-            }
-
-            
-            parentElement.classList.toggle('is-fetching');
-            parentElement.classList.toggle('is-loading');
-
-            console.log(subscribeOnClick);
-
-            fetchData(fetchUrl)
-                .then(markup => {
-                    parentElement.insertAdjacentHTML('beforeend', markup);
-                    parentElement.classList.toggle('is-fetching');
-                    parentElement.classList.toggle('is-loading');
-                    parentElement.classList.toggle('has-fetched');
-                    parentElement.classList.toggle('is-open');
-
-                    const newSubMenu = parentElement.lastElementChild;
-
-                    console.log(typeof parentElement);
-                    console.log(typeof newSubMenu);
-
-                    if (newSubMenu) {
-                        const newToggleButtons = getToggleButtons(newSubMenu);
-                        if (newToggleButtons && newToggleButtons.length > 0) {
-                            newToggleButtons.forEach(subscribeOnClick);
-                        }
-                    }
-                });
+        // Input from attributes
+        const fetchUrl = parentElement.getAttribute(ATTRIBUTE_FETCH_URL);
+         
+        // Bye
+        if (isFetching) {
+            return;
         }
 
-        element.addEventListener('click', handleClick);
+        // Lets just toggle
+        if (hasFetched) {
+            parentElement.classList.toggle('is-open');
+            return;
+        }
+
+        if (!fetchUrl) {
+            console.error('Fetch URL is not defined.')
+            return;   
+        }
+        
+        // Set states before fetching
+        parentElement.classList.toggle('is-fetching');
+        parentElement.classList.toggle('is-loading');
+
+        fetchMarkup(fetchUrl)
+            .then(markup => {
+                // Render sub-menu
+                parentElement.insertAdjacentHTML('beforeend', markup);
+
+                // Set states
+                parentElement.classList.toggle('is-fetching');
+                parentElement.classList.toggle('is-loading');
+                parentElement.classList.toggle('has-fetched');
+
+                // Toggle
+                parentElement.classList.toggle('is-open');
+
+                // Subscribe new toggles found in sub-menu recursively
+                const newSubMenu = parentElement.lastElementChild;
+                if (newSubMenu) {
+                    const newToggleButtons = newSubMenu.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
+                    if (newToggleButtons && newToggleButtons.length > 0) {
+                        newToggleButtons.forEach(subscribeOnClick);
+                    }
+                }
+            })
+            .catch(e => {
+                console.error(e);
+                // Reset states
+                parentElement.classList.toggle('is-fetching');
+                parentElement.classList.toggle('is-loading');
+            });
     }
 
+    element.addEventListener('click', handleClick);
+}
+
+export default (() => {
     const init = (event) => {
-        const toggleButtons = getToggleButtons(document);
+        const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
         
         if (toggleButtons && toggleButtons.length > 0) {
             toggleButtons.forEach(subscribeOnClick);
