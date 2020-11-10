@@ -23,11 +23,11 @@ class Navigation
         ));
     }
 
-    public function renderPostChildren($data)
+    public function renderPostChildren($request)
     {
-        $params = $data->get_params();
+        $params = $request->get_params();
 
-        if (isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
+        if (isset($params['pageId']) && is_numeric($params['pageId'])) {
             $parentId = !empty($params['pageId']) ? $params['pageId'] : false;
             $viewPath = !empty($params['viewPath']) ? $params['viewPath'] : false;
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
@@ -47,10 +47,11 @@ class Navigation
         return [];
     }
 
-    public function getPostChildren($data)
+    public function getPostChildren($request)
     {
-        if (isset($data->get_params()['pageId']) && is_numeric($data->get_params()['pageId'])) {
-            $parentId = $data->get_params()['pageId'];
+        $params = $request->get_params();
+        if (isset($params['pageId']) && is_numeric($params['pageId'])) {
+            $parentId = $params['pageId'];
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
             if (isset($parentId)) {
