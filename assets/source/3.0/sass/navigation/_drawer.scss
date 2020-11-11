@@ -1,0 +1,97 @@
+$drawer-background: white;
+$drawer-transition-ms: 300ms;
+$drawer-width: $base * 40;
+
+// Drawer
+.c-drawer {
+    background-color: $drawer-background;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    max-width: $drawer-width;
+    width: 90%;
+    z-index: $level-9;
+    transform: translate(-100%);
+    transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
+    visibility: hidden;
+    opacity: 0;
+    overflow-y: scroll;
+}
+
+.c-drawer__header {
+    height: $base * 13.25;
+}
+
+// Drawer Modifiers
+.c-drawer.c-drawer--right {
+    transform: translate(100%);
+    right: 0;
+    left: initial;
+}
+
+.c-drawer.c-drawer--primary,
+.c-drawer.c-drawer--secondary,
+.c-drawer.c-drawer--tertiary {
+    color: white;
+
+    a,
+    button {
+        color: white;
+    }
+
+    .hamburger.hamburger--drawer.is-active .hamburger-inner, 
+    .hamburger.hamburger--drawer.is-active .hamburger-inner::before, 
+    .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
+        background-color: white;
+    }
+}
+
+.c-drawer.c-drawer--primary {
+    background-color: $color-primary;
+}
+.c-drawer.c-drawer--tertiary {
+    background-color: $color-tertiary;
+}
+.c-drawer.c-drawer--secondary {
+    background-color: $color-secondary;
+}
+
+// Drawer States
+.c-drawer.is-open {
+    transition: visibility 0s linear 0s, $drawer-transition-ms ease-out transform, $drawer-transition-ms ease-out opacity;
+    visibility: visible;
+    transform: translate(0%);
+    opacity: 1;
+}
+
+// Overlay
+.drawer-overlay {
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $level-8;
+    transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in opacity;
+    visibility: hidden;
+    opacity: 0;
+}
+
+// Overlay states
+.c-drawer.is-open + .drawer-overlay {
+    opacity: 0.2;
+    transition: visibility 0s linear 0s, $drawer-transition-ms ease-out opacity;
+    visibility: visible;
+}
+
+.hamburger.hamburger--drawer {
+    margin-left: auto;
+  
+    padding: $base * 3 $base * 4;
+    @include mq('md') {
+        padding: $base * 5 $base * 4;
+    }
+  }
+  

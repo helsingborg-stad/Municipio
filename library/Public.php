@@ -1,5 +1,53 @@
 <?php
 
+
+if (!function_exists('render_blade_view')) {
+    function render_blade_view($view, $data = [], $overrideViewPaths = false)
+    {
+        $viewPaths = \Municipio\Helper\Template::getViewPaths();
+
+        if (!class_exists('\BladeComponentLibrary\Init')) {
+            wp_die("\BladeComponentLibrary\Init is not defined");
+            return;
+        }
+        
+        if (!$viewPaths) {
+            wp_die("No view paths registered, please register at least one.");
+            return;
+        }
+
+        if (!empty($overrideViewPaths) && is_array($overrideViewPaths)) {
+            $viewPaths = $overrideViewPaths;
+        }
+
+        $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
+        $viewPaths = array_merge($viewPaths, $externalViewPaths);
+        $bladeInit = new \BladeComponentLibrary\Init($viewPaths);
+        $bladeEngine = $bladeInit->getEngine();
+
+        $markup = "";
+
+        try {
+            $markup = $bladeEngine->make(
+                $view,
+                array_merge(
+                    $data,
+                    array('errorMessage' => false)
+                )
+            )->render();
+        } catch (\Throwable $e) {
+            $markup .= '<pre style="border: 3px solid #f00; padding: 10px;">';
+            $markup .= '<strong>' . $e->getMessage() . '</strong>';
+            $markup .= '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
+            $markup .= $e->getTraceAsString();
+            $markup .= '</pre>';
+        }
+
+        return $markup;
+    }
+}
+
+
 if (!function_exists('municipio_show_posts_pag')) {
     function municipio_show_posts_pag()
     {
@@ -88,7 +136,7 @@ if (!function_exists('municipio_get_logotype')) {
 
         // Get the symbol to use (by file include)
         //if (isset($logotype[$type]['id']) && $logo_include === true) {
-            $logoSvg = \Municipio\Helper\Svg::extract(get_attached_file($logotype[$type]['id']));
+        $logoSvg = \Municipio\Helper\Svg::extract(get_attached_file($logotype[$type]['id']));
         //}
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));

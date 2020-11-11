@@ -2,7 +2,7 @@
 
 @section('top-navigation')
     {{-- TODO: Replace hard-coded links with wp help-menu --}}
-    <div class="c-header__menu c-header__menu--top">
+    <div class="c-header__menu c-header__menu--top u-display--none@xs u-display--none@sm u-display--none@md">
         <div class="o-container">
             <nav class="c-nav c-nav--sm u-justify-content--center@xs u-justify-content--center@sm u-justify-content--end">
                 <a class="c-nav__link" href="{{$homeUrl}}">
@@ -27,7 +27,7 @@
                     <img class="c-nav__logo" src="{{$logotype->standard['url']}}">
                 </a>
                 
-                <button js-toggle-trigger="js-mobile-sidebar" class="hamburger hamburger--stacked@sm hamburger--reverse@md hamburger--slider c-header__button c-nav__action u-display--none@lg u-display--none@xl " type="button"
+                <button class="hamburger hamburger--stacked@sm hamburger--reverse@md hamburger--slider c-header__button c-nav__action u-display--none@lg u-display--none@xl js-burger js-trigger-drawer" type="button"
                 aria-label="Menu" aria-controls="navigation">
                     <span class="hamburger-box">
                         <span class="hamburger-inner"></span>
@@ -55,3 +55,7 @@
     @endif
 @stop
 
+{{-- After header body --}}
+@section('mobile-navigation')
+    @includeIf('partials.navigation.drawer')
+@stop

@@ -71,8 +71,8 @@ class BaseController
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation();
         $primary        = new \Municipio\Helper\Navigation();
-        $secondary      = new \Municipio\Helper\Navigation();
-        $mobileMenu     = new \Municipio\Helper\Navigation();
+        $secondary      = new \Municipio\Helper\Navigation('sidebar');
+        $mobileMenu     = new \Municipio\Helper\Navigation('mobile');
         $tabMenu        = new \Municipio\Helper\Navigation();
         $helpMenu       = new \Municipio\Helper\Navigation();
         $dropDownMenu   = new \Municipio\Helper\Navigation();
@@ -195,8 +195,8 @@ class BaseController
 
         //Page for posttype archive mapping result
         if (is_post_type_archive()) {
-            if($pageId = get_option('page_for_' . get_post_type())) {
-                return $pageId; 
+            if ($pageId = get_option('page_for_' . get_post_type())) {
+                return $pageId;
             }
         }
 
@@ -582,7 +582,7 @@ class BaseController
         global $$global;
 
         if(is_null($$global)) {
-            return false; 
+            return false;
         }
 
         if (is_null($local)) {
@@ -591,6 +591,6 @@ class BaseController
             $this->$local = $$global;
         }
 
-        return true; 
+        return true;
     }
 }
