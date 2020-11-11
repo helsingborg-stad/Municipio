@@ -1,8 +1,8 @@
 @if (!empty($menuItems)) 
     @nav([
         'classList' => [
-            'c-nav--drawer', 
-            'c-nav--bordered'
+            'c-nav--drawer',
+            'c-nav--dark',
         ],
             'items' => $menuItems,
             'direction' => 'vertical',
