@@ -86,93 +86,12 @@ $drawer-width: $base * 40;
     visibility: visible;
 }
 
-.c-nav.c-nav--vertical {
-    display: block;
-
-    .c-nav__item {
-        flex-wrap: wrap;
-    }
-
-    .c-nav__link {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-        padding: $base * 2 $base * 4;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    
-    .c-nav__toggle {
-        position: relative;
-        flex: 0 0 auto;
-        width: auto;
-        max-width: none;
-        align-self: center;
-        margin-right: $base * 3;
-
-        i {
-            font-size: 24px;
-            transform: rotate(0deg);
-        }
-
-        .c-loader {
-            display: none;
-            position: absolute;
-            left: 24px;
-            color: white;
-            top: 24px;
-            pointer-events: none;
-        }
-    }
-
-    .c-nav {
-        display: none;
-        width: 100%;
-        padding-left: $base * 4;
-    }
-
-    .c-nav__item.is-open > .c-nav {
-        display: block;
-    }
-
-    .c-nav__item.is-open > .c-nav {
-        display: block;
-    }
-
-    .c-nav__item.is-loading {
-        .c-nav__toggle {
-            .c-loader {
-                display: block;
-            }
-
-            i {
-                visibility: hidden;
-            }
-        }
-    }
-
-    .c-nav__item.is-open > .c-nav__toggle i {
-        transform: rotate(180deg);
-    }
-
-    .c-nav {
-        background-color: rgba(black, 0.1);
-    }    
-
-
-}
-
-.c-nav.c-nav--vertical.c-nav--drawer {
-
-}
-
 .hamburger.hamburger--drawer {
     margin-left: auto;
-
+  
     padding: $base * 3 $base * 4;
     @include mq('md') {
         padding: $base * 5 $base * 4;
     }
-}
+  }
+  
