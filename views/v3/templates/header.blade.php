@@ -1,4 +1,4 @@
-<header class="site-header {{isset($classnames) ? is_array($classnames) ? implode(' ', $classnames) : $classnames : ''}}" id="site-header">
+<header class="site-header {{isset($classList) ? is_array($classList) ? implode(' ', $classList) : $classList : ''}}" id="site-header">
     {{-- Search Form --}}
     @section('search-form')
         {{-- TODO: Implement search form --}}
