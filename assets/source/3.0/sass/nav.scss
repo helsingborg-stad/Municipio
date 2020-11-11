@@ -1,92 +1,24 @@
 .nav-helper {
     width: 100%;
-    margin-top: $base * 2;
     display: flex;
     justify-content: space-between;
+    margin-top: $base * 2;
+    margin-bottom: $base * 2;
+
+    @include mq('md') {
+        margin-bottom: $base * 3;
+    }  
 
     .nav-accessibility a,
     .nav-accessibility a:visited,
     .nav-accessibility a:hover {
         color:#000;
-        font-weight:600;
-        text-decoration:none;
+        font-weight: 600;
+        text-decoration: none;
     }
 
     .nav-accessibility .c-icon {
-        position:relative;
-        top:5px;
-    }
-}
-
-.c-navbar .c-button--lg{
-    font-size: 18px;
-}
-
-// Reset styles
-.c-nav {
-    button {
-        background: none;
-        color: inherit;
-        border: none;
-        padding: 0;
-        font: inherit;
-        cursor: pointer;
-        outline: inherit;
-    }
-}
-
-.c-nav {
-    display: flex;
-    align-items: center;
-
-    .c-nav__brand {
-        padding: $base * 3 $base * 1.5;
-    }
-
-    // Logo
-    .c-nav__logo {
-        display: block;
-        height: $base * 6.5;
-        width: auto;
-
-        @include mq('md') {
-            height: $base * 7;
-        }
-
-        @include mq('lg') {
-            height: $base * 9;
-        }
-    }
-
-    // Item
-    .c-nav__link,
-    .c-nav__action {
-        font-size: 16px;
-        padding: $base * 2 $base;
-        text-decoration: none;
-        color: black;
-    }
-}
-
-// Sizes
-.c-nav.c-nav--sm {
-    .c-nav__link {
-        padding: $base $base;
-    }
-}
-
-.c-nav.c-nav--lg {
-    .c-nav__link {
-        font-size: 16px;
-    }
-}
-
-// Modifiers
-.c-nav.c-nav--stretch {
-    justify-content: stretch;
-
-    .c-nav__link {
-        flex-grow: 1;
-        text-align: center;
+        position: relative;
+        top: 5px;
     }
 }
