@@ -1,4 +1,4 @@
-<article id="article" class="c-article c-article--readable-width s-article">
+<article id="article" class="c-article c-article--readable-width s-article u-clearfix">
     <!-- Title -->
     @typography(["element" => "h1"])
         {!! $postTitleFiltered !!}
@@ -11,16 +11,19 @@
             'avatar_size' => 'sm',
             'avatar' => $authorAvatar,
             'authorRole' => $authorRole,
-            'link' => $signature->link
+            'link' => $signature->link,
+            'updatedLabel' => $publishTranslations->updated,
+            'publishedLabel' => $publishTranslations->publish,
+            'classList' => ['u-margin__y--2']
         ])
         @endsignature
     @endif
 
     <!-- Feature Image -->
-    @if (!empty($feature_image->src))
+    @if (!empty($featuredImage->src))
 		@image([
-			'src'=> $feature_image->src[0],
-			'alt' => $feature_image->alt,
+			'src'=> $featuredImage->src[0],
+			'alt' => $featuredImage->alt,
 			'classList' => ['c-article__feature-image']
 		])
 		@endimage
@@ -29,26 +32,7 @@
 	<!-- Content -->
 	{!! $postContentFiltered !!}
 
-    <!-- Signature -->
-    @if($postTypeDetails->hierarchical)
-        @signature([
-            'author' => $signature->name, 
-            'published' => $signature->publish,
-            'updated' => $signature->updated,
-            'avatar_size' => 'sm',
-            'avatar' => $signature->avatar,
-            'authorRole' => $signature->role,
-            'link' => $signature->link
-        ])
-        @endsignature
-    @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
-        @signature([
-            'published' => $signature->publish,
-            'updated' => $signature->updated,
-        ])
-        @endsignature
-    @endif
-
+    <!-- Comments -->
 	@includeIf('partials.comments')
 	
 </article>

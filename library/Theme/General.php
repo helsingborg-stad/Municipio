@@ -18,12 +18,27 @@ class General
         add_filter('accessibility_items', array($this, 'accessibilityItems'), 10, 1);
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
-
+        add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
+        add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
 
         remove_filter('template_redirect', 'redirect_canonical');
+    }
+
+    /**
+     * Wordpress adds 10 px to captionized images. 
+     * This resets that. 
+     *
+     * @param integer $size
+     * @return integer $size - 10
+     */
+    public function normalizeImageCaptionSize($size) {
+        if($size && ($size-10)) {
+            return $size-10; 
+        } 
+        return $size; 
     }
 
     /**
