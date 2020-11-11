@@ -43,12 +43,15 @@
 
 @section('secondary-navigation')
     @if (!empty($primaryMenuItems))
-        <div class="c-header__menu c-header__menu--secondary u-display--none@xs u-display--none@sm u-display--none@md">
+        <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs u-display--none@sm u-display--none@md">
             <div class="o-container">
-                <nav class="c-nav c-nav--stretch c-nav--lg">
-                    @foreach($primaryMenuItems as $item)
-                    <a class="c-nav__link" href="{{$item['href']}}"><span>{{$item['label']}}</span></a>
-                    @endforeach
+                <nav role="navigation" aria-label="{{$lang->primaryNavigation}}">
+                    @nav([
+                        'items' => $primaryMenuItems,
+                        'direction' => 'horizontal',
+                        'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--space-between']
+                    ])
+                    @endnav
                 </nav>
             </div>
         </div>

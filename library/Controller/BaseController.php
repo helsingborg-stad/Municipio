@@ -81,7 +81,7 @@ class BaseController
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
-        $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true);
+        $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
         $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true);
 
@@ -122,6 +122,8 @@ class BaseController
             'minutes'               => __("minutes", 'municipio'),
             'seconds'               => __("seconds", 'municipio'),
             'search'                => __("Search", 'municipio'),
+            'searchOn'              => __("Search on", 'municipio'),
+            'primaryNavigation'     => __("Primary navigation", 'municipio'),
         );
 
         //Wordpress hooks
