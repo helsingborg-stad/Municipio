@@ -1,0 +1,8 @@
+/* =WordPress Core
+-------------------------------------------------------------- */
+
+[class*="wp-image-"] {
+  display: block;
+  width: auto;
+  border-radius: 2px;
+}

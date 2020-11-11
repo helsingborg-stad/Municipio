@@ -77,7 +77,41 @@ class Post
 
         //Get filtered content
         if(in_array('post_content_filtered', $appendFields)) {
-            $postObject->post_content_filtered  = apply_filters('the_content', $postObject->post_content); 
+
+            //Parse lead
+            $parts = explode("<!--more-->", $postObject->post_content);
+
+            if(is_array($parts) && count($parts) > 1) {
+                $excerpt = '<p class="lead">' . array_shift($parts) . "</p>";
+                $content = implode(PHP_EOL, $parts);  
+            } else {
+                $excerpt = "";
+                $content = $postObject->post_content; 
+            }
+
+            //Replace builtin css classes to our own
+            $postObject->post_content_filtered  = $excerpt . str_replace(
+                [
+                    'wp-caption',
+                    'c-image-text',
+                    'wp-image-',
+                    'alignleft', 
+                    'alignright', 
+                    'alignnone',
+                    'aligncenter'
+                ],
+                [
+                    'c-image',
+                    'c-image__caption u-margin__top--0',
+                    'c-image__image wp-image-',
+                    'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs', 
+                    'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs', 
+                    '',
+                    'u-margin__x--auto'
+                ], 
+                apply_filters('the_content', $content)
+            ); 
+
         }
 
         //Get filtered post title
