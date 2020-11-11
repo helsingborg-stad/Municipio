@@ -10,8 +10,6 @@ export default (() => {
 
         if (drawerTrigger && drawerTrigger.length > 0) {
             drawerTrigger.forEach(element => {
-                console.log("open");
-                
                 function cb(e) {
                     drawer.classList.toggle('is-open');
                     document.body.classList.add('has-open-drawer');
@@ -23,8 +21,6 @@ export default (() => {
         if (closeDrawer && closeDrawer.length > 0) {
             closeDrawer.forEach(element => {
                 function cb(e) {
-                    console.log("closed");
-
                     drawer.classList.remove('is-open');
                     document.body.classList.remove('has-open-drawer');
                 }
