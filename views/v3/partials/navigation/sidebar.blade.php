@@ -2,6 +2,7 @@
     @nav([
         'classList' => [
             'c-nav--sidebar',            
+            'c-nav--bordered',            
             'u-visibility--hidden@xs',
             'u-visibility--hidden@sm',
         ],
