@@ -97,9 +97,9 @@ class Template
             'data'
         );
         
-        $externalViewData = apply_filters( 'Municipio/viewData', [] );
+        $externalViewData = apply_filters('Municipio/viewData', []);
         
-        if(!empty($externalViewData)) {
+        if (!empty($externalViewData)) {
             $viewData = array_merge($viewData, $externalViewData);
         }
 
@@ -133,7 +133,7 @@ class Template
         $controller = \Municipio\Helper\Controller::locateController($template);
         
         //Locate controller
-        if(in_array($template, $singularTemplates)) {
+        if (in_array($template, $singularTemplates)) {
             $controller = \Municipio\Helper\Controller::locateController('Singular');
         } elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
@@ -160,40 +160,18 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-            
-            $result = $this->bladeEngine->make(
+            echo $this->bladeEngine->make(
                 $view,
                 array_merge(
                     $data,
                     array('errorMessage' => false)
                 )
             )->render();
-
-            if(class_exists("tidy")) {
-
-                $tidy = new \tidy;
-                $tidy->parseString($result, array(
-                    'indent'         => true,
-                    'output-xhtml'   => true,
-                    'wrap'           => 10000,
-                    'show-body-only' => false
-                ), 'utf8');
-                
-                $tidy->cleanRepair();
-    
-                if(isset($tidy->value)) {
-                    echo $tidy->value;
-                }
-
-            } else {
-                echo $result; 
-            }
-
         } catch (\Throwable $e) {
             echo '<pre style="border: 3px solid #f00; padding: 10px;">';
-                echo '<strong>' . $e->getMessage() . '</strong>';
-                echo '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
-                echo $e->getTraceAsString();
+            echo '<strong>' . $e->getMessage() . '</strong>';
+            echo '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
+            echo $e->getTraceAsString();
             echo '</pre>';
         }
 
