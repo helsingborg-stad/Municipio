@@ -1,22 +1,25 @@
-@extends('templates.header', ['classnames' => ['c-header c-header--business']])
+@extends('templates.header', ['classList' => ['c-header c-header--business']])
 
 @section('top-navigation')
-    {{-- TODO: Replace hard-coded links with wp help-menu --}}
-    <div class="c-header__menu c-header__menu--top u-display--none@xs u-display--none@sm u-display--none@md">
-        <div class="o-container">
-            <nav class="c-nav c-nav--sm u-justify-content--center@xs u-justify-content--center@sm u-justify-content--end">
-                <a class="c-nav__link" href="{{$homeUrl}}">
-                    <span>Företagare</span>
-                </a>
-                <a class="c-nav__link" href="{{$homeUrl}}">
-                    <span>Självservice</span>
-                </a>
-                <a class="c-nav__link" href="{{$homeUrl}}">
-                    <span>Besökare</span>
-                </a>
-            </nav>
+    @if($tabMenuItems) 
+        <div class="c-header__menu c-header__menu--top">
+            <div class="o-container">
+                <nav role="navigation" aria-label="Related websites">
+                    @group(['classList' => ['u-justify-content--center@xs', 'u-justify-content--center@sm', 'u-justify-content--end']])
+                        @foreach($tabMenuItems as $item)
+                            @button([
+                                'href'  => $item['href'], 
+                                'text'  => $item['label'],
+                                'size'  => 'sm',
+                                'style' => 'outlined'
+                            ])
+                            @endbutton
+                        @endforeach
+                    @endgroup
+                </nav>
+            </div>
         </div>
-    </div>
+    @endif
 @stop
 
 @section('primary-navigation')
