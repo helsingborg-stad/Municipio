@@ -82,14 +82,14 @@ const subscribeOnClick = element => {
     element.addEventListener('click', handleClick);
 }
 
-export default (() => {
-    const init = (event) => {
-        const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
-        
-        if (toggleButtons && toggleButtons.length > 0) {
-            toggleButtons.forEach(subscribeOnClick);
-        }
+const init = (event) => {
+    const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
+    
+    if (toggleButtons && toggleButtons.length > 0) {
+        toggleButtons.forEach(subscribeOnClick);
     }
+}
 
+export default (() => {
     window.addEventListener('DOMContentLoaded', init);
 })();
