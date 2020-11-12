@@ -48,7 +48,7 @@
     @if (!empty($primaryMenuItems))
         <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs u-display--none@sm u-display--none@md">
             <div class="o-container">
-                <nav role="navigation" aria-label="{{$lang->primaryNavigation}}">
+                <nav role="navigation" aria-label="{{$lang && !empty($lang->primaryNavigation) ? $lang->primaryNavigation : ''}}">
                     @nav([
                         'items' => $primaryMenuItems,
                         'direction' => 'horizontal',
