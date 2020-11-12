@@ -560,7 +560,7 @@ class Navigation
      * @param string $menu The menu id to get
      * @return bool|array
      */
-    public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true)
+    public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
 
       //Check for existing wp menu
@@ -605,40 +605,41 @@ class Navigation
         //Filter for appending and removing objects from navgation
         $result = apply_filters('Municipio/Navigation/Items', $result);
 
-      //Create nested array
-      if(!empty($result) && is_array($result)) {
+        //Create nested array
+        if (!empty($result) && is_array($result)) {
 
         //Wheter to include top level or not
-        if($includeTopLevel === true) {
-          $pageStructure = $this->buildTree($result);
-        } else {    
-          $pageStructure = $this->removeTopLevel(
-            $this->buildTree($result)
-          );
-        }
+            if ($includeTopLevel === true) {
+                $pageStructure = $this->buildTree($result);
+            } else {
+                $pageStructure = $this->removeTopLevel(
+                    $this->buildTree($result)
+                );
+            }
 
-        //Wheter to return nested or not
-        if($onlyKeepFirstLevel == true) {
-          $pageStructure = $this->removeSubLevels($pageStructure); 
-        }
+            //Wheter to return nested or not
+            if ($onlyKeepFirstLevel == true) {
+                $pageStructure = $this->removeSubLevels($pageStructure);
+            }
 
-        //Return result
-        return $pageStructure; 
-      }
+            //Return result
+            return $pageStructure;
+        }
 
         return false;
     }
 
-  /**
-   * Translates a page id to a menu id
-   *
-   * @param array $menu
-   * @param integer $pageId
-   * @return integer
-   */
-  private function pageIdToMenuID($menu, $pageId) {
-    return $menu[array_search($pageId, array_column($menu, 'object_id'))]->ID;  
-  }
+    /**
+     * Translates a page id to a menu id
+     *
+     * @param array $menu
+     * @param integer $pageId
+     * @return integer
+     */
+    private function pageIdToMenuID($menu, $pageId)
+    {
+        return $menu[array_search($pageId, array_column($menu, 'object_id'))]->ID;
+    }
 
     /**
      * Get a list of menu items with an ancestor relation to page id.
@@ -690,30 +691,30 @@ class Navigation
         return [];
     }
 
-  /**
-   * Removes sub level items
-   *
-   * @param   array   $result    The unfiltered result set
-   * 
-   * @return  array   $result    The filtered result set (without sub levels)
-   */
-  public function removeSubLevels(array $result) : array 
-  {
-    foreach($result as $key => $item) {
-      $result[$key]['children'] = false; 
+    /**
+     * Removes sub level items
+     *
+     * @param   array   $result    The unfiltered result set
+     *
+     * @return  array   $result    The filtered result set (without sub levels)
+     */
+    public function removeSubLevels(array $result) : array
+    {
+        foreach ($result as $key => $item) {
+            $result[$key]['children'] = false;
+        }
+        return $result;
     }
-    return $result;
-  }
 
-  /**
-   * BreadCrumbData
-   * Fetching data for breadcrumbs
-   * @return array|void
-   * @throws \Exception
-   */
-  public function getBreadcrumbItems($pageId)
-  {
-      global $post;
+    /**
+     * BreadCrumbData
+     * Fetching data for breadcrumbs
+     * @return array|void
+     * @throws \Exception
+     */
+    public function getBreadcrumbItems($pageId)
+    {
+        global $post;
 
         if (!is_a($post, 'WP_Post')) {
             return;
