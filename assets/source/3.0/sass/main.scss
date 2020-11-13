@@ -91,3 +91,8 @@ h4.module-title {
 div:first-child > .module-title {
     margin-top: 0;
 }
+
+#article {
+    margin-bottom: $base * 5;
+    padding-bottom: 0;
+}
