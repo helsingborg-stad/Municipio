@@ -2,7 +2,7 @@
 
 @section('top-navigation')
     @if($tabMenuItems) 
-        <div class="c-header__menu c-header__menu--top">
+        <div class="c-header__menu c-header__menu--top u-display--none@xs u-display--none@sm u-display--none@md">
             <div class="o-container">
                 <nav role="navigation" aria-label="Related websites">
                     @group(['classList' => ['u-justify-content--center@xs', 'u-justify-content--center@sm', 'u-justify-content--end']])

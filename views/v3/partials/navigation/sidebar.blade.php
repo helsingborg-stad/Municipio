@@ -3,8 +3,8 @@
         'classList' => [
             'c-nav--sidebar',            
             'c-nav--bordered',            
-            'u-visibility--hidden@xs',
-            'u-visibility--hidden@sm',
+            'u-display--none@xs',
+            'u-display--none@sm',
         ],
         'items' => $menuItems,
         'direction' => 'vertical',
