@@ -91,7 +91,10 @@ class Navigation
     private function hasChildren(array $array) : array
     {
         if ($array['ID'] == $this->postId) {
-            $children = $this->getItems($array['ID'], get_post_type($array['ID']));
+            $children = $this->getItems(
+                $array['ID'], 
+                get_post_type($array['ID'])
+            );
         } else {
             $children = $this->indicateChildren($array['ID']);
         }
@@ -250,6 +253,7 @@ class Navigation
     
         return $branch;
     }
+    
 
     /**
      * Get pages/posts
@@ -262,16 +266,28 @@ class Navigation
     private function getItems($parent = 0, $postType = 'page') : array
     {
         //Check if if valid post type string
-        if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType)) {
+        if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
             return [];
         }
 
         //Check if if valid post type array
         if (is_array($postType)) {
+            $stack = [];
             foreach ($postType as $item) {
-                if (!post_type_exists($item)) {
-                    return [];
+                if (post_type_exists($item) && is_post_type_hierarchical($item)) {
+                    $stack[] = $item; 
                 }
+            }
+
+            if(empty($stack)) {
+                return []; 
+            }
+
+            //Get result, if one, handle as string (more efficient query)
+            if(count($stack) == 1) {
+                $postType = array_pop($stack); 
+            } else {
+                $postType = $stack; 
             }
         }
 
