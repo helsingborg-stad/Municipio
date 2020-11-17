@@ -27,7 +27,11 @@ class Search extends \Municipio\Controller\Archive
 
         //Hooks 
         $this->data['hook']->searchNotices          = $this->hook('search_notices'); 
-        $this->data['hook']->customSearchPage       = $this->hook('custom_search_page'); 
+        $this->data['hook']->customSearchPage       = $this->hook('custom_search_page');
+
+        // Show or hide sidebars
+        $this->data['showSidebars']                 = false;
+
     }
     /**
      * Default wordpress search
