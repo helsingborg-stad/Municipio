@@ -38,13 +38,13 @@
                             'author_url' => 'mailto:'.$comment->comment_author_email,
                             'author_image' => get_user_by('email', $comment->comment_author_email) ? get_avatar_url(get_user_by('email', $comment->comment_author_email)->data->ID ) : false,
                             'href' => '',
-                            'text' => get_comment_text($comment->comment_ID),
                             'icon' => 'face',
                             'bubble_color' => 'dark',
                             'date_suffix' => __('ago', 'municipio'),
                             'date' => date('Y-m-d H:i', strtotime($comment->comment_date)),
                             'classList' => ['comment-'.$comment->comment_ID, 'comment-reply-link'],
                         ])
+                            {!! get_comment_text($comment->comment_ID) !!}
                         @endcomment
                     </div>
 
@@ -103,13 +103,13 @@
                                     'author_url' => 'mailto:'.$answer->comment_author_email,
                                     'author_image' => get_avatar_url(get_user_by('email', $answer->comment_author_email)->data->ID ),
                                     'href' => '',
-                                    'text' => get_comment_text($answer->comment_ID),
                                     'icon' => 'face',
                                     'bubble_color' => 'dark',
                                     'date_suffix' => __('ago', 'municipio'),
                                     'date' => date('Y-m-d H:i', strtotime($answer->comment_date)),
                                     'is_reply' => true
                                 ])
+                                    {!! get_comment_text($answer->comment_ID) !!}
                                 @endcomment
                             </div>
                         @endforeach
