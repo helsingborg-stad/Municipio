@@ -1,5 +1,5 @@
 @if( is_singular() && comments_open() && get_option('comment_registration') === 0 || is_singular()
- && comments_open() && is_user_logged_in())
+ && comments_open())
 
     <div class="comment">
         {{Municipio\Comment\CommentsActions::getInitialCommentForm()}}
