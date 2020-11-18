@@ -124,6 +124,8 @@ class BaseController
             'search'                => __("Search", 'municipio'),
             'searchOn'              => __("Search on", 'municipio'),
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
+            'relatedLinks'          => __("Related links", 'municipio'),
+            'menu'                  => __("Menu", 'municipio'),
         );
 
         //Wordpress hooks
