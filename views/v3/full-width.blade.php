@@ -1,4 +1,1 @@
-@extends('templates.master')
-
-@section('layout')
-@stop
+@extends('templates.single')
