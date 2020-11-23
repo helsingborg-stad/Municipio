@@ -14,5 +14,18 @@
     <div class="c-drawer__body">
         @includeIf('partials.navigation.mobile', ['menuItems' => $mobileMenuItems])
     </div>
+
+    <div class="c-drawer__footer u-width--100">
+        @foreach($tabMenuItems as $item)
+            @link([
+                'href'  => $item['href'],
+                'classList' => ['u-margin__right--2'] 
+            ])
+                @typography(['element' => 'span','variant' => 'meta'])
+                    {{ $item['label'] }}
+                @endtypography
+            @endlink
+        @endforeach
+    </div>
 </div>
 <div class="drawer-overlay js-close-drawer u-display--none@lg"></div>
