@@ -17,10 +17,18 @@ $drawer-width: $base * 40;
     visibility: hidden;
     opacity: 0;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .c-drawer__header {
     height: $base * 13.25;
+}
+
+.c-drawer__footer {
+    border-top: 1px solid rgba(255, 255, 255,.3);
+    align-self: flex-end;
+    padding: $base * 4;
 }
 
 // Drawer Modifiers
@@ -50,11 +58,11 @@ $drawer-width: $base * 40;
 .c-drawer.c-drawer--primary {
     background-color: $color-primary;
 }
-.c-drawer.c-drawer--tertiary {
-    background-color: $color-tertiary;
-}
 .c-drawer.c-drawer--secondary {
     background-color: $color-secondary;
+}
+.c-drawer.c-drawer--tertiary {
+    background-color: $color-tertiary;
 }
 
 // Drawer States
@@ -88,10 +96,9 @@ $drawer-width: $base * 40;
 
 .hamburger.hamburger--drawer {
     margin-left: auto;
-  
+
     padding: $base * 3 $base * 4;
     @include mq('md') {
         padding: $base * 5 $base * 4;
     }
-  }
-  
+}

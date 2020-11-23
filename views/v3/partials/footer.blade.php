@@ -45,9 +45,15 @@
 
             <div class="o-grid">
                 <div class="o-grid-12">
-                    @if (get_field('footer_logotype', 'option') != 'hide')
-                        <img class="site-footer__logo" src="{{$logotype->standard['url']}}">
-                    @endif
+                    @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
+                        @logotype([
+                            'id' => 'footer-logotype',
+                            'src'=> $logotype->standard['url'],
+                            'alt' => $lang->goToHomepage,
+                            'classList' => ['site-footer__logo']
+                        ])
+                        @endlogotype
+                    @endlink
                 </div>
 
                 {{-- ## Footer widget area begin ## --}}
