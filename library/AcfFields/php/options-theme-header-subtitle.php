@@ -3,12 +3,9 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_584923bd30bfe',
-    'title' => 'Site sub-title',
+    'title' => __('Site sub-title', 'municipio'),
     'fields' => array(
         0 => array(
-            'message' => __('The sub site title can be used to complement a logotype', 'municipio'),
-            'esc_html' => 0,
-            'new_lines' => 'wpautop',
             'key' => 'field_584923f324a08',
             'label' => '',
             'name' => '',
@@ -21,13 +18,11 @@
                 'class' => '',
                 'id' => '',
             ),
+            'message' => __('The sub site title can be used to complement a logotype', 'municipio'),
+            'esc_html' => 0,
+            'new_lines' => 'wpautop',
         ),
         1 => array(
-            'default_value' => '',
-            'maxlength' => '',
-            'placeholder' => '',
-            'prepend' => '',
-            'append' => '',
             'key' => 'field_584923ca24a07',
             'label' => __('Sub-title', 'municipio'),
             'name' => 'sub_site_title',
@@ -40,6 +35,11 @@
                 'class' => '',
                 'id' => '',
             ),
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
         ),
     ),
     'location' => array(
@@ -57,8 +57,7 @@
     'label_placement' => 'top',
     'instruction_placement' => 'label',
     'hide_on_screen' => '',
-    'active' => 1,
+    'active' => true,
     'description' => '',
-    'local' => 'php',
 ));
 }

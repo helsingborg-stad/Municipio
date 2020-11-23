@@ -6,21 +6,11 @@
     'title' => 'Logotype',
     'fields' => array(
         0 => array(
-            'return_format' => 'array',
-            'preview_size' => 'thumbnail',
-            'library' => 'uploadedTo',
-            'min_width' => '',
-            'min_height' => '',
-            'min_size' => '',
-            'max_width' => '',
-            'max_height' => '',
-            'max_size' => '',
-            'mime_types' => 'svg',
             'key' => 'field_56a0f1fdbf847',
-            'label' => __('Standard logotype', 'municipio'),
+            'label' => __('Primary logotype', 'municipio'),
             'name' => 'logotype',
             'type' => 'image',
-            'instructions' => __('Only .svg-files are supported.', 'municipio'),
+            'instructions' => __('Accepterar enbart .svg-filer', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -28,8 +18,6 @@
                 'class' => '',
                 'id' => '',
             ),
-        ),
-        1 => array(
             'return_format' => 'array',
             'preview_size' => 'thumbnail',
             'library' => 'uploadedTo',
@@ -40,11 +28,13 @@
             'max_height' => '',
             'max_size' => '',
             'mime_types' => 'svg',
+        ),
+        1 => array(
             'key' => 'field_56a0f5e3b4720',
-            'label' => __('Negative logotype', 'municipio'),
+            'label' => __('Secondary logotype', 'municipio'),
             'name' => 'logotype_negative',
             'type' => 'image',
-            'instructions' => __('Please upload a brand logo in the format .svg. The negative logo refers to a 100% white logotype that can be used on dark backgrounds.', 'municipio'),
+            'instructions' => __('Please upload a brand logo in the format .svg. The secondary logo refers to a 100% white logotype that can be used on dark backgrounds.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -52,6 +42,16 @@
                 'class' => '',
                 'id' => '',
             ),
+            'return_format' => 'array',
+            'preview_size' => 'thumbnail',
+            'library' => 'uploadedTo',
+            'min_width' => '',
+            'min_height' => '',
+            'min_size' => '',
+            'max_width' => '',
+            'max_height' => '',
+            'max_size' => '',
+            'mime_types' => 'svg',
         ),
     ),
     'location' => array(
@@ -69,8 +69,7 @@
     'label_placement' => 'top',
     'instruction_placement' => 'label',
     'hide_on_screen' => '',
-    'active' => 1,
+    'active' => true,
     'description' => '',
-    'local' => 'php',
 ));
 }

@@ -15,75 +15,16 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "vertical",
             "choices": {
                 "business": "Business (default)",
-                "casual": "Casual",
-                "jumbo": "Jumbo",
-                "contrasted-nav": "Contrasted navbar"
+                "casual": "Casual"
             },
-            "default_value": "business",
-            "other_choice": 0,
-            "save_other_choice": 0,
             "allow_null": 0,
-            "return_format": "value"
-        },
-        {
-            "key": "field_58737dd1dc762",
-            "label": "Sticky",
-            "name": "header_sticky",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33.3333%",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 0,
-            "message": "Header should stick to view (floats when scrolling)",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_58737dd1dc763",
-            "label": "Transparent",
-            "name": "header_transparent",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33.3333%",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 0,
-            "message": "Transparent header on front page",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_58737dd1dc76345",
-            "label": "Centered",
-            "name": "header_centered",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "33.3333%",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 0,
-            "message": "Center all contents of the header",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
+            "other_choice": 0,
+            "default_value": "business",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
         },
         {
             "key": "field_56a22aaa83835wef",
@@ -116,25 +57,6 @@
             "save_other_choice": 0,
             "allow_null": 0,
             "return_format": "value"
-        },
-        {
-            "key": "field_5a1c07c1e0a55",
-            "label": "Activate dropdown links",
-            "name": "header_dropdown_links",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
         }
     ],
     "location": [
@@ -152,7 +74,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": ""
 }]
 

@@ -83,13 +83,6 @@ class Theme
                 'menu_slug'     => 'acf-options-archives'
             ));
 
-            acf_add_options_sub_page(array(
-                'page_title'    => '404',
-                'menu_title'    => '404',
-                'parent_slug'   => $themeOptionsParent,
-                'capability'    => $themeOptionsCapability,
-                'menu_slug'     => 'acf-options-404'
-            ));
 
             acf_add_options_sub_page(array(
                 'page_title'    => 'Google Translate',

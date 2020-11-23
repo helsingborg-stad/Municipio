@@ -3,30 +3,18 @@
     "title": "Logotype",
     "fields": [
         {
-            "return_format": "array",
-            "preview_size": "thumbnail",
-            "library": "uploadedTo",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "svg",
             "key": "field_56a0f1fdbf847",
-            "label": "Standard logotype",
+            "label": "Primary logotype",
             "name": "logotype",
             "type": "image",
-            "instructions": "Only .svg-files are supported.",
+            "instructions": "Accepterar enbart .svg-filer",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "return_format": "array",
             "preview_size": "thumbnail",
             "library": "uploadedTo",
@@ -36,19 +24,31 @@
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": "svg",
+            "mime_types": "svg"
+        },
+        {
             "key": "field_56a0f5e3b4720",
-            "label": "Negative logotype",
+            "label": "Secondary logotype",
             "name": "logotype_negative",
             "type": "image",
-            "instructions": "Please upload a brand logo in the format .svg. The negative logo refers to a 100% white logotype that can be used on dark backgrounds.",
+            "instructions": "Please upload a brand logo in the format .svg. The secondary logo refers to a 100% white logotype that can be used on dark backgrounds.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "uploadedTo",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg"
         }
     ],
     "location": [
@@ -66,8 +66,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": "",
-    "local": "php"
+    "active": true,
+    "description": ""
 }]
 

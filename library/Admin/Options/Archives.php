@@ -214,7 +214,7 @@ class Archives
 
                 // Post sorting
                 $metaKeys = array(
-                    'post_date'  => 'Date published',
+                    //'post_date'  => 'Date published',
                     'post_modified' => 'Date modified',
                     'post_title' => 'Title',
                 );
@@ -282,49 +282,6 @@ class Archives
                     'readonly' => 0,
                 );
 
-                // Publish date
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_56fcc6914296b_' . md5($posttype),
-                    'label' => 'Date published',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_feed_date_published',
-                    'type' => 'radio',
-                    'instructions' => '',
-                    'required' => 1,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '50%',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'choices' => array(
-                        'false' => 'Do not show',
-                        'datetime' => 'Date and time',
-                        'date' => 'Date only',
-                        'time' => 'Time only',
-                    ),
-                    'other_choice' => 0,
-                    'save_other_choice' => 0,
-                    'default_value' => 'datetime',
-                    'layout' => 'horizontal',
-                );
-
-                // Sidebar navigation
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_570ded8a47206_' . md5($posttype),
-                    'label' => 'Sidebar navigation',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_show_sidebar_navigation',
-                    'type' => 'true_false',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '50%',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'message' => 'Yes, show the sidebar navigation',
-                    'default_value' => 0,
-                );
 
                 // Post filters
                 $fieldArgs['fields'][] = array(
@@ -391,136 +348,6 @@ class Archives
                     );
                 }
 
-                foreach ($taxonomies as $taxName => $taxLabel) {
-                    $fieldArgs['fields'][] = array(
-                        'key' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_placement'),
-                        'label' => $taxLabel . ': Placement',
-                        'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_placement',
-                        'type' => 'select',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => array(array(
-                            array(
-                                'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
-                                'operator' => '==',
-                                'value' => $taxName
-                            )
-                        )),
-                        'wrapper' => array(
-                            'width' => '33%',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'choices' => array(
-                            'primary' => 'Primary',
-                            'row' => 'Row',
-                            'folded' => 'Folded',
-                            'highlighted' => 'Highlighted'
-                        ),
-                        'other_choice' => 0,
-                        'save_other_choice' => 0,
-                        'default_value' => 'datetime',
-                        'layout' => 'horizontal',
-                    );
-
-                    $fieldArgs['fields'][] = array(
-                        'key' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_type'),
-                        'label' => $taxLabel . ': Type',
-                        'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_type',
-                        'type' => 'select',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => array(array(
-                            array(
-                                'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
-                                'operator' => '==',
-                                'value' => $taxName
-                            ),
-                            array(
-                                'field' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_placement'),
-                                'operator' => '!=',
-                                'value' => 'highlighted'
-                            )
-                        )),
-                        'wrapper' => array(
-                            'width' => '33%',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'choices' => array(
-                            'single' => 'Single choice',
-                            'multi' => 'Multiple choices'
-                        ),
-                        'other_choice' => 0,
-                        'save_other_choice' => 0,
-                        'default_value' => 'datetime',
-                        'layout' => 'horizontal',
-                    );
-
-                    $fieldArgs['fields'][] = array(
-                        'key' => 'field_43fgg987tess_' . md5($posttype . '_' . $taxName . '_type'),
-                        'label' => $taxLabel . ': Type',
-                        'name' => 'archive_' . sanitize_title($posttype) . '_filter_' . sanitize_title($taxName) . '_type',
-                        'type' => 'select',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => array(array(
-                            array(
-                                'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
-                                'operator' => '==',
-                                'value' => $taxName
-                            ),
-                            array(
-                                'field' => 'field_56fcc691ergg_' . md5($posttype . '_' . $taxName . '_placement'),
-                                'operator' => '==',
-                                'value' => 'highlighted'
-                            )
-                        )),
-                        'wrapper' => array(
-                            'width' => '33%',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'choices' => array(
-                            'multi' => 'Multiple choices'
-                        ),
-                        'other_choice' => 0,
-                        'save_other_choice' => 0,
-                        'default_value' => 'datetime',
-                        'layout' => 'horizontal',
-                    );
-
-
-                    //Filter logic
-                    $fieldArgs['fields'][] = array(
-                        'key' => 'field_32drr8543765p_' . md5($taxName),
-                        'label' => $taxLabel . ': Filter logic',
-                        'name' => 'archive_' . sanitize_title($taxName) . '_filter_logic',
-                        'type' => 'select',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => array(array(
-                                array(
-                                    'field' => 'field_570ba0c8erg434' . md5($posttype . 'filter_display'),
-                                    'operator' => '==',
-                                    'value' => $taxName
-                                )
-                         )),
-                        'wrapper' => array(
-                            'width' => '33%',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'choices' => array(
-                            'AND' => 'AND',
-                            'OR' => 'OR',
-                        ),
-                        'other_choice' => 0,
-                        'save_other_choice' => 0,
-                        'default_value' => 'OR',
-                        'layout' => 'horizontal',
-                    );
-                }
 
                 // Filter position
                 $fieldArgs['fields'][] = array(
@@ -546,73 +373,8 @@ class Archives
             }
 
             // Post display label
+
             if (!isset($args->is_author_archive) || $args->is_author_archive !== true) {
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_570e104caf1b3_' . md5($posttype),
-                    'label' => 'Post display settings',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_post_display_settings',
-                    'type' => 'message',
-                    'instructions' => 'The below settings will apply for single post view.',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => 'municipio-theme-options-label',
-                        'id' => '',
-                    ),
-                    'message' => '',
-                    'new_lines' => 'wpautop',
-                    'esc_html' => 0,
-                );
-
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_56fcc6914296c_' . md5($posttype),
-                    'label' => 'Date published',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_post_date_published',
-                    'type' => 'radio',
-                    'instructions' => '',
-                    'required' => 1,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'choices' => array(
-                        'false' => 'Do not show',
-                        'datetime' => 'Date and time',
-                        'date' => 'Date only',
-                        'time' => 'Time only',
-                    ),
-                    'other_choice' => 0,
-                    'save_other_choice' => 0,
-                    'default_value' => 'datetime',
-                    'layout' => 'horizontal',
-                );
-
-                // Info to display
-                $fieldArgs['fields'][] = array(
-                    'key' => 'field_56fcc62b8ab02_' . md5($posttype),
-                    'label' => 'Info to display',
-                    'name' => 'archive_' . sanitize_title($posttype) . '_post_display_info',
-                    'type' => 'checkbox',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'choices' => array(
-                        'author' => 'Show author',
-                        'author_image' => 'Show author image (only if show author)',
-                    ),
-                    'other_choice' => 0,
-                    'save_other_choice' => 0,
-                    'default_value' => '',
-                    'layout' => 'horizontal',
-                );
 
                 // Taxonomy info to display
                 if (count($taxonomies) > 0) {

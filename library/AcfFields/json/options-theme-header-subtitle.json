@@ -3,9 +3,6 @@
     "title": "Site sub-title",
     "fields": [
         {
-            "message": "The sub site title can be used to complement a logotype",
-            "esc_html": 0,
-            "new_lines": "wpautop",
             "key": "field_584923f324a08",
             "label": "",
             "name": "",
@@ -17,14 +14,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "message": "The sub site title can be used to complement a logotype",
+            "esc_html": 0,
+            "new_lines": "wpautop"
         },
         {
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
             "key": "field_584923ca24a07",
             "label": "Sub-title",
             "name": "sub_site_title",
@@ -36,7 +31,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -54,8 +54,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": "",
-    "local": "php"
+    "active": true,
+    "description": ""
 }]
 
