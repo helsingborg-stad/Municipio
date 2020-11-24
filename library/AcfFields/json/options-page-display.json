@@ -20,63 +20,6 @@
                 "class": "",
                 "id": ""
             }
-        },
-        {
-            "default_value": 1,
-            "message": "Show social media share buttons",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
-            "key": "field_56c33d008efe3",
-            "label": "Share",
-            "name": "post_show_share",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
-        },
-        {
-            "default_value": 1,
-            "message": "Show author",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
-            "key": "field_56cadc4e0480b",
-            "label": "Author",
-            "name": "post_show_author",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
-        },
-        {
-            "default_value": 1,
-            "message": "Show author's image",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
-            "key": "field_56cadc7b0480c",
-            "label": "Author image",
-            "name": "post_show_author_image",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
         }
     ],
     "location": [
@@ -98,4 +41,4 @@
     "description": "",
     "local": "php"
 }]
-
+
