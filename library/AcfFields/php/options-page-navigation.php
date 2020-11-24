@@ -5,26 +5,8 @@ if (function_exists('acf_add_local_field_group')) {
     'key' => 'group_56d83cff12bb3',
     'title' => 'Navigation settings',
     'fields' => array(
+
         0 => array(
-            'default_value' => 0,
-            'message' => __('Hide', 'municipio'),
-            'ui' => 0,
-            'ui_on_text' => '',
-            'ui_off_text' => '',
-            'key' => 'field_56d83d2777785',
-            'label' => __('Hide from sidebar menu', 'municipio'),
-            'name' => 'hide_in_menu',
-            'type' => 'true_false',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-        ),
-        1 => array(
             'default_value' => '',
             'maxlength' => '',
             'placeholder' => '',
