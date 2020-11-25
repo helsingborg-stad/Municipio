@@ -32,9 +32,6 @@ class Archive extends \Municipio\Controller\BaseController
         //Sidebar
         $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType);
 
-        // Show or hide sidebars
-        $this->data['showSidebars']             = true;
-
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
 

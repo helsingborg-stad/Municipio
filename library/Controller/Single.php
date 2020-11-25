@@ -15,8 +15,7 @@ class Single extends \Municipio\Controller\Singular
      */
     public function init()
     {
-        // Show or hide sidebars
-        $this->data['showSidebars'] = true;
+
     }
 
 }
