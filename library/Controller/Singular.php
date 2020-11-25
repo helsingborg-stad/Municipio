@@ -62,6 +62,8 @@ class Singular extends \Municipio\Controller\BaseController
 
         // Show or hide sidebars
         $this->data['showSidebars'] = true;
+
+        return $this->data;
     }
 
     /**
