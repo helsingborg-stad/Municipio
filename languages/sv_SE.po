@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2020-11-23 16:38+0100\n"
-"PO-Revision-Date: 2020-11-23 16:50+0100\n"
+"POT-Creation-Date: 2020-11-25 12:38+0100\n"
+"PO-Revision-Date: 2020-11-25 12:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -176,50 +176,21 @@ msgstr "Slogan i sidhuvud"
 msgid "Add section"
 msgstr "Lägg till ikon"
 
-#: library/AcfFields/php/options-page-display.php:10
+#: library/AcfFields/php/options-page-display.php:12
 msgid "Show featured image in single template"
 msgstr "Visa utvald bild i singel-template"
 
-#: library/AcfFields/php/options-page-display.php:15
+#: library/AcfFields/php/options-page-display.php:17
 msgid "Featured image"
 msgstr "Utvald bild"
-
-#: library/AcfFields/php/options-page-display.php:29
-msgid "Show social media share buttons"
-msgstr "Visa delningsknappar"
-
-#: library/AcfFields/php/options-page-display.php:34
-msgid "Share"
-msgstr "Dela"
-
-#: library/AcfFields/php/options-page-display.php:48
-#: library/AcfFields/php/options-theme-author.php:10
-msgid "Show author"
-msgstr "Visa författare"
-
-#: library/AcfFields/php/options-page-display.php:53
-#: library/AcfFields/php/options-theme-author.php:6
-#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:23
-#: library/Controller/Singular.php:81
-#: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
-msgid "Author"
-msgstr "Författare"
-
-#: library/AcfFields/php/options-page-display.php:67
-msgid "Show author's image"
-msgstr "Visa författarens bild"
-
-#: library/AcfFields/php/options-page-display.php:72
-msgid "Author image"
-msgstr "Bild på författare"
 
 #: library/AcfFields/php/options-page-navigation.php:10
 msgid "Hide"
 msgstr "Dölj"
 
 #: library/AcfFields/php/options-page-navigation.php:15
-msgid "Hide from sidebar menu"
-msgstr "Dölj från sidebar-menyn"
+msgid "Hide from menu"
+msgstr "Dölj från meny"
 
 #: library/AcfFields/php/options-page-navigation.php:34
 msgid "Menu title"
@@ -233,6 +204,17 @@ msgid ""
 msgstr ""
 "Om du vill använda en annan titel för denna sidan i menyn, fyll i den här. "
 "Om du vill använda den vanliga sidtiteln så lämnar du detta fältet tomt."
+
+#: library/AcfFields/php/options-theme-author.php:6
+#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:23
+#: library/Controller/Singular.php:81
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
+msgid "Author"
+msgstr "Författare"
+
+#: library/AcfFields/php/options-theme-author.php:10
+msgid "Show author"
+msgstr "Visa författare"
 
 #: library/AcfFields/php/options-theme-author.php:22
 #: library/AcfFields/php/options-theme-author.php:41
@@ -5051,6 +5033,21 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Show social media share buttons"
+#~ msgstr "Visa delningsknappar"
+
+#~ msgid "Share"
+#~ msgstr "Dela"
+
+#~ msgid "Show author's image"
+#~ msgstr "Visa författarens bild"
+
+#~ msgid "Author image"
+#~ msgstr "Bild på författare"
+
+#~ msgid "Hide from sidebar menu"
+#~ msgstr "Dölj från meny"
 
 #~ msgid "Color scheme"
 #~ msgstr "Färgschema"
