@@ -8,6 +8,9 @@ namespace Municipio\Controller;
  */
 class Singular extends \Municipio\Controller\BaseController
 {
+    /**
+     * @return array|void
+     */
     public function init()
     {   
 
