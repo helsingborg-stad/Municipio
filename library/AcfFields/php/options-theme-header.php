@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56a22a9c78e54',
-    'title' => __('Header', 'municipio'),
+    'title' => 'Header',
     'fields' => array(
         0 => array(
             'key' => 'field_56a22aaa83835',
@@ -19,7 +19,7 @@
                 'id' => '',
             ),
             'choices' => array(
-                'business' => __('Business (default)', 'municipio'),
+                'business' => __('Business (standardval)', 'municipio'),
                 'casual' => __('Casual', 'municipio'),
             ),
             'allow_null' => 0,
@@ -29,49 +29,17 @@
             'return_format' => 'value',
             'save_other_choice' => 0,
         ),
-        1 => array(
-            'key' => 'field_56a22aaa83835wef',
-            'label' => __('Header content color', 'municipio'),
-            'name' => 'header_content_color',
-            'type' => 'radio',
-            'instructions' => '',
-            'required' => 1,
-            'conditional_logic' => array(
-                0 => array(
-                    0 => array(
-                        'field' => 'field_58737dd1dc763',
-                        'operator' => '==',
-                        'value' => 1,
-                    ),
-                ),
-            ),
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'layout' => 'vertical',
-            'choices' => array(
-                'light' => __('Light', 'municipio'),
-                'dark' => __('Dark', 'municipio'),
-            ),
-            'default_value' => 'light',
-            'other_choice' => 0,
-            'save_other_choice' => 0,
-            'allow_null' => 0,
-            'return_format' => 'value',
-        ),
     ),
     'location' => array(
         0 => array(
             0 => array(
                 'param' => 'options_page',
                 'operator' => '==',
-                'value' => 'acf-options-header',
+                'value' => 'acf-options-theme-options',
             ),
         ),
     ),
-    'menu_order' => 0,
+    'menu_order' => 2,
     'position' => 'normal',
     'style' => 'default',
     'label_placement' => 'top',

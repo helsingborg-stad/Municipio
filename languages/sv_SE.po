@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2020-11-25 12:38+0100\n"
-"PO-Revision-Date: 2020-11-25 12:38+0100\n"
+"POT-Creation-Date: 2020-11-26 16:48+0100\n"
+"PO-Revision-Date: 2020-11-26 16:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -184,19 +184,23 @@ msgstr "Visa utvald bild i singel-template"
 msgid "Featured image"
 msgstr "Utvald bild"
 
-#: library/AcfFields/php/options-page-navigation.php:10
-msgid "Hide"
-msgstr "Dölj"
+#: library/AcfFields/php/options-page-navigation.php:6
+msgid "Navigation settings"
+msgstr "Navigationsinställningar"
 
-#: library/AcfFields/php/options-page-navigation.php:15
+#: library/AcfFields/php/options-page-navigation.php:10
 msgid "Hide from menu"
 msgstr "Dölj från meny"
 
-#: library/AcfFields/php/options-page-navigation.php:34
+#: library/AcfFields/php/options-page-navigation.php:22
+msgid "Hide"
+msgstr "Dölj"
+
+#: library/AcfFields/php/options-page-navigation.php:29
 msgid "Menu title"
 msgstr "Menytitel"
 
-#: library/AcfFields/php/options-page-navigation.php:37
+#: library/AcfFields/php/options-page-navigation.php:32
 msgid ""
 "If you want to use another title for this page in the sidebar navigation "
 "fill it in here. If you want to use the page title just leave this field "
@@ -418,12 +422,11 @@ msgid "Show posts in sidebar menu (only ofr automatically generated menus)"
 msgstr "Visa inlägg i sidebar-meny (bara för automatiskt genererade menyer)"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:214
-#: library/Admin/Options/Theme.php:39 library/Admin/Options/Theme.php:40
 msgid "Navigation"
 msgstr "Navigering"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:237
-#: library/Admin/Options/Theme.php:96 library/Admin/Options/Theme.php:97
+#: library/Admin/Options/Theme.php:72 library/Admin/Options/Theme.php:73
 msgid "Content editor"
 msgstr "Innehållsförfattare"
 
@@ -657,53 +660,15 @@ msgstr ""
 msgid "MceButtons"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-favicon.php:25
-msgid "Type"
-msgstr "Typ"
+#: library/AcfFields/php/options-theme-favicon.php:6
+msgid "Favicon"
+msgstr "Favoritikoner"
 
-#: library/AcfFields/php/options-theme-favicon.php:51
-msgid "Icon 152x152"
-msgstr "Ikon 152x152"
-
-#: library/AcfFields/php/options-theme-favicon.php:54
-msgid "Must be 152x152 pixels .png"
-msgstr "Måste vara 152x152 pixlar och format .png"
-
-#: library/AcfFields/php/options-theme-favicon.php:83
-msgid "Icon 144x144"
-msgstr "Ikon 144x144"
-
-#: library/AcfFields/php/options-theme-favicon.php:86
-msgid "Must be 144x144 pixels .png"
-msgstr "Måste vara 144x144 pixlar och format .png"
-
-#: library/AcfFields/php/options-theme-favicon.php:110
-msgid "Favicon.ico"
-msgstr "Favicon.ico"
-
-#: library/AcfFields/php/options-theme-favicon.php:113
-msgid "Must be a .ico containing 16x16px, 32x32px and 48x48px"
-msgstr "Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px"
-
-#: library/AcfFields/php/options-theme-favicon.php:142
-#: library/AcfFields/php/options-theme-google-translate.php:73
-msgid "Icon"
-msgstr "Ikon"
-
-#: library/AcfFields/php/options-theme-favicon.php:175
-msgid "Metro tile color"
-msgstr "Bakgrundsfärg på Metro-bricka"
-
-#: library/AcfFields/php/options-theme-favicon.php:199
-#: library/AcfFields/php/widget-contact.php:116
-msgid "Lägg till rad"
-msgstr "Lägg till rad"
-
-#: library/AcfFields/php/options-theme-favicon.php:202
+#: library/AcfFields/php/options-theme-favicon.php:10
 msgid "Favicons"
 msgstr "Favoritikoner"
 
-#: library/AcfFields/php/options-theme-favicon.php:205
+#: library/AcfFields/php/options-theme-favicon.php:13
 msgid ""
 "Add favicons in various sizes. If a size has multiple icons specified only "
 "the latest specified icon will be used."
@@ -711,63 +676,66 @@ msgstr ""
 "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden "
 "kommer bara den senast specificerade att användas."
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:6
-msgid "Fixed action bar (FAB)"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:24
+#: library/AcfFields/php/widget-contact.php:116
+msgid "Lägg till rad"
+msgstr "Lägg till rad"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:10
-#, fuzzy
-#| msgid "Below Settings"
-msgid "FAB settings"
-msgstr "Under inställningar"
+#: library/AcfFields/php/options-theme-favicon.php:29
+msgid "Type"
+msgstr "Typ"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:23
-#: vendor/aristath/kirki/example.php:831
-#, fuzzy
-#| msgid "Disable blog"
-msgid "Disabled"
-msgstr "Inaktivera blogg"
+#: library/AcfFields/php/options-theme-favicon.php:43
+msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
+msgstr "favicon.ico (16x16px, 32x32px, 48x48px)"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:24
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:35
-msgid "WP Menu"
-msgstr "WP Meny"
+#: library/AcfFields/php/options-theme-favicon.php:44
+msgid "iOS, Android (152x152px)"
+msgstr "iOS, Android (152x152px)"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:56
-msgid "huvudmeny"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:45
+msgid "IE10, Windows Metro (144x144px)"
+msgstr "IE10, Windows Metro (144x144px)"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:57
-#: library/AcfFields/php/widget-header-links.php:10
-msgid "Länkar"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:57
+msgid "Icon 152x152"
+msgstr "Ikon 152x152"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:70
-msgid "Visabllity"
-msgstr "Synbarhet"
+#: library/AcfFields/php/options-theme-favicon.php:60
+msgid "Must be 152x152 pixels .png"
+msgstr "Måste vara 152x152 pixlar och format .png"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:91
-msgid "Hide on extra small devices"
-msgstr "Göm på små enheter"
+#: library/AcfFields/php/options-theme-favicon.php:89
+msgid "Icon 144x144"
+msgstr "Ikon 144x144"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:92
-#, fuzzy
-#| msgid "Hide from sidebar menu"
-msgid "Hide on small devices"
-msgstr "Dölj från sidebar-menyn"
+#: library/AcfFields/php/options-theme-favicon.php:92
+msgid "Must be 144x144 pixels .png"
+msgstr "Måste vara 144x144 pixlar och format .png"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:93
-msgid "Hide on medium devices"
-msgstr "Göm på medelstora enheter"
+#: library/AcfFields/php/options-theme-favicon.php:121
+msgid "Favicon.ico"
+msgstr "Favicon.ico"
 
-#: library/AcfFields/php/options-theme-fixed-action-bar.php:94
-#, fuzzy
-#| msgid "Hide from sidebar menu"
-msgid "Hide on large devices"
-msgstr "Dölj från sidebar-menyn"
+#: library/AcfFields/php/options-theme-favicon.php:124
+msgid "Must be a .ico containing 16x16px, 32x32px and 48x48px"
+msgstr "Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px"
+
+#: library/AcfFields/php/options-theme-favicon.php:148
+#: library/AcfFields/php/options-theme-google-translate.php:73
+msgid "Icon"
+msgstr "Ikon"
+
+#: library/AcfFields/php/options-theme-favicon.php:190
+msgid "Metro tile color"
+msgstr "Bakgrundsfärg på Metro-bricka"
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:6
+msgid "Footer logotype"
+msgstr "Logotyp i sidfot"
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:10
-msgid "Logotyp att använda i sidfot"
+msgid "Logotype in footer"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:22
@@ -850,25 +818,7 @@ msgstr "Logotyp i sidhuvud"
 msgid "Logotype to use in header"
 msgstr "Logotyp att använda i sidhuvudet"
 
-#: library/AcfFields/php/options-theme-header-subtitle.php:6
-msgid "Site sub-title"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-header-subtitle.php:21
-msgid "The sub site title can be used to complement a logotype"
-msgstr ""
-"Undertitel kan användas som ett komplement till en logotyp eller sidtitel"
-
-#: library/AcfFields/php/options-theme-header-subtitle.php:27
-msgid "Sub-title"
-msgstr "Undertitel"
-
-#: library/AcfFields/php/options-theme-header-subtitle.php:30
-msgid "HTML allowed"
-msgstr "HTML accepteras"
-
 #: library/AcfFields/php/options-theme-header.php:6
-#: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
 msgid "Header"
 msgstr "Sidhuvud"
 
@@ -888,17 +838,9 @@ msgstr "Business (standardval)"
 msgid "Casual"
 msgstr "Casual"
 
-#: library/AcfFields/php/options-theme-header.php:34
-msgid "Header content color"
-msgstr "Färg för innehåll i header"
-
-#: library/AcfFields/php/options-theme-header.php:55
-msgid "Light"
-msgstr "Ljus"
-
-#: library/AcfFields/php/options-theme-header.php:56
-msgid "Dark"
-msgstr "Mörk"
+#: library/AcfFields/php/options-theme-logotype.php:6
+msgid "Logotype"
+msgstr "Logotyp"
 
 #: library/AcfFields/php/options-theme-logotype.php:10
 msgid "Primary logotype"
@@ -1162,6 +1104,10 @@ msgstr "Egen CSS"
 msgid "Widget header - Links"
 msgstr ""
 
+#: library/AcfFields/php/widget-header-links.php:10
+msgid "Länkar"
+msgstr ""
+
 #: library/AcfFields/php/widget-header-links.php:25
 #, fuzzy
 #| msgid "External link"
@@ -1303,19 +1249,14 @@ msgstr "Temainställningar"
 msgid "Customizer"
 msgstr "Anpassar"
 
-#: library/Admin/Options/Theme.php:55 library/Admin/Options/Theme.php:56
+#: library/Admin/Options/Theme.php:39 library/Admin/Options/Theme.php:40
 #: vendor/advanced-custom-fields/core/fields/file.php:20
 #: vendor/advanced-custom-fields/core/fields/image.php:20
 #: vendor/advanced-custom-fields/core/fields/wysiwyg.php:20
 msgid "Content"
 msgstr "Innehåll"
 
-#: library/Admin/Options/Theme.php:63 library/Admin/Options/Theme.php:64
-#: library/Theme/Sidebars.php:37
-msgid "Footer"
-msgstr "Sidfot"
-
-#: library/Admin/Options/Theme.php:71 library/Admin/Options/Theme.php:72
+#: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
 #: library/Controller/Archive.php:70 library/Controller/BaseController.php:124
 #: library/Theme/Navigation.php:229 library/Theme/Navigation.php:230
 #: library/Widget/Navigation/Navigation.php:66
@@ -1329,31 +1270,31 @@ msgstr "Sidfot"
 msgid "Search"
 msgstr "Sök"
 
-#: library/Admin/Options/Theme.php:79 library/Admin/Options/Theme.php:80
+#: library/Admin/Options/Theme.php:55 library/Admin/Options/Theme.php:56
 msgid "Blog & Archives"
 msgstr "Bloggar & Arkiv"
 
-#: library/Admin/Options/Theme.php:104
+#: library/Admin/Options/Theme.php:80
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:105
+#: library/Admin/Options/Theme.php:81
 msgid "Post Types"
 msgstr "Inläggstyper"
 
-#: library/Admin/Options/Theme.php:112
+#: library/Admin/Options/Theme.php:88
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:113
+#: library/Admin/Options/Theme.php:89
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:120
+#: library/Admin/Options/Theme.php:96
 msgid "Custom CSS/JS Editor"
 msgstr "Egen CSS/JS"
 
-#: library/Admin/Options/Theme.php:121
+#: library/Admin/Options/Theme.php:97
 msgid "Custom CSS/JS"
 msgstr "Egen CSS/JS"
 
@@ -1736,6 +1677,10 @@ msgstr ""
 #| msgid "Below Links"
 msgid "Dropdown Links"
 msgstr "Under länkar"
+
+#: library/Theme/Sidebars.php:37
+msgid "Footer"
+msgstr "Sidfot"
 
 #: library/Theme/Sidebars.php:38
 msgid "The footer area"
@@ -4688,6 +4633,12 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
+#: vendor/aristath/kirki/example.php:831
+#, fuzzy
+#| msgid "Disable blog"
+msgid "Disabled"
+msgstr "Inaktivera blogg"
+
 #: vendor/aristath/kirki/example.php:850
 msgid "Toggle Control"
 msgstr ""
@@ -5034,6 +4985,52 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
+#, fuzzy
+#~| msgid "Below Settings"
+#~ msgid "FAB settings"
+#~ msgstr "Under inställningar"
+
+#~ msgid "WP Menu"
+#~ msgstr "WP Meny"
+
+#~ msgid "Visabllity"
+#~ msgstr "Synbarhet"
+
+#~ msgid "Hide on extra small devices"
+#~ msgstr "Göm på små enheter"
+
+#, fuzzy
+#~| msgid "Hide from sidebar menu"
+#~ msgid "Hide on small devices"
+#~ msgstr "Dölj från sidebar-menyn"
+
+#~ msgid "Hide on medium devices"
+#~ msgstr "Göm på medelstora enheter"
+
+#, fuzzy
+#~| msgid "Hide from sidebar menu"
+#~ msgid "Hide on large devices"
+#~ msgstr "Dölj från sidebar-menyn"
+
+#~ msgid "The sub site title can be used to complement a logotype"
+#~ msgstr ""
+#~ "Undertitel kan användas som ett komplement till en logotyp eller sidtitel"
+
+#~ msgid "Sub-title"
+#~ msgstr "Undertitel"
+
+#~ msgid "HTML allowed"
+#~ msgstr "HTML accepteras"
+
+#~ msgid "Header content color"
+#~ msgstr "Färg för innehåll i header"
+
+#~ msgid "Light"
+#~ msgstr "Ljus"
+
+#~ msgid "Dark"
+#~ msgstr "Mörk"
+
 #~ msgid "Show social media share buttons"
 #~ msgstr "Visa delningsknappar"
 
@@ -5197,9 +5194,6 @@ msgstr ""
 #~ msgid "Only active level's subitems"
 #~ msgstr "Bara aktiva sidans undersidor"
 
-#~ msgid "Footer logotype"
-#~ msgstr "Logotyp i sidfot"
-
 #~ msgid "Logotype to use in footer"
 #~ msgstr "Logotyp att använda i sidfot"
 
@@ -5225,9 +5219,6 @@ msgstr ""
 
 #~ msgid "No results matched your query "
 #~ msgstr "Inga träffar matchade din sökfråga "
-
-#~ msgid "Logotype"
-#~ msgstr "Logotyp"
 
 #~ msgid "Error message"
 #~ msgstr "Felmeddelande"
@@ -5646,9 +5637,6 @@ msgstr ""
 #~ "För att aktivera Google Analytics anger du ditt Google Analytics UA här."
 #~ "<br>Brukar vara formaterat såhär: UA-XXXXX-Y"
 
-#~ msgid "Navigation settings"
-#~ msgstr "Navigationsinställningar"
-
 #~ msgid "Default post types"
 #~ msgstr "Standardinläggstyper"
 
@@ -5709,18 +5697,6 @@ msgstr ""
 
 #~ msgid "Add taxonomy"
 #~ msgstr "Lägg till taxonomy"
-
-#~ msgid "Favicon"
-#~ msgstr "Favoritikoner"
-
-#~ msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
-#~ msgstr "favicon.ico (16x16px, 32x32px, 48x48px)"
-
-#~ msgid "iOS, Android (152x152px)"
-#~ msgstr "iOS, Android (152x152px)"
-
-#~ msgid "IE10, Windows Metro (144x144px)"
-#~ msgstr "IE10, Windows Metro (144x144px)"
 
 #~ msgid "#FFFFFF"
 #~ msgstr "#FFFFFF"

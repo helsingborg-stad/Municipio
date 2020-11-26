@@ -4,10 +4,10 @@
     "fields": [
         {
             "key": "field_56a0f1fdbf847",
-            "label": "Primary logotype",
+            "label": "Prim\u00e4r logotyp",
             "name": "logotype",
             "type": "image",
-            "instructions": "Accepterar enbart .svg-filer",
+            "instructions": "Accepterar enbart .svg-filer (Scalable Vector Graphics).",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -28,10 +28,10 @@
         },
         {
             "key": "field_56a0f5e3b4720",
-            "label": "Secondary logotype",
+            "label": "Sekund\u00e4r logotyp",
             "name": "logotype_negative",
             "type": "image",
-            "instructions": "Please upload a brand logo in the format .svg. The secondary logo refers to a 100% white logotype that can be used on dark backgrounds.",
+            "instructions": "Ladda upp din sekund\u00e4ra logotyp i .svg format (Scalable Vector Graphics). V\u00e5r tanke med en sekund\u00e4r logotyp \u00e4r att den fungerar b\u00e4st i 100% vitt och passar b\u00e4st p\u00e5 m\u00f6rka eller f\u00e4rgade bakgrunder.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -60,7 +60,7 @@
             }
         ]
     ],
-    "menu_order": -100,
+    "menu_order": 0,
     "position": "normal",
     "style": "default",
     "label_placement": "top",

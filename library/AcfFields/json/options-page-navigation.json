@@ -3,13 +3,8 @@
     "title": "Navigation settings",
     "fields": [
         {
-            "default_value": 0,
-            "message": "Hide",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
             "key": "field_56d83d2777785",
-            "label": "Hide from menu",
+            "label": "D\u00f6lj fr\u00e5n meny",
             "name": "hide_in_menu",
             "type": "true_false",
             "instructions": "",
@@ -19,19 +14,19 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": 0,
+            "message": "D\u00f6lj",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         },
         {
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
             "key": "field_56d83d4e77786",
-            "label": "Menu title",
+            "label": "Menytitel",
             "name": "custom_menu_title",
             "type": "text",
-            "instructions": "If you want to use another title for this page in the sidebar navigation fill it in here. If you want to use the page title just leave this field empty.",
+            "instructions": "Om du vill anv\u00e4nda en annan titel f\u00f6r denna sidan i menyn, fyll i den h\u00e4r. Om du vill anv\u00e4nda den vanliga sidtiteln s\u00e5 l\u00e4mnar du detta f\u00e4ltet tomt.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -39,6 +34,11 @@
                 "class": "",
                 "id": ""
             },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
             "readonly": 0,
             "disabled": 0
         }
@@ -58,6 +58,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": ""
 }]
+

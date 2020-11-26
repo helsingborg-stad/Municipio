@@ -7,10 +7,10 @@
     'fields' => array(
         0 => array(
             'key' => 'field_56a0f1fdbf847',
-            'label' => __('Primary logotype', 'municipio'),
+            'label' => __('Primär logotyp', 'municipio'),
             'name' => 'logotype',
             'type' => 'image',
-            'instructions' => __('Accepterar enbart .svg-filer', 'municipio'),
+            'instructions' => __('Accepterar enbart .svg-filer (Scalable Vector Graphics).', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -31,10 +31,10 @@
         ),
         1 => array(
             'key' => 'field_56a0f5e3b4720',
-            'label' => __('Secondary logotype', 'municipio'),
+            'label' => __('Sekundär logotyp', 'municipio'),
             'name' => 'logotype_negative',
             'type' => 'image',
-            'instructions' => __('Please upload a brand logo in the format .svg. The secondary logo refers to a 100% white logotype that can be used on dark backgrounds.', 'municipio'),
+            'instructions' => __('Ladda upp din sekundära logotyp i .svg format (Scalable Vector Graphics). Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt och passar bäst på mörka eller färgade bakgrunder.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -63,7 +63,7 @@
             ),
         ),
     ),
-    'menu_order' => -100,
+    'menu_order' => 0,
     'position' => 'normal',
     'style' => 'default',
     'label_placement' => 'top',

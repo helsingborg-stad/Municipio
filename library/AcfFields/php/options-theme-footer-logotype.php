@@ -7,7 +7,7 @@
     'fields' => array(
         0 => array(
             'key' => 'field_56c5d41ed3f9f',
-            'label' => __('Logotyp att använda i sidfot', 'municipio'),
+            'label' => __('Logotype in footer', 'municipio'),
             'name' => 'footer_logotype',
             'type' => 'radio',
             'instructions' => '',
@@ -19,8 +19,8 @@
                 'id' => '',
             ),
             'choices' => array(
-                'standard' => __('Primary', 'municipio'),
-                'negative' => __('Secondary', 'municipio'),
+                'standard' => __('Primär', 'municipio'),
+                'negative' => __('Sekundär', 'municipio'),
                 'hide' => __('Dölj logotyp i sidfoten', 'municipio'),
             ),
             'allow_null' => 0,
@@ -36,11 +36,11 @@
             0 => array(
                 'param' => 'options_page',
                 'operator' => '==',
-                'value' => 'acf-options-footer',
+                'value' => 'acf-options-theme-options',
             ),
         ),
     ),
-    'menu_order' => 0,
+    'menu_order' => 2,
     'position' => 'normal',
     'style' => 'default',
     'label_placement' => 'top',

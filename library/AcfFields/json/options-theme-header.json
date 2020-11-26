@@ -16,7 +16,7 @@
                 "id": ""
             },
             "choices": {
-                "business": "Business (default)",
+                "business": "Business (standardval)",
                 "casual": "Casual"
             },
             "allow_null": 0,
@@ -25,38 +25,6 @@
             "layout": "vertical",
             "return_format": "value",
             "save_other_choice": 0
-        },
-        {
-            "key": "field_56a22aaa83835wef",
-            "label": "Header content color",
-            "name": "header_content_color",
-            "type": "radio",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_58737dd1dc763",
-                        "operator": "==",
-                        "value": 1
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "vertical",
-            "choices": {
-                "light": "Light",
-                "dark": "Dark"
-            },
-            "default_value": "light",
-            "other_choice": 0,
-            "save_other_choice": 0,
-            "allow_null": 0,
-            "return_format": "value"
         }
     ],
     "location": [
@@ -64,11 +32,11 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "acf-options-header"
+                "value": "acf-options-theme-options"
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 2,
     "position": "normal",
     "style": "default",
     "label_placement": "top",

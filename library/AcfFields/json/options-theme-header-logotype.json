@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_56c5d3530369f",
-            "label": "Logotype to use in header",
+            "label": "Logotyp att anv\u00e4nda i sidhuvudet",
             "name": "header_logotype",
             "type": "radio",
             "instructions": "",
@@ -16,8 +16,8 @@
                 "id": ""
             },
             "choices": {
-                "standard": "Primary",
-                "negative": "Secondary"
+                "standard": "Prim\u00e4r",
+                "negative": "Sekund\u00e4r"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -32,11 +32,11 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "acf-options-header"
+                "value": "acf-options-theme-options"
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 1,
     "position": "normal",
     "style": "default",
     "label_placement": "top",

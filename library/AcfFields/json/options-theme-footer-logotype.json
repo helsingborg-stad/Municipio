@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_56c5d41ed3f9f",
-            "label": "Logotyp att anv\u00e4nda i sidfot",
+            "label": "Logotype in footer",
             "name": "footer_logotype",
             "type": "radio",
             "instructions": "",
@@ -16,8 +16,8 @@
                 "id": ""
             },
             "choices": {
-                "standard": "Primary",
-                "negative": "Secondary",
+                "standard": "Prim\u00e4r",
+                "negative": "Sekund\u00e4r",
                 "hide": "D\u00f6lj logotyp i sidfoten"
             },
             "allow_null": 0,
@@ -33,11 +33,11 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "acf-options-footer"
+                "value": "acf-options-theme-options"
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 2,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
