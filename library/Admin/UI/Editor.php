@@ -57,7 +57,14 @@ class Editor
      */
     public function editorStyle()
     {
-        add_editor_style(apply_filters('Municipio/admin/editor_stylesheet', Styleguide::getStylePath()));
+        add_editor_style(
+            apply_filters(
+                'Municipio/admin/editor_stylesheet',
+                get_template_directory_uri() .
+                    '/assets/dist/' .
+                    \Municipio\Helper\CacheBust::name('css/styleguide.css')
+            )
+        );
     }
 
     /**

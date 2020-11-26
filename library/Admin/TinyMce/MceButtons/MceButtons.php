@@ -8,10 +8,14 @@ class MceButtons extends \Municipio\Admin\TinyMce\PluginClass
 {
     public function init()
     {
-        $this->jsFile = 'mce-buttons.js';
         $this->pluginSlug = 'mce_hbg_buttons';
 
         $this->data['themeUrl'] = get_template_directory_uri();
-        $this->data['styleSheet'] = Styleguide::getStylePath();
+        $this->data['styleSheet'] = apply_filters(
+            'Municipio/admin/editor_stylesheet',
+            get_template_directory_uri() .
+                '/assets/dist/' .
+                \Municipio\Helper\CacheBust::name('css/styleguide.css')
+        );
     }
 }
