@@ -33,33 +33,18 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
-    <!-- Signature -->
-    @if($postTypeDetails->hierarchical)
-        @signature([
-            'author' => $signature->name, 
-            'published' => $signature->publish,
-            'updated' => $signature->updated,
-            'avatar_size' => 'sm',
-            'avatar' => $signature->avatar,
-            'authorRole' => $signature->role,
-            'link' => $signature->link,
-            'updatedLabel' => $publishTranslations->updated,
-            'publishedLabel' => $publishTranslations->publish,
-            'classList' => ['u-margin__y--2']
-        ])
-        @endsignature
-    @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
-        @signature([
-            'published' => $signature->publish,
-            'updated' => $signature->updated,
-            'updatedLabel' => $publishTranslations->updated,
-            'publishedLabel' => $publishTranslations->publish,
-            'classList' => ['u-margin__y--2']
-        ])
-        @endsignature
-    @endif
-
     {!! $hook->loopEnd !!}
+
+    @include(
+        'partials.signature',
+        [
+            'classList' => [
+                'u-margin__y--2',
+                'u-display--none@xs',
+                'u-display--none@sm'
+            ]
+        ]
+    )
 
 @stop
 
@@ -69,4 +54,15 @@
 
 @section('below')
     @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
+
+    @include(
+        'partials.signature', 
+        [
+            'classList' => [
+                'u-margin__y--2',
+                'u-display--none@md',
+                'u-display--none@lg'
+            ]
+        ]
+    )
 @stop
