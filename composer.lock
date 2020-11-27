@@ -358,12 +358,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "da58c94a352c82469c1535ede10ed52669ffab60"
+                "reference": "039abfee51745afc311bcae9b140555fa0cf619a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/da58c94a352c82469c1535ede10ed52669ffab60",
-                "reference": "da58c94a352c82469c1535ede10ed52669ffab60",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/039abfee51745afc311bcae9b140555fa0cf619a",
+                "reference": "039abfee51745afc311bcae9b140555fa0cf619a",
                 "shasum": ""
             },
             "type": "library",
@@ -383,7 +383,7 @@
                 }
             ],
             "description": "A component library based upon blade engine.",
-            "time": "2020-11-13T09:38:59+00:00"
+            "time": "2020-11-25T11:50:15+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
