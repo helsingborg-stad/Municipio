@@ -30,7 +30,7 @@
         },
         {
             "key": "field_56d3fa48a53d6",
-            "label": "Search field label",
+            "label": "S\u00f6kf\u00e4ltets titel",
             "name": "search_label_text",
             "type": "text",
             "instructions": "",
@@ -51,7 +51,7 @@
         },
         {
             "key": "field_56d3fa67a53d7",
-            "label": "Search field placeholder",
+            "label": "S\u00f6kf\u00e4ltets beskrivning",
             "name": "search_placeholder_text",
             "type": "text",
             "instructions": "",
@@ -72,7 +72,7 @@
         },
         {
             "key": "field_56d3fa82a53d8",
-            "label": "Search button text",
+            "label": "S\u00f6k-knappens text",
             "name": "search_button_text",
             "type": "text",
             "instructions": "",
@@ -126,7 +126,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": ""
 }]
 

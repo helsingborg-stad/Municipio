@@ -3,30 +3,18 @@
     "title": "Logotype",
     "fields": [
         {
-            "return_format": "array",
-            "preview_size": "thumbnail",
-            "library": "uploadedTo",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "svg",
             "key": "field_56a0f1fdbf847",
-            "label": "Standard logotype",
+            "label": "Prim\u00e4r logotyp",
             "name": "logotype",
             "type": "image",
-            "instructions": "Only .svg-files are supported.",
+            "instructions": "Accepterar enbart .svg-filer (Scalable Vector Graphics).",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
+            },
             "return_format": "array",
             "preview_size": "thumbnail",
             "library": "uploadedTo",
@@ -36,19 +24,31 @@
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": "svg",
+            "mime_types": "svg"
+        },
+        {
             "key": "field_56a0f5e3b4720",
-            "label": "Negative logotype",
+            "label": "Sekund\u00e4r logotyp",
             "name": "logotype_negative",
             "type": "image",
-            "instructions": "Please upload a brand logo in the format .svg. The negative logo refers to a 100% white logotype that can be used on dark backgrounds.",
+            "instructions": "Ladda upp din sekund\u00e4ra logotyp i .svg format (Scalable Vector Graphics). V\u00e5r tanke med en sekund\u00e4r logotyp \u00e4r att den fungerar b\u00e4st i 100% vitt och passar b\u00e4st p\u00e5 m\u00f6rka eller f\u00e4rgade bakgrunder.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "uploadedTo",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg"
         }
     ],
     "location": [
@@ -60,14 +60,13 @@
             }
         ]
     ],
-    "menu_order": -100,
+    "menu_order": 0,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": "",
-    "local": "php"
+    "active": true,
+    "description": ""
 }]
 

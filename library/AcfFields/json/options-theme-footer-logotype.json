@@ -3,19 +3,8 @@
     "title": "Footer logotype",
     "fields": [
         {
-            "layout": "vertical",
-            "choices": {
-                "standard": "Standard",
-                "negative": "Negative",
-                "hide": "Hide logotype in footer"
-            },
-            "default_value": "standard",
-            "other_choice": 0,
-            "save_other_choice": 0,
-            "allow_null": 0,
-            "return_format": "value",
             "key": "field_56c5d41ed3f9f",
-            "label": "Logotype to use in footer",
+            "label": "Logotype in footer",
             "name": "footer_logotype",
             "type": "radio",
             "instructions": "",
@@ -25,31 +14,18 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
-        },
-        {
-            "layout": "vertical",
-            "choices": {
-                "top": "Above footer content",
-                "bottom": "Below footer content"
             },
-            "default_value": "top",
-            "other_choice": 0,
-            "save_other_choice": 0,
+            "choices": {
+                "standard": "Prim\u00e4r",
+                "negative": "Sekund\u00e4r",
+                "hide": "D\u00f6lj logotyp i sidfoten"
+            },
             "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "standard",
+            "layout": "vertical",
             "return_format": "value",
-            "key": "field_56c5d57ae8167",
-            "label": "Vertical position",
-            "name": "footer_logotype_vertical_position",
-            "type": "radio",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
+            "save_other_choice": 0
         }
     ],
     "location": [
@@ -57,18 +33,17 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "acf-options-footer"
+                "value": "acf-options-theme-options"
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 2,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": "",
-    "local": "php"
+    "active": true,
+    "description": ""
 }]
 

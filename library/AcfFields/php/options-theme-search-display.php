@@ -7,7 +7,7 @@
     'fields' => array(
         0 => array(
             'key' => 'field_56a72f9b645b7',
-            'label' => 'Display search',
+            'label' => __('Display search', 'municipio'),
             'name' => 'search_display',
             'type' => 'checkbox',
             'instructions' => '',
@@ -20,10 +20,10 @@
             ),
             'layout' => 'vertical',
             'choices' => array(
-                'hero' => 'In front-page hero/slider',
-                'header_sub' => 'In the header of all pages but front page',
-                'header' => 'In the header of all pages',
-                'mainmenu' => 'Icon in main menu',
+                'hero' => __('In front-page hero/slider', 'municipio'),
+                'header_sub' => __('In the header of all pages but front page', 'municipio'),
+                'header' => __('In the header of all pages', 'municipio'),
+                'mainmenu' => __('Icon in main menu', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -34,7 +34,7 @@
         ),
         1 => array(
             'key' => 'field_56d3fa48a53d6',
-            'label' => __('Search field label', 'municipio'),
+            'label' => __('Sökfältets titel', 'municipio'),
             'name' => 'search_label_text',
             'type' => 'text',
             'instructions' => '',
@@ -55,7 +55,7 @@
         ),
         2 => array(
             'key' => 'field_56d3fa67a53d7',
-            'label' => __('Search field placeholder', 'municipio'),
+            'label' => __('Sökfältets beskrivning', 'municipio'),
             'name' => 'search_placeholder_text',
             'type' => 'text',
             'instructions' => '',
@@ -76,7 +76,7 @@
         ),
         3 => array(
             'key' => 'field_56d3fa82a53d8',
-            'label' => __('Search button text', 'municipio'),
+            'label' => __('Sök-knappens text', 'municipio'),
             'name' => 'search_button_text',
             'type' => 'text',
             'instructions' => '',
@@ -87,7 +87,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('Sök', 'municipio'),
+            'default_value' => 'Sök',
             'maxlength' => '',
             'placeholder' => '',
             'prepend' => '',
@@ -130,7 +130,7 @@
     'label_placement' => 'top',
     'instruction_placement' => 'label',
     'hide_on_screen' => '',
-    'active' => 1,
+    'active' => true,
     'description' => '',
 ));
 }

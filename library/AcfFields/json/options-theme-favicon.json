@@ -3,22 +3,27 @@
     "title": "Favicon",
     "fields": [
         {
+            "key": "field_56cc3f64c0b41",
+            "label": "Favoritikoner",
+            "name": "favicons",
+            "type": "repeater",
+            "instructions": "L\u00e4gg till favoritikoner i olika storlekar. Om en storlek har multipla v\u00e4rden kommer bara den senast specificerade att anv\u00e4ndas.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "L\u00e4gg till rad",
+            "collapsed": "",
             "sub_fields": [
                 {
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "choices": {
-                        "fav": "favicon.ico (16x16px, 32x32px, 48x48px)",
-                        "152": "iOS, Android (152x152px)",
-                        "144": "IE10, Windows Metro (144x144px)"
-                    },
-                    "default_value": [],
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "return_format": "value",
                     "key": "field_56cc3f70c0b42",
-                    "label": "Type",
+                    "label": "Typ",
                     "name": "favicon_type",
                     "type": "select",
                     "instructions": "",
@@ -29,25 +34,27 @@
                         "class": "",
                         "id": ""
                     },
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "choices": {
+                        "fav": "favicon.ico (16x16px, 32x32px, 48x48px)",
+                        "152": "iOS, Android (152x152px)",
+                        "144": "IE10, Windows Metro (144x144px)"
+                    },
+                    "default_value": false,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "return_format": "value",
                     "disabled": 0,
                     "readonly": 0
                 },
                 {
-                    "return_format": "array",
-                    "preview_size": "full",
-                    "library": "all",
-                    "min_width": 152,
-                    "min_height": 152,
-                    "min_size": "",
-                    "max_width": 152,
-                    "max_height": 152,
-                    "max_size": "",
-                    "mime_types": "",
                     "key": "field_56cc3f8685425",
-                    "label": "Icon 152x152",
+                    "label": "Ikon 152x152",
                     "name": "favicon_icon",
                     "type": "image",
-                    "instructions": "Must be 152x152 pixels .png",
+                    "instructions": "M\u00e5ste vara 152x152 pixlar och format .png",
                     "required": 1,
                     "conditional_logic": [
                         [
@@ -62,24 +69,24 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
-                },
-                {
+                    },
                     "return_format": "array",
                     "preview_size": "full",
                     "library": "all",
-                    "min_width": 144,
-                    "min_height": 144,
+                    "min_width": 152,
+                    "min_height": 152,
                     "min_size": "",
-                    "max_width": 144,
-                    "max_height": 144,
+                    "max_width": 152,
+                    "max_height": 152,
                     "max_size": "",
-                    "mime_types": "png",
+                    "mime_types": ""
+                },
+                {
                     "key": "field_56cc3fc585426",
-                    "label": "Icon 144x144",
+                    "label": "Ikon 144x144",
                     "name": "favicon_icon",
                     "type": "image",
-                    "instructions": "Must be 144x144 pixels .png",
+                    "instructions": "M\u00e5ste vara 144x144 pixlar och format .png",
                     "required": 1,
                     "conditional_logic": [
                         [
@@ -94,19 +101,24 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "return_format": "array",
+                    "preview_size": "full",
+                    "library": "all",
+                    "min_width": 144,
+                    "min_height": 144,
+                    "min_size": "",
+                    "max_width": 144,
+                    "max_height": 144,
+                    "max_size": "",
+                    "mime_types": "png"
                 },
                 {
-                    "return_format": "array",
-                    "library": "all",
-                    "min_size": "",
-                    "max_size": "",
-                    "mime_types": ".ico",
                     "key": "field_56cc400885427",
                     "label": "Favicon.ico",
                     "name": "favicon_icon",
                     "type": "file",
-                    "instructions": "Must be a .ico containing 16x16px, 32x32px and 48x48px",
+                    "instructions": "M\u00e5ste vara en .ico inneh\u00e5llandes 16x16px, 32x32px and 48x48px",
                     "required": 1,
                     "conditional_logic": [
                         [
@@ -121,21 +133,16 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": ".ico"
                 },
                 {
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
                     "key": "field_56cc404d85428",
-                    "label": "Icon",
+                    "label": "Ikon",
                     "name": "favicon_icon",
                     "type": "image",
                     "instructions": "",
@@ -163,12 +170,21 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
                 },
                 {
-                    "default_value": "#FFFFFF",
                     "key": "field_56cc5290155fc",
-                    "label": "Metro tile color",
+                    "label": "Bakgrundsf\u00e4rg p\u00e5 Metro-bricka",
                     "name": "favicon_tile_color",
                     "type": "color_picker",
                     "instructions": "",
@@ -186,26 +202,10 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": "#FFFFFF"
                 }
-            ],
-            "min": 0,
-            "max": 0,
-            "layout": "block",
-            "button_label": "L\u00e4gg till rad",
-            "collapsed": "",
-            "key": "field_56cc3f64c0b41",
-            "label": "Favicons",
-            "name": "favicons",
-            "type": "repeater",
-            "instructions": "Add favicons in various sizes. If a size has multiple icons specified only the latest specified icon will be used.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
+            ]
         }
     ],
     "location": [
@@ -217,14 +217,13 @@
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 8,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
-    "description": "",
-    "local": "php"
+    "active": true,
+    "description": ""
 }]
 
