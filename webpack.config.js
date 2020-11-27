@@ -29,8 +29,12 @@ module.exports = {
         'js/styleguide': './assets/source/3.0/js/styleguide.js',
         'css/municipio': './assets/source/3.0/sass/main.scss',
         'js/municipio': './assets/source/3.0/js/municipio.js',
+        'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
+        'css/mce': './assets/source/3.0/sass/mce.scss',
+        
         /* Legacy 2.0  */
-        'js/mce': './assets/source/3.0/mce-js/mce-test.js',
+        'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
+        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js'
     },
     /**
      * Output settings

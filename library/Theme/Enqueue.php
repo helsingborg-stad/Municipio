@@ -62,15 +62,7 @@ class Enqueue
      */
     public function adminStyle()
     {
-        //Load admin css
-        wp_register_style('helsingborg-se-admin', get_template_directory_uri(). '/assets/dist/2.0/'
-            . \Municipio\Helper\CacheBust::name('css/admin.css'));
-        wp_enqueue_style('helsingborg-se-admin');
 
-        // Load admin js
-        wp_register_script('helsingborg-se-admin', get_template_directory_uri() . '/assets/dist/2.0/'
-            . \Municipio\Helper\CacheBust::name('js/admin.js'));
-        wp_enqueue_script('helsingborg-se-admin');
     }
 
     /**
