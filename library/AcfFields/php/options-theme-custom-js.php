@@ -3,14 +3,14 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_573184999aa2c',
-    'title' => __('Custom JS', 'municipio'),
+    'title' => 'Custom JS',
     'fields' => array(
         0 => array(
             'key' => 'field_5731849ed0729',
             'label' => __('JavaScript', 'municipio'),
             'name' => 'custom_js_input',
             'type' => 'textarea',
-            'instructions' => __('Enter your JS-code here. It will be wrapped with "script" tags and included on all pages.', 'municipio'),
+            'instructions' => __('Skriv in din JS-kod här. Den kommer att omslutas med SCRIPT taggar och inkluderas på samtliga sidor.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -81,9 +81,7 @@
                         'head' => __('Include script in head', 'municipio'),
                         'footer' => __('Include script in footer', 'municipio'),
                     ),
-                    'default_value' => array(
-                        0 => 'footer',
-                    ),
+                    'default_value' => 'footer',
                     'allow_null' => 0,
                     'multiple' => 0,
                     'ui' => 0,
@@ -128,7 +126,7 @@
     'label_placement' => 'top',
     'instruction_placement' => 'label',
     'hide_on_screen' => '',
-    'active' => 1,
+    'active' => true,
     'description' => '',
 ));
 }
