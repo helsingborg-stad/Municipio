@@ -102,6 +102,10 @@ class BaseController
         //Show admin notices
         $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
+        //Search
+        $this->data['showHeaderSearch']     = true;
+        $this->data['showNavigationSearch'] = true; 
+
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name;
