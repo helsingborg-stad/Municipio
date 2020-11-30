@@ -2,26 +2,29 @@
     'id'        => 'hero-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['c-form--hidden']
+    'classList' => ['c-form--hidden', '']
 ])
     @group(['direction' => 'horizontal'])
+
+        @icon(['icon' => 'search', 'size' => 'xxl'])
+        @endicon
+
         @field([
             'id' => 'search-form--field',
             'type' => 'text',
-            'value' => get_search_query(),
             'attributeList' => [
                 'type' => 'search',
                 'name' => 's',
                 'required' => false,
             ],
             'label' => $lang->searchOn . " " . $siteName,
-            'classList' => ['u-flex-grow--1']
+            'classList' => ['u-flex-grow--1', 'c-field--contrast', 'c-field--lg']
         ])
         @endfield
         @button([
             'id' => 'search-form--submit',
             'text' => $lang->search,
-            'color' => 'primary',
+            'color' => 'default',
             'type' => 'basic',
             'size' => 'md',
             'attributeList' => [
