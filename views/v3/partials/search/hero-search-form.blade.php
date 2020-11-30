@@ -14,7 +14,7 @@
                 'name' => 's',
                 'required' => false,
             ],
-            'label' => $lang->search . " " . $siteName,
+            'label' => $lang->searchOn . " " . $siteName,
             'classList' => ['u-flex-grow--1']
         ])
         @endfield
