@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56a72f6430912',
-    'title' => 'Display settings',
+    'title' => __('Display settings', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56a72f9b645b7',

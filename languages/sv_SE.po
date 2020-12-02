@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2020-11-26 16:48+0100\n"
-"PO-Revision-Date: 2020-11-26 16:49+0100\n"
+"PO-Revision-Date: 2020-12-01 16:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -907,19 +907,19 @@ msgstr "Visa sök"
 
 #: library/AcfFields/php/options-theme-search-display.php:23
 msgid "In front-page hero/slider"
-msgstr "I headern på startsidan"
+msgstr "Hero på startsidan"
 
 #: library/AcfFields/php/options-theme-search-display.php:24
 msgid "In the header of all pages but front page"
-msgstr "I headern på alla sidor utom startsidan"
+msgstr "Headern på undersidor"
 
 #: library/AcfFields/php/options-theme-search-display.php:25
 msgid "In the header of all pages"
-msgstr "I headern på alla sidor"
+msgstr "Headern på startsidan"
 
 #: library/AcfFields/php/options-theme-search-display.php:26
 msgid "Icon in main menu"
-msgstr "Ikon i huvudmenyn"
+msgstr "Alternativ i huvudmenyn"
 
 #: library/AcfFields/php/options-theme-search-display.php:37
 msgid "Sökfältets titel"
