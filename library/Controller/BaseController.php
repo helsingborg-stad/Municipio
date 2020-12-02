@@ -103,8 +103,9 @@ class BaseController
         $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
         //Search
-        $this->data['showHeaderSearch']     = true;
-        $this->data['showNavigationSearch'] = true; 
+        $this->data['showHeaderSearch']     = $this->showSearchForm('header');
+        $this->data['showNavigationSearch'] = $this->showSearchForm('navigation'); 
+        $this->data['showHeroSearch']       = $this->showSearchForm('hero'); 
 
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
@@ -319,7 +320,36 @@ class BaseController
         $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
     }
 
-    
+    /**
+     * Determine if search boxes should be displayed
+     *
+     * @param string $location
+     * @return boolean
+     */
+    protected function showSearchForm($location = null) {
+
+        $enabledLocations = get_field('search_display', 'option'); 
+
+        if($location == "hero") {
+            return in_array($location, $enabledLocations); 
+        }
+
+        if($location == "header") {
+            if(is_front_page()) {
+                return in_array('header', $enabledLocations);
+            }
+
+            if(!is_front_page()) {
+                return in_array('header_sub', $enabledLocations);
+            }
+        }
+        
+        if($location == "navigation") {
+            return in_array($location, $enabledLocations); 
+        }
+
+        return false; 
+    }
 
     /**
      * Get getPostTypeDetails
