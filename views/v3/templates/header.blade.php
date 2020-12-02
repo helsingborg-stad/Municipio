@@ -1,7 +1,7 @@
 <header class="site-header {{isset($classList) ? is_array($classList) ? implode(' ', $classList) : $classList : ''}}" id="site-header">
     {{-- Search Form --}}
     @section('search-form')
-        {{-- TODO: Implement search form --}}
+        @includeWhen($showNavigationSearch, 'partials.search.search-modal')
     @show
 
     {{-- Navbars --}}

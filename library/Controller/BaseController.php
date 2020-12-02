@@ -106,6 +106,7 @@ class BaseController
         $this->data['showHeaderSearch']     = $this->showSearchForm('header');
         $this->data['showNavigationSearch'] = $this->showSearchForm('navigation'); 
         $this->data['showHeroSearch']       = $this->showSearchForm('hero'); 
+        $this->data['searchQuery']          = get_search_query(); 
 
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
@@ -128,6 +129,7 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
             'search'                => __("Search", 'municipio'),
             'searchOn'              => __("Search on", 'municipio'),
+            'searchQuestion'        => __("What are you searching for?", 'municipio'),
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
@@ -335,6 +337,11 @@ class BaseController
         }
 
         if($location == "header") {
+
+            if(is_search()) {
+                return false; 
+            }
+
             if(is_front_page()) {
                 return in_array('header', $enabledLocations);
             }
@@ -345,7 +352,12 @@ class BaseController
         }
         
         if($location == "navigation") {
-            return in_array($location, $enabledLocations); 
+
+            if(is_search()) {
+                return false; 
+            }
+
+            return in_array('mainmenu', $enabledLocations); 
         }
 
         return false; 

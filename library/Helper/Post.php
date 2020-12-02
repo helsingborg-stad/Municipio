@@ -58,7 +58,7 @@ class Post
 
                 //No content in post
                 if(empty($postObject->excerpt)) {
-                    $postObject->excerpt = __("Item is missing content", 'municipio'); 
+                    $postObject->excerpt = '<span class="undefined-content">' .__("Item is missing content", 'municipio') . "</span>"; 
                 }
 
             } else {
