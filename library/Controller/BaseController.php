@@ -69,13 +69,13 @@ class BaseController
         $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
 
         //Init class for menus
-        $breadcrumb     = new \Municipio\Helper\Navigation();
-        $primary        = new \Municipio\Helper\Navigation();
+        $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
+        $primary        = new \Municipio\Helper\Navigation('primary');
         $secondary      = new \Municipio\Helper\Navigation('sidebar');
         $mobileMenu     = new \Municipio\Helper\Navigation('mobile');
-        $tabMenu        = new \Municipio\Helper\Navigation();
-        $helpMenu       = new \Municipio\Helper\Navigation();
-        $dropDownMenu   = new \Municipio\Helper\Navigation();
+        $tabMenu        = new \Municipio\Helper\Navigation('tab');
+        $helpMenu       = new \Municipio\Helper\Navigation('help');
+        $dropDownMenu   = new \Municipio\Helper\Navigation('dropdown');
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
