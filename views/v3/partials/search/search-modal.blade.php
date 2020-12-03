@@ -3,7 +3,6 @@
     'id' => 'm-search-modal__trigger', 
     'classList' => ['search-modal'], 
     'size' => 'xl', 
-    'overlay' => 'light', 
     'isPanel' => true
 ])
     @form([
@@ -13,7 +12,7 @@
     ])
 
         @if($lang->searchQuestion)
-            @typography(['variant' => 'h2'])
+            @typography(['variant' => 'h1'])
                 {{ $lang->searchQuestion }}
             @endtypography
         @endif
