@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_56a72f9b645b7",
-            "label": "Display search",
+            "label": "Visa s\u00f6k",
             "name": "search_display",
             "type": "checkbox",
             "instructions": "",
@@ -17,10 +17,10 @@
             },
             "layout": "vertical",
             "choices": {
-                "hero": "In front-page hero\/slider",
-                "header_sub": "In the header of all pages but front page",
-                "header": "In the header of all pages",
-                "mainmenu": "Icon in main menu"
+                "hero": "Hero p\u00e5 startsidan",
+                "header_sub": "Headern p\u00e5 undersidor",
+                "header": "Headern p\u00e5 startsidan",
+                "mainmenu": "Alternativ i huvudmenyn"
             },
             "default_value": [],
             "allow_custom": 0,
