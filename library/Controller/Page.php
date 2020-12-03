@@ -10,7 +10,7 @@ class Page extends \Municipio\Controller\Singular
 {
     public function init()
     {
-        // Show or hide sidebars
+        parent::init();
         $this->data['showSidebars'] = true;
     }
 }
