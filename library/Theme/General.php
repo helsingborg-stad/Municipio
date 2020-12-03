@@ -35,10 +35,7 @@ class General
      * @return integer $size - 10
      */
     public function normalizeImageCaptionSize($size) {
-        if($size && ($size-10)) {
-            return $size-10; 
-        } 
-        return $size; 
+        return false; 
     }
 
     /**
