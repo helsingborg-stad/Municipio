@@ -106,7 +106,7 @@
 
             <section class="t-searchpagination u-mt-0 u-margin__top--2 u-margin__bottom--4">
 
-                @if ($paginationList)
+                @if ($showPagination)
                     @pagination([
                         'list' => $paginationList, 
                         'classList' => ['u-margin__top--4', 'u-display--flex', 'u-justify-content--center'], 
