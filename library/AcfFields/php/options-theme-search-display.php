@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56a72f6430912',
-    'title' => 'Display settings',
+    'title' => __('Display settings', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56a72f9b645b7',
-            'label' => __('Visa sök', 'municipio'),
+            'label' => __('Display search', 'municipio'),
             'name' => 'search_display',
             'type' => 'checkbox',
             'instructions' => '',
@@ -20,10 +20,10 @@
             ),
             'layout' => 'vertical',
             'choices' => array(
-                'hero' => __('Hero på startsidan', 'municipio'),
-                'header_sub' => __('Headern på undersidor', 'municipio'),
-                'header' => __('Headern på startsidan', 'municipio'),
-                'mainmenu' => __('Alternativ i huvudmenyn', 'municipio'),
+                'hero' => __('In front-page hero/slider', 'municipio'),
+                'header_sub' => __('In the header of all pages but front page', 'municipio'),
+                'header' => __('In the header of all pages', 'municipio'),
+                'mainmenu' => __('Icon in main menu', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -31,25 +31,6 @@
             'save_custom' => 0,
             'toggle' => 0,
             'return_format' => 'value',
-        ),
-        1 => array(
-            'key' => 'field_5c0fb3bb76405',
-            'label' => __('Meddelande för tomt resultat', 'municipio'),
-            'name' => 'empty_search_result_message',
-            'type' => 'textarea',
-            'instructions' => __('Lägg till meddelande när sökning inte returnerar något resultat.', 'municipio'),
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'placeholder' => __('Lägg till meddelande…', 'municipio'),
-            'maxlength' => '',
-            'rows' => '',
-            'new_lines' => '',
         ),
     ),
     'location' => array(
