@@ -15,7 +15,7 @@
                 'required' => false,
             ],
             'label' => $lang->search,
-            'classList' => ['u-flex-grow--1'],
+            'classList' => ['u-flex-grow--1', 'u-box-shadow--1', 'u-rounded__left--8', 'u-overflow--hidden'],
             'size' => 'sm',
             'radius' => 'sm',
             'icon' => ['icon' => 'search']
@@ -31,6 +31,7 @@
             'attributeList' => [
                 'id' => 'header-search-form--submit'
             ], 
+            'classList' => ['u-rounded__right--8']
         ])
         @endbutton
 

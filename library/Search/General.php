@@ -45,7 +45,7 @@ class General
                 "children" => false,
                 "label" => "",
                 "href" => "#search",
-                "icon" => ['icon' => 'search'],
+                "icon" => ['icon' => 'search', 'size' => 'md'],
                 "attributeList" => [
                     'aria-label' => __("Search", 'municipio'),
                     'data-open' => 'm-search-modal__trigger'
