@@ -358,12 +358,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "aeda3afad3ea1113334fa06360b81843cfe6ab3d"
+                "reference": "f4b24179c0902b1569bd33169bd46065972f0d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/aeda3afad3ea1113334fa06360b81843cfe6ab3d",
-                "reference": "aeda3afad3ea1113334fa06360b81843cfe6ab3d",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/f4b24179c0902b1569bd33169bd46065972f0d98",
+                "reference": "f4b24179c0902b1569bd33169bd46065972f0d98",
                 "shasum": ""
             },
             "type": "library",
@@ -383,7 +383,7 @@
                 }
             ],
             "description": "A component library based upon blade engine.",
-            "time": "2020-11-27T09:27:25+00:00"
+            "time": "2020-12-04T13:05:25+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -791,12 +791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "218327818b45057eece4a32c68e6ac4fea664387"
+                "reference": "d0463779663437392fe42ff339ebc0213bd55498"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/218327818b45057eece4a32c68e6ac4fea664387",
-                "reference": "218327818b45057eece4a32c68e6ac4fea664387",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d0463779663437392fe42ff339ebc0213bd55498",
+                "reference": "d0463779663437392fe42ff339ebc0213bd55498",
                 "shasum": ""
             },
             "require": {
@@ -862,7 +862,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-11-27T10:21:13+00:00"
+            "time": "2020-11-28T14:25:28+00:00"
         },
         {
             "name": "psr/container",
