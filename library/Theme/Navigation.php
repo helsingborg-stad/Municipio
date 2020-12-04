@@ -21,6 +21,7 @@ class Navigation
         add_filter('the_posts', array($this, 'pageForPostTypeNavigation')); //TODO: Move to addon plugin if needed
 
         add_action('after_setup_theme', array($this, 'submenuAjaxEndpoint')); //TODO: Do we need this? 
+    
     }
 
     /**

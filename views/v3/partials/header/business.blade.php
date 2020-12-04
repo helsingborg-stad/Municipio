@@ -45,7 +45,12 @@
                         @endforeach
                     @endgroup
                 </nav>
+
+               {{-- Search form in header --}}
+               @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
+                
             </div>
+
         </div>
     </div>
 @stop

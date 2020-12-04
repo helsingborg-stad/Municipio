@@ -69,13 +69,13 @@ class BaseController
         $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
 
         //Init class for menus
-        $breadcrumb     = new \Municipio\Helper\Navigation();
-        $primary        = new \Municipio\Helper\Navigation();
+        $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
+        $primary        = new \Municipio\Helper\Navigation('primary');
         $secondary      = new \Municipio\Helper\Navigation('sidebar');
         $mobileMenu     = new \Municipio\Helper\Navigation('mobile');
-        $tabMenu        = new \Municipio\Helper\Navigation();
-        $helpMenu       = new \Municipio\Helper\Navigation();
-        $dropDownMenu   = new \Municipio\Helper\Navigation();
+        $tabMenu        = new \Municipio\Helper\Navigation('tab');
+        $helpMenu       = new \Municipio\Helper\Navigation('help');
+        $dropDownMenu   = new \Municipio\Helper\Navigation('dropdown');
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
@@ -102,6 +102,12 @@ class BaseController
         //Show admin notices
         $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
+        //Search
+        $this->data['showHeaderSearch']     = $this->showSearchForm('header');
+        $this->data['showNavigationSearch'] = $this->showSearchForm('navigation'); 
+        $this->data['showHeroSearch']       = $this->showSearchForm('hero'); 
+        $this->data['searchQuery']          = get_search_query(); 
+
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name;
@@ -123,6 +129,7 @@ class BaseController
             'seconds'               => __("seconds", 'municipio'),
             'search'                => __("Search", 'municipio'),
             'searchOn'              => __("Search on", 'municipio'),
+            'searchQuestion'        => __("What are you searching for?", 'municipio'),
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
@@ -315,7 +322,46 @@ class BaseController
         $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
     }
 
-    
+    /**
+     * Determine if search boxes should be displayed
+     *
+     * @param string $location
+     * @return boolean
+     */
+    protected function showSearchForm($location = null) {
+
+        $enabledLocations = get_field('search_display', 'option'); 
+
+        if($location == "hero") {
+            return in_array($location, $enabledLocations); 
+        }
+
+        if($location == "header") {
+
+            if(is_search()) {
+                return false; 
+            }
+
+            if(is_front_page()) {
+                return in_array('header', $enabledLocations);
+            }
+
+            if(!is_front_page()) {
+                return in_array('header_sub', $enabledLocations);
+            }
+        }
+        
+        if($location == "navigation") {
+
+            if(is_search()) {
+                return false; 
+            }
+
+            return in_array('mainmenu', $enabledLocations); 
+        }
+
+        return false; 
+    }
 
     /**
      * Get getPostTypeDetails
