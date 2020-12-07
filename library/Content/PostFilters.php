@@ -479,7 +479,7 @@ class PostFilters
             $orderby = 'post_date';
         }
 
-        if (in_array($orderby, array('post_date', 'post_modified', 'post_title'))) {
+        if (in_array($orderby, array('post_date', 'post_modified', 'post_title', 'menu_order'))) {
             $orderby = str_replace('post_', '', $orderby);
         } else {
             $isMetaQuery = true;

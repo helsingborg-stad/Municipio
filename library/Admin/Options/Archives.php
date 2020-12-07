@@ -268,6 +268,7 @@ class Archives
                     'post_date'  => 'Date published',
                     'post_modified' => 'Date modified',
                     'post_title' => 'Title',
+                    'menu_order' => 'Menu order'
                 );
 
                 $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($posttype);
