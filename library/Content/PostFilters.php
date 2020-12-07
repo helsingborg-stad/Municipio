@@ -28,8 +28,10 @@ class PostFilters
         global $wp_query;
 
         // If taxonomy or category page and post type not isset then it's the "post" post type
-        if (is_home() || ((is_tax() || is_category() || is_tag()) && is_a(get_queried_object(),
-                    'WP_Term') && !get_post_type())) {
+        if (is_home() || ((is_tax() || is_category() || is_tag()) && is_a(
+            get_queried_object(),
+            'WP_Term'
+        ) && !get_post_type())) {
             return 'post';
         }
 
@@ -187,8 +189,10 @@ class PostFilters
         $html .= '>';
 
         foreach ($terms as $term) {
-            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug,
-                        $_GET['filter'][$tax->slug]));
+            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array(
+                $term->slug,
+                $_GET['filter'][$tax->slug]
+            ));
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
@@ -233,8 +237,10 @@ class PostFilters
         $html .= '>';
 
         foreach ($terms as $term) {
-            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array($term->slug,
-                        $_GET['filter'][$tax->slug]));
+            $isChecked = isset($_GET['filter'][$tax->slug]) && ($_GET['filter'][$tax->slug] === $term->slug || in_array(
+                $term->slug,
+                $_GET['filter'][$tax->slug]
+            ));
             $checked = checked(true, $isChecked, false);
 
             $html .= '<li>';
@@ -289,14 +295,18 @@ class PostFilters
                 'hide_empty' => false
             ));
 
-            $placement = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_placement',
-                'option');
+            $placement = get_field(
+                'archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_placement',
+                'option'
+            );
             if (is_null($placement)) {
                 $placement = 'secondary';
             }
 
-            $type = get_field('archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_type',
-                'option');
+            $type = get_field(
+                'archive_' . sanitize_title($postType) . '_filter_' . sanitize_title($item) . '_type',
+                'option'
+            );
 
             $grouped[$placement][$tax->name] = array(
                 'label' => $tax->label,
@@ -461,8 +471,10 @@ class PostFilters
         }
 
         // Get orderby key, default to post_date
-        $orderby = (isset($_GET['orderby']) && !empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : get_field('archive_' . sanitize_title($posttype) . '_sort_key',
-            'option');
+        $orderby = (isset($_GET['orderby']) && !empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : get_field(
+            'archive_' . sanitize_title($posttype) . '_sort_key',
+            'option'
+        );
         if (empty($orderby)) {
             $orderby = 'post_date';
         }
@@ -474,8 +486,10 @@ class PostFilters
         }
 
         // Get orderby order, default to desc
-        $order = (isset($_GET['order']) && !empty($_GET['order'])) ? sanitize_text_field($_GET['order']) : get_field('archive_' . sanitize_title($posttype) . '_sort_order',
-            'option');
+        $order = (isset($_GET['order']) && !empty($_GET['order'])) ? sanitize_text_field($_GET['order']) : get_field(
+            'archive_' . sanitize_title($posttype) . '_sort_order',
+            'option'
+        );
         if (empty($order) || !in_array(strtolower($order), array('asc', 'desc'))) {
             $order = 'desc';
         }
