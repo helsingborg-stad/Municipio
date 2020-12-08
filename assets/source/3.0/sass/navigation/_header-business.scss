@@ -3,6 +3,8 @@
 
     .c-header__menu.c-header__menu--primary {
         border-bottom: solid 1px $color-lighter;
+        padding-top: map-get($spacers, "3");
+        padding-bottom: map-get($spacers, "3");
     }
     .c-header__menu.c-header__menu--secondary {
         background-color: $color-primary;
