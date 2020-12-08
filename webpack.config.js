@@ -240,14 +240,16 @@ module.exports = {
 
         /**
          * Required to enable sourcemap from node_modules assets
+         * Only enable in dev. 
          */
-        new webpack.SourceMapDevToolPlugin(),
+        ifNotProduction(
+            new webpack.SourceMapDevToolPlugin()
+        ),
 
         /**
          * Enable build OS notifications (when using watch command)
          */
         new WebpackNotifierPlugin({alwaysNotify: true, skipFirstNotification: true}),
-
 
         /**
          * Optimize slow build time during development
