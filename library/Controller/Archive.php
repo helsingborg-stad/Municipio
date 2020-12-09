@@ -306,7 +306,18 @@ class Archive extends \Municipio\Controller\BaseController
      * @return bool
      */
     protected function showPagination($postType, $archiveBaseUrl, $wpQuery) {
-        return count($this->getPagination($postType, $archiveBaseUrl, $wpQuery)) > 1 ? true : false;
+
+        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery); 
+
+        if(is_null($pagesArray)) {
+            return false;
+        }
+
+        if(count($pagesArray) > 1) {
+            return true; 
+        }
+
+        return false; 
     }
 
     /**
