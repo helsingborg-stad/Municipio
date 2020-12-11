@@ -5,6 +5,10 @@
   height: $base * 6.5;
   width: auto;
 
+  @include mq('xs') {
+    height: $base * 6;
+  }
+
   @include mq('md') {
     height: $base * 7;
   }
