@@ -36,12 +36,12 @@
   ],
   "homepage": "https://github.com/helsingborg-stad/Municipio#readme",
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-export-default-from": "^7.12.1",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.12.7",
-    "@helsingborg-stad/styleguide": "^0.11.97",
+    "@babel/preset-env": "^7.12.10",
+    "@helsingborg-stad/styleguide": "^0.11.99",
     "acorn": "^7.4.1",
     "acorn-jsx": "^5.3.1",
     "autoprefixer": "^9.8.6",
@@ -99,7 +99,7 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.12.1"
+    "@babel/plugin-transform-runtime": "^7.12.10"
   },
   "browser": {
     "child_process": false
