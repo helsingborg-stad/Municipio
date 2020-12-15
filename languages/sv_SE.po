@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2020-12-14 16:09+0100\n"
-"PO-Revision-Date: 2020-12-14 16:47+0100\n"
+"POT-Creation-Date: 2020-11-26 16:48+0100\n"
+"PO-Revision-Date: 2020-12-15 10:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: library/AcfFields/php/brand-widget.php:6
 msgid "Brand / Logo Widget"
-msgstr ""
+msgstr "Varumärke / logotyp widget"
 
 #: library/AcfFields/php/brand-widget.php:10
 msgid "Upload logotype"
@@ -38,19 +38,19 @@ msgstr "Välj maxbredden på logotypen."
 
 #: library/AcfFields/php/brand-widget.php:50
 msgid "px"
-msgstr ""
+msgstr "pixlar"
 
 #: library/AcfFields/php/navigation-widget.php:6
 msgid "Navigation widget"
-msgstr ""
+msgstr "Navigationswidget"
 
 #: library/AcfFields/php/navigation-widget.php:10
 msgid "Navigation items"
-msgstr ""
+msgstr "Navigationsobjekt"
 
 #: library/AcfFields/php/navigation-widget.php:25
 msgid "Wordpress menu"
-msgstr ""
+msgstr "Wordpress-menyn"
 
 #: library/AcfFields/php/navigation-widget.php:60
 #: library/AcfFields/php/widget-media.php:63
@@ -78,7 +78,7 @@ msgstr "Översättning utlösare"
 
 #: library/AcfFields/php/navigation-widget.php:308
 msgid "Add navigation item"
-msgstr "Lägg till navigationsmeny"
+msgstr "Lägg till navigeringsobjekt"
 
 #: library/AcfFields/php/navigation-widget.php:314
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:64
@@ -106,7 +106,7 @@ msgstr "Storlek"
 #: vendor/aristath/kirki/controls/views/image.php:36
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:51
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: library/AcfFields/php/navigation-widget.php:351
 #: library/AcfFields/php/options-theme-editor-formats.php:23
@@ -184,27 +184,34 @@ msgstr "Visa utvald bild i singel-template"
 msgid "Featured image"
 msgstr "Utvald bild"
 
+#: library/AcfFields/php/options-page-navigation.php:6
+msgid "Navigation settings"
+msgstr "Navigationsinställningar"
+
 #: library/AcfFields/php/options-page-navigation.php:10
-msgid "Dölj från meny"
-msgstr ""
+msgid "Hide from menu"
+msgstr "Dölj från meny"
 
 #: library/AcfFields/php/options-page-navigation.php:22
-msgid "Dölj"
-msgstr ""
+msgid "Hide"
+msgstr "Dölj"
 
 #: library/AcfFields/php/options-page-navigation.php:29
-msgid "Menytitel"
-msgstr ""
+msgid "Menu title"
+msgstr "Menytitel"
 
 #: library/AcfFields/php/options-page-navigation.php:32
 msgid ""
+"If you want to use another title for this page in the sidebar navigation "
+"fill it in here. If you want to use the page title just leave this field "
+"empty."
+msgstr ""
 "Om du vill använda en annan titel för denna sidan i menyn, fyll i den här. "
 "Om du vill använda den vanliga sidtiteln så lämnar du detta fältet tomt."
-msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:25
-#: library/Controller/Singular.php:83
+#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:23
+#: library/Controller/Singular.php:81
 #: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
 msgid "Author"
 msgstr "Författare"
@@ -250,10 +257,12 @@ msgid ""
 "Skriv in din JS-kod här. Den kommer att omslutas med SCRIPT taggar och "
 "inkluderas på samtliga sidor."
 msgstr ""
+"Skriv in din JS-kod här. Den kommer att omslutas med SCRIPT taggar och "
+"inkludera på samtliga sidor."
 
 #: library/AcfFields/php/options-theme-custom-js.php:31
 msgid "Script Tags"
-msgstr ""
+msgstr "Script taggar"
 
 #: library/AcfFields/php/options-theme-custom-js.php:34
 msgid ""
@@ -515,31 +524,31 @@ msgstr "Mörkgrå"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Highlight"
-msgstr "Markera"
+msgstr "Markering"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:31
 msgid "Mark"
-msgstr "Markera"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:32
 msgid "Mark yellow"
-msgstr "Markera gult"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:33
 msgid "Mark blue"
-msgstr "Markera blått"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:34
 msgid "Mark green"
-msgstr "Markera grönt"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:35
 msgid "Mark red"
-msgstr "Markera rött"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:36
 msgid "Mark purple"
-msgstr "Markera lila"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:37
 msgid "Button"
@@ -547,7 +556,7 @@ msgstr "Knapp"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:38
 msgid "Light button"
-msgstr "Ljus knapp"
+msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:39
 msgid "Button: First color"
@@ -657,15 +666,21 @@ msgstr ""
 msgid "MceButtons"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-favicon.php:6
+msgid "Favicon"
+msgstr "Favoritikoner"
+
 #: library/AcfFields/php/options-theme-favicon.php:10
-msgid "Favoritikoner"
-msgstr ""
+msgid "Favicons"
+msgstr "Favoritikoner"
 
 #: library/AcfFields/php/options-theme-favicon.php:13
 msgid ""
+"Add favicons in various sizes. If a size has multiple icons specified only "
+"the latest specified icon will be used."
+msgstr ""
 "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden "
 "kommer bara den senast specificerade att användas."
-msgstr ""
 
 #: library/AcfFields/php/options-theme-favicon.php:24
 #: library/AcfFields/php/widget-contact.php:116
@@ -673,40 +688,57 @@ msgid "Lägg till rad"
 msgstr "Lägg till rad"
 
 #: library/AcfFields/php/options-theme-favicon.php:29
-msgid "Typ"
-msgstr ""
+msgid "Type"
+msgstr "Typ"
+
+#: library/AcfFields/php/options-theme-favicon.php:43
+msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
+msgstr "favicon.ico (16x16px, 32x32px, 48x48px)"
+
+#: library/AcfFields/php/options-theme-favicon.php:44
+msgid "iOS, Android (152x152px)"
+msgstr "iOS, Android (152x152px)"
+
+#: library/AcfFields/php/options-theme-favicon.php:45
+msgid "IE10, Windows Metro (144x144px)"
+msgstr "IE10, Windows Metro (144x144px)"
 
 #: library/AcfFields/php/options-theme-favicon.php:57
-msgid "Ikon 152x152"
-msgstr ""
+msgid "Icon 152x152"
+msgstr "Ikon 152x152"
 
 #: library/AcfFields/php/options-theme-favicon.php:60
-msgid "Måste vara 152x152 pixlar och format .png"
-msgstr ""
+msgid "Must be 152x152 pixels .png"
+msgstr "Måste vara 152x152 pixlar och format .png"
 
 #: library/AcfFields/php/options-theme-favicon.php:89
-msgid "Ikon 144x144"
-msgstr ""
+msgid "Icon 144x144"
+msgstr "Ikon 144x144"
 
 #: library/AcfFields/php/options-theme-favicon.php:92
-msgid "Måste vara 144x144 pixlar och format .png"
-msgstr ""
+msgid "Must be 144x144 pixels .png"
+msgstr "Måste vara 144x144 pixlar och format .png"
 
 #: library/AcfFields/php/options-theme-favicon.php:121
 msgid "Favicon.ico"
 msgstr "Favicon.ico"
 
 #: library/AcfFields/php/options-theme-favicon.php:124
-msgid "Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px"
-msgstr ""
+msgid "Must be a .ico containing 16x16px, 32x32px and 48x48px"
+msgstr "Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px"
 
 #: library/AcfFields/php/options-theme-favicon.php:148
-msgid "Ikon"
-msgstr ""
+#: library/AcfFields/php/options-theme-google-translate.php:73
+msgid "Icon"
+msgstr "Ikon"
 
 #: library/AcfFields/php/options-theme-favicon.php:190
-msgid "Bakgrundsfärg på Metro-bricka"
-msgstr ""
+msgid "Metro tile color"
+msgstr "Bakgrundsfärg på Metro-bricka"
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:6
+msgid "Footer logotype"
+msgstr "Logotyp i sidfot"
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:10
 msgid "Logotype in footer"
@@ -714,21 +746,21 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:22
 #: library/AcfFields/php/options-theme-header-logotype.php:22
-msgid "Primär"
-msgstr ""
+msgid "Primary"
+msgstr "Primär"
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:23
 #: library/AcfFields/php/options-theme-header-logotype.php:23
-msgid "Sekundär"
-msgstr ""
+msgid "Secondary"
+msgstr "Sekundär"
 
 #: library/AcfFields/php/options-theme-footer-logotype.php:24
 msgid "Dölj logotyp i sidfoten"
-msgstr ""
+msgstr "Dölj logotyp i sidfoten"
 
 #: library/AcfFields/php/options-theme-gdpr.php:6
 msgid "GDPR"
-msgstr ""
+msgstr "GDPR"
 
 #: library/AcfFields/php/options-theme-gdpr.php:10
 msgid "Enable consent field for attachments"
@@ -763,10 +795,6 @@ msgstr "Meny att visa översättningslänk i"
 msgid "Text"
 msgstr "Text"
 
-#: library/AcfFields/php/options-theme-google-translate.php:73
-msgid "Icon"
-msgstr "Ikon"
-
 #: library/AcfFields/php/options-theme-google-translate.php:74
 msgid "Icon and text"
 msgstr "Ikon och text"
@@ -788,9 +816,17 @@ msgstr ""
 "Google Analytucs (till det Google Analytics kontot som är speicificerat "
 "under Google Analytics tabben)"
 
+#: library/AcfFields/php/options-theme-header-logotype.php:6
+msgid "Header logotype"
+msgstr "Logotyp i sidhuvud"
+
 #: library/AcfFields/php/options-theme-header-logotype.php:10
-msgid "Logotyp att använda i sidhuvudet"
-msgstr ""
+msgid "Logotype to use in header"
+msgstr "Logotyp att använda i sidhuvudet"
+
+#: library/AcfFields/php/options-theme-header.php:6
+msgid "Header"
+msgstr "Sidhuvud"
 
 #: library/AcfFields/php/options-theme-header.php:10
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:183
@@ -801,31 +837,37 @@ msgid "Layout"
 msgstr "Layout"
 
 #: library/AcfFields/php/options-theme-header.php:22
-msgid "Business (standardval)"
-msgstr ""
+msgid "Business (default)"
+msgstr "Business (standardval)"
 
 #: library/AcfFields/php/options-theme-header.php:23
 msgid "Casual"
 msgstr "Casual"
 
+#: library/AcfFields/php/options-theme-logotype.php:6
+msgid "Logotype"
+msgstr "Logotyp"
+
 #: library/AcfFields/php/options-theme-logotype.php:10
-msgid "Primär logotyp"
-msgstr ""
+msgid "Primary logotype"
+msgstr "Primär logotyp"
 
 #: library/AcfFields/php/options-theme-logotype.php:13
-msgid "Accepterar enbart .svg-filer (Scalable Vector Graphics)."
-msgstr ""
+msgid "Accepterar enbart .svg-filer"
+msgstr "Accepterar enbart .svg-filer (Scalable Vector Graphics)."
 
 #: library/AcfFields/php/options-theme-logotype.php:34
-msgid "Sekundär logotyp"
-msgstr ""
+msgid "Secondary logotype"
+msgstr "Sekundär logotyp"
 
 #: library/AcfFields/php/options-theme-logotype.php:37
 msgid ""
+"Please upload a brand logo in the format .svg. The secondary logo refers to "
+"a 100% white logotype that can be used on dark backgrounds."
+msgstr ""
 "Ladda upp din sekundära logotyp i .svg format (Scalable Vector Graphics). "
 "Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt och "
 "passar bäst på mörka eller färgade bakgrunder."
-msgstr ""
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:9
 msgid ""
@@ -866,24 +908,48 @@ msgid "Disable pages"
 msgstr "Inaktivera sidor"
 
 #: library/AcfFields/php/options-theme-search-display.php:10
-msgid "Visa sök"
-msgstr ""
+msgid "Display search"
+msgstr "Visa sök"
 
 #: library/AcfFields/php/options-theme-search-display.php:23
-msgid "Hero på startsidan"
-msgstr ""
+msgid "In front-page hero/slider"
+msgstr "Hero på startsidan"
 
 #: library/AcfFields/php/options-theme-search-display.php:24
-msgid "Headern på undersidor"
-msgstr ""
+msgid "In the header of all pages but front page"
+msgstr "Headern på undersidor"
 
 #: library/AcfFields/php/options-theme-search-display.php:25
-msgid "Headern på startsidan"
-msgstr ""
+msgid "In the header of all pages"
+msgstr "Headern på startsidan"
 
 #: library/AcfFields/php/options-theme-search-display.php:26
-msgid "Alternativ i huvudmenyn"
-msgstr ""
+msgid "Icon in main menu"
+msgstr "Alternativ i huvudmenyn"
+
+#: library/AcfFields/php/options-theme-search-display.php:37
+msgid "Sökfältets titel"
+msgstr "Sökfältets titel"
+
+#: library/AcfFields/php/options-theme-search-display.php:58
+msgid "Sökfältets beskrivning"
+msgstr "Sökfältets beskrivning"
+
+#: library/AcfFields/php/options-theme-search-display.php:79
+msgid "Sök-knappens text"
+msgstr "Sök-knappens text"
+
+#: library/AcfFields/php/options-theme-search-display.php:100
+msgid "Meddelande för tomt resultat"
+msgstr "Meddelande för tomt resultat"
+
+#: library/AcfFields/php/options-theme-search-display.php:103
+msgid "Lägg till meddelande när sökning inte returnerar något resultat."
+msgstr "Lägg till meddelande när sökning inte returnerar något resultat."
+
+#: library/AcfFields/php/options-theme-search-display.php:112
+msgid "Lägg till meddelande…"
+msgstr "Lägg till meddelande ..."
 
 #: library/AcfFields/php/user-author-image.php:10
 msgid "Profile picture"
@@ -904,7 +970,7 @@ msgstr "Användarnamn på Instagram"
 #: library/AcfFields/php/user-author-image.php:80
 #: library/AcfFields/php/user-author-image.php:99
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: library/AcfFields/php/user-author-image.php:85
 msgid "Twitter username"
@@ -937,7 +1003,7 @@ msgstr "Kontakter"
 
 #: library/AcfFields/php/widget-header-common.php:6
 msgid "Widget - Common Utility fields"
-msgstr ""
+msgstr "Widget - Vanliga verktygsfält"
 
 #: library/AcfFields/php/widget-header-common.php:10
 msgid "Display options"
@@ -971,7 +1037,7 @@ msgstr "Visningsinställningar"
 
 #: library/AcfFields/php/widget-header-common.php:71
 msgid "Margins"
-msgstr ""
+msgstr "Marginaler"
 
 #: library/AcfFields/php/widget-header-common.php:90
 #, fuzzy
@@ -1004,7 +1070,7 @@ msgstr "Marginal"
 #: library/AcfFields/php/widget-header-common.php:129
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:106
 msgid "Auto"
-msgstr ""
+msgstr "Automatisk"
 
 #: library/AcfFields/php/widget-header-common.php:132
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:374
@@ -1020,19 +1086,19 @@ msgstr "Brytpunkt"
 
 #: library/AcfFields/php/widget-header-common.php:157
 msgid "SM and up"
-msgstr ""
+msgstr "SM och uppåt"
 
 #: library/AcfFields/php/widget-header-common.php:158
 msgid "MD and up"
-msgstr ""
+msgstr "MD och uppåt"
 
 #: library/AcfFields/php/widget-header-common.php:159
 msgid "LG and up"
-msgstr ""
+msgstr "LG och uppåt"
 
 #: library/AcfFields/php/widget-header-common.php:174
 msgid "CSS"
-msgstr ""
+msgstr "CSS"
 
 #: library/AcfFields/php/widget-header-common.php:191
 #, fuzzy
@@ -1042,11 +1108,11 @@ msgstr "Egen CSS"
 
 #: library/AcfFields/php/widget-header-links.php:6
 msgid "Widget header - Links"
-msgstr ""
+msgstr "Widgetrubrik - Länkar"
 
 #: library/AcfFields/php/widget-header-links.php:10
 msgid "Länkar"
-msgstr ""
+msgstr "Länkar\t"
 
 #: library/AcfFields/php/widget-header-links.php:25
 #, fuzzy
@@ -1062,15 +1128,15 @@ msgstr "Interna länkar"
 
 #: library/AcfFields/php/widget-header-links.php:188
 msgid "Sök utlösare"
-msgstr ""
+msgstr "Sök utlösare"
 
 #: library/AcfFields/php/widget-header-links.php:217
 msgid "Meny utlösare"
-msgstr ""
+msgstr "Meny utlösare"
 
 #: library/AcfFields/php/widget-header-links.php:246
 msgid "Översättning utlösare"
-msgstr ""
+msgstr "Översättning utlösare"
 
 #: library/AcfFields/php/widget-header-links.php:273
 #, fuzzy
@@ -1087,7 +1153,7 @@ msgstr "Länkar"
 
 #: library/AcfFields/php/widget-header-menu.php:6
 msgid "Widget header - Menu"
-msgstr ""
+msgstr "Widgetrubrik - Meny"
 
 #: library/AcfFields/php/widget-header-menu.php:10
 msgid "Select WP menu"
@@ -1095,11 +1161,11 @@ msgstr "Välj WordPress meny"
 
 #: library/AcfFields/php/widget-header-menu.php:22
 msgid "Menu (Menu ID: 2)"
-msgstr ""
+msgstr "Meny (Meny-ID: 2)"
 
 #: library/AcfFields/php/widget-header-menu.php:23
 msgid "topmeny (Menu ID: 6)"
-msgstr ""
+msgstr "toppmeny (meny-ID: 6)"
 
 #: library/AcfFields/php/widget-media.php:6
 #, fuzzy
@@ -1177,7 +1243,7 @@ msgstr "Samtyckes kommentar"
 
 #: library/Admin/Options/GoogleTranslate.php:15
 msgid "None (link to #translate to show)"
-msgstr "Ingen (länk till # översätt för att visa)"
+msgstr ""
 
 #: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
@@ -1197,9 +1263,9 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:73 library/Controller/BaseController.php:130
-#: library/Search/General.php:50 library/Theme/Navigation.php:230
-#: library/Theme/Navigation.php:231 library/Widget/Navigation/Navigation.php:66
+#: library/Controller/Archive.php:70 library/Controller/BaseController.php:124
+#: library/Theme/Navigation.php:229 library/Theme/Navigation.php:230
+#: library/Widget/Navigation/Navigation.php:66
 #: vendor/advanced-custom-fields/core/fields/relationship.php:634
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -1284,11 +1350,11 @@ msgstr "Avbryt"
 
 #: library/Comment/CommentsActions.php:119
 msgid "Cancel reply"
-msgstr "Avbryt svar"
+msgstr ""
 
 #: library/Comment/CommentsActions.php:125
 msgid "Comment text"
-msgstr "Kommentartext"
+msgstr ""
 
 #: library/Comment/CommentsFilters.php:44
 msgid ""
@@ -1379,38 +1445,38 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
-#: library/Controller/Archive.php:64 library/Controller/Singular.php:36
+#: library/Controller/Archive.php:61 library/Controller/Singular.php:34
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:729
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:65 library/Controller/Singular.php:35
+#: library/Controller/Archive.php:62 library/Controller/Singular.php:33
 msgid "Updated"
-msgstr "Uppdaterat!"
+msgstr "Uppdaterad"
 
-#: library/Controller/Archive.php:66
+#: library/Controller/Archive.php:63
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/Archive.php:69
+#: library/Controller/Archive.php:66
 msgid "Choose a from date"
-msgstr ""
+msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/Archive.php:70
+#: library/Controller/Archive.php:67
 msgid "Choose a to date"
-msgstr "Välj ett datum"
+msgstr "Välj ett \"till\" datum"
 
-#: library/Controller/Archive.php:71
+#: library/Controller/Archive.php:68
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:74
+#: library/Controller/Archive.php:71
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/Archive.php:419
+#: library/Controller/Archive.php:405
 #: vendor/advanced-custom-fields/core/fields/select.php:18
 #: vendor/advanced-custom-fields/core/fields/select.php:109
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:480
@@ -1421,135 +1487,120 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:120 library/Controller/E404.php:38
+#: library/Controller/BaseController.php:114 library/Controller/E404.php:36
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:121
+#: library/Controller/BaseController.php:115
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:122
+#: library/Controller/BaseController.php:116
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:123
+#: library/Controller/BaseController.php:117
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:124
+#: library/Controller/BaseController.php:118
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:125
+#: library/Controller/BaseController.php:119
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:126
+#: library/Controller/BaseController.php:120
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:127
+#: library/Controller/BaseController.php:121
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:128
+#: library/Controller/BaseController.php:122
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:129
+#: library/Controller/BaseController.php:123
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:131
+#: library/Controller/BaseController.php:125
 msgid "Search on"
-msgstr "sök på"
+msgstr "Sök efter"
 
-#: library/Controller/BaseController.php:132
-msgid "What are you searching for?"
-msgstr "Vad letar du efter?"
-
-#: library/Controller/BaseController.php:133
+#: library/Controller/BaseController.php:126
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:134
-msgid "Related links"
-msgstr "Relaterade länkar"
-
-#: library/Controller/BaseController.php:135 library/Widget/Header/Links.php:68
-#: library/Widget/Navigation/Navigation.php:77
-#: views/v1/partials/header/default.blade.php:42
-#: views/v2/partials/header/default.blade.php:45
-msgid "Menu"
-msgstr "Meny"
-
-#: library/Controller/E404.php:31
+#: library/Controller/E404.php:29
 msgid "Go back"
 msgstr "Gå bakåt"
 
-#: library/Controller/E404.php:48
+#: library/Controller/E404.php:46
 #: views/v1/partials/blog/taxonomy-filters.blade.php:10
 msgid "Show all"
 msgstr "Visa alla"
 
-#: library/Controller/E404.php:60
+#: library/Controller/E404.php:58
 msgid "Oops! The page you requested cannot be found."
 msgstr "Oj! Sidan som du begärde finns inte längre."
 
-#: library/Controller/E404.php:69
+#: library/Controller/E404.php:67
 #, php-format
 msgid "The %s you are looking for is either moved or removed."
 msgstr ""
 "Sidan %s som du letade efter har antagligen flyttats eller blivit borttagen."
 
-#: library/Controller/E404.php:85
+#: library/Controller/E404.php:83
 msgid "post"
 msgstr "inlägg"
 
-#: library/Controller/Search.php:13
+#: library/Controller/Search.php:14
 msgid "All pages"
 msgstr "Alla sidor"
 
-#: library/Controller/Search.php:14
+#: library/Controller/Search.php:15
 msgid "The searchquery did not match any content."
 msgstr "Sökfrågan matchade inget innehåll."
 
-#: library/Controller/Search.php:15
-msgid "Found"
-msgstr "Hittades"
-
 #: library/Controller/Search.php:16
+msgid "Found"
+msgstr "Hittade"
+
+#: library/Controller/Search.php:17
 msgid "results"
 msgstr "resultat"
 
-#: library/Controller/Search.php:17
+#: library/Controller/Search.php:18
 msgid "Search for"
 msgstr "Sök efter"
 
-#: library/Controller/Search.php:18
+#: library/Controller/Search.php:19
 msgid "View page"
 msgstr "Visa sida"
 
-#: library/Controller/Singular.php:37
+#: library/Controller/Singular.php:35
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
 msgstr "Publicerad av"
 
-#: library/Controller/Singular.php:38
+#: library/Controller/Singular.php:36
 msgid "on"
 msgstr "på"
 
-#: library/Controller/Singular.php:51
+#: library/Controller/Singular.php:49
 msgid "Reply"
 msgstr "Svara"
 
-#: library/Controller/Singular.php:52
+#: library/Controller/Singular.php:50
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
@@ -1592,43 +1643,43 @@ msgstr "Sida (två kolumner)"
 msgid "Sidebar right"
 msgstr "Sidopanel höger"
 
-#: library/Theme/Enqueue.php:99
+#: library/Theme/Enqueue.php:107
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:102
+#: library/Theme/Enqueue.php:110
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:103
+#: library/Theme/Enqueue.php:111
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/General.php:234
+#: library/Theme/General.php:237
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/Navigation.php:123
+#: library/Theme/Navigation.php:122
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:124
+#: library/Theme/Navigation.php:123
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:125
+#: library/Theme/Navigation.php:124
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Theme/Navigation.php:126
+#: library/Theme/Navigation.php:125
 msgid "Secondary menu & mobile menu"
 msgstr "Sekundär meny & Mobil meny"
 
-#: library/Theme/Navigation.php:127
+#: library/Theme/Navigation.php:126
 msgid "Dropdown menu"
 msgstr "Rullgardinsmeny"
 
-#: library/Theme/Navigation.php:140
+#: library/Theme/Navigation.php:139
 #, fuzzy
 #| msgid "Below Links"
 msgid "Dropdown Links"
@@ -1705,7 +1756,7 @@ msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 #: library/Theme/Sidebars.php:142
 #, php-format
 msgid "Sidebar that sits below the hero, takes up 100% of the widht."
-msgstr "Fält som ligger under Hero-ytan tar upp 100 % o f bredden."
+msgstr "Sidofält som ligger under hjälten tar upp 100 % o f bredden."
 
 #: library/Theme/Sidebars.php:154
 msgid "Bottom sidebar (full-width)"
@@ -1716,9 +1767,16 @@ msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
 msgstr "Fältet som ligger strax före sidfoten tar upp 100 % o f bredden."
 
+#: library/Widget/Header/Links.php:68
+#: library/Widget/Navigation/Navigation.php:77
+#: views/v1/partials/header/default.blade.php:42
+#: views/v2/partials/header/default.blade.php:45
+msgid "Menu"
+msgstr "Meny"
+
 #: library/Widget/Navigation/Navigation.php:82
 msgid "Översätt"
-msgstr ""
+msgstr "Översätt"
 
 #: library/Widget/Source/BaseWidget.php:113
 #: library/Widget/Source/WidgetTemplate.php:249
@@ -1790,16 +1848,16 @@ msgstr "Fältgrupp uppdaterad."
 
 #: vendor/advanced-custom-fields/acf.php:642
 msgid "Custom field updated."
-msgstr ""
+msgstr "Anpassat fält uppdaterat."
 
 #: vendor/advanced-custom-fields/acf.php:643
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Anpassat fält borttaget."
 
 #: vendor/advanced-custom-fields/acf.php:646
 #, php-format
 msgid "Field group restored to revision from %s"
-msgstr ""
+msgstr "Fältgrupp återställd till revision från %s"
 
 #: vendor/advanced-custom-fields/acf.php:647
 msgid "Field group published."
@@ -1846,7 +1904,7 @@ msgstr "Senast uppdaterad"
 #: vendor/advanced-custom-fields/core/controllers/addons.php:42
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:306
 msgid "Add-ons"
-msgstr "Plugin"
+msgstr "Tillägg"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:130
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:428
@@ -1860,8 +1918,10 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:137
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:436
+#, fuzzy
+#| msgid "Email"
 msgid "Gallery Field"
-msgstr "Gallerifält"
+msgstr "Epost"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:138
 msgid "Create image galleries in a simple and intuitive interface!"
@@ -1886,7 +1946,7 @@ msgstr "Innehåll"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:152
 msgid "Create unique designs with a flexible content layout manager!"
-msgstr "Skapa unika mönster med en flexibel innehållsredigerare!"
+msgstr "Skapa unik design med en flexibel innehålls-redigerare!"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:161
 msgid "Gravity Forms Field"
@@ -1902,7 +1962,7 @@ msgstr "Datum- och tidväljare"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:169
 msgid "jQuery date & time picker"
-msgstr ""
+msgstr "jQuery datum- och tidväljare"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:175
 #, fuzzy
@@ -1943,11 +2003,13 @@ msgid ""
 "Each Add-on can be installed as a separate plugin (receives updates) or "
 "included in your theme (does not receive updates)."
 msgstr ""
+"Varje tillägg kan installeras som ett separat plugin (mottar uppdateringar) "
+"eller ingående i ditt tema (får inte uppdateringar)."
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:219
 #: vendor/advanced-custom-fields/core/controllers/addons.php:240
 msgid "Installed"
-msgstr "Installerat"
+msgstr "Installerad"
 
 #: vendor/advanced-custom-fields/core/controllers/addons.php:221
 msgid "Purchase & Install"
@@ -1968,14 +2030,10 @@ msgid "Export"
 msgstr "Exportera  "
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:216
-#, fuzzy
-#| msgid "Field&nbsp;Groups"
 msgid "Export Field Groups"
-msgstr "Fältgrupper"
+msgstr "Exportera fältgrupper"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:221
-#, fuzzy
-#| msgid "Field&nbsp;Groups"
 msgid "Field Groups"
 msgstr "Fältgrupper"
 
@@ -1998,44 +2056,49 @@ msgid ""
 "ACF will create a .xml export file which is compatible with the native WP "
 "import plugin."
 msgstr ""
+"ACF skapar en .xml-exportfil som är kompatibel med det inbyggda WP-"
+"pluginprogrammet."
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:254
 msgid ""
 "Imported field groups <b>will</b> appear in the list of editable field "
 "groups. This is useful for migrating fields groups between Wp websites."
 msgstr ""
+"Importerade fältgrupper <b>kommer</ b> visas i listan med redigerbara "
+"fältgrupper. Detta är användbart för migrering av fältgrupper mellan Wp-"
+"webbplatser."
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:256
 msgid "Select field group(s) from the list and click \"Export XML\""
-msgstr ""
+msgstr "Välj fältgrupp(er) från listan och klicka på Exportera XML"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:257
 msgid "Save the .xml file when prompted"
-msgstr ""
+msgstr "Spara .xml-filen när du blir ombedd"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:258
 msgid "Navigate to Tools &raquo; Import and select WordPress"
-msgstr ""
+msgstr "Navigera till Verktyg &raquo; Importera och välj WordPress"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:259
 msgid "Install WP import plugin if prompted"
-msgstr ""
+msgstr "Installera WP-importplugin om du uppmanas till det"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:260
 msgid "Upload and import your exported .xml file"
-msgstr ""
+msgstr "Ladda upp och importera din exporterade .xml-fil"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:261
 msgid "Select your user and ignore Import Attachments"
-msgstr ""
+msgstr "Välj din användare och ignorera Importera bilagor"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:262
 msgid "That's it! Happy WordPressing"
-msgstr ""
+msgstr "Det är allt! Glad WordPressning"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:268
 msgid "ACF will create the PHP code to include in your theme."
-msgstr ""
+msgstr "ACF kommer att skapa PHP-kod att inkludera i ditt tema."
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:269
 #: vendor/advanced-custom-fields/core/controllers/export.php:310
@@ -2043,6 +2106,8 @@ msgid ""
 "Registered field groups <b>will not</b> appear in the list of editable field "
 "groups. This is useful for including fields in themes."
 msgstr ""
+"Registrerade fältgrupper <b>visas inte</b> i listan över redigerbara "
+"fältgrupper. Detta är användbart för att inkludera fält i teman."
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:270
 #: vendor/advanced-custom-fields/core/controllers/export.php:311
@@ -2052,10 +2117,14 @@ msgid ""
 "the original field group to the trash or remove the code from your functions."
 "php file."
 msgstr ""
+"Observera att om du exporterar och registrerar fältgrupper inom samma WP "
+"kommer du att se dubbla fält på dina redigeringsskärmar. För att åtgärda "
+"detta, flytta den ursprungliga fältgruppen till papperskorgen eller ta bort "
+"koden från din functions.php-fil."
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:272
 msgid "Select field group(s) from the list and click \"Create PHP\""
-msgstr "Välj fältgrupp(er) från listan och klicka på \"Skapa PHP\""
+msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:273
 #: vendor/advanced-custom-fields/core/controllers/export.php:302
@@ -2073,6 +2142,7 @@ msgstr "Funktioner för inläggstypen"
 #: vendor/advanced-custom-fields/core/controllers/export.php:304
 msgid "To activate any Add-ons, edit and use the code in the first few lines."
 msgstr ""
+"För att aktivera alla tillägg, redigera och använd koden i de första raderna."
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:295
 #, fuzzy
@@ -2089,7 +2159,7 @@ msgstr "Aktivera"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:309
 msgid "Notes"
-msgstr ""
+msgstr "Anteckningar"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:316
 msgid "Include in theme"
@@ -2101,6 +2171,9 @@ msgid ""
 "move the ACF plugin inside your theme and add the following code to your "
 "functions.php file:"
 msgstr ""
+"Plugin för Advanced Custom Fields kan inkluderas i ett tema. För att göra "
+"det, flytta ACF-plugin inuti ditt tema och lägg till följande kod till din "
+"functions.php-fil:"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:323
 msgid ""
@@ -2108,6 +2181,9 @@ msgid ""
 "to enable lite mode. Add the following code to your functions.php file "
 "<b>before</b> the include_once code:"
 msgstr ""
+"För att ta bort alla visuella gränssnitt från ACF-plugin kan du använda en "
+"konstant för att aktivera lite läge. Lägg till följande kod i din functions."
+"php-fil <b>före</b> include_once-koden:"
 
 #: vendor/advanced-custom-fields/core/controllers/export.php:331
 #, fuzzy
@@ -2131,7 +2207,7 @@ msgstr "markerad"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:361
 msgid "No toggle fields available"
-msgstr ""
+msgstr "Inga växelfält finns tillgängliga"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:362
 #, fuzzy
@@ -2228,15 +2304,15 @@ msgstr "Inlägg av"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:637
 msgid "Top Level Page (parent of 0)"
-msgstr ""
+msgstr "Toppnivåsida (överliggande av 0)"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:638
 msgid "Parent Page (has children)"
-msgstr ""
+msgstr "Överliggande sida (har underliggande sidor)"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:639
 msgid "Child Page (has parent)"
-msgstr ""
+msgstr "Underliggande sida (har överliggande)"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:647
 #, fuzzy
@@ -2254,7 +2330,7 @@ msgstr "Utkast"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:732
 msgid "Future"
-msgstr ""
+msgstr "Framtid"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:734
 #, fuzzy
@@ -2268,7 +2344,7 @@ msgstr "Papperskorg"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:748
 msgid "Super Admin"
-msgstr ""
+msgstr "Superadmin"
 
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:763
 #: vendor/advanced-custom-fields/core/controllers/field_group.php:784
@@ -2298,7 +2374,7 @@ msgstr "Se ändringsloggen"
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:216
 #, php-format
 msgid "See what's new in %1$sversion %2$s%3$s"
-msgstr "Se vad som är nytt i %1$sversion %2$s%3$s"
+msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:218
 msgid "Resources"
@@ -2306,7 +2382,7 @@ msgstr "Resurser"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:220
 msgid "Getting Started"
-msgstr "Börja"
+msgstr "Komma igång"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:221
 #, fuzzy
@@ -2335,15 +2411,15 @@ msgstr "Filtrera"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:225
 msgid "'How to' guides"
-msgstr ""
+msgstr "Guider"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:226
 msgid "Tutorials"
-msgstr ""
+msgstr "Guider"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:231
 msgid "Created by"
-msgstr "Skapade av"
+msgstr "Skapad av"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:243
 msgid "Welcome to Advanced Custom Fields"
@@ -2400,7 +2476,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:334
 msgid "Easier Development"
-msgstr "Enklare utveckling"
+msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:336
 #, fuzzy
@@ -2475,11 +2551,11 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:355
 msgid "Important"
-msgstr ""
+msgstr "Viktigt"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:357
 msgid "Database Changes"
-msgstr ""
+msgstr "Databasförändringar"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:358
 msgid ""
@@ -2514,7 +2590,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:369
 msgid "Thank You"
-msgstr "Tack"
+msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:370
 msgid ""
@@ -2532,7 +2608,7 @@ msgstr "Se ändringsloggen"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:392
 msgid "Learn more"
-msgstr "Visa mer"
+msgstr "Ta reda på mer"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:398
 #, fuzzy
@@ -2561,7 +2637,7 @@ msgstr "Tillgängliga inläggstyper"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:406
 msgid "The following Add-ons have been detected as activated on this website."
-msgstr ""
+msgstr "Följande tillägg har upptäckts som aktiverade på denna webbplats."
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:420
 #, fuzzy
@@ -2577,20 +2653,20 @@ msgstr "Innehåll"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:462
 msgid "Installation"
-msgstr ""
+msgstr "Installation"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:464
 msgid "For each Add-on available, please perform the following:"
-msgstr ""
+msgstr "För varje tillägg som är tillgänglig, vänligen utför följande:"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:466
 msgid "Download the Add-on plugin (.zip file) to your desktop"
-msgstr ""
+msgstr "Hämta Add-on-plugin (.zip-fil) till skrivbordet"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:467
 #, php-format
 msgid "Navigate to %sPlugins > Add New > Upload%s"
-msgstr ""
+msgstr "Navigera till %sPlugins > Add New > Upload%s"
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:468
 msgid "Use the uploader to browse, select and install your Add-on (.zip file)"
@@ -2608,7 +2684,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/controllers/field_groups.php:484
 msgid "Awesome. Let's get to work"
-msgstr ""
+msgstr "Grymt bra. Låt oss börja arbeta"
 
 #: vendor/advanced-custom-fields/core/controllers/input.php:63
 #, fuzzy
@@ -2624,11 +2700,11 @@ msgstr "Infälld"
 
 #: vendor/advanced-custom-fields/core/controllers/input.php:67
 msgid "Validation Failed. One or more fields below are required."
-msgstr ""
+msgstr "Validering misslyckades. Ett eller flera fält nedan krävs."
 
 #: vendor/advanced-custom-fields/core/controllers/upgrade.php:77
 msgid "Upgrade"
-msgstr ""
+msgstr "Uppgradera"
 
 #: vendor/advanced-custom-fields/core/controllers/upgrade.php:599
 msgid "Modifying field group options 'show on page'"
@@ -2662,18 +2738,18 @@ msgstr ""
 #: vendor/advanced-custom-fields/core/fields/select.php:19
 #: vendor/advanced-custom-fields/core/fields/true_false.php:20
 msgid "Choice"
-msgstr ""
+msgstr "Val"
 
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:146
 #: vendor/advanced-custom-fields/core/fields/radio.php:147
 #: vendor/advanced-custom-fields/core/fields/select.php:177
 msgid "Choices"
-msgstr ""
+msgstr "Val"
 
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:147
 #: vendor/advanced-custom-fields/core/fields/select.php:178
 msgid "Enter each choice on a new line."
-msgstr ""
+msgstr "Ange varje nytt val på en ny rad."
 
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:148
 #: vendor/advanced-custom-fields/core/fields/select.php:179
@@ -2684,13 +2760,13 @@ msgstr ""
 #: vendor/advanced-custom-fields/core/fields/radio.php:153
 #: vendor/advanced-custom-fields/core/fields/select.php:180
 msgid "red : Red"
-msgstr ""
+msgstr "red : Röd"
 
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:149
 #: vendor/advanced-custom-fields/core/fields/radio.php:154
 #: vendor/advanced-custom-fields/core/fields/select.php:180
 msgid "blue : Blue"
-msgstr ""
+msgstr "blue : Blått"
 
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:166
 #: vendor/advanced-custom-fields/core/fields/color_picker.php:89
@@ -2722,7 +2798,7 @@ msgstr "Artikel"
 #: vendor/advanced-custom-fields/core/fields/checkbox.php:195
 #: vendor/advanced-custom-fields/core/fields/radio.php:224
 msgid "Horizontal"
-msgstr "Horisontal"
+msgstr "Horisontell"
 
 #: vendor/advanced-custom-fields/core/fields/color_picker.php:19
 #, fuzzy
@@ -2770,7 +2846,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:128
 msgid "\"yymmdd\" is the most versatile save format. Read more about"
-msgstr ""
+msgstr "\"yymmdd\" är det mest användbara formatet att spara i. Läs mer om"
 
 #: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:128
 #: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:144
@@ -2785,13 +2861,14 @@ msgstr "Visningsinställningar"
 
 #: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:143
 msgid "This format will be seen by the user when entering a value"
-msgstr ""
+msgstr "Detta format kommer att visas av användaren när du anger ett värde"
 
 #: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:144
 msgid ""
 "\"dd/mm/yy\" or \"mm/dd/yy\" are the most used display formats. Read more "
 "about"
 msgstr ""
+"\"dd/mm/yy\" eller \"mm/dd/yy\" är de mest använda formaten. Läs mer om"
 
 #: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:158
 msgid "Week Starts On"
@@ -2825,7 +2902,7 @@ msgstr "Platshållare"
 #: vendor/advanced-custom-fields/core/fields/text.php:132
 #: vendor/advanced-custom-fields/core/fields/textarea.php:119
 msgid "Appears within the input"
-msgstr ""
+msgstr "Visas i inmatningen"
 
 #: vendor/advanced-custom-fields/core/fields/email.php:138
 #: vendor/advanced-custom-fields/core/fields/number.php:148
@@ -2916,11 +2993,11 @@ msgstr "Ikonobjekt"
 
 #: vendor/advanced-custom-fields/core/fields/file.php:165
 msgid "File URL"
-msgstr ""
+msgstr "Fil-URL"
 
 #: vendor/advanced-custom-fields/core/fields/file.php:166
 msgid "File ID"
-msgstr ""
+msgstr "Fil-ID"
 
 #: vendor/advanced-custom-fields/core/fields/file.php:175
 #: vendor/advanced-custom-fields/core/fields/image.php:165
@@ -2972,7 +3049,7 @@ msgstr "Centrerad"
 
 #: vendor/advanced-custom-fields/core/fields/google-map.php:163
 msgid "Center the initial map"
-msgstr ""
+msgstr "Centrera kartan"
 
 #: vendor/advanced-custom-fields/core/fields/google-map.php:199
 msgid "Zoom"
@@ -2980,7 +3057,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/google-map.php:200
 msgid "Set the initial zoom level"
-msgstr ""
+msgstr "Ställ in den ursprungliga zoomnivån"
 
 #: vendor/advanced-custom-fields/core/fields/google-map.php:217
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:138
@@ -2991,7 +3068,7 @@ msgstr "Ljus"
 
 #: vendor/advanced-custom-fields/core/fields/google-map.php:218
 msgid "Customise the map height"
-msgstr ""
+msgstr "Anpassa karthöjden"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:19
 #: vendor/aristath/kirki/example.php:70
@@ -3041,7 +3118,7 @@ msgstr "Redigera"
 #: vendor/aristath/kirki/controls/views/image.php:38
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:53
 msgid "No image selected"
-msgstr "Ingen bild vald"
+msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/image.php:97
 #: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:387
@@ -3064,19 +3141,19 @@ msgstr "Ikonobjekt"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:137
 msgid "Image URL"
-msgstr "Bildens URL"
+msgstr "Bild URL"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:138
 msgid "Image ID"
-msgstr ""
+msgstr "Bild ID"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:146
 msgid "Preview Size"
-msgstr ""
+msgstr "Förhandsgranskningsstorlek"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:147
 msgid "Shown when entering data"
-msgstr ""
+msgstr "Visas när du matar in data"
 
 #: vendor/advanced-custom-fields/core/fields/image.php:166
 msgid "Limit the media library choice"
@@ -3092,16 +3169,16 @@ msgstr "Meddelande"
 
 #: vendor/advanced-custom-fields/core/fields/message.php:71
 msgid "Text &amp; HTML entered here will appear inline with the fields"
-msgstr ""
+msgstr "Text &amp; HTML som anges här kommer att visas inline med fälten"
 
 #: vendor/advanced-custom-fields/core/fields/message.php:72
 msgid "Please note that all text will first be passed through the wp function "
-msgstr ""
+msgstr "Observera att all text först skickas genom wp-funktionen"
 
 #: vendor/advanced-custom-fields/core/fields/number.php:19
 #: vendor/aristath/kirki/example.php:73
 msgid "Number"
-msgstr "Siffra"
+msgstr "Nummer"
 
 #: vendor/advanced-custom-fields/core/fields/number.php:178
 msgid "Minimum Value"
@@ -3115,7 +3192,7 @@ msgstr "Standard"
 
 #: vendor/advanced-custom-fields/core/fields/number.php:210
 msgid "Step Size"
-msgstr ""
+msgstr "Steglängd"
 
 #: vendor/advanced-custom-fields/core/fields/page_link.php:18
 #, fuzzy
@@ -3129,7 +3206,7 @@ msgstr "Sida"
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:19
 #: vendor/advanced-custom-fields/core/fields/user.php:19
 msgid "Relational"
-msgstr ""
+msgstr "Relationer"
 
 #: vendor/advanced-custom-fields/core/fields/page_link.php:103
 #: vendor/advanced-custom-fields/core/fields/post_object.php:280
@@ -3202,11 +3279,11 @@ msgstr "Blå"
 
 #: vendor/advanced-custom-fields/core/fields/radio.php:175
 msgid "Add 'other' choice to allow for custom values"
-msgstr ""
+msgstr "Lägg till 'annat' val för att tillåta anpassade värden"
 
 #: vendor/advanced-custom-fields/core/fields/radio.php:187
 msgid "Save 'other' values to the field's choices"
-msgstr ""
+msgstr "Spara 'andra' värden till fältets val"
 
 #: vendor/advanced-custom-fields/core/fields/relationship.php:18
 msgid "Relationship"
@@ -3214,7 +3291,7 @@ msgstr "Relation"
 
 #: vendor/advanced-custom-fields/core/fields/relationship.php:29
 msgid "Maximum values reached ( {max} values )"
-msgstr ""
+msgstr "Maximalt antal värden nåddes ({max} värden)"
 
 #: vendor/advanced-custom-fields/core/fields/relationship.php:451
 msgid "Search..."
@@ -3273,16 +3350,20 @@ msgid ""
 "Use \"Tab Fields\" to better organize your edit screen by grouping your "
 "fields together under separate tab headings."
 msgstr ""
+"Använd \"flikar\" för att bättre organisera din redigeringsskärm genom att "
+"gruppera dina fält tillsammans under separata flikrubriker."
 
 #: vendor/advanced-custom-fields/core/fields/tab.php:69
 msgid ""
 "All the fields following this \"tab field\" (or until another \"tab field\" "
 "is defined) will be grouped together."
 msgstr ""
+"Alla fält som följer detta \"flikfält\" (eller tills ett annat \"flikfält\" "
+"är definierat) grupperas tillsammans."
 
 #: vendor/advanced-custom-fields/core/fields/tab.php:70
 msgid "Use multiple tabs to divide your fields into sections."
-msgstr ""
+msgstr "Använd flera flikar för att dela dina fält i sektioner."
 
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:18
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:430
@@ -3317,7 +3398,7 @@ msgstr "Val av författare"
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:478
 #: vendor/advanced-custom-fields/core/fields/user.php:311
 msgid "Single Value"
-msgstr ""
+msgstr "Enstaka värde"
 
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:479
 #, fuzzy
@@ -3327,12 +3408,14 @@ msgstr "Knapp"
 
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:508
 msgid "Load & Save Terms to Post"
-msgstr ""
+msgstr "Ladda och spara villkor att lägga upp"
 
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:516
 msgid ""
 "Load value based on the post's terms and update the post's terms on save"
 msgstr ""
+"Ladda värde baserat på inläggets villkor och uppdatera inläggets villkor vid "
+"spara"
 
 #: vendor/advanced-custom-fields/core/fields/taxonomy.php:533
 #, fuzzy
@@ -3373,7 +3456,7 @@ msgstr "Konvertera HTML till taggar"
 #: vendor/advanced-custom-fields/core/fields/text.php:195
 #: vendor/advanced-custom-fields/core/fields/textarea.php:133
 msgid "Character Limit"
-msgstr "Teckenbegränsning"
+msgstr "Max antal tecken"
 
 #: vendor/advanced-custom-fields/core/fields/text.php:196
 #: vendor/advanced-custom-fields/core/fields/textarea.php:134
@@ -3396,7 +3479,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/textarea.php:175
 msgid "Convert new lines into &lt;br /&gt; tags"
-msgstr ""
+msgstr "Konvertera nya rader till &lt;br /&gt; taggar"
 
 #: vendor/advanced-custom-fields/core/fields/true_false.php:19
 msgid "True / False"
@@ -3423,7 +3506,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/fields/wysiwyg.php:302
 msgid "Toolbar"
-msgstr ""
+msgstr "Verktygsfält"
 
 #: vendor/advanced-custom-fields/core/fields/wysiwyg.php:334
 #, fuzzy
@@ -3472,6 +3555,8 @@ msgid ""
 "No fields. Click the <strong>+ Add Field</strong> button to create your "
 "first field."
 msgstr ""
+"Inga fält. Klicka på knappen <strong>+ Lägg till fält </strong> för att "
+"skapa ditt första fält."
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:105
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
@@ -3498,11 +3583,11 @@ msgstr "Radera"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:127
 msgid "This is the name which will appear on the EDIT page"
-msgstr ""
+msgstr "Detta är namnet som kommer att dyka upp på ÄNDRA-sidan"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:143
 msgid "Single word, no spaces. Underscores and dashes allowed"
-msgstr ""
+msgstr "Ett ord, inga mellanslag. Understeck och streck är tillåtna"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:172
 #, fuzzy
@@ -3516,7 +3601,7 @@ msgstr "Intstruktioner för författarna. Visas vid publicering"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:186
 msgid "Required?"
-msgstr "Krävs?"
+msgstr "Obligatorisk?"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:209
 msgid "Conditional Logic"
@@ -3525,16 +3610,16 @@ msgstr "VIllkorsstyrt"
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:260
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:117
 msgid "is equal to"
-msgstr ""
+msgstr "är lika med"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:261
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:118
 msgid "is not equal to"
-msgstr ""
+msgstr "är inte lika med"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:279
 msgid "Show this field when"
-msgstr ""
+msgstr "Visa det här fältet när"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:285
 msgid "all"
@@ -3546,7 +3631,7 @@ msgstr ""
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:289
 msgid "these rules are met"
-msgstr ""
+msgstr "dessa regler är uppfyllda"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:303
 #, fuzzy
@@ -3556,7 +3641,7 @@ msgstr "Egna taxonomies"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:316
 msgid "Drag and drop to reorder"
-msgstr ""
+msgstr "Dra och släpp för att ändra ordning"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_fields.php:317
 #, fuzzy
@@ -3566,21 +3651,23 @@ msgstr "Skapa ny"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:48
 msgid "Rules"
-msgstr ""
+msgstr "Regler"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:49
 msgid ""
 "Create a set of rules to determine which edit screens will use these "
 "advanced custom fields"
 msgstr ""
+"Skapa en uppsättning regler för att bestämma vilka redigeringsskärmar som "
+"ska använda dessa avancerade anpassade fält"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:60
 msgid "Show this field group if"
-msgstr ""
+msgstr "Visa fältgruppen om"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:76
 msgid "Logged in User Type"
-msgstr ""
+msgstr "Inloggad användartyp"
 
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:78
 #: vendor/advanced-custom-fields/core/views/meta_box_location.php:79
@@ -3756,7 +3843,7 @@ msgstr "Bakgrundsfärg"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:54
 msgid "Background Image"
-msgstr "Bild för bakgrund"
+msgstr "Bakgrundsbild"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:70
 msgid "Background Repeat"
@@ -3780,52 +3867,52 @@ msgstr "Repetera vertikalt"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:81
 msgid "Background Position"
-msgstr "Position för bakgrund"
+msgstr "Bakgrundsposition"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:83
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:115
 msgid "Left Top"
-msgstr ""
+msgstr "Vänster toppen"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:84
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:116
 msgid "Left Center"
-msgstr ""
+msgstr "Vänster Centrer"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:85
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:117
 msgid "Left Bottom"
-msgstr ""
+msgstr "Vänster botten"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:86
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:118
 msgid "Right Top"
-msgstr ""
+msgstr "Höger toppen"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:87
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:119
 msgid "Right Center"
-msgstr ""
+msgstr "Höger Center"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:88
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:120
 msgid "Right Bottom"
-msgstr ""
+msgstr "Höger botten"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:89
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:121
 msgid "Center Top"
-msgstr ""
+msgstr "Centrerat toppen"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:90
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:122
 msgid "Center Center"
-msgstr ""
+msgstr "Centrerat"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:91
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:123
 msgid "Center Bottom"
-msgstr ""
+msgstr "Centrerat botten"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:97
 msgid "Background Size"
@@ -3837,11 +3924,11 @@ msgstr "Omslag"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:103
 msgid "Contain"
-msgstr ""
+msgstr "Innehåll"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:113
 msgid "Background Attachment"
-msgstr ""
+msgstr "Bakgrundbilaga"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:116
 msgid "Scroll"
@@ -3853,11 +3940,11 @@ msgstr ""
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:136
 msgid "Standard Fonts"
-msgstr ""
+msgstr "Standardtypsnitt"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:137
 msgid "Google Fonts"
-msgstr ""
+msgstr "Google typsnitt"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:138
 #, fuzzy
@@ -3867,7 +3954,7 @@ msgstr "Standard"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:139
 msgid "Default Browser Font-Family"
-msgstr ""
+msgstr "Standardtypfamilj för webbläsare"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-code.php:39
 msgid ""
@@ -3887,26 +3974,26 @@ msgstr "Teckesnittsstorlek"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:125
 msgid "Font Weight"
-msgstr ""
+msgstr "Typsnittsvikt"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:126
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:114
 msgid "Line Height"
-msgstr ""
+msgstr "Radavstånd"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:127
 msgid "Font Style"
-msgstr ""
+msgstr "Typsnittsstil"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:128
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:122
 msgid "Letter Spacing"
-msgstr ""
+msgstr "Spärrning"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:129
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:130
 msgid "Word Spacing"
-msgstr ""
+msgstr "Ord avstånd"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:130
 #: vendor/aristath/kirki/field/class-kirki-field-spacing.php:33
@@ -3974,12 +4061,12 @@ msgstr "Av"
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:80
 msgid "Font Family"
-msgstr "Teckensnittsfamilj"
+msgstr ""
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:81
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:86
 msgid "Select Font Family"
-msgstr "Välj typsnittsfamilj"
+msgstr ""
 
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:85
 msgid "Backup Font"
@@ -4043,29 +4130,29 @@ msgstr ""
 #: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:225
 #: vendor/aristath/kirki/example.php:60 vendor/aristath/kirki/example.php:560
 msgid "Color"
-msgstr "Färg"
+msgstr ""
 
 #: vendor/aristath/kirki/controls/views/image.php:34
 #: vendor/aristath/kirki/controls/views/image.php:39
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:49
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:54
 msgid "Select image"
-msgstr "Välj bild"
+msgstr ""
 
 #: vendor/aristath/kirki/controls/views/image.php:35
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:50
 msgid "Change image"
-msgstr "Ändra bild"
+msgstr ""
 
 #: vendor/aristath/kirki/controls/views/image.php:40
 #: vendor/aristath/kirki/field/class-kirki-field-image.php:55
 msgid "Choose image"
-msgstr "Välj bild"
+msgstr ""
 
 #: vendor/aristath/kirki/core/class-kirki-field.php:248
 #, php-format
 msgid "Typo found in field %s - setting instead of settings."
-msgstr "Skrivfel i fältet %s - inställning istället för inställningar."
+msgstr ""
 
 #: vendor/aristath/kirki/core/class-kirki-field.php:257
 #: vendor/aristath/kirki/core/class-kirki-field.php:267
@@ -4172,7 +4259,7 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:61
 msgid "Color Palette"
-msgstr ""
+msgstr "Färgpalett"
 
 #: vendor/aristath/kirki/example.php:62
 msgid "Custom"
@@ -4184,19 +4271,19 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:64
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: vendor/aristath/kirki/example.php:65
 msgid "Dimension"
-msgstr ""
+msgstr "Dimension"
 
 #: vendor/aristath/kirki/example.php:66
 msgid "Dimensions"
-msgstr ""
+msgstr "Dimensioner"
 
 #: vendor/aristath/kirki/example.php:67
 msgid "Editor"
-msgstr ""
+msgstr "Redigerare"
 
 #: vendor/aristath/kirki/example.php:68
 msgid "Font-Awesome"
@@ -4204,27 +4291,27 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:69
 msgid "Generic"
-msgstr ""
+msgstr "Allmän"
 
 #: vendor/aristath/kirki/example.php:71
 msgid "Multicheck"
-msgstr ""
+msgstr "Flervalsalternativ"
 
 #: vendor/aristath/kirki/example.php:72
 msgid "Multicolor"
-msgstr ""
+msgstr "Multifärg"
 
 #: vendor/aristath/kirki/example.php:74
 msgid "Palette"
-msgstr ""
+msgstr "Palette"
 
 #: vendor/aristath/kirki/example.php:75
 msgid "Preset"
-msgstr ""
+msgstr "Förval"
 
 #: vendor/aristath/kirki/example.php:76
 msgid "Radio"
-msgstr ""
+msgstr "Alternativ"
 
 #: vendor/aristath/kirki/example.php:76
 msgid "A plain Radio control."
@@ -4252,7 +4339,7 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:79
 msgid "Repeater"
-msgstr ""
+msgstr "Upprepningsfält"
 
 #: vendor/aristath/kirki/example.php:81
 msgid "Slider"
@@ -4260,7 +4347,7 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:82
 msgid "Sortable"
-msgstr ""
+msgstr "Sorterbar"
 
 #: vendor/aristath/kirki/example.php:83
 msgid "Switch"
@@ -4291,7 +4378,7 @@ msgstr ""
 #: vendor/aristath/kirki/example.php:815 vendor/aristath/kirki/example.php:826
 #: vendor/aristath/kirki/example.php:851
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: vendor/aristath/kirki/example.php:159
 msgid "Checkbox Control"
@@ -4355,11 +4442,11 @@ msgstr ""
 #: vendor/aristath/kirki/example.php:286 vendor/aristath/kirki/example.php:301
 #: vendor/aristath/kirki/example.php:316
 msgid "Color-Palette"
-msgstr ""
+msgstr "Färgpalett"
 
 #: vendor/aristath/kirki/example.php:257
 msgid "This is a color-palette control"
-msgstr ""
+msgstr "Detta är en färgpalettkontroll"
 
 #: vendor/aristath/kirki/example.php:272
 msgid "Material Design Colors - all"
@@ -4415,76 +4502,79 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:451
 msgid "Text Control"
-msgstr ""
+msgstr "Text kontroll"
 
 #: vendor/aristath/kirki/example.php:462
 msgid "Textarea Control"
-msgstr ""
+msgstr "Textområde kontroll"
 
 #: vendor/aristath/kirki/example.php:473
 msgid "Custom input Control."
-msgstr ""
+msgstr "Anpassad ingångskontroll."
 
 #: vendor/aristath/kirki/example.php:474
 msgid ""
 "The \"generic\" control allows you to add any input type you want. In this "
 "case we use type=\"password\" and define custom styles."
 msgstr ""
+"Med den \"generiska\" kontrollen kan du lägga till vilken ingångstyp du vill "
+"ha. I det här fallet använder vi typ = \"lösenord\" och definierar anpassade "
+"stilar."
 
 #: vendor/aristath/kirki/example.php:493
 msgid "Image Control (URL)"
-msgstr ""
+msgstr "Bildkontroll (URL)"
 
 #: vendor/aristath/kirki/example.php:504
 msgid "Image Control (ID)"
-msgstr ""
+msgstr "Bildkontroll (ID)"
 
 #: vendor/aristath/kirki/example.php:518
 msgid "Image Control (array)"
-msgstr ""
+msgstr "Bildkontroll (array)"
 
 #: vendor/aristath/kirki/example.php:535
 msgid "Multickeck Control"
-msgstr ""
+msgstr "Multikontrollkontroll"
 
 #: vendor/aristath/kirki/example.php:540 vendor/aristath/kirki/example.php:622
 #: vendor/aristath/kirki/example.php:643 vendor/aristath/kirki/example.php:738
 #: vendor/aristath/kirki/example.php:757 vendor/aristath/kirki/example.php:797
 msgid "Option 1"
-msgstr ""
+msgstr "Val 1"
 
 #: vendor/aristath/kirki/example.php:541 vendor/aristath/kirki/example.php:623
 #: vendor/aristath/kirki/example.php:644 vendor/aristath/kirki/example.php:739
 #: vendor/aristath/kirki/example.php:758 vendor/aristath/kirki/example.php:798
 msgid "Option 2"
-msgstr ""
+msgstr "Val 2"
 
 #: vendor/aristath/kirki/example.php:542 vendor/aristath/kirki/example.php:624
 #: vendor/aristath/kirki/example.php:645 vendor/aristath/kirki/example.php:740
 #: vendor/aristath/kirki/example.php:759 vendor/aristath/kirki/example.php:799
 msgid "Option 3"
-msgstr ""
+msgstr "Val 3"
 
 #: vendor/aristath/kirki/example.php:543 vendor/aristath/kirki/example.php:625
 #: vendor/aristath/kirki/example.php:741 vendor/aristath/kirki/example.php:760
 #: vendor/aristath/kirki/example.php:800
 msgid "Option 4"
-msgstr ""
+msgstr "Val 4"
 
 #: vendor/aristath/kirki/example.php:544 vendor/aristath/kirki/example.php:626
 #: vendor/aristath/kirki/example.php:742 vendor/aristath/kirki/example.php:761
 #: vendor/aristath/kirki/example.php:801
 msgid "Option 5"
-msgstr ""
+msgstr "Val 5"
 
 #: vendor/aristath/kirki/example.php:556 vendor/aristath/kirki/example.php:580
 #: vendor/aristath/kirki/example.php:598
 msgid "Label"
-msgstr ""
+msgstr "Etikett"
 
 #: vendor/aristath/kirki/example.php:561
 msgid "Hover"
-msgstr ""
+msgstr "Hovra"
 
 #: vendor/aristath/kirki/example.php:562
 msgid "Active"
@@ -4492,26 +4582,26 @@ msgstr "Aktivera"
 
 #: vendor/aristath/kirki/example.php:617
 msgid "Radio Control"
-msgstr ""
+msgstr "Radiofält"
 
 #: vendor/aristath/kirki/example.php:618 vendor/aristath/kirki/example.php:639
 #: vendor/aristath/kirki/example.php:658 vendor/aristath/kirki/example.php:677
 #: vendor/aristath/kirki/example.php:733 vendor/aristath/kirki/example.php:752
 #: vendor/aristath/kirki/example.php:774
 msgid "The description here."
-msgstr ""
+msgstr "Visa beskrivning"
 
 #: vendor/aristath/kirki/example.php:638
 msgid "Radio-Buttonset Control"
-msgstr ""
+msgstr "Kontroll av radioknappar"
 
 #: vendor/aristath/kirki/example.php:657
 msgid "Radio-Image Control"
-msgstr ""
+msgstr "Radio-bildkontroll"
 
 #: vendor/aristath/kirki/example.php:676
 msgid "Repeater Control"
-msgstr ""
+msgstr "Repetitionskontroll"
 
 #: vendor/aristath/kirki/example.php:681
 msgid "Kirki Site"
@@ -4523,67 +4613,67 @@ msgstr ""
 
 #: vendor/aristath/kirki/example.php:696
 msgid "Link Text"
-msgstr ""
+msgstr "Länktext"
 
 #: vendor/aristath/kirki/example.php:697
 msgid "This will be the label for your link"
-msgstr ""
+msgstr "Detta kommer att vara etiketten för din länk"
 
 #: vendor/aristath/kirki/example.php:702
 msgid "Link URL"
-msgstr ""
+msgstr "Länk URL"
 
 #: vendor/aristath/kirki/example.php:703
 msgid "This will be the link URL"
-msgstr ""
+msgstr "Detta kommer att vara länkens URL"
 
 #: vendor/aristath/kirki/example.php:708
 msgid "Link Target"
-msgstr ""
+msgstr "Länkmål"
 
 #: vendor/aristath/kirki/example.php:709
 msgid "This will be the link target"
-msgstr ""
+msgstr "Detta kommer att vara länkmålet"
 
 #: vendor/aristath/kirki/example.php:712
 msgid "New Window"
-msgstr ""
+msgstr "Nytt fönster"
 
 #: vendor/aristath/kirki/example.php:713
 msgid "Same Frame"
-msgstr ""
+msgstr "Samma ram"
 
 #: vendor/aristath/kirki/example.php:732 vendor/aristath/kirki/example.php:751
 msgid "Select Control"
-msgstr ""
+msgstr "Välj kontroll"
 
 #: vendor/aristath/kirki/example.php:736
 msgid "Select an option"
-msgstr ""
+msgstr "Välj ett alternativ"
 
 #: vendor/aristath/kirki/example.php:773
 msgid "Slider Control"
-msgstr ""
+msgstr "Bildspelsreglage"
 
 #: vendor/aristath/kirki/example.php:793
 msgid "This is a sortable control."
-msgstr ""
+msgstr "Detta är en sorterbar kontroll."
 
 #: vendor/aristath/kirki/example.php:802
 msgid "Option 6"
-msgstr ""
+msgstr "Alternativ 6"
 
 #: vendor/aristath/kirki/example.php:814
 msgid "Switch Control"
-msgstr ""
+msgstr "Byte kontrollreglage"
 
 #: vendor/aristath/kirki/example.php:825
 msgid "Switch Control with custom labels"
-msgstr ""
+msgstr "Växla kontroll med anpassade etiketter"
 
 #: vendor/aristath/kirki/example.php:830
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
 
 #: vendor/aristath/kirki/example.php:831
 #, fuzzy
@@ -4593,29 +4683,31 @@ msgstr "Inaktivera blogg"
 
 #: vendor/aristath/kirki/example.php:850
 msgid "Toggle Control"
-msgstr ""
+msgstr "Växla kontroll"
 
 #: vendor/aristath/kirki/example.php:864 vendor/aristath/kirki/example.php:918
 msgid "Typography Control Label"
-msgstr ""
+msgstr "Etikett för typografikontroll"
 
 #: vendor/aristath/kirki/example.php:865 vendor/aristath/kirki/example.php:919
 msgid "The full set of options."
-msgstr ""
+msgstr "Hela uppsättningen alternativ."
 
 #: vendor/aristath/kirki/example.php:955
 msgid "Sidebars Select"
-msgstr ""
+msgstr "Välj sidofält"
 
 #: vendor/aristath/kirki/example.php:956
 msgid "An example of how to implement sidebars selection."
-msgstr ""
+msgstr "Ett exempel på hur man implementerar sidofält."
 
 #: vendor/aristath/kirki/field/class-kirki-field-color.php:55
 msgid ""
 "Do not use \"alpha\" as an argument in color controls. Use "
 "\"choices[alpha]\" instead."
 msgstr ""
+"Använd inte \"alfa\" som ett argument i färgkontroller. Använd istället "
+"\"val [alfa]\"."
 
 #: vendor/aristath/kirki/field/class-kirki-field-radio.php:37
 #, php-format
@@ -4636,27 +4728,27 @@ msgstr "Anpassar &#9656; %s"
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:210
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:211
 msgid "Ultra-Light 100"
-msgstr ""
+msgstr "Extra mager 100"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:212
 msgid "Ultra-Light 100 Italic"
-msgstr ""
+msgstr "Extra mager 100 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:213
 msgid "Light 200"
-msgstr ""
+msgstr "Mager 200"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:214
 msgid "Light 200 Italic"
-msgstr ""
+msgstr "Mager 200 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:215
 msgid "Book 300"
-msgstr ""
+msgstr "Bokstil 300"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:216
 msgid "Book 300 Italic"
-msgstr ""
+msgstr "Bokstil 300 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:217
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:218
@@ -4665,50 +4757,50 @@ msgstr ""
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:219
 msgid "Normal 400 Italic"
-msgstr ""
+msgstr "Normal 400 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:220
 msgid "Medium 500"
-msgstr ""
+msgstr "Medium 500"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:221
 msgid "Medium 500 Italic"
-msgstr ""
+msgstr "Medium 500 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:222
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:223
 msgid "Semi-Bold 600"
-msgstr ""
+msgstr "Halvfet 600"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:224
 msgid "Semi-Bold 600 Italic"
-msgstr ""
+msgstr "Halvfet 600 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:225
 msgid "Bold 700"
-msgstr ""
+msgstr "Fet 700"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:226
 msgid "Bold 700 Italic"
-msgstr ""
+msgstr "Fet 700 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:227
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:228
 msgid "Extra-Bold 800"
-msgstr ""
+msgstr "Extra fet 800"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:229
 msgid "Extra-Bold 800 Italic"
-msgstr ""
+msgstr "Extra fet 800 kursiv"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:230
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:231
 msgid "Ultra-Bold 900"
-msgstr ""
+msgstr "Ultrafet 900"
 
 #: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:232
 msgid "Ultra-Bold 900 Italic"
-msgstr ""
+msgstr "Ultrafet 900 kursiv"
 
 #: vendor/aristath/kirki/upgrade-notifications.php:30
 msgid "Important Upgrade Notice:"
@@ -4936,126 +5028,6 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
-
-#~ msgid "Navigation settings"
-#~ msgstr "Navigationsinställningar"
-
-#~ msgid "Hide from menu"
-#~ msgstr "Dölj från meny"
-
-#~ msgid "Hide"
-#~ msgstr "Dölj"
-
-#~ msgid "Menu title"
-#~ msgstr "Menytitel"
-
-#~ msgid ""
-#~ "If you want to use another title for this page in the sidebar navigation "
-#~ "fill it in here. If you want to use the page title just leave this field "
-#~ "empty."
-#~ msgstr ""
-#~ "Om du vill använda en annan titel för denna sidan i menyn, fyll i den "
-#~ "här. Om du vill använda den vanliga sidtiteln så lämnar du detta fältet "
-#~ "tomt."
-
-#~ msgid "Favicon"
-#~ msgstr "Favoritikoner"
-
-#~ msgid "Favicons"
-#~ msgstr "Favoritikoner"
-
-#~ msgid ""
-#~ "Add favicons in various sizes. If a size has multiple icons specified "
-#~ "only the latest specified icon will be used."
-#~ msgstr ""
-#~ "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla "
-#~ "värden kommer bara den senast specificerade att användas."
-
-#~ msgid "Type"
-#~ msgstr "Typ"
-
-#~ msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
-#~ msgstr "favicon.ico (16x16px, 32x32px, 48x48px)"
-
-#~ msgid "iOS, Android (152x152px)"
-#~ msgstr "iOS, Android (152x152px)"
-
-#~ msgid "IE10, Windows Metro (144x144px)"
-#~ msgstr "IE10, Windows Metro (144x144px)"
-
-#~ msgid "Icon 152x152"
-#~ msgstr "Ikon 152x152"
-
-#~ msgid "Must be 152x152 pixels .png"
-#~ msgstr "Måste vara 152x152 pixlar och format .png"
-
-#~ msgid "Icon 144x144"
-#~ msgstr "Ikon 144x144"
-
-#~ msgid "Must be 144x144 pixels .png"
-#~ msgstr "Måste vara 144x144 pixlar och format .png"
-
-#~ msgid "Must be a .ico containing 16x16px, 32x32px and 48x48px"
-#~ msgstr "Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px"
-
-#~ msgid "Metro tile color"
-#~ msgstr "Bakgrundsfärg på Metro-bricka"
-
-#~ msgid "Footer logotype"
-#~ msgstr "Logotyp i sidfot"
-
-#~ msgid "Primary"
-#~ msgstr "Primär"
-
-#~ msgid "Secondary"
-#~ msgstr "Sekundär"
-
-#~ msgid "Header logotype"
-#~ msgstr "Logotyp i sidhuvud"
-
-#~ msgid "Logotype to use in header"
-#~ msgstr "Logotyp att använda i sidhuvudet"
-
-#~ msgid "Header"
-#~ msgstr "Sidhuvud"
-
-#~ msgid "Business (default)"
-#~ msgstr "Business (standardval)"
-
-#~ msgid "Logotype"
-#~ msgstr "Logotyp"
-
-#~ msgid "Primary logotype"
-#~ msgstr "Primär logotyp"
-
-#~ msgid "Accepterar enbart .svg-filer"
-#~ msgstr "Accepterar enbart .svg-filer (Scalable Vector Graphics)."
-
-#~ msgid "Secondary logotype"
-#~ msgstr "Sekundär logotyp"
-
-#~ msgid ""
-#~ "Please upload a brand logo in the format .svg. The secondary logo refers "
-#~ "to a 100% white logotype that can be used on dark backgrounds."
-#~ msgstr ""
-#~ "Ladda upp din sekundära logotyp i .svg format (Scalable Vector Graphics). "
-#~ "Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt "
-#~ "och passar bäst på mörka eller färgade bakgrunder."
-
-#~ msgid "Display search"
-#~ msgstr "Visa sök"
-
-#~ msgid "In front-page hero/slider"
-#~ msgstr "Hero på startsidan"
-
-#~ msgid "In the header of all pages but front page"
-#~ msgstr "Headern på undersidor"
-
-#~ msgid "In the header of all pages"
-#~ msgstr "Headern på startsidan"
-
-#~ msgid "Icon in main menu"
-#~ msgstr "Alternativ i huvudmenyn"
 
 #, fuzzy
 #~| msgid "Below Settings"
