@@ -28,7 +28,7 @@ $drawer-width: $base * 40;
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255,.3);
     align-self: flex-end;
-    padding: $base * 4;
+    padding: $base * 4 $base * 4 $base * 12 $base * 4;
 }
 
 // Drawer Modifiers

@@ -106,6 +106,7 @@ class BaseController
         $this->data['showHeaderSearch']     = $this->showSearchForm('header');
         $this->data['showNavigationSearch'] = $this->showSearchForm('navigation'); 
         $this->data['showHeroSearch']       = $this->showSearchForm('hero'); 
+        $this->data['showMobileSearch']     = $this->showSearchForm('mobile');
         $this->data['searchQuery']          = get_search_query(); 
 
         //Current posttype
@@ -334,6 +335,19 @@ class BaseController
 
         if($location == "hero") {
             return in_array($location, $enabledLocations); 
+        }
+
+        if($location == "mobile") {
+
+            //Do not show on frontpage, if hero search is active
+            if(!in_array("hero", $enabledLocations) && is_front_page()) {
+                return true; 
+            }
+
+            //Show if not frontpage, not search and search is enabled anywhere else. 
+            if(!is_front_page() && !is_search() && !empty($enabledLocations)) {
+                return true; 
+            }
         }
 
         if($location == "header") {

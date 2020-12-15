@@ -30,7 +30,7 @@
                 'label' => $lang->searchOn . " " . $siteName,
                 'classList' => ['u-flex-grow--1'],
                 'size' => 'lg',
-                'radius' => 'xs',
+                'radius' => 'md',
                 'icon' => ['icon' => 'search']
             ])
             @endfield
