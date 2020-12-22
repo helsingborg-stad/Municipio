@@ -49,7 +49,15 @@
             width: 80%;
         }
 
+        @include mq('sm') {
+            width: 70%;
+        }
+
         @include mq('md') {
+            width: 50%;
+        }
+
+        @include mq('lg') {
             width: 30%;
         }
     }
