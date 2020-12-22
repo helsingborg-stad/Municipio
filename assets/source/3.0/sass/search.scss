@@ -21,7 +21,12 @@
     margin: 0 0 map-get($spacers, "2") 0;
 }
 
-
+#sidebar-slider-area--container {
+    .c-slider,
+    .c-slider__container {
+        border-radius: 0;
+    }
+}
 
 #sidebar-slider-area--container {
 
@@ -29,16 +34,24 @@
 
     #hero-search-form {
         color: rgb(61,61,61); 
-        width: 30%;
+        
         min-width: 300px;
         position: absolute;
-        top: calc(50% - #{$base*2});
+        top: calc(50% - #{$base*5});
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 3000;
         border: 1px solid #eee;
         border-radius: $border-radius-sm; 
         background-color: #fff; 
+
+        @include mq('xs') {
+            width: 80%;
+        }
+
+        @include mq('md') {
+            width: 30%;
+        }
     }
 
     #hero-search-form .c-button {
