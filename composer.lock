@@ -4,70 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09180182d2af0ac9b013d89d5dd9c06f",
+    "content-hash": "8a18e2adad844b6f8dfab97ca2537051",
     "packages": [
-        {
-            "name": "aristath/kirki",
-            "version": "v3.0.34",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aristath/kirki.git",
-                "reference": "8fb938f34e8093cbfa887ca9349898dd5a9084af"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aristath/kirki/zipball/8fb938f34e8093cbfa887ca9349898dd5a9084af",
-                "reference": "8fb938f34e8093cbfa887ca9349898dd5a9084af",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "codacy/coverage": "dev-master",
-                "composer/installers": "*",
-                "dealerdirect/phpcodesniffer-composer-installer": "*",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "phpunit/phpunit": "*",
-                "wp-coding-standards/wpcs": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "kirki.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "aristath",
-                    "email": "aristath@gmail.com",
-                    "homepage": "https://aristath.github.io",
-                    "role": "Developer"
-                },
-                {
-                    "name": "fovoc",
-                    "email": "kalliris.d@gmail.com",
-                    "homepage": "https://github.com/fovoc",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Extending the WordPress customizer",
-            "homepage": "https://aristath.github.io/kirki",
-            "keywords": [
-                "customizer",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/aristath/kirki/issues",
-                "source": "https://github.com/aristath/kirki/tree/develop"
-            },
-            "time": "2018-09-14T19:07:16+00:00"
-        },
         {
             "name": "benjamincrozat/blade",
             "version": "2.0.1",
