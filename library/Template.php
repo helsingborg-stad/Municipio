@@ -15,7 +15,7 @@ class Template
         $bladeInit = new BladeInitator($this->viewPaths);
         $this->bladeEngine = $bladeInit->getEngine();
 
-        /* add_action('init', array($this, 'registerViewPaths'), 10); */
+        add_action('init', array($this, 'registerViewPaths'), 10);
 
         $this->initCustomTemplates();
 
@@ -26,15 +26,6 @@ class Template
     }
 
     /**
-     * Init the component library
-     * @return void
-     */
-    /* public function initComonentLibrary(): void
-    {
-        new ComponentLibrary\init();
-    } */
-
-    /**
      * Register paths containing views
      * @return void
      */
@@ -43,7 +34,7 @@ class Template
         if ($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
             $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
             $viewPaths = array_merge($viewPaths, $externalViewPaths);
-            
+
             return $viewPaths;
         } else {
             wp_die("No view paths registered, please register at least one.");
@@ -56,11 +47,15 @@ class Template
      */
     public function initCustomTemplates(): void
     {
+
+
         $directory = MUNICIPIO_PATH . 'library/Controller/';
+
+
 
         foreach (@glob($directory . "*.php") as $file) {
             $class = '\Municipio\Controller\\' . basename($file, '.php');
-
+            
             if (!class_exists($class)) {
                 continue;
             }
@@ -88,7 +83,6 @@ class Template
      */
     public function loadViewData($view, $data = array())
     {
-
         //Get controller data
         $viewData = $this->accessProtected(
             $this->loadController(
@@ -117,6 +111,7 @@ class Template
      */
     public function loadController($template)
     {
+
         //Do something before controller creation
         do_action_deprecated('Municipio/blade/before_load_controller', $template, '3.0', 'Municipio/blade/beforeLoadController');
 
@@ -125,15 +120,11 @@ class Template
             $template = 'E404';
         }
 
-        $singularTemplates = [
-            'Page-two-column',
-            'Page'
-        ];
-
+        //Locate default controller
         $controller = \Municipio\Helper\Controller::locateController($template);
         
-        //Locate controller
-        if (in_array($template, $singularTemplates)) {
+        //Locate fallback controller
+        if (!$controller && is_numeric(get_queried_object_id())) {
             $controller = \Municipio\Helper\Controller::locateController('Singular');
         } elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
