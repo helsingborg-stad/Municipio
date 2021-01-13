@@ -22,3 +22,8 @@
         top: 5px;
     }
 }
+@media print {
+    .nav-helper {
+        display:none;
+    }
+}

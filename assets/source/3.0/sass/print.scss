@@ -26,7 +26,6 @@
 
     }
 
-
     // Links
     a,
     a:visited {
@@ -76,14 +75,14 @@
     .site-header {
         margin-bottom: 16px;
         margin-top: -16px;
+        height:70px;
 
         a:after {
             display: none;
         }
 
     }
-
-    // Avoid print page cut content in half.
+    
     #site-footer, img {
         display: unset;
         overflow: visible;
@@ -101,35 +100,17 @@
         margin-bottom: 0px;
     }
 
-
-
-    // Contact banner
-    .c-contact-banner__info {
-        float: none !important;
-    }
-
-    .c-contact-banner__info:after {
-        clear: both;
-    }
-
-    .c-contact-banner__item-icon,
-    .c-link.c-contact-banner__item-cta,
-    .modularity-mod-contact-banner {
-        display:none;
-    }
-
-        //Display or not - TODO: Add no-print class to elements.
-        //u-print-display--none
-
-    //plugin
+    footer,
+    #customer-feedback,
+    #_hjRemoteVarsFrame,
+    .vngage-banner,
+    .c-signature,
     .modularity-edit-module,
     .modularity-edit-module:before,
     .modularity-edit-module:after,
     .modularity-edit-module a,
     .modularity-edit-module a:before,
     .modularity-edit-module a:after,
-
-    //plugin
     .modularity-mod-player__wrapper,
     .menu-sidfotsmeny-container {
         display: none !important;
