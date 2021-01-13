@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_56a72f9b645b7",
-            "label": "Display search",
+            "label": "Visa s\u00f6k",
             "name": "search_display",
             "type": "checkbox",
             "instructions": "",
@@ -17,98 +17,16 @@
             },
             "layout": "vertical",
             "choices": {
-                "hero": "In front-page hero\/slider",
-                "header_sub": "In the header of all pages but front page",
-                "header": "In the header of all pages",
-                "mainmenu": "Icon in main menu"
+                "hero": "Hero p\u00e5 startsidan",
+                "header_sub": "Headern p\u00e5 undersidor",
+                "header": "Headern p\u00e5 startsidan",
+                "mainmenu": "Alternativ i huvudmenyn"
             },
             "default_value": [],
             "allow_custom": 0,
             "save_custom": 0,
             "toggle": 0,
             "return_format": "value"
-        },
-        {
-            "key": "field_56d3fa48a53d6",
-            "label": "Search field label",
-            "name": "search_label_text",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": 33,
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_56d3fa67a53d7",
-            "label": "Search field placeholder",
-            "name": "search_placeholder_text",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": 33,
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_56d3fa82a53d8",
-            "label": "Search button text",
-            "name": "search_button_text",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": 33,
-                "class": "",
-                "id": ""
-            },
-            "default_value": "S\u00f6k",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "readonly": 0,
-            "disabled": 0
-        },
-        {
-            "key": "field_5c0fb3bb76405",
-            "label": "Meddelande f\u00f6r tomt resultat",
-            "name": "empty_search_result_message",
-            "type": "textarea",
-            "instructions": "L\u00e4gg till meddelande n\u00e4r s\u00f6kning inte returnerar n\u00e5got resultat.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "L\u00e4gg till meddelande\u2026",
-            "maxlength": "",
-            "rows": "",
-            "new_lines": ""
         }
     ],
     "location": [
@@ -126,7 +44,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": ""
 }]
 

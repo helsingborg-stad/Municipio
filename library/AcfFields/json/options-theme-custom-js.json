@@ -7,7 +7,7 @@
             "label": "JavaScript",
             "name": "custom_js_input",
             "type": "textarea",
-            "instructions": "Enter your JS-code here. It will be wrapped with \"script\" tags and included on all pages.",
+            "instructions": "Skriv in din JS-kod h\u00e4r. Den kommer att omslutas med SCRIPT taggar och inkluderas p\u00e5 samtliga sidor.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -78,9 +78,7 @@
                         "head": "Include script in head",
                         "footer": "Include script in footer"
                     },
-                    "default_value": [
-                        "footer"
-                    ],
+                    "default_value": "footer",
                     "allow_null": 0,
                     "multiple": 0,
                     "ui": 0,
@@ -125,7 +123,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": ""
 }]
 
