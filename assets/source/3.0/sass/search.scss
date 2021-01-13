@@ -1,79 +1,83 @@
-.search-result-item{
-    /* Auto Layout */
-
-    padding: 16px 0px;
-    color: #565656;
-    
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 150%;
-    /* or 21px */
-
-    letter-spacing: 0.0025em;
-
-    /* Mono / Mörkare */
-
-    color: #565656;
-
-  
-    
-    &__title-link, &__title-link:link, &__title-link:visited, &__title-link:visited:hover {
-        text-decoration: none;
-        color:#AE0B05;
-    }
-
-    &__parent-title-link, &__parent-title-link:link, &__parent-title-link:visited, &__parent-title-link:visited:hover {
-        text-decoration: none;
-        color:#3D3D3D;
-    }
-
-
-    &__link-prefix{
-        font-weight: 700;
-
-    }
-   
-}
-
-.search-result-count{
-    border-bottom: 1px solid #E5E5E5;
-    max-width: max-content;
-}
-
-.search-modal{
-    background-color: unset;
+/* Popup search modal */ 
+.search-modal {
+    height: 100vh;
     box-shadow: none;
-    
-    & {
-        .c-field,
-        .c-button {
-            display: inline-block;
-            margin-bottom: 8px;
-        }
+    background-color: transparent;
+    display: flex;
+}
 
-        .c-field{
-            & input {
-                width:600px;
-            }
-        }
-    }
+.search-modal .c-modal__content {
+    margin: auto 0;
+}
 
-    
+.search-modal .c-form {
+    max-width: $base*75;
+    width: 90%; 
+    margin: auto;
+}
+
+.search-modal .c-typography__variant--h1 {
+    color: #fff; 
+    margin: 0 0 map-get($spacers, "2") 0;
 }
 
 #sidebar-slider-area--container {
+    .c-slider,
+    .c-slider__container {
+        border-radius: 0;
+    }
+}
+
+#sidebar-slider-area--container {
+
     position: relative;
+
     #hero-search-form {
-        width: 30%;
+        color: rgb(61,61,61); 
+        
         min-width: 300px;
         position: absolute;
-        top: 50%;
+        top: calc(50% - #{$base*5});
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 3000;
+        border: 1px solid #eee;
+        border-radius: $border-radius-sm; 
+        background-color: #fff; 
+
+        @include mq('xs') {
+            width: 80%;
+        }
+
+        @include mq('sm') {
+            width: 70%;
+        }
+
+        @include mq('md') {
+            width: 50%;
+        }
+
+        @include mq('lg') {
+            width: 30%;
+        }
     }
-    button {
-        float: right;
+
+    #hero-search-form .c-button {
+        border-radius: 0;
+        box-shadow: none; 
+        border-left: 1px solid #eee;
+        color: inherit;
+    }
+
+    #hero-search-form input[type="search"] {
+        border-radius: inherit;
+        background-color: inherit;
+        border: none; 
+        color: inherit;
+    }
+
+    #hero-search-form label {
+        color: inherit;
+        font-weight: bold;
     }
 }

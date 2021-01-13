@@ -619,12 +619,12 @@ class Navigation
         }
 
         //Filter for appending and removing objects from navgation
-        $result = apply_filters('Municipio/Navigation/Items', $result);
+        $result = apply_filters('Municipio/Navigation/Items', $result, $this->identifier);
 
         //Create nested array
         if (!empty($result) && is_array($result)) {
 
-        //Wheter to include top level or not
+            //Wheter to include top level or not
             if ($includeTopLevel === true) {
                 $pageStructure = $this->buildTree($result);
             } else {
@@ -639,7 +639,7 @@ class Navigation
             }
 
             //Return result
-            return $pageStructure;
+            return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier);
         }
 
         return false;

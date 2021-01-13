@@ -58,6 +58,7 @@
             @if($archiveTitle)
                 @typography([
                     "variant" => "h1",
+                    "element" => "h1",
                     "classList" => ['t-archive-title', 't-' . $postType . '-archive-title', 'u-margin__bottom--2']
                 ])
                     {{ $archiveTitle }}

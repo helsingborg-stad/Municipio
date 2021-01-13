@@ -59,7 +59,10 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showFilter']               = $this->showFilter($postType);
 
         //Language
-        $this->data['lang'] = (object) [];
+        if(!isset($this->data['lang'])) {
+            $this->data['lang'] = (object) [];
+        }
+        
         $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found;
         $this->data['lang']->publish          = __('Published', 'municipio');
         $this->data['lang']->updated          = __('Updated', 'municipio');
@@ -306,7 +309,18 @@ class Archive extends \Municipio\Controller\BaseController
      * @return bool
      */
     protected function showPagination($postType, $archiveBaseUrl, $wpQuery) {
-        return count($this->getPagination($postType, $archiveBaseUrl, $wpQuery)) > 1 ? true : false;
+
+        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery); 
+
+        if(is_null($pagesArray)) {
+            return false;
+        }
+
+        if(count($pagesArray) > 1) {
+            return true; 
+        }
+
+        return false; 
     }
 
     /**

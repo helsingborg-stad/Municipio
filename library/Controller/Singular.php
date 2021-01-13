@@ -13,6 +13,8 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function init()
     {   
+        
+        parent::init();
 
         //Get post data 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));

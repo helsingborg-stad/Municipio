@@ -160,13 +160,37 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-            echo $this->bladeEngine->make(
+
+            $markup = $this->bladeEngine->make(
                 $view,
                 array_merge(
                     $data,
                     array('errorMessage' => false)
                 )
             )->render();
+
+            // Adds the option to make html more readable.
+            // This is a option that is intended for permanent
+            // use. But cannot be implemented due to some html
+            // issues. 
+            if(class_exists('tidy') && isset($_GET['tidy'])) {
+                
+                $tidy = new \tidy;
+
+                $tidy->parseString($markup, [
+                    'indent'         => true,
+                    'output-xhtml'   => false,
+                    'wrap'           => PHP_INT_MAX
+                ], 'utf8');
+
+                $tidy->cleanRepair();
+
+                echo $tidy;
+
+            } else {
+                echo $markup; 
+            }
+
         } catch (\Throwable $e) {
             echo '<pre style="border: 3px solid #f00; padding: 10px;">';
             echo '<strong>' . $e->getMessage() . '</strong>';

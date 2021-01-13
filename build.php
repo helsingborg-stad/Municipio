@@ -24,7 +24,6 @@ $removables = [
     'gulpfile.js',
     'gulpfile.old.js',
     'webpack.config.js',
-    'node_modules',
     'package-lock.json',
     'package.json'
 ];

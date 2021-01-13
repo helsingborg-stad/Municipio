@@ -7,7 +7,6 @@ class Search extends \Municipio\Controller\Archive
 
     public function init()
     {
-        //Runt parent
         parent::init();
 
         //Translations
