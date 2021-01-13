@@ -1,20 +1,47 @@
 @media print {
+
+    @page {
+        size: auto;
+    }
+
     *,
     *:before,
     *:after {
         color: #000 !important; // Black prints faster: h5bp.com/s
         text-shadow: none !important;
-        background: transparent !important;
         box-shadow: none !important;
     }
 
+    // Typography
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+
+    }
+
+
+    // Links
     a,
     a:visited {
         text-decoration: underline;
+        color: #2e4453;
     }
 
     a[href]:after {
         content: " (" attr(href) ")";
+        font-size: 10pt;
+        padding: 16px 0px;
+    }
+
+    *:hover {
+        background: transparent;
     }
 
     abbr[title]:after {
@@ -28,16 +55,14 @@
         content: "";
     }
 
+    // Blocks
     pre,
     blockquote {
         border: 1px solid #999;
         page-break-inside: avoid;
     }
 
-    thead {
-        display: table-header-group; // h5bp.com/t
-    }
-
+    // breaks
     tr,
     img {
         page-break-inside: avoid;
@@ -47,50 +72,70 @@
         max-width: 100% !important;
     }
 
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
+    // header
+    .site-header {
+        margin-bottom: 16px;
+        margin-top: -16px;
 
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
-
-    // Bootstrap specific changes start
-
-    // Bootstrap components
-    .navbar {
-        display: none;
-    }
-    .btn,
-    .dropup > .btn {
-        > .caret {
-            border-top-color: #000 !important;
+        a:after {
+            display: none;
         }
-    }
-    .label {
-        border: 1px solid #000;
+
     }
 
-    .table {
-        border-collapse: collapse !important;
-
-        td,
-        th {
-            background-color: #fff !important;
-        }
-    }
-    .table-bordered {
-        th,
-        td {
-            border: 1px solid #ddd !important;
-        }
+    // Avoid print page cut content in half.
+    #site-footer, img {
+        display: unset;
+        overflow: visible;
+        page-break-before: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        break-before: avoid;
     }
 
-    .hidden-print {
+    .site-wrapper {
+        color-adjust: exact;
+    }
+
+    .o-container div {
+        margin-bottom: 0px;
+    }
+
+
+
+    // Contact banner
+    .c-contact-banner__info {
+        float: none !important;
+    }
+
+    .c-contact-banner__info:after {
+        clear: both;
+    }
+
+    .c-contact-banner__item-icon,
+    .c-link.c-contact-banner__item-cta,
+    .modularity-mod-contact-banner {
         display:none;
     }
+
+        //Display or not - TODO: Add no-print class to elements.
+        //u-print-display--none
+
+    //plugin
+    .modularity-edit-module,
+    .modularity-edit-module:before,
+    .modularity-edit-module:after,
+    .modularity-edit-module a,
+    .modularity-edit-module a:before,
+    .modularity-edit-module a:after,
+
+    //plugin
+    .modularity-mod-player__wrapper,
+    .menu-sidfotsmeny-container {
+        display: none !important;
+    }
+
+
+
+
 }

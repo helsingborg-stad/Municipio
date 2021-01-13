@@ -26,9 +26,7 @@
     .c-slider__container {
         border-radius: 0;
     }
-}
 
-#sidebar-slider-area--container {
 
     position: relative;
 
@@ -79,5 +77,11 @@
     #hero-search-form label {
         color: inherit;
         font-weight: bold;
+    }
+}
+@media print {
+
+    #sidebar-slider-area--container {
+        display:none;
     }
 }

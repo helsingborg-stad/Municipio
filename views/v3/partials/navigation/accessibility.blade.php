@@ -1,6 +1,7 @@
 @php $accessabilityItems = apply_filters('accessibility_items', array()); @endphp
 @if (!empty($accessabilityItems) && is_array($accessabilityItems))
-	<ul class="nav-accessibility nav-horizontal hidden-print rs_skip rs_preserve unlist u-display--none@xs u-display--none@sm">
+	<ul class="nav-accessibility nav-horizontal u-print-display--none
+				rs_skip rs_preserve unlist u-display--none@xs u-display--none@sm u-print-display--none">
 		@foreach ($accessabilityItems as $item) {{-- TODO: Move to controller. --}}
 			<li>
 				@icon([
