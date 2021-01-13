@@ -13,5 +13,6 @@ class Page extends \Municipio\Controller\Singular
      */
     public function init()
     {
+        parent::init(); 
     }
 }

@@ -18,6 +18,7 @@ class Archive extends \Municipio\Controller\BaseController
 
     public function init()
     {
+        parent::init(); 
 
         //Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';

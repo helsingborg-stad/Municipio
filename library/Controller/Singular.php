@@ -13,7 +13,6 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function init()
     {   
-        
         parent::init();
 
         //Get post data 

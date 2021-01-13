@@ -14,8 +14,7 @@ class FullWidth extends \Municipio\Controller\Singular
      */
     public function init()
     {
-        // Post data from Singular
-        $this->data = parent::init();
+        parent::init();
 
         $this->data['contentGridSize'] = 'o-grid-12@md';
 
