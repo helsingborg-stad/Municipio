@@ -58,11 +58,11 @@
                     @endif
                     <div class="o-grid">
                         @hasSection('sidebar-left')
-                            @if($showSidebars)
+                           
                                 <div class="o-grid-12 o-grid-3@md o-order-2 o-order-1@md">
                                     @yield('sidebar-left')
                                 </div>
-                            @endif
+                         
                         @endif
                 
                         <div class="o-grid-12 o-grid-auto@md o-order-1 o-order-2@md">
@@ -70,11 +70,11 @@
                         </div>
 
                         @hasSection('sidebar-right')
-                            @if($showSidebars)
+                      
                                 <div class="o-grid-12 o-grid-3@md o-order-3 o-order-3@md">
                                     @yield('sidebar-right')
                                 </div>
-                           @endif
+                     
                         @endif
                     </div>
                     @hasSection('below')

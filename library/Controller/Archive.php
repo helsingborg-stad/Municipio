@@ -2,6 +2,11 @@
 
 namespace Municipio\Controller;
 
+/**
+ * Class Archive
+ *
+ * @package Municipio\Controller
+ */
 class Archive extends \Municipio\Controller\BaseController
 {
     private static $gridSize;
@@ -9,6 +14,7 @@ class Archive extends \Municipio\Controller\BaseController
     private static $randomGridBase = array();
     private static $gridRow = array();
     private static $gridColumns = array();
+
 
     public function init()
     {
@@ -25,9 +31,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Sidebar
         $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType);
-
-        // Show or hide sidebars
-        $this->data['showSidebars']             = true;
 
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();

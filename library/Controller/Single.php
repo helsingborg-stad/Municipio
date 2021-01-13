@@ -10,10 +10,11 @@ namespace Municipio\Controller;
 class Single extends \Municipio\Controller\Singular
 {
 
+    /**
+     * @return array|void
+     */
     public function init()
     {
-        parent::init();
-        $this->data['showSidebars'] = true;
     }
 
 }

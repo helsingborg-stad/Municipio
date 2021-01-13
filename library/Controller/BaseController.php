@@ -89,7 +89,10 @@ class BaseController
         $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
-        
+
+        // Show sidebars if not set to false in template controllers
+        $this->data['showSidebars']         = true;
+
         //Google translate location
         $this->data['translateLocation']    = get_field('show_google_translate', 'option');
 
