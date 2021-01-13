@@ -23,7 +23,6 @@
     h2,
     h3 {
         page-break-after: avoid;
-
     }
 
     // Links
@@ -75,14 +74,13 @@
     .site-header {
         margin-bottom: 16px;
         margin-top: -16px;
-        height:70px;
+        height: 100px;
 
         a:after {
             display: none;
         }
-
     }
-    
+
     #site-footer, img {
         display: unset;
         overflow: visible;
