@@ -11,18 +11,48 @@ class Template
 
     public function __construct()
     {
+        //Blade runtime
         $this->viewPaths = $this->registerViewPaths();
         $bladeInit = new BladeInitator($this->viewPaths);
         $this->bladeEngine = $bladeInit->getEngine();
 
+        //Init custom tempaltes & views 
         add_action('init', array($this, 'registerViewPaths'), 10);
+        add_action('init', array($this, 'initCustomTemplates'), 10);
 
-        $this->initCustomTemplates();
-
+        //Loads custom controllers and views
         add_filter('template_redirect', array($this, 'addTemplateFilters'), 10);
-
+        add_filter('template_include', array($this, 'switchTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
+    }
+
+    /**
+     * Re-check if there is an custom template applied to the page.
+     * This switches incorrect view data to a real template if exists.
+     * 
+     * TODO: Investigate why we are getting faulty templates from 
+     * WordPress core functionality. 
+     *
+     * @param string $view
+     * @return string
+     */
+    public function switchTemplate($view) {
+
+        $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true ); 
+        
+        if($customTemplate) {
+            //Check if file exsists, before use
+            if(is_array($this->viewPaths) && !empty($this->viewPaths)) {
+                foreach($this->viewPaths as $path) {
+                    if(file_exists(rtrim($path, "/") . '/' . $customTemplate)) {
+                        return $customTemplate; 
+                    }
+                }
+            }
+        }
+
+        return $view; 
     }
 
     /**
@@ -48,10 +78,7 @@ class Template
     public function initCustomTemplates(): void
     {
 
-
         $directory = MUNICIPIO_PATH . 'library/Controller/';
-
-
 
         foreach (@glob($directory . "*.php") as $file) {
             $class = '\Municipio\Controller\\' . basename($file, '.php');
@@ -112,6 +139,7 @@ class Template
     public function loadController($template)
     {
 
+        
         //Do something before controller creation
         do_action_deprecated('Municipio/blade/before_load_controller', $template, '3.0', 'Municipio/blade/beforeLoadController');
 
@@ -119,6 +147,8 @@ class Template
         if ($template == '404') {
             $template = 'E404';
         }
+
+        
 
         //Locate default controller
         $controller = \Municipio\Helper\Controller::locateController($template);
