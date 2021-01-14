@@ -9,7 +9,6 @@ class E404 extends \Municipio\Controller\BaseController
 
     public function init()
     {
-        //Runt parent
         parent::init();
 
         //Get local instance of wp_query

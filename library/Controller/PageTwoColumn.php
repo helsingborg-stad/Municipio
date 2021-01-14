@@ -7,7 +7,7 @@ namespace Municipio\Controller;
  *
  * @package Municipio\Controller
  */
-class FullWidth extends \Municipio\Controller\Singular
+class PageTwoColumn extends \Municipio\Controller\Singular
 {
     /**
      * @return array|void
@@ -16,9 +16,9 @@ class FullWidth extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $this->data['contentGridSize'] = 'o-grid-12@md';
+        //$this->data['contentGridSize'] = 'o-grid-12@md';
 
         // Show or hide sidebars
-        $this->data['showSidebars'] = false;
+        //$this->data['showSidebars'] = true;
     }
 }

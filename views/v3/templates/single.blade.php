@@ -11,10 +11,11 @@
 @stop
 
 @section('sidebar-left')
-    @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
-
-    @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
-    @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
+    @if($showSidebars)
+        @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+        @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
+        @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
+    @endif
 @stop
 
 @section('content')
@@ -25,6 +26,7 @@
 
     @section('loop')
         {!! $hook->innerLoopStart !!}
+        
         @if($post)
             @include('partials.article', (array) $post)
         @endif
@@ -49,7 +51,9 @@
 @stop
 
 @section('sidebar-right')
-    @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
+    @if($showSidebars)
+        @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
+    @endif
 @stop
 
 @section('below')

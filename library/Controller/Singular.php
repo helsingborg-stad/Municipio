@@ -8,9 +8,11 @@ namespace Municipio\Controller;
  */
 class Singular extends \Municipio\Controller\BaseController
 {
+    /**
+     * @return array|void
+     */
     public function init()
     {   
-        
         parent::init();
 
         //Get post data 
@@ -62,8 +64,7 @@ class Singular extends \Municipio\Controller\BaseController
         //Should link author page
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
 
-        // Show or hide sidebars
-        $this->data['showSidebars'] = true;
+        return $this->data;
     }
 
     /**
