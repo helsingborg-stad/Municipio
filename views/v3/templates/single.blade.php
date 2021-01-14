@@ -4,7 +4,7 @@
 @stop
 
 @section('above')
-    <div class="nav-helper">
+    <div class="nav-helper u-print-display--none">
         @includeIf('partials.navigation.breadcrumb')
         @includeIf('partials.navigation.accessibility')
     </div>

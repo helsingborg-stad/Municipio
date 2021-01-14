@@ -3,7 +3,7 @@
     'id'        => 'header-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['u-margin__left--2', 'u-display--flex@lg u-display--flex@xl u-display--none@xs u-display--none@sm u-display--none@md']
+    'classList' => ['u-print-display--none','u-margin__left--2', 'u-display--flex@lg u-display--flex@xl u-display--none@xs u-display--none@sm u-display--none@md']
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([

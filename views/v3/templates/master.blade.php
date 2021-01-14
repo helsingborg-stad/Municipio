@@ -50,7 +50,7 @@
             @section('layout')
                 <div class="o-container">
                     @hasSection('above')
-                        <div class="o-grid">
+                        <div class="o-grid u-print-display--none">
                             <div class="o-grid-12">
                                 @yield('above')
                             </div>
@@ -58,11 +58,9 @@
                     @endif
                     <div class="o-grid">
                         @hasSection('sidebar-left')
-                           
-                                <div class="o-grid-12 o-grid-3@md o-order-2 o-order-1@md">
+                                <div class="o-grid-12 o-grid-3@md o-order-2 o-order-1@md u-print-display--none">
                                     @yield('sidebar-left')
                                 </div>
-                         
                         @endif
                 
                         <div class="o-grid-12 o-grid-auto@md o-order-1 o-order-2@md">
@@ -70,11 +68,9 @@
                         </div>
 
                         @hasSection('sidebar-right')
-                      
-                                <div class="o-grid-12 o-grid-3@md o-order-3 o-order-3@md">
+                                <div class="o-grid-12 o-grid-3@md o-order-3 o-order-3@md u-print-display--none">
                                     @yield('sidebar-right')
                                 </div>
-                     
                         @endif
                     </div>
                     @hasSection('below')

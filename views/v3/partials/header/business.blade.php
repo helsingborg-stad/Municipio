@@ -33,7 +33,9 @@
                 ])
                 @endbutton
 
-                <nav role="navigation" aria-label="{{$lang->relatedLinks}}" class="u-display--flex@lg u-display--flex@lx u-display--none@xs u-display--none@sm u-display--none@md">
+                <nav role="navigation" aria-label="{{$lang->relatedLinks}}"
+                     class="u-display--flex@lg u-display--flex@lx u-display--none@xs
+                            u-display--none@sm u-display--none@md u-print-display--none">
                     @group([
                         'classList' => [
                             'u-justify-content--center@xs', 
@@ -71,7 +73,8 @@
 
 @section('secondary-navigation')
     @if (!empty($primaryMenuItems))
-        <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs u-display--none@sm u-display--none@md">
+        <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs
+                        u-display--none@sm u-display--none@md u-print-display--none">
             <div class="o-container">
                 <nav role="navigation" aria-label="{{ $lang->primaryNavigation }}">
                     @nav([

@@ -2,7 +2,7 @@
     wp_nav_menu(array(
         'theme_location' => 'header-tabs-menu',
         'container' => 'nav',
-        'container_class' => 'hidden-md hidden-lg hidden-print',
+        'container_class' => 'hidden-md hidden-lg u-print-display--none',
         'container_id' => '',
         'menu_class' => 'navbar nav-center navbar-creamy navbar-creamy-inner-shadow nav-horizontal',
         'menu_id' => 'help-menu-top-bar',

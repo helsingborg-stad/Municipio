@@ -2,7 +2,7 @@
     'id'        => 'hero-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['c-form--hidden', 'u-box-shadow--5']
+    'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none']
 ])
     @group(['direction' => 'horizontal'])
         @field([

@@ -7,3 +7,6 @@ vendor/
 .env
 
 npm-debug.log
+
+/views/v2/*
+/views/v1/*

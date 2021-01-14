@@ -4,7 +4,7 @@
     'id'        => 'mobile-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['u-color__bg--light', 'u-display--none@lg']
+    'classList' => ['u-color__bg--light', 'u-display--none@lg', 'u-print-display--none']
 ])
   <div class="o-container u-padding__y--1">
     <div class="o-grid o-grid--no-gutter o-grid--no-margin">

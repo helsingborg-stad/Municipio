@@ -15,7 +15,7 @@
     @section('footer-body')
         <div class="o-container">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
-                <div class="o-grid">
+                <div class="o-grid u-print-display--none">
                     <div class="o-grid-12">
                         <nav>
                             <ul class="nav nav-help nav-horizontal">

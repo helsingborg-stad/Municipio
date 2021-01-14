@@ -24,7 +24,7 @@
                 </button>
 
                 @if (!empty($primaryMenuItems))
-                    <nav  role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md">
+                    <nav  role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
                         @nav([
                             'items' => $primaryMenuItems,
                             'direction' => 'horizontal',

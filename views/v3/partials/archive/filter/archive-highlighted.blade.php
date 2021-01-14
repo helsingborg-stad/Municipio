@@ -11,7 +11,7 @@
                     {{$taxonomy->label}}
                 @endtypography
             </li>
-            <ul class="nav nav-pills nav-horizontal nav-pills--badge">
+            <ul class="nav nav-pills nav-horizontal nav-pills--badge u-print-display--none">
                 @foreach ($taxonomy->values as $term)
                     <li>
 
