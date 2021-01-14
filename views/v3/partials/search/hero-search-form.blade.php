@@ -24,7 +24,7 @@
             'id' => 'search-form--submit',
             'text' => $lang->search,
             'color' => 'default',
-            'type' => 'basic',
+            'type' => 'submit',
             'size' => 'lg',
             'attributeList' => [
                 'id' => 'search-form--submit'
