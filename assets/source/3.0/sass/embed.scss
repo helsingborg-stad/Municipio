@@ -1,25 +1,46 @@
 .embed {
-    overflow: hidden;
-    position: relative;
-    height: 0;
+	overflow: hidden;
+	position: relative;
+	height: 0;
 
-    &.embed__ratio--16-9 {
-        padding-bottom: 56.25%;
-    }
+	&.embed__ratio--16-9 {
+		padding-bottom: 56.25%;
+	}
 
-    iframe {
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-    }
+	iframe {
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
 
-    .embed__fit--cover {
-        width: 100%;
-        height: 100%;
-        position:absolute;
-        top:0;
-        object-fit: cover;
-    }
+	.embed__fit--cover {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		object-fit: cover;
+	}
+}
+
+.modularity-mod-player {
+	position: relative;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+
+	&__ratio {
+		&--16-9 {
+			padding-bottom: 56.25%;
+		}
+	}
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
 }
