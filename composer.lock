@@ -345,12 +345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "2da95f74fe24d246e183e85dc61803b1792c285f"
+                "reference": "8ee9df522b0a77d961aa3e7a135cdc7eec3c7875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/2da95f74fe24d246e183e85dc61803b1792c285f",
-                "reference": "2da95f74fe24d246e183e85dc61803b1792c285f",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/8ee9df522b0a77d961aa3e7a135cdc7eec3c7875",
+                "reference": "8ee9df522b0a77d961aa3e7a135cdc7eec3c7875",
                 "shasum": ""
             },
             "default-branch": true,
@@ -375,7 +375,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-component-library/issues",
                 "source": "https://github.com/helsingborg-stad/blade-component-library/tree/master"
             },
-            "time": "2021-01-18T13:32:24+00:00"
+            "time": "2021-01-20T12:16:57+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
