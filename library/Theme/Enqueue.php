@@ -249,7 +249,7 @@ class Enqueue
             return $tag;
         }
 
-        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', array('readspeaker'), $handle);
+        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', array('readspeaker', 'jquery-core', 'jquery-migrate'), $handle);
         $disableDeferedLoading = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
 
         if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
