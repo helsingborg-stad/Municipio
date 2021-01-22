@@ -26,7 +26,7 @@
             'id' => 'search-form--submit',
             'text' => $lang->search,
             'color' => 'default',
-            'type' => 'basic',
+            'type' => 'submit',
             'size' => 'sm',
             'attributeList' => [
                 'id' => 'header-search-form--submit'
