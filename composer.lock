@@ -345,12 +345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "8ee9df522b0a77d961aa3e7a135cdc7eec3c7875"
+                "reference": "ad089d1ac90b5bf53115ff4c1df515cbb2982e32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/8ee9df522b0a77d961aa3e7a135cdc7eec3c7875",
-                "reference": "8ee9df522b0a77d961aa3e7a135cdc7eec3c7875",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/ad089d1ac90b5bf53115ff4c1df515cbb2982e32",
+                "reference": "ad089d1ac90b5bf53115ff4c1df515cbb2982e32",
                 "shasum": ""
             },
             "default-branch": true,
@@ -375,7 +375,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-component-library/issues",
                 "source": "https://github.com/helsingborg-stad/blade-component-library/tree/master"
             },
-            "time": "2021-01-20T12:16:57+00:00"
+            "time": "2021-01-22T10:21:27+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -816,12 +816,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7de282e6f59606ab0c18d42fce090835595e6d06"
+                "reference": "a417de2608d14c0598991d1267396d2fd4b7c183"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7de282e6f59606ab0c18d42fce090835595e6d06",
-                "reference": "7de282e6f59606ab0c18d42fce090835595e6d06",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/a417de2608d14c0598991d1267396d2fd4b7c183",
+                "reference": "a417de2608d14c0598991d1267396d2fd4b7c183",
                 "shasum": ""
             },
             "require": {
@@ -837,7 +837,7 @@
                 "phpmd/phpmd": "^2.9",
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^0.12.54",
-                "phpunit/phpunit": "^7.5 || ^8.0",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.14",
                 "squizlabs/php_codesniffer": "^3.4"
             },
             "default-branch": true,
@@ -902,7 +902,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-25T15:48:45+00:00"
+            "time": "2021-01-22T08:40:05+00:00"
         },
         {
             "name": "psr/container",
