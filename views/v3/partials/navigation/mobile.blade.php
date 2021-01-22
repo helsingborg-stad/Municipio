@@ -6,8 +6,7 @@
         ],
         'items' => $menuItems,
         'direction' => 'vertical',
-        'includeToggle' => true,
-        'aria-orientation' => 'vertical'
+        'includeToggle' => true
     ])
     @endnav
 @else
