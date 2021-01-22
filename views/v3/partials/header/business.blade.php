@@ -51,7 +51,10 @@
                                 'href'  => $item['href'], 
                                 'text'  => $item['label'],
                                 'size'  => 'sm',
-                                'style' => 'basic'
+                                'style' => 'basic',
+                                'attributeList' => [
+                                    'role' => 'menuitem'
+                                ]
                             ])
                             @endbutton
                         @endforeach
