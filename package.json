@@ -64,7 +64,7 @@
     "file-loader": "^3.0.1",
     "filemanager-webpack-plugin": "^2.0.5",
     "fs": "0.0.1-security",
-    "get-video-id": "^3.1.6",
+    "get-video-id": "^3.1.7",
     "glob": "^7.1.6",
     "gsap": "^1.20.3",
     "hamburgers": "^1.1.3",
