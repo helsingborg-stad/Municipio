@@ -345,12 +345,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "a824baeba8dc2f1d08405d0de783422851b2aae6"
+                "reference": "91fa0d367fa5e446f0bc77e676811cf6dd90074c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/a824baeba8dc2f1d08405d0de783422851b2aae6",
-                "reference": "a824baeba8dc2f1d08405d0de783422851b2aae6",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/91fa0d367fa5e446f0bc77e676811cf6dd90074c",
+                "reference": "91fa0d367fa5e446f0bc77e676811cf6dd90074c",
                 "shasum": ""
             },
             "default-branch": true,
@@ -375,7 +375,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-component-library/issues",
                 "source": "https://github.com/helsingborg-stad/blade-component-library/tree/master"
             },
-            "time": "2021-01-22T13:15:28+00:00"
+            "time": "2021-01-26T15:06:41+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -816,12 +816,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "48b5345ddc38596c75cb3b5dcce631da45fa3b24"
+                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/48b5345ddc38596c75cb3b5dcce631da45fa3b24",
-                "reference": "48b5345ddc38596c75cb3b5dcce631da45fa3b24",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
+                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +902,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T10:26:24+00:00"
+            "time": "2021-01-26T20:46:41+00:00"
         },
         {
             "name": "psr/container",
@@ -1127,12 +1127,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "edfa86f186c81bd24c72d215981464ea81eba62f"
+                "reference": "af4987aa4a5630e9615be9d9c3ed1b0f24ca449c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/edfa86f186c81bd24c72d215981464ea81eba62f",
-                "reference": "edfa86f186c81bd24c72d215981464ea81eba62f",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/af4987aa4a5630e9615be9d9c3ed1b0f24ca449c",
+                "reference": "af4987aa4a5630e9615be9d9c3ed1b0f24ca449c",
                 "shasum": ""
             },
             "require": {
@@ -1173,7 +1173,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/4.4"
+                "source": "https://github.com/symfony/debug/tree/v4.4.19"
             },
             "funding": [
                 {
@@ -1189,7 +1189,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-11T08:57:50+00:00"
+            "time": "2021-01-27T09:09:26+00:00"
         },
         {
             "name": "symfony/finder",
