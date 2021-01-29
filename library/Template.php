@@ -2,7 +2,7 @@
 
 namespace Municipio;
 
-use BladeComponentLibrary\Init as BladeInitator;
+use ComponentLibrary\Init as BladeInitator;
 
 class Template
 {
