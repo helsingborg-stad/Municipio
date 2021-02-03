@@ -41,10 +41,16 @@ class Singular extends \Municipio\Controller\BaseController
         );
 
         //Comments
-        $this->data['comments'] = get_comments(array(
-            'post_id'   => $this->data['post']->id,
-            'order'     => get_option('comment_order')
-        ));
+        if(get_option('comment_moderation') === '1') {
+            $this->data['comments'] = get_approved_comments($this->data['post']->id, array(
+                'order'     => get_option('comment_order')
+            ));
+        }else {    
+            $this->data['comments'] = get_comments(array(
+                'post_id'   => $this->data['post']->id,
+                'order'     => get_option('comment_order')
+            ));            
+        }
 
         //Replies
         $this->data['replyArgs'] = array(
