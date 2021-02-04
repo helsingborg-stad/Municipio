@@ -26,7 +26,6 @@
     ],
     "require": {
         "composer/installers": "^1.0",
-        "helsingborg-stad/blade-component-library": "dev-master",
         "helsingborg-stad/global-blade-engine": "^1.2",
         "symfony/debug": "^4.2",
         "symfony/finder": "4.4.8",
