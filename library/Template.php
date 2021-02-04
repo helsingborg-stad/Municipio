@@ -2,8 +2,7 @@
 
 namespace Municipio;
 
-use ComponentLibrary\Init as BladeInitator;
-
+use ComponentLibrary\Init as ComponentLibraryInit;
 class Template
 {
     private $bladeEngine = null;
@@ -13,8 +12,8 @@ class Template
     {
         //Blade runtime
         $this->viewPaths = $this->registerViewPaths();
-        $bladeInit = new BladeInitator($this->viewPaths);
-        $this->bladeEngine = $bladeInit->getEngine();
+        $init = new ComponentLibraryInit($this->viewPaths);
+        $this->bladeEngine = $init->getEngine();
 
         //Init custom tempaltes & views 
         add_action('init', array($this, 'registerViewPaths'), 10);
