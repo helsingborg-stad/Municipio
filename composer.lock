@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a18e2adad844b6f8dfab97ca2537051",
+    "content-hash": "1ad9f5c8c73fe0025f8c4160b136d712",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -338,44 +338,6 @@
                 "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues"
             },
             "time": "2018-05-29T07:52:24+00:00"
-        },
-        {
-            "name": "helsingborg-stad/blade-component-library",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "879c7edede4463bb49ebcde2703e9d22fbca632b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/879c7edede4463bb49ebcde2703e9d22fbca632b",
-                "reference": "879c7edede4463bb49ebcde2703e9d22fbca632b",
-                "shasum": ""
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "BladeComponentLibrary\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Thulin",
-                    "email": "sebastian.thulin@helsingborg.se"
-                }
-            ],
-            "description": "A component library based upon blade engine.",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/blade-component-library/issues",
-                "source": "https://github.com/helsingborg-stad/blade-component-library/tree/master"
-            },
-            "time": "2021-01-27T15:50:23+00:00"
         },
         {
             "name": "helsingborg-stad/blade-engine-wrapper",
@@ -1570,14 +1532,79 @@
                 "source": "https://github.com/symfony/translation-contracts/tree/v2.0.1"
             },
             "time": "2019-11-18T17:27:11+00:00"
+        },
+        {
+            "name": "tgmpa/tgm-plugin-activation",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TGMPA/TGM-Plugin-Activation.git",
+                "reference": "2d34264f4fdcfcc60261d490ff2e689f0c33730c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TGMPA/TGM-Plugin-Activation/zipball/2d34264f4fdcfcc60261d490ff2e689f0c33730c",
+                "reference": "2d34264f4fdcfcc60261d490ff2e689f0c33730c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
+                "phpcompatibility/phpcompatibility-wp": "^2.0",
+                "wp-coding-standards/wpcs": "^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "class-tgm-plugin-activation.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Griffin",
+                    "homepage": "http://thomasgriffinmedia.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Gary Jones",
+                    "homepage": "https://github.com/GaryJones",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "homepage": "https://github.com/jrfnl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "TGM Plugin Activation is a PHP library that allows you to easily require or recommend plugins for your WordPress themes (and plugins).",
+            "homepage": "http://tgmpluginactivation.com",
+            "keywords": [
+                "activation",
+                "library",
+                "plugins",
+                "theme",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/TGMPA/TGM-Plugin-Activation/issues",
+                "source": "https://github.com/TGMPA/TGM-Plugin-Activation"
+            },
+            "time": "2020-01-22T04:31:23+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "helsingborg-stad/blade-component-library": 20,
-        "helsingborg-stad/blade-engine-wrapper": 20
+        "helsingborg-stad/blade-engine-wrapper": 20,
+        "tgmpa/tgm-plugin-activation": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
