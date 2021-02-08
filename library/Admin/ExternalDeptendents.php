@@ -49,7 +49,8 @@ class ExternalDeptendents
         'name'              => 'Component library',
         'slug'              => 'component-library',
         'required'          => true,
-        'force_activation'  => true
+        'force_activation'  => true,
+        'source'            => 'https://github.com/helsingborg-stad/component-library/archive/master.zip' 
       ]; 
 
       //Modularity
@@ -57,7 +58,8 @@ class ExternalDeptendents
         'name'              => 'Modularity',
         'slug'              => 'modularity',
         'required'          => false,
-        'force_activation'  => false
+        'force_activation'  => false,
+        'source'            => 'https://github.com/helsingborg-stad/Modularity/archive/3.0/develop.zip'
       ]; 
 
       tgmpa($plugins,[
