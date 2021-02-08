@@ -39,9 +39,11 @@ class ExternalDeptendents
       //Advanced custom fields
       $plugins[] = [
         'name'              => 'Advanced custom fields PRO',
-        'slug'              => 'advanced-custom-fields-pro',
+        'slug'              => 'advanced-custom-fields-prossss',
         'required'          => true,
-        'force_activation'  => true
+        'force_activation'  => true,
+        'source'            => (defined('ACF_LICENSE_KEY') ? 'https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=' . ACF_LICENSE_KEY : ' [License key not available, define ACF_LICENSE_KEY in configuration]'),
+        'is_callable'       => array('acf', 'helpers_get_path')
       ]; 
 
       //Component library
@@ -50,7 +52,8 @@ class ExternalDeptendents
         'slug'              => 'component-library',
         'required'          => true,
         'force_activation'  => true,
-        'source'            => 'https://github.com/helsingborg-stad/component-library/archive/master.zip' 
+        'source'            => 'https://github.com/helsingborg-stad/component-library/archive/master.zip',
+        'is_callable'       => array('ComponentLibrary', 'enqueueStyles')
       ]; 
 
       //Modularity
@@ -59,7 +62,8 @@ class ExternalDeptendents
         'slug'              => 'modularity',
         'required'          => false,
         'force_activation'  => false,
-        'source'            => 'https://github.com/helsingborg-stad/Modularity/archive/3.0/develop.zip'
+        'source'            => 'https://github.com/helsingborg-stad/Modularity/archive/3.0/develop.zip',
+        'is_callable'       => array('Modularity', 'addCaps')
       ]; 
 
       tgmpa($plugins,[
@@ -72,7 +76,7 @@ class ExternalDeptendents
           'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
           'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
           'is_automatic' => false,                   // Automatically activate plugins after installation or not.
-          'message'      => 'Important notice: This platform is intended to be used with composer, please install all requirements with composer.',
+          'message'      => '<strong style="color: #ff0000;">Important notice: This platform is intended to be used with composer, please install all requirements with composer.</strong>',
       ]);
     }
 }
