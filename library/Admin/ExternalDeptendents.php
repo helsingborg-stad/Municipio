@@ -53,7 +53,7 @@ class ExternalDeptendents
         'required'          => true,
         'force_activation'  => true,
         'source'            => 'https://github.com/helsingborg-stad/component-library/archive/master.zip',
-        'is_callable'       => array('ComponentLibrary', 'enqueueStyles')
+        'is_callable'       => 'component_library'
       ]; 
 
       //Modularity
