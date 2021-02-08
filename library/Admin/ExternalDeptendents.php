@@ -39,7 +39,7 @@ class ExternalDeptendents
       //Advanced custom fields
       $plugins[] = [
         'name'              => 'Advanced custom fields PRO',
-        'slug'              => 'advanced-custom-fields-prossss',
+        'slug'              => 'advanced-custom-fields-pro',
         'required'          => true,
         'force_activation'  => true,
         'source'            => (defined('ACF_LICENSE_KEY') ? 'https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=' . ACF_LICENSE_KEY : ' [License key not available, define ACF_LICENSE_KEY in configuration]'),
@@ -63,7 +63,7 @@ class ExternalDeptendents
         'required'          => false,
         'force_activation'  => false,
         'source'            => 'https://github.com/helsingborg-stad/Modularity/archive/3.0/develop.zip',
-        'is_callable'       => array('Modularity', 'addCaps')
+        'is_callable'       => 'modularity_register_module'
       ]; 
 
       tgmpa($plugins,[
