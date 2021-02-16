@@ -33,7 +33,7 @@ class CommentsFilters
     }
 
     /**
-     * Check reCaptcha before comment is saved to post
+     * Check reCaptcha Keys
      * @return void
      */
     public function validateReCaptcha()
@@ -44,6 +44,9 @@ class CommentsFilters
         \Municipio\Helper\ReCaptcha::validateReCaptcha();
     }
 
+    /**
+     * Check reCaptcha before comment is saved to post
+     */
     public function recaptchaConstants() {
         \Municipio\Helper\ReCaptcha::recaptchaConstants();
     }
