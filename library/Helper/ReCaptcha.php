@@ -12,33 +12,33 @@ class ReCaptcha
     {
         if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
 
-            wp_enqueue_script('municipio-google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . G_RECAPTCHA_KEY);
+            wp_enqueue_script('municipio-google-recaptcha',
+                'https://www.google.com/recaptcha/api.js?render=' . G_RECAPTCHA_KEY);
+
             wp_add_inline_script('municipio-google-recaptcha', "
             
                   var interval = setInterval(function(){
                   if(window.grecaptcha){
-                        grecaptcha.ready(function() {
-                            grecaptcha.execute('" . G_RECAPTCHA_KEY . "', {action: 'homepage'}).then(function(token) {
-                                document.getElementById('g-recaptcha-response').value = token;
-                            });
+                    grecaptcha.ready(function() {
+                        grecaptcha.execute('" . G_RECAPTCHA_KEY . "', {action: 'homepage'}).then(function(token) {
+                            document.querySelector('.g-recaptcha-response').value = token;
                         });
+                    });
                     clearInterval(interval);
                   }
                 }, 100);
-            
-            ", 'after');
+            ");
         }
     }
 
     /**
-     * Check if Google reCaptcha request is valid
+     * Verify Google reCaptcha request
      * @param $response
      * @return bool
      */
     public static function controlReCaptcha($response): bool
     {
         if (defined('G_RECAPTCHA_SECRET') && $response) {
-
             $verify = wp_remote_get('https://www.google.com/recaptcha/api/siteverify?secret=' . G_RECAPTCHA_SECRET
                 . '&response=' . $response);
             $recaptcha = json_decode($verify["body"]);
@@ -47,6 +47,8 @@ class ReCaptcha
                 return $recaptcha->success;
             }
         }
+
+        return false;
     }
 
     /**
@@ -70,7 +72,7 @@ class ReCaptcha
     public static function validateReCaptcha()
     {
         $response = isset($_POST['g-recaptcha-response']) ? esc_attr($_POST['g-recaptcha-response']) : '';
-        $reCaptcha = \Municipio\Helper\ReCaptcha::controlReCaptcha($response);
+        $reCaptcha = self::controlReCaptcha($response);
 
         if (!$reCaptcha) {
             wp_die(sprintf('<strong>%s</strong>:&nbsp;%s', __('Error', 'municipio'),

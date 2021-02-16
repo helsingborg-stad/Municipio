@@ -86,7 +86,8 @@ class CommentsActions
      */
     public static function getInitialCommentForm() {
 
-        $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" value="" />' : '';
+        $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" class="g-recaptcha-response" 
+            id="g-recaptcha-response" name="g-recaptcha-response" value="" />' : '';
 
         ob_start();
         ob_get_clean();
