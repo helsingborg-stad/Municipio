@@ -5,21 +5,77 @@ namespace Municipio\Helper;
 class ReCaptcha
 {
     /**
-     * Check if Google reCaptcha request is valid
-     * @param  string $response Google reCaptcha response
-     * @return bool             If valid or not
+     * Enqueue Google reCAPTCHA
+     * @return void
      */
-    public static function controlReCaptcha($response) : bool
+    public static function enqueueReCaptcha()
     {
-        $g_recaptcha_secret = defined('G_RECAPTCHA_SECRET') ? G_RECAPTCHA_SECRET : '';
+        if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
 
-        // Make a GET request to the Google reCAPTCHA server
-        $request = wp_remote_get('https://www.google.com/recaptcha/api/siteverify?secret=' . $g_recaptcha_secret . '&response=' . $response . '&remoteip=' . $_SERVER["REMOTE_ADDR"]);
+            wp_enqueue_script('municipio-google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . G_RECAPTCHA_KEY);
+            wp_add_inline_script('municipio-google-recaptcha', "
+            
+                  var interval = setInterval(function(){
+                  if(window.grecaptcha){
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('" . G_RECAPTCHA_KEY . "', {action: 'homepage'}).then(function(token) {
+                                //console.log(token);
+                                document.getElementById('g-recaptcha-response').value = token;
+                            });
+                        });
+                    clearInterval(interval);
+                  }
+                }, 100);
+            
+            ", 'after');
+        }
+    }
 
-        // Get the request response body
-        $response_body = wp_remote_retrieve_body($request);
-        $result = json_decode($response_body, true);
+    /**
+     * Check if Google reCaptcha request is valid
+     * @param $response
+     * @return bool
+     */
+    public static function controlReCaptcha($response): bool
+    {
+        if (defined('G_RECAPTCHA_SECRET') && $response) {
 
-        return $result['success'];
+            $verify = wp_remote_get('https://www.google.com/recaptcha/api/siteverify?secret=' . G_RECAPTCHA_SECRET
+                . '&response=' . $response);
+            $recaptcha = json_decode($verify["body"]);
+
+            if ($recaptcha->score >= 0.5) {
+                return $recaptcha->success;
+            }
+        }
+    }
+
+    /**
+     * Add admin notice if Google reCaptcha constants is missing
+     */
+    public static function recaptchaConstants()
+    {
+        if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
+            return;
+        }
+
+        $class = 'c-notice c-notice--warning';
+        $message = __('Municipio: constant \'G_RECAPTCHA_KEY\' or \'G_RECAPTCHA_SECRET\' is not defined.', 'municipio');
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+    }
+
+    /**
+     * Check reCaptcha before comment is saved to post
+     * @return void
+     */
+    public static function validateReCaptcha()
+    {
+        $response = isset($_POST['g-recaptcha-response']) ? esc_attr($_POST['g-recaptcha-response']) : '';
+        $reCaptcha = \Municipio\Helper\ReCaptcha::controlReCaptcha($response);
+
+        if (!$reCaptcha) {
+            wp_die(sprintf('<strong>%s</strong>:&nbsp;%s', __('Error', 'municipio'),
+                __('reCaptcha verification failed', 'municipio')));
+        }
     }
 }

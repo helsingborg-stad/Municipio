@@ -85,14 +85,11 @@ class CommentsActions
      *
      */
     public static function getInitialCommentForm() {
-        $key = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
-        $reCaptcha = (!is_user_logged_in(0)) ?
-            '<div class="g-recaptcha" data-sitekey="' . $key . '"></div></div>' : '';
+
+        $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" value="" />' : '';
 
         ob_start();
         ob_get_clean();
-
-        $current_user = wp_get_current_user();
 
         $args = array(
             'id_form'           => 'commentform',
@@ -114,11 +111,12 @@ class CommentsActions
                     type="submit" 
                     id="%2$s" 
                     class="u-padding__bottom--3%3$s" 
-                    value="%4$s" /></div>',
+                    value="%4$s" 
+                    /></div>',
             'format'            => 'html5',
             'cancel_reply_link' => __( 'Cancel reply' ),
             'comment_field'     =>
-                $reCaptcha. '<div class="c-textarea">
+                $reCaptcha . '<div class="c-textarea">
                                 <textarea 
                                     id="comment"
                                     name="comment"
