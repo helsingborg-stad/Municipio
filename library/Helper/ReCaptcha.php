@@ -19,7 +19,6 @@ class ReCaptcha
                   if(window.grecaptcha){
                         grecaptcha.ready(function() {
                             grecaptcha.execute('" . G_RECAPTCHA_KEY . "', {action: 'homepage'}).then(function(token) {
-                                //console.log(token);
                                 document.getElementById('g-recaptcha-response').value = token;
                             });
                         });
