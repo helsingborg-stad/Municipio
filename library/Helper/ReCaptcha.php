@@ -4,10 +4,8 @@ namespace Municipio\Helper;
 
 class ReCaptcha
 {
-    /**
-     * Enqueue Google reCAPTCHA
-     * @return void
-     */
+
+    /*
     public static function enqueueReCaptcha()
     {
         if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
@@ -31,11 +29,7 @@ class ReCaptcha
         }
     }
 
-    /**
-     * Verify Google reCaptcha request
-     * @param $response
-     * @return bool
-     */
+
     public static function controlReCaptcha($response): bool
     {
         if (defined('G_RECAPTCHA_SECRET') && $response) {
@@ -51,9 +45,7 @@ class ReCaptcha
         return false;
     }
 
-    /**
-     * Add admin notice if Google reCaptcha constants is missing
-     */
+
     public static function recaptchaConstants()
     {
         if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
@@ -65,10 +57,7 @@ class ReCaptcha
         printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
     }
 
-    /**
-     * Check reCaptcha before comment is saved to post
-     * @return void
-     */
+
     public static function validateReCaptcha()
     {
         $response = isset($_POST['g-recaptcha-response']) ? esc_attr($_POST['g-recaptcha-response']) : '';
@@ -79,4 +68,5 @@ class ReCaptcha
                 __('reCaptcha verification failed', 'municipio')));
         }
     }
+    */
 }

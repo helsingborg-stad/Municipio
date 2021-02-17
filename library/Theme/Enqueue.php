@@ -2,6 +2,10 @@
 
 namespace Municipio\Theme;
 
+/**
+ * Class Enqueue
+ * @package Municipio\Theme
+ */
 class Enqueue
 {
     public $defaultPrimeName = 'hbg-prime';
@@ -17,7 +21,6 @@ class Enqueue
 
         //Google scripts
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
-        add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
         add_action('wp_footer', array($this, 'addGoogleTranslate'), 999);
 
         // Removes version querystring from scripts and styles
@@ -136,16 +139,6 @@ class Enqueue
         global $wp_scripts;
         $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
         $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
-    }
-
-    /**
-     * Enqueue Google reCAPTCHA v3
-     *
-     * @return void
-     */
-    public function googleReCaptcha()
-    {
-        \Municipio\Helper\ReCaptcha::enqueueReCaptcha();
     }
 
     /**

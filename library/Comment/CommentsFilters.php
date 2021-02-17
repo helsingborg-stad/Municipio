@@ -1,18 +1,28 @@
 <?php
 
 namespace Municipio\Comment;
+use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
+/**
+ * Class CommentsFilters
+ * @package Municipio\Comment
+ */
 class CommentsFilters
 {
+    /**
+     * CommentsFilters constructor.
+     */
     public function __construct()
     {
-        add_action('pre_comment_on_post', array($this, 'validateReCaptcha'));
-        add_action('admin_notices', array($this, 'recaptchaConstants'));
+        add_action('pre_comment_on_post', array($this, 'reCaptchaValidation'));
         add_filter('comment_text', array($this, 'stripTags'), 10, 2);
     }
 
     /**
      * Strip html from comment
+     * @param $comment_text
+     * @param $comment
+     * @return array
      */
     public function stripTags($comment_text, $comment)
     {
@@ -34,20 +44,13 @@ class CommentsFilters
 
     /**
      * Check reCaptcha Keys
-     * @return void
      */
-    public function validateReCaptcha()
+    public function reCaptchaValidation()
     {
         if (is_user_logged_in()) {
             return;
         }
-        \Municipio\Helper\ReCaptcha::validateReCaptcha();
-    }
 
-    /**
-     * Check reCaptcha before comment is saved to post
-     */
-    public function recaptchaConstants() {
-        \Municipio\Helper\ReCaptcha::recaptchaConstants();
+        Captcha::initCaptcha();
     }
 }

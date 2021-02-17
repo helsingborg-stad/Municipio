@@ -1,13 +1,19 @@
 <?php
 
 namespace Municipio\Comment;
+use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
+/**
+ * Class CommentsActions
+ * @package Municipio\Comment
+ */
 class CommentsActions
 {
     public function __construct()
     {
         add_action('wp_ajax_remove_comment', array($this, 'removeComment'));
         add_action('wp_ajax_get_comment_form', array($this, 'getCommentForm'));
+        add_action('wp_enqueue_scripts', array($this, 'getScripts'), 999);
         add_action('wp_ajax_update_comment', array($this, 'updateComment'));
     }
 
@@ -126,6 +132,13 @@ class CommentsActions
         );
 
         comment_form( $args );
+    }
+
+    /**
+     * Init and enqueue Google Captcha Script
+     */
+    public static function getScripts(){
+        Captcha::initScripts();
     }
 
     /**
