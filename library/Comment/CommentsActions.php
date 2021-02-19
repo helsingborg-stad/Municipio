@@ -13,8 +13,9 @@ class CommentsActions
     {
         add_action('wp_ajax_remove_comment', array($this, 'removeComment'));
         add_action('wp_ajax_get_comment_form', array($this, 'getCommentForm'));
-        add_action('wp_enqueue_scripts', array($this, 'getScripts'), 999);
+        add_action('wp_enqueue_scripts', array($this, 'getScripts'), 20);
         add_action('wp_ajax_update_comment', array($this, 'updateComment'));
+
     }
 
     /**

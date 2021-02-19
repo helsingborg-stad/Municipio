@@ -25,3 +25,6 @@ p.form-submit {
     }
 
 }
+
+// Hides the google captcha badge.
+.grecaptcha-badge { visibility: hidden; }
