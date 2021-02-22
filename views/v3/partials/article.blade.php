@@ -5,13 +5,15 @@
     @endtypography
 
     <!-- Blog style author signature -->
-    @if(!$postTypeDetails->hierarchical && $postType == 'post')
+    @if(!$postTypeDetails->hierarchical && $isBlogStyle)
         @signature([
-            'author' => $authorName, 
+            'author' => $authorName,
             'avatar_size' => 'sm',
             'avatar' => $authorAvatar,
             'authorRole' => $authorRole,
             'link' => $signature->link,
+            'published' => $signature->publish,
+            'updated' => $signature->updated,
             'updatedLabel' => $publishTranslations->updated,
             'publishedLabel' => $publishTranslations->publish,
             'classList' => ['u-margin__y--2']
