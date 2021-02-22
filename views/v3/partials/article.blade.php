@@ -5,7 +5,7 @@
     @endtypography
 
     <!-- Blog style author signature -->
-    @if(!$postTypeDetails->hierarchical && ($postType == 'post' || $postType == 'nyheter'))
+    @if(!$postTypeDetails->hierarchical && $isBlogStyle)
         @signature([
             'author' => $authorName,
             'avatar_size' => 'sm',
