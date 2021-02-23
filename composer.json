@@ -30,7 +30,8 @@
         "wpackagist-plugin/advanced-custom-fields": "^4.4.7",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "aristath/kirki": "^3.0",
-        "shortpixel/shortpixel-php": "^1.4"
+        "shortpixel/shortpixel-php": "^1.4",
+        "helsingborg-stad/recaptcha-integration": ">=1.0.8"
     },
     "extra" : {
         "installer-paths" : {

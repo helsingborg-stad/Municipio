@@ -5,6 +5,10 @@ namespace Municipio\Helper;
 class ReCaptcha
 {
     /**
+     * This function will be deprecated - Since There is a Composer package for recaptcha v3 on github
+     * Read more about how it works on following repo:
+     * https://github.com/helsingborg-stad/recaptcha-integration
+     *
      * Check if Google reCaptcha request is valid
      * @param  string $response Google reCaptcha response
      * @return bool             If valid or not
