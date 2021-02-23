@@ -2,7 +2,7 @@
 @if($postTypeDetails->hierarchical)
   @signature([
       'author' => $signature->name, 
-      'published' => $signature->publish,
+      'published' => $signature->published,
       'updated' => $signature->updated,
       'avatar_size' => 'sm',
       'avatar' => $signature->avatar,
