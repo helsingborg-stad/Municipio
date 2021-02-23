@@ -746,27 +746,52 @@ class Navigation
             'current' => is_front_page() ? true : false,
             'icon' => 'home'
         );
+
+        $queriedObj = get_queried_object();
+        $archiveLink = get_post_type_archive_link( get_post_type($queriedObj) ); 
+        $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
+        
+        if($archiveLink) {
+            $label = get_post_type_object(get_post_type($queriedObj))->label;
+
+            if(is_archive()) {
+                $label = $queriedObj->label;
+            }
+
+            array_push( $pageData,
+                array(
+                    'label' => __($label),
+                    'href' => $archiveLink,
+                    'current' => false,
+                    'icon' => 'chevron_right'
+                )
+            );
+        }
       
-        if (!is_front_page()) {
+        if (!is_front_page() && !is_archive()) {
             //Get all ancestors to page
-            $ancestors = array_reverse($this->getAncestors($pageId));
+            $ancestors = $this->getAncestors($pageId);
         
             //Create dataset
             if (is_countable($ancestors)) {
+                $ancestors = array_reverse($ancestors);
                 array_pop($ancestors);
 
                 //Add items
                 foreach ($ancestors as $id) {
-                    $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
-                    $pageData[$id]['href']    = get_permalink($id);
-                    $pageData[$id]['current'] = false;
-                    $pageData[$id]['icon']    = 'chevron_right';
+                    if(!in_array($id, $pageForPostTypeIds)) {
+
+                        $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
+                        $pageData[$id]['href']    = get_permalink($id);
+                        $pageData[$id]['current'] = false;
+                        $pageData[$id]['icon']    = 'chevron_right';
+                    }
                 }
             }
         }
 
         //Apply filters
-        return apply_filters('Municipio/Breadcrumbs/Items', $pageData, get_queried_object());
+        return apply_filters('Municipio/Breadcrumbs/Items', $pageData, $queriedObj);
     }
 
     /**
