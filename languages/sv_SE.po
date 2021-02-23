@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2020-12-22 12:28+0100\n"
-"PO-Revision-Date: 2020-12-22 12:41+0100\n"
+"POT-Creation-Date: 2021-02-18 13:23+0100\n"
+"PO-Revision-Date: 2021-02-18 13:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -93,16 +93,12 @@ msgid "Fill"
 msgstr "Fyll"
 
 #: library/AcfFields/php/navigation-widget.php:338
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:135
 msgid "Size"
 msgstr "Storlek"
 
 #: library/AcfFields/php/navigation-widget.php:350
 #: library/AcfFields/php/widget-header-links.php:291
 #: library/AcfFields/php/widget-header-menu.php:48
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:134
-#: vendor/aristath/kirki/controls/views/image.php:36
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:51
 msgid "Default"
 msgstr "Standard"
 
@@ -198,8 +194,8 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:25
-#: library/Controller/Singular.php:83
+#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:27
+#: library/Controller/Singular.php:90
 msgid "Author"
 msgstr "Författare"
 
@@ -485,17 +481,14 @@ msgid "Extra large"
 msgstr "Extra stor"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:26
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:182
 msgid "Uppercase"
 msgstr "Versaler"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:183
 msgid "Lowercase"
 msgstr "Gemener"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:28
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:181
 msgid "Capitalize"
 msgstr "Stora bokstäver"
 
@@ -950,16 +943,10 @@ msgid "Direction"
 msgstr "Riktning"
 
 #: library/AcfFields/php/widget-header-common.php:102
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:132
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:149
-#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:35
 msgid "Left"
 msgstr "Vänster"
 
 #: library/AcfFields/php/widget-header-common.php:103
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:133
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:161
-#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:36
 msgid "Right"
 msgstr "Höger"
 
@@ -972,13 +959,10 @@ msgid "Margin"
 msgstr "Marginal"
 
 #: library/AcfFields/php/widget-header-common.php:129
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:106
 msgid "Auto"
 msgstr "Automatisk"
 
 #: library/AcfFields/php/widget-header-common.php:132
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:180
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:196
 msgid "None"
 msgstr "Ingen"
 
@@ -1150,7 +1134,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:73 library/Controller/BaseController.php:131
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:134
 #: library/Search/General.php:50 library/Theme/Navigation.php:230
 #: library/Theme/Navigation.php:231 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
@@ -1225,36 +1209,21 @@ msgstr ""
 "kommer webbsidans innehåll att återställas och synkroniseras med live sajten "
 "på måndag. "
 
-#: library/Comment/CommentsActions.php:67
+#: library/Comment/CommentsActions.php:74
 msgid "Update"
 msgstr "Uppdatera"
 
-#: library/Comment/CommentsActions.php:72
+#: library/Comment/CommentsActions.php:79
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: library/Comment/CommentsActions.php:119
+#: library/Comment/CommentsActions.php:125
 msgid "Cancel reply"
 msgstr "Avbryt"
 
-#: library/Comment/CommentsActions.php:125
+#: library/Comment/CommentsActions.php:131
 msgid "Comment text"
 msgstr "Kommentar"
-
-#: library/Comment/CommentsFilters.php:44
-msgid ""
-"Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
-msgstr ""
-"Municipio: konstant ‘g_recaptcha_key’ eller ‘g_recaptcha_secret’ är inte "
-"definierade."
-
-#: library/Comment/CommentsFilters.php:62
-msgid "Error"
-msgstr "Fel"
-
-#: library/Comment/CommentsFilters.php:62
-msgid "reCaptcha verification failed"
-msgstr "Verifiering av robotfilter misslyckades"
 
 #: library/Comment/HoneyPot.php:71
 msgid ""
@@ -1279,7 +1248,6 @@ msgid "Add new"
 msgstr "Skapa ny"
 
 #: library/Content/CustomPostType.php:59
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:87
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
@@ -1328,128 +1296,128 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
-#: library/Controller/Archive.php:64 library/Controller/Singular.php:36
+#: library/Controller/Archive.php:68 library/Controller/Singular.php:38
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:65 library/Controller/Singular.php:35
+#: library/Controller/Archive.php:69 library/Controller/Singular.php:37
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: library/Controller/Archive.php:66
+#: library/Controller/Archive.php:70
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/Archive.php:69
+#: library/Controller/Archive.php:73
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/Archive.php:70
+#: library/Controller/Archive.php:74
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: library/Controller/Archive.php:71
+#: library/Controller/Archive.php:75
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:74
+#: library/Controller/Archive.php:78
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/Archive.php:419 vendor/aristath/kirki/example.php:80
+#: library/Controller/Archive.php:423
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:121 library/Controller/E404.php:38
+#: library/Controller/BaseController.php:124 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:122
+#: library/Controller/BaseController.php:125
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:123
+#: library/Controller/BaseController.php:126
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:124
+#: library/Controller/BaseController.php:127
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:125
+#: library/Controller/BaseController.php:128
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:126
+#: library/Controller/BaseController.php:129
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:127
+#: library/Controller/BaseController.php:130
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:128
+#: library/Controller/BaseController.php:131
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:129
+#: library/Controller/BaseController.php:132
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:130
+#: library/Controller/BaseController.php:133
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:132
+#: library/Controller/BaseController.php:135
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:133
+#: library/Controller/BaseController.php:136
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:134
+#: library/Controller/BaseController.php:137
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:135
+#: library/Controller/BaseController.php:138
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:136 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:139 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/E404.php:31
+#: library/Controller/E404.php:30
 msgid "Go back"
 msgstr "Gå bakåt"
 
-#: library/Controller/E404.php:48
+#: library/Controller/E404.php:47
 #: views/v1/partials/blog/taxonomy-filters.blade.php:10
 msgid "Show all"
 msgstr "Visa alla"
 
-#: library/Controller/E404.php:60
+#: library/Controller/E404.php:59
 msgid "Oops! The page you requested cannot be found."
 msgstr "Oj! Sidan som du begärde finns inte längre."
 
-#: library/Controller/E404.php:69
+#: library/Controller/E404.php:68
 #, php-format
 msgid "The %s you are looking for is either moved or removed."
 msgstr ""
 "Sidan %s som du letade efter har antagligen flyttats eller blivit borttagen."
 
-#: library/Controller/E404.php:85
+#: library/Controller/E404.php:84
 msgid "post"
 msgstr "inlägg"
 
@@ -1477,22 +1445,22 @@ msgstr "Sök efter"
 msgid "View page"
 msgstr "Visa sida"
 
-#: library/Controller/Singular.php:37
+#: library/Controller/Singular.php:39
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
 msgstr "Publicerad av"
 
-#: library/Controller/Singular.php:38
+#: library/Controller/Singular.php:40
 msgid "on"
 msgstr "på"
 
-#: library/Controller/Singular.php:51
+#: library/Controller/Singular.php:59
 msgid "Reply"
 msgstr "Svara"
 
-#: library/Controller/Singular.php:52
+#: library/Controller/Singular.php:60
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
@@ -1535,15 +1503,15 @@ msgstr "Sida (två kolumner)"
 msgid "Sidebar right"
 msgstr "Sidopanel höger"
 
-#: library/Theme/Enqueue.php:99
+#: library/Theme/Enqueue.php:100
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:102
+#: library/Theme/Enqueue.php:103
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:103
+#: library/Theme/Enqueue.php:104
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
@@ -1673,1038 +1641,6 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:48
-msgid "Background Color"
-msgstr "Bakgrundsfärg"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:54
-msgid "Background Image"
-msgstr "Bakgrundsbild"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:59
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:132
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:408
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:413
-msgid "No File Selected"
-msgstr "Ingen fil vald"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:62
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:133
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:386
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:443
-#: vendor/aristath/kirki/controls/views/image.php:37
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:52
-#: views/v1/partials/blog/comments.blade.php:62
-#: views/v1/partials/blog/comments.blade.php:126
-msgid "Remove"
-msgstr "Ta bort"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:63
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:135
-msgid "Select File"
-msgstr "Välj fil"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:70
-msgid "Background Repeat"
-msgstr "Repetera bakgrund"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:72
-msgid "No Repeat"
-msgstr "Upprepa inte"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:73
-msgid "Repeat All"
-msgstr "Upprepa allt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:74
-msgid "Repeat Horizontally"
-msgstr "Repetera horisontellt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:75
-msgid "Repeat Vertically"
-msgstr "Repetera vertikalt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:81
-msgid "Background Position"
-msgstr "Bakgrundsposition"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:83
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:115
-msgid "Left Top"
-msgstr "Vänster toppen"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:84
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:116
-msgid "Left Center"
-msgstr "Vänster Centrer"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:85
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:117
-msgid "Left Bottom"
-msgstr "Vänster botten"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:86
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:118
-msgid "Right Top"
-msgstr "Höger toppen"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:87
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:119
-msgid "Right Center"
-msgstr "Höger Center"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:88
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:120
-msgid "Right Bottom"
-msgstr "Höger botten"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:89
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:121
-msgid "Center Top"
-msgstr "Centrerat toppen"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:90
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:122
-msgid "Center Center"
-msgstr "Centrerat"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:91
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:123
-msgid "Center Bottom"
-msgstr "Centrerat botten"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:97
-msgid "Background Size"
-msgstr "Bakgrundens storlek"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:100
-msgid "Cover"
-msgstr "Omslag"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:103
-msgid "Contain"
-msgstr "Innehåll"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:113
-msgid "Background Attachment"
-msgstr "Bakgrundbilaga"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:116
-msgid "Scroll"
-msgstr "Skroll"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:119
-msgid "Fixed"
-msgstr "Fixerad"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:136
-msgid "Standard Fonts"
-msgstr "Standardtypsnitt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:137
-msgid "Google Fonts"
-msgstr "Google typsnitt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:138
-#, fuzzy
-#| msgid "Default style"
-msgid "CSS Defaults"
-msgstr "Standard"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:139
-msgid "Default Browser Font-Family"
-msgstr "Standardtypfamilj för webbläsare"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-code.php:39
-msgid ""
-"Please update your WordPress installation to a version newer than 4.9 to "
-"access the code control."
-msgstr ""
-"Vänligen uppdatera din WordPress version till senare än 4.9 för att komma åt "
-"kodkontroll."
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimension.php:40
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:139
-msgid "Invalid Value"
-msgstr "Ogiltigt värde"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:124
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:106
-msgid "Font Size"
-msgstr "Teckesnittsstorlek"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:125
-msgid "Font Weight"
-msgstr "Typsnittsvikt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:126
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:114
-msgid "Line Height"
-msgstr "Radavstånd"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:127
-msgid "Font Style"
-msgstr "Typsnittsstil"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:128
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:122
-msgid "Letter Spacing"
-msgstr "Spärrning"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:129
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:130
-msgid "Word Spacing"
-msgstr "Ord avstånd"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:130
-#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:33
-msgid "Top"
-msgstr "Ovanför"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:131
-#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:34
-msgid "Bottom"
-msgstr "Under"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:134
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:155
-msgid "Center"
-msgstr "Centrerad"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:136
-msgid "Spacing"
-msgstr "Avstånd"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:137
-msgid "Width"
-msgstr "Bredd"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:138
-msgid "Height"
-msgstr "Höjd"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:78
-msgid "row"
-msgstr "rad"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:122
-msgid "Select a Page"
-msgstr "Välj en sida"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:227
-#, php-format
-msgid "Limit: %s rows"
-msgstr "Gräns: %s rader"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:361
-msgid "Hex Value"
-msgstr "Hex-värde"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:376
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:381
-msgid "No Image Selected"
-msgstr "Ingen bild vald"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:387
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:391
-msgid "Add Image"
-msgstr "Lägg till bild"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:387
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:389
-msgid "Change Image"
-msgstr "Ändra bild"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:419
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:423
-msgid "Add File"
-msgstr "Lägg till fil"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:419
-#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:421
-msgid "Change File"
-msgstr "Byt fil"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-slider.php:67
-msgid "Reset"
-msgstr "Återställ"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-switch.php:52
-#: vendor/aristath/kirki/field/class-kirki-field-switch.php:42
-msgid "On"
-msgstr "På"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-switch.php:56
-#: vendor/aristath/kirki/field/class-kirki-field-switch.php:43
-msgid "Off"
-msgstr "Av"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:80
-msgid "Font Family"
-msgstr "Typsnitt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:81
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:86
-msgid "Select Font Family"
-msgstr "Välj typsnitt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:85
-msgid "Backup Font"
-msgstr "Backup typsnitt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:91
-msgid "Variant"
-msgstr "Variant"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:98
-msgid "Download font-family to server instead of using the Google CDN."
-msgstr "Ladda ner typsnittet lokalt"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:138
-msgid "Text Align"
-msgstr "Justering av text"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:143
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:185
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:201
-msgid "Inherit"
-msgstr "Ärv"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:167
-msgid "Justify"
-msgstr "Fyll bredd"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:177
-msgid "Text Transform"
-msgstr "Transformera text"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:184
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:200
-msgid "Initial"
-msgstr "Standard"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:193
-msgid "Text Decoration"
-msgstr "Textdekoration"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:197
-msgid "Underline"
-msgstr "Understruken"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:198
-msgid "Overline"
-msgstr "Överstruken"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:199
-msgid "Line-Through"
-msgstr "Genomstruken"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:209
-msgid "Margin Top"
-msgstr "Toppmarginal"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:217
-msgid "Margin Bottom"
-msgstr "Marginal till botten"
-
-#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:225
-#: vendor/aristath/kirki/example.php:60 vendor/aristath/kirki/example.php:560
-msgid "Color"
-msgstr "Färg"
-
-#: vendor/aristath/kirki/controls/views/image.php:34
-#: vendor/aristath/kirki/controls/views/image.php:39
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:49
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:54
-msgid "Select image"
-msgstr "Välj bild"
-
-#: vendor/aristath/kirki/controls/views/image.php:35
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:50
-msgid "Change image"
-msgstr "Byt bild"
-
-#: vendor/aristath/kirki/controls/views/image.php:38
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:53
-msgid "No image selected"
-msgstr "Ingen bild"
-
-#: vendor/aristath/kirki/controls/views/image.php:40
-#: vendor/aristath/kirki/field/class-kirki-field-image.php:55
-msgid "Choose image"
-msgstr "Välj bild"
-
-#: vendor/aristath/kirki/core/class-kirki-field.php:248
-#, php-format
-msgid "Typo found in field %s - setting instead of settings."
-msgstr ""
-
-#: vendor/aristath/kirki/core/class-kirki-field.php:257
-#: vendor/aristath/kirki/core/class-kirki-field.php:267
-#, php-format
-msgid ""
-"Config not defined for field %1$s - See %2$s for details on how to properly "
-"add fields."
-msgstr ""
-
-#: vendor/aristath/kirki/core/class-kirki-field.php:407
-#, php-format
-msgid "Typo found in field %s - \"theme_mods\" vs \"theme_mod\""
-msgstr ""
-
-#: vendor/aristath/kirki/core/class-kirki-field.php:425
-#, php-format
-msgid "\"partial_refresh\" invalid entry in field %s"
-msgstr ""
-
-#: vendor/aristath/kirki/core/class-kirki-field.php:563
-#: vendor/aristath/kirki/core/class-kirki-field.php:573
-#, php-format
-msgid ""
-"\"output\" invalid format in field %s. The \"output\" argument should be "
-"defined as an array of arrays."
-msgstr ""
-
-#: vendor/aristath/kirki/core/class-kirki-init.php:282
-msgid ""
-"We detected you're using Kirki_Init::get_variables(). Please use Kirki_Util::"
-"get_variables() instead."
-msgstr ""
-
-#: vendor/aristath/kirki/core/class-kirki.php:228
-msgid ""
-"Kirki fields should not be added on customize_register. Please add them "
-"directly, or on init."
-msgstr ""
-
-#: vendor/aristath/kirki/deprecated/functions.php:19
-#, php-format
-msgid "%1$s or %2$s"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:105
-msgid ""
-"Please install the Kirki plugin to take full advantage of this theme\\s "
-"customizer capabilities"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:107
-msgid "Install Kirki Toolkit now"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:108
-msgid "Install Now"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:122
-msgid ""
-"You have installed Kirki. Activate it to take advantage of this theme's "
-"features in the customizer."
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:124
-msgid "Activate Kirki Toolkit now"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:125
-msgid "Activate Now"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:144
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:145
-msgid "Don't show this again"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:144
-msgid "Dismiss"
-msgstr ""
-
-#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:155
-msgid ""
-"Are you sure? Dismissing this message will hide the installation "
-"recommendation and you will have to manually install and activate the plugin "
-"in the future."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:43
-msgid "Kirki Demo Panel"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:44
-msgid "Contains sections for all kirki controls."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:57
-msgid "Background"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:58
-msgid "Code"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:59 vendor/aristath/kirki/example.php:718
-msgid "Checkbox"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:61
-msgid "Color Palette"
-msgstr "Färgpalett"
-
-#: vendor/aristath/kirki/example.php:62
-msgid "Custom"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:63
-msgid "Dashicons"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:64
-msgid "Date"
-msgstr "Datum"
-
-#: vendor/aristath/kirki/example.php:65
-msgid "Dimension"
-msgstr "Dimension"
-
-#: vendor/aristath/kirki/example.php:66
-msgid "Dimensions"
-msgstr "Dimensioner"
-
-#: vendor/aristath/kirki/example.php:67
-msgid "Editor"
-msgstr "Redigerare"
-
-#: vendor/aristath/kirki/example.php:68
-msgid "Font-Awesome"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:69
-msgid "Generic"
-msgstr "Allmän"
-
-#: vendor/aristath/kirki/example.php:70
-#, fuzzy
-#| msgid "Add new"
-msgid "Image"
-msgstr "Skapa ny"
-
-#: vendor/aristath/kirki/example.php:71
-msgid "Multicheck"
-msgstr "Flervalsalternativ"
-
-#: vendor/aristath/kirki/example.php:72
-msgid "Multicolor"
-msgstr "Multifärg"
-
-#: vendor/aristath/kirki/example.php:73
-msgid "Number"
-msgstr "Nummer"
-
-#: vendor/aristath/kirki/example.php:74
-msgid "Palette"
-msgstr "Palette"
-
-#: vendor/aristath/kirki/example.php:75
-msgid "Preset"
-msgstr "Förval"
-
-#: vendor/aristath/kirki/example.php:76
-msgid "Radio"
-msgstr "Alternativ"
-
-#: vendor/aristath/kirki/example.php:76
-msgid "A plain Radio control."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:77
-msgid "Radio Buttonset"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:77
-msgid ""
-"Radio-Buttonset controls are essentially radio controls with some fancy "
-"styling to make them look cooler."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:78
-msgid "Radio Image"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:78
-msgid ""
-"Radio-Image controls are essentially radio controls with some fancy styles "
-"to use images"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:79
-msgid "Repeater"
-msgstr "Upprepningsfält"
-
-#: vendor/aristath/kirki/example.php:81
-msgid "Slider"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:82
-msgid "Sortable"
-msgstr "Sorterbar"
-
-#: vendor/aristath/kirki/example.php:83
-msgid "Switch"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:84
-msgid "Toggle"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:85
-msgid "Typography"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:117
-msgid "Background Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:118
-msgid "Background conrols are pretty complex! (but useful if properly used)"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:140
-msgid "Code Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:141 vendor/aristath/kirki/example.php:160
-#: vendor/aristath/kirki/example.php:452 vendor/aristath/kirki/example.php:463
-#: vendor/aristath/kirki/example.php:815 vendor/aristath/kirki/example.php:826
-#: vendor/aristath/kirki/example.php:851
-msgid "Description"
-msgstr "Beskrivning"
-
-#: vendor/aristath/kirki/example.php:159
-msgid "Checkbox Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:175
-msgid "Color Control (hex-only)"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:176
-msgid "This is a color control - without alpha channel."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:186
-msgid "Color Control (with alpha channel)"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:187
-msgid "This is a color control - with alpha channel."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:200
-msgid "Color Control - hue only."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:201
-msgid "This is a color control - hue only."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:215
-msgid "Date Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:216
-msgid "This is a date control."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:229
-msgid "First Editor Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:230
-msgid "This is an editor control."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:240
-msgid "Second Editor Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:241
-msgid ""
-"This is a 2nd editor control just to check that we do not have issues with "
-"multiple instances."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:243
-msgid "Default Text"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:256 vendor/aristath/kirki/example.php:271
-#: vendor/aristath/kirki/example.php:286 vendor/aristath/kirki/example.php:301
-#: vendor/aristath/kirki/example.php:316
-msgid "Color-Palette"
-msgstr "Färgpalett"
-
-#: vendor/aristath/kirki/example.php:257
-msgid "This is a color-palette control"
-msgstr "Detta är en färgpalettkontroll"
-
-#: vendor/aristath/kirki/example.php:272
-msgid "Material Design Colors - all"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:287
-msgid "Material Design Colors - primary"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:302
-msgid "Material Design Colors - red"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:317
-msgid "Material Design Colors - A100"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:337
-msgid "Dashicons Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:338
-msgid "Using a custom array of dashicons"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:357
-msgid "All Dashicons"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:358
-msgid "Showing all dashicons"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:371 vendor/aristath/kirki/example.php:388
-#: vendor/aristath/kirki/example.php:402
-msgid "Dimension Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:372 vendor/aristath/kirki/example.php:389
-#: vendor/aristath/kirki/example.php:403 vendor/aristath/kirki/example.php:419
-#: vendor/aristath/kirki/example.php:438 vendor/aristath/kirki/example.php:494
-#: vendor/aristath/kirki/example.php:505 vendor/aristath/kirki/example.php:519
-msgid "Description Here."
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:418
-msgid "Spacing Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:437
-msgid "Font Awesome Control"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:451
-msgid "Text Control"
-msgstr "Text kontroll"
-
-#: vendor/aristath/kirki/example.php:462
-msgid "Textarea Control"
-msgstr "Textområde kontroll"
-
-#: vendor/aristath/kirki/example.php:473
-msgid "Custom input Control."
-msgstr "Anpassad ingångskontroll."
-
-#: vendor/aristath/kirki/example.php:474
-msgid ""
-"The \"generic\" control allows you to add any input type you want. In this "
-"case we use type=\"password\" and define custom styles."
-msgstr ""
-"Med den \"generiska\" kontrollen kan du lägga till vilken ingångstyp du vill "
-"ha. I det här fallet använder vi typ = \"lösenord\" och definierar anpassade "
-"stilar."
-
-#: vendor/aristath/kirki/example.php:493
-msgid "Image Control (URL)"
-msgstr "Bildkontroll (URL)"
-
-#: vendor/aristath/kirki/example.php:504
-msgid "Image Control (ID)"
-msgstr "Bildkontroll (ID)"
-
-#: vendor/aristath/kirki/example.php:518
-msgid "Image Control (array)"
-msgstr "Bildkontroll (array)"
-
-#: vendor/aristath/kirki/example.php:535
-msgid "Multickeck Control"
-msgstr "Multikontrollkontroll"
-
-#: vendor/aristath/kirki/example.php:540 vendor/aristath/kirki/example.php:622
-#: vendor/aristath/kirki/example.php:643 vendor/aristath/kirki/example.php:738
-#: vendor/aristath/kirki/example.php:757 vendor/aristath/kirki/example.php:797
-msgid "Option 1"
-msgstr "Val 1"
-
-#: vendor/aristath/kirki/example.php:541 vendor/aristath/kirki/example.php:623
-#: vendor/aristath/kirki/example.php:644 vendor/aristath/kirki/example.php:739
-#: vendor/aristath/kirki/example.php:758 vendor/aristath/kirki/example.php:798
-msgid "Option 2"
-msgstr "Val 2"
-
-#: vendor/aristath/kirki/example.php:542 vendor/aristath/kirki/example.php:624
-#: vendor/aristath/kirki/example.php:645 vendor/aristath/kirki/example.php:740
-#: vendor/aristath/kirki/example.php:759 vendor/aristath/kirki/example.php:799
-msgid "Option 3"
-msgstr "Val 3"
-
-#: vendor/aristath/kirki/example.php:543 vendor/aristath/kirki/example.php:625
-#: vendor/aristath/kirki/example.php:741 vendor/aristath/kirki/example.php:760
-#: vendor/aristath/kirki/example.php:800
-msgid "Option 4"
-msgstr "Val 4"
-
-#: vendor/aristath/kirki/example.php:544 vendor/aristath/kirki/example.php:626
-#: vendor/aristath/kirki/example.php:742 vendor/aristath/kirki/example.php:761
-#: vendor/aristath/kirki/example.php:801
-msgid "Option 5"
-msgstr "Val 5"
-
-#: vendor/aristath/kirki/example.php:556 vendor/aristath/kirki/example.php:580
-#: vendor/aristath/kirki/example.php:598
-msgid "Label"
-msgstr "Etikett"
-
-#: vendor/aristath/kirki/example.php:561
-msgid "Hover"
-msgstr "Hovra"
-
-#: vendor/aristath/kirki/example.php:562
-msgid "Active"
-msgstr "Aktivera"
-
-#: vendor/aristath/kirki/example.php:617
-msgid "Radio Control"
-msgstr "Radiofält"
-
-#: vendor/aristath/kirki/example.php:618 vendor/aristath/kirki/example.php:639
-#: vendor/aristath/kirki/example.php:658 vendor/aristath/kirki/example.php:677
-#: vendor/aristath/kirki/example.php:733 vendor/aristath/kirki/example.php:752
-#: vendor/aristath/kirki/example.php:774
-msgid "The description here."
-msgstr "Visa beskrivning"
-
-#: vendor/aristath/kirki/example.php:638
-msgid "Radio-Buttonset Control"
-msgstr "Kontroll av radioknappar"
-
-#: vendor/aristath/kirki/example.php:657
-msgid "Radio-Image Control"
-msgstr "Radio-bildkontroll"
-
-#: vendor/aristath/kirki/example.php:676
-msgid "Repeater Control"
-msgstr "Repetitionskontroll"
-
-#: vendor/aristath/kirki/example.php:681
-msgid "Kirki Site"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:687
-msgid "Kirki Repository"
-msgstr ""
-
-#: vendor/aristath/kirki/example.php:696
-msgid "Link Text"
-msgstr "Länktext"
-
-#: vendor/aristath/kirki/example.php:697
-msgid "This will be the label for your link"
-msgstr "Detta kommer att vara etiketten för din länk"
-
-#: vendor/aristath/kirki/example.php:702
-msgid "Link URL"
-msgstr "Länk URL"
-
-#: vendor/aristath/kirki/example.php:703
-msgid "This will be the link URL"
-msgstr "Detta kommer att vara länkens URL"
-
-#: vendor/aristath/kirki/example.php:708
-msgid "Link Target"
-msgstr "Länkmål"
-
-#: vendor/aristath/kirki/example.php:709
-msgid "This will be the link target"
-msgstr "Detta kommer att vara länkmålet"
-
-#: vendor/aristath/kirki/example.php:712
-msgid "New Window"
-msgstr "Nytt fönster"
-
-#: vendor/aristath/kirki/example.php:713
-msgid "Same Frame"
-msgstr "Samma ram"
-
-#: vendor/aristath/kirki/example.php:732 vendor/aristath/kirki/example.php:751
-msgid "Select Control"
-msgstr "Välj kontroll"
-
-#: vendor/aristath/kirki/example.php:736
-msgid "Select an option"
-msgstr "Välj ett alternativ"
-
-#: vendor/aristath/kirki/example.php:773
-msgid "Slider Control"
-msgstr "Bildspelsreglage"
-
-#: vendor/aristath/kirki/example.php:793
-msgid "This is a sortable control."
-msgstr "Detta är en sorterbar kontroll."
-
-#: vendor/aristath/kirki/example.php:802
-msgid "Option 6"
-msgstr "Alternativ 6"
-
-#: vendor/aristath/kirki/example.php:814
-msgid "Switch Control"
-msgstr "Byte kontrollreglage"
-
-#: vendor/aristath/kirki/example.php:825
-msgid "Switch Control with custom labels"
-msgstr "Växla kontroll med anpassade etiketter"
-
-#: vendor/aristath/kirki/example.php:830
-msgid "Enabled"
-msgstr "Aktiverad"
-
-#: vendor/aristath/kirki/example.php:831
-#, fuzzy
-#| msgid "Disable blog"
-msgid "Disabled"
-msgstr "Inaktivera blogg"
-
-#: vendor/aristath/kirki/example.php:850
-msgid "Toggle Control"
-msgstr "Växla kontroll"
-
-#: vendor/aristath/kirki/example.php:864 vendor/aristath/kirki/example.php:918
-msgid "Typography Control Label"
-msgstr "Etikett för typografikontroll"
-
-#: vendor/aristath/kirki/example.php:865 vendor/aristath/kirki/example.php:919
-msgid "The full set of options."
-msgstr "Hela uppsättningen alternativ."
-
-#: vendor/aristath/kirki/example.php:955
-msgid "Sidebars Select"
-msgstr "Välj sidofält"
-
-#: vendor/aristath/kirki/example.php:956
-msgid "An example of how to implement sidebars selection."
-msgstr "Ett exempel på hur man implementerar sidofält."
-
-#: vendor/aristath/kirki/field/class-kirki-field-color.php:55
-msgid ""
-"Do not use \"alpha\" as an argument in color controls. Use "
-"\"choices[alpha]\" instead."
-msgstr ""
-"Använd inte \"alfa\" som ett argument i färgkontroller. Använd istället "
-"\"val [alfa]\"."
-
-#: vendor/aristath/kirki/field/class-kirki-field-radio.php:37
-#, php-format
-msgid ""
-"Error in field %1$s. The \"mode\" argument has been deprecated since Kirki "
-"v0.8. Use the \"radio-%2$s\" type instead."
-msgstr ""
-
-#: vendor/aristath/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:61
-msgid "Customizing"
-msgstr "Anpassar"
-
-#: vendor/aristath/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:64
-#, php-format
-msgid "Customizing &#9656; %s"
-msgstr "Anpassar &#9656; %s"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:210
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:211
-msgid "Ultra-Light 100"
-msgstr "Extra mager 100"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:212
-msgid "Ultra-Light 100 Italic"
-msgstr "Extra mager 100 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:213
-msgid "Light 200"
-msgstr "Mager 200"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:214
-msgid "Light 200 Italic"
-msgstr "Mager 200 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:215
-msgid "Book 300"
-msgstr "Bokstil 300"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:216
-msgid "Book 300 Italic"
-msgstr "Bokstil 300 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:217
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:218
-msgid "Normal 400"
-msgstr ""
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:219
-msgid "Normal 400 Italic"
-msgstr "Normal 400 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:220
-msgid "Medium 500"
-msgstr "Medium 500"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:221
-msgid "Medium 500 Italic"
-msgstr "Medium 500 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:222
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:223
-msgid "Semi-Bold 600"
-msgstr "Halvfet 600"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:224
-msgid "Semi-Bold 600 Italic"
-msgstr "Halvfet 600 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:225
-msgid "Bold 700"
-msgstr "Fet 700"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:226
-msgid "Bold 700 Italic"
-msgstr "Fet 700 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:227
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:228
-msgid "Extra-Bold 800"
-msgstr "Extra fet 800"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:229
-msgid "Extra-Bold 800 Italic"
-msgstr "Extra fet 800 kursiv"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:230
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:231
-msgid "Ultra-Bold 900"
-msgstr "Ultrafet 900"
-
-#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:232
-msgid "Ultra-Bold 900 Italic"
-msgstr "Ultrafet 900 kursiv"
-
-#: vendor/aristath/kirki/upgrade-notifications.php:30
-msgid "Important Upgrade Notice:"
-msgstr "Viktigt uppgraderingsmeddelande: "
-
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
 msgid "Export with AcfExportManager"
 msgstr "Exportera med AcfExportManager verktyget. "
@@ -2713,6 +1649,23 @@ msgstr "Exportera med AcfExportManager verktyget. "
 #, php-format
 msgid "Exported %d fieldgroup(s)."
 msgstr "Exporterade %d fältgrupper."
+
+#: vendor/helsingborg-stad/recaptcha-integration/src/RecaptchaIntegration.php:47
+msgid ""
+"Municipio: constant 'G_RECAPTCHA_KEY' or 'G_RECAPTCHA_SECRET' is not defined."
+msgstr ""
+"Municipio: Konstanterna 'G_RECAPTCHA_KEY' eller 'G_RECAPTCHA_SECRET' är inte "
+"definierade.\n"
+"Dessa måste vara definierade om Googles reCAPTCHA ska fungera och skydda "
+"kommentarsfält och formulär mot SPAM."
+
+#: vendor/helsingborg-stad/recaptcha-integration/src/Validation.php:42
+msgid "Error"
+msgstr "Fel"
+
+#: vendor/helsingborg-stad/recaptcha-integration/src/Validation.php:43
+msgid "reCaptcha validation failed"
+msgstr ""
 
 #: views/v1/archive-event.blade.php:70
 msgctxt "Event archive"
@@ -2803,6 +1756,11 @@ msgstr "Min profil på"
 #: views/v1/partials/blog/comments.blade.php:123
 msgid "Edit"
 msgstr "Redigera"
+
+#: views/v1/partials/blog/comments.blade.php:62
+#: views/v1/partials/blog/comments.blade.php:126
+msgid "Remove"
+msgstr "Ta bort"
 
 #: views/v1/partials/blog/post-categories.blade.php:2
 msgid "Categories"
@@ -2945,6 +1903,509 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid ""
+#~ "Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not "
+#~ "defined."
+#~ msgstr ""
+#~ "Municipio: konstant ‘g_recaptcha_key’ eller ‘g_recaptcha_secret’ är inte "
+#~ "definierade."
+
+#~ msgid "reCaptcha verification failed"
+#~ msgstr "Verifiering av robotfilter misslyckades"
+
+#~ msgid "Background Color"
+#~ msgstr "Bakgrundsfärg"
+
+#~ msgid "Background Image"
+#~ msgstr "Bakgrundsbild"
+
+#~ msgid "No File Selected"
+#~ msgstr "Ingen fil vald"
+
+#~ msgid "Select File"
+#~ msgstr "Välj fil"
+
+#~ msgid "Background Repeat"
+#~ msgstr "Repetera bakgrund"
+
+#~ msgid "No Repeat"
+#~ msgstr "Upprepa inte"
+
+#~ msgid "Repeat All"
+#~ msgstr "Upprepa allt"
+
+#~ msgid "Repeat Horizontally"
+#~ msgstr "Repetera horisontellt"
+
+#~ msgid "Repeat Vertically"
+#~ msgstr "Repetera vertikalt"
+
+#~ msgid "Background Position"
+#~ msgstr "Bakgrundsposition"
+
+#~ msgid "Left Top"
+#~ msgstr "Vänster toppen"
+
+#~ msgid "Left Center"
+#~ msgstr "Vänster Centrer"
+
+#~ msgid "Left Bottom"
+#~ msgstr "Vänster botten"
+
+#~ msgid "Right Top"
+#~ msgstr "Höger toppen"
+
+#~ msgid "Right Center"
+#~ msgstr "Höger Center"
+
+#~ msgid "Right Bottom"
+#~ msgstr "Höger botten"
+
+#~ msgid "Center Top"
+#~ msgstr "Centrerat toppen"
+
+#~ msgid "Center Center"
+#~ msgstr "Centrerat"
+
+#~ msgid "Center Bottom"
+#~ msgstr "Centrerat botten"
+
+#~ msgid "Background Size"
+#~ msgstr "Bakgrundens storlek"
+
+#~ msgid "Cover"
+#~ msgstr "Omslag"
+
+#~ msgid "Contain"
+#~ msgstr "Innehåll"
+
+#~ msgid "Background Attachment"
+#~ msgstr "Bakgrundbilaga"
+
+#~ msgid "Scroll"
+#~ msgstr "Skroll"
+
+#~ msgid "Fixed"
+#~ msgstr "Fixerad"
+
+#~ msgid "Standard Fonts"
+#~ msgstr "Standardtypsnitt"
+
+#~ msgid "Google Fonts"
+#~ msgstr "Google typsnitt"
+
+#, fuzzy
+#~| msgid "Default style"
+#~ msgid "CSS Defaults"
+#~ msgstr "Standard"
+
+#~ msgid "Default Browser Font-Family"
+#~ msgstr "Standardtypfamilj för webbläsare"
+
+#~ msgid ""
+#~ "Please update your WordPress installation to a version newer than 4.9 to "
+#~ "access the code control."
+#~ msgstr ""
+#~ "Vänligen uppdatera din WordPress version till senare än 4.9 för att komma "
+#~ "åt kodkontroll."
+
+#~ msgid "Invalid Value"
+#~ msgstr "Ogiltigt värde"
+
+#~ msgid "Font Size"
+#~ msgstr "Teckesnittsstorlek"
+
+#~ msgid "Font Weight"
+#~ msgstr "Typsnittsvikt"
+
+#~ msgid "Line Height"
+#~ msgstr "Radavstånd"
+
+#~ msgid "Font Style"
+#~ msgstr "Typsnittsstil"
+
+#~ msgid "Letter Spacing"
+#~ msgstr "Spärrning"
+
+#~ msgid "Word Spacing"
+#~ msgstr "Ord avstånd"
+
+#~ msgid "Top"
+#~ msgstr "Ovanför"
+
+#~ msgid "Bottom"
+#~ msgstr "Under"
+
+#~ msgid "Center"
+#~ msgstr "Centrerad"
+
+#~ msgid "Spacing"
+#~ msgstr "Avstånd"
+
+#~ msgid "Width"
+#~ msgstr "Bredd"
+
+#~ msgid "Height"
+#~ msgstr "Höjd"
+
+#~ msgid "row"
+#~ msgstr "rad"
+
+#~ msgid "Select a Page"
+#~ msgstr "Välj en sida"
+
+#~ msgid "Limit: %s rows"
+#~ msgstr "Gräns: %s rader"
+
+#~ msgid "Hex Value"
+#~ msgstr "Hex-värde"
+
+#~ msgid "No Image Selected"
+#~ msgstr "Ingen bild vald"
+
+#~ msgid "Add Image"
+#~ msgstr "Lägg till bild"
+
+#~ msgid "Change Image"
+#~ msgstr "Ändra bild"
+
+#~ msgid "Add File"
+#~ msgstr "Lägg till fil"
+
+#~ msgid "Change File"
+#~ msgstr "Byt fil"
+
+#~ msgid "Reset"
+#~ msgstr "Återställ"
+
+#~ msgid "On"
+#~ msgstr "På"
+
+#~ msgid "Off"
+#~ msgstr "Av"
+
+#~ msgid "Font Family"
+#~ msgstr "Typsnitt"
+
+#~ msgid "Select Font Family"
+#~ msgstr "Välj typsnitt"
+
+#~ msgid "Backup Font"
+#~ msgstr "Backup typsnitt"
+
+#~ msgid "Variant"
+#~ msgstr "Variant"
+
+#~ msgid "Download font-family to server instead of using the Google CDN."
+#~ msgstr "Ladda ner typsnittet lokalt"
+
+#~ msgid "Text Align"
+#~ msgstr "Justering av text"
+
+#~ msgid "Inherit"
+#~ msgstr "Ärv"
+
+#~ msgid "Justify"
+#~ msgstr "Fyll bredd"
+
+#~ msgid "Text Transform"
+#~ msgstr "Transformera text"
+
+#~ msgid "Initial"
+#~ msgstr "Standard"
+
+#~ msgid "Text Decoration"
+#~ msgstr "Textdekoration"
+
+#~ msgid "Underline"
+#~ msgstr "Understruken"
+
+#~ msgid "Overline"
+#~ msgstr "Överstruken"
+
+#~ msgid "Line-Through"
+#~ msgstr "Genomstruken"
+
+#~ msgid "Margin Top"
+#~ msgstr "Toppmarginal"
+
+#~ msgid "Margin Bottom"
+#~ msgstr "Marginal till botten"
+
+#~ msgid "Color"
+#~ msgstr "Färg"
+
+#~ msgid "Select image"
+#~ msgstr "Välj bild"
+
+#~ msgid "Change image"
+#~ msgstr "Byt bild"
+
+#~ msgid "No image selected"
+#~ msgstr "Ingen bild"
+
+#~ msgid "Choose image"
+#~ msgstr "Välj bild"
+
+#~ msgid "Color Palette"
+#~ msgstr "Färgpalett"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#~ msgid "Dimension"
+#~ msgstr "Dimension"
+
+#~ msgid "Dimensions"
+#~ msgstr "Dimensioner"
+
+#~ msgid "Editor"
+#~ msgstr "Redigerare"
+
+#~ msgid "Generic"
+#~ msgstr "Allmän"
+
+#, fuzzy
+#~| msgid "Add new"
+#~ msgid "Image"
+#~ msgstr "Skapa ny"
+
+#~ msgid "Multicheck"
+#~ msgstr "Flervalsalternativ"
+
+#~ msgid "Multicolor"
+#~ msgstr "Multifärg"
+
+#~ msgid "Number"
+#~ msgstr "Nummer"
+
+#~ msgid "Palette"
+#~ msgstr "Palette"
+
+#~ msgid "Preset"
+#~ msgstr "Förval"
+
+#~ msgid "Radio"
+#~ msgstr "Alternativ"
+
+#~ msgid "Repeater"
+#~ msgstr "Upprepningsfält"
+
+#~ msgid "Sortable"
+#~ msgstr "Sorterbar"
+
+#~ msgid "Description"
+#~ msgstr "Beskrivning"
+
+#~ msgid "Color-Palette"
+#~ msgstr "Färgpalett"
+
+#~ msgid "This is a color-palette control"
+#~ msgstr "Detta är en färgpalettkontroll"
+
+#~ msgid "Text Control"
+#~ msgstr "Text kontroll"
+
+#~ msgid "Textarea Control"
+#~ msgstr "Textområde kontroll"
+
+#~ msgid "Custom input Control."
+#~ msgstr "Anpassad ingångskontroll."
+
+#~ msgid ""
+#~ "The \"generic\" control allows you to add any input type you want. In "
+#~ "this case we use type=\"password\" and define custom styles."
+#~ msgstr ""
+#~ "Med den \"generiska\" kontrollen kan du lägga till vilken ingångstyp du "
+#~ "vill ha. I det här fallet använder vi typ = \"lösenord\" och definierar "
+#~ "anpassade stilar."
+
+#~ msgid "Image Control (URL)"
+#~ msgstr "Bildkontroll (URL)"
+
+#~ msgid "Image Control (ID)"
+#~ msgstr "Bildkontroll (ID)"
+
+#~ msgid "Image Control (array)"
+#~ msgstr "Bildkontroll (array)"
+
+#~ msgid "Multickeck Control"
+#~ msgstr "Multikontrollkontroll"
+
+#~ msgid "Option 1"
+#~ msgstr "Val 1"
+
+#~ msgid "Option 2"
+#~ msgstr "Val 2"
+
+#~ msgid "Option 3"
+#~ msgstr "Val 3"
+
+#~ msgid "Option 4"
+#~ msgstr "Val 4"
+
+#~ msgid "Option 5"
+#~ msgstr "Val 5"
+
+#~ msgid "Label"
+#~ msgstr "Etikett"
+
+#~ msgid "Hover"
+#~ msgstr "Hovra"
+
+#~ msgid "Active"
+#~ msgstr "Aktivera"
+
+#~ msgid "Radio Control"
+#~ msgstr "Radiofält"
+
+#~ msgid "The description here."
+#~ msgstr "Visa beskrivning"
+
+#~ msgid "Radio-Buttonset Control"
+#~ msgstr "Kontroll av radioknappar"
+
+#~ msgid "Radio-Image Control"
+#~ msgstr "Radio-bildkontroll"
+
+#~ msgid "Repeater Control"
+#~ msgstr "Repetitionskontroll"
+
+#~ msgid "Link Text"
+#~ msgstr "Länktext"
+
+#~ msgid "This will be the label for your link"
+#~ msgstr "Detta kommer att vara etiketten för din länk"
+
+#~ msgid "Link URL"
+#~ msgstr "Länk URL"
+
+#~ msgid "This will be the link URL"
+#~ msgstr "Detta kommer att vara länkens URL"
+
+#~ msgid "Link Target"
+#~ msgstr "Länkmål"
+
+#~ msgid "This will be the link target"
+#~ msgstr "Detta kommer att vara länkmålet"
+
+#~ msgid "New Window"
+#~ msgstr "Nytt fönster"
+
+#~ msgid "Same Frame"
+#~ msgstr "Samma ram"
+
+#~ msgid "Select Control"
+#~ msgstr "Välj kontroll"
+
+#~ msgid "Select an option"
+#~ msgstr "Välj ett alternativ"
+
+#~ msgid "Slider Control"
+#~ msgstr "Bildspelsreglage"
+
+#~ msgid "This is a sortable control."
+#~ msgstr "Detta är en sorterbar kontroll."
+
+#~ msgid "Option 6"
+#~ msgstr "Alternativ 6"
+
+#~ msgid "Switch Control"
+#~ msgstr "Byte kontrollreglage"
+
+#~ msgid "Switch Control with custom labels"
+#~ msgstr "Växla kontroll med anpassade etiketter"
+
+#~ msgid "Enabled"
+#~ msgstr "Aktiverad"
+
+#, fuzzy
+#~| msgid "Disable blog"
+#~ msgid "Disabled"
+#~ msgstr "Inaktivera blogg"
+
+#~ msgid "Toggle Control"
+#~ msgstr "Växla kontroll"
+
+#~ msgid "Typography Control Label"
+#~ msgstr "Etikett för typografikontroll"
+
+#~ msgid "The full set of options."
+#~ msgstr "Hela uppsättningen alternativ."
+
+#~ msgid "Sidebars Select"
+#~ msgstr "Välj sidofält"
+
+#~ msgid "An example of how to implement sidebars selection."
+#~ msgstr "Ett exempel på hur man implementerar sidofält."
+
+#~ msgid ""
+#~ "Do not use \"alpha\" as an argument in color controls. Use "
+#~ "\"choices[alpha]\" instead."
+#~ msgstr ""
+#~ "Använd inte \"alfa\" som ett argument i färgkontroller. Använd istället "
+#~ "\"val [alfa]\"."
+
+#~ msgid "Customizing"
+#~ msgstr "Anpassar"
+
+#~ msgid "Customizing &#9656; %s"
+#~ msgstr "Anpassar &#9656; %s"
+
+#~ msgid "Ultra-Light 100"
+#~ msgstr "Extra mager 100"
+
+#~ msgid "Ultra-Light 100 Italic"
+#~ msgstr "Extra mager 100 kursiv"
+
+#~ msgid "Light 200"
+#~ msgstr "Mager 200"
+
+#~ msgid "Light 200 Italic"
+#~ msgstr "Mager 200 kursiv"
+
+#~ msgid "Book 300"
+#~ msgstr "Bokstil 300"
+
+#~ msgid "Book 300 Italic"
+#~ msgstr "Bokstil 300 kursiv"
+
+#~ msgid "Normal 400 Italic"
+#~ msgstr "Normal 400 kursiv"
+
+#~ msgid "Medium 500"
+#~ msgstr "Medium 500"
+
+#~ msgid "Medium 500 Italic"
+#~ msgstr "Medium 500 kursiv"
+
+#~ msgid "Semi-Bold 600"
+#~ msgstr "Halvfet 600"
+
+#~ msgid "Semi-Bold 600 Italic"
+#~ msgstr "Halvfet 600 kursiv"
+
+#~ msgid "Bold 700"
+#~ msgstr "Fet 700"
+
+#~ msgid "Bold 700 Italic"
+#~ msgstr "Fet 700 kursiv"
+
+#~ msgid "Extra-Bold 800"
+#~ msgstr "Extra fet 800"
+
+#~ msgid "Extra-Bold 800 Italic"
+#~ msgstr "Extra fet 800 kursiv"
+
+#~ msgid "Ultra-Bold 900"
+#~ msgstr "Ultrafet 900"
+
+#~ msgid "Ultra-Bold 900 Italic"
+#~ msgstr "Ultrafet 900 kursiv"
+
+#~ msgid "Important Upgrade Notice:"
+#~ msgstr "Viktigt uppgraderingsmeddelande: "
 
 #~ msgid "Navigation settings"
 #~ msgstr "Navigationsinställningar"

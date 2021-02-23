@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a18e2adad844b6f8dfab97ca2537051",
+    "content-hash": "feb47f9c1b40a5c4aac1e66af0531e82",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -63,12 +63,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "df100b004465aa07b686f1c2245bbb4794498b07"
+                "reference": "98b34f8ab3558bee5caa7c07efbab3f5bd7663ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/df100b004465aa07b686f1c2245bbb4794498b07",
-                "reference": "df100b004465aa07b686f1c2245bbb4794498b07",
+                "url": "https://api.github.com/repos/composer/installers/zipball/98b34f8ab3558bee5caa7c07efbab3f5bd7663ab",
+                "reference": "98b34f8ab3558bee5caa7c07efbab3f5bd7663ab",
                 "shasum": ""
             },
             "require": {
@@ -180,6 +180,7 @@
                 "sydes",
                 "sylius",
                 "symfony",
+                "tastyigniter",
                 "typo3",
                 "wordpress",
                 "yawik",
@@ -204,7 +205,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-14T20:30:14+00:00"
+            "time": "2021-02-02T15:00:11+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -340,55 +341,17 @@
             "time": "2018-05-29T07:52:24+00:00"
         },
         {
-            "name": "helsingborg-stad/blade-component-library",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-                "reference": "879c7edede4463bb49ebcde2703e9d22fbca632b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/879c7edede4463bb49ebcde2703e9d22fbca632b",
-                "reference": "879c7edede4463bb49ebcde2703e9d22fbca632b",
-                "shasum": ""
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "BladeComponentLibrary\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Thulin",
-                    "email": "sebastian.thulin@helsingborg.se"
-                }
-            ],
-            "description": "A component library based upon blade engine.",
-            "support": {
-                "issues": "https://github.com/helsingborg-stad/blade-component-library/issues",
-                "source": "https://github.com/helsingborg-stad/blade-component-library/tree/master"
-            },
-            "time": "2021-01-27T15:50:23+00:00"
-        },
-        {
             "name": "helsingborg-stad/blade-engine-wrapper",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-engine-wrapper.git",
-                "reference": "db5a99d2c545056e9c439093835af1528b5d2e9e"
+                "reference": "d7e651f5f0a9535a976cbe771e77d7d0b75b62d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/db5a99d2c545056e9c439093835af1528b5d2e9e",
-                "reference": "db5a99d2c545056e9c439093835af1528b5d2e9e",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/d7e651f5f0a9535a976cbe771e77d7d0b75b62d5",
+                "reference": "d7e651f5f0a9535a976cbe771e77d7d0b75b62d5",
                 "shasum": ""
             },
             "require": {
@@ -434,7 +397,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-engine-wrapper/issues",
                 "source": "https://github.com/helsingborg-stad/blade-engine-wrapper/tree/master"
             },
-            "time": "2020-06-09T10:32:15+00:00"
+            "time": "2021-02-11T15:22:54+00:00"
         },
         {
             "name": "helsingborg-stad/global-blade-engine",
@@ -489,6 +452,44 @@
                 "source": "https://github.com/helsingborg-stad/global-blade-engine/tree/1.2.5"
             },
             "time": "2020-05-18T10:49:41+00:00"
+        },
+        {
+            "name": "helsingborg-stad/recaptcha-integration",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/recaptcha-integration.git",
+                "reference": "17ef8fc596ff7cb898dbdb4483de10af42c75f20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/recaptcha-integration/zipball/17ef8fc596ff7cb898dbdb4483de10af42c75f20",
+                "reference": "17ef8fc596ff7cb898dbdb4483de10af42c75f20",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HelsingborgStad\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johan Silvergrund",
+                    "email": "johan.silvergrund@helsingborg.se"
+                }
+            ],
+            "description": "Google ReCAPTCHA v3 integration for Municipio and plugins",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/recaptcha-integration/issues",
+                "source": "https://github.com/helsingborg-stad/recaptcha-integration/tree/1.0.8"
+            },
+            "time": "2021-02-18T00:36:21+00:00"
         },
         {
             "name": "illuminate/container",
@@ -816,12 +817,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd"
+                "reference": "5853493c508b5095486b335c7ced7450dc57affa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
-                "reference": "e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5853493c508b5095486b335c7ced7450dc57affa",
+                "reference": "5853493c508b5095486b335c7ced7450dc57affa",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +903,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-26T20:46:41+00:00"
+            "time": "2021-02-11T23:37:07+00:00"
         },
         {
             "name": "psr/container",
@@ -1127,12 +1128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "af4987aa4a5630e9615be9d9c3ed1b0f24ca449c"
+                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/af4987aa4a5630e9615be9d9c3ed1b0f24ca449c",
-                "reference": "af4987aa4a5630e9615be9d9c3ed1b0f24ca449c",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/157bbec4fd773bae53c5483c50951a5530a2cc16",
+                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16",
                 "shasum": ""
             },
             "require": {
@@ -1173,7 +1174,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.19"
+                "source": "https://github.com/symfony/debug/tree/4.4"
             },
             "funding": [
                 {
@@ -1189,7 +1190,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T09:09:26+00:00"
+            "time": "2021-01-28T16:54:48+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1399,7 +1400,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.1"
             },
             "funding": [
                 {
@@ -1576,7 +1577,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "helsingborg-stad/blade-component-library": 20,
         "helsingborg-stad/blade-engine-wrapper": 20
     },
     "prefer-stable": false,
