@@ -93,9 +93,6 @@ class BaseController
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
 
-        //Google translate location
-        $this->data['translateLocation']    = get_field('show_google_translate', 'option');
-
         //User is authenticated
         $this->data['isAuthenticated']      = is_user_logged_in();
 

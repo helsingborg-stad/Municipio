@@ -42,6 +42,10 @@ class Singular extends \Municipio\Controller\BaseController
             'on'        => __('on', 'municipio'),
         );
 
+        //Reading time
+        $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent); 
+        $this->data['lang']->readingTime    = __('Reading time', 'municipio');
+
         //Comments
         if(get_option('comment_moderation') === '1') {
             $this->data['comments'] = get_approved_comments($this->data['post']->id, array(
@@ -174,5 +178,16 @@ class Singular extends \Municipio\Controller\BaseController
         ];
          
         return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
+    }
+
+    /**
+     * Calculate reading time
+     *
+     * @param   string      $postContent    The post content
+     * @param   integer     $factor         What factor to devide with, default 200 = normal reading speed
+     * @return  integer                     Interger representing number of reading minutes  
+     */
+    public function getReadingTime($postContent, $factor = 200) {
+        return (int) ceil((str_word_count(strip_tags($postContent))/$factor));
     }
 }
