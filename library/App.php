@@ -87,6 +87,11 @@ class App
          */
         new \Municipio\Api\Navigation();
 
+        /**
+         * Customizer
+         */
+        new \Municipio\Customizer\Fields();
+
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
