@@ -9,7 +9,7 @@ $reCaptchaTerms = (!is_user_logged_in()) ? __('This site is protected by reCAPTC
     ob_start();
     comment_form(array(
         'class_submit' 			=> 'btn btn-primary',
-    	'submit_button' 		=> $reCaptcha . $reCaptchaTerms. '<div class="form-group"><input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" /></div>'
+    	'submit_button' 		=> $reCaptcha . '<p class="text-sm text-dark-gray">'.$reCaptchaTerms.'</p><div class="form-group"><input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" /></div>'
     ));
     echo str_replace('class="comment-respond"','class="comment-respond comment-respond-new u-mt-4"',ob_get_clean());
     
