@@ -62,8 +62,10 @@ class CommentsActions
         }
 
         $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" class="g-recaptcha-response" 
-            name="g-recaptcha-response" value="" />' : '';
-
+                                                      name="g-recaptcha-response" value="" />' : '';
+        $reCaptchaTerms = __('This site is protected by reCAPTCHA and the Google
+                                <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                                <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'municipio');
         $args = array(
             'id_form' => 'commentupdate',
             'class_submit' => 'btn btn-sm btn-primary',
@@ -74,6 +76,7 @@ class CommentsActions
             'logged_in_as' => '',
             'comment_field' => $reCaptcha.'<textarea id="update-comment" name="comment" cols="45" rows="8" aria-required="true">' . $comment->comment_content . '</textarea>',
             'comment_notes_after' => '<input type="hidden" name="commentId" value="' . $commentId . '">
+           JOHAN TEST 12341234 '.$reCaptchaTerms.'
             <input type="hidden" name="nonce" value="' . wp_create_nonce("update-comment_$commentId") . '">',
             'submit_button' => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" /> <a href="#" class="cancel-update-comment gutter gutter-left gutter-sm"><small>' . __('Cancel', 'municipio') . '</small></a>'
         );
