@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-02-18 13:23+0100\n"
-"PO-Revision-Date: 2021-02-18 13:26+0100\n"
+"POT-Creation-Date: 2021-02-25 16:49+0100\n"
+"PO-Revision-Date: 2021-02-25 16:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -194,8 +194,7 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:27
-#: library/Controller/Singular.php:90
+#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:96
 msgid "Author"
 msgstr "Författare"
 
@@ -1134,7 +1133,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:134
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:131
 #: library/Search/General.php:50 library/Theme/Navigation.php:230
 #: library/Theme/Navigation.php:231 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
@@ -1217,6 +1216,16 @@ msgstr "Uppdatera"
 msgid "Cancel"
 msgstr "Avbryt"
 
+#: library/Comment/CommentsActions.php:98
+msgid ""
+"This site is protected by reCAPTCHA and the Google <a href=\"https://"
+"policies.google.com/privacy\">Privacy Policy</a> and <a href=\"https://"
+"policies.google.com/terms\">Terms of Service</a> apply."
+msgstr ""
+"Denna webbplats är skyddad av reCAPTCHA och Googles <a href=\"https://"
+"policies.google.com/privacy\">Integritetspolicy</a> och <a href=\"https://"
+"policies.google.com/terms\">Användarvillkor</a> tillämpas."
+
 #: library/Comment/CommentsActions.php:125
 msgid "Cancel reply"
 msgstr "Avbryt"
@@ -1296,13 +1305,13 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel"
 
-#: library/Controller/Archive.php:68 library/Controller/Singular.php:38
+#: library/Controller/Archive.php:68 library/Controller/Singular.php:31
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:69 library/Controller/Singular.php:37
+#: library/Controller/Archive.php:69 library/Controller/Singular.php:30
 msgid "Updated"
 msgstr "Uppdaterad"
 
@@ -1332,66 +1341,66 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:124 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:121 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:125
+#: library/Controller/BaseController.php:122
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:126
+#: library/Controller/BaseController.php:123
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:127
+#: library/Controller/BaseController.php:124
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:128
+#: library/Controller/BaseController.php:125
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:129
+#: library/Controller/BaseController.php:126
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:130
+#: library/Controller/BaseController.php:127
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:131
+#: library/Controller/BaseController.php:128
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:132
+#: library/Controller/BaseController.php:129
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:133
+#: library/Controller/BaseController.php:130
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:135
+#: library/Controller/BaseController.php:132
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:136
+#: library/Controller/BaseController.php:133
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:137
+#: library/Controller/BaseController.php:134
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:138
+#: library/Controller/BaseController.php:135
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:139 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:136 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
@@ -1445,26 +1454,30 @@ msgstr "Sök efter"
 msgid "View page"
 msgstr "Visa sida"
 
-#: library/Controller/Singular.php:39
+#: library/Controller/Singular.php:32
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
 msgstr "Publicerad av"
 
-#: library/Controller/Singular.php:40
+#: library/Controller/Singular.php:33
 msgid "on"
 msgstr "på"
 
-#: library/Controller/Singular.php:59
+#: library/Controller/Singular.php:38
+msgid "Reading time"
+msgstr ""
+
+#: library/Controller/Singular.php:56
 msgid "Reply"
 msgstr "Svara"
 
-#: library/Controller/Singular.php:60
+#: library/Controller/Singular.php:57
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Helper/Navigation.php:567 library/Helper/Navigation.php:760
+#: library/Helper/Navigation.php:567 library/Helper/Navigation.php:784
 msgid "Untitled page"
 msgstr "Namnlös sida"
 

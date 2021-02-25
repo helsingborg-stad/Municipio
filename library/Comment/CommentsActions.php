@@ -95,7 +95,7 @@ class CommentsActions
 
         $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" class="g-recaptcha-response" 
             name="g-recaptcha-response" value="" />' : '';
-
+        $reCaptchaTerms = __('This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'municipio');
         ob_start();
         ob_get_clean();
 
@@ -129,7 +129,8 @@ class CommentsActions
                                     id="comment"
                                     name="comment"
                                     placeholder="'.__('Comment text','text-domain').'" 
-                                    aria-required="true"></textarea></div>'
+                                    aria-required="true"></textarea><br><div class="c-typography 
+                                    c-typography__variant--meta u-padding__top--2">'.$reCaptchaTerms.'</div></div>'
         );
 
         comment_form( $args );
