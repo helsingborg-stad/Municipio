@@ -20,6 +20,23 @@ class Design
   }
 
   /**
+   * Inits a new panel structure.
+   *
+   * @return void
+   */
+  public function initPanels() {
+    new \Municipio\Helper\Customizer(
+      __('Design', 'municipio'),
+      [
+        __('Colors', 'municipio'),
+        __('Fonts', 'municipio'),
+        __('Borders', 'municipio'),
+        __('Radius', 'municipio')
+      ]
+    ); 
+  }
+
+  /**
    * Parses the acf config
    *
    * @return void
@@ -33,7 +50,7 @@ class Design
         if($data = json_decode($data)) {
           
           if(count($data) != 1) {
-            return new \WP_Error("Counfiguration file should not contain more than one group " . $config); 
+            return new \WP_Error("Configuration  file should not contain more than one group " . $config); 
           }
 
           //Gets first group
@@ -56,23 +73,6 @@ class Design
         }
       }
     }
-  }
-
-  /**
-   * Inits a new panel structure.
-   *
-   * @return void
-   */
-  public function initPanels() {
-    new \Municipio\Helper\Customizer(
-      __('Design', 'municipio'),
-      [
-        __('Colors', 'municipio'),
-        __('Fonts', 'municipio'),
-        __('Borders', 'municipio'),
-        __('Radius', 'municipio')
-      ]
-    ); 
   }
 
   /**
