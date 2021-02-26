@@ -80,7 +80,8 @@ add_action('init', function () {
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
         //Customizer
-        'customizer-color'                          => 'group_60361b6d86d9d'
+        'customizer-color'                          => 'group_60361b6d86d9d',
+        'customizer-radius'                         => 'group_603662f315acc'
     ));
     $acfExportManager->import();
 });

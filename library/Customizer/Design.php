@@ -2,37 +2,29 @@
 
 namespace Municipio\Customizer;
 
-class Fields
+class Design
 {
+  private $instanceName; 
+  private $InstanceSlug; 
 
-  public function __construct() {
-    add_action('wp_head', array($this, 'renderCssVars'));
-    add_action('wp_head', array($this, 'test'));
-    add_action('init', array($this, 'registerPanels'));
+  private $panelId = null;
+  private $panels = [];
+  private $name = null;
+
+  public function __construct($name = "") {
+    add_action('init', array($this, 'initPanels')); 
   }
 
-  /**
-   * Register settings panels
-   *
-   * @return void
-   */
-  public function registerPanels() {
-
-    $panel_id = acf_add_customizer_panel(array(
-        'title'        => 'Design',
-    ));
-
-    acf_add_customizer_section(array(
-      'title'        => 'Color Profile',
-      'storage_type' => 'theme_mod',
-      'panel'        => $panel_id,
-    ));
-    
-    acf_add_customizer_section(array(
-      'title'        => 'Radiuses',
-      'storage_type' => 'theme_mod',
-      'panel'        => $panel_id,
-    ));
+  public function initPanels() {
+    new \Municipio\Helper\Customizer(
+      __('Design', 'municipio'),
+      [
+        __('Colors', 'municipio'),
+        __('Fonts', 'municipio'),
+        __('Borders', 'municipio'),
+        __('Radius', 'municipio')
+      ]
+    ); 
   }
 
   /**
@@ -40,7 +32,7 @@ class Fields
    *
    * @return void
    */
-  public function renderCssVars() {
+  public function renderCssVariables() {
 
     $data = [
       'colorprofile' => array(
@@ -77,11 +69,5 @@ class Fields
       echo '</style>'. PHP_EOL; 
 
     }
-  }
-
-  public function test() {
-    echo '<style>';
-    echo '.c-header.c-header--business .c-header__menu.c-header__menu--secondary, .c-card--panel .c-card__header, .c-button__filled--primary {background-color: var(--primary-color);}';
-    echo '</style>'; 
   }
 }

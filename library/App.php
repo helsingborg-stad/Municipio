@@ -90,7 +90,7 @@ class App
         /**
          * Customizer
          */
-        new \Municipio\Customizer\Fields();
+        new \Municipio\Customizer\Design();
 
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';

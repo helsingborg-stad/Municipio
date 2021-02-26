@@ -41,7 +41,7 @@
             0 => array(
                 'param' => 'customizer',
                 'operator' => '==',
-                'value' => 'colorprofile',
+                'value' => 'colors',
             ),
         ),
     ),
