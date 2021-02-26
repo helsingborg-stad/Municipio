@@ -4,17 +4,55 @@ namespace Municipio\Customizer;
 
 class Design
 {
-  private $instanceName; 
-  private $InstanceSlug; 
 
-  private $panelId = null;
-  private $panels = [];
-  private $name = null;
+  private $dataFieldStack; 
+  private $configurationFiles = [
+    MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json'
+  ];
 
-  public function __construct($name = "") {
-    add_action('init', array($this, 'initPanels')); 
+  public function __construct() {
+    add_action('init', array($this, 'initPanels'));
+
+
+    $this->readAcfFields(); 
+
+
+    //add_action('wp_head', '')
   }
 
+  public function readAcfFields() {
+    
+    if(is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
+      foreach($this->configurationFiles as $config) {
+        $data = file_get_contents($config); 
+
+        if($data = json_decode($data)) {
+          
+          if(count($data) != 1) {
+            return new \WP_Error("Counfiguration file should not contain more than one group " . $config); 
+          }
+
+          //Gets first group
+          $data = array_pop($data);
+
+          if(isset($data->fields) && !empty($data->fields)) {
+            foreach($data->fields as $field) {
+              var_dump($field); 
+            }
+          }
+
+        } else {
+          return new \WP_Error("Could not read configuration file " . $config); 
+        }
+      }
+    }
+  }
+
+  /**
+   * Inits a new panel structure.
+   *
+   * @return void
+   */
   public function initPanels() {
     new \Municipio\Helper\Customizer(
       __('Design', 'municipio'),
