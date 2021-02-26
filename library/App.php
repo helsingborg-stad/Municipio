@@ -2,8 +2,15 @@
 
 namespace Municipio;
 
+/**
+ * Class App
+ * @package Municipio
+ */
 class App
 {
+    /**
+     * App constructor.
+     */
     public function __construct()
     {
         /**

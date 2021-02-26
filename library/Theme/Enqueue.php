@@ -2,8 +2,10 @@
 
 namespace Municipio\Theme;
 
-use \Municipio\Helper\Styleguide;
-
+/**
+ * Class Enqueue
+ * @package Municipio\Theme
+ */
 class Enqueue
 {
     public $defaultPrimeName = 'hbg-prime';
@@ -19,7 +21,6 @@ class Enqueue
 
         //Google scripts
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
-        add_action('wp_enqueue_scripts', array($this, 'googleReCaptcha'), 999);
         add_action('wp_footer', array($this, 'addGoogleTranslate'), 999);
 
         // Removes version querystring from scripts and styles
@@ -76,12 +77,12 @@ class Enqueue
         wp_enqueue_style('material-icons');
 
         // Load styleguide css
-        wp_register_style('styleguide-css', get_template_directory_uri(). '/assets/dist/'
+        wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         // Load local municipio css
-        wp_register_style('municipio-css', get_template_directory_uri(). '/assets/dist/'
+        wp_register_style('municipio-css', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/municipio.css'));
         wp_enqueue_style('municipio-css');
     }
@@ -118,19 +119,19 @@ class Enqueue
         }
 
         //Load local styleguide js
-        wp_register_script('styleguide-js', get_template_directory_uri(). '/assets/dist/'
+        wp_register_script('styleguide-js', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('js/styleguide.js'));
         wp_enqueue_script('styleguide-js');
 
         //Load local municipio js
-        wp_register_script('municipio-js', get_template_directory_uri(). '/assets/dist/'
+        wp_register_script('municipio-js', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('js/municipio.js'));
         wp_enqueue_script('municipio-js');
     }
 
     /**
-     * Move all scripts to footer, discard settings. 
-     * 
+     * Move all scripts to footer, discard settings.
+     *
      * @return void
      */
     public function moveScriptsToFooter()
@@ -141,26 +142,8 @@ class Enqueue
     }
 
     /**
-     * Enqueue Google reCAPTCHA
-     * 
-     * @return void
-     */
-    public function googleReCaptcha()
-    {
-        if (defined('G_RECAPTCHA_KEY') && defined('G_RECAPTCHA_SECRET')) {
-            wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit', '', '1.0.0', true);
-            wp_add_inline_script('google-recaptcha', '
-            var CaptchaCallback = function() {
-                jQuery(\'.g-recaptcha\').each(function(index, el) {
-                    grecaptcha.render(el, {\'sitekey\' : \'' . G_RECAPTCHA_KEY . '\'});
-                });
-            };', 'before');
-        }
-    }
-
-    /**
      * Enqueues Google Tag Manager
-     * 
+     *
      * @return void
      */
     public function googleTagManager()
@@ -186,7 +169,7 @@ class Enqueue
 
     /**
      * Print the google translate element
-     * 
+     *
      * @return void
      */
     public function addGoogleTranslate()
@@ -209,15 +192,15 @@ class Enqueue
 
     /**
      * Removes querystring from any scripts/styles internally
-     * 
-     * @param  string $src The soruce path
-     * 
+     *
+     * @param string $src The soruce path
+     *
      * @return string      The source path without any querystring
      */
     public function removeScriptVersion($src)
     {
-        $siteUrlComponents  = parse_url(get_site_url());
-        $urlComponents      = parse_url($src);
+        $siteUrlComponents = parse_url(get_site_url());
+        $urlComponents = parse_url($src);
 
         // Check if the URL is internal or external
         if (!empty($siteUrlComponents['host'])
@@ -233,10 +216,10 @@ class Enqueue
 
     /**
      * Making deffered loading of scripts a posibillity (removes unwanted renderblocking js)
-     * 
-     * @param  string $tag    HTML Script tag
-     * @param  string $handle Script handle
-     * 
+     *
+     * @param string $tag    HTML Script tag
+     * @param string $handle Script handle
+     *
      * @return string         The script tag
      */
     public function deferedLoadingJavascript($tag, $handle)
