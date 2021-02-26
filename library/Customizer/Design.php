@@ -7,7 +7,8 @@ class Design
 
   private $dataFieldStack; 
   private $configurationFiles = [
-    MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json'
+    MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
+    MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
   ];
 
   public function __construct() {
@@ -16,9 +17,13 @@ class Design
 
     add_action('init', array($this, 'initPanels'));
     add_action('wp_head', array($this, 'renderCssVariables'));
-
   }
 
+  /**
+   * Parses the acf config
+   *
+   * @return void
+   */
   public function readAcfFields() {
     
     if(is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
@@ -36,8 +41,9 @@ class Design
 
           if(isset($data->fields) && !empty($data->fields)) {
             foreach($data->fields as $field) {
-              $this->dataFieldStack[sanitize_title($data->title)] = [
+              $this->dataFieldStack[sanitize_title($data->title)][] = [
                 $field->key => [
+                  'group-id' => sanitize_title($data->title),
                   'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name), 
                   'default' => $field->default_value
                 ]
@@ -76,29 +82,29 @@ class Design
    */
   public function renderCssVariables() {
 
+    //Get the theme mods
+    $themeMods = array_collapse(get_theme_mods()); 
+
     if(is_array($this->dataFieldStack) && !empty($this->dataFieldStack)) {
-      
-      
 
       echo '<style>'. PHP_EOL;
         echo ':root {'. PHP_EOL; 
-        
-          foreach($this->dataFieldStack as $key => $item) {
 
-            var_dump($key); 
+          foreach($this->dataFieldStack as $profileKey => $cssVariableDefinition) {
+            if(is_array($cssVariableDefinition) && !empty($cssVariableDefinition)) {
 
-            //Get the theme mods
-            $settings = get_theme_mod($key); 
+              //Print heading
+              if(is_array($cssVariableDefinition) && !empty($cssVariableDefinition)) {
+                echo PHP_EOL . '  /* Variables: ' . $profileKey . ' */' . PHP_EOL; 
+              }
 
-            //Print heading
-            if(is_array($settings) && !empty($settings)) {
-              echo PHP_EOL . '  /* Variables: ' . $key . ' */' . PHP_EOL; 
-            }
+              //Print css
+              foreach($cssVariableDefinition as $id => $definition) {
 
-            //Render settings
-            if(is_array($settings) && !empty($settings)) {
-              foreach($settings as $identifier => $value) {
-                echo '  --' . $item[$identifier]['name'] . ': ' . (!empty($value) ? $value : $item[$identifier]['default']) . ';' . PHP_EOL; 
+                $dbSetting  = $themeMods[array_key_first($definition)];
+                $defaults   = array_pop($definition);
+
+                echo '  --' . $defaults['name'] . ': ' . (!empty($dbSetting) ? $dbSetting : $defaults['default']) . ';' . PHP_EOL; 
               }
             }
 
