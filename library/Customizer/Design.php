@@ -11,13 +11,12 @@ class Design
   ];
 
   public function __construct() {
-    add_action('init', array($this, 'initPanels'));
-
 
     $this->readAcfFields(); 
 
+    add_action('init', array($this, 'initPanels'));
+    add_action('wp_head', array($this, 'renderCssVariables'));
 
-    //add_action('wp_head', '')
   }
 
   public function readAcfFields() {
@@ -37,7 +36,12 @@ class Design
 
           if(isset($data->fields) && !empty($data->fields)) {
             foreach($data->fields as $field) {
-              var_dump($field); 
+              $this->dataFieldStack[sanitize_title($data->title)] = [
+                $field->key => [
+                  'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name), 
+                  'default' => $field->default_value
+                ]
+              ];
             }
           }
 
@@ -72,19 +76,16 @@ class Design
    */
   public function renderCssVariables() {
 
-    $data = [
-      'colorprofile' => array(
-        'field_60361bcb76325' => ['name' => 'primary-color', 'default' => '#000'],
-        'field_60364d06dc120' => ['name' => 'secondary-color', 'default' => '#000']
-      )
-    ]; 
-
-    if(is_array($data) && !empty($data)) {
+    if(is_array($this->dataFieldStack) && !empty($this->dataFieldStack)) {
       
+      
+
       echo '<style>'. PHP_EOL;
         echo ':root {'. PHP_EOL; 
         
-          foreach($data as $key => $item) {
+          foreach($this->dataFieldStack as $key => $item) {
+
+            var_dump($key); 
 
             //Get the theme mods
             $settings = get_theme_mod($key); 
