@@ -50,7 +50,7 @@ class Design
         if($data = json_decode($data)) {
           
           if(count($data) != 1) {
-            return new \WP_Error("Configuration  file should not contain more than one group " . $config); 
+            return new \WP_Error("Configuration file should not contain more than one group " . $config); 
           }
 
           //Gets first group

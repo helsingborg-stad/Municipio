@@ -48,7 +48,7 @@ class Customizer
         ));
       }
     } else {
-      return new Exception('Cound not run du to missing acf_add_customizer_panel'); 
+      return new \Exception('Cound not run du to missing acf_add_customizer_panel'); 
     }
   }
 
@@ -76,7 +76,7 @@ class Customizer
       return false; 
 
     } else {
-      return new Exception('Cound not run du to missing acf_add_customizer_panel'); 
+      return new \Exception('Cound not run du to missing acf_add_customizer_panel'); 
     }
   }
 
@@ -90,7 +90,7 @@ class Customizer
     if(!in_array($name, $this->sections)) {
       $this->sections[] = $name; 
     } else {
-      return new Exception('Panel name ' . $name . ' already registered in context ['. $this->InstanceSlug .'].');
+      return new \Exception('Panel name ' . $name . ' already registered in context ['. $this->InstanceSlug .'].');
     }
   }
 }

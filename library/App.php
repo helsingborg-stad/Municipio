@@ -79,6 +79,7 @@ class App
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
         new \Municipio\Admin\UI\Editor();
+        new \Municipio\Admin\UI\Customizer();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
