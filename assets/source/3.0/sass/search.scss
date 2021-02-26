@@ -74,6 +74,10 @@
         color: inherit;
     }
 
+    #hero-search-form .c-field__text--label {
+        display: none;
+    }
+
     #hero-search-form label {
         color: inherit;
         font-weight: bold;
