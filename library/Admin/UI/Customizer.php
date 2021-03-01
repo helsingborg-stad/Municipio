@@ -7,7 +7,7 @@ class Customizer
   public function __construct()
   {
     add_action('init', function() {
-      if(is_customize_preview() && !class_exists('ACFCustomizer\Core')) {
+      if(is_customize_preview() && !class_exists('ACFCustomizer\Core\Core')) {
         $this->thowNotice();
       }
     }); 
