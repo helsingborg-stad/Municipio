@@ -27,7 +27,7 @@ class Design
      */
     public function __construct()
     {
-        $this->readAcfFields();
+        $this->getAcfCustomizerFields();
         add_action('init', array($this, 'initPanels'));
         add_action('wp_head', array($this, 'renderCssVariables'), 0);
     }
@@ -48,15 +48,16 @@ class Design
         );
     }
 
+
     /**
      * Parses the acf config
-     * @return \WP_Error
+     * @return \WP_Error|void
      */
-    public function readAcfFields()
+    public function getAcfCustomizerFields()
     {
         if (is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
-            foreach ($this->configurationFiles as $config) {
 
+            foreach ($this->configurationFiles as $int => $config) {
                 $data = file_get_contents($config);
 
                 if (file_exists($config) && $data = json_decode($data)) {
@@ -64,9 +65,6 @@ class Design
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
                     }
-
-                    //Gets first group
-                    $data = array_pop($data);
 
                     if (isset($data->fields) && !empty($data->fields)) {
                         foreach ($data->fields as $index => $field) {
