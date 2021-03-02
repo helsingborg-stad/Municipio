@@ -28,6 +28,7 @@ class Design
     public function __construct()
     {
         $this->getAcfCustomizerFields();
+
         add_action('init', array($this, 'initPanels'));
         add_action('wp_head', array($this, 'renderCssVariables'), 0);
     }
@@ -65,6 +66,8 @@ class Design
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
                     }
+
+                    $data = array_pop($data);
 
                     if (isset($data->fields) && !empty($data->fields)) {
                         foreach ($data->fields as $index => $field) {
