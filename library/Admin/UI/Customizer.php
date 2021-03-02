@@ -15,9 +15,30 @@ class Customizer
     {
         add_action('init', function () {
             if (is_customize_preview() && !class_exists('ACFCustomizer\Core\Core')) {
-                $this->throwNotice();
+                
+                $pluginInstalled = $this->installPlugin();
+
+                if(!$pluginInstalled) {
+                    $this->throwNotice();
+                }
+                
             }
         });
+    }
+
+    /**
+     * Install plugin
+     *
+     * @return bool
+     */
+    private function installPlugin() {
+
+        if(isset($_GET['installAcfCustomizer'])) {
+            shell_exec("cd " . ABSPATH . " && composer require mcguffin/acf-customizer && wp plugin activate acf-customizer");
+            return true; 
+        }
+
+        return false; 
     }
 
     /**
@@ -28,8 +49,12 @@ class Customizer
     public function throwNotice()
     {
         wp_die(
-            __("<h1>Plugin install required </h1> <p>To use the customizer with municipio its required to use ACFCustomizer plugin. Please install this plugin by cloning <a href='https://www.awesomeacf.com/extension/customizer/'>ACF Customizer</a>.</p>"),
-            __("Plugin install required")
-        );
+            __("<h1>Plugin install required </h1> <p>To use the customizer with municipio its required to use ACFCustomizer plugin. Please install this plugin by running <code>composer require mcguffin/acf-customizer</code> in the root folder and activate or just click the link below.</p>"),
+            __("Plugin install required"),
+            [
+                'link_url' => admin_url("customize.php?url=" . home_url(). "&installAcfCustomizer"), 
+                'link_text' => __("Install plugin", 'municipio')
+            ]
+        );        
     }
 }

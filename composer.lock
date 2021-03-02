@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aab78ad8f6ee4090ca2c89ee783eae03",
+    "content-hash": "ced5e534d24c3c75fdb48cb835548d51",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -810,6 +810,55 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2019-06-20T13:13:59+00:00"
+        },
+        {
+            "name": "mcguffin/acf-customizer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mcguffin/acf-customizer.git",
+                "reference": "c272ae23ce747f47ff90c80802b4fc715d09a0ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mcguffin/acf-customizer/zipball/c272ae23ce747f47ff90c80802b4fc715d09a0ad",
+                "reference": "c272ae23ce747f47ff90c80802b4fc715d09a0ad",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.2",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "pheromone/phpcs-security-audit": "*",
+                "phpcompatibility/php-compatibility": "*",
+                "squizlabs/php_codesniffer": "*",
+                "wp-coding-standards/wpcs": "*"
+            },
+            "default-branch": true,
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jörn Lund"
+                }
+            ],
+            "description": "Use ACF Fields in customizer.",
+            "homepage": "https://github.com/mcguffin/acf-customizer",
+            "keywords": [
+                "Repeater",
+                "acf",
+                "plugin",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/mcguffin/acf-customizer/issues",
+                "source": "https://github.com/mcguffin/acf-customizer/tree/0.2.13"
+            },
+            "time": "2021-03-02T17:48:37+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1736,7 +1785,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "helsingborg-stad/blade-engine-wrapper": 20
+        "helsingborg-stad/blade-engine-wrapper": 20,
+        "mcguffin/acf-customizer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
