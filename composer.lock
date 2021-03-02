@@ -346,12 +346,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-engine-wrapper.git",
-                "reference": "d7e651f5f0a9535a976cbe771e77d7d0b75b62d5"
+                "reference": "2d9ae9d012b76f8b030cab5a19e060e52cb27fd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/d7e651f5f0a9535a976cbe771e77d7d0b75b62d5",
-                "reference": "d7e651f5f0a9535a976cbe771e77d7d0b75b62d5",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/2d9ae9d012b76f8b030cab5a19e060e52cb27fd6",
+                "reference": "2d9ae9d012b76f8b030cab5a19e060e52cb27fd6",
                 "shasum": ""
             },
             "require": {
@@ -397,7 +397,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-engine-wrapper/issues",
                 "source": "https://github.com/helsingborg-stad/blade-engine-wrapper/tree/master"
             },
-            "time": "2021-02-11T15:22:54+00:00"
+            "time": "2021-03-02T20:41:57+00:00"
         },
         {
             "name": "helsingborg-stad/global-blade-engine",
@@ -1035,12 +1035,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "dd738d0b4491f32725492cf345f6b501f5922fec"
+                "reference": "a18c1e692e02b84abbafe4856c3cd7cc6903908c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/dd738d0b4491f32725492cf345f6b501f5922fec",
-                "reference": "dd738d0b4491f32725492cf345f6b501f5922fec",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/a18c1e692e02b84abbafe4856c3cd7cc6903908c",
+                "reference": "a18c1e692e02b84abbafe4856c3cd7cc6903908c",
                 "shasum": ""
             },
             "require": {
@@ -1078,7 +1078,7 @@
             "support": {
                 "source": "https://github.com/php-fig/log/tree/master"
             },
-            "time": "2020-09-18T06:44:51+00:00"
+            "time": "2021-03-02T15:02:34+00:00"
         },
         {
             "name": "psr/simple-cache",
