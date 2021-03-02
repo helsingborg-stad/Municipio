@@ -2,28 +2,38 @@
 
 namespace Municipio\Customizer;
 
+/**
+ * Class Design
+ * @package Municipio\Customizer
+ */
 class Design
 {
-
+    /**
+     * @var
+     */
     private $dataFieldStack;
+
+    /**
+     * @var string[]
+     */
     private $configurationFiles = [
+        MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
         MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
         MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
     ];
 
+    /**
+     * Design constructor.
+     */
     public function __construct()
     {
-
         $this->readAcfFields();
-
         add_action('init', array($this, 'initPanels'));
         add_action('wp_head', array($this, 'renderCssVariables'), 0);
     }
 
     /**
      * Inits a new panel structure.
-     *
-     * @return void
      */
     public function initPanels()
     {
@@ -40,16 +50,16 @@ class Design
 
     /**
      * Parses the acf config
-     * @return \WP_Error|void
+     * @return \WP_Error
      */
     public function readAcfFields()
     {
-
         if (is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
             foreach ($this->configurationFiles as $config) {
+
                 $data = file_get_contents($config);
 
-                if ($data = json_decode($data)) {
+                if (file_exists($config) && $data = json_decode($data)) {
 
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
@@ -59,8 +69,8 @@ class Design
                     $data = array_pop($data);
 
                     if (isset($data->fields) && !empty($data->fields)) {
-                        foreach ($data->fields as $field) {
-                            $this->dataFieldStack[sanitize_title($data->title)][] = [
+                        foreach ($data->fields as $index => $field) {
+                            $this->dataFieldStack[sanitize_title($data->title)][$index] = [
                                 $field->key => [
                                     'group-id' => sanitize_title($data->title),
                                     'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
@@ -83,7 +93,6 @@ class Design
      */
     public function renderCssVariables()
     {
-
         //Get the theme mods
         $themeMods = array_collapse(get_theme_mods());
 
