@@ -3,12 +3,12 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_60361b6d86d9d',
-    'title' => __('Color Profile', 'municipio'),
+    'title' => __('Colors', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_60361bcb76325',
-            'label' => __('Primary', 'municipio'),
-            'name' => 'municipio_color_primary',
+            'label' => __('Primary Color', 'municipio'),
+            'name' => 'municipio_primary_color',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -18,12 +18,12 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ae0b05', 'municipio'),
+            'default_value' => __('#000', 'municipio'),
         ),
         1 => array(
-            'key' => 'field_603e01fa908e5',
-            'label' => __('Primary dark', 'municipio'),
-            'name' => 'municipio_color_primary_dark',
+            'key' => 'field_60364d06dc120',
+            'label' => __('Secondary color', 'municipio'),
+            'name' => 'municipio_secondary_color',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -33,22 +33,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#770000', 'municipio'),
-        ),
-        2 => array(
-            'key' => 'field_603e0b0e43957',
-            'label' => __('Primary Light', 'municipio'),
-            'name' => 'municipio_color_primary_light',
-            'type' => 'color_picker',
-            'instructions' => '',
-            'required' => 1,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => __('#e84c31', 'municipio'),
+            'default_value' => __('#eee', 'municipio'),
         ),
     ),
     'location' => array(

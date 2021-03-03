@@ -18,9 +18,8 @@ class Design
      * @var array|string[]
      */
     private array $configurationFiles = [
-        MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
-        MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
-        MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
+        'Colors' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
+        'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
     ];
 
     /**
@@ -28,10 +27,9 @@ class Design
      */
     public function __construct()
     {
-        $this->getAcfCustomizerFields();
-
         add_action('init', array($this, 'initPanels'));
-        add_action('wp_head', array($this, 'renderCssVariables'), 0);
+        add_action('wp_head', array($this, 'getAcfCustomizerFields'), 5); 
+        add_action('wp_head', array($this, 'renderCssVariables'), 10);
     }
 
     /**
@@ -41,12 +39,7 @@ class Design
     {
         new \Municipio\Helper\Customizer(
             __('Design', 'municipio'),
-            [
-                __('Colors', 'municipio'),
-                __('Fonts', 'municipio'),
-                __('Borders', 'municipio'),
-                __('Radius', 'municipio')
-            ]
+            array_flip($this->configurationFiles) 
         );
     }
 
@@ -72,8 +65,10 @@ class Design
     {
         if (is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
 
-            foreach ($this->configurationFiles as $int => $config) {
+            foreach ($this->configurationFiles as $key => $config) {
                 $data = file_get_contents($config);
+
+                $themeMods = get_theme_mod(sanitize_title($key)); 
 
                 if (file_exists($config) && $data = json_decode($data)) {
 
@@ -87,11 +82,13 @@ class Design
 
                     if (isset($data->fields) && !empty($data->fields)) {
                         foreach ($data->fields as $index => $field) {
+                           
                             $this->dataFieldStack[sanitize_title($data->title)][$index] = [
                                 $field->key => [
-                                    'group-id' => sanitize_title($data->title),
-                                    'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
-                                    'default' => $field->default_value
+                                    'group-id'  => sanitize_title($data->title),
+                                    'name'      => str_replace(['municipio_', '_'], ['', '-'], $field->name),
+                                    'default'   => $field->default_value,
+                                    'value'     => $themeMods[$field->key]
                                 ]
                             ];
                         }
@@ -122,8 +119,19 @@ class Design
      */
     public function renderCssVariables()
     {
-        $themeMods = $this->getThemeModData();
 
+        foreach($this->dataFieldStack as $key => $stackItem) {
+            var_dump($key); 
+            var_dump($stackItem); 
+
+            foreach($stackItem as $prop) {
+                
+            }
+        }
+
+    }
+
+    public function test() {    
         if (is_array($this->dataFieldStack) && !empty($this->dataFieldStack)) {
 
             $inlineStyle = null;
@@ -137,7 +145,7 @@ class Design
 
                     foreach ($cssVariableDefinition as $key => $definition) {
 
-                        $dbSetting = $themeMods[$key][array_key_first($definition)];
+                        $dbSetting = $definition['value'];
                         $defaults = array_pop($definition);
                         $inlineStyle .= '  --' . $defaults['name'] . ': ' . (!empty($dbSetting) ?
                                 $dbSetting : $defaults['default']) . ';' . PHP_EOL;

@@ -1,11 +1,11 @@
 [{
     "key": "group_60361b6d86d9d",
-    "title": "Color Profile",
+    "title": "Colors",
     "fields": [
         {
             "key": "field_60361bcb76325",
-            "label": "Primary",
-            "name": "municipio_color_primary",
+            "label": "Primary Color",
+            "name": "municipio_primary_color",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -15,12 +15,12 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "#ae0b05"
+            "default_value": "#000"
         },
         {
-            "key": "field_603e01fa908e5",
-            "label": "Primary dark",
-            "name": "municipio_color_primary_dark",
+            "key": "field_60364d06dc120",
+            "label": "Secondary color",
+            "name": "municipio_secondary_color",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -30,22 +30,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "#770000"
-        },
-        {
-            "key": "field_603e0b0e43957",
-            "label": "Primary Light",
-            "name": "municipio_color_primary_light",
-            "type": "color_picker",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "#e84c31"
+            "default_value": "#eee"
         }
     ],
     "location": [
