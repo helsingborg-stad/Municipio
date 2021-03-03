@@ -12,11 +12,12 @@ class Design
      * @var
      */
     private $dataFieldStack;
+    private $customizeSections;
 
     /**
-     * @var string[]
+     * @var array|string[]
      */
-    private $configurationFiles = [
+    private array $configurationFiles = [
         MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
         MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
         MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
@@ -49,6 +50,19 @@ class Design
         );
     }
 
+    /**
+     * Populate customizeSections with section names
+     * @param $data
+     */
+    public function setSectionsArray($data){
+        foreach($data as $dataKey => $dataValue){
+            $this->customizeSections = (array) $this->customizeSections;
+            if (!in_array($dataValue->location[0][0]->value, $this->customizeSections)) {
+                $this->customizeSections[] = $dataValue->location[0][0]->value;
+            }
+        }
+    }
+
 
     /**
      * Parses the acf config
@@ -62,6 +76,8 @@ class Design
                 $data = file_get_contents($config);
 
                 if (file_exists($config) && $data = json_decode($data)) {
+
+                    $this->setSectionsArray($data);
 
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
@@ -89,34 +105,39 @@ class Design
     }
 
     /**
+     * Get Theme section values
+     * @return array
+     */
+    public function getThemeModData() {
+        $themeMods = [];
+        foreach($this->customizeSections as $key => $sections){
+            $themeMods[$key] = get_theme_mod($sections);
+        }
+        return $themeMods;
+    }
+
+    /**
      * Render root css variables
      * @return void
      */
     public function renderCssVariables()
     {
-        //Get the theme mods
-        $themeMods = array_collapse(get_theme_mods());
-
-        var_dump($themeMods); //NOT WORKING LIVE RELOAD
-
-        var_dump(get_theme_mod('colors')); //WORKING LIVE RELOAD
+        $themeMods = $this->getThemeModData();
 
         if (is_array($this->dataFieldStack) && !empty($this->dataFieldStack)) {
 
             $inlineStyle = null;
-
             foreach ($this->dataFieldStack as $profileKey => $cssVariableDefinition) {
+
                 if (is_array($cssVariableDefinition) && !empty($cssVariableDefinition)) {
 
-                    //Heading Comment
                     if (is_array($cssVariableDefinition) && !empty($cssVariableDefinition)) {
                         $inlineStyle .= PHP_EOL . '  /* Variables: ' . $profileKey . ' */' . PHP_EOL;
                     }
 
-                    //Build CSS for print
-                    foreach ($cssVariableDefinition as $id => $definition) {
+                    foreach ($cssVariableDefinition as $key => $definition) {
 
-                        $dbSetting = $themeMods[array_key_first($definition)];
+                        $dbSetting = $themeMods[$key][array_key_first($definition)];
                         $defaults = array_pop($definition);
                         $inlineStyle .= '  --' . $defaults['name'] . ': ' . (!empty($dbSetting) ?
                                 $dbSetting : $defaults['default']) . ';' . PHP_EOL;
@@ -124,9 +145,15 @@ class Design
                 }
             }
 
+            echo "<pre>";
+            var_dump($inlineStyle);
+            echo "</pre>";
+
+            wp_dequeue_style('municipio-css-vars');
             wp_register_style('municipio-css-vars', false);
             wp_enqueue_style('municipio-css-vars');
             wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
         }
+
     }
 }
