@@ -97,6 +97,10 @@ class Design
         //Get the theme mods
         $themeMods = array_collapse(get_theme_mods());
 
+        var_dump($themeMods); //NOT WORKING LIVE RELOAD
+
+        var_dump(get_theme_mod('colors')); //WORKING LIVE RELOAD
+
         if (is_array($this->dataFieldStack) && !empty($this->dataFieldStack)) {
 
             $inlineStyle = null;
