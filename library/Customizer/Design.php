@@ -72,8 +72,6 @@ class Design
 
                 if (file_exists($config) && $data = json_decode($data)) {
 
-                    $this->setSectionsArray($data);
-
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
                     }
@@ -115,53 +113,22 @@ class Design
 
     /**
      * Render root css variables
-     * @return void
      */
     public function renderCssVariables()
     {
-
+        $inlineStyle = null;
         foreach($this->dataFieldStack as $key => $stackItem) {
-            var_dump($key); 
-            var_dump($stackItem); 
-
-            foreach($stackItem as $prop) {
-                
+            $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
+            foreach($stackItem as $index => $prop) {
+                $itemKey = array_key_first($stackItem[$index]);
+                $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' . (!empty($prop[$itemKey]['value']) ?
+                        $prop[$itemKey]['value'] : $prop[$itemKey]['default']) . ';' . PHP_EOL;
             }
         }
 
-    }
-
-    public function test() {    
-        if (is_array($this->dataFieldStack) && !empty($this->dataFieldStack)) {
-
-            $inlineStyle = null;
-            foreach ($this->dataFieldStack as $profileKey => $cssVariableDefinition) {
-
-                if (is_array($cssVariableDefinition) && !empty($cssVariableDefinition)) {
-
-                    if (is_array($cssVariableDefinition) && !empty($cssVariableDefinition)) {
-                        $inlineStyle .= PHP_EOL . '  /* Variables: ' . $profileKey . ' */' . PHP_EOL;
-                    }
-
-                    foreach ($cssVariableDefinition as $key => $definition) {
-
-                        $dbSetting = $definition['value'];
-                        $defaults = array_pop($definition);
-                        $inlineStyle .= '  --' . $defaults['name'] . ': ' . (!empty($dbSetting) ?
-                                $dbSetting : $defaults['default']) . ';' . PHP_EOL;
-                    }
-                }
-            }
-
-            echo "<pre>";
-            var_dump($inlineStyle);
-            echo "</pre>";
-
-            wp_dequeue_style('municipio-css-vars');
-            wp_register_style('municipio-css-vars', false);
-            wp_enqueue_style('municipio-css-vars');
-            wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
-        }
-
+        wp_dequeue_style('municipio-css-vars');
+        wp_register_style('municipio-css-vars', false);
+        wp_enqueue_style('municipio-css-vars');
+        wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 }
