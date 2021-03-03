@@ -92,12 +92,12 @@ class Design
     public function renderCssVariables()
     {
         $inlineStyle = null;
-        foreach($this->dataFieldStack as $key => $stackItem) {
+        foreach($this->dataFieldStack as $key => $stackItems) {
 
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
 
-            foreach($stackItem as $index => $prop) {
-                $itemKey = array_key_first($stackItem[$index]);
+            foreach($stackItems as $index => $prop) {
+                $itemKey = array_key_first($stackItems[$index]);
                 $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' . (!empty($prop[$itemKey]['value']) ?
                         $prop[$itemKey]['value'] : $prop[$itemKey]['default']) . ';' . PHP_EOL;
             }
