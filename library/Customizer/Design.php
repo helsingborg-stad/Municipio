@@ -23,6 +23,7 @@ class Design
 
     /**
      * Design constructor.
+     * @return void
      */
     public function __construct()
     {
@@ -33,6 +34,7 @@ class Design
 
     /**
      * Inits a new panel structure.
+     * @return void
      */
     public function initPanels()
     {
@@ -85,12 +87,15 @@ class Design
 
     /**
      * Render root css variables
+     * @return void
      */
     public function renderCssVariables()
     {
         $inlineStyle = null;
         foreach($this->dataFieldStack as $key => $stackItem) {
+
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
+
             foreach($stackItem as $index => $prop) {
                 $itemKey = array_key_first($stackItem[$index]);
                 $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' . (!empty($prop[$itemKey]['value']) ?
