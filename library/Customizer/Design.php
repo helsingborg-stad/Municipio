@@ -12,7 +12,6 @@ class Design
      * @var
      */
     private $dataFieldStack;
-    private $customizeSections;
 
     /**
      * @var array|string[]
@@ -44,20 +43,6 @@ class Design
     }
 
     /**
-     * Populate customizeSections with section names
-     * @param $data
-     */
-    public function setSectionsArray($data){
-        foreach($data as $dataKey => $dataValue){
-            $this->customizeSections = (array) $this->customizeSections;
-            if (!in_array($dataValue->location[0][0]->value, $this->customizeSections)) {
-                $this->customizeSections[] = $dataValue->location[0][0]->value;
-            }
-        }
-    }
-
-
-    /**
      * Parses the acf config
      * @return \WP_Error|void
      */
@@ -66,12 +51,11 @@ class Design
         if (is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
 
             foreach ($this->configurationFiles as $key => $config) {
-                $data = file_get_contents($config);
 
+                $data = file_get_contents($config);
                 $themeMods = get_theme_mod(sanitize_title($key)); 
 
                 if (file_exists($config) && $data = json_decode($data)) {
-
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
                     }
@@ -97,18 +81,6 @@ class Design
                 }
             }
         }
-    }
-
-    /**
-     * Get Theme section values
-     * @return array
-     */
-    public function getThemeModData() {
-        $themeMods = [];
-        foreach($this->customizeSections as $key => $sections){
-            $themeMods[$key] = get_theme_mod($sections);
-        }
-        return $themeMods;
     }
 
     /**
