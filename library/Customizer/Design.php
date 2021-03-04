@@ -16,7 +16,7 @@ class Design
     /**
      * @var array|string[]
      */
-    private array $configurationFiles = [
+    private $configurationFiles = [
         'Colors' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
         'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
     ];

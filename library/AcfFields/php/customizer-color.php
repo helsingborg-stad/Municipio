@@ -8,7 +8,7 @@
         0 => array(
             'key' => 'field_60361bcb76325',
             'label' => __('Primary Color', 'municipio'),
-            'name' => 'municipio__color_primary',
+            'name' => 'municipio_color_primary',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -23,7 +23,7 @@
         1 => array(
             'key' => 'field_60364d06dc120',
             'label' => __('Primary Dark Color', 'municipio'),
-            'name' => 'municipio__color_primary_dark',
+            'name' => 'municipio_color_primary_dark',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -38,7 +38,7 @@
         2 => array(
             'key' => 'field_603fba043ab30',
             'label' => __('Primary Light Color', 'municipio'),
-            'name' => 'municipio__color_primary_light',
+            'name' => 'municipio_color_primary_light',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -53,7 +53,7 @@
         3 => array(
             'key' => 'field_603fba3ffa851',
             'label' => __('Secondary Color', 'municipio'),
-            'name' => 'municipio__color_secondary',
+            'name' => 'municipio_color_secondary',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -68,7 +68,7 @@
         4 => array(
             'key' => 'field_603fbb7ad4ccf',
             'label' => __('Secondary Dark Color', 'municipio'),
-            'name' => 'municipio__color_secondary_dark',
+            'name' => 'municipio_color_secondary_dark',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -83,7 +83,7 @@
         5 => array(
             'key' => 'field_603fbbef1e2f8',
             'label' => __('Secondary Light Color', 'municipio'),
-            'name' => 'municipio__color_secondary_light',
+            'name' => 'municipio_color_secondary_light',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,

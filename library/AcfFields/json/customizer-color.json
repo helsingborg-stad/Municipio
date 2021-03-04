@@ -5,7 +5,7 @@
         {
             "key": "field_60361bcb76325",
             "label": "Primary Color",
-            "name": "municipio__color_primary",
+            "name": "municipio_color_primary",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -20,7 +20,7 @@
         {
             "key": "field_60364d06dc120",
             "label": "Primary Dark Color",
-            "name": "municipio__color_primary_dark",
+            "name": "municipio_color_primary_dark",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -35,7 +35,7 @@
         {
             "key": "field_603fba043ab30",
             "label": "Primary Light Color",
-            "name": "municipio__color_primary_light",
+            "name": "municipio_color_primary_light",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -50,7 +50,7 @@
         {
             "key": "field_603fba3ffa851",
             "label": "Secondary Color",
-            "name": "municipio__color_secondary",
+            "name": "municipio_color_secondary",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -65,7 +65,7 @@
         {
             "key": "field_603fbb7ad4ccf",
             "label": "Secondary Dark Color",
-            "name": "municipio__color_secondary_dark",
+            "name": "municipio_color_secondary_dark",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
@@ -80,7 +80,7 @@
         {
             "key": "field_603fbbef1e2f8",
             "label": "Secondary Light Color",
-            "name": "municipio__color_secondary_light",
+            "name": "municipio_color_secondary_light",
             "type": "color_picker",
             "instructions": "",
             "required": 1,
