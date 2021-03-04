@@ -17,7 +17,7 @@
             },
             "default_value": 2,
             "min": 0,
-            "max": 16,
+            "max": 12,
             "step": 2,
             "prepend": "",
             "append": "px"
@@ -37,7 +37,7 @@
             },
             "default_value": 2,
             "min": 0,
-            "max": 16,
+            "max": 12,
             "step": 2,
             "prepend": "",
             "append": "px"
@@ -57,7 +57,7 @@
             },
             "default_value": 2,
             "min": 0,
-            "max": 16,
+            "max": 12,
             "step": 2,
             "prepend": "",
             "append": "px"
@@ -77,7 +77,7 @@
             },
             "default_value": 2,
             "min": 0,
-            "max": 16,
+            "max": 12,
             "step": 2,
             "prepend": "",
             "append": "px"
