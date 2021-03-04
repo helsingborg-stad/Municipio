@@ -28,7 +28,7 @@ class Design
     public function __construct()
     {
         add_action('init', array($this, 'initPanels'));
-        add_action('wp_head', array($this, 'getAcfCustomizerFields'), 5); 
+        add_action('wp_head', array($this, 'getAcfCustomizerFields'), 5);
         add_action('wp_head', array($this, 'renderCssVariables'), 10);
     }
 
@@ -40,7 +40,7 @@ class Design
     {
         new \Municipio\Helper\Customizer(
             __('Design', 'municipio'),
-            array_flip($this->configurationFiles) 
+            array_flip($this->configurationFiles)
         );
     }
 
@@ -55,9 +55,10 @@ class Design
             foreach ($this->configurationFiles as $key => $config) {
 
                 $data = file_get_contents($config);
-                $themeMods = get_theme_mod(sanitize_title($key)); 
+                $themeMods = get_theme_mod(sanitize_title($key));
 
                 if (file_exists($config) && $data = json_decode($data)) {
+
                     if (count($data) != 1) {
                         return new \WP_Error("Configuration file should not contain more than one group " . $config);
                     }
@@ -65,14 +66,16 @@ class Design
                     $data = array_pop($data);
 
                     if (isset($data->fields) && !empty($data->fields)) {
+
                         foreach ($data->fields as $index => $field) {
-                           
                             $this->dataFieldStack[sanitize_title($data->title)][$index] = [
                                 $field->key => [
-                                    'group-id'  => sanitize_title($data->title),
-                                    'name'      => str_replace(['municipio_', '_'], ['', '-'], $field->name),
-                                    'default'   => $field->default_value,
-                                    'value'     => $themeMods[$field->key]
+                                    'group-id' => sanitize_title($data->title),
+                                    'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
+                                    'default' => $field->default_value,
+                                    'value' => $themeMods[$field->key],
+                                    'prepend' => $field->prepend,
+                                    'append' => $field->append
                                 ]
                             ];
                         }
@@ -92,14 +95,16 @@ class Design
     public function renderCssVariables()
     {
         $inlineStyle = null;
-        foreach($this->dataFieldStack as $key => $stackItems) {
+        foreach ($this->dataFieldStack as $key => $stackItems) {
 
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
 
-            foreach($stackItems as $index => $prop) {
+            foreach ($stackItems as $index => $prop) {
                 $itemKey = array_key_first($stackItems[$index]);
-                $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' . (!empty($prop[$itemKey]['value']) ?
-                        $prop[$itemKey]['value'] : $prop[$itemKey]['default']) . ';' . PHP_EOL;
+                $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' . (!empty($prop[$itemKey]['prepend']) ?
+                        $prop[$itemKey]['prepend'] : null) . (!empty($prop[$itemKey]['value']) ?
+                        $prop[$itemKey]['value'] : $prop[$itemKey]['default']) . (!empty($prop[$itemKey]['append']) ?
+                        $prop[$itemKey]['append'] : null) . ';' . PHP_EOL;
             }
         }
 
