@@ -100,11 +100,14 @@ class Design
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
 
             foreach ($stackItems as $index => $prop) {
-                $itemKey = array_key_first($stackItems[$index]);
-                $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' . (!empty($prop[$itemKey]['prepend']) ?
-                        $prop[$itemKey]['prepend'] : null) . (!empty($prop[$itemKey]['value']) ?
-                        $prop[$itemKey]['value'] : $prop[$itemKey]['default']) . (!empty($prop[$itemKey]['append']) ?
-                        $prop[$itemKey]['append'] : null) . ';' . PHP_EOL;
+                $itemKey = key($stackItems[$index]);
+                $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' .
+                    (isset($prop[$itemKey]['prepend']) &&
+                    !empty($prop[$itemKey]['prepend']) ? $prop[$itemKey]['prepend'] : null) .
+                    (isset($prop[$itemKey]['value']) &&
+                    !empty($prop[$itemKey]['value']) ? $prop[$itemKey]['value'] : $prop[$itemKey]['default']) .
+                    (isset($prop[$itemKey]['append']) &&
+                    !empty($prop[$itemKey]['append']) ? $prop[$itemKey]['append'] : null) . ';' . PHP_EOL;
             }
         }
 
