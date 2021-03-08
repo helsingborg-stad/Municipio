@@ -74,8 +74,8 @@ class Design
                                     'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
                                     'default' => $field->default_value,
                                     'value' => $themeMods[$field->key],
-                                    'prepend' => $field->prepend,
-                                    'append' => $field->append
+                                    'prepend' => $field->prepend ?? null,
+                                    'append' => $field->append ?? null
                                 ]
                             ];
                         }
