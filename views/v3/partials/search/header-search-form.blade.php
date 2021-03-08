@@ -14,7 +14,7 @@
                 'name' => 's',
                 'required' => false,
             ],
-            'label' => $lang->search,
+            'placeholder' => $lang->search,
             'classList' => ['u-flex-grow--1', 'u-box-shadow--1', 'u-rounded__left--8', 'u-overflow--hidden'],
             'size' => 'sm',
             'radius' => 'sm',
