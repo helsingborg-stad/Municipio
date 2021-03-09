@@ -47,8 +47,7 @@
         "shortpixel/shortpixel-php": "^1.4",
         "helsingborg-stad/blade-engine-wrapper": "dev-master",
         "pragmarx/ia-arr": "^7.3",
-        "helsingborg-stad/recaptcha-integration": ">=1.0.8",
-        "mcguffin/acf-customizer": "dev-master"
+        "helsingborg-stad/recaptcha-integration": ">=1.0.8"
     },
     "extra" : {
         "installer-paths" : {
