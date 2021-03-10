@@ -1,6 +1,7 @@
 <?php
 
 namespace Municipio\Comment;
+use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
 class CommentsActions
 {
@@ -9,6 +10,8 @@ class CommentsActions
         add_action('wp_ajax_remove_comment', array($this, 'removeComment'));
         add_action('wp_ajax_get_comment_form', array($this, 'getCommentForm'));
         add_action('wp_ajax_update_comment', array($this, 'updateComment'));
+
+        add_action('wp_enqueue_scripts', array($this, 'getScripts'), 20);
     }
 
     /**
@@ -58,6 +61,11 @@ class CommentsActions
             wp_send_json_error('Comment is missing');
         }
 
+        $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" class="g-recaptcha-response" 
+                                                      name="g-recaptcha-response" value="" />' : '';
+        $reCaptchaTerms = __('This site is protected by reCAPTCHA and the Google
+                                <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                                <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'municipio');
         $args = array(
             'id_form' => 'commentupdate',
             'class_submit' => 'btn btn-sm btn-primary',
@@ -66,8 +74,9 @@ class CommentsActions
             'title_reply_after' => '',
             'label_submit' => __('Update', 'municipio'),
             'logged_in_as' => '',
-            'comment_field' => '<textarea id="update-comment" name="comment" cols="45" rows="8" aria-required="true">' . $comment->comment_content . '</textarea>',
+            'comment_field' => $reCaptcha.'<textarea id="update-comment" name="comment" cols="45" rows="8" aria-required="true">' . $comment->comment_content . '</textarea>',
             'comment_notes_after' => '<input type="hidden" name="commentId" value="' . $commentId . '">
+           JOHAN TEST 12341234 '.$reCaptchaTerms.'
             <input type="hidden" name="nonce" value="' . wp_create_nonce("update-comment_$commentId") . '">',
             'submit_button' => '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" /> <a href="#" class="cancel-update-comment gutter gutter-left gutter-sm"><small>' . __('Cancel', 'municipio') . '</small></a>'
         );
@@ -79,6 +88,13 @@ class CommentsActions
         $form = str_replace('id="respond"', 'id="respond-edit"', $form);
 
         wp_send_json_success($form);
+    }
+
+    /**
+     * Init and enqueue Google Captcha Script
+     */
+    public static function getScripts(){
+        Captcha::initScripts();
     }
 
     /**
