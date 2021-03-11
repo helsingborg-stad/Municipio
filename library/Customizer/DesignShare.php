@@ -16,13 +16,26 @@ class DesignShare
         'single' => 'data' . DIRECTORY_SEPARATOR
     ];  
 
+    private $uniqid;
+
     public function __construct()
     {
+
+        //Cachebust id
+        $this->uniqid = uniqid(); 
+
         //Store on save
         add_action('customize_save_after', array($this, 'storeThemeMod'));
 
         //Cron action to trigger
         add_action('municipio_store_theme_mod', array($this, 'storeThemeMod'));
+
+        /*add_action('init', function() {
+
+
+            $x = get_theme_mod('colors'); 
+var_dump($x); 
+        }); */ 
 
         //Add visual panel
         add_action('init', function() {
@@ -40,32 +53,30 @@ class DesignShare
         }); 
 
         //Add options in design loader
-        add_filter('acf/load_field/name=customizer_select_designshare', function($field) {
+        add_filter('acf/load_field/name=customizer_select_designshare', array($this, 'populateDesignSelect')); 
 
-            //Fetch data from host
-            $data = wp_remote_get($this->apiUrl, ['cacheBust' => uniqid()]); 
-           
-            if(isset($data['body'])) {
-
-                $choices = json_decode($data['body']); 
- 
-                //Populate select
-                if( is_array($choices) ) {
-                    foreach( $choices as $choice ) {
-                        $field['choices'][ $choice->uuid ] = $choice->name . " (" . $choice->website. " )";   
-                    }
+        //Loop all settingspanels and load api values
+        if(is_array($this->sharedModKeys) && !empty($this->sharedModKeys)) {
+            foreach($this->sharedModKeys as $mod) {
+                if($mod == "colors") {
+                    add_filter("theme_mod_" . $mod, array($this, 'loadThemeMod')); 
                 }
+            }
+        }
+        
+    }
 
-            } else {
-                $field['choices']['error'] = __("Error loading options", 'muncipio'); 
-            } 
-            
-            return $field;
-        }); 
+    /**
+     * Makes the switcheroo between whats locally and whats in the api. 
+     *
+     * @param   mixed   $value  The local value
+     * @return  mixed   $value  The new replaced value
+     */
+    public function loadThemeMod($value) {
+        
+        $design = get_theme_mod('loaddesign'); 
 
-        add_filter("theme_mod_colors", function($value) {
-
-            $design = get_theme_mod('loaddesign'); 
+        if(is_array($design) && !empty($design)) {
             $design = array_pop($design); 
 
             $data = wp_remote_get(
@@ -73,15 +84,44 @@ class DesignShare
                 $this->apiActions['single'] . 
                 $design . 
                 ".json",
-                ['cacheBust' => uniqid()]
-            ); 
+                ['cacheBust' => $this->uniqid]
+            );
 
-            if(isset($json->mods->colors)) {  
-               return (array) $json->mods->colors; 
+            if($json = json_decode($data['body'])) { 
+                return (array) $json->mods->colors; 
             }
- 
-            return $value; 
-        }); 
+        }
+
+        return $value;
+    }
+
+    /**
+     * Populates the design dropdown with avabile designs from api
+     *
+     * @param   array   $field  Without options
+     * @return  array   $field  Appended options array
+     */
+    public function populateDesignSelect($field) {
+
+        //Fetch data from host
+        $data = wp_remote_get($this->apiUrl, ['cacheBust' => $this->uniqid]); 
+        
+        if(isset($data['body'])) {
+
+            $choices = json_decode($data['body']); 
+
+            //Populate select
+            if( is_array($choices) ) {
+                foreach( $choices as $choice ) {
+                    $field['choices'][ $choice->uuid ] = $choice->name . " (" . $choice->website. " )";   
+                }
+            }
+
+        } else {
+            $field['choices']['error'] = __("Error loading options", 'muncipio'); 
+        } 
+        
+        return $field;
     }
 
     /**
@@ -95,7 +135,7 @@ class DesignShare
         $response = wp_remote_post(
             $this->apiUrl . 
             $this->apiActions['post'] . 
-            '?cacheBust=' . uniqid(), 
+            '?cacheBust=' . $this->uniqid, 
             [
                 'method' => 'POST',
                 'timeout' => 5,
