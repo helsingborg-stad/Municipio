@@ -41,7 +41,6 @@ class App
         new \Municipio\Theme\ColorScheme();
         new \Municipio\Theme\FixedActionBar();
         new \Municipio\Theme\Navigation();
-        new \Municipio\Theme\DesignShare();
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
@@ -100,6 +99,7 @@ class App
          * Customizer
          */
         new \Municipio\Customizer\Design();
+        new \Municipio\Customizer\DesignShare();
 
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
