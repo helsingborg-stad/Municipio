@@ -16,8 +16,8 @@
                 "id": ""
             },
             "choices": {
-                "2640cec0ee92c786aba21dc24ff07891": "Helsingborg.se - Test (https:\/\/helsingborg.test )",
-                "2640cec0ee92c786aba21dc24ff79091": "Helsingborg.se - Colors (https:\/\/helsingborg.se )"
+                "2640cec0ee92c786aba21dc24ff79091": "Helsingborg.se - Test (https:\/\/helsingborg.test )",
+                "2640cec0ee92c786aba21dc24ff79092": "Helsingborg.se - Colors (https:\/\/helsingborg.se )"
             },
             "default_value": false,
             "allow_null": 1,

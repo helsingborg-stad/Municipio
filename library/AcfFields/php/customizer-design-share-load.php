@@ -19,8 +19,8 @@
                 'id' => '',
             ),
             'choices' => array(
-                '2640cec0ee92c786aba21dc24ff07891' => __('Helsingborg.se - Test (https://helsingborg.test )', 'municipio'),
-                '2640cec0ee92c786aba21dc24ff79091' => __('Helsingborg.se - Colors (https://helsingborg.se )', 'municipio'),
+                '2640cec0ee92c786aba21dc24ff79091' => __('Helsingborg.se - Test (https://helsingborg.test )', 'municipio'),
+                '2640cec0ee92c786aba21dc24ff79092' => __('Helsingborg.se - Colors (https://helsingborg.se )', 'municipio'),
             ),
             'default_value' => false,
             'allow_null' => 1,
