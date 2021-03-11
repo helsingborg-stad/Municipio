@@ -7,7 +7,7 @@
             "label": "Select design",
             "name": "customizer_select_designshare",
             "type": "select",
-            "instructions": "",
+            "instructions": "Municipio automatically maintains a library of customization designs available for all users. These are automatically updated when administrators make adjustments in the customization options.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -16,14 +16,15 @@
                 "id": ""
             },
             "choices": {
-                "2640cec0ee92c786aba21dc24ff79091": "Helsingborg.se (https:\/\/developement.local.test )"
+                "2640cec0ee92c786aba21dc24ff07891": "Helsingborg.se - Test (https:\/\/helsingborg.test )",
+                "2640cec0ee92c786aba21dc24ff79091": "Helsingborg.se - Colors (https:\/\/helsingborg.se )"
             },
             "default_value": false,
-            "allow_null": 0,
+            "allow_null": 1,
             "multiple": 0,
-            "ui": 0,
+            "ui": 1,
+            "ajax": 1,
             "return_format": "value",
-            "ajax": 0,
             "placeholder": ""
         }
     ],

@@ -12,7 +12,8 @@ class DesignShare
     ]; 
     
     private $apiActions     = [ 
-        'post'  => 'update' . DIRECTORY_SEPARATOR
+        'post'  => 'update' . DIRECTORY_SEPARATOR,
+        'single' => 'data' . DIRECTORY_SEPARATOR
     ];  
 
     public function __construct()
@@ -60,6 +61,26 @@ class DesignShare
             } 
             
             return $field;
+        }); 
+
+        add_filter("theme_mod_colors", function($value) {
+
+            $design = get_theme_mod('loaddesign'); 
+            $design = array_pop($design); 
+
+            $data = wp_remote_get(
+                $this->apiUrl . 
+                $this->apiActions['single'] . 
+                $design . 
+                ".json",
+                ['cacheBust' => uniqid()]
+            ); 
+
+            if(isset($json->mods->colors)) {  
+               return (array) $json->mods->colors; 
+            }
+ 
+            return $value; 
         }); 
     }
 
