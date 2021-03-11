@@ -51,9 +51,7 @@ class DesignLibrary
         //Loop all settingspanels and load api values
         if(is_array($this->sharedModKeys) && !empty($this->sharedModKeys)) {
             foreach($this->sharedModKeys as $mod) {
-                if($mod == "colors") {
-                    add_filter("theme_mod_" . $mod, array($this, 'loadThemeMod')); 
-                }
+                add_filter("theme_mod_" . $mod, array($this, 'loadThemeMod')); 
             }
         }
         
@@ -68,6 +66,7 @@ class DesignLibrary
     public function loadThemeMod($value) {
         
         $design = get_theme_mod('loaddesign'); 
+        $name = end(explode("_", current_filter())); 
 
         if(is_array($design) && !empty($design)) {
             $design = array_pop($design); 
@@ -81,7 +80,7 @@ class DesignLibrary
             );
 
             if($json = json_decode($data['body'])) { 
-                return (array) $json->mods->colors; 
+                return (array) $json->mods->{$name}; 
             }
         }
 
