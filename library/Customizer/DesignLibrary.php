@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer;
 
-class DesignShare
+class DesignLibrary
 {
     private $apiUrl         = 'https://customizer.helsingborg.io/';
 
@@ -30,17 +30,10 @@ class DesignShare
         //Cron action to trigger
         add_action('municipio_store_theme_mod', array($this, 'storeThemeMod'));
 
-        /*add_action('init', function() {
-
-
-            $x = get_theme_mod('colors'); 
-var_dump($x); 
-        }); */ 
-
         //Add visual panel
         add_action('init', function() {
             new \Municipio\Helper\Customizer(
-                __('Design Share', 'municipio'),
+                __('Designlibrary', 'municipio'),
                 ['Load design']
             );
         }); 
