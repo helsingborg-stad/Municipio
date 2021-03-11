@@ -1,0 +1,48 @@
+[{
+    "key": "group_604a117fe6872",
+    "title": "Avabile Designs",
+    "fields": [
+        {
+            "key": "field_604a1189b3b40",
+            "label": "Select design",
+            "name": "customizer_select_designshare",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "2640cec0ee92c786aba21dc24ff79091": "Helsingborg.se (https:\/\/developement.local.test )"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "loaddesign"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+

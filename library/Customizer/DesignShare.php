@@ -1,19 +1,17 @@
 <?php
 
-namespace Municipio\Theme;
+namespace Municipio\Customizer;
 
 class DesignShare
 {
-
-    private $apiUrl         = 'https://beta.helsingborg.se/designshare/';
+    private $apiUrl         = 'https://customizer.helsingborg.io/';
 
     private $sharedModKeys  = [
         'colors',
         'radius'
     ]; 
     
-    private $apiActions     = [
-        'get'   => '/' . DIRECTORY_SEPARATOR, 
+    private $apiActions     = [ 
         'post'  => 'update' . DIRECTORY_SEPARATOR
     ];  
 
@@ -25,11 +23,43 @@ class DesignShare
         //Cron action to trigger
         add_action('municipio_store_theme_mod', array($this, 'storeThemeMod'));
 
+        //Add visual panel
+        add_action('init', function() {
+            new \Municipio\Helper\Customizer(
+                __('Design Share', 'municipio'),
+                ['Load design']
+            );
+        }); 
+
         //Cron to update design periodically
         add_action('admin_init', function() {
             if (!wp_next_scheduled( 'municipio_store_theme_mod')) {
                 wp_schedule_event(time(), 'weekly', 'municipio_store_theme_mod');
             }
+        }); 
+
+        //Add options in design loader
+        add_filter('acf/load_field/name=customizer_select_designshare', function($field) {
+
+            //Fetch data from host
+            $data = wp_remote_get($this->apiUrl, ['cacheBust' => uniqid()]); 
+           
+            if(isset($data['body'])) {
+
+                $choices = json_decode($data['body']); 
+ 
+                //Populate select
+                if( is_array($choices) ) {
+                    foreach( $choices as $choice ) {
+                        $field['choices'][ $choice->uuid ] = $choice->name . " (" . $choice->website. " )";   
+                    }
+                }
+
+            } else {
+                $field['choices']['error'] = __("Error loading options", 'muncipio'); 
+            } 
+            
+            return $field;
         }); 
     }
 
