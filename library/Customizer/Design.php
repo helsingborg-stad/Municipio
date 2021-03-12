@@ -123,7 +123,8 @@ class Design
      * @return mixed
      */
     public function setModifiers($modifiers){
-        return implode(" ",$modifiers);
+        //return implode(" ",$modifiers);
+        return $modifiers;
     }
 
     /**
