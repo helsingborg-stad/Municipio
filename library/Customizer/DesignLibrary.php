@@ -31,6 +31,11 @@ class DesignLibrary
             remove_theme_mod('loaddesign');
         }); 
 
+        //Removes the ability to move back from designlibrary [TODO: FIX. NOT WORKING!]
+        add_action('wp_head', function() {
+            echo '<style>#sub-accordion-section-loaddesign .customize-section-back {display: none !important;}</style>'; 
+        }); 
+
         //Store on save
         add_action('customize_save_after', array($this, 'storeThemeMod'));
 
