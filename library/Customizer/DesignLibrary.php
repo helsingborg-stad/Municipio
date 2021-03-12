@@ -27,7 +27,7 @@ class DesignLibrary
         $this->uniqid = uniqid(); 
 
         //Forget setting of load design field
-        add_action('shutdown', function() {
+        add_action('customize_save', function($manager) {
             remove_theme_mod('loaddesign');
         }); 
 
