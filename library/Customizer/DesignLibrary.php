@@ -18,11 +18,18 @@ class DesignLibrary
 
     private $uniqid;
 
+    private $design;
+
     public function __construct()
     {
 
         //Cachebust id
         $this->uniqid = uniqid(); 
+
+        //Forget setting of load design field
+        add_action('shutdown', function() {
+            remove_theme_mod('loaddesign');
+        }); 
 
         //Store on save
         add_action('customize_save_after', array($this, 'storeThemeMod'));
@@ -65,7 +72,9 @@ class DesignLibrary
      */
     public function loadThemeMod($value) {
         
-        $design = get_theme_mod('loaddesign'); 
+        $design = get_theme_mod('loaddesign');
+
+        //Get settings name
         $name = end(explode("_", current_filter())); 
 
         if(is_array($design) && !empty($design)) {
