@@ -14,6 +14,11 @@ class Design
     private $dataFieldStack;
 
     /**
+     * @var
+     */
+    public $modifiers;
+
+    /**
      * @var array|string[]
      */
     private $configurationFiles = [
@@ -64,6 +69,7 @@ class Design
     {
         if (is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
             foreach($this->configurationFiles as $typeIndex => $conf) {
+
                 foreach ($this->configurationFiles[$typeIndex] as $key => $config) {
 
                     $data = file_get_contents($config);
@@ -82,6 +88,7 @@ class Design
                             foreach ($data->fields as $index => $field) {
                                 $this->dataFieldStack[$typeIndex][sanitize_title($data->title)][$index] = [
                                     $field->key => [
+                                        'key' => $key,
                                         'group-id' => sanitize_title($data->title),
                                         'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
                                         'default' => $field->default_value,
@@ -107,24 +114,18 @@ class Design
      */
     public function addFilters() {
         $modifiers = [];
+
         foreach($this->dataFieldStack['modifiers'] as $key => $stackItems) {
             foreach ($stackItems as $index => $prop) {
                 $itemKey = key($stackItems[$index]);
-                $modifiers = (!empty($prop[$itemKey]['value']) ? $prop[$itemKey]['value'] : $prop[$itemKey]['default']);
-
+                $this->modifiers[$index] = (!empty($prop[$itemKey]['value']) ? $prop[$itemKey]['value'] : $prop[$itemKey]['default']);
+                $filterKey = $prop[$itemKey]['key'];
             }
-            add_filter('ComponentLibrary/Component/'.ucfirst($key) .'/Modifier', 'setModifiers', $modifiers);
-        }
-    }
 
-    /**
-     * Add filter callback
-     * @param $modifiers
-     * @return mixed
-     */
-    public function setModifiers($modifiers){
-        //return implode(" ",$modifiers);
-        return $modifiers;
+            add_filter('ComponentLibrary/Component/'.ucfirst($filterKey) .'/Modifier', function() {
+                return $this->modifiers;
+            });
+        }
     }
 
     /**
