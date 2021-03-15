@@ -22,8 +22,8 @@ class Design
             'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
         ],
         'modifiers' => [
-            'Header' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-header.json',
-            'Footer' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-footer.json',
+            'Header' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-header-modifiers.json',
+            'Footer' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-footer-modifiers.json',
             //'Card' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-card.json'
         ]
 
