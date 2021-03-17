@@ -33,6 +33,19 @@ class Sidebars
          * Footer Area
          */
         register_sidebar(array(
+            'id'            => 'footer-area-top',
+            'name'          => __('Footer top', 'municipio'),
+            'description'   => __('The top of footer area', 'municipio'),
+            'before_title'  => '<h2 class="footer-top-title">',
+            'after_title'   => '</h2>',
+            'before_widget' => '<div class="o-grid-12"><div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div></div>'
+        ));
+
+        /**
+         * Footer Area
+         */
+        register_sidebar(array(
             'id'            => 'footer-area',
             'name'          => __('Footer', 'municipio'),
             'description'   => __('The footer area', 'municipio'),
