@@ -12,8 +12,8 @@ class DesignLibrary
     ]; 
     
     private $apiActions     = [ 
-        'post'  => 'update' . DIRECTORY_SEPARATOR,
-        'single' => 'data' . DIRECTORY_SEPARATOR
+        'post'  =>  "",
+        'single' => 'id' . DIRECTORY_SEPARATOR
     ];  
 
     private $uniqid;
@@ -76,7 +76,11 @@ class DesignLibrary
      * @return  mixed   $value  The new replaced value
      */
     public function loadThemeMod($value) {
-        
+
+        if(!is_customize_preview()) {
+            return; 
+        }
+         
         $design = get_theme_mod('loaddesign');
 
         //Get settings name
@@ -88,12 +92,11 @@ class DesignLibrary
             $data = wp_remote_get(
                 $this->apiUrl . 
                 $this->apiActions['single'] . 
-                $design . 
-                ".json",
+                $design,
                 ['cacheBust' => $this->uniqid]
             );
 
-            if($json = json_decode($data['body'])) { 
+            if(wp_remote_retrieve_response_code($data) == 200 && $json = json_decode($data['body'])) { 
                 return (array) $json->mods->{$name}; 
             }
         }
@@ -112,7 +115,7 @@ class DesignLibrary
         //Fetch data from host
         $data = wp_remote_get($this->apiUrl, ['cacheBust' => $this->uniqid]); 
         
-        if(isset($data['body'])) {
+        if(wp_remote_retrieve_response_code($data) == 200) {
 
             $choices = json_decode($data['body']); 
 
@@ -146,16 +149,16 @@ class DesignLibrary
                 'method' => 'POST',
                 'timeout' => 5,
                 'body' => $this->getSiteData(),
+                'headers' => 'CLIENT-SITE-ID: ' . md5(NONCE_KEY . NONCE_SALT)
             ]
         );
 
         if (is_wp_error($response)) {
             return new WP_Error($response->get_error_message()); 
         } else {
-            if(isset($response['body']) && !empty($response['body'])) {
+            if(wp_remote_retrieve_response_code($response) == 200) {
                 return true; 
             }
-            exit; 
         }
 
         return new WP_Error("Could not store design in designshare."); 
