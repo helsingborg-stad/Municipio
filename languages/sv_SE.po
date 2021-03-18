@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-02-25 16:49+0100\n"
-"PO-Revision-Date: 2021-02-25 16:49+0100\n"
+"POT-Creation-Date: 2021-03-18 09:16+0100\n"
+"PO-Revision-Date: 2021-03-18 09:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -37,8 +37,94 @@ msgid "Choose the max width of the logo."
 msgstr "Välj maxbredden på logotypen."
 
 #: library/AcfFields/php/brand-widget.php:50
+#: library/AcfFields/php/customizer-radius.php:26
+#: library/AcfFields/php/customizer-radius.php:46
+#: library/AcfFields/php/customizer-radius.php:66
+#: library/AcfFields/php/customizer-radius.php:86
 msgid "px"
 msgstr "pixlar"
+
+#: library/AcfFields/php/customizer-color.php:6
+msgid "Colors"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:10
+msgid "Primary Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:21
+msgid "#ae0b05"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:25
+msgid "Primary Dark Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:36
+msgid "#770000"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:40
+msgid "Primary Light Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:51
+msgid "#e84c31"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:55
+msgid "Secondary Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:66
+msgid "#ec6701"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:70
+msgid "Secondary Dark Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:81
+msgid "#b23700"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:85
+msgid "Secondary Light Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:96
+msgid "#ff983e"
+msgstr ""
+
+#: library/AcfFields/php/customizer-radius.php:6
+msgid "Radiuses"
+msgstr ""
+
+#: library/AcfFields/php/customizer-radius.php:10
+msgid "X-Small"
+msgstr ""
+
+#: library/AcfFields/php/customizer-radius.php:30
+#: library/AcfFields/php/navigation-widget.php:351
+#: library/AcfFields/php/options-theme-editor-formats.php:23
+#: library/AcfFields/php/widget-header-common.php:130
+#: library/AcfFields/php/widget-header-links.php:292
+#: library/AcfFields/php/widget-header-menu.php:49
+msgid "Small"
+msgstr "Liten"
+
+#: library/AcfFields/php/customizer-radius.php:50
+msgid "Medium"
+msgstr ""
+
+#: library/AcfFields/php/customizer-radius.php:70
+#: library/AcfFields/php/navigation-widget.php:352
+#: library/AcfFields/php/options-theme-editor-formats.php:24
+#: library/AcfFields/php/widget-header-common.php:131
+#: library/AcfFields/php/widget-header-links.php:293
+#: library/AcfFields/php/widget-header-menu.php:50
+msgid "Large"
+msgstr "Stor"
 
 #: library/AcfFields/php/navigation-widget.php:6
 msgid "Navigation widget"
@@ -101,22 +187,6 @@ msgstr "Storlek"
 #: library/AcfFields/php/widget-header-menu.php:48
 msgid "Default"
 msgstr "Standard"
-
-#: library/AcfFields/php/navigation-widget.php:351
-#: library/AcfFields/php/options-theme-editor-formats.php:23
-#: library/AcfFields/php/widget-header-common.php:130
-#: library/AcfFields/php/widget-header-links.php:292
-#: library/AcfFields/php/widget-header-menu.php:49
-msgid "Small"
-msgstr "Liten"
-
-#: library/AcfFields/php/navigation-widget.php:352
-#: library/AcfFields/php/options-theme-editor-formats.php:24
-#: library/AcfFields/php/widget-header-common.php:131
-#: library/AcfFields/php/widget-header-links.php:293
-#: library/AcfFields/php/widget-header-menu.php:50
-msgid "Large"
-msgstr "Stor"
 
 #: library/AcfFields/php/options-customize-footer.php:6
 msgid "Customize Footer"
@@ -1208,6 +1278,22 @@ msgstr ""
 "kommer webbsidans innehåll att återställas och synkroniseras med live sajten "
 "på måndag. "
 
+#: library/Admin/UI/Customizer.php:52
+msgid ""
+"<h1>Plugin install required </h1> <p>To use the customizer with municipio "
+"its required to use ACFCustomizer plugin. Please install this plugin by "
+"running <code>composer require mcguffin/acf-customizer</code> in the root "
+"folder and activate or just click the link below.</p>"
+msgstr ""
+
+#: library/Admin/UI/Customizer.php:53
+msgid "Plugin install required"
+msgstr ""
+
+#: library/Admin/UI/Customizer.php:56
+msgid "Install plugin"
+msgstr ""
+
 #: library/Comment/CommentsActions.php:74
 msgid "Update"
 msgstr "Uppdatera"
@@ -1477,6 +1563,14 @@ msgstr "Svara"
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
+#: library/Customizer/Design.php:42
+msgid "Design"
+msgstr ""
+
+#: library/Helper/Customizer.php:34
+msgid "Municipio customizer error"
+msgstr ""
+
 #: library/Helper/Navigation.php:567 library/Helper/Navigation.php:784
 msgid "Untitled page"
 msgstr "Namnlös sida"
@@ -1559,83 +1653,91 @@ msgid "Dropdown Links"
 msgstr "Under länkar"
 
 #: library/Theme/Sidebars.php:37
+msgid "Footer top"
+msgstr "Sidfot topp"
+
+#: library/Theme/Sidebars.php:38
+msgid "The top of footer area"
+msgstr "Översta delen av sifoten"
+
+#: library/Theme/Sidebars.php:50
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Theme/Sidebars.php:38
+#: library/Theme/Sidebars.php:51
 msgid "The footer area"
 msgstr "Footer-arean"
 
-#: library/Theme/Sidebars.php:50
+#: library/Theme/Sidebars.php:63
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
-#: library/Theme/Sidebars.php:51
+#: library/Theme/Sidebars.php:64
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:63
+#: library/Theme/Sidebars.php:76
 msgid "Content area (above article)"
 msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:64
+#: library/Theme/Sidebars.php:77
 msgid "The area above the content"
 msgstr "Arean ovanför huvudinnehållet"
 
-#: library/Theme/Sidebars.php:76
+#: library/Theme/Sidebars.php:89
 msgid "Content area (below article)"
 msgstr "Innehållsarea (nedanför artikel)"
 
-#: library/Theme/Sidebars.php:77
+#: library/Theme/Sidebars.php:90
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:89
+#: library/Theme/Sidebars.php:102
 msgid "Main container bottom"
 msgstr "Under artikel"
 
-#: library/Theme/Sidebars.php:90
+#: library/Theme/Sidebars.php:103
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:102
+#: library/Theme/Sidebars.php:115
 msgid "Right sidebar"
 msgstr "Höger sidofält"
 
-#: library/Theme/Sidebars.php:103
+#: library/Theme/Sidebars.php:116
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Sidebars.php:115
+#: library/Theme/Sidebars.php:128
 msgid "Left sidebar"
 msgstr "Vänster sidofält (övre sektion)"
 
-#: library/Theme/Sidebars.php:116
+#: library/Theme/Sidebars.php:129
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:128
+#: library/Theme/Sidebars.php:141
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Theme/Sidebars.php:129
+#: library/Theme/Sidebars.php:142
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:141
+#: library/Theme/Sidebars.php:154
 msgid "Top sidebar (full-width)"
 msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:142
+#: library/Theme/Sidebars.php:155
 #, php-format
 msgid "Sidebar that sits below the hero, takes up 100% of the widht."
 msgstr "Sidofält som ligger under hjälten tar upp 100 % o f bredden."
 
-#: library/Theme/Sidebars.php:154
+#: library/Theme/Sidebars.php:167
 msgid "Bottom sidebar (full-width)"
 msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:155
+#: library/Theme/Sidebars.php:168
 #, php-format
 msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
 msgstr "Fältet som ligger strax före sidfoten tar upp 100 % o f bredden."
