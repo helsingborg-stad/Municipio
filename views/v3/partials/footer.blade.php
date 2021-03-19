@@ -1,13 +1,21 @@
 @if (is_active_sidebar('bottom-sidebar'))
-<div class="o-container o-container--fullwidth">
-    <div class="o-grid bottom-sidebar">
-        <?php dynamic_sidebar('bottom-sidebar'); ?>
+    
+    <div class="o-container o-container--fullwidth">
+        <div class="o-grid bottom-sidebar">
+            <?php dynamic_sidebar('bottom-sidebar'); ?>
+        </div>
     </div>
-</div>
+    
 @endif
 
-<footer id="site-footer" class="{{ apply_filters('Views/Partials/Header/FooterClass', 'site-footer') }}">
-    
+@footer([
+    'id' => 'site-footer',
+    'slotOnly' => true,
+    'classList' => [
+        apply_filters('Views/Partials/Header/FooterClass', 'site-footer')
+    ]
+])
+
     {{-- Before footer body --}}
     @yield('before-footer-body')
 
@@ -70,4 +78,5 @@
 
     {{-- After footer body --}}
     @yield('after-footer-body')
-</footer>
+    
+@endfooter
