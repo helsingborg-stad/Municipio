@@ -21,6 +21,17 @@
 
     {{-- Footer body --}}
     @section('footer-body')
+        {{-- ## Footer top widget area begin ## --}}
+        @if (is_active_sidebar('footer-area-top'))
+        <div class="o-container">
+                <div class="o-grid-12">
+                    <div class="o-grid sidebar-footer-area-top">
+                            <?php dynamic_sidebar('footer-area-top'); ?>
+                    </div>
+                </div>
+        </div>
+        @endif
+
         <div class="o-container">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
                 <div class="o-grid u-print-display--none">

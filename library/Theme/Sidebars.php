@@ -30,6 +30,19 @@ class Sidebars
     public function register()
     {
         /**
+         * Footer Area Top
+         */
+        register_sidebar(array(
+            'id'            => 'footer-area-top',
+            'name'          => __('Footer top', 'municipio'),
+            'description'   => __('The top of footer area', 'municipio'),
+            'before_title'  => '<h2 class="footer-top-title">',
+            'after_title'   => '</h2>',
+            'before_widget' => '<div class="o-grid-12"><div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div></div>'
+        ));
+
+        /**
          * Footer Area
          */
         register_sidebar(array(
@@ -170,42 +183,88 @@ class Sidebars
     {
         switch ($modulePostType) {
             case "mod-section-featured":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-section-full":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-section-split":
-                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "content-area-bottom", "content-area", "content-area-top", "footer-area");
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "content-area-bottom", "content-area", "content-area-top", "footer-area", "footer-area-top");
                 break;
             case "mod-slider":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-video":
-                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area");
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "footer-area-top");
                 break;
             case "mod-table":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-gallery":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-guide":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-alarms":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-interactive-map":
-                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "slider-area", "bottom-sidebar", "top-sidebar");
+                $moduleSpecification['sidebar_incompability'] = array("right-sidebar", "left-sidebar", "left-sidebar-bottom", "footer-area", "slider-area", "bottom-sidebar", "top-sidebar", "footer-area-top");
                 break;
             case "mod-posts":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-location":
             case "mod-social":
             case "mod-dictionary":
             case "mod-contacts":
             case "mod-fileslist":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-g-calendar":
             case "mod-index":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-inlaylist":
                 $moduleSpecification['sidebar_incompability'] = array("footer-area", "slider-area", "bottom-sidebar", "top-sidebar");
                 break;
             case "mod-rss":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-script":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-notice":
             case "mod-iframe":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-event":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-form":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
             case "mod-location":
             case "mod-text":
                 $moduleSpecification['sidebar_incompability'] = array("slider-area", "bottom-sidebar", "top-sidebar");
                 break;
+            case "mod-map":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
+            case "mod-timeline":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
+            case "mod-sites":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
+            case "mod-event-submit":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
+            case "mod-json-render":
+                $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
+                break;
+            
         }
 
         return $moduleSpecification;
