@@ -2,26 +2,9 @@
 
 
 @section('sidebar-left')
-
-    @if($showSidebarNavigation)
-        @sidebar([
-            'items'     => $secondaryMenuItems,
-            'endpoints' => [
-                'children'  => $homeUrlPath . '/wp-json/municipio/v1/navigation/children'
-            ],
-            'classList' => [
-                'u-visibility--hidden@xs',
-                'u-visibility--hidden@sm',
-            ],
-            'pageId' => $pageID,
-            'sidebar' => true
-        ])
-        @endsidebar
-    @endif
-
+    @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
     @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
     @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
-
 @stop
 
 @section('before-layout')
