@@ -11,8 +11,8 @@
 				])
 				@endicon
 				@link([
-					'href' => $item['href'],
-					'attributeList' => ['onClick' => $item['script']]
+					'href' => $item['href'] ?? null,
+					'attributeList' => ['onClick' => $item['script'] ?? '']
 
 				])
 					{{$item['text']}}
