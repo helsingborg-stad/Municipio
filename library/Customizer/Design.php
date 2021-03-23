@@ -72,8 +72,8 @@ class Design
                                 $field->key => [
                                     'group-id' => sanitize_title($data->title),
                                     'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
-                                    'default' => $field->default_value,
-                                    'value' => $themeMods[$field->key],
+                                    'default' => $field->default_value ?? '',
+                                    'value' => $themeMods[$field->key] ?? '',
                                     'prepend' => $field->prepend ?? null,
                                     'append' => $field->append ?? null
                                 ]
