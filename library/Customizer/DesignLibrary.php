@@ -158,14 +158,14 @@ class DesignLibrary
         );
 
         if (is_wp_error($response)) {
-            return new WP_Error($response->get_error_message()); 
+            return new \WP_Error($response->get_error_message()); 
         } else {
             if(wp_remote_retrieve_response_code($response) == 200) {
                 return true; 
             }
         }
 
-        return new WP_Error("Could not store design in designshare."); 
+        return false; 
     } 
 
     /**
