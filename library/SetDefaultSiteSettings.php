@@ -23,7 +23,7 @@ class SetDefaultSiteSettings
     }
 
     /**
-     * Set Site options for new network site
+     * Set default Site options
      * @return void
      */
     public function setSiteOptions(): void
