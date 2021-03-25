@@ -38,6 +38,10 @@ class Design
      */
     public function initPanels()
     {
+        if(!is_customize_preview()) {
+            return false; 
+        }
+
         new \Municipio\Helper\Customizer(
             __('Design', 'municipio'),
             array_flip($this->configurationFiles)

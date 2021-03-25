@@ -7,7 +7,7 @@
             "label": "Select design",
             "name": "customizer_select_designshare",
             "type": "select",
-            "instructions": "Municipio automatically maintains a library of customization designs available for all users. These are automatically updated when administrators make adjustments in the customization options.",
+            "instructions": "Municipio automatically maintains a library of customization designs available for all users. These are automatically updated when administrators make adjustments in the customization options. <style>#sub-accordion-section-loaddesign .customize-section-back {display: none !important;}</style>",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -46,4 +46,4 @@
     "active": true,
     "description": ""
 }]
-
+
