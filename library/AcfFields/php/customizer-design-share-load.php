@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_604a117fe6872',
     'title' => __('Avabile Designs', 'municipio'),
     'fields' => array(
@@ -10,7 +12,7 @@
             'label' => __('Select design', 'municipio'),
             'name' => 'customizer_select_designshare',
             'type' => 'select',
-            'instructions' => __('Municipio automatically maintains a library of customization designs available for all users. These are automatically updated when administrators make adjustments in the customization options.', 'municipio'),
+            'instructions' => __('Municipio automatically maintains a library of customization designs available for all users. These are automatically updated when administrators make adjustments in the customization options. <style>#sub-accordion-section-loaddesign .customize-section-back {display: none !important;}</style>', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -49,4 +51,5 @@
     'active' => true,
     'description' => '',
 ));
-}
+
+}

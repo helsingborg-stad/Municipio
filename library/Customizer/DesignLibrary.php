@@ -31,11 +31,6 @@ class DesignLibrary
             remove_theme_mod('loaddesign');
         }); 
 
-        //Removes the ability to move back from designlibrary [TODO: FIX. NOT WORKING!]
-        add_action('wp_head', function() {
-            echo '<style>#sub-accordion-section-loaddesign .customize-section-back {display: none !important;}</style>'; 
-        }); 
-
         //Store on save
         add_action('customize_save_after', array($this, 'storeThemeMod'));
 
@@ -44,6 +39,11 @@ class DesignLibrary
 
         //Add visual panel
         add_action('init', function() {
+
+            if(!is_customize_preview()) {
+                return false; 
+            }
+
             new \Municipio\Helper\Customizer(
                 __('Designlibrary', 'municipio'),
                 ['Load design']
@@ -116,13 +116,17 @@ class DesignLibrary
         $data = wp_remote_get($this->apiUrl, ['cacheBust' => $this->uniqid]); 
         
         if(wp_remote_retrieve_response_code($data) == 200) {
-
+             
+            //Decode
             $choices = json_decode($data['body']); 
 
+            //Reset select
+            $field['choices'] = []; 
+
             //Populate select
-            if( is_array($choices) ) {
+            if( is_array($choices) && !empty($choices) ) {
                 foreach( $choices as $choice ) {
-                    $field['choices'][ $choice->uuid ] = $choice->name . " (" . $choice->website. " )";   
+                    $field['choices'][ $choice->id ] = $choice->name;   
                 }
             }
 
