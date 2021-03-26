@@ -81,8 +81,10 @@ add_action('init', function () {
 
         //Customizer
         'customizer-color'                          => 'group_60361b6d86d9d',
-        'customizer-radius'                         => 'group_603662f315acc'
+        'customizer-radius'                         => 'group_603662f315acc',
+        'customizer-design-share-load'              => 'group_604a117fe6872'
     ));
+    
     $acfExportManager->import();
 });
 
