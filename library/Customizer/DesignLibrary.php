@@ -153,7 +153,7 @@ class DesignLibrary
                 'method' => 'POST',
                 'timeout' => 5,
                 'body' => $this->getSiteData(),
-                'headers' => 'CLIENT-SITE-ID: ' . md5(NONCE_KEY . NONCE_SALT)
+                'headers' => 'CLIENT-SITE-ID: ' . md5(NONCE_KEY . NONCE_SALT . get_current_blog_id())
             ]
         );
 
