@@ -126,7 +126,6 @@ class Design
         wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 
-<<<<<<< HEAD
     /** Add options specified in customizer for modules */
    public function moduleClasses()
     {
@@ -176,7 +175,8 @@ class Design
             
             return $modifiers;
         }, 10, 2); 
-=======
+    }
+    
     /**
      * Get the live value of theme mods
      *
@@ -204,6 +204,5 @@ class Design
         }
         
         return $themeMods; 
->>>>>>> 3.0/develop
     }
 }
