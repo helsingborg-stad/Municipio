@@ -14,7 +14,7 @@
                                 [
                                     'type' => 'text',
                                     'value' => $queryParameters->search,
-                                    'label' => $lang->searchFor,
+                                    'placeholder' => $lang->searchFor,
                                     'classList' => ['u-width--100'],
                                     'attributeList' => [
                                         'type' => 'text',

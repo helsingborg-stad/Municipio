@@ -41,6 +41,10 @@ class Design
      */
     public function initPanels()
     {
+        if(!is_customize_preview()) {
+            return false; 
+        }
+
         new \Municipio\Helper\Customizer(
             __('Design', 'municipio'),
             array_flip($this->configurationFiles)
@@ -53,11 +57,15 @@ class Design
      */
     public function getAcfCustomizerFields()
     {
+
         if (is_array($this->configurationFiles) && !empty($this->configurationFiles)) {
+
+            $themeMods = $this->getThemeMods(); 
 
             foreach ($this->configurationFiles as $key => $config) {
                 $data = file_get_contents($config);
                 $themeMods = get_theme_mod(sanitize_title($key));
+                
                 if (file_exists($config) && $data = json_decode($data)) {
 
                     if (count($data) != 1) {
@@ -68,6 +76,7 @@ class Design
 
                     if (isset($data->fields) && !empty($data->fields)) {
                         foreach ($data->fields as $index => $field) {
+
                             $this->dataFieldStack[sanitize_title($data->title)][$index] = [
                                 $field->key => [
                                     'group-id' => sanitize_title($data->title),
@@ -117,6 +126,7 @@ class Design
         wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 
+<<<<<<< HEAD
     /** Add options specified in customizer for modules */
    public function moduleClasses()
     {
@@ -166,5 +176,34 @@ class Design
             
             return $modifiers;
         }, 10, 2); 
+=======
+    /**
+     * Get the live value of theme mods
+     *
+     * @return array Array with theme mods
+     */
+    private function getThemeMods() {
+
+        $themeMods = [];
+
+        if(is_customize_preview()) {
+            foreach((array) get_theme_mods() as $key => $mods) {
+                $themeMods = array_merge($themeMods, (array) get_theme_mod($key)); 
+            }
+        } else {
+
+            $storedThemeMods = get_theme_mods(); 
+
+            if(array($storedThemeMods) && !empty($storedThemeMods)) {
+                foreach($storedThemeMods as $mod) {
+                    if(is_array($mod)) {
+                        $themeMods = array_merge($themeMods, $mod); 
+                    }
+                }
+            }
+        }
+        
+        return $themeMods; 
+>>>>>>> 3.0/develop
     }
 }
