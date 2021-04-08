@@ -38,7 +38,7 @@ class Design
      */
     public function initPanels()
     {
-        if(!is_customize_preview()) {
+        if(!is_customize_preview() && !is_admin()) {
             return false; 
         }
 

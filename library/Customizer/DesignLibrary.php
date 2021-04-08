@@ -40,7 +40,7 @@ class DesignLibrary
         //Add visual panel
         add_action('init', function() {
 
-            if(!is_customize_preview()) {
+            if(!is_customize_preview() && !is_admin()) {
                 return false; 
             }
 
