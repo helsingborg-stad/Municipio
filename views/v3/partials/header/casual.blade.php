@@ -2,7 +2,7 @@
 
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
-        <div class="o-container">
+        <div class="o-container o-container--wide">
             <div class="u-display--flex u-justify-content--space-between u-align-content--center">
                 
                 @link(['href' => $homeUrl, 'classList' => ['u-margin__right--4']])

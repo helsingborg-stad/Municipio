@@ -63,12 +63,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "260a3b3c67adbb8a3f895a49755e9a6e6b9fd8ee"
+                "reference": "0f4a400e1c678d2650c5c27cce9e534cc3305c2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/260a3b3c67adbb8a3f895a49755e9a6e6b9fd8ee",
-                "reference": "260a3b3c67adbb8a3f895a49755e9a6e6b9fd8ee",
+                "url": "https://api.github.com/repos/composer/installers/zipball/0f4a400e1c678d2650c5c27cce9e534cc3305c2a",
+                "reference": "0f4a400e1c678d2650c5c27cce9e534cc3305c2a",
                 "shasum": ""
             },
             "require": {
@@ -206,7 +206,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-23T06:47:48+00:00"
+            "time": "2021-04-05T08:39:13+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1193,12 +1193,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16"
+                "reference": "45b2136377cca5f10af858968d6079a482bca473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/157bbec4fd773bae53c5483c50951a5530a2cc16",
-                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/45b2136377cca5f10af858968d6079a482bca473",
+                "reference": "45b2136377cca5f10af858968d6079a482bca473",
                 "shasum": ""
             },
             "require": {
@@ -1239,7 +1239,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.20"
+                "source": "https://github.com/symfony/debug/tree/4.4"
             },
             "funding": [
                 {
@@ -1255,7 +1255,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-28T16:54:48+00:00"
+            "time": "2021-04-02T07:50:12+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1643,12 +1643,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "a4f823ce5bfcc21d9c5f19950ce198e301f3dd56"
+                "reference": "aea088986fc140f7ee44e50f9b8d9595d4fadfa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/a4f823ce5bfcc21d9c5f19950ce198e301f3dd56",
-                "reference": "a4f823ce5bfcc21d9c5f19950ce198e301f3dd56",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/aea088986fc140f7ee44e50f9b8d9595d4fadfa7",
+                "reference": "aea088986fc140f7ee44e50f9b8d9595d4fadfa7",
                 "shasum": ""
             },
             "require": {
@@ -1724,7 +1724,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-28T09:44:11+00:00"
+            "time": "2021-04-01T10:43:52+00:00"
         }
     ],
     "packages-dev": [],
