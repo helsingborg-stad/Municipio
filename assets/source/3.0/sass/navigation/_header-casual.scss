@@ -14,3 +14,7 @@
     height: calc(#{$base} * 6);
   }
 }
+
+.c-header.c-header--casual .c-header__menu {
+  padding: calc(var(--base, 8px)*2) 0; 
+}
