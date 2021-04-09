@@ -2,7 +2,8 @@
     'id' => 'site-header',
     'classList' => [
         'site-header', isset($classList) ? is_array($classList) ? implode(' ', $classList) : $classList : ''
-    ]
+    ],
+    'context' => 'siteHeader'
 ])
 
     {{-- Search Form --}}
