@@ -1,0 +1,16 @@
+// Logo
+.c-header.c-header--casual .c-logotype {
+  height: calc(#{$base} * 6);
+
+  @include mq('xs') {
+    height: calc(#{$base} * 4);
+  }
+
+  @include mq('md') {
+    height: calc(#{$base} * 5);
+  }
+
+  @include mq('lg') {
+    height: calc(#{$base} * 6);
+  }
+}

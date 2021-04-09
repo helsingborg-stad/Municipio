@@ -5,7 +5,7 @@
         <div class="o-container o-container--wide">
             <div class="u-display--flex u-justify-content--space-between u-align-content--center">
                 
-                @link(['href' => $homeUrl, 'classList' => ['u-margin__right--4']])
+                @link(['href' => $homeUrl, 'classList' => ['u-margin__right--4', 'u-display--flex']])
                     @logotype([
                         'src'=> $logotype->standard['url'],
                         'alt' => $lang->goToHomepage,
@@ -14,14 +14,24 @@
                     @endlogotype
                 @endlink
 
-                <button class="hamburger hamburger--stacked@sm hamburger--reverse@md hamburger--slider c-header__button c-nav__action u-display--none@lg u-display--none@xl js-burger js-trigger-drawer" type="button" aria-label="Menu" aria-controls="navigation">
-                    <span class="hamburger-box">
-                        <span class="hamburger-inner"></span>
-                    </span>
-                    <span class="hamburger-label">
-                        {{ $lang->menu }}
-                    </span>
-                </button>
+                @button([
+                    'id' => 'mobile-menu-trigger',
+                    'text' => $lang->menu,
+                    'color' => 'default',
+                    'style' => 'basic',
+                    'icon' => 'keyboard_arrow_down',
+                    'classList' => [
+                        'mobile-menu-trigger',
+                        'js-burger',
+                        'js-trigger-drawer',
+                        'u-display--none@lg'
+                    ],
+                    'attributeList' => [
+                        'aria-label' => $lang->menu,
+                        'aria-controls' => "navigation"
+                    ]
+                ])
+                @endbutton
 
                 @if (!empty($primaryMenuItems))
                     <nav  role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">

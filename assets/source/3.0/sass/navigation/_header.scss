@@ -1,19 +1,13 @@
 // Logo
 .c-header.c-header--business .c-logotype,
 .c-header.c-header--casual .c-logotype {
-  display: block;
-  height: calc(#{$base} * 6.5);
-  width: auto;
+    display: block;
+    width: auto;
+    margin: auto;
+}
 
-  @include mq('xs') {
-    height: calc(#{$base} * 6);
-  }
-
-  @include mq('md') {
-    height: calc(#{$base} * 7);
-  }
-
-  @include mq('lg') {
-    height: calc(#{$base} * 9);
-  }
+.c-header.c-header--business .mobile-menu-trigger,
+.c-header.c-header--casual .mobile-menu-trigger {
+  margin-right: calc((#{$base} * 2) / -1);
+  color: $color-black;
 }

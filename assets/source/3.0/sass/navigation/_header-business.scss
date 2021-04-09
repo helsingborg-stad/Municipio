@@ -1,3 +1,20 @@
+// Logo
+.c-header.c-header--business .c-logotype {
+  height: calc(#{$base} * 6.5);
+
+  @include mq('xs') {
+    height: calc(#{$base} * 6);
+  }
+
+  @include mq('md') {
+    height: calc(#{$base} * 7);
+  }
+
+  @include mq('lg') {
+    height: calc(#{$base} * 9);
+  }
+}
+
 
 .c-header.c-header--business {
 
@@ -20,9 +37,4 @@
         }
     }
 
-    .mobile-menu-trigger {
-        margin-right: -#{$base}*2;
-        font-size: 0.9em;
-        color: $color-black;
-    }
 }
