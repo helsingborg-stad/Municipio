@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_603662f315acc',
     'title' => __('Radiuses', 'municipio'),
     'fields' => array(
@@ -38,7 +40,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => 2,
+            'default_value' => 4,
             'min' => 0,
             'max' => 12,
             'step' => 2,
@@ -58,7 +60,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => 2,
+            'default_value' => 8,
             'min' => 0,
             'max' => 12,
             'step' => 2,
@@ -78,7 +80,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => 2,
+            'default_value' => 12,
             'min' => 0,
             'max' => 12,
             'step' => 2,
@@ -104,4 +106,5 @@
     'active' => true,
     'description' => '',
 ));
-}
+
+}

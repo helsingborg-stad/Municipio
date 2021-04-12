@@ -35,7 +35,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 2,
+            "default_value": 4,
             "min": 0,
             "max": 12,
             "step": 2,
@@ -55,7 +55,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 2,
+            "default_value": 8,
             "min": 0,
             "max": 12,
             "step": 2,
@@ -75,7 +75,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 2,
+            "default_value": 12,
             "min": 0,
             "max": 12,
             "step": 2,
@@ -101,4 +101,4 @@
     "active": true,
     "description": ""
 }]
-
+
