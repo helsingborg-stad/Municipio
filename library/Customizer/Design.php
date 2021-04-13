@@ -19,8 +19,8 @@ class Design
     private $configurationFiles = [
         'Colors' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
         'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json',
-        'Modules' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-modules.json'
-
+        'Modules' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-modules.json',
+        'Site' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-site.json',
     ];
 
     /**
@@ -129,11 +129,14 @@ class Design
     /** Add options specified in customizer for modules */
    public function moduleClasses()
     {
+        
         global $moduleData;
         $moduleData = [];
-        
+
+        $dataStack = array_merge($this->dataFieldStack['modules'], $this->dataFieldStack['site']);
+
         //Build array with context and it's classes
-        foreach($this->dataFieldStack['modules'] as $data) {
+        foreach($dataStack as $data) {
             foreach ($data as $key => $value) {
                 $arr = explode('-', $value['name']);
 
@@ -148,6 +151,25 @@ class Design
                 $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
             }
         }
+
+        add_filter('ComponentLibrary/Component/Header/Modifier', function($modifiers, $contexts) {
+            global $moduleData;
+            $modifiers = [];
+
+            if(!is_array($contexts)) {
+                $contexts = [$contexts]; 
+            }
+
+            foreach($contexts as $key => $context) {
+                if(!is_array($moduleData[$context])) {
+                    $moduleData[$context] = [$moduleData[$context]];
+                }
+
+                $modifiers = array_merge($modifiers, $moduleData[$context]);
+            }
+            
+            return $modifiers;
+        }, 10, 2); 
        
         add_filter('ComponentLibrary/Component/Card/Class', function($class, $contexts) {
             if(!is_array($contexts)) {
