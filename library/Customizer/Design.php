@@ -18,7 +18,9 @@ class Design
      */
     private $configurationFiles = [
         'Colors' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
-        'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json'
+        'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json',
+        'Modules' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-modules.json'
+
     ];
 
     /**
@@ -30,6 +32,7 @@ class Design
         add_action('init', array($this, 'initPanels'));
         add_action('wp_head', array($this, 'getAcfCustomizerFields'), 5);
         add_action('wp_head', array($this, 'renderCssVariables'), 10);
+        add_action('wp_head', array($this, 'moduleClasses'), 10);
     }
 
     /**
@@ -60,9 +63,9 @@ class Design
             $themeMods = $this->getThemeMods(); 
 
             foreach ($this->configurationFiles as $key => $config) {
-
                 $data = file_get_contents($config);
-
+                $themeMods = get_theme_mod(sanitize_title($key));
+                
                 if (file_exists($config) && $data = json_decode($data)) {
 
                     if (count($data) != 1) {
@@ -72,7 +75,6 @@ class Design
                     $data = array_pop($data);
 
                     if (isset($data->fields) && !empty($data->fields)) {
-
                         foreach ($data->fields as $index => $field) {
 
                             $this->dataFieldStack[sanitize_title($data->title)][$index] = [
@@ -124,6 +126,57 @@ class Design
         wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 
+    /** Add options specified in customizer for modules */
+   public function moduleClasses()
+    {
+        global $moduleData;
+        $moduleData = [];
+        
+        //Build array with context and it's classes
+        foreach($this->dataFieldStack['modules'] as $data) {
+            foreach ($data as $key => $value) {
+                $arr = explode('-', $value['name']);
+
+                // Remove last element if array only has one value
+                if(count($arr) > 1) {
+                    array_pop($arr);
+                }
+                
+                $Module = $arr[0];
+                $View = isset($arr[1]) ? ucfirst($arr[1]) : '';
+
+                $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
+            }
+        }
+       
+        add_filter('ComponentLibrary/Component/Card/Class', function($class, $contexts) {
+            if(!is_array($contexts)) {
+                $contexts = [$contexts]; 
+            }
+            
+            return $class;
+        }, 10, 2);
+
+        add_filter('ComponentLibrary/Component/Card/Modifier', function($modifiers, $contexts) {
+            global $moduleData;
+            $modifiers = [];
+
+            if(!is_array($contexts)) {
+                $contexts = [$contexts]; 
+            }
+
+            foreach($contexts as $key => $context) {
+                if(!is_array($moduleData[$context])) {
+                    $moduleData[$context] = [$moduleData[$context]];
+                }
+
+                $modifiers = array_merge($modifiers, $moduleData[$context]);
+            }
+            
+            return $modifiers;
+        }, 10, 2); 
+    }
+    
     /**
      * Get the live value of theme mods
      *
