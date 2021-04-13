@@ -145,7 +145,7 @@ class Design
                 $Module = $arr[0];
                 $View = isset($arr[1]) ? ucfirst($arr[1]) : '';
 
-                $moduleData[$Module . $View] = $value['value'];
+                $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
             }
         }
        
