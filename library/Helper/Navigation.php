@@ -40,7 +40,15 @@ class Navigation
 
         //Persistent
         if($persistent) {
-            return wp_cache_set($key, $data, '', $this->cacheExpire); 
+
+            //Add to cache group (enables purging/banning)
+            if($this->setcacheGroup($key)) {
+
+                //Store cache
+                return wp_cache_set($key, $data, '', $this->cacheExpire); 
+            }
+
+            return false;           
         }
 
         return true; 
