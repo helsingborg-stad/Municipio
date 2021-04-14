@@ -84,7 +84,7 @@ class DesignLibrary
         $design = get_theme_mod('loaddesign');
 
         //Get settings name
-        $name = end(explode("_", current_filter())); 
+        $name = end(explode("_", (string) current_filter())); 
 
         if(is_array($design) && !empty($design)) {
             $design = array_pop($design); 
