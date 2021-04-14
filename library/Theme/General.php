@@ -25,6 +25,23 @@ class General
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
 
         remove_filter('template_redirect', 'redirect_canonical');
+
+        //Menu cache purging
+        add_action('updated_post_meta', array($this, 'purgeMenuCache')); 
+    }
+
+    /**
+     * Purge cache of menu on post meta key save
+     *
+     * TODO: Find a better place for this. 
+     * 
+     * @return bool
+     */
+    public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue) {
+        if(in_array($metaKey, wp_cache_get('municipioNavMenu'))) {
+            return wp_cache_delete($metaKey);
+        }
+        return false; 
     }
 
     /**

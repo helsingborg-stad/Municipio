@@ -18,10 +18,73 @@ class Navigation
     private $masterPostType = 'page';
     private $identifier = '';
 
+    private $cacheGroup = 'municipioNavMenu'; 
+    private $cacheExpire = 60 * 60 * 24; 
+
     public function __construct($identifier = '')
     {
         $this->identifier = $identifier;
         $this->globalToLocal('wpdb', 'db');
+    }
+
+    /**
+     * Store in cache
+     *
+     * @param string $key   The key to store in 
+     * @param mixed $value  The value to store
+     * @return mixed
+     */
+    private function setCache($key, $value, $persistent = true) : bool {
+        //Runtime
+        $this->cache[$key] = $value;
+
+        //Persistent
+        if($persistent) {
+            return wp_cache_set($key, $data, '', $this->cacheExpire); 
+        }
+
+        return true; 
+    }
+
+    /**
+     * Keep track of what's has been cached
+     *
+     * @param string $newCacheKey
+     * @return boolean
+     */
+    private function setCacheGroup($newCacheKey) : bool {
+
+        //Create new addition
+        $cacheObject = [$newCacheKey]; 
+
+        //Get old cache
+        $previousCachedObject = wp_cache_get($this->getCacheGroup); 
+        if(is_array($previousCachedObject) && !empty($previousCachedObject)) {
+            $cacheObject = array_merge($cacheObject, $previousCachedObject);
+        }
+
+        return wp_cache_set($this->cacheGroup, $cacheObject); 
+    }
+
+    /**
+     * Get from cache
+     *
+     * @param The cache key $key
+     * @return mixed
+     */
+    private function getCache($key, $persistent = true) {
+
+        //Get runtime cache
+        if(array_key_exists($key, $this->cache) && !empty($this->cache[$key])) {
+            return $this->cache[$key];
+        }
+
+        //Get persistent cache, store runtime
+        if($persistent) {
+            return $this->cache[$key] = wp_cache_get($key); 
+        }
+
+        return false; 
     }
 
     /**
@@ -34,7 +97,7 @@ class Navigation
     public function getNested($postId) : array
     {
 
-    //Store current post id
+        //Store current post id
         if (is_null($this->postId)) {
             $this->postId = $postId;
         }
@@ -466,28 +529,19 @@ class Navigation
     private function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
     {
         //Get cached result
-        if (isset($this->cache['getHiddenPostIds'])) {
-            return $this->cache['getHiddenPostIds'];
+        if($cache = $this->getCache($metaKey)) {
+            return $cache; 
         }
 
         //Get meta
-        $result = (array) self::$db->get_results(
+        $hiddenPages = (array) self::$db->get_col(
             self::$db->prepare("
-                SELECT post_id, meta_value 
+                SELECT post_id 
                 FROM ". self::$db->postmeta ." 
                 WHERE meta_key = %s
+                AND meta_value = '1'
             ", $metaKey)
         );
-
-        //Add visible page ids
-        if (is_array($result) && !empty($result)) {
-            foreach ($result as $item) {
-                if ($item->meta_value != "1") {
-                    continue;
-                }
-                $hiddenPages[] = $item->post_id;
-            }
-        }
 
         //Do not let the array return be empty
         if (empty($hiddenPages)) {
@@ -495,7 +549,10 @@ class Navigation
             $hiddenPages = [PHP_INT_MAX];
         }
 
-        return $this->cache['getHiddenPostIds'] = $hiddenPages;
+        //Cache
+        $this->setCache($metaKey, $hiddenPages); 
+
+        return $hiddenPages;
     }
 
     /**
@@ -515,19 +572,19 @@ class Navigation
     private function getMenuTitle(string $metaKey = "custom_menu_title") : array
     {
 
-    //Get cached result
-        if (isset($this->cache['getMenuTitle'])) {
-            return $this->cache['getMenuTitle'];
+        //Get cached result
+        if($cache = $this->getCache($metaKey)) {
+            return $cache; 
         }
 
         //Get meta
         $result = (array) self::$db->get_results(
-            self::$db->prepare("
-        SELECT post_id, meta_value 
-        FROM ". self::$db->postmeta ." 
-        WHERE meta_key = %s
-        AND meta_value != ''
-      ", $metaKey)
+            $x = self::$db->prepare("
+                SELECT post_id, meta_value 
+                FROM ". self::$db->postmeta ." 
+                WHERE meta_key = %s
+                AND meta_value != ''
+            ", $metaKey)
         );
 
         //Declare result
@@ -543,7 +600,10 @@ class Navigation
             }
         }
 
-        return $this->cache['getMenuTitle'] = $pageTitles;
+        //Cache
+        $this->setCache($metaKey, $pageTitles);
+
+        return $pageTitles;
     }
 
     /**
@@ -802,9 +862,9 @@ class Navigation
     public function getPageForPostTypeIds() : array
     {
 
-    //Get cached result
-        if (isset($this->cache['pageForPostType'])) {
-            return $this->cache['pageForPostType'];
+        //Get cached result
+        if($cache = $this->getCache('pageForPostType', $false)) {
+            return $cache; 
         }
 
         //Declare results array
@@ -829,7 +889,10 @@ class Navigation
             }
         }
 
-        return $cache['pageForPostType'] = $result;
+        //Cache
+        $this->setCache('pageForPostType', $result, false);
+
+        return $result; 
     }
 
     /**
