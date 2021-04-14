@@ -32,7 +32,7 @@ class Design
         add_action('init', array($this, 'initPanels'));
         add_action('wp_head', array($this, 'getAcfCustomizerFields'), 5);
         add_action('wp_head', array($this, 'renderCssVariables'), 10);
-        add_action('wp_head', array($this, 'moduleClasses'), 10);
+        add_action('wp_head', array($this, 'moduleClasses'), 20);
     }
 
     /**
@@ -134,24 +134,26 @@ class Design
         $dataStack  = array_merge($this->dataFieldStack['modules'], $this->dataFieldStack['site']);
 
         //Build array with context and it's classes
-        foreach($dataStack as $data) {
-            foreach ($data as $key => $value) {
+        if(is_array($dataStack) && !empty($dataStack)) {
+            foreach($dataStack as $data) {
+                foreach ($data as $key => $value) {
+                    
+                    //Get named parts
+                    $nameParts = explode('-', $value['name']);
+
+                    //Remove last element if array only has one value
+                    if(count($nameParts) > 1) {
+                        array_pop($nameParts);
+                    }
+
+                    //Create key parts
+                    $Module = isset($nameParts[0]) ? $nameParts[0] : '';
+                    $View   = isset($nameParts[1]) ? ucfirst($nameParts[1]) : '';
+
+                    //Set value for key parts
+                    $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
                 
-                //Get named parts
-                $nameParts = explode('-', $value['name']);
-
-                //Remove last element if array only has one value
-                if(count($nameParts) > 1) {
-                    array_pop($nameParts);
                 }
-
-                //Create key parts
-                $Module = isset($nameParts[0]) ?? '';
-                $View   = isset($nameParts[1]) ? ucfirst($nameParts[1]) : '';
-
-                //Set value for key parts
-                $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
-            
             }
         }
 
@@ -166,7 +168,9 @@ class Design
             foreach($filters as $filter) {
                 add_filter($filter, function($modifiers, $contexts) use($moduleData) {
                     
-                    $modifiers = [];
+                    if(!is_array($modifiers)) {
+                        $modifiers = [];
+                    }
         
                     //Always handle as array
                     if(!is_array($contexts)) {
