@@ -126,77 +126,69 @@ class Design
         wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 
-    /** Add options specified in customizer for modules */
-   public function moduleClasses()
-    {
+    /* Add options specified in customizer for modules */
+    public function moduleClasses() {
         
-        global $moduleData;
         $moduleData = [];
 
-        $dataStack = array_merge($this->dataFieldStack['modules'], $this->dataFieldStack['site']);
+        $dataStack  = array_merge($this->dataFieldStack['modules'], $this->dataFieldStack['site']);
 
         //Build array with context and it's classes
         foreach($dataStack as $data) {
             foreach ($data as $key => $value) {
-                $arr = explode('-', $value['name']);
-
-                // Remove last element if array only has one value
-                if(count($arr) > 1) {
-                    array_pop($arr);
-                }
                 
-                $Module = $arr[0];
-                $View = isset($arr[1]) ? ucfirst($arr[1]) : '';
+                //Get named parts
+                $nameParts = explode('-', $value['name']);
 
+                //Remove last element if array only has one value
+                if(count($nameParts) > 1) {
+                    array_pop($nameParts);
+                }
+
+                //Create key parts
+                $Module = isset($nameParts[0]) ?? '';
+                $View   = isset($nameParts[1]) ? ucfirst($nameParts[1]) : '';
+
+                //Set value for key parts
                 $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
+            
             }
         }
 
-        add_filter('ComponentLibrary/Component/Header/Modifier', function($modifiers, $contexts) {
-            global $moduleData;
-            $modifiers = [];
+        //Build filters
+        $filters = [
+            'ComponentLibrary/Component/Header/Modifier',
+            'ComponentLibrary/Component/Card/Modifier'
+        ];
 
-            if(!is_array($contexts)) {
-                $contexts = [$contexts]; 
-            }
-
-            foreach($contexts as $key => $context) {
-                if(!is_array($moduleData[$context])) {
-                    $moduleData[$context] = [$moduleData[$context]];
-                }
-
-                $modifiers = array_merge($modifiers, $moduleData[$context]);
-            }
+        //Apply filter + function
+        if(is_array($filters) && !empty($filters)) {
+            foreach($filters as $filter) {
+                add_filter($filter, function($modifiers, $contexts) use($moduleData) {
+                    
+                    $modifiers = [];
+        
+                    //Always handle as array
+                    if(!is_array($contexts)) {
+                        $contexts = [$contexts]; 
+                    }
+        
+                    //Create modifiers if exists
+                    if(is_array($contexts) && !empty($contexts)) {
+                        foreach($contexts as $key => $context) {
+                            if(!is_array($moduleData[$context])) {
+                                $moduleData[$context] = [$moduleData[$context]];
+                            }
             
-            return $modifiers;
-        }, 10, 2); 
-       
-        add_filter('ComponentLibrary/Component/Card/Class', function($class, $contexts) {
-            if(!is_array($contexts)) {
-                $contexts = [$contexts]; 
+                            $modifiers = array_merge($modifiers, $moduleData[$context]);
+                        }
+                    }
+        
+                    return (array) $modifiers;
+                    
+                }, 10, 2); 
             }
-            
-            return $class;
-        }, 10, 2);
-
-        add_filter('ComponentLibrary/Component/Card/Modifier', function($modifiers, $contexts) {
-            global $moduleData;
-            $modifiers = [];
-
-            if(!is_array($contexts)) {
-                $contexts = [$contexts]; 
-            }
-
-            foreach($contexts as $key => $context) {
-                if(!is_array($moduleData[$context])) {
-                    $moduleData[$context] = [$moduleData[$context]];
-                }
-
-                $modifiers = array_merge($modifiers, $moduleData[$context]);
-            }
-            
-            return $modifiers;
-        }, 10, 2); 
+        }
     }
     
     /**
