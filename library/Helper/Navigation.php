@@ -586,7 +586,7 @@ class Navigation
 
         //Get meta
         $result = (array) self::$db->get_results(
-            $x = self::$db->prepare("
+            self::$db->prepare("
                 SELECT post_id, meta_value
                 FROM ". self::$db->postmeta ."
                 WHERE meta_key = %s
