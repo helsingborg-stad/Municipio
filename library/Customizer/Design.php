@@ -180,11 +180,16 @@ class Design
                     //Create modifiers if exists
                     if(is_array($contexts) && !empty($contexts)) {
                         foreach($contexts as $key => $context) {
-                            if(!is_array($moduleData[$context])) {
-                                $moduleData[$context] = [$moduleData[$context]];
+
+                            if(isset($moduleData[$context])) {
+                                
+                                if(!is_array($moduleData[$context])) {
+                                    $moduleData[$context] = [$moduleData[$context]];
+                                }
+                
+                                $modifiers = array_merge($modifiers, $moduleData[$context]);
                             }
-            
-                            $modifiers = array_merge($modifiers, $moduleData[$context]);
+
                         }
                     }
         
