@@ -70,7 +70,7 @@ class Navigation
             $cacheObject = array_merge($cacheObject, $previousCachedObject);
         }
 
-        return wp_cache_set($this->cacheGroup, $cacheObject);
+        return wp_cache_set($this->cacheGroup, array_unique($cacheObject));
     }
 
     /**
