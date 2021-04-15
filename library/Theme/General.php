@@ -38,7 +38,10 @@ class General
      * @return bool
      */
     public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue) {
-        if (in_array($metaKey, wp_cache_get('municipioNavMenu'))) {
+
+        $bannableKeys = wp_cache_get('municipioNavMenu'); 
+        
+        if (is_array($bannableKeys) && in_array($metaKey, $bannableKeys)) {
             return wp_cache_delete($metaKey);
         }
         return false;
