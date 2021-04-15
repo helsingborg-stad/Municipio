@@ -870,7 +870,7 @@ class Navigation
     {
 
         //Get cached result
-        if($cache = $this->getCache('pageForPostType', $false)) {
+        if($cache = $this->getCache('pageForPostType', false)) {
             return $cache;
         }
 
