@@ -18,10 +18,80 @@ class Navigation
     private $masterPostType = 'page';
     private $identifier = '';
 
+    private $cacheGroup = 'municipioNavMenu';
+    private $cacheExpire = 60 * 60 * 24;
+
     public function __construct($identifier = '')
     {
         $this->identifier = $identifier;
         $this->globalToLocal('wpdb', 'db');
+    }
+
+    /**
+     * Store in cache
+     *
+     * @param string $key   The key to store in
+     * @param mixed $value  The value to store
+     * @return mixed
+     */
+    private function setCache($key, $data, $persistent = true) : bool {
+        //Runtime
+        $this->cache[$key] = $data;
+
+        //Persistent
+        if($persistent) {
+
+            //Add to cache group (enables purging/banning)
+            if($this->setcacheGroup($key)) {
+                //Store cache
+                return wp_cache_set($key, $data, '', $this->cacheExpire);
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Keep track of what's has been cached
+     *
+     * @param string $newCacheKey
+     * @return boolean
+     */
+    private function setCacheGroup($newCacheKey) : bool {
+
+        //Create new addition
+        $cacheObject = [$newCacheKey];
+
+        //Get old cache
+        $previousCachedObject = wp_cache_get($this->cacheGroup);
+        if(is_array($previousCachedObject) && !empty($previousCachedObject)) {
+            $cacheObject = array_merge($cacheObject, $previousCachedObject);
+        }
+
+        return wp_cache_set($this->cacheGroup, array_unique($cacheObject));
+    }
+
+    /**
+     * Get from cache
+     *
+     * @param The cache key $key
+     * @return mixed
+     */
+    private function getCache($key, $persistent = true) {
+
+        //Get runtime cache
+        if(array_key_exists($key, $this->cache) && !empty($this->cache[$key])) {
+            return $this->cache[$key];
+        }
+
+        //Get persistent cache, store runtime
+        if($persistent) {
+            return $this->cache[$key] = wp_cache_get($key);
+        }
+
+        return false;
     }
 
     /**
@@ -34,17 +104,17 @@ class Navigation
     public function getNested($postId) : array
     {
 
-    //Store current post id
+        //Store current post id
         if (is_null($this->postId)) {
             $this->postId = $postId;
         }
-    
+
         //Get all ancestors
         $parents = $this->getAncestors($postId, true);
 
         //Get all parents
         $result = $this->getItems($parents, [$this->masterPostType, get_post_type()]);
-    
+
         //Format response
         $result = $this->complementObjects($result);
 
@@ -75,7 +145,7 @@ class Navigation
 
         //Format response
         $result = $this->complementObjects($result);
-    
+
         //Return
         return $result;
     }
@@ -92,7 +162,7 @@ class Navigation
     {
         if ($array['ID'] == $this->postId) {
             $children = $this->getItems(
-                $array['ID'], 
+                $array['ID'],
                 get_post_type($array['ID'])
             );
         } else {
@@ -125,9 +195,9 @@ class Navigation
 
         $currentPostTypeChildren = self::$db->get_var(
             self::$db->prepare("
-        SELECT ID 
-        FROM " . self::$db->posts . " 
-        WHERE post_parent = %d 
+        SELECT ID
+        FROM " . self::$db->posts . "
+        WHERE post_parent = %d
         AND post_status = 'publish'
         AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
         LIMIT 1
@@ -139,9 +209,9 @@ class Navigation
         if (array_key_exists($postId, $pageForPostTypeIds)) {
             $postTypeHasPosts = self::$db->get_var(
                 self::$db->prepare("
-          SELECT ID 
-          FROM " . self::$db->posts . " 
-          WHERE post_parent = 0 
+          SELECT ID
+          FROM " . self::$db->posts . "
+          WHERE post_parent = 0
           AND post_status = 'publish'
           AND post_type = %s
           AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
@@ -149,7 +219,7 @@ class Navigation
         ", $pageForPostTypeIds[$postId])
             );
         }
-    
+
         //Return indication boolean
         if (!is_null($currentPostTypeChildren)) {
             return true;
@@ -177,9 +247,9 @@ class Navigation
         while ($fetchAncestors) {
             $ancestorID = self::$db->get_var(
                 self::$db->prepare("
-            SELECT post_parent 
+            SELECT post_parent
             FROM  " . self::$db->posts . "
-            WHERE ID = %d 
+            WHERE ID = %d
             AND post_status = 'publish'
             LIMIT 1
         ", $postId)
@@ -207,7 +277,7 @@ class Navigation
                 if (!in_array($ancestorID, $ancestorStack)) {
                     $ancestorStack[] = (int) $ancestorID;
                 }
-        
+
                 //Prepare for next iteration
                 $postId           = $ancestorID;
             }
@@ -232,7 +302,7 @@ class Navigation
      *
      * @return  array               Nested array representing page structure
      */
-  
+
     private function buildTree(array $elements, $parentId = 0) : array
     {
         $branch = array();
@@ -241,19 +311,19 @@ class Navigation
             foreach ($elements as $element) {
                 if ($element['post_parent'] == $parentId) {
                     $children = $this->buildTree($elements, $element['id']);
-          
+
                     if ($children) {
                         $element['children'] = $children;
                     }
-          
+
                     $branch[] = $element;
                 }
             }
         }
-    
+
         return $branch;
     }
-    
+
 
     /**
      * Get pages/posts
@@ -275,19 +345,19 @@ class Navigation
             $stack = [];
             foreach ($postType as $item) {
                 if (post_type_exists($item) && is_post_type_hierarchical($item)) {
-                    $stack[] = $item; 
+                    $stack[] = $item;
                 }
             }
 
             if(empty($stack)) {
-                return []; 
+                return [];
             }
 
             //Get result, if one, handle as string (more efficient query)
             if(count($stack) == 1) {
-                $postType = array_pop($stack); 
+                $postType = array_pop($stack);
             } else {
-                $postType = $stack; 
+                $postType = $stack;
             }
         }
 
@@ -308,12 +378,12 @@ class Navigation
 
         $sql = "
           SELECT ID, post_title, post_parent, post_type
-          FROM " . self::$db->posts . " 
+          FROM " . self::$db->posts . "
           WHERE post_parent IN(" . $parent . ")
           AND " . $postTypeSQL . "
           AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
           AND post_status='publish'
-          ORDER BY menu_order, post_title ASC 
+          ORDER BY menu_order, post_title ASC
           LIMIT 3000
         ";
 
@@ -332,7 +402,7 @@ class Navigation
         //Run query
         return (array) $resultSet;
     }
-  
+
 
     /**
      * Calculate add add data to array
@@ -396,7 +466,7 @@ class Navigation
         } else {
             $array['active'] = false;
         }
-      
+
         return $array;
     }
 
@@ -428,7 +498,7 @@ class Navigation
         $array['label'] = $array['post_title'];
         $array['id'] = (int) $array['ID'];
         $array['post_parent'] = (int) $array['post_parent'];
-      
+
         //Unset data not needed
         unset($array['post_title']);
         unset($array['ID']);
@@ -466,28 +536,19 @@ class Navigation
     private function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
     {
         //Get cached result
-        if (isset($this->cache['getHiddenPostIds'])) {
-            return $this->cache['getHiddenPostIds'];
+        if($cache = $this->getCache($metaKey)) {
+            return $cache;
         }
 
         //Get meta
-        $result = (array) self::$db->get_results(
+        $hiddenPages = (array) self::$db->get_col(
             self::$db->prepare("
-                SELECT post_id, meta_value 
-                FROM ". self::$db->postmeta ." 
+                SELECT post_id
+                FROM ". self::$db->postmeta ."
                 WHERE meta_key = %s
+                AND meta_value = '1'
             ", $metaKey)
         );
-
-        //Add visible page ids
-        if (is_array($result) && !empty($result)) {
-            foreach ($result as $item) {
-                if ($item->meta_value != "1") {
-                    continue;
-                }
-                $hiddenPages[] = $item->post_id;
-            }
-        }
 
         //Do not let the array return be empty
         if (empty($hiddenPages)) {
@@ -495,7 +556,10 @@ class Navigation
             $hiddenPages = [PHP_INT_MAX];
         }
 
-        return $this->cache['getHiddenPostIds'] = $hiddenPages;
+        //Cache
+        $this->setCache($metaKey, $hiddenPages);
+
+        return $hiddenPages;
     }
 
     /**
@@ -515,19 +579,19 @@ class Navigation
     private function getMenuTitle(string $metaKey = "custom_menu_title") : array
     {
 
-    //Get cached result
-        if (isset($this->cache['getMenuTitle'])) {
-            return $this->cache['getMenuTitle'];
+        //Get cached result
+        if($cache = $this->getCache($metaKey)) {
+            return $cache;
         }
 
         //Get meta
         $result = (array) self::$db->get_results(
             self::$db->prepare("
-        SELECT post_id, meta_value 
-        FROM ". self::$db->postmeta ." 
-        WHERE meta_key = %s
-        AND meta_value != ''
-      ", $metaKey)
+                SELECT post_id, meta_value
+                FROM ". self::$db->postmeta ."
+                WHERE meta_key = %s
+                AND meta_value != ''
+            ", $metaKey)
         );
 
         //Declare result
@@ -543,7 +607,10 @@ class Navigation
             }
         }
 
-        return $this->cache['getMenuTitle'] = $pageTitles;
+        //Cache
+        $this->setCache($metaKey, $pageTitles);
+
+        return $pageTitles;
     }
 
     /**
@@ -681,7 +748,7 @@ class Navigation
             } else {
                 //Add to stack (with duplicate prevention)
                 $ancestorStack[] = (int) $menu[$parentIndex]->menu_item_parent;
-        
+
                 //Prepare for next iteration
                 $id = (int) $menu[$parentIndex]->menu_item_parent;
             }
@@ -748,9 +815,9 @@ class Navigation
         );
 
         $queriedObj = get_queried_object();
-        $archiveLink = get_post_type_archive_link( get_post_type($queriedObj) ); 
+        $archiveLink = get_post_type_archive_link( get_post_type($queriedObj) );
         $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
-        
+
         if($archiveLink) {
             $label = get_post_type_object(get_post_type($queriedObj))->label;
 
@@ -767,11 +834,11 @@ class Navigation
                 )
             );
         }
-      
+
         if (!is_front_page() && !is_archive()) {
             //Get all ancestors to page
             $ancestors = $this->getAncestors($pageId);
-        
+
             //Create dataset
             if (is_countable($ancestors)) {
                 $ancestors = array_reverse($ancestors);
@@ -802,9 +869,9 @@ class Navigation
     public function getPageForPostTypeIds() : array
     {
 
-    //Get cached result
-        if (isset($this->cache['pageForPostType'])) {
-            return $this->cache['pageForPostType'];
+        //Get cached result
+        if($cache = $this->getCache('pageForPostType', $false)) {
+            return $cache;
         }
 
         //Declare results array
@@ -829,7 +896,10 @@ class Navigation
             }
         }
 
-        return $cache['pageForPostType'] = $result;
+        //Cache
+        $this->setCache('pageForPostType', $result, false);
+
+        return $result;
     }
 
     /**
