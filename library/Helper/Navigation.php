@@ -34,16 +34,15 @@ class Navigation
      * @param mixed $value  The value to store
      * @return mixed
      */
-    private function setCache($key, $value, $persistent = true) : bool {
+    private function setCache($key, $data, $persistent = true) : bool {
         //Runtime
-        $this->cache[$key] = $value;
+        $this->cache[$key] = $data;
 
         //Persistent
         if($persistent) {
 
             //Add to cache group (enables purging/banning)
             if($this->setcacheGroup($key)) {
-
                 //Store cache
                 return wp_cache_set($key, $data, '', $this->cacheExpire);
             }
