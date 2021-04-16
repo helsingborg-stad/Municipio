@@ -64,7 +64,6 @@ class Design
 
             foreach ($this->configurationFiles as $key => $config) {
                 $data = file_get_contents($config);
-                $themeMods = get_theme_mod(sanitize_title($key));
                 
                 if (file_exists($config) && $data = json_decode($data)) {
 
@@ -103,6 +102,7 @@ class Design
      */
     public function renderCssVariables()
     {
+
         $inlineStyle = null;
         foreach ($this->dataFieldStack as $key => $stackItems) {
 
