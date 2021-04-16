@@ -1,0 +1,57 @@
+name: Build site
+
+on:
+  push:
+    branches: [ 3.0/feature/modult-test-deploy ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup PHP with composer v2
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: composer:v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install composer dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Inject access token in .npmrc
+      run: | 
+        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+    - name: Execute buildscripts in themes and plugins folders
+      run: php ./build.php --cleanup
+
+    - name: Cleanup .npmrc
+      run: rm ~/.npmrc
+
+    - name: rsync deployment to www-data user.
+      uses: burnett01/rsync-deployments@4.1
+      with:
+        switches: -avzrog --rsync-path="sudo rsync" --delete --backup --backup-dir=${{ secrets.DEPLOY_REMOTE_BACKUP_DIR_MODUL_TEST_HELSINGBORG_IO }}/$GITHUB_SHA --chown=www-data:www-data --chmod=g+rw 
+        path: .
+        remote_path: ${{ secrets.DEPLOY_REMOTE_PATH_MUNICIPIO_MODUL_TEST_HELSINGBORG_IO }}
+        remote_host: ${{ secrets.DEPLOY_REMOTE_HOST_MODUL_TEST_HELSINGBORG_IO }}
+        remote_user: ${{ secrets.DEPLOY_AWS_REMOTE_USER_MODUL_TEST_HELSINGBORG_IO}}
+        remote_key: ${{ secrets.DEPLOY_KEY_MODUL_TEST_HELSINGBORG_IO }}
+
+    - name: Clear varnish and redis object cache.
+      uses: appleboy/ssh-action@master
+      with:
+        script: |
+          cd ${{ secrets.DEPLOY_REMOTE_PATH_MODUL_TEST_HELSINGBORG_IO }}
+          wp varnish purge --allow-root
+          wp cache flush --allow-root
+          sudo rm /var/www/html/wp-content/uploads/cache/blade-cache/** || true
+        host: ${{ secrets.DEPLOY_REMOTE_HOST_MODUL_TEST_HELSINGBORG_IO }}
+        username: ${{ secrets.DEPLOY_AWS_REMOTE_USER_MODUL_TEST_HELSINGBORG_IO }}
+        key: ${{ secrets.DEPLOY_KEY_MODUL_TEST_HELSINGBORG_IO }}
