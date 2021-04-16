@@ -54,7 +54,7 @@ jobs:
           cd ${{ secrets.DEPLOY_REMOTE_PATH_MODUL_TEST_HELSINGBORG_IO }}
           wp varnish purge --allow-root
           wp cache flush --allow-root
-          sudo rm /var/www/html/wp-content/uploads/cache/blade-cache/** || true
+          sudo rm ${{ secrets.DEPLOY_REMOTE_PATH_MODUL_TEST_HELSINGBORG_IO }}/wp-content/uploads/cache/blade-cache/** || true
         host: ${{ secrets.DEPLOY_REMOTE_HOST_MODUL_TEST_HELSINGBORG_IO }}
         username: ${{ secrets.DEPLOY_AWS_REMOTE_USER_MODUL_TEST_HELSINGBORG_IO }}
         key: ${{ secrets.DEPLOY_KEY_MODUL_TEST_HELSINGBORG_IO }}
