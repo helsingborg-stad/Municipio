@@ -2,7 +2,7 @@ name: Build site
 
 on:
   push:
-    branches: [ 3.0/feature/modult-test-deploy ]
+    branches: [ 3.0/develop ]
 
 jobs:
   build:
