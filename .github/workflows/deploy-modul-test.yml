@@ -34,6 +34,9 @@ jobs:
     - name: Cleanup .npmrc
       run: rm ~/.npmrc
 
+    - name: Cleanup node_modules
+      run: rm -rf node_modules
+
     - name: rsync deployment to www-data user.
       uses: burnett01/rsync-deployments@4.1
       with:
