@@ -8,7 +8,9 @@ class DesignLibrary
 
     private $sharedModKeys  = [
         'colors',
-        'radius'
+        'radius',
+        'modules',
+        'site'
     ]; 
     
     private $apiActions     = [ 
