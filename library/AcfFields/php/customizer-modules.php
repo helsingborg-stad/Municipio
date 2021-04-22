@@ -24,7 +24,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'highlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -51,7 +52,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -78,7 +80,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 0,
@@ -105,7 +108,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 0,
@@ -132,7 +136,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -159,7 +164,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -186,7 +192,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -213,7 +220,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 0,
@@ -240,7 +248,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -267,7 +276,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 0,
@@ -294,7 +304,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -321,7 +332,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -344,11 +356,10 @@
             ),
             'choices' => array(
                 'none' => __('None', 'municipio'),
-                'panel' => __('Panel', 'municipio'),
-                'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
@@ -375,7 +386,8 @@
                 'accented' => __('Accented', 'municipio'),
                 'hightlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => false,
+            'default_value' => array(
+            ),
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 1,
