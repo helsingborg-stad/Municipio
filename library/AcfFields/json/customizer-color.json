@@ -91,6 +91,81 @@
                 "id": ""
             },
             "default_value": "#ff983e"
+        },
+        {
+            "key": "field_60868021879b6",
+            "label": "Link Color",
+            "name": "municipio_color_link",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000"
+        },
+        {
+            "key": "field_608680ef879b7",
+            "label": "Link Hover Color",
+            "name": "municipio_color_link_hover",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ae0b05"
+        },
+        {
+            "key": "field_60868147879b8",
+            "label": "Link Visited Color",
+            "name": "municipio_color_link_visited",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#000000"
+        },
+        {
+            "key": "field_6086819f879b9",
+            "label": "Link Visited Hover Color",
+            "name": "municipio_color_link_visited_hover",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#770000"
+        },
+        {
+            "key": "field_608681df879ba",
+            "label": "Link Active Color",
+            "name": "municipio_color_link_active",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ae0b05"
         }
     ],
     "location": [
