@@ -54,7 +54,7 @@
 
             @if (!empty($posts))
 
-                @includeIf('partials.post.post-' . $template, ['posts' => $posts])
+                @includefirst(['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template], ['posts' => $posts])
                 
                 @if($showPagination)
                     @pagination([
