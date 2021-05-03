@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_605cdad896041',
     'title' => __('Modules', 'municipio'),
     'fields' => array(
@@ -50,7 +52,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -78,7 +80,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -106,7 +108,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -134,7 +136,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -162,7 +164,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -190,7 +192,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -218,7 +220,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -246,7 +248,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -274,7 +276,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -302,7 +304,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -330,7 +332,7 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -356,6 +358,8 @@
             ),
             'choices' => array(
                 'none' => __('None', 'municipio'),
+                'panel' => __('Panel', 'municipio'),
+                'accented' => __('Accented', 'municipio'),
                 'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
@@ -384,7 +388,35 @@
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'hightlight' => __('Highlight', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
+            ),
+            'default_value' => array(
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 1,
+            'ajax' => 0,
+            'return_format' => 'value',
+            'placeholder' => '',
+        ),
+        14 => array(
+            'key' => 'field_607ff0d6b8426',
+            'label' => __('Local Event', 'municipio'),
+            'name' => 'localEvent',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+                'none' => __('None', 'municipio'),
+                'panel' => __('Panel', 'municipio'),
+                'accented' => __('Accented', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => array(
             ),
@@ -414,4 +446,5 @@
     'active' => true,
     'description' => '',
 ));
-}
+
+}

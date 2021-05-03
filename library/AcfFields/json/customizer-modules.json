@@ -46,7 +46,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -73,7 +73,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -100,7 +100,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -127,7 +127,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -154,7 +154,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -181,7 +181,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -208,7 +208,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -235,7 +235,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -262,7 +262,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -289,7 +289,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -316,7 +316,7 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -368,7 +368,34 @@
                 "none": "None",
                 "panel": "Panel",
                 "accented": "Accented",
-                "hightlight": "Highlight"
+                "highlight": "Highlight"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_607ff0d6b8426",
+            "label": "Local Event",
+            "name": "localEvent",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
             },
             "default_value": [],
             "allow_null": 0,
@@ -397,4 +424,4 @@
     "active": true,
     "description": ""
 }]
-
+
