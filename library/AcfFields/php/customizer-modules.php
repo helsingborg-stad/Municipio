@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_605cdad896041',
     'title' => __('Modules', 'municipio'),
     'fields' => array(
@@ -444,4 +446,5 @@
     'active' => true,
     'description' => '',
 ));
-}
+
+}

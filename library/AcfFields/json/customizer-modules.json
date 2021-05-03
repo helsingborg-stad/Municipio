@@ -341,8 +341,6 @@
             },
             "choices": {
                 "none": "None",
-                "panel": "Panel",
-                "accented": "Accented",
                 "highlight": "Highlight"
             },
             "default_value": [],
@@ -426,4 +424,4 @@
     "active": true,
     "description": ""
 }]
-
+
