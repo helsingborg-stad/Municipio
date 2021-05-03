@@ -76,7 +76,18 @@ class Design
                     if (isset($data->fields) && !empty($data->fields)) {
                         foreach ($data->fields as $index => $field) {
 
+                            // If field is a group, set default value as array with key values
+                            if($field->type === "group") {
+                                $field->default_value = array();
+
+                                foreach ($field->sub_fields as $subfield) {
+                                    $field->default_value[$subfield->name] = $subfield->default_value;
+                                }
+                            }
+
                             $this->dataFieldStack[sanitize_title($data->title)][$index] = [
+
+                                
                                 $field->key => [
                                     'group-id' => sanitize_title($data->title),
                                     'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
@@ -102,21 +113,40 @@ class Design
      */
     public function renderCssVariables()
     {
+        $cssOptions = ['colors', 'radiuses'];
 
         $inlineStyle = null;
-        foreach ($this->dataFieldStack as $key => $stackItems) {
+        foreach ($cssOptions as $key) {
+            $stackItems = $this->dataFieldStack[$key];
 
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
 
             foreach ($stackItems as $index => $prop) {
                 $itemKey = key($stackItems[$index]);
-                $inlineStyle .= '  --' . $prop[$itemKey]['name'] . ': ' .
-                    (isset($prop[$itemKey]['prepend']) &&
-                    !empty($prop[$itemKey]['prepend']) ? $prop[$itemKey]['prepend'] : null) .
-                    (isset($prop[$itemKey]['value']) &&
-                    !empty($prop[$itemKey]['value']) ? $prop[$itemKey]['value'] : $prop[$itemKey]['default']) .
-                    (isset($prop[$itemKey]['append']) &&
-                    !empty($prop[$itemKey]['append']) ? $prop[$itemKey]['append'] : null) . ';' . PHP_EOL;
+                $prop[$itemKey]['alpha'] = "1"; //Set default alpha value
+                
+                if(is_array($prop[$itemKey]['value'])) {
+                    //Extra default values for group
+                    $defaultColor = $prop[$itemKey]['default']['color'] ?? "";
+                    $defaultAlpha = $prop[$itemKey]['default']['alpha'] . "%" ?? "1";
+
+                    //Collect set values for group
+                    $setColor = array_values($prop[$itemKey]['value'])[0];
+                    $setAlpha = array_values($prop[$itemKey]['value'])[1];
+
+                    //Define set value else default values
+                    $prop[$itemKey]['value'] = !empty($setColor) ? $setColor : $defaultColor;
+                    $prop[$itemKey]['alpha'] = !empty($setAlpha) || $setAlpha == "0" ? $setAlpha .'%' : $defaultAlpha; //empty() returns true on "0"
+                }
+
+                $inlineStyle .= $this->filterValue(
+                    $prop[$itemKey]['name'],
+                    $prop[$itemKey]['prepend'],
+                    $prop[$itemKey]['value'],
+                    $prop[$itemKey]['append'],
+                    $prop[$itemKey]['alpha'],
+                    $prop[$itemKey]['default']
+                );
             }
         }
 
@@ -126,6 +156,21 @@ class Design
         wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 
+    public function filterValue($name, $prepend = '', $value, $append = '', $alpha, $default) {
+
+        //Is a hex value
+        if(
+            preg_match('/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $value) ||
+            preg_match('/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $default)) {
+            $value = !empty($value) ? $value : $default;
+            $value = sscanf($value, "#%02x%02x%02x");
+            $value = "rgba({$value[0]},{$value[1]},{$value[2]}, $alpha)";
+            $value = $value;
+        }
+        
+        return '  --' . $name . ': ' . $prepend . $value . $append . ';' . PHP_EOL;
+    }
+    
     /* Add options specified in customizer for modules */
     public function moduleClasses() {
         

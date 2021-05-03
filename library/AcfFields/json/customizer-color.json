@@ -48,6 +48,110 @@
             "default_value": "#e84c31"
         },
         {
+            "key": "field_608c016efa73a",
+            "label": "Primary Alpha Color",
+            "name": "municipio_color_primary_alpha",
+            "type": "group",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_608c0259fa73b",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#ae0b05"
+                },
+                {
+                    "key": "field_608c02dcfa73c",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 75,
+                    "min": "",
+                    "max": "",
+                    "step": 5,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
+            "key": "field_608c0375f70cd",
+            "label": "Primary Alpha Dimmed Color",
+            "name": "municipio_color_primary_alpha_dimmed",
+            "type": "group",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_608c0375f70ce",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#ae0b05"
+                },
+                {
+                    "key": "field_608c0375f70cf",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 75,
+                    "min": "",
+                    "max": "",
+                    "step": 5,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
             "key": "field_603fba3ffa851",
             "label": "Secondary Color",
             "name": "municipio_color_secondary",
@@ -91,6 +195,259 @@
                 "id": ""
             },
             "default_value": "#ff983e"
+        },
+        {
+            "key": "field_608c038cf70d0",
+            "label": "Secondary Alpha Color",
+            "name": "municipio_color_secondary_alpha",
+            "type": "group",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_608c038cf70d1",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#ae0b05"
+                },
+                {
+                    "key": "field_608c038cf70d2",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 75,
+                    "min": "",
+                    "max": "",
+                    "step": 5,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
+            "key": "field_608c03bcf70d3",
+            "label": "Secondary Alpha Dimmed Color",
+            "name": "municipio_color_secondary_alpha_dimmed",
+            "type": "group",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_608c03bcf70d4",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#ae0b05"
+                },
+                {
+                    "key": "field_608c03bcf70d5",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 75,
+                    "min": "",
+                    "max": "",
+                    "step": 5,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
+            "key": "field_608c0e753ef05",
+            "label": "Tertiary Color",
+            "name": "municipio_color_tertiary",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ec6701"
+        },
+        {
+            "key": "field_608c0e813ef06",
+            "label": "Tertiary Dark Color",
+            "name": "municipio_color_tertiary_dark",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#b23700"
+        },
+        {
+            "key": "field_608c0e8c3ef07",
+            "label": "Tertiary Light Color",
+            "name": "municipio_color_tertiary_light",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ff983e"
+        },
+        {
+            "key": "field_608c0ea33ef08",
+            "label": "Tertiary Alpha Color",
+            "name": "municipio_color_tertiary_alpha",
+            "type": "group",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_608c0ea33ef09",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#ae0b05"
+                },
+                {
+                    "key": "field_608c0ea33ef0a",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 75,
+                    "min": "",
+                    "max": "",
+                    "step": 5,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
+            "key": "field_608c0eae3ef0b",
+            "label": "Tertiary Alpha Dimmed Color",
+            "name": "municipio_color_tertiary_alpha_dimmed",
+            "type": "group",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_608c0eae3ef0c",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#ae0b05"
+                },
+                {
+                    "key": "field_608c0eae3ef0d",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 75,
+                    "min": "",
+                    "max": "",
+                    "step": 5,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         },
         {
             "key": "field_60868021879b6",
