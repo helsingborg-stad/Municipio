@@ -76,6 +76,15 @@ class Design
                     if (isset($data->fields) && !empty($data->fields)) {
                         foreach ($data->fields as $index => $field) {
 
+                            // If field is a group, set default value as array with key values
+                            if($field->type === "group") {
+                                $field->default_value = array();
+
+                                foreach ($field->sub_fields as $subfield) {
+                                    $field->default_value[$subfield->name] = $subfield->default_value;
+                                }
+                            }
+
                             $this->dataFieldStack[sanitize_title($data->title)][$index] = [
 
                                 
@@ -114,14 +123,20 @@ class Design
 
             foreach ($stackItems as $index => $prop) {
                 $itemKey = key($stackItems[$index]);
-                $prop[$itemKey]['alpha'] = 1;
-
+                $prop[$itemKey]['alpha'] = "1"; //Set default alpha value
+                
                 if(is_array($prop[$itemKey]['value'])) {
-                    $color = array_values($prop[$itemKey]['value'])[0];
-                    $alpha = array_values($prop[$itemKey]['value'])[1];
+                    //Extra default values for group
+                    $defaultColor = $prop[$itemKey]['default']['color'] ?? "";
+                    $defaultAlpha = $prop[$itemKey]['default']['alpha'] . "%" ?? "1";
 
-                    $prop[$itemKey]['value'] = $color;
-                    $prop[$itemKey]['alpha'] = $alpha . '%';
+                    //Collect set values for group
+                    $setColor = array_values($prop[$itemKey]['value'])[0];
+                    $setAlpha = array_values($prop[$itemKey]['value'])[1];
+
+                    //Define set value else default values
+                    $prop[$itemKey]['value'] = !empty($setColor) ? $setColor : $defaultColor;
+                    $prop[$itemKey]['alpha'] = !empty($setAlpha) || $setAlpha == "0" ? $setAlpha .'%' : $defaultAlpha; //empty() returns true on "0"
                 }
 
                 $inlineStyle .= $this->filterValue(
