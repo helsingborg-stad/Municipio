@@ -111,6 +111,31 @@
             "placeholder": ""
         },
         {
+            "key": "field_6090f318a40ef",
+            "label": "Contacs - Card - Style",
+            "name": "contacts-card-style",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "highlight": "Highlight"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_606300da5068b",
             "label": "Inlay - List - Style",
             "name": "inlay-list-style",
@@ -424,4 +449,4 @@
     "active": true,
     "description": ""
 }]
-
+
