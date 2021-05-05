@@ -67,7 +67,7 @@
                     @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
                         @logotype([
                             'id' => 'footer-logotype',
-                            'src'=> $logotype->standard['url'],
+                            'src'=> $logotype->negative['url'],
                             'alt' => $lang->goToHomepage,
                             'classList' => ['site-footer__logo']
                         ])
