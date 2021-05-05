@@ -31,7 +31,7 @@
                                     'name' => 's',
                                     'required' => true,
                                 ],
-                                'label' => $lang->searchOn . " " . $siteName,
+                                'placeholder' => $lang->searchOn . " " . $siteName,
                                 'classList' => ['u-flex-grow--1'],
                                 'size' => 'lg',
                                 'radius' => 'xs',
