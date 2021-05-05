@@ -523,6 +523,66 @@
                 "id": ""
             },
             "default_value": "#ae0b05"
+        },
+        {
+            "key": "field_60911ccc38857",
+            "label": "Complementary color -  illustration \/ header",
+            "name": "municipio_color_complementary_1",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#dec2c2"
+        },
+        {
+            "key": "field_6091280638858",
+            "label": "Complementary color -  button \/ line",
+            "name": "municipio_color_complementary_2",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#F0DBD9"
+        },
+        {
+            "key": "field_6091282d38859",
+            "label": "Complementary color -  input",
+            "name": "municipio_color_complementary_2",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#F5E4E3"
+        },
+        {
+            "key": "field_609128593885a",
+            "label": "Complementary color - card",
+            "name": "municipio_color_complementary_4",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#FAEEEC"
         }
     ],
     "location": [
