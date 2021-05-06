@@ -520,13 +520,14 @@ class BaseController
         }
 
         //Get fresh logotypes
-        $logoVariant = "logotype";
+        $variantKey = "logotype";
 
+        //Builds acf-field name
         if ($variant !== "standard") {
-            $logoVariant = $logoVariant . '_' . $variant;
+            $variantKey = $variantKey . '_' . $variant;
         }
 
-        return (object) array_merge(['url' => ""], (array) get_field($logoVariant, 'option'));
+        return (object) array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
     }
 
     public function getHeaderLayout() //TODO: Do we need this?
