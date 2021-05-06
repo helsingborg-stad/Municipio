@@ -7,7 +7,7 @@
                 
                 @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
                     @logotype([
-                        'src'=> $logotype->standard['url'],
+                        'src'=> $logotype->url,
                         'alt' => $lang->goToHomepage,
                         'classList' => ['c-nav__logo']
                     ])

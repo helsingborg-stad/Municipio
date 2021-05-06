@@ -67,7 +67,7 @@
                     @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
                         @logotype([
                             'id' => 'footer-logotype',
-                            'src'=> municipio_get_logotype(get_field('footer_logotype', 'option'), false, true, false, false)['src'],
+                            'src'=> $footerLogotype->url,
                             'alt' => $lang->goToHomepage,
                             'classList' => ['site-footer__logo']
                         ])
