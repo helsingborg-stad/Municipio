@@ -63,7 +63,8 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype();
+        $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option'));
+        $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option'));
 
         //Get header layout
         $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
@@ -511,7 +512,7 @@ class BaseController
         $this->data['contentGridSize'] = $contentGridSize;
     }
 
-    public function getLogotype()
+    public function getLogotype($variant = "standard")
     {
         //Cache, early bailout
         if (isset($this->data['logotype']) && empty($this->data['logotype'])) {
@@ -519,10 +520,13 @@ class BaseController
         }
 
         //Get fresh logotypes
-        return (object) array(
-            'standard' => array_merge(['url' => ""], (array) get_field('logotype', 'option')),
-            'negative' => array_merge(['url' => ""], (array) get_field('logotype_negative', 'option'))
-        );
+        $logoVariant = "logotype";
+
+        if ($variant !== "standard") {
+            $logoVariant = $logoVariant . '_' . $variant;
+        }
+
+        return (object) array_merge(['url' => ""], (array) get_field($logoVariant, 'option'));
     }
 
     public function getHeaderLayout() //TODO: Do we need this?
