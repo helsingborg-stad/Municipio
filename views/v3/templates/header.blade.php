@@ -28,7 +28,7 @@
     {{-- Mobile Navigation --}}
     @section('mobile-navigation')
         @sidebar([
-            'logo' => $logotype->standard['url'],
+            'logo' => $logotype->url,
             'items' => $mobileMenuItems,
             'pageId' => $pageID,
             'classList' => [

@@ -156,7 +156,7 @@ if (!function_exists('municipio_get_logotype')) {
         // Build the markup
         $logoData = [
             'url'               => home_url(),
-            'src'               => $logoinfo['url'],
+            'src'               => $logotype[$type]['url'],
             'text'              => $logoText,
             'classList'         => implode(' ', $classes),
             'attributeList'     => ($tooltip !== false && !empty($tooltip)) ?
