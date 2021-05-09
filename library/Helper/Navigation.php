@@ -658,7 +658,7 @@ class Navigation
                     $menuItems,
                     $this->pageIdToMenuID($menuItems, $pageId)
                 );
-
+                
                 foreach ($menuItems as $item) {
                     $isAncestor = in_array($item->ID, $ancestors);
 
@@ -721,7 +721,13 @@ class Navigation
      */
     private function pageIdToMenuID($menu, $pageId)
     {
-        return $menu[array_search($pageId, array_column($menu, 'object_id'))]->ID;
+        $index = array_search($pageId, array_column($menu, 'object_id'));
+        
+        if($index) {
+            return $menu[$index]->ID;
+        }
+
+        return false;
     }
 
     /**
@@ -732,8 +738,11 @@ class Navigation
      */
     private function getWpMenuAncestors($menu, $id)
     {
+        if(!$id) {
+            return [];
+        }
 
-    //Definitions
+        //Definitions
         $fetchAncestors = true;
         $ancestorStack = [$id];
 
