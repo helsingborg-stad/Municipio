@@ -1,15 +1,10 @@
 <?php
-
+use ComponentLibrary\Init as ComponentLibraryInit;
 
 if (!function_exists('render_blade_view')) {
     function render_blade_view($view, $data = [], $overrideViewPaths = false)
     {
         $viewPaths = \Municipio\Helper\Template::getViewPaths();
-
-        if (!class_exists('\BladeComponentLibrary\Init')) {
-            wp_die("\BladeComponentLibrary\Init is not defined");
-            return;
-        }
         
         if (!$viewPaths) {
             wp_die("No view paths registered, please register at least one.");
@@ -22,10 +17,8 @@ if (!function_exists('render_blade_view')) {
 
         $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
         $viewPaths = array_merge($viewPaths, $externalViewPaths);
-        $bladeInit = new \BladeComponentLibrary\Init($viewPaths);
-        $bladeEngine = $bladeInit->getEngine();
-
-        $markup = "";
+        $init = new ComponentLibraryInit($viewPaths);
+        $bladeEngine = $init->getEngine();
 
         try {
             $markup = $bladeEngine->make(
