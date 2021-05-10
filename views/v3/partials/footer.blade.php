@@ -12,7 +12,7 @@
     'id' => 'site-footer',
     'slotOnly' => true,
     'classList' => [
-        apply_filters('Views/Partials/Header/FooterClass', 'site-footer')
+        apply_filters('Views/Partials/Header/FooterClass', 'site-footer s-footer')
     ]
 ])
 
