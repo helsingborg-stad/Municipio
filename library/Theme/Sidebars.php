@@ -49,7 +49,7 @@ class Sidebars
             'id'            => 'footer-area',
             'name'          => __('Footer', 'municipio'),
             'description'   => __('The footer area', 'municipio'),
-            'before_title'  => '<h2 class="footer-title">',
+            'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
             'before_widget' => '<div class="o-grid-4@lg"><div class="%1$s" id="%2$s">',
             'after_widget'  => '</div></div>'
