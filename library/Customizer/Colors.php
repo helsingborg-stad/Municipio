@@ -31,7 +31,7 @@ class Colors
 
         } 
                                               
-        return $this->convertHexToAlpha($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
+        return $this->convertHexToRgb($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
     }
 
     /**

@@ -149,8 +149,7 @@ class Design
 
     public function filterValue($name, $prepend = '', $value, $append = '', $default) {
         $value = !empty($value) ? $value : $default;
-        echo '<pre>', print_r($name), '</pre>';        
-        echo '<pre>', print_r($default), '</pre>';        
+       
         return '  --' . $name . ': ' . $prepend . $value . $append . ';' . PHP_EOL;
     }
     
