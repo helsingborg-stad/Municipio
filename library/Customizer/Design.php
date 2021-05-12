@@ -122,30 +122,21 @@ class Design
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
 
             foreach ($stackItems as $index => $prop) {
+
                 $itemKey = key($stackItems[$index]);
-                $prop[$itemKey]['alpha'] = "1"; //Set default alpha value
+                $propItem = $prop[$itemKey];
                 
-                if(is_array($prop[$itemKey]['value'])) {
-                    //Extra default values for group
-                    $defaultColor = $prop[$itemKey]['default']['color'] ?? "";
-                    $defaultAlpha = $prop[$itemKey]['default']['alpha'] . "%" ?? "1";
-
-                    //Collect set values for group
-                    $setColor = array_values($prop[$itemKey]['value'])[0];
-                    $setAlpha = array_values($prop[$itemKey]['value'])[1];
-
-                    //Define set value else default values
-                    $prop[$itemKey]['value'] = !empty($setColor) ? $setColor : $defaultColor;
-                    $prop[$itemKey]['alpha'] = !empty($setAlpha) || $setAlpha == "0" ? $setAlpha .'%' : $defaultAlpha; //empty() returns true on "0"
-                }
+                if($key === 'colors') {
+                    $colors = new Colors();
+                    $propItem['value'] = $colors->prepareColor($propItem);                                    
+                }                
 
                 $inlineStyle .= $this->filterValue(
-                    $prop[$itemKey]['name'],
-                    $prop[$itemKey]['prepend'],
-                    $prop[$itemKey]['value'],
-                    $prop[$itemKey]['append'],
-                    $prop[$itemKey]['alpha'],
-                    $prop[$itemKey]['default']
+                    $propItem['name'],
+                    $propItem['prepend'],
+                    $propItem['value'],
+                    $propItem['append'],
+                    $propItem['default'],                    
                 );
             }
         }
@@ -156,18 +147,9 @@ class Design
         wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
     }
 
-    public function filterValue($name, $prepend = '', $value, $append = '', $alpha, $default) {
-
-        //Is a hex value
-        if(
-            preg_match('/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $value) ||
-            preg_match('/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $default)) {
-            $value = !empty($value) ? $value : $default;
-            $value = sscanf($value, "#%02x%02x%02x");
-            $value = "rgba({$value[0]},{$value[1]},{$value[2]}, $alpha)";
-            $value = $value;
-        }
-        
+    public function filterValue($name, $prepend = '', $value, $append = '', $default) {
+        $value = !empty($value) ? $value : $default;
+       
         return '  --' . $name . ': ' . $prepend . $value . $append . ';' . PHP_EOL;
     }
     
