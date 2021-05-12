@@ -136,7 +136,7 @@ class Design
                     $propItem['prepend'],
                     $propItem['value'],
                     $propItem['append'],
-                    $propItem['default'],                    
+                    $propItem['default']                 
                 );
             }
         }
