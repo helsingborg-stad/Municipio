@@ -17,10 +17,11 @@ class Design
      * @var array|string[]
      */
     private $configurationFiles = [
-        'Colors' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
-        'Radius' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json',
-        'Modules' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-modules.json',
-        'Site' => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-site.json',
+        'Colors'    => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-color.json',
+        'Radius'    => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-radius.json',
+        'Modules'   => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-modules.json',
+        'Site'      => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-site.json',
+        'Widths'    => MUNICIPIO_PATH . 'library/AcfFields/json/customizer-width.json',
     ];
 
     /**
@@ -63,6 +64,7 @@ class Design
             $themeMods = $this->getThemeMods(); 
 
             foreach ($this->configurationFiles as $key => $config) {
+                
                 $data = file_get_contents($config);
                 
                 if (file_exists($config) && $data = json_decode($data)) {
@@ -97,9 +99,11 @@ class Design
                                     'append' => $field->append ?? null
                                 ]
                             ];
+
+                            
                         }
                     }
-
+                    
                 } else {
                     return new \WP_Error("Could not read configuration file " . $config);
                 }
@@ -113,7 +117,8 @@ class Design
      */
     public function renderCssVariables()
     {
-        $cssOptions = ['colors', 'radiuses'];
+
+        $cssOptions = ['colors', 'radiuses', 'site-width'];
 
         $inlineStyle = null;
         foreach ($cssOptions as $key) {
@@ -121,23 +126,52 @@ class Design
 
             $inlineStyle .= PHP_EOL . '  /* Variables: ' . ucfirst($key) . ' */' . PHP_EOL;
 
-            foreach ($stackItems as $index => $prop) {
+            if(is_array($stackItems) && !empty($stackItems)) {
+                foreach ($stackItems as $index => $prop) {
 
-                $itemKey = key($stackItems[$index]);
-                $propItem = $prop[$itemKey];
-                
-                if($key === 'colors') {
-                    $colors = new Colors();
-                    $propItem['value'] = $colors->prepareColor($propItem);                                    
-                }                
+                    $itemKey = key($stackItems[$index]);
+                    $propItem = $prop[$itemKey];
 
-                $inlineStyle .= $this->filterValue(
-                    $propItem['name'],
-                    $propItem['prepend'],
-                    $propItem['value'],
-                    $propItem['append'],
-                    $propItem['default']                 
-                );
+                    //Handle colors
+                    if($key === 'colors') {
+                        $colors = new Colors();
+                        $propItem['value'] = $colors->prepareColor($propItem);                                    
+                    } 
+
+                    //Handle width
+                    if($key === 'site-width') {
+
+                        if(!in_array($propItem['name'], ['container-width-content'])) {
+
+                            if(!is_archive() && $propItem['name'] == "container-width-archive") {
+                                continue;
+                            }
+
+                            if(!is_front_page() && $propItem['name'] == "container-width-frontpage") {
+                                continue;
+                            }
+
+                            if((is_archive()||is_front_page()) && $propItem['name'] == "container-width") {
+                                continue;
+                            }
+
+                            //Use archive prop or frontpage prop as container-width
+                            if(substr($propItem['name'], 0, strlen("container-width")) == "container-width") {
+                                $propItem['name'] = "container-width";           
+                            }
+
+                        }
+                        
+                    }
+
+                    $inlineStyle .= $this->filterValue(
+                        $propItem['name'],
+                        $propItem['prepend'],
+                        $propItem['value'],
+                        $propItem['append'],
+                        $propItem['default']                 
+                    );
+                }
             }
         }
 
