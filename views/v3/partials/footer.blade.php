@@ -63,17 +63,20 @@
             @endif
 
             <div class="o-grid">
-                <div class="o-grid-12">
-                    @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
-                        @logotype([
-                            'id' => 'footer-logotype',
-                            'src'=> $footerLogotype->url,
-                            'alt' => $lang->goToHomepage,
-                            'classList' => ['site-footer__logo']
-                        ])
-                        @endlogotype
-                    @endlink
-                </div>
+
+                @if($footerLogotype->url)
+                    <div class="o-grid-12">
+                        @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
+                            @logotype([
+                                'id' => 'footer-logotype',
+                                'src'=> $footerLogotype->url,
+                                'alt' => $lang->goToHomepage,
+                                'classList' => ['site-footer__logo']
+                            ])
+                            @endlogotype
+                        @endlink
+                    </div>
+                @endif
 
                 {{-- ## Footer widget area begin ## --}}
                 @if (is_active_sidebar('footer-area'))
