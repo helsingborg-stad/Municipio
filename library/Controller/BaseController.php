@@ -527,7 +527,16 @@ class BaseController
             $variantKey = $variantKey . '_' . $variant;
         }
 
-        return (object) array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
+        //Get the logo, enshure url is defined. 
+        $logotype = array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
+
+        //Fallback to municipio logo, if undefined. 
+        if(empty(array_filter($logotype)) && $variantKey == "logotype") {
+            $logotype = ['url' => get_stylesheet_directory_uri() . '/assets/images/municipio.svg']; 
+        }
+
+        //Return
+        return (object) $logotype; 
     }
 
     public function getHeaderLayout() //TODO: Do we need this?
