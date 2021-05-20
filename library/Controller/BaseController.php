@@ -332,7 +332,7 @@ class BaseController
      */
     protected function showSearchForm($location = null) {
 
-        $enabledLocations = get_field('search_display', 'option'); 
+        $enabledLocations = (array) get_field('search_display', 'option'); 
 
         if($location == "hero") {
             return in_array($location, $enabledLocations); 
