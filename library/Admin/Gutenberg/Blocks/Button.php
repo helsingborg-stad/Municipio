@@ -27,6 +27,7 @@ class Button {
     }
 
     public function renderCallback() {
-        Template::renderView(plugin_dir_path( __FILE__ ) . 'vButton.blade.php', []);
+        $template = new Template();
+        $template->renderView(plugin_dir_path( __FILE__ ) . 'vButton.blade.php', []);
     }
 }
