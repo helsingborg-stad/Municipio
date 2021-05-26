@@ -63,7 +63,14 @@ class Enqueue
      */
     public function adminStyle()
     {
+        // Load styleguide css
+        wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
+        . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
+        wp_enqueue_style('styleguide-css');
 
+        // Load material icons
+        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+        wp_enqueue_style('material-icons');
     }
 
     /**
