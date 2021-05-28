@@ -4,7 +4,11 @@
             
             @includeIf('partials.sidebar', ['id' => 'slider-area', 'classes' => ['o-grid']])
 
+            {{-- Search in hero --}}
             @includeWhen($showHeroSearch, 'partials.search.hero-search-form')
+
+            {{-- Emblem in hero --}}
+            @includeWhen($emblem, 'partials.emblem')
 
         @endif
     </div>
