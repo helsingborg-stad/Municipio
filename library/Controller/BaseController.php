@@ -65,6 +65,7 @@ class BaseController
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option'));
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option'));
+        $this->data['emblem']               = $this->getEmblem();
 
         //Get header layout
         $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
@@ -135,6 +136,7 @@ class BaseController
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
+            'emblem'                => __("Site emblem", 'municipio'),
         );
 
         //Wordpress hooks
@@ -512,6 +514,21 @@ class BaseController
         $this->data['contentGridSize'] = $contentGridSize;
     }
 
+    /**
+     * Get emblem svg
+     *
+     * @return bool|string
+     */
+    public function getEmblem() {
+        return get_field('logotype_emblem', 'option') ?? false; 
+    }
+
+    /**
+     * Get the logotype
+     *
+     * @param string $variant
+     * @return object
+     */
     public function getLogotype($variant = "standard")
     {
         //Cache, early bailout
@@ -537,86 +554,6 @@ class BaseController
 
         //Return
         return (object) $logotype; 
-    }
-
-    public function getHeaderLayout() //TODO: Do we need this?
-    {
-        $headerLayoutSetting = get_field('header_layout', 'option');
-
-        $classes = array();
-        $classes[] = 'site-header';
-        $classes[] = 'header-' . $headerLayoutSetting;
-
-        if (is_front_page() && get_field('header_transparent', 'option')) {
-            $classes[] = 'header-transparent';
-        }
-
-        if (get_field('header_centered', 'option')) {
-            $classes[] = 'header-center';
-        }
-
-        switch (get_field('header_content_color', 'option')) {
-            case 'light':
-                $classes[] = 'header-light';
-                break;
-
-            case 'dark':
-                $classes[] = 'header-dark';
-                break;
-        }
-
-        $this->data['headerLayout'] = array(
-            'classes' => implode(' ', $classes),
-            'template' => 'default'
-        );
-
-        if (!empty($headerLayoutSetting) && !in_array($headerLayoutSetting, array('business', 'casual', 'contrasted-nav'))) {
-            $this->data['headerLayout']['template'] = $headerLayoutSetting;
-        }
-    }
-
-    public function getFooterLayout() //TODO: Do we need this?
-    {
-        $headerLayoutSetting = (get_field('footer_layout', 'option')) ? get_field('footer_layout', 'option') : 'default';
-
-        $classes = array();
-        $classes[] = 'main-footer';
-        $classes[] = 'hidden-print';
-        $classes[] = (get_field('scroll_elevator_enabled', 'option')) ? 'scroll-elevator-toggle' : '';
-        $classes[] = 'header-' . $headerLayoutSetting;
-
-        $this->data['footerLayout'] = array(
-            'classes' => implode(' ', $classes),
-            'template' => 'default'
-        );
-
-        if (!empty($footerLayoutSettings)) {
-            $this->data['footerLayout']['template'] = $headerLayoutSetting;
-        }
-    }
-
-    public function getVerticalMenu() //TODO: Do we need this?
-    {
-        //Define
-        $abortFunction = true;
-
-        //Check if these sidebars is active before running
-        $triggerBySidebar = apply_filters('Municipio/Menu/Vertical/EnabledSidebars', array('top-sidebar', 'bottom-sidebar'));
-        foreach ((array) $triggerBySidebar as $sidebar) {
-            if (is_active_sidebar($sidebar)) {
-                $abortFunction = false;
-            }
-        }
-
-        //No active sidebars, abort
-        if ($abortFunction === true) {
-            return false;
-        }
-
-        //Return items to view. Format: array(array('title' => '', 'link' => ''))
-        $this->data['verticalNav'] = apply_filters('Municipio/Menu/Vertical/Items', array());
-
-        return true;
     }
 
     /**

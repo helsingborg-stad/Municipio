@@ -1,0 +1,12 @@
+.c-logotype--emblem {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  width: calc(--base * 4);
+  height: calc(--base * 4);
+  min-width: 80px;
+  min-height: 80px;
+  max-width: 100px;
+  max-height: 100px;
+  z-index: 3000;
+}
