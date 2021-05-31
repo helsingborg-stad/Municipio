@@ -161,7 +161,7 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function getTemplate(string $postType, string $default = 'collapsed') : string
+    public function getTemplate(string $postType, string $default = 'compressed') : string
     {
         $archiveOption = get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option');
 

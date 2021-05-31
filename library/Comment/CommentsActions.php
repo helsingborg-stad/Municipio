@@ -1,14 +1,21 @@
 <?php
 
 namespace Municipio\Comment;
+use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
+/**
+ * Class CommentsActions
+ * @package Municipio\Comment
+ */
 class CommentsActions
 {
     public function __construct()
     {
         add_action('wp_ajax_remove_comment', array($this, 'removeComment'));
         add_action('wp_ajax_get_comment_form', array($this, 'getCommentForm'));
+        add_action('wp_enqueue_scripts', array($this, 'getScripts'), 20);
         add_action('wp_ajax_update_comment', array($this, 'updateComment'));
+
     }
 
     /**
@@ -85,14 +92,12 @@ class CommentsActions
      *
      */
     public static function getInitialCommentForm() {
-        $key = defined('G_RECAPTCHA_KEY') ? G_RECAPTCHA_KEY : '';
-        $reCaptcha = (!is_user_logged_in(0)) ?
-            '<div class="g-recaptcha" data-sitekey="' . $key . '"></div></div>' : '';
 
+        $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" class="g-recaptcha-response" 
+            name="g-recaptcha-response" value="" />' : '';
+        $reCaptchaTerms = __('This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'municipio');
         ob_start();
         ob_get_clean();
-
-        $current_user = wp_get_current_user();
 
         $args = array(
             'id_form'           => 'commentform',
@@ -114,19 +119,28 @@ class CommentsActions
                     type="submit" 
                     id="%2$s" 
                     class="u-padding__bottom--3%3$s" 
-                    value="%4$s" /></div>',
+                    value="%4$s" 
+                    /></div>',
             'format'            => 'html5',
             'cancel_reply_link' => __( 'Cancel reply' ),
             'comment_field'     =>
-                $reCaptcha. '<div class="c-textarea">
+                $reCaptcha . '<div class="c-textarea">
                                 <textarea 
                                     id="comment"
                                     name="comment"
                                     placeholder="'.__('Comment text','text-domain').'" 
-                                    aria-required="true"></textarea></div>'
+                                    aria-required="true"></textarea><br><div class="c-typography 
+                                    c-typography__variant--meta u-padding__top--2">'.$reCaptchaTerms.'</div></div>'
         );
 
         comment_form( $args );
+    }
+
+    /**
+     * Init and enqueue Google Captcha Script
+     */
+    public static function getScripts(){
+        Captcha::initScripts();
     }
 
     /**

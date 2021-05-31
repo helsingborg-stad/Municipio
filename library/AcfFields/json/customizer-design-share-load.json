@@ -1,0 +1,49 @@
+[{
+    "key": "group_604a117fe6872",
+    "title": "Avabile Designs",
+    "fields": [
+        {
+            "key": "field_604a1189b3b40",
+            "label": "Select design",
+            "name": "customizer_select_designshare",
+            "type": "select",
+            "instructions": "Municipio automatically maintains a library of customization designs available for all users. These are automatically updated when administrators make adjustments in the customization options. <style>#sub-accordion-section-loaddesign .customize-section-back {display: none !important;}</style>",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "2640cec0ee92c786aba21dc24ff79091": "Helsingborg.se - Test (https:\/\/helsingborg.test )",
+                "2640cec0ee92c786aba21dc24ff79092": "Helsingborg.se - Colors (https:\/\/helsingborg.se )"
+            },
+            "default_value": false,
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 1,
+            "return_format": "value",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "loaddesign"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+

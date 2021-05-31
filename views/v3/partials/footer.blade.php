@@ -1,18 +1,37 @@
 @if (is_active_sidebar('bottom-sidebar'))
-<div class="o-container o-container--fullwidth">
-    <div class="o-grid bottom-sidebar">
-        <?php dynamic_sidebar('bottom-sidebar'); ?>
+    
+    <div class="o-container o-container--fullwidth">
+        <div class="o-grid bottom-sidebar">
+            <?php dynamic_sidebar('bottom-sidebar'); ?>
+        </div>
     </div>
-</div>
+    
 @endif
 
-<footer id="site-footer" class="{{ apply_filters('Views/Partials/Header/FooterClass', 'site-footer') }}">
-    
+@footer([
+    'id' => 'site-footer',
+    'slotOnly' => true,
+    'classList' => [
+        apply_filters('Views/Partials/Header/FooterClass', 'site-footer s-footer')
+    ]
+])
+
     {{-- Before footer body --}}
     @yield('before-footer-body')
 
     {{-- Footer body --}}
     @section('footer-body')
+        {{-- ## Footer top widget area begin ## --}}
+        @if (is_active_sidebar('footer-area-top'))
+        <div class="o-container">
+                <div class="o-grid-12">
+                    <div class="o-grid sidebar-footer-area-top">
+                            <?php dynamic_sidebar('footer-area-top'); ?>
+                    </div>
+                </div>
+        </div>
+        @endif
+
         <div class="o-container">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
                 <div class="o-grid u-print-display--none">
@@ -44,17 +63,20 @@
             @endif
 
             <div class="o-grid">
-                <div class="o-grid-12">
-                    @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
-                        @logotype([
-                            'id' => 'footer-logotype',
-                            'src'=> $logotype->standard['url'],
-                            'alt' => $lang->goToHomepage,
-                            'classList' => ['site-footer__logo']
-                        ])
-                        @endlogotype
-                    @endlink
-                </div>
+
+                @if($footerLogotype->url)
+                    <div class="o-grid-12">
+                        @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
+                            @logotype([
+                                'id' => 'footer-logotype',
+                                'src'=> $footerLogotype->url,
+                                'alt' => $lang->goToHomepage,
+                                'classList' => ['site-footer__logo']
+                            ])
+                            @endlogotype
+                        @endlink
+                    </div>
+                @endif
 
                 {{-- ## Footer widget area begin ## --}}
                 @if (is_active_sidebar('footer-area'))
@@ -70,4 +92,5 @@
 
     {{-- After footer body --}}
     @yield('after-footer-body')
-</footer>
+    
+@endfooter

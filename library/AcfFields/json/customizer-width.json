@@ -1,0 +1,104 @@
+[{
+    "key": "group_60928d240f1bf",
+    "title": "Site Width",
+    "fields": [
+        {
+            "key": "field_609bdcc8348d6",
+            "label": "Default Page Width",
+            "name": "municipio_container_width",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1280,
+            "min": 900,
+            "max": 1660,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_60928f237c070",
+            "label": "Front Page Width",
+            "name": "municipio_container_width_frontpage",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1280,
+            "min": 900,
+            "max": 1660,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_609bdcad348d5",
+            "label": "Archive Width",
+            "name": "municipio_container_width_archive",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1280,
+            "min": 900,
+            "max": 1660,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_609298276e5b2",
+            "label": "Maximum content width",
+            "name": "municipio_container_width_content",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 700,
+            "min": 400,
+            "max": 1000,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "widths"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+

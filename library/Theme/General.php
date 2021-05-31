@@ -25,17 +25,37 @@ class General
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
 
         remove_filter('template_redirect', 'redirect_canonical');
+
+        //Menu cache purging
+        add_action('updated_post_meta', array($this, 'purgeMenuCache'), 10, 4);
     }
 
     /**
-     * Wordpress adds 10 px to captionized images. 
-     * This resets that. 
+     * Purge cache of menu on post meta key save
+     *
+     * TODO: Find a better place for this.
+     *
+     * @return bool
+     */
+    public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue) {
+
+        $bannableKeys = wp_cache_get('municipioNavMenu'); 
+        
+        if (is_array($bannableKeys) && in_array($metaKey, $bannableKeys)) {
+            return wp_cache_delete($metaKey);
+        }
+        return false;
+    }
+
+    /**
+     * Wordpress adds 10 px to captionized images.
+     * This resets that.
      *
      * @param integer $size
      * @return integer $size - 10
      */
     public function normalizeImageCaptionSize($size) {
-        return false; 
+        return false;
     }
 
     /**

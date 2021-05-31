@@ -63,7 +63,8 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype();
+        $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option'));
+        $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option'));
 
         //Get header layout
         $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
@@ -92,9 +93,6 @@ class BaseController
 
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
-
-        //Google translate location
-        $this->data['translateLocation']    = get_field('show_google_translate', 'option');
 
         //User is authenticated
         $this->data['isAuthenticated']      = is_user_logged_in();
@@ -334,7 +332,7 @@ class BaseController
      */
     protected function showSearchForm($location = null) {
 
-        $enabledLocations = get_field('search_display', 'option'); 
+        $enabledLocations = (array) get_field('search_display', 'option'); 
 
         if($location == "hero") {
             return in_array($location, $enabledLocations); 
@@ -514,7 +512,7 @@ class BaseController
         $this->data['contentGridSize'] = $contentGridSize;
     }
 
-    public function getLogotype()
+    public function getLogotype($variant = "standard")
     {
         //Cache, early bailout
         if (isset($this->data['logotype']) && empty($this->data['logotype'])) {
@@ -522,10 +520,23 @@ class BaseController
         }
 
         //Get fresh logotypes
-        return (object) array(
-            'standard' => array_merge(['url' => ""], (array) get_field('logotype', 'option')),
-            'negative' => array_merge(['url' => ""], (array) get_field('logotype_negative', 'option'))
-        );
+        $variantKey = "logotype";
+
+        //Builds acf-field name
+        if ($variant !== "standard") {
+            $variantKey = $variantKey . '_' . $variant;
+        }
+
+        //Get the logo, enshure url is defined. 
+        $logotype = array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
+
+        //Fallback to municipio logo, if undefined. 
+        if(empty(array_filter($logotype)) && $variantKey == "logotype") {
+            $logotype = ['url' => get_stylesheet_directory_uri() . '/assets/images/municipio.svg']; 
+        }
+
+        //Return
+        return (object) $logotype; 
     }
 
     public function getHeaderLayout() //TODO: Do we need this?

@@ -46,7 +46,9 @@
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "shortpixel/shortpixel-php": "^1.4",
         "helsingborg-stad/blade-engine-wrapper": "dev-master",
-        "tgmpa/tgm-plugin-activation": "dev-develop"
+        "tgmpa/tgm-plugin-activation": "dev-develop",
+        "pragmarx/ia-arr": "^7.3",
+        "helsingborg-stad/recaptcha-integration": ">=1.0.8"
     },
     "extra" : {
         "installer-paths" : {

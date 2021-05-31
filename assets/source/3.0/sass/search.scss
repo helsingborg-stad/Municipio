@@ -11,7 +11,7 @@
 }
 
 .search-modal .c-form {
-    max-width: $base*75;
+    max-width: calc(#{$base} * 75);
     width: 90%; 
     margin: auto;
 }
@@ -35,7 +35,7 @@
         
         min-width: 300px;
         position: absolute;
-        top: calc(50% - #{$base*5});
+        top: calc(50% - calc(#{$base} *5));
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 3000;
@@ -61,10 +61,10 @@
     }
 
     #hero-search-form .c-button {
-        border-radius: 0;
         box-shadow: none; 
         border-left: 1px solid #eee;
         color: inherit;
+        border-radius: 0;
     }
 
     #hero-search-form input[type="search"] {
@@ -72,6 +72,10 @@
         background-color: inherit;
         border: none; 
         color: inherit;
+    }
+
+    #hero-search-form .c-field__text--label {
+        display: none;
     }
 
     #hero-search-form label {
