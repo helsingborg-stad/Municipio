@@ -42,6 +42,7 @@ class ExternalDeptendents
         'slug'              => 'advanced-custom-fields-pro',
         'required'          => true,
         'force_activation'  => true,
+        'version'           => '5.8.0',
         'source'            => (defined('ACF_LICENSE_KEY') ? 'https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=' . ACF_LICENSE_KEY : ' [License key not available, define ACF_LICENSE_KEY in configuration]'),
         'is_callable'       => array('acf', 'helpers_get_path')
       ]; 
