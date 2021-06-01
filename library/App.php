@@ -71,6 +71,7 @@ class App
          * Admin
          */
         new \Municipio\Admin\General();
+        new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
