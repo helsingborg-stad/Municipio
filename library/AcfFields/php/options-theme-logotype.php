@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56a0f1f7826dd',
-    'title' => 'Logotype',
+    'title' => __('Logotype', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56a0f1fdbf847',
@@ -43,6 +43,30 @@
                 'id' => '',
             ),
             'return_format' => 'array',
+            'preview_size' => 'thumbnail',
+            'library' => 'uploadedTo',
+            'min_width' => '',
+            'min_height' => '',
+            'min_size' => '',
+            'max_width' => '',
+            'max_height' => '',
+            'max_size' => '',
+            'mime_types' => 'svg',
+        ),
+        2 => array(
+            'key' => 'field_60b0a3cb6c855',
+            'label' => __('Emblem', 'municipio'),
+            'name' => 'logotype_emblem',
+            'type' => 'image',
+            'instructions' => __('Ladda upp ett emblem i .svg format (Scalable Vector Graphics). Emblemet kommer att användas för att förstärka avsändaren för webbplatsen, där dottervarumärken används.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'return_format' => 'url',
             'preview_size' => 'thumbnail',
             'library' => 'uploadedTo',
             'min_width' => '',
