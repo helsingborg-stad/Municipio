@@ -1,8 +1,8 @@
 .c-logotype--emblem {
   position: absolute;
-  width: calc(--base * 9);
-  height: calc(--base * 9);
-  bottom: calc(--base * 7);
-  right: calc(--base * 3);
+  width: calc(#{$base} * 9);
+  height: calc(#{$base} * 9);
+  bottom: calc(#{$base} * 7);
+  right: calc(#{$base} * 3);
   text-align: right;
 }
