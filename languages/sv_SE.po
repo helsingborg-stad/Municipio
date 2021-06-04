@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-06-01 10:26+0200\n"
-"PO-Revision-Date: 2021-06-01 10:26+0200\n"
+"POT-Creation-Date: 2021-06-04 14:42+0200\n"
+"PO-Revision-Date: 2021-06-04 14:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -1151,6 +1151,10 @@ msgstr ""
 msgid "Casual"
 msgstr "Casual"
 
+#: library/AcfFields/php/options-theme-logotype.php:6
+msgid "Logotype"
+msgstr "Logotyp"
+
 #: library/AcfFields/php/options-theme-logotype.php:10
 msgid "Primär logotyp"
 msgstr ""
@@ -1168,6 +1172,17 @@ msgid ""
 "Ladda upp din sekundära logotyp i .svg format (Scalable Vector Graphics). "
 "Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt och "
 "passar bäst på mörka eller färgade bakgrunder."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:58
+msgid "Emblem"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:61
+msgid ""
+"Ladda upp ett emblem i .svg format (Scalable Vector Graphics). Emblemet "
+"kommer att användas för att förstärka avsändaren för webbplatsen, där "
+"dottervarumärken används."
 msgstr ""
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:9
@@ -1509,9 +1524,8 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:132
-#: library/Search/General.php:50 library/Theme/Navigation.php:230
-#: library/Theme/Navigation.php:231 library/Widget/Navigation/Navigation.php:66
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:133
+#: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
 #: views/v1/partials/archive-filters.blade.php:79
@@ -1733,71 +1747,75 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:122 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:123 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:123
+#: library/Controller/BaseController.php:124
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:124
+#: library/Controller/BaseController.php:125
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:125
+#: library/Controller/BaseController.php:126
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:126
+#: library/Controller/BaseController.php:127
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:127
+#: library/Controller/BaseController.php:128
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:128
+#: library/Controller/BaseController.php:129
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:129
+#: library/Controller/BaseController.php:130
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:130
+#: library/Controller/BaseController.php:131
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:131
+#: library/Controller/BaseController.php:132
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:133
+#: library/Controller/BaseController.php:134
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:134
+#: library/Controller/BaseController.php:135
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:135
+#: library/Controller/BaseController.php:136
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:136
+#: library/Controller/BaseController.php:137
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:137 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:138 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
+
+#: library/Controller/BaseController.php:139
+msgid "Site emblem"
+msgstr ""
 
 #: library/Controller/E404.php:30
 msgid "Go back"
@@ -1940,31 +1958,33 @@ msgstr "Något gick fel, vänligen försök igen senare"
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/Navigation.php:123
+#: library/Theme/Navigation.php:51
+msgid "Select language"
+msgstr "Välj språk"
+
+#: library/Theme/Navigation.php:66
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:124
+#: library/Theme/Navigation.php:67
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:125
+#: library/Theme/Navigation.php:68
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Theme/Navigation.php:126
+#: library/Theme/Navigation.php:69
 msgid "Secondary menu & mobile menu"
 msgstr "Sekundär meny & Mobil meny"
 
-#: library/Theme/Navigation.php:127
+#: library/Theme/Navigation.php:70
 msgid "Dropdown menu"
 msgstr "Rullgardinsmeny"
 
-#: library/Theme/Navigation.php:140
-#, fuzzy
-#| msgid "Below Links"
-msgid "Dropdown Links"
-msgstr "Under länkar"
+#: library/Theme/Navigation.php:71
+msgid "Language menu"
+msgstr "Språkmeny"
 
 #: library/Theme/Sidebars.php:37
 msgid "Footer top"
@@ -2332,6 +2352,11 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Below Links"
+#~ msgid "Dropdown Links"
+#~ msgstr "Under länkar"
 
 #~ msgid ""
 #~ "Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not "
@@ -2917,9 +2942,6 @@ msgstr ""
 
 #~ msgid "Business (default)"
 #~ msgstr "Business (standardval)"
-
-#~ msgid "Logotype"
-#~ msgstr "Logotyp"
 
 #~ msgid "Primary logotype"
 #~ msgstr "Primär logotyp"
