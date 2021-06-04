@@ -658,7 +658,7 @@ class Navigation
                     $menuItems,
                     $this->pageIdToMenuID($menuItems, $pageId)
                 );
-                
+                 
                 foreach ($menuItems as $item) {
                     $isAncestor = in_array($item->ID, $ancestors);
 
@@ -722,8 +722,8 @@ class Navigation
     private function pageIdToMenuID($menu, $pageId)
     {
         $index = array_search($pageId, array_column($menu, 'object_id'));
-        
-        if($index) {
+
+        if($index !== false) {
             return $menu[$index]->ID;
         }
 
