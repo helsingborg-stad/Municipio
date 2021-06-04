@@ -706,7 +706,7 @@ class Navigation
             }
 
             //Return result
-            return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier);
+            return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
         }
 
         return false;
