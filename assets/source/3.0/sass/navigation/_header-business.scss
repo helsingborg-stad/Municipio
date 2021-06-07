@@ -31,8 +31,7 @@
     .c-header__menu.c-header__menu--secondary {
         background-color: $color-primary;
 
-        .c-nav .c-nav__link, 
-        a {
+        .c-nav--depth-0 > .c-nav__item > .c-nav__link {
             color: white;
         }
     }

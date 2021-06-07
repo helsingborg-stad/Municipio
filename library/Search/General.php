@@ -10,7 +10,7 @@ class General
         add_filter('Municipio/search_result/permalink_text', array($this, 'searchAttachmentPermalink'), 10, 2);
     
         //Adds search in the end of the meu
-        add_filter('Municipio/Navigation/Nested', array($this, 'addSearchMenuItem'), 10, 2); 
+        add_filter('Municipio/Navigation/Nested', array($this, 'addSearchMenuItem'), 10, 3);  
     }
 
     /**
@@ -21,7 +21,7 @@ class General
      * 
      * @return array
      */
-    public function addSearchMenuItem($data, $identifier) {
+    public function addSearchMenuItem($data, $identifier, $pageId) {
                 
         if($identifier == "primary") {
 
@@ -56,6 +56,9 @@ class General
         return $data; 
 
     }
+
+
+    
 
     /**
      * Get attachment permalink for search result
