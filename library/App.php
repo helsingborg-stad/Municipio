@@ -71,6 +71,7 @@ class App
          * Admin
          */
         new \Municipio\Admin\General();
+        new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Gutenberg\Blocks\Button();
 

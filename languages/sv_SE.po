@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-04-26 11:31+0200\n"
-"PO-Revision-Date: 2021-04-26 11:34+0200\n"
+"POT-Creation-Date: 2021-06-04 14:42+0200\n"
+"PO-Revision-Date: 2021-06-04 14:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -41,6 +41,10 @@ msgstr "Välj maxbredden på logotypen."
 #: library/AcfFields/php/customizer-radius.php:48
 #: library/AcfFields/php/customizer-radius.php:68
 #: library/AcfFields/php/customizer-radius.php:88
+#: library/AcfFields/php/customizer-width.php:26
+#: library/AcfFields/php/customizer-width.php:46
+#: library/AcfFields/php/customizer-width.php:66
+#: library/AcfFields/php/customizer-width.php:86
 msgid "px"
 msgstr "pixlar"
 
@@ -53,8 +57,14 @@ msgid "Primary Color"
 msgstr "Primär färg"
 
 #: library/AcfFields/php/customizer-color.php:21
-#: library/AcfFields/php/customizer-color.php:126
-#: library/AcfFields/php/customizer-color.php:171
+#: library/AcfFields/php/customizer-color.php:81
+#: library/AcfFields/php/customizer-color.php:133
+#: library/AcfFields/php/customizer-color.php:230
+#: library/AcfFields/php/customizer-color.php:282
+#: library/AcfFields/php/customizer-color.php:379
+#: library/AcfFields/php/customizer-color.php:431
+#: library/AcfFields/php/customizer-color.php:483
+#: library/AcfFields/php/customizer-color.php:528
 msgid "#ae0b05"
 msgstr ""
 
@@ -63,7 +73,7 @@ msgid "Primary Dark Color"
 msgstr "Primär mörk färg"
 
 #: library/AcfFields/php/customizer-color.php:36
-#: library/AcfFields/php/customizer-color.php:156
+#: library/AcfFields/php/customizer-color.php:513
 msgid "#770000"
 msgstr ""
 
@@ -76,53 +86,142 @@ msgid "#e84c31"
 msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:55
-msgid "Secondary Color"
-msgstr "Sekundär färg"
-
-#: library/AcfFields/php/customizer-color.php:66
-msgid "#ec6701"
+msgid "Primary Alpha Color"
 msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:70
+#: library/AcfFields/php/customizer-color.php:122
+#: library/AcfFields/php/customizer-color.php:219
+#: library/AcfFields/php/customizer-color.php:271
+#: library/AcfFields/php/customizer-color.php:368
+#: library/AcfFields/php/customizer-color.php:420
+msgid "Color"
+msgstr "Färg"
+
+#: library/AcfFields/php/customizer-color.php:85
+#: library/AcfFields/php/customizer-color.php:137
+#: library/AcfFields/php/customizer-color.php:234
+#: library/AcfFields/php/customizer-color.php:286
+#: library/AcfFields/php/customizer-color.php:383
+#: library/AcfFields/php/customizer-color.php:435
+msgid "Alpha"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:107
+msgid "Primary Alpha Dimmed Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:159
+msgid "Secondary Color"
+msgstr "Sekundär färg"
+
+#: library/AcfFields/php/customizer-color.php:170
+#: library/AcfFields/php/customizer-color.php:319
+msgid "#ec6701"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:174
 msgid "Secondary Dark Color"
 msgstr "Sekundär mörk färg"
 
-#: library/AcfFields/php/customizer-color.php:81
+#: library/AcfFields/php/customizer-color.php:185
+#: library/AcfFields/php/customizer-color.php:334
 msgid "#b23700"
 msgstr ""
 
-#: library/AcfFields/php/customizer-color.php:85
+#: library/AcfFields/php/customizer-color.php:189
 msgid "Secondary Light Color"
 msgstr "Sekundär ljus färg"
 
-#: library/AcfFields/php/customizer-color.php:96
+#: library/AcfFields/php/customizer-color.php:200
+#: library/AcfFields/php/customizer-color.php:349
 msgid "#ff983e"
 msgstr ""
 
-#: library/AcfFields/php/customizer-color.php:100
+#: library/AcfFields/php/customizer-color.php:204
+msgid "Secondary Alpha Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:256
+msgid "Secondary Alpha Dimmed Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:308
+msgid "Tertiary Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:323
+msgid "Tertiary Dark Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:338
+msgid "Tertiary Light Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:353
+msgid "Tertiary Alpha Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:405
+msgid "Tertiary Alpha Dimmed Color"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:457
 msgid "Link Color"
 msgstr "Länkfärg"
 
-#: library/AcfFields/php/customizer-color.php:111
-#: library/AcfFields/php/customizer-color.php:141
+#: library/AcfFields/php/customizer-color.php:468
+#: library/AcfFields/php/customizer-color.php:498
 msgid "#000000"
 msgstr ""
 
-#: library/AcfFields/php/customizer-color.php:115
+#: library/AcfFields/php/customizer-color.php:472
 msgid "Link Hover Color"
 msgstr "Länkfärg hovring"
 
-#: library/AcfFields/php/customizer-color.php:130
+#: library/AcfFields/php/customizer-color.php:487
 msgid "Link Visited Color"
 msgstr "Länkfärg besökt"
 
-#: library/AcfFields/php/customizer-color.php:145
+#: library/AcfFields/php/customizer-color.php:502
 msgid "Link Visited Hover Color"
 msgstr "Länkfärg besökt hovring"
 
-#: library/AcfFields/php/customizer-color.php:160
+#: library/AcfFields/php/customizer-color.php:517
 msgid "Link Active Color"
 msgstr "Länk Aktiv färg"
+
+#: library/AcfFields/php/customizer-color.php:532
+msgid "Complementary color -    illustration / header"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:543
+msgid "#dec2c2"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:547
+msgid "Complementary color -    button / line"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:558
+msgid "#F0DBD9"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:562
+msgid "Complementary color -    input"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:573
+msgid "#F5E4E3"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:577
+msgid "Complementary color - card"
+msgstr ""
+
+#: library/AcfFields/php/customizer-color.php:588
+msgid "#FAEEEC"
+msgstr ""
 
 #: library/AcfFields/php/customizer-design-share-load.php:8
 msgid "Avabile Designs"
@@ -157,127 +256,139 @@ msgid "Posts - Index - Header Style"
 msgstr ""
 
 #: library/AcfFields/php/customizer-modules.php:22
-#: library/AcfFields/php/customizer-modules.php:49
-#: library/AcfFields/php/customizer-modules.php:76
-#: library/AcfFields/php/customizer-modules.php:103
-#: library/AcfFields/php/customizer-modules.php:130
-#: library/AcfFields/php/customizer-modules.php:157
-#: library/AcfFields/php/customizer-modules.php:184
-#: library/AcfFields/php/customizer-modules.php:211
-#: library/AcfFields/php/customizer-modules.php:238
-#: library/AcfFields/php/customizer-modules.php:265
-#: library/AcfFields/php/customizer-modules.php:292
-#: library/AcfFields/php/customizer-modules.php:319
-#: library/AcfFields/php/customizer-modules.php:346
-#: library/AcfFields/php/customizer-modules.php:373
+#: library/AcfFields/php/customizer-modules.php:50
+#: library/AcfFields/php/customizer-modules.php:78
+#: library/AcfFields/php/customizer-modules.php:106
+#: library/AcfFields/php/customizer-modules.php:134
+#: library/AcfFields/php/customizer-modules.php:160
+#: library/AcfFields/php/customizer-modules.php:188
+#: library/AcfFields/php/customizer-modules.php:216
+#: library/AcfFields/php/customizer-modules.php:244
+#: library/AcfFields/php/customizer-modules.php:272
+#: library/AcfFields/php/customizer-modules.php:300
+#: library/AcfFields/php/customizer-modules.php:328
+#: library/AcfFields/php/customizer-modules.php:356
+#: library/AcfFields/php/customizer-modules.php:384
+#: library/AcfFields/php/customizer-modules.php:410
+#: library/AcfFields/php/customizer-modules.php:438
 #: library/AcfFields/php/widget-header-common.php:132
 msgid "None"
 msgstr "Ingen"
 
 #: library/AcfFields/php/customizer-modules.php:23
-#: library/AcfFields/php/customizer-modules.php:50
-#: library/AcfFields/php/customizer-modules.php:77
-#: library/AcfFields/php/customizer-modules.php:104
-#: library/AcfFields/php/customizer-modules.php:131
-#: library/AcfFields/php/customizer-modules.php:158
-#: library/AcfFields/php/customizer-modules.php:185
-#: library/AcfFields/php/customizer-modules.php:212
-#: library/AcfFields/php/customizer-modules.php:239
-#: library/AcfFields/php/customizer-modules.php:266
-#: library/AcfFields/php/customizer-modules.php:293
-#: library/AcfFields/php/customizer-modules.php:320
-#: library/AcfFields/php/customizer-modules.php:347
-#: library/AcfFields/php/customizer-modules.php:374
+#: library/AcfFields/php/customizer-modules.php:51
+#: library/AcfFields/php/customizer-modules.php:79
+#: library/AcfFields/php/customizer-modules.php:107
+#: library/AcfFields/php/customizer-modules.php:161
+#: library/AcfFields/php/customizer-modules.php:189
+#: library/AcfFields/php/customizer-modules.php:217
+#: library/AcfFields/php/customizer-modules.php:245
+#: library/AcfFields/php/customizer-modules.php:273
+#: library/AcfFields/php/customizer-modules.php:301
+#: library/AcfFields/php/customizer-modules.php:329
+#: library/AcfFields/php/customizer-modules.php:357
+#: library/AcfFields/php/customizer-modules.php:411
+#: library/AcfFields/php/customizer-modules.php:439
 msgid "Panel"
 msgstr ""
 
 #: library/AcfFields/php/customizer-modules.php:24
-#: library/AcfFields/php/customizer-modules.php:51
-#: library/AcfFields/php/customizer-modules.php:78
-#: library/AcfFields/php/customizer-modules.php:105
-#: library/AcfFields/php/customizer-modules.php:132
-#: library/AcfFields/php/customizer-modules.php:159
-#: library/AcfFields/php/customizer-modules.php:186
-#: library/AcfFields/php/customizer-modules.php:213
-#: library/AcfFields/php/customizer-modules.php:240
-#: library/AcfFields/php/customizer-modules.php:267
-#: library/AcfFields/php/customizer-modules.php:294
-#: library/AcfFields/php/customizer-modules.php:321
-#: library/AcfFields/php/customizer-modules.php:348
-#: library/AcfFields/php/customizer-modules.php:375
+#: library/AcfFields/php/customizer-modules.php:52
+#: library/AcfFields/php/customizer-modules.php:80
+#: library/AcfFields/php/customizer-modules.php:108
+#: library/AcfFields/php/customizer-modules.php:162
+#: library/AcfFields/php/customizer-modules.php:190
+#: library/AcfFields/php/customizer-modules.php:218
+#: library/AcfFields/php/customizer-modules.php:246
+#: library/AcfFields/php/customizer-modules.php:274
+#: library/AcfFields/php/customizer-modules.php:302
+#: library/AcfFields/php/customizer-modules.php:330
+#: library/AcfFields/php/customizer-modules.php:358
+#: library/AcfFields/php/customizer-modules.php:412
+#: library/AcfFields/php/customizer-modules.php:440
 msgid "Accented"
 msgstr ""
 
 #: library/AcfFields/php/customizer-modules.php:25
-#: library/AcfFields/php/customizer-modules.php:52
-#: library/AcfFields/php/customizer-modules.php:79
-#: library/AcfFields/php/customizer-modules.php:106
-#: library/AcfFields/php/customizer-modules.php:133
-#: library/AcfFields/php/customizer-modules.php:160
-#: library/AcfFields/php/customizer-modules.php:187
-#: library/AcfFields/php/customizer-modules.php:214
-#: library/AcfFields/php/customizer-modules.php:241
-#: library/AcfFields/php/customizer-modules.php:268
-#: library/AcfFields/php/customizer-modules.php:295
-#: library/AcfFields/php/customizer-modules.php:322
-#: library/AcfFields/php/customizer-modules.php:349
-#: library/AcfFields/php/customizer-modules.php:376
+#: library/AcfFields/php/customizer-modules.php:53
+#: library/AcfFields/php/customizer-modules.php:81
+#: library/AcfFields/php/customizer-modules.php:109
+#: library/AcfFields/php/customizer-modules.php:135
+#: library/AcfFields/php/customizer-modules.php:163
+#: library/AcfFields/php/customizer-modules.php:191
+#: library/AcfFields/php/customizer-modules.php:219
+#: library/AcfFields/php/customizer-modules.php:247
+#: library/AcfFields/php/customizer-modules.php:275
+#: library/AcfFields/php/customizer-modules.php:303
+#: library/AcfFields/php/customizer-modules.php:331
+#: library/AcfFields/php/customizer-modules.php:359
+#: library/AcfFields/php/customizer-modules.php:385
+#: library/AcfFields/php/customizer-modules.php:413
+#: library/AcfFields/php/customizer-modules.php:441
 #: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Highlight"
 msgstr "Markering"
 
-#: library/AcfFields/php/customizer-modules.php:37
+#: library/AcfFields/php/customizer-modules.php:38
 msgid "Posts - List - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:64
+#: library/AcfFields/php/customizer-modules.php:66
 msgid "Posts - ExpandableList - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:91
+#: library/AcfFields/php/customizer-modules.php:94
 msgid "Contacs - List - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:118
+#: library/AcfFields/php/customizer-modules.php:122
+msgid "Contacs - Card - Style"
+msgstr ""
+
+#: library/AcfFields/php/customizer-modules.php:148
 msgid "Inlay - List - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:145
+#: library/AcfFields/php/customizer-modules.php:176
 msgid "Map - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:172
+#: library/AcfFields/php/customizer-modules.php:204
 msgid "Script - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:199
+#: library/AcfFields/php/customizer-modules.php:232
 msgid "Text - Box - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:226
+#: library/AcfFields/php/customizer-modules.php:260
 msgid "Video - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:253
+#: library/AcfFields/php/customizer-modules.php:288
 msgid "Event - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:280
+#: library/AcfFields/php/customizer-modules.php:316
 msgid "Json Render - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:307
+#: library/AcfFields/php/customizer-modules.php:344
 msgid "Form - Style"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:334
+#: library/AcfFields/php/customizer-modules.php:372
 msgid "Index"
 msgstr ""
 
-#: library/AcfFields/php/customizer-modules.php:361
+#: library/AcfFields/php/customizer-modules.php:398
 #: library/AcfFields/php/options-theme-google-translate.php:72
 msgid "Text"
 msgstr "Text"
+
+#: library/AcfFields/php/customizer-modules.php:426
+msgid "Local Event"
+msgstr ""
 
 #: library/AcfFields/php/customizer-radius.php:8
 msgid "Radiuses"
@@ -308,6 +419,26 @@ msgstr "Mellan"
 #: library/AcfFields/php/widget-header-menu.php:50
 msgid "Large"
 msgstr "Stor"
+
+#: library/AcfFields/php/customizer-width.php:6
+msgid "Site Width"
+msgstr ""
+
+#: library/AcfFields/php/customizer-width.php:10
+msgid "Default Page Width"
+msgstr ""
+
+#: library/AcfFields/php/customizer-width.php:30
+msgid "Front Page Width"
+msgstr ""
+
+#: library/AcfFields/php/customizer-width.php:50
+msgid "Archive Width"
+msgstr ""
+
+#: library/AcfFields/php/customizer-width.php:70
+msgid "Maximum content width"
+msgstr ""
 
 #: library/AcfFields/php/navigation-widget.php:6
 msgid "Navigation widget"
@@ -1020,6 +1151,10 @@ msgstr ""
 msgid "Casual"
 msgstr "Casual"
 
+#: library/AcfFields/php/options-theme-logotype.php:6
+msgid "Logotype"
+msgstr "Logotyp"
+
 #: library/AcfFields/php/options-theme-logotype.php:10
 msgid "Primär logotyp"
 msgstr ""
@@ -1037,6 +1172,17 @@ msgid ""
 "Ladda upp din sekundära logotyp i .svg format (Scalable Vector Graphics). "
 "Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt och "
 "passar bäst på mörka eller färgade bakgrunder."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:58
+msgid "Emblem"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:61
+msgid ""
+"Ladda upp ett emblem i .svg format (Scalable Vector Graphics). Emblemet "
+"kommer att användas för att förstärka avsändaren för webbplatsen, där "
+"dottervarumärken används."
 msgstr ""
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:9
@@ -1337,6 +1483,10 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
+#: library/Admin/LoginTracking.php:32
+msgid "Last Login"
+msgstr "Senaste inloggning"
+
 #: library/Admin/Options/Archives.php:56
 msgid "Archive for"
 msgstr "Arkiv för"
@@ -1374,9 +1524,8 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:131
-#: library/Search/General.php:50 library/Theme/Navigation.php:230
-#: library/Theme/Navigation.php:231 library/Widget/Navigation/Navigation.php:66
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:133
+#: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
 #: views/v1/partials/archive-filters.blade.php:79
@@ -1598,71 +1747,75 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:121 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:123 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:122
+#: library/Controller/BaseController.php:124
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:123
+#: library/Controller/BaseController.php:125
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:124
+#: library/Controller/BaseController.php:126
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:125
+#: library/Controller/BaseController.php:127
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:126
+#: library/Controller/BaseController.php:128
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:127
+#: library/Controller/BaseController.php:129
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:128
+#: library/Controller/BaseController.php:130
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:129
+#: library/Controller/BaseController.php:131
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:130
+#: library/Controller/BaseController.php:132
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:132
+#: library/Controller/BaseController.php:134
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:133
+#: library/Controller/BaseController.php:135
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:134
+#: library/Controller/BaseController.php:136
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:135
+#: library/Controller/BaseController.php:137
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:136 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:138 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
+
+#: library/Controller/BaseController.php:139
+msgid "Site emblem"
+msgstr ""
 
 #: library/Controller/E404.php:30
 msgid "Go back"
@@ -1734,7 +1887,7 @@ msgstr "Svara"
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Customizer/Design.php:49
+#: library/Customizer/Design.php:50
 msgid "Design"
 msgstr ""
 
@@ -1750,11 +1903,11 @@ msgstr ""
 msgid "Municipio customizer error"
 msgstr ""
 
-#: library/Helper/Navigation.php:634 library/Helper/Navigation.php:851
+#: library/Helper/Navigation.php:634 library/Helper/Navigation.php:860
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
-#: library/Helper/Navigation.php:811
+#: library/Helper/Navigation.php:820
 msgid "Home"
 msgstr "Hem"
 
@@ -1789,15 +1942,15 @@ msgstr "Sida (två kolumner)"
 msgid "Sidebar right"
 msgstr "Sidopanel höger"
 
-#: library/Theme/Enqueue.php:100
+#: library/Theme/Enqueue.php:107
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:103
+#: library/Theme/Enqueue.php:110
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:104
+#: library/Theme/Enqueue.php:111
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
@@ -1805,31 +1958,33 @@ msgstr "Något gick fel, vänligen försök igen senare"
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/Navigation.php:123
+#: library/Theme/Navigation.php:51
+msgid "Select language"
+msgstr "Välj språk"
+
+#: library/Theme/Navigation.php:66
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:124
+#: library/Theme/Navigation.php:67
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:125
+#: library/Theme/Navigation.php:68
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Theme/Navigation.php:126
+#: library/Theme/Navigation.php:69
 msgid "Secondary menu & mobile menu"
 msgstr "Sekundär meny & Mobil meny"
 
-#: library/Theme/Navigation.php:127
+#: library/Theme/Navigation.php:70
 msgid "Dropdown menu"
 msgstr "Rullgardinsmeny"
 
-#: library/Theme/Navigation.php:140
-#, fuzzy
-#| msgid "Below Links"
-msgid "Dropdown Links"
-msgstr "Under länkar"
+#: library/Theme/Navigation.php:71
+msgid "Language menu"
+msgstr "Språkmeny"
 
 #: library/Theme/Sidebars.php:37
 msgid "Footer top"
@@ -2198,6 +2353,11 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
+#, fuzzy
+#~| msgid "Below Links"
+#~ msgid "Dropdown Links"
+#~ msgstr "Under länkar"
+
 #~ msgid ""
 #~ "Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not "
 #~ "defined."
@@ -2426,9 +2586,6 @@ msgstr ""
 
 #~ msgid "Margin Bottom"
 #~ msgstr "Marginal till botten"
-
-#~ msgid "Color"
-#~ msgstr "Färg"
 
 #~ msgid "Select image"
 #~ msgstr "Välj bild"
@@ -2785,9 +2942,6 @@ msgstr ""
 
 #~ msgid "Business (default)"
 #~ msgstr "Business (standardval)"
-
-#~ msgid "Logotype"
-#~ msgstr "Logotyp"
 
 #~ msgid "Primary logotype"
 #~ msgstr "Primär logotyp"

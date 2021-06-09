@@ -49,6 +49,30 @@
             "max_height": "",
             "max_size": "",
             "mime_types": "svg"
+        },
+        {
+            "key": "field_60b0a3cb6c855",
+            "label": "Emblem",
+            "name": "logotype_emblem",
+            "type": "image",
+            "instructions": "Ladda upp ett emblem i .svg format (Scalable Vector Graphics). Emblemet kommer att anv\u00e4ndas f\u00f6r att f\u00f6rst\u00e4rka avs\u00e4ndaren f\u00f6r webbplatsen, d\u00e4r dottervarum\u00e4rken anv\u00e4nds.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "thumbnail",
+            "library": "uploadedTo",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "svg"
         }
     ],
     "location": [
