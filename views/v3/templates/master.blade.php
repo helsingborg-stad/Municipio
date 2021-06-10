@@ -93,6 +93,16 @@
     @includeIf('partials.footer')
 @show
 
+{{-- Floating widget areas --}}
+
+@includeIf('partials.sidebar', ['id' => 'floating-top-left-sidebar', 'classes' => ['o-grid', 'u-fixed--top-left', 'u-margin--3']])
+
+@includeIf('partials.sidebar', ['id' => 'floating-top-right-sidebar', 'classes' => ['o-grid', 'u-fixed--top-right', 'u-margin--3']])
+
+@includeIf('partials.sidebar', ['id' => 'floating-bottom-left-sidebar', 'classes' => ['o-grid', 'u-fixed--bottom-left', 'u-margin--3']])
+
+@includeIf('partials.sidebar', ['id' => 'floating-bottom-right-sidebar', 'classes' => ['o-grid', 'u-fixed--bottom-right', 'u-margin--3']])
+
 {{-- Wordpress required call to wp_footer() --}}
 {!! $wpFooter !!}
 

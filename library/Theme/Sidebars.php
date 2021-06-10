@@ -171,6 +171,58 @@ class Sidebars
             'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
+
+        /**
+         * Floating, top left
+         */
+        register_sidebar(array(
+            'id'            => 'floating-top-left-sidebar',
+            'name'          => __('Floating [Top, Left]', 'municipio'),
+            'description'   => __('Sidebar that is floating in the top left corner.', 'municipio'),
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div>'
+        ));
+
+        /**
+         * Floating, top right
+         */
+        register_sidebar(array(
+            'id'            => 'floating-top-right-sidebar',
+            'name'          => __('Floating [Top, Right]', 'municipio'),
+            'description'   => __('Sidebar that is floating in the top right corner.', 'municipio'),
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div>'
+        ));
+
+        /**
+         * Floating, bottom left
+         */
+        register_sidebar(array(
+            'id'            => 'floating-bottom-left-sidebar',
+            'name'          => __('Floating [Bottom, Left]', 'municipio'),
+            'description'   => __('Sidebar that is floating in the bottom left corner.', 'municipio'),
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div>'
+        ));
+
+        /**
+         * Floating, top right
+         */
+        register_sidebar(array(
+            'id'            => 'floating-bottom-right-sidebar',
+            'name'          => __('Floating [Bottom, Right]', 'municipio'),
+            'description'   => __('Sidebar that is floating in the bottom right corner.', 'municipio'),
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div>'
+        ));
     }
 
     /**
