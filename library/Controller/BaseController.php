@@ -78,6 +78,7 @@ class BaseController
         $tabMenu        = new \Municipio\Helper\Navigation('tab');
         $helpMenu       = new \Municipio\Helper\Navigation('help');
         $dropDownMenu   = new \Municipio\Helper\Navigation('dropdown');
+        $floatingMenu   = new \Municipio\Helper\Navigation('floating');
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
@@ -91,6 +92,7 @@ class BaseController
         $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
+        $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID());
 
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
