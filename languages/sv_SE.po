@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-06-04 14:42+0200\n"
-"PO-Revision-Date: 2021-06-04 14:43+0200\n"
+"POT-Creation-Date: 2021-06-11 09:56+0200\n"
+"PO-Revision-Date: 2021-06-11 09:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -2075,6 +2075,38 @@ msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 #, php-format
 msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
 msgstr "Fältet som ligger strax före sidfoten tar upp 100 % o f bredden."
+
+#: library/Theme/Sidebars.php:180
+msgid "Floating [Top, Left]"
+msgstr "Flytande (övre vänster hörn)"
+
+#: library/Theme/Sidebars.php:181
+msgid "Sidebar that is floating in the top left corner."
+msgstr "Widgetyta placerad flytande på sidans övre vänstra hörn. "
+
+#: library/Theme/Sidebars.php:193
+msgid "Floating [Top, Right]"
+msgstr "Flytande (övre höger hörn)"
+
+#: library/Theme/Sidebars.php:194
+msgid "Sidebar that is floating in the top right corner."
+msgstr "Widgetyta placerad flytande på sidans övre högra hörn. "
+
+#: library/Theme/Sidebars.php:206
+msgid "Floating [Bottom, Left]"
+msgstr "Flytande (nedre vänster hörn)"
+
+#: library/Theme/Sidebars.php:207
+msgid "Sidebar that is floating in the bottom left corner."
+msgstr "Widgetyta placerad flytande på sidans nedre vänstra hörn. "
+
+#: library/Theme/Sidebars.php:219
+msgid "Floating [Bottom, Right]"
+msgstr "Flytande (nedre höger hörn)"
+
+#: library/Theme/Sidebars.php:220
+msgid "Sidebar that is floating in the bottom right corner."
+msgstr "Widgetyta placerad flytande på sidans övre högra hörn. "
 
 #: library/Widget/Navigation/Navigation.php:82
 msgid "Översätt"
