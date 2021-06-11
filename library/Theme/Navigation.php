@@ -68,6 +68,7 @@ class Navigation
             'main-menu' => __('Primary menu', 'municipio'),
             'secondary-menu' => __('Secondary menu & mobile menu', 'municipio'),
             'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
+            'floating-menu' => __('Floating menu', 'municipio'),
             'language-menu' => __('Language menu', 'municipio'),
         );
 
