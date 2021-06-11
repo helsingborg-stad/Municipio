@@ -671,11 +671,13 @@ class Navigation
                       'label' => $item->title,
                       'href' => $item->url,
                       'children' => false,
+                      'ico' => get_field('menu_item_icon', $item->ID)
                     ], $this->identifier, true);
                 }
             } else {
                 $result = [];
             }
+
         } else {
             //Get page tree
             if ($fallbackToPageTree === true && is_numeric($pageId)) {
