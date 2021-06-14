@@ -68,6 +68,7 @@ add_action('init', function () {
         'options-theme-search-algolia'              => 'group_5a61b852f3f8c',
         'options-theme-share'                       => 'group_56c431971df46',
         'options-theme-sub-navigation'              => 'group_56e941cae1ed2',
+        'options-menu-icon'                         => 'group_60c325749aeab',
         'user-author-image'                         => 'group_56c714b46105e',
         'widget-contact'                            => 'group_56c58bade87dc',
         'widget-header-common'                      => 'group_5a65d5e7e913b',
