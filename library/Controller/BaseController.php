@@ -94,6 +94,9 @@ class BaseController
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
         $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID());
 
+        //Get labels for menu
+        $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 
+
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
 
@@ -254,6 +257,24 @@ class BaseController
             return true;
         }
         return false;
+    }
+
+    /**
+     * Get floating menu labels
+     *
+     * @return object
+     */
+    public function getFloatingMenuLabels() : object
+    {
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu']); 
+
+        return (object) apply_filters('Municipio/FloatingMenuLabels', 
+            [
+                'heading' => get_field('floating_popup_heading', $menuObject), 
+                'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
+                'buttonIcon' => get_field('toggle_button_icon', $menuObject)
+            ]
+        );
     }
 
     /**

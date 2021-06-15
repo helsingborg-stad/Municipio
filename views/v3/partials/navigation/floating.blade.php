@@ -1,11 +1,11 @@
 @fab([
     'position' => 'bottom-right',
-    'heading' => "Vestibulum id ligula porta felis euismod semper",
+    'heading' => $floatingMenuLabels->heading,
     'button' => [
-        'icon' => 'apps',
+        'icon' => $floatingMenuLabels->buttonIcon,
         'size' => 'md',
         'color' => 'primary',
-        'text' => 'Open menu',
+        'text' => $floatingMenuLabels->buttonLabel,
         'reversePositions' => true,
     ],
     'classList' => []
