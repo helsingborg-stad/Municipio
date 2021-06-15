@@ -93,6 +93,9 @@
     @includeIf('partials.footer')
 @show
 
+{{-- Floating menu --}}
+@includeWhen($floatingMenuItems, 'partials.navigation.floating')
+
 {{-- Wordpress required call to wp_footer() --}}
 {!! $wpFooter !!}
 

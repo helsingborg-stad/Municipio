@@ -78,6 +78,7 @@ class BaseController
         $tabMenu        = new \Municipio\Helper\Navigation('tab');
         $helpMenu       = new \Municipio\Helper\Navigation('help');
         $dropDownMenu   = new \Municipio\Helper\Navigation('dropdown');
+        $floatingMenu   = new \Municipio\Helper\Navigation('floating');
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
@@ -91,6 +92,10 @@ class BaseController
         $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
+        $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID());
+
+        //Get labels for menu
+        $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 
 
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
@@ -252,6 +257,24 @@ class BaseController
             return true;
         }
         return false;
+    }
+
+    /**
+     * Get floating menu labels
+     *
+     * @return object
+     */
+    public function getFloatingMenuLabels() : object
+    {
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu']); 
+
+        return (object) apply_filters('Municipio/FloatingMenuLabels', 
+            [
+                'heading' => get_field('floating_popup_heading', $menuObject), 
+                'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
+                'buttonIcon' => get_field('toggle_button_icon', $menuObject)
+            ]
+        );
     }
 
     /**
