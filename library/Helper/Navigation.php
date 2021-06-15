@@ -663,19 +663,25 @@ class Navigation
                     $isAncestor = in_array($item->ID, $ancestors);
 
                     $result[$item->ID] = apply_filters('Municipio/Navigation/Item', [
-                      'id' => $item->ID,
-                      'post_parent' => $item->menu_item_parent,
-                      'post_type' => $item->object,
-                      'active' => ($item->object_id == $pageId) ? true : false,
-                      'ancestor' => $isAncestor,
-                      'label' => $item->title,
-                      'href' => $item->url,
-                      'children' => false,
+                        'id' => $item->ID,
+                        'post_parent' => $item->menu_item_parent,
+                        'post_type' => $item->object,
+                        'active' => ($item->object_id == $pageId) ? true : false,
+                        'ancestor' => $isAncestor,
+                        'label' => $item->title,
+                        'href' => $item->url,
+                        'children' => false,
+                        'icon' => [
+                          'icon' => get_field('menu_item_icon', $item->ID), 
+                          'size' => 'md', 
+                          'classList' => ['u-margin__right--1'],
+                        ]
                     ], $this->identifier, true);
                 }
             } else {
                 $result = [];
             }
+
         } else {
             //Get page tree
             if ($fallbackToPageTree === true && is_numeric($pageId)) {
