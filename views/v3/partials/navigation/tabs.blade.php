@@ -1,18 +1,29 @@
-{!!
-    wp_nav_menu(array(
-        'theme_location' => 'header-tabs-menu',
-        'container' => 'nav',
-        'container_class' => 'hidden-md hidden-lg u-print-display--none',
-        'container_id' => '',
-        'menu_class' => 'navbar nav-center navbar-creamy navbar-creamy-inner-shadow nav-horizontal',
-        'menu_id' => 'help-menu-top-bar',
-        'echo' => 'echo',
-        'before' => '',
-        'after' => '',
-        'link_before' => '',
-        'link_after' => '',
-        'items_wrap' => '<ul class="%2$s">%3$s</ul>',
-        'depth' => 1,
-        'fallback_cb' => '__return_false'
-    ));
-!!}
+@if($tabMenuItems)
+    <nav role="navigation" aria-label="{{$lang->relatedLinks}}"
+        class="u-display--flex@lg u-display--flex@lx u-display--none@xs
+                u-display--none@sm u-display--none@md u-print-display--none">
+        @group([
+            'classList' => [
+                'u-justify-content--center@xs', 
+                'u-justify-content--center@sm', 
+                'u-justify-content--end', 
+                'u-box-shadow--1',
+                'u-rounded',
+                'u-margin--auto'
+            ]
+        ])
+            @foreach($tabMenuItems as $item)
+                @button([
+                    'href'  => $item['href'], 
+                    'text'  => $item['label'],
+                    'size'  => 'sm',
+                    'style' => 'basic',
+                    'attributeList' => [
+                        'role' => 'menuitem'
+                    ]
+                ])
+                @endbutton
+            @endforeach
+        @endgroup
+    </nav>
+@endif
