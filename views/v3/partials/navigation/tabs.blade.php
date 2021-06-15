@@ -18,9 +18,11 @@
                     'text'  => $item['label'],
                     'size'  => 'sm',
                     'style' => 'basic',
+                    'icon' => $item['icon']['icon'] ?? null,
                     'attributeList' => [
                         'role' => 'menuitem'
-                    ]
+                    ],
+                    'reversePositions' => true
                 ])
                 @endbutton
             @endforeach
