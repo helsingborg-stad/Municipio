@@ -1,6 +1,5 @@
 <?php
 
-
 if( function_exists('acf_add_local_field_group') ):
 
     acf_add_local_field_group(array(
@@ -112,7 +111,7 @@ if( function_exists('acf_add_local_field_group') ):
                 ),
                 'allow_null' => 0,
                 'other_choice' => 0,
-                'default_value' => '',
+                'default_value' => 'md',
                 'layout' => 'vertical',
                 'return_format' => 'value',
                 'save_other_choice' => 0,

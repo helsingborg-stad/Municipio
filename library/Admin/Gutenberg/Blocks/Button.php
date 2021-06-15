@@ -45,10 +45,21 @@ class Button {
     // Build data my getting value from field id and format key
     public function buildData($data) {
         $newData = [];
+        echo '<pre>', print_r($data), '</pre>';
+
 
         foreach($data as $key => $value) {
             $key = ltrim($key, '_');
-            $newData[$key] = get_field($value);
+            $newValue = get_field($value);
+            
+            if(str_contains($value, 'field_')) {
+                $newData[$key] = get_field($value);
+                echo '<pre>', print_r(get_field($value)), '</pre>';
+            } else {
+                $newData[get_field_object($key)['name']] = $value;
+            }
+
+
         }
 
         return $newData;
