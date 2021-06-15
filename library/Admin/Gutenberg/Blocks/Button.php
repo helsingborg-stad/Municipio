@@ -54,7 +54,6 @@ class Button {
             
             if(str_contains($value, 'field_')) {
                 $newData[$key] = get_field($value);
-                echo '<pre>', print_r(get_field($value)), '</pre>';
             } else {
                 $newData[get_field_object($key)['name']] = $value;
             }
