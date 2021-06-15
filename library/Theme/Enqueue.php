@@ -18,7 +18,8 @@ class Enqueue
 
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
-
+        add_action( 'enqueue_block_editor_assets', array($this, 'gutenbergStyle'), 999);
+        
         //Google scripts
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
         add_action('wp_footer', array($this, 'addGoogleTranslate'), 999);
@@ -44,7 +45,6 @@ class Enqueue
         add_filter('gform_cdata_close', array($this, 'wrapGformCdataClose'));
     }
 
-
     public function wrapGformCdataOpen($content)
     {
         $content = 'document.addEventListener( "DOMContentLoaded", function() { ';
@@ -62,15 +62,18 @@ class Enqueue
      * @return void
      */
     public function adminStyle()
+    {        
+        // Load material icons
+        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+        wp_enqueue_style('material-icons');
+    }
+
+    public function gutenbergStyle() 
     {
         // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
         . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
-
-        // Load material icons
-        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-        wp_enqueue_style('material-icons');
     }
 
     /**
