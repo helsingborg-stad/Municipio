@@ -6,11 +6,11 @@ use Municipio\Template as Template;
 class Button {
     public function __construct() {
         add_filter('Municipio/blade/view_paths', array($this, 'getViewPath'), 10);
-        add_action('admin_init', array($this, 'municipio_button_block'), 1);
+        $this->municipioButtonBlock();
     }
 
     //Register block
-    public function municipio_button_block() {
+    public function municipioButtonBlock() {
         // Check function exists.
         if( function_exists('acf_register_block_type') ) {
 
@@ -37,6 +37,7 @@ class Button {
     //Returns view path
     public function getViewPath($paths) {
         $paths[] = plugin_dir_path( __FILE__ );
+
 
         return $paths;
     }
