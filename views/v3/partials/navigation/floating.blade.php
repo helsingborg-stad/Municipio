@@ -1,37 +1,22 @@
 @fab([
-    'position' => 'bottom-left',
-    'spacing' => 'md',
+    'position' => 'bottom-right',
+    'heading' => "Vestibulum id ligula porta felis euismod semper",
     'button' => [
-        'icon' => 'close',
-        'size' => 'lg',
-        'color' => 'secondary'
+        'icon' => 'apps',
+        'size' => 'md',
+        'color' => 'primary',
+        'text' => 'Open menu',
+        'reversePositions' => true,
     ],
-    'classList' => ['d-fab__left','u-position--static']
+    'classList' => []
 ])
 
     @nav([
-        'classList' => [
-            'c-nav--sidebar',            
-            'c-nav--bordered',
-            'u-margin--2',
-            '.u-print-display--none'
-        ],
         'items' => $floatingMenuItems,
         'direction' => 'vertical',
-        'includeToggle' => false
+        'includeToggle' => false,
+        'classList' => ['c-nav--tiles']
     ])
     @endnav
-    
 
-    {{-- Toggle button --}}
-    @button([
-        'type' => 'filled',
-        'icon' => 'close',
-        'size' => 'lg',
-        'text' => 'Right',
-        'color' => 'primary',
-        'label' => 'test'
-    ])
-    @endbutton
-        
 @endfab
