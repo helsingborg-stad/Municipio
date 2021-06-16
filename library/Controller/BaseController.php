@@ -83,7 +83,7 @@ class BaseController
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
         
-        //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true)
+        //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true, $onlyKeepFirstLevel = false)
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
         $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true);
@@ -92,7 +92,7 @@ class BaseController
         $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
         $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
-        $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID());
+        $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
 
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 
