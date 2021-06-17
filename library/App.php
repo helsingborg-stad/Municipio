@@ -73,6 +73,8 @@ class App
         new \Municipio\Admin\General();
         new \Municipio\Admin\LoginTracking();
 
+        new \Municipio\Admin\Gutenberg\Blocks\Button();
+
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\Favicon();

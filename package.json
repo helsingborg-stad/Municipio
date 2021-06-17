@@ -85,7 +85,7 @@
     "postcss-object-fit-images": "^1.1.2",
     "restify": "^8.5.1",
     "restify-router": "^0.5.1",
-    "sass": "^1.35.0",
+    "sass": "^1.35.1",
     "sass-loader": "^7.3.1",
     "stylelint": "^13.13.1",
     "stylelint-webpack-plugin": "^1.1.2",
@@ -99,7 +99,7 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.14.2",
+    "@babel/plugin-transform-runtime": "^7.14.5",
     "css-vars-ponyfill": "^2.4.5"
   },
   "browser": {
