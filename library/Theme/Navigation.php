@@ -34,7 +34,7 @@ class Navigation
         if($identifier == "primary") {
 
             $languageMenu       = new \Municipio\Helper\Navigation('language');
-            $languageMenuItems  =  $languageMenu->getMenuItems('language-menu', $pageId, false, true, true);
+            $languageMenuItems  = $languageMenu->getMenuItems('language-menu', $pageId, false, true, true);
 
             if(is_array($languageMenuItems) && !empty($languageMenuItems)) {
                 $data[] = [
@@ -49,6 +49,7 @@ class Navigation
                     "icon" => ['icon' => 'language', 'size' => 'md'],
                     "attributeList" => [
                         'aria-label' => __("Select language", 'municipio'),
+                        'translate' => 'no'
                     ],
                 ]; 
             }
