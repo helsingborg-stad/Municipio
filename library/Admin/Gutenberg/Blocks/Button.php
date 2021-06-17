@@ -17,12 +17,12 @@ class Button {
             // register a testimonial block.
             acf_register_block_type(array(
                 'name'              => 'button',
-                'title'             => __('Button'),
-                'description'       => __('A button block'),
+                'title'             => __('Button', 'municipio'),
+                'description'       => __('A button block', 'municipio'),
                 'render_callback'   => array($this, 'renderCallback'),
                 'category'          => 'formatting',
-                'icon'              => 'dashicons-button',
-                'keywords'          => array( 'testimonial', 'quote' ),
+                'icon'              => 'button',
+                'keywords'          => array('button', 'link'),
             ));
         }
     }
@@ -45,9 +45,6 @@ class Button {
     // Build data my getting value from field id and format key
     public function buildData($data) {
         $newData = [];
-        echo '<pre>', print_r($data), '</pre>';
-
-
         foreach($data as $key => $value) {
             $key = ltrim($key, '_');
             $newValue = get_field($value);
