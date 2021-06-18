@@ -123,6 +123,9 @@ class BaseController
         //Notice storage
         $this->data['notice']               = [];
 
+        //Secondary nav positions
+        $this->data['secondaryNavPostion']  = $this->getNavPosition('secondary'); 
+
         //Language
         $this->data['lang'] = (object) array(
             'goToHomepage'          => __("Go to homepage", 'municipio'),
@@ -153,7 +156,6 @@ class BaseController
         );
 
         //Structural
-        $this->getHelperVariables();
         $this->getFilterData();
 
         $this->init();
@@ -297,56 +299,6 @@ class BaseController
         }
 
         return false;
-    }
-
-    /**
-     * Set main layout columns
-     * @return void
-     */
-    public function layout()
-    {
-        $this->data['layout']['content']  = 'grid-xs-12 order-xs-1 order-md-2';
-        $this->data['layout']['sidebarLeft'] = 'grid-xs-12 grid-md-4 grid-lg-3 order-xs-2 order-md-1';
-        $this->data['layout']['sidebarRight'] = 'grid-xs-12 grid-md-4 grid-lg-3 hidden-xs hidden-sm hidden-md order-md-3';
-
-        $sidebarLeft = false;
-        $sidebarRight = false;
-
-        if (get_field('archive_' . sanitize_title(get_post_type()) . '_show_sidebar_navigation', 'option') && is_post_type_archive(get_post_type())) {
-            $sidebarLeft = true;
-        }
-
-        //Has child or is parent and nav_sub is enabled
-        if (get_field('nav_sub_enable', 'option') && is_singular() &&
-            !empty(get_children(['post_parent' => get_queried_object_id(), 'numberposts' => 1], ARRAY_A))
-            || get_field('nav_sub_enable', 'option') && is_singular() &&
-            count(get_children(['post_parent' => get_queried_object_id(), 'numberposts' => 1], ARRAY_A)) > 0) {
-            $sidebarLeft = true;
-        }
-
-        if (is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom')) {
-            $sidebarLeft = true;
-        }
-
-        if (is_active_sidebar('right-sidebar')) {
-            $sidebarRight = true;
-        }
-
-        if ($sidebarLeft && $sidebarRight) {
-            $this->data['layout']['content']  = 'grid-xs-12 grid-md-8 grid-lg-6 order-xs-1 order-md-2';
-        } elseif ($sidebarLeft || $sidebarRight) {
-            $this->data['layout']['content']  = 'grid-xs-12 grid-md-8 grid-lg-9 order-xs-1 order-md-2';
-        }
-
-        if (!$sidebarLeft && $sidebarRight) {
-            $this->data['layout']['sidebarLeft'] .= ' hidden-lg';
-        }
-
-        if (is_front_page()) {
-            $this->data['layout']['content']  = 'grid-xs-12';
-        }
-
-        $this->data['layout'] = apply_filters('Municipio/Controller/BaseController/Layout', $this->data['layout'], $sidebarLeft, $sidebarRight);
     }
 
     /**
@@ -502,11 +454,6 @@ class BaseController
         return apply_filters('Municipio/breadcrumbArray', breadcrumb());
     }
 
-    public function getFixedActionBar()
-    {
-        $this->data['fab'] = \Municipio\Theme\FixedActionBar::getFab();
-    }
-
     public function getFilterData()
     {
         $this->data = array_merge(
@@ -516,25 +463,26 @@ class BaseController
         );
     }
 
-    public function getHelperVariables()
-    {
+    /**
+     * Get position of navigation display
+     *
+     * @return null|string
+     */
+    public function getNavPosition($identifier) {
 
-        // TODO: Remove left sidebar, rename right to "has sidebar"
+        $mods = get_theme_mods(); 
 
-        $this->data['hasRightSidebar'] = get_field('right_sidebar_always', 'option') || is_active_sidebar('right-sidebar');
-        $this->data['hasLeftSidebar'] = (isset($this->data['navigation']['sidebarMenu']) && strlen($this->data['navigation']['sidebarMenu']) > 0) || is_active_sidebar('left-sidebar') || is_active_sidebar('left-sidebar-bottom');
-
-        $contentGridSize = 'grid-xs-12';
-
-        if ($this->data['hasLeftSidebar'] && $this->data['hasRightSidebar']) {
-            $contentGridSize = 'grid-md-8 grid-lg-6';
-        } elseif (!$this->data['hasLeftSidebar'] && $this->data['hasRightSidebar']) {
-            $contentGridSize = 'grid-md-8 grid-lg-9';
-        } elseif ($this->data['hasLeftSidebar'] && !$this->data['hasRightSidebar']) {
-            $contentGridSize = 'grid-md-8 grid-lg-9';
+        //Secondary navigation
+        if($identifier == 'secondary') {
+            if(isset($mods['site']) && isset($mods['site']['field_60cb4dd897cb8'])) {
+                if(in_array($mods['site']['field_60cb4dd897cb8'], ['left', 'right', 'hidden'])) {
+                    return $mods['site']['field_60cb4dd897cb8']; 
+                }
+            }
+            return 'left'; 
         }
-
-        $this->data['contentGridSize'] = $contentGridSize;
+        
+        return null; 
     }
 
     /**

@@ -12,7 +12,11 @@
 
 @section('sidebar-left')
     @if($showSidebars)
-        @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+
+        @if($secondaryNavPostion == 'left') 
+            @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+        @endif
+
         @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
         @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
     @endif
@@ -52,6 +56,11 @@
 
 @section('sidebar-right')
     @if($showSidebars)
+
+        @if($secondaryNavPostion == 'right') 
+            @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+        @endif
+
         @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
     @endif
 @stop
