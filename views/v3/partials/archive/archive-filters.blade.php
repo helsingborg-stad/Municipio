@@ -58,8 +58,8 @@
                                     'required' => false,
                                     'datepicker' => [
                                         'title'                 => $lang->fromDate,
-                                        'minDate'               => "6/29/1997",
-                                        'maxDate'               => "tomorrow",
+                                        'minDate'               => false,
+                                        'maxDate'               => false,
                                         'required'              => true,
                                         'showResetButton'       => true,
                                         'showDaysOutOfMonth'    => true,
@@ -84,8 +84,8 @@
                                     'required' => false,
                                     'datepicker' => [
                                         'title'                 => $lang->toDate,
-                                        'minDate'               => "6/29/1997",
-                                        'maxDate'               => "tomorrow",
+                                        'minDate'               => false,
+                                        'maxDate'               => false,
                                         'required'              => true,
                                         'showResetButton'       => true,
                                         'showDaysOutOfMonth'    => true,
