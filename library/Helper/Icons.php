@@ -10,7 +10,7 @@ class Icons
      * @return string
      */
     private static function getIconPath() : string {
-        return MUNICIPIO_PATH . "node_modules/@helsingborg-stad/styleguide/assets/data/icons.json"; 
+        return MUNICIPIO_PATH . "assets/dist/data/ico.json"; 
     }
 
     /**
