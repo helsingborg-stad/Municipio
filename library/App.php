@@ -13,10 +13,6 @@ class App
      */
     public function __construct()
     {
-        /**
-         * Custom ACF fields
-         */
-        new \Municipio\Admin\Acf\CustomFieldTypes();
 
         /**
          * Template
@@ -81,6 +77,8 @@ class App
         new \Municipio\Admin\Options\Archives();
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
+
+        new \Municipio\Admin\Acf\PrefillIconChoice(); 
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
