@@ -58,7 +58,7 @@
                     @endif
                     <div class="o-grid">
                         @hasSection('sidebar-left')
-                                <div class="o-grid-12 o-grid-3@md o-order-2 o-order-1@md u-print-display--none">
+                                <div class="o-grid-12 o-grid-{{$leftColumnSize}}@md o-order-2 o-order-1@md u-print-display--none">
                                     @yield('sidebar-left')
                                 </div>
                         @endif
@@ -68,9 +68,9 @@
                         </div>
 
                         @hasSection('sidebar-right')
-                                <div class="o-grid-12 o-grid-3@md o-order-3 o-order-3@md u-print-display--none">
-                                    @yield('sidebar-right')
-                                </div>
+                            <div class="o-grid-12 o-grid-{{$rightColumnSize}}@md o-order-3 o-order-3@md u-print-display--none">
+                                @yield('sidebar-right')
+                            </div>
                         @endif
                     </div>
                     @hasSection('below')
