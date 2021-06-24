@@ -126,6 +126,10 @@ class BaseController
         //Secondary nav positions
         $this->data['secondaryNavPostion']  = $this->getNavPosition('secondary'); 
 
+        //Column sizes
+        $this->data['leftColumnSize']  = $this->getColumnSize('left'); 
+        $this->data['rightColumnSize']  = $this->getColumnSize('right'); 
+
         //Language
         $this->data['lang'] = (object) array(
             'goToHomepage'          => __("Go to homepage", 'municipio'),
@@ -483,6 +487,33 @@ class BaseController
         }
         
         return null; 
+    }
+
+    /**
+     * Get size of column
+     *
+     * @return integer
+     */
+    public function getColumnSize($identifier) {
+
+        $mods = get_theme_mods(); 
+
+        //Secondary navigation
+        if($identifier == 'left') {
+            $fieldId = 'field_60d339b60049e'; 
+        }
+
+        if($identifier == 'right') {
+            $fieldId = 'field_60d3393d1231a'; 
+        }
+
+        if(isset($mods['site']) && isset($mods['site'][$fieldId])) {
+            if(in_array($mods['site'][$fieldId], ['large'])) {
+                return 4; 
+            }
+        }
+
+        return 3; 
     }
 
     /**
