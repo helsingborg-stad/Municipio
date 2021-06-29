@@ -53,11 +53,10 @@ class YouTube extends Oembed
 
         $html .= '<div class="modularity-mod-player modularity-mod-player__ratio--16-9" style="background-image:url(' . $this->params['thumbnail'] . ');">';
 
-
         if (!isset($this->params['list'])) {
-            $html .= '<iframe type="text/html" width="1080" height="720" src="//www.youtube.com/embed/' . $this->params['v'] . '?autoplay=0&autohide=1&cc_load_policy=0&enablejsapi=1&modestbranding=1&origin=styleguide.dev&showinfo=0&autohide=1&iv_load_policy=3&rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            $html .= '<iframe title="' . $this->params['title'] . '" type="text/html" width="1080" height="720" src="//www.youtube.com/embed/' . $this->params['v'] . '?autoplay=0&autohide=1&cc_load_policy=0&enablejsapi=1&modestbranding=1&origin=styleguide.dev&showinfo=0&autohide=1&iv_load_policy=3&rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         } else {
-            $html .= '<iframe width="1080" height="720" src="https://www.youtube.com/embed/videoseries?list='. $this->params['list'] .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+            $html .= '<iframe title="' . $this->params['title'] . '" width="1080" height="720" src="https://www.youtube.com/embed/videoseries?list='. $this->params['list'] .'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
         }
 
         $html .= '</div>';
@@ -98,16 +97,40 @@ class YouTube extends Oembed
         }
 
         if (strpos($this->url, 'youtu.be') !== false) {
-            $v = str_replace('&feature=youtu.be','', $this->url);
+            $v = str_replace('&feature=youtu.be', '', $this->url);
             $v = explode('/', $v);
             $v = end($v);
 
-            $v = (strpos($this->url, 'watch?v=')  !== false ) ?
-                        str_replace('watch?v=','', $v) : $v;
+            $v = (strpos($this->url, 'watch?v=')  !== false) ?
+                        str_replace('watch?v=', '', $v) : $v;
             $this->params['v'] = $v;
         }
 
+        $this->params['title'] = $this->getVideoTitle();
+
         return $this;
+    }
+
+    /**
+     * Get video title
+     * @return string
+     */
+    public function getVideoTitle()
+    {
+        if (!defined('MUNICIPIO_GOOGLEAPIS_KEY') || !MUNICIPIO_GOOGLEAPIS_KEY) {
+            return '';
+        }
+
+        $endpointUrl = 'https://www.googleapis.com/youtube/v3/videos?id=' . $this->params['v'] . '&part=snippet&key=' . MUNICIPIO_GOOGLEAPIS_KEY;
+        $response = wp_remote_get($endpointUrl);
+
+        if (wp_remote_retrieve_response_code($response) !== 200) {
+            return '';
+        }
+
+        $result = json_decode(wp_remote_retrieve_body($response));
+
+        return $result->items[0]->snippet->title ?? '';
     }
 
     /**
