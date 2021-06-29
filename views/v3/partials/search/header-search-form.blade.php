@@ -12,6 +12,8 @@
             'placeholder'   => $lang->search,
             'size'          => 'sm',
             'radius'        => 'sm',
+            'label'         => $lang->searchQuestion,
+            'hideLabel'     => true,
             'icon'          => ['icon' => 'search'],
             'classList'     => [
                 'u-flex-grow--1',
@@ -35,7 +37,7 @@
             'size'          => 'sm',
             'attributeList' => [
                 'id'            => 'header-search-form--submit'
-            ], 
+            ],
             'classList'     => ['u-rounded__right--8']
         ])
         @endbutton
