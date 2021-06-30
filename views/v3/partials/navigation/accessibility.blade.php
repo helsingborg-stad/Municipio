@@ -4,7 +4,7 @@
 				 unlist u-display--none@xs u-display--none@sm u-print-display--none"
                 role="menubar">
 		@foreach ($accessabilityItems as $item) {{-- TODO: Move to controller. --}}
-			<li>
+			<li role="menuitem">
 				@icon([
 					'icon' => $item['icon'],
 					'size' => 'md'
@@ -19,6 +19,5 @@
 				@endbutton
 			</li>
 		@endforeach
-
-	</ul>	
+	</ul>
 @endif
