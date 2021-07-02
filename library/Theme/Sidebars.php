@@ -11,7 +11,7 @@ class Sidebars
 
         add_filter('Modularity/Module/Container/Sidebars', array($this, 'registerSidebarWithContainerSupport'));
         add_filter('Modularity/Module/Container/Modules', array($this, 'registerModulesWithContainerSupport'));
-
+        
         add_filter('Modularity/Display/BeforeModule', array($this, 'replaceGridClasses'), 10, 1);
     }
 
@@ -38,7 +38,7 @@ class Sidebars
             'description'   => __('The top of footer area', 'municipio'),
             'before_title'  => '<h2 class="footer-top-title">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="o-grid-12"><div class="%1$s" id="%2$s">',
             'after_widget'  => '</div></div>'
         ));
 
@@ -51,7 +51,7 @@ class Sidebars
             'description'   => __('The footer area', 'municipio'),
             'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="o-grid-4@lg"><div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="o-grid-4@lg"><div class="%1$s" id="%2$s">',
             'after_widget'  => '</div></div>'
         ));
 
@@ -64,7 +64,7 @@ class Sidebars
             'description'   => __('The hero area', 'municipio'),
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -77,7 +77,7 @@ class Sidebars
             'description'   => __('The area above the content', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -90,7 +90,7 @@ class Sidebars
             'description'   => __('The area below the content', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -103,7 +103,7 @@ class Sidebars
             'description'   => __('The area below the main container', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -116,7 +116,7 @@ class Sidebars
             'description'   => __('The right sidebar area', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -129,7 +129,7 @@ class Sidebars
             'description'   => __('The left sidebar area', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -142,7 +142,7 @@ class Sidebars
             'description'   => __('The area below the left sidebar content', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -155,7 +155,7 @@ class Sidebars
             'description'   => __('Sidebar that sits below the hero, takes up 100% of the widht.', 'municipio'),
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
 
@@ -168,7 +168,7 @@ class Sidebars
             'description'   => __('Sidebar that sits just before the footer, takes up 100% of the widht.', 'municipio'),
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
-            'before_widget' => '<div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
     }
@@ -264,7 +264,7 @@ class Sidebars
             case "mod-json-render":
                 $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
                 break;
-
+            
         }
 
         return $moduleSpecification;
