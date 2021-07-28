@@ -12,7 +12,7 @@
     </div>
 
     <div class="c-drawer__body">
-        @includeIf('partials.navigation.mobile', ['menuItems' => $mobileMenuItems])
+        @includeIf('partials.navigation.mobile', ['menuItems' => $mobileMenuItems, 'secondaryMenuItems' => $secondaryMenuItems])
     </div>
 
     @if($tabMenuItems)
