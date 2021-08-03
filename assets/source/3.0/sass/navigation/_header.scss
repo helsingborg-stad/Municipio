@@ -12,8 +12,10 @@
   color: $color-black;
 }
 
-.c-header.is-sticky {
-    position: fixed;
-    top: 0px;
-    width: 100%;
+@include mq(md) {
+    .c-header.is-sticky {
+        position: fixed;
+        top: 0px;
+        width: 100%;
+    }
 }
