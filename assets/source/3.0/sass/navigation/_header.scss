@@ -11,3 +11,9 @@
   margin-right: calc((#{$base} * 2) / -1);
   color: $color-black;
 }
+
+.c-header.is-sticky {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}

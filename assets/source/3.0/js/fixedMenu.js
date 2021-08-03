@@ -6,7 +6,7 @@ export default function fixedMenu(Modularity) {
     
     function getDistance() {
       let topDist = header.offsetTop;
-      
+
       return topDist;
     }
     
@@ -15,12 +15,10 @@ export default function fixedMenu(Modularity) {
         let offset = window.pageYOffset;
 
         if ((distance <= 0) && !stuck) {
-            header.style.position = 'fixed';
-            header.style.width = '100%';
-            header.style.top = '0px';
+            header.classList.add('is-sticky');
             stuck = true;
         } else if (stuck && (offset <= stickPoint)) {
-            header.style.position = 'static';
+            header.classList.remove('is-sticky');
             stuck = false;
         }
     }
