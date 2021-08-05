@@ -3,6 +3,7 @@
         'classList' => [
             'c-nav--drawer',
             'c-nav--dark',
+            'site-nav-mobile__primary'
         ],
         'items' => $menuItems,
         'direction' => 'vertical',
@@ -13,6 +14,7 @@
         'classList' => [
             'c-nav--drawer',
             'c-nav--dark',
+            'site-nav-mobile__secondary'
         ],
         'items' => $secondaryMenuItems,
         'direction' => 'vertical',
