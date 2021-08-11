@@ -127,6 +127,9 @@ class BaseController
         //Secondary nav positions
         $this->data['secondaryNavPostion']  = $this->getNavPosition('secondary'); 
 
+        //Mobile Menu Drawer Style
+        $this->data['mobileMenuDrawerStyle'] = $this->getMobileDrawerStyle();
+
         //Column sizes
         $this->data['leftColumnSize']  = $this->getColumnSize('left'); 
         $this->data['rightColumnSize']  = $this->getColumnSize('right'); 
@@ -558,6 +561,17 @@ class BaseController
         //Return
         return (object) $logotype; 
     }
+
+
+    /**
+     * Retrieve and return style for mobile menu drawer
+     * @return void
+     */
+    public function getMobileDrawerStyle() {
+        $mod = get_theme_mods();
+        
+        return $mod['site']['field_61126702da36c'];
+     }
 
     /**
      * Runs after construct
