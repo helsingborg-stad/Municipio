@@ -3,6 +3,7 @@
         @if (is_active_sidebar('slider-area') === true )
             
             @includeIf('partials.sidebar', ['id' => 'slider-area', 'classes' => ['o-grid']])
+            @include('partials.navigation.fixed')
 
             {{-- Search in hero --}}
             @includeWhen($showHeroSearch, 'partials.search.hero-search-form')

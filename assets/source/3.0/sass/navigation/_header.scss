@@ -11,3 +11,23 @@
   margin-right: calc((#{$base} * 2) / -1);
   color: $color-black;
 }
+
+#fixed-header {
+    z-index: $level-6;
+}
+
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+    #fixed-header {
+        .c-nav {
+            flex-direction: column;
+        }
+    }
+}
+
+@include mq(md) {
+    .c-header.is-sticky {
+        position: fixed;
+        top: 0px;
+        width: 100%;
+    }
+}

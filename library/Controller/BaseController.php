@@ -85,8 +85,9 @@ class BaseController
         
         //Main Navigation ($menu, $pageId = null, $fallbackToPageTree = false, $includeTopLevel = true, $onlyKeepFirstLevel = false)
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
-        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
-        $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true);
+        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, true);
+        $this->data['singleMenuItems']   = $secondary->getMenuItems(false, $this->getPageID(), true, false);
+        $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems(false, $this->getPageID(), true, true);
 
         //Complementary navigations
         $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
@@ -125,6 +126,9 @@ class BaseController
 
         //Secondary nav positions
         $this->data['secondaryNavPostion']  = $this->getNavPosition('secondary'); 
+
+        //Mobile Menu Drawer Style
+        $this->data['mobileMenuDrawerStyle'] = $this->getMobileDrawerStyle();
 
         //Column sizes
         $this->data['leftColumnSize']  = $this->getColumnSize('left'); 
@@ -557,6 +561,17 @@ class BaseController
         //Return
         return (object) $logotype; 
     }
+
+
+    /**
+     * Retrieve and return style for mobile menu drawer
+     * @return void
+     */
+    public function getMobileDrawerStyle() {
+        $mod = get_theme_mods();
+        
+        return $mod['site']['field_61126702da36c'];
+     }
 
     /**
      * Runs after construct
