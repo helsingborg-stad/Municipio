@@ -18,7 +18,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ae0b05', 'municipio'),
+            'default_value' => '#ae0b05',
         ),
         1 => array(
             'key' => 'field_60364d06dc120',
@@ -33,7 +33,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#770000', 'municipio'),
+            'default_value' => '#770000',
         ),
         2 => array(
             'key' => 'field_603fba043ab30',
@@ -48,7 +48,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#e84c31', 'municipio'),
+            'default_value' => '#e84c31',
         ),
         3 => array(
             'key' => 'field_608c016efa73a',
@@ -78,7 +78,7 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => __('#ae0b05', 'municipio'),
+                    'default_value' => '#ae0b05',
                 ),
                 1 => array(
                     'key' => 'field_608c02dcfa73c',
@@ -130,7 +130,7 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => __('#ae0b05', 'municipio'),
+                    'default_value' => '#ae0b05',
                 ),
                 1 => array(
                     'key' => 'field_608c0375f70cf',
@@ -167,7 +167,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ec6701', 'municipio'),
+            'default_value' => '#ec6701',
         ),
         6 => array(
             'key' => 'field_603fbb7ad4ccf',
@@ -182,7 +182,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#b23700', 'municipio'),
+            'default_value' => '#b23700',
         ),
         7 => array(
             'key' => 'field_603fbbef1e2f8',
@@ -197,7 +197,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ff983e', 'municipio'),
+            'default_value' => '#ff983e',
         ),
         8 => array(
             'key' => 'field_608c038cf70d0',
@@ -227,7 +227,7 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => __('#ae0b05', 'municipio'),
+                    'default_value' => '#ae0b05',
                 ),
                 1 => array(
                     'key' => 'field_608c038cf70d2',
@@ -279,7 +279,7 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => __('#ae0b05', 'municipio'),
+                    'default_value' => '#ae0b05',
                 ),
                 1 => array(
                     'key' => 'field_608c03bcf70d5',
@@ -316,7 +316,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ec6701', 'municipio'),
+            'default_value' => '#ec6701',
         ),
         11 => array(
             'key' => 'field_608c0e813ef06',
@@ -331,7 +331,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#b23700', 'municipio'),
+            'default_value' => '#b23700',
         ),
         12 => array(
             'key' => 'field_608c0e8c3ef07',
@@ -346,7 +346,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ff983e', 'municipio'),
+            'default_value' => '#ff983e',
         ),
         13 => array(
             'key' => 'field_608c0ea33ef08',
@@ -376,7 +376,7 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => __('#ae0b05', 'municipio'),
+                    'default_value' => '#ae0b05',
                 ),
                 1 => array(
                     'key' => 'field_608c0ea33ef0a',
@@ -428,7 +428,7 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => __('#ae0b05', 'municipio'),
+                    'default_value' => '#ae0b05',
                 ),
                 1 => array(
                     'key' => 'field_608c0eae3ef0d',
@@ -465,7 +465,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#000000', 'municipio'),
+            'default_value' => '#000000',
         ),
         16 => array(
             'key' => 'field_608680ef879b7',
@@ -480,7 +480,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ae0b05', 'municipio'),
+            'default_value' => '#ae0b05',
         ),
         17 => array(
             'key' => 'field_60868147879b8',
@@ -495,7 +495,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#000000', 'municipio'),
+            'default_value' => '#000000',
         ),
         18 => array(
             'key' => 'field_6086819f879b9',
@@ -510,7 +510,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#770000', 'municipio'),
+            'default_value' => '#770000',
         ),
         19 => array(
             'key' => 'field_608681df879ba',
@@ -525,12 +525,12 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#ae0b05', 'municipio'),
+            'default_value' => '#ae0b05',
         ),
         20 => array(
             'key' => 'field_60911ccc38857',
             'label' => __('Complementary color -    illustration / header', 'municipio'),
-            'name' => 'municipio_color_complementary_1',
+            'name' => 'municipio_color_complementary',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -540,12 +540,12 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#dec2c2', 'municipio'),
+            'default_value' => '#dec2c2',
         ),
         21 => array(
             'key' => 'field_6091280638858',
             'label' => __('Complementary color -    button / line', 'municipio'),
-            'name' => 'municipio_color_complementary_2',
+            'name' => 'municipio_color_complementary_light',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -555,12 +555,12 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#F0DBD9', 'municipio'),
+            'default_value' => '#F0DBD9',
         ),
         22 => array(
             'key' => 'field_6091282d38859',
             'label' => __('Complementary color -    input', 'municipio'),
-            'name' => 'municipio_color_complementary_2',
+            'name' => 'municipio_color_complementary_lighter',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -570,12 +570,12 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#F5E4E3', 'municipio'),
+            'default_value' => '#F5E4E3',
         ),
         23 => array(
             'key' => 'field_609128593885a',
             'label' => __('Complementary color - card', 'municipio'),
-            'name' => 'municipio_color_complementary_4',
+            'name' => 'municipio_color_complementary_lightest',
             'type' => 'color_picker',
             'instructions' => '',
             'required' => 1,
@@ -585,7 +585,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'default_value' => __('#FAEEEC', 'municipio'),
+            'default_value' => '#FAEEEC',
         ),
     ),
     'location' => array(
