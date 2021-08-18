@@ -14,7 +14,7 @@
     @if($showSidebars)
 
         @if($secondaryNavPostion == 'left') 
-            @includeIf('partials.navigation.sidebar', ['menuItems' => $singleMenuItems])
+            @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
         @endif
 
         @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
@@ -58,7 +58,7 @@
     @if($showSidebars)
 
         @if($secondaryNavPostion == 'right') 
-            @includeIf('partials.navigation.sidebar', ['menuItems' => $singleMenuItems])
+            @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
         @endif
 
         @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
