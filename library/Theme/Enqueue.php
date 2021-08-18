@@ -131,7 +131,7 @@ class Enqueue
 
         wp_register_script('pre-styleguide-js', false, false, false, true);
 
-        wp_localize_script('blabla', 'localizedMonths', array(
+        wp_localize_script('pre-styleguide-js', 'localizedMonths', array(
             ucFirst(__('January')),
             ucFirst(__('February')),
             ucFirst(__('March')),
