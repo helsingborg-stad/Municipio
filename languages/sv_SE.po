@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-06-17 11:56+0200\n"
-"PO-Revision-Date: 2021-06-17 11:56+0200\n"
+"POT-Creation-Date: 2021-08-18 09:04+0200\n"
+"PO-Revision-Date: 2021-08-18 09:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -223,6 +223,48 @@ msgstr ""
 msgid "#FAEEEC"
 msgstr ""
 
+#: library/AcfFields/php/customizer-column-size.php:6
+#, fuzzy
+#| msgid "Grid columns"
+msgid "Column size"
+msgstr "Kolumner i rutnät"
+
+#: library/AcfFields/php/customizer-column-size.php:10
+#: library/AcfFields/php/customizer-menu-position.php:22
+#: library/AcfFields/php/widget-header-common.php:102
+msgid "Left"
+msgstr "Vänster"
+
+#: library/AcfFields/php/customizer-column-size.php:22
+#: library/AcfFields/php/customizer-column-size.php:47
+#, fuzzy
+#| msgid "Formats"
+msgid "Normal"
+msgstr "Inläggsformat"
+
+#: library/AcfFields/php/customizer-column-size.php:23
+#: library/AcfFields/php/customizer-column-size.php:48
+#: library/AcfFields/php/customizer-radius.php:72
+#: library/AcfFields/php/navigation-widget.php:352
+#: library/AcfFields/php/options-theme-editor-formats.php:24
+#: library/AcfFields/php/widget-header-common.php:131
+#: library/AcfFields/php/widget-header-links.php:293
+#: library/AcfFields/php/widget-header-menu.php:50
+msgid "Large"
+msgstr "Stor"
+
+#: library/AcfFields/php/customizer-column-size.php:35
+#: library/AcfFields/php/customizer-menu-position.php:23
+#: library/AcfFields/php/widget-header-common.php:103
+msgid "Right"
+msgstr "Höger"
+
+#: library/AcfFields/php/customizer-column-size.php:50
+#, fuzzy
+#| msgid "Formats"
+msgid "normal"
+msgstr "Inläggsformat"
+
 #: library/AcfFields/php/customizer-design-share-load.php:8
 msgid "Avabile Designs"
 msgstr ""
@@ -245,6 +287,36 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-design-share-load.php:25
 msgid "Helsingborg.se - Colors (https://helsingborg.se )"
+msgstr ""
+
+#: library/AcfFields/php/customizer-menu-position.php:6
+#, fuzzy
+#| msgid "Primary navigation"
+msgid "Secondary navigation"
+msgstr "Huvudmeny"
+
+#: library/AcfFields/php/customizer-menu-position.php:10
+#, fuzzy
+#| msgid "Secondary Light Color"
+msgid "Secondary navigation position"
+msgstr "Sekundär ljus färg"
+
+#: library/AcfFields/php/customizer-menu-position.php:24
+msgid "Hidden"
+msgstr ""
+
+#: library/AcfFields/php/customizer-menu-position.php:35
+#, fuzzy
+#| msgid "Menu type"
+msgid "Mobile menu style"
+msgstr "Typ av meny"
+
+#: library/AcfFields/php/customizer-menu-position.php:47
+msgid "Monotone"
+msgstr ""
+
+#: library/AcfFields/php/customizer-menu-position.php:48
+msgid "Duotone"
 msgstr ""
 
 #: library/AcfFields/php/customizer-modules.php:6
@@ -411,15 +483,6 @@ msgstr "Liten"
 msgid "Medium"
 msgstr "Mellan"
 
-#: library/AcfFields/php/customizer-radius.php:72
-#: library/AcfFields/php/navigation-widget.php:352
-#: library/AcfFields/php/options-theme-editor-formats.php:24
-#: library/AcfFields/php/widget-header-common.php:131
-#: library/AcfFields/php/widget-header-links.php:293
-#: library/AcfFields/php/widget-header-menu.php:50
-msgid "Large"
-msgstr "Stor"
-
 #: library/AcfFields/php/customizer-width.php:6
 msgid "Site Width"
 msgstr ""
@@ -551,6 +614,44 @@ msgstr "Slogan i sidhuvud"
 msgid "Add section"
 msgstr "Lägg till ikon"
 
+#: library/AcfFields/php/options-menu-floating.php:6
+#: library/Theme/Navigation.php:72
+#, fuzzy
+#| msgid "Main menu"
+msgid "Floating menu"
+msgstr "Huvudmeny"
+
+#: library/AcfFields/php/options-menu-floating.php:10
+#, fuzzy
+#| msgid "A button block"
+msgid "Toggle button label"
+msgstr "Block för knapp"
+
+#: library/AcfFields/php/options-menu-floating.php:13
+msgid "What the label for toggling should say."
+msgstr ""
+
+#: library/AcfFields/php/options-menu-floating.php:21
+#, fuzzy
+#| msgid "Main menu"
+msgid "Open menu"
+msgstr "Huvudmeny"
+
+#: library/AcfFields/php/options-menu-floating.php:29
+#, fuzzy
+#| msgid "Toggle Control"
+msgid "Toggle button icon"
+msgstr "Växla kontroll"
+
+#: library/AcfFields/php/options-menu-floating.php:40
+#: library/AcfFields/php/options-menu-icon.php:77
+msgid "apps"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-floating.php:48
+msgid "Popup heading"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:6
 #: library/AcfFields/php/options-theme-custom-post-type.php:81
 msgid "Menu icon"
@@ -560,6 +661,4668 @@ msgstr "Menyikon"
 #: library/AcfFields/php/options-theme-google-translate.php:73
 msgid "Icon"
 msgstr "Ikon"
+
+#: library/AcfFields/php/options-menu-icon.php:22
+msgid "360"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:23
+#, fuzzy
+#| msgid "Local"
+msgid "3d_rotation"
+msgstr "Lokal miljö"
+
+#: library/AcfFields/php/options-menu-icon.php:24
+msgid "4k"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:25
+msgid "ac_unit"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:26
+msgid "access_alarm"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:27
+msgid "access_alarms"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:28
+msgid "access_time"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:29
+#, fuzzy
+#| msgid "Visibility"
+msgid "accessibility"
+msgstr "Synbarhet"
+
+#: library/AcfFields/php/options-menu-icon.php:30
+msgid "accessibility_new"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:31
+msgid "accessible"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:32
+msgid "accessible_forward"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:33
+msgid "account_balance"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:34
+msgid "account_balance_wallet"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:35
+msgid "account_box"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:36
+msgid "account_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:37
+msgid "account_tree"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:38
+#, fuzzy
+#| msgid "Tab"
+msgid "adb"
+msgstr "Flik"
+
+#: library/AcfFields/php/options-menu-icon.php:39
+#, fuzzy
+#| msgid "and"
+msgid "add"
+msgstr "och"
+
+#: library/AcfFields/php/options-menu-icon.php:40
+msgid "add_a_photo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:41
+msgid "add_alarm"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:42
+msgid "add_alert"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:43
+msgid "add_box"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:44
+msgid "add_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:45
+msgid "add_circle_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:46
+#, fuzzy
+#| msgid "Comments"
+msgid "add_comment"
+msgstr "Kommentarer"
+
+#: library/AcfFields/php/options-menu-icon.php:47
+msgid "add_photo_alternate"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:48
+msgid "add_shopping_cart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:49
+msgid "add_to_home_screen"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:50
+msgid "add_to_photos"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:51
+msgid "add_to_queue"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:52
+#, fuzzy
+#| msgid "justify"
+msgid "adjust"
+msgstr "justify"
+
+#: library/AcfFields/php/options-menu-icon.php:53
+msgid "airline_seat_flat"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:54
+msgid "airline_seat_flat_angled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:55
+msgid "airline_seat_individual_suite"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:56
+msgid "airline_seat_legroom_extra"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:57
+msgid "airline_seat_legroom_normal"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:58
+msgid "airline_seat_legroom_reduced"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:59
+msgid "airline_seat_recline_extra"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:60
+msgid "airline_seat_recline_normal"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:61
+msgid "airplanemode_active"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:62
+msgid "airplanemode_inactive"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:63
+#, fuzzy
+#| msgid "Display"
+msgid "airplay"
+msgstr "Visa"
+
+#: library/AcfFields/php/options-menu-icon.php:64
+msgid "airport_shuttle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:65
+msgid "alarm"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:66
+msgid "alarm_add"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:67
+msgid "alarm_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:68
+msgid "alarm_on"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:69
+msgid "album"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:70
+msgid "all_inbox"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:71
+msgid "all_inclusive"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:72
+msgid "all_out"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:73
+#, fuzzy
+#| msgid "Categories"
+msgid "amp_stories"
+msgstr "Kategorier"
+
+#: library/AcfFields/php/options-menu-icon.php:74
+msgid "android"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:75
+#, fuzzy
+#| msgid "Placement"
+msgid "announcement"
+msgstr "Placering"
+
+#: library/AcfFields/php/options-menu-icon.php:76
+msgid "apartment"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:78
+msgid "archive"
+msgstr "archive"
+
+#: library/AcfFields/php/options-menu-icon.php:79
+msgid "arrow_back"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:80
+msgid "arrow_back_ios"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:81
+msgid "arrow_downward"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:82
+msgid "arrow_drop_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:83
+msgid "arrow_drop_down_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:84
+msgid "arrow_drop_up"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:85
+msgid "arrow_forward"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:86
+msgid "arrow_forward_ios"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:87
+msgid "arrow_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:88
+msgid "arrow_right"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:89
+msgid "arrow_right_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:90
+msgid "arrow_upward"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:91
+msgid "art_track"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:92
+msgid "aspect_ratio"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:93
+#, fuzzy
+#| msgid "Placement"
+msgid "assessment"
+msgstr "Placering"
+
+#: library/AcfFields/php/options-menu-icon.php:94
+#, fuzzy
+#| msgid "Menu items alignment"
+msgid "assignment"
+msgstr "Justering för menylternativ"
+
+#: library/AcfFields/php/options-menu-icon.php:95
+msgid "assignment_ind"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:96
+msgid "assignment_late"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:97
+msgid "assignment_return"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:98
+msgid "assignment_returned"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:99
+msgid "assignment_turned_in"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:100
+msgid "assistant"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:101
+msgid "assistant_photo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:102
+msgid "atm"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:103
+#, fuzzy
+#| msgid "Attached files"
+msgid "attach_file"
+msgstr "Bifogade filer"
+
+#: library/AcfFields/php/options-menu-icon.php:104
+#, fuzzy
+#| msgid "Placement"
+msgid "attach_money"
+msgstr "Placering"
+
+#: library/AcfFields/php/options-menu-icon.php:105
+#, fuzzy
+#| msgid "Placement"
+msgid "attachment"
+msgstr "Placering"
+
+#: library/AcfFields/php/options-menu-icon.php:106
+msgid "audiotrack"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:107
+#, fuzzy
+#| msgid "auto"
+msgid "autorenew"
+msgstr "auto"
+
+#: library/AcfFields/php/options-menu-icon.php:108
+msgid "av_timer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:109
+msgid "backspace"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:110
+#, fuzzy
+#| msgid "Go back"
+msgid "backup"
+msgstr "Gå bakåt"
+
+#: library/AcfFields/php/options-menu-icon.php:111
+msgid "ballot"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:112
+msgid "bar_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:113
+msgid "bathtub"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:114
+msgid "battery_alert"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:115
+msgid "battery_charging_full"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:116
+msgid "battery_full"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:117
+msgid "battery_std"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:118
+msgid "battery_unknown"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:119
+msgid "beach_access"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:120
+msgid "beenhere"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:121
+msgid "block"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:122
+msgid "bluetooth"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:123
+msgid "bluetooth_audio"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:124
+msgid "bluetooth_connected"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:125
+msgid "bluetooth_disabled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:126
+msgid "bluetooth_searching"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:127
+msgid "blur_circular"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:128
+msgid "blur_linear"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:129
+msgid "blur_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:130
+msgid "blur_on"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:131
+msgid "book"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:132
+msgid "bookmark"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:133
+msgid "bookmark_border"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:134
+msgid "bookmarks"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:135
+msgid "border_all"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:136
+msgid "border_bottom"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:137
+msgid "border_clear"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:138
+#, fuzzy
+#| msgid "Horizontal"
+msgid "border_horizontal"
+msgstr "Horisontell"
+
+#: library/AcfFields/php/options-menu-icon.php:139
+msgid "border_inner"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:140
+msgid "border_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:141
+msgid "border_outer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:142
+#, fuzzy
+#| msgid "Sidebar right"
+msgid "border_right"
+msgstr "Sidopanel höger"
+
+#: library/AcfFields/php/options-menu-icon.php:143
+#, fuzzy
+#| msgid "Header tagline"
+msgid "border_style"
+msgstr "Slogan i sidhuvud"
+
+#: library/AcfFields/php/options-menu-icon.php:144
+msgid "border_top"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:145
+#, fuzzy
+#| msgid "Article"
+msgid "border_vertical"
+msgstr "Artikel"
+
+#: library/AcfFields/php/options-menu-icon.php:146
+msgid "branding_watermark"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:147
+#, fuzzy
+#| msgid "business"
+msgid "brightness_1"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:148
+#, fuzzy
+#| msgid "business"
+msgid "brightness_2"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:149
+#, fuzzy
+#| msgid "business"
+msgid "brightness_3"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:150
+#, fuzzy
+#| msgid "business"
+msgid "brightness_4"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:151
+#, fuzzy
+#| msgid "business"
+msgid "brightness_5"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:152
+#, fuzzy
+#| msgid "business"
+msgid "brightness_6"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:153
+#, fuzzy
+#| msgid "business"
+msgid "brightness_7"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:154
+msgid "brightness_auto"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:155
+msgid "brightness_high"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:156
+msgid "brightness_low"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:157
+msgid "brightness_medium"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:158
+msgid "broken_image"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:159
+msgid "brush"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:160
+msgid "bubble_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:161
+msgid "bug_report"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:162
+msgid "build"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:163
+msgid "burst_mode"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:164
+msgid "business"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:165
+#, fuzzy
+#| msgid "business"
+msgid "business_center"
+msgstr "business"
+
+#: library/AcfFields/php/options-menu-icon.php:166
+msgid "cached"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:167
+msgid "cake"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:168
+msgid "calendar_today"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:169
+msgid "calendar_view_day"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:170
+msgid "call"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:171
+msgid "call_end"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:172
+msgid "call_made"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:173
+msgid "call_merge"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:174
+msgid "call_missed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:175
+msgid "call_missed_outgoing"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:176
+msgid "call_received"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:177
+msgid "call_split"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:178
+#, fuzzy
+#| msgid "Call to action text"
+msgid "call_to_action"
+msgstr "Call to action text"
+
+#: library/AcfFields/php/options-menu-icon.php:179
+msgid "camera"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:180
+msgid "camera_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:181
+msgid "camera_enhance"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:182
+msgid "camera_front"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:183
+msgid "camera_rear"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:184
+msgid "camera_roll"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:185
+#, fuzzy
+#| msgid "Cancel"
+msgid "cancel"
+msgstr "Avbryt"
+
+#: library/AcfFields/php/options-menu-icon.php:186
+msgid "cancel_presentation"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:187
+#, fuzzy
+#| msgid "Rescheduled"
+msgid "cancel_schedule_send"
+msgstr "Omplanerat"
+
+#: library/AcfFields/php/options-menu-icon.php:188
+msgid "card_giftcard"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:189
+msgid "card_membership"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:190
+msgid "card_travel"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:191
+msgid "casino"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:192
+msgid "cast"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:193
+msgid "cast_connected"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:194
+#, fuzzy
+#| msgid "No categories"
+msgid "category"
+msgstr "Inga kategorier"
+
+#: library/AcfFields/php/options-menu-icon.php:195
+msgid "center_focus_strong"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:196
+msgid "center_focus_weak"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:197
+msgid "change_history"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:198
+msgid "chat"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:199
+msgid "chat_bubble"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:200
+msgid "chat_bubble_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:201
+#, fuzzy
+#| msgid "checked"
+msgid "check"
+msgstr "markerad"
+
+#: library/AcfFields/php/options-menu-icon.php:202
+#, fuzzy
+#| msgid "checked"
+msgid "check_box"
+msgstr "markerad"
+
+#: library/AcfFields/php/options-menu-icon.php:203
+msgid "check_box_outline_blank"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:204
+#, fuzzy
+#| msgid "checked"
+msgid "check_circle"
+msgstr "markerad"
+
+#: library/AcfFields/php/options-menu-icon.php:205
+msgid "check_circle_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:206
+msgid "chevron_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:207
+msgid "chevron_right"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:208
+msgid "child_care"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:209
+msgid "child_friendly"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:210
+msgid "chrome_reader_mode"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:211
+#, fuzzy
+#| msgid "Icon class"
+msgid "class"
+msgstr "Ikonens klass"
+
+#: library/AcfFields/php/options-menu-icon.php:212
+msgid "clear"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:213
+msgid "clear_all"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:214
+msgid "close"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:215
+#, fuzzy
+#| msgid "Local"
+msgid "closed_caption"
+msgstr "Lokal miljö"
+
+#: library/AcfFields/php/options-menu-icon.php:216
+msgid "cloud"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:217
+msgid "cloud_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:218
+msgid "cloud_done"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:219
+#, fuzzy
+#| msgid "Download"
+msgid "cloud_download"
+msgstr "Ladda ner"
+
+#: library/AcfFields/php/options-menu-icon.php:220
+msgid "cloud_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:221
+msgid "cloud_queue"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:222
+msgid "cloud_upload"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:223
+msgid "code"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:224
+#, fuzzy
+#| msgid "Active"
+msgid "collections"
+msgstr "Aktivera"
+
+#: library/AcfFields/php/options-menu-icon.php:225
+msgid "collections_bookmark"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:226
+#, fuzzy
+#| msgid "Colors"
+msgid "color_lens"
+msgstr "Färger"
+
+#: library/AcfFields/php/options-menu-icon.php:227
+#, fuzzy
+#| msgid "Color"
+msgid "colorize"
+msgstr "Färg"
+
+#: library/AcfFields/php/options-menu-icon.php:228
+#, fuzzy
+#| msgid "Comments"
+msgid "comment"
+msgstr "Kommentarer"
+
+#: library/AcfFields/php/options-menu-icon.php:229
+msgid "commute"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:230
+msgid "compare"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:231
+msgid "compare_arrows"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:232
+msgid "compass_calibration"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:233
+msgid "computer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:234
+msgid "confirmation_number"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:235
+#, fuzzy
+#| msgid "Contact"
+msgid "contact_mail"
+msgstr "Kontakt"
+
+#: library/AcfFields/php/options-menu-icon.php:236
+#, fuzzy
+#| msgid "Contact person"
+msgid "contact_phone"
+msgstr "Kontaktperson"
+
+#: library/AcfFields/php/options-menu-icon.php:237
+#, fuzzy
+#| msgid "Contacts"
+msgid "contact_support"
+msgstr "Kontakter"
+
+#: library/AcfFields/php/options-menu-icon.php:238
+#, fuzzy
+#| msgid "Contacts"
+msgid "contactless"
+msgstr "Kontakter"
+
+#: library/AcfFields/php/options-menu-icon.php:239
+#, fuzzy
+#| msgid "Contacts"
+msgid "contacts"
+msgstr "Kontakter"
+
+#: library/AcfFields/php/options-menu-icon.php:240
+msgid "control_camera"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:241
+msgid "control_point"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:242
+msgid "control_point_duplicate"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:243
+#, fuzzy
+#| msgid "copy"
+msgid "copyright"
+msgstr "kopiera"
+
+#: library/AcfFields/php/options-menu-icon.php:244
+#, fuzzy
+#| msgid "Created by"
+msgid "create"
+msgstr "Skapad av"
+
+#: library/AcfFields/php/options-menu-icon.php:245
+msgid "create_new_folder"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:246
+msgid "credit_card"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:247
+msgid "crop"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:248
+msgid "crop_16_9"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:249
+msgid "crop_3_2"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:250
+msgid "crop_5_4"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:251
+msgid "crop_7_5"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:252
+msgid "crop_din"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:253
+msgid "crop_free"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:254
+msgid "crop_landscape"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:255
+msgid "crop_original"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:256
+msgid "crop_portrait"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:257
+msgid "crop_rotate"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:258
+msgid "crop_square"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:259
+msgid "dashboard"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:260
+msgid "data_usage"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:261
+#, fuzzy
+#| msgid "Featured Image"
+msgid "date_range"
+msgstr "Utvald bild"
+
+#: library/AcfFields/php/options-menu-icon.php:262
+msgid "deck"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:263
+msgid "dehaze"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:264
+#, fuzzy
+#| msgid "Delete"
+msgid "delete"
+msgstr "Radera"
+
+#: library/AcfFields/php/options-menu-icon.php:265
+msgid "delete_forever"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:266
+msgid "delete_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:267
+msgid "delete_sweep"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:268
+msgid "departure_board"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:269
+#, fuzzy
+#| msgid "Description"
+msgid "description"
+msgstr "Beskrivning"
+
+#: library/AcfFields/php/options-menu-icon.php:270
+msgid "desktop_access_disabled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:271
+msgid "desktop_mac"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:272
+msgid "desktop_windows"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:273
+#, fuzzy
+#| msgid "Collapsed"
+msgid "details"
+msgstr "Infälld"
+
+#: library/AcfFields/php/options-menu-icon.php:274
+msgid "developer_board"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:275
+msgid "developer_mode"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:276
+msgid "device_hub"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:277
+msgid "device_unknown"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:278
+msgid "devices"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:279
+msgid "devices_other"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:280
+msgid "dialer_sip"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:281
+msgid "dialpad"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:282
+#, fuzzy
+#| msgid "Direction"
+msgid "directions"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:283
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_bike"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:284
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_boat"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:285
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_bus"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:286
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_car"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:287
+msgid "directions_railway"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:288
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_run"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:289
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_subway"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:290
+msgid "directions_transit"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:291
+#, fuzzy
+#| msgid "Direction"
+msgid "directions_walk"
+msgstr "Riktning"
+
+#: library/AcfFields/php/options-menu-icon.php:292
+msgid "disc_full"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:293
+#, fuzzy
+#| msgid "Add-ons"
+msgid "dns"
+msgstr "Tillägg"
+
+#: library/AcfFields/php/options-menu-icon.php:294
+msgid "dock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:295
+#, fuzzy
+#| msgid "Disable blog"
+msgid "domain_disabled"
+msgstr "Inaktivera blogg"
+
+#: library/AcfFields/php/options-menu-icon.php:296
+msgid "done"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:297
+msgid "done_all"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:298
+msgid "done_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:299
+msgid "donut_large"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:300
+msgid "donut_small"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:301
+msgid "double_arrow"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:302
+#, fuzzy
+#| msgid "Draft"
+msgid "drafts"
+msgstr "Utkast"
+
+#: library/AcfFields/php/options-menu-icon.php:303
+msgid "drag_handle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:304
+msgid "drag_indicator"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:305
+msgid "drive_eta"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:306
+msgid "duo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:307
+msgid "dvr"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:308
+msgid "dynamic_feed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:309
+#, fuzzy
+#| msgid "seconds"
+msgid "eco"
+msgstr "sekunder"
+
+#: library/AcfFields/php/options-menu-icon.php:310
+msgid "edit"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:311
+#, fuzzy
+#| msgid "Page Attributes"
+msgid "edit_attributes"
+msgstr "Sidattribut"
+
+#: library/AcfFields/php/options-menu-icon.php:312
+#, fuzzy
+#| msgid "Icon Object"
+msgid "eject"
+msgstr "Ikonobjekt"
+
+#: library/AcfFields/php/options-menu-icon.php:313
+#, fuzzy
+#| msgid "Email"
+msgid "email"
+msgstr "Epost"
+
+#: library/AcfFields/php/options-menu-icon.php:314
+#, fuzzy
+#| msgid "Theme options"
+msgid "emoji_emotions"
+msgstr "Temainställningar"
+
+#: library/AcfFields/php/options-menu-icon.php:315
+#, fuzzy
+#| msgid "Placement"
+msgid "emoji_events"
+msgstr "Placering"
+
+#: library/AcfFields/php/options-menu-icon.php:316
+msgid "emoji_flags"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:317
+msgid "emoji_food_beverage"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:318
+msgid "emoji_nature"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:319
+msgid "emoji_objects"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:320
+msgid "emoji_people"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:321
+msgid "emoji_symbols"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:322
+msgid "emoji_transportation"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:323
+msgid "enhanced_encryption"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:324
+msgid "equalizer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:325
+#, fuzzy
+#| msgid "Error"
+msgid "error"
+msgstr "Fel"
+
+#: library/AcfFields/php/options-menu-icon.php:326
+msgid "error_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:327
+msgid "euro"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:328
+msgid "euro_symbol"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:329
+#, fuzzy
+#| msgid "Invitation"
+msgid "ev_station"
+msgstr "Inbjudan"
+
+#: library/AcfFields/php/options-menu-icon.php:330
+msgid "event"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:331
+msgid "event_available"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:332
+msgid "event_busy"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:333
+msgid "event_note"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:334
+msgid "event_seat"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:335
+msgid "exit_to_app"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:336
+msgid "expand_less"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:337
+#, fuzzy
+#| msgid "Read more"
+msgid "expand_more"
+msgstr "Läs mer"
+
+#: library/AcfFields/php/options-menu-icon.php:338
+msgid "explicit"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:339
+msgid "explore"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:340
+msgid "explore_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:341
+msgid "exposure"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:342
+msgid "exposure_neg_1"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:343
+msgid "exposure_neg_2"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:344
+msgid "exposure_plus_1"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:345
+msgid "exposure_plus_2"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:346
+msgid "exposure_zero"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:347
+#, fuzzy
+#| msgid "Dimension"
+msgid "extension"
+msgstr "Dimension"
+
+#: library/AcfFields/php/options-menu-icon.php:348
+msgid "face"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:349
+msgid "fast_forward"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:350
+msgid "fast_rewind"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:351
+msgid "fastfood"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:352
+msgid "favorite"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:353
+msgid "favorite_border"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:354
+msgid "featured_play_list"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:355
+#, fuzzy
+#| msgid "Featured image"
+msgid "featured_video"
+msgstr "Utvald bild"
+
+#: library/AcfFields/php/options-menu-icon.php:356
+msgid "feedback"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:357
+msgid "fiber_dvr"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:358
+msgid "fiber_manual_record"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:359
+msgid "fiber_new"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:360
+msgid "fiber_pin"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:361
+msgid "fiber_smart_record"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:362
+#, fuzzy
+#| msgid "copy"
+msgid "file_copy"
+msgstr "kopiera"
+
+#: library/AcfFields/php/options-menu-icon.php:363
+#, fuzzy
+#| msgid "Filter"
+msgid "filter"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:364
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_1"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:365
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_2"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:366
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_3"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:367
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_4"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:368
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_5"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:369
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_6"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:370
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_7"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:371
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_8"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:372
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_9"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:373
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_9_plus"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:374
+msgid "filter_b_and_w"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:375
+msgid "filter_center_focus"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:376
+msgid "filter_drama"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:377
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_frames"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:378
+msgid "filter_hdr"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:379
+#, fuzzy
+#| msgid "Filter"
+msgid "filter_list"
+msgstr "Filtrera"
+
+#: library/AcfFields/php/options-menu-icon.php:380
+msgid "filter_none"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:381
+msgid "filter_tilt_shift"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:382
+msgid "filter_vintage"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:383
+msgid "find_in_page"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:384
+msgid "find_replace"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:385
+msgid "fingerprint"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:386
+msgid "fireplace"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:387
+#, fuzzy
+#| msgid "Front page"
+msgid "first_page"
+msgstr "Startsida"
+
+#: library/AcfFields/php/options-menu-icon.php:388
+msgid "fitness_center"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:389
+msgid "flag"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:390
+msgid "flare"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:391
+msgid "flash_auto"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:392
+msgid "flash_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:393
+msgid "flash_on"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:394
+#, fuzzy
+#| msgid "Right"
+msgid "flight"
+msgstr "Höger"
+
+#: library/AcfFields/php/options-menu-icon.php:395
+msgid "flight_land"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:396
+msgid "flight_takeoff"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:397
+msgid "flip"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:398
+msgid "flip_camera_android"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:399
+msgid "flip_camera_ios"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:400
+msgid "flip_to_back"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:401
+msgid "flip_to_front"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:402
+msgid "folder"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:403
+msgid "folder_open"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:404
+msgid "folder_shared"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:405
+msgid "folder_special"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:406
+#, fuzzy
+#| msgid "Download"
+msgid "font_download"
+msgstr "Ladda ner"
+
+#: library/AcfFields/php/options-menu-icon.php:407
+msgid "format_align_center"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:408
+msgid "format_align_justify"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:409
+msgid "format_align_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:410
+msgid "format_align_right"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:411
+msgid "format_bold"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:412
+msgid "format_clear"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:413
+msgid "format_color_reset"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:414
+msgid "format_indent_decrease"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:415
+msgid "format_indent_increase"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:416
+#, fuzzy
+#| msgid "Formats"
+msgid "format_italic"
+msgstr "Inläggsformat"
+
+#: library/AcfFields/php/options-menu-icon.php:417
+msgid "format_line_spacing"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:418
+msgid "format_list_bulleted"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:419
+msgid "format_list_numbered"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:420
+msgid "format_list_numbered_rtl"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:421
+#, fuzzy
+#| msgid "Formats"
+msgid "format_paint"
+msgstr "Inläggsformat"
+
+#: library/AcfFields/php/options-menu-icon.php:422
+msgid "format_quote"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:423
+#, fuzzy
+#| msgid "Formats"
+msgid "format_shapes"
+msgstr "Inläggsformat"
+
+#: library/AcfFields/php/options-menu-icon.php:424
+#, fuzzy
+#| msgid "Formats"
+msgid "format_size"
+msgstr "Inläggsformat"
+
+#: library/AcfFields/php/options-menu-icon.php:425
+msgid "format_strikethrough"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:426
+msgid "format_textdirection_l_to_r"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:427
+msgid "format_textdirection_r_to_l"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:428
+#, fuzzy
+#| msgid "Underline"
+msgid "format_underlined"
+msgstr "Understruken"
+
+#: library/AcfFields/php/options-menu-icon.php:429
+msgid "forum"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:430
+msgid "forward"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:431
+msgid "forward_10"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:432
+msgid "forward_30"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:433
+msgid "forward_5"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:434
+msgid "free_breakfast"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:435
+msgid "fullscreen"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:436
+msgid "fullscreen_exit"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:437
+#, fuzzy
+#| msgid "Active"
+msgid "functions"
+msgstr "Aktivera"
+
+#: library/AcfFields/php/options-menu-icon.php:438
+#, fuzzy
+#| msgid "Google Translate"
+msgid "g_translate"
+msgstr "Google Translate"
+
+#: library/AcfFields/php/options-menu-icon.php:439
+msgid "gamepad"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:440
+msgid "games"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:441
+msgid "gavel"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:442
+#, fuzzy
+#| msgid "Future"
+msgid "gesture"
+msgstr "Framtid"
+
+#: library/AcfFields/php/options-menu-icon.php:443
+msgid "get_app"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:444
+msgid "gif"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:445
+msgid "golf_course"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:446
+msgid "gps_fixed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:447
+msgid "gps_not_fixed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:448
+msgid "gps_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:449
+#, fuzzy
+#| msgid "Upgrade"
+msgid "grade"
+msgstr "Uppgradera"
+
+#: library/AcfFields/php/options-menu-icon.php:450
+#, fuzzy
+#| msgid "Upgrade"
+msgid "gradient"
+msgstr "Uppgradera"
+
+#: library/AcfFields/php/options-menu-icon.php:451
+msgid "grain"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:452
+msgid "graphic_eq"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:453
+msgid "grid_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:454
+msgid "grid_on"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:455
+msgid "group"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:456
+msgid "group_add"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:457
+msgid "group_work"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:458
+msgid "hd"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:459
+msgid "hdr_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:460
+msgid "hdr_on"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:461
+msgid "hdr_strong"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:462
+msgid "hdr_weak"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:463
+msgid "headset"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:464
+msgid "headset_mic"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:465
+#, fuzzy
+#| msgid "Permalänk"
+msgid "healing"
+msgstr "Permalänk"
+
+#: library/AcfFields/php/options-menu-icon.php:466
+msgid "hearing"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:467
+#, fuzzy
+#| msgid "Height"
+msgid "height"
+msgstr "Höjd"
+
+#: library/AcfFields/php/options-menu-icon.php:468
+msgid "help"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:469
+msgid "help_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:470
+msgid "high_quality"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:471
+#, fuzzy
+#| msgid "Highlight"
+msgid "highlight"
+msgstr "Markering"
+
+#: library/AcfFields/php/options-menu-icon.php:472
+#, fuzzy
+#| msgid "Highlight"
+msgid "highlight_off"
+msgstr "Markering"
+
+#: library/AcfFields/php/options-menu-icon.php:473
+msgid "history"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:474
+msgid "home"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:475
+msgid "home_work"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:476
+#, fuzzy
+#| msgid "Horizontal"
+msgid "horizontal_split"
+msgstr "Horisontell"
+
+#: library/AcfFields/php/options-menu-icon.php:477
+msgid "hot_tub"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:478
+msgid "hotel"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:479
+msgid "hourglass_empty"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:480
+msgid "hourglass_full"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:481
+msgid "house"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:482
+msgid "how_to_reg"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:483
+msgid "how_to_vote"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:484
+msgid "http"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:485
+msgid "https"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:486
+#, fuzzy
+#| msgid "Add new"
+msgid "image"
+msgstr "Skapa ny"
+
+#: library/AcfFields/php/options-menu-icon.php:487
+msgid "image_aspect_ratio"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:488
+#, fuzzy
+#| msgid "Display search"
+msgid "image_search"
+msgstr "Visa sök"
+
+#: library/AcfFields/php/options-menu-icon.php:489
+#, fuzzy
+#| msgid "Contacts"
+msgid "import_contacts"
+msgstr "Kontakter"
+
+#: library/AcfFields/php/options-menu-icon.php:490
+msgid "import_export"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:491
+#, fuzzy
+#| msgid "Important Upgrade Notice:"
+msgid "important_devices"
+msgstr "Viktigt uppgraderingsmeddelande: "
+
+#: library/AcfFields/php/options-menu-icon.php:492
+msgid "inbox"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:493
+msgid "indeterminate_check_box"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:494
+msgid "info"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:495
+#, fuzzy
+#| msgid "CSS input"
+msgid "input"
+msgstr "Css"
+
+#: library/AcfFields/php/options-menu-icon.php:496
+msgid "insert_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:497
+msgid "insert_chart_outlined"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:498
+#, fuzzy
+#| msgid "Consent comment"
+msgid "insert_comment"
+msgstr "Samtyckes kommentar"
+
+#: library/AcfFields/php/options-menu-icon.php:499
+msgid "insert_drive_file"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:500
+#, fuzzy
+#| msgid "Insert Icon"
+msgid "insert_emoticon"
+msgstr "Välj ikon"
+
+#: library/AcfFields/php/options-menu-icon.php:501
+#, fuzzy
+#| msgid "Group invitation"
+msgid "insert_invitation"
+msgstr "Inbjudan till grupp"
+
+#: library/AcfFields/php/options-menu-icon.php:502
+#, fuzzy
+#| msgid "Permalänk"
+msgid "insert_link"
+msgstr "Permalänk"
+
+#: library/AcfFields/php/options-menu-icon.php:503
+msgid "insert_photo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:504
+#, fuzzy
+#| msgid "Link to search"
+msgid "invert_colors"
+msgstr "Länk till sök"
+
+#: library/AcfFields/php/options-menu-icon.php:505
+#, fuzzy
+#| msgid "Link to search"
+msgid "invert_colors_off"
+msgstr "Länk till sök"
+
+#: library/AcfFields/php/options-menu-icon.php:506
+#, fuzzy
+#| msgid "hits on"
+msgid "iso"
+msgstr "träffar på"
+
+#: library/AcfFields/php/options-menu-icon.php:507
+msgid "keyboard"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:508
+msgid "keyboard_arrow_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:509
+msgid "keyboard_arrow_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:510
+msgid "keyboard_arrow_right"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:511
+msgid "keyboard_arrow_up"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:512
+msgid "keyboard_backspace"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:513
+msgid "keyboard_capslock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:514
+msgid "keyboard_hide"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:515
+msgid "keyboard_return"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:516
+msgid "keyboard_tab"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:517
+msgid "keyboard_voice"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:518
+msgid "king_bed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:519
+msgid "kitchen"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:520
+#, fuzzy
+#| msgid "Label"
+msgid "label"
+msgstr "Etikett"
+
+#: library/AcfFields/php/options-menu-icon.php:521
+#, fuzzy
+#| msgid "Important"
+msgid "label_important"
+msgstr "Viktigt"
+
+#: library/AcfFields/php/options-menu-icon.php:522
+msgid "label_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:523
+msgid "landscape"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:524
+#, fuzzy
+#| msgid "Select language"
+msgid "language"
+msgstr "Välj språk"
+
+#: library/AcfFields/php/options-menu-icon.php:525
+msgid "laptop"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:526
+msgid "laptop_chromebook"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:527
+msgid "laptop_mac"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:528
+msgid "laptop_windows"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:529
+#, fuzzy
+#| msgid "page"
+msgid "last_page"
+msgstr "sida"
+
+#: library/AcfFields/php/options-menu-icon.php:530
+msgid "launch"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:531
+msgid "layers"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:532
+msgid "layers_clear"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:533
+msgid "leak_add"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:534
+msgid "leak_remove"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:535
+msgid "lens"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:536
+#, fuzzy
+#| msgid "Library"
+msgid "library_add"
+msgstr "Bibliotek "
+
+#: library/AcfFields/php/options-menu-icon.php:537
+#, fuzzy
+#| msgid "Library"
+msgid "library_books"
+msgstr "Bibliotek "
+
+#: library/AcfFields/php/options-menu-icon.php:538
+#, fuzzy
+#| msgid "Library"
+msgid "library_music"
+msgstr "Bibliotek "
+
+#: library/AcfFields/php/options-menu-icon.php:539
+msgid "line_style"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:540
+#, fuzzy
+#| msgid "Line Height"
+msgid "line_weight"
+msgstr "Radavstånd"
+
+#: library/AcfFields/php/options-menu-icon.php:541
+msgid "linear_scale"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:542
+#, fuzzy
+#| msgid "Permalänk"
+msgid "link"
+msgstr "Permalänk"
+
+#: library/AcfFields/php/options-menu-icon.php:543
+msgid "link_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:544
+msgid "linked_camera"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:545
+msgid "list"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:546
+msgid "list_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:547
+msgid "live_help"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:548
+msgid "live_tv"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:549
+msgid "local_activity"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:550
+msgid "local_airport"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:551
+msgid "local_atm"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:552
+msgid "local_bar"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:553
+msgid "local_cafe"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:554
+msgid "local_car_wash"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:555
+msgid "local_convenience_store"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:556
+msgid "local_dining"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:557
+msgid "local_drink"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:558
+msgid "local_florist"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:559
+msgid "local_gas_station"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:560
+msgid "local_grocery_store"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:561
+msgid "local_hospital"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:562
+msgid "local_hotel"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:563
+msgid "local_laundry_service"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:564
+#, fuzzy
+#| msgid "Library"
+msgid "local_library"
+msgstr "Bibliotek "
+
+#: library/AcfFields/php/options-menu-icon.php:565
+msgid "local_mall"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:566
+msgid "local_movies"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:567
+msgid "local_offer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:568
+msgid "local_parking"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:569
+msgid "local_pharmacy"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:570
+msgid "local_phone"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:571
+msgid "local_pizza"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:572
+msgid "local_play"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:573
+msgid "local_post_office"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:574
+msgid "local_printshop"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:575
+msgid "local_see"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:576
+msgid "local_shipping"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:577
+msgid "local_taxi"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:578
+#, fuzzy
+#| msgid "Local"
+msgid "location_city"
+msgstr "Lokal miljö"
+
+#: library/AcfFields/php/options-menu-icon.php:579
+msgid "location_disabled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:580
+#, fuzzy
+#| msgid "Relationship"
+msgid "location_searching"
+msgstr "Relation"
+
+#: library/AcfFields/php/options-menu-icon.php:581
+msgid "lock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:582
+msgid "lock_open"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:583
+msgid "looks"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:584
+msgid "looks_3"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:585
+msgid "looks_4"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:586
+msgid "looks_5"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:587
+msgid "looks_6"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:588
+msgid "looks_one"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:589
+msgid "looks_two"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:590
+msgid "loop"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:591
+msgid "loupe"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:592
+msgid "low_priority"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:593
+msgid "loyalty"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:594
+#, fuzzy
+#| msgid "Email"
+msgid "mail"
+msgstr "Epost"
+
+#: library/AcfFields/php/options-menu-icon.php:595
+msgid "mail_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:596
+msgid "map"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:597
+msgid "markunread"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:598
+msgid "markunread_mailbox"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:599
+msgid "maximize"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:600
+msgid "meeting_room"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:601
+msgid "memory"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:602
+#, fuzzy
+#| msgid "Help menu"
+msgid "menu"
+msgstr "Hjälpmeny"
+
+#: library/AcfFields/php/options-menu-icon.php:603
+msgid "menu_book"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:604
+msgid "menu_open"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:605
+msgid "merge_type"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:606
+#, fuzzy
+#| msgid "Message"
+msgid "message"
+msgstr "Meddelande"
+
+#: library/AcfFields/php/options-menu-icon.php:607
+msgid "mic"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:608
+msgid "mic_none"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:609
+msgid "mic_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:610
+msgid "minimize"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:611
+msgid "missed_video_call"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:612
+msgid "mms"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:613
+msgid "mobile_friendly"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:614
+msgid "mobile_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:615
+msgid "mobile_screen_share"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:616
+#, fuzzy
+#| msgid "Consent comment"
+msgid "mode_comment"
+msgstr "Samtyckes kommentar"
+
+#: library/AcfFields/php/options-menu-icon.php:617
+msgid "monetization_on"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:618
+msgid "money"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:619
+msgid "money_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:620
+msgid "monochrome_photos"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:621
+msgid "mood"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:622
+msgid "mood_bad"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:623
+#, fuzzy
+#| msgid "Read more"
+msgid "more"
+msgstr "Läs mer"
+
+#: library/AcfFields/php/options-menu-icon.php:624
+msgid "more_horiz"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:625
+msgid "more_vert"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:626
+msgid "motorcycle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:627
+msgid "mouse"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:628
+msgid "move_to_inbox"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:629
+msgid "movie"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:630
+#, fuzzy
+#| msgid "Local"
+msgid "movie_creation"
+msgstr "Lokal miljö"
+
+#: library/AcfFields/php/options-menu-icon.php:631
+msgid "movie_filter"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:632
+msgid "multiline_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:633
+msgid "museum"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:634
+msgid "music_note"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:635
+msgid "music_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:636
+msgid "music_video"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:637
+#, fuzzy
+#| msgid "Local"
+msgid "my_location"
+msgstr "Lokal miljö"
+
+#: library/AcfFields/php/options-menu-icon.php:638
+#, fuzzy
+#| msgid "Future"
+msgid "nature"
+msgstr "Framtid"
+
+#: library/AcfFields/php/options-menu-icon.php:639
+msgid "nature_people"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:640
+msgid "navigate_before"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:641
+#, fuzzy
+#| msgid "Navigation"
+msgid "navigate_next"
+msgstr "Navigering"
+
+#: library/AcfFields/php/options-menu-icon.php:642
+#, fuzzy
+#| msgid "Navigation"
+msgid "navigation"
+msgstr "Navigering"
+
+#: library/AcfFields/php/options-menu-icon.php:643
+msgid "near_me"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:644
+msgid "network_check"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:645
+msgid "network_locked"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:646
+msgid "new_releases"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:647
+msgid "next_week"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:648
+msgid "nfc"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:649
+msgid "nights_stay"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:650
+#, fuzzy
+#| msgid "Description"
+msgid "no_encryption"
+msgstr "Beskrivning"
+
+#: library/AcfFields/php/options-menu-icon.php:651
+msgid "no_meeting_room"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:652
+msgid "no_sim"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:653
+msgid "not_interested"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:654
+msgid "note"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:655
+msgid "note_add"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:656
+#, fuzzy
+#| msgid "Notes"
+msgid "notes"
+msgstr "Anteckningar"
+
+#: library/AcfFields/php/options-menu-icon.php:657
+msgid "notification_important"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:658
+#, fuzzy
+#| msgid "Local"
+msgid "notifications"
+msgstr "Lokal miljö"
+
+#: library/AcfFields/php/options-menu-icon.php:659
+msgid "notifications_active"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:660
+msgid "notifications_none"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:661
+msgid "notifications_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:662
+msgid "notifications_paused"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:663
+msgid "offline_bolt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:664
+msgid "offline_pin"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:665
+msgid "ondemand_video"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:666
+msgid "opacity"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:667
+msgid "open_in_browser"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:668
+msgid "open_in_new"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:669
+msgid "open_with"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:670
+msgid "outdoor_grill"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:671
+msgid "outlined_flag"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:672
+#, fuzzy
+#| msgid "page"
+msgid "pages"
+msgstr "sida"
+
+#: library/AcfFields/php/options-menu-icon.php:673
+#, fuzzy
+#| msgid "page"
+msgid "pageview"
+msgstr "sida"
+
+#: library/AcfFields/php/options-menu-icon.php:674
+#, fuzzy
+#| msgid "Palette"
+msgid "palette"
+msgstr "Palette"
+
+#: library/AcfFields/php/options-menu-icon.php:675
+msgid "pan_tool"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:676
+msgid "panorama"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:677
+msgid "panorama_fish_eye"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:678
+#, fuzzy
+#| msgid "Horizontal"
+msgid "panorama_horizontal"
+msgstr "Horisontell"
+
+#: library/AcfFields/php/options-menu-icon.php:679
+msgid "panorama_vertical"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:680
+msgid "panorama_wide_angle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:681
+msgid "party_mode"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:682
+msgid "pause"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:683
+msgid "pause_circle_filled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:684
+msgid "pause_circle_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:685
+msgid "pause_presentation"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:686
+#, fuzzy
+#| msgid "Placement"
+msgid "payment"
+msgstr "Placering"
+
+#: library/AcfFields/php/options-menu-icon.php:687
+msgid "people"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:688
+msgid "people_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:689
+msgid "people_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:690
+msgid "perm_camera_mic"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:691
+msgid "perm_contact_calendar"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:692
+msgid "perm_data_setting"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:693
+msgid "perm_device_information"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:694
+msgid "perm_identity"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:695
+msgid "perm_media"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:696
+msgid "perm_phone_msg"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:697
+msgid "perm_scan_wifi"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:698
+#, fuzzy
+#| msgid "Contact person"
+msgid "person"
+msgstr "Kontaktperson"
+
+#: library/AcfFields/php/options-menu-icon.php:699
+msgid "person_add"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:700
+msgid "person_add_disabled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:701
+msgid "person_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:702
+msgid "person_pin"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:703
+msgid "personal_video"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:704
+msgid "pets"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:705
+msgid "phone"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:706
+msgid "phone_android"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:707
+msgid "phone_bluetooth_speaker"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:708
+msgid "phone_callback"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:709
+#, fuzzy
+#| msgid "Disable blog"
+msgid "phone_disabled"
+msgstr "Inaktivera blogg"
+
+#: library/AcfFields/php/options-menu-icon.php:710
+#, fuzzy
+#| msgid "Enabled"
+msgid "phone_enabled"
+msgstr "Aktiverad"
+
+#: library/AcfFields/php/options-menu-icon.php:711
+msgid "phone_forwarded"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:712
+msgid "phone_in_talk"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:713
+msgid "phone_iphone"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:714
+#, fuzzy
+#| msgid "checked"
+msgid "phone_locked"
+msgstr "markerad"
+
+#: library/AcfFields/php/options-menu-icon.php:715
+msgid "phone_missed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:716
+msgid "phone_paused"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:717
+msgid "phonelink"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:718
+msgid "phonelink_erase"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:719
+msgid "phonelink_lock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:720
+msgid "phonelink_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:721
+msgid "phonelink_ring"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:722
+msgid "phonelink_setup"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:723
+msgid "photo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:724
+msgid "photo_album"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:725
+msgid "photo_camera"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:726
+msgid "photo_filter"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:727
+#, fuzzy
+#| msgid "Library"
+msgid "photo_library"
+msgstr "Bibliotek "
+
+#: library/AcfFields/php/options-menu-icon.php:728
+msgid "photo_size_select_actual"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:729
+msgid "photo_size_select_large"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:730
+msgid "photo_size_select_small"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:731
+msgid "picture_as_pdf"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:732
+msgid "picture_in_picture"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:733
+msgid "picture_in_picture_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:734
+msgid "pie_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:735
+msgid "play_arrow"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:736
+msgid "play_circle_filled"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:737
+msgid "play_circle_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:738
+msgid "play_for_work"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:739
+msgid "playlist_add"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:740
+msgid "playlist_add_check"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:741
+#, fuzzy
+#| msgid "Display"
+msgid "playlist_play"
+msgstr "Visa"
+
+#: library/AcfFields/php/options-menu-icon.php:742
+msgid "plus_one"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:743
+msgid "policy"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:744
+msgid "poll"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:745
+msgid "polymer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:746
+msgid "pool"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:747
+msgid "portable_wifi_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:748
+#, fuzzy
+#| msgid "Important"
+msgid "portrait"
+msgstr "Viktigt"
+
+#: library/AcfFields/php/options-menu-icon.php:749
+#, fuzzy
+#| msgid "post"
+msgid "post_add"
+msgstr "inlägg"
+
+#: library/AcfFields/php/options-menu-icon.php:750
+msgid "power"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:751
+msgid "power_input"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:752
+msgid "power_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:753
+msgid "power_settings_new"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:754
+msgid "pregnant_woman"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:755
+msgid "present_to_all"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:756
+#, fuzzy
+#| msgid "Print"
+msgid "print"
+msgstr "Skriv ut"
+
+#: library/AcfFields/php/options-menu-icon.php:757
+#, fuzzy
+#| msgid "Disable blog"
+msgid "print_disabled"
+msgstr "Inaktivera blogg"
+
+#: library/AcfFields/php/options-menu-icon.php:758
+msgid "priority_high"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:759
+#, fuzzy
+#| msgid "Public?"
+msgid "public"
+msgstr "Publik?"
+
+#: library/AcfFields/php/options-menu-icon.php:760
+#, fuzzy
+#| msgid "Published"
+msgid "publish"
+msgstr "Publicerad"
+
+#: library/AcfFields/php/options-menu-icon.php:761
+msgid "query_builder"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:762
+msgid "question_answer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:763
+msgid "queue"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:764
+msgid "queue_music"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:765
+msgid "queue_play_next"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:766
+#, fuzzy
+#| msgid "Radio"
+msgid "radio"
+msgstr "Alternativ"
+
+#: library/AcfFields/php/options-menu-icon.php:767
+msgid "radio_button_checked"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:768
+msgid "radio_button_unchecked"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:769
+#, fuzzy
+#| msgid "Live Preview"
+msgid "rate_review"
+msgstr "Förhandsgranskning"
+
+#: library/AcfFields/php/options-menu-icon.php:770
+msgid "receipt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:771
+msgid "recent_actors"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:772
+msgid "record_voice_over"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:773
+msgid "redeem"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:774
+msgid "redo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:775
+msgid "refresh"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:776
+#, fuzzy
+#| msgid "Remove"
+msgid "remove"
+msgstr "Ta bort"
+
+#: library/AcfFields/php/options-menu-icon.php:777
+msgid "remove_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:778
+msgid "remove_circle_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:779
+msgid "remove_from_queue"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:780
+msgid "remove_red_eye"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:781
+msgid "remove_shopping_cart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:782
+msgid "reorder"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:783
+#, fuzzy
+#| msgid "Repeater"
+msgid "repeat"
+msgstr "Upprepningsfält"
+
+#: library/AcfFields/php/options-menu-icon.php:784
+#, fuzzy
+#| msgid "Repeater"
+msgid "repeat_one"
+msgstr "Upprepningsfält"
+
+#: library/AcfFields/php/options-menu-icon.php:785
+#, fuzzy
+#| msgid "Display"
+msgid "replay"
+msgstr "Visa"
+
+#: library/AcfFields/php/options-menu-icon.php:786
+msgid "replay_10"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:787
+msgid "replay_30"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:788
+msgid "replay_5"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:789
+#, fuzzy
+#| msgid "Reply"
+msgid "reply"
+msgstr "Svara"
+
+#: library/AcfFields/php/options-menu-icon.php:790
+msgid "reply_all"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:791
+#, fuzzy
+#| msgid "Export"
+msgid "report"
+msgstr "Exportera  "
+
+#: library/AcfFields/php/options-menu-icon.php:792
+msgid "report_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:793
+msgid "report_problem"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:794
+msgid "restaurant"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:795
+msgid "restaurant_menu"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:796
+msgid "restore"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:797
+msgid "restore_from_trash"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:798
+#, fuzzy
+#| msgid "Share the page"
+msgid "restore_page"
+msgstr "Dela sidan"
+
+#: library/AcfFields/php/options-menu-icon.php:799
+msgid "ring_volume"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:800
+msgid "room"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:801
+msgid "room_service"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:802
+msgid "rotate_90_degrees_ccw"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:803
+msgid "rotate_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:804
+#, fuzzy
+#| msgid "Font Weight"
+msgid "rotate_right"
+msgstr "Typsnittsvikt"
+
+#: library/AcfFields/php/options-menu-icon.php:805
+msgid "rounded_corner"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:806
+msgid "router"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:807
+msgid "rowing"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:808
+msgid "rss_feed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:809
+msgid "rv_hookup"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:810
+#, fuzzy
+#| msgid "Visabllity"
+msgid "satellite"
+msgstr "Synbarhet"
+
+#: library/AcfFields/php/options-menu-icon.php:811
+msgid "save"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:812
+msgid "save_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:813
+msgid "scanner"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:814
+msgid "scatter_plot"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:815
+#, fuzzy
+#| msgid "Rescheduled"
+msgid "schedule"
+msgstr "Omplanerat"
+
+#: library/AcfFields/php/options-menu-icon.php:816
+msgid "school"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:817
+msgid "score"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:818
+msgid "screen_lock_landscape"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:819
+msgid "screen_lock_portrait"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:820
+msgid "screen_lock_rotation"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:821
+msgid "screen_rotation"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:822
+msgid "screen_share"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:823
+msgid "sd_card"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:824
+msgid "sd_storage"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:825
+#, fuzzy
+#| msgid "Search"
+msgid "search"
+msgstr "Sök"
+
+#: library/AcfFields/php/options-menu-icon.php:826
+msgid "security"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:827
+#, fuzzy
+#| msgid "Select"
+msgid "select_all"
+msgstr "Välj"
+
+#: library/AcfFields/php/options-menu-icon.php:828
+msgid "send"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:829
+msgid "sentiment_dissatisfied"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:830
+msgid "sentiment_satisfied"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:831
+msgid "sentiment_satisfied_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:832
+msgid "sentiment_very_dissatisfied"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:833
+msgid "sentiment_very_satisfied"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:834
+msgid "settings_applications"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:835
+msgid "settings_backup_restore"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:836
+msgid "settings_bluetooth"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:837
+msgid "settings_brightness"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:838
+#, fuzzy
+#| msgid "Below Settings"
+msgid "settings_cell"
+msgstr "Under inställningar"
+
+#: library/AcfFields/php/options-menu-icon.php:839
+msgid "settings_ethernet"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:840
+msgid "settings_input_antenna"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:841
+msgid "settings_input_component"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:842
+msgid "settings_input_composite"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:843
+msgid "settings_input_hdmi"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:844
+msgid "settings_input_svideo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:845
+msgid "settings_overscan"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:846
+#, fuzzy
+#| msgid "Below Settings"
+msgid "settings_phone"
+msgstr "Under inställningar"
+
+#: library/AcfFields/php/options-menu-icon.php:847
+#, fuzzy
+#| msgid "Below Settings"
+msgid "settings_power"
+msgstr "Under inställningar"
+
+#: library/AcfFields/php/options-menu-icon.php:848
+#, fuzzy
+#| msgid "Getting Started"
+msgid "settings_remote"
+msgstr "Komma igång"
+
+#: library/AcfFields/php/options-menu-icon.php:849
+msgid "settings_system_daydream"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:850
+#, fuzzy
+#| msgid "Below Settings"
+msgid "settings_voice"
+msgstr "Under inställningar"
+
+#: library/AcfFields/php/options-menu-icon.php:851
+#, fuzzy
+#| msgid "Share"
+msgid "share"
+msgstr "Dela"
+
+#: library/AcfFields/php/options-menu-icon.php:852
+msgid "shop"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:853
+msgid "shop_two"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:854
+msgid "shopping_basket"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:855
+msgid "shopping_cart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:856
+msgid "short_text"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:857
+msgid "show_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:858
+msgid "shuffle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:859
+msgid "shutter_speed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:860
+msgid "signal_cellular_4_bar"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:861
+msgid "signal_cellular_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:862
+msgid "signal_cellular_connected_no_internet_4_bar"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:863
+msgid "signal_cellular_no_sim"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:864
+msgid "signal_cellular_null"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:865
+msgid "signal_cellular_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:866
+msgid "signal_wifi_4_bar"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:867
+msgid "signal_wifi_4_bar_lock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:868
+msgid "signal_wifi_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:869
+msgid "sim_card"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:870
+msgid "single_bed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:871
+msgid "skip_next"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:872
+msgid "skip_previous"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:873
+msgid "slideshow"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:874
+msgid "slow_motion_video"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:875
+msgid "smartphone"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:876
+msgid "smoke_free"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:877
+msgid "smoking_rooms"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:878
+msgid "sms"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:879
+msgid "sms_failed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:880
+msgid "snooze"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:881
+msgid "sort"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:882
+msgid "sort_by_alpha"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:883
+#, fuzzy
+#| msgid "Display"
+msgid "spa"
+msgstr "Visa"
+
+#: library/AcfFields/php/options-menu-icon.php:884
+msgid "space_bar"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:885
+msgid "speaker"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:886
+msgid "speaker_group"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:887
+msgid "speaker_notes"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:888
+msgid "speaker_notes_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:889
+msgid "speaker_phone"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:890
+msgid "speed"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:891
+#, fuzzy
+#| msgid "Multicheck"
+msgid "spellcheck"
+msgstr "Flervalsalternativ"
+
+#: library/AcfFields/php/options-menu-icon.php:892
+#, fuzzy
+#| msgid "Export"
+msgid "sports"
+msgstr "Exportera  "
+
+#: library/AcfFields/php/options-menu-icon.php:893
+msgid "sports_baseball"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:894
+msgid "sports_basketball"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:895
+msgid "sports_cricket"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:896
+msgid "sports_esports"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:897
+msgid "sports_football"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:898
+msgid "sports_golf"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:899
+msgid "sports_handball"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:900
+msgid "sports_hockey"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:901
+msgid "sports_kabaddi"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:902
+msgid "sports_mma"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:903
+msgid "sports_motorsports"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:904
+msgid "sports_rugby"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:905
+msgid "sports_soccer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:906
+msgid "sports_tennis"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:907
+msgid "sports_volleyball"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:908
+msgid "square_foot"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:909
+msgid "star"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:910
+msgid "star_border"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:911
+msgid "star_half"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:912
+msgid "stars"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:913
+msgid "stay_current_landscape"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:914
+msgid "stay_current_portrait"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:915
+msgid "stay_primary_landscape"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:916
+msgid "stay_primary_portrait"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:917
+msgid "stop"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:918
+msgid "stop_screen_share"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:919
+msgid "storage"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:920
+msgid "store"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:921
+msgid "store_mall_directory"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:922
+msgid "storefront"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:923
+msgid "straighten"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:924
+msgid "streetview"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:925
+msgid "strikethrough_s"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:926
+#, fuzzy
+#| msgid "Style"
+msgid "style"
+msgstr "Stil"
+
+#: library/AcfFields/php/options-menu-icon.php:927
+msgid "subdirectory_arrow_left"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:928
+msgid "subdirectory_arrow_right"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:929
+#, fuzzy
+#| msgid "Posts by"
+msgid "subject"
+msgstr "Inlägg av"
+
+#: library/AcfFields/php/options-menu-icon.php:930
+#, fuzzy
+#| msgid "Description"
+msgid "subscriptions"
+msgstr "Beskrivning"
+
+#: library/AcfFields/php/options-menu-icon.php:931
+#, fuzzy
+#| msgid "Sub-title"
+msgid "subtitles"
+msgstr "Undertitel"
+
+#: library/AcfFields/php/options-menu-icon.php:932
+msgid "subway"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:933
+msgid "supervised_user_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:934
+msgid "supervisor_account"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:935
+msgid "surround_sound"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:936
+msgid "swap_calls"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:937
+msgid "swap_horiz"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:938
+msgid "swap_horizontal_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:939
+msgid "swap_vert"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:940
+msgid "swap_vertical_circle"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:941
+msgid "switch_camera"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:942
+msgid "switch_video"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:943
+msgid "sync"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:944
+msgid "sync_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:945
+#, fuzzy
+#| msgid "Disable blog"
+msgid "sync_disabled"
+msgstr "Inaktivera blogg"
+
+#: library/AcfFields/php/options-menu-icon.php:946
+msgid "sync_problem"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:947
+#, fuzzy
+#| msgid "Date updated"
+msgid "system_update"
+msgstr "Senast uppdaterad"
+
+#: library/AcfFields/php/options-menu-icon.php:948
+msgid "system_update_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:949
+#, fuzzy
+#| msgid "Tab"
+msgid "tab"
+msgstr "Flik"
+
+#: library/AcfFields/php/options-menu-icon.php:950
+msgid "tab_unselected"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:951
+msgid "table_chart"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:952
+#, fuzzy
+#| msgid "Sortable"
+msgid "tablet"
+msgstr "Sorterbar"
+
+#: library/AcfFields/php/options-menu-icon.php:953
+msgid "tablet_android"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:954
+msgid "tablet_mac"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:955
+msgid "tag_faces"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:956
+msgid "tap_and_play"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:957
+msgid "terrain"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:958
+#, fuzzy
+#| msgid "Parent %s"
+msgid "text_fields"
+msgstr "Förälder %s"
+
+#: library/AcfFields/php/options-menu-icon.php:959
+#, fuzzy
+#| msgid "Display settings"
+msgid "text_format"
+msgstr "Visningsinställningar"
+
+#: library/AcfFields/php/options-menu-icon.php:960
+msgid "text_rotate_up"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:961
+msgid "text_rotate_vertical"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:962
+msgid "text_rotation_angledown"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:963
+msgid "text_rotation_angleup"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:964
+msgid "text_rotation_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:965
+msgid "text_rotation_none"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:966
+#, fuzzy
+#| msgid "text"
+msgid "textsms"
+msgstr "text"
+
+#: library/AcfFields/php/options-menu-icon.php:967
+#, fuzzy
+#| msgid "text"
+msgid "texture"
+msgstr "text"
+
+#: library/AcfFields/php/options-menu-icon.php:968
+#, fuzzy
+#| msgid "Repeater"
+msgid "theaters"
+msgstr "Upprepningsfält"
+
+#: library/AcfFields/php/options-menu-icon.php:969
+msgid "thumb_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:970
+#, fuzzy
+#| msgid "Thumbnail"
+msgid "thumb_down_alt"
+msgstr "Tumnagelbild"
+
+#: library/AcfFields/php/options-menu-icon.php:971
+msgid "thumb_up"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:972
+msgid "thumb_up_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:973
+msgid "thumbs_up_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:974
+msgid "time_to_leave"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:975
+msgid "timelapse"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:976
+#, fuzzy
+#| msgid "Overline"
+msgid "timeline"
+msgstr "Överstruken"
+
+#: library/AcfFields/php/options-menu-icon.php:977
+msgid "timer"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:978
+msgid "timer_10"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:979
+msgid "timer_3"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:980
+msgid "timer_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:981
+#, fuzzy
+#| msgid "Title"
+msgid "title"
+msgstr "Titel"
+
+#: library/AcfFields/php/options-menu-icon.php:982
+#, fuzzy
+#| msgid "to"
+msgid "toc"
+msgstr "till"
+
+#: library/AcfFields/php/options-menu-icon.php:983
+#, fuzzy
+#| msgid "Today"
+msgid "today"
+msgstr "Idag"
+
+#: library/AcfFields/php/options-menu-icon.php:984
+msgid "toggle_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:985
+#, fuzzy
+#| msgid "Toggle Control"
+msgid "toggle_on"
+msgstr "Växla kontroll"
+
+#: library/AcfFields/php/options-menu-icon.php:986
+msgid "toll"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:987
+msgid "tonality"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:988
+msgid "touch_app"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:989
+msgid "toys"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:990
+msgid "track_changes"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:991
+msgid "traffic"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:992
+msgid "train"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:993
+msgid "tram"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:994
+msgid "transfer_within_a_station"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:995
+#, fuzzy
+#| msgid "Text Transform"
+msgid "transform"
+msgstr "Transformera text"
+
+#: library/AcfFields/php/options-menu-icon.php:996
+msgid "transit_enterexit"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:997
+#, fuzzy
+#| msgid "Google Translate"
+msgid "translate"
+msgstr "Google Translate"
+
+#: library/AcfFields/php/options-menu-icon.php:998
+msgid "trending_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:999
+msgid "trending_flat"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1000
+msgid "trending_up"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1001
+msgid "trip_origin"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1002
+msgid "tune"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1003
+msgid "turned_in"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1004
+msgid "turned_in_not"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1005
+msgid "tv"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1006
+msgid "tv_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1007
+#, fuzzy
+#| msgid "archive"
+msgid "unarchive"
+msgstr "archive"
+
+#: library/AcfFields/php/options-menu-icon.php:1008
+msgid "undo"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1009
+msgid "unfold_less"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1010
+msgid "unfold_more"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1011
+msgid "unsubscribe"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1012
+#, fuzzy
+#| msgid "Update"
+msgid "update"
+msgstr "Uppdatera"
+
+#: library/AcfFields/php/options-menu-icon.php:1013
+#, fuzzy
+#| msgid "sub"
+msgid "usb"
+msgstr "sub"
+
+#: library/AcfFields/php/options-menu-icon.php:1014
+msgid "verified_user"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1015
+msgid "vertical_align_bottom"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1016
+msgid "vertical_align_center"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1017
+msgid "vertical_align_top"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1018
+#, fuzzy
+#| msgid "Vertical position"
+msgid "vertical_split"
+msgstr "Vertikal positionering"
+
+#: library/AcfFields/php/options-menu-icon.php:1019
+#, fuzzy
+#| msgid "Navigation"
+msgid "vibration"
+msgstr "Navigering"
+
+#: library/AcfFields/php/options-menu-icon.php:1020
+msgid "video_call"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1021
+#, fuzzy
+#| msgid "Label"
+msgid "video_label"
+msgstr "Namn"
+
+#: library/AcfFields/php/options-menu-icon.php:1022
+#, fuzzy
+#| msgid "Library"
+msgid "video_library"
+msgstr "Bibliotek "
+
+#: library/AcfFields/php/options-menu-icon.php:1023
+msgid "videocam"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1024
+msgid "videocam_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1025
+msgid "videogame_asset"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1026
+msgid "view_agenda"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1027
+msgid "view_array"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1028
+msgid "view_carousel"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1029
+#, fuzzy
+#| msgid "Grid columns"
+msgid "view_column"
+msgstr "Kolumner i rutnät"
+
+#: library/AcfFields/php/options-menu-icon.php:1030
+msgid "view_comfy"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1031
+msgid "view_compact"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1032
+msgid "view_day"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1033
+msgid "view_headline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1034
+msgid "view_list"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1035
+msgid "view_module"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1036
+msgid "view_quilt"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1037
+msgid "view_stream"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1038
+msgid "view_week"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1039
+msgid "vignette"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1040
+#, fuzzy
+#| msgid "Visibility"
+msgid "visibility"
+msgstr "Synbarhet"
+
+#: library/AcfFields/php/options-menu-icon.php:1041
+#, fuzzy
+#| msgid "Visibility"
+msgid "visibility_off"
+msgstr "Synbarhet"
+
+#: library/AcfFields/php/options-menu-icon.php:1042
+msgid "voice_chat"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1043
+msgid "voice_over_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1044
+#, fuzzy
+#| msgid "Your email"
+msgid "voicemail"
+msgstr "Din e-postadress"
+
+#: library/AcfFields/php/options-menu-icon.php:1045
+msgid "volume_down"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1046
+msgid "volume_mute"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1047
+msgid "volume_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1048
+msgid "volume_up"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1049
+msgid "vpn_key"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1050
+msgid "vpn_lock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1051
+msgid "wallpaper"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1052
+msgid "warning"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1053
+msgid "watch"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1054
+msgid "watch_later"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1055
+msgid "waves"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1056
+#, fuzzy
+#| msgid "auto"
+msgid "wb_auto"
+msgstr "auto"
+
+#: library/AcfFields/php/options-menu-icon.php:1057
+msgid "wb_cloudy"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1058
+msgid "wb_incandescent"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1059
+msgid "wb_iridescent"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1060
+msgid "wb_sunny"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1061
+msgid "wc"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1062
+msgid "web"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1063
+msgid "web_asset"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1064
+msgid "whatshot"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1065
+msgid "where_to_vote"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1066
+#, fuzzy
+#| msgid "Media widget"
+msgid "widgets"
+msgstr "Mediawidget"
+
+#: library/AcfFields/php/options-menu-icon.php:1067
+msgid "wifi"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1068
+msgid "wifi_lock"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1069
+msgid "wifi_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1070
+msgid "wifi_tethering"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1071
+msgid "work"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1072
+msgid "work_off"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1073
+msgid "work_outline"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1074
+#, fuzzy
+#| msgid "text"
+msgid "wrap_text"
+msgstr "text"
+
+#: library/AcfFields/php/options-menu-icon.php:1075
+msgid "youtube_searched_for"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1076
+msgid "zoom_in"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1077
+msgid "zoom_out"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:1078
+msgid "zoom_out_map"
+msgstr ""
 
 #: library/AcfFields/php/options-page-display.php:12
 msgid "Show featured image in single template"
@@ -1335,14 +6098,6 @@ msgstr "Marginaler"
 msgid "Direction"
 msgstr "Riktning"
 
-#: library/AcfFields/php/widget-header-common.php:102
-msgid "Left"
-msgstr "Vänster"
-
-#: library/AcfFields/php/widget-header-common.php:103
-msgid "Right"
-msgstr "Höger"
-
 #: library/AcfFields/php/widget-header-common.php:104
 msgid "Left & Right"
 msgstr "Vänster & höger"
@@ -1454,30 +6209,6 @@ msgstr "Ladda upp bild"
 msgid "Media link"
 msgstr "Medialänk"
 
-#: library/Admin/Acf/Fields/Pricons.php:34
-msgid "Pricons"
-msgstr ""
-
-#: library/Admin/Acf/Fields/Pricons.php:59
-msgid "Error! Please enter a higher value"
-msgstr "Fel! Välj ett högre värde"
-
-#: library/Admin/Acf/Fields/Pricons.php:108
-msgid "Return Format"
-msgstr "Format"
-
-#: library/Admin/Acf/Fields/Pricons.php:113
-msgid "Icon class"
-msgstr "Ikonens klass"
-
-#: library/Admin/Acf/Fields/Pricons.php:114
-msgid "Icon name"
-msgstr "Ikonens namn"
-
-#: library/Admin/Acf/Fields/Pricons.php:115
-msgid "Icon unicode"
-msgstr "Ikonens teckenkod"
-
 #: library/Admin/General.php:106
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
@@ -1531,7 +6262,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:133
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:149
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -1754,73 +6485,73 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:123 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:139 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:124
+#: library/Controller/BaseController.php:140
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:125
+#: library/Controller/BaseController.php:141
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:126
+#: library/Controller/BaseController.php:142
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:127
+#: library/Controller/BaseController.php:143
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:128
+#: library/Controller/BaseController.php:144
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:129
+#: library/Controller/BaseController.php:145
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:130
+#: library/Controller/BaseController.php:146
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:131
+#: library/Controller/BaseController.php:147
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:132
+#: library/Controller/BaseController.php:148
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:134
+#: library/Controller/BaseController.php:150
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:135
+#: library/Controller/BaseController.php:151
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:136
+#: library/Controller/BaseController.php:152
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:137
+#: library/Controller/BaseController.php:153
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:138 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:154 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:139
+#: library/Controller/BaseController.php:155
 msgid "Site emblem"
 msgstr ""
 
@@ -1949,17 +6680,93 @@ msgstr "Sida (två kolumner)"
 msgid "Sidebar right"
 msgstr "Sidopanel höger"
 
-#: library/Theme/Enqueue.php:110
+#: library/Theme/Enqueue.php:111
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:113
+#: library/Theme/Enqueue.php:114
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:114
+#: library/Theme/Enqueue.php:115
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
+
+#: library/Theme/Enqueue.php:136
+msgid "January"
+msgstr ""
+
+#: library/Theme/Enqueue.php:137
+msgid "February"
+msgstr ""
+
+#: library/Theme/Enqueue.php:138
+#, fuzzy
+#| msgid "Search"
+msgid "March"
+msgstr "Sök"
+
+#: library/Theme/Enqueue.php:139
+msgid "April"
+msgstr ""
+
+#: library/Theme/Enqueue.php:140
+msgid "May"
+msgstr ""
+
+#: library/Theme/Enqueue.php:141
+msgid "June"
+msgstr ""
+
+#: library/Theme/Enqueue.php:142
+msgid "July"
+msgstr ""
+
+#: library/Theme/Enqueue.php:143
+msgid "August"
+msgstr ""
+
+#: library/Theme/Enqueue.php:144
+msgid "September"
+msgstr ""
+
+#: library/Theme/Enqueue.php:145
+#, fuzzy
+#| msgid "Number"
+msgid "November"
+msgstr "Nummer"
+
+#: library/Theme/Enqueue.php:146
+msgid "December"
+msgstr ""
+
+#: library/Theme/Enqueue.php:150
+msgid "Su"
+msgstr "Sö"
+
+#: library/Theme/Enqueue.php:151
+msgid "Mo"
+msgstr "Må"
+
+#: library/Theme/Enqueue.php:152
+msgid "Tu"
+msgstr "Ti"
+
+#: library/Theme/Enqueue.php:153
+msgid "We"
+msgstr "On"
+
+#: library/Theme/Enqueue.php:154
+msgid "Th"
+msgstr "To"
+
+#: library/Theme/Enqueue.php:155
+msgid "Fr"
+msgstr "Fr"
+
+#: library/Theme/Enqueue.php:156
+msgid "Sa"
+msgstr "Lö"
 
 #: library/Theme/General.php:254
 msgid "Print"
@@ -1969,27 +6776,27 @@ msgstr "Skriv ut"
 msgid "Select language"
 msgstr "Välj språk"
 
-#: library/Theme/Navigation.php:66
+#: library/Theme/Navigation.php:67
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:67
+#: library/Theme/Navigation.php:68
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:68
+#: library/Theme/Navigation.php:69
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Theme/Navigation.php:69
+#: library/Theme/Navigation.php:70
 msgid "Secondary menu & mobile menu"
 msgstr "Sekundär meny & Mobil meny"
 
-#: library/Theme/Navigation.php:70
+#: library/Theme/Navigation.php:71
 msgid "Dropdown menu"
 msgstr "Rullgardinsmeny"
 
-#: library/Theme/Navigation.php:71
+#: library/Theme/Navigation.php:73
 msgid "Language menu"
 msgstr "Språkmeny"
 
@@ -2360,6 +7167,18 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
+#~ msgid "Error! Please enter a higher value"
+#~ msgstr "Fel! Välj ett högre värde"
+
+#~ msgid "Return Format"
+#~ msgstr "Format"
+
+#~ msgid "Icon name"
+#~ msgstr "Ikonens namn"
+
+#~ msgid "Icon unicode"
+#~ msgstr "Ikonens teckenkod"
+
 #, fuzzy
 #~| msgid "Below Links"
 #~ msgid "Dropdown Links"
@@ -2477,12 +7296,6 @@ msgstr ""
 #~ msgid "Font Size"
 #~ msgstr "Teckesnittsstorlek"
 
-#~ msgid "Font Weight"
-#~ msgstr "Typsnittsvikt"
-
-#~ msgid "Line Height"
-#~ msgstr "Radavstånd"
-
 #~ msgid "Font Style"
 #~ msgstr "Typsnittsstil"
 
@@ -2506,9 +7319,6 @@ msgstr ""
 
 #~ msgid "Width"
 #~ msgstr "Bredd"
-
-#~ msgid "Height"
-#~ msgstr "Höjd"
 
 #~ msgid "row"
 #~ msgstr "rad"
@@ -2570,20 +7380,11 @@ msgstr ""
 #~ msgid "Justify"
 #~ msgstr "Fyll bredd"
 
-#~ msgid "Text Transform"
-#~ msgstr "Transformera text"
-
 #~ msgid "Initial"
 #~ msgstr "Standard"
 
 #~ msgid "Text Decoration"
 #~ msgstr "Textdekoration"
-
-#~ msgid "Underline"
-#~ msgstr "Understruken"
-
-#~ msgid "Overline"
-#~ msgstr "Överstruken"
 
 #~ msgid "Line-Through"
 #~ msgstr "Genomstruken"
@@ -2612,9 +7413,6 @@ msgstr ""
 #~ msgid "Date"
 #~ msgstr "Datum"
 
-#~ msgid "Dimension"
-#~ msgstr "Dimension"
-
 #~ msgid "Dimensions"
 #~ msgstr "Dimensioner"
 
@@ -2624,37 +7422,11 @@ msgstr ""
 #~ msgid "Generic"
 #~ msgstr "Allmän"
 
-#, fuzzy
-#~| msgid "Add new"
-#~ msgid "Image"
-#~ msgstr "Skapa ny"
-
-#~ msgid "Multicheck"
-#~ msgstr "Flervalsalternativ"
-
 #~ msgid "Multicolor"
 #~ msgstr "Multifärg"
 
-#~ msgid "Number"
-#~ msgstr "Nummer"
-
-#~ msgid "Palette"
-#~ msgstr "Palette"
-
 #~ msgid "Preset"
 #~ msgstr "Förval"
-
-#~ msgid "Radio"
-#~ msgstr "Alternativ"
-
-#~ msgid "Repeater"
-#~ msgstr "Upprepningsfält"
-
-#~ msgid "Sortable"
-#~ msgstr "Sorterbar"
-
-#~ msgid "Description"
-#~ msgstr "Beskrivning"
 
 #~ msgid "Color-Palette"
 #~ msgstr "Färgpalett"
@@ -2705,9 +7477,6 @@ msgstr ""
 
 #~ msgid "Option 5"
 #~ msgstr "Val 5"
-
-#~ msgid "Label"
-#~ msgstr "Etikett"
 
 #~ msgid "Hover"
 #~ msgstr "Hovra"
@@ -2774,17 +7543,6 @@ msgstr ""
 
 #~ msgid "Switch Control with custom labels"
 #~ msgstr "Växla kontroll med anpassade etiketter"
-
-#~ msgid "Enabled"
-#~ msgstr "Aktiverad"
-
-#, fuzzy
-#~| msgid "Disable blog"
-#~ msgid "Disabled"
-#~ msgstr "Inaktivera blogg"
-
-#~ msgid "Toggle Control"
-#~ msgstr "Växla kontroll"
 
 #~ msgid "Typography Control Label"
 #~ msgstr "Etikett för typografikontroll"
@@ -2861,9 +7619,6 @@ msgstr ""
 
 #~ msgid "Ultra-Bold 900 Italic"
 #~ msgstr "Ultrafet 900 kursiv"
-
-#~ msgid "Important Upgrade Notice:"
-#~ msgstr "Viktigt uppgraderingsmeddelande: "
 
 #~ msgid "Navigation settings"
 #~ msgstr "Navigationsinställningar"
@@ -2967,9 +7722,6 @@ msgstr ""
 #~ "Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt "
 #~ "och passar bäst på mörka eller färgade bakgrunder."
 
-#~ msgid "Display search"
-#~ msgstr "Visa sök"
-
 #~ msgid "In front-page hero/slider"
 #~ msgstr "Hero på startsidan"
 
@@ -3066,9 +7818,6 @@ msgstr ""
 #~ msgid "Field group draft updated."
 #~ msgstr "Fältgruppsutkast uppdaterat."
 
-#~ msgid "Thumbnail"
-#~ msgstr "Tumnagelbild"
-
 #~ msgid "Full"
 #~ msgstr "Fullständig"
 
@@ -3079,9 +7828,6 @@ msgstr ""
 #~| msgid "Last updated"
 #~ msgid "Post updated"
 #~ msgstr "Senast uppdaterad"
-
-#~ msgid "Add-ons"
-#~ msgstr "Tillägg"
 
 #~ msgid "Repeater Field"
 #~ msgstr "Repeaterfält"
@@ -3158,12 +7904,6 @@ msgstr ""
 
 #~ msgid "Purchase & Install"
 #~ msgstr "Köp och installera"
-
-#~ msgid "Download"
-#~ msgstr "Ladda ner"
-
-#~ msgid "Export"
-#~ msgstr "Exportera  "
 
 #~ msgid "Export Field Groups"
 #~ msgstr "Exportera fältgrupper"
@@ -3261,9 +8001,6 @@ msgstr ""
 #~ msgid "Instructions"
 #~ msgstr "Aktivera"
 
-#~ msgid "Notes"
-#~ msgstr "Anteckningar"
-
 #~ msgid "Include in theme"
 #~ msgstr "Inkludera i tema"
 
@@ -3298,9 +8035,6 @@ msgstr ""
 #~ msgid "Move to trash. Are you sure?"
 #~ msgstr "Flytta till papperskorgen. Är du säker?"
 
-#~ msgid "checked"
-#~ msgstr "markerad"
-
 #~ msgid "No toggle fields available"
 #~ msgstr "Inga växelfält finns tillgängliga"
 
@@ -3309,9 +8043,6 @@ msgstr ""
 #~ msgid "Field group title is required"
 #~ msgstr "Publiceringsdatum"
 
-#~ msgid "copy"
-#~ msgstr "kopiera"
-
 #~ msgid "or"
 #~ msgstr "eller"
 
@@ -3319,11 +8050,6 @@ msgstr ""
 #~| msgid "Field&nbsp;Groups"
 #~ msgid "Fields"
 #~ msgstr "Fältgrupper"
-
-#, fuzzy
-#~| msgid "Parent %s"
-#~ msgid "Parent fields"
-#~ msgstr "Förälder %s"
 
 #~ msgid "Sibling fields"
 #~ msgstr "Syskonfält"
@@ -3374,12 +8100,6 @@ msgstr ""
 #~ msgid "Pending Review"
 #~ msgstr "Inväntar granskning"
 
-#~ msgid "Draft"
-#~ msgstr "Utkast"
-
-#~ msgid "Future"
-#~ msgstr "Framtid"
-
 #, fuzzy
 #~| msgid "Revisions"
 #~ msgid "Revision"
@@ -3394,9 +8114,6 @@ msgstr ""
 #~ msgid "All"
 #~ msgstr "Alla"
 
-#~ msgid "Title"
-#~ msgstr "Titel"
-
 #, fuzzy
 #~| msgid "Changelog for"
 #~ msgid "Changelog"
@@ -3405,37 +8122,16 @@ msgstr ""
 #~ msgid "Resources"
 #~ msgstr "Resurser"
 
-#~ msgid "Getting Started"
-#~ msgstr "Komma igång"
-
 #, fuzzy
 #~| msgid "Custom Post Types"
 #~ msgid "Field Types"
 #~ msgstr "Egna inläggstyper"
-
-#, fuzzy
-#~| msgid "Active"
-#~ msgid "Functions"
-#~ msgstr "Aktivera"
-
-#, fuzzy
-#~| msgid "Active"
-#~ msgid "Actions"
-#~ msgstr "Aktivera"
-
-#, fuzzy
-#~| msgid "Filter"
-#~ msgid "Filters"
-#~ msgstr "Filtrera"
 
 #~ msgid "'How to' guides"
 #~ msgstr "Guider"
 
 #~ msgid "Tutorials"
 #~ msgstr "Guider"
-
-#~ msgid "Created by"
-#~ msgstr "Skapad av"
 
 #~ msgid "Thank you for updating to the latest version!"
 #~ msgstr "Tack för att du uppdaterade till den senaste versionen!"
@@ -3476,9 +8172,6 @@ msgstr ""
 #~ msgid "Custom Field Types"
 #~ msgstr "Egna inläggstyper"
 
-#~ msgid "Important"
-#~ msgstr "Viktigt"
-
 #~ msgid "Database Changes"
 #~ msgstr "Databasförändringar"
 
@@ -3493,11 +8186,6 @@ msgstr ""
 
 #~ msgid "Learn more"
 #~ msgstr "Ta reda på mer"
-
-#, fuzzy
-#~| msgid "Live Preview"
-#~ msgid "Overview"
-#~ msgstr "Förhandsgranskning"
 
 #, fuzzy
 #~| msgid "Available post types"
@@ -3535,19 +8223,11 @@ msgstr ""
 
 #, fuzzy
 #~| msgid "Collapsed"
-#~ msgid "Expand Details"
-#~ msgstr "Infälld"
-
-#, fuzzy
-#~| msgid "Collapsed"
 #~ msgid "Collapse Details"
 #~ msgstr "Infälld"
 
 #~ msgid "Validation Failed. One or more fields below are required."
 #~ msgstr "Validering misslyckades. Ett eller flera fält nedan krävs."
-
-#~ msgid "Upgrade"
-#~ msgstr "Uppgradera"
 
 #~ msgid "Choice"
 #~ msgstr "Val"
@@ -3573,14 +8253,6 @@ msgstr ""
 #~ msgstr "Ange varje standardvärde på en ny rad"
 
 #, fuzzy
-#~| msgid "Article"
-#~ msgid "Vertical"
-#~ msgstr "Artikel"
-
-#~ msgid "Horizontal"
-#~ msgstr "Horisontell"
-
-#, fuzzy
 #~| msgid "Color scheme"
 #~ msgid "Color Picker"
 #~ msgstr "Färgschema"
@@ -3593,16 +8265,8 @@ msgstr ""
 #~ msgid "Done"
 #~ msgstr "Klar"
 
-#~ msgid "Today"
-#~ msgstr "Idag"
-
 #~ msgid "Show a different month"
 #~ msgstr "Visa en annan månad"
-
-#, fuzzy
-#~| msgid "Display settings"
-#~ msgid "Save format"
-#~ msgstr "Visningsinställningar"
 
 #~ msgid ""
 #~ "This format will determine the value saved to the database and returned "
@@ -3673,19 +8337,11 @@ msgstr ""
 #~ msgid "Return Value"
 #~ msgstr "Returnera värde"
 
-#, fuzzy
-#~| msgid "Icon Object"
-#~ msgid "File Object"
-#~ msgstr "Ikonobjekt"
-
 #~ msgid "File URL"
 #~ msgstr "Fil-URL"
 
 #~ msgid "File ID"
 #~ msgstr "Fil-ID"
-
-#~ msgid "Library"
-#~ msgstr "Bibliotek "
 
 #~ msgid "Uploaded to post"
 #~ msgstr "Uppladdad till post"
@@ -3734,11 +8390,6 @@ msgstr ""
 #~| msgid "Add new"
 #~ msgid "Edit Image"
 #~ msgstr "Skapa ny"
-
-#, fuzzy
-#~| msgid "Featured Image"
-#~ msgid "Update Image"
-#~ msgstr "Utvald bild"
 
 #~ msgid "Specify the returned value on front end"
 #~ msgstr "Specificera värdet som ska visas för besökare"
@@ -3803,11 +8454,6 @@ msgstr ""
 #~ msgid "Password"
 #~ msgstr "Lösenord"
 
-#, fuzzy
-#~| msgid "Posts by"
-#~ msgid "Post Object"
-#~ msgstr "Inlägg av"
-
 #~ msgid "(no title)"
 #~ msgstr "(ingen titel)"
 
@@ -3839,9 +8485,6 @@ msgstr ""
 #~ msgid "Save 'other' values to the field's choices"
 #~ msgstr "Spara 'andra' värden till fältets val"
 
-#~ msgid "Relationship"
-#~ msgstr "Relation"
-
 #~ msgid "Maximum values reached ( {max} values )"
 #~ msgstr "Maximalt antal värden nåddes ({max} värden)"
 
@@ -3868,11 +8511,6 @@ msgstr ""
 #~ msgid "Post Type Select"
 #~ msgstr "Inläggstyper"
 
-#, fuzzy
-#~| msgid "Placement"
-#~ msgid "Elements"
-#~ msgstr "Placering"
-
 #~ msgid "Selected elements will be displayed in each result"
 #~ msgstr "Markerade element visas i varje resultat"
 
@@ -3883,9 +8521,6 @@ msgstr ""
 
 #~ msgid "Maximum posts"
 #~ msgstr "Max antal inlägg"
-
-#~ msgid "Tab"
-#~ msgstr "Flik"
 
 #~ msgid ""
 #~ "Use \"Tab Fields\" to better organize your edit screen by grouping your "
@@ -3956,11 +8591,6 @@ msgstr ""
 #~ msgid "Affects value on front end"
 #~ msgstr "Specificera värdet som ska visas för besökare"
 
-#, fuzzy
-#~| msgid "Formats"
-#~ msgid "No formatting"
-#~ msgstr "Inläggsformat"
-
 #~ msgid "Convert HTML into tags"
 #~ msgstr "Konvertera HTML till taggar"
 
@@ -4018,11 +8648,6 @@ msgstr ""
 
 #, fuzzy
 #~| msgid "Label"
-#~ msgid "Field Label"
-#~ msgstr "Namn"
-
-#, fuzzy
-#~| msgid "Label"
 #~ msgid "Field Name"
 #~ msgstr "Namn"
 
@@ -4051,9 +8676,6 @@ msgstr ""
 
 #~ msgid "Delete this Field"
 #~ msgstr "Ta bort det här fältet"
-
-#~ msgid "Delete"
-#~ msgstr "Radera"
 
 #~ msgid "This is the name which will appear on the EDIT page"
 #~ msgstr "Detta är namnet som kommer att dyka upp på ÄNDRA-sidan"
@@ -4163,17 +8785,9 @@ msgstr ""
 #~ msgstr "Inläggstyper"
 
 #, fuzzy
-#~| msgid "Placement"
-#~ msgid "Attachment"
-#~ msgstr "Placering"
-
-#, fuzzy
 #~| msgid "Taxonomies"
 #~ msgid "Taxonomy Term"
 #~ msgstr "Taxonomies"
-
-#~ msgid "and"
-#~ msgstr "och"
 
 #~ msgid "Add rule group"
 #~ msgstr "Lägg till regelgrupp"
@@ -4222,11 +8836,6 @@ msgstr ""
 #~ "den först förekommande fältgruppen. "
 
 #, fuzzy
-#~| msgid "Permalänk"
-#~ msgid "Permalink"
-#~ msgstr "Permalänk"
-
-#, fuzzy
 #~| msgid "Content editor"
 #~ msgid "Content Editor"
 #~ msgstr "Innehållsförfattare"
@@ -4234,27 +8843,11 @@ msgstr ""
 #~ msgid "Discussion"
 #~ msgstr "Diskussioner"
 
-#~ msgid "Slug"
-#~ msgstr "Länk"
-
-#, fuzzy
-#~| msgid "Formats"
-#~ msgid "Format"
-#~ msgstr "Inläggsformat"
-
 #~ msgid "Send Trackbacks"
 #~ msgstr "Spårning"
 
-#, fuzzy
-#~| msgid "Below Settings"
-#~ msgid "FAB settings"
-#~ msgstr "Under inställningar"
-
 #~ msgid "WP Menu"
 #~ msgstr "WP Meny"
-
-#~ msgid "Visabllity"
-#~ msgstr "Synbarhet"
 
 #~ msgid "Hide on extra small devices"
 #~ msgstr "Göm på små enheter"
@@ -4276,9 +8869,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Undertitel kan användas som ett komplement till en logotyp eller sidtitel"
 
-#~ msgid "Sub-title"
-#~ msgstr "Undertitel"
-
 #~ msgid "HTML allowed"
 #~ msgstr "HTML accepteras"
 
@@ -4293,9 +8883,6 @@ msgstr ""
 
 #~ msgid "Show social media share buttons"
 #~ msgstr "Visa delningsknappar"
-
-#~ msgid "Share"
-#~ msgstr "Dela"
 
 #~ msgid "Show author's image"
 #~ msgstr "Visa författarens bild"
@@ -4390,9 +8977,6 @@ msgstr ""
 
 #~ msgid "Automatically generated"
 #~ msgstr "Automatiskt genererad"
-
-#~ msgid "Menu type"
-#~ msgstr "Typ av meny"
 
 #~ msgid "Yes, display second menu level to active first level menu item"
 #~ msgstr "Ja, visa sekundär menynivå till aktivt menyval i förstanivå"
@@ -4501,9 +9085,6 @@ msgstr ""
 #~ msgid "Back button (previous page in browser history)"
 #~ msgstr "Tillbaka-knapp (bakåt i webbläsarens historik)"
 
-#~ msgid "Display"
-#~ msgstr "Visa"
-
 #~ msgid "Home link text"
 #~ msgstr "Text på hemknapp"
 
@@ -4532,9 +9113,6 @@ msgstr ""
 
 #~ msgid "Fixed to bottom of window"
 #~ msgstr "Fixerad till botten av fönstret"
-
-#~ msgid "Placement"
-#~ msgstr "Placering"
 
 #~ msgid ""
 #~ "Enter your JS-code here. It will be wrapped with \"script\" tags and "
@@ -4589,9 +9167,6 @@ msgstr ""
 #~ msgid "Below footer content"
 #~ msgstr "Under footerinnehåll"
 
-#~ msgid "Vertical position"
-#~ msgstr "Vertikal positionering"
-
 #~ msgid ""
 #~ "Adds a button that scrolls the user to the very top of the page. Enables "
 #~ "on the class \"scroll-elevator-toggle\". When the window scroll position "
@@ -4604,9 +9179,6 @@ msgstr ""
 
 #~ msgid "Enable scroll elevator"
 #~ msgstr "Aktivera ”ta mig till toppen”"
-
-#~ msgid "Call to action text"
-#~ msgstr "Call to action text"
 
 #~ msgid "Tooltip"
 #~ msgstr "Tooltip"
@@ -4648,9 +9220,6 @@ msgstr ""
 #~ msgid "Grid"
 #~ msgstr "Rutnät"
 
-#~ msgid "Grid columns"
-#~ msgstr "Kolumner i rutnät"
-
 #~ msgid "Use Google Site Search"
 #~ msgstr "Använd Google Site Search"
 
@@ -4684,32 +9253,12 @@ msgstr ""
 #~ msgstr "Länk till startsidan"
 
 #, fuzzy
-#~| msgid "Link to search"
-#~ msgid "Link hover color"
-#~ msgstr "Länk till sök"
-
-#, fuzzy
 #~| msgid "Footer signature"
 #~ msgid "Footer size"
 #~ msgstr "Avsändare i sidfoten"
 
 #~ msgid "Hide at "
 #~ msgstr "Dölj"
-
-#, fuzzy
-#~| msgid "Menu items alignment"
-#~ msgid "Text alignment"
-#~ msgstr "Justering för menylternativ"
-
-#, fuzzy
-#~| msgid "Grid columns"
-#~ msgid " column size"
-#~ msgstr "Kolumner i rutnät"
-
-#, fuzzy
-#~| msgid "Header tagline"
-#~ msgid "Header style"
-#~ msgstr "Slogan i sidhuvud"
 
 #, fuzzy
 #~| msgid "Header tagline"
@@ -4726,9 +9275,6 @@ msgstr ""
 #~ msgid "Show submenu"
 #~ msgstr "Dropdown submenyer"
 
-#~ msgid "Front page"
-#~ msgstr "Startsida"
-
 #~ msgid "Admin notice"
 #~ msgstr "Administratörsnotis"
 
@@ -4740,9 +9286,6 @@ msgstr ""
 
 #~ msgid "No matching content found…"
 #~ msgstr "Inga matchande filter hittades…"
-
-#~ msgid "Main menu"
-#~ msgstr "Huvudmeny"
 
 #~ msgid "Sidebar menu"
 #~ msgstr "Sidomeny"
@@ -4758,9 +9301,6 @@ msgstr ""
 
 #~ msgid "This message was sent by"
 #~ msgstr "Meddelandet skickades av"
-
-#~ msgid "Invitation"
-#~ msgstr "Inbjudan"
 
 #~ msgid "shared a post via"
 #~ msgstr "delade en sida via"
@@ -4800,9 +9340,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Typsnittsbilbioteket kunde inte laddas in eftersom servrarna är "
 #~ "otillgängliga."
-
-#~ msgid "Insert Icon"
-#~ msgstr "Välj ikon"
 
 #~ msgid "API Error"
 #~ msgstr "Api-fel"
@@ -4846,12 +9383,6 @@ msgstr ""
 #~ msgid "Could not verify that you are human (image check)."
 #~ msgstr "Kunde inte verifiera att du är mänsklig (bildkontroll)"
 
-#~ msgid "to"
-#~ msgstr "till"
-
-#~ msgid "Contact"
-#~ msgstr "Kontakt"
-
 #~ msgid "Displays the contact information given."
 #~ msgstr "Visar den angivna kontaktinformationen"
 
@@ -4868,9 +9399,6 @@ msgstr ""
 
 #~ msgid "Purge Varnish"
 #~ msgstr "Töm varnish"
-
-#~ msgid "Group invitation"
-#~ msgstr "Inbjudan till grupp"
 
 #~ msgid "sent you a link via"
 #~ msgstr "har delat en länk via"
@@ -4937,9 +9465,6 @@ msgstr ""
 #~ msgid "Connect to post type(s)"
 #~ msgstr "Koppla till inläggstyp(er)"
 
-#~ msgid "page"
-#~ msgstr "sida"
-
 #~ msgid "Offentlig"
 #~ msgstr "Offentlig"
 
@@ -4970,15 +9495,6 @@ msgstr ""
 #~ msgid "Google Analytics"
 #~ msgstr "Google Analytics"
 
-#~ msgid "Google Translate"
-#~ msgstr "Google Translate"
-
-#~ msgid "text"
-#~ msgstr "text"
-
-#~ msgid "business"
-#~ msgstr "business"
-
 #~ msgid "Timestamp"
 #~ msgstr "Tidstämplar"
 
@@ -4987,9 +9503,6 @@ msgstr ""
 
 #~ msgid "Enable primary navigation"
 #~ msgstr "Aktivera huvudmeny"
-
-#~ msgid "auto"
-#~ msgstr "auto"
 
 #~ msgid "Yes, display sub-menus as dropdowns"
 #~ msgstr "Ja, visa submenyer som dropdowns"
@@ -5005,12 +9518,6 @@ msgstr ""
 #~ "sidebaren bör du ställa in \\”sekundär meny\\” till \\”Agera submeny till "
 #~ "huvudmenyn\\”"
 
-#~ msgid "justify"
-#~ msgstr "justify"
-
-#~ msgid "sub"
-#~ msgstr "sub"
-
 #~ msgid "Author picture"
 #~ msgstr "Bild på författare"
 
@@ -5020,14 +9527,8 @@ msgstr ""
 #~ msgid "Contact widget"
 #~ msgstr "Kontaktwidget"
 
-#~ msgid "Contacts"
-#~ msgstr "Kontakter"
-
 #~ msgid "Submit"
 #~ msgstr "Skicka"
-
-#~ msgid "Theme options"
-#~ msgstr "Temainställningar"
 
 #~ msgid "Custom CSS Editor"
 #~ msgstr "CSS Editor"
@@ -5094,9 +9595,6 @@ msgstr ""
 
 #~ msgid "Button text"
 #~ msgstr "Knapptext"
-
-#~ msgid "archive"
-#~ msgstr "archive"
 
 #~ msgid "collapsed"
 #~ msgstr "infälld"
