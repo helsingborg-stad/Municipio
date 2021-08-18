@@ -104,6 +104,7 @@ class Enqueue
     public function script()
     {
 
+        //wp_register_script('municipio', false);
         // Language & parameters 
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
@@ -127,6 +128,34 @@ class Enqueue
         if (!defined('INSTANT_PAGE_DISABLED')) {
             wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true);
         }
+
+        wp_register_script('pre-styleguide-js', false, false, false, true);
+
+        wp_localize_script('blabla', 'localizedMonths', array(
+            ucFirst(__('January')),
+            ucFirst(__('February')),
+            ucFirst(__('March')),
+            ucFirst(__('April')),
+            ucFirst(__('May')),
+            ucFirst(__('June')),
+            ucFirst(__('July')),
+            ucFirst(__('August')),
+            ucFirst(__('September')),
+            ucFirst(__('November')),
+            ucFirst(__('December'))
+        ));
+
+        wp_localize_script('pre-styleguide-js', 'localizedDays', array(
+            ucFirst(__('Su', 'municipio')),
+            ucFirst(__('Mo', 'municipio')),
+            ucFirst(__('Tu', 'municipio')),
+            ucFirst(__('We', 'municipio')),
+            ucFirst(__('Th', 'municipio')),
+            ucFirst(__('Fr', 'municipio')),
+            ucFirst(__('Sa', 'municipio')),           
+        ));
+
+        wp_enqueue_script('pre-styleguide-js');
 
         //Load local styleguide js
         wp_register_script('styleguide-js', get_template_directory_uri() . '/assets/dist/'
