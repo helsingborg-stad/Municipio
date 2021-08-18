@@ -21,6 +21,19 @@
     margin: 0 0 map-get($spacers, "2") 0;
 }
 
+#sidebar-slider-area {
+    &::after {
+        content: "";
+        background-color: $color-primary;
+        opacity: 0.5;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
 #sidebar-slider-area--container {
     position: relative;
     margin-bottom: calc(#{$base} * 11);
