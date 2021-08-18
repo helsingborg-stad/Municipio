@@ -171,6 +171,19 @@ class Sidebars
             'before_widget' => '<div class="%1$s" id="%2$s">',
             'after_widget'  => '</div>'
         ));
+
+        /**
+         * Above columns
+         */
+        register_sidebar(array(
+            'id'            => 'above-columns-sidebar',
+            'name'          => __('Above columns sidebar', 'municipio'),
+            'description'   => __('Sidebar that sits just before the columns grid.', 'municipio'),
+            'before_title'  => '<h3>',
+            'after_title'   => '</h3>',
+            'before_widget' => '<div class="%1$s" id="%2$s">',
+            'after_widget'  => '</div>'
+        ));
     }
 
     /**

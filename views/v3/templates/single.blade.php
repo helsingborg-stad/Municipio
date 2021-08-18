@@ -4,10 +4,14 @@
 @stop
 
 @section('above')
+    
     <div class="nav-helper u-print-display--none">
         @includeIf('partials.navigation.breadcrumb')
         @includeIf('partials.navigation.accessibility')
     </div>
+
+    @include('partials.sidebar', ['id' => 'above-columns-sidebar', 'classes' => ['o-grid']])
+    
 @stop
 
 @section('sidebar-left')
