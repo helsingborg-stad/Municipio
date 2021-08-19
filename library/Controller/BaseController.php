@@ -144,6 +144,9 @@ class BaseController
         $this->data['leftColumnSize']  = $this->getColumnSize('left'); 
         $this->data['rightColumnSize']  = $this->getColumnSize('right'); 
 
+        //Main content padder
+        $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller. 
+
         //Language
         $this->data['lang'] = (object) array(
             'goToHomepage'          => __("Go to homepage", 'municipio'),
