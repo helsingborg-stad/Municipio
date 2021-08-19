@@ -88,7 +88,8 @@ add_action('init', function () {
         'customizer-modules'                        => 'group_605cdad896041',
         'customizer-width'                          => 'group_60928d240f1bf',
         'customizer-menu-position'                  => 'group_60cb4dd20e9c3',
-        'customizer-column-size'                    => 'group_60d339321642e'
+        'customizer-column-size'                    => 'group_60d339321642e',
+        'customizer-content-padder'                 => 'group_611e43c157cbb'
     ));
     
     $acfExportManager->import();
