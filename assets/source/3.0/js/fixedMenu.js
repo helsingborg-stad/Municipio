@@ -1,6 +1,6 @@
 export default function fixedMenu(Modularity) {
 
-    let header = document.getElementById('fixed-header');
+    let header = document.getElementById('sticky-header');
     let stuck = false;
     let stickPoint = getDistance();
     

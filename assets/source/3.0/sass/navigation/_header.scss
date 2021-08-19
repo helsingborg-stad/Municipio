@@ -12,12 +12,12 @@
   color: $color-black;
 }
 
-#fixed-header {
+#sticky-header {
     z-index: $level-6;
 }
 
 @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
-    #fixed-header {
+    #sticky-header {
         .c-nav {
             flex-direction: column;
         }
