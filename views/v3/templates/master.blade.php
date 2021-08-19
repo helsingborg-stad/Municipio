@@ -56,23 +56,28 @@
                             </div>
                         </div>
                     @endif
-                    <div class="o-grid">
-                        @hasSection('sidebar-left')
+
+                    <!--  Main content padder -->
+                    <div class="u-padding__x--{{ $mainContentPadding['md'] }}@md u-padding__x--{{ $mainContentPadding['lg'] }}@lg">
+                        <div class="o-grid">
+                            @hasSection('sidebar-left')
                                 <div class="o-grid-12 o-grid-{{$leftColumnSize}}@md o-order-2 o-order-1@md u-print-display--none">
                                     @yield('sidebar-left')
                                 </div>
-                        @endif
-                
-                        <div class="o-grid-12 o-grid-auto@md o-order-1 o-order-2@md">
-                            @yield('content')
-                        </div>
-
-                        @hasSection('sidebar-right')
-                            <div class="o-grid-12 o-grid-{{$rightColumnSize}}@md o-order-3 o-order-3@md u-print-display--none">
-                                @yield('sidebar-right')
+                            @endif
+                    
+                            <div class="o-grid-12 o-grid-auto@md o-order-1 o-order-2@md">
+                                @yield('content')
                             </div>
-                        @endif
+
+                            @hasSection('sidebar-right')
+                                <div class="o-grid-12 o-grid-{{$rightColumnSize}}@md o-order-3 o-order-3@md u-print-display--none">
+                                    @yield('sidebar-right')
+                                </div>
+                            @endif
+                        </div>
                     </div>
+
                     @hasSection('below')
                         <div class="o-grid">
                             <div class="o-grid-12">
