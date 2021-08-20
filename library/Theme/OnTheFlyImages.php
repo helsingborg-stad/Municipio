@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * OnTheFlyImages
+ * 
+ * This class adds support for auto scaled images in WordPress. This
+ * class works with levraging users on load call. All images on the requested page 
+ * will be generation at the FIRST visit of the page. 
+ * 
+ * This class also supports non-cropped images. 
+ * Simply send false as the size argument, and the other value will be calculated. 
+ * 
+ * Example: wp_get_attachment_image_src($id, [100, false]);
+ * 
+ */
+
 namespace Municipio\Theme;
 
 class OnTheFlyImages
