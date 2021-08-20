@@ -23,18 +23,11 @@
 
 #sidebar-slider-area--container {
     position: relative;
-    margin-bottom: calc(#{$base} * 11);
-
-    .modularity-mod-slider,
-    .c-slider {
-        margin-bottom: 0;
-    }
 
     .c-slider,
     .c-slider__container {
         border-radius: 0;
     }
-
 
     #hero-search-form {
         color: rgb(61,61,61); 
