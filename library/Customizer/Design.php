@@ -221,7 +221,8 @@ class Design
         //Build filters
         $filters = [
             'ComponentLibrary/Component/Header/Modifier',
-            'ComponentLibrary/Component/Card/Modifier'
+            'ComponentLibrary/Component/Card/Modifier',
+            'ComponentLibrary/Component/Segment/Modifier'
         ];
 
         //Apply filter + function
