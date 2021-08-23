@@ -3,15 +3,12 @@
 @section('before-layout')
 @stop
 
-@section('above')
-    
-    <div class="nav-helper u-print-display--none">
-        @includeIf('partials.navigation.breadcrumb')
-        @includeIf('partials.navigation.accessibility')
-    </div>
+@section('helper-navigation')
+    @includeIf('partials.navigation.helper')
+@stop
 
+@section('above')
     @include('partials.sidebar', ['id' => 'above-columns-sidebar', 'classes' => ['o-grid']])
-    
 @stop
 
 @section('sidebar-left')
