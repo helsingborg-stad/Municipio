@@ -449,6 +449,31 @@
             'return_format' => 'value',
             'placeholder' => '',
         ),
+        16 => array(
+            'key' => 'field_611f83757a727',
+            'label' => __('Sections Split', 'municipio'),
+            'name' => 'sectionsSplit',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+                'none' => __('None', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
+            ),
+            'default_value' => false,
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+        ),
     ),
     'location' => array(
         0 => array(
