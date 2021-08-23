@@ -21,6 +21,13 @@
     margin: 0 0 map-get($spacers, "2") 0;
 }
 
+.search-modal {
+    .c-button .c-button__label .c-icon {
+        color: $color-white;
+        font-size: calc(#{$base} * 7);
+    }
+}
+
 #sidebar-slider-area--container {
     position: relative;
 

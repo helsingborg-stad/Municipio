@@ -69,8 +69,15 @@ $drawer-width: calc(#{$base} * 40);
     .c-drawer__header,
     .site-nav-mobile__primary {
         background-color: white;
+
         * {
             color: $color-black;
+        }
+
+        .hamburger.hamburger--drawer.is-active .hamburger-inner,
+        .hamburger.hamburger--drawer.is-active .hamburger-inner::before,
+        .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
+            background-color: $color-black;
         }
     }
 }
