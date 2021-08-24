@@ -63,8 +63,8 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option'));
-        $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option'));
+        $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
+        $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
         $this->data['emblem']               = $this->getEmblem();
 
         //Get header layout
@@ -95,7 +95,7 @@ class BaseController
         
         //Main Navigation 
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
-        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
+        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), false, true);
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems(false, $this->getPageID(), true, true);
 
         //Complementary navigations
@@ -559,7 +559,7 @@ class BaseController
         $variantKey = "logotype";
 
         //Builds acf-field name
-        if ($variant !== "standard") {
+        if ($variant !== "standard" && !is_null($variant)) {
             $variantKey = $variantKey . '_' . $variant;
         }
 
