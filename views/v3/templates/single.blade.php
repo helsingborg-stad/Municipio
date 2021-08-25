@@ -33,12 +33,7 @@
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
     @section('loop')
-        {!! $hook->innerLoopStart !!}
-        
-        @if($post)
-            @include('partials.article', (array) $post)
-        @endif
-        {!! $hook->innerLoopEnd !!}
+        @includeIf('partials.loop')
     @show
 
     @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
