@@ -55,6 +55,8 @@ class BaseController
         $this->data['isSingle']             = is_single();
         $this->data['isSticky']             = is_sticky();
 
+        $this->data['hasBlocks']            = $this->hasBlocks(); 
+
         //Post data
         $this->data['pageTitle']            = $this->getPageTitle();
         $this->data['pagePublished']        = $this->getPagePublished();
@@ -197,7 +199,7 @@ class BaseController
     }
 
     /**
-     * Get WordPress header
+     * Get WordPress site name
      *
      * @return string
      */
@@ -280,6 +282,19 @@ class BaseController
             return true;
         }
         return false;
+    }
+
+    /**
+     * Detect use of gutenberg editor on current page
+     */
+    public function hasBlocks()
+    {
+        //Backwards compability with old versions of wp
+        if(!function_exists('has_blocks')) {
+            return false; 
+        }
+
+        return has_blocks($this->getPageID()); 
     }
 
     /**
