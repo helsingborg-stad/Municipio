@@ -107,6 +107,7 @@ class BaseController
 
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 
+        $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
 
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
@@ -296,6 +297,22 @@ class BaseController
                 'heading' => get_field('floating_popup_heading', $menuObject), 
                 'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
                 'buttonIcon' => get_field('toggle_button_icon', $menuObject)
+            ]
+        );
+    }
+
+    /**
+     * Get quicklinks menu options
+     *
+     * @return object
+     */
+    public function getQuicklinksOptions() : object
+    {
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu']); 
+
+        return (object) apply_filters('Municipio/QuicklinksMenuOptions', 
+            [
+                'backgroundColor' => get_field('quicklinks_background_color', $menuObject)
             ]
         );
     }
