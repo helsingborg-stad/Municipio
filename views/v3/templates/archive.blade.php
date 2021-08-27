@@ -11,6 +11,10 @@
     @endif
 @stop
 
+@section('helper-navigation')
+    @includeIf('partials.navigation.helper')
+@stop
+
 @section('content')
     <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive">
         

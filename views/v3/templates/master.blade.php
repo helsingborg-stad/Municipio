@@ -49,6 +49,15 @@
         <main>
             @section('layout')
                 <div class="o-container">
+
+                    @hasSection('helper-navigation')
+                        <div class="o-grid o-grid--no-margin u-print-display--none">
+                            <div class="o-grid-12">
+                                @yield('helper-navigation')
+                            </div>
+                        </div>
+                    @endif
+
                     @hasSection('above')
                         <div class="o-grid u-print-display--none">
                             <div class="o-grid-12">

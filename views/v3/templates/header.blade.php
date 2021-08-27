@@ -48,10 +48,6 @@
         ])
         @endsidebar
     @show
-    
-    @section('helper-navigation')
-        @includeIf('partials.navigation.helper')
-    @show
 
 @endheader
 

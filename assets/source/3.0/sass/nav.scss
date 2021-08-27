@@ -6,7 +6,8 @@
     margin-bottom: calc(#{$base} * 2);
 
     @include mq('md') {
-        margin-bottom: calc(#{$base} * 3);
+        margin-top: calc(#{$base} * 4);
+        margin-bottom: calc(#{$base} * 4);
     }  
 
     .nav-accessibility a,
