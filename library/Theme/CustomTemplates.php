@@ -6,6 +6,25 @@ class CustomTemplates
 {
     public function __construct()
     {
+        add_action('default_page_template_title', array($this, 'renameDefaultTemplate'));
+        add_action('init', array($this, 'registerTemplates')); 
+    }
+
+    /**
+     * Change name on the default template
+     *
+     * @return string
+     */
+    public function renameDefaultTemplate () {
+        return __('Page (default template)', 'municipio');
+    }
+
+    /**
+     * Register templates
+     *
+     * @return void
+     */
+    public function registerTemplates () {
         \Municipio\Helper\Template::add(
             __('Full width', 'municipio'),
             \Municipio\Helper\Template::locateTemplate('full-width.blade.php'),
