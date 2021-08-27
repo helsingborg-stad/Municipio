@@ -105,7 +105,10 @@ class Post
                     'btn-theme-second',
                     'btn-theme-third',
                     'btn-theme-fourth',
-                    'btn-theme-fifth'
+                    'btn-theme-fifth',
+
+                    //Gutenberg columns
+                    'wp-block-columns'
                 ],
                 [
                     'c-image',
@@ -121,7 +124,10 @@ class Post
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
-                    'c-button c-button__filled c-button__filled--secondary c-button--md'
+                    'c-button c-button__filled c-button__filled--secondary c-button--md',
+
+                    //Gutenberg columns
+                    'o-grid o-grid--no-margin'
                 ], 
                 apply_filters('the_content', $content)
             ); 
