@@ -1,1 +1,1 @@
-@include('front-page'); 
+@extends('templates.single')
