@@ -34,6 +34,7 @@
                                 'toggle' => true,
                                 'attributeList' => ['js-toggle-trigger' => 'dateWrapper'],
                                 'style' => 'basic',
+                                'size' => 'lg'
                             ])
                             @endbutton
                         </div>
