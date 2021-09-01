@@ -97,7 +97,7 @@ class BaseController
         
         //Main Navigation 
         $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
-        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), false, true);
+        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
         $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems(false, $this->getPageID(), true, true);
 
         //Complementary navigations
