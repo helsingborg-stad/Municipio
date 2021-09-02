@@ -141,6 +141,7 @@ class Enqueue
             ucFirst(__('July')),
             ucFirst(__('August')),
             ucFirst(__('September')),
+            ucFirst(__('October')),
             ucFirst(__('November')),
             ucFirst(__('December'))
         ));
