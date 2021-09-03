@@ -68,7 +68,7 @@
 
                     <!--  Main content padder -->
                     <div class="u-padding__x--{{ $mainContentPadding['md'] }}@md u-padding__x--{{ $mainContentPadding['lg'] }}@lg">
-                        <div class="o-grid">
+                        <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@md">
                             @hasSection('sidebar-left')
                                 <div class="o-grid-12 o-grid-{{$leftColumnSize}}@md o-order-2 o-order-1@md u-print-display--none">
                                     @yield('sidebar-left')
