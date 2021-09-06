@@ -97,7 +97,11 @@ const init = (event) => {
     * to prevent google translate from opening multiple sites within.
     */ 
     if(inIframe()) {
-        document.getElementById('language').remove(); 
+        const languageMenu = document.getElementById('language'); 
+
+        if(languageMenu) {
+            languageMenu.remove()
+        }
     }
 
     const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
