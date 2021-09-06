@@ -82,7 +82,28 @@ const subscribeOnClick = element => {
     element.addEventListener('click', handleClick);
 }
 
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+
 const init = (event) => {
+
+    /* 
+    * Hide language menu if the site is loaded in an iframe 
+    * to prevent google translate from opening multiple sites within.
+    */ 
+    if(inIframe()) {
+        const languageMenu = document.getElementById('language'); 
+
+        if(languageMenu) {
+            languageMenu.remove()
+        }
+    }
+
     const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
     
     if (toggleButtons && toggleButtons.length > 0) {
