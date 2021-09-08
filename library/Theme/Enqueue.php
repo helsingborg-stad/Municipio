@@ -18,7 +18,7 @@ class Enqueue
 
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
-        add_action( 'enqueue_block_editor_assets', array($this, 'gutenbergStyle'), 999);
+        add_action('enqueue_block_editor_assets', array($this, 'gutenbergStyle'), 999);
         
         //Google scripts
         add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
