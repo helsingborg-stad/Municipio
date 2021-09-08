@@ -4,6 +4,7 @@
     justify-content: space-between;
     margin-top: calc(#{$base} * 2);
     margin-bottom: calc(#{$base} * 2);
+    align-items: center;
 
     @include mq('md') {
         margin-top: calc(#{$base} * 4);
