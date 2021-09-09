@@ -10,7 +10,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '15'
+
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
       with:
@@ -25,7 +29,6 @@ jobs:
 
     - name: Inject access token in .npmrc
       run: | 
-        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
     - name: Execute buildscripts in themes and plugins folders
