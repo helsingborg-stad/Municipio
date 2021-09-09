@@ -42,7 +42,8 @@
                 'type' => 'submit',
                 'size' => 'lg',
                 'attributeList' => [
-                    'id' => 'search-form--submit'
+                    'id' => 'search-form--submit',
+                    'aria-label' => $lang->search,
                 ]
             ])
             @endbutton
