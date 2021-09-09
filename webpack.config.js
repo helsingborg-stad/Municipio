@@ -99,7 +99,7 @@ module.exports = {
                         },
                     },
                     {
-                        loader: 'fast-sass-loader',
+                        loader: 'sass-loader',
                         options: {
                             sourceMap: ifProduction(false, true),
                         }
