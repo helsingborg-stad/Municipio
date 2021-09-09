@@ -169,6 +169,7 @@ class BaseController
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
             'emblem'                => __("Site emblem", 'municipio'),
+            'close'                 => __("Close", 'municipio'),
         );
 
         //Wordpress hooks

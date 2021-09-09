@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-08-18 09:04+0200\n"
-"PO-Revision-Date: 2021-08-18 09:06+0200\n"
+"POT-Creation-Date: 2021-09-09 09:36+0200\n"
+"PO-Revision-Date: 2021-09-09 09:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -56,34 +56,13 @@ msgstr "Färger"
 msgid "Primary Color"
 msgstr "Primär färg"
 
-#: library/AcfFields/php/customizer-color.php:21
-#: library/AcfFields/php/customizer-color.php:81
-#: library/AcfFields/php/customizer-color.php:133
-#: library/AcfFields/php/customizer-color.php:230
-#: library/AcfFields/php/customizer-color.php:282
-#: library/AcfFields/php/customizer-color.php:379
-#: library/AcfFields/php/customizer-color.php:431
-#: library/AcfFields/php/customizer-color.php:483
-#: library/AcfFields/php/customizer-color.php:528
-msgid "#ae0b05"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:25
 msgid "Primary Dark Color"
 msgstr "Primär mörk färg"
 
-#: library/AcfFields/php/customizer-color.php:36
-#: library/AcfFields/php/customizer-color.php:513
-msgid "#770000"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:40
 msgid "Primary Light Color"
 msgstr "Primär ljus färg"
-
-#: library/AcfFields/php/customizer-color.php:51
-msgid "#e84c31"
-msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:55
 msgid "Primary Alpha Color"
@@ -115,28 +94,13 @@ msgstr ""
 msgid "Secondary Color"
 msgstr "Sekundär färg"
 
-#: library/AcfFields/php/customizer-color.php:170
-#: library/AcfFields/php/customizer-color.php:319
-msgid "#ec6701"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:174
 msgid "Secondary Dark Color"
 msgstr "Sekundär mörk färg"
 
-#: library/AcfFields/php/customizer-color.php:185
-#: library/AcfFields/php/customizer-color.php:334
-msgid "#b23700"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:189
 msgid "Secondary Light Color"
 msgstr "Sekundär ljus färg"
-
-#: library/AcfFields/php/customizer-color.php:200
-#: library/AcfFields/php/customizer-color.php:349
-msgid "#ff983e"
-msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:204
 msgid "Secondary Alpha Color"
@@ -170,11 +134,6 @@ msgstr ""
 msgid "Link Color"
 msgstr "Länkfärg"
 
-#: library/AcfFields/php/customizer-color.php:468
-#: library/AcfFields/php/customizer-color.php:498
-msgid "#000000"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:472
 msgid "Link Hover Color"
 msgstr "Länkfärg hovring"
@@ -195,32 +154,16 @@ msgstr "Länk Aktiv färg"
 msgid "Complementary color -    illustration / header"
 msgstr ""
 
-#: library/AcfFields/php/customizer-color.php:543
-msgid "#dec2c2"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:547
 msgid "Complementary color -    button / line"
-msgstr ""
-
-#: library/AcfFields/php/customizer-color.php:558
-msgid "#F0DBD9"
 msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:562
 msgid "Complementary color -    input"
 msgstr ""
 
-#: library/AcfFields/php/customizer-color.php:573
-msgid "#F5E4E3"
-msgstr ""
-
 #: library/AcfFields/php/customizer-color.php:577
 msgid "Complementary color - card"
-msgstr ""
-
-#: library/AcfFields/php/customizer-color.php:588
-msgid "#FAEEEC"
 msgstr ""
 
 #: library/AcfFields/php/customizer-column-size.php:6
@@ -264,6 +207,18 @@ msgstr "Höger"
 #| msgid "Formats"
 msgid "normal"
 msgstr "Inläggsformat"
+
+#: library/AcfFields/php/customizer-content-padder.php:6
+msgid "Site columns padding"
+msgstr ""
+
+#: library/AcfFields/php/customizer-content-padder.php:10
+msgid "Amount of padding"
+msgstr ""
+
+#: library/AcfFields/php/customizer-content-padder.php:13
+msgid "Padding will be applied in 8px increments."
+msgstr ""
 
 #: library/AcfFields/php/customizer-design-share-load.php:8
 msgid "Avabile Designs"
@@ -343,6 +298,7 @@ msgstr ""
 #: library/AcfFields/php/customizer-modules.php:384
 #: library/AcfFields/php/customizer-modules.php:410
 #: library/AcfFields/php/customizer-modules.php:438
+#: library/AcfFields/php/customizer-modules.php:466
 #: library/AcfFields/php/widget-header-common.php:132
 msgid "None"
 msgstr "Ingen"
@@ -397,6 +353,7 @@ msgstr ""
 #: library/AcfFields/php/customizer-modules.php:385
 #: library/AcfFields/php/customizer-modules.php:413
 #: library/AcfFields/php/customizer-modules.php:441
+#: library/AcfFields/php/customizer-modules.php:467
 #: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Highlight"
 msgstr "Markering"
@@ -460,6 +417,10 @@ msgstr "Text"
 
 #: library/AcfFields/php/customizer-modules.php:426
 msgid "Local Event"
+msgstr ""
+
+#: library/AcfFields/php/customizer-modules.php:454
+msgid "Sections Split"
 msgstr ""
 
 #: library/AcfFields/php/customizer-radius.php:8
@@ -1492,7 +1453,7 @@ msgstr "Ikonens klass"
 
 #: library/AcfFields/php/options-menu-icon.php:212
 msgid "clear"
-msgstr ""
+msgstr "Rensa"
 
 #: library/AcfFields/php/options-menu-icon.php:213
 msgid "clear_all"
@@ -5351,7 +5312,7 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:96
+#: library/Admin/Options/Archives.php:39 library/Controller/Singular.php:129
 msgid "Author"
 msgstr "Författare"
 
@@ -6262,7 +6223,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:149
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:165
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -6353,6 +6314,7 @@ msgid "Install plugin"
 msgstr ""
 
 #: library/Comment/CommentsActions.php:74
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2873
 msgid "Update"
 msgstr "Uppdatera"
 
@@ -6485,75 +6447,79 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:139 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:155 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:140
+#: library/Controller/BaseController.php:156
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:141
+#: library/Controller/BaseController.php:157
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:142
+#: library/Controller/BaseController.php:158
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:143
+#: library/Controller/BaseController.php:159
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:144
+#: library/Controller/BaseController.php:160
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:145
+#: library/Controller/BaseController.php:161
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:146
+#: library/Controller/BaseController.php:162
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:147
+#: library/Controller/BaseController.php:163
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:148
+#: library/Controller/BaseController.php:164
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:150
+#: library/Controller/BaseController.php:166
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:151
+#: library/Controller/BaseController.php:167
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:152
+#: library/Controller/BaseController.php:168
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:153
+#: library/Controller/BaseController.php:169
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:154 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:170 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:155
+#: library/Controller/BaseController.php:171
 msgid "Site emblem"
 msgstr ""
+
+#: library/Controller/BaseController.php:172
+msgid "Close"
+msgstr "Stäng"
 
 #: library/Controller/E404.php:30
 msgid "Go back"
@@ -6664,21 +6630,13 @@ msgstr ""
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
-#: library/Theme/CustomTemplates.php:10
-msgid "Full width"
-msgstr "Fullbredd"
+#: library/Theme/CustomTemplates.php:19
+msgid "Page (default template)"
+msgstr ""
 
-#: library/Theme/CustomTemplates.php:16
-msgid "One page (no article)"
-msgstr "Fullbredd (utan artikel)"
-
-#: library/Theme/CustomTemplates.php:22
-msgid "Page (two columns)"
-msgstr "Sida (två kolumner)"
-
-#: library/Theme/CustomTemplates.php:28
-msgid "Sidebar right"
-msgstr "Sidopanel höger"
+#: library/Theme/CustomTemplates.php:29
+msgid "One Page"
+msgstr ""
 
 #: library/Theme/Enqueue.php:111
 msgid "Insert Print Page Break tag"
@@ -6692,42 +6650,46 @@ msgstr "Är du säker på att du vill ta bort kommentaren?"
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:136
+#: library/Theme/Enqueue.php:135
 msgid "January"
 msgstr ""
 
-#: library/Theme/Enqueue.php:137
+#: library/Theme/Enqueue.php:136
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:138
+#: library/Theme/Enqueue.php:137
 #, fuzzy
 #| msgid "Search"
 msgid "March"
 msgstr "Sök"
 
-#: library/Theme/Enqueue.php:139
+#: library/Theme/Enqueue.php:138
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:140
+#: library/Theme/Enqueue.php:139
 msgid "May"
 msgstr ""
 
-#: library/Theme/Enqueue.php:141
+#: library/Theme/Enqueue.php:140
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:142
+#: library/Theme/Enqueue.php:141
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:143
+#: library/Theme/Enqueue.php:142
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:144
+#: library/Theme/Enqueue.php:143
 msgid "September"
+msgstr ""
+
+#: library/Theme/Enqueue.php:144
+msgid "October"
 msgstr ""
 
 #: library/Theme/Enqueue.php:145
@@ -6800,95 +6762,107 @@ msgstr "Rullgardinsmeny"
 msgid "Language menu"
 msgstr "Språkmeny"
 
-#: library/Theme/Sidebars.php:37
+#: library/Theme/Navigation.php:74
+msgid "Quicklinks menu"
+msgstr ""
+
+#: library/Theme/Sidebars.php:38
 msgid "Footer top"
 msgstr "Sidfot topp"
 
-#: library/Theme/Sidebars.php:38
+#: library/Theme/Sidebars.php:39
 msgid "The top of footer area"
 msgstr "Översta delen av sifoten"
 
-#: library/Theme/Sidebars.php:50
+#: library/Theme/Sidebars.php:51
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Theme/Sidebars.php:51
+#: library/Theme/Sidebars.php:52
 msgid "The footer area"
 msgstr "Footer-arean"
 
-#: library/Theme/Sidebars.php:63
+#: library/Theme/Sidebars.php:64
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
-#: library/Theme/Sidebars.php:64
+#: library/Theme/Sidebars.php:65
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:76
+#: library/Theme/Sidebars.php:77
 msgid "Content area (above article)"
 msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:77
+#: library/Theme/Sidebars.php:78
 msgid "The area above the content"
 msgstr "Arean ovanför huvudinnehållet"
 
-#: library/Theme/Sidebars.php:89
+#: library/Theme/Sidebars.php:90
 msgid "Content area (below article)"
 msgstr "Innehållsarea (nedanför artikel)"
 
-#: library/Theme/Sidebars.php:90
+#: library/Theme/Sidebars.php:91
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:102
+#: library/Theme/Sidebars.php:103
 msgid "Main container bottom"
 msgstr "Under artikel"
 
-#: library/Theme/Sidebars.php:103
+#: library/Theme/Sidebars.php:104
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:115
+#: library/Theme/Sidebars.php:116
 msgid "Right sidebar"
 msgstr "Höger sidofält"
 
-#: library/Theme/Sidebars.php:116
+#: library/Theme/Sidebars.php:117
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Sidebars.php:128
+#: library/Theme/Sidebars.php:129
 msgid "Left sidebar"
 msgstr "Vänster sidofält (övre sektion)"
 
-#: library/Theme/Sidebars.php:129
+#: library/Theme/Sidebars.php:130
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:141
+#: library/Theme/Sidebars.php:142
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Theme/Sidebars.php:142
+#: library/Theme/Sidebars.php:143
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:154
+#: library/Theme/Sidebars.php:155
 msgid "Top sidebar (full-width)"
 msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:155
+#: library/Theme/Sidebars.php:156
 #, php-format
 msgid "Sidebar that sits below the hero, takes up 100% of the widht."
 msgstr "Sidofält som ligger under hjälten tar upp 100 % o f bredden."
 
-#: library/Theme/Sidebars.php:167
+#: library/Theme/Sidebars.php:168
 msgid "Bottom sidebar (full-width)"
 msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:168
+#: library/Theme/Sidebars.php:169
 #, php-format
 msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
 msgstr "Fältet som ligger strax före sidfoten tar upp 100 % o f bredden."
+
+#: library/Theme/Sidebars.php:181
+msgid "Above columns sidebar"
+msgstr ""
+
+#: library/Theme/Sidebars.php:182
+msgid "Sidebar that sits just before the columns grid."
+msgstr ""
 
 #: library/Widget/Navigation/Navigation.php:82
 msgid "Översätt"
@@ -6928,6 +6902,423 @@ msgstr "Fel"
 
 #: vendor/helsingborg-stad/recaptcha-integration/src/Validation.php:43
 msgid "reCaptcha validation failed"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
+msgid "Install Required Plugins"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:341
+msgid "Install Plugins"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:343
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:345
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:346
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:349
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:355
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:361
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:367
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:373
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:379
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:384
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:389
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:394
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:398
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:399
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:400
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3311
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:401
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3103
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:403
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:405
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:407
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:408
+msgid "Dismiss this notice"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:409
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:410
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:616
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:617
+msgid "Update Required"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:735
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1243
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3099
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2112
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2421
+msgid "Required"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2424
+msgid "Recommended"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2440
+msgid "WordPress Repository"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2443
+msgid "External Source"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2446
+msgid "Pre-Packaged"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2463
+msgid "Not Installed"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2467
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
+msgid "Active"
+msgstr "Aktivera"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2475
+msgid "Required Update not Available"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2478
+msgid "Requires Update"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2481
+msgid "Update recommended"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2490
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2536
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2540
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2544
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2548
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2630
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2638
+msgid "Installed version:"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2646
+msgid "Minimum required version:"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2658
+msgid "Available version:"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2681
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2695
+msgid "Plugin"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2696
+msgid "Source"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
+msgid "Type"
+msgstr "Typ"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
+msgid "Version"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2702
+msgid "Status"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2751
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2756
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2762
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2834
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2867
+msgid "Install"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2876
+msgid "Activate"
+msgstr "Aktivera"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2907
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2909
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2950
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2952
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3059
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3085
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3310
+msgid "Plugin activation failed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3655
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3658
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3660
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3664
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3666
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3667
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3669
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3672
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3674
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3675
+msgid "All installations have been completed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3677
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
+msgid "Show Details"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
+msgid "Hide Details"
 msgstr ""
 
 #: views/v1/archive-event.blade.php:70
@@ -7166,6 +7557,18 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Full width"
+#~ msgstr "Fullbredd"
+
+#~ msgid "One page (no article)"
+#~ msgstr "Fullbredd (utan artikel)"
+
+#~ msgid "Page (two columns)"
+#~ msgstr "Sida (två kolumner)"
+
+#~ msgid "Sidebar right"
+#~ msgstr "Sidopanel höger"
 
 #~ msgid "Error! Please enter a higher value"
 #~ msgstr "Fel! Välj ett högre värde"
@@ -7481,9 +7884,6 @@ msgstr ""
 #~ msgid "Hover"
 #~ msgstr "Hovra"
 
-#~ msgid "Active"
-#~ msgstr "Aktivera"
-
 #~ msgid "Radio Control"
 #~ msgstr "Radiofält"
 
@@ -7653,9 +8053,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla "
 #~ "värden kommer bara den senast specificerade att användas."
-
-#~ msgid "Type"
-#~ msgstr "Typ"
 
 #~ msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
 #~ msgstr "favicon.ico (16x16px, 32x32px, 48x48px)"
@@ -8971,9 +9368,6 @@ msgstr ""
 
 #~ msgid "Enable separate mobile navigation"
 #~ msgstr "Aktivera separat mobilmeny"
-
-#~ msgid "Activate"
-#~ msgstr "Aktivera"
 
 #~ msgid "Automatically generated"
 #~ msgstr "Automatiskt genererad"

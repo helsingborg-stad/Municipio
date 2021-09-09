@@ -8,7 +8,7 @@
         'text' => $floatingMenuLabels->buttonLabel,
         'reversePositions' => true,
     ],
-    'closeLabel' => __('Close', 'municipio'),
+    'closeLabel' => $lang->close,
     'closeIcon' =>'close',
     'classList' => []
 ])
