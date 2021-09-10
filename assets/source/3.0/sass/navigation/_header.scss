@@ -25,9 +25,15 @@
 }
 
 @include mq(md) {
-    .c-header.is-sticky {
-        position: fixed;
-        top: 0px;
+    #sticky-header.c-header {
+        position: sticky;
+        top: 0;
         width: 100%;
     }
+
+    .admin-bar {
+        #sticky-header.c-header {
+            top: 32px; 
+        }
+    } 
 }
