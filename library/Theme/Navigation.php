@@ -30,8 +30,12 @@ class Navigation
      * @return array
      */
     public function addLanguageMenuItem($data, $identifier, $pageId) {
-                
-        if($identifier == "primary") {
+        
+        //Define where to show lang select
+        $showLanguageSelectorIn = ['primary'];  //Add , 'mobile' for mobile menu support. 
+        $showLanguageLabelIn = ['mobile'];
+
+        if(in_array($identifier, $showLanguageSelectorIn)) {
 
             $languageMenu       = new \Municipio\Helper\Navigation('language');
             $languageMenuItems  = $languageMenu->getMenuItems('language-menu', $pageId, false, true, true);
@@ -44,13 +48,14 @@ class Navigation
                     "active" => false, 
                     "ancestor" => false,
                     "children" => $languageMenuItems,
-                    "label" => "",
+                    "label" => in_array($identifier, $showLanguageLabelIn) ? __("Language", 'municipio') : false,
                     "href" => "#language",
                     "icon" => ['icon' => 'language', 'size' => 'md'],
                     "attributeList" => [
                         'aria-label' => __("Select language", 'municipio'),
                         'translate' => 'no'
                     ],
+                    "classList" => ['has-fetched']
                 ]; 
             }
         }
