@@ -32,7 +32,7 @@ class Navigation
     public function addLanguageMenuItem($data, $identifier, $pageId) {
         
         //Define where to show lang select
-        $showLanguageSelectorIn = ['primary'];  //Add , 'mobile' for mobile menu support. 
+        $showLanguageSelectorIn = ['primary', 'mobile'];
         $showLanguageLabelIn = ['mobile'];
 
         if(in_array($identifier, $showLanguageSelectorIn)) {
@@ -55,7 +55,7 @@ class Navigation
                         'aria-label' => __("Select language", 'municipio'),
                         'translate' => 'no'
                     ],
-                    "classList" => ['has-fetched']
+                    "class" => ['is-current is-open has-fetched']
                 ]; 
             }
         }
