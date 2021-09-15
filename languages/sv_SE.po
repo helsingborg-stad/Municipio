@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-09-17 10:20+0200\n"
-"PO-Revision-Date: 2021-09-17 10:35+0200\n"
+"POT-Creation-Date: 2021-09-09 09:36+0200\n"
+"PO-Revision-Date: 2021-09-09 09:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -46,27 +46,28 @@ msgstr "Välj maxbredden på logotypen."
 #: library/AcfFields/php/customizer-width.php:66
 #: library/AcfFields/php/customizer-width.php:86
 msgid "px"
-msgstr "pixlar"
+msgstr "px"
 
 #: library/AcfFields/php/customizer-color.php:6
+#: library/Customizer/Design.php:49
 msgid "Colors"
 msgstr "Färger"
 
 #: library/AcfFields/php/customizer-color.php:10
 msgid "Primary Color"
-msgstr "Primär färg"
+msgstr "Primärfärg"
 
 #: library/AcfFields/php/customizer-color.php:25
 msgid "Primary Dark Color"
-msgstr "Primär mörk färg"
+msgstr "Primärfärg (mörk)"
 
 #: library/AcfFields/php/customizer-color.php:40
 msgid "Primary Light Color"
-msgstr "Primär ljus färg"
+msgstr "Primärfärg (ljus)"
 
 #: library/AcfFields/php/customizer-color.php:55
 msgid "Primary Alpha Color"
-msgstr ""
+msgstr "Primärfärg, opak"
 
 #: library/AcfFields/php/customizer-color.php:70
 #: library/AcfFields/php/customizer-color.php:122
@@ -84,11 +85,11 @@ msgstr "Färg"
 #: library/AcfFields/php/customizer-color.php:383
 #: library/AcfFields/php/customizer-color.php:435
 msgid "Alpha"
-msgstr ""
+msgstr "Opacitet"
 
 #: library/AcfFields/php/customizer-color.php:107
 msgid "Primary Alpha Dimmed Color"
-msgstr ""
+msgstr "Primärfärg (Opak - färg)"
 
 #: library/AcfFields/php/customizer-color.php:159
 msgid "Secondary Color"
@@ -235,6 +236,11 @@ msgid ""
 "make adjustments in the customization options. <style>#sub-accordion-section-"
 "loaddesign .customize-section-back {display: none !important;}</style>"
 msgstr ""
+"Municipio underhåller automatiskt ett bibliotek med designer skapade i "
+"anpassningsfliken. Designer som skapas i anpassningsfliken tillgängligare "
+"automatiskt till alla användare om din webbplats är publikt tillgänglig på "
+"webben. <style>#sub-accordion-section-loaddesign .customize-section-back "
+"{display: none !important;}</style>"
 
 #: library/AcfFields/php/customizer-design-share-load.php:24
 msgid "Helsingborg.se - Test (https://helsingborg.test )"
@@ -272,6 +278,20 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-menu-position.php:48
 msgid "Duotone"
+msgstr ""
+
+#: library/AcfFields/php/customizer-missing.php:6
+msgid "Customizer configuration missing"
+msgstr ""
+
+#: library/AcfFields/php/customizer-missing.php:10
+msgid "Configuration Missing"
+msgstr ""
+
+#: library/AcfFields/php/customizer-missing.php:21
+msgid ""
+"There are no fields connected to this section yet. Configure some fields to "
+"get going."
 msgstr ""
 
 #: library/AcfFields/php/customizer-modules.php:6
@@ -576,7 +596,7 @@ msgid "Add section"
 msgstr "Lägg till ikon"
 
 #: library/AcfFields/php/options-menu-floating.php:6
-#: library/Theme/Navigation.php:86
+#: library/Theme/Navigation.php:72
 #, fuzzy
 #| msgid "Main menu"
 msgid "Floating menu"
@@ -6631,7 +6651,91 @@ msgstr "Svara"
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
+#: library/Customizer/Design.php:35
+msgid "General"
+msgstr "Generellt"
+
+#: library/Customizer/Design.php:36
+msgid "General appearance site settings"
+msgstr "Generella utseendeinställningar för din webbplats"
+
+#: library/Customizer/Design.php:42
+msgid "Fonts"
+msgstr "Typsnitt"
+
+#: library/Customizer/Design.php:43
+msgid "Select font faces"
+msgstr "Gör val av typsnitt som ska användas på webbplatsen."
+
 #: library/Customizer/Design.php:50
+msgid "Adjust base colors for the site"
+msgstr ""
+
+#: library/Customizer/Design.php:56
+msgid "Radius"
+msgstr ""
+
+#: library/Customizer/Design.php:57
+msgid "Adjust base radius for the site"
+msgstr ""
+
+#: library/Customizer/Design.php:63
+msgid "Widths"
+msgstr ""
+
+#: library/Customizer/Design.php:64
+msgid "Adjust site width for different types of pages, archives and templates."
+msgstr ""
+
+#: library/Customizer/Design.php:70
+msgid "Space"
+msgstr ""
+
+#: library/Customizer/Design.php:71
+msgid "Adjust general spacing in the design."
+msgstr ""
+
+#: library/Customizer/Design.php:77
+msgid "Borders"
+msgstr ""
+
+#: library/Customizer/Design.php:78
+msgid "Adjust apperance of borders in the design."
+msgstr ""
+
+#: library/Customizer/Design.php:84
+msgid "Shadows"
+msgstr ""
+
+#: library/Customizer/Design.php:85
+msgid "Adjust apperance of shadows in the design."
+msgstr ""
+
+#: library/Customizer/Design.php:91
+msgid "Header"
+msgstr "Sidhuvud"
+
+#: library/Customizer/Design.php:92
+msgid "Set header apperance in the design."
+msgstr ""
+
+#: library/Customizer/Design.php:98 library/Theme/Sidebars.php:51
+msgid "Footer"
+msgstr "Sidfot"
+
+#: library/Customizer/Design.php:99
+msgid "Set footer apperance in the design."
+msgstr ""
+
+#: library/Customizer/Design.php:105
+msgid "Article"
+msgstr "Artikel"
+
+#: library/Customizer/Design.php:106
+msgid "Set apperance of the article in the design."
+msgstr ""
+
+#: library/Customizer/Design.php:137
 msgid "Design"
 msgstr ""
 
@@ -6643,7 +6747,7 @@ msgstr ""
 msgid "Error loading options"
 msgstr ""
 
-#: library/Helper/Customizer.php:34
+#: library/Helper/CustomizeCreate.php:31
 msgid "Municipio customizer error"
 msgstr ""
 
@@ -6774,39 +6878,35 @@ msgstr "Lö"
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/Navigation.php:60
-msgid "Language"
-msgstr ""
-
-#: library/Theme/Navigation.php:64
+#: library/Theme/Navigation.php:51
 msgid "Select language"
 msgstr "Välj språk"
 
-#: library/Theme/Navigation.php:81
+#: library/Theme/Navigation.php:67
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:82
+#: library/Theme/Navigation.php:68
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:83
+#: library/Theme/Navigation.php:69
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Theme/Navigation.php:84
+#: library/Theme/Navigation.php:70
 msgid "Secondary menu & mobile menu"
 msgstr "Sekundär meny & Mobil meny"
 
-#: library/Theme/Navigation.php:85
+#: library/Theme/Navigation.php:71
 msgid "Dropdown menu"
 msgstr "Rullgardinsmeny"
 
-#: library/Theme/Navigation.php:87
+#: library/Theme/Navigation.php:73
 msgid "Language menu"
 msgstr "Språkmeny"
 
-#: library/Theme/Navigation.php:88
+#: library/Theme/Navigation.php:74
 msgid "Quicklinks menu"
 msgstr ""
 
@@ -6817,10 +6917,6 @@ msgstr "Sidfot topp"
 #: library/Theme/Sidebars.php:39
 msgid "The top of footer area"
 msgstr "Översta delen av sifoten"
-
-#: library/Theme/Sidebars.php:51
-msgid "Footer"
-msgstr "Sidfot"
 
 #: library/Theme/Sidebars.php:52
 msgid "The footer area"
@@ -8298,9 +8394,6 @@ msgstr ""
 
 #~ msgid "Logotype to use in header"
 #~ msgstr "Logotyp att använda i sidhuvudet"
-
-#~ msgid "Header"
-#~ msgstr "Sidhuvud"
 
 #~ msgid "Business (default)"
 #~ msgstr "Business (standardval)"
@@ -9996,9 +10089,6 @@ msgstr ""
 
 #~ msgid "sent you a link via"
 #~ msgstr "har delat en länk via"
-
-#~ msgid "Article"
-#~ msgstr "Artikel"
 
 #~ msgid "read more"
 #~ msgstr "läs mer"

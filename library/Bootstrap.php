@@ -83,6 +83,7 @@ add_action('init', function () {
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
         //Customizer
+        'customizer-missing'                        => 'group_6141a604364cd',
         'customizer-color'                          => 'group_60361b6d86d9d',
         'customizer-radius'                         => 'group_603662f315acc',
         'customizer-design-share-load'              => 'group_604a117fe6872',

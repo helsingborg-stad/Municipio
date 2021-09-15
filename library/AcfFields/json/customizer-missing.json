@@ -1,0 +1,41 @@
+[{
+    "key": "group_6141a604364cd",
+    "title": "Customizer configuration missing",
+    "fields": [
+        {
+            "key": "field_6141a613e20e5",
+            "label": "Configuration Missing",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "There are no fields connected to this section yet. Configure some fields to get going.",
+            "new_lines": "wpautop",
+            "esc_html": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "general"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+
