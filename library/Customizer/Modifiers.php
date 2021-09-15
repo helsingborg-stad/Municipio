@@ -29,6 +29,110 @@ class Modifiers
         'render' => false,
         'share' => true,
         'active' => true
+      ],
+      [
+        'id' => 'posts', 
+        'title' => "Posts", 
+        'description' => __('Posts module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'contacts', 
+        'title' => "Contacts", 
+        'description' => __('Contacts module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'inlay', 
+        'title' => "Inlay", 
+        'description' => __('Inlay module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'map', 
+        'title' => "Map", 
+        'description' => __('Map module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'text', 
+        'title' => "Text", 
+        'description' => __('Text module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'video', 
+        'title' => "Video", 
+        'description' => __('Video module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'event', 
+        'title' => "Event", 
+        'description' => __('Event module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'jsonrender', 
+        'title' => "Json Render",
+        'description' => __('Json render module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'form', 
+        'title' => "Form",
+        'description' => __('Form render module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'index', 
+        'title' => "Index",
+        'description' => __('Index module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'text', 
+        'title' => "Text",
+        'description' => __('Text module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'localevent', 
+        'title' => "Local Event",
+        'description' => __('Local event module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'sectionssplit', 
+        'title' => "Sections Split",
+        'description' => __('Sections, split module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
       ]
     ]; 
 
