@@ -1,0 +1,27 @@
+.site-language-menu {
+    .site-language-menu__card {
+        position: absolute;
+        transform: translateX(calc(-100% + 32px));
+        width: 50vw;
+    }
+
+    .site-language-menu__more {
+        border-width: 1px 0 1px 0;
+        border-style: solid;
+        border-color: $color-lighter;
+
+        .c-icon {
+            transition: transform 300ms ease-in-out;
+        }
+
+        &,
+        &:hover {
+            text-decoration: none;
+            color: $color-darkest;
+        }
+
+        &:hover .c-icon {
+            transform: translateX(calc(var(--base, 8px) * -0.5));
+        }
+    }
+}
