@@ -1,7 +1,8 @@
 .site-language-menu {
     .site-language-menu__card {
         position: absolute;
-        transform: translateX(calc(-100% + 32px));
+        display: none;
+        animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         width: 50vw;
     }
 
@@ -23,5 +24,31 @@
         &:hover .c-icon {
             transform: translateX(calc(var(--base, 8px) * -0.5));
         }
+    }
+
+    &:hover {
+        .site-language-menu__card {
+            display: block;
+        }
+    }
+}
+
+@keyframes site-language-menu-popout {
+    0% {
+        transform: translate(calc(-100% + 40px), 20%);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+        transform: translate(calc(-100% + 40px), 0%);
+    }
+
+    55% {
+        transform: translate(calc(-100% + 40px), 5%);
+    }
+
+    100% {
+        transform: translate(calc(-100% + 40px), 0%);
     }
 }
