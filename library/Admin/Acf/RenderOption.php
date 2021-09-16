@@ -9,6 +9,7 @@ class RenderOption {
    */
   public function __construct() {
     add_filter('acf/render_field_settings', array($this, 'addRenderOption'));
+    add_filter('acf/render_field_settings', array($this, 'addShareOption'));
   }
 
   public function addRenderOption($field) 
@@ -24,6 +25,17 @@ class RenderOption {
         'var'     => __('Css variable', 'municipio')
       ),
       'ui'			      => 0,
+    ), true);
+  }
+
+  public function addShareOption($field) 
+  {
+    acf_render_field_setting($field, array(
+      'label'			    => __('Customizer: Share option', 'municipio'),
+      'instructions'	=> __('Share this option with the municipio community.', 'municipio'),
+      'name'			    => 'share_option',
+      'type'			    => 'true_false',
+      'ui'			      => 1,
     ), true);
   }
 }
