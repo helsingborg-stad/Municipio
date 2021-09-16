@@ -1,0 +1,23 @@
+[{
+    "key": "group_6143458359420",
+    "title": "Mobile menu",
+    "fields": [],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "mobilemenu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+
