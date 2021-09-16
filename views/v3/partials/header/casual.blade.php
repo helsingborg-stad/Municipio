@@ -14,23 +14,25 @@
                     @endlogotype
                 @endlink
 
-                <div class="site-language-menu" js-toggle-item="example" js-toggle-class="is-expanded">
-                    @button([
-                        'id' => '',
-                        'color' => 'default',
-                        'style' => 'basic',
-                        'icon' => 'language',
-                        'classList' => [
-                            'site-language-menu-button'
-                        ],
-                        'attributeList' => [
-                            'js-toggle-trigger' => 'example'
-                        ]
-                    ])
-                    @endbutton
+                @if (!empty($languageMenuItems))
+                    <div class="site-language-menu" js-toggle-item="example" js-toggle-class="is-expanded">
+                        @button([
+                            'id' => '',
+                            'color' => 'default',
+                            'style' => 'basic',
+                            'icon' => 'language',
+                            'classList' => [
+                                'site-language-menu-button'
+                            ],
+                            'attributeList' => [
+                                'js-toggle-trigger' => 'example'
+                            ]
+                        ])
+                        @endbutton
 
-                    @includeIf('partials.navigation.language')
-                </div>
+                        @includeIf('partials.navigation.language')
+                    </div>
+                @endif
 
                 @button([
                     'id' => 'mobile-menu-trigger',
