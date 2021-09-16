@@ -69,7 +69,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'render_type' => 'var',
+            'render_type' => 'var_colorgroup',
             'share_option' => 1,
             'layout' => 'block',
             'sub_fields' => array(
@@ -123,7 +123,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'render_type' => 'var',
+            'render_type' => 'var_colorgroup',
             'share_option' => 1,
             'layout' => 'block',
             'sub_fields' => array(
@@ -228,7 +228,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'render_type' => 'var',
+            'render_type' => 'var_colorgroup',
             'share_option' => 0,
             'layout' => 'block',
             'sub_fields' => array(
@@ -286,7 +286,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'render_type' => 'var',
+            'render_type' => 'var_colorgroup',
             'share_option' => 0,
             'layout' => 'block',
             'sub_fields' => array(
@@ -395,7 +395,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'render_type' => 'var',
+            'render_type' => 'var_colorgroup',
             'share_option' => 0,
             'layout' => 'block',
             'sub_fields' => array(
@@ -453,7 +453,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'render_type' => 'var',
+            'render_type' => 'var_colorgroup',
             'share_option' => 0,
             'layout' => 'block',
             'sub_fields' => array(
