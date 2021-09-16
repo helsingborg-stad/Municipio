@@ -37,14 +37,14 @@ class Colors
 
         } 
 
-        return $this->convertHexToRgb($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
+        return $this->convertHexToRgba($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
     }
 
     /**
      * Convert the hexadecimal value to rgba
      * @return string
      */
-    private function convertHexToRgb($value, $alpha, $default) {  
+    private function convertHexToRgba($value, $alpha, $default) {  
         $value = !empty($value) ? $value : $default;  
         $value = sscanf($value, "#%02x%02x%02x");
         return "rgba({$value[0]}, {$value[1]}, {$value[2]}, $alpha)";
