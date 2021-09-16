@@ -31,8 +31,8 @@ class Design
          */
         $this->configuration = [
             [
-                'id' => 'site', 
-                'title' => "Site", 
+                'id' => 'general', 
+                'title' => "General", 
                 'description' => __('General appearance site settings', 'municipio'),
                 'render' => true,
                 'share' => true,

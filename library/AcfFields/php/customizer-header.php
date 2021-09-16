@@ -11,7 +11,7 @@
             0 => array(
                 'param' => 'customizer',
                 'operator' => '==',
-                'value' => 'site',
+                'value' => 'general',
             ),
         ),
     ),

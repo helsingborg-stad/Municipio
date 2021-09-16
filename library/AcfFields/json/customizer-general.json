@@ -1,8 +1,14 @@
 [{
     "key": "group_60cb4dd20e9c3",
-    "title": "Secondary navigation",
+    "title": "General",
     "fields": [
         {
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_60cb4dd897cb8",
             "label": "Secondary navigation position",
             "name": "secondary_navigation_position",
@@ -26,31 +32,6 @@
             "layout": "horizontal",
             "return_format": "value",
             "save_other_choice": 0
-        },
-        {
-            "key": "field_61126702da36c",
-            "label": "Mobile menu style",
-            "name": "mobile_menu_style",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "monotone": "Monotone",
-                "duotone": "Duotone"
-            },
-            "default_value": "monotone",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": ""
         }
     ],
     "location": [
@@ -58,7 +39,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "site"
+                "value": "general"
             }
         ]
     ],
