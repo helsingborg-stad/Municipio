@@ -7,7 +7,7 @@
     ]
 ])
     @nav([
-        'items' => $floatingMenuItems,
+        'items' => $languageMenuItems,
         'direction' => 'vertical',
         'includeToggle' => false,
         'classList' => ['c-nav--tiles']
@@ -15,7 +15,7 @@
     @endnav
 
     @link([
-        'href' => '#',
+        'href' => $languageMenuOptions->moreLanguageLink,
         'classList' => [
             'site-language-menu__more',
             'u-display--flex',
@@ -31,7 +31,7 @@
                 'u-margin__top--0'
             ]
         ])
-            More Languages
+            {{ __('More Languages', 'municipio') }}
         @endtypography
 
         @icon([
@@ -48,6 +48,6 @@
             'u-padding--1'
         ]
     ])
-        Please bear in mind, since Google Translate is an automatically generated translation, we do not take any responisibility for errors in the text.
+        {{ $languageMenuOptions->disclaimer }}
     @endtypography
 @endcard
