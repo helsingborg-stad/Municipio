@@ -402,4 +402,104 @@ class InitCustomizerPanels
       wp_enqueue_style('municipio-css-vars');
       wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
   }
+
+
+  /* Add options specified in customizer for modules */
+  public function moduleClasses() {
+      
+    $moduleData = [];
+    $dataStack = []; 
+
+    if(isset($this->configuration) && !empty($this->configuration) && is_array($this->configuration)) {
+      
+      foreach($this->configuration as $config) {
+
+        //Only add if allowed to render & active
+        if($config['render'] !== true || $config['active'] !== true) {
+          continue;
+        }
+
+        //Only add if defined
+        if(!isset($this->dataFieldStack[$config['id']])) {
+          continue;
+        }
+
+        //Add to data stack
+        $dataStack  = array_merge(
+          $dataStack,
+          $this->dataFieldStack[$config['id']]
+        ); 
+
+      }
+
+    }
+
+    //Build array with context and it's classes
+    if(is_array($dataStack) && !empty($dataStack)) {
+        foreach($dataStack as $data) {
+            foreach ($data as $key => $value) {
+                
+                //Get named parts
+                $nameParts = explode('-', $value['name']);
+
+                //Remove last element if array only has one value
+                if(count($nameParts) > 1) {
+                    array_pop($nameParts);
+                }
+
+                //Create key parts
+                $Module = isset($nameParts[0]) ? $nameParts[0] : '';
+                $View   = isset($nameParts[1]) ? ucfirst($nameParts[1]) : '';
+
+                //Set value for key parts
+                $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
+            
+            }
+        }
+    }
+
+    //Build filters
+    $filters = [
+        'ComponentLibrary/Component/Header/Modifier',
+        'ComponentLibrary/Component/Card/Modifier',
+        'ComponentLibrary/Component/Segment/Modifier'
+    ];
+
+    //Apply filter + function
+    if(is_array($filters) && !empty($filters)) {
+        foreach($filters as $filter) {
+            add_filter($filter, function($modifiers, $contexts) use($moduleData) {
+                
+                if(!is_array($modifiers)) {
+                    $modifiers = [];
+                }
+    
+                //Always handle as array
+                if(!is_array($contexts)) {
+                    $contexts = array_filter([$contexts]); 
+                }
+    
+                //Create modifiers if exists
+                if(is_array($contexts) && !empty($contexts)) {
+                    foreach($contexts as $key => $context) {
+
+                        if(isset($moduleData[$context])) {
+                            
+                            if(!is_array($moduleData[$context])) {
+                                $moduleData[$context] = [$moduleData[$context]];
+                            }
+            
+                            $modifiers = array_merge($modifiers, $moduleData[$context]);
+                        }
+
+                    }
+                }
+    
+                return (array) $modifiers;
+                
+            }, 10, 2); 
+        }
+    }
+  }   
+
 }
