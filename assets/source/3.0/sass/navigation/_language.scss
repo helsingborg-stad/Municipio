@@ -1,8 +1,12 @@
 .site-language-menu {
+    position: relative;
+
     .site-language-menu__card {
         position: absolute;
         display: none;
-        width: 50vw;
+        width: calc(#{$base} * 34);
+        top: 100%;
+        right: 0;
     }
 
     .site-language-menu__more {
@@ -40,26 +44,29 @@
 
 @include mq(map_get($breakpoints-map, "lg")) {
     .site-language-menu {
+        display: flex;
+        align-items: center;
+        margin-top: -3px;
         order: 9999;
     }
 }
 
 @keyframes site-language-menu-popout {
     0% {
-        transform: translate(calc(-100% + 40px), 20%);
+        transform: translateY(20%);
         opacity: 0;
     }
 
     30% {
         opacity: 1;
-        transform: translate(calc(-100% + 40px), 0%);
+        transform: translateY(0%);
     }
 
     55% {
-        transform: translate(calc(-100% + 40px), 5%);
+        transform: translateY(5%);
     }
 
     100% {
-        transform: translate(calc(-100% + 40px), 0%);
+        transform: translateY(0%);
     }
 }
