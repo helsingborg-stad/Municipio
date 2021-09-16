@@ -19,6 +19,7 @@
                 'id' => '',
             ),
             'render_type' => 'var',
+            'share_option' => 1,
             'layout' => 'block',
             'sub_fields' => array(
                 0 => array(
