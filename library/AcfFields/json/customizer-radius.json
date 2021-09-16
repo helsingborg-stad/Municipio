@@ -5,9 +5,9 @@
         {
             "key": "field_6143340ed9b34",
             "label": "General radius",
-            "name": "general_radius",
-            "type": "group",
-            "instructions": "Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab.",
+            "name": "",
+            "type": "message",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,89 +15,99 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_603662f7a16f8",
-                    "label": "X-Small",
-                    "name": "municipio_radius_xs",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": 2,
-                    "min": 0,
-                    "max": 12,
-                    "step": 2,
-                    "prepend": "",
-                    "append": "px"
-                },
-                {
-                    "key": "field_6038fa31cfac6",
-                    "label": "Small",
-                    "name": "municipio_radius_sm",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": 4,
-                    "min": 0,
-                    "max": 12,
-                    "step": 2,
-                    "prepend": "",
-                    "append": "px"
-                },
-                {
-                    "key": "field_6038fa400384b",
-                    "label": "Medium",
-                    "name": "municipio_radius_md",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": 8,
-                    "min": 0,
-                    "max": 12,
-                    "step": 2,
-                    "prepend": "",
-                    "append": "px"
-                },
-                {
-                    "key": "field_6038fa52576ba",
-                    "label": "Large",
-                    "name": "municipio_radius_lg",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": 12,
-                    "min": 0,
-                    "max": 12,
-                    "step": 2,
-                    "prepend": "",
-                    "append": "px"
-                }
-            ]
+            "render_type": "",
+            "share_option": 0,
+            "message": "Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_603662f7a16f8",
+            "label": "X-Small",
+            "name": "municipio_radius_xs",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "share_option": 1,
+            "default_value": 2,
+            "min": 0,
+            "max": 12,
+            "step": 2,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_6038fa31cfac6",
+            "label": "Small",
+            "name": "municipio_radius_sm",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "share_option": 1,
+            "default_value": 4,
+            "min": 0,
+            "max": 12,
+            "step": 2,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_6038fa400384b",
+            "label": "Medium",
+            "name": "municipio_radius_md",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "share_option": 1,
+            "default_value": 8,
+            "min": 0,
+            "max": 12,
+            "step": 2,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_6038fa52576ba",
+            "label": "Large",
+            "name": "municipio_radius_lg",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "share_option": 1,
+            "default_value": 12,
+            "min": 0,
+            "max": 12,
+            "step": 2,
+            "prepend": "",
+            "append": "px"
         }
     ],
     "location": [
