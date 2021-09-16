@@ -23,14 +23,6 @@ class Modifiers
      */
     $this->configuration = [
       [
-        'id' => 'modules', 
-        'title' => "Modules", 
-        'description' => __('General module settings', 'municipio'),
-        'render' => false,
-        'share' => true,
-        'active' => true
-      ],
-      [
         'id' => 'posts', 
         'title' => "Posts", 
         'description' => __('Posts module settings', 'municipio'),
@@ -111,14 +103,6 @@ class Modifiers
         'active' => true
       ],
       [
-        'id' => 'text', 
-        'title' => "Text",
-        'description' => __('Text module settings', 'municipio'),
-        'render' => false,
-        'share' => true,
-        'active' => true
-      ],
-      [
         'id' => 'localevent', 
         'title' => "Local Event",
         'description' => __('Local event module settings', 'municipio'),
@@ -130,6 +114,14 @@ class Modifiers
         'id' => 'sectionssplit', 
         'title' => "Sections Split",
         'description' => __('Sections, split module settings', 'municipio'),
+        'render' => false,
+        'share' => true,
+        'active' => true
+      ],
+      [
+        'id' => 'script', 
+        'title' => "Script",
+        'description' => __('Script module settings.', 'municipio'),
         'render' => false,
         'share' => true,
         'active' => true

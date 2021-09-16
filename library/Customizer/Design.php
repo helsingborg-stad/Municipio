@@ -57,7 +57,7 @@ class Design
             [
                 'id' => 'radius', 
                 'title' => "Radius", 
-                'description' => __('Adjust base radius for the site', 'municipio'),
+                'description' => '',
                 'render' => true,
                 'share' => true,
                 'active' => true
@@ -73,10 +73,10 @@ class Design
             [
                 'id' => 'padding', 
                 'title' => "Padding", 
-                'description' => __('Adjust general spacing in the design.', 'municipio'),
+                'description' => '',
                 'render' => true,
                 'share' => true,
-                'active' => false
+                'active' => true
             ],
             [
                 'id' => 'borders', 
