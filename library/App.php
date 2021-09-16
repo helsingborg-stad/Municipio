@@ -81,6 +81,7 @@ class App
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillIconChoice(); 
+        new \Municipio\Admin\Acf\RenderOption(); 
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
