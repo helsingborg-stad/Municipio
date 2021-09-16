@@ -1,28 +1,7 @@
 [{
     "key": "group_611e43c157cbb",
     "title": "Site columns padding",
-    "fields": [
-        {
-            "key": "field_611e43ec4dfa5",
-            "label": "Amount of padding",
-            "name": "amount_of_padding_columns",
-            "type": "range",
-            "instructions": "Padding will be applied in 8px increments.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 0,
-            "min": "",
-            "max": 12,
-            "step": 2,
-            "prepend": "",
-            "append": ""
-        }
-    ],
+    "fields": [],
     "location": [
         [
             {

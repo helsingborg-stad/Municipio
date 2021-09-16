@@ -84,14 +84,29 @@ add_action('init', function () {
 
         //Customizer
         'customizer-missing'                        => 'group_6141a604364cd',
-        'customizer-color'                          => 'group_60361b6d86d9d',
-        'customizer-radius'                         => 'group_603662f315acc',
-        'customizer-design-share-load'              => 'group_604a117fe6872',
+        
         'customizer-modules'                        => 'group_605cdad896041',
-        'customizer-width'                          => 'group_60928d240f1bf',
         'customizer-menu-position'                  => 'group_60cb4dd20e9c3',
-        'customizer-column-size'                    => 'group_60d339321642e',
-        'customizer-content-padder'                 => 'group_611e43c157cbb'
+
+        'customizer-design-share-load'              => 'group_604a117fe6872', //Translate
+
+        'customizer-color'                          => 'group_60361b6d86d9d', //Translate
+        'customizer-radius'                         => 'group_603662f315acc',
+        'customizer-width'                          => 'group_60928d240f1bf',
+        'customizer-padding'                        => 'group_614331a86b081',
+
+        'customizer-contacts'                       => 'group_614336d78b898',
+        'customizer-event'                          => 'group_6143374aa9575',
+        'customizer-form'                           => 'group_6143379386443',
+        'customizer-index'                          => 'group_614337a28e50a',
+        'customizer-inlay'                          => 'group_614336f51a8f2',
+        'customizer-jsonrender'                     => 'group_61433782358ee',
+        'customizer-localevent'                     => 'group_614337b46f273',
+        'customizer-map'                            => 'group_6143370287209',
+        'customizer-posts'                          => 'group_614336c3d5885',
+        'customizer-sectionssplit'                  => 'group_614337ce54b5f',
+        'customizer-text'                           => 'group_614337104a06d',
+        'customizer-video'                          => 'group_6143373e63d5d'
     ));
     
     $acfExportManager->import();

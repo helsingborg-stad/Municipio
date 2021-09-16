@@ -1,0 +1,61 @@
+[{
+    "key": "group_614331a86b081",
+    "title": "Padding",
+    "fields": [
+        {
+            "key": "field_6143323a35fa1",
+            "label": "Content padding",
+            "name": "content_padding",
+            "type": "group",
+            "instructions": "Adjust the amount of padding around the columns area.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_611e43ec4dfa5",
+                    "label": "Amount of padding",
+                    "name": "amount_of_padding_columns",
+                    "type": "range",
+                    "instructions": "Padding will be applied in 8px increments.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 0,
+                    "min": "",
+                    "max": 12,
+                    "step": 2,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "padding"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+
