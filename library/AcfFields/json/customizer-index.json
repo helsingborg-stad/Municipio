@@ -1,6 +1,6 @@
 [{
-    "key": "group_6143458359420",
-    "title": "Mobile menu",
+    "key": "group_614337a28e50a",
+    "title": "Index",
     "fields": [
         {
             "repeater_choices": false,
@@ -9,9 +9,9 @@
             "repeater_value_field": "",
             "repeater_post_id": 0,
             "repeater_display_value": 0,
-            "key": "field_61126702da36c",
-            "label": "Mobile menu style",
-            "name": "mobile_menu_style",
+            "key": "field_607843a6ba55e",
+            "label": "Index",
+            "name": "index",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -22,15 +22,15 @@
                 "id": ""
             },
             "choices": {
-                "monotone": "Monotone",
-                "duotone": "Duotone"
+                "none": "None",
+                "highlight": "Highlight"
             },
-            "default_value": "monotone",
+            "default_value": false,
             "allow_null": 0,
             "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
+            "ui": 1,
             "ajax": 0,
+            "return_format": "value",
             "placeholder": ""
         }
     ],
@@ -39,7 +39,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "mobilemenu"
+                "value": "index"
             }
         ]
     ],

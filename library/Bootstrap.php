@@ -81,12 +81,11 @@ add_action('init', function () {
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
-        //Customizer
-        'customizer-menu-position'                  => 'group_60cb4dd20e9c3',
-
+        //Design share - Customizer
         'customizer-design-share-load'              => 'group_604a117fe6872', //Translate
 
-        //Design
+        //Design - Customizer
+        'customizer-general'                        => 'group_60cb4dd20e9c3',
         'customizer-color'                          => 'group_60361b6d86d9d', //Translate
         'customizer-radius'                         => 'group_603662f315acc',
         'customizer-width'                          => 'group_60928d240f1bf',
@@ -107,7 +106,8 @@ add_action('init', function () {
         'customizer-sectionssplit'                  => 'group_614337ce54b5f',
         'customizer-text'                           => 'group_614337104a06d',
         'customizer-video'                          => 'group_6143373e63d5d',
-        'customizer-script'                         => 'group_6143373e63d5d'
+        'customizer-script'                         => 'group_6143373e63d5d',
+        
     ));
     
     $acfExportManager->import();

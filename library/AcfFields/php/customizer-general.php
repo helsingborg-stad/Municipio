@@ -3,9 +3,15 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_60cb4dd20e9c3',
-    'title' => __('Secondary navigation', 'municipio'),
+    'title' => __('General', 'municipio'),
     'fields' => array(
         0 => array(
+            'repeater_choices' => false,
+            'repeater_field' => '',
+            'repeater_label_field' => '',
+            'repeater_value_field' => '',
+            'repeater_post_id' => 0,
+            'repeater_display_value' => 0,
             'key' => 'field_60cb4dd897cb8',
             'label' => __('Secondary navigation position', 'municipio'),
             'name' => 'secondary_navigation_position',
@@ -25,35 +31,10 @@
             ),
             'allow_null' => 0,
             'other_choice' => 0,
-            'default_value' => 'left',
+            'default_value' => __('left', 'municipio'),
             'layout' => 'horizontal',
             'return_format' => 'value',
             'save_other_choice' => 0,
-        ),
-        1 => array(
-            'key' => 'field_61126702da36c',
-            'label' => __('Mobile menu style', 'municipio'),
-            'name' => 'mobile_menu_style',
-            'type' => 'select',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'choices' => array(
-                'monotone' => __('Monotone', 'municipio'),
-                'duotone' => __('Duotone', 'municipio'),
-            ),
-            'default_value' => 'monotone',
-            'allow_null' => 0,
-            'multiple' => 0,
-            'ui' => 0,
-            'return_format' => 'value',
-            'ajax' => 0,
-            'placeholder' => '',
         ),
     ),
     'location' => array(
@@ -61,7 +42,7 @@
             0 => array(
                 'param' => 'customizer',
                 'operator' => '==',
-                'value' => 'site',
+                'value' => 'general',
             ),
         ),
     ),

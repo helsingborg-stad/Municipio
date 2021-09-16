@@ -2,8 +2,8 @@
 
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-    'key' => 'group_605cdad896041',
-    'title' => __('Modules', 'municipio'),
+    'key' => 'group_614337b46f273',
+    'title' => __('Local Event', 'municipio'),
     'fields' => array(
         0 => array(
             'repeater_choices' => false,
@@ -12,9 +12,9 @@
             'repeater_value_field' => '',
             'repeater_post_id' => 0,
             'repeater_display_value' => 0,
-            'key' => 'field_6063072c25917',
-            'label' => __('Script - Style', 'municipio'),
-            'name' => 'script-style',
+            'key' => 'field_607ff0d6b8426',
+            'label' => __('Local Event', 'municipio'),
+            'name' => 'localEvent',
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
@@ -44,7 +44,7 @@
             0 => array(
                 'param' => 'customizer',
                 'operator' => '==',
-                'value' => 'modules',
+                'value' => 'localevent',
             ),
         ),
     ),
