@@ -14,14 +14,18 @@
                     @endlogotype
                 @endlink
 
-                <div class="site-language-menu">
+                <div class="site-language-menu" js-toggle-item="example" js-toggle-class="is-expanded">
                     @button([
                         'id' => '',
                         'color' => 'default',
                         'style' => 'basic',
                         'icon' => 'language',
                         'classList' => [
-                            'u-display--none@lg'
+                            'u-display--none@lg',
+                            'site-language-menu-button'
+                        ],
+                        'attributeList' => [
+                            'js-toggle-trigger' => 'example'
                         ]
                     ])
                     @endbutton

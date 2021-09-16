@@ -2,7 +2,6 @@
     .site-language-menu__card {
         position: absolute;
         display: none;
-        animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         width: 50vw;
     }
 
@@ -26,9 +25,15 @@
         }
     }
 
-    &:hover {
+    &.is-expanded {
         .site-language-menu__card {
             display: block;
+            animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        .site-language-menu-button {
+            background-color: $color-primary-dark;
+            color: white;
         }
     }
 }
