@@ -160,8 +160,8 @@ class Modifiers
     //Add panels & fields 
     new \Municipio\Helper\CustomizeCreate(
         [
-            'id' => 'modules', 
-            'title' => __('Modules', 'municipio')
+            'id' => 'modifiers', 
+            'title' => __('Modifiers', 'municipio')
         ],
         $this->configuration
     );
@@ -180,11 +180,31 @@ class Modifiers
   public function moduleClasses() {
       
       $moduleData = [];
+      $dataStack = []; 
 
-      $dataStack  = array_merge(
-        $this->dataFieldStack['modules'], 
-        $this->dataFieldStack['site']
-      );
+      if(isset($this->configuration) && !empty($this->configuration) && is_array($this->configuration)) {
+        
+        foreach($this->configuration as $config) {
+
+          //Only add if allowed to render & active
+          if($config['render'] !== true || $config['active'] !== true) {
+            continue;
+          }
+
+          //Only add if defined
+          if(!isset($this->dataFieldStack[$config['id']])) {
+            continue;
+          }
+
+          //Add to data stack
+          $dataStack  = array_merge(
+            $dataStack,
+            $this->dataFieldStack[$config['id']]
+          ); 
+
+        }
+
+      }
 
       //Build array with context and it's classes
       if(is_array($dataStack) && !empty($dataStack)) {

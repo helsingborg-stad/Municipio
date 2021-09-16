@@ -102,6 +102,7 @@ class App
          */
         new \Municipio\Customizer\Design();
         new \Municipio\Customizer\Modifiers();
+        //new \Municipio\Customizer\Components();
         new \Municipio\Customizer\DesignLibrary();
         
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
