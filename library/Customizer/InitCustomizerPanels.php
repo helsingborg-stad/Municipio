@@ -345,13 +345,13 @@ class InitCustomizerPanels
 
                   $propItem   = $prop[key($stackItems[$index])];
 
-                  //Bail out if not css var
-                  if($propItem['renderType'] !== 'var') {
+                  //Bail out if not css var types
+                  if(!in_array($propItem['renderType'], ['var', 'var_colorgroup'])) {
                     continue;
                   }
 
-                  //Handle color (all fields in color tab is handled as colors)
-                  if($propItem['fieldType'] == 'color_picker' || $configurationItem['id'] === 'color') {
+                  //Handle colorfields
+                  if($propItem['fieldType'] == 'color_picker'||($propItem['fieldType'] == 'group' && $propItem['renderType'] == 'var_colorgroup')) {
                     $propItem['value'] = \Municipio\Helper\Color::prepareColor($propItem);                                    
                   }
 
