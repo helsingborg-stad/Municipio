@@ -20,9 +20,10 @@ class RenderOption {
       'name'			    => 'render_type',
       'type'			    => 'select',
       'choices'       => array(
-        ''        => __('Not selected', 'municipio'),
-        'filter'  => __('Filter', 'municipio'),
-        'var'     => __('Css variable', 'municipio')
+        ''              => __('Not selected', 'municipio'),
+        'filter'        => __('Filter', 'municipio'),
+        'var'           => __('Css variable', 'municipio'),
+        'var_colorgroup'=> __('Css variable in colorgroup (can only be applied on groups [color, alpha])', 'municipio'),
       ),
       'ui'			      => 0,
     ), true);
