@@ -18,6 +18,7 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var',
             'layout' => 'block',
             'sub_fields' => array(
                 0 => array(
@@ -33,6 +34,7 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'render_type' => 'var',
                     'default_value' => 1280,
                     'min' => 900,
                     'max' => 1660,
@@ -53,6 +55,7 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'render_type' => 'var',
                     'default_value' => 1280,
                     'min' => 900,
                     'max' => 1660,
@@ -73,6 +76,7 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'render_type' => 'var',
                     'default_value' => 1280,
                     'min' => 900,
                     'max' => 1660,
@@ -93,6 +97,7 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'render_type' => 'var',
                     'default_value' => 700,
                     'min' => 400,
                     'max' => 1000,
@@ -115,6 +120,7 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
             'layout' => 'block',
             'sub_fields' => array(
                 0 => array(

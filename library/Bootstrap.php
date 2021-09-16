@@ -83,11 +83,11 @@ add_action('init', function () {
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
         //Design share - Customizer
-        'customizer-design-share-load'              => 'group_604a117fe6872', //Translate
+        'customizer-design-share-load'              => 'group_604a117fe6872',
 
         //Design - Customizer
         'customizer-general'                        => 'group_60cb4dd20e9c3',
-        'customizer-color'                          => 'group_60361b6d86d9d', //Translate
+        'customizer-color'                          => 'group_60361b6d86d9d',
         'customizer-radius'                         => 'group_603662f315acc',
         'customizer-width'                          => 'group_60928d240f1bf',
         'customizer-padding'                        => 'group_614331a86b081',
