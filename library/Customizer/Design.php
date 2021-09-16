@@ -100,7 +100,7 @@ class Design
                 'description' => __('Set header apperance in the design.', 'municipio'),
                 'render' => true,
                 'share' => true,
-                'active' => false
+                'active' => true
             ],
             [
                 'id' => 'footer', 
@@ -117,7 +117,15 @@ class Design
                 'render' => true,
                 'share' => true,
                 'active' => false
-            ]
+            ],
+            [
+                'id' => 'mobilemenu',
+                'title' => "Mobile Menu", 
+                'description' => __('Set mobile menu apperance in the design.', 'municipio'),
+                'render' => true,
+                'share' => true,
+                'active' => true
+            ],
         ];
 
         //Adds panels to customizer area 

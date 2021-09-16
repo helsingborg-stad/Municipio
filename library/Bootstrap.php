@@ -83,18 +83,18 @@ add_action('init', function () {
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
         //Customizer
-        'customizer-missing'                        => 'group_6141a604364cd',
-        
-        'customizer-modules'                        => 'group_605cdad896041',
         'customizer-menu-position'                  => 'group_60cb4dd20e9c3',
 
         'customizer-design-share-load'              => 'group_604a117fe6872', //Translate
 
+        //Design
         'customizer-color'                          => 'group_60361b6d86d9d', //Translate
         'customizer-radius'                         => 'group_603662f315acc',
         'customizer-width'                          => 'group_60928d240f1bf',
         'customizer-padding'                        => 'group_614331a86b081',
+        'customizer-header'                         => 'group_6143452439e4a',
 
+        //Modifiers
         'customizer-contacts'                       => 'group_614336d78b898',
         'customizer-event'                          => 'group_6143374aa9575',
         'customizer-form'                           => 'group_6143379386443',
@@ -106,7 +106,8 @@ add_action('init', function () {
         'customizer-posts'                          => 'group_614336c3d5885',
         'customizer-sectionssplit'                  => 'group_614337ce54b5f',
         'customizer-text'                           => 'group_614337104a06d',
-        'customizer-video'                          => 'group_6143373e63d5d'
+        'customizer-video'                          => 'group_6143373e63d5d',
+        'customizer-script'                         => 'group_6143373e63d5d'
     ));
     
     $acfExportManager->import();
