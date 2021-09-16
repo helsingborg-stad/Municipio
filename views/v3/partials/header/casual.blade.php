@@ -21,7 +21,6 @@
                         'style' => 'basic',
                         'icon' => 'language',
                         'classList' => [
-                            'u-display--none@lg',
                             'site-language-menu-button'
                         ],
                         'attributeList' => [

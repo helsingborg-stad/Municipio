@@ -38,6 +38,12 @@
     }
 }
 
+@include mq(map_get($breakpoints-map, "lg")) {
+    .site-language-menu {
+        order: 9999;
+    }
+}
+
 @keyframes site-language-menu-popout {
     0% {
         transform: translate(calc(-100% + 40px), 20%);
