@@ -10,7 +10,13 @@ class Colors
 {
     /**
      * Prepare the color and alpha value
-     * @return string
+     * 
+     * @param   array   $colorItem      [
+     *                                      ['value' => ['color', 'alpha'], 
+     *                                      ['default' => ['color' => '', 'alpha' => '']]
+     *                                  ]
+     * 
+     * @return  string                  Rgba css color value.
      */
     public function prepareColor ($colorItem) {
     
