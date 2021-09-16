@@ -189,10 +189,9 @@ class Design
                     $itemKey    = key($stackItems[$index]);
                     $propItem   = $prop[$itemKey];
 
-                    //Handle colors
+                    //Handle color
                     if($config['id'] === 'color') {
-                        $colors = new Colors();
-                        $propItem['value'] = $colors->prepareColor($propItem);                                    
+                        $propItem['value'] = \Municipio\Helper\Color::prepareColor($propItem);                                    
                     }
 
                     //Handle width
