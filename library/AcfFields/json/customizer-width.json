@@ -5,10 +5,29 @@
         {
             "key": "field_614316f767fa4",
             "label": "Page Widths",
-            "name": "Page Widths",
-            "type": "group",
-            "instructions": "Set the maximum page withs of different page types.",
+            "name": "",
+            "type": "message",
+            "instructions": "",
             "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "share_option": 0,
+            "message": "Set the maximum page withs of different page types.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_609bdcc8348d6",
+            "label": "Default",
+            "name": "municipio_container_width",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -16,101 +35,82 @@
                 "id": ""
             },
             "render_type": "var",
-            "share_option": 1,
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_609bdcc8348d6",
-                    "label": "Default",
-                    "name": "municipio_container_width",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "render_type": "var",
-                    "default_value": 1280,
-                    "min": 900,
-                    "max": 1660,
-                    "step": 32,
-                    "prepend": "",
-                    "append": "px"
-                },
-                {
-                    "key": "field_60928f237c070",
-                    "label": "Front Page",
-                    "name": "municipio_container_width_frontpage",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "render_type": "var",
-                    "default_value": 1280,
-                    "min": 900,
-                    "max": 1660,
-                    "step": 32,
-                    "prepend": "",
-                    "append": "px"
-                },
-                {
-                    "key": "field_609bdcad348d5",
-                    "label": "Archives",
-                    "name": "municipio_container_width_archive",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "render_type": "var",
-                    "default_value": 1280,
-                    "min": 900,
-                    "max": 1660,
-                    "step": 32,
-                    "prepend": "",
-                    "append": "px"
-                },
-                {
-                    "key": "field_609298276e5b2",
-                    "label": "Content area",
-                    "name": "municipio_container_width_content",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "render_type": "var",
-                    "default_value": 700,
-                    "min": 400,
-                    "max": 1000,
-                    "step": 32,
-                    "prepend": "",
-                    "append": "px"
-                }
-            ]
+            "default_value": 1280,
+            "min": 900,
+            "max": 1660,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_60928f237c070",
+            "label": "Front Page",
+            "name": "municipio_container_width_frontpage",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "default_value": 1280,
+            "min": 900,
+            "max": 1660,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_609bdcad348d5",
+            "label": "Archives",
+            "name": "municipio_container_width_archive",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "default_value": 1280,
+            "min": 900,
+            "max": 1660,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_609298276e5b2",
+            "label": "Content area",
+            "name": "municipio_container_width_content",
+            "type": "range",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var",
+            "default_value": 700,
+            "min": 400,
+            "max": 1000,
+            "step": 32,
+            "prepend": "",
+            "append": "px"
         },
         {
             "key": "field_61432dfbaa109",
             "label": "Column sizes",
-            "name": "column_sizes",
-            "type": "group",
-            "instructions": "Set the widths of columns to accomodate more versatile design layouts. The middle column will adjust to remaining space automatically.",
+            "name": "",
+            "type": "message",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -118,72 +118,73 @@
                 "class": "",
                 "id": ""
             },
-            "render_type": "filter",
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "repeater_choices": 0,
-                    "repeater_field": "",
-                    "repeater_label_field": "",
-                    "repeater_value_field": "",
-                    "repeater_post_id": 0,
-                    "repeater_display_value": 0,
-                    "key": "field_60d339b60049e",
-                    "label": "Left",
-                    "name": "column_size_left",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "normal": "Normal",
-                        "large": "Large"
-                    },
-                    "default_value": false,
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "ui": 0,
-                    "return_format": "value",
-                    "ajax": 0,
-                    "placeholder": ""
-                },
-                {
-                    "repeater_choices": false,
-                    "repeater_field": "",
-                    "repeater_label_field": "",
-                    "repeater_value_field": "",
-                    "repeater_post_id": 0,
-                    "repeater_display_value": 0,
-                    "key": "field_60d3393d1231a",
-                    "label": "Right",
-                    "name": "column_size_right",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "normal": "Normal",
-                        "large": "Large"
-                    },
-                    "default_value": "normal",
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "ui": 0,
-                    "return_format": "value",
-                    "ajax": 0,
-                    "placeholder": ""
-                }
-            ]
+            "render_type": "",
+            "share_option": 0,
+            "message": "Set the widths of columns to accomodate more versatile design layouts. The middle column will adjust to remaining space automatically.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "key": "field_60d339b60049e",
+            "label": "Left",
+            "name": "column_size_left",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "normal": "Normal",
+                "large": "Large"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "key": "field_60d3393d1231a",
+            "label": "Right",
+            "name": "column_size_right",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "normal": "Normal",
+                "large": "Large"
+            },
+            "default_value": "normal",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
