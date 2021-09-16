@@ -159,16 +159,19 @@ class InitCustomizerPanels
     add_action('init', array($this, 'initDesignPanel'));
     add_action('init', array($this, 'initModifierPanel'));
 
-    add_action('wp_head', array($this, 'wphead'));
+    add_action('wp_head', array($this, 'renderStyles'), 1);
   }
 
   /**
-   * TEST
+   * Render root css block
    *
    * @return void
    */
-  public function wphead() {
-    var_dump($this->mapFieldConfiguration($this->getFlatConfiguration())); 
+  public function renderStyles() {
+    $configuration  = $this->getFlatConfiguration(); 
+    $dataFieldStack = $this->mapFieldConfiguration($configuration); 
+
+    $this->renderCssVariables($configuration, $dataFieldStack); 
   }
 
   /**
@@ -180,7 +183,6 @@ class InitCustomizerPanels
     $themeMods = \Municipio\Helper\CustomizeGet::get(); 
 
     if (is_array($configuration) && !empty($configuration)) {
-        
         foreach ($configuration as $configurationKey => $config) {
 
             //File path
@@ -188,11 +190,6 @@ class InitCustomizerPanels
 
             //Read file
             if (file_exists($configFile) && $data = json_decode(file_get_contents($configFile))) {
-
-                //File validation
-                if (count($data) != 1) {
-                    return new \WP_Error("Configuration file should not contain more than one group " . $config);
-                }
 
                 //Get first group
                 $data = array_pop($data);
@@ -210,16 +207,17 @@ class InitCustomizerPanels
                             }
                         }
 
+                        //Create result stack, with all neccessary data
                         $dataFieldStack[$config['id']][$fieldIndex] = [
                             $field->key => [
-                                'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
-                                'default' => $field->default_value ?? '',
-                                'value' => $themeMods[$field->key] ?? '',
-                                'prepend' => $field->prepend ?? null,
-                                'append' => $field->append ?? null,
-                                'share' => $field->share_option ?? false,
-                                'renderType' => $field->render_type ?? null,
-                                'fieldType' => $field->type ?? null
+                              'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
+                              'default' => $field->default_value ?? '',
+                              'value' => $themeMods[$field->key] ?? '',
+                              'prepend' => $field->prepend ?? null,
+                              'append' => $field->append ?? null,
+                              'share' => $field->share_option ?? false,
+                              'renderType' => $field->render_type ?? null,
+                              'fieldType' => $field->type ?? null
                             ]
                         ];
                     }
@@ -313,4 +311,94 @@ class InitCustomizerPanels
     );
   }
 
+  /**
+   * Render root css variables
+   * @return void
+   */
+  public function renderCssVariables($configuration, $dataFieldStack)
+  {
+
+      $inlineStyle = null;
+
+      foreach ($configuration as $configurationItem) {
+
+          //Only add if active
+          if($configurationItem['active'] !== true) {
+            continue;
+          }
+
+          //Only add if defined
+          if(!array_key_exists($configurationItem['id'], $dataFieldStack)) {
+            continue;
+          }
+
+          //Get stack
+          $stackItems = $dataFieldStack[$configurationItem['id']];
+
+          //Init section
+          $inlineStyle .= PHP_EOL . '  /* css-var: ' . $configurationItem['id'] . ' */' . PHP_EOL;
+
+          if(is_array($stackItems) && !empty($stackItems)) {
+
+              foreach ($stackItems as $index => $prop) {
+
+                  $propItem   = $prop[key($stackItems[$index])];
+
+                  //Bail out if not css var
+                  if($propItem['renderType'] !== 'var') {
+                    continue;
+                  }
+
+                  //Handle color (all fields in color tab is handled as colors)
+                  if($propItem['fieldType'] == 'color_picker' || $configurationItem['id'] === 'color') {
+                    $propItem['value'] = \Municipio\Helper\Color::prepareColor($propItem);                                    
+                  }
+
+                  //Handle width
+                  if($configurationItem['id'] === 'width') {
+
+                      if(!in_array($propItem['name'], ['container-width-content'])) {
+
+                          //Do not render archive on any other page
+                          if(!is_archive() && $propItem['name'] == "container-width-archive") {
+                              continue;
+                          }
+
+                          //Do not render fontpage width on any other page
+                          if((!is_front_page() && !is_home()) && $propItem['name'] == "container-width-frontpage") {
+                              continue;
+                          }
+
+                          //Do not render default container width on special pagetypes
+                          if((is_archive()||is_front_page()||is_home()||is_tax()) && $propItem['name'] == "container-width") {
+                              continue;
+                          }
+
+                          //Use archive prop or frontpage prop as container-width
+                          if(substr($propItem['name'], 0, strlen("container-width")) == "container-width") {
+                              $propItem['name'] = "container-width";           
+                          }
+
+                      }
+                      
+                  }
+
+                  /** Add append & prepent values, incl. defaults */
+                  $inlineStyle .= \Municipio\Helper\CustomizeGet::createCssVar(
+                      $propItem['name'],
+                      $propItem['prepend'],
+                      $propItem['value'],
+                      $propItem['append'],
+                      $propItem['default']                 
+                  );
+
+              }
+          }
+      }
+
+      wp_dequeue_style('municipio-css-vars');
+      wp_register_style('municipio-css-vars', false);
+      wp_enqueue_style('municipio-css-vars');
+      wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
+  }
 }
