@@ -65,7 +65,7 @@ class Design
             [
                 'id' => 'width', 
                 'title' => "Widths", 
-                'description' => __('Adjust site width for different types of pages, archives and templates.', 'municipio'),
+                'description' => '',
                 'render' => true,
                 'share' => true,
                 'active' => true
@@ -171,8 +171,13 @@ class Design
 
         foreach ($this->configuration as $config) {
 
-            //Do not render stuff that shoulden't
-            if($config['render'] !== true) {
+            //Only add if allowed to render & active
+            if($config['render'] !== true || $config['active'] !== true) {
+                continue;
+            }
+
+            //Only add if defined
+            if(!isset($this->dataFieldStack[$config['id']])) {
                 continue;
             }
 
