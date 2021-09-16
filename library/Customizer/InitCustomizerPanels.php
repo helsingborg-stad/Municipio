@@ -159,87 +159,8 @@ class InitCustomizerPanels
     add_action('init', array($this, 'initDesignPanel'));
     add_action('init', array($this, 'initModifierPanel'));
 
-    add_action('wp_head', array($this, 'renderStyles'), 1);
-  }
-
-  /**
-   * Render root css block
-   *
-   * @return void
-   */
-  public function renderStyles() {
-    $configuration  = $this->getFlatConfiguration(); 
-    $dataFieldStack = $this->mapFieldConfiguration($configuration); 
-
-    $this->renderCssVariables($configuration, $dataFieldStack); 
-  }
-
-  /**
-   * Parses the acf config
-   * @return \WP_Error|void
-   */
-  public function mapFieldConfiguration($configuration, $dataFieldStack = [])
-  { 
-    $themeMods = \Municipio\Helper\CustomizeGet::get(); 
-
-    if (is_array($configuration) && !empty($configuration)) {
-        foreach ($configuration as $configurationKey => $config) {
-
-            //File path
-            $configFile = MUNICIPIO_PATH . 'library/AcfFields/json/customizer-' . $config['id'] . '.json';
-
-            //Read file
-            if (file_exists($configFile) && $data = json_decode(file_get_contents($configFile))) {
-
-                //Get first group
-                $data = array_pop($data);
-
-                //Validate that we have fields 
-                if (isset($data->fields) && !empty($data->fields)) {
-                    foreach ($data->fields as $fieldIndex => $field) {
-
-                        // If field is a group, set default value as array with key values
-                        if($field->type === "group") {
-                            $field->default_value = array();
-
-                            foreach ($field->sub_fields as $subfield) {
-                                $field->default_value[$subfield->name] = $subfield->default_value;
-                            }
-                        }
-
-                        //Create result stack, with all neccessary data
-                        $dataFieldStack[$config['id']][$fieldIndex] = [
-                            $field->key => [
-                              'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
-                              'default' => $field->default_value ?? '',
-                              'value' => $themeMods[$field->key] ?? '',
-                              'prepend' => $field->prepend ?? null,
-                              'append' => $field->append ?? null,
-                              'share' => $field->share_option ?? false,
-                              'renderType' => $field->render_type ?? null,
-                              'fieldType' => $field->type ?? null
-                            ]
-                        ];
-                    }
-                }
-            }
-        }
-    }
-
-    return $dataFieldStack; 
-  }
-
-  /**
-   * Get a flat version of the configuration
-   * @return array
-   */
-  private function getFlatConfiguration($allOptions = []) {
-    if(is_array($this->configuration) && !empty($this->configuration)) {
-      foreach($this->configuration as $section) {
-        $allOptions = array_merge($allOptions, $section); 
-      }
-    }
-    return $allOptions; 
+    //Render css variables in header
+    add_action('wp_head', array($this, 'renderRootCss'), 1);
   }
 
   /**
@@ -309,6 +230,86 @@ class InitCustomizerPanels
       ],
       $this->configuration['modifiers']
     );
+  }
+
+  /**
+   * Render root css block
+   *
+   * @return void
+   */
+  public function renderRootCss() {
+    $configuration  = $this->getFlatConfiguration(); 
+    $dataFieldStack = $this->mapFieldConfiguration($configuration); 
+
+    $this->renderCssVariables($configuration, $dataFieldStack); 
+  }
+
+  /**
+   * Get a flat version of the configuration
+   * @return array
+   */
+  private function getFlatConfiguration($allOptions = []) {
+    if(is_array($this->configuration) && !empty($this->configuration)) {
+      foreach($this->configuration as $section) {
+        $allOptions = array_merge($allOptions, $section); 
+      }
+    }
+    return $allOptions; 
+  }
+
+  /**
+   * Parses the acf config
+   * @return \WP_Error|void
+   */
+  public function mapFieldConfiguration($configuration, $dataFieldStack = [])
+  { 
+    $themeMods = \Municipio\Helper\CustomizeGet::get(); 
+
+    if (is_array($configuration) && !empty($configuration)) {
+        foreach ($configuration as $configurationKey => $config) {
+
+            //File path
+            $configFile = MUNICIPIO_PATH . 'library/AcfFields/json/customizer-' . $config['id'] . '.json';
+
+            //Read file
+            if (file_exists($configFile) && $data = json_decode(file_get_contents($configFile))) {
+
+                //Get first group
+                $data = array_pop($data);
+
+                //Validate that we have fields 
+                if (isset($data->fields) && !empty($data->fields)) {
+                    foreach ($data->fields as $fieldIndex => $field) {
+
+                        // If field is a group, set default value as array with key values
+                        if($field->type === "group") {
+                            $field->default_value = array();
+
+                            foreach ($field->sub_fields as $subfield) {
+                                $field->default_value[$subfield->name] = $subfield->default_value;
+                            }
+                        }
+
+                        //Create result stack, with all neccessary data
+                        $dataFieldStack[$config['id']][$fieldIndex] = [
+                            $field->key => [
+                              'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
+                              'default' => $field->default_value ?? '',
+                              'value' => $themeMods[$field->key] ?? '',
+                              'prepend' => $field->prepend ?? null,
+                              'append' => $field->append ?? null,
+                              'share' => $field->share_option ?? false,
+                              'renderType' => $field->render_type ?? null,
+                              'fieldType' => $field->type ?? null
+                            ]
+                        ];
+                    }
+                }
+            }
+        }
+    }
+
+    return $dataFieldStack; 
   }
 
   /**
