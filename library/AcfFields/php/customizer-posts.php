@@ -6,7 +6,7 @@
     'title' => __('Posts', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -24,6 +24,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'posts-index',
+            'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
@@ -39,7 +42,7 @@
             'placeholder' => '',
         ),
         1 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -57,6 +60,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'postsList',
+            'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
@@ -72,7 +78,7 @@
             'placeholder' => '',
         ),
         2 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -90,6 +96,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'posts-expandableList',
+            'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),

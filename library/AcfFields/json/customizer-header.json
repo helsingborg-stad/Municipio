@@ -5,9 +5,9 @@
         {
             "key": "field_61434d8f49e64",
             "label": "Scroll behaviour",
-            "name": "scroll_behaviour",
-            "type": "group",
-            "instructions": "Adjust how the header section should behave when the user scrolls trough the page.",
+            "name": "",
+            "type": "message",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,28 +15,33 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_61434d3478ef7",
-                    "label": "Sticky",
-                    "name": "header_stick_to_top",
-                    "type": "true_false",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "message": "Make the header tick to the top of the view when user scrolls",
-                    "default_value": 0,
-                    "ui": 0,
-                    "ui_on_text": "",
-                    "ui_off_text": ""
-                }
-            ]
+            "render_type": "",
+            "share_option": 0,
+            "message": "Adjust how the header section should behave when the user scrolls trough the page.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_61434d3478ef7",
+            "label": "Sticky",
+            "name": "header_stick_to_top",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "header, footer",
+            "share_option": 1,
+            "message": "Make the header tick to the top of the view when user scrolls",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [

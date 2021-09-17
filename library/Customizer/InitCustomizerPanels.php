@@ -161,6 +161,9 @@ class InitCustomizerPanels
 
     //Render css variables in header
     add_action('wp_head', array($this, 'renderRootCss'), 1);
+
+    //Apply filters
+    add_action('wp_head', array($this, 'triggerFilters'), 2);
   }
 
   /**
@@ -245,6 +248,18 @@ class InitCustomizerPanels
   }
 
   /**
+   * Trigger filters
+   * 
+   * @return void
+   */
+  public function triggerFilters() {
+    $configuration  = $this->getFlatConfiguration(); 
+    $dataFieldStack = $this->mapFieldConfiguration($configuration); 
+
+    $this->moduleClasses($configuration, $dataFieldStack); 
+  }
+
+  /**
    * Get a flat version of the configuration
    * @return array
    */
@@ -300,7 +315,8 @@ class InitCustomizerPanels
                               'append' => $field->append ?? null,
                               'share' => $field->share_option ?? false,
                               'renderType' => $field->render_type ?? null,
-                              'fieldType' => $field->type ?? null
+                              'fieldType' => $field->type ?? null,
+                              'filterContext' => $field->filter_context ?? null
                             ]
                         ];
                     }
@@ -403,103 +419,92 @@ class InitCustomizerPanels
       wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
   }
 
-
   /* Add options specified in customizer for modules */
-  public function moduleClasses() {
-      
-    $moduleData = [];
-    $dataStack = []; 
+  public function moduleClasses($configuration, $dataFieldStack) {
 
-    if(isset($this->configuration) && !empty($this->configuration) && is_array($this->configuration)) {
-      
-      foreach($this->configuration as $config) {
+    if(isset($configuration) && !empty($configuration) && is_array($configuration)) {
 
-        //Only add if allowed to render & active
-        if($config['render'] !== true || $config['active'] !== true) {
+      foreach ($configuration as $configurationItem) {
+
+        //Only add if active
+        if($configurationItem['active'] !== true) {
           continue;
         }
-
+         
         //Only add if defined
-        if(!isset($this->dataFieldStack[$config['id']])) {
+        if(!array_key_exists($configurationItem['id'], $dataFieldStack)) {
           continue;
         }
 
-        //Add to data stack
-        $dataStack  = array_merge(
-          $dataStack,
-          $this->dataFieldStack[$config['id']]
-        ); 
+        //Get stack
+        $stackItems = $dataFieldStack[$configurationItem['id']];
 
-      }
+        if(is_array($stackItems) && !empty($stackItems)) {
 
-    }
+          foreach ($stackItems as $index => $prop) {
 
-    //Build array with context and it's classes
-    if(is_array($dataStack) && !empty($dataStack)) {
-        foreach($dataStack as $data) {
-            foreach ($data as $key => $value) {
-                
-                //Get named parts
-                $nameParts = explode('-', $value['name']);
+            $propItem   = $prop[key($stackItems[$index])];
 
-                //Remove last element if array only has one value
-                if(count($nameParts) > 1) {
-                    array_pop($nameParts);
-                }
-
-                //Create key parts
-                $Module = isset($nameParts[0]) ? $nameParts[0] : '';
-                $View   = isset($nameParts[1]) ? ucfirst($nameParts[1]) : '';
-
-                //Set value for key parts
-                $moduleData[$Module . $View] = !empty($value['value']) ? $value['value'] : $value['default'];
-            
+            //Bail out if not filter
+            if(!in_array($propItem['renderType'], ['filter'])) {
+              continue;
             }
-        }
-    }
 
-    //Build filters
-    $filters = [
-        'ComponentLibrary/Component/Header/Modifier',
-        'ComponentLibrary/Component/Card/Modifier',
-        'ComponentLibrary/Component/Segment/Modifier'
-    ];
+            //Consolidate filter data
+            $filter = [
+              'value' => $propItem['value'],
+              'context' => $this->parseContextString($propItem['filterContext'])
+            ]; 
+          
+            //Add filter
+            add_filter('ComponentLibrary/Component/Modifier', function($modifiers, $contexts) use ($filter) {
 
-    //Apply filter + function
-    if(is_array($filters) && !empty($filters)) {
-        foreach($filters as $filter) {
-            add_filter($filter, function($modifiers, $contexts) use($moduleData) {
-                
-                if(!is_array($modifiers)) {
-                    $modifiers = [];
+              if(!is_array($contexts)) {
+                $contexts = [$contexts]; 
+              }
+
+              if(!is_array($modifiers)) {
+                $modifiers = [$modifiers]; 
+              }
+
+              if(is_array($contexts) && !empty($contexts)) {
+                foreach($contexts as $context) {
+                  if(in_array($context, $filter['context'])) {
+                    $modifiers[] = $filter['value'];
+                  }
                 }
-    
-                //Always handle as array
-                if(!is_array($contexts)) {
-                    $contexts = array_filter([$contexts]); 
-                }
-    
-                //Create modifiers if exists
-                if(is_array($contexts) && !empty($contexts)) {
-                    foreach($contexts as $key => $context) {
+              }
 
-                        if(isset($moduleData[$context])) {
-                            
-                            if(!is_array($moduleData[$context])) {
-                                $moduleData[$context] = [$moduleData[$context]];
-                            }
-            
-                            $modifiers = array_merge($modifiers, $moduleData[$context]);
-                        }
-
-                    }
-                }
-    
-                return (array) $modifiers;
-                
+              return $modifiers;
             }, 10, 2); 
+          }
         }
+      }
     }
-  }   
+  }
 
+  /**
+   * Make contexts always a arr
+   *
+   * @param string $contexts
+   * @return void
+   */
+  private function parseContextString($contexts) {
+
+    if(is_null($contexts)) {
+      return []; 
+    } 
+
+    //Explode contexts string
+    $contexts = explode(",", $contexts);  
+
+    //Always handle as array
+    if(!is_array($contexts)) {
+        $contexts = array_filter([$contexts]); 
+    }
+
+    //Trim all contexts
+    return array_map('trim', $contexts);
+
+  } 
 }

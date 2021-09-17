@@ -3,7 +3,7 @@
     "title": "Posts",
     "fields": [
         {
-            "repeater_choices": false,
+            "repeater_choices": 0,
             "repeater_field": "",
             "repeater_label_field": "",
             "repeater_value_field": "",
@@ -21,6 +21,9 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "posts-index",
+            "share_option": 1,
             "choices": {
                 "none": "None",
                 "panel": "Panel",
@@ -36,7 +39,7 @@
             "placeholder": ""
         },
         {
-            "repeater_choices": false,
+            "repeater_choices": 0,
             "repeater_field": "",
             "repeater_label_field": "",
             "repeater_value_field": "",
@@ -54,6 +57,9 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "postsList",
+            "share_option": 1,
             "choices": {
                 "none": "None",
                 "panel": "Panel",
@@ -69,7 +75,7 @@
             "placeholder": ""
         },
         {
-            "repeater_choices": false,
+            "repeater_choices": 0,
             "repeater_field": "",
             "repeater_label_field": "",
             "repeater_value_field": "",
@@ -87,6 +93,9 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "posts-expandableList",
+            "share_option": 1,
             "choices": {
                 "none": "None",
                 "panel": "Panel",
