@@ -15,7 +15,7 @@
                 @endlink
 
                 @if (!empty($languageMenuItems))
-                    <div class="site-language-menu" js-toggle-item="example" js-toggle-class="is-expanded">
+                    <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
                         @button([
                             'id' => '',
                             'color' => 'default',
@@ -25,7 +25,7 @@
                                 'site-language-menu-button'
                             ],
                             'attributeList' => [
-                                'js-toggle-trigger' => 'example',
+                                'js-toggle-trigger' => 'language-menu-toggle',
                                 'aria-label' => __("Select language", 'municipio')
                             ]
                         ])
