@@ -9,7 +9,8 @@
                     @logotype([
                         'src'=> $logotype->url,
                         'alt' => $lang->goToHomepage,
-                        'classList' => ['c-nav__logo']
+                        'classList' => ['c-nav__logo'],
+                        'context' => ['site.header.logo', 'site.header.business.logo']
                     ])
                     @endlogotype
                 @endlink
@@ -29,7 +30,8 @@
                     'attributeList' => [
                         'aria-label' => $lang->menu,
                         'aria-controls' => "navigation"
-                    ]
+                    ],
+                    'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
                 ])
                 @endbutton
 
@@ -58,7 +60,8 @@
                     @nav([
                         'items' => $primaryMenuItems,
                         'direction' => 'horizontal',
-                        'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--space-between']
+                        'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--space-between'],
+                        'context' => ['site.header.nav', 'site.header.business.nav']
                     ])
                     @endnav
                 </nav>

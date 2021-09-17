@@ -1,6 +1,7 @@
 @extends('templates.header', ['classList' => ['c-header c-header--casual']])
 
 @section('primary-navigation')
+
     <div class="c-header__menu c-header__menu--primary">
         <div class="o-container o-container--wide">
             <div class="u-display--flex u-justify-content--space-between u-align-content--center">
@@ -9,7 +10,8 @@
                     @logotype([
                         'src'=> $logotype->url,
                         'alt' => $lang->goToHomepage,
-                        'classList' => ['c-nav__logo']
+                        'classList' => ['c-nav__logo'],
+                        'context' => ['site.header.logo', 'site.header.casual.logo']
                     ])
                     @endlogotype
                 @endlink
@@ -29,16 +31,18 @@
                     'attributeList' => [
                         'aria-label' => $lang->menu,
                         'aria-controls' => "navigation"
-                    ]
+                    ],
+                    'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger']
                 ])
                 @endbutton
 
                 @if (!empty($primaryMenuItems))
-                    <nav  role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
+                    <nav role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
                         @nav([
                             'items' => $primaryMenuItems,
                             'direction' => 'horizontal',
-                            'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--end']
+                            'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--end'],
+                            'context' => ['site.header.nav', 'site.header.casual.nav']
                         ])
                         @endnav
                     </nav>
