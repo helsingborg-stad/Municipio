@@ -6,6 +6,26 @@
     'title' => __('Colors', 'municipio'),
     'fields' => array(
         0 => array(
+            'key' => 'field_61448a668281a',
+            'label' => __('Primary colors', 'municipio'),
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => '',
+            'filter_context' => '',
+            'share_option' => 0,
+            'message' => __('The dominating color of the website.', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        1 => array(
             'key' => 'field_60361bcb76325',
             'label' => __('Primary Color', 'municipio'),
             'name' => 'municipio_color_primary',
@@ -22,7 +42,7 @@
             'share_option' => 1,
             'default_value' => __('#ae0b05', 'municipio'),
         ),
-        1 => array(
+        2 => array(
             'key' => 'field_60364d06dc120',
             'label' => __('Primary Dark Color', 'municipio'),
             'name' => 'municipio_color_primary_dark',
@@ -39,7 +59,7 @@
             'share_option' => 1,
             'default_value' => __('#770000', 'municipio'),
         ),
-        2 => array(
+        3 => array(
             'key' => 'field_603fba043ab30',
             'label' => __('Primary Light Color', 'municipio'),
             'name' => 'municipio_color_primary_light',
@@ -56,7 +76,7 @@
             'share_option' => 1,
             'default_value' => __('#e84c31', 'municipio'),
         ),
-        3 => array(
+        4 => array(
             'key' => 'field_608c016efa73a',
             'label' => __('Primary Alpha Color', 'municipio'),
             'name' => 'municipio_color_primary_alpha',
@@ -110,7 +130,7 @@
                 ),
             ),
         ),
-        4 => array(
+        5 => array(
             'key' => 'field_608c0375f70cd',
             'label' => __('Primary Alpha Dimmed Color', 'municipio'),
             'name' => 'municipio_color_primary_alpha_dimmed',
@@ -164,7 +184,27 @@
                 ),
             ),
         ),
-        5 => array(
+        6 => array(
+            'key' => 'field_61448a4c82819',
+            'label' => __('Secondary colors', 'municipio'),
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => '',
+            'filter_context' => '',
+            'share_option' => 0,
+            'message' => __('Second level of colors on used on the site.', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        7 => array(
             'key' => 'field_603fba3ffa851',
             'label' => __('Secondary Color', 'municipio'),
             'name' => 'municipio_color_secondary',
@@ -181,7 +221,7 @@
             'share_option' => 1,
             'default_value' => __('#ec6701', 'municipio'),
         ),
-        6 => array(
+        8 => array(
             'key' => 'field_603fbb7ad4ccf',
             'label' => __('Secondary Dark Color', 'municipio'),
             'name' => 'municipio_color_secondary_dark',
@@ -198,7 +238,7 @@
             'share_option' => 1,
             'default_value' => __('#b23700', 'municipio'),
         ),
-        7 => array(
+        9 => array(
             'key' => 'field_603fbbef1e2f8',
             'label' => __('Secondary Light Color', 'municipio'),
             'name' => 'municipio_color_secondary_light',
@@ -215,7 +255,7 @@
             'share_option' => 1,
             'default_value' => __('#ff983e', 'municipio'),
         ),
-        8 => array(
+        10 => array(
             'key' => 'field_608c038cf70d0',
             'label' => __('Secondary Alpha Color', 'municipio'),
             'name' => 'municipio_color_secondary_alpha',
@@ -273,7 +313,7 @@
                 ),
             ),
         ),
-        9 => array(
+        11 => array(
             'key' => 'field_608c03bcf70d3',
             'label' => __('Secondary Alpha Dimmed Color', 'municipio'),
             'name' => 'municipio_color_secondary_alpha_dimmed',
@@ -331,7 +371,27 @@
                 ),
             ),
         ),
-        10 => array(
+        12 => array(
+            'key' => 'field_61448a0b82818',
+            'label' => __('Tertiary colors', 'municipio'),
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => '',
+            'filter_context' => '',
+            'share_option' => 0,
+            'message' => __('Third level of colors on used on the site.', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        13 => array(
             'key' => 'field_608c0e753ef05',
             'label' => __('Tertiary Color', 'municipio'),
             'name' => 'municipio_color_tertiary',
@@ -348,7 +408,7 @@
             'share_option' => 1,
             'default_value' => __('#ec6701', 'municipio'),
         ),
-        11 => array(
+        14 => array(
             'key' => 'field_608c0e813ef06',
             'label' => __('Tertiary Dark Color', 'municipio'),
             'name' => 'municipio_color_tertiary_dark',
@@ -365,7 +425,7 @@
             'share_option' => 1,
             'default_value' => __('#b23700', 'municipio'),
         ),
-        12 => array(
+        15 => array(
             'key' => 'field_608c0e8c3ef07',
             'label' => __('Tertiary Light Color', 'municipio'),
             'name' => 'municipio_color_tertiary_light',
@@ -382,7 +442,7 @@
             'share_option' => 1,
             'default_value' => __('#ff983e', 'municipio'),
         ),
-        13 => array(
+        16 => array(
             'key' => 'field_608c0ea33ef08',
             'label' => __('Tertiary Alpha Color', 'municipio'),
             'name' => 'municipio_color_tertiary_alpha',
@@ -440,7 +500,7 @@
                 ),
             ),
         ),
-        14 => array(
+        17 => array(
             'key' => 'field_608c0eae3ef0b',
             'label' => __('Tertiary Alpha Dimmed Color', 'municipio'),
             'name' => 'municipio_color_tertiary_alpha_dimmed',
@@ -498,7 +558,27 @@
                 ),
             ),
         ),
-        15 => array(
+        18 => array(
+            'key' => 'field_614489d482817',
+            'label' => __('Link colors', 'municipio'),
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => '',
+            'filter_context' => '',
+            'share_option' => 0,
+            'message' => __('Set the colors for all types of links overall on the website.', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        19 => array(
             'key' => 'field_60868021879b6',
             'label' => __('Link Color', 'municipio'),
             'name' => 'municipio_color_link',
@@ -515,7 +595,7 @@
             'share_option' => 1,
             'default_value' => __('#000000', 'municipio'),
         ),
-        16 => array(
+        20 => array(
             'key' => 'field_608680ef879b7',
             'label' => __('Link Hover Color', 'municipio'),
             'name' => 'municipio_color_link_hover',
@@ -532,7 +612,7 @@
             'share_option' => 1,
             'default_value' => __('#ae0b05', 'municipio'),
         ),
-        17 => array(
+        21 => array(
             'key' => 'field_60868147879b8',
             'label' => __('Link Visited Color', 'municipio'),
             'name' => 'municipio_color_link_visited',
@@ -549,7 +629,7 @@
             'share_option' => 1,
             'default_value' => __('#000000', 'municipio'),
         ),
-        18 => array(
+        22 => array(
             'key' => 'field_6086819f879b9',
             'label' => __('Link Visited Hover Color', 'municipio'),
             'name' => 'municipio_color_link_visited_hover',
@@ -566,7 +646,7 @@
             'share_option' => 1,
             'default_value' => __('#770000', 'municipio'),
         ),
-        19 => array(
+        23 => array(
             'key' => 'field_608681df879ba',
             'label' => __('Link Active Color', 'municipio'),
             'name' => 'municipio_color_link_active',
@@ -583,7 +663,27 @@
             'share_option' => 1,
             'default_value' => __('#ae0b05', 'municipio'),
         ),
-        20 => array(
+        24 => array(
+            'key' => 'field_61448744c1949',
+            'label' => __('Complementary Colors', 'municipio'),
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => '',
+            'filter_context' => '',
+            'share_option' => 0,
+            'message' => __('Complementary colors are used to emphasize different parts of the website discreetly or create subtle contrasts.', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        25 => array(
             'key' => 'field_60911ccc38857',
             'label' => __('Complementary color -    illustration / header', 'municipio'),
             'name' => 'municipio_color_complementary',
@@ -600,7 +700,7 @@
             'share_option' => 1,
             'default_value' => __('#dec2c2', 'municipio'),
         ),
-        21 => array(
+        26 => array(
             'key' => 'field_6091280638858',
             'label' => __('Complementary color -    button / line', 'municipio'),
             'name' => 'municipio_color_complementary_light',
@@ -617,7 +717,7 @@
             'share_option' => 1,
             'default_value' => __('#F0DBD9', 'municipio'),
         ),
-        22 => array(
+        27 => array(
             'key' => 'field_6091282d38859',
             'label' => __('Complementary color -    input', 'municipio'),
             'name' => 'municipio_color_complementary_lighter',
@@ -633,23 +733,6 @@
             'render_type' => 'var',
             'share_option' => 1,
             'default_value' => __('#F5E4E3', 'municipio'),
-        ),
-        23 => array(
-            'key' => 'field_609128593885a',
-            'label' => __('Complementary color - card', 'municipio'),
-            'name' => 'municipio_color_complementary_lightest',
-            'type' => 'color_picker',
-            'instructions' => '',
-            'required' => 1,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'render_type' => 'var',
-            'share_option' => 1,
-            'default_value' => __('#FAEEEC', 'municipio'),
         ),
     ),
     'location' => array(

@@ -3,6 +3,26 @@
     "title": "Colors",
     "fields": [
         {
+            "key": "field_61448a668281a",
+            "label": "Primary colors",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "message": "The dominating color of the website.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_60361bcb76325",
             "label": "Primary Color",
             "name": "municipio_color_primary",
@@ -160,6 +180,26 @@
                     "append": ""
                 }
             ]
+        },
+        {
+            "key": "field_61448a4c82819",
+            "label": "Secondary colors",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "message": "Second level of colors on used on the site.",
+            "new_lines": "wpautop",
+            "esc_html": 0
         },
         {
             "key": "field_603fba3ffa851",
@@ -329,6 +369,26 @@
             ]
         },
         {
+            "key": "field_61448a0b82818",
+            "label": "Tertiary colors",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "message": "Third level of colors on used on the site.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_608c0e753ef05",
             "label": "Tertiary Color",
             "name": "municipio_color_tertiary",
@@ -496,6 +556,26 @@
             ]
         },
         {
+            "key": "field_614489d482817",
+            "label": "Link colors",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "message": "Set the colors for all types of links overall on the website.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_60868021879b6",
             "label": "Link Color",
             "name": "municipio_color_link",
@@ -581,6 +661,26 @@
             "default_value": "#ae0b05"
         },
         {
+            "key": "field_61448744c1949",
+            "label": "Complementary Colors",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "message": "Complementary colors are used to emphasize different parts of the website discreetly or create subtle contrasts.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_60911ccc38857",
             "label": "Complementary color -  illustration \/ header",
             "name": "municipio_color_complementary",
@@ -630,23 +730,6 @@
             "render_type": "var",
             "share_option": 1,
             "default_value": "#F5E4E3"
-        },
-        {
-            "key": "field_609128593885a",
-            "label": "Complementary color - card",
-            "name": "municipio_color_complementary_lightest",
-            "type": "color_picker",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "render_type": "var",
-            "share_option": 1,
-            "default_value": "#FAEEEC"
         }
     ],
     "location": [
