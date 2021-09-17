@@ -256,7 +256,7 @@ class InitCustomizerPanels
     $configuration  = $this->getFlatConfiguration(); 
     $dataFieldStack = $this->mapFieldConfiguration($configuration); 
 
-    $this->moduleClasses($configuration, $dataFieldStack); 
+    $this->appendModifierClasses($configuration, $dataFieldStack); 
   }
 
   /**
@@ -426,7 +426,7 @@ class InitCustomizerPanels
    * @param array $dataFieldStack
    * @return void
    */
-  public function moduleClasses($configuration, $dataFieldStack) {
+  public function appendModifierClasses($configuration, $dataFieldStack) {
 
     if(isset($configuration) && !empty($configuration) && is_array($configuration)) {
 
@@ -499,7 +499,7 @@ class InitCustomizerPanels
 
     if(is_null($contexts)) {
       return []; 
-    } 
+    }
 
     //Explode contexts string
     $contexts = explode(",", $contexts);  
