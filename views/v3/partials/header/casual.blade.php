@@ -25,7 +25,8 @@
                                 'site-language-menu-button'
                             ],
                             'attributeList' => [
-                                'js-toggle-trigger' => 'example'
+                                'js-toggle-trigger' => 'example',
+                                'aria-label' => __("Select language", 'municipio')
                             ]
                         ])
                         @endbutton
