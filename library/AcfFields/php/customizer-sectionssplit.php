@@ -6,7 +6,7 @@
     'title' => __('Sections Split', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -24,6 +24,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'contextdata',
+            'share_option' => 0,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'highlight' => __('Highlight', 'municipio'),

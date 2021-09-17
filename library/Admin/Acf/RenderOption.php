@@ -27,6 +27,14 @@ class RenderOption {
       ),
       'ui'			      => 0,
     ), true);
+
+    acf_render_field_setting($field, array(
+      'label'			    => __('Customizer: Filter context', 'municipio'),
+      'instructions'	=> __('Municipio adds context strings to different places. to affect one of these, limit context here. For multiple context use comma separator.', 'municipio'),
+      'name'			    => 'filter_context',
+      'type'			    => 'text',
+      'ui'			      => 1,
+    ), true);
   }
 
   public function addShareOption($field) 
