@@ -3,25 +3,6 @@
     "title": "Header",
     "fields": [
         {
-            "key": "field_61434d8f49e64",
-            "label": "Scroll behaviour",
-            "name": "",
-            "type": "message",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "render_type": "",
-            "share_option": 0,
-            "message": "Adjust how the header section should behave when the user scrolls trough the page.",
-            "new_lines": "wpautop",
-            "esc_html": 0
-        },
-        {
             "repeater_choices": 0,
             "repeater_field": "",
             "repeater_label_field": "",
@@ -32,7 +13,7 @@
             "label": "Sticky",
             "name": "municipio_header_stick_to_top",
             "type": "select",
-            "instructions": "",
+            "instructions": "Adjust how the header section should behave when the user scrolls trough the page.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -44,11 +25,46 @@
             "filter_context": "siteHeader",
             "share_option": 1,
             "choices": {
-                "0": "None",
+                "0": "Do not stick to top",
                 "sticky": "Stick to top"
             },
             "default_value": false,
             "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "key": "field_61446365d1c7e",
+            "label": "Header background color",
+            "name": "municipio_header_background_color",
+            "type": "select",
+            "instructions": "Choose a background color for the header section of the page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "siteHeader",
+            "share_option": 1,
+            "choices": {
+                "primary": "Primary background",
+                "secondary": "Secondary background",
+                "tertiary": "Tertiary background"
+            },
+            "default_value": false,
+            "allow_null": 1,
             "multiple": 0,
             "ui": 0,
             "return_format": "value",
