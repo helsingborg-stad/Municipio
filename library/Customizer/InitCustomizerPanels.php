@@ -419,7 +419,13 @@ class InitCustomizerPanels
       wp_add_inline_style('municipio-css-vars', ":root {{$inlineStyle}}");
   }
 
-  /* Add options specified in customizer for modules */
+  /**
+   * Add modifier filterdata to components
+   *
+   * @param array $configuration
+   * @param array $dataFieldStack
+   * @return void
+   */
   public function moduleClasses($configuration, $dataFieldStack) {
 
     if(isset($configuration) && !empty($configuration) && is_array($configuration)) {
