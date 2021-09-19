@@ -164,6 +164,15 @@ class InitCustomizerPanels
 
     //Apply filters
     add_action('wp_head', array($this, 'triggerFilters'), 2);
+
+    //Controller variables
+    add_action('wp_head', function() {
+
+      $configuration  = $this->getFlatConfiguration(); 
+      $dataFieldStack = $this->mapFieldConfiguration($configuration); 
+
+      $this->getControllerVariables($configuration, $dataFieldStack); 
+    }, 2);
   }
 
   /**
@@ -490,6 +499,49 @@ class InitCustomizerPanels
   }
 
   /**
+   * Render root css variables
+   * @return void
+   */
+  public function getControllerVariables($configuration, $dataFieldStack)
+  {
+
+      $returnObject = [];
+
+      foreach ($configuration as $configurationItem) {
+
+        //Only add if active
+        if($configurationItem['active'] !== true) {
+          continue;
+        }
+
+        //Only add if defined
+        if(!array_key_exists($configurationItem['id'], $dataFieldStack)) {
+          continue;
+        }
+
+        //Get stack
+        $stackItems = $dataFieldStack[$configurationItem['id']];
+
+        if(is_array($stackItems) && !empty($stackItems)) {
+
+          foreach ($stackItems as $index => $prop) {
+
+              $propItem   = $prop[key($stackItems[$index])];
+
+              //Bail out if not controller var types
+              if(!in_array($propItem['renderType'], ['var_controller'])) {
+                continue;
+              }
+
+              $returnObject[$configurationItem['id']][$this->camelCaseName($propItem['name'])] = ($propItem['value'] ? $propItem['value'] : $propItem['default']); 
+
+            }
+          }
+        }
+        var_dump($returnObject); 
+      }
+
+  /**
    * Make contexts always a arr
    *
    * @param string $contexts
@@ -513,4 +565,19 @@ class InitCustomizerPanels
     return array_map('trim', $contexts);
 
   } 
+
+  /**
+   * Camel case var names
+   *
+   * @param   string $name
+   * 
+   * @return  string $name  Camel cased variant of name
+   */
+  private function camelCaseName($name) {
+    $name = str_replace(['_','-'], ' ', $name);
+    $name = ucwords(strtolower($name));
+    $name = str_replace(' ', '', $name);
+    $name = lcfirst($name);
+    return $name;   
+  }
 }
