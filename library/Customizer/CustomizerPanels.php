@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer;
 
-class InitCustomizerPanels
+class CustomizerPanels
 {
 
   /**
@@ -172,8 +172,6 @@ class InitCustomizerPanels
       $dataFieldStack = $this->mapFieldConfiguration($configuration); 
 
       $data['customize'] = $this->getControllerVariables($configuration, $dataFieldStack); 
-
-
 
       return $data; 
     }, 2);
