@@ -102,12 +102,7 @@ class App
          * Customizer
          */
 
-        new \Municipio\Customizer\InitCustomizerPanels();
-        
-
-        //new \Municipio\Customizer\Design();
-        //new \Municipio\Customizer\Modifiers();
-        //new \Municipio\Customizer\Components();
+        new \Municipio\Customizer\CustomizerPanels();
         new \Municipio\Customizer\DesignLibrary();
         
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
