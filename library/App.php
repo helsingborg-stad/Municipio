@@ -101,7 +101,6 @@ class App
         /**
          * Customizer
          */
-
         new \Municipio\Customizer\CustomizerPanels();
         new \Municipio\Customizer\DesignLibrary();
         
