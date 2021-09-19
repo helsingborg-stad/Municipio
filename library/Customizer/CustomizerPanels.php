@@ -540,12 +540,16 @@ class CustomizerPanels
           }
 
           //Add prop, default to val.
-          $returnObject->{$configurationItem['id']}->{$this->camelCaseName($propItem['name'])} = $this->createViewVar($propItem); 
+          $returnObject->{
+            $configurationItem['id']
+          }->{
+            \Municipio\Helper\FormatObject::camelCase($propItem['name'])
+          } = $this->createViewVar($propItem); 
 
         }
       }
     }
-    
+
     return $returnObject; 
   }
 
@@ -601,19 +605,4 @@ class CustomizerPanels
     return array_map('trim', $contexts);
 
   } 
-
-  /**
-   * Camel case var names
-   *
-   * @param   string $name
-   * 
-   * @return  string $name  Camel cased variant of name
-   */
-  private function camelCaseName($name) {
-    $name = str_replace(['_','-'], ' ', $name);
-    $name = ucwords(strtolower($name));
-    $name = str_replace(' ', '', $name);
-    $name = lcfirst($name);
-    return $name;   
-  }
 }
