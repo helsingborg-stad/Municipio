@@ -166,12 +166,16 @@ class InitCustomizerPanels
     add_action('wp_head', array($this, 'triggerFilters'), 2);
 
     //Controller variables
-    add_action('wp_head', function() {
+    add_filter('Municipio/viewData', function($data) {
 
       $configuration  = $this->getFlatConfiguration(); 
       $dataFieldStack = $this->mapFieldConfiguration($configuration); 
 
-      $this->getControllerVariables($configuration, $dataFieldStack); 
+      $data['customize'] = $this->getControllerVariables($configuration, $dataFieldStack); 
+
+
+
+      return $data; 
     }, 2);
   }
 
@@ -499,47 +503,81 @@ class InitCustomizerPanels
   }
 
   /**
-   * Render root css variables
+   * Get controller variables
    * @return void
    */
   public function getControllerVariables($configuration, $dataFieldStack)
   {
+    $returnObject = (object) []; // Declare return object
 
-      $returnObject = [];
+    foreach ($configuration as $configurationItem) {
 
-      foreach ($configuration as $configurationItem) {
-
-        //Only add if active
-        if($configurationItem['active'] !== true) {
-          continue;
-        }
-
-        //Only add if defined
-        if(!array_key_exists($configurationItem['id'], $dataFieldStack)) {
-          continue;
-        }
-
-        //Get stack
-        $stackItems = $dataFieldStack[$configurationItem['id']];
-
-        if(is_array($stackItems) && !empty($stackItems)) {
-
-          foreach ($stackItems as $index => $prop) {
-
-              $propItem   = $prop[key($stackItems[$index])];
-
-              //Bail out if not controller var types
-              if(!in_array($propItem['renderType'], ['var_controller'])) {
-                continue;
-              }
-
-              $returnObject[$configurationItem['id']][$this->camelCaseName($propItem['name'])] = ($propItem['value'] ? $propItem['value'] : $propItem['default']); 
-
-            }
-          }
-        }
-        var_dump($returnObject); 
+      //Only add if active
+      if($configurationItem['active'] !== true) {
+        continue;
       }
+
+      //Only add if defined
+      if(!array_key_exists($configurationItem['id'], $dataFieldStack)) {
+        continue;
+      }
+
+      //Get stack
+      $stackItems = $dataFieldStack[$configurationItem['id']];
+
+      if(is_array($stackItems) && !empty($stackItems)) {
+
+        foreach ($stackItems as $index => $prop) {
+
+          $propItem   = $prop[key($stackItems[$index])];
+
+          //Bail out if not controller var types
+          if(!in_array($propItem['renderType'], ['var_controller'])) {
+            continue;
+          }
+
+          //Create empty object to store
+          if(!isset($returnObject->{$configurationItem['id']})) {
+            $returnObject->{$configurationItem['id']} = (object) []; 
+          }
+
+          //Add prop, default to val.
+          $returnObject->{$configurationItem['id']}->{$this->camelCaseName($propItem['name'])} = $this->createViewVar($propItem); 
+
+        }
+      }
+    }
+    
+    return $returnObject; 
+  }
+
+  /**
+   * Create var with prefix, and suffix, default fallback.
+   *
+   * @param array $propItem
+   * 
+   * @return string
+   */
+  private function createViewVar ($propItem) {
+
+    if(!is_null($propItem['value'])) {
+      $value = $propItem['value'];
+    } else {
+      $value = $propItem['default']; 
+    }
+
+    //Return as string with suffix, prefix
+    if(is_string($value)||is_numeric($value)) {
+      return $propItem['prepend'] . (string) $value . $propItem['append'];
+    }
+
+    //Return as boolean
+    if(is_bool($value)) {
+      return $value; 
+    }
+
+    return null; 
+  }
 
   /**
    * Make contexts always a arr
