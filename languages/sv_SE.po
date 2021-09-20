@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-09-15 13:21+0200\n"
-"PO-Revision-Date: 2021-09-15 13:26+0200\n"
+"POT-Creation-Date: 2021-09-16 14:15+0200\n"
+"PO-Revision-Date: 2021-09-16 14:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -640,7 +640,7 @@ msgid "Add section"
 msgstr "Lägg till ikon"
 
 #: library/AcfFields/php/options-menu-floating.php:6
-#: library/Theme/Navigation.php:72
+#: library/Theme/Navigation.php:77
 #, fuzzy
 #| msgid "Main menu"
 msgid "Floating menu"
@@ -657,7 +657,6 @@ msgid "What the label for toggling should say."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-floating.php:21
-#: node_modules/@wordpress/block-library/src/navigation/index.php:189
 #, fuzzy
 #| msgid "Main menu"
 msgid "Open menu"
@@ -5350,38 +5349,6 @@ msgstr ""
 msgid "zoom_out_map"
 msgstr ""
 
-#: library/AcfFields/php/options-menu-language.php:6
-msgid "Language Menu"
-msgstr "Språkmeny"
-
-#: library/AcfFields/php/options-menu-language.php:10
-msgid "Number of Menu Items"
-msgstr "Antal Menyval"
-
-#: library/AcfFields/php/options-menu-language.php:21
-msgid "We recommend limiting preselected translations to four"
-msgstr "Vi rekommenderar att begränsa förvalda översättningar till fyra"
-
-#: library/AcfFields/php/options-menu-language.php:27
-msgid "Disclaimer"
-msgstr "Varning"
-
-#: library/AcfFields/php/options-menu-language.php:30
-msgid "A disclaimer to be shown below language options"
-msgstr "En ansvarsfriskrivning som visas nedanför språkalternativ"
-
-#: library/AcfFields/php/options-menu-language.php:46
-msgid "More Languages Link"
-msgstr "Fler språklänk"
-
-#: library/AcfFields/php/options-menu-language.php:49
-msgid ""
-"A link to the translation service where user can select translation language "
-"themself"
-msgstr ""
-"En länk till översättningstjänsten där användaren själv kan välja "
-"översättningsspråk"
-
 #: library/AcfFields/php/options-page-display.php:12
 msgid "Show featured image in single template"
 msgstr "Visa utvald bild i singel-template"
@@ -6320,11 +6287,8 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:169
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:165
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
-#: node_modules/@wordpress/block-library/src/search/index.php:25
-#: node_modules/@wordpress/block-library/src/search/index.php:26
-#: node_modules/@wordpress/block-library/src/search/index.php:52
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
 #: views/v1/partials/archive-filters.blade.php:79
@@ -6547,83 +6511,79 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:159 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:155 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:160
+#: library/Controller/BaseController.php:156
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:161
+#: library/Controller/BaseController.php:157
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:162
+#: library/Controller/BaseController.php:158
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:163
+#: library/Controller/BaseController.php:159
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:164
+#: library/Controller/BaseController.php:160
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:165
+#: library/Controller/BaseController.php:161
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:166
+#: library/Controller/BaseController.php:162
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:167
+#: library/Controller/BaseController.php:163
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:168
+#: library/Controller/BaseController.php:164
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:170
+#: library/Controller/BaseController.php:166
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:171
+#: library/Controller/BaseController.php:167
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:172
+#: library/Controller/BaseController.php:168
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:173
+#: library/Controller/BaseController.php:169
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:174 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:170 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:175
+#: library/Controller/BaseController.php:171
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:176
+#: library/Controller/BaseController.php:172
 msgid "Close"
 msgstr "Stäng"
-
-#: library/Controller/BaseController.php:177
-msgid "More Languages"
-msgstr ""
 
 #: library/Controller/E404.php:30
 msgid "Go back"
@@ -6945,34 +6905,38 @@ msgid "Print"
 msgstr "Skriv ut"
 
 #: library/Theme/Navigation.php:51
+msgid "Language"
+msgstr ""
+
+#: library/Theme/Navigation.php:55
 msgid "Select language"
 msgstr "Välj språk"
 
-#: library/Theme/Navigation.php:67
+#: library/Theme/Navigation.php:72
 msgid "Help menu"
 msgstr "Hjälpmeny"
 
-#: library/Theme/Navigation.php:68
+#: library/Theme/Navigation.php:73
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Theme/Navigation.php:69
+#: library/Theme/Navigation.php:74
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Theme/Navigation.php:70
+#: library/Theme/Navigation.php:75
 msgid "Secondary menu & mobile menu"
 msgstr "Sekundär meny & Mobil meny"
 
-#: library/Theme/Navigation.php:71
+#: library/Theme/Navigation.php:76
 msgid "Dropdown menu"
 msgstr "Rullgardinsmeny"
 
-#: library/Theme/Navigation.php:73
+#: library/Theme/Navigation.php:78
 msgid "Language menu"
 msgstr "Språkmeny"
 
-#: library/Theme/Navigation.php:74
+#: library/Theme/Navigation.php:79
 msgid "Quicklinks menu"
 msgstr ""
 
@@ -7088,167 +7052,14 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
-#: node_modules/@wordpress/block-library/src/archives/index.php:27
-msgid "Archives"
-msgstr ""
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
+msgid "Export with AcfExportManager"
+msgstr "Exportera med AcfExportManager verktyget. "
 
-#: node_modules/@wordpress/block-library/src/archives/index.php:45
-msgid "Select Year"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/archives/index.php:48
-msgid "Select Month"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/archives/index.php:51
-msgid "Select Day"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/archives/index.php:54
-msgid "Select Week"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/archives/index.php:57
-msgid "Select Post"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/archives/index.php:97
-msgid "No archives to show."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/block/index.php:32
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
 #, php-format
-msgid ""
-"Could not render Reusable Block <strong>%s</strong>. Block cannot be "
-"rendered inside itself."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/block/index.php:46
-#: node_modules/@wordpress/block-library/src/post-content/index.php:41
-#: node_modules/@wordpress/block-library/src/template-part/index.php:93
-msgid "[block rendering halted]"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/categories/index.php:30
-msgid "Select Category"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/latest-comments/index.php:31
-#: node_modules/@wordpress/block-library/src/latest-posts/index.php:103
-#: node_modules/@wordpress/block-library/src/rss/index.php:31
-msgid "(no title)"
-msgstr "(ingen titel)"
-
-#: node_modules/@wordpress/block-library/src/latest-comments/index.php:99
-#, php-format
-msgid "%1$s on %2$s"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/latest-comments/index.php:141
-msgid "No comments to show."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/latest-posts/index.php:115
-#: node_modules/@wordpress/block-library/src/rss/index.php:60
-#, php-format
-msgid "by %s"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/latest-posts/index.php:139
-#: node_modules/@wordpress/block-library/src/latest-posts/index.php:154
-msgid "This content is password protected."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/navigation-link/index.php:268
-msgid "Post Format Link"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/navigation-link/index.php:269
-msgid "A link to a post format"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/navigation/index.php:190
-msgid "Close menu"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/post-comments-link/index.php:35
-#, php-format
-msgid "No comments<span class=\"screen-reader-text\"> on %s</span>"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/post-comments-link/index.php:42
-#, php-format
-msgid "%1$s comment<span class=\"screen-reader-text\"> on %2$s</span>"
-msgid_plural "%1$s comments<span class=\"screen-reader-text\"> on %2$s</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: node_modules/@wordpress/block-library/src/post-content/index.php:30
-#, php-format
-msgid ""
-"Could not render Post Content block with post ID: <code>%s</code>. Block "
-"cannot be rendered inside itself."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/post-navigation-link/index.php:34
-msgctxt "label for next post link"
-msgid "Next"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/post-navigation-link/index.php:34
-msgctxt "label for previous post link"
-msgid "Previous"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/query-pagination-next/index.php:23
-msgid "Next Page &raquo;"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/query-pagination-previous/index.php:22
-msgid "&laquo; Previous Page"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/rss/index.php:19
-msgid "RSS Error:"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/rss/index.php:23
-msgid ""
-"An error has occurred, which probably means the feed is down. Try again "
-"later."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/site-logo/index.php:42
-msgid "(Home link, opens in a new tab)"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/site-logo/index.php:76
-msgid "Site logo."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/social-link/index.php:24
-#, php-format
-msgid "%1$s: %2$s"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/tag-cloud/index.php:28
-#, php-format
-msgid ""
-"Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display "
-"here at the moment."
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/template-part/index.php:70
-#, php-format
-msgid "Template part has been deleted or is unavailable: %s"
-msgstr ""
-
-#: node_modules/@wordpress/block-library/src/template-part/index.php:80
-#, php-format
-msgid ""
-"Could not render Template Part block with the attributes: <code>%s</code>. "
-"Block cannot be rendered inside itself."
-msgstr ""
+msgid "Exported %d fieldgroup(s)."
+msgstr "Exporterade %d fältgrupper."
 
 #: vendor/helsingborg-stad/recaptcha-integration/src/RecaptchaIntegration.php:47
 msgid ""
@@ -7920,6 +7731,27 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Radiuses"
+#~ msgstr "Radier"
+
+#~ msgid ""
+#~ "Adjust site width for different types of pages, archives and templates."
+#~ msgstr ""
+#~ "Här kan du justera totalbredden på sidor, arkiv, mallar och kolumnernas "
+#~ "bredd."
+
+#~ msgid "General"
+#~ msgstr "Generellt"
+
+#~ msgid "Fonts"
+#~ msgstr "Typsnitt"
+
+#~ msgid "Header"
+#~ msgstr "Sidhuvud"
+
+#~ msgid "Article"
+#~ msgstr "Artikel"
 
 #~ msgid "Full width"
 #~ msgstr "Fullbredd"
@@ -9205,6 +9037,9 @@ msgstr ""
 
 #~ msgid "Password"
 #~ msgstr "Lösenord"
+
+#~ msgid "(no title)"
+#~ msgstr "(ingen titel)"
 
 #, fuzzy
 #~| msgid "Type of taxonomy"
