@@ -68,7 +68,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
 
         //Main content padder
-        $this->data['mainContentPadding'] = $this->getMainContentPadding();
+        $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customize']->padding);
 
         return $this->data;
     }
@@ -77,18 +77,13 @@ class Singular extends \Municipio\Controller\BaseController
      * Get main content padder size
      */
 
-     public function getMainContentPadding() : array {
+     public function getMainContentPadding($customizer) : array {
 
-        //Get the theme mod value
-        $themeMod = get_theme_mods(); 
-        if(isset($themeMod['site']) && $themeMod['site']['field_611e43ec4dfa5']) {
-            $padding = $themeMod['site']['field_611e43ec4dfa5']; 
-        } else {
-            $padding = false; 
-        }
+        //Name shorten
+        $padding = $customizer->amountOfPaddingColumns; 
         
         //Validate, and send var to view. 
-        if(is_numeric($padding) && ($padding%2 == 0)) {
+        if(!empty($padding ) && is_numeric($padding) && ($padding%2 == 0)) {
             //Make md span half the size of padding
             return [
                 'md' => ($padding/2),

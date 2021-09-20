@@ -165,16 +165,8 @@ class CustomizerPanels
     //Apply filters
     add_action('wp_head', array($this, 'triggerFilters'), 2);
 
-    //Controller variables
-    add_filter('Municipio/viewData', function($data) {
-
-      $configuration  = $this->getFlatConfiguration(); 
-      $dataFieldStack = $this->mapFieldConfiguration($configuration); 
-
-      $data['customize'] = $this->getControllerVariables($configuration, $dataFieldStack); 
-
-      return $data; 
-    }, 2);
+    //Customization viewVars
+    add_filter('Municipio/Customize/data', array($this, 'getCustomizationData'), 10); 
   }
 
   /**
@@ -268,6 +260,18 @@ class CustomizerPanels
     $dataFieldStack = $this->mapFieldConfiguration($configuration); 
 
     $this->appendModifierClasses($configuration, $dataFieldStack); 
+  }
+
+  /**
+   * Get customization data
+   *
+   * @param array $data
+   * @return object
+   */
+  public function getCustomizationData($data) {
+    $configuration  = $this->getFlatConfiguration(); 
+    $dataFieldStack = $this->mapFieldConfiguration($configuration); 
+    return $this->getControllerVariables($configuration, $dataFieldStack); 
   }
 
   /**
@@ -543,7 +547,7 @@ class CustomizerPanels
           $returnObject->{
             $configurationItem['id']
           }->{
-            \Municipio\Helper\FormatObject::camelCase($propItem['name'])
+            is_string($propItem['name']) ? \Municipio\Helper\FormatObject::camelCase($propItem['name']) : $propItem['name']
           } = $this->createViewVar($propItem); 
 
         }
