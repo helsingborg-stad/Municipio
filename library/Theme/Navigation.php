@@ -34,8 +34,17 @@ class Navigation
         //Define where to show lang select
         $showLanguageSelectorIn = ['primary', 'mobile'];
         $showLanguageLabelIn = ['mobile'];
+        $excludedMenuTemplates = ['casual'];
+        $skipThisMenu = false;
 
-        if(in_array($identifier, $showLanguageSelectorIn)) {
+        //If menu is primary and casual then don't add language menu
+        if($identifier === 'primary') {
+            $headerTemplate = get_field('header_layout', 'option') ?? 'business';
+
+            $skipThisMenu = in_array($headerTemplate, $excludedMenuTemplates) ? true : $skipThisMenu;
+        }
+
+        if(in_array($identifier, $showLanguageSelectorIn) && !$skipThisMenu) {
 
             $languageMenu       = new \Municipio\Helper\Navigation('language');
             $languageMenuItems  = $languageMenu->getMenuItems('language-menu', $pageId, false, true, true);

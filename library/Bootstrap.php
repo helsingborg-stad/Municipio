@@ -70,6 +70,7 @@ add_action('init', function () {
         'options-theme-sub-navigation'              => 'group_56e941cae1ed2',
         'options-menu-icon'                         => 'group_60c325749aeab',
         'options-menu-floating'                     => 'group_60c86946524a0',
+        'options-menu-language'                     => 'group_6141cc9c72cc3',
         'user-author-image'                         => 'group_56c714b46105e',
         'widget-contact'                            => 'group_56c58bade87dc',
         'widget-header-common'                      => 'group_5a65d5e7e913b',

@@ -106,10 +106,14 @@ class BaseController
         $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
         $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
         $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
+        $this->data['languageMenuItems']    = $tabMenu->getMenuItems('language-menu', $this->getPageID());
 
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
+
+        //Get language menu options
+        $this->data['languageMenuOptions']    = $this->getLanguageMenuOptions();
 
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
@@ -170,6 +174,7 @@ class BaseController
             'menu'                  => __("Menu", 'municipio'),
             'emblem'                => __("Site emblem", 'municipio'),
             'close'                 => __("Close", 'municipio'),
+            'moreLanguages'         => __("More Languages", 'municipio'),
         );
 
         //Wordpress hooks
@@ -315,6 +320,23 @@ class BaseController
                 'buttonIcon' => get_field('toggle_button_icon', $menuObject)
             ]
         );
+    }
+
+    /**
+     * Get language menu options
+     *
+     * @return object
+     */
+    public function getLanguageMenuOptions() : object
+    {
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu']);
+        
+        $options = [
+            'disclaimer'        => get_field('language_menu_disclaimer', $options),
+            'moreLanguageLink'  => get_field('language_menu_more_languages', $options)
+        ];
+
+        return (object) $options;
     }
 
     /**
