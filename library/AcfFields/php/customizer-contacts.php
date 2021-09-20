@@ -6,12 +6,6 @@
     'title' => __('Contacts', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_6063008d5068a',
             'label' => __('Contacs - List - Style', 'municipio'),
             'name' => 'contacts-list-style',
@@ -24,6 +18,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'module.contacts.list',
+            'share_option' => 0,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
@@ -39,12 +36,6 @@
             'placeholder' => '',
         ),
         1 => array(
-            'repeater_choices' => false,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_6090f318a40ef',
             'label' => __('Contacs - Card - Style', 'municipio'),
             'name' => 'contacts-card-style',
@@ -57,6 +48,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'module.contacts.card',
+            'share_option' => 0,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'highlight' => __('Highlight', 'municipio'),

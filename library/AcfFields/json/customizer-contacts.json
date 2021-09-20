@@ -3,12 +3,6 @@
     "title": "Contacts",
     "fields": [
         {
-            "repeater_choices": false,
-            "repeater_field": "",
-            "repeater_label_field": "",
-            "repeater_value_field": "",
-            "repeater_post_id": 0,
-            "repeater_display_value": 0,
             "key": "field_6063008d5068a",
             "label": "Contacs - List - Style",
             "name": "contacts-list-style",
@@ -21,6 +15,9 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "module.contacts.list",
+            "share_option": 0,
             "choices": {
                 "none": "None",
                 "panel": "Panel",
@@ -36,12 +33,6 @@
             "placeholder": ""
         },
         {
-            "repeater_choices": false,
-            "repeater_field": "",
-            "repeater_label_field": "",
-            "repeater_value_field": "",
-            "repeater_post_id": 0,
-            "repeater_display_value": 0,
             "key": "field_6090f318a40ef",
             "label": "Contacs - Card - Style",
             "name": "contacts-card-style",
@@ -54,6 +45,9 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "module.contacts.card",
+            "share_option": 0,
             "choices": {
                 "none": "None",
                 "highlight": "Highlight"
