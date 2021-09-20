@@ -140,9 +140,6 @@ class BaseController
         //Notice storage
         $this->data['notice']               = [];
 
-        //Mobile Menu Drawer Style
-        $this->data['mobileMenuDrawerStyle'] = $this->getMobileDrawerStyle();
-
         //Column sizes
         $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customize']->width); 
         $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customize']->width); 
@@ -599,17 +596,6 @@ class BaseController
         //Return
         return (object) $logotype; 
     }
-
-
-    /**
-     * Retrieve and return style for mobile menu drawer
-     * @return void
-     */
-    public function getMobileDrawerStyle() {
-        $mod = get_theme_mods();
-        
-        return $mod['site']['field_61126702da36c'];
-     }
 
     /**
      * Runs after construct

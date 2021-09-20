@@ -6,12 +6,6 @@
     'title' => __('Mobile menu', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_61126702da36c',
             'label' => __('Mobile menu style', 'municipio'),
             'name' => 'mobile_menu_style',
@@ -24,6 +18,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var_controller',
+            'filter_context' => '',
+            'share_option' => 1,
             'choices' => array(
                 'monotone' => __('Monotone', 'municipio'),
                 'duotone' => __('Duotone', 'municipio'),
