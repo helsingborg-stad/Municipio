@@ -72,7 +72,7 @@ class CustomizerPanels
       [
         'id' => 'localevent', 
         'title' => "Local Event",
-        'active' => true
+        'active' => false
       ],
       [
         'id' => 'sectionssplit', 
