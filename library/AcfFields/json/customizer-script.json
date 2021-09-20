@@ -1,0 +1,54 @@
+[{
+    "key": "group_614340abb1cc1",
+    "title": "Script",
+    "fields": [
+        {
+            "key": "field_6063072c25917",
+            "label": "Script - Style",
+            "name": "script-style",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "module.script",
+            "share_option": 1,
+            "choices": {
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "script"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+
