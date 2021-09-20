@@ -57,7 +57,7 @@ class CustomizerPanels
       [
         'id' => 'jsonrender', 
         'title' => "Json Render",
-        'active' => true
+        'active' => false
       ],
       [
         'id' => 'form', 
