@@ -86,6 +86,34 @@
             "return_format": "value",
             "ajax": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_61488c4f6b4fd",
+            "label": "Display on",
+            "name": "quicklinks_display_location",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var_controller",
+            "filter_context": "",
+            "share_option": 0,
+            "choices": {
+                "everywhere": "All pages",
+                "frontpage": "Fontpage"
+            },
+            "default_value": "everywhere",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
