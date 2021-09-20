@@ -6,12 +6,6 @@
     'title' => __('Posts', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => 0,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_6061d864c6873',
             'label' => __('Posts - Index - Header Style', 'municipio'),
             'name' => 'posts-index-headerStyle',
@@ -25,7 +19,7 @@
                 'id' => '',
             ),
             'render_type' => 'filter',
-            'filter_context' => 'posts-index',
+            'filter_context' => 'module.posts.index',
             'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
@@ -42,12 +36,6 @@
             'placeholder' => '',
         ),
         1 => array(
-            'repeater_choices' => 0,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_6062fd67a2eb4',
             'label' => __('Posts - List - Style', 'municipio'),
             'name' => 'posts-list-style',
@@ -61,7 +49,7 @@
                 'id' => '',
             ),
             'render_type' => 'filter',
-            'filter_context' => 'postsList',
+            'filter_context' => 'module.posts.list',
             'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
@@ -78,12 +66,6 @@
             'placeholder' => '',
         ),
         2 => array(
-            'repeater_choices' => 0,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_60631bb52591c',
             'label' => __('Posts - ExpandableList - Style', 'municipio'),
             'name' => 'posts-expandableList-style',
@@ -97,7 +79,7 @@
                 'id' => '',
             ),
             'render_type' => 'filter',
-            'filter_context' => 'posts-expandableList',
+            'filter_context' => 'module.posts.expandablelist',
             'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
