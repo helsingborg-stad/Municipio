@@ -63,6 +63,33 @@
             'ajax' => 0,
             'placeholder' => '',
         ),
+        2 => array(
+            'key' => 'field_61488b616937c',
+            'label' => __('Sticky', 'municipio'),
+            'name' => 'quicklinks_stick_to_top',
+            'type' => 'select',
+            'instructions' => __('Adjust how the quicklinks menu should behave when the user scrolls trough the page. This option should not be used in combination with a sticky header.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => 'filter',
+            'filter_context' => 'site.quicklinks',
+            'share_option' => 1,
+            'choices' => array(
+                'sticky' => __('Stick to top', 'municipio'),
+            ),
+            'default_value' => false,
+            'allow_null' => 1,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+        ),
     ),
     'location' => array(
         0 => array(
