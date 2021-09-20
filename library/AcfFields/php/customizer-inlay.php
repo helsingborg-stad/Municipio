@@ -6,12 +6,6 @@
     'title' => __('Inlay', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_606300da5068b',
             'label' => __('Inlay - List - Style', 'municipio'),
             'name' => 'inlay-list-style',
@@ -24,6 +18,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'module.inlay.list',
+            'share_option' => 0,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
