@@ -6,12 +6,6 @@
     'title' => __('Map', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_6063013a5068c',
             'label' => __('Map - Style', 'municipio'),
             'name' => 'map-style',
@@ -24,6 +18,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => '',
+            'filter_context' => 'module.map',
+            'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
