@@ -148,6 +148,11 @@ class CustomizerPanels
           'id' => 'mobilemenu',
           'title' => "Mobile Menu", 
           'active' => true
+      ],
+      [
+          'id' => 'quicklinks',
+          'title' => "Quicklinks", 
+          'active' => true
       ]
     ]
   ];

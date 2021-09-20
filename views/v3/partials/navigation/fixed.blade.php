@@ -1,8 +1,6 @@
 @if (!empty($quicklinksMenuItems) && $isFrontPage)
     @header([
         'id'                => 'quicklinks-header',
-        'textColor'         => $quicklinksOptions->textColor,
-        'backgroundColor'   => $quicklinksOptions->backgroundColor,
         'classList' => [
             'site-header'
         ],

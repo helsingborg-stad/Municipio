@@ -93,6 +93,7 @@ add_action('init', function () {
         'customizer-padding'                        => 'group_614331a86b081',
         'customizer-header'                         => 'group_6143452439e4a',
         'customizer-mobilemenu'                     => 'group_6143458359420',
+        'customizer-quicklinks'                     => 'group_6123844e04276',
 
         //Modifiers
         'customizer-contacts'                       => 'group_614336d78b898',
