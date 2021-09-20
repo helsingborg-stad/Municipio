@@ -52,7 +52,7 @@ class CustomizerPanels
       [
         'id' => 'event', 
         'title' => "Event", 
-        'active' => true
+        'active' => false
       ],
       [
         'id' => 'jsonrender', 
@@ -62,7 +62,7 @@ class CustomizerPanels
       [
         'id' => 'form', 
         'title' => "Form",
-        'active' => true
+        'active' => false
       ],
       [
         'id' => 'index', 
