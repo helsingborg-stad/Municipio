@@ -166,7 +166,7 @@ class CustomizerPanels
     add_action('wp_head', array($this, 'triggerFilters'), 2);
 
     //Customization viewVars
-    add_filter('Municipio/Customize/data', array($this, 'getCustomizationData'), 10); 
+    add_filter('Municipio/Controller/Customize', array($this, 'getCustomizationData'), 10); 
   }
 
   /**
@@ -271,6 +271,7 @@ class CustomizerPanels
   public function getCustomizationData($data) {
     $configuration  = $this->getFlatConfiguration(); 
     $dataFieldStack = $this->mapFieldConfiguration($configuration); 
+
     return $this->getControllerVariables($configuration, $dataFieldStack); 
   }
 
