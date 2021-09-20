@@ -6,12 +6,6 @@
     'title' => __('Index', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => 0,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_607843a6ba55e',
             'label' => __('Index', 'municipio'),
             'name' => 'index',
@@ -25,7 +19,7 @@
                 'id' => '',
             ),
             'render_type' => 'filter',
-            'filter_context' => '',
+            'filter_context' => 'module.index',
             'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
