@@ -106,7 +106,7 @@ add_action('init', function () {
         'customizer-sectionssplit'                  => 'group_614337ce54b5f',
         'customizer-text'                           => 'group_614337104a06d',
         'customizer-video'                          => 'group_6143373e63d5d',
-        'customizer-script'                         => 'group_6143373e63d5d',
+        'customizer-script'                         => 'group_614340abb1cc1',
 
         //Components
         'customizer-card'                           => 'group_6144852296570',
