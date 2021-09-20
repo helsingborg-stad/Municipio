@@ -6,12 +6,6 @@
     'title' => __('General', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_60cb4dd897cb8',
             'label' => __('Secondary navigation position', 'municipio'),
             'name' => 'secondary_navigation_position',
@@ -24,6 +18,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var_controller',
+            'filter_context' => '',
+            'share_option' => 0,
             'choices' => array(
                 'left' => __('Left', 'municipio'),
                 'right' => __('Right', 'municipio'),

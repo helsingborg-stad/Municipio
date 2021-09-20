@@ -14,7 +14,7 @@
 @section('sidebar-left')
     @if($showSidebars)
 
-        @if($secondaryNavPostion == 'left') 
+        @if($customize->general->secondaryNavigationPosition == 'left') 
             @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
         @endif
 
@@ -53,7 +53,7 @@
 @section('sidebar-right')
     @if($showSidebars)
 
-        @if($secondaryNavPostion == 'right') 
+        @if($customize->general->secondaryNavigationPosition == 'right') 
             @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
         @endif
 

@@ -144,9 +144,6 @@ class BaseController
         //Notice storage
         $this->data['notice']               = [];
 
-        //Secondary nav positions
-        $this->data['secondaryNavPostion']  = $this->getNavPosition('secondary'); 
-
         //Mobile Menu Drawer Style
         $this->data['mobileMenuDrawerStyle'] = $this->getMobileDrawerStyle();
 
