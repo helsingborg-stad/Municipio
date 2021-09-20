@@ -6,12 +6,6 @@
     'title' => __('Sections Split', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => 0,
-            'repeater_field' => '',
-            'repeater_label_field' => '',
-            'repeater_value_field' => '',
-            'repeater_post_id' => 0,
-            'repeater_display_value' => 0,
             'key' => 'field_611f83757a727',
             'label' => __('Sections Split', 'municipio'),
             'name' => 'sectionsSplit',
@@ -25,8 +19,8 @@
                 'id' => '',
             ),
             'render_type' => 'filter',
-            'filter_context' => 'contextdata',
-            'share_option' => 0,
+            'filter_context' => 'sectionsSplit',
+            'share_option' => 1,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'highlight' => __('Highlight', 'municipio'),
