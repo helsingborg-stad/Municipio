@@ -14,40 +14,47 @@
     ])
     @endnav
 
-    @link([
-        'href' => $languageMenuOptions->moreLanguageLink,
-        'classList' => [
-            'site-language-menu__more',
-            'u-display--flex',
-            'u-justify-content--space-between',
-            'u-padding__y--2',
-            'u-margin__top--2'
-        ]
-    ])
-        @typography([
-            'variant' => 'h4',
+    @if($languageMenuOptions->moreLanguageLink)
+
+        @link([
+            'href' => $languageMenuOptions->moreLanguageLink,
             'classList' => [
-                'u-color__text--darkest',
-                'u-margin__top--0'
+                'site-language-menu__more',
+                'u-display--flex',
+                'u-justify-content--space-between',
+                'u-padding__y--2',
+                'u-margin__top--2'
             ]
         ])
-            {{ __('More Languages', 'municipio') }}
-        @endtypography
+            @typography([
+                'variant' => 'h4',
+                'classList' => [
+                    'u-color__text--darkest',
+                    'u-margin__top--0'
+                ]
+            ])
+                {{ __('More Languages', 'municipio') }}
+            @endtypography
 
-        @icon([
-            'icon' => 'arrow_forward',
-            'size' => 'md'
+            @icon([
+                'icon' => 'arrow_forward',
+                'size' => 'md'
+            ])
+            @endicon
+        @endlink
+
+    @endif
+
+    @if($languageMenuOptions->disclaimer)
+        @typography([
+            'variant' => 'byline',
+            'classList' => [
+                'u-color__text--dark',
+                'u-padding--1'
+            ]
         ])
-        @endicon
-    @endlink
-
-    @typography([
-        'variant' => 'byline',
-        'classList' => [
-            'u-color__text--dark',
-            'u-padding--1'
-        ]
-    ])
-        {{ $languageMenuOptions->disclaimer }}
-    @endtypography
+            {{ $languageMenuOptions->disclaimer }}
+        @endtypography
+    @endif
+    
 @endcard
