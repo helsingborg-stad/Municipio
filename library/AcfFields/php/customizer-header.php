@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_6143452439e4a',
     'title' => __('Header', 'municipio'),
     'fields' => array(
@@ -117,7 +119,7 @@
             'repeater_value_field' => '',
             'repeater_post_id' => 0,
             'repeater_display_value' => 0,
-            'key' => 'field_61499e93760b2',
+            'key' => 'field_6070186956c15',
             'label' => __('Style', 'municipio'),
             'name' => 'municipio_header_style',
             'type' => 'select',
@@ -162,4 +164,5 @@
     'active' => true,
     'description' => '',
 ));
-}
+
+}
