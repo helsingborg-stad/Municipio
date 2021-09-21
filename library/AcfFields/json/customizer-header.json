@@ -3,6 +3,12 @@
     "title": "Header",
     "fields": [
         {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_61434d3478ef7",
             "label": "Sticky",
             "name": "municipio_header_stick_to_top",
@@ -26,11 +32,16 @@
             "multiple": 0,
             "ui": 0,
             "return_format": "value",
-            "repeater_choices": 0,
             "ajax": 0,
             "placeholder": ""
         },
         {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_61446365d1c7e",
             "label": "Background color",
             "name": "municipio_header_background_color",
@@ -56,11 +67,16 @@
             "multiple": 0,
             "ui": 0,
             "return_format": "value",
-            "repeater_choices": 0,
             "ajax": 0,
             "placeholder": ""
         },
         {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_614467575de00",
             "label": "Text color",
             "name": "municipio_header_text_color",
@@ -88,7 +104,39 @@
             "multiple": 0,
             "ui": 0,
             "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "key": "field_61499e93760b2",
+            "label": "Style",
+            "name": "municipio_header_style",
+            "type": "select",
+            "instructions": "Select a style of this header.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "site.header",
+            "share_option": 0,
+            "choices": {
+                "accented": "Accented"
+            },
+            "default_value": false,
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
             "ajax": 0,
             "placeholder": ""
         }
