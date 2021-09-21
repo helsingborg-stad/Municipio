@@ -1,11 +1,19 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_6143452439e4a',
     'title' => __('Header', 'municipio'),
     'fields' => array(
         0 => array(
+            'repeater_choices' => 0,
+            'repeater_field' => '',
+            'repeater_label_field' => '',
+            'repeater_value_field' => '',
+            'repeater_post_id' => 0,
+            'repeater_display_value' => 0,
             'key' => 'field_61434d3478ef7',
             'label' => __('Sticky', 'municipio'),
             'name' => 'municipio_header_stick_to_top',
@@ -29,11 +37,16 @@
             'multiple' => 0,
             'ui' => 0,
             'return_format' => 'value',
-            'repeater_choices' => 0,
             'ajax' => 0,
             'placeholder' => '',
         ),
         1 => array(
+            'repeater_choices' => 0,
+            'repeater_field' => '',
+            'repeater_label_field' => '',
+            'repeater_value_field' => '',
+            'repeater_post_id' => 0,
+            'repeater_display_value' => 0,
             'key' => 'field_61446365d1c7e',
             'label' => __('Background color', 'municipio'),
             'name' => 'municipio_header_background_color',
@@ -59,11 +72,16 @@
             'multiple' => 0,
             'ui' => 0,
             'return_format' => 'value',
-            'repeater_choices' => 0,
             'ajax' => 0,
             'placeholder' => '',
         ),
         2 => array(
+            'repeater_choices' => 0,
+            'repeater_field' => '',
+            'repeater_label_field' => '',
+            'repeater_value_field' => '',
+            'repeater_post_id' => 0,
+            'repeater_display_value' => 0,
             'key' => 'field_614467575de00',
             'label' => __('Text color', 'municipio'),
             'name' => 'municipio_header_text_color',
@@ -91,7 +109,39 @@
             'multiple' => 0,
             'ui' => 0,
             'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+        ),
+        3 => array(
             'repeater_choices' => 0,
+            'repeater_field' => '',
+            'repeater_label_field' => '',
+            'repeater_value_field' => '',
+            'repeater_post_id' => 0,
+            'repeater_display_value' => 0,
+            'key' => 'field_6070186956c15',
+            'label' => __('Style', 'municipio'),
+            'name' => 'municipio_header_style',
+            'type' => 'select',
+            'instructions' => __('Select a style of this header.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => 'filter',
+            'filter_context' => 'site.header',
+            'share_option' => 0,
+            'choices' => array(
+                'accented' => __('Accented', 'municipio'),
+            ),
+            'default_value' => false,
+            'allow_null' => 1,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
             'ajax' => 0,
             'placeholder' => '',
         ),
@@ -114,4 +164,5 @@
     'active' => true,
     'description' => '',
 ));
-}
+
+}

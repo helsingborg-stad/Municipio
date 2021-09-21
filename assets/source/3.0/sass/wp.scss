@@ -6,3 +6,7 @@
   width: auto;
   border-radius: 2px;
 }
+
+.admin-bar [class*="--sticky"] {
+  top: 32px; 
+}
