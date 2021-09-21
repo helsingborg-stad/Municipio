@@ -70,6 +70,7 @@ add_action('init', function () {
         'options-theme-sub-navigation'              => 'group_56e941cae1ed2',
         'options-menu-icon'                         => 'group_60c325749aeab',
         'options-menu-floating'                     => 'group_60c86946524a0',
+        'options-menu-language'                     => 'group_6141cc9c72cc3',
         'user-author-image'                         => 'group_56c714b46105e',
         'widget-contact'                            => 'group_56c58bade87dc',
         'widget-header-common'                      => 'group_5a65d5e7e913b',
@@ -81,15 +82,38 @@ add_action('init', function () {
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
-        //Customizer
+        //Design share - Customizer
+        'customizer-design-share-load'              => 'group_604a117fe6872',
+
+        //Design - Customizer
+        'customizer-general'                        => 'group_60cb4dd20e9c3',
         'customizer-color'                          => 'group_60361b6d86d9d',
         'customizer-radius'                         => 'group_603662f315acc',
-        'customizer-design-share-load'              => 'group_604a117fe6872',
-        'customizer-modules'                        => 'group_605cdad896041',
         'customizer-width'                          => 'group_60928d240f1bf',
-        'customizer-menu-position'                  => 'group_60cb4dd20e9c3',
-        'customizer-column-size'                    => 'group_60d339321642e',
-        'customizer-content-padder'                 => 'group_611e43c157cbb'
+        'customizer-padding'                        => 'group_614331a86b081',
+        'customizer-header'                         => 'group_6143452439e4a',
+        'customizer-mobilemenu'                     => 'group_6143458359420',
+        'customizer-quicklinks'                     => 'group_6123844e04276',
+
+        //Modifiers
+        'customizer-contacts'                       => 'group_614336d78b898',
+        'customizer-event'                          => 'group_6143374aa9575',
+        'customizer-form'                           => 'group_6143379386443',
+        'customizer-index'                          => 'group_614337a28e50a',
+        'customizer-inlay'                          => 'group_614336f51a8f2',
+        'customizer-jsonrender'                     => 'group_61433782358ee',
+        'customizer-localevent'                     => 'group_614337b46f273',
+        'customizer-map'                            => 'group_6143370287209',
+        'customizer-posts'                          => 'group_614336c3d5885',
+        'customizer-sectionssplit'                  => 'group_614337ce54b5f',
+        'customizer-text'                           => 'group_614337104a06d',
+        'customizer-video'                          => 'group_6143373e63d5d',
+        'customizer-script'                         => 'group_614340abb1cc1',
+
+        //Components
+        'customizer-card'                           => 'group_6144852296570',
+        //'customizer-input'                          => 'group_614485229',
+        
     ));
     
     $acfExportManager->import();

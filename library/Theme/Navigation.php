@@ -30,8 +30,21 @@ class Navigation
      * @return array
      */
     public function addLanguageMenuItem($data, $identifier, $pageId) {
-                
-        if($identifier == "primary") {
+        
+        //Define where to show lang select
+        $showLanguageSelectorIn = ['primary', 'mobile'];
+        $showLanguageLabelIn = ['mobile'];
+        $excludedMenuTemplates = ['casual'];
+        $skipThisMenu = false;
+
+        //If menu is primary and casual then don't add language menu
+        if($identifier === 'primary') {
+            $headerTemplate = get_field('header_layout', 'option') ?? 'business';
+
+            $skipThisMenu = in_array($headerTemplate, $excludedMenuTemplates) ? true : $skipThisMenu;
+        }
+
+        if(in_array($identifier, $showLanguageSelectorIn) && !$skipThisMenu) {
 
             $languageMenu       = new \Municipio\Helper\Navigation('language');
             $languageMenuItems  = $languageMenu->getMenuItems('language-menu', $pageId, false, true, true);
@@ -44,13 +57,14 @@ class Navigation
                     "active" => false, 
                     "ancestor" => false,
                     "children" => $languageMenuItems,
-                    "label" => "",
+                    "label" => in_array($identifier, $showLanguageLabelIn) ? __("Language", 'municipio') : false,
                     "href" => "#language",
                     "icon" => ['icon' => 'language', 'size' => 'md'],
                     "attributeList" => [
                         'aria-label' => __("Select language", 'municipio'),
                         'translate' => 'no'
                     ],
+                    "class" => ['is-current is-open has-fetched']
                 ]; 
             }
         }

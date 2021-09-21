@@ -4,7 +4,6 @@ import Comments from './comments';
 import ArchiveFilter from './archiveFilter';
 import './drawer';
 import './nav';
-import FixedMenu from './fixedMenu';
 
 
 var fixedMenu = new FixedMenu();

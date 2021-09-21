@@ -2,25 +2,30 @@
 
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
-    'key' => 'group_60d339321642e',
-    'title' => __('Column size', 'municipio'),
+    'key' => 'group_614336d78b898',
+    'title' => __('Contacts', 'municipio'),
     'fields' => array(
         0 => array(
-            'key' => 'field_60d339b60049e',
-            'label' => __('Left', 'municipio'),
-            'name' => 'column_size_left',
+            'key' => 'field_6063008d5068a',
+            'label' => __('Contacs - List - Style', 'municipio'),
+            'name' => 'contacts-list-style',
             'type' => 'select',
             'instructions' => '',
-            'required' => 1,
+            'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
                 'width' => '',
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'module.contacts.list',
+            'share_option' => 0,
             'choices' => array(
-                'normal' => __('Normal', 'municipio'),
-                'large' => __('Large', 'municipio'),
+                'none' => __('None', 'municipio'),
+                'panel' => __('Panel', 'municipio'),
+                'accented' => __('Accented', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => false,
             'allow_null' => 0,
@@ -31,23 +36,26 @@
             'placeholder' => '',
         ),
         1 => array(
-            'key' => 'field_60d3393d1231a',
-            'label' => __('Right', 'municipio'),
-            'name' => 'column_size_right',
+            'key' => 'field_6090f318a40ef',
+            'label' => __('Contacs - Card - Style', 'municipio'),
+            'name' => 'contacts-card-style',
             'type' => 'select',
             'instructions' => '',
-            'required' => 1,
+            'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
                 'width' => '',
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'module.contacts.card',
+            'share_option' => 0,
             'choices' => array(
-                'normal' => __('Normal', 'municipio'),
-                'large' => __('Large', 'municipio'),
+                'none' => __('None', 'municipio'),
+                'highlight' => __('Highlight', 'municipio'),
             ),
-            'default_value' => __('normal', 'municipio'),
+            'default_value' => false,
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 0,
@@ -61,7 +69,7 @@
             0 => array(
                 'param' => 'customizer',
                 'operator' => '==',
-                'value' => 'site',
+                'value' => 'contacts',
             ),
         ),
     ),

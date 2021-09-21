@@ -46,9 +46,30 @@ class DesignLibrary
                 return false; 
             }
 
-            new \Municipio\Helper\Customizer(
-                __('Designlibrary', 'municipio'),
-                ['Load design']
+             //Add panels & fields 
+            new \Municipio\Helper\CustomizeCreate(
+                [
+                'id' => 'designlibrary', 
+                'title' => __('Design library', 'municipio')
+                ],
+                [
+                    [
+                        'id' => 'loaddesign', 
+                        'title' => "Load design", 
+                        'description' => __('Load a design implemented on any other municipio website.', 'municipio'),
+                        'render' => false,
+                        'share' => false,
+                        'active' => true
+                    ],
+                    [
+                        'id' => 'sharedesign', 
+                        'title' => "Share design", 
+                        'description' => __('Share your design with the community! Click "publish now" to make your design avabile to the world.', 'municipio'),
+                        'render' => false,
+                        'share' => false,
+                        'active' => true
+                    ],
+                ]
             );
         }); 
 
