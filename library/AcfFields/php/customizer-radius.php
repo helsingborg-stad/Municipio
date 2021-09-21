@@ -1,13 +1,30 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_603662f315acc',
-    'title' => __('Radiuses', 'municipio'),
+    'title' => __('Radius', 'municipio'),
     'fields' => array(
         0 => array(
+            'key' => 'field_6143340ed9b34',
+            'label' => __('General radius', 'municipio'),
+            'name' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'render_type' => '',
+            'share_option' => 0,
+            'message' => __('Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab.', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        1 => array(
             'key' => 'field_603662f7a16f8',
             'label' => __('X-Small', 'municipio'),
             'name' => 'municipio_radius_xs',
@@ -20,6 +37,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var',
+            'share_option' => 1,
             'default_value' => 2,
             'min' => 0,
             'max' => 12,
@@ -27,7 +46,7 @@ if (function_exists('acf_add_local_field_group')) {
             'prepend' => '',
             'append' => __('px', 'municipio'),
         ),
-        1 => array(
+        2 => array(
             'key' => 'field_6038fa31cfac6',
             'label' => __('Small', 'municipio'),
             'name' => 'municipio_radius_sm',
@@ -40,6 +59,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var',
+            'share_option' => 1,
             'default_value' => 4,
             'min' => 0,
             'max' => 12,
@@ -47,7 +68,7 @@ if (function_exists('acf_add_local_field_group')) {
             'prepend' => '',
             'append' => __('px', 'municipio'),
         ),
-        2 => array(
+        3 => array(
             'key' => 'field_6038fa400384b',
             'label' => __('Medium', 'municipio'),
             'name' => 'municipio_radius_md',
@@ -60,6 +81,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var',
+            'share_option' => 1,
             'default_value' => 8,
             'min' => 0,
             'max' => 12,
@@ -67,7 +90,7 @@ if (function_exists('acf_add_local_field_group')) {
             'prepend' => '',
             'append' => __('px', 'municipio'),
         ),
-        3 => array(
+        4 => array(
             'key' => 'field_6038fa52576ba',
             'label' => __('Large', 'municipio'),
             'name' => 'municipio_radius_lg',
@@ -80,6 +103,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'var',
+            'share_option' => 1,
             'default_value' => 12,
             'min' => 0,
             'max' => 12,
@@ -106,5 +131,4 @@ if (function_exists('acf_add_local_field_group')) {
     'active' => true,
     'description' => '',
 ));
-
-}
+}

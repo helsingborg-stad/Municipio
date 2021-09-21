@@ -1,0 +1,114 @@
+[{
+    "key": "group_614336c3d5885",
+    "title": "Posts",
+    "fields": [
+        {
+            "key": "field_6061d864c6873",
+            "label": "Posts - Index - Header Style",
+            "name": "posts-index-headerStyle",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "module.posts.index",
+            "share_option": 1,
+            "choices": {
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_6062fd67a2eb4",
+            "label": "Posts - List - Style",
+            "name": "posts-list-style",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "module.posts.list",
+            "share_option": 1,
+            "choices": {
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_60631bb52591c",
+            "label": "Posts - ExpandableList - Style",
+            "name": "posts-expandableList-style",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "filter",
+            "filter_context": "module.posts.expandablelist",
+            "share_option": 1,
+            "choices": {
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "posts"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+

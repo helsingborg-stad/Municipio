@@ -1,17 +1,11 @@
 [{
-    "key": "group_605cdad896041",
-    "title": "Modules",
+    "key": "group_614337ce54b5f",
+    "title": "Sections Split",
     "fields": [
         {
-            "repeater_choices": false,
-            "repeater_field": "",
-            "repeater_label_field": "",
-            "repeater_value_field": "",
-            "repeater_post_id": 0,
-            "repeater_display_value": 0,
-            "key": "field_6063072c25917",
-            "label": "Script - Style",
-            "name": "script-style",
+            "key": "field_611f83757a727",
+            "label": "Sections Split",
+            "name": "sectionsSplit",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -21,18 +15,19 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "sectionsSplit",
+            "share_option": 1,
             "choices": {
                 "none": "None",
-                "panel": "Panel",
-                "accented": "Accented",
                 "highlight": "Highlight"
             },
             "default_value": false,
             "allow_null": 0,
             "multiple": 0,
-            "ui": 1,
-            "ajax": 0,
+            "ui": 0,
             "return_format": "value",
+            "ajax": 0,
             "placeholder": ""
         }
     ],
@@ -41,7 +36,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "modules"
+                "value": "sectionssplit"
             }
         ]
     ],

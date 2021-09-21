@@ -64,6 +64,9 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
 
+        //Customization data
+        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);
+
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
@@ -141,15 +144,9 @@ class BaseController
         //Notice storage
         $this->data['notice']               = [];
 
-        //Secondary nav positions
-        $this->data['secondaryNavPostion']  = $this->getNavPosition('secondary'); 
-
-        //Mobile Menu Drawer Style
-        $this->data['mobileMenuDrawerStyle'] = $this->getMobileDrawerStyle();
-
         //Column sizes
-        $this->data['leftColumnSize']  = $this->getColumnSize('left'); 
-        $this->data['rightColumnSize']  = $this->getColumnSize('right'); 
+        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customize']->width); 
+        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customize']->width); 
 
         //Main content padder
         $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller. 
@@ -567,23 +564,14 @@ class BaseController
      *
      * @return integer
      */
-    public function getColumnSize($identifier) {
+    public function getColumnSize($location, $customizer) {
 
-        $mods = get_theme_mods(); 
-
-        //Secondary navigation
-        if($identifier == 'left') {
-            $fieldId = 'field_60d339b60049e'; 
+        if($location == 'left' && $customizer->columnSizeLeft == 'large') {
+            return 4; 
         }
 
-        if($identifier == 'right') {
-            $fieldId = 'field_60d3393d1231a'; 
-        }
-
-        if(isset($mods['site']) && isset($mods['site'][$fieldId])) {
-            if(in_array($mods['site'][$fieldId], ['large'])) {
-                return 4; 
-            }
+        if($location == 'right' && $customizer->columnSizeRight == 'large') {
+            return 4; 
         }
 
         return 3; 
@@ -630,17 +618,6 @@ class BaseController
         //Return
         return (object) $logotype; 
     }
-
-
-    /**
-     * Retrieve and return style for mobile menu drawer
-     * @return void
-     */
-    public function getMobileDrawerStyle() {
-        $mod = get_theme_mods();
-        
-        return $mod['site']['field_61126702da36c'];
-     }
 
     /**
      * Runs after construct

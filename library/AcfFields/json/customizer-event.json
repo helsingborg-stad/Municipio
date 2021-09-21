@@ -1,6 +1,6 @@
 [{
-    "key": "group_605cdad896041",
-    "title": "Modules",
+    "key": "group_6143374aa9575",
+    "title": "Event",
     "fields": [
         {
             "repeater_choices": false,
@@ -9,9 +9,9 @@
             "repeater_value_field": "",
             "repeater_post_id": 0,
             "repeater_display_value": 0,
-            "key": "field_6063072c25917",
-            "label": "Script - Style",
-            "name": "script-style",
+            "key": "field_60641a8df5290",
+            "label": "Event - Style",
+            "name": "event-style",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -30,9 +30,9 @@
             "default_value": false,
             "allow_null": 0,
             "multiple": 0,
-            "ui": 1,
-            "ajax": 0,
+            "ui": 0,
             "return_format": "value",
+            "ajax": 0,
             "placeholder": ""
         }
     ],
@@ -41,7 +41,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "modules"
+                "value": "event"
             }
         ]
     ],

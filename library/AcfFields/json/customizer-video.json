@@ -1,6 +1,6 @@
 [{
-    "key": "group_605cdad896041",
-    "title": "Modules",
+    "key": "group_6143373e63d5d",
+    "title": "Video",
     "fields": [
         {
             "repeater_choices": false,
@@ -9,9 +9,9 @@
             "repeater_value_field": "",
             "repeater_post_id": 0,
             "repeater_display_value": 0,
-            "key": "field_6063072c25917",
-            "label": "Script - Style",
-            "name": "script-style",
+            "key": "field_60631b5f25919",
+            "label": "Video - Style",
+            "name": "video-style",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -41,7 +41,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "modules"
+                "value": "video"
             }
         ]
     ],

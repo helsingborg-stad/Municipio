@@ -1,18 +1,24 @@
 <?php
 
-namespace Municipio\Customizer;
+namespace Municipio\Helper;
 
 /**
- * Class Colors
+ * Class Color
  * @package Municipio\Customizer
  */
-class Colors
+class Color
 {
     /**
      * Prepare the color and alpha value
-     * @return string
+     * 
+     * @param   array   $colorItem      [
+     *                                      ['value' => ['color', 'alpha'], 
+     *                                      ['default' => ['color' => '', 'alpha' => '']]
+     *                                  ]
+     * 
+     * @return  string                  Rgba css color value.
      */
-    public function prepareColor ($colorItem) {
+    public static function prepareColor($colorItem) {
     
         $colorItem['alpha'] = "1"; //Set default alpha value
 
@@ -37,14 +43,14 @@ class Colors
 
         } 
 
-        return $this->convertHexToRgb($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
+        return self::convertHexToRgba($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
     }
 
     /**
      * Convert the hexadecimal value to rgba
      * @return string
      */
-    private function convertHexToRgb($value, $alpha, $default) {  
+    private static function convertHexToRgba($value, $alpha, $default) {  
         $value = !empty($value) ? $value : $default;  
         $value = sscanf($value, "#%02x%02x%02x");
         return "rgba({$value[0]}, {$value[1]}, {$value[2]}, $alpha)";

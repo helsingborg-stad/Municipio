@@ -1,32 +1,7 @@
 [{
-    "key": "group_60cb4dd20e9c3",
-    "title": "Secondary navigation",
+    "key": "group_6143458359420",
+    "title": "Mobile menu",
     "fields": [
-        {
-            "key": "field_60cb4dd897cb8",
-            "label": "Secondary navigation position",
-            "name": "secondary_navigation_position",
-            "type": "radio",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "left": "Left",
-                "right": "Right",
-                "hidden": "Hidden"
-            },
-            "allow_null": 0,
-            "other_choice": 0,
-            "default_value": "left",
-            "layout": "horizontal",
-            "return_format": "value",
-            "save_other_choice": 0
-        },
         {
             "key": "field_61126702da36c",
             "label": "Mobile menu style",
@@ -40,6 +15,9 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "var_controller",
+            "filter_context": "",
+            "share_option": 1,
             "choices": {
                 "monotone": "Monotone",
                 "duotone": "Duotone"
@@ -58,7 +36,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "site"
+                "value": "mobilemenu"
             }
         ]
     ],

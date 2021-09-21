@@ -10,15 +10,14 @@
     ],
     'closeLabel' => $lang->close,
     'closeIcon' =>'close',
-    'classList' => []
+    'context' => ['site.navigation.floating']
 ])
-
     @nav([
         'items' => $floatingMenuItems,
         'direction' => 'vertical',
         'includeToggle' => false,
-        'classList' => ['c-nav--tiles']
+        'classList' => ['c-nav--tiles'],
+        'context' => ['site.navigation.floating.nav']
     ])
     @endnav
-
 @endfab
