@@ -331,7 +331,7 @@ class CustomizerPanels
                             $field->key => [
                               'name' => str_replace(['municipio_', '_'], ['', '-'], $field->name),
                               'default' => $field->default_value ?? '',
-                              'value' => $themeMods[$field->key] ?? '',
+                              'value' => $themeMods[$field->key] ?? ($field->default_value ?? ''),
                               'prepend' => $field->prepend ?? null,
                               'append' => $field->append ?? null,
                               'share' => $field->share_option ?? false,
