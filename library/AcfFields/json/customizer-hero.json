@@ -7,7 +7,7 @@
             "label": "Vibrant overlay colour",
             "name": "municipio_hero_overlay_color__vibrant",
             "type": "group",
-            "instructions": "",
+            "instructions": "Set a colourful overlay, the color will be overlayed on the image. The opacity will therefore control the amount of color, not the opacity.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -68,7 +68,7 @@
             "label": "Neutral overlay colour",
             "name": "municipio_hero_overlay_color__neutral",
             "type": "group",
-            "instructions": "",
+            "instructions": "Set a neutral overlay, the color will be overlayed on the image. The opacity will therefore control the amount of color, not the opacity.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

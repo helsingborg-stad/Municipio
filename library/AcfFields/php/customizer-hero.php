@@ -10,7 +10,7 @@
             'label' => __('Vibrant overlay colour', 'municipio'),
             'name' => 'municipio_hero_overlay_color__vibrant',
             'type' => 'group',
-            'instructions' => '',
+            'instructions' => __('Set a colourful overlay, the color will be overlayed on the image. The opacity will therefore control the amount of color, not the opacity.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -71,7 +71,7 @@
             'label' => __('Neutral overlay colour', 'municipio'),
             'name' => 'municipio_hero_overlay_color__neutral',
             'type' => 'group',
-            'instructions' => '',
+            'instructions' => __('Set a neutral overlay, the color will be overlayed on the image. The opacity will therefore control the amount of color, not the opacity.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
