@@ -23,6 +23,9 @@ class Button {
                 'category'          => 'formatting',
                 'icon'              => 'button',
                 'keywords'          => array('button', 'link'),
+                'supports'          => [
+                    'align' => true
+                ]
             ));
         }
     }
@@ -30,7 +33,10 @@ class Button {
     //Callback for render, builds view with blade engine
     public function renderCallback($block) {
         $data = $this->buildData($block['data']);
+        $data['classList'] = $this->buildBlockClassList($block);
+
         $template = new Template();
+
         $template->renderView('button', $data);
     }
 
@@ -54,10 +60,19 @@ class Button {
             } else {
                 $newData[get_field_object($key)['name']] = $value;
             }
-
-
         }
 
         return $newData;
+    }
+
+    public function buildBlockClassList($block)
+    {
+        $classList = ['municipio-block-container'];
+
+        if(isset($block['align'])) {
+            $classList[] = "municipio-block-align-" . $block['align'];
+        }
+
+        return implode(' ', $classList);
     }
 }
