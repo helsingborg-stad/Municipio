@@ -1,0 +1,19 @@
+.municipio-block-container {
+    display: flex;
+
+    &.municipio-block-align {
+        &-left {
+            justify-content: left;
+        }
+
+        &-center {
+            justify-content: center;
+
+        }
+
+        &-right {
+            justify-content: right;
+
+        }
+    }
+}
