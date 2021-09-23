@@ -13,6 +13,9 @@ There are three major concepts in the customizer, they are the following:
 - Filter (Modifier)
 - Css Variable
 
+### Customizer layout
+[Customizer]: helsingborg-stad/Municipio/blob/3.0/develop/documentation/assets/customizer.png "Overview of the customizer structure."
+
 ### Adding a css variable
 
 1. Go to the customizer
