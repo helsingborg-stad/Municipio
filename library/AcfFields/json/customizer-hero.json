@@ -1,0 +1,146 @@
+[{
+    "key": "group_614c7131c10e6",
+    "title": "Hero",
+    "fields": [
+        {
+            "key": "field_614c713ae73ea",
+            "label": "Vibrant overlay colour",
+            "name": "municipio_hero_overlay_color__vibrant",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var_colorgroup",
+            "filter_context": "",
+            "share_option": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_614c7189e73eb",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "render_type": "",
+                    "filter_context": "",
+                    "share_option": 0,
+                    "default_value": "#000000"
+                },
+                {
+                    "key": "field_614c7197e73ec",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "render_type": "",
+                    "filter_context": "",
+                    "share_option": 0,
+                    "default_value": 75,
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
+            "key": "field_614c720fb65a4",
+            "label": "Neutral overlay colour",
+            "name": "municipio_hero_overlay_color__neutral",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var_colorgroup",
+            "filter_context": "",
+            "share_option": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_614c720fb65a5",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "render_type": "",
+                    "filter_context": "",
+                    "share_option": 0,
+                    "default_value": "#000000"
+                },
+                {
+                    "key": "field_614c720fb65a6",
+                    "label": "Alpha",
+                    "name": "alpha",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "render_type": "",
+                    "filter_context": "",
+                    "share_option": 0,
+                    "default_value": 75,
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "hero"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+
