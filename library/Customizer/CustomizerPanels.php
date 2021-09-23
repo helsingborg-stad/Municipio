@@ -153,6 +153,11 @@ class CustomizerPanels
           'id' => 'quicklinks',
           'title' => "Quicklinks", 
           'active' => true
+      ],
+      [
+          'id' => 'hero',
+          'title' => "Hero", 
+          'active' => true
       ]
     ]
   ];
