@@ -109,10 +109,5 @@ class App
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
         });
-
-        add_action('after_setup_theme', static function () {
-            add_theme_support('align-wide');
-            add_theme_support( 'wp-block-styles' );
-        });
     }
 }
