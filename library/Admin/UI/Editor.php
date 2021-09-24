@@ -9,7 +9,7 @@ class Editor
     public function __construct()
     {
         // Actions
-        add_action('admin_init', array($this, 'editorStyle'));
+        add_action('enqueue_block_editor_assets', array($this, 'editorStyle'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
 
@@ -57,7 +57,8 @@ class Editor
      */
     public function editorStyle()
     {
-        add_editor_style(
+        wp_enqueue_style(
+            'editor_styleguide',
             apply_filters(
                 'Municipio/Admin/EditorStyleguide',
                 get_template_directory_uri() .
@@ -66,7 +67,8 @@ class Editor
             )
         );
 
-        add_editor_style(
+        wp_enqueue_style(
+            'editor_tinymce',
             apply_filters(
                 'Municipio/Admin/EditorTinyMce',
                 get_template_directory_uri() .
@@ -75,7 +77,8 @@ class Editor
             )
         );
 
-        add_editor_style(
+        wp_enqueue_style(
+            'editor_block',
             apply_filters(
                 'Municipio/Admin/Editor',
                 get_template_directory_uri() .
