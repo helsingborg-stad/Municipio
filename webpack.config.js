@@ -31,6 +31,7 @@ module.exports = {
         'js/municipio': './assets/source/3.0/js/municipio.js',
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
+        'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
