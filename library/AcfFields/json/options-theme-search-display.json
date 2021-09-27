@@ -15,18 +15,22 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "vertical",
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
             "choices": {
                 "hero": "Hero p\u00e5 startsidan",
                 "header_sub": "Headern p\u00e5 undersidor",
                 "header": "Headern p\u00e5 startsidan",
-                "mainmenu": "Alternativ i huvudmenyn"
+                "mainmenu": "Alternativ i huvudmenyn",
+                "mobile": "Alternativ i mobilmenyn"
             },
-            "default_value": [],
             "allow_custom": 0,
-            "save_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
             "toggle": 0,
-            "return_format": "value"
+            "return_format": "value",
+            "save_custom": 0
         }
     ],
     "location": [

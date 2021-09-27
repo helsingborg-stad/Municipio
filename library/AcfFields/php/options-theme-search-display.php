@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56a72f6430912',
-    'title' => 'Display settings',
+    'title' => __('Display settings', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56a72f9b645b7',
@@ -18,19 +18,23 @@
                 'class' => '',
                 'id' => '',
             ),
-            'layout' => 'vertical',
+            'render_type' => '',
+            'filter_context' => '',
+            'share_option' => 0,
             'choices' => array(
                 'hero' => __('Hero på startsidan', 'municipio'),
                 'header_sub' => __('Headern på undersidor', 'municipio'),
                 'header' => __('Headern på startsidan', 'municipio'),
                 'mainmenu' => __('Alternativ i huvudmenyn', 'municipio'),
-            ),
-            'default_value' => array(
+                'mobile' => __('Alternativ i mobilmenyn', 'municipio'),
             ),
             'allow_custom' => 0,
-            'save_custom' => 0,
+            'default_value' => array(
+            ),
+            'layout' => 'vertical',
             'toggle' => 0,
             'return_format' => 'value',
+            'save_custom' => 0,
         ),
     ),
     'location' => array(
