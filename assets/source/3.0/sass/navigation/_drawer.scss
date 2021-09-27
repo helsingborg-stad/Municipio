@@ -119,3 +119,13 @@ $drawer-width: calc(#{$base} * 40);
         padding: calc(#{$base} * 5) calc(#{$base} * 4);
     }
 }
+
+#mobile-search-form {
+    background-color: $color-white;
+
+    input, .c-button {
+        height: calc(#{$base} * 6);
+    }
+
+    
+}
