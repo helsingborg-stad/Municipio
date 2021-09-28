@@ -1,23 +1,28 @@
 [{
-    "key": "group_60d339321642e",
-    "title": "Column size",
+    "key": "group_614336d78b898",
+    "title": "Contacts",
     "fields": [
         {
-            "key": "field_60d339b60049e",
-            "label": "Left",
-            "name": "column_size_left",
+            "key": "field_6063008d5068a",
+            "label": "Contacs - List - Style",
+            "name": "contacts-list-style",
             "type": "select",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "module.contacts.list",
+            "share_option": 0,
             "choices": {
-                "normal": "Normal",
-                "large": "Large"
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
             },
             "default_value": false,
             "allow_null": 0,
@@ -28,23 +33,26 @@
             "placeholder": ""
         },
         {
-            "key": "field_60d3393d1231a",
-            "label": "Right",
-            "name": "column_size_right",
+            "key": "field_6090f318a40ef",
+            "label": "Contacs - Card - Style",
+            "name": "contacts-card-style",
             "type": "select",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
+            "render_type": "filter",
+            "filter_context": "module.contacts.card",
+            "share_option": 0,
             "choices": {
-                "normal": "Normal",
-                "large": "Large"
+                "none": "None",
+                "highlight": "Highlight"
             },
-            "default_value": "normal",
+            "default_value": false,
             "allow_null": 0,
             "multiple": 0,
             "ui": 0,
@@ -58,7 +66,7 @@
             {
                 "param": "customizer",
                 "operator": "==",
-                "value": "site"
+                "value": "contacts"
             }
         ]
     ],

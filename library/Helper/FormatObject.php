@@ -37,7 +37,7 @@ class FormatObject
     public static function camelCaseObject($object)
     {
         return (object) self::mapArrayKeys(function($string) {
-            return lcfirst(implode('', array_map('ucfirst', explode('_', strtolower($string)))));
+            return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string))))));
         }, (array) $object);
     }
 
@@ -50,7 +50,7 @@ class FormatObject
      */
     public static function camelCaseString($string)
     {
-        return lcfirst(implode('', array_map('ucfirst', explode('_', strtolower($string)))));
+        return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string))))));
     }
 
     /**

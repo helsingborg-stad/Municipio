@@ -81,6 +81,7 @@ class App
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillIconChoice(); 
+        new \Municipio\Admin\Acf\RenderOption(); 
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
@@ -100,18 +101,13 @@ class App
         /**
          * Customizer
          */
-        new \Municipio\Customizer\Design();
+        new \Municipio\Customizer\CustomizerPanels();
         new \Municipio\Customizer\DesignLibrary();
-
+        
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
-        });
-
-        add_action('after_setup_theme', static function () {
-            add_theme_support('align-wide');
-            add_theme_support( 'wp-block-styles' );
         });
     }
 }

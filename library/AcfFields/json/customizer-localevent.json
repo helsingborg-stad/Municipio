@@ -1,0 +1,57 @@
+[{
+    "key": "group_614337b46f273",
+    "title": "Local Event",
+    "fields": [
+        {
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "key": "field_607ff0d6b8426",
+            "label": "Local Event",
+            "name": "localEvent",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "panel": "Panel",
+                "accented": "Accented",
+                "highlight": "Highlight"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "customizer",
+                "operator": "==",
+                "value": "localevent"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+

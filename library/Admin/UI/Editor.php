@@ -9,7 +9,8 @@ class Editor
     public function __construct()
     {
         // Actions
-        add_action('admin_init', array($this, 'editorStyle'));
+        add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
+        add_action('after_setup_theme', array($this, 'editorStyle'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
 
@@ -52,11 +53,40 @@ class Editor
     }
 
     /**
-     * Add stylesheet to editor
+     * Add stylesheet to block editor
+     * @return void
+     */
+    public function blockEditorStyle()
+    {
+        wp_enqueue_style(
+            'block-editor-adjustments',
+            apply_filters(
+                'Municipio/Admin/BlockEditor',
+                get_template_directory_uri() .
+                    '/assets/dist/' .
+                    \Municipio\Helper\CacheBust::name('css/blockeditor.css')
+            )
+        );
+
+        wp_enqueue_style(
+            'block-editor-styleguide',
+            apply_filters(
+                'Municipio/Admin/BlockEditorStyleguide',
+                get_template_directory_uri() .
+                    '/assets/dist/' .
+                    \Municipio\Helper\CacheBust::name('css/styleguide.css')
+            )
+        );
+
+    }
+
+    /**
+     * Add stylesheet to TinyMCE editor
      * @return void
      */
     public function editorStyle()
     {
+
         add_editor_style(
             apply_filters(
                 'Municipio/Admin/EditorStyleguide',
@@ -74,6 +104,7 @@ class Editor
                     \Municipio\Helper\CacheBust::name('css/mce.css')
             )
         );
+
     }
 
     /**

@@ -1,7 +1,26 @@
 [{
     "key": "group_603662f315acc",
-    "title": "Radiuses",
+    "title": "Radius",
     "fields": [
+        {
+            "key": "field_6143340ed9b34",
+            "label": "General radius",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "share_option": 0,
+            "message": "Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
         {
             "key": "field_603662f7a16f8",
             "label": "X-Small",
@@ -15,6 +34,8 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "var",
+            "share_option": 1,
             "default_value": 2,
             "min": 0,
             "max": 12,
@@ -35,6 +56,8 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "var",
+            "share_option": 1,
             "default_value": 4,
             "min": 0,
             "max": 12,
@@ -55,6 +78,8 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "var",
+            "share_option": 1,
             "default_value": 8,
             "min": 0,
             "max": 12,
@@ -75,6 +100,8 @@
                 "class": "",
                 "id": ""
             },
+            "render_type": "var",
+            "share_option": 1,
             "default_value": 12,
             "min": 0,
             "max": 12,
@@ -101,4 +128,4 @@
     "active": true,
     "description": ""
 }]
-
+
