@@ -80,16 +80,18 @@ class BaseController
         $primary        = new \Municipio\Helper\Navigation('primary');
         $secondary      = new \Municipio\Helper\Navigation('sidebar');
         $quicklinks     = new \Municipio\Helper\Navigation('single');
-        $mobileMenu     = new \Municipio\Helper\Navigation('mobile');
         $tabMenu        = new \Municipio\Helper\Navigation('tab');
         $helpMenu       = new \Municipio\Helper\Navigation('help');
         $dropDownMenu   = new \Municipio\Helper\Navigation('dropdown');
         $floatingMenu   = new \Municipio\Helper\Navigation('floating');
+        $languageMenu   = new \Municipio\Helper\Navigation('language');
+
+        $mobileMenu             = new \Municipio\Helper\Navigation('mobile');
+        $mobileMenuSeconday     = new \Municipio\Helper\Navigation('mobile-secondary');
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
     
-
         /* Navigation parameters
         string $menu, 
         int $pageId = null, 
@@ -99,17 +101,18 @@ class BaseController
         */
         
         //Main Navigation 
-        $this->data['primaryMenuItems']     = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
-        $this->data['secondaryMenuItems']   = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false);
-        $this->data['mobileMenuItems']      = $mobileMenu->getMenuItems(false, $this->getPageID(), true, true);
+        $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
+        $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false, false);
+        $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true, false);
 
         //Complementary navigations
-        $this->data['quicklinksMenuItems']  = $quicklinks->getMenuItems('quicklinks-menu', $this->getPageID(), false, true, true);
-        $this->data['tabMenuItems']         = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID());
-        $this->data['helpMenuItems']        = $helpMenu->getMenuItems('help-menu', $this->getPageID());
-        $this->data['dropdownMenuItems']    = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID());
-        $this->data['floatingMenuItems']    = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
-        $this->data['languageMenuItems']    = $tabMenu->getMenuItems('language-menu', $this->getPageID());
+        $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), true, true, false);
+        $this->data['quicklinksMenuItems']          = $quicklinks->getMenuItems('quicklinks-menu', $this->getPageID(), false, true, true);
+        $this->data['tabMenuItems']                 = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID(), false, true, false);
+        $this->data['helpMenuItems']                = $helpMenu->getMenuItems('help-menu', $this->getPageID(), false, true, false);
+        $this->data['dropdownMenuItems']            = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID(), false, true, false);
+        $this->data['floatingMenuItems']            = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
+        $this->data['languageMenuItems']            = $languageMenu->getMenuItems('language-menu', $this->getPageID(), false, true, false);
 
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 

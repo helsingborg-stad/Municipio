@@ -33,6 +33,7 @@ class Navigation
             'floating-menu' => __('Floating menu', 'municipio'),
             'language-menu' => __('Language menu', 'municipio'),
             'quicklinks-menu' => __('Quicklinks menu', 'municipio'),
+            'mobile-drawer' => __('Mobile drawer (bottom)', 'municipio'),
         );
 
         register_nav_menus($menus);

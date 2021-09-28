@@ -6,13 +6,12 @@
     {{-- NAVIGATION PRIMARY NAV --}}
     @includeIf('partials.navigation.primary')
 
-    {{-- NAVIGATION MOBILE NAV --}}
-    @includeIf('partials.navigation.mobile')
-
     {{-- After header body --}}
     @yield('after-header-body')
 
 @endheader
+
+@includeIf('partials.navigation.drawer')
 
 @includeIf('partials.hero')
 
