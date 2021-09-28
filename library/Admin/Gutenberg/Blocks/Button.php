@@ -67,10 +67,10 @@ class Button {
 
     public function buildBlockClassList($block)
     {
-        $classList = ['municipio-block-container'];
+        $classList = ['t-block-container'];
 
         if(isset($block['align'])) {
-            $classList[] = "municipio-block-align-" . $block['align'];
+            $classList[] = "t-block-align-" . $block['align'];
         }
 
         return implode(' ', $classList);
