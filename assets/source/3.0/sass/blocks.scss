@@ -1,0 +1,33 @@
+.t-block-container {
+    &.t-block-align {
+
+        &-left,
+        &-center,
+        &-right {
+            display: flex;
+        }
+
+        &-left {
+            justify-content: left;
+        }
+
+        &-center {
+            justify-content: center;
+
+        }
+
+        &-right {
+            justify-content: right;
+
+        }
+
+        &-full {
+            position: relative;
+            width: 100vw; 
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+    }
+}
