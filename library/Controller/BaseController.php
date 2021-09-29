@@ -385,7 +385,7 @@ class BaseController
 
         $enabledLocations = (array) get_field('search_display', 'option'); 
 
-        if($location == "hero") {
+        if($location == "hero" && is_front_page()) {
             return in_array($location, $enabledLocations); 
         }
 
