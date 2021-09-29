@@ -15,9 +15,11 @@
     @if($showSidebars)
 
         @if($customize->general->secondaryNavigationPosition == 'left') 
-            <div class="u-margin__bottom--4">
-                @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
-            </div>
+            @if($secondaryMenuItems)
+                <div class="u-margin__bottom--4">
+                    @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+                </div>
+            @endif
         @endif
 
         @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
@@ -56,9 +58,11 @@
     @if($showSidebars)
 
         @if($customize->general->secondaryNavigationPosition == 'right') 
-            <div class="u-margin__bottom--4">
-                @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
-            </div>
+            @if($secondaryMenuItems)
+                <div class="u-margin__bottom--4">
+                    @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+                </div>
+            @endif
         @endif
 
         @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
