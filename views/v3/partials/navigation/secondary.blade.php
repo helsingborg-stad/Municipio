@@ -1,3 +1,5 @@
+BOO
+
 @if (is_array($items) && !empty($items))
     <ul>
         @foreach($items as $item)

@@ -5,8 +5,7 @@
             'c-nav--bordered',            
             'u-display--none@xs',
             'u-display--none@sm',
-            'u-print-display--none', 
-            'u-margin__bottom--4'
+            'u-print-display--none'
         ],
         'items' => $menuItems,
         'direction' => 'vertical',
