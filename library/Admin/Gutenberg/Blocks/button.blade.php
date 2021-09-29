@@ -4,7 +4,10 @@
         'color' => $color,
         'style' => $style,
         'size' => $size,
-        'href' => $link
+        'href' => $link,
+        'classList' => ['t-block-button']
     ])
     @endbutton
+
+    {!! '<InnerBlocks />' !!}
 </div>

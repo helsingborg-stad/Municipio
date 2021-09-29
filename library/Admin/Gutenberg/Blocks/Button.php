@@ -24,7 +24,8 @@ class Button {
                 'icon'              => 'button',
                 'keywords'          => array('button', 'link'),
                 'supports'          => [
-                    'align' => true
+                    'align' => true,
+                    'jsx' => true
                 ]
             ));
         }
