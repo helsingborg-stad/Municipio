@@ -170,6 +170,7 @@ class BaseController
             'searchOn'              => __("Search on", 'municipio'),
             'searchQuestion'        => __("What are you searching for?", 'municipio'),
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
+            'quicklinksNavigation'  => __("Useful links", 'municipio'),
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
             'emblem'                => __("Site emblem", 'municipio'),
