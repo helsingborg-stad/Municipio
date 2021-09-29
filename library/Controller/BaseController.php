@@ -106,7 +106,7 @@ class BaseController
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true, false);
 
         //Complementary navigations
-        $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), true, true, false);
+        $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
         $this->data['quicklinksMenuItems']          = $quicklinks->getMenuItems('quicklinks-menu', $this->getPageID(), false, true, true);
         $this->data['tabMenuItems']                 = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID(), false, true, false);
         $this->data['helpMenuItems']                = $helpMenu->getMenuItems('help-menu', $this->getPageID(), false, true, false);
