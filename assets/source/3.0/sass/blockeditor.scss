@@ -21,6 +21,10 @@
   &.t-block-button {
       display: flex; 
       align-items: left; 
+
+      .block-list-appender {
+        display: inline-block;
+      }
   
       > .block-editor-inner-blocks {
         display: flex;
