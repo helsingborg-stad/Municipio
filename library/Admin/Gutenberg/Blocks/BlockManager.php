@@ -71,7 +71,6 @@ class BlockManager {
         $newData = [];
         foreach($data as $key => $value) {
             $key = ltrim($key, '_');
-            $newValue = get_field($value);
             
             if(str_contains($value, 'field_')) {
                 $newData[$key] = get_field($value);
