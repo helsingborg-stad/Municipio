@@ -30,3 +30,11 @@
         }
     }
 }
+
+.t-block-button {
+    ~ .t-block-container {
+        display: block;
+    }
+
+    margin: calc(#{$base} * 1);
+}
