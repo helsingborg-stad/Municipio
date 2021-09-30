@@ -36,6 +36,10 @@ add_action('init', function () {
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');
     $acfExportManager->autoExport(array(
+        // Blocks
+        'block-classic-editpr'                      => 'group_61556c32b3697',
+        'block-button'                              => 'group_60acdac5158f2',
+        // Options
         'options-page-display'                      => 'group_56c33cf1470dc',
         'options-page-navigation'                   => 'group_56d83cff12bb3',
         'options-theme-404'                         => 'group_56d41dbd7e501',
