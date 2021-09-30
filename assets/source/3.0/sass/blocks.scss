@@ -1,16 +1,3 @@
-.block-editor-block-list__layout {
-    display: flex; 
-}
-
-.t-block-button {
-    display: flex; 
-
-    .block-editor-inner-blocks,
-    .block-editor-block-list__layout {
-        display: flex;
-    }
-}
-
 .t-block-container {
 
     &.t-block-align {
@@ -27,12 +14,10 @@
 
         &-center {
             justify-content: center;
-
         }
 
         &-right {
             justify-content: right;
-
         }
 
         &-full {

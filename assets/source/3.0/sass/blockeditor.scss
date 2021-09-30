@@ -1,3 +1,8 @@
+// ***************************************************************
+// *** Settings
+// ***************************************************************
+@import "~@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 .wp-block {
   margin-top: 0;
   margin-bottom: 0;
@@ -9,4 +14,29 @@
 
 .components-popover {
   padding-left: 12px;
+}
+
+/** Backend mods for block buttons */ 
+.t-block-container {
+  &.t-block-button {
+      display: flex; 
+      align-items: left; 
+  
+      > .block-editor-inner-blocks {
+        display: flex;
+      }
+
+      > .block-editor-inner-blocks .block-editor-block-list__layout .block-editor-block-list__block {
+        display: inline-block;
+        margin-left: #{$base};
+      }
+
+      [data-type="core/paragraph"] span {
+        padding-right: calc( #{$base} * 5 );
+      }
+
+      [data-type="core/paragraph"] span:after {
+        content: "Add button"; 
+      }
+  }
 }
