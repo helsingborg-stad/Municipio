@@ -127,7 +127,7 @@ class Post
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
 
                     //Gutenberg columns
-                    'o-grid o-grid--no-margin'
+                    'o-grid  o-grid--no-margin@md'
                 ], 
                 apply_filters('the_content', $content)
             ); 
