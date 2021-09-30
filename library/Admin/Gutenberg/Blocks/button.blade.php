@@ -1,4 +1,9 @@
-<div class="{!! $classList !!}">
+
+{{-- Only wrap top level block --}}
+@if($blockType == 'acf/button')
+    <div class="{!! $classList !!}">
+@endif
+
     @button([
         'text' => $text,
         'color' => $color,
@@ -9,5 +14,12 @@
     ])
     @endbutton
 
-    {!! '<InnerBlocks />' !!}
-</div>
+    {{-- Only one level of nesting --}}
+    @if($blockType == 'acf/button')
+        {!! "<InnerBlocks allowedBlocks=\"' . $allowedBlocks . '\" />" !!}
+    @endif
+
+{{-- Only wrap top level block --}}
+@if($blockType == 'acf/button')
+    </div>
+@endif

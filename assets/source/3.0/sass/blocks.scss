@@ -1,4 +1,18 @@
+.block-editor-block-list__layout {
+    display: flex; 
+}
+
+.t-block-button {
+    display: flex; 
+
+    .block-editor-inner-blocks,
+    .block-editor-block-list__layout {
+        display: flex;
+    }
+}
+
 .t-block-container {
+
     &.t-block-align {
 
         &-left,
@@ -30,12 +44,4 @@
             margin-right: -50vw;
         }
     }
-}
-
-.t-block-button {
-    ~ .t-block-container {
-        display: block;
-    }
-
-    margin: calc(#{$base} * 1);
 }
