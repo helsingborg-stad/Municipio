@@ -16,7 +16,7 @@
 
     {{-- Only one level of nesting --}}
     @if($blockType == 'acf/button')
-        {!! "<InnerBlocks allowedBlocks=\"' . $allowedBlocks . '\" />" !!}
+        {!! '<InnerBlocks allowedBlocks="false" />' !!}
     @endif
 
 {{-- Only wrap top level block --}}

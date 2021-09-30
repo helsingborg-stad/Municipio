@@ -38,6 +38,7 @@ class Button {
                 'category'          => 'formatting',
                 'icon'              => 'button',
                 'keywords'          => array('button', 'link'),
+                'parent'            => ['acf/button'],
                 'supports'          => [
                     'align' => false,
                     'jsx' => true
@@ -55,7 +56,6 @@ class Button {
         $template = new Template();
 
         $data['blockType'] = $block['name']; 
-        $data['allowedBlocks'] =  esc_attr( wp_json_encode( ['acf/button'] ) ); 
 
         $template->renderView('button', $data);
     }
@@ -63,8 +63,6 @@ class Button {
     //Returns view path
     public function getViewPath($paths) {
         $paths[] = plugin_dir_path( __FILE__ );
-
-
         return $paths;
     }
 
