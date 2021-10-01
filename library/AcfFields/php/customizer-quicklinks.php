@@ -61,7 +61,7 @@
             ),
             'render_type' => 'var_controller',
             'filter_context' => '',
-            'share_option' => 0,
+            'share_option' => 1,
             'default_value' => '',
         ),
         2 => array(
@@ -93,7 +93,7 @@
             ),
             'render_type' => 'filter',
             'filter_context' => 'site.quicklinks',
-            'share_option' => 0,
+            'share_option' => 1,
             'choices' => array(
                 'white' => __('White (transparent)', 'municipio'),
                 'primary' => __('Primary', 'municipio'),
@@ -109,7 +109,7 @@
             'placeholder' => '',
         ),
         3 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -129,7 +129,7 @@
             ),
             'render_type' => 'filter',
             'filter_context' => 'site.quicklinks',
-            'share_option' => 0,
+            'share_option' => 1,
             'choices' => array(
                 'text-white' => __('White', 'municipio'),
                 'text-black' => __('Black', 'municipio'),
@@ -176,7 +176,7 @@
             'placeholder' => '',
         ),
         5 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -196,7 +196,7 @@
             ),
             'render_type' => 'var_controller',
             'filter_context' => '',
-            'share_option' => 0,
+            'share_option' => 1,
             'choices' => array(
                 'everywhere' => __('All pages', 'municipio'),
                 'frontpage' => __('Fontpage', 'municipio'),

@@ -58,7 +58,7 @@
             },
             "render_type": "var_controller",
             "filter_context": "",
-            "share_option": 0,
+            "share_option": 1,
             "default_value": ""
         },
         {
@@ -90,7 +90,7 @@
             },
             "render_type": "filter",
             "filter_context": "site.quicklinks",
-            "share_option": 0,
+            "share_option": 1,
             "choices": {
                 "white": "White (transparent)",
                 "primary": "Primary",
@@ -106,7 +106,7 @@
             "placeholder": ""
         },
         {
-            "repeater_choices": false,
+            "repeater_choices": 0,
             "repeater_field": "",
             "repeater_label_field": "",
             "repeater_value_field": "",
@@ -126,7 +126,7 @@
             },
             "render_type": "filter",
             "filter_context": "site.quicklinks",
-            "share_option": 0,
+            "share_option": 1,
             "choices": {
                 "text-white": "White",
                 "text-black": "Black"
@@ -173,7 +173,7 @@
             "placeholder": ""
         },
         {
-            "repeater_choices": false,
+            "repeater_choices": 0,
             "repeater_field": "",
             "repeater_label_field": "",
             "repeater_value_field": "",
@@ -193,7 +193,7 @@
             },
             "render_type": "var_controller",
             "filter_context": "",
-            "share_option": 0,
+            "share_option": 1,
             "choices": {
                 "everywhere": "All pages",
                 "frontpage": "Fontpage"
