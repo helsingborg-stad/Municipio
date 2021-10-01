@@ -25,7 +25,7 @@
             "filter_context": "",
             "share_option": 1,
             "choices": {
-                "default": "Default",
+                "default": "Default color",
                 "hex": "Free select"
             },
             "allow_null": 0,

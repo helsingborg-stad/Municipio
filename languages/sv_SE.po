@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-09-23 15:04+0200\n"
-"PO-Revision-Date: 2021-09-23 15:09+0200\n"
+"POT-Creation-Date: 2021-10-01 16:18+0200\n"
+"PO-Revision-Date: 2021-10-01 16:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -19,6 +19,119 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: library/AcfFields/php/block-button.php:6
+msgid "Button Block"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:10
+#: library/AcfFields/php/customizer-text.php:6
+#: library/AcfFields/php/options-theme-google-translate.php:72
+msgid "Text"
+msgstr "Text"
+
+#: library/AcfFields/php/block-button.php:21
+msgid "Label"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:29
+msgid "Link"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:51
+#: library/AcfFields/php/customizer-color.php:98
+#: library/AcfFields/php/customizer-color.php:152
+#: library/AcfFields/php/customizer-color.php:277
+#: library/AcfFields/php/customizer-color.php:335
+#: library/AcfFields/php/customizer-color.php:464
+#: library/AcfFields/php/customizer-color.php:522
+#: library/AcfFields/php/customizer-hero.php:28
+#: library/AcfFields/php/customizer-hero.php:89
+msgid "Color"
+msgstr "Färg"
+
+#: library/AcfFields/php/block-button.php:63
+#: library/AcfFields/php/customizer-header.php:103
+#: library/AcfFields/php/customizer-quicklinks.php:99
+msgid "Primary"
+msgstr "Primär"
+
+#: library/AcfFields/php/block-button.php:64
+#: library/AcfFields/php/customizer-header.php:104
+#: library/AcfFields/php/customizer-header.php:105
+#: library/AcfFields/php/customizer-quicklinks.php:100
+msgid "Secondary"
+msgstr "Sekundär"
+
+#: library/AcfFields/php/block-button.php:65
+#: library/AcfFields/php/customizer-width.php:29
+#: library/AcfFields/php/navigation-widget.php:350
+#: library/AcfFields/php/widget-header-links.php:291
+#: library/AcfFields/php/widget-header-menu.php:48
+msgid "Default"
+msgstr "Standard"
+
+#: library/AcfFields/php/block-button.php:69
+msgid "deafult"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:82
+#: library/AcfFields/php/customizer-header.php:123
+#: library/AcfFields/php/navigation-widget.php:314
+msgid "Style"
+msgstr "Stil"
+
+#: library/AcfFields/php/block-button.php:94
+msgid "Basic"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:95
+msgid "Outlined"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:96
+msgid "Filled"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:100
+msgid "filled"
+msgstr ""
+
+#: library/AcfFields/php/block-button.php:113
+#: library/AcfFields/php/navigation-widget.php:338
+msgid "Size"
+msgstr "Storlek"
+
+#: library/AcfFields/php/block-button.php:125
+#: library/AcfFields/php/customizer-radius.php:51
+#: library/AcfFields/php/navigation-widget.php:351
+#: library/AcfFields/php/options-theme-editor-formats.php:23
+#: library/AcfFields/php/widget-header-common.php:130
+#: library/AcfFields/php/widget-header-links.php:292
+#: library/AcfFields/php/widget-header-menu.php:49
+msgid "Small"
+msgstr "Liten"
+
+#: library/AcfFields/php/block-button.php:126
+#: library/AcfFields/php/customizer-radius.php:73
+msgid "Medium"
+msgstr "Mellan"
+
+#: library/AcfFields/php/block-button.php:127
+#: library/AcfFields/php/customizer-radius.php:95
+#: library/AcfFields/php/customizer-width.php:148
+#: library/AcfFields/php/customizer-width.php:176
+#: library/AcfFields/php/navigation-widget.php:352
+#: library/AcfFields/php/options-theme-editor-formats.php:24
+#: library/AcfFields/php/widget-header-common.php:131
+#: library/AcfFields/php/widget-header-links.php:293
+#: library/AcfFields/php/widget-header-menu.php:50
+msgid "Large"
+msgstr "Stor"
+
+#: library/AcfFields/php/block-button.php:131
+msgid "md"
+msgstr ""
 
 #: library/AcfFields/php/brand-widget.php:6
 msgid "Brand / Logo Widget"
@@ -113,17 +226,6 @@ msgstr ""
 #: library/AcfFields/php/customizer-color.php:81
 msgid "Primary Alpha Color"
 msgstr "Primärfärg, opak"
-
-#: library/AcfFields/php/customizer-color.php:98
-#: library/AcfFields/php/customizer-color.php:152
-#: library/AcfFields/php/customizer-color.php:277
-#: library/AcfFields/php/customizer-color.php:335
-#: library/AcfFields/php/customizer-color.php:464
-#: library/AcfFields/php/customizer-color.php:522
-#: library/AcfFields/php/customizer-hero.php:28
-#: library/AcfFields/php/customizer-hero.php:89
-msgid "Color"
-msgstr "Färg"
 
 #: library/AcfFields/php/customizer-color.php:113
 #: library/AcfFields/php/customizer-color.php:167
@@ -445,7 +547,7 @@ msgid "Header"
 msgstr "Sidhuvud"
 
 #: library/AcfFields/php/customizer-header.php:18
-#: library/AcfFields/php/customizer-quicklinks.php:68
+#: library/AcfFields/php/customizer-quicklinks.php:153
 msgid "Sticky"
 msgstr "Klibbig"
 
@@ -456,9 +558,9 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/customizer-header.php:33
-#: library/AcfFields/php/customizer-quicklinks.php:83
+#: library/AcfFields/php/customizer-quicklinks.php:168
 msgid "Stick to top"
-msgstr ""
+msgstr "Klibba fast i toppen"
 
 #: library/AcfFields/php/customizer-header.php:51
 msgid "Background color"
@@ -491,30 +593,14 @@ msgid "Select a font color to use in the header"
 msgstr ""
 
 #: library/AcfFields/php/customizer-header.php:101
-#: library/AcfFields/php/customizer-quicklinks.php:55
+#: library/AcfFields/php/customizer-quicklinks.php:134
 msgid "White"
-msgstr ""
+msgstr "Vit"
 
 #: library/AcfFields/php/customizer-header.php:102
-#: library/AcfFields/php/customizer-quicklinks.php:56
+#: library/AcfFields/php/customizer-quicklinks.php:135
 msgid "Black"
-msgstr ""
-
-#: library/AcfFields/php/customizer-header.php:103
-#: library/AcfFields/php/customizer-quicklinks.php:26
-msgid "Primary"
-msgstr "Primär"
-
-#: library/AcfFields/php/customizer-header.php:104
-#: library/AcfFields/php/customizer-header.php:105
-#: library/AcfFields/php/customizer-quicklinks.php:27
-msgid "Secondary"
-msgstr "Sekundär"
-
-#: library/AcfFields/php/customizer-header.php:123
-#: library/AcfFields/php/navigation-widget.php:314
-msgid "Style"
-msgstr "Stil"
+msgstr "Svart"
 
 #: library/AcfFields/php/customizer-header.php:126
 msgid "Select a style of this header."
@@ -645,50 +731,74 @@ msgstr ""
 msgid "Quicklinks menu"
 msgstr ""
 
-#: library/AcfFields/php/customizer-quicklinks.php:10
-msgid "Background Color"
-msgstr "Bakgrundsfärg"
+#: library/AcfFields/php/customizer-quicklinks.php:16
+msgid "Color selection"
+msgstr "Val av bakgrundsfärg"
 
-#: library/AcfFields/php/customizer-quicklinks.php:25
+#: library/AcfFields/php/customizer-quicklinks.php:19
+msgid "Do you want to choose from default colors, or define your own?"
+msgstr ""
+"Ange om du vill välja från standardfärger, eller välja en färg helt fritt. "
+
+#: library/AcfFields/php/customizer-quicklinks.php:31
+msgid "Default color"
+msgstr "Förinställda färger"
+
+#: library/AcfFields/php/customizer-quicklinks.php:32
+msgid "Free select"
+msgstr "Valfri färg"
+
+#: library/AcfFields/php/customizer-quicklinks.php:43
+msgid "Background Color (free)"
+msgstr "Valfi bakgrundsfärg"
+
+#: library/AcfFields/php/customizer-quicklinks.php:75
+msgid "Background Color (standard)"
+msgstr "Förinställd bakgrundsfärg"
+
+#: library/AcfFields/php/customizer-quicklinks.php:98
 msgid "White (transparent)"
-msgstr ""
+msgstr "Vit (Transparent)"
 
-#: library/AcfFields/php/customizer-quicklinks.php:28
+#: library/AcfFields/php/customizer-quicklinks.php:101
 msgid "Tertiary"
-msgstr ""
+msgstr "Tertiär"
 
-#: library/AcfFields/php/customizer-quicklinks.php:30
+#: library/AcfFields/php/customizer-quicklinks.php:103
 msgid "white"
 msgstr ""
 
-#: library/AcfFields/php/customizer-quicklinks.php:40
+#: library/AcfFields/php/customizer-quicklinks.php:119
 msgid "Text Color"
-msgstr ""
+msgstr "Färg på typsnitt"
 
-#: library/AcfFields/php/customizer-quicklinks.php:58
+#: library/AcfFields/php/customizer-quicklinks.php:137
 msgid "text-black"
 msgstr ""
 
-#: library/AcfFields/php/customizer-quicklinks.php:71
+#: library/AcfFields/php/customizer-quicklinks.php:156
 msgid ""
 "Adjust how the quicklinks menu should behave when the user scrolls trough "
 "the page. This option should not be used in combination with a sticky header."
 msgstr ""
+"Anpassa hur snabblänksmenyn ska bete sig när användaren scrollar på sidan. "
+"Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt "
+"sidhuvud. "
 
-#: library/AcfFields/php/customizer-quicklinks.php:95
+#: library/AcfFields/php/customizer-quicklinks.php:186
 msgid "Display on"
-msgstr ""
+msgstr "Visa på"
 
-#: library/AcfFields/php/customizer-quicklinks.php:110
+#: library/AcfFields/php/customizer-quicklinks.php:201
 #: library/Controller/Search.php:13
 msgid "All pages"
 msgstr "Alla sidor"
 
-#: library/AcfFields/php/customizer-quicklinks.php:111
+#: library/AcfFields/php/customizer-quicklinks.php:202
 msgid "Fontpage"
-msgstr ""
+msgstr "Startsidan"
 
-#: library/AcfFields/php/customizer-quicklinks.php:113
+#: library/AcfFields/php/customizer-quicklinks.php:204
 msgid "everywhere"
 msgstr ""
 
@@ -714,30 +824,6 @@ msgstr ""
 msgid "X-Small"
 msgstr "Extraliten"
 
-#: library/AcfFields/php/customizer-radius.php:51
-#: library/AcfFields/php/navigation-widget.php:351
-#: library/AcfFields/php/options-theme-editor-formats.php:23
-#: library/AcfFields/php/widget-header-common.php:130
-#: library/AcfFields/php/widget-header-links.php:292
-#: library/AcfFields/php/widget-header-menu.php:49
-msgid "Small"
-msgstr "Liten"
-
-#: library/AcfFields/php/customizer-radius.php:73
-msgid "Medium"
-msgstr "Mellan"
-
-#: library/AcfFields/php/customizer-radius.php:95
-#: library/AcfFields/php/customizer-width.php:148
-#: library/AcfFields/php/customizer-width.php:176
-#: library/AcfFields/php/navigation-widget.php:352
-#: library/AcfFields/php/options-theme-editor-formats.php:24
-#: library/AcfFields/php/widget-header-common.php:131
-#: library/AcfFields/php/widget-header-links.php:293
-#: library/AcfFields/php/widget-header-menu.php:50
-msgid "Large"
-msgstr "Stor"
-
 #: library/AcfFields/php/customizer-script.php:6
 msgid "Script"
 msgstr ""
@@ -750,11 +836,6 @@ msgstr ""
 #: library/AcfFields/php/customizer-sectionssplit.php:10
 msgid "Sections Split"
 msgstr ""
-
-#: library/AcfFields/php/customizer-text.php:6
-#: library/AcfFields/php/options-theme-google-translate.php:72
-msgid "Text"
-msgstr "Text"
 
 #: library/AcfFields/php/customizer-text.php:10
 msgid "Text - Box - Style"
@@ -779,13 +860,6 @@ msgstr "Sidans bredd"
 #: library/AcfFields/php/customizer-width.php:23
 msgid "Set the maximum page withs of different page types."
 msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
-
-#: library/AcfFields/php/customizer-width.php:29
-#: library/AcfFields/php/navigation-widget.php:350
-#: library/AcfFields/php/widget-header-links.php:291
-#: library/AcfFields/php/widget-header-menu.php:48
-msgid "Default"
-msgstr "Standard"
 
 #: library/AcfFields/php/customizer-width.php:50
 #, fuzzy
@@ -873,10 +947,6 @@ msgstr "Platt"
 #: library/AcfFields/php/navigation-widget.php:327
 msgid "Fill"
 msgstr "Fyll"
-
-#: library/AcfFields/php/navigation-widget.php:338
-msgid "Size"
-msgstr "Storlek"
 
 #: library/AcfFields/php/options-customize-footer.php:6
 msgid "Customize Footer"
@@ -6016,7 +6086,7 @@ msgid "Mark purple"
 msgstr "Markera lila"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:37
-#: library/Admin/Gutenberg/Blocks/Button.php:20
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:31
 msgid "Button"
 msgstr "Knapp"
 
@@ -6038,7 +6108,7 @@ msgstr "Knapp: Tertiärfärg"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:42
 msgid "Button: Fourth color"
-msgstr ""
+msgstr "Knapp: Fyrtiär"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:43
 msgid "Button: Fifth color"
@@ -6609,9 +6679,26 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Gutenberg/Blocks/Button.php:21
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:32
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:48
 msgid "A button block"
 msgstr "Block för knapp"
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:47
+msgid "Button (Inner)"
+msgstr ""
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:63
+msgid "Classic"
+msgstr ""
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:64
+msgid "A block that lets you create and edit articles"
+msgstr ""
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:92
+msgid "Please fill in all required fields."
+msgstr ""
 
 #: library/Admin/LoginTracking.php:32
 msgid "Last Login"
@@ -6654,7 +6741,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:166
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:169
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -6878,81 +6965,85 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:156 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:159 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:157
+#: library/Controller/BaseController.php:160
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:158
+#: library/Controller/BaseController.php:161
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:159
+#: library/Controller/BaseController.php:162
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:160
+#: library/Controller/BaseController.php:163
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:161
+#: library/Controller/BaseController.php:164
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:162
+#: library/Controller/BaseController.php:165
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:163
+#: library/Controller/BaseController.php:166
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:164
+#: library/Controller/BaseController.php:167
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:165
+#: library/Controller/BaseController.php:168
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:167
+#: library/Controller/BaseController.php:170
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:168
+#: library/Controller/BaseController.php:171
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:169
+#: library/Controller/BaseController.php:172
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:170
+#: library/Controller/BaseController.php:173
+msgid "Useful links"
+msgstr ""
+
+#: library/Controller/BaseController.php:174
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:171 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:175 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:172
+#: library/Controller/BaseController.php:176
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:173
+#: library/Controller/BaseController.php:177
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:174
+#: library/Controller/BaseController.php:178
 msgid "More Languages"
 msgstr ""
 
@@ -7087,95 +7178,95 @@ msgstr "Standard (Sida)"
 msgid "One Page"
 msgstr ""
 
-#: library/Theme/Enqueue.php:111
+#: library/Theme/Enqueue.php:115
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:114
+#: library/Theme/Enqueue.php:118
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:115
+#: library/Theme/Enqueue.php:119
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:135
+#: library/Theme/Enqueue.php:139
 msgid "January"
 msgstr ""
 
-#: library/Theme/Enqueue.php:136
+#: library/Theme/Enqueue.php:140
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:137
+#: library/Theme/Enqueue.php:141
 #, fuzzy
 #| msgid "Search"
 msgid "March"
 msgstr "Sök"
 
-#: library/Theme/Enqueue.php:138
+#: library/Theme/Enqueue.php:142
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:139
+#: library/Theme/Enqueue.php:143
 msgid "May"
 msgstr ""
 
-#: library/Theme/Enqueue.php:140
+#: library/Theme/Enqueue.php:144
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:141
+#: library/Theme/Enqueue.php:145
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:142
+#: library/Theme/Enqueue.php:146
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:143
+#: library/Theme/Enqueue.php:147
 msgid "September"
 msgstr ""
 
-#: library/Theme/Enqueue.php:144
+#: library/Theme/Enqueue.php:148
 msgid "October"
 msgstr ""
 
-#: library/Theme/Enqueue.php:145
+#: library/Theme/Enqueue.php:149
 #, fuzzy
 #| msgid "Number"
 msgid "November"
 msgstr "Nummer"
 
-#: library/Theme/Enqueue.php:146
+#: library/Theme/Enqueue.php:150
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:150
+#: library/Theme/Enqueue.php:154
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:151
+#: library/Theme/Enqueue.php:155
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:152
+#: library/Theme/Enqueue.php:156
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:153
+#: library/Theme/Enqueue.php:157
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:154
+#: library/Theme/Enqueue.php:158
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:155
+#: library/Theme/Enqueue.php:159
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:156
+#: library/Theme/Enqueue.php:160
 msgid "Sa"
 msgstr "Lö"
 
@@ -7206,6 +7297,10 @@ msgstr "Rullgardinsmeny"
 #: library/Theme/Navigation.php:34
 msgid "Language menu"
 msgstr "Språkmeny"
+
+#: library/Theme/Navigation.php:36
+msgid "Mobile drawer (bottom)"
+msgstr ""
 
 #: library/Theme/Sidebars.php:38
 msgid "Footer top"
@@ -7994,6 +8089,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Background Color"
+#~ msgstr "Bakgrundsfärg"
 
 #, fuzzy
 #~| msgid "Grid columns"

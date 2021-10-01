@@ -28,7 +28,7 @@
             'filter_context' => '',
             'share_option' => 1,
             'choices' => array(
-                'default' => __('Default', 'municipio'),
+                'default' => __('Default color', 'municipio'),
                 'hex' => __('Free select', 'municipio'),
             ),
             'allow_null' => 0,
