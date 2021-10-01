@@ -1,4 +1,5 @@
 .t-block-container {
+
     &.t-block-align {
 
         &-left,
@@ -13,12 +14,10 @@
 
         &-center {
             justify-content: center;
-
         }
 
         &-right {
             justify-content: right;
-
         }
 
         &-full {

@@ -14,7 +14,7 @@ class Button {
         // Check function exists.
         if( function_exists('acf_register_block_type') ) {
 
-            // register a testimonial block.
+            // register a button block.
             acf_register_block_type(array(
                 'name'              => 'button',
                 'title'             => __('Button', 'municipio'),
@@ -24,7 +24,24 @@ class Button {
                 'icon'              => 'button',
                 'keywords'          => array('button', 'link'),
                 'supports'          => [
-                    'align' => true
+                    'align' => true,
+                    'jsx' => true
+                ]
+            ));
+
+            // register a button block.
+            acf_register_block_type(array(
+                'name'              => 'innerButton',
+                'title'             => __('Button (Inner)', 'municipio'),
+                'description'       => __('A button block', 'municipio'),
+                'render_callback'   => array($this, 'renderCallback'),
+                'category'          => 'formatting',
+                'icon'              => 'button',
+                'keywords'          => array('button', 'link'),
+                'parent'            => ['acf/button'],
+                'supports'          => [
+                    'align' => false,
+                    'jsx' => true
                 ]
             ));
         }
@@ -32,10 +49,13 @@ class Button {
 
     //Callback for render, builds view with blade engine
     public function renderCallback($block) {
+
         $data = $this->buildData($block['data']);
         $data['classList'] = $this->buildBlockClassList($block);
 
         $template = new Template();
+
+        $data['blockType'] = $block['name']; 
 
         $template->renderView('button', $data);
     }
@@ -43,8 +63,6 @@ class Button {
     //Returns view path
     public function getViewPath($paths) {
         $paths[] = plugin_dir_path( __FILE__ );
-
-
         return $paths;
     }
 
@@ -69,7 +87,11 @@ class Button {
     {
         $classList = ['t-block-container'];
 
-        if(isset($block['align'])) {
+        if(in_array($block['name'], ['acf/button'])) {
+            $classList[] = "t-block-button"; 
+        }
+
+        if(isset($block['align']) && !empty($block['align'])) {
             $classList[] = "t-block-align-" . $block['align'];
         }
 

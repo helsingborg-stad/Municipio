@@ -78,6 +78,16 @@ class Editor
             )
         );
 
+        wp_enqueue_style(
+            'block-editor-municipio',
+            apply_filters(
+                'Municipio/Admin/BlockEditorMunicipio',
+                get_template_directory_uri() .
+                    '/assets/dist/' .
+                    \Municipio\Helper\CacheBust::name('css/municipio.css')
+            )
+        );
+
     }
 
     /**

@@ -118,6 +118,9 @@ add_action('init', function () {
         //Components
         'customizer-card'                           => 'group_6144852296570',
         //'customizer-input'                          => 'group_614485229',
+
+        //Blocks
+        'block-button'                              => 'group_60acdac5158f2',
         
     ));
     
