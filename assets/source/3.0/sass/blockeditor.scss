@@ -16,6 +16,11 @@
   padding-left: 12px;
 }
 
+/** No x-scroll **/ 
+.is-root-container.block-editor-block-list__layout {
+  overflow-x: hidden;
+}
+
 /** Backend mods for block buttons */ 
 .t-block-container {
   &.t-block-button {
