@@ -3,13 +3,86 @@
     "title": "Quicklinks menu",
     "fields": [
         {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "key": "field_61570dd479d9b",
+            "label": "Color selection",
+            "name": "quicklinks_color_selection",
+            "type": "radio",
+            "instructions": "Do you want to choose from default colors, or define your own?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var_controller",
+            "filter_context": "",
+            "share_option": 1,
+            "choices": {
+                "default": "Default",
+                "hex": "Free select"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "",
+            "layout": "horizontal",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_61570e6979d9c",
+            "label": "Background Color (free)",
+            "name": "quicklinks_background_color_hex",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_61570dd479d9b",
+                        "operator": "==",
+                        "value": "hex"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "var_controller",
+            "filter_context": "",
+            "share_option": 0,
+            "default_value": ""
+        },
+        {
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_6123844e0f0bb",
-            "label": "Background Color",
+            "label": "Background Color (standard)",
             "name": "quicklinks_background_color",
             "type": "select",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_61570dd479d9b",
+                        "operator": "==",
+                        "value": "default"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -33,6 +106,12 @@
             "placeholder": ""
         },
         {
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_6127571bcc76e",
             "label": "Text Color",
             "name": "quicklinks_text_color",
@@ -61,6 +140,12 @@
             "placeholder": ""
         },
         {
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_61488b616937c",
             "label": "Sticky",
             "name": "quicklinks_stick_to_top",
@@ -88,6 +173,12 @@
             "placeholder": ""
         },
         {
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "key": "field_61488c4f6b4fd",
             "label": "Display on",
             "name": "quicklinks_display_location",
