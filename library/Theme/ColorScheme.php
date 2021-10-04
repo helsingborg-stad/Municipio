@@ -2,130 +2,98 @@
 
 namespace Municipio\Theme;
 
-use \Municipio\Helper\Styleguide;
-
 /**
  * Class ColorScheme
  * @package Municipio\Theme
  */
 class ColorScheme
 {
-    private $optionName = "color_scheme_palette";
+
+    private $colorTargetKeys = [
+
+        //Primary
+        'field_60361bcb76325',
+        'field_60364d06dc120',
+        'field_603fba043ab30',
+
+        //Secondary
+        'field_603fba3ffa851',
+        'field_603fbb7ad4ccf',
+        'field_603fbbef1e2f8',
+
+        //Tertiary
+        'field_608c0e753ef05',
+        'field_608c0e813ef06',
+        'field_608c0e8c3ef07'
+    ];
 
     public function __construct()
     {
-        add_action( 'admin_enqueue_scripts', array($this, 'colorPickerDefaultPalette'), 1000);
-        add_filter('acf/update_value/name=color_scheme', function ($value, $post_id, $field) {
-            if (in_array($post_id, array("option", "options"))) {
-                $this->getRemoteColorScheme($value);
-            }
-            return $value;
-        }, 10, 3);
+        add_action(
+            'acf/input/admin_enqueue_scripts', 
+            array(
+                $this, 
+                'colorPickerDefaultPaletteJs'
+            ),
+            10
+        );
     }
 
     /**
      * Localize theme colors to set color picker default colors
      * @return void
      */
-    public function colorPickerDefaultPalette() {
+    public function colorPickerDefaultPaletteJs() {
 
-        if (!get_field('color_scheme', 'options')) {
-            return;
-        }
+        //Load js
+        wp_register_script(
+            'colorpicker-js', 
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/color-picker.js')
+        );
+        wp_enqueue_script('colorpicker-js');
 
-        if (!get_option($this->optionName) || !is_array(get_option($this->optionName)) || empty(get_option($this->optionName))) {
-            $this->getRemoteColorScheme(get_field('color_scheme', 'options'));
-        }
+        //Fetch color scheme
+        $colors = (array) apply_filters(
+            'Municipio/Theme/ColorPickerPalette', 
+            $this->getColorPalette()
+        );
 
-        $colors = (array) apply_filters( 'Municipio/Theme/ColorPickerDefaultPalette', get_option($this->optionName));
-
-        wp_localize_script( 'helsingborg-se-admin', 'themeColorPalette', [
+        //Add colors
+        wp_localize_script('colorpicker-js', 'themeColorPalette', [
             'colors' => $colors,
         ]);
+
     }
 
     /**
-     * Get remote colorsheme from styleguide etc
-     * @param  string $manifestId. A identifier that represents the id of the theme configuration (filename on server)
-     * @return bool
-     */
-    public function getRemoteColorScheme($manifestId = "") : bool
-    {
-
-        $styleGuideUri = Styleguide::_getBaseUri();
-
-        if (empty($manifestId)) {
-            $manifestId = apply_filters('Municipio/theme/key', get_field('color_scheme', 'option'));
-        }
-        
-        $args = (defined('DEV_MODE') && DEV_MODE == true) ? ['sslverify' => false] : array();
-
-        //Get remote data
-        $request = wp_remote_get("https:" . $styleGuideUri . "/vars/" . $manifestId . '.json', $args);
-
-        //Store if valid response
-        if (wp_remote_retrieve_response_code($request) == 200) {
-            if (!empty($response = json_decode(wp_remote_retrieve_body($request)))) {
-                $this->storeColorScheme($response);
-            }
-
-            return true;
-        }
-
-        //Not updated
-        return false;
-    }
-
-    /**
-     * Stores the colorsheme details in the database for use by other plugins
-     * @param  string $colors. Contains a flat array of colors HEX to store.
-     * @return bool
-     */
-
-    public function storeColorScheme($colors) : bool
-    {
-        if (!is_array($colors) && !is_object($colors)) {
-            $colors = array();
-        }
-
-        return update_option($this->optionName, (array) $this->sanitizeColorSheme($colors), false);
-    }
-
-    /**
-     * Get the color sheme details
+     * Get color palette from theme options
+     *
      * @return array
      */
+    public function getColorPalette() {
 
-    public function getStoredColorSheme()
-    {
-        return get_option($this->optionName);
-    }
+        //Get & flatten theme mods 
+        $themeMods = \Municipio\Helper\CustomizeGet::get(); 
 
-    /**
-     * Remove duplicates etc and make the array stored keyless
-     * @param  array/object $colors A unsanitized arry of colors (must be flat)
-     * @return array
-     */
+        //Get target keys
+        $colorTargetKeys = $this->colorTargetKeys; 
 
-    public function sanitizeColorSheme($colors)
-    {
+        //Get hex values unique
+        $colors =   array_unique(
+                        array_filter($themeMods, function($value, $key) use($colorTargetKeys) {
 
-        //Make array keyless
-        $colors = array_values(array_unique((array) $colors));
+                            //Only get those defined
+                            if(!in_array($key, $colorTargetKeys)) {
+                                return false; 
+                            }
 
-        //Check if value is valid HEX
-        foreach ($colors as $colorKey => $color) {
-            if (preg_match('/^#[a-f0-9]{6}$/i', $color)) {
-                continue;
-            }
-            unset($colors[$colorKey]);
-        }
+                            //Enshure this is a color
+                            return strpos($value, "#") === 0;
 
-        //Sort (base colors at the end)
-        usort($colors, function ($a, $b) {
-            return strlen($b)-strlen($a);
-        });
+                        }, ARRAY_FILTER_USE_BOTH)
+                    );
 
-        return $colors;
+        //Reset & return
+        return array_values($colors); 
     }
 }

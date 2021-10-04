@@ -5,7 +5,10 @@
             'classList' => [
                 'site-header'
             ],
-            'context' => ['site.quicklinks']
+            'context' => ['site.quicklinks'],
+            'attributeList' => [
+                'style' => 'background-color: ' . $customize->quicklinks->quicklinksBackgroundColorHex . ';'
+            ]
         ])
             <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">
                 <div class="o-container">
