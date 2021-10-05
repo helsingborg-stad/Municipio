@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-10-01 16:18+0200\n"
-"PO-Revision-Date: 2021-10-01 16:22+0200\n"
+"POT-Creation-Date: 2021-10-05 11:39+0200\n"
+"PO-Revision-Date: 2021-10-05 11:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -47,6 +47,8 @@ msgstr ""
 #: library/AcfFields/php/customizer-color.php:522
 #: library/AcfFields/php/customizer-hero.php:28
 #: library/AcfFields/php/customizer-hero.php:89
+#: library/AcfFields/php/customizer-overlay.php:28
+#: library/AcfFields/php/customizer-overlay.php:91
 msgid "Color"
 msgstr "Färg"
 
@@ -235,6 +237,8 @@ msgstr "Primärfärg, opak"
 #: library/AcfFields/php/customizer-color.php:539
 #: library/AcfFields/php/customizer-hero.php:46
 #: library/AcfFields/php/customizer-hero.php:107
+#: library/AcfFields/php/customizer-overlay.php:48
+#: library/AcfFields/php/customizer-overlay.php:111
 msgid "Alpha"
 msgstr "Opacitet"
 
@@ -329,6 +333,8 @@ msgstr "Länkfärg"
 #: library/AcfFields/php/customizer-color.php:630
 #: library/AcfFields/php/customizer-hero.php:42
 #: library/AcfFields/php/customizer-hero.php:103
+#: library/AcfFields/php/customizer-overlay.php:42
+#: library/AcfFields/php/customizer-overlay.php:105
 msgid "#000000"
 msgstr ""
 
@@ -611,6 +617,7 @@ msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
 #: library/AcfFields/php/customizer-hero.php:10
+#: library/AcfFields/php/customizer-overlay.php:10
 msgid "Vibrant overlay colour"
 msgstr "Livfullt bildfilter"
 
@@ -623,6 +630,7 @@ msgstr ""
 "’livfull’."
 
 #: library/AcfFields/php/customizer-hero.php:71
+#: library/AcfFields/php/customizer-overlay.php:73
 msgid "Neutral overlay colour"
 msgstr "Neutralt bildfilter"
 
@@ -689,6 +697,18 @@ msgstr ""
 #: library/AcfFields/php/customizer-mobilemenu.php:28
 msgid "monotone"
 msgstr ""
+
+#: library/AcfFields/php/customizer-overlay.php:6
+msgid "Overlay"
+msgstr ""
+
+#: library/AcfFields/php/customizer-overlay.php:13
+msgid "Set a colourful overlay, the color will be overlayed on images."
+msgstr "Ställ in ett bildfilter i en livfull version. "
+
+#: library/AcfFields/php/customizer-overlay.php:76
+msgid "Set a neutral overlay, the color will be overlayed on images."
+msgstr "Ställ in ett bildfilter i en neutral version. "
 
 #: library/AcfFields/php/customizer-padding.php:6
 msgid "Padding"
@@ -7113,15 +7133,15 @@ msgstr "Svara"
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Customizer/CustomizerPanels.php:207
+#: library/Customizer/CustomizerPanels.php:212
 msgid "Components"
 msgstr ""
 
-#: library/Customizer/CustomizerPanels.php:226
+#: library/Customizer/CustomizerPanels.php:231
 msgid "Design"
 msgstr ""
 
-#: library/Customizer/CustomizerPanels.php:245
+#: library/Customizer/CustomizerPanels.php:250
 msgid "Modifiers"
 msgstr ""
 
