@@ -9,7 +9,7 @@ class Editor
     public function __construct()
     {
         // Actions
-        //add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
+        add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
         add_action('after_setup_theme', array($this, 'editorStyle'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
