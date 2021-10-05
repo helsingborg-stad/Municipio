@@ -82,11 +82,19 @@ class Post
             $parts = explode("<!--more-->", $postObject->post_content);
 
             if(is_array($parts) && count($parts) > 1) {
-                $excerpt = '<p class="lead">' . array_shift($parts) . "</p>";
-                $content = implode(PHP_EOL, $parts);  
+
+                //Remove the now broken more block
+                foreach($parts as &$part) {
+                    $part = str_replace('<!-- wp:more -->', '', $part); 
+                    $part = str_replace('<!-- /wp:more -->', '', $part); 
+                }
+
+                $excerpt = self::createLeadElement(array_shift($parts));
+                $content = self::removeEmptyPTag(implode(PHP_EOL, $parts)); 
+                 
             } else {
                 $excerpt = "";
-                $content = $postObject->post_content; 
+                $content = self::removeEmptyPTag($postObject->post_content); 
             }
 
             //Replace builtin css classes to our own
@@ -136,13 +144,41 @@ class Post
 
         //Get filtered post title
         if(in_array('post_title_filtered', $appendFields)) {
-            $postObject->post_title_filtered    = apply_filters('the_title', $postObject->post_title); 
+            $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title); 
         }
 
         //Get post tumbnail image
         $postObject->thumbnail = self::getFeaturedImage($postObject->ID, [400, 225]); 
 
         return $postObject; 
+    }
+
+    /**
+     * Add lead class to first excerpt p-tag
+     *
+     * @param string $lead      The lead string
+     * @param string $search    What to search for
+     * @param string $replace   What to replace with
+     * @return string           The new lead string
+     */
+    private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">') {
+
+        $pos = strpos($lead, $search);
+        if ($pos !== false) {
+            $lead = substr_replace($lead, $replace, $pos, strlen($search));
+        }
+    
+        return self::removeEmptyPTag($lead); 
+    }
+
+    /**
+     * Remove empty ptags from string
+     *
+     * @param string $string    A string that may contain empty ptags
+     * @return string           A string that not contain empty ptags
+     */
+    private static function removeEmptyPTag($string) {
+        return preg_replace("/<p[^>]*>(?:\s|&nbsp;)*<\/p>/", '', $string);
     }
 
     /**
