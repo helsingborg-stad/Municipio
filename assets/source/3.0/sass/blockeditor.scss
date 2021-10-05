@@ -10,6 +10,10 @@
 
 .editor-styles-wrapper {
   padding: 0;
+
+  textarea {
+      font-size: calc(#{$base} * 2);
+  }
 }
 
 .components-popover {
