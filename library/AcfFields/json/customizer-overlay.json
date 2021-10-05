@@ -4,10 +4,10 @@
     "fields": [
         {
             "key": "field_615c1bc3772c6",
-            "label": "Vibrant overlay colour",
-            "name": "municipio_overlay_vibrant",
+            "label": "Overlay colour",
+            "name": "municipio_color_general_overlay",
             "type": "group",
-            "instructions": "Set a colourful overlay, the color will be overlayed on images.",
+            "instructions": "Set a overlay, the color will be overlayed on images.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -42,69 +42,6 @@
                 },
                 {
                     "key": "field_615c1bc3780b6",
-                    "label": "Alpha",
-                    "name": "alpha",
-                    "type": "range",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "render_type": "",
-                    "filter_context": "",
-                    "share_option": 0,
-                    "default_value": 75,
-                    "min": 0,
-                    "max": 100,
-                    "step": 1,
-                    "prepend": "",
-                    "append": ""
-                }
-            ]
-        },
-        {
-            "key": "field_615c1bc3772e5",
-            "label": "Neutral overlay colour",
-            "name": "municipio_overlay_neutral",
-            "type": "group",
-            "instructions": "Set a neutral overlay, the color will be overlayed on images.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "render_type": "var_colorgroup",
-            "filter_context": "",
-            "share_option": 0,
-            "layout": "block",
-            "sub_fields": [
-                {
-                    "key": "field_615c1bc385a60",
-                    "label": "Color",
-                    "name": "color",
-                    "type": "color_picker",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "render_type": "",
-                    "filter_context": "",
-                    "share_option": 0,
-                    "default_value": "#000000",
-                    "enable_opacity": false,
-                    "return_format": "string"
-                },
-                {
-                    "key": "field_615c1bc385a66",
                     "label": "Alpha",
                     "name": "alpha",
                     "type": "range",
