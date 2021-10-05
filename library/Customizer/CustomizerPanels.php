@@ -102,6 +102,11 @@ class CustomizerPanels
           'active' => true
       ],
       [
+        'id' => 'overlay', 
+        'title' => "Overlay", 
+        'active' => true
+      ],
+      [
           'id' => 'radius', 
           'title' => "Radius", 
           'description' => '',

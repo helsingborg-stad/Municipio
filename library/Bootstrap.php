@@ -114,6 +114,7 @@ add_action('init', function () {
         'customizer-video'                          => 'group_6143373e63d5d',
         'customizer-script'                         => 'group_614340abb1cc1',
         'customizer-hero'                           => 'group_614c7131c10e6',
+        'customizer-overlay'                        => 'group_615c1bc375e8e',
 
         //Components
         'customizer-card'                           => 'group_6144852296570',
