@@ -82,14 +82,20 @@ class Post
             $parts = explode("<!--more-->", $postObject->post_content);
 
             if(is_array($parts) && count($parts) > 1) {
+
+                //Remove the now broken more block
+                foreach($parts as &$part) {
+                    $part = str_replace('<!-- wp:more -->', '', $part); 
+                    $part = str_replace('<!-- /wp:more -->', '', $part); 
+                }
+
                 $excerpt = self::createLeadElement(array_shift($parts));
-                $content = self::removeEmptyPTag(implode(PHP_EOL, $parts));  
+                $content = self::removeEmptyPTag(implode(PHP_EOL, $parts)); 
+                 
             } else {
                 $excerpt = "";
                 $content = self::removeEmptyPTag($postObject->post_content); 
             }
-
-            var_dump($excerpt);
 
             //Replace builtin css classes to our own
             $postObject->post_content_filtered  = $excerpt . str_replace(
