@@ -21,12 +21,19 @@ $drawer-width: calc(#{$base} * 40);
     flex-direction: column;
 }
 
+.c-drawer__close {
+    margin-right: calc(#{$base} * 2 * -1);
+}
+
 .c-drawer__header {
-    height: calc(#{$base} * 13.25);
+    padding: calc(#{$base} * 1.5) calc(#{$base} * 3);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .c-drawer__footer {
-    border-top: 1px solid rgba(255, 255, 255,.3);
+    border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
     padding: calc(#{$base} * 4) calc(#{$base}  * 4) calc(#{$base} * 12) calc(#{$base} * 4);
 }
@@ -111,21 +118,11 @@ $drawer-width: calc(#{$base} * 40);
     visibility: visible;
 }
 
-.hamburger.hamburger--drawer {
-    margin-left: auto;
-
-    padding: calc(#{$base} * 3) calc(#{$base} * 4);
-    @include mq('md') {
-        padding: calc(#{$base} * 5) calc(#{$base} * 4);
-    }
+.c-nav--drawer .c-nav__link {
+    padding: calc(#{$base} * 3); 
 }
 
-#mobile-search-form {
-    background-color: $color-white;
-
-    input, .c-button {
-        height: calc(#{$base} * 6);
-    }
-
-    
+.c-nav--drawer .c-nav__item {
+    //padding-left: #{$base}; 
+    padding-right: #{$base};
 }

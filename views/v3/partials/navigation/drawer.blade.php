@@ -1,14 +1,25 @@
-<div class="c-drawer c-drawer--right c-drawer--primary js-drawer u-display--none@lg {{'c-drawer--' . $customize->mobilemenu->mobileMenuStyle }}" data-js-toggle-item="js-drawer">
+<div class="c-drawer c-drawer--right c-drawer--primary js-drawer u-display--none@lg {{'c-drawer--' . $customize->mobilemenu->mobileMenuStyle }}" js-toggle-class="is-open" js-toggle-item="js-drawer">
     <div class="c-drawer__header">
-        <button class="hamburger hamburger--drawer hamburger--stacked@sm hamburger--reverse@md hamburger--slider is-active js-close-drawer" type="button"
-        aria-label="Menu" aria-controls="navigation">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
-            <span class="hamburger-label">
-                {{ $lang->close }}
-            </span>
-        </button>
+
+        @button([
+            'id' => 'mobile-menu-trigger-close',
+            'style' => 'basic',
+            'icon' => 'close',
+            'attributeList' => [
+                'aria-controls' => 'navigation',
+                'js-toggle-trigger' => 'js-drawer'
+            ],
+            'classList' => [
+                'c-drawer__close',
+                'u-display--none@lg'
+            ],
+            'size' => 'md',
+            'text' => $lang->close
+        ])
+        @endbutton
+
+        @includeWhen($showMobileSearch, 'partials.search.mobile-search-form')
+
     </div>
     <div class="c-drawer__body">
         @if (!empty($mobileMenuItems)||!empty($mobileMenuSecondaryItems)) 
@@ -21,7 +32,7 @@
                     'classList' => [
                         'c-nav--drawer',
                         'c-nav--dark',
-                        'site-nav-mobile__primary'
+                        'site-nav-mobile__primary',
                     ]
                 ]
             )

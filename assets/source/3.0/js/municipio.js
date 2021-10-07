@@ -2,9 +2,7 @@ import cssVars from 'css-vars-ponyfill';
 import Fab from './fab';
 import Comments from './comments';
 import ArchiveFilter from './archiveFilter';
-import './drawer';
 import './nav';
-
 
 var fixedMenu = new FixedMenu();
 
