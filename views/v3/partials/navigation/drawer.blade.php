@@ -18,7 +18,11 @@
         ])
         @endbutton
 
-        @includeWhen($showMobileSearch, 'partials.search.mobile-search-form')
+        @includeWhen(
+            $showMobileSearchDrawer,
+            'partials.search.mobile-search-form',
+            ['classList' => ['u-margin__top--2', 'u-width--100']]
+        )
 
     </div>
     <div class="c-drawer__body">

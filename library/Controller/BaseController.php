@@ -134,11 +134,12 @@ class BaseController
         $this->data['showAdminNotices']     = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
         //Search
-        $this->data['showHeaderSearch']     = $this->showSearchForm('header');
-        $this->data['showNavigationSearch'] = $this->showSearchForm('navigation'); 
-        $this->data['showHeroSearch']       = $this->showSearchForm('hero'); 
-        $this->data['showMobileSearch']     = $this->showSearchForm('mobile');
-        $this->data['searchQuery']          = get_search_query(); 
+        $this->data['showHeaderSearch']         = $this->showSearchForm('header');
+        $this->data['showNavigationSearch']     = $this->showSearchForm('navigation'); 
+        $this->data['showHeroSearch']           = $this->showSearchForm('hero'); 
+        $this->data['showMobileSearch']         = $this->showSearchForm('mobile');
+        $this->data['showMobileSearchDrawer']   = $this->showSearchForm('mobile-drawer');
+        $this->data['searchQuery']              = get_search_query(); 
 
         //Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
@@ -402,6 +403,12 @@ class BaseController
 
             //Show if not frontpage, not search and search is enabled anywhere else. 
             if(!is_front_page() && !is_search() && !empty($enabledLocations)) {
+                return true; 
+            }
+        }
+
+        if($location == "mobile-drawer" && $this->data['headerLayout'] !== 'business') {
+            if($this->showSearchForm('mobile')) {
                 return true; 
             }
         }
