@@ -164,9 +164,12 @@ class Post
     private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">') {
 
         $pos = strpos($lead, $search);
+
         if ($pos !== false) {
             $lead = substr_replace($lead, $replace, $pos, strlen($search));
-        }
+        } elseif($pos === false && $lead === strip_tags($lead)) {
+            $lead = $replace . $lead . '</p>'; 
+        } 
     
         return self::removeEmptyPTag($lead); 
     }
