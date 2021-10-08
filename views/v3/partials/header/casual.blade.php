@@ -38,19 +38,18 @@
                 @endif
 
                 @button([
-                    'id' => 'mobile-menu-trigger',
+                    'id' => 'mobile-menu-trigger-open',
                     'color' => 'default',
                     'style' => 'basic',
                     'icon' => 'menu',
                     'classList' => [
                         'mobile-menu-trigger',
-                        'js-burger',
-                        'js-trigger-drawer',
                         'u-display--none@lg'
                     ],
                     'attributeList' => [
                         'aria-label' => $lang->menu,
-                        'aria-controls' => "navigation"
+                        'aria-controls' => "navigation",
+                        'js-toggle-trigger' => 'js-drawer'
                     ],
                     'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger']
                 ])
