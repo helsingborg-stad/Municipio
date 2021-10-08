@@ -16,7 +16,7 @@
 
         @if($customize->general->secondaryNavigationPosition == 'left') 
             @if($secondaryMenuItems)
-                <div class="u-margin__bottom--4">
+                <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
                     @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
                 </div>
             @endif
@@ -59,7 +59,7 @@
 
         @if($customize->general->secondaryNavigationPosition == 'right') 
             @if($secondaryMenuItems)
-                <div class="u-margin__bottom--4">
+                <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
                     @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
                 </div>
             @endif
