@@ -116,7 +116,11 @@ class Post
                     'btn-theme-fifth',
 
                     //Gutenberg columns
-                    'wp-block-columns'
+                    'wp-block-columns',
+
+                    //Gutenberg block image
+                    'wp-block-image',
+                    '<figcaption>'
                 ],
                 [
                     'c-image',
@@ -135,7 +139,11 @@ class Post
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
 
                     //Gutenberg columns
-                    'o-grid  o-grid--no-margin@md'
+                    'o-grid o-grid--no-margin@md',
+
+                    //Gutenberg block image
+                    'c-image',
+                    '<figcaption class="c-image__caption">'
                 ], 
                 apply_filters('the_content', $content)
             ); 

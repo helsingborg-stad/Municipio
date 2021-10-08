@@ -6,7 +6,7 @@
     'title' => __('Local Event', 'municipio'),
     'fields' => array(
         0 => array(
-            'repeater_choices' => false,
+            'repeater_choices' => 0,
             'repeater_field' => '',
             'repeater_label_field' => '',
             'repeater_value_field' => '',
@@ -24,11 +24,13 @@
                 'class' => '',
                 'id' => '',
             ),
+            'render_type' => 'filter',
+            'filter_context' => 'module.localevent.list',
+            'share_option' => 0,
             'choices' => array(
                 'none' => __('None', 'municipio'),
                 'panel' => __('Panel', 'municipio'),
                 'accented' => __('Accented', 'municipio'),
-                'highlight' => __('Highlight', 'municipio'),
             ),
             'default_value' => false,
             'allow_null' => 0,
