@@ -118,10 +118,9 @@ class Post
                     //Gutenberg columns
                     'wp-block-columns',
 
-                    //Gutenberg alignment
-                    'has-text-align-center',
-                    'has-text-align-left',
-                    'has-text-align-right'
+                    //Gutenberg block image
+                    'wp-block-image',
+                    '<figcaption>'
                 ],
                 [
                     'c-image',
@@ -140,12 +139,11 @@ class Post
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
 
                     //Gutenberg columns
-                    'o-grid  o-grid--no-margin@md',
+                    'o-grid o-grid--no-margin@md',
 
-                    //Gutenberg alignment
-                    'u-text-align--center u-margin__x--auto',
-                    'u-text-align--left u-margin__x--auto',
-                    'u-text-align--right u-margin__x--auto'
+                    //Gutenberg block image
+                    'c-image',
+                    '<figcaption class="c-image__caption">'
                 ], 
                 apply_filters('the_content', $content)
             ); 
@@ -174,12 +172,9 @@ class Post
     private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">') {
 
         $pos = strpos($lead, $search);
-
         if ($pos !== false) {
             $lead = substr_replace($lead, $replace, $pos, strlen($search));
-        } elseif($pos === false && $lead === strip_tags($lead)) {
-            $lead = $replace . $lead . '</p>'; 
-        } 
+        }
     
         return self::removeEmptyPTag($lead); 
     }
