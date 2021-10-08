@@ -116,7 +116,12 @@ class Post
                     'btn-theme-fifth',
 
                     //Gutenberg columns
-                    'wp-block-columns'
+                    'wp-block-columns',
+
+                    //Gutenberg alignment
+                    'has-text-align-center',
+                    'has-text-align-left',
+                    'has-text-align-right'
                 ],
                 [
                     'c-image',
@@ -135,7 +140,12 @@ class Post
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
 
                     //Gutenberg columns
-                    'o-grid  o-grid--no-margin@md'
+                    'o-grid  o-grid--no-margin@md',
+
+                    //Gutenberg alignment
+                    'u-text-align--center u-margin__x--auto',
+                    'u-text-align--left u-margin__x--auto',
+                    'u-text-align--right u-margin__x--auto'
                 ], 
                 apply_filters('the_content', $content)
             ); 
