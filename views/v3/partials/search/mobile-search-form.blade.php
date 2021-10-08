@@ -1,46 +1,45 @@
-
-  
 @form([
-    'id'        => 'mobile-search-form',
-    'method'    => 'get',
-    'action'    => $homeUrl,
-    'classList' => ['u-color__bg--light', 'u-display--none@lg', 'u-print-display--none']
+  'id'        => 'mobile-search-form',
+  'method'    => 'get',
+  'action'    => $homeUrl,
+  'classList' => $classList
 ])
-  <div class="o-container u-padding__y--1">
-    <div class="o-grid o-grid--no-gutter o-grid--no-margin">
-      <div class="o-grid-12">
-        @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
-            @field([
-                'id' => 'mobile-search-form--field',
-                'type' => 'text',
-                'attributeList' => [
-                    'type' => 'search',
-                    'name' => 's',
-                    'required' => false,
-                ],
-                'placeholder' => $lang->search,
-                'classList' => ['u-flex-grow--1', 'u-box-shadow--none', 'u-overflow--hidden'],
-                'size' => 'sm',
-                'radius' => 'sm',
-                'icon' => ['icon' => 'search']
-            ])
-            @endfield
+  @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
+      @field([
+          'id'            => 'mobile-search-form--field',
+          'type'          => 'text',
+          'placeholder'   => $lang->search,
+          'size'          => 'sm',
+          'radius'        => 'sm',
+          'label'         => $lang->searchQuestion,
+          'hideLabel'     => true,
+          'icon'          => ['icon' => 'search'],
+          'classList'     => [
+              'u-flex-grow--1',
+              'u-box-shadow--1',
+              'u-rounded__left--8',
+              'u-overflow--hidden'
+          ],
+          'attributeList' => [
+              'type'          => 'search',
+              'name'          => 's',
+              'required'      => false,
+          ]
+      ])
+      @endfield
 
-            @button([
-                'id' => 'mobile-search-form--submit',
-                'text' => $lang->search,
-                'color' => 'default',
-                'type' => 'submit',
-                'size' => 'sm',
-                'attributeList' => [
-                    'id' => 'header-search-form--submit'
-                ], 
-                'classList' => ['u-box-shadow--none']
-            ])
-            @endbutton
+      @button([
+          'id'            => 'mobile-search-form--submit',
+          'text'          => $lang->search,
+          'color'         => 'default',
+          'type'          => 'submit',
+          'size'          => 'sm',
+          'attributeList' => [
+              'id'            => 'mobile-search-form--submit'
+          ],
+          'classList'     => ['u-rounded__right--8']
+      ])
+      @endbutton
 
-        @endgroup
-      </div>
-    </div>
-  </div>
+  @endgroup
 @endform

@@ -16,20 +16,19 @@
                 @endlink
 
                 @button([
-                    'id' => 'mobile-menu-trigger',
+                    'id' => 'mobile-menu-trigger-open',
                     'text' => $lang->menu,
                     'color' => 'default',
                     'style' => 'basic',
                     'icon' => 'keyboard_arrow_down',
                     'classList' => [
                         'mobile-menu-trigger',
-                        'js-burger',
-                        'js-trigger-drawer',
                         'u-display--none@lg'
                     ],
                     'attributeList' => [
                         'aria-label' => $lang->menu,
-                        'aria-controls' => "navigation"
+                        'aria-controls' => "navigation",
+                        'js-toggle-trigger' => 'js-drawer'
                     ],
                     'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
                 ])
@@ -47,7 +46,11 @@
 
     </div>
 
-    @includeWhen($showMobileSearch, 'partials.search.mobile-search-form')
+    @includeWhen(
+        $showMobileSearch, 
+        'partials.search.mobile-search-form',
+        ['classList' => ['u-margin__y--2', 'u-margin__x--3', 'u-width--auto']]
+    )
 
 @stop
 
