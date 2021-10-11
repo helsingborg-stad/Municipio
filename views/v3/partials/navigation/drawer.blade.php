@@ -59,4 +59,4 @@
         @endif
     </div>
 </div>
-<div class="drawer-overlay js-close-drawer u-display--none@lg"></div>
+<div class="drawer-overlay js-close-drawer u-display--none@lg" js-toggle-trigger="js-drawer"></div>
