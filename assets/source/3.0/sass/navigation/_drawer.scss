@@ -117,12 +117,3 @@ $drawer-width: calc(#{$base} * 40);
     transition: visibility 0s linear 0s, $drawer-transition-ms ease-out opacity;
     visibility: visible;
 }
-
-.c-nav--drawer .c-nav__link {
-    padding: calc(#{$base} * 3); 
-}
-
-.c-nav--drawer .c-nav__item {
-    //padding-left: #{$base}; 
-    padding-right: #{$base};
-}
