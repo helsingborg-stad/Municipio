@@ -21,10 +21,6 @@ $drawer-width: calc(#{$base} * 40);
     flex-direction: column;
 }
 
-.c-drawer__close {
-    margin-right: calc(#{$base} * 2 * -1);
-}
-
 .c-drawer__header {
     padding: calc(#{$base} * 1.5) calc(#{$base} * 3);
     display: flex;
