@@ -22,7 +22,10 @@
                     'attributeList' => [
                         'role' => 'menuitem'
                     ],
-                    'reversePositions' => true
+                    'reversePositions' => true,
+                    'classList' => [
+                        'u-padding__x--2'
+                    ]
                 ])
                 @endbutton
             @endforeach
