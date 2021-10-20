@@ -11,12 +11,12 @@ class DesignLibrary
         'radius',
         'modules',
         'site'
-    ]; 
+    ];
     
-    private $apiActions     = [ 
+    private $apiActions     = [
         'post'  =>  "",
         'single' => 'id' . DIRECTORY_SEPARATOR
-    ];  
+    ];
 
     private $uniqid;
 
@@ -26,12 +26,12 @@ class DesignLibrary
     {
 
         //Cachebust id
-        $this->uniqid = uniqid(); 
+        $this->uniqid = uniqid();
 
         //Forget setting of load design field
-        add_action('customize_save', function($manager) {
+        add_action('customize_save', function ($manager) {
             remove_theme_mod('loaddesign');
-        }); 
+        });
 
         //Store on save
         add_action('customize_save_after', array($this, 'storeThemeMod'));
@@ -40,30 +40,29 @@ class DesignLibrary
         add_action('municipio_store_theme_mod', array($this, 'storeThemeMod'));
 
         //Add visual panel
-        add_action('init', function() {
-
-            if(!is_customize_preview() && !is_admin()) {
-                return false; 
+        add_action('init', function () {
+            if (!is_customize_preview() && !is_admin()) {
+                return false;
             }
 
-             //Add panels & fields 
+            //Add panels & fields
             new \Municipio\Helper\CustomizeCreate(
                 [
-                'id' => 'designlibrary', 
+                'id' => 'designlibrary',
                 'title' => __('Design library', 'municipio')
                 ],
                 [
                     [
-                        'id' => 'loaddesign', 
-                        'title' => "Load design", 
+                        'id' => 'loaddesign',
+                        'title' => "Load design",
                         'description' => __('Load a design implemented on any other municipio website.', 'municipio'),
                         'render' => false,
                         'share' => false,
                         'active' => true
                     ],
                     [
-                        'id' => 'sharedesign', 
-                        'title' => "Share design", 
+                        'id' => 'sharedesign',
+                        'title' => "Share design",
                         'description' => __('Share your design with the community! Click "publish now" to make your design avabile to the world.', 'municipio'),
                         'render' => false,
                         'share' => false,
@@ -71,56 +70,55 @@ class DesignLibrary
                     ],
                 ]
             );
-        }); 
+        });
 
         //Cron to update design periodically
-        add_action('admin_init', function() {
-            if (!wp_next_scheduled( 'municipio_store_theme_mod')) {
+        add_action('admin_init', function () {
+            if (!wp_next_scheduled('municipio_store_theme_mod')) {
                 wp_schedule_event(time(), 'weekly', 'municipio_store_theme_mod');
             }
-        }); 
+        });
 
         //Add options in design loader
-        add_filter('acf/load_field/name=customizer_select_designshare', array($this, 'populateDesignSelect')); 
+        add_filter('acf/load_field/name=customizer_select_designshare', array($this, 'populateDesignSelect'));
 
         //Loop all settingspanels and load api values
-        if(is_array($this->sharedModKeys) && !empty($this->sharedModKeys)) {
-            foreach($this->sharedModKeys as $mod) {
-                add_filter("theme_mod_" . $mod, array($this, 'loadThemeMod')); 
+        if (is_array($this->sharedModKeys) && !empty($this->sharedModKeys)) {
+            foreach ($this->sharedModKeys as $mod) {
+                add_filter("theme_mod_" . $mod, array($this, 'loadThemeMod'));
             }
         }
-        
     }
 
     /**
-     * Makes the switcheroo between whats locally and whats in the api. 
+     * Makes the switcheroo between whats locally and whats in the api.
      *
      * @param   mixed   $value  The local value
      * @return  mixed   $value  The new replaced value
      */
-    public function loadThemeMod($value) {
-
-        if(!is_customize_preview()) {
-            return; 
+    public function loadThemeMod($value)
+    {
+        if (!is_customize_preview()) {
+            return;
         }
          
         $design = get_theme_mod('loaddesign');
 
         //Get settings name
-        $name = end(explode("_", (string) current_filter())); 
+        $name = end(explode("_", (string) current_filter()));
 
-        if(is_array($design) && !empty($design)) {
-            $design = array_pop($design); 
+        if (is_array($design) && !empty($design)) {
+            $design = array_pop($design);
 
             $data = wp_remote_get(
-                $this->apiUrl . 
-                $this->apiActions['single'] . 
+                $this->apiUrl .
+                $this->apiActions['single'] .
                 $design,
                 ['cacheBust' => $this->uniqid]
             );
 
-            if(wp_remote_retrieve_response_code($data) == 200 && $json = json_decode($data['body'])) { 
-                return (array) $json->mods->{$name}; 
+            if (wp_remote_retrieve_response_code($data) == 200 && $json = json_decode($data['body'])) {
+                return (array) $json->mods->{$name};
             }
         }
 
@@ -133,29 +131,28 @@ class DesignLibrary
      * @param   array   $field  Without options
      * @return  array   $field  Appended options array
      */
-    public function populateDesignSelect($field) {
+    public function populateDesignSelect($field)
+    {
 
         //Fetch data from host
-        $data = wp_remote_get($this->apiUrl, ['cacheBust' => $this->uniqid]); 
+        $data = wp_remote_get($this->apiUrl, ['cacheBust' => $this->uniqid]);
         
-        if(wp_remote_retrieve_response_code($data) == 200) {
-             
+        if (wp_remote_retrieve_response_code($data) == 200) {
             //Decode
-            $choices = json_decode($data['body']); 
+            $choices = json_decode($data['body']);
 
             //Reset select
-            $field['choices'] = []; 
+            $field['choices'] = [];
 
             //Populate select
-            if( is_array($choices) && !empty($choices) ) {
-                foreach( $choices as $choice ) {
-                    $field['choices'][ $choice->id ] = $choice->name;   
+            if (is_array($choices) && !empty($choices)) {
+                foreach ($choices as $choice) {
+                    $field['choices'][ $choice->id ] = $choice->name;
                 }
             }
-
         } else {
-            $field['choices']['error'] = __("Error loading options", 'muncipio'); 
-        } 
+            $field['choices']['error'] = __("Error loading options", 'muncipio');
+        }
         
         return $field;
     }
@@ -166,12 +163,12 @@ class DesignLibrary
      * @param Object|null $customizerManager
      * @return bool|WP_Error
      */
-    public function storeThemeMod($customizerManager = null) {
-        
+    public function storeThemeMod($customizerManager = null)
+    {
         $response = wp_remote_post(
-            $this->apiUrl . 
-            $this->apiActions['post'] . 
-            '?cacheBust=' . $this->uniqid, 
+            $this->apiUrl .
+            $this->apiActions['post'] .
+            '?cacheBust=' . $this->uniqid,
             [
                 'method' => 'POST',
                 'timeout' => 5,
@@ -181,28 +178,29 @@ class DesignLibrary
         );
 
         if (is_wp_error($response)) {
-            return new \WP_Error($response->get_error_message()); 
+            return new \WP_Error($response->get_error_message());
         } else {
-            if(wp_remote_retrieve_response_code($response) == 200) {
-                return true; 
+            if (wp_remote_retrieve_response_code($response) == 200) {
+                return true;
             }
         }
 
-        return false; 
-    } 
+        return false;
+    }
 
     /**
      * Get the data about this installation
      *
      * @return array Array containing site data
      */
-    private function getSiteData() {
+    private function getSiteData()
+    {
         return [
             'uuid' => md5(ABSPATH . get_home_url()),
             'website' => get_home_url(),
             'name' => get_bloginfo('name'),
             'mods' => $this->getSharedAttributes(),
-        ]; 
+        ];
     }
 
     /**
@@ -211,18 +209,18 @@ class DesignLibrary
      * @param   array $stack    Empty stack array
      * @return  array $stack    Populated stack array
      */
-    private function getSharedAttributes($stack = []) {
-        
-        $mods = get_theme_mods(); 
+    private function getSharedAttributes($stack = [])
+    {
+        $mods = get_theme_mods();
 
-        if(is_array($mods) && !empty($mods)) {
-            foreach($mods as $key => $mod) {
-                if(in_array($key, $this->sharedModKeys)) {
-                    $stack[$key] = $mod;  
+        if (is_array($mods) && !empty($mods)) {
+            foreach ($mods as $key => $mod) {
+                if (in_array($key, $this->sharedModKeys)) {
+                    $stack[$key] = $mod;
                 }
             }
         }
 
-        return $stack; 
+        return $stack;
     }
 }
