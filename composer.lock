@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d34672be6306f33fcf38609d28df249",
+    "content-hash": "171ad619b99cffa25192bf055ad7c6d9",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -1081,12 +1081,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/simple-cache.git",
-                "reference": "5a7b96b1dda5d957e01bc1bfe77dcca09c5a7474"
+                "reference": "66e27efc65ddef47d3008c243a235ab9359b5754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/5a7b96b1dda5d957e01bc1bfe77dcca09c5a7474",
-                "reference": "5a7b96b1dda5d957e01bc1bfe77dcca09c5a7474",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/66e27efc65ddef47d3008c243a235ab9359b5754",
+                "reference": "66e27efc65ddef47d3008c243a235ab9359b5754",
                 "shasum": ""
             },
             "require": {
@@ -1111,7 +1111,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interfaces for simple caching",
@@ -1125,20 +1125,20 @@
             "support": {
                 "source": "https://github.com/php-fig/simple-cache/tree/master"
             },
-            "time": "2020-04-21T06:43:17+00:00"
+            "time": "2021-10-06T11:02:22+00:00"
         },
         {
             "name": "shortpixel/shortpixel-php",
-            "version": "V1.7.3",
+            "version": "v1.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/short-pixel-optimizer/shortpixel-php.git",
-                "reference": "2b654571c203399c3db967318db23e82233f632d"
+                "reference": "47c0be1abad7c8fb5b7569de03f05fc6d2487a9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/2b654571c203399c3db967318db23e82233f632d",
-                "reference": "2b654571c203399c3db967318db23e82233f632d",
+                "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/47c0be1abad7c8fb5b7569de03f05fc6d2487a9d",
+                "reference": "47c0be1abad7c8fb5b7569de03f05fc6d2487a9d",
                 "shasum": ""
             },
             "require": {
@@ -1183,9 +1183,9 @@
             "support": {
                 "email": "support@shortpixel.com",
                 "issues": "https://github.com/short-pixel-optimizer/shortpixel-php/issues",
-                "source": "https://github.com/short-pixel-optimizer/shortpixel-php/tree/V1.7.3"
+                "source": "https://github.com/short-pixel-optimizer/shortpixel-php/tree/v1.8.4"
             },
-            "time": "2021-03-09T12:29:46+00:00"
+            "time": "2021-10-19T10:12:06+00:00"
         },
         {
             "name": "symfony/debug",
@@ -1642,12 +1642,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "083f2bcb9d8f041288fca711d03d9497e58543cf"
+                "reference": "d9d1e522d6178b4e453677b3bae5106b00aa0554"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/083f2bcb9d8f041288fca711d03d9497e58543cf",
-                "reference": "083f2bcb9d8f041288fca711d03d9497e58543cf",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/d9d1e522d6178b4e453677b3bae5106b00aa0554",
+                "reference": "d9d1e522d6178b4e453677b3bae5106b00aa0554",
                 "shasum": ""
             },
             "require": {
@@ -1723,7 +1723,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-24T16:10:30+00:00"
+            "time": "2021-10-26T17:15:58+00:00"
         },
         {
             "name": "tgmpa/tgm-plugin-activation",
@@ -1789,6 +1789,24 @@
                 "source": "https://github.com/TGMPA/TGM-Plugin-Activation"
             },
             "time": "2020-01-22T04:31:23+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/kirki",
+            "version": "3.1.9",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/kirki/",
+                "reference": "tags/3.1.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/kirki.3.1.9.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0 || ~2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/kirki/"
         }
     ],
     "packages-dev": [],
