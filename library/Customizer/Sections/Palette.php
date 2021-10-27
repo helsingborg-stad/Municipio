@@ -33,6 +33,28 @@ class Palette
                 'light'  => '#00ffff',
                 'contrasting'  => '#00ffff',
             ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-primary-base',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-primary-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-primary-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-primary-contrasting',
+                ],
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -50,15 +72,31 @@ class Palette
             'default'     => [
                 'base'    => '#0088cc',
                 'dark'   => '#00aaff',
-                'light'  => '#00ffff',
+                'light'     => '#00ffff',
                 'contrasting'  => '#00ffff',
             ],
             'output' => [
                 [
-                    'element' => '.lol',
-                    'property' => 'background-color',
-                ]
-            ]
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-secondary-base',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-secondary-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-secondary-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-secondary-contrasting',
+                ],
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -74,6 +112,18 @@ class Palette
             'default'     => [
                 'background'    => '#0088cc',
                 'card'   => '#00aaff',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'background',
+                    'element'   => ':root',
+                    'property'  => '--background-card',
+                ],
+                [
+                    'choice'    => 'card',
+                    'element'   => ':root',
+                    'property'  => '--background-card',
+                ]
             ],
         ]);
 
@@ -92,6 +142,23 @@ class Palette
                 'base'    => '#0088cc',
                 'secondary'   => '#00aaff',
                 'disabled'  => '#00ffff',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--text-base',
+                ],
+                [
+                    'choice'    => 'secondary',
+                    'element'   => ':root',
+                    'property'  => '--text-secondary',
+                ],
+                [
+                    'choice'    => 'disabled',
+                    'element'   => ':root',
+                    'property'  => '--text-disabled',
+                ]
             ],
         ]);
     }

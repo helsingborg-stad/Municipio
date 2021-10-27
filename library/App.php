@@ -103,8 +103,9 @@ class App
          */
         //new \Municipio\Customizer\CustomizerPanels();
         //new \Municipio\Customizer\DesignLibrary();
-        new \Municipio\Customizer\Panels();
-        new \Municipio\Helper\Customize();
+        //new \Municipio\Helper\Customize();
+        new \Municipio\Customizer();
+        
         
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
