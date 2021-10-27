@@ -48,7 +48,8 @@
         "helsingborg-stad/blade-engine-wrapper": "dev-master",
         "tgmpa/tgm-plugin-activation": "dev-develop",
         "pragmarx/ia-arr": "^7.3",
-        "helsingborg-stad/recaptcha-integration": ">=1.0.8"
+        "helsingborg-stad/recaptcha-integration": ">=1.0.8",
+        "wpackagist-plugin/kirki":"3.1.9"
     },
     "extra" : {
         "installer-paths" : {
