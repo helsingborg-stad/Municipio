@@ -70,7 +70,7 @@ class App
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\ExternalDeptendents(); 
+        new \Municipio\Admin\ExternalDeptendents();
 
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
@@ -80,8 +80,8 @@ class App
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
-        new \Municipio\Admin\Acf\PrefillIconChoice(); 
-        new \Municipio\Admin\Acf\RenderOption(); 
+        new \Municipio\Admin\Acf\PrefillIconChoice();
+        new \Municipio\Admin\Acf\RenderOption();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
@@ -101,7 +101,8 @@ class App
         /**
          * Customizer
          */
-        new \Municipio\Customizer\CustomizerPanels();
+        new \Municipio\Customizer();
+        // new \Municipio\Customizer\CustomizerPanels();
         new \Municipio\Customizer\DesignLibrary();
         
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
