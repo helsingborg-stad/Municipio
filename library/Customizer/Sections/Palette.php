@@ -31,13 +31,13 @@ class Palette
                 'base'    => '#0088cc',
                 'dark'   => '#00aaff',
                 'light'  => '#00ffff',
-                'contrasting'  => '#00ffff',
+                'contrasting'  => '#ffffff',
             ],
             'output' => [
                 [
                     'choice'    => 'base',
                     'element'   => ':root',
-                    'property'  => '--color-primary-base',
+                    'property'  => '--color-primary',
                 ],
                 [
                     'choice'    => 'dark',
@@ -73,13 +73,13 @@ class Palette
                 'base'    => '#0088cc',
                 'dark'   => '#00aaff',
                 'light'     => '#00ffff',
-                'contrasting'  => '#00ffff',
+                'contrasting'  => '#ffffff',
             ],
             'output' => [
                 [
                     'choice'    => 'base',
                     'element'   => ':root',
-                    'property'  => '--color-secondary-base',
+                    'property'  => '--color-secondary',
                 ],
                 [
                     'choice'    => 'dark',
@@ -110,19 +110,19 @@ class Palette
                 'card'   => esc_html__('Card', 'municipio'),
             ],
             'default'     => [
-                'background'    => '#0088cc',
-                'card'   => '#00aaff',
+                'background'    => '#ffffff',
+                'card'   => '#ffffff',
             ],
             'output' => [
                 [
                     'choice'    => 'background',
-                    'element'   => ':root',
-                    'property'  => '--background-card',
+                    'element'   => 'body',
+                    'property'  => 'background-color',
                 ],
                 [
                     'choice'    => 'card',
                     'element'   => ':root',
-                    'property'  => '--background-card',
+                    'property'  => '--color-paper-background',
                 ]
             ],
         ]);
