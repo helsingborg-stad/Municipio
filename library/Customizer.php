@@ -32,5 +32,6 @@ class Customizer
         ));
 
         new \Municipio\Customizer\Panels\Design();
+        new \Municipio\Customizer\Panels\Example();
     }
 }

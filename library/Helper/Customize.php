@@ -11,6 +11,8 @@ class Customize
    * Mock
    */
   public function __construct() {
+
+    
     add_action('wp', function() {
       //var_dump($this->get());
     });
@@ -25,6 +27,7 @@ class Customize
   private function get($response = []) {
     
     global $wp_customize;
+    var_dump($customize); 
 
     $settings = $this->accessProtected($wp_customize, 'settings'); 
 
