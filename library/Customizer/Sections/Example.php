@@ -66,10 +66,11 @@ class Example
         //Example controller variable
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
+            'multiple'    => false,
             'settings'    => 'example_controller_var',
             'label'       => esc_html__('Example controller variable', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => ['option-2'],
+            'default'     => 'option-2',
             'priority'    => 10,
             'choices'     => [
                 'option-1' => esc_html__('Option 1', 'municipio'),
