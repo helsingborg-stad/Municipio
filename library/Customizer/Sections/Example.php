@@ -49,7 +49,7 @@ class Example
             'settings'    => 'example_modifier',
             'label'       => esc_html__('Example modifier toggle', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => ['option-1'],
+            'default'     => 'option-1',
             'priority'    => 10,
             'choices'     => [
                 'option-1' => esc_html__('Option 1', 'municipio'),

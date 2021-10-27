@@ -31,6 +31,10 @@ class Customizer
             'option_type'   => 'theme_mod',
         ));
 
+        //Applicators [Stuff that make effect on the frontend]
+        new \Municipio\Customizer\Applicators\Modifiers();
+
+        //Define panels
         new \Municipio\Customizer\Panels\Design();
         new \Municipio\Customizer\Panels\Example();
     }

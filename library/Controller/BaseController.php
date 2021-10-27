@@ -65,7 +65,7 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Customization data TODO: Remove first line
-        $this->data['customize']            = apply_filters('Municipio/Controller/Customize',);
+        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);
 
         $this->data['customizer']           = $this->getCustomizerControllerVariables(); //REPLACES THE ABOVE, SHOULD INHERIT FILTER
 
