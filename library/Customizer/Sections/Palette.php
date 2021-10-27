@@ -120,5 +120,26 @@ class Palette
                 'disabled'  => '#00ffff',
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_link',
+            'label'       => esc_html__('Link', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'link'    => esc_html__('Link', 'municipio'),
+                'link_hover'   => esc_html__('Hover', 'municipio'),
+                'active'  => esc_html__('Active', 'municipio'),
+                'visited'  => esc_html__('Visited', 'municipio'),
+            ],
+            'default'     => [
+                'link'    => '#0088cc',
+                'link_hover'   => '#00aaff',
+                'active'  => '#00ffff',
+                'visited'  => '#00ffff',
+                'visited_hover'  => '#00ffff',
+            ],
+        ]);
     }
 }
