@@ -17,7 +17,7 @@ class Palette
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'theme_palette_primary',
+            'settings'    => 'color_palette_primary',
             'label'       => esc_html__('Primary', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
@@ -37,7 +37,7 @@ class Palette
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'theme_palette_secondary',
+            'settings'    => 'color_palette_secondary',
             'label'       => esc_html__('Secondary', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
@@ -63,7 +63,7 @@ class Palette
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'theme_palette_background',
+            'settings'    => 'color_palette_background',
             'label'       => esc_html__('Background', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
@@ -79,7 +79,7 @@ class Palette
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'theme_palette_text',
+            'settings'    => 'color_palette_text',
             'label'       => esc_html__('Text', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
