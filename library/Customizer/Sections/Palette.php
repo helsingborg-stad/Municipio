@@ -9,8 +9,8 @@ class Palette
     public function __construct($panelID)
     {
         \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Palette', 'municipio'),
-            'description' => esc_html__('Theme Color Palette', 'municipio'),
+            'title'       => esc_html__('Color Palette', 'municipio'),
+            'description' => esc_html__('Color palette used across the theme', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
@@ -28,10 +28,10 @@ class Palette
                 'contrasting'  => esc_html__('Contrastring', 'municipio'),
             ],
             'default'     => [
-                'base'    => '#0088cc',
-                'dark'   => '#00aaff',
-                'light'  => '#00ffff',
-                'contrasting'  => '#00ffff',
+                'base'    => '#ae0b05',
+                'dark'   => '#770000',
+                'light'  => '#e84c31',
+                'contrasting'  => '#ffffff',
             ],
         ]);
 
@@ -48,10 +48,10 @@ class Palette
                 'contrasting'  => esc_html__('Contrastring', 'municipio'),
             ],
             'default'     => [
-                'base'    => '#0088cc',
-                'dark'   => '#00aaff',
-                'light'  => '#00ffff',
-                'contrasting'  => '#00ffff',
+                'base'    => '#ec6701',
+                'dark'   => '#b23700',
+                'light'  => '#ff983e',
+                'contrasting'  => '#ffffff',
             ],
             'output' => [
                 [
@@ -74,16 +74,90 @@ class Palette
                 'contrasting'  => esc_html__('Contrastring', 'municipio'),
             ],
             'default'     => [
-                'base'    => '#0088cc',
-                'dark'   => '#00aaff',
-                'light'  => '#00ffff',
-                'contrasting'  => '#00ffff',
+                'base'    => '#dec2c2',
+                'dark'   => '#f0dbd9',
+                'light'  => '#f5e4e3',
+                'contrasting'  => '#ffffff',
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_success',
+            'label'       => esc_html__('Success', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
             ],
-            'output' => [
-                [
-                    'element' => '.lol',
-                    'property' => 'background-color',
-                ]
+            'default'     => [
+                'base'    => '#91d736',
+                'dark'   => '#91d736',
+                'light'  => '#91d736',
+                'contrasting'  => '#ffffff',
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_danger',
+            'label'       => esc_html__('Danger', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#d73740',
+                'dark'   => '#d73740',
+                'light'  => '#d73740',
+                'contrasting'  => '#ffffff',
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_warning',
+            'label'       => esc_html__('Warning', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#efbb21',
+                'dark'   => '#efbb21',
+                'light'  => '#efbb21',
+                'contrasting'  => '#ffffff',
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_info',
+            'label'       => esc_html__('Info', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#3d3d3d',
+                'dark'   => '#3d3d3d',
+                'light'  => '#3d3d3d',
+                'contrasting'  => '#ffffff',
             ]
         ]);
 
@@ -98,11 +172,10 @@ class Palette
                 'card'   => esc_html__('Card', 'municipio'),
             ],
             'default'     => [
-                'background'    => '#0088cc',
-                'card'   => '#00aaff',
+                'background'    => '#f5f5f5',
+                'card'   => '#ffffff',
             ],
         ]);
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_text',
@@ -117,7 +190,7 @@ class Palette
             'default'     => [
                 'base'    => '#0088cc',
                 'secondary'   => '#00aaff',
-                'disabled'  => '#00ffff',
+                'disabled'  => '#ffffff',
             ],
         ]);
 
@@ -136,9 +209,9 @@ class Palette
             'default'     => [
                 'link'    => '#0088cc',
                 'link_hover'   => '#00aaff',
-                'active'  => '#00ffff',
-                'visited'  => '#00ffff',
-                'visited_hover'  => '#00ffff',
+                'active'  => '#ffffff',
+                'visited'  => '#ffffff',
+                'visited_hover'  => '#ffffff',
             ],
         ]);
     }
