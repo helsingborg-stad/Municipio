@@ -25,9 +25,7 @@
 
     <body class="{{ $bodyClass }}" js-page-id="{{$pageID}}">
         <div class="site-wrapper">
-
-            <?php var_dump($customize); ?>
-
+            
             {{-- Site header --}}
             @section('site-header')
                 @if (!empty($headerLayout))

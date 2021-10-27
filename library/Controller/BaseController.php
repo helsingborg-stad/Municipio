@@ -64,10 +64,9 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
 
-        //Customization data TODO: Remove first line
-        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);
-
-        $this->data['customizer']           = $this->getCustomizerControllerVariables(); //REPLACES THE ABOVE, SHOULD INHERIT FILTER
+        //Customization data
+        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);//TODO: This when all functionality is moved!
+        $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
 
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
@@ -193,33 +192,6 @@ class BaseController
         $this->getFilterData();
 
         $this->init();
-    }
-
-    /**
-     * Get customizer controller variables
-     *
-     * @param array $stack  External stack objects
-     * 
-     * @return object
-     */
-    public function getCustomizerControllerVariables($stack = []) {
-
-        //Get field definition
-        $fields = \Kirki::$fields; 
-
-        //Determine what's a controller var, fetch it
-        if(is_array($fields) && !empty($fields)) {
-            foreach($fields as $key => $field) {
-                if(isset($field['args']['output']['type']) && $field['args']['output']['type'] === 'controller') {
-                    $stack[$key] = \Kirki::get_option($key);
-                }
-            }
-        }
-
-        //Camel case response keys, and return
-        return \Municipio\Helper\FormatObject::camelCase(
-            (object) $stack
-        ); 
     }
 
     /**
