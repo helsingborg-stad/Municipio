@@ -63,6 +63,32 @@ class Palette
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
+            'settings'    => 'color_palette_tertiary',
+            'label'       => esc_html__('Tertiary', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#0088cc',
+                'dark'   => '#00aaff',
+                'light'  => '#00ffff',
+                'contrasting'  => '#00ffff',
+            ],
+            'output' => [
+                [
+                    'element' => '.lol',
+                    'property' => 'background-color',
+                ]
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
             'settings'    => 'color_palette_background',
             'label'       => esc_html__('Background', 'municipio'),
             'section'     => self::SECTION_ID,
