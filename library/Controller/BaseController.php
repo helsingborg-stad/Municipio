@@ -64,13 +64,10 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
 
-        //Customization data TODO: Remove
-        $this->data['customize']            = apply_filters(
-                                                'Municipio/Controller/Customize', 
-                                                $this->getCustomizationData()
-                                              );
+        //Customization data TODO: Remove first line
+        $this->data['customize']            = apply_filters('Municipio/Controller/Customize',);
 
-        $this->data['customizer']           = $this->getCustomizerControllerVariables(); //REPLACES THE ABOVE
+        $this->data['customizer']           = $this->getCustomizerControllerVariables(); //REPLACES THE ABOVE, SHOULD INHERIT FILTER
 
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
@@ -271,15 +268,6 @@ class BaseController
         ob_start();
         wp_footer();
         return apply_filters('Municipio/FooterHTML', ob_get_clean());
-    }
-
-    /**
-     * Get customization data
-     *
-     * @return array
-     */
-    public function getCustomizationData() {
-        return \Kirki::get_option();
     }
 
     /**
