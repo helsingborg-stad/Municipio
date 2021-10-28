@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d34672be6306f33fcf38609d28df249",
+    "content-hash": "d619efb005d4fc21bc42fa890282adf0",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -1789,6 +1789,24 @@
                 "source": "https://github.com/TGMPA/TGM-Plugin-Activation"
             },
             "time": "2020-01-22T04:31:23+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/kirki",
+            "version": "3.1.9",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/kirki/",
+                "reference": "tags/3.1.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/kirki.3.1.9.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0 || ~2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/kirki/"
         }
     ],
     "packages-dev": [],
