@@ -8,6 +8,10 @@ class Customizer
 
     public function __construct()
     {
+        //Load embedded kirki
+        $this->loadEmbeddedKirki();
+
+        //Kirki failed to load, handle
         add_action('init', function () {
             if (class_exists("Kirki")) {
                 return $this->init();
@@ -21,9 +25,26 @@ class Customizer
                     'link_text' => __("Install plugin", 'municipio')
                 ]
             );
-        });
+        }, 10);
     }
 
+    /**
+     * Load embedded kirki
+     *
+     * @return void
+     */
+    public function loadEmbeddedKirki() {
+        $kirkiFilePath = rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php'; 
+        if(file_exists($kirkiFilePath)) {
+            include_once($kirkiFilePath);
+        }
+    }
+
+    /**
+     * Init customizer toolset
+     *
+     * @return void
+     */
     public function init()
     {
         \Kirki::add_config(self::KIRKI_CONFIG, array(
