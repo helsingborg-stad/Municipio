@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "171ad619b99cffa25192bf055ad7c6d9",
+    "content-hash": "d619efb005d4fc21bc42fa890282adf0",
     "packages": [
         {
             "name": "benjamincrozat/blade",
