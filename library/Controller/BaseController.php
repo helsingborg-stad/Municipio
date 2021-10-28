@@ -65,7 +65,8 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Customization data
-        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);
+        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);//TODO: This when all functionality is moved!
+        $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
 
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
