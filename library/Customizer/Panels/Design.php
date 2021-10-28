@@ -14,7 +14,7 @@ class Design
             'description' => esc_html__('Design panel woho!!!', 'municipio'),
         ));
 
-        new \Municipio\Customizer\Sections\Palette(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Colors(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Typography(self::PANEL_ID);
     }
 }
