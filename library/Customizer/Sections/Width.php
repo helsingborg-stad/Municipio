@@ -62,7 +62,9 @@ class Width
                     'step' => $this->base,
                 ],
                 'output' => [
-                    'type' => 'controller'
+                    'element'   => ':root-unparsed',
+                    'property'  => '--container_width' . $args['key'],
+                    'units'    => 'px',
                 ],
             ]);
         }
