@@ -9,8 +9,16 @@ class Customizer
     public function __construct()
     {
         add_action('init', function () {
+            
             if (class_exists("Kirki")) {
                 return $this->init();
+            }
+
+            if(is_admin()) {
+                add_action('admin_notices', function () {
+                    echo '<div class="notice notice-error"><p>To run <strong>Municpio</strong> theme, please install & activate <a href="https://kirki.org/">Kirki Customizer Framework</a>.</p></div>';
+                });
+                return; 
             }
 
             wp_die(
