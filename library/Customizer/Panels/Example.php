@@ -9,7 +9,7 @@ class Example
     public function __construct()
     {
         \Kirki::add_panel(self::PANEL_ID, array(
-            'priority'    => 10,
+            'priority'    => 1000,
             'title'       => esc_html__('Example panel', 'municipio'),
             'description' => esc_html__('A example panel', 'municipio'),
         ));

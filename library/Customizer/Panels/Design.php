@@ -9,7 +9,7 @@ class Design
     public function __construct()
     {
         \Kirki::add_panel(self::PANEL_ID, array(
-            'priority'    => 10,
+            'priority'    => 120,
             'title'       => esc_html__('Design', 'municipio'),
             'description' => esc_html__('Design panel woho!!!', 'municipio'),
         ));
