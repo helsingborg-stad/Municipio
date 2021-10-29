@@ -24,6 +24,6 @@ class Css
       '',
       '-',
       ''
-    ], $string)
+    ], $string);
   }
 }
