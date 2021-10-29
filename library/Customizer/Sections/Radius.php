@@ -2,15 +2,15 @@
 
 namespace Municipio\Customizer\Sections;
 
-class Shape
+class Radius
 {
-    public const SECTION_ID = "municipio_customizer_section_shape";
+    public const SECTION_ID = "municipio_customizer_section_radius";
 
     public function __construct($panelID)
     {
         \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Shape', 'municipio'),
-            'description' => esc_html__('Shapes used across the theme', 'municipio'),
+            'title'       => esc_html__('Rounded corners', 'municipio'),
+            'description' => esc_html__('Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab.', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
