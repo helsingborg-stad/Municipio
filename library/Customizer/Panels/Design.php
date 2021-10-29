@@ -16,5 +16,6 @@ class Design
 
         new \Municipio\Customizer\Sections\Colors(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Typography(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Shape(self::PANEL_ID);
     }
 }
