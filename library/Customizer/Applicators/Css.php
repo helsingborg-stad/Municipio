@@ -14,4 +14,16 @@ class Css
 
     return $styles; 
   }
+
+  private function makeCssVarName($string) {
+    return "--" . str_replace([
+      '--',
+      '_',
+      'municipio_'
+    ], [
+      '',
+      '-',
+      ''
+    ], $string)
+  }
 }
