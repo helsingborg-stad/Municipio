@@ -54,9 +54,9 @@ class Radius
             'settings'    => 'municipio_radius_md',
             'label'       => esc_html__('Medium', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 2,
+            'default'     => 6,
             'choices'     => [
-                'min'  => 6,
+                'min'  => 0,
                 'max'  => 12,
                 'step' => 2,
             ],
@@ -71,9 +71,9 @@ class Radius
             'settings'    => 'municipio_radius_lg',
             'label'       => esc_html__('Large', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 2,
+            'default'     => 8,
             'choices'     => [
-                'min'  => 8,
+                'min'  => 0,
                 'max'  => 12,
                 'step' => 2,
             ],
