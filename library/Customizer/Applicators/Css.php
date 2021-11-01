@@ -28,7 +28,7 @@ class Css
     //Determine & add container width
     if(is_front_page()||is_home()) {
       $styles['global'][':root']['--container-width'] = $width['frontpage'];
-    } elseif(is_archive()) {
+    } elseif(is_archive()||is_tax()) {
       $styles['global'][':root']['--container-width'] = $width['archive'];
     } else {
       $styles['global'][':root']['--container-width'] = $width['default'];
