@@ -62,8 +62,8 @@ class Width
                     'step' => $this->base,
                 ],
                 'output' => [
-                    'element'   => ':root-unparsed',
-                    'property'  => '--container_width' . $args['key'],
+                    'element'   => 'width',
+                    'property'  => empty($args['key']) ? 'default' : ltrim($args['key'], "_"),
                     'units'    => 'px',
                 ],
             ]);
