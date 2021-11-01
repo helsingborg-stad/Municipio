@@ -9,7 +9,7 @@ class Css
   }
 
   /**
-   * Handle custom page width dependign on page type
+   * Handle custom page width depending on page type
    *
    * @param array $styles Default styles array with separate width element
    * @return array $styles Styles array with container width
@@ -26,7 +26,7 @@ class Css
     $styles['global'][':root']['--container-width-content'] = $width['content'];
 
     //Determine & add container width
-    if(is_front_page()) {
+    if(is_front_page()||is_home()) {
       $styles['global'][':root']['--container-width'] = $width['frontpage'];
     } elseif(is_archive()) {
       $styles['global'][':root']['--container-width'] = $width['archive'];
