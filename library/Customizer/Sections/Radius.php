@@ -29,6 +29,7 @@ class Radius
             'output' => [
                 'element'   => ':root',
                 'property'  => '--radius-xs',
+                'units'     => 'px'
             ],
         ]);
 
@@ -46,6 +47,7 @@ class Radius
             'output' => [
                 'element'   => ':root',
                 'property'  => '--radius-sm',
+                'units'     => 'px'
             ],
         ]);
 
@@ -63,6 +65,7 @@ class Radius
             'output' => [
                 'element'   => ':root',
                 'property'  => '--radius-md',
+                'units'     => 'px'
             ],
         ]);
 
@@ -80,6 +83,7 @@ class Radius
             'output' => [
                 'element'   => ':root',
                 'property'  => '--radius-lg',
+                'units'     => 'px'
             ],
         ]);
         
