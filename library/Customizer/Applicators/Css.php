@@ -5,7 +5,7 @@ namespace Municipio\Customizer\Applicators;
 class Css
 {
   public function __construct() {
-    add_filter('kirki_municipio_config_styles', array($this, 'filterPageWidth')); //Todo, use constant to create filter name.
+    add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterPageWidth'));
   }
 
   /**
