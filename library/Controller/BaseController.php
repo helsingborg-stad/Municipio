@@ -67,7 +67,7 @@ class BaseController
         //Customization data
         $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);//TODO: This when all functionality is moved!
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
-
+        
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
@@ -150,8 +150,8 @@ class BaseController
         $this->data['notice']               = [];
 
         //Column sizes
-        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customize']->width); 
-        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customize']->width); 
+        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customizer']); 
+        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customizer']); 
 
         //Main content padder
         $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller. 
