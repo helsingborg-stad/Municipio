@@ -74,7 +74,7 @@ class Width
             'settings'    => 'heading_width',
             'section'     => self::SECTION_ID,
             'default'     => '
-                                <h2>' . esc_html__('Heading', 'municipio') .' </h2> 
+                                <h2>' . esc_html__('Width of page columns', 'municipio') .' </h2> 
                                 <p class="description customize-section-description">' . esc_html__('Set the width of left & right columns. The middle (content) column will use whatever space left.', 'municipio') . '</p>
                             ',
         ] );
