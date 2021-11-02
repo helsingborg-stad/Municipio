@@ -8,7 +8,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-  private $dbVersion = 1; //The db version we want to achive 
+  private $dbVersion = 5; //The db version we want to achive 
   private $dbVersionKey = 'municipio_db_version'; 
   private $db; 
 
@@ -18,6 +18,16 @@ class Upgrade
   public function __construct()
   {
     add_action('init', array($this, 'initUpgrade')); 
+    //add_action('init', array($this, 'debug')); 
+  }
+
+  /**
+   * Enable to print stuff you need.
+   *
+   * @return void
+   */
+  public function debug() {
+    var_dump(get_theme_mods()); 
   }
 
   /**
@@ -31,10 +41,54 @@ class Upgrade
    * @return boolean
    */
   private function v_1($db) : bool {
-
     //update code here
+    //var_dump(get_theme_mods()); //A gate way to start!
+    return true; //Return false to keep running this each time! 
+  }
 
+  // Migrate width from acf to kirki
+  private function v_5($db) : bool {
+    
+    //Move
+    $this->migrateThemeMod('widths', 'municipio_container', 'field_609bdcc8348d6');
+    $this->migrateThemeMod('widths', 'municipio_container_frontpage', 'field_60928f237c070');
+    $this->migrateThemeMod('widths', 'municipio_container_archive', 'field_609bdcad348d5');
+    $this->migrateThemeMod('widths', 'municipio_container_content', 'field_609298276e5b2');
+
+    $this->migrateThemeMod('widths', 'column_size_left', 'field_60d339b60049e');
+    $this->migrateThemeMod('widths', 'column_size_right', 'field_60d3393d1231a');
+
+    $this->deleteThemeMod('widths');
+    
     return true; 
+  }
+
+  /**
+   * Move and clean out the old theme mod
+   *
+   * @param string $oldKey
+   * @param string $newKey
+   * @return bool
+   */
+  private function migrateThemeMod($oldKey, $newKey, $subkey = null) {
+    if($oldValue = get_theme_mod($oldKey)) {
+      if($subkey && isset($oldValue[$subkey])) {
+        return set_theme_mod($newKey, $oldValue[$subkey]);
+      } elseif(is_null($subkey)) {
+        return set_theme_mod($newKey, $oldValue);
+      }      
+    }
+    return false; 
+  }
+
+  /**
+   * Deletes a theme mod
+   *
+   * @param string $key
+   * @return bool
+   */
+  private function deleteThemeMod($key) {
+    return remove_theme_mod($key);
   }
 
   /**
