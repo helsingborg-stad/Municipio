@@ -211,9 +211,30 @@ class Colors
                 'base'    => '#91d736',
                 'dark'   => '#91d736',
                 'light'  => '#91d736',
-                'contrasting'  => '#ffffff',
-            ]
-        ]);
+                'contrasting'  => '#000000',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-success',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-success-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-success-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-success-contrasting',
+                ],
+        ]]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
@@ -232,8 +253,29 @@ class Colors
                 'dark'   => '#d73740',
                 'light'  => '#d73740',
                 'contrasting'  => '#ffffff',
-            ]
-        ]);
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-danger',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-danger-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-danger-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-danger-contrasting',
+                ],
+        ]]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
@@ -251,9 +293,30 @@ class Colors
                 'base'    => '#efbb21',
                 'dark'   => '#efbb21',
                 'light'  => '#efbb21',
-                'contrasting'  => '#ffffff',
-            ]
-        ]);
+                'contrasting'  => '#000000',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-warning',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-warning-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-warning-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-warning-contrasting',
+                ],
+        ]]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
@@ -272,8 +335,29 @@ class Colors
                 'dark'   => '#3d3d3d',
                 'light'  => '#3d3d3d',
                 'contrasting'  => '#ffffff',
-            ]
-        ]);
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-info',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-info-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-info-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-info-contrasting',
+                ],
+        ]]);
 
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
