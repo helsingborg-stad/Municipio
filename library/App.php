@@ -13,6 +13,10 @@ class App
      */
     public function __construct()
     {
+        /**
+         * Upgrade
+         */
+        new \Municipio\Upgrade();
 
         /**
          * Template
