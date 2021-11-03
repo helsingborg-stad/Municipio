@@ -83,8 +83,20 @@ class Upgrade
     return true; 
   }
 
-  //Migrate padding. TODO: TEST!
+  //Migrate header stuff. TODO: TEST!
   private function v_8() : bool {
+    $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
+    $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
+    $this->migrateThemeMod('header', 'header_color', 'field_614467575de00');
+    $this->migrateThemeMod('header', 'header_modifier', 'field_6070186956c15');
+    
+    $this->deleteThemeMod('header');
+
+    return true; 
+  }
+
+  //Migrate header. TODO: TEST!
+  private function v_9() : bool {
     $this->migrateThemeMod('padding', 'main_content_padding', 'field_611e43ec4dfa5');
     
     $this->deleteThemeMod('padding');
