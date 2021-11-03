@@ -71,6 +71,18 @@ class Upgrade
     return true; 
   }
 
+  //Migrate radius. TODO: TEST!
+  private function v_7() : bool {
+    $this->migrateThemeMod('radius', 'radius_xs', 'field_603662f7a16f8');
+    $this->migrateThemeMod('radius', 'radius_sm', 'field_6038fa31cfac6');
+    $this->migrateThemeMod('radius', 'radius_md', 'field_6038fa400384b');
+    $this->migrateThemeMod('radius', 'radius_lg', 'field_6038fa52576ba');
+    
+    $this->deleteThemeMod('radius');
+
+    return true; 
+  }
+
   /**
    * Move and clean out the old theme mod
    *
