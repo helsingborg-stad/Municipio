@@ -550,28 +550,6 @@ class BaseController
     }
 
     /**
-     * Get position of navigation display
-     *
-     * @return null|string
-     */
-    public function getNavPosition($identifier) {
-
-        $mods = get_theme_mods(); 
-
-        //Secondary navigation
-        if($identifier == 'secondary') {
-            if(isset($mods['site']) && isset($mods['site']['field_60cb4dd897cb8'])) {
-                if(in_array($mods['site']['field_60cb4dd897cb8'], ['left', 'right', 'hidden'])) {
-                    return $mods['site']['field_60cb4dd897cb8']; 
-                }
-            }
-            return 'left'; 
-        }
-        
-        return null; 
-    }
-
-    /**
      * Get size of column
      *
      * @return integer
