@@ -67,7 +67,7 @@ class Header
               'text-black' => esc_html__('Black', 'municipio'),
               'text-primary' => esc_html__('Primary', 'municipio'),
               'text-secondary' => esc_html__('Secondary', 'municipio'),
-              'text-tertiary' => esc_html__('Secondary', 'municipio'),
+              'text-tertiary' => esc_html__('Tertiary', 'municipio'),
           ],
           'output' => [
               'type' => 'modifier',
