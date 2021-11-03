@@ -22,7 +22,6 @@ class Design
         new \Municipio\Customizer\Sections\Overlay(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Padding(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Header(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\MobileMenu(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Quicklinks(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Hero(self::PANEL_ID);
         
