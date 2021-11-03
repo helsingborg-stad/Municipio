@@ -77,8 +77,17 @@ class Upgrade
     $this->migrateThemeMod('radius', 'radius_sm', 'field_6038fa31cfac6');
     $this->migrateThemeMod('radius', 'radius_md', 'field_6038fa400384b');
     $this->migrateThemeMod('radius', 'radius_lg', 'field_6038fa52576ba');
-    
+
     $this->deleteThemeMod('radius');
+
+    return true; 
+  }
+
+  //Migrate padding. TODO: TEST!
+  private function v_8() : bool {
+    $this->migrateThemeMod('padding', 'padding_columns', 'field_611e43ec4dfa5');
+    
+    $this->deleteThemeMod('padding');
 
     return true; 
   }
