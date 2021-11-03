@@ -1,4 +1,4 @@
-<div class="c-drawer c-drawer--right c-drawer--primary js-drawer u-display--none@lg {{'c-drawer--' . $customize->mobilemenu->mobileMenuStyle }}" js-toggle-class="is-open" js-toggle-item="js-drawer">
+<div class="c-drawer c-drawer--right c-drawer--primary js-drawer u-display--none@lg {{'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone') }}" js-toggle-class="is-open" js-toggle-item="js-drawer">
     <div class="c-drawer__header">
 
         @button([
