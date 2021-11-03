@@ -63,6 +63,14 @@ class Upgrade
     return true; 
   }
 
+  //Migrate navigation position. TODO: TEST!
+  private function v_6() : bool {
+    $this->migrateThemeMod('general', 'secondary_navigation_position', 'field_60cb4dd897cb8');
+    $this->deleteThemeMod('general');
+
+    return true; 
+  }
+
   /**
    * Move and clean out the old theme mod
    *
