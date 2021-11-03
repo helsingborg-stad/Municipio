@@ -104,14 +104,17 @@ class Upgrade
     return true; 
   }
 
-  //Migrate header stuff. TODO: TEST!
+  //Migrate quicklinks stuff. TODO: TEST!
   private function v_10() : bool {
-    $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
-    $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
-    $this->migrateThemeMod('header', 'header_color', 'field_614467575de00');
-    $this->migrateThemeMod('header', 'header_modifier', 'field_6070186956c15');
+
+    $this->migrateThemeMod('quicklinks', 'quicklinks_backgound_type', 'field_61570dd479d9b');
+    $this->migrateThemeMod('quicklinks', 'quicklinks_custom_background', 'field_61570e6979d9c');
+    $this->migrateThemeMod('quicklinks', 'quicklinks_background', 'field_6123844e0f0bb');
+    $this->migrateThemeMod('quicklinks', 'quicklinks_color', 'field_6127571bcc76e');
+    $this->migrateThemeMod('quicklinks', 'quicklinks_sticky', 'field_61488b616937c');
+    $this->migrateThemeMod('quicklinks', 'quicklinks_location', 'field_61488c4f6b4fd');
     
-    $this->deleteThemeMod('header');
+    $this->deleteThemeMod('quicklinks');
 
     return true; 
   }
