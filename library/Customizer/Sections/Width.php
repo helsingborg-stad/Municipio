@@ -52,7 +52,7 @@ class Width
         foreach ($this->variations as $key => $args) {
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'slider',
-                'settings'    => 'municipio_container' . $args['key'],
+                'settings'    => 'container' . $args['key'],
                 'label'       => $args['label'],
                 'section'     => self::SECTION_ID,
                 'default'     => $args['default'],

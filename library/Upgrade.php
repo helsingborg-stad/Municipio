@@ -50,10 +50,10 @@ class Upgrade
   private function v_5($db) : bool {
     
     //Move
-    $this->migrateThemeMod('widths', 'municipio_container', 'field_609bdcc8348d6');
-    $this->migrateThemeMod('widths', 'municipio_container_frontpage', 'field_60928f237c070');
-    $this->migrateThemeMod('widths', 'municipio_container_archive', 'field_609bdcad348d5');
-    $this->migrateThemeMod('widths', 'municipio_container_content', 'field_609298276e5b2');
+    $this->migrateThemeMod('widths', 'container', 'field_609bdcc8348d6');
+    $this->migrateThemeMod('widths', 'container_frontpage', 'field_60928f237c070');
+    $this->migrateThemeMod('widths', 'container_archive', 'field_609bdcad348d5');
+    $this->migrateThemeMod('widths', 'container_content', 'field_609298276e5b2');
 
     $this->migrateThemeMod('widths', 'column_size_left', 'field_60d339b60049e');
     $this->migrateThemeMod('widths', 'column_size_right', 'field_60d3393d1231a');
