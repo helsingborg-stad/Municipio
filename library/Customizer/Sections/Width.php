@@ -36,7 +36,7 @@ class Width
             [
               'key' => '_content',
               'label' => esc_html__("Content", 'municipio'),
-              'default' => ($this->base * 160),
+              'default' => ($this->base * 88),
               'minWidth' => ($this->base * 50),
               'maxWidth' => ($this->base * 113)
             ]
@@ -52,7 +52,7 @@ class Width
         foreach ($this->variations as $key => $args) {
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'slider',
-                'settings'    => 'municipio_container' . $args['key'],
+                'settings'    => 'container' . $args['key'],
                 'label'       => $args['label'],
                 'section'     => self::SECTION_ID,
                 'default'     => $args['default'],
