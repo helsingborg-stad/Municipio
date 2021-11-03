@@ -104,6 +104,18 @@ class Upgrade
     return true; 
   }
 
+  //Migrate header stuff. TODO: TEST!
+  private function v_10() : bool {
+    $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
+    $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
+    $this->migrateThemeMod('header', 'header_color', 'field_614467575de00');
+    $this->migrateThemeMod('header', 'header_modifier', 'field_6070186956c15');
+    
+    $this->deleteThemeMod('header');
+
+    return true; 
+  }
+
   /**
    * Move and clean out the old theme mod
    *
@@ -165,6 +177,7 @@ class Upgrade
         if(method_exists($this, $funcName)) {
           if($this->{$funcName}($this->db)) {
             update_option($this->dbVersionKey, (int) $currentDbVersion); 
+            wp_cache_flush(); 
           }
         }
       }
