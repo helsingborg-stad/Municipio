@@ -1,5 +1,5 @@
 @if (!empty($quicklinksMenuItems))
-    @if(($customize->quicklinks->quicklinksDisplayLocation == 'frontpage' && $isFrontPage) || ($customize->quicklinks->quicklinksDisplayLocation == 'everywhere'))
+    @if(($customizer->quicklinksLocation == 'frontpage' && $isFrontPage) || ($customizer->quicklinksLocation == 'everywhere'))
         @header([
             'id'                => 'quicklinks-header',
             'classList' => [
