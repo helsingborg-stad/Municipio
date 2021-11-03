@@ -68,7 +68,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
 
         //Main content padder
-        $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customize']->padding);
+        $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
 
         return $this->data;
     }
@@ -76,11 +76,10 @@ class Singular extends \Municipio\Controller\BaseController
     /**
      * Get main content padder size
      */
-
-     public function getMainContentPadding($customizer) : array {
+    public function getMainContentPadding($customizer) : array {
 
         //Name shorten
-        $padding = $customizer->amountOfPaddingColumns; 
+        $padding = $customizer->mainContentPadding; 
         
         //Validate, and send var to view. 
         if(!empty($padding ) && is_numeric($padding) && ($padding%2 == 0)) {
@@ -96,7 +95,7 @@ class Singular extends \Municipio\Controller\BaseController
             'md' => 0,
             'lg' => 0
         ]; 
-     }
+    }
 
     /**
      * @return mixed
