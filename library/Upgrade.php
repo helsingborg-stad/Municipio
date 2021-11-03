@@ -85,7 +85,7 @@ class Upgrade
 
   //Migrate padding. TODO: TEST!
   private function v_8() : bool {
-    $this->migrateThemeMod('padding', 'padding_columns', 'field_611e43ec4dfa5');
+    $this->migrateThemeMod('padding', 'main_content_padding', 'field_611e43ec4dfa5');
     
     $this->deleteThemeMod('padding');
 
