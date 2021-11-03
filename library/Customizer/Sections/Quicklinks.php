@@ -15,9 +15,9 @@ class Quicklinks
             'priority'       => 160,
         ));
 
-        \Kirki::add_field( 'quicklinks_background_type', [
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
           'type'        => 'radio',
-          'settings'    => 'quicklinks',
+          'settings'    => 'quicklinks_background_type',
           'label'       => esc_html__('Select background type', 'municipio'),
           'description' => esc_html__('Select if you want to use one of the predefined colors, or select one freely.', 'municipio'),
           'section'     => self::SECTION_ID,
