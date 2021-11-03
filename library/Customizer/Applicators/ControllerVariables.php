@@ -27,7 +27,7 @@ class ControllerVariables
 
               /**
                * Implementation of output active_callback functionality for output. 
-               * Can handle multiple AND statements. 
+               * Can handle multiple AND statements.  
                */
               if(is_string($field['args']['active_callback']) && $field['args']['active_callback'] === '__return_true') {
                 $stack[$key] = \Kirki::get_option($key);
@@ -39,7 +39,23 @@ class ControllerVariables
 
                 foreach($field['args']['active_callback'] as $cb) {
                   $cb = (object) $cb;
-                  if(eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' "' . $cb->value . '";')) {
+
+                  //Verify operator, before eval
+                  if($this->isValidOperator($cb->operator) === false) {
+                    trigger_error("Provided operator in active callback for is not valid.", E_USER_ERROR);
+                  }
+
+                  //Verify value (sanity check)
+                  if(!preg_match('/^[a-z\d_]+$/i', $cb->value)) {
+                    trigger_error("Provided value in active callback for is not valid, should be a string matching (a-z _ digits).", E_USER_ERROR);
+                  }
+
+                  //Create compare string
+                  if(is_string($cb->value)) {
+                    $cb->value = '"'.$cb->value.'"'; 
+                  }
+      
+                  if(eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
                       $shouldReturn = true; 
                   }
                 }
@@ -59,6 +75,19 @@ class ControllerVariables
     return \Municipio\Helper\FormatObject::camelCase(
         (object) $stack
     ); 
+  }
+
+  /**
+   * Validate operator
+   *
+   * @param string $operator
+   * @return bool
+   */
+  private function isValidOperator($operator) : bool {
+    if(in_array((string) $operator, ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
+      return true; 
+    }
+    return false; 
   }
 
 }
