@@ -24,7 +24,33 @@ class ControllerVariables
     if(is_array($fields) && !empty($fields)) {
         foreach($fields as $key => $field) {
             if(isset($field['args']['output']['type']) && $field['args']['output']['type'] === 'controller') {
+
+              /**
+               * Implementation of output active_callback functionality for output. 
+               * Can handle multiple AND statements. 
+               */
+              if(is_string($field['args']['active_callback']) && $field['args']['active_callback'] === '__return_true') {
                 $stack[$key] = \Kirki::get_option($key);
+              } elseif(is_string($field['args']['active_callback']) && $field['args']['active_callback'] === '__return_false') {
+                $stack[$key] = null;
+              } elseif(is_array($field['args']['active_callback']) && !empty($field['args']['active_callback'])) {
+
+                $shouldReturn = false; 
+
+                foreach($field['args']['active_callback'] as $cb) {
+                  $cb = (object) $cb;
+                  if(eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' "' . $cb->value . '";')) {
+                      $shouldReturn = true; 
+                  }
+                }
+
+                if($shouldReturn === true) {
+                  $stack[$key] = \Kirki::get_option($key);
+                } else {
+                  $stack[$key] = null;
+                }
+              }
+              
             }
         }
     }
