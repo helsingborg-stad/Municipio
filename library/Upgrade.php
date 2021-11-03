@@ -107,7 +107,7 @@ class Upgrade
   //Migrate quicklinks stuff. TODO: TEST!
   private function v_10() : bool {
 
-    $this->migrateThemeMod('quicklinks', 'quicklinks_backgound_type', 'field_61570dd479d9b');
+    $this->migrateThemeMod('quicklinks', 'quicklinks_background_type', 'field_61570dd479d9b');
     $this->migrateThemeMod('quicklinks', 'quicklinks_custom_background', 'field_61570e6979d9c');
     $this->migrateThemeMod('quicklinks', 'quicklinks_background', 'field_6123844e0f0bb');
     $this->migrateThemeMod('quicklinks', 'quicklinks_color', 'field_6127571bcc76e');
