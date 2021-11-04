@@ -137,8 +137,8 @@ class Upgrade
     $defaultOverlay = $this->hex2rgba($defaultColor, "0.".(int)$defaultOpacity); 
     $vibrantOverlay = $this->hex2rgba($vibrantColor, "0.".(int)$vibrantOpacity); 
 
-    set_theme_mod('overlay_neutral', $defaultOverlay);
-    set_theme_mod('overlay_vibrant', $vibrantOverlay);
+    set_theme_mod('hero_overlay_neutral', $defaultOverlay);
+    set_theme_mod('hero_overlay_vibrant', $vibrantOverlay);
 
     $this->deleteThemeMod('overlay'); 
 
