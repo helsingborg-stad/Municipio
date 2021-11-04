@@ -8,7 +8,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-  private $dbVersion = 5; //The db version we want to achive 
+  private $dbVersion = 12; //The db version we want to achive 
   private $dbVersionKey = 'municipio_db_version'; 
   private $db; 
 
@@ -17,7 +17,8 @@ class Upgrade
    */
   public function __construct()
   {
-    add_action('init', array($this, 'initUpgrade')); 
+    add_action('init', array($this, 'reset'), 1); //WARNING: Do not use in PROD. This will destry your db. 
+    add_action('init', array($this, 'initUpgrade'), 5); 
     //add_action('init', array($this, 'debug')); 
   }
 
@@ -28,6 +29,15 @@ class Upgrade
    */
   public function debug() {
     var_dump(get_theme_mods()); 
+  }
+
+  /**
+   * Reset db version, in order to run all scripts from the beginning. 
+   *
+   * @return void
+   */
+  public function reset() {
+    update_option($this->dbVersionKey, 1); 
   }
 
   /**

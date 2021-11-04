@@ -17,7 +17,7 @@ class Radius
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
-            'settings'    => 'municipio_radius_xs',
+            'settings'    => 'radius_xs',
             'label'       => esc_html__('Extra small', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 2,
@@ -35,7 +35,7 @@ class Radius
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
-            'settings'    => 'municipio_radius_sm',
+            'settings'    => 'radius_sm',
             'label'       => esc_html__('Small', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 4,
@@ -53,7 +53,7 @@ class Radius
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
-            'settings'    => 'municipio_radius_md',
+            'settings'    => 'radius_md',
             'label'       => esc_html__('Medium', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 6,
@@ -71,7 +71,7 @@ class Radius
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
-            'settings'    => 'municipio_radius_lg',
+            'settings'    => 'radius_lg',
             'label'       => esc_html__('Large', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 8,

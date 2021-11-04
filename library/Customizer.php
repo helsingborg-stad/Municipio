@@ -59,6 +59,6 @@ class Customizer
 
         //Define panels
         new \Municipio\Customizer\Panels\Design();
-        new \Municipio\Customizer\Panels\Example();
+        new \Municipio\Customizer\Panels\Component();
     }
 }
