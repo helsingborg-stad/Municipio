@@ -23,7 +23,7 @@ class ControllerVariables
     //Determine what's a controller var, fetch it
     if(is_array($fields) && !empty($fields)) {
         foreach($fields as $key => $field) {
-            if(isset($field['args']['output']['type']) && $field['args']['output']['type'] === 'controller') {
+            if($this->isControllerSetting($field)) {
 
               /**
                * Implementation of output active_callback functionality for output. 
@@ -88,6 +88,25 @@ class ControllerVariables
       return true; 
     }
     return false; 
+  }
+
+  /**
+   * Determines if should be handled as a controller var.
+   *
+   * @param array $field
+   * @return boolean
+   */
+  private function isControllerSetting($field) {
+
+    if(!isset($field['args']['output']['type'])) {
+      return false;
+    }
+
+    if($field['args']['output']['type'] !== 'controller') {
+      return false;
+    }
+
+    return true; 
   }
 
 }
