@@ -46,8 +46,8 @@ class ControllerVariables
                   }
 
                   //Verify value (sanity check)
-                  if(!preg_match('/^[a-z\d_]+$/i', $cb->value)) {
-                    trigger_error("Provided value in active callback for is not valid, should be a string matching (a-z _ digits).", E_USER_ERROR);
+                  if(!preg_match('/^[a-z\d_-]+$/i', $cb->value)) {
+                    trigger_error("Provided value in active callback for is not valid, should be a string matching (a-z _ - digits).", E_USER_ERROR);
                   }
 
                   //Create compare string
@@ -78,7 +78,7 @@ class ControllerVariables
   }
 
   /**
-   * Validate operator
+   * Validate PHP operator
    *
    * @param string $operator
    * @return bool
