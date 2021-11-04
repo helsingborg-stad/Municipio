@@ -132,16 +132,5 @@ class Quicklinks
           ],
         ]);
 
-        /*
-
-        $this->migrateThemeMod('quicklinks', 'quicklinks_background_type', 'field_61570dd479d9b');
-        $this->migrateThemeMod('quicklinks', 'quicklinks_custom_background', 'field_61570e6979d9c');
-        $this->migrateThemeMod('quicklinks', 'quicklinks_background', 'field_6123844e0f0bb');
-        $this->migrateThemeMod('quicklinks', 'quicklinks_color', 'field_6127571bcc76e');
-        $this->migrateThemeMod('quicklinks', 'quicklinks_sticky', 'field_61488b616937c');
-        $this->migrateThemeMod('quicklinks', 'quicklinks_location', 'field_61488c4f6b4fd');
-        
-        */
-
     }
 }
