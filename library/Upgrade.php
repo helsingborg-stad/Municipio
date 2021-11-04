@@ -64,7 +64,7 @@ class Upgrade
   }
 
   //Migrate navigation position. TODO: TEST!
-  private function v_6() : bool {
+  private function v_6($db) : bool {
 
     $this->migrateThemeMod('general', 'secondary_navigation_position', 'field_60cb4dd897cb8');
     $this->deleteThemeMod('general');
@@ -73,7 +73,7 @@ class Upgrade
   }
 
   //Migrate radius. TODO: TEST!
-  private function v_7() : bool {
+  private function v_7($db) : bool {
 
     $this->migrateThemeMod('radius', 'radius_xs', 'field_603662f7a16f8');
     $this->migrateThemeMod('radius', 'radius_sm', 'field_6038fa31cfac6');
@@ -86,7 +86,7 @@ class Upgrade
   }
 
   //Migrate header stuff. TODO: TEST!
-  private function v_8() : bool {
+  private function v_8($db) : bool {
 
     $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
     $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
@@ -99,7 +99,7 @@ class Upgrade
   }
 
   //Migrate header. TODO: TEST!
-  private function v_9() : bool {
+  private function v_9($db) : bool {
 
     $this->migrateThemeMod('padding', 'main_content_padding', 'field_611e43ec4dfa5');
     
@@ -109,7 +109,7 @@ class Upgrade
   }
 
   //Migrate quicklinks stuff. TODO: TEST!
-  private function v_10() : bool {
+  private function v_10($db) : bool {
 
     $this->migrateThemeMod('quicklinks', 'quicklinks_background_type', 'field_61570dd479d9b');
     $this->migrateThemeMod('quicklinks', 'quicklinks_custom_background', 'field_61570e6979d9c');
@@ -123,8 +123,8 @@ class Upgrade
     return true; 
   }
 
-  //Migrate quicklinks stuff. TODO: TEST!
-  private function v_11() : bool {
+  //Migrate hero stuff. TODO: TEST!
+  private function v_11($db) : bool {
 
     $overlays = get_theme_mod('hero'); 
 
@@ -137,10 +137,29 @@ class Upgrade
     $defaultOverlay = $this->hex2rgba($defaultColor, "0.".(int)$defaultOpacity); 
     $vibrantOverlay = $this->hex2rgba($vibrantColor, "0.".(int)$vibrantOpacity); 
 
+    set_theme_mod('hero_overlay_enable', true);
     set_theme_mod('hero_overlay_neutral', $defaultOverlay);
     set_theme_mod('hero_overlay_vibrant', $vibrantOverlay);
 
     $this->deleteThemeMod('overlay'); 
+
+    return false; 
+  }
+
+
+  //Migrate overlay stuff. TODO: TEST!
+  private function v_12($db) : bool {
+
+    $overlays = get_theme_mod('municipio_color_general_overlay'); 
+
+    $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0']; 
+    $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6']; 
+
+    $overlay = $this->hex2rgba($color, "0.".(int)$opacity); 
+
+    set_theme_mod('overlay', $overlay);
+
+    $this->deleteThemeMod('municipio_color_general_overlay'); 
 
     return false; 
   }
@@ -196,11 +215,11 @@ class Upgrade
 
     //Check if color has 6 or 3 characters and get values
     if (strlen($color) == 6) {
-            $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
+      $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
     } elseif ( strlen( $color ) == 3 ) {
-            $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
+      $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
     } else {
-            return $default;
+      return $default;
     }
 
     //Convert hexadec to rgb
