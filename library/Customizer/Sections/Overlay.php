@@ -14,5 +14,21 @@ class Overlay
             'panel'          => $panelID,
             'priority'       => 160,
         ));
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'color',
+          'settings'    => 'overlay',
+          'label'       => esc_html__('Default overlay', 'municipio'),
+          'description' => esc_html__("Choose a default overlaycolor to use when there's nothing defined.", 'municipio'),
+          'section'     => self::SECTION_ID,
+          'default'     => 'rgba(0,0,0,.6)',
+          'output'      => [
+            'element'   => ':root',
+            'property'  => '--color-general-overlay'
+          ],
+          'choices'     => [
+            'alpha' => true,
+          ]
+        ]);
     }
 }
