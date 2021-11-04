@@ -1,0 +1,22 @@
+<?php
+
+namespace Municipio\Customizer\Panels;
+
+class Component
+{
+    public const PANEL_ID = "municipio_customizer_panel_design_component";
+
+    public function __construct()
+    {
+        \Kirki::add_panel(self::PANEL_ID, array(
+            'priority'    => 120,
+            'title'       => esc_html__('Component Apperance', 'municipio'),
+            'description' => esc_html__('Manage the design options on component level.', 'municipio'),
+        ));
+
+        new \Municipio\Customizer\Sections\Header(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Quicklinks(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Hero(self::PANEL_ID);
+        
+    }
+}
