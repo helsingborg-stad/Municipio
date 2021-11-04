@@ -65,6 +65,7 @@ class Upgrade
 
   //Migrate navigation position. TODO: TEST!
   private function v_6() : bool {
+
     $this->migrateThemeMod('general', 'secondary_navigation_position', 'field_60cb4dd897cb8');
     $this->deleteThemeMod('general');
 
@@ -73,6 +74,7 @@ class Upgrade
 
   //Migrate radius. TODO: TEST!
   private function v_7() : bool {
+
     $this->migrateThemeMod('radius', 'radius_xs', 'field_603662f7a16f8');
     $this->migrateThemeMod('radius', 'radius_sm', 'field_6038fa31cfac6');
     $this->migrateThemeMod('radius', 'radius_md', 'field_6038fa400384b');
@@ -85,6 +87,7 @@ class Upgrade
 
   //Migrate header stuff. TODO: TEST!
   private function v_8() : bool {
+
     $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
     $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
     $this->migrateThemeMod('header', 'header_color', 'field_614467575de00');
@@ -97,6 +100,7 @@ class Upgrade
 
   //Migrate header. TODO: TEST!
   private function v_9() : bool {
+
     $this->migrateThemeMod('padding', 'main_content_padding', 'field_611e43ec4dfa5');
     
     $this->deleteThemeMod('padding');
@@ -117,6 +121,28 @@ class Upgrade
     $this->deleteThemeMod('quicklinks');
 
     return true; 
+  }
+
+  //Migrate quicklinks stuff. TODO: TEST!
+  private function v_11() : bool {
+
+    $overlays = get_theme_mod('hero'); 
+
+    $defaultColor = $overlays['field_614c713ae73ea']['field_614c7189e73eb']; 
+    $defaultOpacity = $overlays['field_614c713ae73ea']['field_614c7197e73ec']; 
+
+    $vibrantColor = $overlays['field_614c720fb65a4']['field_614c720fb65a5'];
+    $vibrantOpacity = $overlays['field_614c720fb65a4']['field_614c720fb65a6']; 
+
+    $defaultOverlay = $this->hex2rgba($defaultColor, "0.".(int)$defaultOpacity); 
+    $vibrantOverlay = $this->hex2rgba($vibrantColor, "0.".(int)$vibrantOpacity); 
+
+    set_theme_mod('overlay_neutral', $defaultOverlay);
+    set_theme_mod('overlay_vibrant', $vibrantOverlay);
+
+    $this->deleteThemeMod('overlay'); 
+
+    return false; 
   }
 
   /**
@@ -145,6 +171,53 @@ class Upgrade
    */
   private function deleteThemeMod($key) {
     return remove_theme_mod($key);
+  }
+
+  /**
+   * Undocumented function
+   *
+   * @param [type] $color
+   * @param boolean $opacity
+   * @return void
+   */
+  private function hex2rgba($color, $opacity = false) {
+ 
+    $default = 'rgb(0,0,0)';
+   
+    //Return default if no color provided
+    if(empty($color)) {
+      return $default; 
+    }
+   
+    //Sanitize $color if "#" is provided 
+    if ($color[0] == '#' ) {
+      $color = substr( $color, 1 );
+    }
+
+    //Check if color has 6 or 3 characters and get values
+    if (strlen($color) == 6) {
+            $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
+    } elseif ( strlen( $color ) == 3 ) {
+            $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
+    } else {
+            return $default;
+    }
+
+    //Convert hexadec to rgb
+    $rgb =  array_map('hexdec', $hex);
+
+    //Check if opacity is set(rgba or rgb)
+    if($opacity){
+      if(abs($opacity) > 1) {
+        $opacity = 1.0;
+      }
+      $output = 'rgba('.implode(",",$rgb).','.$opacity.')';
+    } else {
+      $output = 'rgb('.implode(",",$rgb).')';
+    }
+
+    //Return rgb(a) color string
+    return $output;
   }
 
   /**
