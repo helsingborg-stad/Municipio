@@ -146,7 +146,6 @@ class Upgrade
     return false; 
   }
 
-
   //Migrate overlay stuff. TODO: TEST!
   private function v_12($db) : bool {
 
