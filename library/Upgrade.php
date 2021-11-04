@@ -143,7 +143,7 @@ class Upgrade
 
     $this->deleteThemeMod('overlay'); 
 
-    return false; 
+    return true; 
   }
 
   //Migrate overlay stuff. TODO: TEST!
@@ -160,7 +160,7 @@ class Upgrade
 
     $this->deleteThemeMod('municipio_color_general_overlay'); 
 
-    return false; 
+    return true; 
   }
 
   /**
