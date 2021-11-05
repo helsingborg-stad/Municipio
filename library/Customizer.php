@@ -47,6 +47,9 @@ class Customizer
      */
     public function init()
     {
+        if (!defined("WEB_FONT_DISABLE_INLINE"))
+            define("WEB_FONT_DISABLE_INLINE", true);
+
         \Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'    => 'edit_theme_options',
             'option_type'   => 'theme_mod',
