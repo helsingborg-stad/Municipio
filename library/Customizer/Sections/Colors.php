@@ -112,11 +112,11 @@ class Colors
                 'contrasting'  => esc_html__('Contrastring', 'municipio'),
             ],
             'default'     => [
-                'base'    => '#dec2c2',
-                'dark'   => '#f0dbd9',
-                'light'  => '#f5e4e3',
+                'base'    => '#cb0050',
+                'dark'   => '#a20040',
+                'light'  => '#cb0050',
                 'contrasting'  => '#ffffff',
-            ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
