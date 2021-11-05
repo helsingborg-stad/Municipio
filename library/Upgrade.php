@@ -17,9 +17,14 @@ class Upgrade
    */
   public function __construct()
   {
-    add_action('init', array($this, 'reset'), 1); //WARNING: Do not use in PROD. This will destry your db. 
+    //Development tools
+    //WARNING: Do not use in PROD. This will destry your db. 
+    add_action('init', array($this, 'reset'), 1); 
+    add_action('init', array($this, 'debugPre'), 5); 
+    add_action('init', array($this, 'debugAfter'), 20); 
+
+    //Production hook
     add_action('init', array($this, 'initUpgrade'), 10); 
-    add_action('init', array($this, 'debug'), 20); 
   }
 
   /**
@@ -27,8 +32,23 @@ class Upgrade
    *
    * @return void
    */
-  public function debug() {
-    var_dump(get_theme_mods()); 
+  public function debugAfter() {
+      echo '<h2>After upgrade</h2>'; 
+      echo '<pre style="overflow: auto; max-height: 50vh; margin: 20px; padding: 10px; border: 2px solid #f00;">'; 
+        print_r(get_theme_mods()); 
+      echo '</pre>';
+  } 
+
+  /**
+   * Enable to print stuff you need.
+   *
+   * @return void
+   */
+  public function debugPre() {
+      echo '<h2>Before upgrade</h2>'; 
+      echo '<pre style="overflow: auto; max-height: 50vh; margin: 20px; padding: 10px; border: 2px solid #f00;">'; 
+        print_r(get_theme_mods()); 
+      echo '</pre>';
   }
 
   /**
@@ -52,8 +72,7 @@ class Upgrade
    * @return boolean
    */
   private function v_1($db) : bool {
-    //update code here
-    //var_dump(get_theme_mods()); //A gate way to start!
+    //Copy and update code here
     return true; //Return false to keep running this each time! 
   }
 
