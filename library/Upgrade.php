@@ -18,8 +18,8 @@ class Upgrade
   public function __construct()
   {
     //Development tools
-    //WARNING: Do not use in PROD. This will destry your db. 
-    //add_action('init', array($this, 'reset'), 1); 
+    //WARNING: Do not use in PROD. This will destroy your db. 
+    add_action('init', array($this, 'reset'), 1); 
     add_action('init', array($this, 'debugPre'), 5); 
     add_action('init', array($this, 'debugAfter'), 20); 
 
@@ -184,19 +184,14 @@ class Upgrade
 
   //Migrate overlay stuff. TODO: TEST!
   private function v_12($db) : bool {
-    $overlays = get_theme_mod('municipio_color_general_overlay'); 
-    if(!$overlays) {
-      $overlays = get_theme_mod('overlay'); //Older key
-    }
 
+    $overlays = get_theme_mod('overlay'); 
     if($overlays) {
       $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0']; 
       $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6']; 
       $overlay = $this->hex2rgba($color, "0.".(int)$opacity); 
       set_theme_mod('overlay', $overlay);
     }
-
-    $this->deleteThemeMod('municipio_color_general_overlay'); 
 
     return true; 
   }
@@ -205,23 +200,21 @@ class Upgrade
   private function v_13($db) : bool {
 
     //TODO: Must be granulary mapped to each to-field name
-    $this->migrateThemeMod('modules', 'mod_posts_index_modifier', 'field_6061d864c6873');
-    $this->migrateThemeMod('modules', 'mod_posts_list_modifier', 'field_6062fd67a2eb4');
-    $this->migrateThemeMod('modules', 'mod_posts_expandablelist_modifier', 'field_60631bb52591c');
-    $this->migrateThemeMod('modules', 'mod_contacts_list_modifier', 'field_6063008d5068a');
-    $this->migrateThemeMod('modules', 'mod_contacts_card_modifier', 'field_6090f318a40ef');
-    $this->migrateThemeMod('modules', 'mod_inlay_list_modifier', 'field_606300da5068b');
+    $this->migrateThemeMod('posts', 'mod_posts_index_modifier', 'field_6061d864c6873');
+    $this->migrateThemeMod('posts', 'mod_posts_list_modifier', 'field_6062fd67a2eb4');
+    $this->migrateThemeMod('posts', 'mod_posts_expandablelist_modifier', 'field_60631bb52591c');
+    $this->migrateThemeMod('contacts', 'mod_contacts_list_modifier', 'field_6063008d5068a');
+    $this->migrateThemeMod('contacts', 'mod_contacts_card_modifier', 'field_6090f318a40ef');
+    $this->migrateThemeMod('inlay', 'mod_inlay_list_modifier', 'field_606300da5068b');
     $this->migrateThemeMod('modules', 'mod_map_modifier', 'field_6063013a5068c');
-    $this->migrateThemeMod('modules', 'mod_script_modifier', 'field_6063072c25917');
-    $this->migrateThemeMod('modules', 'mod_text_modifier', 'field_60631b4025918');
-    $this->migrateThemeMod('modules', 'mod_video_modifier', 'field_60631b5f25919');
-    $this->migrateThemeMod('modules', 'mod_index_modifier', 'field_607843a6ba55e');
-    $this->migrateThemeMod('modules', 'mod_localevent_modifier', 'field_607ff0d6b8426');
-    $this->migrateThemeMod('modules', 'mod_section_split_modifier', 'field_611f83757a727');
+    $this->migrateThemeMod('script', 'mod_script_modifier', 'field_6063072c25917');
+    $this->migrateThemeMod('text', 'mod_text_modifier', 'field_60631b4025918');
+    $this->migrateThemeMod('video', 'mod_video_modifier', 'field_60631b5f25919');
+    $this->migrateThemeMod('index', 'mod_index_modifier', 'field_607843a6ba55e');
+    $this->migrateThemeMod('localevent', 'mod_localevent_modifier', 'field_607ff0d6b8426');
+    $this->migrateThemeMod('sectionssplit', 'mod_section_split_modifier', 'field_611f83757a727');
 
     $this->deleteThemeMod('modules');
-
-    //Ancient data delete
     $this->deleteThemeMod('site');
     $this->deleteThemeMod('posts');
     $this->deleteThemeMod('contacts');
@@ -232,7 +225,6 @@ class Upgrade
     $this->deleteThemeMod('sectionssplit');
     $this->deleteThemeMod('text');
     $this->deleteThemeMod('video');
-    $this->deleteThemeMod('sectionssplit');
     $this->deleteThemeMod('card');
 
     return true; 
