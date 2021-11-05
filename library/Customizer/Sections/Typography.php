@@ -16,9 +16,9 @@ class Typography
         ));
     
         $elements = $this->getTypographyElements();
-
+        
         if (!empty($elements)) {
-            foreach ($this->elements as $key => $args) {
+            foreach ($elements as $key => $args) {
                 \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                     'type'      => 'typography',
                     'settings'  => 'typography_' . $key,
