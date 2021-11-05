@@ -19,9 +19,9 @@ class Upgrade
   {
     //Development tools
     //WARNING: Do not use in PROD. This will destroy your db. 
-    add_action('init', array($this, 'reset'), 1); 
+    /*add_action('init', array($this, 'reset'), 1); 
     add_action('init', array($this, 'debugPre'), 5); 
-    add_action('init', array($this, 'debugAfter'), 20); 
+    add_action('init', array($this, 'debugAfter'), 20); */ 
 
     //Production hook
     add_action('init', array($this, 'initUpgrade'), 10); 
@@ -93,7 +93,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate navigation position. TODO: TEST!
+  //Migrate navigation position.
   private function v_6($db) : bool {
 
     $this->migrateThemeMod('general', 'secondary_navigation_position', 'field_60cb4dd897cb8');
@@ -103,7 +103,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate radius. TODO: TEST!
+  //Migrate radius.
   private function v_7($db) : bool {
 
     $this->migrateThemeMod('radius', 'radius_xs', 'field_603662f7a16f8');
@@ -116,7 +116,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate header stuff. TODO: TEST!
+  //Migrate header stuff.
   private function v_8($db) : bool {
 
     $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
@@ -129,7 +129,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate header. TODO: TEST!
+  //Migrate header.
   private function v_9($db) : bool {
 
     $this->migrateThemeMod('padding', 'main_content_padding', 'field_611e43ec4dfa5');
@@ -139,7 +139,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate quicklinks stuff. TODO: TEST!
+  //Migrate quicklinks stuff.
   private function v_10($db) : bool {
 
     $this->migrateThemeMod('quicklinks', 'quicklinks_background_type', 'field_61570dd479d9b');
@@ -154,7 +154,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate hero stuff. TODO: TEST!
+  //Migrate hero stuff.
   private function v_11($db) : bool {
 
     $overlays = get_theme_mod('hero'); 
@@ -182,7 +182,7 @@ class Upgrade
     return true; 
   }
 
-  //Migrate overlay stuff. TODO: TEST!
+  //Migrate overlay stuff.
   private function v_12($db) : bool {
 
     $overlays = get_theme_mod('overlay'); 
@@ -190,13 +190,15 @@ class Upgrade
       $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0']; 
       $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6']; 
       $overlay = $this->hex2rgba($color, "0.".(int)$opacity); 
+
+      var_dump(); 
       set_theme_mod('overlay', $overlay);
     }
 
     return true; 
   }
 
-  //Migrate modules stuff. TODO: TEST!
+  //Migrate modules stuff.
   private function v_13($db) : bool {
 
     //TODO: Must be granulary mapped to each to-field name
