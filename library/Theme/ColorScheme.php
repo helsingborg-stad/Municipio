@@ -73,7 +73,7 @@ class ColorScheme
     public function getColorPalette() {
 
         //Get & flatten theme mods 
-        $themeMods = \Municipio\Helper\CustomizeGet::get(); 
+        $themeMods = \Municipio\Helper\CustomizeGet::get(); //TODO: UPDATE WITH KIRKI GET
 
         //Get target keys
         $colorTargetKeys = $this->colorTargetKeys; 
