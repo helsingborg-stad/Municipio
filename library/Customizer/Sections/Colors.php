@@ -18,7 +18,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_primary',
-            'label'       => esc_html__('Primary', 'municipio'),
+            'label'       => esc_html__('Primary colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -60,7 +60,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_secondary',
-            'label'       => esc_html__('Secondary', 'municipio'),
+            'label'       => esc_html__('Secondary colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -102,7 +102,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_tertiary',
-            'label'       => esc_html__('Tertiary', 'municipio'),
+            'label'       => esc_html__('Tertiary colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -144,6 +144,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_monotone',
+            'label'       => esc_html__('Monotone colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -219,7 +220,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_success',
-            'label'       => esc_html__('Success', 'municipio'),
+            'label'       => esc_html__('Success colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -260,7 +261,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_danger',
-            'label'       => esc_html__('Danger', 'municipio'),
+            'label'       => esc_html__('Danger colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -301,7 +302,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_warning',
-            'label'       => esc_html__('Warning', 'municipio'),
+            'label'       => esc_html__('Warning colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -342,7 +343,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_info',
-            'label'       => esc_html__('Info', 'municipio'),
+            'label'       => esc_html__('Info colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -384,7 +385,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_background',
-            'label'       => esc_html__('Background', 'municipio'),
+            'label'       => esc_html__('Background colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -412,7 +413,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_text',
-            'label'       => esc_html__('Text', 'municipio'),
+            'label'       => esc_html__('Text colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
@@ -447,7 +448,7 @@ class Colors
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_link',
-            'label'       => esc_html__('Link', 'municipio'),
+            'label'       => esc_html__('Link colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
