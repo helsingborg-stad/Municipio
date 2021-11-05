@@ -177,27 +177,21 @@ class Upgrade
   private function v_13($db) : bool {
 
     //TODO: Must be granulary mapped to each to-field name
+    $this->migrateThemeMod('modules', 'mod_posts_index_modifier', 'field_6061d864c6873');
+    $this->migrateThemeMod('modules', 'mod_posts_list_modifier', 'field_6062fd67a2eb4');
+    $this->migrateThemeMod('modules', 'mod_posts_expandablelist_modifier', 'field_60631bb52591c');
+    $this->migrateThemeMod('modules', 'mod_contacts_list_modifier', 'field_6063008d5068a');
+    $this->migrateThemeMod('modules', 'mod_contacts_card_modifier', 'field_6090f318a40ef');
+    $this->migrateThemeMod('modules', 'mod_inlay_list_modifier', 'field_606300da5068b');
+    $this->migrateThemeMod('modules', 'mod_map_modifier', 'field_6063013a5068c');
+    $this->migrateThemeMod('modules', 'mod_script_modifier', 'field_6063072c25917');
+    $this->migrateThemeMod('modules', 'mod_text_modifier', 'field_60631b4025918');
+    $this->migrateThemeMod('modules', 'mod_video_modifier', 'field_60631b5f25919');
+    $this->migrateThemeMod('modules', 'mod_index_modifier', 'field_607843a6ba55e');
+    $this->migrateThemeMod('modules', 'mod_localevent_modifier', 'field_607ff0d6b8426');
+    $this->migrateThemeMod('modules', 'mod_section_split_modifier', 'field_611f83757a727');
 
-    /*
-    $this->migrateThemeMod('modules', 'posts', 'field_6061d864c6873');
-    $this->migrateThemeMod('modules', 'posts', 'field_6062fd67a2eb4');
-    $this->migrateThemeMod('modules', 'posts', 'field_60631bb52591c');
-    $this->migrateThemeMod('modules', 'contacts', 'field_6063008d5068a');
-    $this->migrateThemeMod('modules', 'contacts', 'field_6090f318a40ef');
-    $this->migrateThemeMod('modules', 'inlay', 'field_606300da5068b');
-    $this->migrateThemeMod('modules', 'map', 'field_6063013a5068c');
-    $this->migrateThemeMod('modules', 'script', 'field_6063072c25917');
-    $this->migrateThemeMod('modules', 'text', 'field_60631b4025918');
-    $this->migrateThemeMod('modules', 'video', 'field_60631b5f25919');
-    $this->migrateThemeMod('modules', 'event', 'field_60641a8df5290');
-    $this->migrateThemeMod('modules', 'jsonrender', 'field_60643b600cf66');
-    $this->migrateThemeMod('modules', 'form', 'field_6064452900410');
-    $this->migrateThemeMod('modules', 'index', 'field_607843a6ba55e');
-    $this->migrateThemeMod('modules', 'localevent', 'field_607ff0d6b8426');
-    $this->migrateThemeMod('modules', 'sectionssplit', 'field_611f83757a727');
-    */ 
-
-    //$this->deleteThemeMod('modules');
+    $this->deleteThemeMod('modules');
 
     return true; 
   }
