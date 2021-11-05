@@ -121,8 +121,7 @@ class Colors
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'color_palette_tertiary',
-            'label'       => esc_html__('Monotone', 'municipio'),
+            'settings'    => 'color_palette_monotone',
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
