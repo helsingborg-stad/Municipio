@@ -19,7 +19,7 @@ class Upgrade
   {
     //Development tools
     //WARNING: Do not use in PROD. This will destry your db. 
-    add_action('init', array($this, 'reset'), 1); 
+    //add_action('init', array($this, 'reset'), 1); 
     add_action('init', array($this, 'debugPre'), 5); 
     add_action('init', array($this, 'debugAfter'), 20); 
 
