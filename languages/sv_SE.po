@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-10-05 11:39+0200\n"
-"PO-Revision-Date: 2021-10-05 11:41+0200\n"
+"POT-Creation-Date: 2021-11-05 09:01+0100\n"
+"PO-Revision-Date: 2021-11-05 09:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -35,8 +35,9 @@ msgid "Label"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:29
+#: library/Customizer/Sections/Colors.php:455
 msgid "Link"
-msgstr ""
+msgstr "Länk"
 
 #: library/AcfFields/php/block-button.php:51
 #: library/AcfFields/php/customizer-color.php:98
@@ -48,7 +49,7 @@ msgstr ""
 #: library/AcfFields/php/customizer-hero.php:28
 #: library/AcfFields/php/customizer-hero.php:89
 #: library/AcfFields/php/customizer-overlay.php:28
-#: library/AcfFields/php/customizer-overlay.php:91
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:221
 msgid "Color"
 msgstr "Färg"
 
@@ -62,6 +63,7 @@ msgstr "Primär"
 #: library/AcfFields/php/customizer-header.php:104
 #: library/AcfFields/php/customizer-header.php:105
 #: library/AcfFields/php/customizer-quicklinks.php:100
+#: library/Customizer/Sections/Colors.php:421
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -70,6 +72,10 @@ msgstr "Sekundär"
 #: library/AcfFields/php/navigation-widget.php:350
 #: library/AcfFields/php/widget-header-links.php:291
 #: library/AcfFields/php/widget-header-menu.php:48
+#: library/Customizer/Sections/Width.php:17
+#: vendor/kirki/controls/php/class-kirki-control-base.php:134
+#: vendor/kirki/controls/views/image.php:36
+#: vendor/kirki/field/class-kirki-field-image.php:49
 msgid "Default"
 msgstr "Standard"
 
@@ -101,6 +107,7 @@ msgstr ""
 
 #: library/AcfFields/php/block-button.php:113
 #: library/AcfFields/php/navigation-widget.php:338
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:134
 msgid "Size"
 msgstr "Storlek"
 
@@ -111,11 +118,13 @@ msgstr "Storlek"
 #: library/AcfFields/php/widget-header-common.php:130
 #: library/AcfFields/php/widget-header-links.php:292
 #: library/AcfFields/php/widget-header-menu.php:49
+#: library/Customizer/Sections/Radius.php:39
 msgid "Small"
 msgstr "Liten"
 
 #: library/AcfFields/php/block-button.php:126
 #: library/AcfFields/php/customizer-radius.php:73
+#: library/Customizer/Sections/Radius.php:57
 msgid "Medium"
 msgstr "Mellan"
 
@@ -128,6 +137,9 @@ msgstr "Mellan"
 #: library/AcfFields/php/widget-header-common.php:131
 #: library/AcfFields/php/widget-header-links.php:293
 #: library/AcfFields/php/widget-header-menu.php:50
+#: library/Customizer/Sections/Radius.php:75
+#: library/Customizer/Sections/Width.php:92
+#: library/Customizer/Sections/Width.php:109
 msgid "Large"
 msgstr "Stor"
 
@@ -169,6 +181,7 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-card.php:10
 #: library/AcfFields/php/customizer-color.php:6
+#: library/Customizer/Sections/Colors.php:12
 msgid "Colors"
 msgstr "Färger"
 
@@ -178,15 +191,16 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-card.php:30
 msgid "Complementary"
-msgstr ""
+msgstr "Komplementär"
 
 #: library/AcfFields/php/customizer-card.php:44
 msgid "#FAEEEC"
 msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:10
+#: library/Customizer/Sections/Colors.php:21
 msgid "Primary colors"
-msgstr ""
+msgstr "Primära färger"
 
 #: library/AcfFields/php/customizer-color.php:24
 msgid "The dominating color of the website."
@@ -238,7 +252,6 @@ msgstr "Primärfärg, opak"
 #: library/AcfFields/php/customizer-hero.php:46
 #: library/AcfFields/php/customizer-hero.php:107
 #: library/AcfFields/php/customizer-overlay.php:48
-#: library/AcfFields/php/customizer-overlay.php:111
 msgid "Alpha"
 msgstr "Opacitet"
 
@@ -247,8 +260,9 @@ msgid "Primary Alpha Dimmed Color"
 msgstr "Primärfärg (Opak - färg)"
 
 #: library/AcfFields/php/customizer-color.php:189
+#: library/Customizer/Sections/Colors.php:63
 msgid "Secondary colors"
-msgstr ""
+msgstr "Sekundära färger"
 
 #: library/AcfFields/php/customizer-color.php:203
 msgid "Second level of colors on used on the site."
@@ -290,8 +304,9 @@ msgid "Secondary Alpha Dimmed Color"
 msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:376
+#: library/Customizer/Sections/Colors.php:105
 msgid "Tertiary colors"
-msgstr ""
+msgstr "Tertiära färger"
 
 #: library/AcfFields/php/customizer-color.php:390
 msgid "Third level of colors on used on the site."
@@ -299,7 +314,7 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:396
 msgid "Tertiary Color"
-msgstr ""
+msgstr "Tertiärfärg"
 
 #: library/AcfFields/php/customizer-color.php:413
 msgid "Tertiary Dark Color"
@@ -318,8 +333,9 @@ msgid "Tertiary Alpha Dimmed Color"
 msgstr ""
 
 #: library/AcfFields/php/customizer-color.php:563
+#: library/Customizer/Sections/Colors.php:451
 msgid "Link colors"
-msgstr ""
+msgstr "Länkfärger"
 
 #: library/AcfFields/php/customizer-color.php:577
 msgid "Set the colors for all types of links overall on the website."
@@ -334,7 +350,6 @@ msgstr "Länkfärg"
 #: library/AcfFields/php/customizer-hero.php:42
 #: library/AcfFields/php/customizer-hero.php:103
 #: library/AcfFields/php/customizer-overlay.php:42
-#: library/AcfFields/php/customizer-overlay.php:105
 msgid "#000000"
 msgstr ""
 
@@ -403,7 +418,7 @@ msgstr ""
 #: library/AcfFields/php/customizer-index.php:25
 #: library/AcfFields/php/customizer-inlay.php:25
 #: library/AcfFields/php/customizer-jsonrender.php:28
-#: library/AcfFields/php/customizer-localevent.php:28
+#: library/AcfFields/php/customizer-localevent.php:31
 #: library/AcfFields/php/customizer-map.php:25
 #: library/AcfFields/php/customizer-posts.php:25
 #: library/AcfFields/php/customizer-posts.php:55
@@ -413,6 +428,8 @@ msgstr ""
 #: library/AcfFields/php/customizer-text.php:25
 #: library/AcfFields/php/customizer-video.php:28
 #: library/AcfFields/php/widget-header-common.php:132
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:176
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:192
 msgid "None"
 msgstr "Ingen"
 
@@ -421,7 +438,7 @@ msgstr "Ingen"
 #: library/AcfFields/php/customizer-form.php:29
 #: library/AcfFields/php/customizer-inlay.php:26
 #: library/AcfFields/php/customizer-jsonrender.php:29
-#: library/AcfFields/php/customizer-localevent.php:29
+#: library/AcfFields/php/customizer-localevent.php:32
 #: library/AcfFields/php/customizer-map.php:26
 #: library/AcfFields/php/customizer-posts.php:26
 #: library/AcfFields/php/customizer-posts.php:56
@@ -438,7 +455,7 @@ msgstr ""
 #: library/AcfFields/php/customizer-header.php:138
 #: library/AcfFields/php/customizer-inlay.php:27
 #: library/AcfFields/php/customizer-jsonrender.php:30
-#: library/AcfFields/php/customizer-localevent.php:30
+#: library/AcfFields/php/customizer-localevent.php:33
 #: library/AcfFields/php/customizer-map.php:27
 #: library/AcfFields/php/customizer-posts.php:27
 #: library/AcfFields/php/customizer-posts.php:57
@@ -456,7 +473,6 @@ msgstr ""
 #: library/AcfFields/php/customizer-index.php:26
 #: library/AcfFields/php/customizer-inlay.php:28
 #: library/AcfFields/php/customizer-jsonrender.php:31
-#: library/AcfFields/php/customizer-localevent.php:31
 #: library/AcfFields/php/customizer-map.php:28
 #: library/AcfFields/php/customizer-posts.php:28
 #: library/AcfFields/php/customizer-posts.php:58
@@ -531,12 +547,20 @@ msgstr "Sekundär ljus färg"
 #: library/AcfFields/php/customizer-general.php:25
 #: library/AcfFields/php/customizer-width.php:132
 #: library/AcfFields/php/widget-header-common.php:102
+#: library/Customizer/Sections/Width.php:86
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:131
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:145
+#: vendor/kirki/field/class-kirki-field-spacing.php:34
 msgid "Left"
 msgstr "Vänster"
 
 #: library/AcfFields/php/customizer-general.php:26
 #: library/AcfFields/php/customizer-width.php:160
 #: library/AcfFields/php/widget-header-common.php:103
+#: library/Customizer/Sections/Width.php:103
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:132
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:157
+#: vendor/kirki/field/class-kirki-field-spacing.php:35
 msgid "Right"
 msgstr "Höger"
 
@@ -600,11 +624,13 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-header.php:101
 #: library/AcfFields/php/customizer-quicklinks.php:134
+#: library/Customizer/Sections/Colors.php:158
 msgid "White"
 msgstr "Vit"
 
 #: library/AcfFields/php/customizer-header.php:102
 #: library/AcfFields/php/customizer-quicklinks.php:135
+#: library/Customizer/Sections/Colors.php:151
 msgid "Black"
 msgstr "Svart"
 
@@ -617,7 +643,6 @@ msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
 #: library/AcfFields/php/customizer-hero.php:10
-#: library/AcfFields/php/customizer-overlay.php:10
 msgid "Vibrant overlay colour"
 msgstr "Livfullt bildfilter"
 
@@ -630,7 +655,6 @@ msgstr ""
 "’livfull’."
 
 #: library/AcfFields/php/customizer-hero.php:71
-#: library/AcfFields/php/customizer-overlay.php:73
 msgid "Neutral overlay colour"
 msgstr "Neutralt bildfilter"
 
@@ -702,13 +726,13 @@ msgstr ""
 msgid "Overlay"
 msgstr ""
 
-#: library/AcfFields/php/customizer-overlay.php:13
-msgid "Set a colourful overlay, the color will be overlayed on images."
-msgstr "Ställ in ett bildfilter i en livfull version. "
+#: library/AcfFields/php/customizer-overlay.php:10
+msgid "Overlay colour"
+msgstr ""
 
-#: library/AcfFields/php/customizer-overlay.php:76
-msgid "Set a neutral overlay, the color will be overlayed on images."
-msgstr "Ställ in ett bildfilter i en neutral version. "
+#: library/AcfFields/php/customizer-overlay.php:13
+msgid "Set a overlay, the color will be overlayed on images."
+msgstr ""
 
 #: library/AcfFields/php/customizer-padding.php:6
 msgid "Padding"
@@ -831,6 +855,7 @@ msgid "General radius"
 msgstr "Generella inställningar för rundade hörn"
 
 #: library/AcfFields/php/customizer-radius.php:23
+#: library/Customizer/Sections/Radius.php:13
 msgid ""
 "Adjust the roundness of corners on the site overall. The sizes are applied "
 "where they are suitable, additional component adjustments can be made under "
@@ -874,20 +899,24 @@ msgid "Widths"
 msgstr ""
 
 #: library/AcfFields/php/customizer-width.php:10
+#: library/Customizer/Sections/Width.php:46
 msgid "Page Widths"
 msgstr "Sidans bredd"
 
 #: library/AcfFields/php/customizer-width.php:23
+#: library/Customizer/Sections/Width.php:47
 msgid "Set the maximum page withs of different page types."
 msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
 
 #: library/AcfFields/php/customizer-width.php:50
+#: library/Customizer/Sections/Width.php:24
 #, fuzzy
 #| msgid "Front page"
 msgid "Front Page"
 msgstr "Startsida"
 
 #: library/AcfFields/php/customizer-width.php:71
+#: library/Customizer/Sections/Width.php:31
 msgid "Archives"
 msgstr "Arkiv"
 
@@ -909,6 +938,8 @@ msgstr ""
 
 #: library/AcfFields/php/customizer-width.php:147
 #: library/AcfFields/php/customizer-width.php:175
+#: library/Customizer/Sections/Width.php:91
+#: library/Customizer/Sections/Width.php:108
 #, fuzzy
 #| msgid "Formats"
 msgid "Normal"
@@ -6066,14 +6097,17 @@ msgid "Extra large"
 msgstr "Extra stor"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:26
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:178
 msgid "Uppercase"
 msgstr "Versaler"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:179
 msgid "Lowercase"
 msgstr "Gemener"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:28
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:177
 msgid "Capitalize"
 msgstr "Stora bokstäver"
 
@@ -6422,24 +6456,32 @@ msgstr "Ja, inaktivera sidor"
 msgid "Disable pages"
 msgstr "Inaktivera sidor"
 
+#: library/AcfFields/php/options-theme-search-display.php:6
+msgid "Display settings"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-search-display.php:10
 msgid "Visa sök"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:23
+#: library/AcfFields/php/options-theme-search-display.php:25
 msgid "Hero på startsidan"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:24
+#: library/AcfFields/php/options-theme-search-display.php:26
 msgid "Headern på undersidor"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:25
+#: library/AcfFields/php/options-theme-search-display.php:27
 msgid "Headern på startsidan"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:26
+#: library/AcfFields/php/options-theme-search-display.php:28
 msgid "Alternativ i huvudmenyn"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-display.php:29
+msgid "Alternativ i mobilmenyn"
 msgstr ""
 
 #: library/AcfFields/php/user-author-image.php:10
@@ -6540,6 +6582,7 @@ msgid "Margin"
 msgstr "Marginal"
 
 #: library/AcfFields/php/widget-header-common.php:129
+#: vendor/kirki/controls/php/class-kirki-control-background.php:106
 msgid "Auto"
 msgstr "Automatisk"
 
@@ -6757,11 +6800,12 @@ msgid "Customizer"
 msgstr "Anpassning"
 
 #: library/Admin/Options/Theme.php:39 library/Admin/Options/Theme.php:40
+#: library/Customizer/Sections/Width.php:38
 msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:169
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:171
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -6835,7 +6879,7 @@ msgstr ""
 "kommer webbsidans innehåll att återställas och synkroniseras med live sajten "
 "på måndag. "
 
-#: library/Admin/UI/Customizer.php:52
+#: library/Admin/UI/Customizer.php:50
 msgid ""
 "<h1>Plugin install required </h1> <p>To use the customizer with municipio "
 "its required to use ACFCustomizer plugin. Please install this plugin by "
@@ -6843,11 +6887,11 @@ msgid ""
 "folder and activate or just click the link below.</p>"
 msgstr ""
 
-#: library/Admin/UI/Customizer.php:53
+#: library/Admin/UI/Customizer.php:51 library/Customizer.php:22
 msgid "Plugin install required"
 msgstr ""
 
-#: library/Admin/UI/Customizer.php:56
+#: library/Admin/UI/Customizer.php:54 library/Customizer.php:25
 msgid "Install plugin"
 msgstr ""
 
@@ -6901,6 +6945,7 @@ msgid "Add new"
 msgstr "Skapa ny"
 
 #: library/Content/CustomPostType.php:59
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:86
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
@@ -6985,85 +7030,85 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:159 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:161 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:160
+#: library/Controller/BaseController.php:162
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:161
+#: library/Controller/BaseController.php:163
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:162
+#: library/Controller/BaseController.php:164
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:163
+#: library/Controller/BaseController.php:165
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:164
+#: library/Controller/BaseController.php:166
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:165
+#: library/Controller/BaseController.php:167
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:166
+#: library/Controller/BaseController.php:168
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:167
+#: library/Controller/BaseController.php:169
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:168
+#: library/Controller/BaseController.php:170
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:170
+#: library/Controller/BaseController.php:172
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:171
+#: library/Controller/BaseController.php:173
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:172
+#: library/Controller/BaseController.php:174
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:173
+#: library/Controller/BaseController.php:175
 msgid "Useful links"
 msgstr ""
 
-#: library/Controller/BaseController.php:174
+#: library/Controller/BaseController.php:176
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:175 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:177 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:176
+#: library/Controller/BaseController.php:178
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:177
+#: library/Controller/BaseController.php:179
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:178
+#: library/Controller/BaseController.php:180
 msgid "More Languages"
 msgstr ""
 
@@ -7133,37 +7178,247 @@ msgstr "Svara"
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Customizer/CustomizerPanels.php:212
+#: library/Customizer.php:21
+msgid "Kirki Customizer framework is required"
+msgstr ""
+
+#: library/Customizer/CustomizerPanels.php:214
 msgid "Components"
 msgstr ""
 
-#: library/Customizer/CustomizerPanels.php:231
+#: library/Customizer/CustomizerPanels.php:233
+#: library/Customizer/Panels/Design.php:13
 msgid "Design"
 msgstr ""
 
-#: library/Customizer/CustomizerPanels.php:250
+#: library/Customizer/CustomizerPanels.php:252
 msgid "Modifiers"
 msgstr ""
 
-#: library/Customizer/DesignLibrary.php:53
+#: library/Customizer/DesignLibrary.php:52
 msgid "Design library"
 msgstr ""
 
-#: library/Customizer/DesignLibrary.php:59
+#: library/Customizer/DesignLibrary.php:58
 msgid "Load a design implemented on any other municipio website."
 msgstr ""
 
-#: library/Customizer/DesignLibrary.php:67
+#: library/Customizer/DesignLibrary.php:66
 msgid ""
 "Share your design with the community! Click \"publish now\" to make your "
 "design avabile to the world."
 msgstr ""
 
-#: library/Customizer/DesignLibrary.php:157
+#: library/Customizer/DesignLibrary.php:154
 msgid "Error loading options"
 msgstr ""
 
-#: library/Helper/CustomizeCreate.php:28
+#: library/Customizer/Panels/Design.php:14
+msgid "Design panel woho!!!"
+msgstr ""
+
+#: library/Customizer/Panels/Example.php:13
+msgid "Example panel"
+msgstr ""
+
+#: library/Customizer/Panels/Example.php:14
+msgid "A example panel"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:13
+msgid "Colors used across the theme."
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:25
+#: library/Customizer/Sections/Colors.php:67
+#: library/Customizer/Sections/Colors.php:109
+#: library/Customizer/Sections/Colors.php:227
+#: library/Customizer/Sections/Colors.php:268
+#: library/Customizer/Sections/Colors.php:309
+#: library/Customizer/Sections/Colors.php:350
+#: library/Customizer/Sections/Colors.php:420
+#: library/Customizer/Sections/Example.php:25
+#: library/Customizer/Sections/Typography.php:45
+msgid "Base"
+msgstr "Bas"
+
+#: library/Customizer/Sections/Colors.php:26
+#: library/Customizer/Sections/Colors.php:68
+#: library/Customizer/Sections/Colors.php:110
+#: library/Customizer/Sections/Colors.php:154
+#: library/Customizer/Sections/Colors.php:228
+#: library/Customizer/Sections/Colors.php:269
+#: library/Customizer/Sections/Colors.php:310
+#: library/Customizer/Sections/Colors.php:351
+#: library/Customizer/Sections/Example.php:26
+msgid "Dark"
+msgstr "Mörk"
+
+#: library/Customizer/Sections/Colors.php:27
+#: library/Customizer/Sections/Colors.php:69
+#: library/Customizer/Sections/Colors.php:111
+#: library/Customizer/Sections/Colors.php:155
+#: library/Customizer/Sections/Colors.php:229
+#: library/Customizer/Sections/Colors.php:270
+#: library/Customizer/Sections/Colors.php:311
+#: library/Customizer/Sections/Colors.php:352
+msgid "Light"
+msgstr "Ljus"
+
+#: library/Customizer/Sections/Colors.php:28
+#: library/Customizer/Sections/Colors.php:70
+#: library/Customizer/Sections/Colors.php:112
+#: library/Customizer/Sections/Colors.php:230
+#: library/Customizer/Sections/Colors.php:271
+#: library/Customizer/Sections/Colors.php:312
+#: library/Customizer/Sections/Colors.php:353
+msgid "Contrastring"
+msgstr "Kontrasterande"
+
+#: library/Customizer/Sections/Colors.php:147
+msgid "Monotone colors"
+msgstr "Monotona färger"
+
+#: library/Customizer/Sections/Colors.php:152
+msgid "Darkest"
+msgstr "Mörkast"
+
+#: library/Customizer/Sections/Colors.php:153
+msgid "Darker"
+msgstr "Mörkare"
+
+#: library/Customizer/Sections/Colors.php:156
+msgid "Lighther"
+msgstr "Ljusare"
+
+#: library/Customizer/Sections/Colors.php:157
+msgid "Lightest"
+msgstr "Ljusast"
+
+#: library/Customizer/Sections/Colors.php:223
+msgid "Success colors"
+msgstr "Lyckades"
+
+#: library/Customizer/Sections/Colors.php:264
+msgid "Danger colors"
+msgstr "Fara"
+
+#: library/Customizer/Sections/Colors.php:305
+msgid "Warning colors"
+msgstr "Varning"
+
+#: library/Customizer/Sections/Colors.php:346
+msgid "Info colors"
+msgstr "Information"
+
+#: library/Customizer/Sections/Colors.php:388
+msgid "Background colors"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:392
+msgid "Background"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:393
+msgid "Paper"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:416
+msgid "Text colors"
+msgstr "Textfärger"
+
+#: library/Customizer/Sections/Colors.php:422
+msgid "Disabled"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:456
+msgid "Hover"
+msgstr "Hovra"
+
+#: library/Customizer/Sections/Colors.php:457
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
+msgid "Active"
+msgstr "Aktivera"
+
+#: library/Customizer/Sections/Colors.php:458
+msgid "Visited"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:459
+msgid "Visited hover"
+msgstr ""
+
+#: library/Customizer/Sections/Example.php:12
+msgid "Example"
+msgstr ""
+
+#: library/Customizer/Sections/Example.php:13
+msgid "A simple example panel demonstrating different setups."
+msgstr ""
+
+#: library/Customizer/Sections/Example.php:21
+msgid "Example css variable setting"
+msgstr ""
+
+#: library/Customizer/Sections/Example.php:50
+msgid "Example modifier toggle"
+msgstr ""
+
+#: library/Customizer/Sections/Example.php:55
+#: library/Customizer/Sections/Example.php:76
+msgid "Option 1"
+msgstr "Val 1"
+
+#: library/Customizer/Sections/Example.php:56
+#: library/Customizer/Sections/Example.php:77
+msgid "Option 2"
+msgstr "Val 2"
+
+#: library/Customizer/Sections/Example.php:57
+#: library/Customizer/Sections/Example.php:78
+msgid "Option 3"
+msgstr "Val 3"
+
+#: library/Customizer/Sections/Example.php:58
+#: library/Customizer/Sections/Example.php:79
+msgid "Option 4"
+msgstr "Val 4"
+
+#: library/Customizer/Sections/Example.php:71
+msgid "Example controller variable"
+msgstr ""
+
+#: library/Customizer/Sections/Radius.php:12
+msgid "Rounded corners"
+msgstr ""
+
+#: library/Customizer/Sections/Radius.php:21
+msgid "Extra small"
+msgstr ""
+
+#: library/Customizer/Sections/Typography.php:12
+msgid "Typography"
+msgstr "Typografi"
+
+#: library/Customizer/Sections/Typography.php:13
+msgid "Options for various Typography elements"
+msgstr ""
+
+#: library/Customizer/Sections/Typography.php:89
+msgid "Headings"
+msgstr "Rubriker"
+
+#: library/Customizer/Sections/Width.php:77
+msgid "Width of page columns"
+msgstr ""
+
+#: library/Customizer/Sections/Width.php:78
+msgid ""
+"Set the width of left & right columns. The middle (content) column will use "
+"whatever space left."
+msgstr ""
+
+#: library/Helper/CustomizeCreate.php:26
 msgid "Municipio customizer error"
 msgstr ""
 
@@ -7416,6 +7671,18 @@ msgstr ""
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
+#: library/Upgrade.php:106
+msgid "To be installed database version must be a number."
+msgstr ""
+
+#: library/Upgrade.php:110
+msgid "Current database version must be a number."
+msgstr ""
+
+#: library/Upgrade.php:114
+msgid "Database cannot be lower than currently installed (cannot downgrade)."
+msgstr ""
+
 #: library/Widget/Navigation/Navigation.php:82
 msgid "Översätt"
 msgstr "Översätt"
@@ -7454,6 +7721,515 @@ msgstr "Fel"
 
 #: vendor/helsingborg-stad/recaptcha-integration/src/Validation.php:43
 msgid "reCaptcha validation failed"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:48
+msgid "Background Color"
+msgstr "Bakgrundsfärg"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:54
+msgid "Background Image"
+msgstr "Bakgrundsbild"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:59
+#: vendor/kirki/controls/php/class-kirki-control-base.php:132
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:408
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:413
+msgid "No File Selected"
+msgstr "Ingen fil vald"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:62
+#: vendor/kirki/controls/php/class-kirki-control-base.php:133
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:386
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:418
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:443
+#: vendor/kirki/controls/views/image.php:37
+#: vendor/kirki/field/class-kirki-field-image.php:50
+#: views/v1/partials/blog/comments.blade.php:62
+#: views/v1/partials/blog/comments.blade.php:126
+msgid "Remove"
+msgstr "Ta bort"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:63
+#: vendor/kirki/controls/php/class-kirki-control-base.php:135
+msgid "Select File"
+msgstr "Välj fil"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:70
+msgid "Background Repeat"
+msgstr "Repetera bakgrund"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:72
+msgid "No Repeat"
+msgstr "Upprepa inte"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:73
+msgid "Repeat All"
+msgstr "Upprepa allt"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:74
+msgid "Repeat Horizontally"
+msgstr "Repetera horisontellt"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:75
+msgid "Repeat Vertically"
+msgstr "Repetera vertikalt"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:81
+msgid "Background Position"
+msgstr "Bakgrundsposition"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:83
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:114
+msgid "Left Top"
+msgstr "Vänster toppen"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:84
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:115
+msgid "Left Center"
+msgstr "Vänster Centrer"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:85
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:116
+msgid "Left Bottom"
+msgstr "Vänster botten"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:86
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:117
+msgid "Right Top"
+msgstr "Höger toppen"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:87
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:118
+msgid "Right Center"
+msgstr "Höger Center"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:88
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:119
+msgid "Right Bottom"
+msgstr "Höger botten"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:89
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:120
+msgid "Center Top"
+msgstr "Centrerat toppen"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:90
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:121
+msgid "Center Center"
+msgstr "Centrerat"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:91
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:122
+msgid "Center Bottom"
+msgstr "Centrerat botten"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:97
+msgid "Background Size"
+msgstr "Bakgrundens storlek"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:100
+msgid "Cover"
+msgstr "Omslag"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:103
+msgid "Contain"
+msgstr "Innehåll"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:113
+msgid "Background Attachment"
+msgstr "Bakgrundbilaga"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:116
+msgid "Scroll"
+msgstr "Skroll"
+
+#: vendor/kirki/controls/php/class-kirki-control-background.php:119
+msgid "Fixed"
+msgstr "Fixerad"
+
+#: vendor/kirki/controls/php/class-kirki-control-base.php:136
+msgid "Standard Fonts"
+msgstr "Standardtypsnitt"
+
+#: vendor/kirki/controls/php/class-kirki-control-base.php:137
+msgid "Google Fonts"
+msgstr "Google typsnitt"
+
+#: vendor/kirki/controls/php/class-kirki-control-base.php:138
+#, fuzzy
+#| msgid "Default style"
+msgid "CSS Defaults"
+msgstr "Standard"
+
+#: vendor/kirki/controls/php/class-kirki-control-base.php:139
+msgid "Default Browser Font-Family"
+msgstr "Standardtypfamilj för webbläsare"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimension.php:41
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:138
+msgid "Invalid Value"
+msgstr "Ogiltigt värde"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:123
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:102
+msgid "Font Size"
+msgstr "Teckesnittsstorlek"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:124
+msgid "Font Weight"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:125
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:110
+msgid "Line Height"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:126
+msgid "Font Style"
+msgstr "Typsnittsstil"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:127
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:118
+msgid "Letter Spacing"
+msgstr "Spärrning"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:128
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:126
+msgid "Word Spacing"
+msgstr "Ord avstånd"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:129
+#: vendor/kirki/field/class-kirki-field-spacing.php:32
+msgid "Top"
+msgstr "Ovanför"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:130
+#: vendor/kirki/field/class-kirki-field-spacing.php:33
+msgid "Bottom"
+msgstr "Under"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:133
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:151
+msgid "Center"
+msgstr "Centrerad"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:135
+msgid "Spacing"
+msgstr "Avstånd"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:136
+msgid "Width"
+msgstr "Bredd"
+
+#: vendor/kirki/controls/php/class-kirki-control-dimensions.php:137
+msgid "Height"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:77
+msgid "row"
+msgstr "rad"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:121
+msgid "Select a Page"
+msgstr "Välj en sida"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:227
+#, php-format
+msgid "Limit: %s rows"
+msgstr "Gräns: %s rader"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:376
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:381
+msgid "No Image Selected"
+msgstr "Ingen bild vald"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:387
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:391
+msgid "Add Image"
+msgstr "Lägg till bild"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:387
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:389
+msgid "Change Image"
+msgstr "Ändra bild"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:419
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:423
+msgid "Add File"
+msgstr "Lägg till fil"
+
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:419
+#: vendor/kirki/controls/php/class-kirki-control-repeater.php:421
+msgid "Change File"
+msgstr "Byt fil"
+
+#: vendor/kirki/controls/php/class-kirki-control-slider.php:67
+msgid "Reset"
+msgstr "Återställ"
+
+#: vendor/kirki/controls/php/class-kirki-control-switch.php:52
+#: vendor/kirki/field/class-kirki-field-switch.php:39
+msgid "On"
+msgstr "På"
+
+#: vendor/kirki/controls/php/class-kirki-control-switch.php:56
+#: vendor/kirki/field/class-kirki-field-switch.php:40
+msgid "Off"
+msgstr "Av"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:82
+msgid "Font Family"
+msgstr "Typsnitt"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:83
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:88
+msgid "Select Font Family"
+msgstr "Välj typsnitt"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:87
+msgid "Backup Font"
+msgstr "Backup typsnitt"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:93
+msgid "Variant"
+msgstr "Variant"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:134
+msgid "Text Align"
+msgstr "Justering av text"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:139
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:181
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:197
+msgid "Inherit"
+msgstr "Ärv"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:163
+msgid "Justify"
+msgstr "Fyll bredd"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:173
+msgid "Text Transform"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:180
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:196
+msgid "Initial"
+msgstr "Standard"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:189
+msgid "Text Decoration"
+msgstr "Textdekoration"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:193
+msgid "Underline"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:194
+msgid "Overline"
+msgstr ""
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:195
+msgid "Line-Through"
+msgstr "Genomstruken"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:205
+msgid "Margin Top"
+msgstr "Toppmarginal"
+
+#: vendor/kirki/controls/php/class-kirki-control-typography.php:213
+msgid "Margin Bottom"
+msgstr "Marginal till botten"
+
+#: vendor/kirki/controls/views/image.php:34
+#: vendor/kirki/controls/views/image.php:39
+#: vendor/kirki/field/class-kirki-field-image.php:47
+#: vendor/kirki/field/class-kirki-field-image.php:52
+msgid "Select image"
+msgstr "Välj bild"
+
+#: vendor/kirki/controls/views/image.php:35
+#: vendor/kirki/field/class-kirki-field-image.php:48
+msgid "Change image"
+msgstr "Byt bild"
+
+#: vendor/kirki/controls/views/image.php:38
+#: vendor/kirki/field/class-kirki-field-image.php:51
+msgid "No image selected"
+msgstr "Ingen bild"
+
+#: vendor/kirki/controls/views/image.php:40
+#: vendor/kirki/field/class-kirki-field-image.php:53
+msgid "Choose image"
+msgstr "Välj bild"
+
+#: vendor/kirki/core/class-kirki-field.php:248
+#, php-format
+msgid "Typo found in field %s - setting instead of settings."
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-field.php:257
+#: vendor/kirki/core/class-kirki-field.php:267
+#, php-format
+msgid ""
+"Config not defined for field %1$s - See %2$s for details on how to properly "
+"add fields."
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-field.php:358
+#, php-format
+msgid "Typo found in field %s - \"theme_mods\" vs \"theme_mod\""
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-field.php:375
+#, php-format
+msgid "\"partial_refresh\" invalid entry in field %s"
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-field.php:498
+#: vendor/kirki/core/class-kirki-field.php:509
+#, php-format
+msgid ""
+"\"output\" invalid format in field %s. The \"output\" argument should be "
+"defined as an array of arrays."
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-init.php:289
+msgid ""
+"We detected you're using Kirki_Init::get_variables(). Please use Kirki_Util::"
+"get_variables() instead."
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-init.php:365
+msgid ""
+"Your theme uses a Font Awesome field for icons. To avoid issues with missing "
+"icons on your frontend we recommend you install the official Font Awesome "
+"plugin."
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-init.php:368
+msgid "Install Plugin"
+msgstr ""
+
+#: vendor/kirki/core/class-kirki-init.php:369
+msgid "Don't show this again"
+msgstr ""
+
+#: vendor/kirki/core/class-kirki.php:237
+msgid ""
+"Kirki fields should not be added on customize_register. Please add them "
+"directly, or on init."
+msgstr ""
+
+#: vendor/kirki/deprecated/functions.php:19
+#, php-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#: vendor/kirki/field/class-kirki-field-color.php:52
+msgid ""
+"Do not use \"alpha\" as an argument in color controls. Use "
+"\"choices[alpha]\" instead."
+msgstr ""
+"Använd inte \"alfa\" som ett argument i färgkontroller. Använd istället "
+"\"val [alfa]\"."
+
+#: vendor/kirki/field/class-kirki-field-radio.php:37
+#, php-format
+msgid ""
+"Error in field %1$s. The \"mode\" argument has been deprecated since Kirki "
+"v0.8. Use the \"radio-%2$s\" type instead."
+msgstr ""
+
+#: vendor/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:61
+msgid "Customizing"
+msgstr "Anpassar"
+
+#: vendor/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:64
+#, php-format
+msgid "Customizing &#9656; %s"
+msgstr "Anpassar &#9656; %s"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:198
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:199
+msgid "Ultra-Light 100"
+msgstr "Extra mager 100"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:200
+msgid "Ultra-Light 100 Italic"
+msgstr "Extra mager 100 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:201
+msgid "Light 200"
+msgstr "Mager 200"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:202
+msgid "Light 200 Italic"
+msgstr "Mager 200 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:203
+msgid "Book 300"
+msgstr "Bokstil 300"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:204
+msgid "Book 300 Italic"
+msgstr "Bokstil 300 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:205
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:206
+msgid "Normal 400"
+msgstr ""
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:207
+msgid "Normal 400 Italic"
+msgstr "Normal 400 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:208
+msgid "Medium 500"
+msgstr "Medium 500"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:209
+msgid "Medium 500 Italic"
+msgstr "Medium 500 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:210
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:211
+msgid "Semi-Bold 600"
+msgstr "Halvfet 600"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:212
+msgid "Semi-Bold 600 Italic"
+msgstr "Halvfet 600 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:213
+msgid "Bold 700"
+msgstr "Fet 700"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:214
+msgid "Bold 700 Italic"
+msgstr "Fet 700 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:215
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:216
+msgid "Extra-Bold 800"
+msgstr "Extra fet 800"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:217
+msgid "Extra-Bold 800 Italic"
+msgstr "Extra fet 800 kursiv"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:218
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:219
+msgid "Ultra-Bold 900"
+msgstr "Ultrafet 900"
+
+#: vendor/kirki/modules/webfonts/class-kirki-fonts.php:220
+msgid "Ultra-Bold 900 Italic"
+msgstr "Ultrafet 900 kursiv"
+
+#: vendor/kirki/upgrade-notifications.php:30
+msgid "Important Upgrade Notice:"
 msgstr ""
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
@@ -7662,10 +8438,6 @@ msgstr ""
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2467
 msgid "Installed But Not Activated"
 msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
-msgid "Active"
-msgstr "Aktivera"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2475
 msgid "Required Update not Available"
@@ -7963,11 +8735,6 @@ msgstr "Min profil på"
 msgid "Edit"
 msgstr "Redigera"
 
-#: views/v1/partials/blog/comments.blade.php:62
-#: views/v1/partials/blog/comments.blade.php:126
-msgid "Remove"
-msgstr "Ta bort"
-
 #: views/v1/partials/blog/post-categories.blade.php:2
 msgid "Categories"
 msgstr "Kategorier"
@@ -8110,8 +8877,11 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
-#~ msgid "Background Color"
-#~ msgstr "Bakgrundsfärg"
+#~ msgid "Set a colourful overlay, the color will be overlayed on images."
+#~ msgstr "Ställ in ett bildfilter i en livfull version. "
+
+#~ msgid "Set a neutral overlay, the color will be overlayed on images."
+#~ msgstr "Ställ in ett bildfilter i en neutral version. "
 
 #, fuzzy
 #~| msgid "Grid columns"
@@ -8186,92 +8956,6 @@ msgstr ""
 #~ msgid "reCaptcha verification failed"
 #~ msgstr "Verifiering av robotfilter misslyckades"
 
-#~ msgid "Background Image"
-#~ msgstr "Bakgrundsbild"
-
-#~ msgid "No File Selected"
-#~ msgstr "Ingen fil vald"
-
-#~ msgid "Select File"
-#~ msgstr "Välj fil"
-
-#~ msgid "Background Repeat"
-#~ msgstr "Repetera bakgrund"
-
-#~ msgid "No Repeat"
-#~ msgstr "Upprepa inte"
-
-#~ msgid "Repeat All"
-#~ msgstr "Upprepa allt"
-
-#~ msgid "Repeat Horizontally"
-#~ msgstr "Repetera horisontellt"
-
-#~ msgid "Repeat Vertically"
-#~ msgstr "Repetera vertikalt"
-
-#~ msgid "Background Position"
-#~ msgstr "Bakgrundsposition"
-
-#~ msgid "Left Top"
-#~ msgstr "Vänster toppen"
-
-#~ msgid "Left Center"
-#~ msgstr "Vänster Centrer"
-
-#~ msgid "Left Bottom"
-#~ msgstr "Vänster botten"
-
-#~ msgid "Right Top"
-#~ msgstr "Höger toppen"
-
-#~ msgid "Right Center"
-#~ msgstr "Höger Center"
-
-#~ msgid "Right Bottom"
-#~ msgstr "Höger botten"
-
-#~ msgid "Center Top"
-#~ msgstr "Centrerat toppen"
-
-#~ msgid "Center Center"
-#~ msgstr "Centrerat"
-
-#~ msgid "Center Bottom"
-#~ msgstr "Centrerat botten"
-
-#~ msgid "Background Size"
-#~ msgstr "Bakgrundens storlek"
-
-#~ msgid "Cover"
-#~ msgstr "Omslag"
-
-#~ msgid "Contain"
-#~ msgstr "Innehåll"
-
-#~ msgid "Background Attachment"
-#~ msgstr "Bakgrundbilaga"
-
-#~ msgid "Scroll"
-#~ msgstr "Skroll"
-
-#~ msgid "Fixed"
-#~ msgstr "Fixerad"
-
-#~ msgid "Standard Fonts"
-#~ msgstr "Standardtypsnitt"
-
-#~ msgid "Google Fonts"
-#~ msgstr "Google typsnitt"
-
-#, fuzzy
-#~| msgid "Default style"
-#~ msgid "CSS Defaults"
-#~ msgstr "Standard"
-
-#~ msgid "Default Browser Font-Family"
-#~ msgstr "Standardtypfamilj för webbläsare"
-
 #~ msgid ""
 #~ "Please update your WordPress installation to a version newer than 4.9 to "
 #~ "access the code control."
@@ -8279,122 +8963,11 @@ msgstr ""
 #~ "Vänligen uppdatera din WordPress version till senare än 4.9 för att komma "
 #~ "åt kodkontroll."
 
-#~ msgid "Invalid Value"
-#~ msgstr "Ogiltigt värde"
-
-#~ msgid "Font Size"
-#~ msgstr "Teckesnittsstorlek"
-
-#~ msgid "Font Style"
-#~ msgstr "Typsnittsstil"
-
-#~ msgid "Letter Spacing"
-#~ msgstr "Spärrning"
-
-#~ msgid "Word Spacing"
-#~ msgstr "Ord avstånd"
-
-#~ msgid "Top"
-#~ msgstr "Ovanför"
-
-#~ msgid "Bottom"
-#~ msgstr "Under"
-
-#~ msgid "Center"
-#~ msgstr "Centrerad"
-
-#~ msgid "Spacing"
-#~ msgstr "Avstånd"
-
-#~ msgid "Width"
-#~ msgstr "Bredd"
-
-#~ msgid "row"
-#~ msgstr "rad"
-
-#~ msgid "Select a Page"
-#~ msgstr "Välj en sida"
-
-#~ msgid "Limit: %s rows"
-#~ msgstr "Gräns: %s rader"
-
 #~ msgid "Hex Value"
 #~ msgstr "Hex-värde"
 
-#~ msgid "No Image Selected"
-#~ msgstr "Ingen bild vald"
-
-#~ msgid "Add Image"
-#~ msgstr "Lägg till bild"
-
-#~ msgid "Change Image"
-#~ msgstr "Ändra bild"
-
-#~ msgid "Add File"
-#~ msgstr "Lägg till fil"
-
-#~ msgid "Change File"
-#~ msgstr "Byt fil"
-
-#~ msgid "Reset"
-#~ msgstr "Återställ"
-
-#~ msgid "On"
-#~ msgstr "På"
-
-#~ msgid "Off"
-#~ msgstr "Av"
-
-#~ msgid "Font Family"
-#~ msgstr "Typsnitt"
-
-#~ msgid "Select Font Family"
-#~ msgstr "Välj typsnitt"
-
-#~ msgid "Backup Font"
-#~ msgstr "Backup typsnitt"
-
-#~ msgid "Variant"
-#~ msgstr "Variant"
-
 #~ msgid "Download font-family to server instead of using the Google CDN."
 #~ msgstr "Ladda ner typsnittet lokalt"
-
-#~ msgid "Text Align"
-#~ msgstr "Justering av text"
-
-#~ msgid "Inherit"
-#~ msgstr "Ärv"
-
-#~ msgid "Justify"
-#~ msgstr "Fyll bredd"
-
-#~ msgid "Initial"
-#~ msgstr "Standard"
-
-#~ msgid "Text Decoration"
-#~ msgstr "Textdekoration"
-
-#~ msgid "Line-Through"
-#~ msgstr "Genomstruken"
-
-#~ msgid "Margin Top"
-#~ msgstr "Toppmarginal"
-
-#~ msgid "Margin Bottom"
-#~ msgstr "Marginal till botten"
-
-#~ msgid "Select image"
-#~ msgstr "Välj bild"
-
-#~ msgid "Change image"
-#~ msgstr "Byt bild"
-
-#~ msgid "No image selected"
-#~ msgstr "Ingen bild"
-
-#~ msgid "Choose image"
-#~ msgstr "Välj bild"
 
 #~ msgid "Color Palette"
 #~ msgstr "Färgpalett"
@@ -8452,23 +9025,8 @@ msgstr ""
 #~ msgid "Multickeck Control"
 #~ msgstr "Multikontrollkontroll"
 
-#~ msgid "Option 1"
-#~ msgstr "Val 1"
-
-#~ msgid "Option 2"
-#~ msgstr "Val 2"
-
-#~ msgid "Option 3"
-#~ msgstr "Val 3"
-
-#~ msgid "Option 4"
-#~ msgstr "Val 4"
-
 #~ msgid "Option 5"
 #~ msgstr "Val 5"
-
-#~ msgid "Hover"
-#~ msgstr "Hovra"
 
 #~ msgid "Radio Control"
 #~ msgstr "Radiofält"
@@ -8541,70 +9099,6 @@ msgstr ""
 
 #~ msgid "An example of how to implement sidebars selection."
 #~ msgstr "Ett exempel på hur man implementerar sidofält."
-
-#~ msgid ""
-#~ "Do not use \"alpha\" as an argument in color controls. Use "
-#~ "\"choices[alpha]\" instead."
-#~ msgstr ""
-#~ "Använd inte \"alfa\" som ett argument i färgkontroller. Använd istället "
-#~ "\"val [alfa]\"."
-
-#~ msgid "Customizing"
-#~ msgstr "Anpassar"
-
-#~ msgid "Customizing &#9656; %s"
-#~ msgstr "Anpassar &#9656; %s"
-
-#~ msgid "Ultra-Light 100"
-#~ msgstr "Extra mager 100"
-
-#~ msgid "Ultra-Light 100 Italic"
-#~ msgstr "Extra mager 100 kursiv"
-
-#~ msgid "Light 200"
-#~ msgstr "Mager 200"
-
-#~ msgid "Light 200 Italic"
-#~ msgstr "Mager 200 kursiv"
-
-#~ msgid "Book 300"
-#~ msgstr "Bokstil 300"
-
-#~ msgid "Book 300 Italic"
-#~ msgstr "Bokstil 300 kursiv"
-
-#~ msgid "Normal 400 Italic"
-#~ msgstr "Normal 400 kursiv"
-
-#~ msgid "Medium 500"
-#~ msgstr "Medium 500"
-
-#~ msgid "Medium 500 Italic"
-#~ msgstr "Medium 500 kursiv"
-
-#~ msgid "Semi-Bold 600"
-#~ msgstr "Halvfet 600"
-
-#~ msgid "Semi-Bold 600 Italic"
-#~ msgstr "Halvfet 600 kursiv"
-
-#~ msgid "Bold 700"
-#~ msgstr "Fet 700"
-
-#~ msgid "Bold 700 Italic"
-#~ msgstr "Fet 700 kursiv"
-
-#~ msgid "Extra-Bold 800"
-#~ msgstr "Extra fet 800"
-
-#~ msgid "Extra-Bold 800 Italic"
-#~ msgstr "Extra fet 800 kursiv"
-
-#~ msgid "Ultra-Bold 900"
-#~ msgstr "Ultrafet 900"
-
-#~ msgid "Ultra-Bold 900 Italic"
-#~ msgstr "Ultrafet 900 kursiv"
 
 #~ msgid "Navigation settings"
 #~ msgstr "Navigationsinställningar"
@@ -9843,12 +10337,6 @@ msgstr ""
 
 #~ msgid "Header content color"
 #~ msgstr "Färg för innehåll i header"
-
-#~ msgid "Light"
-#~ msgstr "Ljus"
-
-#~ msgid "Dark"
-#~ msgstr "Mörk"
 
 #~ msgid "Show social media share buttons"
 #~ msgstr "Visa delningsknappar"
