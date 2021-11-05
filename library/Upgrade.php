@@ -8,7 +8,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-  private $dbVersion = 12; //The db version we want to achive 
+  private $dbVersion = 13; //The db version we want to achive 
   private $dbVersionKey = 'municipio_db_version'; 
   private $db; 
 
@@ -17,9 +17,9 @@ class Upgrade
    */
   public function __construct()
   {
-    add_action('init', array($this, 'reset'), 1); //WARNING: Do not use in PROD. This will destry your db. 
+    //add_action('init', array($this, 'reset'), 1); //WARNING: Do not use in PROD. This will destry your db. 
     add_action('init', array($this, 'initUpgrade'), 5); 
-    //add_action('init', array($this, 'debug')); 
+    add_action('init', array($this, 'debug')); 
   }
 
   /**
@@ -78,6 +78,7 @@ class Upgrade
 
     $this->migrateThemeMod('general', 'secondary_navigation_position', 'field_60cb4dd897cb8');
     $this->deleteThemeMod('general');
+    $this->deleteThemeMod('mobilemenu');
 
     return true; 
   }
@@ -151,7 +152,7 @@ class Upgrade
     set_theme_mod('hero_overlay_neutral', $defaultOverlay);
     set_theme_mod('hero_overlay_vibrant', $vibrantOverlay);
 
-    $this->deleteThemeMod('overlay'); 
+    $this->deleteThemeMod('hero'); 
 
     return true; 
   }
@@ -192,6 +193,15 @@ class Upgrade
     $this->migrateThemeMod('modules', 'mod_section_split_modifier', 'field_611f83757a727');
 
     $this->deleteThemeMod('modules');
+
+    //Ancient data delete
+    $this->deleteThemeMod('site');
+    $this->deleteThemeMod('posts');
+    $this->deleteThemeMod('contacts');
+    $this->deleteThemeMod('index');
+    $this->deleteThemeMod('inlay');
+    $this->deleteThemeMod('script');
+    $this->deleteThemeMod('localevent');
 
     return true; 
   }
