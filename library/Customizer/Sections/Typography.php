@@ -15,7 +15,7 @@ class Typography
             'priority'       => 160,
         ));
     
-        $elements = getTypographyElements();
+        $elements = $this->getTypographyElements();
 
         if (!empty($elements)) {
             foreach ($this->elements as $key => $args) {
