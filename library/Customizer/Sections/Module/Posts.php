@@ -26,6 +26,8 @@ class Posts
           'priority'    => 10,
           'choices'     => [
             'none' => esc_html__('None', 'municipio'),
+            'panel' => esc_html__('Panel', 'municipio'),
+            'accented' => esc_html__('Accented', 'municipio'),
             'highlight' => esc_html__('Highlight', 'municipio'),
           ],
           'output' => [
