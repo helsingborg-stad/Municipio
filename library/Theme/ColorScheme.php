@@ -55,7 +55,7 @@ class ColorScheme
         //Fetch color scheme
         $colors = (array) apply_filters(
             'Municipio/Theme/ColorPickerPalette', 
-            [],//$this->getColorPalette()
+            []//,$this->getColorPalette()
         );
 
         //Add colors
