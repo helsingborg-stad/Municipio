@@ -409,14 +409,14 @@ class Colors
                     'choice'    => 'card',
                     'element'   => ':root',
                     'property'  => '--color-paper-background',
-                ]
                 ],
                 [
                     'choice'    => 'complementary',
                     'element'   => ':root',
                     'property'  => '--color-background-complementary',
                 ],
-            ],
+            ]
+        ]
         );
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
