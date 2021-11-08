@@ -247,7 +247,43 @@ class Upgrade
         return set_theme_mod($newKey, $oldValue);
       }      
     }
+
+  /**
+   * A simple wrapper around set_theme_mod() in order to set a single property value of an associative array setting.
+   * Key should include a dot in order to target a property. eg. color_palette.primary will target array('primary' => VALUE).
+   * 
+   * Does not support nested values eg settings.property.nested_value_1.nested_value_2 etc
+   * 
+   * @param string $key
+   * @param string $value
+   * @param bool $castToArray this will transform existing values which are not arrays to empty arrays when true
+   * @return bool True if the value was updated, false otherwise.
+   */
+  protected function setAssociativeThemeMod($key, $value, $castToArray = false)
+  {
+    $parsedKeys = explode('.', $key);
+    $key = $parsedKeys[0] ?? '';
+    $property = $parsedKeys[1] ?? '';
+
+    if (empty($parsedKeys) ||empty($key))
+      return false;
+    
+    if (!empty($property)) {
+      $associativeArr = get_theme_mod($key, []);
+      $associativeArr = is_array($associativeArr) || $castToArray !== true ? $associativeArr : [];
+      
+      if (!is_array($associativeArr)) {
+        $errorMessage = "Failed to migrate setting (" . $key . "." . $property . "). The specified setting already exists and is not an associative array.";
+        var_dump($errorMessage);
+        error_log(print_r($errorMessage, true));
     return false; 
+  }
+
+      $associativeArr[$property] = $value;
+      $value = $associativeArr;
+    }
+
+    return set_theme_mod($key, $value);
   }
 
   /**
