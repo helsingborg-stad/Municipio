@@ -382,7 +382,9 @@ class Colors
         ]]);
 
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        \Kirki::add_field(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            [
             'type'        => 'multicolor',
             'settings'    => 'color_background',
             'label'       => esc_html__('Background colors', 'municipio'),
@@ -395,6 +397,7 @@ class Colors
             'default'     => [
                 'background'    => '#f5f5f5',
                 'paper'   => '#ffffff',
+                'complementary'   => '',
             ],
             'output' => [
                 [
@@ -407,8 +410,14 @@ class Colors
                     'element'   => ':root',
                     'property'  => '--color-paper-background',
                 ]
+                ],
+                [
+                    'choice'    => 'complementary',
+                    'element'   => ':root',
+                    'property'  => '--color-background-complementary',
+                ],
             ],
-        ]);
+        );
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
