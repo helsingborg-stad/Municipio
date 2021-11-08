@@ -423,7 +423,7 @@ class Colors
             ],
             'default'     => [
                 'base'    => '#000000',
-                'secondary'   => '#000000',
+                'secondary'   => 'rgba(0,0,0,0.7)',
                 'disabled'  => '#000000',
             ],
             'output' => [
