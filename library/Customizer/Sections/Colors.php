@@ -496,5 +496,26 @@ class Colors
             ],
         ]
         );
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_alpha',
+            'label'       => esc_html__('Alpha colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => 'rgba(0,0,0,0.55)',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-alpha',
+                ]
+            ],
+        ]);
     }
 }
