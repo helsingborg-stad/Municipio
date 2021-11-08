@@ -242,10 +242,12 @@ class Upgrade
   private function migrateThemeMod($oldKey, $newKey, $subkey = null) {
     if($oldValue = get_theme_mod($oldKey)) {
       if($subkey && isset($oldValue[$subkey])) {
-        return set_theme_mod($newKey, $oldValue[$subkey]);
+        return setAssociativeThemeMod($newKey, $oldValue[$subkey]);
       } elseif(is_null($subkey)) {
-        return set_theme_mod($newKey, $oldValue);
+        return setAssociativeThemeMod($newKey, $oldValue);
       }      
+    }
+    return false; 
     }
 
   /**
