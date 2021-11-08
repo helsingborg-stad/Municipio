@@ -231,6 +231,27 @@ class Upgrade
 
     return true; 
   }
+  
+  //Migrate colors stuff.
+  private function v_14($db) : bool {
+    $this->migrateThemeMod('colors', 'color_palette_primary.base', 'field_60361bcb76325');
+    $this->migrateThemeMod('colors', 'color_palette_primary.dark', 'field_60364d06dc120');
+    $this->migrateThemeMod('colors', 'color_palette_primary.light', 'field_603fba043ab30');
+
+    $this->migrateThemeMod('colors', 'color_palette_secondary.base', 'field_603fba3ffa851');
+    $this->migrateThemeMod('colors', 'color_palette_secondary.dark', 'field_603fbb7ad4ccf');
+    $this->migrateThemeMod('colors', 'color_palette_secondary.light', 'field_603fbbef1e2f8');
+
+    $this->migrateThemeMod('colors', 'color_link.link', 'field_60868021879b6');
+    $this->migrateThemeMod('colors', 'color_link.link_hover', 'field_608680ef879b7');
+    $this->migrateThemeMod('colors', 'color_link.visited', 'field_60868147879b8');
+    $this->migrateThemeMod('colors', 'color_link.visited_hover', 'field_6086819f879b9');
+    $this->migrateThemeMod('colors', 'color_link.active', 'field_608681df879ba');
+
+    $this->migrateThemeMod('colors', 'color_background.complementary', 'field_60911ccc38857');
+
+    return true; 
+  }
 
   /**
    * Move and clean out the old theme mod
