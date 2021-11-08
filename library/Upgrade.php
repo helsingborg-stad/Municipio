@@ -292,11 +292,11 @@ class Upgrade
      */
     protected function setAssociativeThemeMod($key, $value, $castToArray = false)
     {
-        $parsedKeys = explode('.', $key);
-        $key = $parsedKeys[0] ?? '';
-        $property = $parsedKeys[1] ?? '';
+        $parsedString = explode('.', $key);
+        $key = $parsedString[0] ?? '';
+        $property = $parsedString[1] ?? '';
 
-        if (empty($parsedKeys) ||empty($key)) {
+        if (empty($parsedString) ||empty($key)) {
             return false;
         }
     
