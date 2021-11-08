@@ -445,7 +445,9 @@ class Colors
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        \Kirki::add_field(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            [
             'type'        => 'multicolor',
             'settings'    => 'color_link',
             'label'       => esc_html__('Link colors', 'municipio'),
