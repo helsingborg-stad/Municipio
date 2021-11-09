@@ -8,25 +8,6 @@ namespace Municipio\Theme;
  */
 class ColorScheme
 {
-
-    private $colorTargetKeys = [
-
-        //Primary
-        'field_60361bcb76325',
-        'field_60364d06dc120',
-        'field_603fba043ab30',
-
-        //Secondary
-        'field_603fba3ffa851',
-        'field_603fbb7ad4ccf',
-        'field_603fbbef1e2f8',
-
-        //Tertiary
-        'field_608c0e753ef05',
-        'field_608c0e813ef06',
-        'field_608c0e8c3ef07'
-    ];
-
     public function __construct()
     {
         add_action(
@@ -54,8 +35,7 @@ class ColorScheme
 
         //Fetch color scheme
         $colors = (array) apply_filters(
-            'Municipio/Theme/ColorPickerPalette', 
-            [],//$this->getColorPalette()
+            \Municipio\Helper\Color::getPalette()
         );
 
         //Add colors
@@ -63,37 +43,5 @@ class ColorScheme
             'colors' => $colors,
         ]);
 
-    }
-
-    /**
-     * Get color palette from theme options
-     *
-     * @return array
-     */
-    public function getColorPalette() {
-
-        //Get & flatten theme mods 
-        $themeMods = \Municipio\Helper\CustomizeGet::get(); //TODO: UPDATE WITH KIRKI GET
-
-        //Get target keys
-        $colorTargetKeys = $this->colorTargetKeys; 
-
-        //Get hex values unique
-        $colors =   array_unique(
-                        array_filter($themeMods, function($value, $key) use($colorTargetKeys) {
-
-                            //Only get those defined
-                            if(!in_array($key, $colorTargetKeys)) {
-                                return false; 
-                            }
-
-                            //Enshure this is a color
-                            return strpos($value, "#") === 0;
-
-                        }, ARRAY_FILTER_USE_BOTH)
-                    );
-
-        //Reset & return
-        return array_values($colors); 
     }
 }
