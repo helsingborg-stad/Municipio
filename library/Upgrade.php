@@ -273,9 +273,9 @@ class Upgrade
     {
         if ($oldValue = get_theme_mod($oldKey)) {
             if ($subkey && isset($oldValue[$subkey])) {
-                return setAssociativeThemeMod($newKey, $oldValue[$subkey]);
+                return $this->setAssociativeThemeMod($newKey, $oldValue[$subkey]);
             } elseif (is_null($subkey)) {
-                return setAssociativeThemeMod($newKey, $oldValue);
+                return $this->setAssociativeThemeMod($newKey, $oldValue);
             }
         }
         return false;
