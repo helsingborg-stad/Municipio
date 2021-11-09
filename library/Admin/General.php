@@ -37,32 +37,6 @@ class General
         });
 
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
-
-        add_action('admin_footer', array($this, 'setIrisDefaultColorPalette'));
-    }
-
-    /**
-     * Sets the iris default color palette
-     * @return void
-     */
-
-    public function setIrisDefaultColorPalette()
-    {
-
-        $colorPalette = get_option('color_scheme_palette');
-
-        if (is_array($colorPalette) && !empty($colorPalette)) {
-            echo "
-            <script>
-            if (typeof(acf) != 'undefined') {
-                acf.add_filter('color_picker_args', function( args, \$field ){
-                    args.palettes = ['". implode("', '", $colorPalette) ."']
-                    return args;
-                });
-            }
-            </script>
-            ";
-        }
     }
 
     /**
