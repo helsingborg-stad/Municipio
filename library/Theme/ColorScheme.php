@@ -33,14 +33,9 @@ class ColorScheme
         );
         wp_enqueue_script('colorpicker-js');
 
-        //Fetch color scheme
-        $colors = (array) apply_filters(
-            \Municipio\Helper\Color::getPalette()
-        );
-
         //Add colors
         wp_localize_script('colorpicker-js', 'themeColorPalette', [
-            'colors' => $colors,
+            'colors' => \Municipio\Helper\Color::getPalette(),
         ]);
 
     }
