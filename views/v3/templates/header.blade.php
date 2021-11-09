@@ -24,30 +24,6 @@
         @yield('secondary-navigation')
     
     @show
-    
-    {{-- Mobile Navigation --}}
-    @section('mobile-navigation')
-        @sidebar([
-            'logo' => $logotype->url,
-            'items' => $mobileMenuItems,
-            'pageId' => $pageID,
-            'classList' => [
-                'l-docs--sidebar',
-                'c-sidebar--fixed',
-                'u-visibility--hidden@md',
-                'u-visibility--hidden@lg',
-                'u-visibility--hidden@xl'
-            ],
-            'attributeList' => [
-                'js-toggle-item' => 'js-mobile-sidebar',
-                'js-toggle-class' => 'c-sidebar--collapsed'
-            ],
-            'endpoints' => [
-                'children' => $homeUrlPath . '/wp-json/municipio/v1/navigation/children'
-            ],
-        ])
-        @endsidebar
-    @show
 
 @endheader
 
