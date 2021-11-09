@@ -257,6 +257,8 @@ class Upgrade
 
         $this->migrateThemeMod('colors', 'color_background.complementary', 'field_60911ccc38857');
 
+        $this->deleteThemeMod('colors');
+
         return true;
     }
 
