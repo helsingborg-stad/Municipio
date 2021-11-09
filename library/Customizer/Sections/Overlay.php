@@ -27,6 +27,7 @@ class Overlay
             'property'  => '--color-general-overlay'
           ],
           'choices'     => [
+            'palettes' => \Municipio\Helper\Color::getPalette(),
             'alpha' => true,
           ]
         ]);
