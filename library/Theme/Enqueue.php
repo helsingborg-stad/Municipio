@@ -16,6 +16,9 @@ class Enqueue
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
         add_action('wp_enqueue_scripts', array($this, 'script'), 5);
 
+        // Enqueue customizer scripts and styles
+        add_action('customize_controls_enqueue_scripts', array($this, 'customizeScript'));
+
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
         
@@ -54,6 +57,18 @@ class Enqueue
     {
         $content = ' }, false );';
         return $content;
+    }
+
+    /**
+     * Enqueue customizer scripts 
+     * @return void
+     */
+    public function customizeScript()
+    {
+        wp_enqueue_script('design-share-js', get_template_directory_uri() . '/assets/dist/'
+            . \Municipio\Helper\CacheBust::name('js/design-share.js'),
+            array( 'jquery', 'customize-controls' ), false, true
+    );
     }
 
     /**
