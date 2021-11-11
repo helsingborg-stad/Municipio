@@ -4,7 +4,6 @@ export default (() => {
     customize('load_design', function(selectedValue) {
       selectedValue.bind(function(value) {
 
-        let mayBeIncompatible = false;
         let incompabileKeyStack = []; 
 
         if (value.length != 32) {
@@ -19,12 +18,11 @@ export default (() => {
                 if(typeof customize.control(key) !== 'undefined') {
                   customize.control(key).setting.set(value);
                 } else {
-                  mayBeIncompatible = true;
                   incompabileKeyStack.push(key); 
                 }
               }
 
-              if(mayBeIncompatible === true) {
+              if(incompabileKeyStack.length != 0) {
                 throw 'The selected theme may be incompatible with this version of the theme customizer. Some settings ('  + incompabileKeyStack.join(", ") + ') may be missing.';
               }
 
