@@ -17,6 +17,11 @@ class LoadDesign
 
     public function __construct($panelID)
     {
+
+        if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
+            return;
+        }
+
         $this->uniqueId = uniqid();
 
         \Kirki::add_section(self::SECTION_ID, array(
