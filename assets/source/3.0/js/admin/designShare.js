@@ -8,12 +8,13 @@ export default (() => {
         let incompabileKeyStack = []; 
 
         if (value.length != 32) {
-          alert("The selected theme id is not valid."); 
+          throw 'The selected theme id is not valid'; 
         } else {
           fetch('https://customizer.helsingborg.io/id/' + value)
           .then(response => response.json())
           .then((data) => {
             if(Object.keys(data.mods).length > 0) {
+              
               for (const [key, value] of Object.entries(data.mods)) {
                 if(typeof customize.control(key) !== 'undefined') {
                   customize.control(key).setting.set(value);
