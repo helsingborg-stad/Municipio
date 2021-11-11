@@ -21,7 +21,7 @@ class LoadDesign
 
         \Kirki::add_section(self::SECTION_ID, array(
             'title'       => esc_html__('Load a design', 'municipio'),
-            'description' => esc_html__('Want a new fresh design to your site? USe one of the options below to serve as a boilerplate!', 'municipio'),
+            'description' => esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
@@ -31,7 +31,7 @@ class LoadDesign
             'type'        => 'select',
             'multiple'    => false,
             'settings'    => self::LOAD_DESIGN_KEY,
-            'label'       => esc_html__('Select a site to inherit a design from.', 'municipio'),
+            'label'       => esc_html__('Select a design', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => false,
             'priority'    => 10,
