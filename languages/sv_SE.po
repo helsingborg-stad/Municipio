@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2021-11-11 16:37+0100\n"
-"PO-Revision-Date: 2021-11-11 20:09+0100\n"
+"PO-Revision-Date: 2021-11-11 20:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -6639,7 +6639,7 @@ msgstr "Mängden luft kring kolumner (huvudinnehåll)"
 
 #: library/Customizer/Sections/Padding.php:22
 msgid "Padding will be applied in 8px increments."
-msgstr "Luft sätts i steg om 8 pixlar. "
+msgstr "Luft sätts i steg om 8 pixlar."
 
 #: library/Customizer/Sections/Quicklinks.php:12
 msgid "Quicklinks"
@@ -7219,11 +7219,11 @@ msgstr "Ogiltigt värde"
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:123
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:102
 msgid "Font Size"
-msgstr "Teckesnittsstorlek"
+msgstr "Storlek"
 
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:124
 msgid "Font Weight"
-msgstr "Typsnittsvikt"
+msgstr "Vikt"
 
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:125
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:110
