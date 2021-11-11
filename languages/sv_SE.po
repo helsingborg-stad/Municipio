@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2021-11-11 16:37+0100\n"
-"PO-Revision-Date: 2021-11-11 17:00+0100\n"
+"PO-Revision-Date: 2021-11-11 20:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: library/AcfFields/php/block-button.php:6
 msgid "Button Block"
-msgstr ""
+msgstr "Knapp"
 
 #: library/AcfFields/php/block-button.php:10
 #: library/AcfFields/php/options-theme-google-translate.php:72
@@ -5650,16 +5650,12 @@ msgid "Länkar"
 msgstr "Länkar\t"
 
 #: library/AcfFields/php/widget-header-links.php:25
-#, fuzzy
-#| msgid "External link"
 msgid "Externa länkar"
-msgstr "Externa länkar"
+msgstr ""
 
 #: library/AcfFields/php/widget-header-links.php:104
-#, fuzzy
-#| msgid "Internal link"
 msgid "Interna länkar"
-msgstr "Interna länkar"
+msgstr ""
 
 #: library/AcfFields/php/widget-header-links.php:188
 msgid "Sök utlösare"
@@ -6161,7 +6157,7 @@ msgstr "Logga in för att svara"
 
 #: library/Customizer.php:21
 msgid "Kirki Customizer framework is required"
-msgstr ""
+msgstr "Kirki Customizer-ramverket krävs"
 
 #: library/Customizer/Panels/Component.php:13
 msgid "Component Apperance"
@@ -6507,42 +6503,44 @@ msgstr "Neutralt färgfilter"
 
 #: library/Customizer/Sections/Hero.php:35
 msgid "Choose a neutral overlaycolor for hero use."
-msgstr ""
+msgstr "Välj en färg för det neutrala färgfiltret."
 
 #: library/Customizer/Sections/Hero.php:57
 msgid "Vibrant overlay"
-msgstr ""
+msgstr "Färgrikt filter"
 
 #: library/Customizer/Sections/Hero.php:58
 msgid "Choose a vibrant overlaycolor for hero use."
-msgstr ""
+msgstr "Välj en färg för det färgrika färgfiltret."
 
 #: library/Customizer/Sections/LoadDesign.php:28
 msgid "Load a design"
-msgstr ""
+msgstr "Ladda in en design"
 
 #: library/Customizer/Sections/LoadDesign.php:29
 msgid ""
 "Want a new fresh design to your site? Use one of the options below to serve "
 "as a boilerplate!"
 msgstr ""
+"Sugen på en ny och fräsch design för din webbplats? Ladda in och använd ett "
+"tema att utgå ifrån. Justera efter hand! "
 
 #: library/Customizer/Sections/LoadDesign.php:39
 #: library/Customizer/Sections/LoadDesign.php:81
 msgid "Select a design"
-msgstr ""
+msgstr "Välj en design"
 
 #: library/Customizer/Sections/LoadDesign.php:90
 msgid "Error loading options"
-msgstr ""
+msgstr "Kunde inte ladda in alternativen"
 
 #: library/Customizer/Sections/Module/Contacts.php:12
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakter"
 
 #: library/Customizer/Sections/Module/Contacts.php:23
 msgid "Card"
-msgstr ""
+msgstr "Kort"
 
 #: library/Customizer/Sections/Module/Contacts.php:40
 #: library/Customizer/Sections/Module/Inlay.php:23
@@ -6551,7 +6549,7 @@ msgstr ""
 #: library/Customizer/Sections/Module/Text.php:23
 #: library/Customizer/Sections/Module/Video.php:23
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: library/Customizer/Sections/Module/Contacts.php:46
 #: library/Customizer/Sections/Module/Inlay.php:29
@@ -6564,121 +6562,122 @@ msgstr ""
 #: library/Customizer/Sections/Module/Text.php:29
 #: library/Customizer/Sections/Module/Video.php:29
 msgid "Panel"
-msgstr ""
+msgstr "Panel"
 
 #: library/Customizer/Sections/Module/Index.php:13
 #: library/Customizer/Sections/Module/Index.php:24
 #: library/Customizer/Sections/Module/Posts.php:23
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 #: library/Customizer/Sections/Module/Inlay.php:12
 msgid "Inlay"
-msgstr ""
+msgstr "Inlägg"
 
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 #: library/Customizer/Sections/Module/LocalEvent.php:23
 msgid "Local Event"
-msgstr ""
+msgstr "Lokala evenemang"
 
 #: library/Customizer/Sections/Module/Map.php:12
 msgid "Maps"
-msgstr ""
+msgstr "Kartor"
 
 #: library/Customizer/Sections/Module/Posts.php:12
 msgid "Posts"
-msgstr ""
+msgstr "Inlägg"
 
 #: library/Customizer/Sections/Module/Posts.php:61
 msgid "Expandable List"
-msgstr ""
+msgstr "Expanderbar lista"
 
 #: library/Customizer/Sections/Module/Script.php:12
 #: library/Customizer/Sections/Module/Script.php:23
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #: library/Customizer/Sections/Module/SectionsSplit.php:12
 msgid "Sections Split"
-msgstr ""
+msgstr "Sektioner: Tvådelad"
 
 #: library/Customizer/Sections/Module/SectionsSplit.php:23
 msgid "Section Split"
-msgstr ""
+msgstr "Sektion: Tvådelad"
 
 #: library/Customizer/Sections/Module/Video.php:12
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: library/Customizer/Sections/Overlay.php:12
 msgid "Overlay"
-msgstr ""
+msgstr "Färgfilter"
 
 #: library/Customizer/Sections/Overlay.php:13
 msgid "Overlay settings."
-msgstr ""
+msgstr "Inställningar för färgfilter"
 
 #: library/Customizer/Sections/Overlay.php:21
 msgid "Default overlay"
-msgstr ""
+msgstr "Standard färgfilter"
 
 #: library/Customizer/Sections/Overlay.php:22
 msgid "Choose a default overlaycolor to use when there's nothing defined."
 msgstr ""
+"Välj en färg för att använda som färgfilter, när inget annat är definierat. "
 
 #: library/Customizer/Sections/Padding.php:12
 msgid "Padding"
-msgstr ""
+msgstr "Luft"
 
 #: library/Customizer/Sections/Padding.php:13
 msgid "Padding settings."
-msgstr ""
+msgstr "Inställningar för luft."
 
 #: library/Customizer/Sections/Padding.php:21
 msgid "Amount of padding around columns."
-msgstr ""
+msgstr "Mängden luft kring kolumner (huvudinnehåll)"
 
 #: library/Customizer/Sections/Padding.php:22
 msgid "Padding will be applied in 8px increments."
-msgstr ""
+msgstr "Luft sätts i steg om 8 pixlar. "
 
 #: library/Customizer/Sections/Quicklinks.php:12
 msgid "Quicklinks"
-msgstr ""
+msgstr "Snabblänkar"
 
 #: library/Customizer/Sections/Quicklinks.php:13
 msgid "Quicklinks settings."
-msgstr ""
+msgstr "Inställningar för snabblänkar. "
 
 #: library/Customizer/Sections/Quicklinks.php:21
 msgid "Select background type"
-msgstr ""
+msgstr "Välj typ av bakgrund. "
 
 #: library/Customizer/Sections/Quicklinks.php:22
 msgid ""
 "Select if you want to use one of the predefined colors, or select one freely."
-msgstr ""
+msgstr "Välj mellan fördefinierade färger, eller välj en helt fritt. "
 
 #: library/Customizer/Sections/Quicklinks.php:27
 msgid "Predefined colors"
-msgstr ""
+msgstr "Fördefinierade färger"
 
 #: library/Customizer/Sections/Quicklinks.php:28
 msgid "Custom color"
-msgstr ""
+msgstr "Anpassad färg"
 
 #: library/Customizer/Sections/Quicklinks.php:35
 msgid "Custom background color"
-msgstr ""
+msgstr "Anpassad färg"
 
 #: library/Customizer/Sections/Quicklinks.php:36
 #: library/Customizer/Sections/Quicklinks.php:55
 msgid "Choose a background color for the quicklinks section of the page."
-msgstr ""
+msgstr "Välj en bakgrunds färg för sektionen snabblänkar, på sidan. "
 
 #: library/Customizer/Sections/Quicklinks.php:54
 msgid "Predefined background color"
-msgstr ""
+msgstr "Fördefinierad färg"
 
 #: library/Customizer/Sections/Quicklinks.php:82
 msgid ""
@@ -6691,19 +6690,19 @@ msgstr ""
 
 #: library/Customizer/Sections/Quicklinks.php:100
 msgid "Select a font/text color to use."
-msgstr ""
+msgstr "Välj en typsnittsfärg"
 
 #: library/Customizer/Sections/Quicklinks.php:122
 msgid "Quicklinks location."
-msgstr ""
+msgstr "Position för snabblänkar"
 
 #: library/Customizer/Sections/Quicklinks.php:127
 msgid "Front page"
-msgstr ""
+msgstr "Startsidan"
 
 #: library/Customizer/Sections/Radius.php:12
 msgid "Rounded corners"
-msgstr ""
+msgstr "Rundade hörn"
 
 #: library/Customizer/Sections/Radius.php:13
 msgid ""
@@ -6717,7 +6716,7 @@ msgstr ""
 
 #: library/Customizer/Sections/Radius.php:21
 msgid "Extra small"
-msgstr ""
+msgstr "Extra liten"
 
 #: library/Customizer/Sections/Typography.php:12
 msgid "Typography"
@@ -6725,15 +6724,13 @@ msgstr "Typografi"
 
 #: library/Customizer/Sections/Typography.php:13
 msgid "Options for various Typography elements"
-msgstr ""
+msgstr "Inställningar för typsnitt"
 
 #: library/Customizer/Sections/Typography.php:89
 msgid "Headings"
 msgstr "Rubriker"
 
 #: library/Customizer/Sections/Width.php:24
-#, fuzzy
-#| msgid "Front page"
 msgid "Front Page"
 msgstr "Startsida"
 
@@ -6751,20 +6748,20 @@ msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
 
 #: library/Customizer/Sections/Width.php:77
 msgid "Width of page columns"
-msgstr ""
+msgstr "Bredd på sidans kolumner"
 
 #: library/Customizer/Sections/Width.php:78
 msgid ""
 "Set the width of left & right columns. The middle (content) column will use "
 "whatever space left."
 msgstr ""
+"Ställ in önskad bredd på höger och vänster kolumn. Innehållsytan anpassar "
+"sig och använder kvarstående yta automatiskt. "
 
 #: library/Customizer/Sections/Width.php:91
 #: library/Customizer/Sections/Width.php:108
-#, fuzzy
-#| msgid "Formats"
 msgid "Normal"
-msgstr "Inläggsformat"
+msgstr "Normal"
 
 #: library/Helper/Navigation.php:634 library/Helper/Navigation.php:866
 msgid "Untitled page"
@@ -6795,7 +6792,7 @@ msgstr "Standard (Sida)"
 
 #: library/Theme/CustomTemplates.php:29
 msgid "One Page"
-msgstr ""
+msgstr "One Page"
 
 #: library/Theme/Enqueue.php:130
 msgid "Insert Print Page Break tag"
@@ -6811,55 +6808,51 @@ msgstr "Något gick fel, vänligen försök igen senare"
 
 #: library/Theme/Enqueue.php:154
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 #: library/Theme/Enqueue.php:155
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 #: library/Theme/Enqueue.php:156
-#, fuzzy
-#| msgid "Search"
 msgid "March"
-msgstr "Sök"
+msgstr "Mars"
 
 #: library/Theme/Enqueue.php:157
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: library/Theme/Enqueue.php:158
 msgid "May"
-msgstr ""
+msgstr "Maj"
 
 #: library/Theme/Enqueue.php:159
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 #: library/Theme/Enqueue.php:160
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #: library/Theme/Enqueue.php:161
 msgid "August"
-msgstr ""
+msgstr "Augusti"
 
 #: library/Theme/Enqueue.php:162
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: library/Theme/Enqueue.php:163
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 #: library/Theme/Enqueue.php:164
-#, fuzzy
-#| msgid "Number"
 msgid "November"
-msgstr "Nummer"
+msgstr "November"
 
 #: library/Theme/Enqueue.php:165
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #: library/Theme/Enqueue.php:169
 msgid "Su"
@@ -6919,11 +6912,11 @@ msgstr "Språkmeny"
 
 #: library/Theme/Navigation.php:35
 msgid "Quicklinks menu"
-msgstr ""
+msgstr "Snabblänksmeny"
 
 #: library/Theme/Navigation.php:36
 msgid "Mobile drawer (bottom)"
-msgstr ""
+msgstr "Mobilmeny (nedre delen)"
 
 #: library/Theme/Sidebars.php:38
 msgid "Footer top"
@@ -7017,23 +7010,25 @@ msgstr "Fältet som ligger strax före sidfoten tar upp 100 % o f bredden."
 
 #: library/Theme/Sidebars.php:181
 msgid "Above columns sidebar"
-msgstr ""
+msgstr "Ovanför innehållskolumner"
 
 #: library/Theme/Sidebars.php:182
 msgid "Sidebar that sits just before the columns grid."
-msgstr ""
+msgstr "Yta som befinner sig precis kolumnytan vilken håller huvudinnehållet. "
 
 #: library/Upgrade.php:393
 msgid "To be installed database version must be a number."
-msgstr ""
+msgstr "Databasversionen som ska uppnås, måste vara ett nummer"
 
 #: library/Upgrade.php:397
 msgid "Current database version must be a number."
-msgstr ""
+msgstr "Den aktuella databasversionen måste vara ett nummer. "
 
 #: library/Upgrade.php:401
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
+"Databasversionen som ska uppnås, kan inte vara lägre än den version som är "
+"sparad (kan inte nedgradera databasen)."
 
 #: library/Widget/Navigation/Navigation.php:82
 msgid "Översätt"
@@ -7073,7 +7068,7 @@ msgstr "Fel"
 
 #: vendor/helsingborg-stad/recaptcha-integration/src/Validation.php:43
 msgid "reCaptcha validation failed"
-msgstr ""
+msgstr "Robottestet misslyckades. "
 
 #: vendor/kirki/controls/php/class-kirki-control-background.php:48
 msgid "Background Color"
@@ -7209,10 +7204,8 @@ msgid "Google Fonts"
 msgstr "Google typsnitt"
 
 #: vendor/kirki/controls/php/class-kirki-control-base.php:138
-#, fuzzy
-#| msgid "Default style"
 msgid "CSS Defaults"
-msgstr "Standard"
+msgstr "Css standard"
 
 #: vendor/kirki/controls/php/class-kirki-control-base.php:139
 msgid "Default Browser Font-Family"
@@ -7230,12 +7223,12 @@ msgstr "Teckesnittsstorlek"
 
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:124
 msgid "Font Weight"
-msgstr ""
+msgstr "Typsnittsvikt"
 
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:125
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:110
 msgid "Line Height"
-msgstr ""
+msgstr "Linjehöjd"
 
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:126
 msgid "Font Style"
@@ -7276,7 +7269,7 @@ msgstr "Bredd"
 
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:137
 msgid "Height"
-msgstr ""
+msgstr "Höjd"
 
 #: vendor/kirki/controls/php/class-kirki-control-repeater.php:77
 msgid "row"
@@ -7363,7 +7356,7 @@ msgstr "Fyll bredd"
 
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:173
 msgid "Text Transform"
-msgstr ""
+msgstr "Transformering"
 
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:180
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:196
@@ -7376,11 +7369,11 @@ msgstr "Textdekoration"
 
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:193
 msgid "Underline"
-msgstr ""
+msgstr "Understruken"
 
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:194
 msgid "Overline"
-msgstr ""
+msgstr "Överstruken"
 
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:195
 msgid "Line-Through"
@@ -7420,6 +7413,7 @@ msgstr "Välj bild"
 #, php-format
 msgid "Typo found in field %s - setting instead of settings."
 msgstr ""
+"Felskrivning funnen i fältet %s - Använd setting istället för settings."
 
 #: vendor/kirki/core/class-kirki-field.php:257
 #: vendor/kirki/core/class-kirki-field.php:267
@@ -7428,16 +7422,18 @@ msgid ""
 "Config not defined for field %1$s - See %2$s for details on how to properly "
 "add fields."
 msgstr ""
+"Config inte definierat för fält %1$s – Se %2$s för detaljer om hur man "
+"lägger till fält korrekt."
 
 #: vendor/kirki/core/class-kirki-field.php:358
 #, php-format
 msgid "Typo found in field %s - \"theme_mods\" vs \"theme_mod\""
-msgstr ""
+msgstr "Typfel hittades i fältet %s - \"theme_mods\" kontra \"theme_mod\""
 
 #: vendor/kirki/core/class-kirki-field.php:375
 #, php-format
 msgid "\"partial_refresh\" invalid entry in field %s"
-msgstr ""
+msgstr "\"partial_refresh\" ogiltig post i fältet %s"
 
 #: vendor/kirki/core/class-kirki-field.php:498
 #: vendor/kirki/core/class-kirki-field.php:509
@@ -7446,12 +7442,16 @@ msgid ""
 "\"output\" invalid format in field %s. The \"output\" argument should be "
 "defined as an array of arrays."
 msgstr ""
+"\"output\" ogiltigt format i fältet %s. Argumentet \"output\" bör definieras "
+"som en array av arrayer."
 
 #: vendor/kirki/core/class-kirki-init.php:289
 msgid ""
 "We detected you're using Kirki_Init::get_variables(). Please use Kirki_Util::"
 "get_variables() instead."
 msgstr ""
+"Vi upptäckte att du använder Kirki_Init::get_variables(). Använd Kirki_Util::"
+"get_variables() istället."
 
 #: vendor/kirki/core/class-kirki-init.php:365
 msgid ""
@@ -7459,25 +7459,30 @@ msgid ""
 "icons on your frontend we recommend you install the official Font Awesome "
 "plugin."
 msgstr ""
+"Ditt tema använder ett Font Awesome-fält för ikoner. För att undvika problem "
+"med saknade ikoner på din frontend rekommenderar vi att du installerar det "
+"officiella Font Awesome-pluginet."
 
 #: vendor/kirki/core/class-kirki-init.php:368
 msgid "Install Plugin"
-msgstr ""
+msgstr "Installera tillägg"
 
 #: vendor/kirki/core/class-kirki-init.php:369
 msgid "Don't show this again"
-msgstr ""
+msgstr "Visa inte detta igen"
 
 #: vendor/kirki/core/class-kirki.php:237
 msgid ""
 "Kirki fields should not be added on customize_register. Please add them "
 "directly, or on init."
 msgstr ""
+"Kirki-fält ska inte läggas till på customize_register. Lägg till dem direkt "
+"eller på init."
 
 #: vendor/kirki/deprecated/functions.php:19
 #, php-format
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s eller %2$s"
 
 #: vendor/kirki/field/class-kirki-field-color.php:52
 msgid ""
@@ -7493,6 +7498,8 @@ msgid ""
 "Error in field %1$s. The \"mode\" argument has been deprecated since Kirki "
 "v0.8. Use the \"radio-%2$s\" type instead."
 msgstr ""
+"Fel i fältet %1$s. Argumentet \"läge\" har föråldrats sedan Kirki v0.8. "
+"Använd typen \"radio-%2$s\" istället."
 
 #: vendor/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:61
 msgid "Customizing"
@@ -7582,43 +7589,43 @@ msgstr "Ultrafet 900 kursiv"
 
 #: vendor/kirki/upgrade-notifications.php:30
 msgid "Important Upgrade Notice:"
-msgstr ""
+msgstr "Viktigt uppgraderingsmeddelande: "
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
 msgid "Install Required Plugins"
-msgstr ""
+msgstr "Installera plugins som krävs"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:341
 msgid "Install Plugins"
-msgstr ""
+msgstr "Installera tillägg"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:343
 #, php-format
 msgid "Installing Plugin: %s"
-msgstr ""
+msgstr "Installerar tillägg: %s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:345
 #, php-format
 msgid "Updating Plugin: %s"
-msgstr ""
+msgstr "Uppdaterar plugg: %s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:346
 msgid "Something went wrong with the plugin API."
-msgstr ""
+msgstr "Något blev fel med tilläggets API."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:349
 #, php-format
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Det här temat kräver följande tillägg: %1$s."
+msgstr[1] "Det här temat kräver följande tillägg: %1$s."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:355
 #, php-format
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Detta tema rekommenderar följande tillägg: %1$s."
+msgstr[1] "Detta tema rekommenderar följande tillägg: %1$s."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:361
 #, php-format
@@ -7629,71 +7636,75 @@ msgid_plural ""
 "The following plugins need to be updated to their latest version to ensure "
 "maximum compatibility with this theme: %1$s."
 msgstr[0] ""
+"Följande tillägg måste uppdateras till sin senaste version för att "
+"säkerställa maximal kompatibilitet med detta tema: %1$s."
 msgstr[1] ""
+"Följande tillägg måste uppdateras till sin senaste version för att "
+"säkerställa maximal kompatibilitet med detta tema: %1$s."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:367
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Uppdatering tillgänglig för: %1$s."
+msgstr[1] "Uppdateringar tillgängliga för: %1$s."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:373
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Följande obligatoriskt tillägg är för närvarande inaktivt: %1$s."
+msgstr[1] "Följande obligatoriska tillägg är för närvarande inaktivt: %1$s."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:379
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Följande rekommenderat tillägg är för närvarande inaktivt: %1$s."
+msgstr[1] "Följande rekommenderade tillägg är för närvarande inaktiva: %1$s."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:384
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
-msgstr[0] ""
+msgstr[0] "Börja installera tillägget"
 msgstr[1] ""
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:389
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
-msgstr[0] ""
+msgstr[0] "Börja uppdatera tillägget"
 msgstr[1] ""
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:394
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
-msgstr[0] ""
+msgstr[0] "Börja aktivera tillägget"
 msgstr[1] ""
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:398
 msgid "Return to Required Plugins Installer"
-msgstr ""
+msgstr "Återgå till installeraren för nödvändiga tillägg"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:399
 msgid "Return to the Dashboard"
-msgstr ""
+msgstr "Åter till adminpanelen"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:400
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3311
 msgid "Plugin activated successfully."
-msgstr ""
+msgstr "Tillägg aktiverat utan problem."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:401
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3103
 msgid "The following plugin was activated successfully:"
 msgid_plural "The following plugins were activated successfully:"
-msgstr[0] ""
+msgstr[0] "Tillägget aktiverades framgångsrikt:"
 msgstr[1] ""
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:403
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
+msgstr "Ingen åtgärd vidtogs. Tillägget %1$s var redan aktiverat."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:405
 #, php-format
@@ -7701,43 +7712,51 @@ msgid ""
 "Plugin not activated. A higher version of %s is needed for this theme. "
 "Please update the plugin."
 msgstr ""
+"Tillägg inte aktiverat. En högre version av %s behövs för detta tema. "
+"Uppdatera tillägget."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:407
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
+msgstr "Alla tillägg har installerats och aktiverats. %1$s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:408
 msgid "Dismiss this notice"
-msgstr ""
+msgstr "Avfärda denna avisering"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:409
 msgid ""
 "There are one or more required or recommended plugins to install, update or "
 "activate."
 msgstr ""
+"Det finns ett eller flera nödvändiga eller rekommenderade tillägg att "
+"installera, uppdatera eller aktivera."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:410
 msgid "Please contact the administrator of this site for help."
-msgstr ""
+msgstr "Vänligen kontakta denna webbplats administratör för att få hjälp."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:616
 msgid "This plugin needs to be updated to be compatible with your theme."
 msgstr ""
+"Detta tema behöver uppdatera följande plugin för att fungera till fullo med "
+"detta tema:"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:617
 msgid "Update Required"
-msgstr ""
+msgstr "Uppdatering nödvändig"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:735
 msgid "Set the parent_slug config variable instead."
-msgstr ""
+msgstr "Ställ in parametern parent_slug config istället."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
 msgid ""
 "The remote plugin package does not contain a folder with the desired slug "
 "and renaming did not work."
 msgstr ""
+"Fjärrpaketet för tillägget innehåller inte någon katalog med den begärda "
+"permalänken och det gick inte att döpa om den."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
@@ -7745,127 +7764,131 @@ msgid ""
 "Please contact the plugin provider and ask them to package their plugin "
 "according to the WordPress guidelines."
 msgstr ""
+"Kontakta tilläggets skapare och be att paketet med tilläggets utformas "
+"enligt WordPress riktlinjer."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
 msgid ""
 "The remote plugin package consists of more than one file, but the files are "
 "not packaged in a folder."
 msgstr ""
+"Tilläggets fjärrpaketet innehåller fler än en fil, men filerna är inte "
+"placerade i någon katalog."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1243
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3099
 msgctxt "plugin A *and* plugin B"
 msgid "and"
-msgstr ""
+msgstr "och"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2112
 #, php-format
 msgid "TGMPA v%s"
-msgstr ""
+msgstr "TGMPA v. %s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2421
 msgid "Required"
-msgstr ""
+msgstr "Obligatorisk"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2424
 msgid "Recommended"
-msgstr ""
+msgstr "Rekommenderade"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2440
 msgid "WordPress Repository"
-msgstr ""
+msgstr "WordPress repository"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2443
 msgid "External Source"
-msgstr ""
+msgstr "Extern källa"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2446
 msgid "Pre-Packaged"
-msgstr ""
+msgstr "Förpacketerad"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2463
 msgid "Not Installed"
-msgstr ""
+msgstr "Saknas"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2467
 msgid "Installed But Not Activated"
-msgstr ""
+msgstr "Installerad men inte aktiverad"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2475
 msgid "Required Update not Available"
-msgstr ""
+msgstr "Nödvändig uppdatering ej tillgänglig"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2478
 msgid "Requires Update"
-msgstr ""
+msgstr "Nödvändiga uppdateringar"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2481
 msgid "Update recommended"
-msgstr ""
+msgstr "Uppdatering rekommenderas"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2490
 #, php-format
 msgctxt "Install/Update Status"
 msgid "%1$s, %2$s"
-msgstr ""
+msgstr "%1$s: %2$s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2536
 #, php-format
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Alla <span class=\"count\">(%s)</span>"
+msgstr[1] "Alla <span class=\"count\">(%s)</span>"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2540
 #, php-format
 msgid "To Install <span class=\"count\">(%s)</span>"
 msgid_plural "To Install <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "För att installera <span class=”count”>(%s)</span>"
+msgstr[1] "För att installera <span class=”count”>(%s)</span>"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2544
 #, php-format
 msgid "Update Available <span class=\"count\">(%s)</span>"
 msgid_plural "Update Available <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Uppdatering tillgänglig <span class=\"count\">(%s)</span>"
+msgstr[1] "Uppdateringar tillgänglig <span class=\"count\">(%s)</span>"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2548
 #, php-format
 msgid "To Activate <span class=\"count\">(%s)</span>"
 msgid_plural "To Activate <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Att aktivera <span class=\"count\">(%s)</span>"
+msgstr[1] "Att aktivera <span class=\"count\">(%s)</span>"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2630
 msgctxt "as in: \"version nr unknown\""
 msgid "unknown"
-msgstr ""
+msgstr "versionsnumret okänt"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2638
 msgid "Installed version:"
-msgstr ""
+msgstr "Installerad version:"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2646
 msgid "Minimum required version:"
-msgstr ""
+msgstr "Minsta version krävs:"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2658
 msgid "Available version:"
-msgstr ""
+msgstr "Tillgänglig version:"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2681
 msgid "No plugins to install, update or activate."
-msgstr ""
+msgstr "Inga tillägg behöver installeras, uppdateras eller aktiveras."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2695
 msgid "Plugin"
-msgstr ""
+msgstr "Tillägg"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2696
 msgid "Source"
-msgstr ""
+msgstr "Källa"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
 msgid "Type"
@@ -7873,34 +7896,34 @@ msgstr "Typ"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2702
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2751
 #, php-format
 msgid "Install %2$s"
-msgstr ""
+msgstr "Installera %2$s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2756
 #, php-format
 msgid "Update %2$s"
-msgstr ""
+msgstr "Uppdatera %2$s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2762
 #, php-format
 msgid "Activate %2$s"
-msgstr ""
+msgstr "Aktivera %2$s"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2834
 msgid "Upgrade message from the plugin author:"
-msgstr ""
+msgstr "Uppdateringsmeddelande från pluginets utgivare:"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2867
 msgid "Install"
-msgstr ""
+msgstr "Installera"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2876
 msgid "Activate"
@@ -7908,94 +7931,98 @@ msgstr "Aktivera"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2907
 msgid "No plugins were selected to be installed. No action taken."
-msgstr ""
+msgstr "Inga tillägg markerade för installation. Ingen åtgärd vidtogs."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2909
 msgid "No plugins were selected to be updated. No action taken."
-msgstr ""
+msgstr "Inga tillägg markerade för uppdatering. Ingen åtgärd vidtogs."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2950
 msgid "No plugins are available to be installed at this time."
-msgstr ""
+msgstr "Inga tillägg tillgängliga för installation just nu."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2952
 msgid "No plugins are available to be updated at this time."
-msgstr ""
+msgstr "Det finns inga tillägg som behöver uppdateras just nu."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3059
 msgid "No plugins were selected to be activated. No action taken."
-msgstr ""
+msgstr "Inga tillägg var markerade för aktivering. Ingen åtgärd vidtogs."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3085
 msgid "No plugins are available to be activated at this time."
-msgstr ""
+msgstr "Det finns inga tillägg tillgängliga som behöver aktiveras just nu."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3310
 msgid "Plugin activation failed."
-msgstr ""
+msgstr "Aktiveringen av tillägget misslyckades."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3655
 #, php-format
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Uppdaterar tillägg %1$s (%2$d/%3$d)"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3658
 #, php-format
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr ""
+msgstr "Ett fel uppstod när du installerade %1$s : <strong> %2$s </strong>."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3660
 #, php-format
 msgid "The installation of %1$s failed."
-msgstr ""
+msgstr "Installationen av %1$s misslyckades."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3664
 msgid ""
 "The installation and activation process is starting. This process may take a "
 "while on some hosts, so please be patient."
 msgstr ""
+"Installations- och aktiveringsprocessen påbörjas. Denna process kan ta en "
+"stund på vissa servrar, ha tålamod."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3666
 #, php-format
 msgid "%1$s installed and activated successfully."
-msgstr ""
+msgstr "%1$s har installerats och aktiverats."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3667
 msgid "All installations and activations have been completed."
-msgstr ""
+msgstr "Alla installationer och aktiveringar har slutförts."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3669
 #, php-format
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Installerar och aktiverar Plugin %1$s (%2$d/%3$d)"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3672
 msgid ""
 "The installation process is starting. This process may take a while on some "
 "hosts, so please be patient."
 msgstr ""
+"Installationsprocessen påbörjas. Denna process kan ta en stund på vissa "
+"servrar, ha tålamod."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3674
 #, php-format
 msgid "%1$s installed successfully."
-msgstr ""
+msgstr "%1$s installerat framgångsrikt."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3675
 msgid "All installations have been completed."
-msgstr ""
+msgstr "Alla installationer har slutförts."
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3677
 #, php-format
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr ""
+msgstr "Installerar tillägg %1$s (%2$d/%3$d)"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
 msgid "Show Details"
-msgstr ""
+msgstr "Visa uppgifter"
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
 msgid "Hide Details"
-msgstr ""
+msgstr "Dölj uppgifterna"
 
 #: views/v1/archive-event.blade.php:70
 msgctxt "Event archive"
