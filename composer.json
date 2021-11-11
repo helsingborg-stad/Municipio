@@ -61,5 +61,6 @@
         "post-update-cmd": [
 
         ]
-    }
+    },
+    "config": {"platform": {"php": "7.2.34"}}
 }
