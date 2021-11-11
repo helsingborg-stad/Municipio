@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2021-11-11 16:37+0100\n"
-"PO-Revision-Date: 2021-11-11 20:14+0100\n"
+"PO-Revision-Date: 2021-11-11 22:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -6320,7 +6320,7 @@ msgstr "Bakgrundsfärger"
 
 #: library/Customizer/Sections/Colors.php:394
 msgid "Background"
-msgstr "Barkgrund"
+msgstr "Bakgrund"
 
 #: library/Customizer/Sections/Colors.php:395
 msgid "Paper"
