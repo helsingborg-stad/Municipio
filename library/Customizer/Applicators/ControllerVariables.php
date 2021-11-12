@@ -83,7 +83,7 @@ class ControllerVariables
    * @param string $operator
    * @return bool
    */
-    private function isValidOperator($operator) : bool
+    private function isValidOperator($operator): bool
     {
         if (in_array((string) $operator, ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
             return true;
@@ -104,10 +104,16 @@ class ControllerVariables
             return false;
         }
 
-        if ($field['args']['output']['type'] !== 'controller') {
-            return false;
+        $type = $field['args']['output']['type'];
+
+        if (is_string($type) && $type === 'controller') { //Invalid format in kirki, backwards compatibility
+            return true;
         }
 
-        return true;
+        if (is_array($type) && in_array('controller', $type)) {
+            return true;
+        }
+
+        return false;
     }
 }
