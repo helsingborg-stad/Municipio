@@ -101,48 +101,6 @@ class Colors
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'color_palette_tertiary',
-            'label'       => esc_html__('Tertiary colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-            'choices'     => [
-                'base'    => esc_html__('Base', 'municipio'),
-                'dark'   => esc_html__('Dark', 'municipio'),
-                'light'  => esc_html__('Light', 'municipio'),
-                'contrasting'  => esc_html__('Contrastring', 'municipio'),
-            ],
-            'default'     => [
-                'base'    => '#cb0050',
-                'dark'   => '#a20040',
-                'light'  => '#cb0050',
-                'contrasting'  => '#ffffff',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'base',
-                    'element'   => ':root',
-                    'property'  => '--color-tertiary',
-                ],
-                [
-                    'choice'    => 'dark',
-                    'element'   => ':root',
-                    'property'  => '--color-tertiary-dark',
-                ],
-                [
-                    'choice'    => 'light',
-                    'element'   => ':root',
-                    'property'  => '--color-tertiary-light',
-                ],
-                [
-                    'choice'    => 'contrasting',
-                    'element'   => ':root',
-                    'property'  => '--color-tertiary-contrasting',
-                ],
-            ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'multicolor',
             'settings'    => 'color_palette_monotone',
             'label'       => esc_html__('Monotone colors', 'municipio'),
             'section'     => self::SECTION_ID,
