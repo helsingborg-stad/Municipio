@@ -18,5 +18,6 @@ class Component
         new \Municipio\Customizer\Sections\Quicklinks(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Hero(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Card(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Button(self::PANEL_ID);
     }
 }
