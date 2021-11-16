@@ -20,17 +20,31 @@ class Card
         ));
 
         KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            'type'        => 'color',
-            'settings'    => 'card_background',
-            'label'       => esc_html__('Custom card background color', 'municipio'),
-            'description' => esc_html__('Choose a background color for the cards.', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'default'     => '#ffffff',
-            'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-card-background-color'
+            [
+                'type'        => 'color',
+                'settings'    => 'card_background',
+                'label'       => esc_html__('Custom card background color', 'municipio'),
+                'description' => esc_html__('Choose a background color for the cards.', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'default'     => '#ffffff',
+                'output'      => [
+                    'element'   => ':root',
+                    'property'  => '--c-card-background-color'
+                ]
+            ],
+            [
+                'type'        => 'color',
+                'settings'    => 'card_background_image',
+                'label'       => esc_html__('Custom card background color', 'municipio'),
+                'description' => esc_html__('Choose a background color for the cards.', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'default'     => '#ffffff',
+                'output'      => [
+                    'element'   => ':root',
+                    'property'  => '--c-card-background-image'
+                ]
             ]
-        ]);
+        ], ['label' => esc_html__('Card background', 'municipio'), 'settings' => 'card_customization_active']);
 
         KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'color',
