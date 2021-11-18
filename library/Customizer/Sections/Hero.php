@@ -9,7 +9,7 @@ class Hero
     public function __construct($panelID)
     {
         \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Component: Hero', 'municipio'),
+            'title'       => esc_html__('Hero', 'municipio'),
             'description' => esc_html__('Specific settings for the hero component.', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
