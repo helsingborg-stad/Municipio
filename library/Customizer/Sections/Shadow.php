@@ -17,7 +17,7 @@ class Shadow
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
-            'settings'    => 'shadow_amount',
+            'settings'    => 'drop_shadow_amount',
             'label'       => esc_html__('Amount of shadows', 'municipio'),
             'description' => esc_html__('The shadow sizes will automatically be multiplied from the value below. A value of 0 will completly turn off shadows.', 'municipio'),
             'section'     => self::SECTION_ID,
@@ -29,7 +29,7 @@ class Shadow
             ],
             'output' => [
                 'element'   => ':root',
-                'property'  => '--shadow-amount',
+                'property'  => '--drop-shadow-amount',
             ],
         ]);
     }
