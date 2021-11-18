@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-11-18 11:31+0100\n"
-"PO-Revision-Date: 2021-11-18 11:39+0100\n"
+"POT-Creation-Date: 2021-11-18 15:10+0100\n"
+"PO-Revision-Date: 2021-11-18 15:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -35,12 +35,14 @@ msgid "Label"
 msgstr "Etikett"
 
 #: library/AcfFields/php/block-button.php:29
-#: library/Customizer/Sections/Colors.php:466
+#: library/Customizer/Sections/Colors.php:424
 msgid "Link"
 msgstr "Länk"
 
 #: library/AcfFields/php/block-button.php:51
 #: library/Customizer/Sections/Card.php:91
+#: library/Customizer/Sections/Collection.php:91
+#: library/Customizer/Sections/Field.php:46
 #: vendor/kirki/controls/php/class-kirki-control-typography.php:221
 msgid "Color"
 msgstr "Färg"
@@ -54,7 +56,7 @@ msgid "Primary"
 msgstr "Primär"
 
 #: library/AcfFields/php/block-button.php:64
-#: library/Customizer/Sections/Colors.php:430
+#: library/Customizer/Sections/Colors.php:388
 #: library/Customizer/Sections/Header.php:47
 #: library/Customizer/Sections/Header.php:69
 #: library/Customizer/Sections/Quicklinks.php:62
@@ -86,6 +88,8 @@ msgstr ""
 #: library/AcfFields/php/block-button.php:82
 #: library/AcfFields/php/navigation-widget.php:314
 #: library/Customizer/Sections/Card.php:102
+#: library/Customizer/Sections/Collection.php:102
+#: library/Customizer/Sections/Field.php:57
 #: library/Customizer/Sections/Header.php:81
 msgid "Style"
 msgstr "Stil"
@@ -5409,6 +5413,8 @@ msgstr "Automatisk"
 
 #: library/AcfFields/php/widget-header-common.php:132
 #: library/Customizer/Sections/Card.php:114
+#: library/Customizer/Sections/Collection.php:114
+#: library/Customizer/Sections/Field.php:69
 #: library/Customizer/Sections/Header.php:87
 #: library/Customizer/Sections/Module/Contacts.php:28
 #: library/Customizer/Sections/Module/Contacts.php:45
@@ -6069,6 +6075,8 @@ msgstr ""
 "därför inställningar. "
 
 #: library/Customizer/Sections/Card.php:29
+#: library/Customizer/Sections/Collection.php:29
+#: library/Customizer/Sections/Field.php:85
 #: library/Customizer/Sections/Header.php:39
 msgid "Background color"
 msgstr "Bakgrundsfärg"
@@ -6082,6 +6090,7 @@ msgid "Background on hover, for linked cards."
 msgstr "Bakgrundsfärg för aktiva kort (länkade kort vid hovring)"
 
 #: library/Customizer/Sections/Card.php:49
+#: library/Customizer/Sections/Collection.php:49
 msgid "Tailor background color"
 msgstr "Specialanpassa bakgrundsfärg"
 
@@ -6094,54 +6103,107 @@ msgid "Choose a font color for the cards."
 msgstr "Välj en typsnittsfärg för kort. "
 
 #: library/Customizer/Sections/Card.php:74
+#: library/Customizer/Sections/Collection.php:74
+#: library/Customizer/Sections/Field.php:29
 #: vendor/kirki/controls/php/class-kirki-control-dimensions.php:136
 msgid "Width"
 msgstr "Bredd"
 
 #: library/Customizer/Sections/Card.php:106
+#: library/Customizer/Sections/Collection.php:106
+#: library/Customizer/Sections/Field.php:61
 msgid "Dotted"
 msgstr "Prickad"
 
 #: library/Customizer/Sections/Card.php:107
+#: library/Customizer/Sections/Collection.php:107
+#: library/Customizer/Sections/Field.php:62
 msgid "Dashed"
 msgstr "Streckad"
 
 #: library/Customizer/Sections/Card.php:108
+#: library/Customizer/Sections/Collection.php:108
+#: library/Customizer/Sections/Field.php:63
 msgid "Solid"
 msgstr "Solid"
 
 #: library/Customizer/Sections/Card.php:109
+#: library/Customizer/Sections/Collection.php:109
+#: library/Customizer/Sections/Field.php:64
 msgid "Double"
 msgstr "Dubbel"
 
 #: library/Customizer/Sections/Card.php:110
+#: library/Customizer/Sections/Collection.php:110
+#: library/Customizer/Sections/Field.php:65
 msgid "Groove"
 msgstr "Räfflad"
 
 #: library/Customizer/Sections/Card.php:111
+#: library/Customizer/Sections/Collection.php:111
+#: library/Customizer/Sections/Field.php:66
 msgid "Ridge"
 msgstr "Ås"
 
 #: library/Customizer/Sections/Card.php:112
+#: library/Customizer/Sections/Collection.php:112
+#: library/Customizer/Sections/Field.php:67
 msgid "Inset"
 msgstr "Infälld"
 
 #: library/Customizer/Sections/Card.php:113
+#: library/Customizer/Sections/Collection.php:113
+#: library/Customizer/Sections/Field.php:68
 msgid "Outset"
 msgstr "Utfälld"
 
 #: library/Customizer/Sections/Card.php:115
+#: library/Customizer/Sections/Collection.php:115
+#: library/Customizer/Sections/Field.php:70
 #: library/Customizer/Sections/General.php:28
 msgid "Hidden"
 msgstr "Dold"
 
 #: library/Customizer/Sections/Card.php:122
+#: library/Customizer/Sections/Collection.php:122
+#: library/Customizer/Sections/Field.php:77
 msgid "Tailor border apperance"
 msgstr "Specialanpassa kantlinje"
 
 #: library/Customizer/Sections/Card.php:131
+#: library/Customizer/Sections/Collection.php:131
+#: library/Customizer/Sections/Field.php:134
 msgid "Border radius"
 msgstr "Rundning på hörn"
+
+#: library/Customizer/Sections/Collection.php:16
+msgid "Collection"
+msgstr ""
+
+#: library/Customizer/Sections/Collection.php:17
+msgid "Collection appeance settings."
+msgstr ""
+
+#: library/Customizer/Sections/Collection.php:40
+msgid "Background color - Hover"
+msgstr ""
+
+#: library/Customizer/Sections/Collection.php:41
+msgid "Background color on hover."
+msgstr ""
+
+#: library/Customizer/Sections/Collection.php:57
+msgid "Custom collection font color"
+msgstr ""
+
+#: library/Customizer/Sections/Collection.php:58
+msgid "Choose a font color for the collection component."
+msgstr ""
+
+#: library/Customizer/Sections/Collection.php:132
+msgid ""
+"Border radius on wrapped collections are automatically removed if needed."
+msgstr ""
 
 #: library/Customizer/Sections/Colors.php:12
 msgid "Colors"
@@ -6157,13 +6219,12 @@ msgstr "Primära färger"
 
 #: library/Customizer/Sections/Colors.php:25
 #: library/Customizer/Sections/Colors.php:67
-#: library/Customizer/Sections/Colors.php:109
-#: library/Customizer/Sections/Colors.php:227
-#: library/Customizer/Sections/Colors.php:268
-#: library/Customizer/Sections/Colors.php:309
-#: library/Customizer/Sections/Colors.php:350
-#: library/Customizer/Sections/Colors.php:429
-#: library/Customizer/Sections/Colors.php:516
+#: library/Customizer/Sections/Colors.php:185
+#: library/Customizer/Sections/Colors.php:226
+#: library/Customizer/Sections/Colors.php:267
+#: library/Customizer/Sections/Colors.php:308
+#: library/Customizer/Sections/Colors.php:387
+#: library/Customizer/Sections/Colors.php:474
 #: library/Customizer/Sections/Example.php:25
 #: library/Customizer/Sections/Typography.php:45
 msgid "Base"
@@ -6171,34 +6232,31 @@ msgstr "Bas"
 
 #: library/Customizer/Sections/Colors.php:26
 #: library/Customizer/Sections/Colors.php:68
-#: library/Customizer/Sections/Colors.php:110
-#: library/Customizer/Sections/Colors.php:154
-#: library/Customizer/Sections/Colors.php:228
-#: library/Customizer/Sections/Colors.php:269
-#: library/Customizer/Sections/Colors.php:310
-#: library/Customizer/Sections/Colors.php:351
+#: library/Customizer/Sections/Colors.php:112
+#: library/Customizer/Sections/Colors.php:186
+#: library/Customizer/Sections/Colors.php:227
+#: library/Customizer/Sections/Colors.php:268
+#: library/Customizer/Sections/Colors.php:309
 #: library/Customizer/Sections/Example.php:26
 msgid "Dark"
 msgstr "Mörk"
 
 #: library/Customizer/Sections/Colors.php:27
 #: library/Customizer/Sections/Colors.php:69
-#: library/Customizer/Sections/Colors.php:111
-#: library/Customizer/Sections/Colors.php:155
-#: library/Customizer/Sections/Colors.php:229
-#: library/Customizer/Sections/Colors.php:270
-#: library/Customizer/Sections/Colors.php:311
-#: library/Customizer/Sections/Colors.php:352
+#: library/Customizer/Sections/Colors.php:113
+#: library/Customizer/Sections/Colors.php:187
+#: library/Customizer/Sections/Colors.php:228
+#: library/Customizer/Sections/Colors.php:269
+#: library/Customizer/Sections/Colors.php:310
 msgid "Light"
 msgstr "Ljus"
 
 #: library/Customizer/Sections/Colors.php:28
 #: library/Customizer/Sections/Colors.php:70
-#: library/Customizer/Sections/Colors.php:112
-#: library/Customizer/Sections/Colors.php:230
-#: library/Customizer/Sections/Colors.php:271
-#: library/Customizer/Sections/Colors.php:312
-#: library/Customizer/Sections/Colors.php:353
+#: library/Customizer/Sections/Colors.php:188
+#: library/Customizer/Sections/Colors.php:229
+#: library/Customizer/Sections/Colors.php:270
+#: library/Customizer/Sections/Colors.php:311
 msgid "Contrastring"
 msgstr "Kontrasterande"
 
@@ -6207,99 +6265,95 @@ msgid "Secondary colors"
 msgstr "Sekundära färger"
 
 #: library/Customizer/Sections/Colors.php:105
-msgid "Tertiary colors"
-msgstr "Tertiära färger"
-
-#: library/Customizer/Sections/Colors.php:147
 msgid "Monotone colors"
 msgstr "Monotona färger"
 
-#: library/Customizer/Sections/Colors.php:151
+#: library/Customizer/Sections/Colors.php:109
 #: library/Customizer/Sections/Header.php:67
 #: library/Customizer/Sections/Quicklinks.php:107
 msgid "Black"
 msgstr "Svart"
 
-#: library/Customizer/Sections/Colors.php:152
+#: library/Customizer/Sections/Colors.php:110
 msgid "Darkest"
 msgstr "Mörkast"
 
-#: library/Customizer/Sections/Colors.php:153
+#: library/Customizer/Sections/Colors.php:111
 msgid "Darker"
 msgstr "Mörkare"
 
-#: library/Customizer/Sections/Colors.php:156
+#: library/Customizer/Sections/Colors.php:114
 msgid "Lighther"
 msgstr "Ljusare"
 
-#: library/Customizer/Sections/Colors.php:157
+#: library/Customizer/Sections/Colors.php:115
 msgid "Lightest"
 msgstr "Ljusast"
 
-#: library/Customizer/Sections/Colors.php:158
+#: library/Customizer/Sections/Colors.php:116
 #: library/Customizer/Sections/Header.php:66
 #: library/Customizer/Sections/Quicklinks.php:106
 msgid "White"
 msgstr "Vit"
 
-#: library/Customizer/Sections/Colors.php:223
+#: library/Customizer/Sections/Colors.php:181
 msgid "Success colors"
 msgstr "Lyckades"
 
-#: library/Customizer/Sections/Colors.php:264
+#: library/Customizer/Sections/Colors.php:222
 msgid "Danger colors"
 msgstr "Fara"
 
-#: library/Customizer/Sections/Colors.php:305
+#: library/Customizer/Sections/Colors.php:263
 msgid "Warning colors"
 msgstr "Varning"
 
-#: library/Customizer/Sections/Colors.php:346
+#: library/Customizer/Sections/Colors.php:304
 msgid "Info colors"
 msgstr "Information"
 
-#: library/Customizer/Sections/Colors.php:390
+#: library/Customizer/Sections/Colors.php:348
 msgid "Background colors"
 msgstr "Bakgrundsfärger"
 
-#: library/Customizer/Sections/Colors.php:394
+#: library/Customizer/Sections/Colors.php:352
 msgid "Background"
 msgstr "Bakgrund"
 
-#: library/Customizer/Sections/Colors.php:395
+#: library/Customizer/Sections/Colors.php:353
 msgid "Paper"
 msgstr "Papper"
 
-#: library/Customizer/Sections/Colors.php:425
+#: library/Customizer/Sections/Colors.php:383
 msgid "Text colors"
 msgstr "Textfärger"
 
-#: library/Customizer/Sections/Colors.php:431
+#: library/Customizer/Sections/Colors.php:389
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: library/Customizer/Sections/Colors.php:462
+#: library/Customizer/Sections/Colors.php:420
 msgid "Link colors"
 msgstr "Länkfärger"
 
-#: library/Customizer/Sections/Colors.php:467
+#: library/Customizer/Sections/Colors.php:425
 msgid "Hover"
 msgstr "Hovra"
 
-#: library/Customizer/Sections/Colors.php:468
+#: library/Customizer/Sections/Colors.php:426
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
 msgid "Active"
 msgstr "Aktivera"
 
-#: library/Customizer/Sections/Colors.php:469
+#: library/Customizer/Sections/Colors.php:427
 msgid "Visited"
 msgstr "Besökt"
 
-#: library/Customizer/Sections/Colors.php:470
+#: library/Customizer/Sections/Colors.php:428
 msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
-#: library/Customizer/Sections/Colors.php:512
+#: library/Customizer/Sections/Colors.php:470
 msgid "Alpha colors"
 msgstr "Alfa färger"
 
@@ -6342,6 +6396,34 @@ msgstr "Val 4"
 #: library/Customizer/Sections/Example.php:71
 msgid "Example controller variable"
 msgstr "En exempelkonfigraution för variabel i kontroller. "
+
+#: library/Customizer/Sections/Field.php:16
+msgid "Field"
+msgstr "Formulär & Fält"
+
+#: library/Customizer/Sections/Field.php:17
+msgid "Field appeance settings."
+msgstr "Inställningar för utssende på fält. "
+
+#: library/Customizer/Sections/Field.php:86
+msgid "Choose a background color for the field component."
+msgstr "Välj en bakgrundsfärg för fältkomponenten. "
+
+#: library/Customizer/Sections/Field.php:101
+msgid "Focus color"
+msgstr "Fokusfärg"
+
+#: library/Customizer/Sections/Field.php:102
+msgid "Choose a focus color for the field component."
+msgstr "Välj en färg för att indikera fokus på fält."
+
+#: library/Customizer/Sections/Field.php:117
+msgid "Custom field font color"
+msgstr "Typsnittsfärg för fält"
+
+#: library/Customizer/Sections/Field.php:118
+msgid "Choose a font color for the field component."
+msgstr "Välj en typsnittsfärg för fält."
 
 #: library/Customizer/Sections/General.php:12
 msgid "General"
@@ -8212,6 +8294,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Tertiary colors"
+#~ msgstr "Tertiära färger"
 
 #~ msgid "Complementary"
 #~ msgstr "Komplementär"

@@ -20,54 +20,6 @@ class Field
         ));
 
         /**
-         * Background
-         */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            'type'        => 'color',
-            'settings'    => 'field_background_color',
-            'label'       => esc_html__('Background color', 'municipio'),
-            'description' => esc_html__('Choose a background color for the field component.', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'default'     => Kirki::get_option('color_palette_monotone')['lightest'] ?? '#eee',
-            'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-field-focus-color'
-            ]
-        ]);
-
-        /**
-         * Focus
-         */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            'type'        => 'color',
-            'settings'    => 'field_focus_color',
-            'label'       => esc_html__('Focus color', 'municipio'),
-            'description' => esc_html__('Choose a focus color for the field component.', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#000',
-            'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-field-focus-color'
-            ]
-        ]);
-
-        /**
-         * Font color
-         */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            'type'        => 'color',
-            'settings'    => 'field_color',
-            'label'       => esc_html__('Custom field font color', 'municipio'),
-            'description' => esc_html__('Choose a font color for the field component.', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#000',
-            'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-field-color'
-            ]
-        ]);
-
-        /**
          * Border
          */
         KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
@@ -123,6 +75,54 @@ class Field
                 ]
             ]
         ], ['label' => esc_html__('Tailor border apperance', 'municipio'), 'settings' => 'collection_border_active']);
+
+        /**
+         * Background
+         */
+        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'field_background_color',
+            'label'       => esc_html__('Background color', 'municipio'),
+            'description' => esc_html__('Choose a background color for the field component.', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => Kirki::get_option('color_palette_monotone')['lightest'] ?? '#eee',
+            'output'      => [
+                'element'   => ':root',
+                'property'  => '--c-field-focus-color'
+            ]
+        ]);
+
+        /**
+         * Focus
+         */
+        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'field_focus_color',
+            'label'       => esc_html__('Focus color', 'municipio'),
+            'description' => esc_html__('Choose a focus color for the field component.', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#000',
+            'output'      => [
+                'element'   => ':root',
+                'property'  => '--c-field-focus-color'
+            ]
+        ]);
+
+        /**
+         * Font color
+         */
+        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'field_color',
+            'label'       => esc_html__('Custom field font color', 'municipio'),
+            'description' => esc_html__('Choose a font color for the field component.', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#000',
+            'output'      => [
+                'element'   => ':root',
+                'property'  => '--c-field-color'
+            ]
+        ]);
 
         /**
          * Radius
