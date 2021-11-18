@@ -82,7 +82,7 @@ class Card
                 'output'      => [
                     'element'   => ':root',
                     'property'  => '--c-card-border-width',
-                    'unit'      => 'px'
+                    'units'     => 'px'
                 ],
             ],
             [
