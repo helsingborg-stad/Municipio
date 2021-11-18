@@ -24,7 +24,7 @@ class Shadow
             'default'     => 1,
             'choices'     => [
                 'min'  => 0,
-                'max'  => 2,
+                'max'  => 4,
                 'step' => 1,
             ],
             'output' => [
