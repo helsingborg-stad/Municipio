@@ -86,6 +86,5 @@ class Radius
                 'units'     => 'px'
             ],
         ]);
-        
     }
 }

@@ -32,7 +32,7 @@ class KirkiCondidional
 
         //Use toggle config if it exists
         $toggleConfig = array_merge([
-          'label'     => esc_html__('Enable', 'municipio') . " " . strtolower($fieldConfigs[0]['label']),
+          'label'     => esc_html__('Tailor', 'municipio') . " " . strtolower($fieldConfigs[0]['label']),
           'settings' => $fieldConfigs[0]['settings'] . '_active'
         ], array_filter($toggleConfig));
 
