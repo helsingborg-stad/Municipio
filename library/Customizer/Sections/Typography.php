@@ -278,7 +278,7 @@ class Typography
                 'default' => [
                     'font-size'      => '18px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'font-weight'       => '500',
                     'line-height'    => '1.625',
                     'text-transform' => 'none',
                 ],
