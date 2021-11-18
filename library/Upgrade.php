@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 14; //The db version we want to achive
+    private $dbVersion = 15; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -260,6 +260,14 @@ class Upgrade
 
         $this->deleteThemeMod('colors');
 
+        return true;
+    }
+
+    //Migrate header apperance
+    private function v_15($db): bool
+    {
+        set_theme_mod('header_apperance', get_option('options_header_layout'));
+        delete_option('options_header_layout');
         return true;
     }
 

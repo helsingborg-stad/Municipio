@@ -16,6 +16,22 @@ class Header
         ));
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'header_apperance',
+            'label'       => esc_html__('Apperance', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'casual',
+            'priority'    => 10,
+            'choices'     => [
+                'casual' => esc_html__('Casual (Small sites)', 'municipio'),
+                'business' => esc_html__('Business (large sites)', 'municipio'),
+            ],
+            'output' => [
+                'type' => 'controller',
+            ],
+          ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'header_sticky',
           'label'       => esc_html__('Sticky', 'municipio'),

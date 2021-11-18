@@ -65,16 +65,12 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Customization data
-        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);//TODO: This when all functionality is moved!
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
         
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
         $this->data['emblem']               = $this->getEmblem();
-
-        //Get header layout
-        $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
 
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
@@ -408,9 +404,9 @@ class BaseController
             }
         }
 
-        if($location == "mobile-drawer" && $this->data['headerLayout'] !== 'business') {
+        if($location == "mobile-drawer" && $this->data['customizer']->headerApperance !== 'business') {
             if($this->showSearchForm('mobile')) {
-                return true; 
+                return true;
             }
         }
 
