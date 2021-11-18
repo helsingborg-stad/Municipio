@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "POT-Creation-Date: 2021-11-18 15:10+0100\n"
-"PO-Revision-Date: 2021-11-18 15:12+0100\n"
+"PO-Revision-Date: 2021-11-18 15:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -6178,32 +6178,34 @@ msgstr "Rundning på hörn"
 
 #: library/Customizer/Sections/Collection.php:16
 msgid "Collection"
-msgstr ""
+msgstr "Samlingar"
 
 #: library/Customizer/Sections/Collection.php:17
 msgid "Collection appeance settings."
-msgstr ""
+msgstr "Utseende för samlingskomponent"
 
 #: library/Customizer/Sections/Collection.php:40
 msgid "Background color - Hover"
-msgstr ""
+msgstr "Bakgrundsfärg hovring"
 
 #: library/Customizer/Sections/Collection.php:41
 msgid "Background color on hover."
-msgstr ""
+msgstr "Färg som ska användas i bakgrunden "
 
 #: library/Customizer/Sections/Collection.php:57
 msgid "Custom collection font color"
-msgstr ""
+msgstr "Typsnittsfärg i samling"
 
 #: library/Customizer/Sections/Collection.php:58
 msgid "Choose a font color for the collection component."
-msgstr ""
+msgstr "Välj en typsnittsfärg för samlingskomponenten. "
 
 #: library/Customizer/Sections/Collection.php:132
 msgid ""
 "Border radius on wrapped collections are automatically removed if needed."
 msgstr ""
+"Rundade hörn på samlingskomponenter som ligger omslutet av andra "
+"komponenter, tas bort vid behov automatiskt. "
 
 #: library/Customizer/Sections/Colors.php:12
 msgid "Colors"
