@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d619efb005d4fc21bc42fa890282adf0",
+    "content-hash": "a28ddd8d0b3f1d9e27f10f14c434ba57",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -1129,16 +1129,16 @@
         },
         {
             "name": "shortpixel/shortpixel-php",
-            "version": "v1.8.4",
+            "version": "v1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/short-pixel-optimizer/shortpixel-php.git",
-                "reference": "47c0be1abad7c8fb5b7569de03f05fc6d2487a9d"
+                "reference": "c7c42a208e3e3b37e1ebb18e93a42a46ccbe66da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/47c0be1abad7c8fb5b7569de03f05fc6d2487a9d",
-                "reference": "47c0be1abad7c8fb5b7569de03f05fc6d2487a9d",
+                "url": "https://api.github.com/repos/short-pixel-optimizer/shortpixel-php/zipball/c7c42a208e3e3b37e1ebb18e93a42a46ccbe66da",
+                "reference": "c7c42a208e3e3b37e1ebb18e93a42a46ccbe66da",
                 "shasum": ""
             },
             "require": {
@@ -1183,9 +1183,9 @@
             "support": {
                 "email": "support@shortpixel.com",
                 "issues": "https://github.com/short-pixel-optimizer/shortpixel-php/issues",
-                "source": "https://github.com/short-pixel-optimizer/shortpixel-php/tree/v1.8.4"
+                "source": "https://github.com/short-pixel-optimizer/shortpixel-php/tree/v1.8.5"
             },
-            "time": "2021-10-19T10:12:06+00:00"
+            "time": "2021-11-15T16:52:13+00:00"
         },
         {
             "name": "symfony/debug",
@@ -1642,12 +1642,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "ae57e565df46334bcc5ca5daca34fb4aef97a688"
+                "reference": "8dcd0b137b3fb45df7df6f06f0ef6a9fad7f587d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/ae57e565df46334bcc5ca5daca34fb4aef97a688",
-                "reference": "ae57e565df46334bcc5ca5daca34fb4aef97a688",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8dcd0b137b3fb45df7df6f06f0ef6a9fad7f587d",
+                "reference": "8dcd0b137b3fb45df7df6f06f0ef6a9fad7f587d",
                 "shasum": ""
             },
             "require": {
@@ -1723,7 +1723,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-04T08:35:51+00:00"
+            "time": "2021-11-12T11:42:37+00:00"
         },
         {
             "name": "tgmpa/tgm-plugin-activation",
@@ -1803,7 +1803,7 @@
                 "url": "https://downloads.wordpress.org/plugin/kirki.3.1.9.zip"
             },
             "require": {
-                "composer/installers": "~1.0 || ~2.0"
+                "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/kirki/"
@@ -1820,5 +1820,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
