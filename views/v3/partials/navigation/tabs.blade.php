@@ -9,7 +9,8 @@
                 'u-justify-content--end', 
                 'u-box-shadow--1',
                 'u-rounded',
-                'u-margin--auto'
+                'u-margin--auto',
+                'u-color__bg--lightest'
             ]
         ])
             @foreach($tabMenuItems as $item)
