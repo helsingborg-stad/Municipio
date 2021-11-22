@@ -10,20 +10,30 @@ class Template
 
     public function __construct()
     {
-        //Blade runtime
-        $this->viewPaths = $this->registerViewPaths();
-        $init = new ComponentLibraryInit($this->viewPaths);
-        $this->bladeEngine = $init->getEngine();
-
         //Init custom tempaltes & views 
-        add_action('init', array($this, 'registerViewPaths'), 10);
-        add_action('init', array($this, 'initCustomTemplates'), 10);
+        add_action('template_redirect', array($this, 'registerViewPaths'), 10);
+        add_action('template_redirect', array($this, 'initCustomTemplates'), 10);
+
+        // Initialize blade
+        add_action('template_redirect', array($this, 'initializeBlade'), 100);
 
         //Loads custom controllers and views
         add_filter('template_redirect', array($this, 'addTemplateFilters'), 10);
         add_filter('template_include', array($this, 'switchTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
+    }
+
+    /**
+     * Get Viewpaths and Blade engine runtime.
+     *
+     * @return void
+     */
+    public function initializeBlade()
+    {
+        $this->viewPaths = $this->registerViewPaths();
+        $init = new ComponentLibraryInit($this->viewPaths);
+        $this->bladeEngine = $init->getEngine();
     }
 
     /**
