@@ -59,9 +59,9 @@ class Upgrade
      *
      * @return void
      */
-    public function reset() 
+    public function reset()
     {
-        update_option('theme_mods_municipio', unserialize('a:22:{s:18:"custom_css_post_id";i:-1;s:16:"sidebars_widgets";a:2:{s:4:"time";i:1493903594;s:4:"data";a:4:{s:19:"wp_inactive_widgets";a:0:{}s:9:"sidebar-1";a:6:{i:0;s:8:"search-2";i:1;s:14:"recent-posts-2";i:2;s:17:"recent-comments-2";i:3;s:10:"archives-2";i:4;s:12:"categories-2";i:5;s:6:"meta-2";}s:9:"sidebar-2";a:0:{}s:9:"sidebar-3";a:0:{}}}s:18:"nav_menu_locations";a:5:{s:9:"main-menu";i:2;s:19:"dropdown-links-menu";i:14;s:15:"quicklinks-menu";i:15;s:14:"secondary-menu";i:2;s:13:"mobile-drawer";i:15;}s:7:"general";a:1:{s:19:"field_60cb4dd897cb8";s:5:"right";}s:6:"colors";a:23:{s:19:"field_60361bcb76325";s:7:"#7B075E";s:19:"field_60364d06dc120";s:7:"#4b0034";s:19:"field_603fba043ab30";s:7:"#ad428b";s:19:"field_608c016efa73a";a:2:{s:19:"field_608c0259fa73b";s:7:"#ad428b";s:19:"field_608c02dcfa73c";s:2:"10";}s:19:"field_608c0375f70cd";a:2:{s:19:"field_608c0375f70ce";s:7:"#ad428b";s:19:"field_608c0375f70cf";s:2:"25";}s:19:"field_603fba3ffa851";s:7:"#d35098";s:19:"field_603fbb7ad4ccf";s:7:"#9e166a";s:19:"field_603fbbef1e2f8";s:7:"#ff82c9";s:19:"field_608c038cf70d0";a:2:{s:19:"field_608c038cf70d1";s:7:"#ff82c9";s:19:"field_608c038cf70d2";s:2:"10";}s:19:"field_608c03bcf70d3";a:2:{s:19:"field_608c03bcf70d4";s:7:"#ff82c9";s:19:"field_608c03bcf70d5";s:2:"25";}s:19:"field_608c0e753ef05";s:7:"#ec6701";s:19:"field_608c0e813ef06";s:7:"#b23700";s:19:"field_608c0e8c3ef07";s:7:"#ff983e";s:19:"field_608c0ea33ef08";a:2:{s:19:"field_608c0ea33ef09";s:7:"#ae0b05";s:19:"field_608c0ea33ef0a";s:2:"75";}s:19:"field_608c0eae3ef0b";a:2:{s:19:"field_608c0eae3ef0c";s:7:"#ae0b05";s:19:"field_608c0eae3ef0d";s:2:"75";}s:19:"field_60868021879b6";s:7:"#4b0034";s:19:"field_608680ef879b7";s:7:"#ad428b";s:19:"field_60868147879b8";s:7:"#4b0034";s:19:"field_6086819f879b9";s:7:"#ad428b";s:19:"field_608681df879ba";s:7:"#7b075e";s:19:"field_60911ccc38857";s:7:"#d4c2ce";s:19:"field_6091280638858";s:7:"#e8dae4";s:19:"field_6091282d38859";s:7:"#efe4eb";}s:6:"widths";a:6:{s:19:"field_609bdcc8348d6";s:4:"1284";s:19:"field_60928f237c070";s:4:"1284";s:19:"field_609bdcad348d5";s:4:"1284";s:19:"field_609298276e5b2";s:3:"688";s:19:"field_60d339b60049e";s:5:"large";s:19:"field_60d3393d1231a";s:5:"large";}s:7:"padding";a:1:{s:19:"field_611e43ec4dfa5";s:1:"4";}s:6:"header";a:4:{s:19:"field_61434d3478ef7";s:6:"sticky";s:19:"field_61446365d1c7e";s:0:"";s:19:"field_614467575de00";s:0:"";s:19:"field_6070186956c15";s:8:"accented";}s:10:"mobilemenu";a:1:{s:19:"field_61126702da36c";s:7:"duotone";}s:10:"quicklinks";a:5:{s:19:"field_61570dd479d9b";s:3:"hex";s:19:"field_61570e6979d9c";s:7:"#540540";s:19:"field_6127571bcc76e";s:10:"text-white";s:19:"field_61488b616937c";s:0:"";s:19:"field_61488c4f6b4fd";s:10:"everywhere";}s:4:"hero";a:2:{s:19:"field_614c713ae73ea";a:2:{s:19:"field_614c7189e73eb";s:7:"#310326";s:19:"field_614c7197e73ec";s:2:"64";}s:19:"field_614c720fb65a4";a:2:{s:19:"field_614c720fb65a5";s:7:"#310326";s:19:"field_614c720fb65a6";s:2:"72";}}s:4:"card";a:1:{s:19:"field_609128593885a";s:7:"#f6edf3";}s:7:"overlay";a:1:{s:19:"field_615c1bc3772c6";a:2:{s:19:"field_615c1bc3780b0";s:7:"#310326";s:19:"field_615c1bc3780b6";s:2:"72";}}s:13:"sectionssplit";a:1:{s:19:"field_611f83757a727";s:9:"highlight";}s:5:"posts";a:3:{s:19:"field_6061d864c6873";s:8:"accented";s:19:"field_6062fd67a2eb4";s:8:"accented";s:19:"field_60631bb52591c";s:4:"none";}s:8:"contacts";a:2:{s:19:"field_6063008d5068a";s:9:"highlight";s:19:"field_6090f318a40ef";s:9:"highlight";}s:5:"inlay";a:1:{s:19:"field_606300da5068b";s:8:"accented";}s:4:"text";a:1:{s:19:"field_60631b4025918";s:9:"highlight";}s:5:"video";a:1:{s:19:"field_60631b5f25919";s:9:"highlight";}s:6:"script";a:1:{s:19:"field_6063072c25917";s:9:"highlight";}s:5:"index";a:1:{s:19:"field_607843a6ba55e";s:9:"highlight";}s:10:"localevent";a:1:{s:19:"field_607ff0d6b8426";s:8:"accented";}}'));
+        update_option('theme_mods_municipio', unserialize('a:8:{s:18:"custom_css_post_id";i:-1;s:16:"sidebars_widgets";a:2:{s:4:"time";i:1620390598;s:4:"data";a:13:{s:19:"wp_inactive_widgets";a:3:{i:0;s:6:"text-7";i:1;s:6:"text-8";i:2;s:6:"text-2";}s:15:"footer-area-top";a:0:{}s:11:"footer-area";a:3:{i:0;s:6:"text-6";i:1;s:6:"text-5";i:2;s:6:"text-4";}s:11:"slider-area";a:0:{}s:16:"content-area-top";a:0:{}s:12:"content-area";a:0:{}s:19:"content-area-bottom";a:0:{}s:13:"right-sidebar";a:0:{}s:12:"left-sidebar";a:0:{}s:19:"left-sidebar-bottom";a:0:{}s:11:"top-sidebar";a:0:{}s:14:"bottom-sidebar";a:0:{}s:9:"sidebar-1";a:0:{}}}s:18:"nav_menu_locations";a:2:{s:9:"main-menu";i:2;s:14:"secondary-menu";i:2;}s:6:"colors";a:10:{s:19:"field_60361bcb76325";s:7:"#0095db";s:19:"field_60364d06dc120";s:7:"#003359";s:19:"field_603fba043ab30";s:7:"#4989B6";s:19:"field_603fba3ffa851";s:7:"#5BA1D8";s:19:"field_603fbb7ad4ccf";s:7:"#1C73A6";s:19:"field_603fbbef1e2f8";s:7:"#90D2FF";s:19:"field_60911ccc38857";s:7:"#C2CED7";s:19:"field_6091280638858";s:7:"#DBE4E9";s:19:"field_6091282d38859";s:7:"#E4EBF0";s:19:"field_609128593885a";s:7:"#EEF3F6";}s:6:"radius";a:4:{s:19:"field_603662f7a16f8";s:1:"4";s:19:"field_6038fa31cfac6";s:1:"7";s:19:"field_6038fa400384b";s:1:"7";s:19:"field_6038fa52576ba";s:1:"7";}s:7:"modules";a:16:{s:19:"field_6061d864c6873";s:9:"highlight";s:19:"field_6062fd67a2eb4";s:8:"accented";s:19:"field_60631bb52591c";s:4:"none";s:19:"field_6063008d5068a";s:4:"none";s:19:"field_606300da5068b";s:4:"none";s:19:"field_6063013a5068c";s:4:"none";s:19:"field_6063072c25917";s:4:"none";s:19:"field_60631b4025918";s:4:"none";s:19:"field_60631b5f25919";s:4:"none";s:19:"field_60641a8df5290";s:4:"none";s:19:"field_60643b600cf66";s:4:"none";s:19:"field_6064452900410";s:4:"none";s:19:"field_607843a6ba55e";s:9:"highlight";s:19:"field_607843cdba55f";s:4:"none";s:19:"field_607ff0d6b8426";s:8:"accented";s:19:"field_6090f318a40ef";s:9:"highlight";}s:4:"site";a:1:{s:19:"field_6070186956c15";s:8:"accented";}s:6:"widths";a:4:{s:19:"field_609bdcc8348d6";s:4:"1124";s:19:"field_60928f237c070";s:4:"1220";s:19:"field_609bdcad348d5";s:4:"1220";s:19:"field_609298276e5b2";s:3:"720";}}'));
         update_option($this->dbVersionKey, 1);
     }
 
@@ -125,10 +125,12 @@ class Upgrade
     //Migrate header stuff.
     private function v_8($db): bool
     {
-        $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
-        $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
-        $this->migrateThemeMod('header', 'header_color', 'field_614467575de00');
-        $this->migrateThemeMod('header', 'header_modifier', 'field_6070186956c15');
+        if (get_theme_mod('header')) {
+            $this->migrateThemeMod('header', 'header_sticky', 'field_61434d3478ef7');
+            $this->migrateThemeMod('header', 'header_background', 'field_61446365d1c7e');
+            $this->migrateThemeMod('header', 'header_color', 'field_614467575de00');
+            $this->migrateThemeMod('header', 'header_modifier', 'field_6070186956c15');
+        }
 
         $this->deleteThemeMod('header');
 
@@ -175,9 +177,13 @@ class Upgrade
         $vibrantOverlay = $this->hex2rgba($vibrantColor, "0." . (int)$vibrantOpacity);
 
         if ($vibrantColor || $defaultColor) {
-            set_theme_mod('hero_overlay_enable', true);
+            if ($vibrantColor == 'rgb(0,0,0)' && $defaultColor == 'rgb(0,0,0)') {
+                set_theme_mod('hero_overlay_enable', 0);
+            } else {
+                set_theme_mod('hero_overlay_enable', 1);
+            }
         } else {
-            set_theme_mod('hero_overlay_enable', false);
+            set_theme_mod('hero_overlay_enable', 0);
         }
 
         set_theme_mod('hero_overlay_neutral', $defaultOverlay);
@@ -196,8 +202,6 @@ class Upgrade
             $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0'];
             $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6'];
             $overlay = $this->hex2rgba($color, "0.".(int)$opacity);
-
-            var_dump();
             set_theme_mod('overlay', $overlay);
         }
 
@@ -207,21 +211,73 @@ class Upgrade
     //Migrate modules stuff.
     private function v_13($db): bool
     {
+        if (get_theme_mod('site')) {
+            $this->migrateThemeMod('site', 'header_modifier', 'field_6070186956c15');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'header_modifier', 'field_6070186956c15');
+        }
 
-    //TODO: Must be granulary mapped to each to-field name
-        $this->migrateThemeMod('posts', 'mod_posts_index_modifier', 'field_6061d864c6873');
-        $this->migrateThemeMod('posts', 'mod_posts_list_modifier', 'field_6062fd67a2eb4');
-        $this->migrateThemeMod('posts', 'mod_posts_expandablelist_modifier', 'field_60631bb52591c');
-        $this->migrateThemeMod('contacts', 'mod_contacts_list_modifier', 'field_6063008d5068a');
-        $this->migrateThemeMod('contacts', 'mod_contacts_card_modifier', 'field_6090f318a40ef');
-        $this->migrateThemeMod('inlay', 'mod_inlay_list_modifier', 'field_606300da5068b');
+        if (get_theme_mod('posts')) {
+            $this->migrateThemeMod('posts', 'mod_posts_index_modifier', 'field_6061d864c6873');
+            $this->migrateThemeMod('posts', 'mod_posts_list_modifier', 'field_6062fd67a2eb4');
+            $this->migrateThemeMod('posts', 'mod_posts_expandablelist_modifier', 'field_60631bb52591c');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_posts_index_modifier', 'field_6061d864c6873');
+            $this->migrateThemeMod('modules', 'mod_posts_list_modifier', 'field_6062fd67a2eb4');
+            $this->migrateThemeMod('modules', 'mod_posts_expandablelist_modifier', 'field_60631bb52591c');
+        }
+
+        if (get_theme_mod('contacts')) {
+            $this->migrateThemeMod('contacts', 'mod_contacts_list_modifier', 'field_6063008d5068a');
+            $this->migrateThemeMod('contacts', 'mod_contacts_card_modifier', 'field_6090f318a40ef');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_contacts_list_modifier', 'field_6063008d5068a');
+            $this->migrateThemeMod('modules', 'mod_contacts_card_modifier', 'field_6090f318a40ef');
+        }
+
+        if (get_theme_mod('inlay')) {
+            $this->migrateThemeMod('inlay', 'mod_inlay_list_modifier', 'field_606300da5068b');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_inlay_list_modifier', 'field_606300da5068b');
+        }
+
         $this->migrateThemeMod('modules', 'mod_map_modifier', 'field_6063013a5068c');
-        $this->migrateThemeMod('script', 'mod_script_modifier', 'field_6063072c25917');
-        $this->migrateThemeMod('text', 'mod_text_modifier', 'field_60631b4025918');
-        $this->migrateThemeMod('video', 'mod_video_modifier', 'field_60631b5f25919');
-        $this->migrateThemeMod('index', 'mod_index_modifier', 'field_607843a6ba55e');
-        $this->migrateThemeMod('localevent', 'mod_localevent_modifier', 'field_607ff0d6b8426');
-        $this->migrateThemeMod('sectionssplit', 'mod_section_split_modifier', 'field_611f83757a727');
+
+        if (get_theme_mod('script')) {
+            $this->migrateThemeMod('script', 'mod_script_modifier', 'field_6063072c25917');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_script_modifier', 'field_6063072c25917');
+        }
+
+        if (get_theme_mod('text')) {
+            $this->migrateThemeMod('text', 'mod_text_modifier', 'field_60631b4025918');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_text_modifier', 'field_60631b4025918');
+        }
+
+        if (get_theme_mod('video')) {
+            $this->migrateThemeMod('video', 'mod_video_modifier', 'field_60631b5f25919');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_video_modifier', 'field_60631b5f25919');
+        }
+
+        if (get_theme_mod('index')) {
+            $this->migrateThemeMod('index', 'mod_index_modifier', 'field_607843a6ba55e');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_index_modifier', 'field_607843a6ba55e');
+        }
+
+        if (get_theme_mod('localevent')) {
+            $this->migrateThemeMod('localevent', 'mod_localevent_modifier', 'field_607ff0d6b8426');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_localevent_modifier', 'field_607ff0d6b8426');
+        }
+
+        if (get_theme_mod('sectionssplit')) {
+            $this->migrateThemeMod('sectionssplit', 'mod_section_split_modifier', 'field_611f83757a727');
+        } elseif (get_theme_mod('modules')) {
+            $this->migrateThemeMod('modules', 'mod_section_split_modifier', 'field_611f83757a727');
+        }
 
         $this->deleteThemeMod('modules');
         $this->deleteThemeMod('site');
@@ -266,7 +322,10 @@ class Upgrade
     //Migrate header apperance
     private function v_15($db): bool
     {
-        set_theme_mod('header_apperance', get_option('options_header_layout'));
+        if (get_option('options_header_layout')) {
+            set_theme_mod('header_apperance', get_option('options_header_layout'));
+        }
+
         delete_option('options_header_layout');
         return true;
     }
