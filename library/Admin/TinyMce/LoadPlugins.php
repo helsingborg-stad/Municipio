@@ -28,8 +28,7 @@ class LoadPlugins
     {
         $nameSpace = apply_filters('Municipio/Admin/TinyMce/LoadPlugins', "\Municipio\Admin\TinyMce");
         if (isset($nameSpace) && !empty($nameSpace)) {
-
-            $plugins = (array) get_field('content_editor_plugins', 'options');
+            $plugins = (array)get_field('content_editor_plugins', 'options');
 
             if (is_array($plugins) && !empty($plugins)) {
                 foreach ($plugins as $plugin) {
