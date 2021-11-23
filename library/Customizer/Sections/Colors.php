@@ -471,16 +471,23 @@ class Colors
             'section'     => self::SECTION_ID,
             'priority'    => 10,
             'choices'     => [
-                'base'    => esc_html__('Base', 'municipio'),
+                'base'          => esc_html__('Base', 'municipio'),
+                'contrasting'   => esc_html__('Base Contrasting', 'municipio'),
             ],
             'default'     => [
-                'base'    => 'rgba(0,0,0,0.55)',
+                'base'          => 'rgba(0,0,0,0.55)',
+                'contrasting'   => 'rgb(255,255,255)',
             ],
             'output' => [
                 [
                     'choice'    => 'base',
                     'element'   => ':root',
                     'property'  => '--color-alpha',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-alpha-contrasting',
                 ]
             ],
         ]);
