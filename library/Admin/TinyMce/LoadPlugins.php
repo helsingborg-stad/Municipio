@@ -10,9 +10,15 @@ class LoadPlugins
             return;
         }
 
-        if (get_field('content_editor_plugins', 'options')) {
-            $this->loadPlugins();
-        }
+        // Enclosed in the init function as it has to run before get_field can be used
+        add_action(
+            'init',
+            function () {
+                if (get_field('content_editor_plugins', 'options')) {
+                    $this->loadPlugins();
+                }
+            }
+        );
     }
 
     /* Load TinyMCE plugins
