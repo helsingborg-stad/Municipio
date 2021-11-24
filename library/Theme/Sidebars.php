@@ -11,7 +11,7 @@ class Sidebars
 
         add_filter('Modularity/Module/Container/Sidebars', array($this, 'registerSidebarWithContainerSupport'));
         add_filter('Modularity/Module/Container/Modules', array($this, 'registerModulesWithContainerSupport'));
-        
+
         add_filter('Modularity/Display/BeforeModule', array($this, 'replaceGridClasses'), 10, 1);
     }
 
@@ -29,7 +29,7 @@ class Sidebars
 
     public function register()
     {
-        
+
         /**
          * Footer Area Top
          */
@@ -52,7 +52,7 @@ class Sidebars
             'description'   => __('The footer area', 'municipio'),
             'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="o-grid-4@lg"><div id="%1$s" class="%2$s">',
+            'before_widget' => '<div class="o-grid-4\@lg"><div id="%1$s" class="%2$s">',
             'after_widget'  => '</div></div>'
         ));
 
@@ -278,7 +278,7 @@ class Sidebars
             case "mod-json-render":
                 $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
                 break;
-            
+
         }
 
         return $moduleSpecification;
