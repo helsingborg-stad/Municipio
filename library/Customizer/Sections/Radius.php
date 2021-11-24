@@ -20,6 +20,7 @@ class Radius
             'settings'    => 'radius_xs',
             'label'       => esc_html__('Extra small', 'municipio'),
             'section'     => self::SECTION_ID,
+            'transport' => 'auto',
             'default'     => 2,
             'choices'     => [
                 'min'  => 0,
@@ -38,6 +39,7 @@ class Radius
             'settings'    => 'radius_sm',
             'label'       => esc_html__('Small', 'municipio'),
             'section'     => self::SECTION_ID,
+            'transport' => 'auto',
             'default'     => 4,
             'choices'     => [
                 'min'  => 0,
@@ -56,6 +58,7 @@ class Radius
             'settings'    => 'radius_md',
             'label'       => esc_html__('Medium', 'municipio'),
             'section'     => self::SECTION_ID,
+            'transport' => 'auto',
             'default'     => 8,
             'choices'     => [
                 'min'  => 0,
@@ -74,6 +77,7 @@ class Radius
             'settings'    => 'radius_lg',
             'label'       => esc_html__('Large', 'municipio'),
             'section'     => self::SECTION_ID,
+            'transport' => 'auto',
             'default'     => 12,
             'choices'     => [
                 'min'  => 0,

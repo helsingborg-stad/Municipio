@@ -21,6 +21,7 @@ class Colors
             'label'       => esc_html__('Primary colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'dark'   => esc_html__('Dark', 'municipio'),
@@ -63,6 +64,7 @@ class Colors
             'label'       => esc_html__('Secondary colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'dark'   => esc_html__('Dark', 'municipio'),
@@ -105,6 +107,7 @@ class Colors
             'label'       => esc_html__('Monotone colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'black'   => esc_html__('Black', 'municipio'),
                 'darkest'  => esc_html__('Darkest', 'municipio'),
@@ -181,6 +184,7 @@ class Colors
             'label'       => esc_html__('Success colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'dark'   => esc_html__('Dark', 'municipio'),
@@ -222,6 +226,7 @@ class Colors
             'label'       => esc_html__('Danger colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'dark'   => esc_html__('Dark', 'municipio'),
@@ -263,6 +268,7 @@ class Colors
             'label'       => esc_html__('Warning colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'dark'   => esc_html__('Dark', 'municipio'),
@@ -304,6 +310,7 @@ class Colors
             'label'       => esc_html__('Info colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'dark'   => esc_html__('Dark', 'municipio'),
@@ -348,6 +355,7 @@ class Colors
             'label'       => esc_html__('Background colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+                'transport' => 'auto',
             'choices'     => [
                 'background'    => esc_html__('Background', 'municipio'),
                 'paper'   => esc_html__('Paper', 'municipio'),
@@ -383,6 +391,7 @@ class Colors
             'label'       => esc_html__('Text colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'transport' => 'auto',
             'choices'     => [
                 'base'    => esc_html__('Base', 'municipio'),
                 'secondary'   => esc_html__('Secondary', 'municipio'),
@@ -420,6 +429,7 @@ class Colors
             'label'       => esc_html__('Link colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+                'transport' => 'auto',
             'choices'     => [
                 'link'    => esc_html__('Link', 'municipio'),
                 'link_hover'   => esc_html__('Hover', 'municipio'),

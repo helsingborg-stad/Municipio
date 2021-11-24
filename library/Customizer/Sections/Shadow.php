@@ -21,6 +21,7 @@ class Shadow
             'label'       => esc_html__('Amount of shadows', 'municipio'),
             'description' => esc_html__('The shadow sizes will automatically be multiplied from the value below. A value of 0 will completly turn off shadows.', 'municipio'),
             'section'     => self::SECTION_ID,
+            'transport' => 'auto',
             'default'     => 1,
             'choices'     => [
                 'min'  => 0,

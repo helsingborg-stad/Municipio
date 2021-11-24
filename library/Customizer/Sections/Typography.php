@@ -25,6 +25,7 @@ class Typography
                     'label'     => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
                     'section'   => self::SECTION_ID,
                     'priority'  => 10,
+                    'transport' => 'auto',
                     'choices'   => [
                         'fonts' => [
                             'google' => [ 'popularity', 30 ],
