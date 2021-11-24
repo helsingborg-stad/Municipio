@@ -60,8 +60,7 @@ class Header
           'choices'     => [
               '' => esc_html__('Default', 'municipio'),
               'primary' => esc_html__('Primary', 'municipio'),
-              'secondary' => esc_html__('Secondary', 'municipio'),
-              'tertiary' => esc_html__('Tertiary', 'municipio'),
+              'secondary' => esc_html__('Secondary', 'municipio')
           ],
           'output' => [
               'type' => 'modifier',
@@ -82,8 +81,7 @@ class Header
               'text-white' => esc_html__('White', 'municipio'),
               'text-black' => esc_html__('Black', 'municipio'),
               'text-primary' => esc_html__('Primary', 'municipio'),
-              'text-secondary' => esc_html__('Secondary', 'municipio'),
-              'text-tertiary' => esc_html__('Tertiary', 'municipio'),
+              'text-secondary' => esc_html__('Secondary', 'municipio')
           ],
           'output' => [
               'type' => 'modifier',
