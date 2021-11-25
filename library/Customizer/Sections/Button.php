@@ -22,7 +22,7 @@ class Button
         /**
          * Radius
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        /*KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'slider',
                 'settings'    => 'button_border_radius_sm',
@@ -57,7 +57,7 @@ class Button
                     'unit'      => 'px'
                 ],
             ]
-        ], ['label' => esc_html__('Tailor radius', 'municipio'), 'settings' => 'button_radius']);
+        ], ['label' => esc_html__('Tailor radius', 'municipio'), 'settings' => 'button_radius']);*/ 
 
         /**
          * Color - Primary
