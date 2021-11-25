@@ -101,252 +101,6 @@ class Colors
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'multicolor',
-            'settings'    => 'color_palette_monotone',
-            'label'       => esc_html__('Monotone colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-            'transport' => 'auto',
-            'choices'     => [
-                'black'   => esc_html__('Black', 'municipio'),
-                'darkest'  => esc_html__('Darkest', 'municipio'),
-                'darker'  => esc_html__('Darker', 'municipio'),
-                'dark'  => esc_html__('Dark', 'municipio'),
-                'light'  => esc_html__('Light', 'municipio'),
-                'lighter'  => esc_html__('Lighther', 'municipio'),
-                'lightest'  => esc_html__('Lightest', 'municipio'),
-                'white'    => esc_html__('White', 'municipio'),
-            ],
-            'default'     => [
-                'default'   => '#f5f5f5',
-                'black'   => '#000000',
-                'darkest'  => '#3d3d3d',
-                'darker'  => '#565656',
-                'dark'  => '#707070',
-                'light'  => '#a3a3a3',
-                'lighter'  => '#e5e5e5',
-                'lightest'  => '#fcfcfc',
-                'white'    => '#ffffff',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'default',
-                    'element'   => ':root',
-                    'property'  => '--color-default',
-                ],
-                [
-                    'choice'    => 'black',
-                    'element'   => ':root',
-                    'property'  => '--color-black',
-                ],
-                [
-                    'choice'    => 'darkest',
-                    'element'   => ':root',
-                    'property'  => '--color-darkest',
-                ],
-                [
-                    'choice'    => 'darker',
-                    'element'   => ':root',
-                    'property'  => '--color-darker',
-                ],
-                [
-                    'choice'    => 'dark',
-                    'element'   => ':root',
-                    'property'  => '--color-dark',
-                ],
-                [
-                    'choice'    => 'light',
-                    'element'   => ':root',
-                    'property'  => '--color-light',
-                ],
-                [
-                    'choice'    => 'lighter',
-                    'element'   => ':root',
-                    'property'  => '--color-lighter',
-                ],
-                [
-                    'choice'    => 'lightest',
-                    'element'   => ':root',
-                    'property'  => '--color-lightest',
-                ],
-                [
-                    'choice'    => 'white',
-                    'element'   => ':root',
-                    'property'  => '--color-white',
-                ],
-            ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'multicolor',
-            'settings'    => 'color_palette_state_success',
-            'label'       => esc_html__('Success colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-            'transport' => 'auto',
-            'choices'     => [
-                'base'    => esc_html__('Base', 'municipio'),
-                'dark'   => esc_html__('Dark', 'municipio'),
-                'light'  => esc_html__('Light', 'municipio'),
-                'contrasting'  => esc_html__('Contrastring', 'municipio'),
-            ],
-            'default'     => [
-                'base'    => '#91d736',
-                'dark'   => '#91d736',
-                'light'  => '#91d736',
-                'contrasting'  => '#000000',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'base',
-                    'element'   => ':root',
-                    'property'  => '--color-success',
-                ],
-                [
-                    'choice'    => 'dark',
-                    'element'   => ':root',
-                    'property'  => '--color-success-dark',
-                ],
-                [
-                    'choice'    => 'light',
-                    'element'   => ':root',
-                    'property'  => '--color-success-light',
-                ],
-                [
-                    'choice'    => 'contrasting',
-                    'element'   => ':root',
-                    'property'  => '--color-success-contrasting',
-                ],
-        ]]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'multicolor',
-            'settings'    => 'color_palette_state_danger',
-            'label'       => esc_html__('Danger colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-            'transport' => 'auto',
-            'choices'     => [
-                'base'    => esc_html__('Base', 'municipio'),
-                'dark'   => esc_html__('Dark', 'municipio'),
-                'light'  => esc_html__('Light', 'municipio'),
-                'contrasting'  => esc_html__('Contrastring', 'municipio'),
-            ],
-            'default'     => [
-                'base'    => '#d73740',
-                'dark'   => '#d73740',
-                'light'  => '#d73740',
-                'contrasting'  => '#ffffff',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'base',
-                    'element'   => ':root',
-                    'property'  => '--color-danger',
-                ],
-                [
-                    'choice'    => 'dark',
-                    'element'   => ':root',
-                    'property'  => '--color-danger-dark',
-                ],
-                [
-                    'choice'    => 'light',
-                    'element'   => ':root',
-                    'property'  => '--color-danger-light',
-                ],
-                [
-                    'choice'    => 'contrasting',
-                    'element'   => ':root',
-                    'property'  => '--color-danger-contrasting',
-                ],
-        ]]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'multicolor',
-            'settings'    => 'color_palette_state_warning',
-            'label'       => esc_html__('Warning colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-            'transport' => 'auto',
-            'choices'     => [
-                'base'    => esc_html__('Base', 'municipio'),
-                'dark'   => esc_html__('Dark', 'municipio'),
-                'light'  => esc_html__('Light', 'municipio'),
-                'contrasting'  => esc_html__('Contrastring', 'municipio'),
-            ],
-            'default'     => [
-                'base'    => '#efbb21',
-                'dark'   => '#efbb21',
-                'light'  => '#efbb21',
-                'contrasting'  => '#000000',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'base',
-                    'element'   => ':root',
-                    'property'  => '--color-warning',
-                ],
-                [
-                    'choice'    => 'dark',
-                    'element'   => ':root',
-                    'property'  => '--color-warning-dark',
-                ],
-                [
-                    'choice'    => 'light',
-                    'element'   => ':root',
-                    'property'  => '--color-warning-light',
-                ],
-                [
-                    'choice'    => 'contrasting',
-                    'element'   => ':root',
-                    'property'  => '--color-warning-contrasting',
-                ],
-        ]]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'multicolor',
-            'settings'    => 'color_palette_state_info',
-            'label'       => esc_html__('Info colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-            'transport' => 'auto',
-            'choices'     => [
-                'base'    => esc_html__('Base', 'municipio'),
-                'dark'   => esc_html__('Dark', 'municipio'),
-                'light'  => esc_html__('Light', 'municipio'),
-                'contrasting'  => esc_html__('Contrastring', 'municipio'),
-            ],
-            'default'     => [
-                'base'    => '#3d3d3d',
-                'dark'   => '#3d3d3d',
-                'light'  => '#3d3d3d',
-                'contrasting'  => '#ffffff',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'base',
-                    'element'   => ':root',
-                    'property'  => '--color-info',
-                ],
-                [
-                    'choice'    => 'dark',
-                    'element'   => ':root',
-                    'property'  => '--color-info-dark',
-                ],
-                [
-                    'choice'    => 'light',
-                    'element'   => ':root',
-                    'property'  => '--color-info-light',
-                ],
-                [
-                    'choice'    => 'contrasting',
-                    'element'   => ':root',
-                    'property'  => '--color-info-contrasting',
-                ],
-        ]]);
-
-
         \Kirki::add_field(
             \Municipio\Customizer::KIRKI_CONFIG,
             [
@@ -451,6 +205,31 @@ class Colors
             \Municipio\Customizer::KIRKI_CONFIG,
             [
                 'type'        => 'multicolor',
+                'settings'    => 'color_divider',
+                'label'       => esc_html__('Divider colors', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'priority'    => 10,
+                    'transport' => 'auto',
+                'choices'     => [
+                    'base'    => esc_html__('Base', 'municipio'),
+                ],
+                'default'     => [
+                    'base'    => 'rgba(0,0,0,0.1)',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'base',
+                        'element'   => ':root',
+                        'property'  => '--color-border-divider',
+                    ],
+                ]
+            ]
+        );
+
+        \Kirki::add_field(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            [
+                'type'        => 'multicolor',
                 'settings'    => 'color_input',
                 'label'       => esc_html__('Input colors', 'municipio'),
                 'section'     => self::SECTION_ID,
@@ -475,54 +254,54 @@ class Colors
         \Kirki::add_field(
             \Municipio\Customizer::KIRKI_CONFIG,
             [
-            'type'        => 'multicolor',
-            'settings'    => 'color_link',
-            'label'       => esc_html__('Link colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-                'transport' => 'auto',
-            'choices'     => [
-                'link'    => esc_html__('Link', 'municipio'),
-                'link_hover'   => esc_html__('Hover', 'municipio'),
-                'active'  => esc_html__('Active', 'municipio'),
-                'visited'  => esc_html__('Visited', 'municipio'),
-                'visited_hover'  => esc_html__('Visited hover', 'municipio'),
-            ],
-            'default'     => [
-                'link'    => '#770000',
-                'link_hover'   => '#ae0b05',
-                'active'  => '#ae0b05',
-                'visited'  => '#770000',
-                'visited_hover'  => '#ae0b05',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'link',
-                    'element'   => ':root',
-                    'property'  => '--color-link',
+                'type'        => 'multicolor',
+                'settings'    => 'color_link',
+                'label'       => esc_html__('Link colors', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'priority'    => 10,
+                    'transport' => 'auto',
+                'choices'     => [
+                    'link'    => esc_html__('Link', 'municipio'),
+                    'link_hover'   => esc_html__('Hover', 'municipio'),
+                    'active'  => esc_html__('Active', 'municipio'),
+                    'visited'  => esc_html__('Visited', 'municipio'),
+                    'visited_hover'  => esc_html__('Visited hover', 'municipio'),
                 ],
-                [
-                    'choice'    => 'link_hover',
-                    'element'   => ':root',
-                    'property'  => '--color-link-hover',
+                'default'     => [
+                    'link'    => '#770000',
+                    'link_hover'   => '#ae0b05',
+                    'active'  => '#ae0b05',
+                    'visited'  => '#770000',
+                    'visited_hover'  => '#ae0b05',
                 ],
-                [
-                    'choice'    => 'active',
-                    'element'   => ':root',
-                    'property'  => '--color-link-active',
+                'output' => [
+                    [
+                        'choice'    => 'link',
+                        'element'   => ':root',
+                        'property'  => '--color-link',
+                    ],
+                    [
+                        'choice'    => 'link_hover',
+                        'element'   => ':root',
+                        'property'  => '--color-link-hover',
+                    ],
+                    [
+                        'choice'    => 'active',
+                        'element'   => ':root',
+                        'property'  => '--color-link-active',
+                    ],
+                    [
+                        'choice'    => 'visited',
+                        'element'   => ':root',
+                        'property'  => '--color-link-visited',
+                    ],
+                    [
+                        'choice'    => 'visited_hover',
+                        'element'   => ':root',
+                        'property'  => '--color-link-visited-hover',
+                    ],
                 ],
-                [
-                    'choice'    => 'visited',
-                    'element'   => ':root',
-                    'property'  => '--color-link-visited',
-                ],
-                [
-                    'choice'    => 'visited_hover',
-                    'element'   => ':root',
-                    'property'  => '--color-link-visited-hover',
-                ],
-            ],
-        ]
+            ]
         );
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -550,6 +329,255 @@ class Colors
                     'element'   => ':root',
                     'property'  => '--color-alpha-contrasting',
                 ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_state_success',
+            'label'       => esc_html__('Success colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#91d736',
+                'dark'   => '#91d736',
+                'light'  => '#91d736',
+                'contrasting'  => '#000000',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-success',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-success-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-success-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-success-contrasting',
+                ],
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_state_danger',
+            'label'       => esc_html__('Danger colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#d73740',
+                'dark'   => '#d73740',
+                'light'  => '#d73740',
+                'contrasting'  => '#ffffff',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-danger',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-danger-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-danger-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-danger-contrasting',
+                ],
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_state_warning',
+            'label'       => esc_html__('Warning colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#efbb21',
+                'dark'   => '#efbb21',
+                'light'  => '#efbb21',
+                'contrasting'  => '#000000',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-warning',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-warning-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-warning-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-warning-contrasting',
+                ],
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_state_info',
+            'label'       => esc_html__('Info colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'    => esc_html__('Base', 'municipio'),
+                'dark'   => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'contrasting'  => esc_html__('Contrastring', 'municipio'),
+            ],
+            'default'     => [
+                'base'    => '#3d3d3d',
+                'dark'   => '#3d3d3d',
+                'light'  => '#3d3d3d',
+                'contrasting'  => '#ffffff',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--color-info',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-info-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-info-light',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-info-contrasting',
+                ],
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_monotone',
+            'label'       => esc_html__('Monotone colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'black'   => esc_html__('Black', 'municipio'),
+                'darkest'  => esc_html__('Darkest', 'municipio'),
+                'darker'  => esc_html__('Darker', 'municipio'),
+                'dark'  => esc_html__('Dark', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'lighter'  => esc_html__('Lighther', 'municipio'),
+                'lightest'  => esc_html__('Lightest', 'municipio'),
+                'white'    => esc_html__('White', 'municipio'),
+            ],
+            'default'     => [
+                'default'   => '#f5f5f5',
+                'black'   => '#000000',
+                'darkest'  => '#3d3d3d',
+                'darker'  => '#565656',
+                'dark'  => '#707070',
+                'light'  => '#a3a3a3',
+                'lighter'  => '#e5e5e5',
+                'lightest'  => '#fcfcfc',
+                'white'    => '#ffffff',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'default',
+                    'element'   => ':root',
+                    'property'  => '--color-default',
+                ],
+                [
+                    'choice'    => 'black',
+                    'element'   => ':root',
+                    'property'  => '--color-black',
+                ],
+                [
+                    'choice'    => 'darkest',
+                    'element'   => ':root',
+                    'property'  => '--color-darkest',
+                ],
+                [
+                    'choice'    => 'darker',
+                    'element'   => ':root',
+                    'property'  => '--color-darker',
+                ],
+                [
+                    'choice'    => 'dark',
+                    'element'   => ':root',
+                    'property'  => '--color-dark',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-light',
+                ],
+                [
+                    'choice'    => 'lighter',
+                    'element'   => ':root',
+                    'property'  => '--color-lighter',
+                ],
+                [
+                    'choice'    => 'lightest',
+                    'element'   => ':root',
+                    'property'  => '--color-lightest',
+                ],
+                [
+                    'choice'    => 'white',
+                    'element'   => ':root',
+                    'property'  => '--color-white',
+                ],
             ],
         ]);
     }
