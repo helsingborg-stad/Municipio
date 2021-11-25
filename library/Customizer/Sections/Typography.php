@@ -14,9 +14,9 @@ class Typography
             'panel'          => $panelID,
             'priority'       => 160,
         ));
-    
+
         $elements = $this->getTypographyElements();
-        
+
         if (!empty($elements)) {
             foreach ($elements as $key => $args) {
                 \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -25,7 +25,7 @@ class Typography
                     'label'     => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
                     'section'   => self::SECTION_ID,
                     'priority'  => 10,
-                    'transport' => 'auto',
+                    // 'transport' => 'auto', // TODO: Auto does not work as expected (ignores property argument in output)
                     'choices'   => [
                         'fonts' => [
                             'google' => [ 'popularity', 30 ],
@@ -33,7 +33,7 @@ class Typography
                     ],
                     'default'   => $args['default'] ?? [],
                     'output' => $args['output'] ?? []
-    
+
                 ]);
             }
         }
@@ -85,7 +85,7 @@ class Typography
                     ],
                 ]
             ],
-    
+
             'heading' => [
                 'label' => esc_html__('Headings', 'municipio'),
                 'default' => [
@@ -123,7 +123,7 @@ class Typography
                     ],
                 ]
             ],
-    
+
             'h1' => [
                 'default' => [
                     'font-size'      => '32px',
@@ -149,7 +149,7 @@ class Typography
                     ]
                 ]
             ],
-            'h2' => 
+            'h2' =>
                 [
                     'default' => [
                         'font-size'      => '21px',
@@ -331,6 +331,7 @@ class Typography
                     ]
                 ]
             ],
+
             'button' => [
                 'default' => [
                     'font-size'      => '1em',
@@ -419,7 +420,9 @@ class Typography
                 ]
             ],
         ];
-    
+
+
+
         return $elements;
     }
 }
