@@ -154,13 +154,18 @@ class Colors
                     [
                         'choice'    => 'background',
                         'element'   => ':root',
-                        'property'  => ['--color-card-background', '--color-paper-background'],
+                        'property'  => '--color-card-background',
+                    ],
+                    [
+                        'choice'    => 'background',
+                        'element'   => ':root',
+                        'property'  => '--color-paper-background',
                     ],
                     [
                         'choice'    => 'border',
                         'element'   => ':root',
-                        'property'  => ['--color-border-card'],
-                    ]
+                        'property'  => '--color-border-card',
+                    ],
                 ]
             ]
         );
@@ -252,7 +257,7 @@ class Colors
                     [
                         'choice'    => 'border',
                         'element'   => ':root',
-                        'property'  => ['--color-border-input'],
+                        'property'  => '--color-border-input',
                     ]
                 ]
             ]
