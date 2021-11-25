@@ -205,22 +205,29 @@ class Colors
             \Municipio\Customizer::KIRKI_CONFIG,
             [
                 'type'        => 'multicolor',
-                'settings'    => 'color_divider',
-                'label'       => esc_html__('Divider colors', 'municipio'),
+                'settings'    => 'color_border',
+                'label'       => esc_html__('Border colors', 'municipio'),
                 'section'     => self::SECTION_ID,
                 'priority'    => 10,
                     'transport' => 'auto',
                 'choices'     => [
-                    'base'    => esc_html__('Base', 'municipio'),
+                    'divider'    => esc_html__('Divider', 'municipio'),
+                    'outline'    => esc_html__('Outline', 'municipio'),
                 ],
                 'default'     => [
-                    'base'    => 'rgba(0,0,0,0.1)',
+                    'divider'    => 'rgba(0,0,0,0.1)',
+                    'outline'    => 'rgba(0,0,0,0.1)',
                 ],
                 'output' => [
                     [
-                        'choice'    => 'base',
+                        'choice'    => 'divider',
                         'element'   => ':root',
                         'property'  => '--color-border-divider',
+                    ],
+                    [
+                        'choice'    => 'outline',
+                        'element'   => ':root',
+                        'property'  => '--color-border-outline',
                     ],
                 ]
             ]
