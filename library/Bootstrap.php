@@ -39,6 +39,8 @@ add_action('init', function () {
         // Blocks
         'block-classic-editpr'                      => 'group_61556c32b3697',
         'block-button'                              => 'group_60acdac5158f2',
+        'options-activate-gutenberg'                => 'group_60b496c06687c',
+
         // Options
         'options-page-display'                      => 'group_56c33cf1470dc',
         'options-page-navigation'                   => 'group_56d83cff12bb3',
@@ -86,11 +88,8 @@ add_action('init', function () {
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
-        //Blocks
-        'block-button'                              => 'group_60acdac5158f2',
-        
     ));
-    
+
     $acfExportManager->import();
 });
 
