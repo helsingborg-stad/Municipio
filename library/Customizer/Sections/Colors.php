@@ -14,7 +14,7 @@ class Colors
             'panel'          => $panelID,
             'priority'       => 160,
         ));
- 
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_primary',
@@ -350,39 +350,65 @@ class Colors
         \Kirki::add_field(
             \Municipio\Customizer::KIRKI_CONFIG,
             [
-            'type'        => 'multicolor',
-            'settings'    => 'color_background',
-            'label'       => esc_html__('Background colors', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'priority'    => 10,
-                'transport' => 'auto',
-            'choices'     => [
-                'background'    => esc_html__('Background', 'municipio'),
-                'paper'   => esc_html__('Paper', 'municipio'),
-            ],
-            'default'     => [
-                'background'    => '#f5f5f5',
-                'paper'   => '#ffffff',
-                'complementary'   => '',
-            ],
-            'output' => [
-                [
-                    'choice'    => 'background',
-                    'element'   => 'body',
-                    'property'  => 'background-color',
+                'type'        => 'multicolor',
+                'settings'    => 'color_background',
+                'label'       => esc_html__('Background colors', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'priority'    => 10,
+                    'transport' => 'auto',
+                'choices'     => [
+                    'background'    => esc_html__('Background', 'municipio'),
+                    'complementary'   => esc_html__('Complementary', 'municipio'),
                 ],
-                [
-                    'choice'    => 'card',
-                    'element'   => ':root',
-                    'property'  => '--color-paper-background',
+                'default'     => [
+                    'background'    => '#f5f5f5',
+                    'complementary'   => '',
                 ],
-                [
-                    'choice'    => 'complementary',
-                    'element'   => ':root',
-                    'property'  => '--color-background-complementary',
-                ],
+                'output' => [
+                    [
+                        'choice'    => 'background',
+                        'element'   => 'body',
+                        'property'  => 'background-color',
+                    ],
+                    [
+                        'choice'    => 'complementary',
+                        'element'   => ':root',
+                        'property'  => '--color-background-complementary',
+                    ],
+                ]
             ]
-        ]
+        );
+
+        \Kirki::add_field(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            [
+                'type'        => 'multicolor',
+                'settings'    => 'color_card',
+                'label'       => esc_html__('Card & Paper colors', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'priority'    => 10,
+                    'transport' => 'auto',
+                'choices'     => [
+                    'background'    => esc_html__('Background', 'municipio'),
+                    'border'   => esc_html__('Border', 'municipio'),
+                ],
+                'default'     => [
+                    'background'    => '#ffffff',
+                    'border'    => '',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'background',
+                        'element'   => ':root',
+                        'property'  => ['--color-card-background', '--color-paper-background'],
+                    ],
+                    [
+                        'choice'    => 'border',
+                        'element'   => ':root',
+                        'property'  => ['--color-border-card'],
+                    ]
+                ]
+            ]
         );
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -420,6 +446,31 @@ class Colors
                 ]
             ],
         ]);
+
+        \Kirki::add_field(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            [
+                'type'        => 'multicolor',
+                'settings'    => 'color_input',
+                'label'       => esc_html__('Input colors', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'priority'    => 10,
+                    'transport' => 'auto',
+                'choices'     => [
+                    'border'   => esc_html__('Border', 'municipio'),
+                ],
+                'default'     => [
+                    'border'    => '',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'border',
+                        'element'   => ':root',
+                        'property'  => ['--color-border-input'],
+                    ]
+                ]
+            ]
+        );
 
         \Kirki::add_field(
             \Municipio\Customizer::KIRKI_CONFIG,
