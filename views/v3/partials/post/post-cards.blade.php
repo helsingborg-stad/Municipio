@@ -7,7 +7,7 @@
                     'imageFirst' => true,
                     'image' =>  $post->thumbnail,
                     'heading' => $post->postTitle,
-                    'classList' => ['t-archive-card', 'u-height--100', 'u-height-100'],
+                    'classList' => ['t-archive-card', 'u-height--100', 'u-height-100', 'u-flex-direction--column', 'u-display--flex'],
                     'byline' => ['text' => $post->postDate, 'position' => 'body'],
                     'content' => $post->excerptShort,
                     'tags' => $post->termsUnlinked
