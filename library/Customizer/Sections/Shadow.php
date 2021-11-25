@@ -26,7 +26,7 @@ class Shadow
             'choices'     => [
                 'min'  => 0,
                 'max'  => 4,
-                'step' => 1,
+                'step' => 0.1,
             ],
             'output' => [
                 'element'   => ':root',
