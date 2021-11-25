@@ -121,8 +121,8 @@ class Colors
                 'output' => [
                     [
                         'choice'    => 'background',
-                        'element'   => 'body',
-                        'property'  => 'background-color',
+                        'element'   => ':root',
+                        'property'  => '--color-background',
                     ],
                     [
                         'choice'    => 'complementary',
@@ -154,12 +154,7 @@ class Colors
                     [
                         'choice'    => 'background',
                         'element'   => ':root',
-                        'property'  => '--color-card-background',
-                    ],
-                    [
-                        'choice'    => 'background',
-                        'element'   => ':root',
-                        'property'  => '--color-paper-background',
+                        'property'  => '--color-background-card',
                     ],
                     [
                         'choice'    => 'border',
