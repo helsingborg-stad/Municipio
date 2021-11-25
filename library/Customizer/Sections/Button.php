@@ -71,7 +71,7 @@ class Button
                 'default'     => Kirki::get_option('color_palette_primary')['dark'] ?? '#eee',
                 'output'      => [
                     'element'   => ':root',
-                    'property'  => '--c-button-color--primary'
+                    'property'  => '--color-button-primary-bg'
                 ]
             ],
             [
@@ -83,7 +83,7 @@ class Button
                 'default'     => Kirki::get_option('color_palette_primary')['contrasting'] ?? '#000',
                 'output'      => [
                     'element'   => ':root',
-                    'property'  => '--c-button-color-contrast--primary'
+                    'property'  => '--color-button-primary-text'
                 ]
             ]
         ], ['label' => esc_html__('Tailor Color: Primary', 'municipio'), 'settings' => 'button_primary_color_active']);
@@ -100,7 +100,7 @@ class Button
                 'default'     => Kirki::get_option('color_palette_secondary')['dark'] ?? '#eee',
                 'output'      => [
                     'element'   => ':root',
-                    'property'  => '--c-button-color--secondary'
+                    'property'  => '--color-button-secondary-bg'
                 ]
             ],
             [
@@ -112,7 +112,7 @@ class Button
                 'default'     => Kirki::get_option('color_palette_secondary')['contrasting'] ?? '#000',
                 'output'      => [
                     'element'   => ':root',
-                    'property'  => '--c-button-color-contrast--secondary'
+                    'property'  => '--color-button-secondary-text'
                 ]
             ]
         ], ['label' => esc_html__('Tailor Color: Secondary', 'municipio'), 'settings' => 'button_secondary_color_active']);
