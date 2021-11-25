@@ -2,6 +2,9 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer as Customizer;
+use Kirki as Kirki;
+
 class Colors
 {
     public const SECTION_ID = "municipio_customizer_section_colors";
@@ -307,6 +310,52 @@ class Colors
                         'element'   => ':root',
                         'property'  => '--color-link-visited-hover',
                     ],
+                ],
+            ]
+        );
+
+        \Kirki::add_field(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            [
+                'type'        => 'multicolor',
+                'settings'    => 'color_button',
+                'label'       => esc_html__('Button colors', 'municipio'),
+                'section'     => self::SECTION_ID,
+                'priority'    => 10,
+                    'transport' => 'auto',
+                'choices'     => [
+                    'primary'               => esc_html__('Primary', 'municipio'),
+                    'primary_contrasting'   => esc_html__('Primary Contrasting', 'municipio'),
+                    'secondary'             => esc_html__('Secondary ', 'municipio'),
+                    'secondary_contrasting' => esc_html__('Secondary Contrasting', 'municipio')
+                ],
+                'default'     => [
+                    'primary'    => Kirki::get_option('color_palette_primary')['dark'] ?? '#eee',
+                    'primary_contrasting'   => Kirki::get_option('color_palette_primary')['contrasting'] ?? '#000',
+                    'secondary'  => Kirki::get_option('color_palette_secondary')['dark'] ?? '#eee',
+                    'secondary_contrasting'  => Kirki::get_option('color_palette_secondary')['contrasting'] ?? '#000'
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'primary',
+                        'element'   => ':root',
+                        'property'  => '--color-button-primary-bg',
+                    ],
+                    [
+                        'choice'    => 'primary_contrasting',
+                        'element'   => ':root',
+                        'property'  => '--color-button-primary-text',
+                    ],
+                    [
+                        'choice'    => 'secondary',
+                        'element'   => ':root',
+                        'property'  => '--color-button-secondary-bg',
+                    ],
+                    [
+                        'choice'    => 'secondary_contrasting',
+                        'element'   => ':root',
+                        'property'  => '--color-button-secondary-text',
+                    ]
                 ],
             ]
         );
