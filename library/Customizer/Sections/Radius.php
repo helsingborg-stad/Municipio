@@ -25,7 +25,7 @@ class Radius
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
-                'step' => 2,
+                'step' => 1,
             ],
             'output' => [
                 'element'   => ':root',
@@ -44,7 +44,7 @@ class Radius
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
-                'step' => 2,
+                'step' => 1,
             ],
             'output' => [
                 'element'   => ':root',
@@ -63,7 +63,7 @@ class Radius
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
-                'step' => 2,
+                'step' => 1,
             ],
             'output' => [
                 'element'   => ':root',
@@ -82,7 +82,7 @@ class Radius
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
-                'step' => 2,
+                'step' => 1,
             ],
             'output' => [
                 'element'   => ':root',
