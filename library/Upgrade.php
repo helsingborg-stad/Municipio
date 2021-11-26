@@ -341,7 +341,7 @@ class Upgrade
             'hero_overlay_vibrant',
             get_theme_mod(
                 'hero_overlay_neutral',
-                get_theme_mod('overlay', "rgba(0,0,0,'0.55')")
+                get_theme_mod('overlay', "rgba(0,0,0,0.55)")
             )
         );
 
