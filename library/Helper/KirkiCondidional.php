@@ -38,7 +38,7 @@ class KirkiCondidional
 
         //Activation field
         \Kirki::add_field($kirkiConfig, [
-          'type'        => 'switch',
+          'type'        => 'toggle',
           'settings'    => $toggleConfig['settings'],
           'label'       => $toggleConfig['label'],
           'default'     => false,

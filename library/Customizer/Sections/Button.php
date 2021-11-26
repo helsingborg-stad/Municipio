@@ -63,58 +63,64 @@ class Button
          * Color - Primary
          */
         KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            [
-                'type'        => 'color',
-                'settings'    => 'button_color_primary',
-                'label'       => esc_html__('Primary button color', 'municipio'),
-                'section'     => self::SECTION_ID,
-                'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#eee',
-                'output'      => [
+            'type'        => 'multicolor',
+            'settings'    => 'color_button_primary',
+            'label'       => esc_html__('Primary button colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'             => esc_html__('Primary', 'municipio'),
+                'contrasting' => esc_html__('Primary Contrasting', 'municipio')
+            ],
+            'default'     => [
+                'base'  => Kirki::get_option('color_palette_primary')['base'] ?? '#eee',
+                'contrasting'  => Kirki::get_option('color_palette_primary')['contrasting'] ?? '#000'
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
                     'element'   => ':root',
-                    'property'  => '--color-button-primary-bg'
+                    'property'  => '--color-button-primary-bg',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-button-primary-text',
                 ]
             ],
-            [
-                'type'        => 'color',
-                'settings'    => 'button_color_primary_contrasting',
-                'label'       => esc_html__('Primary button color - Contrast', 'municipio'),
-                'description' => esc_html__('This color should be a monotone color, with a high contrast value towards the color above.', 'municipio'),
-                'section'     => self::SECTION_ID,
-                'default'     => Kirki::get_option('color_palette_primary')['contrasting'] ?? '#000',
-                'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--color-button-primary-text'
-                ]
-            ]
         ], ['label' => esc_html__('Tailor Color: Primary', 'municipio'), 'settings' => 'button_primary_color_active']);
 
         /**
          * Color - Secondary
          */
         KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            [
-                'type'        => 'color',
-                'settings'    => 'button_color_secondary',
-                'label'       => esc_html__('Secondary button color', 'municipio'),
-                'section'     => self::SECTION_ID,
-                'default'     => Kirki::get_option('color_palette_secondary')['base'] ?? '#eee',
-                'output'      => [
+            'type'        => 'multicolor',
+            'settings'    => 'color_button_secondary',
+            'label'       => esc_html__('Secondary button colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'             => esc_html__('Secondary ', 'municipio'),
+                'contrasting' => esc_html__('Secondary Contrasting', 'municipio')
+            ],
+            'default'     => [
+                'base'  => Kirki::get_option('color_palette_secondary')['base'] ?? '#eee',
+                'contrasting'  => Kirki::get_option('color_palette_secondary')['contrasting'] ?? '#000'
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
                     'element'   => ':root',
-                    'property'  => '--color-button-secondary-bg'
+                    'property'  => '--color-button-secondary-bg',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--color-button-secondary-text',
                 ]
             ],
-            [
-                'type'        => 'color',
-                'settings'    => 'button_color_secondary_contrasting',
-                'label'       => esc_html__('Secondary button color - Contrast', 'municipio'),
-                'description' => esc_html__('This color should be a monotone color, with a high contrast value towards the color above.', 'municipio'),
-                'section'     => self::SECTION_ID,
-                'default'     => Kirki::get_option('color_palette_secondary')['contrasting'] ?? '#000',
-                'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--color-button-secondary-text'
-                ]
-            ]
         ], ['label' => esc_html__('Tailor Color: Secondary', 'municipio'), 'settings' => 'button_secondary_color_active']);
     }
 }
