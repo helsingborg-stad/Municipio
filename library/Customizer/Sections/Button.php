@@ -57,7 +57,7 @@ class Button
                     'unit'      => 'px'
                 ],
             ]
-        ], ['label' => esc_html__('Tailor radius', 'municipio'), 'settings' => 'button_radius']);*/ 
+        ], ['label' => esc_html__('Tailor radius', 'municipio'), 'settings' => 'button_radius']);*/
 
         /**
          * Color - Primary
@@ -81,12 +81,12 @@ class Button
                 [
                     'choice'    => 'base',
                     'element'   => ':root',
-                    'property'  => '--color-button-primary-bg',
+                    'property'  => '--c-button-primary-color',
                 ],
                 [
                     'choice'    => 'contrasting',
                     'element'   => ':root',
-                    'property'  => '--color-button-primary-text',
+                    'property'  => '--c-button-primary-color-contrasting',
                 ]
             ],
         ], ['label' => esc_html__('Tailor Color: Primary', 'municipio'), 'settings' => 'button_primary_color_active']);
@@ -113,12 +113,12 @@ class Button
                 [
                     'choice'    => 'base',
                     'element'   => ':root',
-                    'property'  => '--color-button-secondary-bg',
+                    'property'  => '--c-button-secondary-color',
                 ],
                 [
                     'choice'    => 'contrasting',
                     'element'   => ':root',
-                    'property'  => '--color-button-secondary-text',
+                    'property'  => '--c-button-secondary-color-contrasting',
                 ]
             ],
         ], ['label' => esc_html__('Tailor Color: Secondary', 'municipio'), 'settings' => 'button_secondary_color_active']);
