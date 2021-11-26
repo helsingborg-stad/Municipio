@@ -68,7 +68,7 @@ class Button
                 'settings'    => 'button_color_primary',
                 'label'       => esc_html__('Primary button color', 'municipio'),
                 'section'     => self::SECTION_ID,
-                'default'     => Kirki::get_option('color_palette_primary')['dark'] ?? '#eee',
+                'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#eee',
                 'output'      => [
                     'element'   => ':root',
                     'property'  => '--color-button-primary-bg'
@@ -97,7 +97,7 @@ class Button
                 'settings'    => 'button_color_secondary',
                 'label'       => esc_html__('Secondary button color', 'municipio'),
                 'section'     => self::SECTION_ID,
-                'default'     => Kirki::get_option('color_palette_secondary')['dark'] ?? '#eee',
+                'default'     => Kirki::get_option('color_palette_secondary')['base'] ?? '#eee',
                 'output'      => [
                     'element'   => ':root',
                     'property'  => '--color-button-secondary-bg'
