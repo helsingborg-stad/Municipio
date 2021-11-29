@@ -357,6 +357,20 @@ class Upgrade
         return true;
     }
 
+    //Set contrasting colors (if no default)
+    private function v_17($db): bool
+    {
+        if (!empty(get_theme_mod('color_palette_primary')) && empty(get_theme_mod('color_palette_primary')['contrasting'])) {
+            $this->setAssociativeThemeMod('color_palette_primary.contrasting', '#ffffff');
+        }
+
+        if (!empty(get_theme_mod('color_palette_secondary')) && empty(get_theme_mod('color_palette_secondary')['contrasting'])) {
+            $this->setAssociativeThemeMod('color_palette_secondary.contrasting', '#ffffff');
+        }
+
+        return true;
+    }
+
     /**
      * Move and clean out the old theme mod
      *
