@@ -5,7 +5,7 @@ if (!function_exists('render_blade_view')) {
     function render_blade_view($view, $data = [], $overrideViewPaths = false)
     {
         $viewPaths = \Municipio\Helper\Template::getViewPaths();
-        
+
         if (!$viewPaths) {
             wp_die("No view paths registered, please register at least one.");
             return;

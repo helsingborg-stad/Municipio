@@ -3,6 +3,7 @@
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
+
 class Template
 {
     private $bladeEngine = null;
@@ -10,15 +11,15 @@ class Template
 
     public function __construct()
     {
-        //Init custom tempaltes & views 
+        //Init custom tempaltes & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
         add_action('template_redirect', array($this, 'initCustomTemplates'), 10);
 
         // Initialize blade
-        add_action('template_redirect', array($this, 'initializeBlade'), 100);
+        add_action('template_redirect', array($this, 'initializeBlade'), 15);
 
         //Loads custom controllers and views
-        add_filter('template_redirect', array($this, 'addTemplateFilters'), 10);
+        add_action('template_redirect', array($this, 'addTemplateFilters'), 10);
         add_filter('template_include', array($this, 'switchTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
@@ -39,7 +40,7 @@ class Template
     /**
      * Re-check if there is an custom template applied to the page.
      * This switches incorrect view data to a real template if exists.
-     * 
+     *
      * TODO: Investigate why we are getting faulty templates from 
      * WordPress core functionality. 
      *
@@ -49,19 +50,19 @@ class Template
     public function switchTemplate($view) {
 
         $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true ); 
-        
-        if($customTemplate) {
+
+        if ($customTemplate) {
             //Check if file exsists, before use
-            if(is_array($this->viewPaths) && !empty($this->viewPaths)) {
-                foreach($this->viewPaths as $path) {
-                    if(file_exists(rtrim($path, "/") . '/' . $customTemplate)) {
-                        return $customTemplate; 
+            if (is_array($this->viewPaths) && !empty($this->viewPaths)) {
+                foreach ($this->viewPaths as $path) {
+                    if (file_exists(rtrim($path, "/") . '/' . $customTemplate)) {
+                        return $customTemplate;
                     }
                 }
             }
         }
 
-        return $view; 
+        return $view;
     }
 
     /**
@@ -91,7 +92,7 @@ class Template
 
         foreach (@glob($directory . "*.php") as $file) {
             $class = '\Municipio\Controller\\' . basename($file, '.php');
-            
+
             if (!class_exists($class)) {
                 continue;
             }
@@ -126,9 +127,9 @@ class Template
             ),
             'data'
         );
-        
+
         $externalViewData = apply_filters('Municipio/viewData', []);
-        
+
         if (!empty($externalViewData)) {
             $viewData = array_merge($viewData, $externalViewData);
         }
@@ -136,7 +137,7 @@ class Template
         //Render the view
         return $this->renderView(
             (string) $view,
-            (array) apply_filters('Municipio/blade/data', $viewData)
+            (array)  apply_filters('Municipio/blade/data', $viewData)
         );
     }
 
@@ -147,8 +148,6 @@ class Template
      */
     public function loadController($template)
     {
-
-        
         //Do something before controller creation
         do_action_deprecated('Municipio/blade/before_load_controller', $template, '3.0', 'Municipio/blade/beforeLoadController');
 
@@ -157,18 +156,16 @@ class Template
             $template = 'E404';
         }
 
-        
-
         //Locate default controller
         $controller = \Municipio\Helper\Controller::locateController($template);
-        
+
         //Locate fallback controller
         if (!$controller && is_numeric(get_queried_object_id())) {
             $controller = \Municipio\Helper\Controller::locateController('Singular');
         } elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
-        
+
         //Filter
         $controller = apply_filters('Municipio/blade/controller', $controller);
 
@@ -190,7 +187,6 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-
             $markup = $this->bladeEngine->make(
                 $view,
                 array_merge(
@@ -202,9 +198,8 @@ class Template
             // Adds the option to make html more readable.
             // This is a option that is intended for permanent
             // use. But cannot be implemented due to some html
-            // issues. 
-            if(class_exists('tidy') && isset($_GET['tidy'])) {
-                
+            // issues.
+            if (class_exists('tidy') && isset($_GET['tidy'])) {
                 $tidy = new \tidy;
 
                 $tidy->parseString($markup, [
@@ -216,11 +211,9 @@ class Template
                 $tidy->cleanRepair();
 
                 echo $tidy;
-
             } else {
-                echo $markup; 
+                echo $markup;
             }
-
         } catch (\Throwable $e) {
             echo '<pre style="border: 3px solid #f00; padding: 10px;">';
             echo '<strong>' . $e->getMessage() . '</strong>';
