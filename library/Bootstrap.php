@@ -86,40 +86,6 @@ add_action('init', function () {
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
 
-        //Design share - Customizer
-        'customizer-design-share-load'              => 'group_604a117fe6872',
-
-        //Design - Customizer
-        'customizer-general'                        => 'group_60cb4dd20e9c3',
-        'customizer-color'                          => 'group_60361b6d86d9d',
-        'customizer-radius'                         => 'group_603662f315acc',
-        'customizer-width'                          => 'group_60928d240f1bf',
-        'customizer-padding'                        => 'group_614331a86b081',
-        'customizer-header'                         => 'group_6143452439e4a',
-        'customizer-mobilemenu'                     => 'group_6143458359420',
-        'customizer-quicklinks'                     => 'group_6123844e04276',
-
-        //Modifiers
-        'customizer-contacts'                       => 'group_614336d78b898',
-        'customizer-event'                          => 'group_6143374aa9575',
-        'customizer-form'                           => 'group_6143379386443',
-        'customizer-index'                          => 'group_614337a28e50a',
-        'customizer-inlay'                          => 'group_614336f51a8f2',
-        'customizer-jsonrender'                     => 'group_61433782358ee',
-        'customizer-localevent'                     => 'group_614337b46f273',
-        'customizer-map'                            => 'group_6143370287209',
-        'customizer-posts'                          => 'group_614336c3d5885',
-        'customizer-sectionssplit'                  => 'group_614337ce54b5f',
-        'customizer-text'                           => 'group_614337104a06d',
-        'customizer-video'                          => 'group_6143373e63d5d',
-        'customizer-script'                         => 'group_614340abb1cc1',
-        'customizer-hero'                           => 'group_614c7131c10e6',
-        'customizer-overlay'                        => 'group_615c1bc375e8e',
-
-        //Components
-        'customizer-card'                           => 'group_6144852296570',
-        //'customizer-input'                          => 'group_614485229',
-
         //Blocks
         'block-button'                              => 'group_60acdac5158f2',
         

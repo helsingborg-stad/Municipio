@@ -25,11 +25,11 @@
 
     <body class="{{ $bodyClass }}" js-page-id="{{$pageID}}">
         <div class="site-wrapper">
-
+            
             {{-- Site header --}}
             @section('site-header')
-                @if (!empty($headerLayout))
-                    @includeIf('partials.header.' . $headerLayout)
+                @if (!empty($customizer->headerApperance))
+                    @includeIf('partials.header.' . $customizer->headerApperance)
                 @endif
             @show
 

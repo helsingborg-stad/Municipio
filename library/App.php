@@ -13,6 +13,10 @@ class App
      */
     public function __construct()
     {
+        /**
+         * Upgrade
+         */
+        new \Municipio\Upgrade();
 
         /**
          * Template
@@ -34,7 +38,6 @@ class App
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
         new \Municipio\Theme\Font();
-        new \Municipio\Theme\ColorScheme();
         new \Municipio\Theme\Navigation();
 
         new \Municipio\Search\General();
@@ -70,7 +73,7 @@ class App
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\ExternalDeptendents(); 
+        new \Municipio\Admin\ExternalDeptendents();
 
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
@@ -80,8 +83,7 @@ class App
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
-        new \Municipio\Admin\Acf\PrefillIconChoice(); 
-        new \Municipio\Admin\Acf\RenderOption(); 
+        new \Municipio\Admin\Acf\PrefillIconChoice();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
@@ -89,7 +91,6 @@ class App
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
         new \Municipio\Admin\UI\Editor();
-        new \Municipio\Admin\UI\Customizer();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
@@ -101,9 +102,8 @@ class App
         /**
          * Customizer
          */
-        new \Municipio\Customizer\CustomizerPanels();
-        new \Municipio\Customizer\DesignLibrary();
-        
+        new \Municipio\Customizer();
+
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';

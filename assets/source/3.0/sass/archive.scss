@@ -9,7 +9,7 @@
 .archive-compressed{
     &__title-link, &__title-link:link, &__title-link:visited, &__title-link:visited:hover{
         text-decoration: none;
-        color:#AE0B05;
+        color: var(--color-primary, #AE0B05);
     }
     
     &__article{
@@ -19,7 +19,7 @@
         }
     
         & h1{
-            color:#AE0B05;
+            color: var(--color-primary, #AE0B05);
         }
     
         &__date{

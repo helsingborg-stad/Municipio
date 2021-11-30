@@ -1,5 +1,5 @@
 @if (!empty($quicklinksMenuItems))
-    @if(($customize->quicklinks->quicklinksDisplayLocation == 'frontpage' && $isFrontPage) || ($customize->quicklinks->quicklinksDisplayLocation == 'everywhere'))
+    @if(($customizer->quicklinksLocation == 'frontpage' && $isFrontPage) || ($customizer->quicklinksLocation == 'everywhere'))
         @header([
             'id'                => 'quicklinks-header',
             'classList' => [
@@ -7,7 +7,7 @@
             ],
             'context' => ['site.quicklinks'],
             'attributeList' => [
-                'style' => 'background-color: ' . $customize->quicklinks->quicklinksBackgroundColorHex . ';'
+                'style' => 'background-color: ' . $customizer->quicklinksCustomBackground . ';' //Allows broken css (will be sanitized)
             ]
         ])
             <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">

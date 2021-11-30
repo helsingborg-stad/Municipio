@@ -65,15 +65,12 @@ class BaseController
         $this->data['pageParentID']         = $this->getPageParentID();
 
         //Customization data
-        $this->data['customize']            = apply_filters('Municipio/Controller/Customize', []);
-
+        $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
+        
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
         $this->data['emblem']               = $this->getEmblem();
-
-        //Get header layout
-        $this->data['headerLayout'] = get_field('header_layout', 'option') ?? 'business';
 
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
@@ -149,8 +146,8 @@ class BaseController
         $this->data['notice']               = [];
 
         //Column sizes
-        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customize']->width); 
-        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customize']->width); 
+        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customizer']); 
+        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customizer']); 
 
         //Main content padder
         $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller. 
@@ -407,9 +404,9 @@ class BaseController
             }
         }
 
-        if($location == "mobile-drawer" && $this->data['headerLayout'] !== 'business') {
+        if($location == "mobile-drawer" && $this->data['customizer']->headerApperance !== 'business') {
             if($this->showSearchForm('mobile')) {
-                return true; 
+                return true;
             }
         }
 
@@ -546,28 +543,6 @@ class BaseController
             apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/viewData'),
             apply_filters('Municipio/viewData', $this->data)
         );
-    }
-
-    /**
-     * Get position of navigation display
-     *
-     * @return null|string
-     */
-    public function getNavPosition($identifier) {
-
-        $mods = get_theme_mods(); 
-
-        //Secondary navigation
-        if($identifier == 'secondary') {
-            if(isset($mods['site']) && isset($mods['site']['field_60cb4dd897cb8'])) {
-                if(in_array($mods['site']['field_60cb4dd897cb8'], ['left', 'right', 'hidden'])) {
-                    return $mods['site']['field_60cb4dd897cb8']; 
-                }
-            }
-            return 'left'; 
-        }
-        
-        return null; 
     }
 
     /**

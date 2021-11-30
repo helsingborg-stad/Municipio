@@ -64,9 +64,6 @@ $drawer-width: calc(#{$base} * 40);
 .c-drawer.c-drawer--secondary {
     background-color: $color-secondary;
 }
-.c-drawer.c-drawer--tertiary {
-    background-color: $color-tertiary;
-}
 
 .c-drawer.c-drawer--duotone {
     .c-drawer__header,
