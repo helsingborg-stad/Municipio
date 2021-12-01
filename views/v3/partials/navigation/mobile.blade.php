@@ -1,5 +1,4 @@
 @if (!empty($menuItems)) 
-<?php var_dump($depth); ?>
     @nav([
         'items' => $menuItems,
         'direction' => 'vertical',
