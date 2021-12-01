@@ -32,7 +32,12 @@ class Gutenberg
         if (is_a($post, 'WP_Post') && $gutenbergEditorMode === 'template') {
             $template = get_post_meta($post->ID, '_wp_page_template', true);
 
-            if (in_array($template, ['one-page.blade.php'])) {
+            $templatesToInclude = apply_filters(
+                'Municipio/Admin/Gutenberg/TemplatesToInclude',
+                ['one-page.blade.php']
+            );
+
+            if (in_array($template, $templatesToInclude)) {
                 $useBlockEditor = true;
             } else {
                 $useBlockEditor = false;
