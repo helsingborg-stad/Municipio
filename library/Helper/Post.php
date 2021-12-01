@@ -6,7 +6,7 @@ class Post
 {
     /**
      * Prepare post object before sending to view
-     * Appends useful variables for views (generic). 
+     * Appends useful variables for views (generic).
      * 
      * @param   object   $post    WP_Post object
      * 
@@ -14,8 +14,8 @@ class Post
      */
     public static function preparePostObject($post) {
         $post = self::complementObject($post);
-        $post = \Municipio\Helper\FormatObject::camelCase($post); 
-        return $post; 
+        $post = \Municipio\Helper\FormatObject::camelCase($post);
+        return $post;
     }
 
     /**
@@ -26,12 +26,20 @@ class Post
      * 
      * @return  object   $postObject    The post object, with appended data
      */
-    public static function complementObject($postObject, $appendFields = array('excerpt', 'post_content_filtered', 'post_title_filtered', 'permalink'))
-    {
+    public static function complementObject(
+        $postObject,
+        $appendFields = array(
+            'excerpt',
+            'post_content_filtered',
+            'post_title_filtered',
+            'permalink',
+            'terms'
+        )
+    ) {
 
         //Check that a post object is entered
-        if(!is_a($postObject, 'WP_Post')) {
-            return $postObject; 
+        if (!is_a($postObject, 'WP_Post')) {
+            return $postObject;
             throw new WP_Error("Complement object must recive a WP_Post class"); 
         }
 
@@ -39,9 +47,9 @@ class Post
         $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
 
         //Generate excerpt
-        if(in_array('excerpt', $appendFields)) {
-            if(empty($postObject->post_excerpt)) {
-                
+        if (in_array('excerpt', $appendFields)) {
+            if (empty($postObject->post_excerpt)) {
+
                 //Create excerpt if not defined by editor
                 $postObject->excerpt = wp_trim_words(
                     $postObject->post_content,
@@ -57,10 +65,9 @@ class Post
                 );
 
                 //No content in post
-                if(empty($postObject->excerpt)) {
-                    $postObject->excerpt = '<span class="undefined-content">' .__("Item is missing content", 'municipio') . "</span>"; 
+                if (empty($postObject->excerpt)) {
+                    $postObject->excerpt = '<span class="undefined-content">' . __("Item is missing content", 'municipio') . "</span>";
                 }
-
             } else {
                 $postObject->excerpt_short = wp_trim_words(
                     $postObject->content,
@@ -71,30 +78,29 @@ class Post
         }
 
         //Get permalink
-        if(in_array('permalink', $appendFields)) {
-            $postObject->permalink              = get_permalink($postObject); 
+        if (in_array('permalink', $appendFields)) {
+            $postObject->permalink              = get_permalink($postObject);
         }
 
         //Get filtered content
-        if(in_array('post_content_filtered', $appendFields)) {
-
+        if (in_array('post_content_filtered', $appendFields)) {
             //Parse lead
             $parts = explode("<!--more-->", $postObject->post_content);
 
             if(is_array($parts) && count($parts) > 1) {
 
                 //Remove the now broken more block
-                foreach($parts as &$part) {
-                    $part = str_replace('<!-- wp:more -->', '', $part); 
-                    $part = str_replace('<!-- /wp:more -->', '', $part); 
+                foreach ($parts as &$part) {
+                    $part = str_replace('<!-- wp:more -->', '', $part);
+                    $part = str_replace('<!-- /wp:more -->', '', $part);
                 }
 
                 $excerpt = self::createLeadElement(array_shift($parts));
-                $content = self::removeEmptyPTag(implode(PHP_EOL, $parts)); 
-                 
+                $content = self::removeEmptyPTag(implode(PHP_EOL, $parts));
+
             } else {
                 $excerpt = "";
-                $content = self::removeEmptyPTag($postObject->post_content); 
+                $content = self::removeEmptyPTag($postObject->post_content);
             }
 
             //Replace builtin css classes to our own
@@ -103,8 +109,8 @@ class Post
                     'wp-caption',
                     'c-image-text',
                     'wp-image-',
-                    'alignleft', 
-                    'alignright', 
+                    'alignleft',
+                    'alignright',
                     'alignnone',
                     'aligncenter',
 
@@ -144,21 +150,63 @@ class Post
                     //Gutenberg block image
                     'c-image',
                     '<figcaption class="c-image__caption">'
-                ], 
+                ],
                 apply_filters('the_content', $content)
-            ); 
-
+            );
         }
 
         //Get filtered post title
-        if(in_array('post_title_filtered', $appendFields)) {
+        if (in_array('post_title_filtered', $appendFields)) {
             $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title); 
         }
 
         //Get post tumbnail image
         $postObject->thumbnail = self::getFeaturedImage($postObject->ID, [400, 225]); 
 
-        return $postObject; 
+        //Append post terms
+        if (in_array('terms', $appendFields)) {
+            $postObject->terms            = self::getPostTerms($postObject->ID);
+            $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
+        }
+
+        return $postObject;
+    }
+
+    /**
+     * Get a list of terms to display on each inlay
+     *
+     * @param integer $postId           The post identifier
+     * @param boolean $includeLink      If a link should be included or not
+     * @return array                    A array of terms to display
+     */
+    protected static function getPostTerms($postId, $includeLink = false)
+    {
+        $taxonomies = get_field('archive_' . get_post_type($postId) . '_post_taxonomy_display', 'options');
+
+        $termsList = [];
+
+        if (is_array($taxonomies) && !empty($taxonomies)) {
+            foreach ($taxonomies as $taxonomy) {
+                $terms = wp_get_post_terms($postId, $taxonomy);
+
+                if (!empty($terms)) {
+                    foreach ($terms as $term) {
+
+                        $item = [];
+
+                        $item['label'] = strtolower($term->name);
+
+                        if ($includeLink) {
+                            $item['href'] = get_term_link($term->term_id);
+                        }
+
+                        $termsList[] = $item;
+                    }
+                }
+            }
+        }
+
+        return \apply_filters('Municipio/Helper/Post/getPostTerms', $termsList, $postId);
     }
 
     /**
@@ -175,11 +223,11 @@ class Post
 
         if ($pos !== false) {
             $lead = substr_replace($lead, $replace, $pos, strlen($search));
-        } elseif($pos === false && $lead === strip_tags($lead)) {
-            $lead = $replace . $lead . '</p>'; 
-        } 
+        } elseif ($pos === false && $lead === strip_tags($lead)) {
+            $lead = $replace . $lead . '</p>';
+        }
 
-        return self::removeEmptyPTag($lead); 
+        return self::removeEmptyPTag($lead);
     }
 
     /**
@@ -201,7 +249,7 @@ class Post
     public static function getFeaturedImage($postId, $size = 'full')
     {
         $featuredImageID = get_post_thumbnail_id($postId);
-        
+
         $featuredImageSRC = \get_the_post_thumbnail_url(
             $postId,
             apply_filters('Municipio/Helper/Post/FeaturedImageSize', $size)

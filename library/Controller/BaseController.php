@@ -602,7 +602,7 @@ class BaseController
         }
 
         //Return
-        return (object) $logotype; 
+        return (object) $logotype;
     }
 
     /**

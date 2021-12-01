@@ -34,6 +34,12 @@
 	<!-- Content -->
 	{!! $postContentFiltered !!}
 
+    <!-- Terms -->
+    @if(isset($terms))
+        @tags(['tags' => $terms])
+        @endtags
+    @endif
+
     <!-- Comments -->
 	@includeIf('partials.comments')
 	

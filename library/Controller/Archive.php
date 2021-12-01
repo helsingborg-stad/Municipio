@@ -243,43 +243,6 @@ class Archive extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Get a list of terms to display on each inlay
-     *
-     * @param integer $postId           The post identifier
-     * @param boolean $includeLink      If a link should be included or not
-     * @return array                    A array of terms to display
-     */
-    protected function getPostTerms($postId, $includeLink = false)
-    {
-        $taxonomies = get_field('archive_'. get_post_type($postId) .'_post_taxonomy_display', 'options');
-
-        $termsList = [];
-
-        if(is_array($taxonomies) && !empty($taxonomies)) {
-            foreach ($taxonomies as $taxonomy) {
-                $terms = wp_get_post_terms($postId, $taxonomy);
-
-                if (!empty($terms)) {
-                    foreach ($terms as $term) {
-
-                        $item = [];
-
-                        $item['label'] = strtolower($term->name);
-
-                        if($includeLink) {
-                            $item['href'] = get_term_link($term->term_id);
-                        }
-
-                        $termsList[] = $item;
-                    }
-                }
-            }
-        }
-
-        return \apply_filters('Municipio/Controller/Archive/getPostTerms', $termsList, $postId);
-    }
-
-    /**
      * Get pagination
      *
      * @return array    Pagination array with label and link
@@ -475,17 +438,13 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $preparedPosts = [];
 
-        if(is_array($posts) && !empty($posts)) {
+        if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
-
                 $post                   = \Municipio\Helper\Post::preparePostObject($post);
                 $post->href             = $post->permalink;
                 $post->excerpt          = $post->postExcerpt;
                 $post->postDate         = \date('Y-m-d', strtotime($post->postDate));
                 $post->postModified     = \date('Y-m-d', strtotime($post->postModified));
-                $post->terms            = $this->getPostTerms($post->id);
-                $post->termsUnlinked    = $this->getPostTerms($post->id, false);
-
                 $preparedPosts[] = $post;
             }
         }
