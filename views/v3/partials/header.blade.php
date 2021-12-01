@@ -1,7 +1,4 @@
-@header([
-	'id' => 'site-header',
-	'attributeList' => ['style' => 'overflow-x: hidden;']
-])
+@header(['id' => 'site-header'])
 
     {{-- NAVIGATION PRIMARY NAV --}}
     @includeIf('partials.navigation.primary')
