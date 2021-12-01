@@ -12,7 +12,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @return array|void
      */
     public function init()
-    {   
+    {
         parent::init();
 
         //Get post data 
@@ -22,7 +22,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Get feature image data
         $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id);
-        
+
         //Signature options
         $this->data['signature'] = $this->getSignature(); 
 
@@ -38,15 +38,15 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['lang']->readingTime    = __('Reading time', 'municipio');
 
         //Comments
-        if(get_option('comment_moderation') === '1') {
+        if (get_option('comment_moderation') === '1') {
             $this->data['comments'] = get_approved_comments($this->data['post']->id, array(
                 'order'     => get_option('comment_order')
             ));
-        }else {    
+        } else {
             $this->data['comments'] = get_comments(array(
                 'post_id'   => $this->data['post']->id,
                 'order'     => get_option('comment_order')
-            ));            
+            ));
         }
 
         //Replies
@@ -76,16 +76,17 @@ class Singular extends \Municipio\Controller\BaseController
     /**
      * Get main content padder size
      */
-    public function getMainContentPadding($customizer) : array {
+    public function getMainContentPadding($customizer): array
+    {
 
         //Name shorten
-        $padding = $customizer->mainContentPadding; 
-        
-        //Validate, and send var to view. 
-        if(!empty($padding ) && is_numeric($padding) && ($padding%2 == 0)) {
+        $padding = $customizer->mainContentPadding;
+
+        //Validate, and send var to view.
+        if (!empty($padding) && is_numeric($padding) && ($padding % 2 == 0)) {
             //Make md span half the size of padding
             return [
-                'md' => ($padding/2),
+                'md' => ($padding / 2),
                 'lg' => $padding
             ];  
         }
@@ -94,13 +95,13 @@ class Singular extends \Municipio\Controller\BaseController
         return [
             'md' => 0,
             'lg' => 0
-        ]; 
+        ];
     }
 
     /**
      * @return mixed
      */
-    public function getSignature() : object
+    public function getSignature(): object
     {
         $postId         = $this->data['post']->id;
         $displayAuthor  = get_field('page_show_author', 'option'); 
@@ -140,24 +141,24 @@ class Singular extends \Municipio\Controller\BaseController
             'name' => null,
             'avatar' => null
         );
-        
+
         //Get setting for username
-        $displayName = get_the_author_meta( 'display_name', $this->data['post']->postAuthor );  
-        
+        $displayName = get_the_author_meta('display_name', $this->data['post']->postAuthor);
+
         //List of less-fancy displaynames
         $prohoboitedUserNames = [
-            get_the_author_meta( 'user_login', $this->data['post']->postAuthor ),
-            get_the_author_meta( 'nickname', $this->data['post']->postAuthor )
+            get_the_author_meta('user_login', $this->data['post']->postAuthor),
+            get_the_author_meta('nickname', $this->data['post']->postAuthor)
         ]; 
 
         //Assign only if fancy variant of name
-        if(!in_array($displayName, $prohoboitedUserNames)) {
-            $author['name'] = $displayName; 
+        if (!in_array($displayName, $prohoboitedUserNames)) {
+            $author['name'] = $displayName;
         }
 
         //Get avatar url
         $avatar = get_avatar_url($id, ['default' => 'blank']); 
-        if(!preg_match('/d=blank/i', $avatar)) {
+        if (!preg_match('/d=blank/i', $avatar)) {
             $author['avatar'] = $avatar;
         }
 
@@ -185,16 +186,16 @@ class Singular extends \Municipio\Controller\BaseController
     {
 
         //Check option if it should be displayed
-        if(get_field('post_single_show_featured_image', $postId) == false) {
-            return false; 
+        if (get_field('post_single_show_featured_image', $postId) == false) {
+            return false;
         }
 
         //Get the image id
         $featuredImageId = get_post_thumbnail_id($postId);
 
         //Bail out if not found
-        if(!is_numeric($featuredImageId)) {
-            return false; 
+        if (!is_numeric($featuredImageId)) {
+            return false;
         }
 
         $featuredImageObject = (object) [
@@ -203,7 +204,7 @@ class Singular extends \Municipio\Controller\BaseController
             'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
             'title' => get_the_title($featuredImageId)
         ];
-         
+
         return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
     }
 
@@ -212,9 +213,9 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @param   string      $postContent    The post content
      * @param   integer     $factor         What factor to devide with, default 200 = normal reading speed
-     * @return  integer                     Interger representing number of reading minutes  
+     * @return  integer                     Interger representing number of reading minutes
      */
     public function getReadingTime($postContent, $factor = 200) {
-        return (int) ceil((str_word_count(strip_tags($postContent))/$factor));
+        return (int) ceil((str_word_count(strip_tags($postContent)) / $factor));
     }
 }
