@@ -10,9 +10,15 @@ class LoadPlugins
             return;
         }
 
-        if (get_field('content_editor_plugins', 'options')) {
-            $this->loadPlugins();
-        }
+        // Enclosed in the init function as it has to run before get_field can be used
+        add_action(
+            'init',
+            function () {
+                if (get_field('content_editor_plugins', 'options')) {
+                    $this->loadPlugins();
+                }
+            }
+        );
     }
 
     /* Load TinyMCE plugins
@@ -22,8 +28,7 @@ class LoadPlugins
     {
         $nameSpace = apply_filters('Municipio/Admin/TinyMce/LoadPlugins', "\Municipio\Admin\TinyMce");
         if (isset($nameSpace) && !empty($nameSpace)) {
-
-            $plugins = (array) get_field('content_editor_plugins', 'options');
+            $plugins = (array)get_field('content_editor_plugins', 'options');
 
             if (is_array($plugins) && !empty($plugins)) {
                 foreach ($plugins as $plugin) {
