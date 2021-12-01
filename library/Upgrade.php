@@ -502,11 +502,11 @@ class Upgrade
             }
 
             if (!is_numeric($currentDbVersion)) {
-                wp_die(__('Current database version must be a number.', 'municipio'));
+                error_log(__('Current database version must be a number.', 'municipio'));
             }
 
             if ($currentDbVersion > $this->dbVersion) {
-                wp_die(__('Database cannot be lower than currently installed (cannot downgrade).', 'municipio'));
+                error_log(__('Database cannot be lower than currently installed (cannot downgrade).', 'municipio'));
             }
 
             //Fetch global wpdb object, save to $db
