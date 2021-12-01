@@ -68,6 +68,7 @@ class App
         /**
          * Admin
          */
+        new \Municipio\Admin\Gutenberg\Gutenberg();
         new \Municipio\Admin\General();
         new \Municipio\Admin\LoginTracking();
 
