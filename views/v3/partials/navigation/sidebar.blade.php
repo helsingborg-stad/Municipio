@@ -9,7 +9,8 @@
         ],
         'items' => $menuItems,
         'direction' => 'vertical',
-        'includeToggle' => true
+        'includeToggle' => true,
+        'depth' => $depth ?? 0,
     ])
     @endnav
 @else
