@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2021-11-18 15:10+0100\n"
-"PO-Revision-Date: 2021-11-18 15:38+0100\n"
+"POT-Creation-Date: 2021-12-01 15:30+0100\n"
+"PO-Revision-Date: 2021-12-01 15:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -35,7 +35,7 @@ msgid "Label"
 msgstr "Etikett"
 
 #: library/AcfFields/php/block-button.php:29
-#: library/Customizer/Sections/Colors.php:424
+#: library/Customizer/Sections/Colors.php:274
 msgid "Link"
 msgstr "Länk"
 
@@ -48,19 +48,20 @@ msgid "Color"
 msgstr "Färg"
 
 #: library/AcfFields/php/block-button.php:63
-#: library/Customizer/Sections/Header.php:46
-#: library/Customizer/Sections/Header.php:68
+#: library/Customizer/Sections/Button.php:73
+#: library/Customizer/Sections/Header.php:62
+#: library/Customizer/Sections/Header.php:83
 #: library/Customizer/Sections/Quicklinks.php:61
-#: library/Customizer/Sections/Quicklinks.php:108
+#: library/Customizer/Sections/Quicklinks.php:107
 msgid "Primary"
 msgstr "Primär"
 
 #: library/AcfFields/php/block-button.php:64
-#: library/Customizer/Sections/Colors.php:388
-#: library/Customizer/Sections/Header.php:47
-#: library/Customizer/Sections/Header.php:69
+#: library/Customizer/Sections/Colors.php:180
+#: library/Customizer/Sections/Header.php:63
+#: library/Customizer/Sections/Header.php:84
 #: library/Customizer/Sections/Quicklinks.php:62
-#: library/Customizer/Sections/Quicklinks.php:109
+#: library/Customizer/Sections/Quicklinks.php:108
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -68,12 +69,12 @@ msgstr "Sekundär"
 #: library/AcfFields/php/navigation-widget.php:350
 #: library/AcfFields/php/widget-header-links.php:291
 #: library/AcfFields/php/widget-header-menu.php:48
-#: library/Customizer/Sections/Header.php:27
-#: library/Customizer/Sections/Header.php:45
-#: library/Customizer/Sections/Header.php:65
+#: library/Customizer/Sections/Header.php:43
+#: library/Customizer/Sections/Header.php:61
+#: library/Customizer/Sections/Header.php:80
 #: library/Customizer/Sections/Quicklinks.php:60
-#: library/Customizer/Sections/Quicklinks.php:87
-#: library/Customizer/Sections/Quicklinks.php:105
+#: library/Customizer/Sections/Quicklinks.php:86
+#: library/Customizer/Sections/Quicklinks.php:104
 #: library/Customizer/Sections/Width.php:17
 #: vendor/kirki/controls/php/class-kirki-control-base.php:134
 #: vendor/kirki/controls/views/image.php:36
@@ -90,7 +91,7 @@ msgstr ""
 #: library/Customizer/Sections/Card.php:102
 #: library/Customizer/Sections/Collection.php:102
 #: library/Customizer/Sections/Field.php:57
-#: library/Customizer/Sections/Header.php:81
+#: library/Customizer/Sections/Header.php:95
 msgid "Style"
 msgstr "Stil"
 
@@ -122,12 +123,12 @@ msgstr "Storlek"
 #: library/AcfFields/php/widget-header-common.php:130
 #: library/AcfFields/php/widget-header-links.php:292
 #: library/AcfFields/php/widget-header-menu.php:49
-#: library/Customizer/Sections/Radius.php:39
+#: library/Customizer/Sections/Radius.php:40
 msgid "Small"
 msgstr "Liten"
 
 #: library/AcfFields/php/block-button.php:126
-#: library/Customizer/Sections/Radius.php:57
+#: library/Customizer/Sections/Radius.php:59
 msgid "Medium"
 msgstr "Mellan"
 
@@ -137,7 +138,7 @@ msgstr "Mellan"
 #: library/AcfFields/php/widget-header-common.php:131
 #: library/AcfFields/php/widget-header-links.php:293
 #: library/AcfFields/php/widget-header-menu.php:50
-#: library/Customizer/Sections/Radius.php:75
+#: library/Customizer/Sections/Radius.php:78
 #: library/Customizer/Sections/Width.php:92
 #: library/Customizer/Sections/Width.php:109
 msgid "Large"
@@ -214,6 +215,29 @@ msgstr "Platt"
 #: library/AcfFields/php/navigation-widget.php:327
 msgid "Fill"
 msgstr "Fyll"
+
+#: library/AcfFields/php/options-activate-gutenberg.php:6
+msgid "Activate Gutenberg"
+msgstr "Aktivera Gutenberg"
+
+#: library/AcfFields/php/options-activate-gutenberg.php:10
+msgid "Activate gutenberg editor"
+msgstr "Aktivera Gutenberg redigerare"
+
+#: library/AcfFields/php/options-activate-gutenberg.php:22
+#: library/Customizer/Sections/Colors.php:181
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: library/AcfFields/php/options-activate-gutenberg.php:23
+#: library/Controller/Search.php:13
+#: library/Customizer/Sections/Quicklinks.php:126
+msgid "All pages"
+msgstr "Alla sidor"
+
+#: library/AcfFields/php/options-activate-gutenberg.php:24
+msgid "Only on template (onepage)"
+msgstr "Endast på template (onepage)"
 
 #: library/AcfFields/php/options-customize-footer.php:6
 msgid "Customize Footer"
@@ -4619,7 +4643,6 @@ msgstr "Visa författare"
 #: library/AcfFields/php/options-theme-author.php:41
 #: library/AcfFields/php/options-theme-author.php:60
 #: library/AcfFields/php/options-theme-google-translate.php:96
-#: library/Customizer/Sections/Hero.php:26
 #: library/Helper/KirkiCondidional.php:48
 msgid "Enable"
 msgstr "Aktivera"
@@ -4677,7 +4700,7 @@ msgstr ""
 "</script>"
 
 #: library/AcfFields/php/options-theme-custom-js.php:69
-#: library/Customizer/Sections/Quicklinks.php:121
+#: library/Customizer/Sections/Quicklinks.php:119
 msgid "Location"
 msgstr "Plats"
 
@@ -4909,6 +4932,7 @@ msgid "Drak gray"
 msgstr "Mörkgrå"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:30
+#: library/Customizer/Sections/Borders.php:42
 #: library/Customizer/Sections/Module/Contacts.php:29
 #: library/Customizer/Sections/Module/Contacts.php:48
 #: library/Customizer/Sections/Module/Index.php:30
@@ -4949,7 +4973,8 @@ msgid "Mark purple"
 msgstr "Markera lila"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:37
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:31
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:28
+#: library/Customizer/Sections/Borders.php:106
 msgid "Button"
 msgstr "Knapp"
 
@@ -5179,18 +5204,6 @@ msgstr ""
 msgid "Logotyp att använda i sidhuvudet"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-header.php:10
-msgid "Layout"
-msgstr "Layout"
-
-#: library/AcfFields/php/options-theme-header.php:22
-msgid "Business (standardval)"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-header.php:23
-msgid "Casual"
-msgstr "Casual"
-
 #: library/AcfFields/php/options-theme-logotype.php:6
 msgid "Logotype"
 msgstr "Logotyp"
@@ -5415,7 +5428,7 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/Card.php:114
 #: library/Customizer/Sections/Collection.php:114
 #: library/Customizer/Sections/Field.php:69
-#: library/Customizer/Sections/Header.php:87
+#: library/Customizer/Sections/Header.php:101
 #: library/Customizer/Sections/Module/Contacts.php:28
 #: library/Customizer/Sections/Module/Contacts.php:45
 #: library/Customizer/Sections/Module/Index.php:29
@@ -5531,24 +5544,24 @@ msgstr "Endast för inloggade användare"
 msgid "Private"
 msgstr "Privat"
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:32
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:48
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:29
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:45
 msgid "A button block"
 msgstr "Block för knapp"
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:47
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:44
 msgid "Button (Inner)"
 msgstr "Knapp (inner)"
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:63
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:60
 msgid "Classic"
 msgstr "Klassisk"
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:64
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:61
 msgid "A block that lets you create and edit articles"
 msgstr "Ett block som låter dig skapa artikelinnehåll"
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:92
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:88
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
@@ -5594,7 +5607,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:171
+#: library/Controller/Archive.php:77 library/Controller/BaseController.php:167
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -5803,85 +5816,85 @@ msgstr "Återställ filter"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:161 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:157 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:162
+#: library/Controller/BaseController.php:158
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:163
+#: library/Controller/BaseController.php:159
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:164
+#: library/Controller/BaseController.php:160
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:165
+#: library/Controller/BaseController.php:161
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:166
+#: library/Controller/BaseController.php:162
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:167
+#: library/Controller/BaseController.php:163
 msgid "days"
 msgstr "dagar"
 
-#: library/Controller/BaseController.php:168
+#: library/Controller/BaseController.php:164
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:169
+#: library/Controller/BaseController.php:165
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:170
+#: library/Controller/BaseController.php:166
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:172
+#: library/Controller/BaseController.php:168
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:173
+#: library/Controller/BaseController.php:169
 msgid "What are you searching for?"
 msgstr "Vad letar du efter? "
 
-#: library/Controller/BaseController.php:174
+#: library/Controller/BaseController.php:170
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:175
+#: library/Controller/BaseController.php:171
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: library/Controller/BaseController.php:176
+#: library/Controller/BaseController.php:172
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:177 library/Widget/Header/Links.php:68
+#: library/Controller/BaseController.php:173 library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
 #: views/v2/partials/header/default.blade.php:45
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:178
+#: library/Controller/BaseController.php:174
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Controller/BaseController.php:179
+#: library/Controller/BaseController.php:175
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:180
+#: library/Controller/BaseController.php:176
 msgid "More Languages"
 msgstr "Fler språk"
 
@@ -5907,11 +5920,6 @@ msgstr ""
 #: library/Controller/E404.php:84
 msgid "post"
 msgstr "inlägg"
-
-#: library/Controller/Search.php:13
-#: library/Customizer/Sections/Quicklinks.php:128
-msgid "All pages"
-msgstr "Alla sidor"
 
 #: library/Controller/Search.php:14
 msgid "The searchquery did not match any content."
@@ -6008,6 +6016,33 @@ msgstr "Modulutseende"
 msgid "Manage design options on module level."
 msgstr "Hantera inställningar för modulers gestaltning. "
 
+#: library/Customizer/Sections/Borders.php:12
+msgid "Borders"
+msgstr ""
+
+#: library/Customizer/Sections/Borders.php:13
+msgid "Adjust general borders"
+msgstr ""
+
+#: library/Customizer/Sections/Borders.php:21
+#: library/Customizer/Sections/Colors.php:217
+msgid "Divider"
+msgstr ""
+
+#: library/Customizer/Sections/Borders.php:63
+#: library/Customizer/Sections/Module/Contacts.php:23
+msgid "Card"
+msgstr "Kort"
+
+#: library/Customizer/Sections/Borders.php:84
+#: library/Customizer/Sections/Colors.php:218
+msgid "Outline"
+msgstr ""
+
+#: library/Customizer/Sections/Borders.php:126
+msgid "Input"
+msgstr ""
+
 #: library/Customizer/Sections/Button.php:16
 msgid "Buttons"
 msgstr "Knappar"
@@ -6016,48 +6051,31 @@ msgstr "Knappar"
 msgid "Settings for buttons."
 msgstr "Inställningar för knappar"
 
-#: library/Customizer/Sections/Button.php:29
-msgid "Radius small"
-msgstr "Radie: Liten"
-
-#: library/Customizer/Sections/Button.php:46
-msgid "Radius medium"
-msgstr "Radie: Mellan"
-
-#: library/Customizer/Sections/Button.php:60
-msgid "Tailor radius"
-msgstr "Specialanpassa kantradie"
-
-#: library/Customizer/Sections/Button.php:69
-msgid "Primary button color"
-msgstr "Färg på primärknappar"
-
-#: library/Customizer/Sections/Button.php:80
-msgid "Primary button color - Contrast"
-msgstr "Kontrasterande färg på primärknappar"
-
-#: library/Customizer/Sections/Button.php:81
-#: library/Customizer/Sections/Button.php:110
-msgid ""
-"This color should be a monotone color, with a high contrast value towards "
-"the color above."
+#: library/Customizer/Sections/Button.php:68
+msgid "Primary button colors"
 msgstr ""
-"Den här färgen bör vara en monoton färg, med en hög kontrast mot "
-"ovanstående. "
 
-#: library/Customizer/Sections/Button.php:89
+#: library/Customizer/Sections/Button.php:74
+msgid "Primary Contrasting"
+msgstr ""
+
+#: library/Customizer/Sections/Button.php:92
 msgid "Tailor Color: Primary"
 msgstr "Specialanpassa primärfärg"
 
-#: library/Customizer/Sections/Button.php:98
-msgid "Secondary button color"
-msgstr "Färg på sekundärknappar"
+#: library/Customizer/Sections/Button.php:100
+msgid "Secondary button colors"
+msgstr ""
 
-#: library/Customizer/Sections/Button.php:109
-msgid "Secondary button color - Contrast"
-msgstr "Kontrasterande färg på sekundärknappar"
+#: library/Customizer/Sections/Button.php:105
+msgid "Secondary "
+msgstr ""
 
-#: library/Customizer/Sections/Button.php:118
+#: library/Customizer/Sections/Button.php:106
+msgid "Secondary Contrasting"
+msgstr ""
+
+#: library/Customizer/Sections/Button.php:124
 msgid "Tailor Color: Secondary"
 msgstr "Specialanpassa sekundärfärg"
 
@@ -6077,7 +6095,7 @@ msgstr ""
 #: library/Customizer/Sections/Card.php:29
 #: library/Customizer/Sections/Collection.php:29
 #: library/Customizer/Sections/Field.php:85
-#: library/Customizer/Sections/Header.php:39
+#: library/Customizer/Sections/Header.php:55
 msgid "Background color"
 msgstr "Bakgrundsfärg"
 
@@ -6207,157 +6225,175 @@ msgstr ""
 "Rundade hörn på samlingskomponenter som ligger omslutet av andra "
 "komponenter, tas bort vid behov automatiskt. "
 
-#: library/Customizer/Sections/Colors.php:12
+#: library/Customizer/Sections/Colors.php:15
 msgid "Colors"
 msgstr "Färger"
 
-#: library/Customizer/Sections/Colors.php:13
+#: library/Customizer/Sections/Colors.php:16
 msgid "Colors used across the theme."
 msgstr "Färger som används i grunddesignen. "
 
-#: library/Customizer/Sections/Colors.php:21
+#: library/Customizer/Sections/Colors.php:24
 msgid "Primary colors"
 msgstr "Primära färger"
 
-#: library/Customizer/Sections/Colors.php:25
-#: library/Customizer/Sections/Colors.php:67
-#: library/Customizer/Sections/Colors.php:185
-#: library/Customizer/Sections/Colors.php:226
-#: library/Customizer/Sections/Colors.php:267
-#: library/Customizer/Sections/Colors.php:308
-#: library/Customizer/Sections/Colors.php:387
-#: library/Customizer/Sections/Colors.php:474
+#: library/Customizer/Sections/Colors.php:29
+#: library/Customizer/Sections/Colors.php:72
+#: library/Customizer/Sections/Colors.php:179
+#: library/Customizer/Sections/Colors.php:324
+#: library/Customizer/Sections/Colors.php:353
+#: library/Customizer/Sections/Colors.php:396
+#: library/Customizer/Sections/Colors.php:439
+#: library/Customizer/Sections/Colors.php:482
 #: library/Customizer/Sections/Example.php:25
-#: library/Customizer/Sections/Typography.php:45
+#: library/Customizer/Sections/Typography.php:46
 msgid "Base"
 msgstr "Bas"
 
-#: library/Customizer/Sections/Colors.php:26
-#: library/Customizer/Sections/Colors.php:68
-#: library/Customizer/Sections/Colors.php:112
-#: library/Customizer/Sections/Colors.php:186
-#: library/Customizer/Sections/Colors.php:227
-#: library/Customizer/Sections/Colors.php:268
-#: library/Customizer/Sections/Colors.php:309
+#: library/Customizer/Sections/Colors.php:30
+#: library/Customizer/Sections/Colors.php:73
+#: library/Customizer/Sections/Colors.php:354
+#: library/Customizer/Sections/Colors.php:397
+#: library/Customizer/Sections/Colors.php:440
+#: library/Customizer/Sections/Colors.php:483
+#: library/Customizer/Sections/Colors.php:528
 #: library/Customizer/Sections/Example.php:26
 msgid "Dark"
 msgstr "Mörk"
 
-#: library/Customizer/Sections/Colors.php:27
-#: library/Customizer/Sections/Colors.php:69
-#: library/Customizer/Sections/Colors.php:113
-#: library/Customizer/Sections/Colors.php:187
-#: library/Customizer/Sections/Colors.php:228
-#: library/Customizer/Sections/Colors.php:269
-#: library/Customizer/Sections/Colors.php:310
+#: library/Customizer/Sections/Colors.php:31
+#: library/Customizer/Sections/Colors.php:74
+#: library/Customizer/Sections/Colors.php:355
+#: library/Customizer/Sections/Colors.php:398
+#: library/Customizer/Sections/Colors.php:441
+#: library/Customizer/Sections/Colors.php:484
+#: library/Customizer/Sections/Colors.php:529
 msgid "Light"
 msgstr "Ljus"
 
-#: library/Customizer/Sections/Colors.php:28
-#: library/Customizer/Sections/Colors.php:70
-#: library/Customizer/Sections/Colors.php:188
-#: library/Customizer/Sections/Colors.php:229
-#: library/Customizer/Sections/Colors.php:270
-#: library/Customizer/Sections/Colors.php:311
+#: library/Customizer/Sections/Colors.php:32
+#: library/Customizer/Sections/Colors.php:75
+#: library/Customizer/Sections/Colors.php:356
+#: library/Customizer/Sections/Colors.php:399
+#: library/Customizer/Sections/Colors.php:442
+#: library/Customizer/Sections/Colors.php:485
 msgid "Contrastring"
 msgstr "Kontrasterande"
 
-#: library/Customizer/Sections/Colors.php:63
+#: library/Customizer/Sections/Colors.php:67
 msgid "Secondary colors"
 msgstr "Sekundära färger"
 
-#: library/Customizer/Sections/Colors.php:105
-msgid "Monotone colors"
-msgstr "Monotona färger"
-
-#: library/Customizer/Sections/Colors.php:109
-#: library/Customizer/Sections/Header.php:67
-#: library/Customizer/Sections/Quicklinks.php:107
-msgid "Black"
-msgstr "Svart"
-
-#: library/Customizer/Sections/Colors.php:110
-msgid "Darkest"
-msgstr "Mörkast"
-
-#: library/Customizer/Sections/Colors.php:111
-msgid "Darker"
-msgstr "Mörkare"
-
-#: library/Customizer/Sections/Colors.php:114
-msgid "Lighther"
-msgstr "Ljusare"
-
-#: library/Customizer/Sections/Colors.php:115
-msgid "Lightest"
-msgstr "Ljusast"
-
-#: library/Customizer/Sections/Colors.php:116
-#: library/Customizer/Sections/Header.php:66
-#: library/Customizer/Sections/Quicklinks.php:106
-msgid "White"
-msgstr "Vit"
-
-#: library/Customizer/Sections/Colors.php:181
-msgid "Success colors"
-msgstr "Lyckades"
-
-#: library/Customizer/Sections/Colors.php:222
-msgid "Danger colors"
-msgstr "Fara"
-
-#: library/Customizer/Sections/Colors.php:263
-msgid "Warning colors"
-msgstr "Varning"
-
-#: library/Customizer/Sections/Colors.php:304
-msgid "Info colors"
-msgstr "Information"
-
-#: library/Customizer/Sections/Colors.php:348
+#: library/Customizer/Sections/Colors.php:112
 msgid "Background colors"
 msgstr "Bakgrundsfärger"
 
-#: library/Customizer/Sections/Colors.php:352
+#: library/Customizer/Sections/Colors.php:117
+#: library/Customizer/Sections/Colors.php:149
 msgid "Background"
 msgstr "Bakgrund"
 
-#: library/Customizer/Sections/Colors.php:353
-msgid "Paper"
-msgstr "Papper"
+#: library/Customizer/Sections/Colors.php:118
+msgid "Complementary"
+msgstr "Komplementär"
 
-#: library/Customizer/Sections/Colors.php:383
+#: library/Customizer/Sections/Colors.php:144
+msgid "Card & Paper colors"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:150
+#: library/Customizer/Sections/Colors.php:249
+msgid "Border"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:174
 msgid "Text colors"
 msgstr "Textfärger"
 
-#: library/Customizer/Sections/Colors.php:389
-msgid "Disabled"
-msgstr "Inaktiverad"
+#: library/Customizer/Sections/Colors.php:212
+msgid "Border colors"
+msgstr ""
 
-#: library/Customizer/Sections/Colors.php:420
+#: library/Customizer/Sections/Colors.php:244
+msgid "Input colors"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:269
 msgid "Link colors"
 msgstr "Länkfärger"
 
-#: library/Customizer/Sections/Colors.php:425
+#: library/Customizer/Sections/Colors.php:275
 msgid "Hover"
 msgstr "Hovra"
 
-#: library/Customizer/Sections/Colors.php:426
+#: library/Customizer/Sections/Colors.php:276
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
 msgid "Active"
 msgstr "Aktivera"
 
-#: library/Customizer/Sections/Colors.php:427
+#: library/Customizer/Sections/Colors.php:277
 msgid "Visited"
 msgstr "Besökt"
 
-#: library/Customizer/Sections/Colors.php:428
+#: library/Customizer/Sections/Colors.php:278
 msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
-#: library/Customizer/Sections/Colors.php:470
+#: library/Customizer/Sections/Colors.php:320
 msgid "Alpha colors"
 msgstr "Alfa färger"
+
+#: library/Customizer/Sections/Colors.php:325
+msgid "Base Contrasting"
+msgstr ""
+
+#: library/Customizer/Sections/Colors.php:348
+msgid "Success colors"
+msgstr "Lyckades"
+
+#: library/Customizer/Sections/Colors.php:391
+msgid "Danger colors"
+msgstr "Fara"
+
+#: library/Customizer/Sections/Colors.php:434
+msgid "Warning colors"
+msgstr "Varning"
+
+#: library/Customizer/Sections/Colors.php:477
+msgid "Info colors"
+msgstr "Information"
+
+#: library/Customizer/Sections/Colors.php:520
+msgid "Monotone colors"
+msgstr "Monotona färger"
+
+#: library/Customizer/Sections/Colors.php:525
+#: library/Customizer/Sections/Header.php:82
+#: library/Customizer/Sections/Quicklinks.php:106
+msgid "Black"
+msgstr "Svart"
+
+#: library/Customizer/Sections/Colors.php:526
+msgid "Darkest"
+msgstr "Mörkast"
+
+#: library/Customizer/Sections/Colors.php:527
+msgid "Darker"
+msgstr "Mörkare"
+
+#: library/Customizer/Sections/Colors.php:530
+msgid "Lighther"
+msgstr "Ljusare"
+
+#: library/Customizer/Sections/Colors.php:531
+msgid "Lightest"
+msgstr "Ljusast"
+
+#: library/Customizer/Sections/Colors.php:532
+#: library/Customizer/Sections/Header.php:81
+#: library/Customizer/Sections/Quicklinks.php:105
+msgid "White"
+msgstr "Vit"
 
 #: library/Customizer/Sections/Example.php:12
 msgid "Example"
@@ -6427,6 +6463,30 @@ msgstr "Typsnittsfärg för fält"
 msgid "Choose a font color for the field component."
 msgstr "Välj en typsnittsfärg för fält."
 
+#: library/Customizer/Sections/Footer.php:12 library/Theme/Sidebars.php:51
+msgid "Footer"
+msgstr "Sidfot"
+
+#: library/Customizer/Sections/Footer.php:13
+msgid "Footer settings."
+msgstr ""
+
+#: library/Customizer/Sections/Footer.php:21
+msgid "Footer background"
+msgstr ""
+
+#: library/Customizer/Sections/Footer.php:22
+msgid "Set the background of the footer area."
+msgstr ""
+
+#: library/Customizer/Sections/Footer.php:46
+msgid "Footer font color"
+msgstr ""
+
+#: library/Customizer/Sections/Footer.php:47
+msgid "Choose a font color contrasting the background."
+msgstr ""
+
 #: library/Customizer/Sections/General.php:12
 msgid "General"
 msgstr "Generellt"
@@ -6448,46 +6508,51 @@ msgid "Header settings."
 msgstr "Inställningar för sidhuvud"
 
 #: library/Customizer/Sections/Header.php:21
-#: library/Customizer/Sections/Quicklinks.php:81
+msgid "Apperance"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:26
+msgid "Casual (Small sites)"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:27
+msgid "Business (large sites)"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:37
+#: library/Customizer/Sections/Quicklinks.php:80
 msgid "Sticky"
 msgstr "Klibbig"
 
-#: library/Customizer/Sections/Header.php:22
+#: library/Customizer/Sections/Header.php:38
 msgid ""
 "Adjust how the header section should behave when the user scrolls trough the "
 "page."
 msgstr "Justera hur sidhuvudet ska bete sig när användaren scrollar på sidan. "
 
-#: library/Customizer/Sections/Header.php:28
-#: library/Customizer/Sections/Quicklinks.php:88
+#: library/Customizer/Sections/Header.php:44
+#: library/Customizer/Sections/Quicklinks.php:87
 msgid "Stick to top"
 msgstr "Klibba fast i toppen"
 
-#: library/Customizer/Sections/Header.php:40
+#: library/Customizer/Sections/Header.php:56
 msgid "Choose a background color for the header section of the page."
 msgstr "Välj en bakgrundfärg för sidhuvudet. "
 
-#: library/Customizer/Sections/Header.php:48
-#: library/Customizer/Sections/Header.php:70
-#: library/Customizer/Sections/Quicklinks.php:63
-#: library/Customizer/Sections/Quicklinks.php:110
-msgid "Tertiary"
-msgstr "Tertiär"
-
-#: library/Customizer/Sections/Header.php:59
-#: library/Customizer/Sections/Quicklinks.php:99
+#: library/Customizer/Sections/Header.php:74
+#: library/Customizer/Sections/Quicklinks.php:98
 msgid "Text color"
 msgstr "Textfärg"
 
-#: library/Customizer/Sections/Header.php:60
+#: library/Customizer/Sections/Header.php:75
 msgid "Select a font/text color to use in the header."
 msgstr "Välj en färg att använda för text i sidhuvudet. "
 
-#: library/Customizer/Sections/Header.php:82
+#: library/Customizer/Sections/Header.php:96
 msgid "Select a alternative style of this header."
 msgstr "Välj en alternativ stul för rubriken. "
 
-#: library/Customizer/Sections/Header.php:88
+#: library/Customizer/Sections/Header.php:102
 #: library/Customizer/Sections/Module/Contacts.php:47
 #: library/Customizer/Sections/Module/Inlay.php:30
 #: library/Customizer/Sections/Module/LocalEvent.php:30
@@ -6500,39 +6565,6 @@ msgstr "Välj en alternativ stul för rubriken. "
 #: library/Customizer/Sections/Module/Video.php:30
 msgid "Accented"
 msgstr "Accentuerad"
-
-#: library/Customizer/Sections/Hero.php:12
-msgid "Component: Hero"
-msgstr "Komponent: Hero"
-
-#: library/Customizer/Sections/Hero.php:13
-msgid "Specific settings for the hero component."
-msgstr "Specifika inställningar för herokomponent. "
-
-#: library/Customizer/Sections/Hero.php:21
-msgid "Enable hero-overlay customization."
-msgstr "Aktivera färgfilter för hero. "
-
-#: library/Customizer/Sections/Hero.php:27
-#: library/Helper/KirkiCondidional.php:49
-msgid "Disable"
-msgstr "Inaktivera"
-
-#: library/Customizer/Sections/Hero.php:34
-msgid "Neutral overlay"
-msgstr "Neutralt färgfilter"
-
-#: library/Customizer/Sections/Hero.php:35
-msgid "Choose a neutral overlaycolor for hero use."
-msgstr "Välj en färg för det neutrala färgfiltret."
-
-#: library/Customizer/Sections/Hero.php:57
-msgid "Vibrant overlay"
-msgstr "Färgrikt filter"
-
-#: library/Customizer/Sections/Hero.php:58
-msgid "Choose a vibrant overlaycolor for hero use."
-msgstr "Välj en färg för det färgrika färgfiltret."
 
 #: library/Customizer/Sections/LoadDesign.php:28
 msgid "Load a design"
@@ -6558,10 +6590,6 @@ msgstr "Kunde inte ladda in alternativen"
 #: library/Customizer/Sections/Module/Contacts.php:12
 msgid "Contacts"
 msgstr "Kontakter"
-
-#: library/Customizer/Sections/Module/Contacts.php:23
-msgid "Card"
-msgstr "Kort"
 
 #: library/Customizer/Sections/Module/Contacts.php:40
 #: library/Customizer/Sections/Module/Inlay.php:23
@@ -6629,23 +6657,6 @@ msgstr "Sektion: Tvådelad"
 msgid "Video"
 msgstr "Video"
 
-#: library/Customizer/Sections/Overlay.php:12
-msgid "Overlay"
-msgstr "Färgfilter"
-
-#: library/Customizer/Sections/Overlay.php:13
-msgid "Overlay settings."
-msgstr "Inställningar för färgfilter"
-
-#: library/Customizer/Sections/Overlay.php:21
-msgid "Default overlay"
-msgstr "Standard färgfilter"
-
-#: library/Customizer/Sections/Overlay.php:22
-msgid "Choose a default overlaycolor to use when there's nothing defined."
-msgstr ""
-"Välj en färg för att använda som färgfilter, när inget annat är definierat. "
-
 #: library/Customizer/Sections/Padding.php:12
 msgid "Padding"
 msgstr "Luft"
@@ -6700,7 +6711,7 @@ msgstr "Välj en bakgrunds färg för sektionen snabblänkar, på sidan. "
 msgid "Predefined background color"
 msgstr "Fördefinierad färg"
 
-#: library/Customizer/Sections/Quicklinks.php:82
+#: library/Customizer/Sections/Quicklinks.php:81
 msgid ""
 "Adjust how the quicklinks menu should behave when the user scrolls trough "
 "the page. This option should not be used in combination with a sticky header."
@@ -6709,15 +6720,15 @@ msgstr ""
 "Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt "
 "sidhuvud. "
 
-#: library/Customizer/Sections/Quicklinks.php:100
+#: library/Customizer/Sections/Quicklinks.php:99
 msgid "Select a font/text color to use."
 msgstr "Välj en typsnittsfärg"
 
-#: library/Customizer/Sections/Quicklinks.php:122
+#: library/Customizer/Sections/Quicklinks.php:120
 msgid "Quicklinks location."
 msgstr "Position för snabblänkar"
 
-#: library/Customizer/Sections/Quicklinks.php:127
+#: library/Customizer/Sections/Quicklinks.php:125
 msgid "Front page"
 msgstr "Startsidan"
 
@@ -6767,7 +6778,7 @@ msgstr "Typografi"
 msgid "Options for various Typography elements"
 msgstr "Inställningar för typsnitt"
 
-#: library/Customizer/Sections/Typography.php:89
+#: library/Customizer/Sections/Typography.php:90
 msgid "Headings"
 msgstr "Rubriker"
 
@@ -6807,6 +6818,10 @@ msgstr "Normal"
 #: library/Helper/KirkiCondidional.php:35
 msgid "Tailor"
 msgstr "Specialanpassa"
+
+#: library/Helper/KirkiCondidional.php:49
+msgid "Disable"
+msgstr "Inaktivera"
 
 #: library/Helper/Navigation.php:634 library/Helper/Navigation.php:866
 msgid "Untitled page"
@@ -6971,10 +6986,6 @@ msgstr "Sidfot topp"
 msgid "The top of footer area"
 msgstr "Översta delen av sifoten"
 
-#: library/Theme/Sidebars.php:51
-msgid "Footer"
-msgstr "Sidfot"
-
 #: library/Theme/Sidebars.php:52
 msgid "The footer area"
 msgstr "Footer-arean"
@@ -7061,15 +7072,15 @@ msgstr "Ovanför innehållskolumner"
 msgid "Sidebar that sits just before the columns grid."
 msgstr "Yta som befinner sig precis kolumnytan vilken håller huvudinnehållet. "
 
-#: library/Upgrade.php:393
+#: library/Upgrade.php:517
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer"
 
-#: library/Upgrade.php:397
+#: library/Upgrade.php:521
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer. "
 
-#: library/Upgrade.php:401
+#: library/Upgrade.php:525
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 "Databasversionen som ska uppnås, kan inte vara lägre än den version som är "
@@ -8297,11 +8308,83 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
 
+#~ msgid "Layout"
+#~ msgstr "Layout"
+
+#~ msgid "Casual"
+#~ msgstr "Casual"
+
+#~ msgid "Radius small"
+#~ msgstr "Radie: Liten"
+
+#~ msgid "Radius medium"
+#~ msgstr "Radie: Mellan"
+
+#~ msgid "Tailor radius"
+#~ msgstr "Specialanpassa kantradie"
+
+#~ msgid "Primary button color"
+#~ msgstr "Färg på primärknappar"
+
+#~ msgid "Primary button color - Contrast"
+#~ msgstr "Kontrasterande färg på primärknappar"
+
+#~ msgid ""
+#~ "This color should be a monotone color, with a high contrast value towards "
+#~ "the color above."
+#~ msgstr ""
+#~ "Den här färgen bör vara en monoton färg, med en hög kontrast mot "
+#~ "ovanstående. "
+
+#~ msgid "Secondary button color"
+#~ msgstr "Färg på sekundärknappar"
+
+#~ msgid "Secondary button color - Contrast"
+#~ msgstr "Kontrasterande färg på sekundärknappar"
+
+#~ msgid "Paper"
+#~ msgstr "Papper"
+
+#~ msgid "Tertiary"
+#~ msgstr "Tertiär"
+
+#~ msgid "Component: Hero"
+#~ msgstr "Komponent: Hero"
+
+#~ msgid "Specific settings for the hero component."
+#~ msgstr "Specifika inställningar för herokomponent. "
+
+#~ msgid "Enable hero-overlay customization."
+#~ msgstr "Aktivera färgfilter för hero. "
+
+#~ msgid "Neutral overlay"
+#~ msgstr "Neutralt färgfilter"
+
+#~ msgid "Choose a neutral overlaycolor for hero use."
+#~ msgstr "Välj en färg för det neutrala färgfiltret."
+
+#~ msgid "Vibrant overlay"
+#~ msgstr "Färgrikt filter"
+
+#~ msgid "Choose a vibrant overlaycolor for hero use."
+#~ msgstr "Välj en färg för det färgrika färgfiltret."
+
+#~ msgid "Overlay"
+#~ msgstr "Färgfilter"
+
+#~ msgid "Overlay settings."
+#~ msgstr "Inställningar för färgfilter"
+
+#~ msgid "Default overlay"
+#~ msgstr "Standard färgfilter"
+
+#~ msgid "Choose a default overlaycolor to use when there's nothing defined."
+#~ msgstr ""
+#~ "Välj en färg för att använda som färgfilter, när inget annat är "
+#~ "definierat. "
+
 #~ msgid "Tertiary colors"
 #~ msgstr "Tertiära färger"
-
-#~ msgid "Complementary"
-#~ msgstr "Komplementär"
 
 #~ msgid "Primary Color"
 #~ msgstr "Primärfärg"
