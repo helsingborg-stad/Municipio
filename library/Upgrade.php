@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 18; //The db version we want to achive
+    private $dbVersion = 19; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -383,6 +383,23 @@ class Upgrade
         }
 
         delete_option('activate_gutenberg_editor');
+
+        return true;
+    }
+
+    //Move enable gutenberg to a more dynamic setting
+    private function v_19($db): bool
+    {
+        $previousSetting = get_option('options_activate_gutenberg_editor');
+
+        if ($previousSetting) {
+            update_option('gutenberg_editor_mode', 'all');
+        } else {
+            update_option('gutenberg_editor_mode', 'disabled');
+        }
+
+        delete_option('options_activate_gutenberg_editor');
+        delete_option('_options_activate_gutenberg_editor');
 
         return true;
     }
