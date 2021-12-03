@@ -4,8 +4,6 @@ import Comments from './comments';
 import ArchiveFilter from './archiveFilter';
 import './nav';
 
-var fixedMenu = new FixedMenu();
-
 //Ponyfill for supporting css variables in IE
 cssVars({
     //Options
