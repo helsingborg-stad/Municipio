@@ -7,7 +7,7 @@
 }
 
 .site-footer .site-footer__logo {
-    max-width: calc(#{$base} * 34);
+    height: calc(var(--base, 8px)*9);
 }
 
 .site-footer {
