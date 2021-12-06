@@ -50,8 +50,8 @@
         $showMobileSearch, 
         'partials.search.mobile-search-form',[
             'classList' => [
-                'u-margin__y--2', 
-                'u-margin__x--3', 
+                'u-padding__y--2', 
+                'u-padding__x--3', 
                 'u-width--auto',
                 'u-display--none@lg',
                 'u-print-display--none'
