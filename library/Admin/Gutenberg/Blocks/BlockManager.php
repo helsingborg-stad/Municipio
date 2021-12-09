@@ -44,7 +44,7 @@ class BlockManager {
                 'title'             => __('Button (Inner)', 'municipio'),
                 'description'       => __('A button block', 'municipio'),
                 'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'formatting',
+                'category'          => 'design',
                 'icon'              => 'design',
                 'keywords'          => array('button', 'link'),
                 'parent'            => ['acf/button'],
