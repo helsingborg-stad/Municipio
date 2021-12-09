@@ -21,15 +21,14 @@
 
     {{-- Footer body --}}
     @section('footer-body')
+
         {{-- ## Footer top widget area begin ## --}}
         @if (is_active_sidebar('footer-area-top'))
-        <div class="o-container">
+            <div class="o-container">
                 <div class="o-grid-12">
-                    <div class="o-grid sidebar-footer-area-top">
-                            <?php dynamic_sidebar('footer-area-top'); ?>
-                    </div>
+                    @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
                 </div>
-        </div>
+            </div>
         @endif
 
         <div class="o-container">
@@ -78,14 +77,12 @@
                     </div>
                 @endif
 
-                {{-- ## Footer widget area begin ## --}}
                 @if (is_active_sidebar('footer-area'))
                     <div class="o-grid-12">
-                        <div class="o-grid sidebar-footer-area">
-                                <?php dynamic_sidebar('footer-area'); ?>
-                        </div>
+                        @include('partials.sidebar', ['id' => 'footer-area', 'classes' => ['o-grid']])
                     </div>
                 @endif
+                
             </div>
         </div>
     @show
