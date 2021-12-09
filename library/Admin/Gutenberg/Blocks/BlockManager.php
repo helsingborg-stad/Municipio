@@ -28,7 +28,7 @@ class BlockManager {
                 'title'             => __('Button', 'municipio'),
                 'description'       => __('A button block', 'municipio'),
                 'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'formatting',
+                'category'          => 'design',
                 'icon'              => 'button',
                 'keywords'          => array('button', 'link'),
                 'supports'          => [
@@ -45,7 +45,7 @@ class BlockManager {
                 'description'       => __('A button block', 'municipio'),
                 'render_callback'   => array($this, 'renderCallback'),
                 'category'          => 'formatting',
-                'icon'              => 'button',
+                'icon'              => 'design',
                 'keywords'          => array('button', 'link'),
                 'parent'            => ['acf/button'],
                 'supports'          => [
@@ -60,7 +60,7 @@ class BlockManager {
                 'title'             => __('Classic', 'municipio'),
                 'description'       => __('A block that lets you create and edit articles', 'municipio'),
                 'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'formatting',
+                'category'          => 'text',
                 'icon'              => 'text',
                 'keywords'          => array('editor', 'classic'),
                 'supports'          => [
