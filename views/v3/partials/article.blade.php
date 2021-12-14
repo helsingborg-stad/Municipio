@@ -1,15 +1,11 @@
 <article id="article" class="c-article c-article--readable-width s-article u-clearfix">
     
-    @section('article-before-title')
-    @show
-    
     <!-- Title -->
+    @section('article.title.before')@show
     @typography(["element" => "h1"])
         {!! $postTitleFiltered !!}
     @endtypography
-
-    @section('article-after-title')
-    @show
+    @section('article.title.after')@show
 
     <!-- Blog style author signature -->
     @if(!$postTypeDetails->hierarchical && $isBlogStyle)
@@ -28,9 +24,8 @@
         @endsignature
     @endif
 
-    @section('article-before-featured-image')
-    @show
-
+    <!-- Featured image -->
+    @section('article.featuredimage.before')@show
     @if (!empty($featuredImage->src))
         @image([
             'src'=> $featuredImage->src[0],
@@ -39,38 +34,24 @@
         ])
         @endimage
     @endif
-
-    @section('article-after-featured-image')
-    @show
-
-    @section('article-before-content')
-    @show
+    @section('article.featuredimage.after')@show
 
 	<!-- Content -->
+    @section('article.content.before')@show
 	{!! $postContentFiltered !!}
-
-    @section('article-after-content')
-    @show
-
-    @section('article-before-terms')
-    @show
+    @section('article.content.after')@show
 
     <!-- Terms -->
+    @section('article.terms.before')@show
     @if(isset($terms))
         @tags(['tags' => $terms])
         @endtags
     @endif
-
-    @section('article-after-terms')
-    @show
-
-    @section('article-before-comments')
-    @show
+    @section('article.terms.after')@show
 
     <!-- Comments -->
+    @section('article.comments.before')@show
 	@includeIf('partials.comments')
-
-    @section('article-after-comments')
-    @show
+    @section('article.comments.after')@show
 	
 </article>
