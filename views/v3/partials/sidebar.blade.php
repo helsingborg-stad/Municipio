@@ -3,7 +3,7 @@
     @if (is_active_sidebar($id))
         @section('sidebar.active.' . $id . '.before')@show
         <div id="sidebar-{{$id}}" class="sidebar-{{$id}} {{isset($classes) ? is_array($classes) ? implode(' ', $classes) : $classes : ''}}">
-            @php dynamic_sidebar($id); @endtypography
+            @php dynamic_sidebar($id); @endphp
         </div>
         @section('sidebar.active.' . $id . '.after')@show
     @endif
