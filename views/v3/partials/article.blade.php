@@ -9,6 +9,7 @@
 
     <!-- Blog style author signature -->
     @if(!$postTypeDetails->hierarchical && $isBlogStyle)
+        @section('article.signature.after')@show
         @signature([
             'author'            => $signature->name,
             'avatar_size'       => 'sm',
@@ -22,6 +23,7 @@
             'classList'         => ['u-margin__y--2']
         ])
         @endsignature
+        @section('article.signature.after')@show
     @endif
 
     <!-- Featured image -->
