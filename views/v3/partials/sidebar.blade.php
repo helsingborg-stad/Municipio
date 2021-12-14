@@ -6,6 +6,8 @@
             @php dynamic_sidebar($id); @endphp
         </div>
         @section('sidebar.active.' . $id . '.after')@show
+    @else
+        @section('sidebar.inactive.' . $id)@show
     @endif
     @section('sidebar.' . $id . '.after')@show
 @endif
