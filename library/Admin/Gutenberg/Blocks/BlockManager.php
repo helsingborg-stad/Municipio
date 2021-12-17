@@ -68,6 +68,22 @@ class BlockManager {
                 ],
                 'view'              => 'classic'
             ));
+
+            // register a button block.
+            acf_register_block_type(array(
+                'name'              => 'margin',
+                'title'             => __('Margin', 'municipio'),
+                'description'       => __('A margin block', 'municipio'),
+                'render_callback'   => array($this, 'renderCallback'),
+                'category'          => 'design',
+                'icon'              => 'fullscreen-exit-alt',
+                'keywords'          => array('margin', 'space', 'whitespace', 'padding', 'air'),
+                'supports'          => [
+                    'align' => true,
+                    'jsx' => true
+                ],
+                'view' => 'margin'
+            ));
         }
     }
 

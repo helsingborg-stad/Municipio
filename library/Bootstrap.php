@@ -39,6 +39,7 @@ add_action('init', function () {
         // Blocks
         'block-classic-editpr'                      => 'group_61556c32b3697',
         'block-button'                              => 'group_60acdac5158f2',
+        'block-margin'                              => 'group_61bc6134601a0',
         'options-activate-gutenberg'                => 'group_60b496c06687c',
 
         // Options

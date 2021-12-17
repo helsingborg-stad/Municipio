@@ -20,6 +20,15 @@
   padding-left: 12px;
 }
 
+/** Margin block */ 
+.c-margin {
+  border: 3px dashed #eee;
+
+  .c-margin__inner {
+    outline: 3px dashed #eee;
+  }
+}
+
 /** No x-scroll **/ 
 .is-root-container.block-editor-block-list__layout {
   overflow-x: hidden;
