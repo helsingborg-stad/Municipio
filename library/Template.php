@@ -343,7 +343,8 @@ class Template
 
     public function cleanViewPath($view)
     {
-        foreach ($this->viewPaths as $path) {
+        $viewPaths = \Municipio\Helper\Template::getViewPaths();
+        foreach ($viewPaths as $path) {
             $view = str_replace($path . '/', '', $view);
         }
 
