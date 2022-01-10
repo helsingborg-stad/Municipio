@@ -76,6 +76,7 @@ add_action('init', function () {
         'options-theme-share'                       => 'group_56c431971df46',
         'options-theme-sub-navigation'              => 'group_56e941cae1ed2',
         'options-menu-icon'                         => 'group_60c325749aeab',
+        'options-menu-style'                        => 'group_61dc486660615',
         'options-menu-floating'                     => 'group_60c86946524a0',
         'options-menu-language'                     => 'group_6141cc9c72cc3',
         'user-author-image'                         => 'group_56c714b46105e',
