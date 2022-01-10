@@ -70,6 +70,7 @@
                     @nav([
                         'items' => $primaryMenuItems,
                         'direction' => 'horizontal',
+                        'allowStyle' => true,
                         'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--space-between'],
                         'context' => ['site.header.nav', 'site.header.business.nav']
                     ])

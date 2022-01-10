@@ -59,6 +59,7 @@
                     <nav role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
                         @nav([
                             'items' => $primaryMenuItems,
+                            'allowStyle' => true,
                             'direction' => 'horizontal',
                             'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--end'],
                             'context' => ['site.header.nav', 'site.header.casual.nav']

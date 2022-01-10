@@ -658,7 +658,7 @@ class Navigation
                     $menuItems,
                     $this->pageIdToMenuID($menuItems, $pageId)
                 );
-                 
+
                 foreach ($menuItems as $item) {
                     $isAncestor = in_array($item->ID, $ancestors);
 
@@ -672,10 +672,11 @@ class Navigation
                         'href' => $item->url,
                         'children' => false,
                         'icon' => [
-                          'icon' => get_field('menu_item_icon', $item->ID), 
-                          'size' => 'md', 
+                          'icon' => get_field('menu_item_icon', $item->ID),
+                          'size' => 'md',
                           'classList' => ['u-margin__right--1'],
-                        ]
+                        ],
+                        'style' => get_field('menu_item_style', $item->ID) ?? 'default'
                     ], $this->identifier, true);
                 }
             } else {
