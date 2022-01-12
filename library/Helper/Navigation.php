@@ -262,7 +262,7 @@ class Navigation
                 $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
 
                 //Look for replacement
-                if (array_key_exists($currentPostType, $pageForPostTypeIds)) {
+                if ($currentPostType && array_key_exists($currentPostType, $pageForPostTypeIds)) {
                     $ancestorID = $pageForPostTypeIds[$currentPostType];
                 }
 
