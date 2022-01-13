@@ -2,7 +2,7 @@
     
     <!-- Title -->
     @section('article.title.before')@show
-    @typography(["element" => "h1"])
+    @typography(["element" => "h1", "variant" => "h1"])
         {!! $postTitleFiltered !!}
     @endtypography
     @section('article.title.after')@show
