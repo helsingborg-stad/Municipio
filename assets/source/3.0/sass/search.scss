@@ -26,15 +26,12 @@
         color: $color-white;
     }
 
-    .c-field__inner {
-        height: 100%;
-    }
     .c-button__filled {
         filter: none;
     }
 }
 
-#search-form--field {
+#search-form--field, .search-modal, #hero-search-form {
     .c-field__inner {
         height: 100%;
     }
@@ -90,7 +87,6 @@
         background-color: inherit;
         border: none; 
         color: inherit;
-        height: 100%;
     }
 
     #hero-search-form .c-field__label {
