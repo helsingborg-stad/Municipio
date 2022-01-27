@@ -25,6 +25,13 @@
     .c-button .c-button__label .c-icon {
         color: $color-white;
     }
+
+    .c-field__inner {
+        height: 100%;
+    }
+    .c-button__filled {
+        filter: none;
+    }
 }
 
 #sidebar-slider-area--container {
