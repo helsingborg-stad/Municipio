@@ -71,14 +71,16 @@
         border-radius: 0;
     }
 
-    #hero-search-form input[type="search"] {
+    #hero-search-form input[type="search"],
+    #hero-search-form .c-field__inner {
         border-radius: inherit;
         background-color: inherit;
         border: none; 
         color: inherit;
+        height: 100%;
     }
 
-    #hero-search-form .c-field__text--label {
+    #hero-search-form .c-field__label {
         display: none;
     }
 
