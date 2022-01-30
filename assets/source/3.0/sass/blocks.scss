@@ -1,5 +1,15 @@
 .t-block-container {
 
+    &.t-block-button {
+        flex-wrap: wrap;
+        gap: calc(#{$base}*2);
+        margin: auto;
+
+        .c-button + .c-button {
+            margin-left: initial;
+        }
+    }
+
     &.t-block-align {
 
         &-left,
