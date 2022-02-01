@@ -53,6 +53,12 @@ class App
         new \Municipio\Content\Cache();
 
         /**
+         * Language
+         */
+
+        new \Municipio\Language();
+
+        /**
          * Widget
          */
         new \Municipio\Widget\Widgets();
