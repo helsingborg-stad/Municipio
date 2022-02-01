@@ -152,7 +152,7 @@ class LoadDesign
 
         if (is_array($mods) && !empty($mods)) {
             foreach ($mods as $key => $mod) {
-                if (array_key_exists($key, \Kirki::$fields)) {
+                if (array_key_exists($key, \Kirki::$all_fields)) {
                     $stack[$key] = $mod;
                 }
             }
