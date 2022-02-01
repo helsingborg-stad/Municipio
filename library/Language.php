@@ -64,6 +64,6 @@ class Language
     private function getCurrentUrl()
     {
         $prefix = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://");
-        return urlencode($prefix . $_SERVER[HTTP_HOST] . $_SERVER[REQUEST_URI]);
+        return urlencode($prefix . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 }
