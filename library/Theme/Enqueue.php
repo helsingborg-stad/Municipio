@@ -122,8 +122,6 @@ class Enqueue
      */
     public function script()
     {
-
-        //wp_register_script('municipio', false);
         // Language & parameters 
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
@@ -134,9 +132,6 @@ class Enqueue
                 'onError' => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
-
-        //Enqueue polyfills
-        wp_enqueue_script('polyfill', 'https://cdn.polyfill.io/v3/polyfill.min.js', 'municipio');
 
         //Comment reply
         if (is_singular() && get_option('thread_comments')) {
