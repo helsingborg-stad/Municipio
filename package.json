@@ -73,7 +73,8 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.16.7",
-    "css-vars-ponyfill": "^2.4.7"
+    "css-vars-ponyfill": "^2.4.7",
+    "instant.page": "^5.1.0"
   },
   "browser": {
     "child_process": false

@@ -51,8 +51,9 @@ class Customizer
             define("WEB_FONT_DISABLE_INLINE", true);
 
         \Kirki::add_config(self::KIRKI_CONFIG, array(
-            'capability'    => 'edit_theme_options',
-            'option_type'   => 'theme_mod',
+            'capability'        => 'edit_theme_options',
+            'option_type'       => 'theme_mod',
+            'gutenberg_support' => false
         ));
 
         //Applicators [Stuff that make effect on the frontend]

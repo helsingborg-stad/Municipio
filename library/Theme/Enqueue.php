@@ -143,11 +143,6 @@ class Enqueue
             wp_enqueue_script('comment-reply');
         }
 
-        //Instant page load
-        if (!defined('INSTANT_PAGE_DISABLED')) {
-            wp_enqueue_script('instant-page', 'https://instant.page/3.0.0', array(), '', true);
-        }
-
         wp_register_script('pre-styleguide-js', false, false, false, true);
 
         wp_localize_script('pre-styleguide-js', 'localizedMonths', array(
@@ -172,7 +167,7 @@ class Enqueue
             ucFirst(__('We', 'municipio')),
             ucFirst(__('Th', 'municipio')),
             ucFirst(__('Fr', 'municipio')),
-            ucFirst(__('Sa', 'municipio')),           
+            ucFirst(__('Sa', 'municipio')) 
         ));
 
         wp_enqueue_script('pre-styleguide-js');
@@ -186,6 +181,11 @@ class Enqueue
         wp_register_script('municipio-js', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('js/municipio.js'));
         wp_enqueue_script('municipio-js');
+
+        //Load instant page
+        wp_register_script('instantpage-js', get_template_directory_uri() . '/assets/dist/'
+            . \Municipio\Helper\CacheBust::name('js/instantpage.js'));
+        wp_enqueue_script('instantpage-js');
     }
 
     /**
