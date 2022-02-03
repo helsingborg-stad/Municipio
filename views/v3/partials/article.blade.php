@@ -51,9 +51,9 @@
     @endif
     @section('article.terms.after')@show
 
-    <!-- Comments -->
-    @section('article.comments.before')@show
-	@includeIf('partials.comments')
-    @section('article.comments.after')@show
-	
 </article>
+
+<!-- Comments -->
+@section('article.comments.before')@show
+@includeIf('partials.comments')
+@section('article.comments.after')@show
