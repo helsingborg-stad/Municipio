@@ -1,12 +1,9 @@
 @if (!empty($menuItems))
-    @paper()
+    @paper(['classList' => ['u-print-display--none']])
         @nav([
             'classList' => [
                 'c-nav--sidebar',            
-                'c-nav--bordered',            
-                'u-display--none@xs',
-                'u-display--none@sm',
-                'u-print-display--none'
+                'c-nav--bordered'
             ],
             'items' => $menuItems,
             'direction' => 'vertical',

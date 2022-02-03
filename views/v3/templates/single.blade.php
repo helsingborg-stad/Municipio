@@ -14,6 +14,11 @@
 @section('sidebar-left')
     @if($showSidebars)
 
+        @include('partials.sidebar', [
+            'id' => 'left-sidebar', 
+            'classes' => ['o-grid']
+        ])
+
         @if($customizer->secondaryNavigationPosition == 'left') 
             @if($secondaryMenuItems)
                 <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
@@ -22,8 +27,11 @@
             @endif
         @endif
 
-        @include('partials.sidebar', ['id' => 'left-sidebar', 'classes' => ['o-grid']])
-        @include('partials.sidebar', ['id' => 'left-sidebar-bottom', 'classes' => ['o-grid']])
+        @include('partials.sidebar', [
+            'id' => 'left-sidebar-bottom', 
+            'classes' => ['o-grid']
+        ])
+        
     @endif
 @stop
 
