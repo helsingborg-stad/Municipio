@@ -237,7 +237,9 @@ module.exports = {
                 return file;
             },
         }),
-
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
         /**
          * Enable build OS notifications (when using watch command)
          */

@@ -70,7 +70,8 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.17.0",
     "css-vars-ponyfill": "^2.4.7",
-    "instant.page": "^5.1.0"
+    "instant.page": "^5.1.0",
+    "process": "^0.11.10"
   },
   "browser": {
     "child_process": false
