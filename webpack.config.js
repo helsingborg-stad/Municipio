@@ -87,10 +87,9 @@ module.exports = {
                         options: {}
                     },
                     {
-                        loader: 'fast-css-loader',
+                        loader: 'css-loader',
                         options: {
-                            importLoaders: 2, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
-                            sourceMap: true,
+                            importLoaders: 2
                         },
                     },
                     {
@@ -98,15 +97,12 @@ module.exports = {
                         options: {
                             postcssOptions: {
                                 plugins: [autoprefixer, require('postcss-object-fit-images')],
-                            },
-                            sourceMap: true,
+                            }
                         },
                     },
                     {
                         loader: 'sass-loader',
-                        options: {
-                            sourceMap: true,
-                        }
+                        options: {}
                     }
                 ],
             },
