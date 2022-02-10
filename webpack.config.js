@@ -45,6 +45,7 @@ module.exports = {
     output: {
         filename: ifProduction('[name].[contenthash].js', '[name].js'),
         path: path.resolve(__dirname, 'assets', 'dist'),
+        publicPath: '',
     },
     /**
      * Define external dependencies here
