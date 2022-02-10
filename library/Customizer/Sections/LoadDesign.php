@@ -34,7 +34,6 @@ class LoadDesign
         //Example controller variable
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'multiple'    => false,
             'settings'    => self::LOAD_DESIGN_KEY,
             'label'       => esc_html__('Select a design', 'municipio'),
             'section'     => self::SECTION_ID,
