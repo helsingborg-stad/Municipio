@@ -1,5 +1,22 @@
 
 @if($showFilter)
+
+    <!-- Makes filtering a more pleasant expreience by keeping scrollstate -->
+    <script>
+        const scrollStateUrl = new URL(document.referrer); 
+        if(scrollStateUrl.pathname == window.location.pathname) {
+            document.addEventListener("DOMContentLoaded", function(event) { 
+                var scrollpos = localStorage.getItem('municipioScrollState-{{$postType}}');
+                if (scrollpos) { 
+                    window.scrollTo(0, scrollpos);
+                }
+            });
+        }
+        window.onbeforeunload = function(e) {
+            localStorage.setItem('municipioScrollState-{{$postType}}', window.scrollY || window.pageYOffset);
+        };
+    </script>
+
     <div class="s-archive-filter s-archive-filter--{{ $filterPosition }} {{ $filterPosition == 'top' ? 'u-margin__top--4' : '' }}">
         @form([
             'method' => 'GET',
