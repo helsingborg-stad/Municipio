@@ -13,7 +13,7 @@ jobs:
 
     - uses: actions/setup-node@v2
       with:
-        node-version: '15'
+        node-version: '16'
 
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
@@ -23,9 +23,6 @@ jobs:
 
     - name: Validate composer.json and composer.lock
       run: composer validate
-
-    - name: Install composer dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Inject access token in .npmrc
       run: | 
