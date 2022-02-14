@@ -22,8 +22,6 @@ $removables = [
     '.npmrc',
     'composer.json',
     'env-example',
-    'gulpfile.js',
-    'gulpfile.old.js',
     'webpack.config.js',
     'package-lock.json',
     'package.json'
