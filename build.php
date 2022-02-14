@@ -9,6 +9,7 @@ if (php_sapi_name() !== 'cli') {
 $buildCommands = [
     'npm ci --no-progress --no-audit',
     'npm update @helsingborg-stad/styleguide',
+    'npx browserslist@latest --update-db',
     'npm run build',
     'composer install --prefer-dist --no-progress'
 ];

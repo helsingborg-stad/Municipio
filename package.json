@@ -29,8 +29,7 @@
   },
   "browserslist": [
     "> 1%",
-    "not dead",
-    "IE 11"
+    "not dead"
   ],
   "homepage": "https://github.com/helsingborg-stad/Municipio#readme",
   "devDependencies": {
