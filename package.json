@@ -16,9 +16,7 @@
     "assets/3.0/js/*",
     "source/3.0/sass/*",
     "assets/*",
-    "webpack.import.js",
     "webpack.config.js",
-    "webpack.dev.config.js",
     "LICENSE"
   ],
   "keywords": [],
