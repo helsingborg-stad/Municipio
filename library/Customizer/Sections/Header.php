@@ -113,7 +113,7 @@ class Header
             'label'       => esc_html__('Header height', 'municipio'),
             'section'     => self::SECTION_ID,
             'transport' => 'auto',
-            'default'     => 3,
+            'default'     => 6,
             'choices'     => [
                 'min'  => 3,
                 'max'  => 12,
