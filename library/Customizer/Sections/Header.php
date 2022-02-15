@@ -106,5 +106,25 @@ class Header
                 'context' => ['site.header'],
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'slider',
+            'settings'    => 'header_height',
+            'label'       => esc_html__('Header height', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'transport' => 'auto',
+            'default'     => 3,
+            'choices'     => [
+                'min'  => 3,
+                'max'  => 12,
+                'step' => 1,
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-header-height',
+                ]
+            ],
+        ]);
     }
 }
