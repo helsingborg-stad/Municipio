@@ -35,8 +35,10 @@ $output = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
     print "---- Running build command '$buildCommand' for $dirName. ----\n";
+    $timeStart = microtime(true);
     $exitCode = executeCommand($buildCommand);
-    print "---- Done build command '$buildCommand' for $dirName. ----\n";
+    $buildTime = round(microtime(true) - $timeStart);
+    print "---- Done build command '$buildCommand' for $dirName.  Build time: $buildTime seconds. ----\n";
     if ($exitCode > 0) {
         exit($exitCode);
     }
