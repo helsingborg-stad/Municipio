@@ -18,7 +18,7 @@ class Footer
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'footer_logotype_height',
-            'label'       => esc_html__('Footer logotype height', 'municipio'),
+            'label'       => esc_html__('Logotype height', 'municipio'),
             'section'     => self::SECTION_ID,
             'transport' => 'auto',
             'default'     => 6,
@@ -30,7 +30,7 @@ class Footer
             'output' => [
                 [
                     'element'   => ':root',
-                    'property'  => '--c-footer-logotype-height-option',
+                    'property'  => '--c-footer-logotype-height',
                 ]
             ],
         ]);

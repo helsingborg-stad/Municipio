@@ -122,7 +122,7 @@ class Header
             'output' => [
                 [
                     'element'   => ':root',
-                    'property'  => '--c-header-logotype-height-option',
+                    'property'  => '--c-header-logotype-height',
                 ]
             ],
         ]);
