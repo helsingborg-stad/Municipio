@@ -110,7 +110,7 @@ class Header
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'header_logotype_height',
-            'label'       => esc_html__('Header logotype height', 'municipio'),
+            'label'       => esc_html__('Logotype height', 'municipio'),
             'section'     => self::SECTION_ID,
             'transport' => 'auto',
             'default'     => 6,
