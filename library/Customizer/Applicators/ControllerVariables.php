@@ -20,25 +20,27 @@ class ControllerVariables
     {
 
         //Get field definition
-        $fields = \Kirki::$fields;
+        $fields = \Kirki::$all_fields;
 
         //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
                 if ($this->isControllerSetting($field)) {
-
                     /**
                      * Implementation of output active_callback functionality for output.
                      * Can handle multiple AND statements.
                      */
-                    if (is_string($field['args']['active_callback']) && $field['args']['active_callback'] === '__return_true') {
+
+                    if (!isset($field['active_callback'])) {
                         $stack[$key] = \Kirki::get_option($key);
-                    } elseif (is_string($field['args']['active_callback']) && $field['args']['active_callback'] === '__return_false') {
+                    } elseif (is_string($field['active_callback']) && $field['active_callback'] === '__return_true') {
+                        $stack[$key] = \Kirki::get_option($key);
+                    } elseif (is_string($field['active_callback']) && $field['active_callback'] === '__return_false') {
                         $stack[$key] = null;
-                    } elseif (is_array($field['args']['active_callback']) && !empty($field['args']['active_callback'])) {
+                    } elseif (is_array($field['active_callback']) && !empty($field['active_callback'])) {
                         $shouldReturn = false;
 
-                        foreach ($field['args']['active_callback'] as $cb) {
+                        foreach ($field['active_callback'] as $cb) {
                             $cb = (object) $cb;
 
                             //Verify operator, before eval
@@ -71,7 +73,7 @@ class ControllerVariables
             }
         }
 
-      //Camel case response keys, and return
+        //Camel case response keys, and return
         return \Municipio\Helper\FormatObject::camelCase(
             (object) $stack
         );
@@ -100,11 +102,11 @@ class ControllerVariables
     private function isControllerSetting($field)
     {
 
-        if (!isset($field['args']['output']['type'])) {
+        if (!isset($field['output']['type'])) {
             return false;
         }
 
-        $type = $field['args']['output']['type'];
+        $type = $field['output']['type'];
 
         if (is_string($type) && $type === 'controller') { //Invalid format in kirki, backwards compatibility
             return true;

@@ -26,6 +26,27 @@ class Customizer
                 ]
             );
         }, 10);
+
+        /**
+         * Fixes issue when using :root selector in
+         * output args for Gutenberg editor.
+         *
+         * Issue adressed here: https://github.com/kirki-framework/kirki/issues/2461.
+         * When resolved, this can be removed.
+         */
+        add_filter('kirki_municipio_config_dynamic_css', function ($styles) {
+            $isEditor = (isset($_GET['editor']) && $_GET['editor'] == '1');
+            $isStyles = (isset($_GET['action']) && $_GET['action'] == 'kirki-styles');
+
+            if ($isEditor && $isStyles) {
+                return str_replace(
+                    '.editor-styles-wrapper :root',
+                    '.editor-styles-wrapper',
+                    $styles
+                );
+            }
+            return $styles;
+        }, 20);
     }
 
     /**

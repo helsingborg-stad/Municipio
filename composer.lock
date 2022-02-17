@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a28ddd8d0b3f1d9e27f10f14c434ba57",
+    "content-hash": "714826a9c95e50dce4a2bd53c98510e0",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -1793,15 +1793,15 @@
         },
         {
             "name": "wpackagist-plugin/kirki",
-            "version": "3.1.9",
+            "version": "4.0.20",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/kirki/",
-                "reference": "tags/3.1.9"
+                "reference": "tags/4.0.20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/kirki.3.1.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/kirki.4.0.20.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

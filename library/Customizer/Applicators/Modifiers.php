@@ -18,7 +18,7 @@ class Modifiers
     {
 
         //Get field definition
-        $fields = \Kirki::$fields;
+        $fields = \Kirki::$all_fields;
 
         //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
@@ -28,7 +28,7 @@ class Modifiers
                 }
 
                 $filter = [
-                'contexts'  => $field['args']['output']['context'],
+                'contexts'  => $field['output']['context'],
                 'value'     => \Kirki::get_option($key)
                 ];
 
@@ -65,11 +65,11 @@ class Modifiers
     private function isModifierSetting($field)
     {
 
-        if (!isset($field['args']['output']['type'])) {
+        if (!isset($field['output']['type'])) {
             return false;
         }
 
-        $type = $field['args']['output']['type'];
+        $type = $field['output']['type'];
 
         if (is_string($type) && $type === 'modifier') { //Invalid format in kirki, backwards compatibility
             return true;
