@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2022-02-18 15:08+0100\n"
-"PO-Revision-Date: 2022-02-18 15:08+0100\n"
+"POT-Creation-Date: 2022-02-18 15:36+0100\n"
+"PO-Revision-Date: 2022-02-18 15:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -6557,23 +6557,12 @@ msgstr "Sidfot"
 
 #: library/Customizer/Sections/Footer.php:13
 msgid "Footer settings."
-msgstr ""
+msgstr "Inställningar för sidfot"
 
 #: library/Customizer/Sections/Footer.php:21
-msgid "Footer background"
-msgstr ""
-
-#: library/Customizer/Sections/Footer.php:22
-msgid "Set the background of the footer area."
-msgstr ""
-
-#: library/Customizer/Sections/Footer.php:46
-msgid "Footer font color"
-msgstr ""
-
-#: library/Customizer/Sections/Footer.php:47
-msgid "Choose a font color contrasting the background."
-msgstr ""
+#: library/Customizer/Sections/Header.php:113
+msgid "Logotype height"
+msgstr "Storlek på logotyp (höjd)"
 
 #: library/Customizer/Sections/General.php:12
 msgid "General"
@@ -10672,6 +10661,2184 @@ msgctxt "plugin A *and* plugin B"
 msgid "and"
 msgstr "och"
 
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:207
+msgid "Fasttelefon"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:208
+msgid "Mobil"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:222
+msgid "Telefonnummer"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:243
+msgid "Social Media"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:262
+msgid "Media"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:274
+msgid "Facebook"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:275
+msgid "LinkedIn"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:276
+msgid "Twitter"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:277
+msgid "Instagram"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:280
+msgid "facebook"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:291
+msgid "URL"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:328
+msgid "Besöksadress"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:347
+msgid "Öppettider"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:366
+msgid "Annat"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:390
+msgid "Användare"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:395
+msgid "Välj användare"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:416
+msgid "Add contact"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:422
+msgid "Kolumner"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:449
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:325
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:80
+msgid "1"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:450
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:326
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:81
+msgid "2"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:451
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:327
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:82
+msgid "3"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:452
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:328
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:83
+msgid "4"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:455
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:331
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:86
+msgid "grid-md-12"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:466
+msgid "Compact mode"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:488
+msgid "Aktiverad"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:6
+#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:13
+#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:14
+msgid "Curator Social Media"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:10
+msgid "Embed Code"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:13
+msgid ""
+"Add your curator embed code here. Thios should be the full javascript. "
+"Appeance settings in the javascript configurator will not apply."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:29
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:128
+msgid "Number of posts"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:32
+msgid "Set the number items to show."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:50
+msgid "Usage of the curator social media integration"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:61
+msgid ""
+"This is an integration module for https://curator.io. The module requires an "
+"account at the service. To integrate a feed, please head over to curator.io "
+"and follow the steps below. We assume that you already have an account, with "
+"a connected feed. \r\n"
+"\r\n"
+"1. Login to you account. \r\n"
+"2. Click on \"style\" in the sidebar navigation. \r\n"
+"3. Click on \"publish feed\" (style won't matter). \r\n"
+"4. Paste the embed code in the field above. \r\n"
+"5. Save. Your feed should no be displayed."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:10
+msgid "Filer"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:24
+msgid "Lägg till fil"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:29
+msgid "Fil"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:50
+msgid "Filter"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:62
+msgid "Tillåt filtrering"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-gallery.php:21
+#: vendor/modularity/modules/source/php/Module/Image/Image.php:19
+msgid "Images"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:12
+msgid "Byline"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:15
+msgid "A clear byline, to say something else."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:36
+msgid "Body"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:39
+msgid ""
+"A short and concise text about this site. What's it about? Maximum 500 "
+"characters."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:59
+msgid "Background image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:6
+msgid "Iframe settings"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:10
+msgid "Iframe URL"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:13
+msgid ""
+"<span style=\"color: #f00;\">Your iframe link must start with http<strong>s</"
+"strong>://. Links without this prefix will not display.</span>"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:22
+msgid "Enter your embed url"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:26
+msgid "Iframe height"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:43
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:96
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:127
+msgid "pixels"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:49
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:26
+#: vendor/modularity/modules/source/php/ModuleManager.php:604
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:19
+msgid "Description"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:52
+msgid "Describe the contents of this Iframe (not shown)."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:20
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:108
+#: vendor/modularity/modules/source/php/Module/Image/Image.php:18
+msgid "Image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:23
+msgid "Allowed file types: jpg, png, gif"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:39
+msgid "Image caption"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:53
+msgid "Crop image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:58
+msgid "Cropping"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:61
+msgid "Check if you wold like to crop your image to a specific size"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:72
+msgid "Yes, make this image responsive"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:77
+msgid "Responsive"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:80
+msgid ""
+"Make the image responsive if you would like it to automatically resize to "
+"fit inside its container."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:98
+msgid "Crop width"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:129
+msgid "Crop height"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:167
+msgid "Image size"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:193
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:41
+msgid "Internal"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:194
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:42
+msgid "External"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:218
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:84
+msgid "Link url"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:247
+msgid "Link page"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:29
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:29
+msgid "Link type"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:43
+msgid "No Link"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:54
+msgid "Page"
+msgstr "Sida"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:128
+msgid "Use featured image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:129
+msgid "Upload custom image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:130
+msgid "Hide image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:134
+msgid "featured"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:187
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:214
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:53
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:80
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:27
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:186
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:243
+msgid "Titel"
+msgstr "Titel"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:190
+msgid ""
+"Om du inte vill använda den underliggande sidans titel kan du skriva in en "
+"annan titel här."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:248
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:275
+msgid "Lead"
+msgstr "Ingress"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:251
+msgid ""
+"Om du inte vill använda den underliggande sidans ingress kan du skriva in en "
+"annan ingress här."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inheritpost.php:10
+msgid "Post or page"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:45
+msgid "internal"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:56
+msgid ""
+"If empty, title will default to the linked post's/page's title on internal "
+"links."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:137
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:85
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:45
+#: vendor/modularity/modules/source/php/ModuleManager.php:606
+msgid "Date"
+msgstr "Datum"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:140
+msgid ""
+"If checked, the publish/last modified date of the linked post will be "
+"displayed."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:157
+msgid "Show publish date"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:6
+#: vendor/modularity/modules/source/php/Module/Logogrid/Logogrid.php:12
+msgid "Logotype grid"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:10
+msgid "Add some brands"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:25
+msgid "Add new logotype"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:29
+msgid "Image/logotype"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:6
+#: vendor/modularity/modules/source/php/Module/Map/Map.php:12
+msgid "Map"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:10
+msgid "Map URL"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:13
+msgid ""
+"<span style=\"color: #f00;\">Din länk måste starta med http<strong>s</"
+"strong>://</span>"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:29
+msgid "Describe the contents of this map (not shown)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:45
+msgid "Miniumum Height"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:48
+msgid "Set a minumum height"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:65
+msgid "Show button"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:84
+msgid "Button label"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:111
+msgid "Button url"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:135
+msgid "Extra info"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:138
+msgid ""
+"Do you want to add Extra info?\r\n"
+"The information will be placed in a card on the right side of the map."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:147
+msgid "The extra info card is disabled by default"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:150
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:319
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:16
+#: vendor/modularity/modules/templates/options/partials/modularity-post-types.php:8
+msgid "Enabled"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:155
+msgid "Extra info title"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:182
+msgid "Extra information"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:185
+msgid "Add extra information such as opening hours or map location."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:6
+msgid "Notice settings"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:22
+msgid "Success (green)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:23
+msgid "Info (black)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:24
+msgid "Warning (gul)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:25
+msgid "Danger (red)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:28
+msgid "success"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:39
+msgid "Storlek"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:53
+msgid "Standard"
+msgstr "Standard"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:54
+msgid "Stor"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:55
+msgid "Liten"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:58
+msgid "notice-md"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:69
+msgid "Notis"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:6
+msgid "Data display"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:10
+msgid "Display as"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:24
+msgid "Post items"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:25
+msgid "News items"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:95
+msgid "Altering grid size"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:115
+msgid "Yes, alter grid size automatically"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:122
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:71
+#, fuzzy
+#| msgid "Field&nbsp;Groups"
+msgid "Fields"
+msgstr "Fältgrupper"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:142
+msgid "Show date published"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:143
+msgid "Show excerpt"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:144
+msgid "Show title"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:145
+msgid "Show featured image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:149
+msgid "date"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:150
+msgid "excerpt"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:161
+msgid "Hide the title column"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:181
+msgid "Yes, hide the title column"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:188
+msgid "Title column label"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:220
+msgid "List column labels"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:223
+msgid ""
+"A title field will always be added as the first column. You will need to go "
+"to each post in this list to give the values for each column."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:247
+msgid "Column header"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:270
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:290
+msgid "Allow freetext filtering"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:297
+msgid "Highlight post"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:324
+msgid "Date format"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:349
+msgid "Default timestamp"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:350
+msgid "Readable timestamp"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:353
+msgid "default"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:364
+msgid "Placeholder image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-filtering.php:6
+msgid "Data filtering"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:10
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:254
+msgid "Sort by"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:24
+msgid "Do not sort"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:26
+msgid "Författare"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:28
+msgid "Publiceringsdatum"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:29
+msgid "Date modified"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:30
+msgid "Parent"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:31
+msgid "Random"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:32
+msgid "Comment count"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:33
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:244
+msgid "Menu order"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:47
+msgid "Order"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:60
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:60
+msgid "Ascending"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:61
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:59
+msgid "Descending"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:10
+msgid "Data source"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:24
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:40
+msgid "Posttyper"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:25
+msgid "Child posts"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:26
+msgid "Manually picked posts"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:27
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:22
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:23
+msgid "Manual input"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:68
+msgid "Pick posts to display"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:98
+msgid "Childs of"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:131
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:29
+msgid "Set to -1 to show all"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:159
+msgid "Data input"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:181
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:280
+msgid "Add"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:207
+msgid "Innehåll"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:226
+msgid "Permalink"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:266
+msgid "Column values"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:269
+msgid "Column values if expandable list is selected."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:285
+msgid "Value"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:310
+msgid "Link to post type archive"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:330
+msgid "Yes, link to post type archive"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:10
+msgid "RSS feed URL"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:26
+msgid "Number of items"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:47
+msgid "Sort order"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:50
+msgid "Select order to sort the RSS feed"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:83
+msgid "Summary"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:6
+msgid "Embed"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:10
+msgid "Embed code"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:13
+msgid ""
+"Paste your script code here (with &lt;style&gt; &lt;script&gt; tags if "
+"needed)."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:29
+msgid "Card Padding"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:32
+msgid "Add padding to card (default: 0, no padding)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-sites.php:6
+#: vendor/modularity/modules/source/php/Module/Sites/Sites.php:14
+#: vendor/modularity/modules/source/php/Module/Sites/Sites.php:15
+msgid "Sites"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-sites.php:10
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-sites.php:15
+msgid "Include main site"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:6
+#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:26
+msgid "Slider"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:10
+msgid "Slider ratio"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:22
+msgid "Wider (36:7)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:23
+msgid "Wide (10:3)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:24
+msgid "Normal (16:9, video)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:25
+msgid "Square (4:3)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:37
+msgid "Autoslide"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:48
+msgid "Slide automatically between views"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:56
+msgid "Slide interval"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:85
+msgid "Wrap around"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:97
+msgid "Go to first slide when last item is reached"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:110
+msgid "Slides"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:739
+msgid "Add slide"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:745
+msgid "Shadow"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:756
+msgid "Add a shadow around the slider."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-spacer.php:6
+msgid "Whitespace"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-spacer.php:10
+msgid "Amount of whitespace"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-spacer.php:13
+msgid "All space will be multiplied by 8."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:6
+msgid "Table - Block settings"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:10
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:10
+msgid "Datatyp"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:23
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:24
+msgid "CSV Import"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:27
+msgid "manual"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:34
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:34
+msgid "CSV-fil"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:37
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:37
+msgid "CSV-formatterad fil"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:61
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:61
+msgid "CSV-avgränsare"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:64
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:64
+msgid ""
+"Tecken som används i CSV-filen som avgränsare. Brukar vara kommatecken eller "
+"semikolon."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:80
+msgid ";"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:112
+msgid "Sidbläddring"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:123
+msgid "Yes, use pagination on this table"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:131
+msgid "Antal inlägg/sidor"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:160
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:122
+msgid "Aktivera sök"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:179
+msgid "Sökfras"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:198
+msgid "Search in list"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:206
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:141
+msgid "Aktivera kolumnsortering"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:217
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:153
+msgid "Yes, enable column sorting"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:6
+msgid "Table Editor"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:93
+msgid ""
+"Enter your table contents, and select appearance and functionality options "
+"below."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:134
+msgid "Yes, use search on this table"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:160
+msgid "Multidimensional"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:163
+msgid ""
+"Använd den första kolumnen som en andra dimension av tabellrubriker. Detta "
+"val låser också den första kolumnen vid scroll."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:179
+msgid "Sum"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:182
+msgid ""
+"Lägger till en rad i slutet av tabellen som summerar varje kolumns celler."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:198
+msgid "Fullscreen"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:201
+msgid ""
+"Renderar en ikon i högra hörnet som möjliggör helskärmsläge för tabellen."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-text.php:6
+msgid "Text options"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-text.php:10
+msgid "Göm textbox"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-text.php:22
+msgid "Ja, göm textbox (visa text som artikel)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:23
+msgid "Bädda in (YouTube eller Vimeo-länk)"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:24
+msgid "Ladda upp video"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:34
+msgid "Video: mp4"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:37
+msgid "Upload or select file from library. The only valid file format is .mp4"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:61
+msgid "Inbäddningslänk"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:85
+msgid "Affischbild"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:88
+msgid "Affischbilden visas innan videon sätts igång."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:6
+msgid "Wordpress Widget"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:11
+msgid "Arkiv"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:12
+msgid "Kalender"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:13
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:507
+msgid "Kategorier"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:14
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:155
+msgid "Meta"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:15
+msgid "Sidor"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:16
+msgid "Senaste kommentarerna"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:17
+msgid "Senaste inläggen"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:18
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:13
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:14
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:159
+msgid "RSS"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:19
+msgid "Sök"
+msgstr "Sök"
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:20
+msgid "Taggmoln"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:28
+msgid "Widget Type"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:41
+msgid ""
+"There are no options available for this widget type.<br> <style>.acf-"
+"field-57309aa0b176d {background-color: #FFDFDF;}</style>"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:45
+msgid "No options avabile"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:91
+msgid "Show number of items indicator"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:123
+msgid "Show as dropdown list"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:155
+msgid "Show number of category items indicator"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:187
+msgid "Show as hierarchial list"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:219
+msgid "Show as dropdown"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:245
+msgid "Page ID"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:257
+msgid "Select how to sort the pages"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:283
+msgid "Exclude"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:286
+msgid "ID:s of pages to exclude. Separated by comma."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:314
+msgid "Number of comments to show"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:345
+msgid "Number of posts to show"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:371
+msgid "RSS Url"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:400
+msgid "Items to show"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:424
+msgid "Yes, show summary"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:429
+msgid "Show summary"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:451
+msgid "Yes, show author"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:456
+msgid "Visa författare"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:478
+msgid "Yes, show date"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:483
+msgid "Show date"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:508
+msgid "Taggar"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:509
+msgid "Länkkategorier"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:510
+msgid "Kategori"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:511
+msgid "Plats"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:512
+msgid "Ämne"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:521
+#, fuzzy
+#| msgid "Taxonomies"
+msgid "Taxonomy"
+msgstr "Taxonomies"
+
+#: vendor/modularity/modules/source/php/BlockManager.php:351
+msgid "Block settings"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/BlockManager.php:356
+#: vendor/modularity/modules/source/php/ModuleManager.php:603
+msgid "Title"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Display.php:451
+#: vendor/modularity/modules/templates/widget/form.php:30
+msgid "Edit module"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:63
+msgid "View Page"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:152
+msgid "Modularity editor"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:153
+msgid "Editor"
+msgstr "Redigerare"
+
+#: vendor/modularity/modules/source/php/Editor.php:171
+msgid "Save modules"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:182
+msgid "Enabled modules"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:228
+msgid "No active sidebar areas"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:230
+msgid ""
+"There's no active sidebars. Please activate sidebar areas in the Modularity "
+"Options to add modules."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:547
+msgid "Modules saved"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:693
+msgid "Scope styling"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:697
+msgid "Select an apperance for this instance of module"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Editor.php:700
+msgid ""
+"By selecting a scope for this class, they will appear in a different way "
+"than the standard layout."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Helper/Acf.php:31
+msgid ""
+"To get the full expirience of the <strong>Modularity</strong> plugin, please "
+"activate the <a href=\"http://www.advancedcustomfields.com/pro/\" target="
+"\"_blank\">Advanced Custom Fields Pro</a> plugin."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:13
+#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:14
+msgid "Contacts v2"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:15
+msgid "Outputs one or more contacts"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:51
+msgid "Opening hours"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Contacts/views/components/adress.blade.php:12
+#: vendor/modularity/modules/templates/module/modularity-mod-contact/modularity-mod-contact-cards.php:94
+msgid "Postal address"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Contacts/views/components/visiting.blade.php:12
+#: vendor/modularity/modules/templates/module/modularity-mod-contact/modularity-mod-contact-cards.php:103
+msgid "Visiting address"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:15
+msgid "Output social media flow via curator."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:55
+msgid "A invalid embed code was provided, please try enter it again."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:57
+msgid ""
+"Could not get the instagram feed at this moment, please try again later."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/FilesList/FilesList.php:12
+#: vendor/modularity/modules/source/php/Module/FilesList/FilesList.php:13
+msgid "Files"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/FilesList/FilesList.php:14
+msgid "Outputs a file archive."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Gallery/Gallery.php:12
+msgid "Gallery"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Gallery/Gallery.php:13
+msgid "Galleries"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Gallery/Gallery.php:14
+msgid "Outputs a gallery with images"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Hero/Hero.php:13
+msgid "Heros"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Hero/Hero.php:14
+msgid "Outputs a hero"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:12
+#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:13
+msgid "Iframe"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:14
+msgid "Outputs an embedded page."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:34
+msgid ""
+"Your iframe link must start with http<strong>s</strong>://. Links without "
+"this prefix will not display."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Image/Image.php:20
+msgid "Outputs an image"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Index/Index.php:17
+msgid "Indexes"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Index/Index.php:18
+msgid "Index card to use as an entry point for a \"content section\"."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/InheritPost/InheritPost.php:12
+msgid "Post article"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/InheritPost/InheritPost.php:13
+msgid "Post articles"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/InheritPost/InheritPost.php:14
+msgid "Outputs title and content from any post or page"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:13
+msgid "Inlay List"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:14
+msgid "Inlay Lists"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:15
+msgid "Outputs one or more posts from selected post-type."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Logogrid/Logogrid.php:13
+msgid "Logotype grids"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Logogrid/Logogrid.php:14
+msgid "Outputs a grid of logotypes"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Map/Map.php:14
+msgid "Outputs an embedded map."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Map/Map.php:51
+msgid ""
+"Your map link must start with http<strong>s</strong>://. Links without this "
+"prefix will not display."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Notice/Notice.php:14
+msgid "Outputs a notice"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:23
+msgid "Outputs selected posts in specified layout"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:291
+msgid "Taxonomy display"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:494
+msgid "Modularity expandable list column values"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/HorizontalTemplate.php:20
+msgid "Load more"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/ListTemplate.php:47
+msgid "No posts to show…"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/ListTemplate.php:78
+#: vendor/modularity/modules/templates/module/modularity-mod-latest-list.php:58
+msgid "Show more"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/views/horizontal.blade.php:112
+msgid "Nothing to display…"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:53
+#: views/v1/partials/archive-filters.blade.php:52
+#: views/v2/partials/archive-filters.blade.php:52
+msgid "From"
+msgstr "Från"
+
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:54
+#: views/v1/partials/archive-filters.blade.php:53
+#: views/v2/partials/archive-filters.blade.php:53
+msgid "From date"
+msgstr "Från datum"
+
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:58
+#: views/v1/partials/archive-filters.blade.php:54
+#: views/v2/partials/archive-filters.blade.php:54
+msgid "To"
+msgstr "Till"
+
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:59
+#: views/v1/partials/archive-filters.blade.php:55
+#: views/v2/partials/archive-filters.blade.php:55
+msgid "To date"
+msgstr "Till datum"
+
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:88
+#: views/v1/partials/archive-filters.blade.php:75
+#: views/v2/partials/archive-filters.blade.php:75
+msgid "Clear filters"
+msgstr "Återställ filter"
+
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:15
+msgid "Outputs a RSS feed"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:44
+msgid "RSS feed URL is missing"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:50
+msgid "RSS Error:"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:56
+msgid ""
+"An error has occurred, which probably means the feed is down. Try again "
+"later."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:81
+msgid "Untitled"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Script/Script.php:15
+msgid "Outputs unsanitized code to widget area."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Sites/Sites.php:16
+msgid "Outputs a grid list with att sites in the network."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:27
+msgid "Sliders"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:28
+msgid "Outputs multiple images or videos in a sliding apperance."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Spacer/Spacer.php:12
+msgid "Spacer"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Spacer/Spacer.php:13
+msgid "Spacers"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Spacer/Spacer.php:14
+msgid "Outputs whitespace."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:13
+msgid "Tables"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:14
+msgid "Outputs a flexible table with options."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:109
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:146
+msgid "There was an error opening the selected .csv-file."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:191
+msgid "No data available in table"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:192
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:193
+msgid "Showing 0 to 0 of 0 entries"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:194
+msgid "filtered from _MAX_ total entries"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:195
+msgid "Show _MENU_ entries"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:196
+msgid "Loading..."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:197
+msgid "Processing..."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:198
+msgid "No matching records found"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:199
+msgid "First"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:200
+msgid "Last"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:201
+msgid "Next"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:202
+msgid "Previous"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:203
+msgid "activate to sort column ascending"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Table/Table.php:204
+msgid "activate to sort column descending"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Text/Text.php:13
+msgid "Texts"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Text/Text.php:14
+msgid "Outputs text"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Video/Video.php:14
+msgid "Outputs an embedded Video."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/Video/Video.php:49
+#, php-format
+msgid ""
+"This video could not be embedded. <a href=\"%s\" target=\"_blank\">View the "
+"video by visiting embedded page.</a>"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:13
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:14
+msgid "Wordpress Widgets"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:15
+msgid "Outputs a default widget in WordPress"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:153
+msgid "Calendar"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:154
+#: views/v1/partials/blog/post-categories.blade.php:2
+msgid "Categories"
+msgstr "Kategorier"
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:156
+msgid "Pages"
+msgstr "Sidor"
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:157
+msgid "Recent comments"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:158
+msgid "Recent posts"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:161
+msgid "Tag cloud"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:183
+msgctxt "add new button"
+msgid "Add New"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:191
+#, php-format
+msgid "No %s"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:192
+#, php-format
+msgid "No %s in trash"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:372
+msgid "Hide title"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:411
+msgid "Copy and paste this shortcode to display the module inline."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:454
+msgid "This modules is not used yet."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:458
+msgid "This module is used on the following places:"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:559
+msgid "Module description"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:605
+msgid "Usage"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/ModuleManager.php:630
+msgid "Not used"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options.php:93
+msgid "Options saved successfully"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:6
+msgid "Sidebar & Module Restrictions"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:29
+msgid "Settings"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:33
+msgid "Template Areas"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:45
+msgid "Checking this will override the default module area settings."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:55
+msgid "Module Restrictions"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:67
+msgid ""
+"Checking this will filter the default module settings for each template."
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:161
+msgid "Active Sidebars"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/Archives.php:37
+#: vendor/modularity/modules/source/php/Options/Archives.php:38
+msgid "Archive modules"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/ArchivesList.php:10
+msgid "Archive"
+msgstr "Arkiv"
+
+#: vendor/modularity/modules/source/php/Options/ArchivesList.php:18
+msgid "There's no archives to display"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/ArchivesList.php:24
+msgid "Post Type Archive"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/ArchivesList.php:25
+msgid "Has modules"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/ArchivesList.php:60
+msgid "View"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/ArchivesList.php:61
+msgid "Edit modules"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:10
+msgid "Modularity Options"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:11
+#, fuzzy
+#| msgid "Theme Options"
+msgid "Options"
+msgstr "Temainställningar"
+
+#: vendor/modularity/modules/source/php/Options/General.php:22
+#: vendor/modularity/modules/source/php/Options/General.php:23
+msgid "Search page modules"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:30
+#: vendor/modularity/modules/source/php/Options/General.php:31
+msgid "Restrictive Options"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:124
+msgid "Save options"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:136
+msgid "Core options"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:148
+msgid "Module options"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:160
+msgid "Post types"
+msgstr ""
+
+#: vendor/modularity/modules/source/php/Options/General.php:169
+msgid "Template areas"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-module-description.php:2
+msgid ""
+"Only visible for administrators/editors. Please keep the description short "
+"and concisely."
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-publish.php:5
+msgid "Page:"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-publish.php:14
+msgid "Using template:"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-publish.php:23
+#: vendor/modularity/modules/templates/options/partials/modularity-publish.php:4
+msgid "Save"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:3
+msgid "Drag your modules here…"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:10
+msgid "Show modules"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:12
+msgid "before"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:13
+msgid "after"
+msgstr ""
+
+#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:20
+msgid "Hide global widgets"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-core-options.php:5
+msgid "Show module's post type in admin menu"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:2
+msgid "Enable and/or disable modules."
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:3
+msgid ""
+"Note: You will not lose any data from disabling a module. However the "
+"modules will not be displayed on your site."
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:8
+msgid "Deprecated modules"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:9
+msgid ""
+"Some of your modules is set as deprecated. That means that the modules "
+"already created will still be available to display and edit, but the option "
+"to create new modules is disabled."
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:17
+#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:18
+msgid "Module"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-post-types.php:2
+msgid "Select which post types you would like to enable Modularity on."
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-post-types.php:9
+msgid "Post type"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:2
+msgid "Enable and/or disable areas in a specific template."
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:3
+msgid "Pro tip:"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:3
+msgid "Shift click on a checkbox to check/uncheck the area in all templates."
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:9
+msgid "Template"
+msgstr ""
+
+#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:10
+msgid "Areas"
+msgstr ""
+
+#: vendor/modularity/modules/templates/widget/form.php:2
+msgid "Selected module"
+msgstr ""
+
+#: vendor/modularity/modules/templates/widget/form.php:4
+#: vendor/modularity/modules/templates/widget/form.php:7
+msgid "Not selected"
+msgstr ""
+
+#: vendor/modularity/modules/templates/widget/form.php:11
+msgid "Module type"
+msgstr ""
+
+#: vendor/modularity/modules/templates/widget/form.php:19
+msgid "Module width"
+msgstr ""
+
+#: vendor/modularity/modules/templates/widget/form.php:28
+msgid "Browse modules"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:40
+msgid "FocusPoint"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:126
+msgid "Preview Size"
+msgstr "Förhandsgranskningsstorlek"
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:127
+msgid ""
+"Image used to create a FocusPoint. Should be around the same image ratio as "
+"Image Size"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:136
+msgid "Minimum"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:137
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:166
+msgid "Restrict which images can be uploaded. Note: this is not working yet!"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:157
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:186
+msgid "File size"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:165
+msgid "Maximum"
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:568
+#, php-format
+msgid "Image width must be at least %dpx."
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:571
+#, php-format
+msgid "Image height must be at least %dpx."
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:574
+#, php-format
+msgid "File size must be at least %d&nbsp;KB."
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:577
+#, php-format
+msgid "Image width must not exceed %dpx."
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:580
+#, php-format
+msgid "Image height must not exceed %dpx."
+msgstr ""
+
+#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:583
+#, php-format
+msgid "File size must not exceed %d&nbsp;KB."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
+msgid "Install Required Plugins"
+msgstr "Installera plugins som krävs"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:341
+msgid "Install Plugins"
+msgstr "Installera tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:343
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr "Installerar tillägg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:345
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr "Uppdaterar plugg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:346
+msgid "Something went wrong with the plugin API."
+msgstr "Något blev fel med tilläggets API."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:349
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] "Det här temat kräver följande tillägg: %1$s."
+msgstr[1] "Det här temat kräver följande tillägg: %1$s."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:355
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] "Detta tema rekommenderar följande tillägg: %1$s."
+msgstr[1] "Detta tema rekommenderar följande tillägg: %1$s."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:361
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+"Följande tillägg måste uppdateras till sin senaste version för att "
+"säkerställa maximal kompatibilitet med detta tema: %1$s."
+msgstr[1] ""
+"Följande tillägg måste uppdateras till sin senaste version för att "
+"säkerställa maximal kompatibilitet med detta tema: %1$s."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:367
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] "Uppdatering tillgänglig för: %1$s."
+msgstr[1] "Uppdateringar tillgängliga för: %1$s."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:373
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] "Följande obligatoriskt tillägg är för närvarande inaktivt: %1$s."
+msgstr[1] "Följande obligatoriska tillägg är för närvarande inaktivt: %1$s."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:379
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] "Följande rekommenderat tillägg är för närvarande inaktivt: %1$s."
+msgstr[1] "Följande rekommenderade tillägg är för närvarande inaktiva: %1$s."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:384
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] "Börja installera tillägget"
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:389
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] "Börja uppdatera tillägget"
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:394
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] "Börja aktivera tillägget"
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:398
+msgid "Return to Required Plugins Installer"
+msgstr "Återgå till installeraren för nödvändiga tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:399
+msgid "Return to the Dashboard"
+msgstr "Åter till adminpanelen"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:400
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3311
+msgid "Plugin activated successfully."
+msgstr "Tillägg aktiverat utan problem."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:401
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3103
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] "Tillägget aktiverades framgångsrikt:"
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:403
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr "Ingen åtgärd vidtogs. Tillägget %1$s var redan aktiverat."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:405
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+"Tillägg inte aktiverat. En högre version av %s behövs för detta tema. "
+"Uppdatera tillägget."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:407
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr "Alla tillägg har installerats och aktiverats. %1$s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:408
+msgid "Dismiss this notice"
+msgstr "Avfärda denna avisering"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:409
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+"Det finns ett eller flera nödvändiga eller rekommenderade tillägg att "
+"installera, uppdatera eller aktivera."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:410
+msgid "Please contact the administrator of this site for help."
+msgstr "Vänligen kontakta denna webbplats administratör för att få hjälp."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:616
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+"Detta tema behöver uppdatera följande plugin för att fungera till fullo med "
+"detta tema:"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:617
+msgid "Update Required"
+msgstr "Uppdatering nödvändig"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:735
+msgid "Set the parent_slug config variable instead."
+msgstr "Ställ in parametern parent_slug config istället."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+"Fjärrpaketet för tillägget innehåller inte någon katalog med den begärda "
+"permalänken och det gick inte att döpa om den."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+"Kontakta tilläggets skapare och be att paketet med tilläggets utformas "
+"enligt WordPress riktlinjer."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+"Tilläggets fjärrpaketet innehåller fler än en fil, men filerna är inte "
+"placerade i någon katalog."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1243
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3099
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr "och"
+
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2112
 #, php-format
 msgid "TGMPA v%s"
@@ -11112,6 +13279,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Amount of padding in grids."
+#~ msgstr "Mängden luft i rutnät"
 
 #~ msgid "Casual"
 #~ msgstr "Casual"
