@@ -35,10 +35,11 @@ class Padding
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'organism_grid_gap',
-            'label'       => esc_html__('Amount of padding around grids.', 'municipio'),
+            'label'       => esc_html__('Amount of padding in grids.', 'municipio'),
             'description' => esc_html__('Padding will be applied in 8px increments.'),
             'section'     => self::SECTION_ID,
             'default'     => 4,
+            'transport' => 'auto',
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
