@@ -3,13 +3,13 @@
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
         <div class="o-container">
-            <div class="u-display--flex u-justify-content--space-between u-align-content--center">
+            <div class="u-display--flex u-justify-content--space-between u-align-content--center u-align-items--center">
                 
                 @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
                     @logotype([
                         'src'=> $logotype->url,
                         'alt' => $lang->goToHomepage,
-                        'classList' => ['c-nav__logo'],
+                        'classList' => ['c-nav__logo', 'c-header__logotype'],
                         'context' => ['site.header.logo', 'site.header.business.logo']
                     ])
                     @endlogotype
