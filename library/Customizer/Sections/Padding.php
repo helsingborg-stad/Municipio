@@ -43,7 +43,7 @@ class Padding
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
-                'step' => 1,
+                'step' => 0.5,
             ],
             'output'      => [
                 'element'   => ':root',
