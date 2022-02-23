@@ -66,7 +66,7 @@
                         @endif
 
                         <!--  Main content padder -->
-                        <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg">
+                        <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-margin__bottom--12">
                             <div class="o-grid o-grid--nowrap@lg">
                                 
                                 @hasSection('sidebar-left')
