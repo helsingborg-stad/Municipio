@@ -45,11 +45,12 @@ class Padding
                 'max'  => 12,
                 'step' => 0.5,
             ],
-            'output'      => [
-                'element'   => ':root',
-                'property'  => '--o-grid-gap',
-                'units'     => ''
-            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--o-grid-gap'
+                ]
+            ]
         ]);
     }
 }
