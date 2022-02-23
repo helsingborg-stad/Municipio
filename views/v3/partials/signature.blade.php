@@ -19,7 +19,6 @@
       'updated' => $signature->updated,
       'updatedLabel' => $publishTranslations->updated,
       'publishedLabel' => $publishTranslations->publish,
-      'classList' => ['u-margin__y--2']
   ])
   @endsignature
 @endif

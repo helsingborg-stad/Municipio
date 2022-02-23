@@ -19,8 +19,7 @@
             'published'         => $signature->published,
             'updated'           => $signature->updated,
             'updatedLabel'      => $publishTranslations->updated,
-            'publishedLabel'    => $publishTranslations->publish,
-            'classList'         => ['u-margin__y--2']
+            'publishedLabel'    => $publishTranslations->publish
         ])
         @endsignature
         @section('article.signature.after')@show
