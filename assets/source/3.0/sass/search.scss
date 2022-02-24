@@ -98,6 +98,15 @@
         font-weight: bold;
     }
 }
+
+
+
+#header-search-form input[type="search"],
+#header-search-form .c-field__inner {
+    border-radius: inherit;
+    border: none; 
+}
+
 @media print {
 
     #sidebar-slider-area--container {
