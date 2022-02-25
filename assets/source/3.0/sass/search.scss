@@ -102,7 +102,9 @@
 
 
 #header-search-form input[type="search"],
-#header-search-form .c-field__inner {
+#header-search-form .c-field__inner,
+#mobile-search-form input[type="search"], 
+#mobile-search-form .c-field__inner {
     border-radius: inherit;
     border: none; 
 }
