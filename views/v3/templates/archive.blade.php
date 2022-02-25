@@ -16,13 +16,9 @@
 @stop
 
 @section('content')
-    <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive">
-        
-        {!! $hook->loopStart !!}
 
-        @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
-        
-        @if($archiveTitle)
+    @if($archiveTitle)
+        <article id="article" class="c-article c-article--readable-width s-article u-clearfix">
             @typography([
                 "variant" => "h1",
                 "element" => "h1",
@@ -30,10 +26,20 @@
             ])
                 {{ $archiveTitle }}
             @endtypography
-        @endif
+        </article>
+    @endif
+
+    <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive">
+        
+        {!! $hook->loopStart !!}
+
+        @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
         @if ($filterPosition == 'content')
-            @include("partials.archive.archive-filters")
+            @includeFirst([
+                "partials.archive.archive-" . sanitize_title($postType) . "-filters",
+                "partials.archive.archive-filters"
+            ])
         @endif
 
         @if (!empty($posts))
