@@ -44,9 +44,9 @@
                 @endif
 
             </div>
-            <div class="o-grid">
 
-                @if($enableDateFilter) 
+            @if($enableDateFilter) 
+                <div class="o-grid">
                     <div class="o-grid-12@xs o-grid-auto@sm">
                         @field([
                             'type' => 'datepicker',
@@ -101,8 +101,8 @@
                         )
                         @endfield
                     </div>
-                @endif
-            </div>
+                </div>
+            @endif
         
             {{-- Select dropdowns for filtering --}}
             <div class="o-grid u-align-content--end">
