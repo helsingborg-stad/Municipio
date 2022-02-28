@@ -53,7 +53,6 @@
         'partials.signature',
         [
             'classList' => [
-                'u-margin__y--2',
                 'u-display--none@xs',
                 'u-display--none@sm'
             ]
