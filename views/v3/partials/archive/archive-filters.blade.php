@@ -16,6 +16,7 @@
             localStorage.setItem('municipioScrollState-{{$postType}}', window.scrollY || window.pageYOffset);
         };
     </script>
+    <style>html {scroll-behavior: unset !important;}</style>
 
     <div class="s-archive-filter s-archive-filter--{{ $filterPosition }} {{ $filterPosition == 'top' ? 'u-margin__top--4' : '' }}">
         @form([
