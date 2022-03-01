@@ -2,17 +2,20 @@
     <div class="o-grid">
         @foreach($posts as $post)
             <div class="o-grid-12 {{ $gridColumnClass }}">
-                @card([
+                @block([
                     'link' => $post->permalink,
-                    'imageFirst' => true,
-                    'image' =>  $post->thumbnail,
-                    'heading' => $post->postTitle,
-                    'classList' => ['t-archive-card', 'u-height--100', 'u-height-100', 'u-flex-direction--column', 'u-display--flex'],
-                    'byline' => ['text' => $post->postDate, 'position' => 'body'],
-                    'content' => $post->excerptShort,
-                    'tags' => $post->termsunlinked
+                    'heading' =>  $post->postTitle,
+                    'ratio' => '12:16',
+                    'meta' => $post->termsunlinked,
+                    'filled' => true,
+                    'image' => [
+                        'src' => $post->thumbnail['src'],
+                        'alt' => $post->thumbnail['alt'] ? $post->thumbnail['alt'] : $post->postTitle,
+                        'backgroundColor' => 'secondary',
+                    ],
+                    'classList' => ['t-archive-block']
                 ])
-                @endcard
+                @endblock
             </div>
         @endforeach
     </div>
