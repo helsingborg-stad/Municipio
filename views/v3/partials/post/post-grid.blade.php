@@ -9,8 +9,8 @@
                     'meta' => $post->termsunlinked,
                     'filled' => true,
                     'image' => [
-                        'src' => $post->thumbnail['src'],
-                        'alt' => $post->thumbnail['alt'] ? $post->thumbnail['alt'] : $post->postTitle,
+                        'src' => $post->thumbnailTall['src'],
+                        'alt' => $post->thumbnailTall['alt'] ? $post->thumbnailTall['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary',
                     ],
                     'classList' => ['t-archive-block'],
