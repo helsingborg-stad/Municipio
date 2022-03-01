@@ -13,7 +13,8 @@
                         'alt' => $post->thumbnail['alt'] ? $post->thumbnail['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary',
                     ],
-                    'classList' => ['t-archive-block']
+                    'classList' => ['t-archive-block'],
+                    'context' => ['archive', 'archive.list', 'archive.list.block'],
                 ])
                 @endblock
             </div>
