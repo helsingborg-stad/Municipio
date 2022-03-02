@@ -128,9 +128,9 @@ class Archive
                 'settings'    => 'archive_' . $archive->name . '_order_by',
                 'label'       => esc_html__('Order By', 'municipio'),
                 'description' => esc_html__('Select a key/value to order by.', 'municipio'),
-                'multiple'    => 2,
                 'section'     => $this->sectionId,
-                'choices'     => $archive->orderBy
+                'choices'     => $archive->orderBy,
+                'default'     => 'post_date'
             ]);
 
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -140,6 +140,7 @@ class Archive
                 'description' => esc_html__('Select a key/value to order by.', 'municipio'),
                 'multiple'    => 2,
                 'section'     => $this->sectionId,
+                'default'     => 'desc',
                 'choices'     => [
                     'asc' => __("Ascending", 'municipio'),
                     'desc' => __("Decending", 'municipio')
