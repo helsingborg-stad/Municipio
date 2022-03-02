@@ -107,28 +107,29 @@ class Archive
             ]);
         }
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'archive_' . $archive->name . '_order_by',
-            'label'       => esc_html__('Order By', 'municipio'),
-            'description' => esc_html__('Select a key/value to order by.', 'municipio'),
-            'multiple'    => 2,
-            'section'     => $this->sectionId,
-            'choices'     => [
-            ]
-        ]);
+        if (!empty($archive->orderBy)) {
+            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                'type'        => 'select',
+                'settings'    => 'archive_' . $archive->name . '_order_by',
+                'label'       => esc_html__('Order By', 'municipio'),
+                'description' => esc_html__('Select a key/value to order by.', 'municipio'),
+                'multiple'    => 2,
+                'section'     => $this->sectionId,
+                'choices'     => $archive->orderBy
+            ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'archive_' . $archive->name . '_order_direction',
-            'label'       => esc_html__('Order direction', 'municipio'),
-            'description' => esc_html__('Select a key/value to order by.', 'municipio'),
-            'multiple'    => 2,
-            'section'     => $this->sectionId,
-            'choices'     => [
-                'asc' => __("Ascending", 'municipio'),
-                'desc' => __("Decending", 'municipio')
-            ]
-        ]);
+            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                'type'        => 'select',
+                'settings'    => 'archive_' . $archive->name . '_order_direction',
+                'label'       => esc_html__('Order direction', 'municipio'),
+                'description' => esc_html__('Select a key/value to order by.', 'municipio'),
+                'multiple'    => 2,
+                'section'     => $this->sectionId,
+                'choices'     => [
+                    'asc' => __("Ascending", 'municipio'),
+                    'desc' => __("Decending", 'municipio')
+                ]
+            ]);
+        }
     }
 }

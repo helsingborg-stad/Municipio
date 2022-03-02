@@ -42,7 +42,11 @@ class Archive
                 continue;
             }
 
+            //Taxonomies
             $args->taxonomies = $this->getTaxonomies($postType);
+
+            //Order By
+            $args->orderBy = $this->getOrderBy($postType);
 
             $postTypes[$postType] = $args;
         }
@@ -78,5 +82,31 @@ class Archive
         }
 
         return [];
+    }
+
+    /**
+     * Get order by options for post type
+     *
+     * @param string $postType
+     * @return array
+     */
+    private function getOrderBy($postType): array
+    {
+        // Post sorting
+        $metaKeys = array(
+          'post_date'  => 'Date published',
+          'post_modified' => 'Date modified',
+          'post_title' => 'Title',
+        );
+
+        $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($postType);
+
+        if (isset($metaKeysRaw) && is_array($metaKeysRaw) && !empty($metaKeysRaw)) {
+            foreach ($metaKeysRaw as $metaKey) {
+                $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
+            }
+        }
+
+        return $metaKeys;
     }
 }
