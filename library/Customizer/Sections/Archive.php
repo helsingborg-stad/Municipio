@@ -79,7 +79,6 @@ class Archive
             ]
         ]);
 
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'archive_' . $archive->name . '_number_of_columns',
@@ -93,6 +92,22 @@ class Archive
                 'max'  => 4,
                 'step' => 1,
             ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'archive_' . $archive->name . '_enabled_filters',
+            'label'       => esc_html__('Filters', 'municipio'),
+            'description' => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
+            'multiple'    => 6,
+            'section'     => $this->sectionId,
+            'choices'     => array_merge(
+                [
+                    'text_search' => esc_html__('Text search', 'municipio'),
+                    'date_range' => esc_html__('Date range', 'municipio'),
+                ],
+                (array) $archive->taxonomies
+            )
         ]);
 
         if (!empty($archive->taxonomies)) {
