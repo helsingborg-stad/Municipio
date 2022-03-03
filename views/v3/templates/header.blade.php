@@ -3,6 +3,10 @@
     'classList' => [
         'site-header', isset($classList) ? is_array($classList) ? implode(' ', $classList) : $classList : ''
     ],
+    'attributeList' => [
+        'js-toggle-item' => 'hamburger-menu',
+        'js-toggle-class' => 'hamburger-menu-open'
+    ],
     'context' => 'site.header'
 ])
 
