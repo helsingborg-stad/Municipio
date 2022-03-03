@@ -15,7 +15,8 @@ class Archive
         \Kirki::add_section($this->sectionId, array(
             'title'         => $archive->label,
             'panel'         => $panelID,
-            'priority'      => 160
+            'priority'      => 160,
+            'preview_url'   => get_post_type_archive_link($archive->name)
         ));
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [

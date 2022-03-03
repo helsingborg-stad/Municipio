@@ -6,6 +6,8 @@ class Customizer
 {
     public const KIRKI_CONFIG = "municipio_config";
 
+    public static $panels = array();
+
     public function __construct()
     {
         //Load embedded kirki
@@ -47,6 +49,24 @@ class Customizer
             }
             return $styles;
         }, 20);
+
+        /**
+         * Collects all panels view a preview url.
+         */
+        add_action('kirki_section_added', function ($id, $args) {
+            if (isset($args->preview_url) && filter_var($args->preview_url, FILTER_VALIDATE_URL)) {
+                self::$panels[$id] = $args->preview_url;
+            }
+        }, 10, 2);
+
+        /**
+         * Loads functionality to load a certain page
+         * for each expanded panel.
+         */
+        add_action(
+            'customize_controls_enqueue_scripts',
+            array($this, 'addPreviewPageSwitches')
+        );
     }
 
     /**
@@ -54,11 +74,34 @@ class Customizer
      *
      * @return void
      */
-    public function loadEmbeddedKirki() {
-        $kirkiFilePath = rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php'; 
-        if(file_exists($kirkiFilePath)) {
+    public function loadEmbeddedKirki()
+    {
+        $kirkiFilePath = rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php';
+        if (file_exists($kirkiFilePath)) {
             include_once($kirkiFilePath);
         }
+    }
+
+    /**
+     * Initialize the Customizer
+     *
+     * @return void
+     */
+    public function addPreviewPageSwitches()
+    {
+        wp_register_script(
+            'municipio-customizer-preview-switcher',
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customizer-preview-page.js'),
+            array( 'jquery', 'customize-controls' ),
+            false,
+            true
+        );
+        wp_localize_script(
+            'municipio-customizer-preview-switcher',
+            'previewUrl',
+            (object) self::$panels
+        );
+        wp_enqueue_script('municipio-customizer-preview-switcher');
     }
 
     /**
@@ -68,8 +111,9 @@ class Customizer
      */
     public function init()
     {
-        if (!defined("WEB_FONT_DISABLE_INLINE"))
+        if (!defined("WEB_FONT_DISABLE_INLINE")) {
             define("WEB_FONT_DISABLE_INLINE", true);
+        }
 
         \Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
