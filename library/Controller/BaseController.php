@@ -76,6 +76,7 @@ class BaseController
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
         $primary        = new \Municipio\Helper\Navigation('primary');
         $secondary      = new \Municipio\Helper\Navigation('sidebar');
+        $hamburgerMenu  = new \Municipio\Helper\Navigation('hamburger-menu');
         $quicklinks     = new \Municipio\Helper\Navigation('single');
         $tabMenu        = new \Municipio\Helper\Navigation('tab');
         $helpMenu       = new \Municipio\Helper\Navigation('help');
@@ -101,6 +102,7 @@ class BaseController
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
         $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false, false);
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true, false);
+        $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), true, true, false);
 
         //Complementary navigations
         $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
@@ -133,6 +135,7 @@ class BaseController
         //Search
         $this->data['showHeaderSearch']         = $this->showSearchForm('header');
         $this->data['showNavigationSearch']     = $this->showSearchForm('navigation'); 
+        $this->data['showHamburgerMenuSearch']  = $this->showSearchForm('hamburger-menu'); 
         $this->data['showHeroSearch']           = $this->showSearchForm('hero'); 
         $this->data['showMobileSearch']         = $this->showSearchForm('mobile');
         $this->data['showMobileSearchDrawer']   = $this->showSearchForm('mobile-drawer');
@@ -168,6 +171,7 @@ class BaseController
             'searchOn'              => __("Search on", 'municipio'),
             'searchQuestion'        => __("What are you searching for?", 'municipio'),
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
+            'hamburgerNavigation'   => __("Navigation", 'municipio'),
             'quicklinksNavigation'  => __("Useful links", 'municipio'),
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
@@ -432,6 +436,10 @@ class BaseController
             }
 
             return in_array('mainmenu', $enabledLocations); 
+        }
+
+        if($location == "hamburger-menu") {
+            return in_array('hamburger_menu', $enabledLocations); 
         }
 
         return false; 
