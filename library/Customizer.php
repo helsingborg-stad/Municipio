@@ -98,7 +98,7 @@ class Customizer
         );
         wp_localize_script(
             'municipio-customizer-preview',
-            'previewUrl',
+            'customizerPanelPreviewUrls',
             (object) self::$panels
         );
         wp_enqueue_script('municipio-customizer-preview');
