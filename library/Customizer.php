@@ -90,18 +90,18 @@ class Customizer
     public function addPreviewPageSwitches()
     {
         wp_register_script(
-            'municipio-customizer-preview-switcher',
-            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customizer-preview-page.js'),
+            'municipio-customizer-preview',
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customizer-preview.js'),
             array( 'jquery', 'customize-controls' ),
             false,
             true
         );
         wp_localize_script(
-            'municipio-customizer-preview-switcher',
+            'municipio-customizer-preview',
             'previewUrl',
             (object) self::$panels
         );
-        wp_enqueue_script('municipio-customizer-preview-switcher');
+        wp_enqueue_script('municipio-customizer-preview');
     }
 
     /**
