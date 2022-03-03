@@ -3,7 +3,7 @@
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
         <div class="o-container">
-            <div class="u-display--flex u-justify-content--space-between u-align-content--center">
+            <div class="u-display--flex u-justify-content--space-between u-align-content--center u-align-items--center">
                 
                 @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
                     @logotype([
@@ -14,6 +14,28 @@
                     ])
                     @endlogotype
                 @endlink
+
+                @if (get_theme_mod('hamburger_menu_enabled') && !empty($hamburgerMenuItems))
+                    @button([
+                        'id' => 'hamburger-menu-trigger-open',
+                        'color' => 'default',
+                        'style' => 'basic',
+                        'icon' => 'menu',
+                        'text' => '<span class="hamburger-menu-trigger__label">' . __('Menu', 'component-library') . '</span><span class="hamburger-menu-trigger__close">' . __('Close', 'component-library') . '</span>',
+                        'classList' => [
+                            'hamburger-menu-trigger',
+                        ],
+                        'attributeList' => [
+                            'aria-label' => $lang->menu,
+                            'aria-controls' => "navigation",
+                            'js-toggle-trigger' => 'hamburger-menu',
+                            'js-toggle-item' => 'hamburger-menu',
+                            'js-toggle-class' => 'open'
+                        ],
+                        'context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']
+                    ])
+                    @endbutton
+                @endif
 
                 @button([
                     'id' => 'mobile-menu-trigger-open',
@@ -101,6 +123,8 @@
             </div>
         </div>
     @endif
+
+    @includeIf('partials.navigation.hamburgermenu')
 @stop
 
 @includeIf('partials.navigation.drawer')
