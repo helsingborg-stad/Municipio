@@ -29,6 +29,7 @@ class Navigation
             'header-tabs-menu' => __('Header tabs menu', 'municipio'),
             'main-menu' => __('Primary menu', 'municipio'),
             'secondary-menu' => __('Secondary menu & mobile menu', 'municipio'),
+            'hamburger-menu' => __('Hamburger menu', 'municipio'),
             'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
             'floating-menu' => __('Floating menu', 'municipio'),
             'language-menu' => __('Language menu', 'municipio'),
