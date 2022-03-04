@@ -22,18 +22,17 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
-        $template = $this->getTemplate($postType);
 
-        var_dump($this->data['customizer']); 
+        //Get archive properties
+        $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
+
+        $template = $this->getTemplate($this->data['archiveProps']);
 
         //Get template
         $this->data['template']                 = $template;
 
         //The posts
         $this->data['posts']                    = $this->getPosts($template);
-
-        //Get archive properties
-        $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Sidebar
         $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType);
@@ -194,12 +193,10 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function getTemplate(string $postType, string $default = 'card'): string
+    public function getTemplate(object $args, string $default = 'cards'): string
     {
-        $archiveOption = get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option');
-
-        if (!empty($archiveOption)) {
-            return $archiveOption;
+        if (isset($args->style) && !empty($args->style)) {
+            return $args->style;
         }
 
         return $default;
