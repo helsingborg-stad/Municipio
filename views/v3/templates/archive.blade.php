@@ -17,15 +17,26 @@
 
 @section('content')
 
-    @if($archiveTitle)
-        <article id="article" class="c-article c-article--readable-width s-article u-clearfix">
-            @typography([
-                "variant" => "h1",
-                "element" => "h1",
-                "classList" => ['t-archive-title', 't-' . $postType . '-archive-title', 'u-margin__bottom--2']
-            ])
-                {{ $archiveTitle }}
-            @endtypography
+    @if($archiveTitle||$archiveLead)
+        <article id="article" class="c-article c-article--readable-width s-article u-clearfix u-margin__bottom--2">
+            @if($archiveTitle)
+                @typography([
+                    "variant" => "h1",
+                    "element" => "h1",
+                    "classList" => ['t-archive-title', 't-' . $postType . '-archive-title']
+                ])
+                    {{ $archiveTitle }}
+                @endtypography
+            @endif
+            @if($archiveLead) 
+                @typography([
+                    "variant" => "p",
+                    "element" => "p",
+                    "classList" => ['lead', 't-archive-lead', 't-' . $postType . '-archive-lead']
+                ])
+                    {{ $archiveLead }}
+                @endtypography
+            @endif
         </article>
     @endif
 

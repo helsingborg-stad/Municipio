@@ -32,6 +32,9 @@ class Archive extends \Municipio\Controller\BaseController
         //The posts
         $this->data['posts']                    = $this->getPosts($template);
 
+        //Get archive properties
+        $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
+
         //Sidebar
         $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType);
 
@@ -45,8 +48,8 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableDateFilter']         = $this->enableDateFilter($postType);
 
         //Archive data
-        $this->data['archiveTitle']             = $this->getArchiveTitle($postType);
-        $this->data['archiveLead']              = $this->getArchiveLead($postType);
+        $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
+        $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
         $this->data['gridColumnClass']          = $this->getGridClass($postType);
 
@@ -87,7 +90,30 @@ class Archive extends \Municipio\Controller\BaseController
             $postType,
             $template
         );
+    }
 
+    /**
+     * Get archive properties
+     * @param  string $postType
+     * @param  array $customizer
+     * @return array|bool
+     */
+    private function getArchiveProperties($postType, $customize) {
+        $customizationKey = "archive" . $this->camelCasePostTypeName($postType);
+        if (isset($customize->{$customizationKey})) {
+            return (object) $customize->{$customizationKey};
+        }
+        return false;
+    }
+
+    /**
+     * Camel calse post type name
+     *
+     * @param string $postType
+     * @return string
+     */
+    private function camelCasePostTypeName($postType) {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
     }
 
     /**
@@ -168,7 +194,7 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function getTemplate(string $postType, string $default = 'compressed'): string
+    public function getTemplate(string $postType, string $default = 'card'): string
     {
         $archiveOption = get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option');
 
@@ -243,11 +269,11 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    protected function getArchiveTitle($postType)
+    protected function getArchiveTitle($args)
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveTitle',
-            get_field('archive_' . $postType . '_title', 'options')
+            $args->heading
         );
     }
 
@@ -256,11 +282,11 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    protected function getArchiveLead($postType)
+    protected function getArchiveLead($args)
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveLead',
-            get_field('archive_' . $postType . '_lead', 'options')
+            $args->body
         );
     }
 
