@@ -26,9 +26,8 @@ class Archive extends \Municipio\Controller\BaseController
         //Get archive properties
         $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
 
-        $template = $this->getTemplate($this->data['archiveProps']);
-
         //Get template
+        $template                               = $this->getTemplate($this->data['archiveProps']);
         $this->data['template']                 = $template;
 
         //The posts
@@ -41,7 +40,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['queryParameters']          = $this->setQueryParameters();
 
         //Filter options
-        $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType);
+        $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
 
@@ -372,15 +371,18 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   string  $postType           The current post type
      * @return  array   $taxonomyObjects    Array containing selects with options
      */
-    protected function getTaxonomyFilters($postType)
+    protected function getTaxonomyFilters($postType, $args)
     {
+        if (!isset($args->enabledFilters) || empty($args->enabledFilters)) {
+            return [];
+        }
 
         //Define storage point
         $taxonomyObjects = [];
 
         //Get active taxonomy filters
-        $taxonomies = get_field('archive_' . $postType . '_post_filters_sidebar', 'options');
-
+        $taxonomies = $args->enabledFilters;
+        
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
 
