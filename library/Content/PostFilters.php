@@ -456,14 +456,20 @@ class PostFilters
 
         $isMetaQuery = false;
 
-        $posttype = $query->get('post_type');
+        $posttype = sanitize_title($query->get('post_type'));
         if (empty($posttype)) {
             $posttype = 'post';
         }
 
         // Get orderby key, default to post_date
-        $orderby = (isset($_GET['orderby']) && !empty($_GET['orderby'])) ? sanitize_text_field($_GET['orderby']) : get_field('archive_' . sanitize_title($posttype) . '_sort_key',
-            'option');
+        if (isset($_GET['orderby']) && !empty($_GET['orderby'])) {
+            $orderby = sanitize_text_field($_GET['orderby']);
+        } else {
+            $orderby = get_theme_mod('archive_' . $posttype . '_order_by', 'post_date');
+        }
+
+        var_dump(get_theme_mod('archive_' . $posttype . '_order_by', 'post_date'));
+
         if (empty($orderby)) {
             $orderby = 'post_date';
         }
@@ -474,9 +480,12 @@ class PostFilters
             $isMetaQuery = true;
         }
 
-        // Get orderby order, default to desc
-        $order = (isset($_GET['order']) && !empty($_GET['order'])) ? sanitize_text_field($_GET['order']) : get_field('archive_' . sanitize_title($posttype) . '_sort_order',
-            'option');
+        // Get sort order, default to desc
+        if (isset($_GET['order']) && !empty($_GET['order'])) {
+            $order = sanitize_text_field($_GET['order']);
+        } else {
+            $order = get_theme_mod('archive_' . $posttype . '_order_by', 'desc');
+        }
         if (empty($order) || !in_array(strtolower($order), array('asc', 'desc'))) {
             $order = 'desc';
         }
