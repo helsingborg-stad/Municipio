@@ -99,23 +99,15 @@ class ControllerVariables
    * @param array $field
    * @return boolean
    */
-    private function isControllerSetting($field)
+    private function isControllerSetting($field, $lookForType = 'controller')
     {
-
-        if (!isset($field['output']['type'])) {
-            return false;
+        if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
+            foreach ($field['output'] as $output) {
+                if (isset($output['type']) && $output['type'] === $lookForType) {
+                    return true;
+                }
+            }
         }
-
-        $type = $field['output']['type'];
-
-        if (is_string($type) && $type === 'controller') { //Invalid format in kirki, backwards compatibility
-            return true;
-        }
-
-        if (is_array($type) && in_array('controller', $type)) {
-            return true;
-        }
-
         return false;
     }
 }

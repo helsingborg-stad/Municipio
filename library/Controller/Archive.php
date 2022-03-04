@@ -24,6 +24,8 @@ class Archive extends \Municipio\Controller\BaseController
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
         $template = $this->getTemplate($postType);
 
+        var_dump($this->data['customizer']); 
+
         //Get template
         $this->data['template']                 = $template;
 

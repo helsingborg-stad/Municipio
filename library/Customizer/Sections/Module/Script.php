@@ -31,8 +31,10 @@ class Script
                 'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.script'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['module.script']
+                ]
             ],
         ]);
 

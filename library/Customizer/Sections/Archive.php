@@ -139,13 +139,15 @@ class Archive
                 'settings'    => 'archive_' . $archive->name . '_order_direction',
                 'label'       => esc_html__('Order direction', 'municipio'),
                 'description' => esc_html__('Select a key/value to order by.', 'municipio'),
-                'multiple'    => 2,
                 'section'     => $this->sectionId,
                 'default'     => 'desc',
                 'choices'     => [
                     'asc' => __("Ascending", 'municipio'),
                     'desc' => __("Decending", 'municipio')
-                ]
+                ],
+                'output' => [
+                    ['type' => 'controller']
+                ],
             ]);
         }
     }

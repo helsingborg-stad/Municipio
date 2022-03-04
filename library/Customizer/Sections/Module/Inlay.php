@@ -31,8 +31,10 @@ class Inlay
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.inlay.list'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['module.inlay.list']
+                ]
             ],
         ]);
 

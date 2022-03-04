@@ -30,8 +30,10 @@ class LocalEvent
                 'accented' => esc_html__('Accented', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.localevent.list'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['module.localevent.list']
+                ]
             ],
         ]);
 

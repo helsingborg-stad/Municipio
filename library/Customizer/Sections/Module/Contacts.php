@@ -29,8 +29,10 @@ class Contacts
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.contacts.card'],
+                [
+                  'type' => 'modifier',
+                  'context' => ['module.contacts.card']
+                ]
             ],
           ]);
   
@@ -48,8 +50,10 @@ class Contacts
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.contacts.list'],
+                [
+                  'type' => 'modifier',
+                  'context' => ['module.contacts.list']
+                ]
             ],
           ]);
 

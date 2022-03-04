@@ -31,8 +31,10 @@ class Video
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.video'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['module.video']
+                ]
             ],
         ]);
 

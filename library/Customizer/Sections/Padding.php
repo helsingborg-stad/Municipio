@@ -28,7 +28,7 @@ class Padding
                 'step' => 2,
             ],
             'output' => [
-                'type' => 'controller'
+                ['type' => 'controller']
             ],
         ]);
 

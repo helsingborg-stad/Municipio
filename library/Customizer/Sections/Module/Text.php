@@ -31,8 +31,10 @@ class Text
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.text.box'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['module.text.box']
+                ]
             ],
         ]);
 

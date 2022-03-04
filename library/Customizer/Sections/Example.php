@@ -58,8 +58,10 @@ class Example
                 'option-4' => esc_html__('Option 4', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['site.header', 'site.footer'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header', 'site.footer']
+                ],
             ],
         ]);
 
@@ -79,7 +81,7 @@ class Example
                 'option-4' => esc_html__('Option 4', 'municipio'),
             ],
             'output' => [
-                'type' => 'controller'
+                ['type' => 'controller']
             ],
         ]);
     }

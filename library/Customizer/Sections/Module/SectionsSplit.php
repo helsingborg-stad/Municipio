@@ -29,8 +29,10 @@ class SectionsSplit
                 'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['sectionsSplit', 'module.sections.split'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['sectionsSplit', 'module.sections.split']
+                ]
             ],
         ]);
 
