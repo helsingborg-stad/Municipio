@@ -30,17 +30,16 @@ class Archive
     * @param $WP_Query The query to show current archive page return
     * @return bool True or false depending on if the query has been altered or not.
     */
-    public function filterNumberOfPostsInArchive($query) : bool
+    public function filterNumberOfPostsInArchive($query): bool
     {
         if (!is_admin() && $query->is_main_query()) {
-
             //Check that posttype is valid
             if (!isset($query->query["post_type"])) {
                 return false;
             }
 
             //Get current post count
-            $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
+            $postCount = get_theme_mod('archive_' . $query->query["post_type"] . '_post_count', 12);
 
             //Set value
             if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {

@@ -74,19 +74,13 @@ class Archive
             'label'       => esc_html__('Number of posts to display', 'municipio'),
             'description' => esc_html__('How many posts that should be displayed on each page.', 'municipio'),
             'section'     => $this->sectionId,
-            'transport'   => 'auto',
+            'transport'   => 'refresh',
             'default'     => 9,
             'choices'     => [
                 'min'  => 4,
                 'max'  => 40,
                 'step' => 1,
-            ],
-            'output' => [
-                [
-                    'type' => 'controller',
-                    'as_object' => true,
-                ]
-            ],
+            ]
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
