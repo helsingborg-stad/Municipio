@@ -18,7 +18,7 @@
     </script>
     <style>html {scroll-behavior: unset !important;}</style>
 
-    <div class="s-archive-filter s-archive-filter--{{ $filterPosition }} {{ $filterPosition == 'top' ? 'u-margin__top--4' : '' }}">
+    <div class="s-archive-filter>
         @form([
             'method' => 'GET',
             'action' => '?q=form_component'

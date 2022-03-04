@@ -42,7 +42,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Filter options
         $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType);
-        $this->data['filterPosition']           = $this->getFilterPosition($postType);
         $this->data['enableTextSearch']         = $this->enableTextSearch($postType);
         $this->data['enableDateFilter']         = $this->enableDateFilter($postType);
 
@@ -160,18 +159,6 @@ class Archive extends \Municipio\Controller\BaseController
     public function enableDateFilter($postType)
     {
         return (bool) in_array('date_range', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options'));
-    }
-
-    /**
-     * Get the position of the filter
-     *
-     * @param string $postType
-     *
-     * @return string
-     */
-    public function getFilterPosition(string $postType)
-    {
-        return (string) get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option');
     }
 
     /**
