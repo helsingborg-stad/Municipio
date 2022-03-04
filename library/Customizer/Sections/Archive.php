@@ -24,7 +24,13 @@ class Archive
             'settings' => 'archive_' . $archive->name . '_heading',
             'label'    => esc_html__('Archive heading', 'municipio'),
             'section'  => $this->sectionId,
-            'default'  => ''
+            'default'  => '',
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -32,7 +38,13 @@ class Archive
             'settings' => 'archive_' . $archive->name . '_body',
             'label'    => esc_html__('Archive lead text', 'municipio'),
             'section'  => $this->sectionId,
-            'default'  => ''
+            'default'  => '',
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -48,6 +60,12 @@ class Archive
                 'list' => esc_html__('List', 'municipio'),
                 'grid' => esc_html__('Blocks', 'municipio')
             ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -62,7 +80,13 @@ class Archive
                 'min'  => 4,
                 'max'  => 40,
                 'step' => 1,
-            ]
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -77,7 +101,13 @@ class Archive
                 'min'  => 1,
                 'max'  => 4,
                 'step' => 1,
-            ]
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -92,7 +122,13 @@ class Archive
                 'min'  => 1,
                 'max'  => 4,
                 'step' => 1,
-            ]
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -108,7 +144,13 @@ class Archive
                     'date_range' => esc_html__('Date range', 'municipio'),
                 ],
                 (array) $archive->taxonomies
-            )
+            ),
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
         ]);
 
         if (!empty($archive->taxonomies)) {
@@ -119,7 +161,13 @@ class Archive
                 'description' => esc_html__('What taxonomies should be displayed?', 'municipio'),
                 'multiple'    => 4,
                 'section'     => $this->sectionId,
-                'choices'     => $archive->taxonomies
+                'choices'     => $archive->taxonomies,
+                'output' => [
+                    [
+                        'type' => 'controller',
+                        'as_object' => true,
+                    ]
+                ],
             ]);
         }
 
@@ -131,7 +179,13 @@ class Archive
                 'description' => esc_html__('Select a key/value to order by.', 'municipio'),
                 'section'     => $this->sectionId,
                 'choices'     => $archive->orderBy,
-                'default'     => 'post_date'
+                'default'     => 'post_date',
+                'output' => [
+                    [
+                        'type' => 'controller',
+                        'as_object' => true,
+                    ]
+                ],
             ]);
 
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
