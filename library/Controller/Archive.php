@@ -33,9 +33,6 @@ class Archive extends \Municipio\Controller\BaseController
         //The posts
         $this->data['posts']                    = $this->getPosts($template);
 
-        //Sidebar
-        $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType);
-
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
 
@@ -124,17 +121,6 @@ class Archive extends \Municipio\Controller\BaseController
         if (isset($args->enabledFilters) && !empty($args->enabledFilters)) {
             return $args->enabledFilters;
         }
-    }
-
-    /**
-     * Boolean function to determine if navigation should be shown
-     *
-     * @param   string      $postType   The current post type
-     * @return  boolean                 True or false val.
-     */
-    public function showSidebarNavigation($postType)
-    {
-        return (bool) get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option');
     }
 
     /**

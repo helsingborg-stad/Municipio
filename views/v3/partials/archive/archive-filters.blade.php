@@ -24,7 +24,7 @@
             'action' => '?q=form_component'
         ])
                
-            @if($enableTextSearch) 
+            @if($enableTextSearch)
                 <div class="o-grid">
                     <div class="o-grid-12">
                         @field([
@@ -135,6 +135,5 @@
                 
             </div>
         @endform
-
     </div>
 @endif
