@@ -44,6 +44,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Archive data
         $this->data['archiveTitle']             = $this->getArchiveTitle($postType);
+        $this->data['archiveLead']              = $this->getArchiveLead($postType);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
         $this->data['gridColumnClass']          = $this->getGridClass($postType);
 
@@ -245,6 +246,19 @@ class Archive extends \Municipio\Controller\BaseController
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveTitle',
             get_field('archive_' . $postType . '_title', 'options')
+        );
+    }
+
+    /**
+     * Get the archive lead
+     *
+     * @return string
+     */
+    protected function getArchiveLead($postType)
+    {
+        return (string) \apply_filters(
+            'Municipio/Controller/Archive/getArchiveLead',
+            get_field('archive_' . $postType . '_lead', 'options')
         );
     }
 
