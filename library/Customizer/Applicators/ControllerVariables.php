@@ -131,6 +131,15 @@ class ControllerVariables
         return false;
     }
 
+    /**
+     * Append to stack
+     *
+     * @param array $stack  Prevois stack object
+     * @param string $value Value to append
+     * @param string $key   Field key to store
+     * @param array $field  Field definition
+     * @return void
+     */
     private function appendStack($stack, $value, $key, $field)
     {
         if ($this->shouldStackInObject($field)) {
@@ -151,11 +160,26 @@ class ControllerVariables
         return $stack;
     }
 
-    private function sanitizeStackObjectName($name) {
+    /**
+     * Sanitize stack object name. Removes customizer panel prefix.
+     *
+     * @param string $name
+     * @return string
+     */
+    private function sanitizeStackObjectName($name)
+    {
         return str_replace('municipio_customizer_panel_', '', $name);
     }
 
-    private function sanitizeStackItemName($name, $santizationString) {
+    /**
+     * Remove object name from item keys
+     *
+     * @param string $name
+     * @param string $santizationString
+     * @return string
+     */
+    private function sanitizeStackItemName($name, $santizationString) 
+    {
         return str_replace($santizationString, '', $name);
     }
 }
