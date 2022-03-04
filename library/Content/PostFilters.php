@@ -468,12 +468,6 @@ class PostFilters
             $orderby = get_theme_mod('archive_' . $posttype . '_order_by', 'post_date');
         }
 
-        var_dump(get_theme_mod('archive_' . $posttype . '_order_by', 'post_date'));
-
-        if (empty($orderby)) {
-            $orderby = 'post_date';
-        }
-
         if (in_array($orderby, array('post_date', 'post_modified', 'post_title'))) {
             $orderby = str_replace('post_', '', $orderby);
         } else {
