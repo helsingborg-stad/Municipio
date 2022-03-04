@@ -42,8 +42,8 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Filter options
         $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType);
-        $this->data['enableTextSearch']         = $this->enableTextSearch($postType);
-        $this->data['enableDateFilter']         = $this->enableDateFilter($postType);
+        $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
+        $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
 
         //Archive data
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
@@ -61,7 +61,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
 
         //Show filter?
-        $this->data['showFilter']               = $this->showFilter($postType);
+        $this->data['showFilter']               = $this->showFilter($this->data['archiveProps']);
 
         //Language
         if (!isset($this->data['lang'])) {
@@ -120,12 +120,11 @@ class Archive extends \Municipio\Controller\BaseController
      * @param string $postType
      * @return boolean
      */
-    public function showFilter($postType) {
-        return (bool) array_filter([
-            $this->enableTextSearch($postType),
-            $this->enableDateFilter($postType),
-            $this->getTaxonomyFilters($postType)
-        ]);
+    public function showFilter($args)
+    {
+        if (isset($args->enabledFilters) && !empty($args->enabledFilters)) {
+            return $args->enabledFilters;
+        }
     }
 
     /**
@@ -145,9 +144,12 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    public function enableTextSearch($postType)
+    public function enableTextSearch($args)
     {
-        return (bool) in_array('text_search', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options'));
+        return (bool) in_array(
+            'text_search',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
     }
 
     /**
@@ -156,9 +158,12 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    public function enableDateFilter($postType)
+    public function enableDateFilter($args)
     {
-        return (bool) in_array('date_range', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options'));
+        return (bool) in_array(
+            'date_range',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
     }
 
     /**
@@ -302,9 +307,10 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return bool
      */
-    protected function showPagination($postType, $archiveBaseUrl, $wpQuery) {
+    protected function showPagination($postType, $archiveBaseUrl, $wpQuery)
+    {
 
-        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery); 
+        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery);
 
         if (is_null($pagesArray)) {
             return false;
@@ -348,7 +354,7 @@ class Archive extends \Municipio\Controller\BaseController
         //Include taxonomies (dynamic)
         $taxonomies = get_object_taxonomies($this->data['postType']);
 
-        if(is_array($taxonomies) && !empty($taxonomies)) {
+        if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
                 $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
             }
