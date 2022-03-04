@@ -51,15 +51,6 @@ class Customizer
         }, 20);
 
         /**
-         * Collects all panels view a preview url.
-         */
-        add_action('kirki_section_added', function ($id, $args) {
-            if (isset($args->preview_url) && filter_var($args->preview_url, FILTER_VALIDATE_URL)) {
-                self::$panels[$id] = $args->preview_url;
-            }
-        }, 10, 2);
-
-        /**
          * Loads functionality to load a certain page
          * for each expanded panel.
          */
@@ -67,6 +58,15 @@ class Customizer
             'customize_controls_enqueue_scripts',
             array($this, 'addPreviewPageSwitches')
         );
+
+        /**
+         * Collects all panels view a preview url.
+         */
+        add_action('kirki_section_added', function ($id, $args) {
+            if (isset($args['preview_url']) && filter_var($args['preview_url'], FILTER_VALIDATE_URL)) {
+                self::$panels[$id] = $args['preview_url'];
+            }
+        }, 10, 2);
     }
 
     /**
@@ -99,7 +99,7 @@ class Customizer
         wp_localize_script(
             'municipio-customizer-preview',
             'customizerPanelPreviewUrls',
-            (object) self::$panels
+            (array) self::$panels
         );
         wp_enqueue_script('municipio-customizer-preview');
     }
