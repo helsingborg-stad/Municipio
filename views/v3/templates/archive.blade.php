@@ -7,7 +7,7 @@
 @section('content')
 
     @if($archiveTitle||$archiveLead)
-        <article id="article" class="c-article c-article--readable-width s-article u-clearfix u-margin__bottom--2">
+        <article id="article" class="c-article c-article--readable-width s-article u-clearfix">
             @if($archiveTitle)
                 @typography([
                     "variant" => "h1",
