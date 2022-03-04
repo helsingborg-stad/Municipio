@@ -146,7 +146,10 @@ class Archive
                     'desc' => __("Decending", 'municipio')
                 ],
                 'output' => [
-                    ['type' => 'controller']
+                    [
+                        'type' => 'controller',
+                        'as_object' => true,
+                    ]
                 ],
             ]);
         }
