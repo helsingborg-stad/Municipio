@@ -48,7 +48,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
         $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
-        $this->data['gridColumnClass']          = $this->getGridClass($postType);
+        $this->data['gridColumnClass']          = $this->getGridClass($postType); //TODO
 
         //Pagination
         $this->data['currentPage']              = $this->getCurrentPage();
@@ -382,15 +382,14 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Get active taxonomy filters
         $taxonomies = $args->enabledFilters;
-        
+
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
-
                 //Fetch full object
                 $taxonomy = get_taxonomy($taxonomy);
 
                 //Bail if not found
-                if($taxonomy === false) {
+                if ($taxonomy === false) {
                     continue;
                 }
 
@@ -448,7 +447,7 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return  array   $items     Array of posts
      */
-    public function getPosts($template) : array
+    public function getPosts($template): array
     {
         $items = null;
         if (is_array($this->posts) && !empty($this->posts)) {

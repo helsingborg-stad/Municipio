@@ -18,33 +18,30 @@
     </script>
     <style>html {scroll-behavior: unset !important;}</style>
 
-    <div class="s-archive-filter>
+    <div class="s-archive-filter">
         @form([
             'method' => 'GET',
             'action' => '?q=form_component'
         ])
-            <div class="o-grid">
                
-                @if($enableTextSearch) 
+            @if($enableTextSearch) 
+                <div class="o-grid">
                     <div class="o-grid-12">
-                        @field(
-                            [
+                        @field([
+                            'type' => 'text',
+                            'value' => $queryParameters->search,
+                            'label' => $lang->searchFor,
+                            'classList' => ['u-width--100'],
+                            'attributeList' => [
                                 'type' => 'text',
-                                'value' => $queryParameters->search,
-                                'label' => $lang->searchFor,
-                                'classList' => ['u-width--100'],
-                                'attributeList' => [
-                                    'type' => 'text',
-                                    'name' => 's'
-                                ],
-                                'required' => false,
-                            ]
-                        )
+                                'name' => 's'
+                            ],
+                            'required' => false,
+                        ])
                         @endfield
                     </div>
-                @endif
-
-            </div>
+                </div>
+            @endif
 
             @if($enableDateFilter) 
                 <div class="o-grid">
@@ -77,7 +74,7 @@
 
                     <div class="o-grid-12@xs o-grid-auto@sm">
                         @field([
-                            'type' => 'date',
+                            'type' => 'datepicker',
                             'value' => $queryParameters->to,
                             'label' => $lang->toDate,
                             'attributeList' => [
