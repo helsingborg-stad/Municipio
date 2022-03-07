@@ -107,28 +107,30 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getGridClass($args): string
     {
+        $stack = [];
+
         if (!isset($args->numberOfColumns) || !is_numeric($args->numberOfColumns)) {
-            $args->numberOfColumns = 12;
+            $args->numberOfColumns = 4;
         }
 
-        $stack = [
-            \Municipio\Helper\Html::createGridClass(
-                1
-            ),
-            \Municipio\Helper\Html::createGridClass(
-                floor($args->numberOfColumns / 2),
-                'sm'
-            ),
-            \Municipio\Helper\Html::createGridClass(
-                ceil($args->numberOfColumns / 2),
-                'md'
-            ),
-            \Municipio\Helper\Html::createGridClass(
-                $args->numberOfColumns,
-                'lg'
-            )
-        ];
-        
+        $stack[] = \Municipio\Helper\Html::createGridClass(1);
+
+        if ($args->numberOfColumns == 2) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'lg');
+        }
+
+        if ($args->numberOfColumns == 3) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'lg');
+        }
+
+        if ($args->numberOfColumns == 4) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'sm');
+            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(4, 'lg');
+        }
+
         return implode(' ', $stack);
     }
 

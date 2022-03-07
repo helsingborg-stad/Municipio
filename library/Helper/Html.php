@@ -9,6 +9,10 @@ class Html
     {
         $baseColumns = 12;
 
+        if ($numberOfColumns == 0) {
+            $numberOfColumns = 1;
+        }
+
         if (is_string($mediaQuery)) {
             $result = "o-grid-" . round($baseColumns / $numberOfColumns) . "@" . $mediaQuery;
         } else {
