@@ -431,7 +431,7 @@ class Upgrade
                             $toId . $newKey,
                             get_option($fromId . $oldKey) ?? null
                         );
-                        //delete_option($fromId . $oldKey); //Clean old option
+                        delete_option($fromId . $oldKey); //Clean old option
                     }
 
                     //Move active filters
@@ -441,9 +441,9 @@ class Upgrade
                         (array) get_option($fromId . 'post_filters_sidebar') ?? []
                     );
                     set_theme_mod($toId . 'enabled_filters', array_filter($filters));
-                    //delete_option($fromId . 'feed_filtering_settings'); //Clean old option
-                    //delete_option($fromId . 'post_filters_header'); //Clean old option
-                    //delete_option($fromId . 'post_filters_sidebar'); //Clean old option
+                    delete_option($fromId . 'feed_filtering_settings'); //Clean old option
+                    delete_option($fromId . 'post_filters_header'); //Clean old option
+                    delete_option($fromId . 'post_filters_sidebar'); //Clean old option
 
                     //Transfer columns
                     $columns = (int) preg_replace('/[^0-9]/', '', get_option($fromId . 'grid_columns')) ?? '4';
@@ -451,7 +451,7 @@ class Upgrade
                         $columns = '4';
                     }
                     set_theme_mod($toId . 'number_of_columns', (int) floor(12 / $columns));
-                    //delete_option($fromId . 'grid_columns'); //Clean old option
+                    delete_option($fromId . 'grid_columns'); //Clean old option
                 }
             }
         }
