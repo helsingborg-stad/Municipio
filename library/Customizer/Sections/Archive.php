@@ -186,7 +186,7 @@ class Archive
                 'type'        => 'select',
                 'settings'    => 'archive_' . $archive->name . '_order_direction',
                 'label'       => esc_html__('Order direction', 'municipio'),
-                'description' => esc_html__('Select a key/value to order by.', 'municipio'),
+                'description' => esc_html__('Select decending or ascending order.', 'municipio'),
                 'section'     => $this->sectionId,
                 'default'     => 'desc',
                 'choices'     => [
