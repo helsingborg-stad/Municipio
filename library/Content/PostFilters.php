@@ -489,49 +489,36 @@ class PostFilters
      */
     public function doPostOrderBy($query)
     {
-        // Do not execute this in admin view
         if (!$this->shouldFilter($query)) {
             return $query;
         }
 
-        //Declarations
-        $isMetaQuery = false;
-
-        //Get current postType
         $postType = $this->getCurrentPostType($query);
 
-        // Get orderby key, default to post_date
         if (!$orderBy = $this->getQueryString('orderby')) {
             $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         }
 
-        // Check if above is mq
-        if ($this->isMetaQuery($orderBy)) {
-            $isMetaQuery = true;
+        if (!$this->isMetaQuery($orderBy)) {
+            $query->set(
+                'orderby',
+                str_replace('post_', '', $orderBy)
+            );
+        } elseif ($orderBy == 'meta_key') {
+            if ($orderBy = $this->getQueryString($orderBy, false)) {
+                $query->set('meta_key', $orderBy);
+                $query->set('orderby', 'meta_value');
+            }
         }
-
-
-        if (!in_array($orderby, array('post_date', 'post_modified', 'post_title'))) {
-            $isMetaQuery = true;
-        }
-
-        // Return if not meta query
-        if (!$isMetaQuery) {
-            $query->set('orderby', str_replace('post_', '', $orderBy));
-            return $query;
-        }
-
-        if (isset($_GET['orderby']) && $_GET['orderby'] == 'meta_key' && isset($_GET['meta_key']) && !empty($_GET['meta_key'])) {
-            $orderby = sanitize_text_field($_GET['meta_key']);
-        }
-
-        // Continue if meta query
-        $query->set('meta_key', $orderby);
-        $query->set('orderby', 'meta_value');
 
         return $query;
     }
 
+    /**
+     * Get current post type
+     * @param  object $query Query object
+     * @return string        Post type
+     */
     private function getCurrentPostType($query)
     {
         if ($postType = sanitize_title($query->get('post_type'))) {
@@ -540,15 +527,42 @@ class PostFilters
         return 'post';
     }
 
-    private function getQueryString($queryString)
+    /**
+     * Get a query string
+     * @param  string   $queryString    Qs name
+     * @return boolean  $known          Use the wordpress-way (known), or php-way (unknown).
+     */
+    private function getQueryString($queryString, $known = true)
     {
-        return get_query_var($queryString, false);
+        if ($known === true) {
+            return get_query_var($queryString, false);
+        }
+
+        if (isset($_GET[$queryString]) && !empty($_GET[$queryString])) {
+            return sanitize_text_field($_GET[$queryString]);
+        }
+
+        return false;
     }
 
-    private function isMetaQuery($key) {
+    /**
+     * Do the value match any standard keys in posts table?
+     * Then it's not a meta_query
+     *
+     * @param string $key
+     * @return boolean
+     */
+    private function isMetaQuery($key)
+    {
         return in_array($key, array('post_date', 'post_modified', 'post_title'));
     }
 
+    /**
+     * Determine if filter should be used here.
+     *
+     * @param WP_Query $query
+     * @return boolean
+     */
     private function shouldFilter($query) {
         if (is_admin() || !(is_archive() || is_home()) || !$query->is_main_query()) {
             return false;
