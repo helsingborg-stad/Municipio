@@ -9,20 +9,6 @@ class Archive
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
         add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
-
-        add_filter('Municipio/Controller/Archive/GridColumnClass', array($this, 'replaceGridClasses'), 20, 1); 
-    }
-
-    public function replaceGridClasses($classname)
-    {
-
-        $classname = str_replace('grid-md-12', 'o-grid-12@md', $classname);
-        $classname = str_replace('grid-md-6', 'o-grid-6@md', $classname);
-        $classname = str_replace('grid-md-4', 'o-grid-4@md', $classname);
-        $classname = str_replace('grid-md-3', 'o-grid-3@md', $classname);
-        $classname = str_replace('grid-md-2', 'o-grid-2@md', $classname);
-
-        return $classname;
     }
 
     /*

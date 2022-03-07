@@ -45,7 +45,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
         $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
-        $this->data['gridColumnClass']          = $this->getGridClass($postType); //TODO
+        $this->data['gridColumnClass']          = $this->getGridClass($this->data['archiveProps']);
 
         //Pagination
         $this->data['currentPage']              = $this->getCurrentPage();
@@ -98,6 +98,22 @@ class Archive extends \Municipio\Controller\BaseController
             return (object) $customize->{$customizationKey};
         }
         return false;
+    }
+
+    /**
+     * Create a grid column size
+     * @param  array $archiveProps
+     * @return string
+     */
+    private function getGridClass($args): string
+    {
+        if (isset($args->numberOfColumns) && is_numeric($args->numberOfColumns)) {
+            return \Municipio\Helper\HTML::createGridClass(
+                (int) $args->numberOfColumns
+            );
+        }
+
+        return \Municipio\Helper\HTML::createGridClass(12);
     }
 
     /**
@@ -177,19 +193,6 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         return $default;
-    }
-
-    /**
-     * Get the grid class
-     *
-     * @param   string  $postType   The current post type
-     *
-     * @return void
-     */
-    public function getGridClass(string $postType)
-    {
-        $gridSize = get_field('archive_' . sanitize_title($postType) . '_grid_columns', 'option');
-        return apply_filters('Municipio/Controller/Archive/GridColumnClass', $gridSize, $postType);
     }
 
     /**

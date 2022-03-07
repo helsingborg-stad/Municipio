@@ -4,6 +4,22 @@ namespace Municipio\Helper;
 
 class Html
 {
+
+    public static function createGridClass($numberOfColumns = 1, $mediaQuery = null)
+    {
+        $baseColumns = 12;
+
+        if (is_string($mediaQuery)) {
+            $result = "o-grid-" . round($baseColumns / $numberOfColumns) . "@" . $mediaQuery;
+        }
+        $result = "o-grid-" . round($baseColumns / $numberOfColumns);
+
+        return apply_filters(
+            'Municipio/Helper/Css/createGridClass',
+            $result
+        );
+    }
+
     /**
      * Get HTML Tags
      * @param string $content String to get HTML tags from
