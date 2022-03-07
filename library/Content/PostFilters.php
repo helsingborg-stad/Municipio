@@ -1,7 +1,7 @@
 <?php
 
 namespace Municipio\Content;
-//TODO: Needs refactoring
+
 class PostFilters
 {
     public function __construct()
@@ -9,14 +9,27 @@ class PostFilters
         add_action('wp', array($this, 'initFilters'));
 
         add_filter('template_include', array($this, 'enablePostTypeArchiveSearch'), 1);
+        add_filter('query_vars', array($this, 'addQueryVars'));
 
         add_action('posts_where', array($this, 'doPostDateFiltering'));
         add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
-        add_action('pre_get_posts', array($this, 'doPostOrdering'));
+        add_action('pre_get_posts', array($this, 'doPostOrderBy'));
+        add_action('pre_get_posts', array($this, 'doPostOrderDirection'));
 
         remove_filter('content_save_pre', 'wp_filter_post_kses');
         remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
         remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+    }
+
+    public function addQueryVars($vars) {
+        if (!is_array($vars)) {
+            $vars = [];
+        }
+
+        $vars[] = "orderby";
+        $vars[] = "order";
+
+        return $vars;
     }
 
     /**
@@ -408,7 +421,6 @@ class PostFilters
      */
     public function doPostDateFiltering($where)
     {
-
         //Only run on frontend
         if (is_admin()) {
             return $where;
@@ -443,52 +455,69 @@ class PostFilters
     }
 
     /**
-     * Do post ordering for archives
-     * @param  object $query Query
-     * @return object        Modified query
+     * Determines if order shuld be ASC or DESC.
+     *
+     * @param WP_Query $query
+     * @return WP_Query
      */
-    public function doPostOrdering($query)
+    public function doPostOrderDirection($query)
     {
-        // Do not execute this in admin view
-        if (is_admin() || !(is_archive() || is_home()) || !$query->is_main_query()) {
+        if (!$this->shouldFilter($query)) {
             return $query;
         }
 
-        $isMetaQuery = false;
-
-        $posttype = sanitize_title($query->get('post_type'));
-        if (empty($posttype)) {
-            $posttype = 'post';
+        if (!$order = $this->getQueryString('order')) {
+            $order = get_theme_mod(
+                'archive_' . $this->getCurrentPostType($query) . '_order_direction',
+                'desc'
+            );
         }
 
-        // Get orderby key, default to post_date
-        if (isset($_GET['orderby']) && !empty($_GET['orderby'])) {
-            $orderby = sanitize_text_field($_GET['orderby']);
-        } else {
-            $orderby = get_theme_mod('archive_' . $posttype . '_order_by', 'post_date');
-        }
-
-        if (in_array($orderby, array('post_date', 'post_modified', 'post_title'))) {
-            $orderby = str_replace('post_', '', $orderby);
-        } else {
-            $isMetaQuery = true;
-        }
-
-        // Get sort order, default to desc
-        if (isset($_GET['order']) && !empty($_GET['order'])) {
-            $order = sanitize_text_field($_GET['order']);
-        } else {
-            $order = get_theme_mod('archive_' . $posttype . '_order_by', 'desc');
-        }
-        if (empty($order) || !in_array(strtolower($order), array('asc', 'desc'))) {
+        if (!in_array(strtolower($order), array('asc', 'desc'))) {
             $order = 'desc';
         }
 
         $query->set('order', $order);
 
+        return $query;
+    }
+
+    /**
+     * Do post orderBy for archives
+     * @param  object $query Query
+     * @return object        Modified query
+     */
+    public function doPostOrderBy($query)
+    {
+        // Do not execute this in admin view
+        if (!$this->shouldFilter($query)) {
+            return $query;
+        }
+
+        //Declarations
+        $isMetaQuery = false;
+
+        //Get current postType
+        $postType = $this->getCurrentPostType($query);
+
+        // Get orderby key, default to post_date
+        if (!$orderBy = $this->getQueryString('orderby')) {
+            $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
+        }
+
+        // Check if above is mq
+        if ($this->isMetaQuery($orderBy)) {
+            $isMetaQuery = true;
+        }
+
+
+        if (!in_array($orderby, array('post_date', 'post_modified', 'post_title'))) {
+            $isMetaQuery = true;
+        }
+
         // Return if not meta query
         if (!$isMetaQuery) {
-            $query->set('orderby', $orderby);
+            $query->set('orderby', str_replace('post_', '', $orderBy));
             return $query;
         }
 
@@ -501,5 +530,29 @@ class PostFilters
         $query->set('orderby', 'meta_value');
 
         return $query;
+    }
+
+    private function getCurrentPostType($query)
+    {
+        if ($postType = sanitize_title($query->get('post_type'))) {
+            return $postType;
+        }
+        return 'post';
+    }
+
+    private function getQueryString($queryString)
+    {
+        return get_query_var($queryString, false);
+    }
+
+    private function isMetaQuery($key) {
+        return in_array($key, array('post_date', 'post_modified', 'post_title'));
+    }
+
+    private function shouldFilter($query) {
+        if (is_admin() || !(is_archive() || is_home()) || !$query->is_main_query()) {
+            return false;
+        }
+        return true;
     }
 }
