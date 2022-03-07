@@ -11,8 +11,9 @@ class Html
 
         if (is_string($mediaQuery)) {
             $result = "o-grid-" . round($baseColumns / $numberOfColumns) . "@" . $mediaQuery;
+        } else {
+            $result = "o-grid-" . round($baseColumns / $numberOfColumns);
         }
-        $result = "o-grid-" . round($baseColumns / $numberOfColumns);
 
         return apply_filters(
             'Municipio/Helper/Css/createGridClass',

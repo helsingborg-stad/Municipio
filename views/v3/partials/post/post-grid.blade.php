@@ -1,7 +1,7 @@
 @if ($posts)
     <div class="o-grid">
         @foreach($posts as $post)
-            <div class="o-grid-12 {{ $gridColumnClass }}">
+            <div class="{{ $gridColumnClass }}">
                 @block([
                     'link' => $post->permalink,
                     'heading' =>  $post->postTitle,

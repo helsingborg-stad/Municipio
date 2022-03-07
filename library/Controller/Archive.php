@@ -107,13 +107,29 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getGridClass($args): string
     {
-        if (isset($args->numberOfColumns) && is_numeric($args->numberOfColumns)) {
-            return \Municipio\Helper\HTML::createGridClass(
-                (int) $args->numberOfColumns
-            );
+        if (!isset($args->numberOfColumns) || !is_numeric($args->numberOfColumns)) {
+            $args->numberOfColumns = 12;
         }
 
-        return \Municipio\Helper\HTML::createGridClass(12);
+        $stack = [
+            \Municipio\Helper\Html::createGridClass(
+                1
+            ),
+            \Municipio\Helper\Html::createGridClass(
+                floor($args->numberOfColumns / 2),
+                'sm'
+            ),
+            \Municipio\Helper\Html::createGridClass(
+                ceil($args->numberOfColumns / 2),
+                'md'
+            ),
+            \Municipio\Helper\Html::createGridClass(
+                $args->numberOfColumns,
+                'lg'
+            )
+        ];
+        
+        return implode(' ', $stack);
     }
 
     /**
