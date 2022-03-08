@@ -89,28 +89,7 @@ class Archive
             'label'       => esc_html__('Number of columns to display', 'municipio'),
             'description' => esc_html__('How many columns that the posts should be divided in.', 'municipio'),
             'section'     => $this->sectionId,
-            'transport'   => 'auto',
-            'default'     => 4,
-            'choices'     => [
-                'min'  => 1,
-                'max'  => 4,
-                'step' => 1,
-            ],
-            'output' => [
-                [
-                    'type' => 'controller',
-                    'as_object' => true,
-                ]
-            ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'slider',
-            'settings'    => 'archive_' . $archive->name . '_number_of_columns',
-            'label'       => esc_html__('Number of columns to display', 'municipio'),
-            'description' => esc_html__('How many columns that the posts should be divided in.', 'municipio'),
-            'section'     => $this->sectionId,
-            'transport'   => 'auto',
+            'transport'   => 'refresh',
             'default'     => 4,
             'choices'     => [
                 'min'  => 1,

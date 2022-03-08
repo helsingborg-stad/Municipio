@@ -456,7 +456,7 @@ class Upgrade
             }
         }
 
-        return false;
+        return true;
     }
 
     /**
