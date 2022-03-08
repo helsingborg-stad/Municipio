@@ -180,5 +180,54 @@ class Archive
                 ],
             ]);
         }
+
+        if (!empty($archive->dateSource)) {
+            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                'type'        => 'select',
+                'settings'    => 'archive_' . $archive->name . '_date_field',
+                'label'       => esc_html__('Date', 'municipio'),
+                'description' => esc_html__('Select source of timestamp for post', 'municipio'),
+                'section'     => $this->sectionId,
+                'default'     => 'none',
+                'choices'     => array_merge(
+                    ['none' => esc_html__('Hide date', 'municipio')],
+                    $archive->dateSource
+                ),
+                'output' => [
+                    [
+                        'type' => 'controller',
+                        'as_object' => true,
+                    ]
+                ],
+            ]);
+
+            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                'type'        => 'select',
+                'settings'    => 'archive_' . $archive->name . '_date_format',
+                'label'       => esc_html__('Date format', 'municipio'),
+                'description' => esc_html__('In what format to display date', 'municipio'),
+                'section'     => $this->sectionId,
+                'default'     => 'Y-m-d H:i',
+                'choices'     => [
+                    'Y-m-d H:i:s' => 'Y-m-d H:i:s',
+                    'Y-m-d H:i' => 'Y-m-d H:i',
+                    'H:i:s' => 'H:i:s',
+                    'H:i' => 'H:i'
+                ],
+                'output' => [
+                    [
+                        'type' => 'controller',
+                        'as_object' => true,
+                    ]
+                ],
+                'active_callback' => [
+                    [
+                        'setting'  => 'archive_' . $archive->name . '_date_field',
+                        'operator' => '!=',
+                        'value'    => 'none',
+                    ]
+                ],
+            ]);
+        }
     }
 }

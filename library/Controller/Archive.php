@@ -32,6 +32,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         //The posts
         $this->data['posts']                    = $this->getPosts($template);
+        $this->data['posts']                    = $this->getDate($this->data['posts'], $this->data['archiveProps']);
 
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
@@ -486,8 +487,54 @@ class Archive extends \Municipio\Controller\BaseController
                 $post                   = \Municipio\Helper\Post::preparePostObject($post);
                 $post->href             = $post->permalink;
                 $post->excerpt          = $post->postExcerpt;
-                $post->postDate         = \date('Y-m-d', strtotime($post->postDate));
-                $post->postModified     = \date('Y-m-d', strtotime($post->postModified));
+                $preparedPosts[] = $post;
+            }
+        }
+
+        return $preparedPosts;
+    }
+
+    /**
+     * Prepare a date to show in view
+     *
+     * @param   array $posts    The posts
+     * @return  array           The posts - with archive date
+     */
+    public function getDate($posts, $archiveProps)
+    {
+        $preparedPosts = [];
+
+        if ($archiveProps->dateField === 'none') {
+            return $posts;
+        }
+
+        $isMetaKey = in_array($archiveProps->dateField, ['post_date', 'post_modified']) ? false : true;
+
+        if ($isMetaKey == true) {
+            $targetFieldName = $archiveProps->dateField;
+        } else {
+            $targetFieldName = \Municipio\Helper\FormatObject::camelCase($archiveProps->dateField);
+        }
+
+        if (is_array($posts) && !empty($posts)) {
+            foreach ($posts as $post) {
+                if (!is_null($archiveProps->dateField)) {
+                    if ($isMetaKey === true) {
+                        $post->archiveDate = get_post_meta($post->id, $post, true);
+                    } elseif (isset($post->{$targetFieldName})) {
+                        $post->archiveDate = $post->{$targetFieldName};
+                    }
+                }
+
+                if (!isset($post->archiveDate)) {
+                    $post->archiveDate = false;
+                } else {
+                    $post->archiveDate = date(
+                        $archiveProps->dateFormat,
+                        strtotime($post->archiveDate)
+                    );
+                }
+
                 $preparedPosts[] = $post;
             }
         }

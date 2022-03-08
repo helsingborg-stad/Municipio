@@ -43,11 +43,15 @@ class Archive
             }
 
             //Taxonomies
-            $args->taxonomies = $this->getTaxonomies($postType);
+            $args->taxonomies   = $this->getTaxonomies($postType);
 
             //Order By
-            $args->orderBy = $this->getOrderBy($postType);
+            $args->orderBy      = $this->getOrderBy($postType);
 
+            //Date source
+            $args->dateSource   = $this->getDateSource($postType);
+
+            //Add args to stack
             $postTypes[$postType] = $args;
         }
 
@@ -92,11 +96,34 @@ class Archive
      */
     private function getOrderBy($postType): array
     {
-        // Post sorting
         $metaKeys = array(
           'post_date'  => 'Date published',
           'post_modified' => 'Date modified',
           'post_title' => 'Title',
+        );
+
+        $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($postType);
+
+        if (isset($metaKeysRaw) && is_array($metaKeysRaw) && !empty($metaKeysRaw)) {
+            foreach ($metaKeysRaw as $metaKey) {
+                $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
+            }
+        }
+
+        return $metaKeys;
+    }
+
+    /**
+     * Get list of date sources
+     *
+     * @param string $postType
+     * @return array
+     */
+    private function getDateSource($postType): array
+    {
+        $metaKeys = array(
+            'post_date'  => 'Date published',
+            'post_modified' => 'Date modified',
         );
 
         $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($postType);

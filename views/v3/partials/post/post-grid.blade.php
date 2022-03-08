@@ -13,6 +13,7 @@
                         'alt' => $post->thumbnailTall['alt'] ? $post->thumbnailTall['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary',
                     ],
+                    'date' => $post->archiveDate,
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
                 ])
