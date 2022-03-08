@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-03-08 11:41+0100\n"
-"PO-Revision-Date: 2022-03-08 13:54+0100\n"
+"PO-Revision-Date: 2022-03-08 14:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -6033,10 +6033,8 @@ msgid "Install plugin"
 msgstr "Installera tillägg"
 
 #: library/Customizer/Panels/Archive.php:13
-#, fuzzy
-#| msgid "Module Apperance"
 msgid "Archive Apperance"
-msgstr "Modulutseende"
+msgstr "Arkiv"
 
 #: library/Customizer/Panels/Archive.php:14
 msgid "Manage apperance options on archives."
@@ -6095,8 +6093,6 @@ msgid "Compressed"
 msgstr "Komprimerad"
 
 #: library/Customizer/Sections/Archive.php:58
-#, fuzzy
-#| msgid "Card"
 msgid "Cards"
 msgstr "Kort"
 
@@ -6121,8 +6117,6 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:74
-#, fuzzy
-#| msgid "Number of posts in one page"
 msgid "Number of posts to display"
 msgstr "Antalet inlägg på en sida"
 
@@ -6131,10 +6125,8 @@ msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
 #: library/Customizer/Sections/Archive.php:89
-#, fuzzy
-#| msgid "Number of posts in one page"
 msgid "Number of columns to display"
-msgstr "Antalet inlägg på en sida"
+msgstr "Antal kolumner i rutnät"
 
 #: library/Customizer/Sections/Archive.php:90
 msgid "How many columns that the posts should be divided in."
@@ -6153,10 +6145,8 @@ msgid "Text search"
 msgstr "Fritextsök"
 
 #: library/Customizer/Sections/Archive.php:117
-#, fuzzy
-#| msgid "Date updated"
 msgid "Date range"
-msgstr "Senast uppdaterad"
+msgstr "Period"
 
 #: library/Customizer/Sections/Archive.php:133
 #: vendor/modularity/modules/source/php/Module/Posts/Posts.php:291
@@ -6176,8 +6166,6 @@ msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
 #: library/Customizer/Sections/Archive.php:167
-#, fuzzy
-#| msgid "Direction"
 msgid "Order direction"
 msgstr "Riktning"
 
@@ -6528,7 +6516,7 @@ msgstr "Alfa färger"
 
 #: library/Customizer/Sections/Colors.php:327
 msgid "Base Contrasting"
-msgstr ""
+msgstr "Kontrastfärg"
 
 #: library/Customizer/Sections/Colors.php:350
 msgid "Success colors"
@@ -6681,7 +6669,7 @@ msgstr "Inställningar för sidhuvud."
 
 #: library/Customizer/Sections/Header.php:21
 msgid "Apperance"
-msgstr ""
+msgstr "Utseende"
 
 #: library/Customizer/Sections/Header.php:26
 msgid "Casual (Small sites)"
