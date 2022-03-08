@@ -269,7 +269,7 @@ class Colors
                 'label'       => esc_html__('Link colors', 'municipio'),
                 'section'     => self::SECTION_ID,
                 'priority'    => 10,
-                    'transport' => 'auto',
+                'transport' => 'auto',
                 'choices'     => [
                     'link'    => esc_html__('Link', 'municipio'),
                     'link_hover'   => esc_html__('Hover', 'municipio'),
@@ -320,6 +320,8 @@ class Colors
             'label'       => esc_html__('Alpha colors', 'municipio'),
             'section'     => self::SECTION_ID,
             'priority'    => 10,
+            'alpha'       => true,
+            'transport'   => 'auto',
             'choices'     => [
                 'base'          => esc_html__('Base', 'municipio'),
                 'contrasting'   => esc_html__('Base Contrasting', 'municipio'),
