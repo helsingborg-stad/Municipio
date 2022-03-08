@@ -56,15 +56,6 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title' => __('Blog & Archives', 'municipio'),
-                'menu_title' => __('Blog & Archives', 'municipio'),
-                'parent_slug' => $themeOptionsParent,
-                'capability' => $themeOptionsCapability,
-                'menu_slug' => 'acf-options-archives'
-            ));
-
-
-            acf_add_options_sub_page(array(
                 'page_title' => 'Google Translate',
                 'menu_title' => 'Google Translate',
                 'parent_slug' => $themeOptionsParent,
