@@ -11,6 +11,7 @@
                     'byline' => ['text' => $post->postDate, 'position' => 'body'],
                     'content' => $post->excerptShort,
                     'tags' => $post->termsunlinked,
+                    'date' => $post->archiveDate,
                     'context' => ['archive', 'archive.list', 'archive.list.card']
                 ])
                 @endcard

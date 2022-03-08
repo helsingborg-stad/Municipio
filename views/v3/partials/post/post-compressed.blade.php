@@ -22,24 +22,34 @@
             </article>
 
             <!-- Dates -->
-            @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
-                {{$lang->publish}}: 
-                @date([
-                    'action' => 'formatDate',
-                    'timestamp' => $post->postDate
-                ])
-                @enddate
-            @endtypography	
+            @if($post->archiveDate)
+                @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
+                    {{$lang->publish}}: 
+                    @date([
+                        'timestamp' => $post->archiveDate
+                    ])
+                    @enddate
+                @endtypography
+            @else
+                @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
+                    {{$lang->publish}}: 
+                    @date([
+                        'action' => 'formatDate',
+                        'timestamp' => $post->postDate
+                    ])
+                    @enddate
+                @endtypography	
 
-            @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date']])
-                {{$lang->updated}}: 
-                @date([
-                    'action' => 'formatDate',
-                    'timestamp' => $post->postModified
-                ])
-                @enddate
-            @endtypography	
-
+                @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date']])
+                    {{$lang->updated}}: 
+                    @date([
+                        'action' => 'formatDate',
+                        'timestamp' => $post->postModified
+                    ])
+                    @enddate
+                @endtypography	
+            @endif
+            
         </div>
     @endforeach
 </div>
