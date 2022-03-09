@@ -42,7 +42,7 @@
             ])
         @endif 
 
-        @includeWhen($archiveMenu, 'partials.archive.archive-menu')
+        @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
 

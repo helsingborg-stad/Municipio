@@ -65,8 +65,8 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         //Archive menu
-        $archiveMenu = new \Municipio\Helper\Navigation('archiveMenu');
-        $this->data['archiveMenu'] = $archiveMenu->getMenuItems(
+        $archiveMenu = new \Municipio\Helper\Navigation('archive-menu');
+        $this->data['archiveMenuItems'] = $archiveMenu->getMenuItems(
             $postType . '-menu',
             false,
             false,
@@ -86,6 +86,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         $this->data['lang']->searchBtn        = __('Search', 'municipio');
         $this->data['lang']->resetBtn         = __('Reset filter', 'municipio');
+        $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
 
         //Filter
         $this->data = apply_filters(
