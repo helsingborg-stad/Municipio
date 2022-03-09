@@ -15,27 +15,7 @@
                     @endlogotype
                 @endlink
 
-                @if (get_theme_mod('hamburger_menu_enabled') && !empty($hamburgerMenuItems))
-                    @button([
-                        'id' => 'hamburger-menu-trigger-open',
-                        'color' => 'default',
-                        'style' => 'basic',
-                        'icon' => 'menu',
-                        'text' => '<span class="hamburger-menu-trigger__label">' . __('Menu', 'component-library') . '</span><span class="hamburger-menu-trigger__close">' . __('Close', 'component-library') . '</span>',
-                        'classList' => [
-                            'hamburger-menu-trigger',
-                        ],
-                        'attributeList' => [
-                            'aria-label' => $lang->menu,
-                            'aria-controls' => "navigation",
-                            'js-toggle-trigger' => 'hamburger-menu',
-                            'js-toggle-item' => 'hamburger-menu',
-                            'js-toggle-class' => 'open'
-                        ],
-                        'context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']
-                    ])
-                    @endbutton
-                @endif
+                @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']])
 
                 @button([
                     'id' => 'mobile-menu-trigger-open',
