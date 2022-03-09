@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-08 11:41+0100\n"
-"PO-Revision-Date: 2022-03-08 14:16+0100\n"
+"POT-Creation-Date: 2022-03-08 16:43+0100\n"
+"PO-Revision-Date: 2022-03-08 16:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -164,11 +164,11 @@ msgstr ""
 
 #: library/AcfFields/php/block-margin.php:6
 msgid "Margin size"
-msgstr ""
+msgstr "Marginalstorlek"
 
 #: library/AcfFields/php/block-margin.php:10
 msgid "Amount of margin"
-msgstr ""
+msgstr "Storlek på marginal"
 
 #: library/AcfFields/php/brand-widget.php:6
 msgid "Brand / Logo Widget"
@@ -295,10 +295,8 @@ msgstr "Kolumner"
 
 #: library/AcfFields/php/options-customize-footer.php:88
 #: library/AcfFields/php/options-customize-header.php:67
-#, fuzzy
-#| msgid "Icon Class"
 msgid "CSS Class"
-msgstr "Ikonens css-klass"
+msgstr "Css klass"
 
 #: library/AcfFields/php/options-customize-header.php:6
 msgid "Customize Header"
@@ -306,42 +304,32 @@ msgstr "Rubrik"
 
 #: library/AcfFields/php/options-customize-header.php:10
 msgid "Header sections"
-msgstr ""
+msgstr "Rubriksektioner"
 
 #: library/AcfFields/php/options-customize-header.php:25
-#, fuzzy
-#| msgid "Add icon"
 msgid "Add section"
-msgstr "Lägg till ikon"
+msgstr "Lägg till sektion"
 
 #: library/AcfFields/php/options-menu-floating.php:6
 #: library/Theme/Navigation.php:33
-#, fuzzy
-#| msgid "Main menu"
 msgid "Floating menu"
-msgstr "Huvudmeny"
+msgstr "Flytande meny"
 
 #: library/AcfFields/php/options-menu-floating.php:10
-#, fuzzy
-#| msgid "A button block"
 msgid "Toggle button label"
-msgstr "Block för knapp"
+msgstr "Togglingsknappens etikett"
 
 #: library/AcfFields/php/options-menu-floating.php:13
 msgid "What the label for toggling should say."
-msgstr ""
+msgstr "Vad etiketten ska innehålla"
 
 #: library/AcfFields/php/options-menu-floating.php:21
-#, fuzzy
-#| msgid "Main menu"
 msgid "Open menu"
-msgstr "Huvudmeny"
+msgstr "Öppna meny"
 
 #: library/AcfFields/php/options-menu-floating.php:29
-#, fuzzy
-#| msgid "Toggle Control"
 msgid "Toggle button icon"
-msgstr "Växla kontroll"
+msgstr "Ikon för togglingsknapp"
 
 #: library/AcfFields/php/options-menu-floating.php:40
 #: library/AcfFields/php/options-menu-icon.php:77
@@ -4667,7 +4655,7 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:124 library/Customizer/Panels/Archive.php:56
+#: library/Controller/Singular.php:124 library/Customizer/Panels/Archive.php:60
 #: library/Upgrade.php:482
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:84
 msgid "Author"
@@ -5644,7 +5632,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:77 library/Controller/BaseController.php:167
+#: library/Controller/Archive.php:78 library/Controller/BaseController.php:167
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:33
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:38
@@ -5826,40 +5814,40 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel."
 
-#: library/Controller/Archive.php:68 library/Controller/Singular.php:31
+#: library/Controller/Archive.php:69 library/Controller/Singular.php:31
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:69 library/Controller/Singular.php:30
+#: library/Controller/Archive.php:70 library/Controller/Singular.php:30
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: library/Controller/Archive.php:70
+#: library/Controller/Archive.php:71
 #: vendor/modularity/modules/source/php/Module/Slider/Slider.php:108
 #: vendor/modularity/modules/templates/module/modularity-mod-latest-news.php:61
 #: vendor/modularity/modules/templates/module/modularity-mod-mainnews.php:45
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/Archive.php:73
+#: library/Controller/Archive.php:74
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/Archive.php:74
+#: library/Controller/Archive.php:75
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: library/Controller/Archive.php:75
+#: library/Controller/Archive.php:76
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:78
+#: library/Controller/Archive.php:79
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/Archive.php:430
+#: library/Controller/Archive.php:431
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:163
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:125
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:14
@@ -6182,6 +6170,31 @@ msgstr "Stigande"
 #: library/Customizer/Sections/Archive.php:173
 msgid "Decending"
 msgstr "Fallande"
+
+#: library/Customizer/Sections/Archive.php:188
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:137
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:85
+#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:45
+#: vendor/modularity/modules/source/php/ModuleManager.php:606
+msgid "Date"
+msgstr "Datum"
+
+#: library/Customizer/Sections/Archive.php:189
+msgid "Select source of timestamp for post"
+msgstr "Väl en källa för tidsstämpeln"
+
+#: library/Customizer/Sections/Archive.php:193
+msgid "Hide date"
+msgstr "Dölj datum"
+
+#: library/Customizer/Sections/Archive.php:207
+#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:324
+msgid "Date format"
+msgstr "Datumformat"
+
+#: library/Customizer/Sections/Archive.php:208
+msgid "In what format to display date"
+msgstr "Format för datum"
 
 #: library/Customizer/Sections/Borders.php:12
 msgid "Borders"
@@ -9040,13 +9053,6 @@ msgid ""
 "links."
 msgstr ""
 
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:137
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:85
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:45
-#: vendor/modularity/modules/source/php/ModuleManager.php:606
-msgid "Date"
-msgstr "Datum"
-
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:140
 msgid ""
 "If checked, the publish/last modified date of the linked post will be "
@@ -9282,10 +9288,6 @@ msgstr ""
 
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:297
 msgid "Highlight post"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:324
-msgid "Date format"
 msgstr ""
 
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:349

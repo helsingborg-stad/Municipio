@@ -4,7 +4,7 @@
             <div class="{{ $gridColumnClass }}">
                 @link([
                     'href' => get_the_permalink(),
-                    'slot' => ' '
+                    'slot' => ''
                 ])
                     @segment([
                         'layout' => 'col-left',
