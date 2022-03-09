@@ -9,7 +9,7 @@
                     'meta' => $post->termsunlinked,
                     'filled' => true,
                     'image' => [
-                        'src' => $post->thumbnailTall['src'],
+                        'src' => $archiveProps->format == 'tall' ? $post->thumbnailTall['src'] : $post->thumbnail['src'],
                         'alt' => $post->thumbnailTall['alt'] ? $post->thumbnailTall['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary',
                     ],
