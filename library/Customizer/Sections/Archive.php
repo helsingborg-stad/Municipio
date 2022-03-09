@@ -69,6 +69,31 @@ class Archive
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
+            'settings' => 'archive_' . $archive->name . '_format',
+            'label'    => esc_html__('Format', 'municipio'),
+            'section'  => $this->sectionId,
+            'default'  => 'tall',
+            'choices'  => [
+                'tall'      => esc_html__('Tall', 'municipio'),
+                'square'    => esc_html__('Square', 'municipio')
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_style',
+                    'operator' => '==',
+                    'value'    => 'grid',
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'archive_' . $archive->name . '_post_count',
             'label'       => esc_html__('Number of posts to display', 'municipio'),
