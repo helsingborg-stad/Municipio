@@ -16,6 +16,7 @@
                     'date' => $post->archiveDate,
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
+                    'ratio' => $archiveProps->format == 'tall' ? '12:16' : '4:3',
                 ])
                 @endblock
             </div>
