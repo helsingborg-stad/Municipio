@@ -25,6 +25,9 @@ class HamburgerMenu
             'choices' => [
                 'on'  => esc_html__( 'Enabled', 'kirki' ),
                 'off' => esc_html__( 'Disabled', 'kirki' ),
+            ],
+            'output' => [
+                'type' => 'controller',
             ]
         ]);
 
@@ -38,6 +41,9 @@ class HamburgerMenu
             'choices' => [
                 'on'  => esc_html__( 'Enabled', 'kirki' ),
                 'off' => esc_html__( 'Disabled', 'kirki' ),
+            ],
+            'output' => [
+                'type' => 'controller',
             ]
         ]);
     }
