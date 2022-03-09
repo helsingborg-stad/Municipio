@@ -56,6 +56,12 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showFilterReset']          = $this->showFilterReset($this->data['queryParameters']);
         $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
 
+        //Facetting (menu)
+        $this->data['hasQueryParameters']       = $this->hasQueryParameters(array_merge(
+            ['paged' => true],
+            []//(array) $this->data['queryParameters']
+        ));
+
         //Show filter?
         $this->data['showFilter']               = $this->showFilter($postType);
 
@@ -87,6 +93,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->searchBtn        = __('Search', 'municipio');
         $this->data['lang']->resetBtn         = __('Reset filter', 'municipio');
         $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
+        $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
 
         //Filter
         $this->data = apply_filters(
@@ -110,6 +117,19 @@ class Archive extends \Municipio\Controller\BaseController
             $this->enableDateFilter($postType),
             $this->getTaxonomyFilters($postType)
         ]);
+    }
+
+    /**
+     * Check if any queryparameters is present
+     * @param  array $exceptions Keys that shold be exceptions (do not take in account)
+     * @return boolean
+     */
+    public function hasQueryParameters($exceptions = ['paged' => true])
+    {
+        return !empty(array_diff_key(
+            (array) $_GET,
+            (array) $exceptions
+        ));
     }
 
     /**
