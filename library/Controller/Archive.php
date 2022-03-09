@@ -64,6 +64,16 @@ class Archive extends \Municipio\Controller\BaseController
             $this->data['lang'] = (object) [];
         }
 
+        //Archive menu
+        $archiveMenu = new \Municipio\Helper\Navigation('archiveMenu');
+        $this->data['archiveMenu'] = $archiveMenu->getMenuItems(
+            $postType . '-menu',
+            false,
+            false,
+            true,
+            true
+        );
+
         $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found;
         $this->data['lang']->publish          = __('Published', 'municipio');
         $this->data['lang']->updated          = __('Updated', 'municipio');

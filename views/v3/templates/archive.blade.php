@@ -40,7 +40,9 @@
                 "partials.archive.archive-" . sanitize_title($postType) . "-filters",
                 "partials.archive.archive-filters"
             ])
-        @endif
+        @endif 
+
+        @includeWhen($archiveMenu, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
 

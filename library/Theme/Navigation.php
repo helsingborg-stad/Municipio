@@ -14,7 +14,7 @@ class Navigation
      */
     public function __construct()
     {
-        add_action('init', array($this, 'registerNavigationMenus'), 10, 2);
+        add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
     }
 
     /**
@@ -41,6 +41,12 @@ class Navigation
         register_nav_menus($menus);
     }
 
+    /**
+     * Get all post types where a archive page exits.
+     * Create a menu specification for each of these.
+     *
+     * @return array
+     */
     private function getArchiveMenus(): array
     {
         $archiveMenu = array();
@@ -48,12 +54,17 @@ class Navigation
 
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
             foreach ($publicPostTypes as $postType) {
-
                 if ($postType->has_archive !== true) {
                     continue;
                 }
 
-                $archiveMenu[$postType->name . '-menu'] = $postType->label . " " . __("(above archive posts)", "municipio");
+                $archiveMenu[$postType->name . '-menu'] = implode(
+                    ' ',
+                    array(
+                        $postType->label,
+                        __("(above archive posts)", "municipio")
+                    )
+                );
             }
         }
 
