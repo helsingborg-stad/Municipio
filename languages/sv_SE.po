@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-08 16:43+0100\n"
-"PO-Revision-Date: 2022-03-08 16:45+0100\n"
+"POT-Creation-Date: 2022-03-09 10:39+0100\n"
+"PO-Revision-Date: 2022-03-09 10:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -6105,73 +6105,85 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:74
+msgid "Format"
+msgstr "Format"
+
+#: library/Customizer/Sections/Archive.php:78
+msgid "Tall"
+msgstr "Stående"
+
+#: library/Customizer/Sections/Archive.php:79
+msgid "Square"
+msgstr "Fyrkantig"
+
+#: library/Customizer/Sections/Archive.php:99
 msgid "Number of posts to display"
 msgstr "Antalet inlägg på en sida"
 
-#: library/Customizer/Sections/Archive.php:75
+#: library/Customizer/Sections/Archive.php:100
 msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
-#: library/Customizer/Sections/Archive.php:89
+#: library/Customizer/Sections/Archive.php:114
 msgid "Number of columns to display"
 msgstr "Antal kolumner i rutnät"
 
-#: library/Customizer/Sections/Archive.php:90
+#: library/Customizer/Sections/Archive.php:115
 msgid "How many columns that the posts should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: library/Customizer/Sections/Archive.php:110
+#: library/Customizer/Sections/Archive.php:135
 msgid "Filters"
 msgstr "Filtrering"
 
-#: library/Customizer/Sections/Archive.php:111
+#: library/Customizer/Sections/Archive.php:136
 msgid "Add filters to let the user browse partial content."
 msgstr "Visa filtreringsmöjligheter för slutanvändaren."
 
-#: library/Customizer/Sections/Archive.php:116
+#: library/Customizer/Sections/Archive.php:141
 msgid "Text search"
 msgstr "Fritextsök"
 
-#: library/Customizer/Sections/Archive.php:117
+#: library/Customizer/Sections/Archive.php:142
 msgid "Date range"
 msgstr "Period"
 
-#: library/Customizer/Sections/Archive.php:133
+#: library/Customizer/Sections/Archive.php:158
 #: vendor/modularity/modules/source/php/Module/Posts/Posts.php:291
 msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
 
-#: library/Customizer/Sections/Archive.php:134
+#: library/Customizer/Sections/Archive.php:159
 msgid "What taxonomies should be displayed?"
 msgstr "Vilka taxonomier ska visas?"
 
-#: library/Customizer/Sections/Archive.php:151
+#: library/Customizer/Sections/Archive.php:176
 msgid "Order By"
 msgstr "Ordna efter"
 
-#: library/Customizer/Sections/Archive.php:152
+#: library/Customizer/Sections/Archive.php:177
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: library/Customizer/Sections/Archive.php:167
+#: library/Customizer/Sections/Archive.php:192
 msgid "Order direction"
 msgstr "Riktning"
 
-#: library/Customizer/Sections/Archive.php:168
+#: library/Customizer/Sections/Archive.php:193
 msgid "Select decending or ascending order."
 msgstr "Välj om inläggen ska sorteras fallande eller stigande."
 
-#: library/Customizer/Sections/Archive.php:172
+#: library/Customizer/Sections/Archive.php:197
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:60
 msgid "Ascending"
 msgstr "Stigande"
 
-#: library/Customizer/Sections/Archive.php:173
+#: library/Customizer/Sections/Archive.php:198
 msgid "Decending"
 msgstr "Fallande"
 
-#: library/Customizer/Sections/Archive.php:188
+#: library/Customizer/Sections/Archive.php:213
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:137
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:85
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:45
@@ -6179,20 +6191,20 @@ msgstr "Fallande"
 msgid "Date"
 msgstr "Datum"
 
-#: library/Customizer/Sections/Archive.php:189
+#: library/Customizer/Sections/Archive.php:214
 msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
-#: library/Customizer/Sections/Archive.php:193
+#: library/Customizer/Sections/Archive.php:218
 msgid "Hide date"
 msgstr "Dölj datum"
 
-#: library/Customizer/Sections/Archive.php:207
+#: library/Customizer/Sections/Archive.php:232
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:324
 msgid "Date format"
 msgstr "Datumformat"
 
-#: library/Customizer/Sections/Archive.php:208
+#: library/Customizer/Sections/Archive.php:233
 msgid "In what format to display date"
 msgstr "Format för datum"
 
