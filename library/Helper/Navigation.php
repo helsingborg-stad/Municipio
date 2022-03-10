@@ -463,6 +463,8 @@ class Navigation
     {
         if ($array['ID'] == $this->postId) {
             $array['active'] = true;
+        } elseif ($this->isCurrentUrl($array['href'])) {
+            $array['active'] = true;
         } else {
             $array['active'] = false;
         }
@@ -661,12 +663,11 @@ class Navigation
 
                 foreach ($menuItems as $item) {
                     $isAncestor = in_array($item->ID, $ancestors);
-
                     $result[$item->ID] = apply_filters('Municipio/Navigation/Item', [
                         'id' => $item->ID,
                         'post_parent' => $item->menu_item_parent,
                         'post_type' => $item->object,
-                        'active' => ($item->object_id == $pageId) ? true : false,
+                        'active' => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url) ? true : false,
                         'ancestor' => $isAncestor,
                         'label' => $item->title,
                         'href' => $item->url,
@@ -771,6 +772,48 @@ class Navigation
         }
 
         return $ancestorStack;
+    }
+
+    /**
+     * Check if the url corresponds with current url
+     *
+     * @param string $url
+     * @return bool
+     */
+    private function isCurrentUrl($url): bool
+    {
+        $currentUrl = $this->sanitizePath($_SERVER['REQUEST_URI']);
+
+        //Check if urls match
+        if (parse_url($url, PHP_URL_PATH) !== null) {
+            $checkUrl   = $this->sanitizePath(
+                parse_url($url, PHP_URL_PATH)
+            ) . (parse_url($url, PHP_URL_QUERY) ? '?' . parse_url($url, PHP_URL_QUERY) : '');
+
+            if ($currentUrl == $checkUrl) {
+                return true;
+            }
+        }
+
+        //Check if querystrings match, path is empty
+        if (parse_url($url, PHP_URL_PATH) == null && !empty(parse_url($url, PHP_URL_QUERY))) {
+            if (parse_url($url, PHP_URL_QUERY) == trim(strstr($currentUrl, "?"), "?")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Normalize url
+     *
+     * @param string $path
+     * @return string
+     */
+    private function sanitizePath($path): string
+    {
+        return rtrim(trim($path, '/'), '/');
     }
 
     /**
