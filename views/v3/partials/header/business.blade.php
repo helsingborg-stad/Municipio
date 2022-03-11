@@ -15,6 +15,8 @@
                     @endlogotype
                 @endlink
 
+                @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']])
+
                 @button([
                     'id' => 'mobile-menu-trigger-open',
                     'text' => $lang->menu,
@@ -101,6 +103,8 @@
             </div>
         </div>
     @endif
+
+    @includeIf('partials.navigation.hamburgermenu')
 @stop
 
 @includeIf('partials.navigation.drawer')
