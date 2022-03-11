@@ -57,10 +57,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
 
         //Facetting (menu)
-        $this->data['hasQueryParameters']       = $this->hasQueryParameters(array_merge(
-            ['paged' => true],
-            []//(array) $this->data['queryParameters']
-        ));
+        $this->data['hasQueryParameters']       = $this->hasQueryParameters(['paged' => true]);
 
         //Show filter?
         $this->data['showFilter']               = $this->showFilter($postType);
