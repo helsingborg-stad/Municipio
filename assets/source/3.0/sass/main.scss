@@ -55,6 +55,7 @@
 @import 'print';
 @import 'generic';
 @import 'search';
+@import 'slider';
 @import 'article';
 @import 'nav';
 @import 'comments';
@@ -93,9 +94,4 @@ h4.module-title {
 
 div:first-child > .module-title {
     margin-top: 0;
-}
-
-#article {
-    margin-bottom: calc(#{$base} * 5);
-    padding-bottom: 0;
 }

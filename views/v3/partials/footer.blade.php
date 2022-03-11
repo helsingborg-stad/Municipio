@@ -70,7 +70,7 @@
                                 'id' => 'footer-logotype',
                                 'src'=> $footerLogotype->url,
                                 'alt' => $lang->goToHomepage,
-                                'classList' => ['site-footer__logo']
+                                'classList' => ['site-footer__logo', 'c-footer__logotype']
                             ])
                             @endlogotype
                         @endlink

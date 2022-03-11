@@ -66,7 +66,7 @@
                         @endif
 
                         <!--  Main content padder -->
-                        <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg">
+                        <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-margin__bottom--12">
                             <div class="o-grid o-grid--nowrap@lg">
                                 
                                 @hasSection('sidebar-left')
@@ -75,7 +75,7 @@
                                     </div>
                                 @endif
                         
-                                <div class="o-grid-12 o-grid-auto@lg o-order-1 o-order-2@lg">
+                                <div class="o-grid-12 o-grid-auto@lg o-order-1 o-order-2@lg u-display--flex u-flex--gridgap  u-flex-direction--column">
                                     @yield('content')
                                 </div>
 

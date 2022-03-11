@@ -10,7 +10,8 @@
                     'classList' => ['t-archive-card', 'u-height--100', 'u-height-100', 'u-flex-direction--column', 'u-display--flex'],
                     'byline' => ['text' => $post->postDate, 'position' => 'body'],
                     'content' => $post->excerptShort,
-                    'tags' => $post->termsunlinked
+                    'tags' => $post->termsunlinked,
+                    'context' => ['archive', 'archive.list', 'archive.list.card']
                 ])
                 @endcard
             </div>

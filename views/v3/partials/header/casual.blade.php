@@ -10,7 +10,7 @@
                     @logotype([
                         'src'=> $logotype->url,
                         'alt' => $lang->goToHomepage,
-                        'classList' => ['c-nav__logo'],
+                        'classList' => ['c-nav__logo', 'c-header__logotype'],
                         'context' => ['site.header.logo', 'site.header.casual.logo']
                     ])
                     @endlogotype

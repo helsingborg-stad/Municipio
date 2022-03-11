@@ -81,7 +81,6 @@ class Width
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
-          'multiple'    => false,
           'settings'    => 'column_size_left',
           'label'       => esc_html__('Left', 'municipio'),
           'section'     => self::SECTION_ID,
@@ -98,7 +97,6 @@ class Width
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
-          'multiple'    => false,
           'settings'    => 'column_size_right',
           'label'       => esc_html__('Right', 'municipio'),
           'section'     => self::SECTION_ID,
