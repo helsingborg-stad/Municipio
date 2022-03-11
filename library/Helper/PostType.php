@@ -73,16 +73,16 @@ class PostType
      */
     private static function getPostType() {
 
-        if($postType = get_post_type()) {
+        if ($postType = get_post_type()) {
             return $postType; 
         }
 
         global $wp_query;
-        if(isset($wp_query->query) && isset($wp_query->query['post_type']) && !empty($wp_query->query['post_type'])) {
-            return $wp_query->query['post_type']; 
+        if (isset($wp_query->query) && isset($wp_query->query['post_type']) && !empty($wp_query->query['post_type'])) {
+            return $wp_query->query['post_type'];
         }
 
-        if(isset($wp_query->queried_object) && isset($wp_query->queried_object->post_type) && !empty($wp_query->queried_object->post_type)) {
+        if (isset($wp_query->queried_object) && isset($wp_query->queried_object->post_type) && !empty($wp_query->queried_object->post_type)) {
             return $wp_query->queried_object->post_type; 
         }
 
