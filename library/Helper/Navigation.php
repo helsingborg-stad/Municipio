@@ -101,7 +101,7 @@ class Navigation
      *
      * @return  array                         Nested page array
      */
-    public function getNested($postId) : array
+    public function getNested($postId): array
     {
 
         //Store current post id
@@ -122,7 +122,7 @@ class Navigation
         return $result;
     }
 
-    public function getPostChildren($postId) : array
+    public function getPostChildren($postId): array
     {
 
     //Store current post id
@@ -158,7 +158,7 @@ class Navigation
      *
      * @return  array              Flat array with parents
      */
-    private function hasChildren(array $array) : array
+    private function hasChildren(array $array): array
     {
         if ($array['ID'] == $this->postId) {
             $children = $this->getItems(
@@ -237,7 +237,7 @@ class Navigation
      *
      * @return  array              Flat array with parents
      */
-    private function getAncestors(int $postId, $includeTopLevel = true) : array
+    private function getAncestors(int $postId, $includeTopLevel = true): array
     {
         //Definitions
         $ancestorStack = array($postId);
@@ -303,7 +303,7 @@ class Navigation
      * @return  array               Nested array representing page structure
      */
 
-    private function buildTree(array $elements, $parentId = 0) : array
+    private function buildTree(array $elements, $parentId = 0): array
     {
         $branch = array();
 
@@ -333,7 +333,7 @@ class Navigation
      *
      * @return  array               Array of post id:s, post_titles and post_parent
      */
-    private function getItems($parent = 0, $postType = 'page') : array
+    private function getItems($parent = 0, $postType = 'page'): array
     {
         //Check if if valid post type string
         if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
@@ -411,7 +411,7 @@ class Navigation
      *
      * @return  array    $objects     The post array, with appended data
      */
-    private function complementObjects(array $objects) : array
+    private function complementObjects(array $objects): array
     {
         if (is_array($objects) && !empty($objects)) {
             foreach ($objects as $key => $item) {
@@ -441,7 +441,7 @@ class Navigation
      *
      * @return  array    $postArray     The post array, with appended data
      */
-    private function appendIsAncestorPost(array $array) : array
+    private function appendIsAncestorPost(array $array): array
     {
         if (in_array($array['ID'], $this->getAncestors($this->postId))) {
             $array['ancestor'] = true;
@@ -459,7 +459,7 @@ class Navigation
      *
      * @return  array    $postArray     The post array, with appended data
      */
-    private function appendIsCurrentPost(array $array) : array
+    private function appendIsCurrentPost(array $array): array
     {
         if ($array['ID'] == $this->postId) {
             $array['active'] = true;
@@ -480,7 +480,7 @@ class Navigation
      *
      * @return  array    $postArray     The post array, with appended data
      */
-    private function appendHref(array $array, bool $leavename = false) : array
+    private function appendHref(array $array, bool $leavename = false): array
     {
         $array['href'] = get_permalink($array['ID'], $leavename);
 
@@ -494,7 +494,7 @@ class Navigation
      *
      * @return  array   $array  The post array, with appended data
      */
-    private function transformObject(array $array) : array
+    private function transformObject(array $array): array
     {
         //Move post_title to label key
         $array['label'] = $array['post_title'];
@@ -535,7 +535,7 @@ class Navigation
      *
      * @return array
      */
-    private function getHiddenPostIds(string $metaKey = "hide_in_menu") : array
+    private function getHiddenPostIds(string $metaKey = "hide_in_menu"): array
     {
         //Get cached result
         if($cache = $this->getCache($metaKey)) {
@@ -578,7 +578,7 @@ class Navigation
      *
      * @return array
      */
-    private function getMenuTitle(string $metaKey = "custom_menu_title") : array
+    private function getMenuTitle(string $metaKey = "custom_menu_title"): array
     {
 
         //Get cached result
@@ -622,7 +622,7 @@ class Navigation
      *
      * @return object
      */
-    private function customTitle(array $array) : array
+    private function customTitle(array $array): array
     {
         $customTitles = $this->getMenuTitle();
 
@@ -746,7 +746,7 @@ class Navigation
      */
     private function getWpMenuAncestors($menu, $id)
     {
-        if(!$id) {
+        if (!$id) {
             return [];
         }
 
@@ -780,7 +780,7 @@ class Navigation
      * @param string $url
      * @return bool
      */
-    private function isCurrentUrl($url): bool
+    private function isCurrentUrl(string $url): bool
     {
         $currentUrl = $this->sanitizePath($_SERVER['REQUEST_URI']);
 
@@ -812,7 +812,7 @@ class Navigation
      * @param string $path
      * @return string
      */
-    private function sanitizePath($path): string
+    private function sanitizePath(string $path): string
     {
         return rtrim(trim($path, '/'), '/');
     }
@@ -824,7 +824,7 @@ class Navigation
      *
      * @return  array   $result    The filtered result set (without top level)
      */
-    public function removeTopLevel(array $result) : array
+    public function removeTopLevel(array $result): array
     {
         foreach ($result as $item) {
             if ($item['ancestor'] == true && is_array($item['children'])) {
@@ -841,7 +841,7 @@ class Navigation
      *
      * @return  array   $result    The filtered result set (without sub levels)
      */
-    public function removeSubLevels(array $result) : array
+    public function removeSubLevels(array $result): array
     {
         foreach ($result as $key => $item) {
             $result[$key]['children'] = false;
@@ -926,7 +926,7 @@ class Navigation
      *
      * @return array
      */
-    public function getPageForPostTypeIds() : array
+    public function getPageForPostTypeIds(): array
     {
 
         //Get cached result
