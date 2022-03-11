@@ -38,7 +38,7 @@ class Archive
         foreach ((array) get_post_types() as $key => $postType) {
             $args = get_post_type_object($postType);
 
-            if (!$args->public || $args->name === 'page') {
+            if (!$args->public || in_array($args->name, ['page', 'attachment'])) {
                 continue;
             }
 
