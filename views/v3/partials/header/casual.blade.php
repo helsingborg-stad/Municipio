@@ -37,6 +37,21 @@
                     </div>
                 @endif
 
+                @if (!empty($primaryMenuItems))
+                    <nav role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
+                        @nav([
+                            'items' => $primaryMenuItems,
+                            'allowStyle' => true,
+                            'direction' => 'horizontal',
+                            'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--end'],
+                            'context' => ['site.header.nav', 'site.header.casual.nav']
+                        ])
+                        @endnav
+                    </nav>
+                @endif
+
+                @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.casual.hamburgermenu-trigger']])
+                
                 @button([
                     'id' => 'mobile-menu-trigger-open',
                     'color' => 'default',
@@ -54,23 +69,10 @@
                     'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger']
                 ])
                 @endbutton
-
-                @if (!empty($primaryMenuItems))
-                    <nav role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
-                        @nav([
-                            'items' => $primaryMenuItems,
-                            'allowStyle' => true,
-                            'direction' => 'horizontal',
-                            'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--end'],
-                            'context' => ['site.header.nav', 'site.header.casual.nav']
-                        ])
-                        @endnav
-                    </nav>
-                @endif
-
             </div>
         </div>
     </div>
+    @includeIf('partials.navigation.hamburgermenu')
 @stop
 
 @includeIf('partials.navigation.drawer')

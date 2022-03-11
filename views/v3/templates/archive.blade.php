@@ -40,6 +40,8 @@
 
         @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
+        @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
+
         @if (!empty($posts))
 
             @includefirst(['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template], ['posts' => $posts])

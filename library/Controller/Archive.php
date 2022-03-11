@@ -57,6 +57,9 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showFilterReset']          = $this->showFilterReset($this->data['queryParameters']);
         $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
 
+        //Facetting (menu)
+        $this->data['hasQueryParameters']       = $this->hasQueryParameters(['paged' => true]);
+
         //Show filter?
         $this->data['showFilter']               = $this->showFilter($this->data['archiveProps']);
 
@@ -64,6 +67,16 @@ class Archive extends \Municipio\Controller\BaseController
         if (!isset($this->data['lang'])) {
             $this->data['lang'] = (object) [];
         }
+
+        //Archive menu
+        $archiveMenu = new \Municipio\Helper\Navigation('archive-menu');
+        $this->data['archiveMenuItems'] = $archiveMenu->getMenuItems(
+            $postType . '-menu',
+            false,
+            false,
+            true,
+            true
+        );
 
         $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found;
         $this->data['lang']->publish          = __('Published', 'municipio');
@@ -77,6 +90,8 @@ class Archive extends \Municipio\Controller\BaseController
 
         $this->data['lang']->searchBtn        = __('Search', 'municipio');
         $this->data['lang']->resetBtn         = __('Reset filter', 'municipio');
+        $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
+        $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
 
         //Filter
         $this->data = apply_filters(
@@ -147,6 +162,20 @@ class Archive extends \Municipio\Controller\BaseController
 
     /**
      * Determines if view for filter should be rendered.
+     * Check if any queryparameters is present
+     * @param  array $exceptions Keys that shold be exceptions (do not take in account)
+     * @return boolean
+     */
+    public function hasQueryParameters(array $exceptions = ['paged' => true])
+    {
+        return !empty(array_diff_key(
+            (array) $_GET,
+            (array) $exceptions
+        ));
+    }
+
+    /**
+     * Boolean function to determine if navigation should be shown
      *
      * @param string $postType
      * @return boolean
