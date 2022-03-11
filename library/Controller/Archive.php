@@ -121,7 +121,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @param  array $exceptions Keys that shold be exceptions (do not take in account)
      * @return boolean
      */
-    public function hasQueryParameters($exceptions = ['paged' => true])
+    public function hasQueryParameters(array $exceptions = ['paged' => true])
     {
         return !empty(array_diff_key(
             (array) $_GET,

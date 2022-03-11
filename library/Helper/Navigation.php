@@ -683,7 +683,6 @@ class Navigation
             } else {
                 $result = [];
             }
-
         } else {
             //Get page tree
             if ($fallbackToPageTree === true && is_numeric($pageId)) {
@@ -698,7 +697,6 @@ class Navigation
 
         //Create nested array
         if (!empty($result) && is_array($result)) {
-
             //Wheter to include top level or not
             if ($includeTopLevel === true) {
                 $pageStructure = $this->buildTree($result);
