@@ -182,7 +182,10 @@ class Post
      */
     protected static function getPostTerms($postId, $includeLink = false)
     {
-        $taxonomies = get_field('archive_' . get_post_type($postId) . '_post_taxonomy_display', 'options');
+        $taxonomies = get_theme_mod(
+            'archive_' . get_post_type($postId) . '_taxonomies_to_display',
+            false
+        );
 
         $termsList = [];
 

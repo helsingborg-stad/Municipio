@@ -22,30 +22,31 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
-        $template = $this->getTemplate($postType);
+
+        //Get archive properties
+        $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Get template
+        $template                               = $this->getTemplate($this->data['archiveProps']);
         $this->data['template']                 = $template;
 
         //The posts
         $this->data['posts']                    = $this->getPosts($template);
-
-        //Sidebar
-        $this->data['showSidebarNavigation']    = $this->showSidebarNavigation($postType);
+        $this->data['posts']                    = $this->getDate($this->data['posts'], $this->data['archiveProps']);
 
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
 
         //Filter options
-        $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType);
-        $this->data['filterPosition']           = $this->getFilterPosition($postType);
-        $this->data['enableTextSearch']         = $this->enableTextSearch($postType);
-        $this->data['enableDateFilter']         = $this->enableDateFilter($postType);
+        $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
+        $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
+        $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
 
         //Archive data
-        $this->data['archiveTitle']             = $this->getArchiveTitle($postType);
+        $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
+        $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
-        $this->data['gridColumnClass']          = $this->getGridClass($postType);
+        $this->data['gridColumnClass']          = $this->getGridClass($this->data['archiveProps']);
 
         //Pagination
         $this->data['currentPage']              = $this->getCurrentPage();
@@ -60,7 +61,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['hasQueryParameters']       = $this->hasQueryParameters(['paged' => true]);
 
         //Show filter?
-        $this->data['showFilter']               = $this->showFilter($postType);
+        $this->data['showFilter']               = $this->showFilter($this->data['archiveProps']);
 
         //Language
         if (!isset($this->data['lang'])) {
@@ -99,24 +100,68 @@ class Archive extends \Municipio\Controller\BaseController
             $postType,
             $template
         );
+    }
 
+    /**
+     * Get archive properties
+     * @param  string $postType
+     * @param  array $customizer
+     * @return array|bool
+     */
+    private function getArchiveProperties($postType, $customize) {
+        $customizationKey = "archive" . $this->camelCasePostTypeName($postType);
+        if (isset($customize->{$customizationKey})) {
+            return (object) $customize->{$customizationKey};
+        }
+        return false;
+    }
+
+    /**
+     * Create a grid column size
+     * @param  array $archiveProps
+     * @return string
+     */
+    private function getGridClass($args): string
+    {
+        $stack = [];
+
+        if (!isset($args->numberOfColumns) || !is_numeric($args->numberOfColumns)) {
+            $args->numberOfColumns = 4;
+        }
+
+        $stack[] = \Municipio\Helper\Html::createGridClass(1);
+
+        if ($args->numberOfColumns == 2) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'lg');
+        }
+
+        if ($args->numberOfColumns == 3) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'lg');
+        }
+
+        if ($args->numberOfColumns == 4) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'sm');
+            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(4, 'lg');
+        }
+
+        return implode(' ', $stack);
+    }
+
+    /**
+     * Camel calse post type name
+     *
+     * @param string $postType
+     * @return string
+     */
+    private function camelCasePostTypeName($postType) {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
     }
 
     /**
      * Determines if view for filter should be rendered.
-     *
-     * @param string $postType
-     * @return boolean
-     */
-    public function showFilter($postType) {
-        return (bool) array_filter([
-            $this->enableTextSearch($postType),
-            $this->enableDateFilter($postType),
-            $this->getTaxonomyFilters($postType)
-        ]);
-    }
-
-    /**
      * Check if any queryparameters is present
      * @param  array $exceptions Keys that shold be exceptions (do not take in account)
      * @return boolean
@@ -132,12 +177,14 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Boolean function to determine if navigation should be shown
      *
-     * @param   string      $postType   The current post type
-     * @return  boolean                 True or false val.
+     * @param string $postType
+     * @return boolean
      */
-    public function showSidebarNavigation($postType)
+    public function showFilter($args)
     {
-        return (bool) get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option');
+        if (isset($args->enabledFilters) && !empty($args->enabledFilters)) {
+            return $args->enabledFilters;
+        }
     }
 
     /**
@@ -146,9 +193,12 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    public function enableTextSearch($postType)
+    public function enableTextSearch($args)
     {
-        return (bool) in_array('text_search', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options'));
+        return (bool) in_array(
+            'text_search',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
     }
 
     /**
@@ -157,21 +207,12 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    public function enableDateFilter($postType)
+    public function enableDateFilter($args)
     {
-        return (bool) in_array('date_range', (array) get_field('archive_' . sanitize_title($postType) . '_post_filters_header', 'options'));
-    }
-
-    /**
-     * Get the position of the filter
-     *
-     * @param string $postType
-     *
-     * @return string
-     */
-    public function getFilterPosition(string $postType)
-    {
-        return (string) get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option');
+        return (bool) in_array(
+            'date_range',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
     }
 
     /**
@@ -193,28 +234,13 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function getTemplate(string $postType, string $default = 'compressed'): string
+    public function getTemplate(object $args, string $default = 'cards'): string
     {
-        $archiveOption = get_field('archive_' . sanitize_title($this->data['postType']) . '_post_style', 'option');
-
-        if (!empty($archiveOption)) {
-            return $archiveOption;
+        if (isset($args->style) && !empty($args->style)) {
+            return $args->style;
         }
 
         return $default;
-    }
-
-    /**
-     * Get the grid class
-     *
-     * @param   string  $postType   The current post type
-     *
-     * @return void
-     */
-    public function getGridClass(string $postType)
-    {
-        $gridSize = get_field('archive_' . sanitize_title($postType) . '_grid_columns', 'option');
-        return apply_filters('Municipio/Controller/Archive/GridColumnClass', $gridSize, $postType);
     }
 
     /**
@@ -268,11 +294,24 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    protected function getArchiveTitle($postType)
+    protected function getArchiveTitle($args)
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveTitle',
-            get_field('archive_' . $postType . '_title', 'options')
+            $args->heading
+        );
+    }
+
+    /**
+     * Get the archive lead
+     *
+     * @return string
+     */
+    protected function getArchiveLead($args)
+    {
+        return (string) \apply_filters(
+            'Municipio/Controller/Archive/getArchiveLead',
+            $args->body
         );
     }
 
@@ -304,9 +343,10 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return bool
      */
-    protected function showPagination($postType, $archiveBaseUrl, $wpQuery) {
+    protected function showPagination($postType, $archiveBaseUrl, $wpQuery)
+    {
 
-        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery); 
+        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery);
 
         if (is_null($pagesArray)) {
             return false;
@@ -350,7 +390,7 @@ class Archive extends \Municipio\Controller\BaseController
         //Include taxonomies (dynamic)
         $taxonomies = get_object_taxonomies($this->data['postType']);
 
-        if(is_array($taxonomies) && !empty($taxonomies)) {
+        if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
                 $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
             }
@@ -368,23 +408,25 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   string  $postType           The current post type
      * @return  array   $taxonomyObjects    Array containing selects with options
      */
-    protected function getTaxonomyFilters($postType)
+    protected function getTaxonomyFilters($postType, $args)
     {
+        if (!isset($args->enabledFilters) || empty($args->enabledFilters)) {
+            return [];
+        }
 
         //Define storage point
         $taxonomyObjects = [];
 
         //Get active taxonomy filters
-        $taxonomies = get_field('archive_' . $postType . '_post_filters_sidebar', 'options');
+        $taxonomies = $args->enabledFilters;
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
-
                 //Fetch full object
                 $taxonomy = get_taxonomy($taxonomy);
 
                 //Bail if not found
-                if($taxonomy === false) {
+                if ($taxonomy === false) {
                     continue;
                 }
 
@@ -442,7 +484,7 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return  array   $items     Array of posts
      */
-    public function getPosts($template) : array
+    public function getPosts($template): array
     {
         $items = null;
         if (is_array($this->posts) && !empty($this->posts)) {
@@ -474,8 +516,54 @@ class Archive extends \Municipio\Controller\BaseController
                 $post                   = \Municipio\Helper\Post::preparePostObject($post);
                 $post->href             = $post->permalink;
                 $post->excerpt          = $post->postExcerpt;
-                $post->postDate         = \date('Y-m-d', strtotime($post->postDate));
-                $post->postModified     = \date('Y-m-d', strtotime($post->postModified));
+                $preparedPosts[] = $post;
+            }
+        }
+
+        return $preparedPosts;
+    }
+
+    /**
+     * Prepare a date to show in view
+     *
+     * @param   array $posts    The posts
+     * @return  array           The posts - with archive date
+     */
+    public function getDate($posts, $archiveProps)
+    {
+        $preparedPosts = [];
+
+        if ($archiveProps->dateField === 'none') {
+            return $posts;
+        }
+
+        $isMetaKey = in_array($archiveProps->dateField, ['post_date', 'post_modified']) ? false : true;
+
+        if ($isMetaKey == true) {
+            $targetFieldName = $archiveProps->dateField;
+        } else {
+            $targetFieldName = \Municipio\Helper\FormatObject::camelCase($archiveProps->dateField);
+        }
+
+        if (is_array($posts) && !empty($posts)) {
+            foreach ($posts as $post) {
+                if (!is_null($archiveProps->dateField)) {
+                    if ($isMetaKey === true) {
+                        $post->archiveDate = get_post_meta($post->id, $post, true);
+                    } elseif (isset($post->{$targetFieldName})) {
+                        $post->archiveDate = $post->{$targetFieldName};
+                    }
+                }
+
+                if (!isset($post->archiveDate)) {
+                    $post->archiveDate = false;
+                } else {
+                    $post->archiveDate = date(
+                        $archiveProps->dateFormat,
+                        strtotime($post->archiveDate)
+                    );
+                }
+
                 $preparedPosts[] = $post;
             }
         }

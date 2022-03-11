@@ -9,20 +9,6 @@ class Archive
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
         add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
-
-        add_filter('Municipio/Controller/Archive/GridColumnClass', array($this, 'replaceGridClasses'), 20, 1); 
-    }
-
-    public function replaceGridClasses($classname)
-    {
-
-        $classname = str_replace('grid-md-12', 'o-grid-12@md', $classname);
-        $classname = str_replace('grid-md-6', 'o-grid-6@md', $classname);
-        $classname = str_replace('grid-md-4', 'o-grid-4@md', $classname);
-        $classname = str_replace('grid-md-3', 'o-grid-3@md', $classname);
-        $classname = str_replace('grid-md-2', 'o-grid-2@md', $classname);
-
-        return $classname;
     }
 
     /*
@@ -30,17 +16,16 @@ class Archive
     * @param $WP_Query The query to show current archive page return
     * @return bool True or false depending on if the query has been altered or not.
     */
-    public function filterNumberOfPostsInArchive($query) : bool
+    public function filterNumberOfPostsInArchive($query): bool
     {
         if (!is_admin() && $query->is_main_query()) {
-
             //Check that posttype is valid
             if (!isset($query->query["post_type"])) {
                 return false;
             }
 
             //Get current post count
-            $postCount = get_field('archive_' . $query->query["post_type"] . '_number_of_posts', 'option');
+            $postCount = get_theme_mod('archive_' . $query->query["post_type"] . '_post_count', 12);
 
             //Set value
             if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {

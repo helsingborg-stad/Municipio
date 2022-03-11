@@ -27,10 +27,16 @@ class Modifiers
                     continue;
                 }
 
-                $filter = [
-                'contexts'  => $field['output']['context'],
-                'value'     => \Kirki::get_option($key)
-                ];
+                if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output'])) {
+                    foreach ($field['output'] as $output) {
+                        if (isset($output['context'])) {
+                            $filter = [
+                                'contexts'  => $output['context'],
+                                'value'     => \Kirki::get_option($key)
+                            ];
+                        }
+                    }
+                }
 
                 add_filter('ComponentLibrary/Component/Modifier', function ($modifiers, $contexts) use ($filter) {
 
@@ -62,23 +68,15 @@ class Modifiers
    * @param array $field
    * @return boolean
    */
-    private function isModifierSetting($field)
+    private function isModifierSetting($field, $lookForType = 'modifier')
     {
-
-        if (!isset($field['output']['type'])) {
-            return false;
+        if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
+            foreach ($field['output'] as $output) {
+                if (isset($output['type']) && $output['type'] === $lookForType) {
+                    return true;
+                }
+            }
         }
-
-        $type = $field['output']['type'];
-
-        if (is_string($type) && $type === 'modifier') { //Invalid format in kirki, backwards compatibility
-            return true;
-        }
-
-        if (is_array($type) && in_array('modifier', $type)) {
-            return true;
-        }
-
         return false;
     }
 }

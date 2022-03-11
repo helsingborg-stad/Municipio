@@ -36,8 +36,8 @@ class Quicklinks
           'description' => esc_html__('Choose a background color for the quicklinks section of the page.', 'municipio'),
           'section'     => self::SECTION_ID,
           'default'     => '#ffffff',
-          'output'      => [
-            'type' => 'controller'
+          'output' => [
+            ['type' => 'controller']
           ],
           'active_callback'  => [
             [
@@ -62,8 +62,10 @@ class Quicklinks
               'secondary' => esc_html__('Secondary', 'municipio')
           ],
           'output' => [
-              'type' => 'modifier',
-              'context' => ['site.quicklinks'],
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
           ],
           'active_callback'  => [
             [
@@ -87,8 +89,10 @@ class Quicklinks
               'sticky' => esc_html__('Stick to top', 'municipio'),
           ],
           'output' => [
-              'type' => 'modifier',
-              'context' => ['site.quicklinks'],
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
           ],
         ]);
 
@@ -108,8 +112,10 @@ class Quicklinks
               'text-secondary' => esc_html__('Secondary', 'municipio')
           ],
           'output' => [
-              'type' => 'modifier',
-              'context' => ['site.quicklinks'],
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
           ],
         ]);
 
@@ -126,7 +132,7 @@ class Quicklinks
               'everywhere' => esc_html__('All pages', 'municipio'),
           ],
           'output' => [
-              'type' => 'controller',
+            ['type' => 'controller']
           ],
         ]);
 

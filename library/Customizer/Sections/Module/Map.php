@@ -31,8 +31,10 @@ class Map
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.map'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['module.map']
+                ]
             ],
         ]);
 

@@ -1,46 +1,44 @@
 @extends('templates.single')
 
-@section('before-layout')
-    @if ($filterPosition == 'top')
-        <div class="o-container">
-            @includeFirst([
-                "partials.archive.archive-" . sanitize_title($postType) . "-filters",
-                "partials.archive.archive-filters"
-            ])
-        </div>
-    @endif
-@stop
-
 @section('helper-navigation')
     @includeIf('partials.navigation.helper')
 @stop
 
 @section('content')
 
-    @if($archiveTitle)
+    @if($archiveTitle||$archiveLead)
         <article id="article" class="c-article c-article--readable-width s-article u-clearfix">
-            @typography([
-                "variant" => "h1",
-                "element" => "h1",
-                "classList" => ['t-archive-title', 't-' . $postType . '-archive-title', 'u-margin__bottom--2']
-            ])
-                {{ $archiveTitle }}
-            @endtypography
+            @if($archiveTitle)
+                @typography([
+                    "variant" => "h1",
+                    "element" => "h1",
+                    "classList" => ['t-archive-title', 't-' . $postType . '-archive-title']
+                ])
+                    {{ $archiveTitle }}
+                @endtypography
+            @endif
+            @if($archiveLead) 
+                @typography([
+                    "variant" => "p",
+                    "element" => "p",
+                    "classList" => ['lead', 't-archive-lead', 't-' . $postType . '-archive-lead']
+                ])
+                    {{ $archiveLead }}
+                @endtypography
+            @endif
         </article>
     @endif
+
+    @includeFirst([
+        "partials.archive.archive-" . sanitize_title($postType) . "-filters",
+        "partials.archive.archive-filters"
+    ])
 
     <div class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive">
         
         {!! $hook->loopStart !!}
 
         @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
-
-        @if ($filterPosition == 'content')
-            @includeFirst([
-                "partials.archive.archive-" . sanitize_title($postType) . "-filters",
-                "partials.archive.archive-filters"
-            ])
-        @endif 
 
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 

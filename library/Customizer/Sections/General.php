@@ -28,7 +28,7 @@ class General
             'hidden'  => esc_html__('Hidden', 'kirki'),
           ],
           'output' => [
-            'type' => 'controller'
+            ['type' => 'controller']
           ],
         ]);
     }

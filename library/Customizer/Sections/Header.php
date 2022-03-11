@@ -27,7 +27,7 @@ class Header
                 'business' => esc_html__('Business (large sites)', 'municipio'),
             ],
             'output' => [
-                'type' => 'controller',
+                ['type' => 'controller']
             ],
         ]);
 
@@ -44,8 +44,10 @@ class Header
                 'sticky' => esc_html__('Stick to top', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['site.header'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header'],
+                ],
             ],
         ]);
 
@@ -63,8 +65,10 @@ class Header
                 'secondary' => esc_html__('Secondary', 'municipio')
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['site.header'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header']
+                ],
             ],
         ]);
 
@@ -84,8 +88,10 @@ class Header
                 'text-secondary' => esc_html__('Secondary', 'municipio')
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['site.header'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header']
+                ]
             ],
         ]);
 
@@ -102,8 +108,10 @@ class Header
                 'accented' => esc_html__('Accented', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['site.header'],
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header']
+                ]
             ],
         ]);
 

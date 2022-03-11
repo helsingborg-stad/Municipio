@@ -31,8 +31,10 @@ class Posts
             'highlight' => esc_html__('Highlight', 'municipio'),
           ],
           'output' => [
-              'type' => 'modifier',
-              'context' => ['module.posts.index'],
+              [
+                'type' => 'modifier',
+                'context' => ['module.posts.index']
+              ]
           ],
         ]);
 
@@ -50,8 +52,10 @@ class Posts
             'highlight' => esc_html__('Highlight', 'municipio'),
           ],
           'output' => [
-              'type' => 'modifier',
-              'context' => ['module.posts.list'],
+              [
+                'type' => 'modifier',
+                'context' => ['module.posts.list']
+              ]
           ],
         ]);
 
@@ -69,8 +73,10 @@ class Posts
             'highlight' => esc_html__('Highlight', 'municipio'),
           ],
           'output' => [
-              'type' => 'modifier',
-              'context' => ['module.posts.expandablelist'],
+              [
+                'type' => 'modifier',
+                'context' => ['module.posts.expandablelist']
+              ]
           ],
         ]);
 

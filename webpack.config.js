@@ -34,6 +34,7 @@ module.exports = {
         /* Admin js */
         'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
         'js/design-share': './assets/source/3.0/js/admin/designShare.js',
+        'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',

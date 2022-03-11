@@ -29,8 +29,10 @@ class Shadow
                 'step' => 0.1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--drop-shadow-amount',
+                [
+                    'element'   => ':root',
+                    'property'  => '--drop-shadow-amount',
+                ]
             ],
         ]);
     }

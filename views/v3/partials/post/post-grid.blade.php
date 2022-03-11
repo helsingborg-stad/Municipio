@@ -1,18 +1,19 @@
 @if ($posts)
     <div class="o-grid">
         @foreach($posts as $post)
-            <div class="o-grid-12 {{ $gridColumnClass }}">
+            <div class="{{ $gridColumnClass }}">
                 @block([
                     'link' => $post->permalink,
                     'heading' =>  $post->postTitle,
-                    'ratio' => '12:16',
+                    'ratio' => $archiveProps->format == 'tall' ? '12:16' : '4:3',
                     'meta' => $post->termsunlinked,
                     'filled' => true,
                     'image' => [
-                        'src' => $post->thumbnailTall['src'],
+                        'src' => $archiveProps->format == 'tall' ? $post->thumbnailTall['src'] : $post->thumbnail['src'],
                         'alt' => $post->thumbnailTall['alt'] ? $post->thumbnailTall['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary',
                     ],
+                    'date' => $post->archiveDate,
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
                 ])

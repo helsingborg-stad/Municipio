@@ -80,35 +80,35 @@ class Width
         ] );
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'column_size_left',
-          'label'       => esc_html__('Left', 'municipio'),
-          'section'     => self::SECTION_ID,
-          'default'     => 'normal',
-          'priority'    => 15,
-          'choices'     => [
-              'normal' => esc_html__('Normal', 'municipio'),
-              'large' => esc_html__('Large', 'municipio'),
-          ],
-          'output' => [
-              'type' => 'controller'
-          ],
+            'type'        => 'select',
+            'settings'    => 'column_size_left',
+            'label'       => esc_html__('Left', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'normal',
+            'priority'    => 15,
+            'choices'     => [
+                'normal' => esc_html__('Normal', 'municipio'),
+                'large' => esc_html__('Large', 'municipio'),
+            ],
+            'output' => [
+                ['type' => 'controller']
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'column_size_right',
-          'label'       => esc_html__('Right', 'municipio'),
-          'section'     => self::SECTION_ID,
-          'default'     => 'normal',
-          'priority'    => 20,
-          'choices'     => [
-              'normal' => esc_html__('Normal', 'municipio'),
-              'large' => esc_html__('Large', 'municipio'),
-          ],
-          'output' => [
-              'type' => 'controller'
-          ],
+            'type'        => 'select',
+            'settings'    => 'column_size_right',
+            'label'       => esc_html__('Right', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'normal',
+            'priority'    => 20,
+            'choices'     => [
+                'normal' => esc_html__('Normal', 'municipio'),
+                'large' => esc_html__('Large', 'municipio'),
+            ],
+            'output' => [
+                ['type' => 'controller']
+            ],
         ]);
     }
 }

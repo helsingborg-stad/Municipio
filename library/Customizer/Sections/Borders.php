@@ -113,9 +113,11 @@ class Borders
                 'step' => 1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--border-width-button',
-                'units'     => 'px'
+                [
+                    'element'   => ':root',
+                    'property'  => '--border-width-button',
+                    'units'     => 'px'
+                ]
             ],
         ]);
 
@@ -133,9 +135,11 @@ class Borders
                 'step' => 1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--border-width-input',
-                'units'     => 'px'
+                [
+                    'element'   => ':root',
+                    'property'  => '--border-width-input',
+                    'units'     => 'px'
+                ]
             ],
         ]);
     }

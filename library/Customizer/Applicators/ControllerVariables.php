@@ -32,11 +32,11 @@ class ControllerVariables
                      */
 
                     if (!isset($field['active_callback'])) {
-                        $stack[$key] = \Kirki::get_option($key);
+                        $stack = $this->appendStack($stack, \Kirki::get_option($key), $key, $field);
                     } elseif (is_string($field['active_callback']) && $field['active_callback'] === '__return_true') {
-                        $stack[$key] = \Kirki::get_option($key);
+                        $stack = $this->appendStack($stack, \Kirki::get_option($key), $key, $field);
                     } elseif (is_string($field['active_callback']) && $field['active_callback'] === '__return_false') {
-                        $stack[$key] = null;
+                        $stack = $this->appendStack($stack, null, $key, $field);
                     } elseif (is_array($field['active_callback']) && !empty($field['active_callback'])) {
                         $shouldReturn = false;
 
@@ -64,9 +64,9 @@ class ControllerVariables
                         }
 
                         if ($shouldReturn === true) {
-                            $stack[$key] = \Kirki::get_option($key);
+                            $stack = $this->appendStack($stack, \Kirki::get_option($key), $key, $field);
                         } else {
-                            $stack[$key] = null;
+                            $stack = $this->appendStack($stack, null, $key, $field);
                         }
                     }
                 }
@@ -99,23 +99,87 @@ class ControllerVariables
    * @param array $field
    * @return boolean
    */
-    private function isControllerSetting($field)
+    private function isControllerSetting($field, $lookForType = 'controller')
     {
-
-        if (!isset($field['output']['type'])) {
-            return false;
+        if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
+            foreach ($field['output'] as $output) {
+                if (isset($output['type']) && $output['type'] === $lookForType) {
+                    return true;
+                }
+            }
         }
-
-        $type = $field['output']['type'];
-
-        if (is_string($type) && $type === 'controller') { //Invalid format in kirki, backwards compatibility
-            return true;
-        }
-
-        if (is_array($type) && in_array('controller', $type)) {
-            return true;
-        }
-
         return false;
+    }
+
+   /**
+   * Determine output type
+   *
+   * @param array $field
+   * @return boolean
+   */
+    private function shouldStackInObject($field, $lookForType = 'controller')
+    {
+        if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
+            foreach ($field['output'] as $output) {
+                if (isset($output['type']) && $output['type'] === $lookForType) {
+                    if (isset($output['as_object']) && $output['as_object'] === true) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Append to stack
+     *
+     * @param array $stack  Prevois stack object
+     * @param string $value Value to append
+     * @param string $key   Field key to store
+     * @param array $field  Field definition
+     * @return void
+     */
+    private function appendStack($stack, $value, $key, $field)
+    {
+        if ($this->shouldStackInObject($field)) {
+            //Get and create object
+            $section = $this->sanitizeStackObjectName($field['section']);
+            if (!isset($stack[$section]) || !is_array($stack[$section])) {
+                $stack[$section] = [];
+            }
+
+            //Store in sanitized item name
+            $stack[$section][
+                $this->sanitizeStackItemName($key, $section)
+            ] = $value;
+        } else {
+            $stack[$key] = $value;
+        }
+
+        return $stack;
+    }
+
+    /**
+     * Sanitize stack object name. Removes customizer panel prefix.
+     *
+     * @param string $name
+     * @return string
+     */
+    private function sanitizeStackObjectName($name)
+    {
+        return str_replace('municipio_customizer_panel_', '', $name);
+    }
+
+    /**
+     * Remove object name from item keys
+     *
+     * @param string $name
+     * @param string $santizationString
+     * @return string
+     */
+    private function sanitizeStackItemName($name, $santizationString) 
+    {
+        return str_replace($santizationString, '', $name);
     }
 }

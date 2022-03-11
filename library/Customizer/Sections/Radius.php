@@ -28,9 +28,11 @@ class Radius
                 'step' => 1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--radius-xs',
-                'units'     => 'px'
+                [
+                    'element'   => ':root',
+                    'property'  => '--radius-xs',
+                    'units'     => 'px'
+                ]
             ],
         ]);
 
@@ -47,9 +49,11 @@ class Radius
                 'step' => 1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--radius-sm',
-                'units'     => 'px'
+                [
+                    'element'   => ':root',
+                    'property'  => '--radius-sm',
+                    'units'     => 'px'
+                ]
             ],
         ]);
 
@@ -66,9 +70,11 @@ class Radius
                 'step' => 1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--radius-md',
-                'units'     => 'px'
+                [
+                    'element'   => ':root',
+                    'property'  => '--radius-md',
+                    'units'     => 'px'
+                ]
             ],
         ]);
 
@@ -85,9 +91,11 @@ class Radius
                 'step' => 1,
             ],
             'output' => [
-                'element'   => ':root',
-                'property'  => '--radius-lg',
-                'units'     => 'px'
+                [
+                    'element'   => ':root',
+                    'property'  => '--radius-lg',
+                    'units'     => 'px'
+                ]
             ],
         ]);
     }

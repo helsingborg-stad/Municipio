@@ -228,19 +228,25 @@ if (!function_exists('municipio_post_taxonomies_to_display')) {
      * @param  int    $postId The id of the post
      * @return array          Taxs and terms
      */
-    function municipio_post_taxonomies_to_display(int $postId) : array
+    function municipio_post_taxonomies_to_display(int $postId): array
     {
-        $taxonomies = array();
-        $post = get_post($postId);
-        $taxonomiesToShow = get_field('archive_' . sanitize_title($post->post_type) . '_post_taxonomy_display', 'option');
+        $stack = array();
 
-        foreach ((array)$taxonomiesToShow as $taxonomy) {
-            $taxonomies[$taxonomy] = apply_filters('Municipio/taxonomies_to_display/terms', wp_get_post_terms($postId, $taxonomy), $postId, $taxonomy);
+        $taxonomies = get_theme_mod(
+            'archive_' . get_post_type($postId) . '_taxonomies_to_display',
+            false
+        );
+
+        if (is_array($taxonomies) && !empty($taxonomies)) {
+            foreach ($taxonomies as $taxonomy) {
+                $stack[$taxonomy] = apply_filters(
+                    'Municipio/taxonomies_to_display/terms', 
+                    wp_get_post_terms($postId, $taxonomy), $postId, $taxonomy
+                );
+            }
         }
 
-        $taxonomies = array_filter($taxonomies);
-
-        return $taxonomies;
+        return array_filter($stack);
     }
 }
 

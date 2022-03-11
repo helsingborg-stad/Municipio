@@ -30,8 +30,10 @@ class Index
               'highlight' => esc_html__('Highlight', 'municipio'),
             ],
             'output' => [
-                'type' => 'modifier',
-                'context' => ['module.index'],
+                [
+                  'type' => 'modifier',
+                  'context' => ['module.index']
+                ]
             ],
           ]);
 
