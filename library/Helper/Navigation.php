@@ -786,9 +786,10 @@ class Navigation
 
         //Check if urls match
         if (parse_url($url, PHP_URL_PATH) !== null) {
-            $checkUrl   = $this->sanitizePath(
-                parse_url($url, PHP_URL_PATH)
-            ) . (parse_url($url, PHP_URL_QUERY) ? '?' . parse_url($url, PHP_URL_QUERY) : '');
+            $checkUrl = $this->sanitizePath(parse_url($url, PHP_URL_PATH));
+             if ($urlQuery = parse_url($url, PHP_URL_QUERY)) {
+                 $checkUrl .=  '?' .$urlQuery;
+             }
 
             if ($currentUrl == $checkUrl) {
                 return true;
