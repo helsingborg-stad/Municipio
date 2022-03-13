@@ -127,6 +127,13 @@ class Archive
                     'as_object' => true,
                 ]
             ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_style',
+                    'operator' => '!=',
+                    'value'    => 'list',
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
