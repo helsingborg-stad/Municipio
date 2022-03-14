@@ -533,7 +533,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $preparedPosts = [];
 
-        if ($archiveProps->dateField === 'none') {
+        if ($archiveProps->dateField === 'none' || is_null($archiveProps->dateField)) {
             return $posts;
         }
 
@@ -547,7 +547,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
-
                 if (!is_object($post)) {
                     continue;
                 }
