@@ -547,6 +547,11 @@ class Archive extends \Municipio\Controller\BaseController
 
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
+
+                if (!is_object($post)) {
+                    continue;
+                }
+
                 if (!is_null($archiveProps->dateField)) {
                     if ($isMetaKey === true) {
                         $post->archiveDate = get_post_meta($post->id, $post, true);
