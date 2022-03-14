@@ -57,16 +57,18 @@
             @endif
 
         @else
-
-            @notice([
-                'type' => 'info',
-                'message' => [
-                    'text' => $lang->noResult,
-                    'size' => 'md'
-                ]
-            ])
-            @endnotice
-
+            <div class="o-grid">
+                <div class="o-grid-12">
+                    @notice([
+                        'type' => 'info',
+                        'message' => [
+                            'text' => $lang->noResult,
+                            'size' => 'md'
+                        ]
+                    ])
+                    @endnotice
+                </div>
+            </div>
         @endif
 
         @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
