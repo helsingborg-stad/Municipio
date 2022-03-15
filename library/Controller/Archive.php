@@ -234,9 +234,9 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function getTemplate(object $args, string $default = 'cards'): string
+    public function getTemplate($args, string $default = 'cards'): string
     {
-        if (isset($args->style) && !empty($args->style)) {
+        if (is_object($args) && isset($args->style) && !empty($args->style)) {
             return $args->style;
         }
 
