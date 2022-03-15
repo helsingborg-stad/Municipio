@@ -73,6 +73,7 @@ class Archive
      */
     private function getTaxonomies($postType): array
     {
+        $stack = [];
         $taxonomies = get_object_taxonomies($postType, 'objects');
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
