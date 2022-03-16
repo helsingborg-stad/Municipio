@@ -4,7 +4,7 @@
         'color' => 'default',
         'style' => 'basic',
         'icon' => 'menu',
-        'text' => '<span class="hamburger-menu-trigger__label">' . __('Menu', 'component-library') . '</span><span class="hamburger-menu-trigger__close">' . __('Close', 'component-library') . '</span>',
+        'text' => __('Menu', 'component-library'),
         'classList' => [
             'hamburger-menu-trigger',
         ],
@@ -12,8 +12,8 @@
             'aria-label' => $lang->menu,
             'aria-controls' => "navigation",
             'data-js-toggle-trigger' => 'hamburger-menu',
-            'data-js-toggle-item' => 'hamburger-menu',
-            'data-js-toggle-class' => 'open'
+            'data-toggle-icon' => 'close',
+            'data-toggle-label' => __('Close', 'component-library'),
         ],
         'context' => $context
     ])

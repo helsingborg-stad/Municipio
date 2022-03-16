@@ -1,8 +1,8 @@
-@if (get_theme_mod('hamburger_menu_enabled') && !empty($hamburgerMenuItems))
+@if ($customizer->hamburgerMenuEnabled && !empty($hamburgerMenuItems))
     @hamburgerMenu([
         'menuItems' => $hamburgerMenuItems,
         'showSearch' => $showHamburgerMenuSearch,
-        'parentButtons' => get_theme_mod('hamburger_menu_parent_buttons'),
+        'parentButtons' => $customizer->hamburgerMenuParentButtons,
         'classList' => ['u-display--none']
     ])
     @endhamburgerMenu

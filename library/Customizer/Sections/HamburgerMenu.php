@@ -27,7 +27,7 @@ class HamburgerMenu
                 'off' => esc_html__( 'Disabled', 'kirki' ),
             ],
             'output' => [
-                'type' => 'controller',
+                ['type' => 'controller']
             ]
         ]);
 
@@ -43,7 +43,7 @@ class HamburgerMenu
                 'off' => esc_html__( 'Disabled', 'kirki' ),
             ],
             'output' => [
-                'type' => 'controller',
+                ['type' => 'controller']
             ]
         ]);
     }
