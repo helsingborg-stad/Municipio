@@ -33,6 +33,22 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
+            'settings'    => 'hamburger_menu_mobile',
+            'label'       => esc_html__('Show on mobile', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'off',
+            'priority'    => 10,
+            'choices' => [
+                'on'  => esc_html__( 'Enabled', 'kirki' ),
+                'off' => esc_html__( 'Disabled', 'kirki' ),
+            ],
+            'output' => [
+                ['type' => 'controller']
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
             'settings'    => 'hamburger_menu_parent_buttons',
             'label'       => esc_html__('Show parents as buttons', 'municipio'),
             'section'     => self::SECTION_ID,

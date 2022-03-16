@@ -7,6 +7,7 @@
         'text' => __('Menu', 'component-library'),
         'classList' => [
             'hamburger-menu-trigger',
+            !$customizer->hamburgerMenuMobile ? 'u-display--none@sm u-display--none@md' : '',
         ],
         'attributeList' => [
             'aria-label' => $lang->menu,
