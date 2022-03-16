@@ -9,13 +9,22 @@ use Kirki as Kirki;
 class Slider
 {
     public const SECTION_ID = "municipio_customizer_section_component_slider";
+    public const HERO_SECTION_ID = "municipio_customizer_section_hero_component_slider";
+    public const PANEL_ID = "municipio_customizer_panel_component_slider";
 
     public function __construct($panelID)
     {
-        Kirki::add_section(self::SECTION_ID, array(
+        \Kirki::add_panel(self::PANEL_ID, array(
+            'priority'    => 120,
             'title'       => esc_html__('Slider', 'municipio'),
             'description' => esc_html__('Settings for sliders.', 'municipio'),
-            'panel'       => $panelID,
+            'panel'       => $panelID
+        ));
+
+        \Kirki::add_section(self::SECTION_ID, array(
+            'title'       => esc_html__('Regular Slider', 'municipio'),
+            'description' => esc_html__('Settings for sliders.', 'municipio'),
+            'panel'       => self::PANEL_ID,
             'priority'    => 160,
         ));
 
@@ -58,6 +67,122 @@ class Slider
                 'element'   => ':root',
                 'property'  => '--c-slider-padding',
                 'unit'      => ''
+            ],
+        ]);
+
+        /**
+         * Slider container colour
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'slider_container_color',
+            'label'       => esc_html__('Container colour', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'transparent',
+            'choices' => array(
+                'bg-none' => __('None', 'modularity'),
+                'bg-transparent' => __('Transparent', 'modularity'),
+                'bg-theme' => __('Theme', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => [
+                        [
+                            'context' => 'module.slider-item',
+                            'operator' => '=='
+                        ],
+                        [
+                            'context' => 'sidebar.slider-area.module.slider-item',
+                            'operator' => '!='
+                        ]
+                    ]
+                ]
+            ],
+        ]);
+
+        /**
+         * Slider text alignment
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'slider_text_alignment',
+            'label'       => esc_html__('Text alignment', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'left',
+            'choices' => array(
+                'text-align-left' => __('Left', 'modularity'),
+                'text-align-center' => __('Center', 'modularity'),
+                'text-align-right' => __('Right', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => [
+                        [
+                            'context' => 'module.slider-item',
+                            'operator' => '==',
+                        ],
+                        [
+                            'context' => 'sidebar.slider-area.module.slider-item',
+                            'operator' => '!=',
+                        ]
+                    ]
+                ]
+            ],
+        ]);
+
+        /**
+         * Hero slider settings
+         */
+        \Kirki::add_section(self::HERO_SECTION_ID, array(
+            'title'       => esc_html__('Hero slider', 'municipio'),
+            'description' => esc_html__('Settings for the slider in the hero area.', 'municipio'),
+            'panel'       => self::PANEL_ID,
+            'priority'    => 150,
+        ));
+
+        /**
+         * Slider container colour
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hero_slider_container_color',
+            'label'       => esc_html__('Container colour', 'municipio'),
+            'section'     => self::HERO_SECTION_ID,
+            'default'     => 'transparent',
+            'choices' => array(
+                'bg-none' => __('None', 'modularity'),
+                'bg-transparent' => __('Transparent', 'modularity'),
+                'bg-theme' => __('Theme', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['sidebar.slider-area.module.slider-item']
+                ]
+            ],
+        ]);
+
+        /**
+         * Slider text alignment
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hero_slider_text_alignment',
+            'label'       => esc_html__('Text alignment', 'municipio'),
+            'section'     => self::HERO_SECTION_ID,
+            'default'     => 'left',
+            'choices' => array(
+                'text-align-left' => __('Left', 'modularity'),
+                'text-align-center' => __('Center', 'modularity'),
+                'text-align-right' => __('Right', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['sidebar.slider-area.module.slider-item']
+                ]
             ],
         ]);
     }
