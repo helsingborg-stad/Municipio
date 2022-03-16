@@ -27,8 +27,8 @@ class HamburgerMenu
                 'off' => esc_html__( 'Disabled', 'kirki' ),
             ],
             'output' => [
-                'type' => 'controller',
-            ]
+                ['type' => 'controller']
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -43,8 +43,8 @@ class HamburgerMenu
                 'off' => esc_html__( 'Disabled', 'kirki' ),
             ],
             'output' => [
-                'type' => 'controller',
-            ]
+                ['type' => 'controller']
+            ],
         ]);
     }
 }
