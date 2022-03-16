@@ -17,13 +17,6 @@
 }
 
 .c-header.hamburger-menu-open {
-    .hamburger-menu-trigger__label {
-        display: none;
-    }
-    .hamburger-menu-trigger__close {
-        display: block;
-    }
-
     &.c-header--sticky {
         height: 100%;
         width: 100%;
