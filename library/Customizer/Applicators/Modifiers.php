@@ -10,10 +10,10 @@ class Modifiers
     }
 
     /**
-    * Apply modifiers
-    *
-    * @return void
-    */
+     * Apply modifiers
+     *
+     * @return void
+     */
     public function applyModifiers()
     {
 
@@ -39,7 +39,6 @@ class Modifiers
                 }
 
                 add_filter('ComponentLibrary/Component/Modifier', function ($modifiers, $contexts) use ($filter) {
-
                     if (!is_array($contexts)) {
                         $contexts = [$contexts];
                     }
@@ -52,6 +51,30 @@ class Modifiers
                         foreach ($contexts as $context) {
                             if (in_array($context, $filter['contexts'])) {
                                 $modifiers[] = $filter['value'];
+                                break;
+                            }
+                        }
+                        // Check if contexts filter is multidimensional (new format)
+                        if (count($filter['contexts']) !== count($filter['contexts'], COUNT_RECURSIVE)) {
+                            $applyModifier = [];
+                            foreach ($filter['contexts'] as $context) {
+                                //Verify operator, before eval
+                                if ($this->isValidOperator($context['operator']) === false) {
+                                    trigger_error("Provided operator in context for modifier is not valid.", E_USER_ERROR);
+                                }
+
+                                // Verify that context is a string and format it for eval
+                                if (is_string($context['context'])) {
+                                    $context['context'] = '"' . $context['context'] . '"';
+                                } else {
+                                    trigger_error("Provided context value in context for modifier is not a string.", E_USER_ERROR);
+                                }
+
+                                // Check if provided context exists in context array and compare using operator
+                                $applyModifier[] = (bool) eval('return in_array(' . $context['context'] . ', $contexts) ' . $context['operator'] . ' true;');
+                            }
+                            if ((bool) array_product($applyModifier)) {
+                                $modifiers[] = $filter['value'];
                             }
                         }
                     }
@@ -62,12 +85,12 @@ class Modifiers
         }
     }
 
-  /**
-   * Determines if should be handled as a modifier.
-   *
-   * @param array $field
-   * @return boolean
-   */
+    /**
+     * Determines if should be handled as a modifier.
+     *
+     * @param array $field
+     * @return boolean
+     */
     private function isModifierSetting($field, $lookForType = 'modifier')
     {
         if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
@@ -76,6 +99,20 @@ class Modifiers
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    /**
+     * Validate PHP operator
+     *
+     * @param string $operator
+     * @return bool
+     */
+    private function isValidOperator($operator): bool
+    {
+        if (in_array((string) $operator, ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
+            return true;
         }
         return false;
     }
