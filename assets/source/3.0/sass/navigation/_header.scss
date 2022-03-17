@@ -12,6 +12,11 @@
     color: $color-black;
 }
 
+.c-header.c-header--business .hamburger-menu-trigger,
+.c-header.c-header--casual .hamburger-menu-trigger {
+    margin-left: calc(#{$base} * 6);
+}
+
 .hamburger-menu-trigger__close {
     display: none;
 }
