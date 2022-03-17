@@ -5,6 +5,13 @@ namespace Municipio\Helper;
 class Html
 {
 
+    /**
+     * Create a grid class
+     *
+     * @param integer $numberOfColumns  The width of grid
+     * @param string  $mediaQuery       Target size
+     * @return string
+     */
     public static function createGridClass($numberOfColumns = 1, $mediaQuery = null)
     {
         $baseColumns = 12;
