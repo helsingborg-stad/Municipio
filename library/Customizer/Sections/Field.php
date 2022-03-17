@@ -35,9 +35,11 @@ class Field
                     'step' => 1,
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-field-border-width',
-                    'units'     => 'px'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-field-border-width',
+                        'units'     => 'px'
+                    ]
                 ],
             ],
             [
@@ -47,8 +49,10 @@ class Field
                 'section'     => self::SECTION_ID,
                 'default'     => Kirki::get_option('color_palette_monotone')['light'] ?? '#eee',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-field-border-color'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-field-border-color'
+                    ]
                 ]
             ],
             [
@@ -70,8 +74,10 @@ class Field
                     'hidden'    => esc_html__('Hidden', 'municipio')
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-field-border-style'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-field-border-style'
+                    ]
                 ]
             ]
         ], ['label' => esc_html__('Tailor border apperance', 'municipio'), 'settings' => 'collection_border_active']);
@@ -87,8 +93,10 @@ class Field
             'section'     => self::SECTION_ID,
             'default'     => Kirki::get_option('color_palette_monotone')['lightest'] ?? '#eee',
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-field-focus-color'
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-field-focus-color'
+                ]
             ]
         ]);
 
@@ -103,8 +111,10 @@ class Field
             'section'     => self::SECTION_ID,
             'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#000',
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-field-focus-color'
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-field-focus-color'
+                ]
             ]
         ]);
 
@@ -119,8 +129,10 @@ class Field
             'section'     => self::SECTION_ID,
             'default'     => Kirki::get_option('color_palette_primary')['base'] ?? '#000',
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-field-color'
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-field-color'
+                ]
             ]
         ]);
 
@@ -140,9 +152,11 @@ class Field
                     'step' => 2,
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-field-border-radius',
-                    'unit'      => 'px'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-field-border-radius',
+                        'unit'      => 'px'
+                    ]
                 ],
             ]
         ]);

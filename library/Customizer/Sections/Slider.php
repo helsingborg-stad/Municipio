@@ -34,9 +34,11 @@ class Slider
                 'step' => 1,
             ],
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-slider-gap',
-                'unit'      => ''
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-slider-gap',
+                    'unit'      => ''
+                ]
             ],
         ]);
 
@@ -55,9 +57,11 @@ class Slider
                 'step' => 1,
             ],
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-slider-padding',
-                'unit'      => ''
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-slider-padding',
+                    'unit'      => ''
+                ]
             ],
         ]);
     }
