@@ -30,8 +30,10 @@ class Card
                 'section'     => self::SECTION_ID,
                 'default'     => '#eee',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-card-background-color'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-card-background-color'
+                    ]
                 ]
             ],
             [
@@ -42,8 +44,10 @@ class Card
                 'section'     => self::SECTION_ID,
                 'default'     => '#eee',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-card-background-color--hover'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-card-background-color--hover'
+                    ]
                 ]
             ]
         ], ['label' => esc_html__('Tailor background color', 'municipio'), 'settings' => 'card_paper_background_active']);
@@ -59,8 +63,10 @@ class Card
             'section'     => self::SECTION_ID,
             'default'     => '#000000',
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-card-color'
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-card-color'
+                ]
             ]
         ]);
 
@@ -80,9 +86,11 @@ class Card
                     'step' => 1,
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-card-border-width',
-                    'units'     => 'px'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-card-border-width',
+                        'units'     => 'px'
+                    ]
                 ],
             ],
             [
@@ -92,8 +100,10 @@ class Card
                 'section'     => self::SECTION_ID,
                 'default'     => '#000000',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-card-border-color'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-card-border-color'
+                    ]
                 ]
             ],
             [
@@ -115,8 +125,10 @@ class Card
                     'hidden'    => esc_html__('Hidden', 'municipio')
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-card-border-style'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-card-border-style'
+                    ]
                 ]
             ]
         ], ['label' => esc_html__('Tailor border apperance', 'municipio'), 'settings' => 'card_border_active']);
@@ -137,9 +149,11 @@ class Card
                     'step' => 2,
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-card-border-radius',
-                    'unit'      => 'px'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-card-border-radius',
+                        'unit'      => 'px'
+                    ]
                 ],
             ]
         ]);
