@@ -21,29 +21,15 @@
     display: none;
 }
 
-body.hamburger-menu-open {
-    @include mq(map_get($breakpoints-map, "lg")) {
-        .c-header--sticky {
-            height: 100%;
-            width: 100%;
-            overflow: auto;
-            position: fixed;
-        }
-        &.sticky-header {
-            overflow: hidden;
-        }
+body.hamburger-menu-open.hamburger-menu-mobile {
+    .c-header--sticky {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        position: fixed;
     }
-
-    &.hamburger-menu-mobile {
-        .c-header--sticky {
-            height: 100%;
-            width: 100%;
-            overflow: auto;
-            position: fixed;
-        }
-        &.sticky-header {
-            overflow: hidden;
-        }
+    &.sticky-header {
+        overflow: hidden;
     }
 }
 
@@ -71,4 +57,19 @@ body.hamburger-menu-open {
             top: 32px; 
         }
     } 
+}
+
+@include mq(lg) {
+    body.hamburger-menu-open {
+        .c-header--sticky {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+
+        &.sticky-header {
+            overflow: hidden;
+        }
+    }
 }
