@@ -148,7 +148,7 @@ class Archive
                     'text_search' => esc_html__('Text search', 'municipio'),
                     'date_range' => esc_html__('Date range', 'municipio'),
                 ],
-                (array) $archive->taxonomies
+                (array) isset($archive->taxonomies) && !empty($archive->taxonomies) ? $archive->taxonomies : []
             ),
             'output' => [
                 [
