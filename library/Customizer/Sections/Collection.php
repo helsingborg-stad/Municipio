@@ -30,8 +30,10 @@ class Collection
                 'section'     => self::SECTION_ID,
                 'default'     => '#eee',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-collection-background-color'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-collection-background-color'
+                    ]
                 ]
             ],
             [
@@ -42,8 +44,10 @@ class Collection
                 'section'     => self::SECTION_ID,
                 'default'     => '#eee',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-collection-background-color--hover'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-collection-background-color--hover'
+                    ]
                 ]
             ]
         ], ['label' => esc_html__('Tailor background color', 'municipio'), 'settings' => 'collection_background_active']);
@@ -59,8 +63,10 @@ class Collection
             'section'     => self::SECTION_ID,
             'default'     => '#000000',
             'output'      => [
-                'element'   => ':root',
-                'property'  => '--c-collection-color'
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-collection-color'
+                ]
             ]
         ]);
 
@@ -80,9 +86,11 @@ class Collection
                     'step' => 1,
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-collection-border-width',
-                    'units'     => 'px'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-collection-border-width',
+                        'units'     => 'px'
+                    ]
                 ],
             ],
             [
@@ -92,8 +100,10 @@ class Collection
                 'section'     => self::SECTION_ID,
                 'default'     => '#000000',
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-collection-border-color'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-collection-border-color'
+                    ]
                 ]
             ],
             [
@@ -115,8 +125,10 @@ class Collection
                     'hidden'    => esc_html__('Hidden', 'municipio')
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-collection-border-style'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-collection-border-style'
+                    ]
                 ]
             ]
         ], ['label' => esc_html__('Tailor border apperance', 'municipio'), 'settings' => 'collection_border_active']);
@@ -138,9 +150,11 @@ class Collection
                     'step' => 2,
                 ],
                 'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-collection-border-radius',
-                    'unit'      => 'px'
+                    [
+                        'element'   => ':root',
+                        'property'  => '--c-collection-border-radius',
+                        'unit'      => 'px'
+                    ]
                 ],
             ]
         ]);
