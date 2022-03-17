@@ -28,6 +28,12 @@ class General
 
         //Menu cache purging
         add_action('updated_post_meta', array($this, 'purgeMenuCache'), 10, 4);
+
+        add_filter('Municipio/bodyClass', function($class) {
+            $class .= get_theme_mod('hamburger_menu_enabled') && get_theme_mod('hamburger_menu_mobile') ? ' hamburger-menu-mobile' : '';
+            $class .= get_theme_mod('header_sticky') === 'sticky' ? ' sticky-header' : '';
+            return $class;
+        });
     }
 
     /**

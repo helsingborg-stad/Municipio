@@ -48,6 +48,9 @@ class Header
                     'type' => 'modifier',
                     'context' => ['site.header'],
                 ],
+                [
+                    'type' => 'controller'
+                ]
             ],
         ]);
 

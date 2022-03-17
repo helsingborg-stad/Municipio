@@ -21,12 +21,29 @@
     display: none;
 }
 
-.c-header.hamburger-menu-open {
-    &.c-header--sticky {
-        height: 100%;
-        width: 100%;
-        overflow: auto;
-        position: fixed;
+body.hamburger-menu-open {
+    @include mq(map_get($breakpoints-map, "lg")) {
+        .c-header--sticky {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+        &.sticky-header {
+            overflow: hidden;
+        }
+    }
+
+    &.hamburger-menu-mobile {
+        .c-header--sticky {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+        &.sticky-header {
+            overflow: hidden;
+        }
     }
 }
 
