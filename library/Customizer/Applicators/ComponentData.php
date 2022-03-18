@@ -29,7 +29,7 @@ class ComponentData extends AbstractApplicator
                 if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output'])) {
                     foreach ($field['output'] as $output) {
                         if (isset($output['context'])) {
-                            $filterData = $this->buildFilterData($output, \Kirki::get_option($key));
+                            $filterData = $this->buildFilterData($output['dataKey'], \Kirki::get_option($key));
                             $filter = [
                                 'contexts'  => $output['context'],
                                 'data'      => $filterData
