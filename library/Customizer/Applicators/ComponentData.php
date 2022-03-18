@@ -32,7 +32,6 @@ class ComponentData extends AbstractApplicator
                             $filterData = $this->buildFilterData($output, \Kirki::get_option($key));
                             $filter = [
                                 'contexts'  => $output['context'],
-                                'field'     => $output['field'],
                                 'data'      => $filterData
                             ];
                         }
@@ -64,16 +63,16 @@ class ComponentData extends AbstractApplicator
     }
 
     /**
-     * @param array $output
+     * @param string $dataKey
      * @param mixed $value
      * 
      * @return array Component data array
      */
-    private function buildFilterData(array $output, $value): array
+    private function buildFilterData(string $dataKey, $value): array
     {
         $filterData = [];
         $previousArr = &$filterData;
-        $fields = explode('.', $output['field']);
+        $fields = explode('.', $dataKey);
         for ($i = 0; $i < count($fields); $i++) {
             if ($i === count($fields) - 1) {
                 $previousArr[$fields[$i]] = $value;

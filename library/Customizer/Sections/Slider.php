@@ -148,7 +148,7 @@ class Slider
             'output' => [
                 [
                     'type' => 'component_data',
-                    'field' => 'arrowButtons.style',
+                    'dataKey' => 'arrowButtons.style',
                     'context' => [
                         [
                             'context' => 'module.slider',
@@ -175,7 +175,7 @@ class Slider
             'output' => [
                 [
                     'type' => 'component_data',
-                    'field' => 'arrowButtons.color',
+                    'dataKey' => 'arrowButtons.color',
                     'context' => [
                         [
                             'context' => 'module.slider',
