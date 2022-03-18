@@ -17,24 +17,26 @@
 
                 @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']])
 
-                @button([
-                    'id' => 'mobile-menu-trigger-open',
-                    'text' => $lang->menu,
-                    'color' => 'default',
-                    'style' => 'basic',
-                    'icon' => 'keyboard_arrow_down',
-                    'classList' => [
-                        'mobile-menu-trigger',
-                        'u-display--none@lg'
-                    ],
-                    'attributeList' => [
-                        'aria-label' => $lang->menu,
-                        'aria-controls' => "navigation",
-                        'js-toggle-trigger' => 'js-drawer'
-                    ],
-                    'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
-                ])
-                @endbutton
+                @if (!empty($mobileMenuItems))
+                    @button([
+                        'id' => 'mobile-menu-trigger-open',
+                        'text' => $lang->menu,
+                        'color' => 'default',
+                        'style' => 'basic',
+                        'icon' => 'keyboard_arrow_down',
+                        'classList' => [
+                            'mobile-menu-trigger',
+                            'u-display--none@lg'
+                        ],
+                        'attributeList' => [
+                            'aria-label' => $lang->menu,
+                            'aria-controls' => "navigation",
+                            'js-toggle-trigger' => 'js-drawer'
+                        ],
+                        'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
+                    ])
+                    @endbutton
+                @endif
 
                 {{-- Tab menu items --}}
                 @includeWhen($tabMenuItems, 'partials.navigation.tabs')
