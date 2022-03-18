@@ -160,6 +160,33 @@ class Slider
         ]);
 
         /**
+         * Slider button color
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'slider_arrow_button_color',
+            'label'       => esc_html__('Arrow button color', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'primary',
+            'choices' => array(
+                'primary' => __('Primary', 'modularity'),
+                'secondary' => __('Secondary', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'field' => 'arrowButtons.color',
+                    'context' => [
+                        [
+                            'context' => 'module.slider',
+                            'operator' => '==',
+                        ],
+                    ]
+                ]
+            ],
+        ]);
+
+        /**
          * Hero slider settings
          */
         \Kirki::add_section(self::HERO_SECTION_ID, array(
