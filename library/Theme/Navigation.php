@@ -17,12 +17,8 @@ class Navigation
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
     }
 
-    /**
-     * Register Menus
-     */
-    public function registerNavigationMenus()
-    {
-        $menus = array(
+    public static function getMenuLocations() {
+        return array(
             'help-menu' => __('Help menu', 'municipio'),
             'header-tabs-menu' => __('Header tabs menu', 'municipio'),
             'main-menu' => __('Primary menu', 'municipio'),
@@ -34,6 +30,14 @@ class Navigation
             'quicklinks-menu' => __('Quicklinks menu', 'municipio'),
             'mobile-drawer' => __('Mobile drawer (bottom)', 'municipio'),
         );
+    }
+
+    /**
+     * Register Menus
+     */
+    public function registerNavigationMenus()
+    {
+        $menus = self::getMenuLocations();
 
         //Append dynamic menus
         $menus = array_merge($menus, $this->getArchiveMenus());

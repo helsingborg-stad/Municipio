@@ -131,6 +131,7 @@ class Customizer
         new \Municipio\Customizer\Panels\Component();
         new \Municipio\Customizer\Panels\Module();
         new \Municipio\Customizer\Panels\Archive();
+        new \Municipio\Customizer\Panels\Menu();
 
         //Define panels with logic
         new \Municipio\Customizer\Panels\DesignLibrary();

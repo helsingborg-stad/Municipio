@@ -99,10 +99,10 @@ class BaseController
         */
         
         //Main Navigation 
-        $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), true, true, true);
-        $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), true, false, false);
-        $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), true, true, false);
-        $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), \Kirki::get_option('hamburger_menu_enabled'), true, false);
+        $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, true);
+        $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
+        $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), \Kirki::get_option('hamburger_menu_pagetree_fallback'), true, false);
 
         //Complementary navigations
         $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
