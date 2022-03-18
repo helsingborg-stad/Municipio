@@ -123,6 +123,7 @@ class Customizer
 
         //Applicators [Stuff that make effect on the frontend]
         new \Municipio\Customizer\Applicators\Modifiers();
+        new \Municipio\Customizer\Applicators\ComponentData();
         new \Municipio\Customizer\Applicators\ControllerVariables();
         new \Municipio\Customizer\Applicators\Css();
 
