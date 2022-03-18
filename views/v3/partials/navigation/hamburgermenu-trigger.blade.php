@@ -1,4 +1,4 @@
-@if ($customizer->hamburgerMenuEnabled && !empty($hamburgerMenuItems))
+@if (!empty($hamburgerMenuItems))
     @button([
         'id' => 'hamburger-menu-trigger-open',
         'color' => 'default',

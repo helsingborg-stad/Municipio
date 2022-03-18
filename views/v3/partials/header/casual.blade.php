@@ -52,23 +52,25 @@
 
                 @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.casual.hamburgermenu-trigger']])
                 
-                @button([
-                    'id' => 'mobile-menu-trigger-open',
-                    'color' => 'default',
-                    'style' => 'basic',
-                    'icon' => 'menu',
-                    'classList' => [
-                        'mobile-menu-trigger',
-                        'u-display--none@lg'
-                    ],
-                    'attributeList' => [
-                        'aria-label' => $lang->menu,
-                        'aria-controls' => "navigation",
-                        'js-toggle-trigger' => 'js-drawer'
-                    ],
-                    'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger']
-                ])
-                @endbutton
+                @if (!empty($mobileMenuItems))
+                    @button([
+                        'id' => 'mobile-menu-trigger-open',
+                        'color' => 'default',
+                        'style' => 'basic',
+                        'icon' => 'menu',
+                        'classList' => [
+                            'mobile-menu-trigger',
+                            'u-display--none@lg'
+                        ],
+                        'attributeList' => [
+                            'aria-label' => $lang->menu,
+                            'aria-controls' => "navigation",
+                            'js-toggle-trigger' => 'js-drawer'
+                        ],
+                        'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger']
+                    ])
+                    @endbutton
+                @endif
             </div>
         </div>
     </div>
