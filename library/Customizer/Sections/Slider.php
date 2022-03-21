@@ -148,7 +148,6 @@ class Slider
             'choices' => array(
                 'overlay-none' => __('None', 'modularity'),
                 'overlay-dark' => __('Dark', 'modularity'),
-                'overlay-light' => __('Light', 'modularity'),
             ),
             'output' => [
                 [
