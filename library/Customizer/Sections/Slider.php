@@ -137,6 +137,37 @@ class Slider
         ]);
 
         /**
+         * Hero Slider overlay
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'slider_coverlay',
+            'label'       => esc_html__('Slide overlay', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'none',
+            'choices' => array(
+                'overlay-none' => __('None', 'modularity'),
+                'overlay-dark' => __('Dark', 'modularity'),
+                'overlay-light' => __('Light', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => [
+                        [
+                            'context' => 'module.slider-item',
+                            'operator' => '==',
+                        ],
+                        [
+                            'context' => 'sidebar.slider-area.module.slider-item',
+                            'operator' => '!=',
+                        ]
+                    ]
+                ]
+            ],
+        ]);
+
+        /**
          * Slider button style
          */
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -235,6 +266,28 @@ class Slider
                 'text-align-left' => __('Left', 'modularity'),
                 'text-align-center' => __('Center', 'modularity'),
                 'text-align-right' => __('Right', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['sidebar.slider-area.module.slider-item']
+                ]
+            ],
+        ]);
+
+        /**
+         * Hero Slider overlay
+         */
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hero_slider_coverlay',
+            'label'       => esc_html__('Slide overlay', 'municipio'),
+            'section'     => self::HERO_SECTION_ID,
+            'default'     => 'none',
+            'choices' => array(
+                'overlay-none' => __('None', 'modularity'),
+                'overlay-dark' => __('Dark', 'modularity'),
+                'overlay-light' => __('Light', 'modularity'),
             ),
             'output' => [
                 [
