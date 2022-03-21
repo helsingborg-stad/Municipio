@@ -35,14 +35,14 @@ class Navigation
      * @return mixed
      */
     private function setCache($key, $data, $persistent = true) : bool {
+
         //Runtime
         $this->cache[$key] = $data;
 
         //Persistent
-        if($persistent) {
-
+        if ($persistent) {
             //Add to cache group (enables purging/banning)
-            if($this->setcacheGroup($key)) {
+            if ($this->setcacheGroup($key)) {
                 //Store cache
                 return wp_cache_set($key, $data, '', $this->cacheExpire);
             }
@@ -82,16 +82,16 @@ class Navigation
     private function getCache($key, $persistent = true) {
 
         //Get runtime cache
-        if(array_key_exists($key, $this->cache) && !empty($this->cache[$key])) {
+        if (array_key_exists($key, $this->cache)) {
             return $this->cache[$key];
         }
 
         //Get persistent cache, store runtime
-        if($persistent) {
+        if ($persistent) {
             return $this->cache[$key] = wp_cache_get($key);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -538,7 +538,8 @@ class Navigation
     private function getHiddenPostIds(string $metaKey = "hide_in_menu"): array
     {
         //Get cached result
-        if($cache = $this->getCache($metaKey)) {
+        $cache = $this->getCache($metaKey);
+        if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
 
@@ -546,7 +547,7 @@ class Navigation
         $hiddenPages = (array) self::$db->get_col(
             self::$db->prepare("
                 SELECT post_id
-                FROM ". self::$db->postmeta ."
+                FROM " . self::$db->postmeta . "
                 WHERE meta_key = %s
                 AND meta_value = '1'
             ", $metaKey)
@@ -582,7 +583,8 @@ class Navigation
     {
 
         //Get cached result
-        if($cache = $this->getCache($metaKey)) {
+        $cache = $this->getCache($metaKey);
+        if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
 
@@ -928,7 +930,8 @@ class Navigation
     {
 
         //Get cached result
-        if($cache = $this->getCache('pageForPostType', false)) {
+        $cache = $this->getCache('pageForPostType');
+        if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
 
@@ -955,7 +958,7 @@ class Navigation
         }
 
         //Cache
-        $this->setCache('pageForPostType', $result, false);
+        $this->setCache('pageForPostType', $result);
 
         return $result;
     }
