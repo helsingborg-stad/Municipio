@@ -69,6 +69,12 @@ class LoadDesign
      */
     private function loadOptions(): array
     {
+
+        //Do not load option in frontend applications
+        if (!is_customize_preview()) {
+            return array();
+        }
+
         $data = wp_remote_get(self::API_URL, [
             'cacheBust' => $this->uniqueId
         ]);
