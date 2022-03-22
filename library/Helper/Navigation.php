@@ -34,8 +34,8 @@ class Navigation
      * @param mixed $value  The value to store
      * @return mixed
      */
-    private function setCache($key, $data, $persistent = true) : bool {
-
+    private function setCache($key, $data, $persistent = true): bool
+    {
         //Runtime
         $this->cache[$key] = $data;
 
@@ -59,14 +59,15 @@ class Navigation
      * @param string $newCacheKey
      * @return boolean
      */
-    private function setCacheGroup($newCacheKey) : bool {
+    private function setCacheGroup($newCacheKey): bool
+    {
 
         //Create new addition
         $cacheObject = [$newCacheKey];
 
         //Get old cache
         $previousCachedObject = wp_cache_get($this->cacheGroup);
-        if(is_array($previousCachedObject) && !empty($previousCachedObject)) {
+        if (is_array($previousCachedObject) && !empty($previousCachedObject)) {
             $cacheObject = array_merge($cacheObject, $previousCachedObject);
         }
 
@@ -79,7 +80,8 @@ class Navigation
      * @param The cache key $key
      * @return mixed
      */
-    private function getCache($key, $persistent = true) {
+    private function getCache($key, $persistent = true)
+    {
 
         //Get runtime cache
         if (array_key_exists($key, $this->cache)) {
@@ -187,10 +189,9 @@ class Navigation
      *
      * @return  boolean               Tells wheter the post has children or not
      */
-    public function indicateChildren($postId) : bool
+    public function indicateChildren($postId): bool
     {
-
-    //Define to omit error
+        //Define to omit error
         $postTypeHasPosts = null;
 
         $currentPostTypeChildren = self::$db->get_var(
@@ -209,14 +210,14 @@ class Navigation
         if (array_key_exists($postId, $pageForPostTypeIds)) {
             $postTypeHasPosts = self::$db->get_var(
                 self::$db->prepare("
-          SELECT ID
-          FROM " . self::$db->posts . "
-          WHERE post_parent = 0
-          AND post_status = 'publish'
-          AND post_type = %s
-          AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
-          LIMIT 1
-        ", $pageForPostTypeIds[$postId])
+                    SELECT ID
+                    FROM " . self::$db->posts . "
+                    WHERE post_parent = 0
+                    AND post_status = 'publish'
+                    AND post_type = %s
+                    AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
+                    LIMIT 1
+                ", $pageForPostTypeIds[$postId])
             );
         }
 
@@ -349,12 +350,12 @@ class Navigation
                 }
             }
 
-            if(empty($stack)) {
+            if (empty($stack)) {
                 return [];
             }
 
             //Get result, if one, handle as string (more efficient query)
-            if(count($stack) == 1) {
+            if (count($stack) == 1) {
                 $postType = array_pop($stack);
             } else {
                 $postType = $stack;
@@ -581,7 +582,6 @@ class Navigation
      */
     private function getMenuTitle(string $metaKey = "custom_menu_title"): array
     {
-
         //Get cached result
         $cache = $this->getCache($metaKey);
         if (!is_null($cache) && is_array($cache)) {
@@ -592,7 +592,7 @@ class Navigation
         $result = (array) self::$db->get_results(
             self::$db->prepare("
                 SELECT post_id, meta_value
-                FROM ". self::$db->postmeta ."
+                FROM " . self::$db->postmeta . "
                 WHERE meta_key = %s
                 AND meta_value != ''
             ", $metaKey)
@@ -650,7 +650,7 @@ class Navigation
     public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
 
-      //Check for existing wp menu
+        //Check for existing wp menu
         if (has_nav_menu($menu)) {
             $menuItems = wp_get_nav_menu_items(get_nav_menu_locations()[$menu]);
 
@@ -731,7 +731,7 @@ class Navigation
     {
         $index = array_search($pageId, array_column($menu, 'object_id'));
 
-        if($index !== false) {
+        if ($index !== false) {
             return $menu[$index]->ID;
         }
 
@@ -875,24 +875,22 @@ class Navigation
         );
 
         $queriedObj = get_queried_object();
-        $archiveLink = get_post_type_archive_link( get_post_type($queriedObj) );
+        $archiveLink = get_post_type_archive_link(get_post_type($queriedObj));
         $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
 
-        if($archiveLink) {
+        if ($archiveLink) {
             $label = get_post_type_object(get_post_type($queriedObj))->label;
 
-            if(is_archive()) {
+            if (is_archive()) {
                 $label = $queriedObj->label;
             }
 
-            array_push( $pageData,
-                array(
+            array_push($pageData, array(
                     'label' => __($label),
                     'href' => $archiveLink,
                     'current' => false,
                     'icon' => 'chevron_right'
-                )
-            );
+            ));
         }
 
         if (!is_front_page() && !is_archive()) {
@@ -906,9 +904,9 @@ class Navigation
 
                 //Add items
                 foreach ($ancestors as $id) {
-                    if(!in_array($id, $pageForPostTypeIds)) {
+                    if (!in_array($id, $pageForPostTypeIds)) {
 
-                        $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
+                        $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id): __("Untitled page", 'municipio');
                         $pageData[$id]['href']    = get_permalink($id);
                         $pageData[$id]['current'] = false;
                         $pageData[$id]['icon']    = 'chevron_right';
