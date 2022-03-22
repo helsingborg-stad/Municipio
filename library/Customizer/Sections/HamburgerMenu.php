@@ -53,7 +53,7 @@ class HamburgerMenu
             'settings'    => 'hamburger_menu_parent_style',
             'label'       => esc_html__('Select menu parent style', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 'text',
+            'default'     => false,
             'priority'    => 10,
             'choices' => [
                 false  => esc_html__('None', 'municipio'),
