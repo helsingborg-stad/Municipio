@@ -1,8 +1,8 @@
 @if (!empty($hamburgerMenuItems))
     @button([
         'id' => 'hamburger-menu-trigger-open',
-        'color' => 'default',
-        'style' => 'basic',
+        'color' => 'primary',
+        'style' => $customizer->hamburgerMenuTriggerStyle ?? 'basic',
         'icon' => 'menu',
         'text' => __('Menu', 'component-library'),
         'classList' => [

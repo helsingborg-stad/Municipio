@@ -3,7 +3,7 @@
         @hamburgerMenu([
             'menuItems' => $hamburgerMenuItems,
             'showSearch' => $showHamburgerMenuSearch,
-            'parentButtons' => $customizer->hamburgerMenuParentButtons,
+            'parentStyle' => $customizer->hamburgerMenuParentStyle,
             'mobile' => $customizer->hamburgerMenuMobile,
         ])
         @endhamburgerMenu
