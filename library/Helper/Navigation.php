@@ -19,7 +19,7 @@ class Navigation
     private $identifier = '';
 
     private $cacheGroup = 'municipioNavMenu';
-    private $cacheExpire = 60 * 60 * 24;
+    private $cacheExpire = 60 * 15; // 15 minutes
 
     public function __construct($identifier = '')
     {
