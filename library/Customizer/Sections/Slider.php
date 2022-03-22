@@ -82,7 +82,7 @@ class Slider
             'settings'    => 'slider_container_color',
             'label'       => esc_html__('Container colour', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 'transparent',
+            'default'     => 'bg-transparent',
             'choices' => array(
                 'bg-none' => __('None', 'modularity'),
                 'bg-transparent' => __('Transparent', 'modularity'),
@@ -113,7 +113,7 @@ class Slider
             'settings'    => 'slider_text_alignment',
             'label'       => esc_html__('Text alignment', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 'left',
+            'default'     => 'text-align-left',
             'choices' => array(
                 'text-align-left' => __('Left', 'modularity'),
                 'text-align-center' => __('Center', 'modularity'),
@@ -144,7 +144,7 @@ class Slider
             'settings'    => 'slider_coverlay',
             'label'       => esc_html__('Slide overlay', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 'none',
+            'default'     => 'overlay-none',
             'choices' => array(
                 'overlay-none' => __('None', 'modularity'),
                 'overlay-dark' => __('Dark', 'modularity'),
@@ -238,7 +238,7 @@ class Slider
             'settings'    => 'hero_slider_container_color',
             'label'       => esc_html__('Container colour', 'municipio'),
             'section'     => self::HERO_SECTION_ID,
-            'default'     => 'transparent',
+            'default'     => 'bg-transparent',
             'choices' => array(
                 'bg-none' => __('None', 'modularity'),
                 'bg-transparent' => __('Transparent', 'modularity'),
@@ -260,7 +260,7 @@ class Slider
             'settings'    => 'hero_slider_text_alignment',
             'label'       => esc_html__('Text alignment', 'municipio'),
             'section'     => self::HERO_SECTION_ID,
-            'default'     => 'left',
+            'default'     => 'text-align-left',
             'choices' => array(
                 'text-align-left' => __('Left', 'modularity'),
                 'text-align-center' => __('Center', 'modularity'),
@@ -282,7 +282,7 @@ class Slider
             'settings'    => 'hero_slider_coverlay',
             'label'       => esc_html__('Slide overlay', 'municipio'),
             'section'     => self::HERO_SECTION_ID,
-            'default'     => 'none',
+            'default'     => 'overlay-none',
             'choices' => array(
                 'overlay-none' => __('None', 'modularity'),
                 'overlay-dark' => __('Dark', 'modularity'),
