@@ -282,14 +282,22 @@ class Post
     public static function getPosttypeMetaKeys($posttype)
     {
         global $wpdb;
-        $metaKeys = $wpdb->get_results("
+        $metaKeys = $wpdb->get_col("
             SELECT DISTINCT {$wpdb->postmeta}.meta_key
             FROM {$wpdb->postmeta}
             LEFT JOIN {$wpdb->posts} ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
             WHERE
-                {$wpdb->posts}.post_type = '$posttype'
-                AND NOT LEFT({$wpdb->postmeta}.meta_key, 1) = '_'
+            {$wpdb->posts}.post_type = '$posttype'
+            LIMIT 50
         ");
+
+        // Filter response, faster than making a more advanced query
+        $metaKeys = array_filter($metaKeys, function ($value) {
+            if (strpos($value, '_') === 0) {
+                return false;
+            }
+            return true;
+        });
 
         return $metaKeys;
     }

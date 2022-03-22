@@ -107,7 +107,7 @@ class Archive
 
         if (isset($metaKeysRaw) && is_array($metaKeysRaw) && !empty($metaKeysRaw)) {
             foreach ($metaKeysRaw as $metaKey) {
-                $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
+                $metaKeys[$metaKey] = $metaKey;
             }
         }
 
@@ -131,7 +131,7 @@ class Archive
 
         if (isset($metaKeysRaw) && is_array($metaKeysRaw) && !empty($metaKeysRaw)) {
             foreach ($metaKeysRaw as $metaKey) {
-                $metaKeys[$metaKey->meta_key] = $metaKey->meta_key;
+                $metaKeys[$metaKey] = $metaKey;
             }
         }
 
