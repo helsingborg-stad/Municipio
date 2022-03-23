@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "714826a9c95e50dce4a2bd53c98510e0",
+    "content-hash": "f36e9c83743c6bc38d8827bca038edd9",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -908,6 +908,54 @@
                 }
             ],
             "time": "2022-01-21T17:08:38+00:00"
+        },
+        {
+            "name": "ouun/kirki-module-fonts_upload",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ouun/kirki-module-fonts_upload.git",
+                "reference": "29be30eb3f8f550d412b22707aff789e725c05f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ouun/kirki-module-fonts_upload/zipball/29be30eb3f8f550d412b22707aff789e725c05f7",
+                "reference": "29be30eb3f8f550d412b22707aff789e725c05f7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kirki\\Module\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp Wellmer",
+                    "email": "philipp@wellmer.com",
+                    "homepage": "https://ouun.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easy custom fonts upload and CSS injection with Kirki WordPress plugin.",
+            "keywords": [
+                "customizer",
+                "framework",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/ouun/kirki-module-fonts_upload/issues",
+                "source": "https://github.com/ouun/kirki-module-fonts_upload/tree/v1.0.1"
+            },
+            "time": "2020-04-07T16:08:04+00:00"
         },
         {
             "name": "pragmarx/ia-arr",
@@ -1815,7 +1863,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "helsingborg-stad/blade-engine-wrapper": 20,
-        "tgmpa/tgm-plugin-activation": 20
+        "tgmpa/tgm-plugin-activation": 20,
+        "ouun/kirki-module-fonts_upload": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

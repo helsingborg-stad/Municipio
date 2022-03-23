@@ -10,7 +10,7 @@ class Typography
     {
         \Kirki::add_section(self::SECTION_ID, array(
             'title'       => esc_html__('Typography', 'municipio'),
-            'description' => esc_html__('Options for various Typography elements', 'municipio'),
+            'description' => esc_html__('Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable.', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
