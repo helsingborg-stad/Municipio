@@ -121,6 +121,9 @@ class Customizer
             'gutenberg_support' => false
         ));
 
+        // Custom fonts support (parse uploaded fonts)
+        new \Kirki\Module\FontUploads();
+
         //Applicators [Stuff that make effect on the frontend]
         new \Municipio\Customizer\Applicators\Modifiers();
         new \Municipio\Customizer\Applicators\ComponentData();
