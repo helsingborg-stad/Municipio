@@ -4,17 +4,17 @@
         'color' => 'primary',
         'style' => $customizer->hamburgerMenuTriggerStyle ?? 'basic',
         'icon' => 'menu',
-        'text' => __('Menu', 'component-library'),
+        'text' => $lang->menu,
         'classList' => [
             'hamburger-menu-trigger',
             !$customizer->hamburgerMenuMobile ? 'u-display--none@xs u-display--none@sm u-display--none@md' : '',
         ],
         'attributeList' => [
-            'aria-label' => $lang->menu,
+            'aria-label' => $lang->primaryNavigation,
             'aria-controls' => "navigation",
             'data-js-toggle-trigger' => 'hamburger-menu',
             'data-toggle-icon' => 'close',
-            'data-toggle-label' => __('Close', 'component-library'),
+            'data-toggle-label' => $lang->close,
         ],
         'context' => $context
     ])
