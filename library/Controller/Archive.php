@@ -563,7 +563,7 @@ class Archive extends \Municipio\Controller\BaseController
                     $post->archiveDate = false;
                 } else {
                     $post->archiveDate = date(
-                        $archiveProps->dateFormat,
+                        $this->getDateFormatString($archiveProps->dateFormat),
                         strtotime($post->archiveDate)
                     );
                 }
@@ -573,6 +573,26 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         return $preparedPosts;
+    }
+
+    /**
+     * Switch between different date formats
+     *
+     * @param string $key
+     * @return string $dateFormat
+     */
+    private function getDateFormatString(string $key): string
+    {
+        switch ($key) {
+            case 'date':
+                return get_option('date_format');
+            case 'date-time':
+                return get_option('date_format') . " " . get_option('time_format');
+            case 'badge':
+                return "Y-m-d H:i:s";
+            default:
+                return get_option('date_format') . " " . get_option('time_format');
+        }
     }
 
     /**
