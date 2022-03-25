@@ -345,10 +345,35 @@ class Slider
                     [
                         'choice'    => 'font-family',
                         'element'   => ':root',
-                        'property'  => '--c-slider-item-font-family',
+                        'property'  => '--c-slider-item-font-family-base',
                     ],
                 ]
-            ]
+                ],
+                'heading' => [
+                    'label' => esc_html__('Heading', 'municipio'),
+                    'default' => [
+                        'font-size'      => '32px',
+                        'font-family'    => 'Roboto',
+                        'font-weight'    => '400',
+                    ],
+                    'output' => [
+                        [
+                            'choice'    => 'font-size',
+                            'element'   => ':root',
+                            'property'  => '--c-slider-item-font-size-heading',
+                        ],
+                        [
+                            'choice'    => 'font-weight',
+                            'element'   => ':root',
+                            'property'  => '--c-slider-item-font-weight-heading',
+                        ],
+                        [
+                            'choice'    => 'font-family',
+                            'element'   => ':root',
+                            'property'  => '--c-slider-item-font-family-heading',
+                        ],
+                    ]
+                ]
         ];
     }
 }
