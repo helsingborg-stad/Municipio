@@ -137,7 +137,7 @@ class Slider
         ]);
 
         /**
-         * Hero Slider overlay
+         * Slider overlay
          */
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
@@ -231,6 +231,30 @@ class Slider
         ));
 
         /**
+         * Hero slider typography
+         */
+        $elements = $this->getTypographyElements();
+
+        if (!empty($elements)) {
+            foreach ($elements as $key => $args) {
+                \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                    'type'      => 'typography',
+                    'settings'  => 'hero_slider_typography_' . $key,
+                    'label'     => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
+                    'section'   => self::HERO_SECTION_ID,
+                    'priority'  => 10,
+                    'choices'   => [
+                        'fonts' => [
+                            'google' => ['popularity', 200],
+                        ],
+                    ],
+                    'default'   => $args['default'] ?? [],
+                    'output' => $args['output'] ?? []
+                ]);
+            }
+        }
+
+        /**
          * Hero Slider container colour
          */
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -295,5 +319,36 @@ class Slider
                 ]
             ],
         ]);
+    }
+
+    private function getTypographyElements()
+    {
+        return [
+            'base' => [
+                'label' => esc_html__('Base', 'municipio'),
+                'default' => [
+                    'font-size'      => '16px',
+                    'font-family'    => 'Roboto',
+                    'font-weight'    => '400',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'font-size',
+                        'element'   => ':root',
+                        'property'  => '--c-slider-item-font-size-base',
+                    ],
+                    [
+                        'choice'    => 'font-weight',
+                        'element'   => ':root',
+                        'property'  => '--c-slider-item-font-weight-base',
+                    ],
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--c-slider-item-font-family',
+                    ],
+                ]
+            ]
+        ];
     }
 }
