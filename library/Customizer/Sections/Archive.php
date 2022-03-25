@@ -246,12 +246,11 @@ class Archive
                 'label'       => esc_html__('Date format', 'municipio'),
                 'description' => esc_html__('In what format to display date', 'municipio'),
                 'section'     => $this->sectionId,
-                'default'     => 'Y-m-d H:i',
+                'default'     => 'date',
                 'choices'     => [
-                    'Y-m-d H:i:s' => 'Y-m-d H:i:s',
-                    'Y-m-d H:i' => 'Y-m-d H:i',
-                    'H:i:s' => 'H:i:s',
-                    'H:i' => 'H:i'
+                    'date' => esc_html__('Date', 'municipio'),
+                    'date-time' => esc_html__('Date, Time', 'municipio'),
+                    'date-badge' => esc_html__('Date badge', 'municipio')
                 ],
                 'output' => [
                     [
