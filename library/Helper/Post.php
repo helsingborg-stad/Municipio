@@ -157,7 +157,7 @@ class Post
 
         //Get filtered post title
         if (in_array('post_title_filtered', $appendFields)) {
-            $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title); 
+            $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title);
         }
 
         //Get post tumbnail image
@@ -170,7 +170,7 @@ class Post
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
         }
 
-        return $postObject;
+        return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
     /**
