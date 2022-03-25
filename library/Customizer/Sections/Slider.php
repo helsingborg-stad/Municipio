@@ -61,7 +61,7 @@ class Slider
             'section'     => self::SECTION_ID,
             'default'     => 7,
             'choices'     => [
-                'min'  => 0,
+                'min'  => 6,
                 'max'  => 12,
                 'step' => 1,
             ],
