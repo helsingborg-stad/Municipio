@@ -568,6 +568,8 @@ class Archive extends \Municipio\Controller\BaseController
                     );
                 }
 
+                $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
+
                 $preparedPosts[] = $post;
             }
         }
@@ -588,8 +590,8 @@ class Archive extends \Municipio\Controller\BaseController
                 return get_option('date_format');
             case 'date-time':
                 return get_option('date_format') . " " . get_option('time_format');
-            case 'badge':
-                return "Y-m-d H:i:s";
+            case 'date-badge':
+                return "Y-m-d";
             default:
                 return get_option('date_format') . " " . get_option('time_format');
         }

@@ -14,6 +14,7 @@
                         'backgroundColor' => 'secondary',
                     ],
                     'date' => $post->archiveDate,
+                    'dateBadge' => ($post->archiveDateFormat == 'date-badge'),
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
                 ])

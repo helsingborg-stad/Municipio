@@ -11,6 +11,7 @@
                     'content' => $post->excerptShort,
                     'tags' => $post->termsunlinked,
                     'date' => $post->archiveDate,
+                    'dateBadge' => ($post->archiveDateFormat == 'date-badge'),
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true
                 ])
