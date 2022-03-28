@@ -80,10 +80,6 @@ class Enqueue
         // Load material icons
         wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
         wp_enqueue_style('material-icons');
-
-        wp_register_script('municipio-dynamic-acf', get_template_directory_uri() . '/assets/dist/'
-        . \Municipio\Helper\CacheBust::name('js/dynamic-acf.js'));
-        wp_enqueue_script('municipio-dynamic-acf');
     }
 
     public function gutenbergStyle() 
