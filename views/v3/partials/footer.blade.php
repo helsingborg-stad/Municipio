@@ -11,6 +11,8 @@
 @footer([
     'id' => 'site-footer',
     'slotOnly' => true,
+    'subFooterContent' => $customizer->footerSubfooterContent,
+    'subfooterDirection' => $customizer->footerSubfooterFlexDirection === 'column' ? 'vertical' : 'horizontal',
     'classList' => [
         apply_filters('Views/Partials/Header/FooterClass', 'site-footer s-footer')
     ]
