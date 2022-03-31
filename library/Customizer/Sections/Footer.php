@@ -34,5 +34,24 @@ class Footer
                 ]
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'slider',
+            'settings' => 'footer_columns',
+            'label'    => esc_html__('Number of columns', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 1,
+            'choices'     => [
+                'min'  => 1,
+                'max'  => 4,
+                'step' => 1,
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+        ]);
     }
 }

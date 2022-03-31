@@ -29,7 +29,6 @@ class Sidebars
 
     public function register()
     {
-
         /**
          * Footer Area Top
          */
@@ -43,18 +42,23 @@ class Sidebars
             'after_widget'  => '</div></div>'
         ));
 
+        $footerColumns = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_columns');
+
         /**
          * Footer Area
          */
-        register_sidebar(array(
-            'id'            => 'footer-area',
-            'name'          => __('Footer', 'municipio'),
-            'description'   => __('The footer area', 'municipio'),
-            'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
-            'after_title'   => '</h2>',
-            'before_widget' => '<div class="grid-lg-4"><div id="%1$s" class="%2$s">', //TODO: Replace old grid class with new "o-grid-4@lg" (without breaking customizer)
-            'after_widget'  => '</div></div>'
-        ));
+        for ($i = 0; $i < $footerColumns; $i++) {
+            $suffix = ($i !== 0 ? '-' . $i : '');
+            register_sidebar(array(
+                'id'            => 'footer-area'.$suffix,
+                'name'          => __('Footer area '.$suffix, 'municipio'),
+                'description'   => __('The footer area '.$suffix, 'municipio'),
+                'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
+                'after_title'   => '</h2>',
+                'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">', //TODO: Replace old grid class with new "o-grid-4@lg" (without breaking customizer)
+                'after_widget'  => '</div></div>'
+            ));
+        }
 
         /**
          * Slider Area

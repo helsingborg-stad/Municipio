@@ -77,12 +77,13 @@
                     </div>
                 @endif
 
-                @if (is_active_sidebar('footer-area'))
-                    <div class="o-grid-12">
-                        @include('partials.sidebar', ['id' => 'footer-area', 'classes' => ['o-grid']])
-                    </div>
-                @endif
-                
+                @for ($i = 0; $i < $customizer->municipioCustomizerSectionFooter['footerColumns']; $i++)
+                    @if (is_active_sidebar('footer-area' . ($i == 0 ? '' : '-' . $i)))
+                        <div class="o-grid-{{ (12 / $customizer->municipioCustomizerSectionFooter['footerColumns']) }}@md">
+                            @include('partials.sidebar', ['id' => 'footer-area' . ($i == 0 ? '' : '-' . $i), 'classes' => ['o-grid']])
+                        </div>
+                    @endif
+                @endfor    
             </div>
         </div>
     @show
