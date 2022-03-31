@@ -36,15 +36,42 @@ class Footer
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
+            'settings' => 'footer_style',
+            'label'    => esc_html__('Footer style', 'municipio'),
+            'description' => esc_html__('Which style of footer to use.', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'basic',
+            'choices'     => [
+                'basic' => esc_html__('Basic', 'municipio'),
+                'columns' => esc_html__('Columns', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'slider',
             'settings' => 'footer_columns',
-            'label'    => esc_html__('Number of columns', 'municipio'),
+            'label'    => esc_html__('Number of columns to display', 'municipio'),
+            'description' => esc_html__('How many columns that the footer should be divided in.', 'municipio'),
             'section'  => self::SECTION_ID,
             'default'  => 1,
             'choices'     => [
                 'min'  => 1,
                 'max'  => 4,
                 'step' => 1,
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'footer_style',
+                    'operator' => '==',
+                    'value'    => 'columns',
+                ]
             ],
             'output' => [
                 [
