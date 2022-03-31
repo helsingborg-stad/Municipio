@@ -80,5 +80,34 @@ class Footer
                 ]
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type' => 'background',
+            'settings' => 'footer_background',
+            'label'    => esc_html__('Footer background', 'municipio'),
+            'description' => esc_html__('Background settings for the footer.', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'     => [
+                'background-color'      => 'var(--color-white,#fff)',
+                'background-image'      => '',
+                'background-repeat'     => 'repeat',
+                'background-position'   => 'center center',
+                'background-size'       => 'cover',
+                'background-attachment' => 'scroll',
+            ],
+            'active_callback' => [    
+                [
+                    'setting'  => 'footer_style',
+                    'operator' => '==',
+                    'value'    => 'columns',
+                ]
+            ],
+            'transport'   => 'auto',
+            'output'      => [
+                [
+                    'element' => '.c-footer',
+                ],
+            ],
+        ]);
     }
 }
