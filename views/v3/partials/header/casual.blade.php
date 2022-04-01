@@ -75,6 +75,9 @@
         </div>
     </div>
     @includeIf('partials.navigation.hamburgermenu')
+
+    {{-- User menu --}}
+    @includeIf('user.account')
 @stop
 
 @includeIf('partials.navigation.drawer')

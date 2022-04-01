@@ -66,6 +66,9 @@
                     </div>
                 @endif
 
+                {{-- User menu --}}
+                @includeIf('user.account')
+
             </div>
 
         </div>
