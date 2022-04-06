@@ -45,7 +45,7 @@ class Footer
             'alpha'       => true,
             'choices'     => [
                 'background'    => esc_html__('Background', 'municipio'),
-                'text'    => esc_html__('Text', 'municipio'),
+                'text'    => esc_html__('Kontrastfärg', 'municipio'),
                 'separator'    => esc_html__('Text separator', 'municipio'),
             ],
             'default'     => [
@@ -70,6 +70,25 @@ class Footer
                     'property'  => '--c-footer-subfooter-color-separator',
                 ]
             ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'footer_subfooter_logotype',
+            'label'       => esc_html__('Subfooter logotype', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'transport' => 'refresh',
+            'default'     => 'hide',
+            'choices'     => [
+                'hide'  => __('None', 'municipio'),
+                'standard'  => __('Primary', 'municipio'),
+                'negative'  => __('Secondary', 'municipio')
+            ],
+            'output' => [
+                [
+                    'type' => 'controller'
+                ]
+            ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -119,17 +138,20 @@ class Footer
             'settings'    => 'footer_subfooter_alignment',
             'label'       => esc_html__('Subfooter content alignment', 'municipio'),
             'section'     => self::SECTION_ID,
-            'transport'   => 'auto',
+            'transport'   => 'refresh',
             'default'     => 'center',
             'choices'     => [
                 'flex-start'  => __('Left', 'municipio'),
-                'center'  => __('Centered', 'municipio'),
+                'center'  => __('Center', 'municipio'),
                 'flex-end' => __('Right', 'municipio')
             ],
             'output' => [
                 [
                     'element'   => ':root',
                     'property'  => '--c-footer-subfooter-alignment',
+                ],
+                [
+                    'type' => 'controller'
                 ]
             ],
         ]);
@@ -150,7 +172,17 @@ class Footer
                     'type'        => 'text',
                     'label'       => esc_html__( 'Text', 'muncipio' ),
                     'default'     => '',
-                ]
+                ],
+                'link'   => [
+                    'type'        => 'url',
+                    'label'       => esc_html__( 'Link', 'muncipio' ),
+                    'default'     => '',
+                ],
+                'open_new_tab'   => [
+                    'type'        => 'checkbox',
+                    'label'       => esc_html__( 'Open in new tab', 'muncipio' ),
+                    'default'     => false,
+                ],
             ],
             'output' => [
                 ['type' => 'controller']
