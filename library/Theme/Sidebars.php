@@ -44,33 +44,25 @@ class Sidebars
 
         $footerStyle = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style');
         $footerColumns = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_columns');
-
+        $footerTextAlignment = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_text_alignment');
+        
         /**
          * Footer Area
          */
         if ($footerStyle === 'basic' || $footerStyle === null) {
+            $footerColumns = 1;
+        }
+        for ($i = 0; $i < $footerColumns; $i++) {
+            $suffix = ($i !== 0 ? '-' . $i : '');
             register_sidebar(array(
-                'id'            => 'footer-area',
-                'name'          => __('Footer area', 'municipio'),
-                'description'   => __('The footer area', 'municipio'),
+                'id'            => 'footer-area' . $suffix,
+                'name'          => __('Footer area ' . $suffix, 'municipio'),
+                'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
-                'before_widget' => '<div class="grid-lg-4"><div id="%1$s" class="%2$s">', //TODO: Replace old grid class with new "o-grid-4@lg" (without breaking customizer)
+                'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
                 'after_widget'  => '</div></div>'
             ));
-        } else if($footerStyle === 'columns') {
-            for ($i = 0; $i < $footerColumns; $i++) {
-                $suffix = ($i !== 0 ? '-' . $i : '');
-                register_sidebar(array(
-                    'id'            => 'footer-area'.$suffix,
-                    'name'          => __('Footer area '.$suffix, 'municipio'),
-                    'description'   => __('The footer area '.$suffix, 'municipio'),
-                    'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
-                    'after_title'   => '</h2>',
-                    'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
-                    'after_widget'  => '</div></div>'
-                ));
-            }
         }
 
         /**
@@ -295,7 +287,6 @@ class Sidebars
             case "mod-json-render":
                 $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
                 break;
-
         }
 
         return $moduleSpecification;
