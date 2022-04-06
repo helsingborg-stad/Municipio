@@ -37,6 +37,46 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'select',
+            'settings' => 'pre_footer_text_alignment',
+            'label'    => esc_html__('Pre-footer Text alignment', 'municipio'),
+            'description' => esc_html__('How to align the text in the .', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'u-text-align--left',
+            'choices' => array(
+                'u-text-align--left' => __('Left', 'modularity'),
+                'u-text-align--center' => __('Center', 'modularity'),
+                'u-text-align--right' => __('Right', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
+            'settings' => 'footer_logotype_alignment',
+            'label'    => esc_html__('Logotype alignment', 'municipio'),
+            'description' => esc_html__('How to align the logo in the footer.', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'align-left',
+            'choices' => array(
+                'align-left' => __('Left', 'modularity'),
+                'align-center' => __('Center', 'modularity'),
+                'align-right' => __('Right', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['footer.logotype'],
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
             'settings' => 'footer_style',
             'label'    => esc_html__('Footer style', 'municipio'),
             'description' => esc_html__('Which style of footer to use.', 'municipio'),

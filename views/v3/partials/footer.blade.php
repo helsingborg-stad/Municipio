@@ -23,7 +23,7 @@
     {{-- ## Footer top widget area begin ## --}}
     @if (is_active_sidebar('footer-area-top'))
         <div class="o-container">
-            <div class="o-grid-12">
+            <div class="o-grid-12 {{ $customizer->municipioCustomizerSectionFooter['preFooterTextAlignment'] }}">
                 @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
             </div>
         </div>
@@ -64,13 +64,14 @@
             @if ($footerLogotype->url)
                 <div class="o-grid-12">
                     @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
-                    @logotype([
-                    'id' => 'footer-logotype',
-                    'src'=> $footerLogotype->url,
-                    'alt' => $lang->goToHomepage,
-                    'classList' => ['site-footer__logo', 'c-footer__logotype']
-                    ])
-                    @endlogotype
+                        @logotype([
+                            'id' => 'footer-logotype',
+                            'src'=> $footerLogotype->url,
+                            'alt' => $lang->goToHomepage,
+                            'classList' => ['site-footer__logo', 'c-footer__logotype'],
+                            'context' => 'footer.logotype'
+                        ])
+                        @endlogotype
                     @endlink
                 </div>
             @endif
