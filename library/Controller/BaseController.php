@@ -77,6 +77,7 @@ class BaseController
         [$footerStyle, $footerColumns] = $this->getFooterSettings();
         $this->data['footerStyle'] = $footerStyle;
         $this->data['footerColumns'] = $footerColumns;
+        $this->date['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
@@ -388,10 +389,10 @@ class BaseController
     }
 
     protected function getFooterSettings() {
-        $footerStyle = $this->data['customizer']->municipioCustomizerSectionFooter['footerStyle'];
+        $footerStyle = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
         $footerColumns = 1;
         if($footerStyle === 'columns') {
-                $footerColumns = $this->data['customizer']->municipioCustomizerSectionFooter['footerColumns'];
+                $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
         }
 
         return [$footerStyle, $footerColumns];

@@ -25,7 +25,7 @@
     {{-- ## Footer top widget area begin ## --}}
     @if (is_active_sidebar('footer-area-top'))
         <div class="o-container">
-            <div class="o-grid-12 {{ $customizer->municipioCustomizerSectionFooter['preFooterTextAlignment'] }}">
+            <div class="o-grid-12 {{ $customizer->municipioCustomizerSectionComponentFooterMain['preFooterTextAlignment'] }}">
                 @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
             </div>
         </div>
@@ -81,7 +81,7 @@
 
               @for ($i = 0; $i < $footerColumns; $i++)
                   @if (is_active_sidebar('footer-area' . ($i == 0 ? '' : '-' . $i)))
-                      <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $customizer->municipioCustomizerSectionFooter['footerTextAlignment'] }}">
+                      <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $footerTextAlignment }}">
                           @include('partials.sidebar', [
                               'id' => 'footer-area' . ($i == 0 ? '' : '-' . $i),
                               'classes' => ['o-grid'],
