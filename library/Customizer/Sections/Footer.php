@@ -17,6 +17,26 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
+            'settings'    => 'footer_padding',
+            'label'       => esc_html__('Padding', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'transport' => 'auto',
+            'default'     => 3,
+            'choices'     => [
+                'min'  => 1,
+                'max'  => 12,
+                'step' => 1,
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-footer-padding',
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'slider',
             'settings'    => 'footer_height_logotype',
             'label'       => esc_html__('Logotype height', 'municipio'),
             'section'     => self::SECTION_ID,

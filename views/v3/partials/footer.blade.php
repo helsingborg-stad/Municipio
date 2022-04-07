@@ -35,7 +35,7 @@
             </div>
         @endif
 
-        <div class="o-container">
+        <div class="o-container c-footer__main-wrapper">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
                 <div class="o-grid u-print-display--none">
                     <div class="o-grid-12">
