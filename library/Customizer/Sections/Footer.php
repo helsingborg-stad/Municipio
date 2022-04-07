@@ -105,9 +105,7 @@ class Footer
                 'negative'  => __('Secondary', 'municipio')
             ],
             'output' => [
-                [
-                    'type' => 'controller'
-                ]
+                ['type' => 'controller']
             ],
         ]);
 
@@ -148,7 +146,14 @@ class Footer
                     'property'  => '--c-footer-subfooter-flex-direction',
                 ],
                 [
-                    'type' => 'controller'
+                    'type' => 'component_data',
+                    'dataKey' => 'subfooter.flexDirection',
+                    'context' => [
+                        [
+                            'context' => 'component.footer',
+                            'operator' => '==',
+                        ],
+                    ]
                 ]
             ],
         ]);
@@ -171,7 +176,14 @@ class Footer
                     'property'  => '--c-footer-subfooter-alignment',
                 ],
                 [
-                    'type' => 'controller'
+                    'type' => 'component_data',
+                    'dataKey' => 'subfooter.alignment',
+                    'context' => [
+                        [
+                            'context' => 'component.footer',
+                            'operator' => '==',
+                        ],
+                    ]
                 ]
             ],
         ]);
@@ -205,7 +217,16 @@ class Footer
                 ],
             ],
             'output' => [
-                ['type' => 'controller']
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'subfooter.content',
+                    'context' => [
+                        [
+                            'context' => 'component.footer',
+                            'operator' => '==',
+                        ],
+                    ]
+                ]
             ]
         ]);
     }
