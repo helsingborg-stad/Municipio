@@ -56,7 +56,7 @@ class Sidebars
             $suffix = ($i !== 0 ? '-' . $i : '');
             register_sidebar(array(
                 'id'            => 'footer-area' . $suffix,
-                'name'          => __('Footer area ' . $suffix, 'municipio'),
+                'name'          => __('Footer area', 'municipio') . ' (' . ($i+1) . ')',
                 'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
