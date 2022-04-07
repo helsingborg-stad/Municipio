@@ -81,7 +81,7 @@
 
               @for ($i = 0; $i < $footerColumns; $i++)
                   @if (is_active_sidebar('footer-area' . ($i == 0 ? '' : '-' . $i)))
-                      <div class="o-grid-{{ 12 / $footerColumns }}@md {{ $customizer->municipioCustomizerSectionFooter['footerTextAlignment'] }}">
+                      <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $customizer->municipioCustomizerSectionFooter['footerTextAlignment'] }}">
                           @include('partials.sidebar', [
                               'id' => 'footer-area' . ($i == 0 ? '' : '-' . $i),
                               'classes' => ['o-grid'],
