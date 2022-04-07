@@ -72,6 +72,11 @@ class BaseController
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
         $this->data['emblem']               = $this->getEmblem();
 
+        // Footer
+        [$footerStyle, $footerColumns] = $this->getFooterSettings();
+        $this->data['footerStyle'] = $footerStyle;
+        $this->data['footerColumns'] = $footerColumns;
+
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
         $primary        = new \Municipio\Helper\Navigation('primary');
@@ -379,6 +384,16 @@ class BaseController
         }
 
         return false;
+    }
+
+    protected function getFooterSettings() {
+        $footerStyle = $this->data['customizer']->municipioCustomizerSectionFooter['footerStyle'];
+        $footerColumns = 1;
+        if($footerStyle === 'columns') {
+                $footerColumns = $this->data['customizer']->municipioCustomizerSectionFooter['footerColumns'];
+        }
+
+        return [$footerStyle, $footerColumns];
     }
 
     /**

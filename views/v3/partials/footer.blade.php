@@ -76,12 +76,6 @@
                 </div>
             @endif
 
-            @php($footerStyle = $customizer->municipioCustomizerSectionFooter['footerStyle'])
-            @if ($footerStyle === 'basic' || $footerStyle == null)
-                @php($footerColumns = 1)
-            @elseif($footerStyle === 'columns')
-                @php($footerColumns = $customizer->municipioCustomizerSectionFooter['footerColumns'])
-            @endif
             @for ($i = 0; $i < $footerColumns; $i++)
                 @if (is_active_sidebar('footer-area' . ($i == 0 ? '' : '-' . $i)))
                     <div class="o-grid-{{ 12 / $footerColumns }}@md {{ $customizer->municipioCustomizerSectionFooter['footerTextAlignment'] }}">
