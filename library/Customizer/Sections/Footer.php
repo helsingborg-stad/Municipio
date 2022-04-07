@@ -142,7 +142,7 @@ class Footer
             'default'  => 1,
             'choices'     => [
                 'min'  => 1,
-                'max'  => 4,
+                'max'  => 6,
                 'step' => 1,
             ],
             'active_callback' => [
