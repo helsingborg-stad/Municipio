@@ -161,6 +161,22 @@ class Footer
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'footer_color_text',
+            'label'       => esc_html__('Text color', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport'   => 'auto',
+            'default'     => '#000',
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-footer-color-text',
+                ]
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type' => 'background',
             'settings' => 'footer_background',
             'label'    => esc_html__('Footer background', 'municipio'),
