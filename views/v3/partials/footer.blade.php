@@ -82,16 +82,16 @@
                   </div>
               @endif
 
-              @for ($i = 0; $i < $footerColumns; $i++)
-                  @if (is_active_sidebar('footer-area' . ($i == 0 ? '' : '-' . $i)))
-                      <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $footerTextAlignment }}">
-                          @include('partials.sidebar', [
-                              'id' => 'footer-area' . ($i == 0 ? '' : '-' . $i),
-                              'classes' => ['o-grid'],
-                          ])
-                      </div>
-                  @endif
-              @endfor
+                @foreach ($footerAreas as $footerAreaId)
+                    @if (is_active_sidebar($footerAreaId))
+                        <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $footerTextAlignment }}">
+                            @include('partials.sidebar', [
+                                'id' => $footerAreaId,
+                                'classes' => ['o-grid'],
+                            ])
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

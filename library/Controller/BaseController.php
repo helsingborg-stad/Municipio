@@ -74,9 +74,10 @@ class BaseController
         $this->data['emblem']               = $this->getEmblem();
 
         // Footer
-        [$footerStyle, $footerColumns] = $this->getFooterSettings();
+        [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
         $this->data['footerStyle'] = $footerStyle;
         $this->data['footerColumns'] = $footerColumns;
+        $this->data['footerAreas'] = $footerAreas;
         $this->date['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 
         //Init class for menus
@@ -390,12 +391,16 @@ class BaseController
 
     protected function getFooterSettings() {
         $footerStyle = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
+        $footerAreas = ['footer-area'];
         $footerColumns = 1;
         if($footerStyle === 'columns') {
-                $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
+            $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
+            for ($i = 1; $i < $footerColumns; $i++) {
+                $footerAreas[] = 'footer-area-' . $i;
+            }
         }
 
-        return [$footerStyle, $footerColumns];
+        return [$footerStyle, $footerColumns, $footerAreas];
     }
 
     /**
