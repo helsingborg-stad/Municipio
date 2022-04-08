@@ -87,7 +87,7 @@
                         <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $footerTextAlignment }}">
                             @include('partials.sidebar', [
                                 'id' => $footerAreaId,
-                                'classes' => ['o-grid'],
+                                'classes' => ['o-grid', 'c-footer__widget-area'],
                             ])
                         </div>
                     @endif
