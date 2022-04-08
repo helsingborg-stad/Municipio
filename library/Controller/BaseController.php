@@ -396,7 +396,7 @@ class BaseController
         if($footerStyle === 'columns') {
             $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
             for ($i = 1; $i < $footerColumns; $i++) {
-                $footerAreas[] = 'footer-area-' . $i;
+                $footerAreas[] = 'footer-area-column-' . $i;
             }
         }
 

@@ -44,8 +44,7 @@ class Sidebars
 
         $footerStyle = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style');
         $footerColumns = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_columns');
-        $footerTextAlignment = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_text_alignment');
-        
+
         /**
          * Footer Area
          */
@@ -53,10 +52,10 @@ class Sidebars
             $footerColumns = 1;
         }
         for ($i = 0; $i < $footerColumns; $i++) {
-            $suffix = ($i !== 0 ? '-' . $i : '');
+            $suffix = ($i !== 0 ? '-column-' . $i : '');
             register_sidebar(array(
                 'id'            => 'footer-area' . $suffix,
-                'name'          => __('Footer area', 'municipio') . ' (' . ($i+1) . ')',
+                'name'          => __('Footer area', 'municipio') . ' (' . ($i + 1) . ')',
                 'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
