@@ -252,7 +252,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function getPostTypeArchiveLink($postType)
     {
-        if (is_tax() && is_a(get_queried_object(), 'WP_Term')) {
+        if (is_a(get_queried_object(), 'WP_Term')) {
             return get_term_link(get_queried_object());
         }
         return get_post_type_archive_link($postType);
