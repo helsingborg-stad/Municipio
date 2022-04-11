@@ -35,6 +35,25 @@ class Footer
          * Main footer settings
          */
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
+            'settings' => 'footer_style',
+            'label'    => esc_html__('Footer style', 'municipio'),
+            'description' => esc_html__('Which style of footer to use.', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'basic',
+            'choices'     => [
+                'basic' => esc_html__('Basic', 'municipio'),
+                'columns' => esc_html__('Columns', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'footer_padding',
             'label'       => esc_html__('Padding', 'municipio'),
@@ -110,25 +129,6 @@ class Footer
                 [
                     'type' => 'modifier',
                     'context' => ['footer.logotype'],
-                ]
-            ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'select',
-            'settings' => 'footer_style',
-            'label'    => esc_html__('Footer style', 'municipio'),
-            'description' => esc_html__('Which style of footer to use.', 'municipio'),
-            'section'  => self::SECTION_ID,
-            'default'  => 'basic',
-            'choices'     => [
-                'basic' => esc_html__('Basic', 'municipio'),
-                'columns' => esc_html__('Columns', 'municipio'),
-            ],
-            'output' => [
-                [
-                    'type' => 'controller',
-                    'as_object' => true,
                 ]
             ],
         ]);
@@ -291,8 +291,28 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
+            'settings'    => 'footer_subfooter_height_logotype',
+            'label'       => esc_html__('Logotype height', 'municipio'),
+            'section'     => self::SUBFOOTER_SECTION_ID,
+            'transport' => 'auto',
+            'default'     => 6,
+            'choices'     => [
+                'min'  => 3,
+                'max'  => 12,
+                'step' => 1,
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-footer-subfooter-height-logotype',
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'slider',
             'settings'    => 'footer_subfooter_padding',
-            'label'       => esc_html__('Subfooter padding', 'municipio'),
+            'label'       => esc_html__('Padding', 'municipio'),
             'section'     => self::SUBFOOTER_SECTION_ID,
             'transport' => 'auto',
             'default'     => 3,
@@ -312,7 +332,7 @@ class Footer
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'footer_subfooter_flex_direction',
-            'label'       => esc_html__('Subfooter direction', 'municipio'),
+            'label'       => esc_html__('Direction', 'municipio'),
             'section'     => self::SUBFOOTER_SECTION_ID,
             'transport' => 'refresh',
             'default'     => 'row',
@@ -341,7 +361,7 @@ class Footer
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'footer_subfooter_alignment',
-            'label'       => esc_html__('Subfooter content alignment', 'municipio'),
+            'label'       => esc_html__('Content alignment', 'municipio'),
             'section'     => self::SUBFOOTER_SECTION_ID,
             'transport'   => 'refresh',
             'default'     => 'center',
@@ -371,7 +391,7 @@ class Footer
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'repeater',
             'settings'    => 'footer_subfooter_content',
-            'label'       => esc_html__('Subfooter content', 'municipio'),
+            'label'       => esc_html__('Content', 'municipio'),
             'section'     => self::SUBFOOTER_SECTION_ID,
             'transport' => 'auto',
             'fields'   => [
