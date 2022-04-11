@@ -282,11 +282,32 @@ class Footer
             'choices'     => [
                 'hide'  => __('None', 'municipio'),
                 'standard'  => __('Primary', 'municipio'),
-                'negative'  => __('Secondary', 'municipio')
+                'negative'  => __('Secondary', 'municipio'),
+                'custom'  => __('Custom', 'municipio')
             ],
             'output' => [
                 ['type' => 'controller']
             ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'upload',
+            'settings'    => 'footer_subfooter_custom_logotype',
+            'label'       => esc_html__('Upload SVG logo', 'municipio'),
+            'description' => 'Upload a custom logo for the subfooter.',
+            'section'     => self::SUBFOOTER_SECTION_ID,
+            'priority'    => 10,
+            'transport'   => 'refresh',
+            'active_callback' => [
+                [
+                    'setting'  => 'footer_subfooter_logotype',
+                    'operator' => '==',
+                    'value'    => 'custom',
+                ]
+            ],
+            'output' => [
+                ['type' => 'controller']
+            ]
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
