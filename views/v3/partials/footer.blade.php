@@ -21,19 +21,19 @@
 
 {{-- Footer body --}}
 @section('footer-body')
-
-    {{-- ## Footer top widget area begin ## --}}
-    @if (is_active_sidebar('footer-area-top'))
-        <div class="c-footer__prefooter-wrapper">
-            <div class="o-container">
-                <div class="o-grid-12 {{ $customizer->municipioCustomizerSectionComponentFooterMain['preFooterTextAlignment'] }}">
-                    @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
-                </div>
-            </div>
-        </div>
-    @endif
     
     <div class="c-footer__main-wrapper">
+        {{-- ## Footer top widget area begin ## --}}
+        @if (is_active_sidebar('footer-area-top'))
+            <div class="c-footer__prefooter-wrapper">
+                <div class="o-container">
+                    <div class="o-grid-12 {{ $customizer->municipioCustomizerSectionComponentFooterMain['preFooterTextAlignment'] }}">
+                        @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="o-container">
             @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
                 <div class="o-grid u-print-display--none">
