@@ -35,13 +35,14 @@ module.exports = {
         'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
         'js/design-share': './assets/source/3.0/js/admin/designShare.js',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
+        'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
         'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js'
     },
     /**
-     * Output settings
+     * Output settings  
      */
     output: {
         filename: ifProduction('[name].[contenthash].js', '[name].js'),

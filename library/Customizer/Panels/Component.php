@@ -20,6 +20,7 @@ class Component
         new \Municipio\Customizer\Sections\HamburgerMenu(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Slider(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Footer(self::PANEL_ID);
+        
         //new \Municipio\Customizer\Sections\Card(self::PANEL_ID);
         //new \Municipio\Customizer\Sections\Collection(self::PANEL_ID);
         //new \Municipio\Customizer\Sections\Field(self::PANEL_ID);

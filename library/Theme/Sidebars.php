@@ -4,6 +4,8 @@ namespace Municipio\Theme;
 
 class Sidebars
 {
+    private $footerColumns = null;
+
     public function __construct()
     {
         add_action('widgets_init', array($this, 'register'));
@@ -13,6 +15,29 @@ class Sidebars
         add_filter('Modularity/Module/Container/Modules', array($this, 'registerModulesWithContainerSupport'));
 
         add_filter('Modularity/Display/BeforeModule', array($this, 'replaceGridClasses'), 10, 1);
+
+        add_action('admin_enqueue_scripts', array($this, 'filterVisibleWigets'));
+    }
+
+    public function filterVisibleWigets($page)
+    {
+        if ('widgets.php' !== $page) {
+            return;
+        }
+        $footerStyle = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style');
+        $footerColumns = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_columns');
+        wp_enqueue_script(
+            'widgets-area-hide-js',
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/widgets-area-hider.js')
+        );
+        wp_localize_script(
+            'widgets-area-hide-js',
+            'municipioSidebars',
+            [
+                'footerStyle' => $footerStyle,
+                'footerColumns' => $footerColumns ?? 1,
+            ]
+        );
     }
 
     public function replaceGridClasses($beforeMarkup)
@@ -29,7 +54,6 @@ class Sidebars
 
     public function register()
     {
-
         /**
          * Footer Area Top
          */
@@ -44,17 +68,20 @@ class Sidebars
         ));
 
         /**
-         * Footer Area
+         * Create a total of 6 footer areas for use with the "columns" footer style
          */
-        register_sidebar(array(
-            'id'            => 'footer-area',
-            'name'          => __('Footer', 'municipio'),
-            'description'   => __('The footer area', 'municipio'),
-            'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
-            'after_title'   => '</h2>',
-            'before_widget' => '<div class="grid-lg-4"><div id="%1$s" class="%2$s">', //TODO: Replace old grid class with new "o-grid-4@lg" (without breaking customizer)
-            'after_widget'  => '</div></div>'
-        ));
+        for ($i = 0; $i < 6; $i++) {
+            $suffix = ($i !== 0 ? '-column-' . $i : '');
+            register_sidebar(array(
+                'id'            => 'footer-area' . $suffix,
+                'name'          => __('Footer area', 'municipio') . ' (' . ($i + 1) . ')',
+                'description'   => __('The footer area ' . $suffix, 'municipio'),
+                'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
+                'after_title'   => '</h2>',
+                'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
+                'after_widget'  => '</div></div>'
+            ));
+        }
 
         /**
          * Slider Area
@@ -278,7 +305,6 @@ class Sidebars
             case "mod-json-render":
                 $moduleSpecification['sidebar_incompability'] = array("footer-area-top");
                 break;
-
         }
 
         return $moduleSpecification;

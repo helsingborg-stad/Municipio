@@ -70,7 +70,15 @@ class BaseController
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
+        $this->data['subfooterLogotype']    = $this->getLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
+
+        // Footer
+        [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
+        $this->data['footerStyle'] = $footerStyle;
+        $this->data['footerColumns'] = $footerColumns;
+        $this->data['footerAreas'] = $footerAreas;
+        $this->data['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
@@ -379,6 +387,20 @@ class BaseController
         }
 
         return false;
+    }
+
+    protected function getFooterSettings() {
+        $footerStyle = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
+        $footerAreas = ['footer-area'];
+        $footerColumns = 1;
+        if($footerStyle === 'columns') {
+            $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
+            for ($i = 1; $i < $footerColumns; $i++) {
+                $footerAreas[] = 'footer-area-column-' . $i;
+            }
+        }
+
+        return [$footerStyle, $footerColumns, $footerAreas];
     }
 
     /**

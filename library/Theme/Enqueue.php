@@ -286,7 +286,15 @@ class Enqueue
             return $tag;
         }
 
-        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', array('readspeaker', 'jquery-core', 'jquery-migrate'), $handle);
+        global $wp_customize;
+        if (isset($wp_customize)) {
+            add_filter('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', function ($handles) {
+                $handles[] = 'webfont-loader';
+                return $handles;
+            }, 10, 3);
+        }
+
+        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', ['readspeaker', 'jquery-core', 'jquery-migrate'], $handle);
         $disableDeferedLoading = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
 
         if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
