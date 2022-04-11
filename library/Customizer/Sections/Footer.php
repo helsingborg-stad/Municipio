@@ -134,6 +134,33 @@ class Footer
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
+            'settings' => 'footer_text_alignment',
+            'label'    => esc_html__('Text alignment', 'municipio'),
+            'description' => esc_html__('How to align the text in the columns.', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'u-text-align--left',
+            'choices' => array(
+                'u-text-align--left' => __('Left', 'modularity'),
+                'u-text-align--center' => __('Center', 'modularity'),
+                'u-text-align--right' => __('Right', 'modularity'),
+            ),
+            'active_callback' => [
+                [
+                    'setting'  => 'footer_style',
+                    'operator' => '==',
+                    'value'    => 'columns',
+                ]
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'slider',
             'settings' => 'footer_columns',
             'label'    => esc_html__('Number of columns to display', 'municipio'),
@@ -381,33 +408,6 @@ class Footer
                     ]
                 ]
             ]
-        ]);
-          
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'select',
-            'settings' => 'footer_text_alignment',
-            'label'    => esc_html__('Text alignment', 'municipio'),
-            'description' => esc_html__('How to align the text in the columns.', 'municipio'),
-            'section'  => self::SUBFOOTER_SECTION_ID,
-            'default'  => 'u-text-align--left',
-            'choices' => array(
-                'u-text-align--left' => __('Left', 'modularity'),
-                'u-text-align--center' => __('Center', 'modularity'),
-                'u-text-align--right' => __('Right', 'modularity'),
-            ),
-            'active_callback' => [
-                [
-                    'setting'  => 'footer_style',
-                    'operator' => '==',
-                    'value'    => 'columns',
-                ]
-            ],
-            'output' => [
-                [
-                    'type' => 'controller',
-                    'as_object' => true,
-                ]
-            ],
         ]);
     }
 }

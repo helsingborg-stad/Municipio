@@ -78,7 +78,7 @@ class BaseController
         $this->data['footerStyle'] = $footerStyle;
         $this->data['footerColumns'] = $footerColumns;
         $this->data['footerAreas'] = $footerAreas;
-        $this->date['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
+        $this->data['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 
         //Init class for menus
         $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
