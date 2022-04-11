@@ -410,11 +410,6 @@ class Footer
                     'label'       => esc_html__( 'Link', 'muncipio' ),
                     'default'     => '',
                 ],
-                'open_new_tab'   => [
-                    'type'        => 'checkbox',
-                    'label'       => esc_html__( 'Open in new tab', 'muncipio' ),
-                    'default'     => false,
-                ],
             ],
             'output' => [
                 [
