@@ -75,8 +75,8 @@ class BaseController
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
-        $this->data['footerStyle'] = $footerStyle;
         $this->data['footerColumns'] = $footerColumns;
+        $this->data['footerGridSize'] = $footerStyle === 'columns' ? floor(12 / $footerColumns) : 4;
         $this->data['footerAreas'] = $footerAreas;
         $this->data['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 

@@ -84,7 +84,7 @@
 
                 @foreach ($footerAreas as $footerAreaId)
                     @if (is_active_sidebar($footerAreaId))
-                        <div class="o-grid-{{ floor(12 / $footerColumns) }}@md {{ $footerTextAlignment }}">
+                        <div class="o-grid-{{ $footerGridSize }}@md {{ $footerTextAlignment }}">
                             @include('partials.sidebar', [
                                 'id' => $footerAreaId,
                                 'classes' => ['o-grid', 'c-footer__widget-area'],
