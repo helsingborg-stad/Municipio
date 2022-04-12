@@ -459,6 +459,17 @@ class Upgrade
         return true;
     }
 
+    //Move footer logo settings to customizer
+    private function v_21($db): bool
+    {
+        if ($logotype = get_option('options_footer_logotype')) {
+            set_theme_mod('footer_logotype', $logotype);
+        }
+
+        delete_option('options_footer_logotype');
+        return true;
+    }
+
     /**
      * Get all post types
      *
