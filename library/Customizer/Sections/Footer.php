@@ -217,13 +217,6 @@ class Footer
                 'background-size'       => 'cover',
                 'background-attachment' => 'scroll',
             ],
-            'active_callback' => [
-                [
-                    'setting'  => 'footer_style',
-                    'operator' => '==',
-                    'value'    => 'columns',
-                ]
-            ],
             'transport'   => 'auto',
             'output'      => [
                 [
