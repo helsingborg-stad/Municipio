@@ -22,16 +22,12 @@
 {{-- Footer body --}}
 @section('footer-body')
     
-    <div class="c-footer__main-wrapper">
+    <div class="c-footer__main-wrapper {{ $customizer->municipioCustomizerSectionComponentFooterMain['preFooterTextAlignment'] }}">
         {{-- ## Footer top widget area begin ## --}}
         @if (is_active_sidebar('footer-area-top'))
-            <div class="c-footer__prefooter-wrapper">
-                <div class="o-container">
-                    <div class="o-grid-12 {{ $customizer->municipioCustomizerSectionComponentFooterMain['preFooterTextAlignment'] }}">
-                        @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
-                    </div>
-                </div>
-            </div>
+            @slot('prefooter')
+                @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
+            @endslot
         @endif
 
         <div class="o-container">
@@ -97,13 +93,9 @@
 
         {{-- ## Footer bottom widget area begin ## --}}
         @if (is_active_sidebar('footer-area-bottom'))
-            <div class="c-footer__postfooter-wrapper">
-                <div class="o-container">
-                    <div class="o-grid-12">
-                        @include('partials.sidebar', ['id' => 'footer-area-bottom', 'classes' => ['o-grid']])
-                    </div>
-                </div>
-            </div>
+            @slot('postfooter')
+                @include('partials.sidebar', ['id' => 'footer-area-bottom', 'classes' => ['o-grid']])
+            @endslot
         @endif
     </div>
 @show
