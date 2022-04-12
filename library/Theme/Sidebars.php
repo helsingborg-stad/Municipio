@@ -17,6 +17,15 @@ class Sidebars
         add_filter('Modularity/Display/BeforeModule', array($this, 'replaceGridClasses'), 10, 1);
 
         add_action('admin_enqueue_scripts', array($this, 'filterVisibleWigets'));
+
+        add_filter('Modularity/Templates/Sidebars', array($this, 'filterAvailableSidebars'));
+    }
+
+    public function filterAvailableSidebars($sidebars)
+    {
+        return array_filter($sidebars, function($sidebar) {
+            return strpos($sidebar['id'], 'footer-') !== 0;
+        });
     }
 
     public function filterVisibleWigets($page)
