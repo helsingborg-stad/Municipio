@@ -97,7 +97,7 @@
 
         {{-- ## Footer bottom widget area begin ## --}}
         @if (is_active_sidebar('footer-area-bottom'))
-            <div class="c-footer__prefooter-wrapper">
+            <div class="c-footer__postfooter-wrapper">
                 <div class="o-container">
                     <div class="o-grid-12">
                         @include('partials.sidebar', ['id' => 'footer-area-bottom', 'classes' => ['o-grid']])
