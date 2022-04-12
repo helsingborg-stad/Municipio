@@ -17,6 +17,15 @@ class Sidebars
         add_filter('Modularity/Display/BeforeModule', array($this, 'replaceGridClasses'), 10, 1);
 
         add_action('admin_enqueue_scripts', array($this, 'filterVisibleWigets'));
+
+        add_filter('Modularity/Templates/Sidebars', array($this, 'filterAvailableSidebars'));
+    }
+
+    public function filterAvailableSidebars($sidebars)
+    {
+        return array_filter($sidebars, function($sidebar) {
+            return strpos($sidebar['id'], 'footer-') !== 0;
+        });
     }
 
     public function filterVisibleWigets($page)
@@ -82,6 +91,19 @@ class Sidebars
                 'after_widget'  => '</div></div>'
             ));
         }
+
+        /**
+         * Footer Area Bottom
+         */
+        register_sidebar(array(
+            'id'            => 'footer-area-bottom',
+            'name'          => __('Footer bottom', 'municipio'),
+            'description'   => __('The bottom of footer area', 'municipio'),
+            'before_title'  => '<h2 class="footer-bottom-title">',
+            'after_title'   => '</h2>',
+            'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
+            'after_widget'  => '</div></div>'
+        ));
 
         /**
          * Slider Area
