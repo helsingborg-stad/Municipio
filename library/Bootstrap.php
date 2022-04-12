@@ -56,7 +56,6 @@ add_action('init', function () {
         'options-theme-favicon'                     => 'group_56cc39aba8782',
         'options-theme-footer-icons'                => 'group_56af210c945f0',
         'options-theme-footer-layout'               => 'group_56e804931bd1e',
-        'options-theme-footer-logotype'             => 'group_56c5d41852a31',
         'options-theme-google-translate'            => 'group_56cc6f8fe86d3',
         'options-theme-header'                      => 'group_56a22a9c78e54',
         'options-theme-header-logotype'             => 'group_56c5d34a261f5',

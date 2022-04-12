@@ -69,7 +69,7 @@ class BaseController
         
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
-        $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
+        $this->data['footerLogotype']       = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
 
