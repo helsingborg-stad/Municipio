@@ -84,6 +84,19 @@ class Sidebars
         }
 
         /**
+         * Footer Area Bottom
+         */
+        register_sidebar(array(
+            'id'            => 'footer-area-bottom',
+            'name'          => __('Footer bottom', 'municipio'),
+            'description'   => __('The bottom of footer area', 'municipio'),
+            'before_title'  => '<h2 class="footer-bottom-title">',
+            'after_title'   => '</h2>',
+            'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
+            'after_widget'  => '</div></div>'
+        ));
+
+        /**
          * Slider Area
          */
         register_sidebar(array(

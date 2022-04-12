@@ -94,6 +94,17 @@
                 @endforeach
             </div>
         </div>
+
+        {{-- ## Footer bottom widget area begin ## --}}
+        @if (is_active_sidebar('footer-area-bottom'))
+            <div class="c-footer__prefooter-wrapper">
+                <div class="o-container">
+                    <div class="o-grid-12">
+                        @include('partials.sidebar', ['id' => 'footer-area-bottom', 'classes' => ['o-grid']])
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 @show
 
