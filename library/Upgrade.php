@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 20; //The db version we want to achive
+    private $dbVersion = 21; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
