@@ -70,7 +70,7 @@ class BaseController
         //Logotypes
         $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype(get_field('footer_logotype', 'option') ?? 'negative');
-        $this->data['subfooterLogotype']    = $this->getLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
+        $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
 
         // Footer
@@ -633,6 +633,25 @@ class BaseController
 
         //Return
         return (object) $logotype;
+    }
+
+    /**
+     * Get the subfooter logotype
+     *
+     * @param string $variant
+     * @return string|boolean 
+     */
+    public function getSubfooterLogotype($variant = "standard")
+    {
+        if (!$variant) {
+            return false;
+        }
+
+        if($variant === 'custom') {
+            return $this->data['customizer']->footerSubfooterCustomLogotype;
+        }
+
+        return $this->getLogotype($variant)->url ?? false;
     }
 
     /**
