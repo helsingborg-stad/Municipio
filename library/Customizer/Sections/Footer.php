@@ -294,7 +294,7 @@ class Footer
             'type'        => 'upload',
             'settings'    => 'footer_subfooter_custom_logotype',
             'label'       => esc_html__('Upload SVG logo', 'municipio'),
-            'description' => 'Upload a custom logo for the subfooter.',
+            'description' => 'Upload a custom .svg file to use as logo.',
             'section'     => self::SUBFOOTER_SECTION_ID,
             'priority'    => 10,
             'transport'   => 'refresh',
