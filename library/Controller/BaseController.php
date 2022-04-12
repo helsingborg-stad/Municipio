@@ -639,7 +639,7 @@ class BaseController
      * Get the subfooter logotype
      *
      * @param string $variant
-     * @return object|boolean 
+     * @return string|boolean 
      */
     public function getSubfooterLogotype($variant = "standard")
     {
