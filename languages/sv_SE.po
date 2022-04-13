@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 16:55+0200\n"
-"PO-Revision-Date: 2022-04-13 17:13+0200\n"
+"POT-Creation-Date: 2022-04-13 17:14+0200\n"
+"PO-Revision-Date: 2022-04-13 17:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -6737,6 +6737,7 @@ msgid "How many columns that the footer should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
 #: library/Customizer/Sections/Footer.php:210
+#: library/Customizer/Sections/Footer.php:258
 #: library/Customizer/Sections/Header.php:81
 #: library/Customizer/Sections/Quicklinks.php:102
 msgid "Text color"
@@ -6749,10 +6750,6 @@ msgstr "Bakgrund för sidfot"
 #: library/Customizer/Sections/Footer.php:227
 msgid "Background settings for the footer."
 msgstr "Bakgrundsinställningar för sidfoten."
-
-#: library/Customizer/Sections/Footer.php:258
-msgid "Kontrastfärg"
-msgstr "Kontrastfärg"
 
 #: library/Customizer/Sections/Footer.php:259
 msgid "Text separator"
@@ -8815,6 +8812,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Kontrastfärg"
+#~ msgstr "Kontrastfärg"
 
 #~ msgid "Menu fallbacks"
 #~ msgstr "Menyreserver"
