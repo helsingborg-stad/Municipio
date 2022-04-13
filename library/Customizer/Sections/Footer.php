@@ -107,8 +107,14 @@ class Footer
             ),
             'output' => [
                 [
-                    'type' => 'controller',
-                    'as_object' => true,
+                    'type' => 'component_data',
+                    'dataKey' => 'preFooterTextAlignment',
+                    'context' => [
+                        [
+                            'context' => 'component.footer',
+                            'operator' => '==',
+                        ],
+                    ],
                 ]
             ],
         ]);

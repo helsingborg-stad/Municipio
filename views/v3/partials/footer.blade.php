@@ -9,6 +9,8 @@
 @footer([
     'id' => 'site-footer',
     'slotOnly' => true,
+    'logotype' => $footerLogotype->url ?? false,
+    'logotypeHref' => $homeUrl,
     'subfooterLogotype' => $subfooterLogotype,
     'context' => 'component.footer',
     'classList' => [
@@ -22,82 +24,64 @@
 {{-- Footer body --}}
 @section('footer-body')
     
-    <div class="c-footer__main-wrapper {{ $customizer->municipioCustomizerSectionComponentFooterMain['preFooterTextAlignment'] }}">
-        {{-- ## Footer top widget area begin ## --}}
-        @if (is_active_sidebar('footer-area-top'))
-            @slot('prefooter')
-                @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
-            @endslot
-        @endif
+    {{-- ## Footer top widget area begin ## --}}
+    @if (is_active_sidebar('footer-area-top'))
+        @slot('prefooter')
+            @include('partials.sidebar', ['id' => 'footer-area-top', 'classes' => ['o-grid']])
+        @endslot
+    @endif
 
+    @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
         <div class="o-container">
-            @if (get_field('footer_logotype_vertical_position', 'option') == 'bottom')
-                <div class="o-grid u-print-display--none">
-                    <div class="o-grid-12">
-                        <nav>
-                            <ul class="nav nav-help nav-horizontal">
-                                {!!
-                                    wp_nav_menu([
-                                        'theme_location' => 'help-menu',
-                                        'container' => false,
-                                        'container_class' => 'menu-{menu-slug}-container',
-                                        'container_id' => '',
-                                        'menu_class' => '',
-                                        'menu_id' => 'help-menu-top',
-                                        'echo' => false,
-                                        'before' => '',
-                                        'after' => '',
-                                        'link_before' => '',
-                                        'link_after' => '',
-                                        'items_wrap' => '%3$s',
-                                        'depth' => 1,
-                                        'fallback_cb' => '__return_false',
-                                    ]);
-                                !!}
-                            </ul>
-                        </nav>
-                    </div>
+            <div class="o-grid u-print-display--none">
+                <div class="o-grid-12">
+                    <nav>
+                        <ul class="nav nav-help nav-horizontal">
+                            {!!
+                                wp_nav_menu([
+                                    'theme_location' => 'help-menu',
+                                    'container' => false,
+                                    'container_class' => 'menu-{menu-slug}-container',
+                                    'container_id' => '',
+                                    'menu_class' => '',
+                                    'menu_id' => 'help-menu-top',
+                                    'echo' => false,
+                                    'before' => '',
+                                    'after' => '',
+                                    'link_before' => '',
+                                    'link_after' => '',
+                                    'items_wrap' => '%3$s',
+                                    'depth' => 1,
+                                    'fallback_cb' => '__return_false',
+                                ]);
+                            !!}
+                        </ul>
+                    </nav>
                 </div>
-            @endif
-
-
-          <div class="o-grid">
-
-              @if ($footerLogotype->url)
-                  <div class="o-grid-12">
-                      @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto']])
-                          @logotype([
-                              'id' => 'footer-logotype',
-                              'src'=> $footerLogotype->url,
-                              'alt' => $lang->goToHomepage,
-                              'classList' => ['site-footer__logo', 'c-footer__logotype'],
-                              'context' => 'footer.logotype'
-                          ])
-                          @endlogotype
-                      @endlink
-                  </div>
-              @endif
-
-                @foreach ($footerAreas as $footerAreaId)
-                    @if (is_active_sidebar($footerAreaId))
-                        <div class="o-grid-{{ $footerGridSize }}@md {{ $footerTextAlignment }}">
-                            @include('partials.sidebar', [
-                                'id' => $footerAreaId,
-                                'classes' => ['o-grid', 'c-footer__widget-area'],
-                            ])
-                        </div>
-                    @endif
-                @endforeach
             </div>
         </div>
+    @endif
 
-        {{-- ## Footer bottom widget area begin ## --}}
-        @if (is_active_sidebar('footer-area-bottom'))
-            @slot('postfooter')
-                @include('partials.sidebar', ['id' => 'footer-area-bottom', 'classes' => ['o-grid']])
-            @endslot
-        @endif
-    </div>
+    @slot('footerareas')
+        @foreach ($footerAreas as $footerAreaId)
+            @if (is_active_sidebar($footerAreaId))
+                <div class="o-grid-{{ $footerGridSize }}@md {{ $footerTextAlignment }}">
+                    @include('partials.sidebar', [
+                        'id' => $footerAreaId,
+                        'classes' => ['o-grid', 'c-footer__widget-area'],
+                    ])
+                </div>
+            @endif
+        @endforeach
+    @endslot
+
+    {{-- ## Footer bottom widget area begin ## --}}
+    @if (is_active_sidebar('footer-area-bottom'))
+        @slot('postfooter')
+            @include('partials.sidebar', ['id' => 'footer-area-bottom', 'classes' => ['o-grid']])
+        @endslot
+    @endif
+
 @show
 
 {{-- After footer body --}}
