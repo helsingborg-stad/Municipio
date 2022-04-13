@@ -134,7 +134,7 @@ class Footer
             'type'     => 'select',
             'settings' => 'pre_footer_text_alignment',
             'label'    => esc_html__('Pre-footer Text alignment', 'municipio'),
-            'description' => esc_html__('How to align the text in the .', 'municipio'),
+            'description' => esc_html__('How to align the text in the prefooter.', 'municipio'),
             'section'  => self::SECTION_ID,
             'default'  => 'u-text-align--left',
             'choices' => array(
@@ -255,7 +255,7 @@ class Footer
             'alpha'       => true,
             'choices'     => [
                 'background'    => esc_html__('Background', 'municipio'),
-                'text'    => esc_html__('Kontrastfärg', 'municipio'),
+                'text'    => esc_html__('Base Contrasting', 'municipio'),
                 'separator'    => esc_html__('Text separator', 'municipio'),
             ],
             'default'     => [

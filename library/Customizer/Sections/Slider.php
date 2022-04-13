@@ -57,7 +57,7 @@ class Slider
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'slider_padding',
-            'label'       => esc_html__('Slider padding', 'municipio'),
+            'label'       => esc_html__('Padding', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 7,
             'choices'     => [
