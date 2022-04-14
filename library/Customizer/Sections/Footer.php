@@ -156,7 +156,7 @@ class Footer
                 ]
             ],
         ]);
-      
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'select',
             'settings' => 'pre_footer_text_alignment',
@@ -191,8 +191,8 @@ class Footer
             'section'  => self::SECTION_ID,
             'default'  => 'off',
             'choices' => [
-                'on'  => esc_html__( 'Enable', 'kirki' ),
-                'off' => esc_html__( 'Disable', 'kirki' ),
+                'on'  => esc_html__('Enable', 'kirki'),
+                'off' => esc_html__('Disable', 'kirki'),
             ],
             'output' => [
                 [
@@ -207,12 +207,64 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'slider',
+            'settings' => 'pre_footer_border_size',
+            'label'    => esc_html__('Pre-footer border size', 'municipio'),
+            'description' => esc_html__('The size of the pre-footer\'s bottom border', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'transport'   => 'auto',
+            'default'     => 1,
+            'choices'     => [
+                'min'  => 1,
+                'max'  => 8,
+                'step' => 1,
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'pre_footer_border',
+                    'operator' => '==',
+                    'value'    => true,
+                ]
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-footer-prefooter-border-size',
+                    'units' => 'px',
+                ]
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'color',
+            'settings' => 'pre_footer_border_color',
+            'label'    => esc_html__('Pre-footer border color', 'municipio'),
+            'description' => esc_html__('The color of the pre-footer\'s bottom border', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'transport'   => 'auto',
+            'default'     => '#000',
+            'active_callback' => [
+                [
+                    'setting'  => 'pre_footer_border',
+                    'operator' => '==',
+                    'value'    => true,
+                ]
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--c-footer-prefooter-border-color',
+                ]
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'slider',
             'settings' => 'footer_columns',
             'label'    => esc_html__('Number of columns to display', 'municipio'),
             'description' => esc_html__('How many columns that the footer should be divided in.', 'municipio'),
             'section'  => self::SECTION_ID,
             'default'  => 1,
-            'choices'     => [
+            'choices'  => [
                 'min'  => 1,
                 'max'  => 6,
                 'step' => 1,
@@ -416,7 +468,7 @@ class Footer
                 ]
             ],
         ]);
-      
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'footer_subfooter_alignment',
@@ -446,7 +498,7 @@ class Footer
                 ]
             ],
         ]);
-      
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'repeater',
             'settings'    => 'footer_subfooter_content',
@@ -456,17 +508,17 @@ class Footer
             'fields'   => [
                 'title'   => [
                     'type'        => 'text',
-                    'label'       => esc_html__( 'Title', 'muncipio' ),
+                    'label'       => esc_html__('Title', 'muncipio'),
                     'default'     => '',
                 ],
                 'content'   => [
                     'type'        => 'text',
-                    'label'       => esc_html__( 'Text', 'muncipio' ),
+                    'label'       => esc_html__('Text', 'muncipio'),
                     'default'     => '',
                 ],
                 'link'   => [
                     'type'        => 'url',
-                    'label'       => esc_html__( 'Link', 'muncipio' ),
+                    'label'       => esc_html__('Link', 'muncipio'),
                     'default'     => '',
                 ],
             ],
