@@ -185,9 +185,9 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'checkbox_switch',
-            'settings' => 'pre_footer_border',
-            'label'    => esc_html__('Pre-footer border', 'municipio'),
-            'description' => esc_html__('Add a bottom border for the pre-footer', 'municipio'),
+            'settings' => 'footer_header_border',
+            'label'    => esc_html__('Footer header border', 'municipio'),
+            'description' => esc_html__('Add a bottom border for the footer header', 'municipio'),
             'section'  => self::SECTION_ID,
             'default'  => 'off',
             'choices' => [
@@ -199,7 +199,7 @@ class Footer
                     'type' => 'modifier',
                     'context' => ['component.footer'],
                     'value_map' => [
-                        true => 'prefooter-border'
+                        true => 'header-border'
                     ]
                 ]
             ],
@@ -207,9 +207,9 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'slider',
-            'settings' => 'pre_footer_border_size',
-            'label'    => esc_html__('Pre-footer border size', 'municipio'),
-            'description' => esc_html__('The size of the pre-footer\'s bottom border', 'municipio'),
+            'settings' => 'footer_header_border_size',
+            'label'    => esc_html__('Footer header border size', 'municipio'),
+            'description' => esc_html__('The size of the footer header\'s bottom border', 'municipio'),
             'section'  => self::SECTION_ID,
             'transport'   => 'auto',
             'default'     => 1,
@@ -220,7 +220,7 @@ class Footer
             ],
             'active_callback' => [
                 [
-                    'setting'  => 'pre_footer_border',
+                    'setting'  => 'footer_header_border',
                     'operator' => '==',
                     'value'    => true,
                 ]
@@ -228,7 +228,7 @@ class Footer
             'output' => [
                 [
                     'element'   => ':root',
-                    'property'  => '--c-footer-prefooter-border-size',
+                    'property'  => '--c-footer-header-border-size',
                     'units' => 'px',
                 ]
             ]
@@ -236,15 +236,15 @@ class Footer
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'color',
-            'settings' => 'pre_footer_border_color',
-            'label'    => esc_html__('Pre-footer border color', 'municipio'),
-            'description' => esc_html__('The color of the pre-footer\'s bottom border', 'municipio'),
+            'settings' => 'footer_header_border_color',
+            'label'    => esc_html__('Footer header border color', 'municipio'),
+            'description' => esc_html__('The color of the footer header\'s bottom border', 'municipio'),
             'section'  => self::SECTION_ID,
             'transport'   => 'auto',
             'default'     => '#000',
             'active_callback' => [
                 [
-                    'setting'  => 'pre_footer_border',
+                    'setting'  => 'footer_header_border',
                     'operator' => '==',
                     'value'    => true,
                 ]
@@ -252,7 +252,7 @@ class Footer
             'output' => [
                 [
                     'element'   => ':root',
-                    'property'  => '--c-footer-prefooter-border-color',
+                    'property'  => '--c-footer-header-border-color',
                 ]
             ]
         ]);
