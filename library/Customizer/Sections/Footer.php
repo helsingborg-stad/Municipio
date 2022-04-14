@@ -184,6 +184,28 @@ class Footer
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'checkbox_switch',
+            'settings' => 'pre_footer_border',
+            'label'    => esc_html__('Pre-footer border', 'municipio'),
+            'description' => esc_html__('Add a bottom border for the pre-footer', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'off',
+            'choices' => [
+                'on'  => esc_html__( 'Enable', 'kirki' ),
+                'off' => esc_html__( 'Disable', 'kirki' ),
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['component.footer'],
+                    'value_map' => [
+                        true => 'prefooter-border'
+                    ]
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'slider',
             'settings' => 'footer_columns',
             'label'    => esc_html__('Number of columns to display', 'municipio'),
