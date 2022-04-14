@@ -30,9 +30,15 @@ class Modifiers extends AbstractApplicator
                 if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output'])) {
                     foreach ($field['output'] as $output) {
                         if (isset($output['context'])) {
+                            $value = \Kirki::get_option($key);
+                            if (isset($output['value_map']) && is_array($output['value_map'])) {
+                                if (array_key_exists((string)$value, $output['value_map'])) {
+                                    $value = $output['value_map'][$value];
+                                }
+                            }
                             $filter = [
                                 'contexts'  => $output['context'],
-                                'value'     => \Kirki::get_option($key)
+                                'value'     => $value,
                             ];
                         }
                     }
