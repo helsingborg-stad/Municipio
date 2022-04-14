@@ -129,26 +129,6 @@ class Footer
                 ]
             ],
         ]);
-      
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'select',
-            'settings' => 'pre_footer_text_alignment',
-            'label'    => esc_html__('Pre-footer Text alignment', 'municipio'),
-            'description' => esc_html__('How to align the text in the .', 'municipio'),
-            'section'  => self::SECTION_ID,
-            'default'  => 'u-text-align--left',
-            'choices' => array(
-                'u-text-align--left' => __('Left', 'modularity'),
-                'u-text-align--center' => __('Center', 'modularity'),
-                'u-text-align--right' => __('Right', 'modularity'),
-            ),
-            'output' => [
-                [
-                    'type' => 'controller',
-                    'as_object' => true,
-                ]
-            ],
-        ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'select',
@@ -173,6 +153,32 @@ class Footer
                 [
                     'type' => 'controller',
                     'as_object' => true,
+                ]
+            ],
+        ]);
+      
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'select',
+            'settings' => 'pre_footer_text_alignment',
+            'label'    => esc_html__('Pre-footer Text alignment', 'municipio'),
+            'description' => esc_html__('How to align the text in the .', 'municipio'),
+            'section'  => self::SECTION_ID,
+            'default'  => 'u-text-align--left',
+            'choices' => array(
+                'u-text-align--left' => __('Left', 'modularity'),
+                'u-text-align--center' => __('Center', 'modularity'),
+                'u-text-align--right' => __('Right', 'modularity'),
+            ),
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'preFooterTextAlignment',
+                    'context' => [
+                        [
+                            'context' => 'component.footer',
+                            'operator' => '==',
+                        ],
+                    ],
                 ]
             ],
         ]);
