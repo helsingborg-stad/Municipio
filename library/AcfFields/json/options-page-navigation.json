@@ -46,7 +46,7 @@
             {
                 "param": "post_type",
                 "operator": "!=",
-                "value": "all"
+                "value": "null"
             }
         ]
     ],
@@ -65,4 +65,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

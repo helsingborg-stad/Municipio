@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_5a6744018083f',
     'title' => __('Widget header - Links', 'municipio'),
     'fields' => array(
@@ -372,7 +374,7 @@
             0 => array(
                 'param' => 'widget',
                 'operator' => '==',
-                'value' => 'all',
+                'value' => 'widget-header-links',
             ),
         ),
     ),
@@ -391,4 +393,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}
