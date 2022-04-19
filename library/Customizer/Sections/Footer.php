@@ -161,7 +161,7 @@ class Footer
             'type'     => 'select',
             'settings' => 'pre_footer_text_alignment',
             'label'    => esc_html__('Pre-footer Text alignment', 'municipio'),
-            'description' => esc_html__('How to align the text in the .', 'municipio'),
+            'description' => esc_html__('How to align the text in the pre-footer.', 'municipio'),
             'section'  => self::SECTION_ID,
             'default'  => 'u-text-align--left',
             'choices' => array(

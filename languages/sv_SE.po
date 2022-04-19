@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 17:14+0200\n"
-"PO-Revision-Date: 2022-04-13 17:49+0200\n"
+"POT-Creation-Date: 2022-04-19 19:33+0200\n"
+"PO-Revision-Date: 2022-04-19 19:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -30,7 +30,9 @@ msgstr "Knapp"
 
 #: library/AcfFields/php/block-button.php:10
 #: library/AcfFields/php/options-theme-google-translate.php:72
-#: library/Customizer/Sections/Footer.php:436
+#: library/AcfFields/php/widget-header-links.php:46
+#: library/AcfFields/php/widget-header-links.php:133
+#: library/Customizer/Sections/Footer.php:442
 #: library/Customizer/Sections/Module/Text.php:12
 msgid "Text"
 msgstr "Text"
@@ -41,7 +43,7 @@ msgstr "Etikett"
 
 #: library/AcfFields/php/block-button.php:29
 #: library/Customizer/Sections/Colors.php:274
-#: library/Customizer/Sections/Footer.php:441
+#: library/Customizer/Sections/Footer.php:447
 msgid "Link"
 msgstr "Länk"
 
@@ -53,9 +55,10 @@ msgid "Color"
 msgstr "Färg"
 
 #: library/AcfFields/php/block-button.php:63
+#: library/AcfFields/php/options-theme-header-logotype.php:22
 #: library/Customizer/Sections/Button.php:73
 #: library/Customizer/Sections/Footer.php:85
-#: library/Customizer/Sections/Footer.php:294
+#: library/Customizer/Sections/Footer.php:300
 #: library/Customizer/Sections/Header.php:67
 #: library/Customizer/Sections/Header.php:90
 #: library/Customizer/Sections/Quicklinks.php:61
@@ -65,9 +68,10 @@ msgid "Primary"
 msgstr "Primär"
 
 #: library/AcfFields/php/block-button.php:64
+#: library/AcfFields/php/options-theme-header-logotype.php:23
 #: library/Customizer/Sections/Colors.php:180
 #: library/Customizer/Sections/Footer.php:86
-#: library/Customizer/Sections/Footer.php:295
+#: library/Customizer/Sections/Footer.php:301
 #: library/Customizer/Sections/Header.php:68
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Quicklinks.php:62
@@ -79,7 +83,7 @@ msgstr "Sekundär"
 #: library/AcfFields/php/block-button.php:65
 #: library/AcfFields/php/navigation-widget.php:350
 #: library/AcfFields/php/options-menu-style.php:22
-#: library/AcfFields/php/widget-header-links.php:291
+#: library/AcfFields/php/widget-header-links.php:358
 #: library/AcfFields/php/widget-header-menu.php:48
 #: library/Customizer/Sections/Header.php:43
 #: library/Customizer/Sections/Header.php:66
@@ -138,7 +142,7 @@ msgstr "Storlek"
 #: library/AcfFields/php/navigation-widget.php:351
 #: library/AcfFields/php/options-theme-editor-formats.php:23
 #: library/AcfFields/php/widget-header-common.php:130
-#: library/AcfFields/php/widget-header-links.php:292
+#: library/AcfFields/php/widget-header-links.php:359
 #: library/AcfFields/php/widget-header-menu.php:49
 #: library/Customizer/Sections/Radius.php:42
 msgid "Small"
@@ -153,7 +157,7 @@ msgstr "Mellan"
 #: library/AcfFields/php/navigation-widget.php:352
 #: library/AcfFields/php/options-theme-editor-formats.php:24
 #: library/AcfFields/php/widget-header-common.php:131
-#: library/AcfFields/php/widget-header-links.php:293
+#: library/AcfFields/php/widget-header-links.php:360
 #: library/AcfFields/php/widget-header-menu.php:50
 #: library/Customizer/Sections/Radius.php:84
 #: library/Customizer/Sections/Width.php:93
@@ -345,7 +349,10 @@ msgid "Menu icon"
 msgstr "Menyikon"
 
 #: library/AcfFields/php/options-menu-icon.php:13
+#: library/AcfFields/php/options-theme-favicon.php:152
 #: library/AcfFields/php/options-theme-google-translate.php:73
+#: library/AcfFields/php/widget-header-links.php:31
+#: library/AcfFields/php/widget-header-links.php:118
 msgid "Icon"
 msgstr "Ikon"
 
@@ -4632,23 +4639,30 @@ msgstr "Visa utvald bild i singel-template"
 msgid "Featured image"
 msgstr "Utvald bild"
 
-#: library/AcfFields/php/options-page-navigation.php:10
-msgid "Dölj från meny"
-msgstr ""
+#: library/AcfFields/php/options-page-navigation.php:6
+msgid "Navigation settings"
+msgstr "Navigationsinställningar"
 
-#: library/AcfFields/php/options-page-navigation.php:22
-msgid "Dölj"
-msgstr ""
+#: library/AcfFields/php/options-page-navigation.php:10
+msgid "Hide in menu"
+msgstr "Dölj i meny"
+
+#: library/AcfFields/php/options-page-navigation.php:21
+msgid "Hide"
+msgstr "Dölj"
 
 #: library/AcfFields/php/options-page-navigation.php:29
-msgid "Menytitel"
-msgstr ""
+msgid "Menu title"
+msgstr "Menytitel"
 
 #: library/AcfFields/php/options-page-navigation.php:32
 msgid ""
-"Om du vill använda en annan titel för denna sidan i menyn, fyll i den här. "
-"Om du vill använda den vanliga sidtiteln så lämnar du detta fältet tomt."
+"If you want to use a custom title for this page in the menu, add your custom "
+"title here. Leave this field blank if you want to use the original page "
+"title."
 msgstr ""
+"Om du vill anpassa titeln för den här sidan i menyn kan du skriva din egen "
+"titel här. Lämna fältet tomt om du vill använda originaltiteln."
 
 #: library/AcfFields/php/options-theme-author.php:6
 #: library/Controller/Singular.php:124 library/Customizer/Panels/Archive.php:60
@@ -5012,11 +5026,11 @@ msgstr "Knapp: Tertiärfärg"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:42
 msgid "Button: Fourth color"
-msgstr "Knapp: Fyrtiär"
+msgstr "Knapp: Fjärde färg"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:43
 msgid "Button: Fifth color"
-msgstr ""
+msgstr "Knapp: Femte färg"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:44
 msgid "Primary button"
@@ -5094,55 +5108,74 @@ msgstr "Plugin"
 msgid "MceButtons"
 msgstr "Knappar"
 
+#: library/AcfFields/php/options-theme-favicon.php:6
+msgid "Favicon"
+msgstr "Favicon"
+
 #: library/AcfFields/php/options-theme-favicon.php:10
-msgid "Favoritikoner"
-msgstr ""
+msgid "Favorite icons"
+msgstr "Favoritikoner"
 
 #: library/AcfFields/php/options-theme-favicon.php:13
 msgid ""
+"Add favorite icons in different sizes. If a size has multiple values, only "
+"the most recent will be used."
+msgstr ""
 "Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden "
 "kommer bara den senast specificerade att användas."
-msgstr ""
 
-#: library/AcfFields/php/options-theme-favicon.php:24
+#: library/AcfFields/php/options-theme-favicon.php:26
 #: library/AcfFields/php/widget-contact.php:116
 msgid "Lägg till rad"
 msgstr "Lägg till rad"
 
-#: library/AcfFields/php/options-theme-favicon.php:29
-msgid "Typ"
+#: library/AcfFields/php/options-theme-favicon.php:30
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
+msgid "Type"
+msgstr "Typ"
+
+#: library/AcfFields/php/options-theme-favicon.php:42
+msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-favicon.php:57
-msgid "Ikon 152x152"
+#: library/AcfFields/php/options-theme-favicon.php:43
+msgid "iOS, Android (152x152px)"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-favicon.php:60
-msgid "Måste vara 152x152 pixlar och format .png"
+#: library/AcfFields/php/options-theme-favicon.php:44
+msgid "IE10, Windows Metro (144x144px)"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-favicon.php:89
-msgid "Ikon 144x144"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:56
+msgid "Icon 152x152"
+msgstr "Ikon 152x152"
 
-#: library/AcfFields/php/options-theme-favicon.php:92
-msgid "Måste vara 144x144 pixlar och format .png"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:59
+msgid "Must be 152x152 pixels and .png format"
+msgstr "Måste vara 152x152 pixlar och .png format"
 
-#: library/AcfFields/php/options-theme-favicon.php:121
+#: library/AcfFields/php/options-theme-favicon.php:90
+msgid "Icon 144x144"
+msgstr "Ikon 144x144"
+
+#: library/AcfFields/php/options-theme-favicon.php:93
+msgid "Must be 144x144 pixles and .png format"
+msgstr "Måste vara 144x144 pixlar och .png format"
+
+#: library/AcfFields/php/options-theme-favicon.php:124
 msgid "Favicon.ico"
 msgstr "Favicon.ico"
 
-#: library/AcfFields/php/options-theme-favicon.php:124
-msgid "Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:127
+msgid "Must be a .ico file containing    16x16px, 32x32px and 48x48px"
+msgstr "Måste vara en .ico-fil som innehåller 16x16px, 32x32px och 48x48px"
 
-#: library/AcfFields/php/options-theme-favicon.php:148
-msgid "Ikon"
-msgstr ""
+#: library/AcfFields/php/options-theme-favicon.php:196
+msgid "Background tile color"
+msgstr "Bakgrundsfärg"
 
-#: library/AcfFields/php/options-theme-favicon.php:190
-msgid "Bakgrundsfärg på Metro-bricka"
+#: library/AcfFields/php/options-theme-favicon.php:215
+msgid "#FFFFFF"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-gdpr.php:6
@@ -5198,53 +5231,51 @@ msgstr ""
 "Google Analytucs (till det Google Analytics kontot som är speicificerat "
 "under Google Analytics tabben)"
 
+#: library/AcfFields/php/options-theme-header-logotype.php:6
 #: library/AcfFields/php/options-theme-header-logotype.php:10
-msgid "Logotyp att använda i sidhuvudet"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-header-logotype.php:22
-msgid "Primär"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-header-logotype.php:23
-msgid "Sekundär"
-msgstr ""
+msgid "Header logotype"
+msgstr "Logotyp för sidhuvud"
 
 #: library/AcfFields/php/options-theme-logotype.php:6
 #: library/Customizer/Sections/Footer.php:79
-#: library/Customizer/Sections/Footer.php:288
+#: library/Customizer/Sections/Footer.php:294
 msgid "Logotype"
 msgstr "Logotyp"
 
 #: library/AcfFields/php/options-theme-logotype.php:10
-msgid "Primär logotyp"
-msgstr ""
+msgid "Primary logotype"
+msgstr "Primär logotyp"
 
 #: library/AcfFields/php/options-theme-logotype.php:13
-msgid "Accepterar enbart .svg-filer (Scalable Vector Graphics)."
-msgstr ""
+msgid "Only accepts .svg-files (Scalable Vector Graphics)."
+msgstr "Endast .svg-filer accepteras (Scalable Vector Graphics)."
 
-#: library/AcfFields/php/options-theme-logotype.php:34
-msgid "Sekundär logotyp"
-msgstr ""
+#: library/AcfFields/php/options-theme-logotype.php:36
+msgid "Secondary logotype"
+msgstr "Sekundär logotyp"
 
-#: library/AcfFields/php/options-theme-logotype.php:37
+#: library/AcfFields/php/options-theme-logotype.php:39
 msgid ""
+"Upload your secondary logotype in .svg format (Scalable Vector Graphics). "
+"The secondary logotype is usually 100% white and can be used on dark or "
+"colored backgrounds."
+msgstr ""
 "Ladda upp din sekundära logotyp i .svg format (Scalable Vector Graphics). "
 "Vår tanke med en sekundär logotyp är att den fungerar bäst i 100% vitt och "
 "passar bäst på mörka eller färgade bakgrunder."
-msgstr ""
 
-#: library/AcfFields/php/options-theme-logotype.php:58
+#: library/AcfFields/php/options-theme-logotype.php:62
 msgid "Emblem"
-msgstr ""
+msgstr "Emblem"
 
-#: library/AcfFields/php/options-theme-logotype.php:61
+#: library/AcfFields/php/options-theme-logotype.php:65
 msgid ""
+"Upload an emblem in .svg format (Scalable Vector Graphics). The emblem will "
+"be used to strengthen the website brand, when a sub brand is used."
+msgstr ""
 "Ladda upp ett emblem i .svg format (Scalable Vector Graphics). Emblemet "
 "kommer att användas för att förstärka avsändaren för webbplatsen, där "
 "dottervarumärken används."
-msgstr ""
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:9
 msgid ""
@@ -5405,15 +5436,15 @@ msgid "Margins"
 msgstr "Marginaler"
 
 #: library/AcfFields/php/widget-header-common.php:90
-#: library/Customizer/Sections/Footer.php:366
+#: library/Customizer/Sections/Footer.php:372
 msgid "Direction"
 msgstr "Riktning"
 
 #: library/AcfFields/php/widget-header-common.php:102
 #: library/Customizer/Sections/Footer.php:121
 #: library/Customizer/Sections/Footer.php:141
-#: library/Customizer/Sections/Footer.php:161
-#: library/Customizer/Sections/Footer.php:400
+#: library/Customizer/Sections/Footer.php:168
+#: library/Customizer/Sections/Footer.php:406
 #: library/Customizer/Sections/General.php:26
 #: library/Customizer/Sections/Slider.php:118
 #: library/Customizer/Sections/Slider.php:289
@@ -5426,8 +5457,8 @@ msgstr "Vänster"
 #: library/AcfFields/php/widget-header-common.php:103
 #: library/Customizer/Sections/Footer.php:123
 #: library/Customizer/Sections/Footer.php:143
-#: library/Customizer/Sections/Footer.php:163
-#: library/Customizer/Sections/Footer.php:402
+#: library/Customizer/Sections/Footer.php:170
+#: library/Customizer/Sections/Footer.php:408
 #: library/Customizer/Sections/General.php:27
 #: library/Customizer/Sections/Slider.php:120
 #: library/Customizer/Sections/Slider.php:291
@@ -5456,7 +5487,7 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/Collection.php:124
 #: library/Customizer/Sections/Field.php:73
 #: library/Customizer/Sections/Footer.php:84
-#: library/Customizer/Sections/Footer.php:293
+#: library/Customizer/Sections/Footer.php:299
 #: library/Customizer/Sections/HamburgerMenu.php:59
 #: library/Customizer/Sections/Header.php:110
 #: library/Customizer/Sections/Module/Contacts.php:28
@@ -5510,34 +5541,47 @@ msgid "Widget header - Links"
 msgstr "Widgetrubrik - Länkar"
 
 #: library/AcfFields/php/widget-header-links.php:10
-msgid "Länkar"
+msgid "Links"
 msgstr "Länkar"
 
-#: library/AcfFields/php/widget-header-links.php:25
-msgid "Externa länkar"
-msgstr ""
+#: library/AcfFields/php/widget-header-links.php:26
+msgid "External links"
+msgstr "Externa länkar"
 
-#: library/AcfFields/php/widget-header-links.php:104
-msgid "Interna länkar"
-msgstr ""
+#: library/AcfFields/php/widget-header-links.php:65
+#: library/AcfFields/php/widget-header-links.php:152
+#: library/AcfFields/php/widget-header-links.php:210
+#: library/AcfFields/php/widget-header-links.php:247
+#: library/AcfFields/php/widget-header-links.php:284
+msgid "Hide text"
+msgstr "Dölj text"
 
-#: library/AcfFields/php/widget-header-links.php:188
+#: library/AcfFields/php/widget-header-links.php:84
+#: library/AcfFields/php/widget-header-links.php:171
+msgid "URL"
+msgstr "URL"
+
+#: library/AcfFields/php/widget-header-links.php:113
+msgid "Internal links"
+msgstr "Interna länkar"
+
+#: library/AcfFields/php/widget-header-links.php:205
 msgid "Sök utlösare"
 msgstr "Sök utlösare"
 
-#: library/AcfFields/php/widget-header-links.php:217
+#: library/AcfFields/php/widget-header-links.php:242
 msgid "Meny utlösare"
 msgstr "Meny utlösare"
 
-#: library/AcfFields/php/widget-header-links.php:246
+#: library/AcfFields/php/widget-header-links.php:279
 msgid "Översättning utlösare"
 msgstr "Översättning utlösare"
 
-#: library/AcfFields/php/widget-header-links.php:273
+#: library/AcfFields/php/widget-header-links.php:314
 msgid "Lägg till länk"
 msgstr "Lägg till länk"
 
-#: library/AcfFields/php/widget-header-links.php:279
+#: library/AcfFields/php/widget-header-links.php:346
 #: library/AcfFields/php/widget-header-menu.php:36
 msgid "Link size"
 msgstr "Länkstorlek"
@@ -5628,7 +5672,7 @@ msgid "Customizer"
 msgstr "Anpassning"
 
 #: library/Admin/Options/Theme.php:43 library/Admin/Options/Theme.php:44
-#: library/Customizer/Sections/Footer.php:425
+#: library/Customizer/Sections/Footer.php:431
 #: library/Customizer/Sections/Width.php:38
 msgid "Content"
 msgstr "Innehåll"
@@ -6111,7 +6155,7 @@ msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
 #: library/Customizer/Sections/Archive.php:114
-#: library/Customizer/Sections/Footer.php:183
+#: library/Customizer/Sections/Footer.php:189
 msgid "Number of columns to display"
 msgstr "Antal kolumner i rutnät"
 
@@ -6407,7 +6451,7 @@ msgstr ""
 "komponenter, tas bort vid behov automatiskt."
 
 #: library/Customizer/Sections/Colors.php:15
-#: library/Customizer/Sections/Footer.php:251
+#: library/Customizer/Sections/Footer.php:257
 msgid "Colors"
 msgstr "Färger"
 
@@ -6476,7 +6520,7 @@ msgstr "Bakgrundsfärger"
 
 #: library/Customizer/Sections/Colors.php:117
 #: library/Customizer/Sections/Colors.php:149
-#: library/Customizer/Sections/Footer.php:257
+#: library/Customizer/Sections/Footer.php:263
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -6531,6 +6575,7 @@ msgid "Alpha colors"
 msgstr "Alfa färger"
 
 #: library/Customizer/Sections/Colors.php:327
+#: library/Customizer/Sections/Footer.php:264
 msgid "Base Contrasting"
 msgstr "Kontrastfärg"
 
@@ -6683,14 +6728,14 @@ msgid "Which style of footer to use."
 msgstr "Vilken stil på sidfoten som ska användas."
 
 #: library/Customizer/Sections/Footer.php:59
-#: library/Customizer/Sections/Footer.php:346
+#: library/Customizer/Sections/Footer.php:352
 #: library/Customizer/Sections/Padding.php:12
 #: library/Customizer/Sections/Slider.php:60
 msgid "Padding"
 msgstr "Luft"
 
 #: library/Customizer/Sections/Footer.php:96
-#: library/Customizer/Sections/Footer.php:326
+#: library/Customizer/Sections/Footer.php:332
 #: library/Customizer/Sections/Header.php:124
 msgid "Logotype height"
 msgstr "Storlek på logotyp (höjd)"
@@ -6705,8 +6750,8 @@ msgstr "Hur logotypen i sidfoten ska justeras."
 
 #: library/Customizer/Sections/Footer.php:122
 #: library/Customizer/Sections/Footer.php:142
-#: library/Customizer/Sections/Footer.php:162
-#: library/Customizer/Sections/Footer.php:401
+#: library/Customizer/Sections/Footer.php:169
+#: library/Customizer/Sections/Footer.php:407
 #: library/Customizer/Sections/Slider.php:119
 #: library/Customizer/Sections/Slider.php:290
 #: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:69
@@ -6715,67 +6760,66 @@ msgid "Center"
 msgstr "Centrerad"
 
 #: library/Customizer/Sections/Footer.php:136
-msgid "Pre-footer Text alignment"
-msgstr "Textjustering före sidfot"
-
-#: library/Customizer/Sections/Footer.php:137
-msgid "How to align the text in the prefooter."
-msgstr "Hur texten före sidfoten ska justeras."
-
-#: library/Customizer/Sections/Footer.php:156
 #: library/Customizer/Sections/Slider.php:114
 #: library/Customizer/Sections/Slider.php:285
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: library/Customizer/Sections/Footer.php:157
+#: library/Customizer/Sections/Footer.php:137
 msgid "How to align the text in the columns."
 msgstr "Hur texten i kolumnerna ska justeras."
 
-#: library/Customizer/Sections/Footer.php:184
+#: library/Customizer/Sections/Footer.php:163
+msgid "Pre-footer Text alignment"
+msgstr "Textjustering före sidfot"
+
+#: library/Customizer/Sections/Footer.php:164
+msgid "How to align the text in the pre-footer."
+msgstr "Hur texten före sidfoten ska justeras."
+
+#: library/Customizer/Sections/Footer.php:190
 msgid "How many columns that the footer should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: library/Customizer/Sections/Footer.php:210
-#: library/Customizer/Sections/Footer.php:258
+#: library/Customizer/Sections/Footer.php:216
 #: library/Customizer/Sections/Header.php:81
 #: library/Customizer/Sections/Quicklinks.php:102
 msgid "Text color"
 msgstr "Textfärg"
 
-#: library/Customizer/Sections/Footer.php:226
+#: library/Customizer/Sections/Footer.php:232
 msgid "Footer background"
 msgstr "Bakgrund för sidfot"
 
-#: library/Customizer/Sections/Footer.php:227
+#: library/Customizer/Sections/Footer.php:233
 msgid "Background settings for the footer."
 msgstr "Bakgrundsinställningar för sidfoten."
 
-#: library/Customizer/Sections/Footer.php:259
+#: library/Customizer/Sections/Footer.php:265
 msgid "Text separator"
 msgstr "Textavdelare"
 
-#: library/Customizer/Sections/Footer.php:296
+#: library/Customizer/Sections/Footer.php:302
 msgid "Custom"
 msgstr "Anpassad"
 
-#: library/Customizer/Sections/Footer.php:306
+#: library/Customizer/Sections/Footer.php:312
 msgid "Upload SVG logo"
 msgstr "Ladda upp SVG-logotyp"
 
-#: library/Customizer/Sections/Footer.php:371
+#: library/Customizer/Sections/Footer.php:377
 msgid "Horizontal"
 msgstr "Horisontell"
 
-#: library/Customizer/Sections/Footer.php:372
+#: library/Customizer/Sections/Footer.php:378
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: library/Customizer/Sections/Footer.php:395
+#: library/Customizer/Sections/Footer.php:401
 msgid "Content alignment"
 msgstr "Innehållsjustering"
 
-#: library/Customizer/Sections/Footer.php:431
+#: library/Customizer/Sections/Footer.php:437
 msgid "Title"
 msgstr "Rubrik"
 
@@ -7148,7 +7192,7 @@ msgstr "Tema"
 #: library/Customizer/Sections/Slider.php:145
 #: library/Customizer/Sections/Slider.php:307
 msgid "Slide overlay"
-msgstr ""
+msgstr "Övertäckning slider"
 
 #: library/Customizer/Sections/Slider.php:175
 msgid "Arrow button style"
@@ -7581,10 +7625,6 @@ msgstr ""
 "som en array av arrayer."
 
 #: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:206
-#, fuzzy
-#| msgid ""
-#| "We detected you're using Kirki_Init::get_variables(). Please use "
-#| "Kirki_Util::get_variables() instead."
 msgid ""
 "We detected you're using Kirki\\Compatibility\\Init::get_variables(). Please "
 "use \\Kirki\\Util\\Util::get_variables() instead."
@@ -7641,7 +7681,7 @@ msgstr "Välkomstskärm"
 
 #: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:105
 msgid "Media"
-msgstr ""
+msgstr "Media"
 
 #: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:106
 msgid "Image Editing"
@@ -7669,7 +7709,7 @@ msgstr "Notifikationer"
 
 #: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:116
 msgid "Miscelaneous"
-msgstr ""
+msgstr "Diverse"
 
 #: vendor/kirki/packages/kirki-framework/control-dimension/src/Control/Dimension.php:67
 #: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:74
@@ -7899,7 +7939,6 @@ msgstr "Höjd"
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:112
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:131
 #, fuzzy
-#| msgid "Regular (400)"
 msgid "Regular"
 msgstr "Normal (400)"
 
@@ -7916,7 +7955,6 @@ msgstr ""
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:124
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:183
 #, fuzzy
-#| msgid "Bold 700 Italic"
 msgid "700 Italic"
 msgstr "Fet 700 kursiv"
 
@@ -8447,10 +8485,6 @@ msgstr "Tillägg"
 msgid "Source"
 msgstr "Källa"
 
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
-msgid "Type"
-msgstr "Typ"
-
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
 msgid "Version"
 msgstr "Version"
@@ -8812,6 +8846,14 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Länkar"
+#~ msgstr "Länkar"
+
+#, fuzzy
+#~| msgid "How to align the text in the columns."
+#~ msgid "How to align the text in the ."
+#~ msgstr "Hur texten i kolumnerna ska justeras."
 
 #~ msgid "Kontrastfärg"
 #~ msgstr "Kontrastfärg"
