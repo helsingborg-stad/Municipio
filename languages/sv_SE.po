@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-19 19:33+0200\n"
-"PO-Revision-Date: 2022-04-19 19:34+0200\n"
+"PO-Revision-Date: 2022-04-19 19:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -126,11 +126,11 @@ msgstr "Endast ram"
 #: library/AcfFields/php/block-button.php:96
 #: library/Customizer/Sections/Slider.php:179
 msgid "Filled"
-msgstr "Fylld"
+msgstr "Ifylld"
 
 #: library/AcfFields/php/block-button.php:100
 msgid "filled"
-msgstr "Fylld"
+msgstr "Ifylld"
 
 #: library/AcfFields/php/block-button.php:113
 #: library/AcfFields/php/navigation-widget.php:338
@@ -6863,7 +6863,7 @@ msgstr "Vanlig knapp"
 #: library/Customizer/Sections/HamburgerMenu.php:43
 #: library/Customizer/Sections/HamburgerMenu.php:61
 msgid "Filled button"
-msgstr "Fylld knapp"
+msgstr "Ifylld knapp"
 
 #: library/Customizer/Sections/HamburgerMenu.php:44
 #: library/Customizer/Sections/HamburgerMenu.php:62
