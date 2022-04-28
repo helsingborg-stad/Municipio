@@ -2,77 +2,73 @@
 
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
-        <div class="o-container">
-            <div class="u-display--flex u-justify-content--space-between u-align-content--center u-align-items--center">
-                
-                @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
-                    @logotype([
-                        'src'=> $logotype->url,
-                        'alt' => $lang->goToHomepage,
-                        'classList' => ['c-nav__logo', 'c-header__logotype'],
-                        'context' => ['site.header.logo', 'site.header.business.logo']
-                    ])
-                    @endlogotype
-                @endlink
+        <div class="o-container c-header__flex-content">
 
-                @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']])
+            @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
+                @logotype([
+                    'src'=> $logotype->url,
+                    'alt' => $lang->goToHomepage,
+                    'classList' => ['c-nav__logo', 'c-header__logotype'],
+                    'context' => ['site.header.logo', 'site.header.business.logo']
+                ])
+                @endlogotype
+            @endlink
 
-                @if (!empty($mobileMenuItems))
+            @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']])
+
+            @if (!empty($mobileMenuItems))
+                @button([
+                    'id' => 'mobile-menu-trigger-open',
+                    'text' => $lang->menu,
+                    'color' => 'default',
+                    'style' => 'basic',
+                    'icon' => 'keyboard_arrow_down',
+                    'classList' => [
+                        'mobile-menu-trigger',
+                        'u-display--none@lg'
+                    ],
+                    'attributeList' => [
+                        'aria-label' => $lang->menu,
+                        'aria-controls' => "navigation",
+                        'js-toggle-trigger' => 'js-drawer'
+                    ],
+                    'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
+                ])
+                @endbutton
+            @endif
+
+            {{-- Tab menu items --}}
+            @includeWhen($tabMenuItems, 'partials.navigation.tabs')
+
+            {{-- Search form in header --}}
+            @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
+            
+            {{-- Translation menu --}}
+            @if (!empty($languageMenuItems))
+                <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
                     @button([
-                        'id' => 'mobile-menu-trigger-open',
-                        'text' => $lang->menu,
+                        'id' => '',
                         'color' => 'default',
                         'style' => 'basic',
-                        'icon' => 'keyboard_arrow_down',
+                        'icon' => 'language',
                         'classList' => [
-                            'mobile-menu-trigger',
-                            'u-display--none@lg'
+                            'site-language-menu-button'
                         ],
                         'attributeList' => [
-                            'aria-label' => $lang->menu,
-                            'aria-controls' => "navigation",
-                            'js-toggle-trigger' => 'js-drawer'
-                        ],
-                        'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
+                            'js-toggle-trigger' => 'language-menu-toggle',
+                            'aria-label' => __("Select language", 'municipio')
+                        ]
                     ])
                     @endbutton
-                @endif
 
-                {{-- Tab menu items --}}
-                @includeWhen($tabMenuItems, 'partials.navigation.tabs')
+                    @includeIf('partials.navigation.language')
+                </div>
+            @endif
 
-                {{-- Search form in header --}}
-                @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
-                
-                {{-- Translation menu --}}
-                @if (!empty($languageMenuItems))
-                    <div class="site-language-menu u-margin__left--1" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
-                        @button([
-                            'id' => '',
-                            'color' => 'default',
-                            'style' => 'basic',
-                            'icon' => 'language',
-                            'classList' => [
-                                'site-language-menu-button'
-                            ],
-                            'attributeList' => [
-                                'js-toggle-trigger' => 'language-menu-toggle',
-                                'aria-label' => __("Select language", 'municipio')
-                            ]
-                        ])
-                        @endbutton
-
-                        @includeIf('partials.navigation.language')
-                    </div>
-                @endif
-
-                {{-- User menu --}}
-                @includeIf('user.account')
-
-            </div>
+            {{-- User menu --}}
+            @includeIf('user.account')
 
         </div>
-
     </div>
 
     @includeWhen(
