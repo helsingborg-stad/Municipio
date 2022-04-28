@@ -1,16 +1,17 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_56cc39aba8782',
-    'title' => 'Favicon',
+    'title' => __('Favicon', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56cc3f64c0b41',
-            'label' => __('Favoritikoner', 'municipio'),
+            'label' => __('Favorite icons', 'municipio'),
             'name' => 'favicons',
             'type' => 'repeater',
-            'instructions' => __('Lägg till favoritikoner i olika storlekar. Om en storlek har multipla värden kommer bara den senast specificerade att användas.', 'municipio'),
+            'instructions' => __('Add favorite icons in different sizes. If a size has multiple values, only the most recent will be used.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -18,15 +19,16 @@
                 'class' => '',
                 'id' => '',
             ),
+            'acfe_repeater_stylised_button' => 0,
+            'collapsed' => '',
             'min' => 0,
             'max' => 0,
             'layout' => 'block',
             'button_label' => __('Lägg till rad', 'municipio'),
-            'collapsed' => '',
             'sub_fields' => array(
                 0 => array(
                     'key' => 'field_56cc3f70c0b42',
-                    'label' => __('Typ', 'municipio'),
+                    'label' => __('Type', 'municipio'),
                     'name' => 'favicon_type',
                     'type' => 'select',
                     'instructions' => '',
@@ -37,27 +39,25 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'multiple' => 0,
-                    'allow_null' => 0,
                     'choices' => array(
-                        'fav' => 'favicon.ico (16x16px, 32x32px, 48x48px)',
-                        152 => 'iOS, Android (152x152px)',
-                        144 => 'IE10, Windows Metro (144x144px)',
+                        'fav' => __('favicon.ico (16x16px, 32x32px, 48x48px)', 'municipio'),
+                        152 => __('iOS, Android (152x152px)', 'municipio'),
+                        144 => __('IE10, Windows Metro (144x144px)', 'municipio'),
                     ),
                     'default_value' => false,
+                    'allow_null' => 0,
+                    'multiple' => 0,
                     'ui' => 0,
+                    'return_format' => 'value',
                     'ajax' => 0,
                     'placeholder' => '',
-                    'return_format' => 'value',
-                    'disabled' => 0,
-                    'readonly' => 0,
                 ),
                 1 => array(
                     'key' => 'field_56cc3f8685425',
-                    'label' => __('Ikon 152x152', 'municipio'),
+                    'label' => __('Icon 152x152', 'municipio'),
                     'name' => 'favicon_icon',
                     'type' => 'image',
-                    'instructions' => __('Måste vara 152x152 pixlar och format .png', 'municipio'),
+                    'instructions' => __('Must be 152x152 pixels and .png format', 'municipio'),
                     'required' => 1,
                     'conditional_logic' => array(
                         0 => array(
@@ -73,9 +73,10 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'uploader' => '',
+                    'acfe_thumbnail' => 0,
                     'return_format' => 'array',
                     'preview_size' => 'full',
-                    'library' => 'all',
                     'min_width' => 152,
                     'min_height' => 152,
                     'min_size' => '',
@@ -83,13 +84,14 @@
                     'max_height' => 152,
                     'max_size' => '',
                     'mime_types' => '',
+                    'library' => 'all',
                 ),
                 2 => array(
                     'key' => 'field_56cc3fc585426',
-                    'label' => __('Ikon 144x144', 'municipio'),
+                    'label' => __('Icon 144x144', 'municipio'),
                     'name' => 'favicon_icon',
                     'type' => 'image',
-                    'instructions' => __('Måste vara 144x144 pixlar och format .png', 'municipio'),
+                    'instructions' => __('Must be 144x144 pixles and .png format', 'municipio'),
                     'required' => 1,
                     'conditional_logic' => array(
                         0 => array(
@@ -105,9 +107,10 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'uploader' => '',
+                    'acfe_thumbnail' => 0,
                     'return_format' => 'array',
                     'preview_size' => 'full',
-                    'library' => 'all',
                     'min_width' => 144,
                     'min_height' => 144,
                     'min_size' => '',
@@ -115,13 +118,14 @@
                     'max_height' => 144,
                     'max_size' => '',
                     'mime_types' => 'png',
+                    'library' => 'all',
                 ),
                 3 => array(
                     'key' => 'field_56cc400885427',
                     'label' => __('Favicon.ico', 'municipio'),
                     'name' => 'favicon_icon',
                     'type' => 'file',
-                    'instructions' => __('Måste vara en .ico innehållandes 16x16px, 32x32px and 48x48px', 'municipio'),
+                    'instructions' => __('Must be a .ico file containing    16x16px, 32x32px and 48x48px', 'municipio'),
                     'required' => 1,
                     'conditional_logic' => array(
                         0 => array(
@@ -137,15 +141,16 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'uploader' => '',
                     'return_format' => 'array',
-                    'library' => 'all',
                     'min_size' => '',
                     'max_size' => '',
                     'mime_types' => '.ico',
+                    'library' => 'all',
                 ),
                 4 => array(
                     'key' => 'field_56cc404d85428',
-                    'label' => __('Ikon', 'municipio'),
+                    'label' => __('Icon', 'municipio'),
                     'name' => 'favicon_icon',
                     'type' => 'image',
                     'instructions' => '',
@@ -174,9 +179,10 @@
                         'class' => '',
                         'id' => '',
                     ),
+                    'uploader' => '',
+                    'acfe_thumbnail' => 0,
                     'return_format' => 'array',
                     'preview_size' => 'thumbnail',
-                    'library' => 'all',
                     'min_width' => '',
                     'min_height' => '',
                     'min_size' => '',
@@ -184,10 +190,11 @@
                     'max_height' => '',
                     'max_size' => '',
                     'mime_types' => '',
+                    'library' => 'all',
                 ),
                 5 => array(
                     'key' => 'field_56cc5290155fc',
-                    'label' => __('Bakgrundsfärg på Metro-bricka', 'municipio'),
+                    'label' => __('Background tile color', 'municipio'),
                     'name' => 'favicon_tile_color',
                     'type' => 'color_picker',
                     'instructions' => '',
@@ -206,7 +213,9 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => '#FFFFFF',
+                    'default_value' => __('#FFFFFF', 'municipio'),
+                    'enable_opacity' => 0,
+                    'return_format' => 'string',
                 ),
             ),
         ),
@@ -228,5 +237,12 @@
     'hide_on_screen' => '',
     'active' => true,
     'description' => '',
+    'show_in_rest' => 0,
+    'acfe_display_title' => '',
+    'acfe_autosync' => '',
+    'acfe_form' => 0,
+    'acfe_meta' => '',
+    'acfe_note' => '',
 ));
-}
+
+}

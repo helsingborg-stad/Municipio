@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_56d83d2777785",
-            "label": "D\u00f6lj fr\u00e5n meny",
+            "label": "Hide in menu",
             "name": "hide_in_menu",
             "type": "true_false",
             "instructions": "",
@@ -15,18 +15,18 @@
                 "class": "",
                 "id": ""
             },
+            "message": "Hide",
             "default_value": 0,
-            "message": "D\u00f6lj",
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
         },
         {
             "key": "field_56d83d4e77786",
-            "label": "Menytitel",
+            "label": "Menu title",
             "name": "custom_menu_title",
             "type": "text",
-            "instructions": "Om du vill anv\u00e4nda en annan titel f\u00f6r denna sidan i menyn, fyll i den h\u00e4r. Om du vill anv\u00e4nda den vanliga sidtiteln s\u00e5 l\u00e4mnar du detta f\u00e4ltet tomt.",
+            "instructions": "If you want to use a custom title for this page in the menu, add your custom title here. Leave this field blank if you want to use the original page title.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -35,12 +35,10 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": "",
-            "readonly": 0,
-            "disabled": 0
+            "maxlength": ""
         }
     ],
     "location": [
@@ -59,6 +57,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
-
+

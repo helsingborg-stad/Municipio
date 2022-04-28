@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_56c5d34a261f5',
-    'title' => 'Header logotype',
+    'title' => __('Header logotype', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_56c5d3530369f',
-            'label' => __('Logotyp att använda i sidhuvudet', 'municipio'),
+            'label' => __('Header logotype', 'municipio'),
             'name' => 'header_logotype',
             'type' => 'radio',
             'instructions' => '',
@@ -19,8 +19,8 @@
                 'id' => '',
             ),
             'choices' => array(
-                'standard' => __('Primär', 'municipio'),
-                'negative' => __('Sekundär', 'municipio'),
+                'standard' => __('Primary', 'municipio'),
+                'negative' => __('Secondary', 'municipio'),
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -47,5 +47,11 @@
     'hide_on_screen' => '',
     'active' => true,
     'description' => '',
+    'show_in_rest' => 0,
+    'acfe_display_title' => '',
+    'acfe_autosync' => '',
+    'acfe_form' => 0,
+    'acfe_meta' => '',
+    'acfe_note' => '',
 ));
 }

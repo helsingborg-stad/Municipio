@@ -4,10 +4,10 @@
     "fields": [
         {
             "key": "field_56a0f1fdbf847",
-            "label": "Prim\u00e4r logotyp",
+            "label": "Primary logotype",
             "name": "logotype",
             "type": "image",
-            "instructions": "Accepterar enbart .svg-filer (Scalable Vector Graphics).",
+            "instructions": "Only accepts .svg-files (Scalable Vector Graphics).",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,23 +15,25 @@
                 "class": "",
                 "id": ""
             },
+            "uploader": "",
+            "acfe_thumbnail": 0,
             "return_format": "array",
             "preview_size": "thumbnail",
-            "library": "uploadedTo",
             "min_width": "",
             "min_height": "",
             "min_size": "",
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": "svg"
+            "mime_types": "svg",
+            "library": "all"
         },
         {
             "key": "field_56a0f5e3b4720",
-            "label": "Sekund\u00e4r logotyp",
+            "label": "Secondary logotype",
             "name": "logotype_negative",
             "type": "image",
-            "instructions": "Ladda upp din sekund\u00e4ra logotyp i .svg format (Scalable Vector Graphics). V\u00e5r tanke med en sekund\u00e4r logotyp \u00e4r att den fungerar b\u00e4st i 100% vitt och passar b\u00e4st p\u00e5 m\u00f6rka eller f\u00e4rgade bakgrunder.",
+            "instructions": "Upload your secondary logotype in .svg format (Scalable Vector Graphics). The secondary logotype is usually 100% white and can be used on dark or colored backgrounds.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -39,23 +41,25 @@
                 "class": "",
                 "id": ""
             },
+            "uploader": "",
+            "acfe_thumbnail": 0,
             "return_format": "array",
             "preview_size": "thumbnail",
-            "library": "uploadedTo",
             "min_width": "",
             "min_height": "",
             "min_size": "",
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": "svg"
+            "mime_types": "svg",
+            "library": "all"
         },
         {
             "key": "field_60b0a3cb6c855",
             "label": "Emblem",
             "name": "logotype_emblem",
             "type": "image",
-            "instructions": "Ladda upp ett emblem i .svg format (Scalable Vector Graphics). Emblemet kommer att anv\u00e4ndas f\u00f6r att f\u00f6rst\u00e4rka avs\u00e4ndaren f\u00f6r webbplatsen, d\u00e4r dottervarum\u00e4rken anv\u00e4nds.",
+            "instructions": "Upload an emblem in .svg format (Scalable Vector Graphics). The emblem will be used to strengthen the website brand, when a sub brand is used.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -63,16 +67,18 @@
                 "class": "",
                 "id": ""
             },
+            "uploader": "",
+            "acfe_thumbnail": 0,
             "return_format": "url",
             "preview_size": "thumbnail",
-            "library": "uploadedTo",
             "min_width": "",
             "min_height": "",
             "min_size": "",
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": "svg"
+            "mime_types": "svg",
+            "library": "all"
         }
     ],
     "location": [
@@ -91,6 +97,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 

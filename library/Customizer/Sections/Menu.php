@@ -9,8 +9,8 @@ class Menu
     public function __construct($panelID)
     {
         \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Menu fallbacks', 'municipio'),
-            'description' => esc_html__('Menu fallback settings.', 'municipio'),
+            'title'       => esc_html__('Menu behaviour', 'municipio'),
+            'description' => esc_html__('Menu behaviour settings.', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
