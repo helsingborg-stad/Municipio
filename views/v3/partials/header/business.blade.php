@@ -4,6 +4,7 @@
     <div class="c-header__menu c-header__menu--primary">
         <div class="o-container c-header__flex-content">
 
+            {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
                 @logotype([
                     'src'=> $logotype->url,
@@ -14,58 +15,27 @@
                 @endlogotype
             @endlink
 
-            @includeIf('partials.navigation.hamburgermenu-trigger', ['context' => ['site.header.hamburgermenutrigger', 'site.header.casual.hamburgermenutrigger']])
-
-            @if (!empty($mobileMenuItems))
-                @button([
-                    'id' => 'mobile-menu-trigger-open',
-                    'text' => $lang->menu,
-                    'color' => 'default',
-                    'style' => 'basic',
-                    'icon' => 'keyboard_arrow_down',
-                    'classList' => [
-                        'mobile-menu-trigger',
-                        'u-display--none@lg'
-                    ],
-                    'attributeList' => [
-                        'aria-label' => $lang->menu,
-                        'aria-controls' => "navigation",
-                        'js-toggle-trigger' => 'js-drawer'
-                    ],
-                    'context' => ['site.header.menutrigger', 'site.header.business.menutrigger']
-                ])
-                @endbutton
-            @endif
-
             {{-- Tab menu items --}}
             @includeWhen($tabMenuItems, 'partials.navigation.tabs')
-
+            
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
+
+            {{-- Hambuger menu trigger --}}
+            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.business.hamburgermenu-trigger']])
             
-            {{-- Translation menu --}}
+            {{-- Mobile menu trigger --}}
+            @includeWhen(!empty($mobileMenuItems), 'partials.navigation.trigger.mobile')
+
+            {{-- Language selector --}}
             @if (!empty($languageMenuItems))
                 <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
-                    @button([
-                        'id' => '',
-                        'color' => 'default',
-                        'style' => 'basic',
-                        'icon' => 'language',
-                        'classList' => [
-                            'site-language-menu-button'
-                        ],
-                        'attributeList' => [
-                            'js-toggle-trigger' => 'language-menu-toggle',
-                            'aria-label' => __("Select language", 'municipio')
-                        ]
-                    ])
-                    @endbutton
-
+                    @includeIf('partials.navigation.trigger.language')
                     @includeIf('partials.navigation.language')
                 </div>
             @endif
 
-            {{-- User menu --}}
+            {{-- User account --}}
             @includeIf('user.account')
 
         </div>
@@ -87,24 +57,28 @@
 @stop
 
 @section('secondary-navigation')
+    {{-- Primary menu --}}
     @if (!empty($primaryMenuItems))
-        <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs
-                        u-display--none@sm u-display--none@md u-print-display--none">
+        <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
             <div class="o-container">
-                <nav role="navigation" aria-label="{{ $lang->primaryNavigation }}">
-                    @nav([
-                        'items' => $primaryMenuItems,
-                        'direction' => 'horizontal',
-                        'allowStyle' => true,
-                        'classList' => ['u-flex-wrap--no-wrap', 'u-justify-content--space-between'],
-                        'context' => ['site.header.nav', 'site.header.business.nav']
-                    ])
-                    @endnav
-                </nav>
+                @includeIf(
+                    'partials.navigation.primary', 
+                    [
+                        'context' => [
+                            'site.header.nav', 
+                            'site.header.business.nav'
+                        ],
+                        'classList' => [
+                            'u-flex-wrap--no-wrap', 
+                            'u-justify-content--space-between'
+                        ]
+                    ]
+                )
             </div>
         </div>
     @endif
 
+    {{-- Hamburger menu --}}
     @includeIf('partials.navigation.hamburgermenu')
 @stop
 
