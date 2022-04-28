@@ -1,6 +1,5 @@
 @button([
-    'size' => 'site-language-menu-button',
-    'id' => 'site-lan',
+    'id' => 'site-language-menu-button',
     'color' => 'default',
     'style' => 'basic',
     'icon' => 'language',
