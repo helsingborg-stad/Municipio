@@ -21,12 +21,9 @@
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
 
-            {{-- Hambuger menu trigger --}}
-            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.business.hamburgermenu-trigger']])
+            {{-- User account --}}
+            @includeIf('user.account')
             
-            {{-- Mobile menu trigger --}}
-            @includeWhen(!empty($mobileMenuItems), 'partials.navigation.trigger.mobile')
-
             {{-- Language selector --}}
             @if (!empty($languageMenuItems))
                 <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
@@ -34,9 +31,12 @@
                     @includeIf('partials.navigation.language')
                 </div>
             @endif
-
-            {{-- User account --}}
-            @includeIf('user.account')
+            
+            {{-- Hambuger menu trigger --}}
+            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.business.hamburgermenu-trigger']])
+            
+            {{-- Mobile menu trigger --}}
+            @includeWhen(!empty($mobileMenuItems), 'partials.navigation.trigger.mobile')
 
         </div>
     </div>

@@ -35,11 +35,8 @@
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
 
-            {{-- Hambuger menu trigger --}}
-            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.casual.hamburgermenu-trigger']])
-            
-            {{-- Mobile menu trigger --}}
-            @includeWhen(!empty($mobileMenuItems), 'partials.navigation.trigger.mobile')
+            {{-- User account --}}
+            @includeIf('user.account')
 
             {{-- Language selector --}}
             @if (!empty($languageMenuItems))
@@ -49,8 +46,11 @@
                 </div>
             @endif
 
-            {{-- User account --}}
-            @includeIf('user.account')
+            {{-- Hambuger menu trigger --}}
+            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.casual.hamburgermenu-trigger']])
+            
+            {{-- Mobile menu trigger --}}
+            @includeWhen(!empty($mobileMenuItems), 'partials.navigation.trigger.mobile')
         </div>
     </div>
 

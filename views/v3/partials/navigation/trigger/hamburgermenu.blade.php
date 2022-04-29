@@ -9,6 +9,9 @@
             'hamburger-menu-trigger',
             !$customizer->hamburgerMenuMobile ? 'u-display--none@xs u-display--none@sm u-display--none@md' : '',
         ],
+        'classListText' => [
+            'u-display--none@xs'
+        ],
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
             'aria-controls' => "navigation",
