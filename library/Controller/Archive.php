@@ -565,7 +565,7 @@ class Archive extends \Municipio\Controller\BaseController
                 if (!isset($post->archiveDate)) {
                     $post->archiveDate = false;
                 } else {
-                    $post->archiveDate = date(
+                    $post->archiveDate = wp_date(
                         $this->getDateFormatString($archiveProps->dateFormat),
                         strtotime($post->archiveDate)
                     );
