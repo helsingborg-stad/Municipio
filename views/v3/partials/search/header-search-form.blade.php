@@ -12,6 +12,7 @@
             'placeholder'   => $lang->search,
             'size'          => 'sm',
             'radius'        => 'sm',
+            'borderless'    => true,
             'label'         => $lang->searchQuestion,
             'hideLabel'     => true,
             'icon'          => ['icon' => 'search'],
