@@ -5,7 +5,7 @@
                 @block([
                     'link' => $post->permalink,
                     'heading' =>  $post->postTitle,
-                    'ratio' => $archiveProps->format == 'tall' ? '12:16' : '4:3',
+                    'ratio' => $archiveProps->format == 'tall' ? '12:16' : '1:1',
                     'meta' => $post->termsunlinked,
                     'filled' => true,
                     'image' => [
