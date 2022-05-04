@@ -136,6 +136,11 @@ class Typography
                         'property'  => '--h1-font-size',
                     ],
                     [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--h1-font-family',
+                    ],
+                    [
                         'choice'    => 'font-weight',
                         'element'   => ':root',
                         'property'  => '--h1-font-weight',
@@ -160,6 +165,11 @@ class Typography
                             'choice'    => 'font-size',
                             'element'   => ':root',
                             'property'  => '--h2-font-size',
+                        ],
+                        [
+                            'choice'    => 'font-family',
+                            'element'   => ':root',
+                            'property'  => '--h2-font-family',
                         ],
                         [
                             'choice'    => 'font-weight',
@@ -187,6 +197,11 @@ class Typography
                         'property'  => '--h3-font-size',
                     ],
                     [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--h3-font-family',
+                    ],
+                    [
                         'choice'    => 'font-weight',
                         'element'   => ':root',
                         'property'  => '--h3-font-weight',
@@ -210,6 +225,11 @@ class Typography
                         'choice'    => 'font-size',
                         'element'   => ':root',
                         'property'  => '--h4-font-size',
+                    ],
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--h4-font-family',
                     ],
                     [
                         'choice'    => 'font-weight',
@@ -237,6 +257,11 @@ class Typography
                         'property'  => '--h5-font-size',
                     ],
                     [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--h5-font-family',
+                    ],
+                    [
                         'choice'    => 'font-weight',
                         'element'   => ':root',
                         'property'  => '--h5-font-weight',
@@ -260,6 +285,11 @@ class Typography
                         'choice'    => 'font-size',
                         'element'   => ':root',
                         'property'  => '--h6-font-size',
+                    ],
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--h6-font-family',
                     ],
                     [
                         'choice'    => 'font-weight',
