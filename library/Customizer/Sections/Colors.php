@@ -518,6 +518,49 @@ class Colors
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
+            'settings'    => 'color_palette_complement',
+            'label'       => esc_html__('Complement colors', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'default'   => esc_html__('Standard', 'municipio'),
+                'light'  => esc_html__('Light', 'municipio'),
+                'lighter'  => esc_html__('Lighter', 'municipio'),
+                'lightest'  => esc_html__('Lightest', 'municipio'),
+            ],
+            'default'     => [
+                'default'   => '#dec2c2',
+                'light'  => '#f0dbd9',
+                'lighter'  => '#f5e4e3',
+                'lightest'  => '#faeeec',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'default',
+                    'element'   => ':root',
+                    'property'  => '--color-complementary',
+                ],
+                [
+                    'choice'    => 'light',
+                    'element'   => ':root',
+                    'property'  => '--color-complementary-light',
+                ],
+                [
+                    'choice'    => 'lighter',
+                    'element'   => ':root',
+                    'property'  => '--color-complementary-lighter',
+                ],
+                [
+                    'choice'    => 'lightest',
+                    'element'   => ':root',
+                    'property'  => '--color-complementary-lightest',
+                ],
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
             'settings'    => 'color_palette_monotone',
             'label'       => esc_html__('Monotone colors', 'municipio'),
             'section'     => self::SECTION_ID,
