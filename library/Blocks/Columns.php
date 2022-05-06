@@ -48,12 +48,21 @@ class Columns
         $result = [];
         foreach ($doc->getElementsByTagName('div') as $child) {
             if ($child->getAttribute('class') == 'wp-block-column') {
-                $child->setAttribute('class', $gridClass . ' ' . $child->getAttribute('class'));
+                $child->setAttribute(
+                    'class',
+                    implode(
+                        ' ',
+                        [
+                            $gridClass,
+                            str_replace('wp-block-column', '', $child->getAttribute('class'))
+                        ]
+                    )
+                );
                 $result[] = $child->c14n();
             }
         }
 
-        return '<div class="o-grid wp-block-columns">' . "\n" . implode("\n", $result) . "\n" . '</div>';
+        return '<div class="o-grid">' . "\n" . implode("\n", $result) . "\n" . '</div>';
     }
 
     /**
