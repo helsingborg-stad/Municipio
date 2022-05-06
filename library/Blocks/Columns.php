@@ -48,7 +48,7 @@ class Columns
         $result = [];
         foreach ($doc->getElementsByTagName('div') as $child) {
             if ($child->getAttribute('class') == 'wp-block-column') {
-                $child->setAttribute('class', $gridClass);
+                $child->setAttribute('class', $gridClass . ' ' . $child->getAttribute('class'));
                 $result[] = $child->c14n();
             }
         }
