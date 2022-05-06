@@ -121,9 +121,6 @@ class Post
                     'btn-theme-fourth',
                     'btn-theme-fifth',
 
-                    //Gutenberg columns
-                    'wp-block-columns',
-
                     //Gutenberg block image
                     'wp-block-image',
                     '<figcaption>'
@@ -143,9 +140,6 @@ class Post
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
                     'c-button c-button__filled c-button__filled--secondary c-button--md',
-
-                    //Gutenberg columns
-                    'o-grid o-grid--no-margin@md',
 
                     //Gutenberg block image
                     'c-image',

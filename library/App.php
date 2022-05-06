@@ -110,6 +110,11 @@ class App
          */
         new \Municipio\Customizer();
 
+        /**
+         * Block customizations
+         */
+        new \Municipio\Blocks\Columns();
+
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';

@@ -10,6 +10,7 @@ class Editor
     {
         // Actions
         add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
+        add_action('enqueue_block_editor_assets', array($this, 'blockEditorScript'));
         add_action('after_setup_theme', array($this, 'editorStyle'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
@@ -50,6 +51,19 @@ class Editor
     {
         array_unshift($buttons, 'styleselect');
         return $buttons;
+    }
+
+     /**
+     * Add js to block editor
+     * @return void
+     */
+    public function blockEditorScript()
+    {
+        wp_enqueue_script(
+            'columns-block',
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/blocks/columns.js'),
+            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post')
+        );
     }
 
     /**

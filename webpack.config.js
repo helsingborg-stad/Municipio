@@ -36,6 +36,8 @@ module.exports = {
         'js/design-share': './assets/source/3.0/js/admin/designShare.js',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
+
+        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
