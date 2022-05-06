@@ -53,7 +53,7 @@ class Columns
             }
         }
 
-        return '<div class="o-grid">' . "\n" . implode("\n", $result) . "\n" . '</div>';
+        return '<div class="o-grid wp-block-columns">' . "\n" . implode("\n", $result) . "\n" . '</div>';
     }
 
     /**
