@@ -33,6 +33,7 @@ class Archive extends \Municipio\Controller\BaseController
         //The posts
         $this->data['posts']                    = $this->getPosts($template);
         $this->data['posts']                    = $this->getDate($this->data['posts'], $this->data['archiveProps']);
+        $this->data['anyPostHasImage']          = $this->anyPostHasImage($this->data['posts']);
 
         //Set default values to query parameters
         $this->data['queryParameters']          = $this->setQueryParameters();
@@ -108,7 +109,8 @@ class Archive extends \Municipio\Controller\BaseController
      * @param  array $customizer
      * @return array|bool
      */
-    private function getArchiveProperties($postType, $customize) {
+    private function getArchiveProperties($postType, $customize)
+    {
         $customizationKey = "archive" . $this->camelCasePostTypeName($postType);
         if (isset($customize->{$customizationKey})) {
             return (object) $customize->{$customizationKey};
@@ -156,7 +158,8 @@ class Archive extends \Municipio\Controller\BaseController
      * @param string $postType
      * @return string
      */
-    private function camelCasePostTypeName($postType) {
+    private function camelCasePostTypeName($postType)
+    {
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
     }
 
@@ -265,11 +268,9 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function showFilterReset($queryParams): bool
     {
-        return !empty(
-            array_filter(
+        return !empty(array_filter(
                 (array) $queryParams
-            )
-        );
+            ));
     }
 
     /**
@@ -510,7 +511,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   array $posts    The posts
      * @return  array           The posts - formatted
      */
-    protected function getArchiveItems(array $posts) : array
+    protected function getArchiveItems(array $posts): array
     {
         $preparedPosts = [];
 
@@ -606,7 +607,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   array $posts    The posts
      * @return  array           The posts - formatted
      */
-    protected function getListItems(array $posts) : array
+    protected function getListItems(array $posts): array
     {
         $preparedPosts = [
             'items' => [],
@@ -620,15 +621,15 @@ class Archive extends \Municipio\Controller\BaseController
                 $postModified   = \date('Y-m-d', strtotime($post->postModified));
 
                 $preparedPosts['items'][] =
-                [
-                    'id' => $post->id,
-                    'href' => get_permalink($post->id),
-                    'columns' => [
-                        $post->postTitle,
-                        $post->post_date = $postDate,
-                        $post->post_modified = $postModified
-                    ]
-                ];
+                    [
+                        'id' => $post->id,
+                        'href' => get_permalink($post->id),
+                        'columns' => [
+                            $post->postTitle,
+                            $post->post_date = $postDate,
+                            $post->post_modified = $postModified
+                        ]
+                    ];
             }
         }
 
