@@ -48,14 +48,15 @@ class Columns
         $result = [];
 
         foreach ($doc->getElementsByTagName('*') as $child) {
-            if (strpos($child->getAttribute('class'), 'wp-block-column') !== false) {
+            $class = $child->getAttribute('class');
+            if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
                 $child->setAttribute(
                     'class',
                     implode(
                         ' ',
                         [
                             $gridClass,
-                            str_replace('wp-block-column', '', $child->getAttribute('class'))
+                            str_replace('wp-block-column', '', $class)
                         ]
                     )
                 );
