@@ -42,12 +42,13 @@ class Columns
 
         //Load doc as string
         $doc = new \DOMDocument();
-        $doc->loadHTML($content);
+        $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
 
         //Get the columns and its contents
         $result = [];
-        foreach ($doc->getElementsByTagName('div') as $child) {
-            if ($child->getAttribute('class') == 'wp-block-column') {
+
+        foreach ($doc->getElementsByTagName('*') as $child) {
+            if (strpos($child->getAttribute('class'), 'wp-block-column') !== false) {
                 $child->setAttribute(
                     'class',
                     implode(
@@ -58,6 +59,8 @@ class Columns
                         ]
                     )
                 );
+                $child->setAttribute('style', false);
+
                 $result[] = $child->c14n();
             }
         }
