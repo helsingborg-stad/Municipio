@@ -8,7 +8,7 @@
             @includeWhen($showHeroSearch, 'partials.search.hero-search-form')
 
             {{-- Emblem in hero --}}
-            @includeWhen($emblem, 'partials.emblem')
+            @includeWhen($emblem && $showEmblemInHero, 'partials.emblem')
 
         @endif
     </div>
