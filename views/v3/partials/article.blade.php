@@ -2,9 +2,11 @@
     
     <!-- Title -->
     @section('article.title.before')@show
-    @typography(["element" => "h1", "variant" => "h1"])
-        {!! $postTitleFiltered !!}
-    @endtypography
+    @if($postTitleFiltered)
+        @typography(["element" => "h1", "variant" => "h1"])
+            {!! $postTitleFiltered !!}
+        @endtypography
+    @endif
     @section('article.title.after')@show
 
     <!-- Blog style author signature -->
