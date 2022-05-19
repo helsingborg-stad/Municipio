@@ -1,3 +1,12 @@
+.search-modal.c-modal--is-panel {
+    background-color: none;
+}
+
+.search-modal.c-modal--is-panel .c-typography__variant--h1 {
+    color: #fff; 
+    margin: 0 0 map-get($spacers, "2") 0;
+}
+
 .search-modal .c-modal__content {
     margin: auto 0;
 }
@@ -8,24 +17,12 @@
     margin: auto;
 }
 
-.search-modal .c-typography__variant--h1 {
-    color: #fff; 
-    margin: 0 0 map-get($spacers, "2") 0;
-}
-
-.search-modal {
-    .c-button .c-button__label .c-icon {
-        color: $color-white;
-    }
-
-    .c-button__filled {
-        filter: none;
-    }
-}
-
 #search-form--field, .search-modal, #hero-search-form {
     .c-field__inner {
         height: 100%;
+        border-top-right-radius: none;
+        border-top-left-radius: none;
+        border: none;
     }
 }
 
