@@ -31,5 +31,17 @@ class General
             ['type' => 'controller']
           ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'checkbox_switch',
+          'settings'    => 'show_emblem_in_hero',
+          'label'       => esc_html__('Show emblem in hero', 'municipio'),
+          'section'     => self::SECTION_ID,
+          'default'     => true,
+          'priority'    => 10,
+          'output' => [
+            ['type' => 'controller']
+          ],
+        ]);
     }
 }

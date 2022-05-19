@@ -72,6 +72,7 @@ class BaseController
         $this->data['footerLogotype']       = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
+        $this->data['showEmblemInHero']     = $this->data['customizer']->showEmblemInHero ?? true;
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
@@ -199,7 +200,19 @@ class BaseController
         //Structural
         $this->getFilterData();
 
+        // Add filters to add emblem on blocks and cards with placeholders
+        add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
+        add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
+
         $this->init();
+    }
+
+    public function componentDataEmblemFilter($data)
+    {
+        if ($data['hasPlaceholder'] === true) {
+            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
+        }
+        return $data;
     }
 
     /**
@@ -386,6 +399,19 @@ class BaseController
             }
         }
 
+        return false;
+    }
+
+    /**
+     * Check if any posts in the given array has an image
+     */
+    protected function anyPostHasImage(array $posts)
+    {
+        foreach ($posts as $post) {
+            if (!empty($post->thumbnail) && !isset($post->thumbnail['src'])) {
+                return true;
+            }
+        }
         return false;
     }
 
