@@ -1,5 +1,5 @@
 .search-modal.c-modal--is-panel {
-    background-color: none;
+    background-color: transparent;
 }
 
 .search-modal.c-modal--is-panel .c-typography__variant--h1 {
@@ -20,8 +20,8 @@
 #search-form--field, .search-modal, #hero-search-form {
     .c-field__inner {
         height: 100%;
-        border-top-right-radius: none;
-        border-top-left-radius: none;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
         border: none;
     }
 }
