@@ -1,21 +1,25 @@
 .search-modal.c-modal--is-panel {
     background-color: transparent;
-}
 
-.search-modal.c-modal--is-panel .c-typography__variant--h1 {
-    color: #fff; 
-    margin: 0 0 map-get($spacers, "2") 0;
-}
+    .c-modal__close {
+        color: #fff;
+    }
 
-.search-modal .c-modal__content {
-    margin: auto 0;
-}
+    .c-typography__variant--h1 {
+        color: #fff; 
+        margin: 0 0 map-get($spacers, "2") 0;
+    }
 
-.search-modal .c-form {
-    max-width: calc(#{$base} * 75);
-    width: 90%; 
-    margin: auto;
-}
+    .c-modal__content {
+        margin: auto 0;
+    }
+
+    .c-form {
+        max-width: calc(#{$base} * 75);
+        width: 90%; 
+        margin: auto;
+    }
+} 
 
 #search-form--field, .search-modal, #hero-search-form {
     .c-field__inner {
