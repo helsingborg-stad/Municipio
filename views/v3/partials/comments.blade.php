@@ -1,7 +1,7 @@
-@if( is_singular() && comments_open() && get_option('comment_registration') === 0 || is_singular()
- && comments_open())
+@if( is_singular() && comments_open() && get_option('comment_registration') === 0 || is_singular() && comments_open())
 
     <div class="comment">
+
         {{Municipio\Comment\CommentsActions::getInitialCommentForm()}}
 
         <div class="comment__conversation">
@@ -35,7 +35,6 @@
                         <a name="comment-{{$comment->comment_ID}}"></a>
                         @comment([
                             'author' => $comment->comment_author,
-                            'author_url' => 'mailto:'.$comment->comment_author_email,
                             'author_image' => get_user_by('email', $comment->comment_author_email) ? get_avatar_url(get_user_by('email', $comment->comment_author_email)->data->ID ) : false,
                             'href' => '',
                             'icon' => 'face',
@@ -51,7 +50,7 @@
                     <div class="reply comment--actions">
                         @button([
                             'icon' => 'reply',
-                            'reversePositions' => true,
+                            'reversePositions' => false,
                             'style' => 'basic',
                             'color' => 'secondary',
                             'text' => __('Reply', 'municipio'),

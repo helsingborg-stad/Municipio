@@ -1,7 +1,6 @@
 <?php
 
 namespace Municipio\Comment;
-use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
 /**
  * Class CommentsFilters
@@ -14,7 +13,6 @@ class CommentsFilters
      */
     public function __construct()
     {
-        add_action('pre_comment_on_post', array($this, 'reCaptchaValidation'));
         add_filter('comment_text', array($this, 'stripTags'), 10, 2);
     }
 
@@ -40,17 +38,5 @@ class CommentsFilters
         $allowedAttributes = array('href', 'class', 'rel', 'id', 'src');
 
         return \Municipio\Helper\Html::stripTagsAndAtts($comment_text, $allowedTags, $allowedAttributes);
-    }
-
-    /**
-     * Check reCaptcha Keys
-     */
-    public function reCaptchaValidation()
-    {
-        if (is_user_logged_in()) {
-            return;
-        }
-
-        Captcha::initCaptcha();
     }
 }

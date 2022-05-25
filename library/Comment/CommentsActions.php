@@ -1,7 +1,6 @@
 <?php
 
 namespace Municipio\Comment;
-use \HelsingborgStad\RecaptchaIntegration as Captcha;
 
 /**
  * Class CommentsActions
@@ -13,9 +12,16 @@ class CommentsActions
     {
         add_action('wp_ajax_remove_comment', array($this, 'removeComment'));
         add_action('wp_ajax_get_comment_form', array($this, 'getCommentForm'));
-        add_action('wp_enqueue_scripts', array($this, 'getScripts'), 20);
         add_action('wp_ajax_update_comment', array($this, 'updateComment'));
 
+        add_filter('cancel_comment_reply_link', array($this, 'replaceCommentCancelLink'), 10, 3);
+    }
+
+    public function replaceCommentCancelLink($markup, $link, $text) {
+        return render_blade_view('partials.comments.cancel-button', [
+            'link' => $link,
+            'text' => $text
+        ]);
     }
 
     /**
@@ -91,56 +97,47 @@ class CommentsActions
     /**
      *
      */
-    public static function getInitialCommentForm() {
-
-        $reCaptcha = (!is_user_logged_in()) ? '<input type="hidden" class="g-recaptcha-response" 
-            name="g-recaptcha-response" value="" />' : '';
-        $reCaptchaTerms = __('This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'municipio');
-        ob_start();
-        ob_get_clean();
+    public static function getInitialCommentForm()
+    {
+        $data['lang'] = (object) [
+            'comments' => __("Comment", "municipio"),
+            'name' => __("Your name", "municipio"),
+            'email' => __("Your email", "municipio"),
+            'heading' => __("Leave a comment", "municipio")
+        ];
 
         $args = array(
-            'id_form'           => 'commentform',
-            'logged_in_as'      => '',
-            'must_log_in'       => '',
-            'class_form'        => 'c-form',
-            'id_submit'         => 'submit',
-            'class_submit'      => 'c-button 
-                                    comment-reply-link 
-                                    c-button 
-                                    c-button__filled 
-                                    c-button__filled--primary 
-                                    c-button--md',
-            'name_submit'       => 'submit',
-            'submit_button'     => '
-                <div class="comment--actions">
-                <input 
-                    name="%1$s" 
-                    type="submit" 
-                    id="%2$s" 
-                    class="u-padding__bottom--3%3$s" 
-                    value="%4$s" 
-                    /></div>',
-            'format'            => 'html5',
-            'cancel_reply_link' => __( 'Cancel reply' ),
-            'comment_field'     =>
-                $reCaptcha . '<div class="c-textarea">
-                                <textarea 
-                                    id="comment"
-                                    name="comment"
-                                    placeholder="'.__('Comment text','text-domain').'" 
-                                    aria-required="true"></textarea><br><div class="c-typography 
-                                    c-typography__variant--meta u-padding__top--2">'.$reCaptchaTerms.'</div></div>'
+            'title_reply_before'    => '',
+            'title_reply_after'     => '',
+            'title_reply'           => '',
+            'comment_notes_before'  => render_blade_view('partials.comments.before', $data),
+            'comment_notes_after'   => render_blade_view('partials.comments.after', $data),
+            'format'                => 'html5',
+            'id_form'               => 'commentform',
+            'class_form'            => 'c-paper c-paper--padding-3 c-form o-grid o-grid--form',
+            'submit_field'          => '%1$s %2$s',
+
+            'id_submit'             => 'submit',
+            'class_submit'          => 'comment-reply-link',
+            'name_submit'           => 'submit',
+            'submit_button'         => render_blade_view('partials.comments.submit-button', $data),
+
+            'cancel_reply_link'     => __('Cancel reply', 'municipio'),
+            'cancel_reply_before'   => '',
+            'cancel_reply_after'    => '',
+
+            'comment_field'         => render_blade_view('partials.comments.field-comment', $data),
+            'fields' => [
+                'author'            => render_blade_view('partials.comments.field-author', $data),
+                'email'             => render_blade_view('partials.comments.field-email', $data),
+                'cookies'           => false, //Avoid cookies
+                'url'               => false, //No need for url
+            ],
+            'must_log_in'           => render_blade_view('partials.comments.login-required', $data),
+            'logged_in_as'          => false,
         );
 
-        comment_form( $args );
-    }
-
-    /**
-     * Init and enqueue Google Captcha Script
-     */
-    public static function getScripts(){
-        Captcha::initScripts();
+        comment_form($args);
     }
 
     /**

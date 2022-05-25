@@ -1,75 +1,15 @@
-.c-textarea textarea, #comment textarea {
-    min-height:40px;
-    padding-bottom: 24px;
-    max-width: 900px;
-    background-color: #e1e1e1;
-
+.comment-respond {
+    position: relative;
 }
 
-.comment {
-    margin-top: 40px;
-    #submit {
-        cursor:pointer;
-    }
+.comment-respond .cancel-comment-reply-link {
+    position: absolute;
+    top: calc(var(--base, 8px) * 2); 
+    right: calc(var(--base, 8px) * 3);
+    z-index: $level-1;
+    display: none;
+}
 
-    #respond {
-        padding-bottom:20px;
-    }
-
-    .parent, .child {
-        clear:both;
-    }
-
-    .child {
-        padding-left: 18px;
-    }
-
-    .c-typography__variant--body {
-        width: 100%;
-        margin:0px 0px 8px 0px;
-    }
-
-    &__conversation {
-        max-width: 954px;
-        position: relative;
-        width: 100%;
-        padding: 0 57px;
-    }
-
-    .c-comment__top {
-        padding-bottom: 0px;
-    }
-
-    &--likes {
-        padding-left: 8px;
-    }
-
-    .c-comment__bubble--color-dark p {
-        background-color: #e1e1e1;
-    }
-
-    .comment--likes {
-
-        position: absolute;
-        right:60px;
-
-        .like-button {
-            position: relative;
-            top: -2px;
-            right: -8px;
-
-            &.active i {
-                color: #ae0b05;
-            }
-
-            i:hover {
-                color: #ae0b05;
-            }
-
-            &.active i:hover {
-                color: #000;
-            }
-        }
-    }
-
+.comment__conversation .comment-respond .cancel-comment-reply-link {
+    display: flex;
 }
