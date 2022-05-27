@@ -144,14 +144,15 @@ class Slider
             'settings'    => 'slider_coverlay',
             'label'       => esc_html__('Slide overlay', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 'overlay-none',
+            'default'     => 'none',
             'choices' => array(
-                'overlay-none' => __('None', 'modularity'),
-                'overlay-dark' => __('Dark', 'modularity'),
+                'none' => __('None', 'modularity'),
+                'dark' => __('Dark', 'modularity'),
             ),
             'output' => [
                 [
-                    'type' => 'modifier',
+                    'type' => 'component_data',
+                    'dataKey' => 'overlay',
                     'context' => [
                         [
                             'context' => 'module.slider-item',
@@ -306,15 +307,15 @@ class Slider
             'settings'    => 'hero_slider_coverlay',
             'label'       => esc_html__('Slide overlay', 'municipio'),
             'section'     => self::HERO_SECTION_ID,
-            'default'     => 'overlay-none',
+            'default'     => 'none',
             'choices' => array(
-                'overlay-none' => __('None', 'modularity'),
-                'overlay-dark' => __('Dark', 'modularity'),
-                'overlay-light' => __('Light', 'modularity'),
+                'none' => __('None', 'modularity'),
+                'dark' => __('Dark', 'modularity'),
             ),
             'output' => [
                 [
-                    'type' => 'modifier',
+                    'type' => 'component_data',
+                    'dataKey' => 'overlay',
                     'context' => ['sidebar.slider-area.module.slider-item']
                 ]
             ],
