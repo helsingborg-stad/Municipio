@@ -10,6 +10,13 @@
     display: none;
 }
 
+.comment__conversation {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base, 8px) * 2);
+}
+
 .comment__conversation .comment-respond .cancel-comment-reply-link {
     display: flex;
 }
+
