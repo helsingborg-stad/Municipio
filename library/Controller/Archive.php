@@ -546,7 +546,7 @@ class Archive extends \Municipio\Controller\BaseController
         if ($isMetaKey == true) {
             $targetFieldName = $archiveProps->dateField;
         } else {
-            $targetFieldName = \Municipio\Helper\FormatObject::camelCase($archiveProps->dateField);
+            $targetFieldName = \Municipio\Helper\FormatObject::camelCase($archiveProps->dateField) . 'Gmt';
         }
 
         if (is_array($posts) && !empty($posts)) {
