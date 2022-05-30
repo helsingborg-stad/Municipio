@@ -33,11 +33,11 @@ class Form
     public static function get() //:void
     {
         $data['lang'] = (object) [
-            'comments' => __("Comment", "municipio"),
-            'name' => __("Your name", "municipio"),
-            'email' => __("Your email", "municipio"),
-            'heading' => __("Leave a comment", "municipio"),
-            'loginrequired' => __("You need to login before leaving a comment.", "municipio"),
+            'comments' => __("Comment", 'municipio'),
+            'name' => __("Your name", 'municipio'),
+            'email' => __("Your email", 'municipio'),
+            'heading' => __("Leave a comment", 'municipio'),
+            'loginrequired' => __("You need to login before leaving a comment.", 'municipio'),
         ];
 
         $args = array(

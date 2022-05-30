@@ -36,11 +36,11 @@ class Filters
         );
 
         $allowedAttributes = array(
-            'href',
-            'class',
-            'rel',
-            'id',
-            'src'
+            "href",
+            "class",
+            "rel",
+            "id",
+            "src"
         );
 
         return \Municipio\Helper\Html::stripTagsAndAtts(
