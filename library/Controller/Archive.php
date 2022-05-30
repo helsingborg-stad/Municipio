@@ -549,6 +549,9 @@ class Archive extends \Municipio\Controller\BaseController
             $targetFieldName = \Municipio\Helper\FormatObject::camelCase($archiveProps->dateField);
         }
 
+        // Get date in GMT
+        $targetFieldName = $targetFieldName . 'Gmt';
+
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
                 if (!is_object($post)) {
