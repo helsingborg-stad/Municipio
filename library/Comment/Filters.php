@@ -3,13 +3,13 @@
 namespace Municipio\Comment;
 
 /**
- * Class CommentsFilters
+ * Class Filters
  * @package Municipio\Comment
  */
-class CommentsFilters
+class Filters
 {
     /**
-     * CommentsFilters constructor.
+     * Filters constructor.
      */
     public function __construct()
     {
@@ -22,7 +22,7 @@ class CommentsFilters
      * @param $comment
      * @return array
      */
-    public function stripTags($comment_text, $comment)
+    public function stripTags($commentText, $comment)
     {
         $allowedTags = array(
             "<h1>", "<h2>", "<h3>", "<h4>",
@@ -35,8 +35,18 @@ class CommentsFilters
             "<blockquote>"
         );
 
-        $allowedAttributes = array('href', 'class', 'rel', 'id', 'src');
+        $allowedAttributes = array(
+            'href',
+            'class',
+            'rel',
+            'id',
+            'src'
+        );
 
-        return \Municipio\Helper\Html::stripTagsAndAtts($comment_text, $allowedTags, $allowedAttributes);
+        return \Municipio\Helper\Html::stripTagsAndAtts(
+            $commentText,
+            $allowedTags,
+            $allowedAttributes
+        );
     }
 }

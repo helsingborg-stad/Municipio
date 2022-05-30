@@ -68,8 +68,8 @@ class App
          */
         new \Municipio\Comment\HoneyPot();
         new \Municipio\Comment\Likes();
-        new \Municipio\Comment\CommentsFilters();
-        new \Municipio\Comment\CommentsActions();
+        new \Municipio\Comment\Filters();
+        new \Municipio\Comment\Form();
 
         /**
          * Admin
