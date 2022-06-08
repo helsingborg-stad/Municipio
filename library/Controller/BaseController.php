@@ -138,11 +138,6 @@ class BaseController
         $this->data['dateFormat']       = $format->getDateFormat('date');
         $this->data['timeFormat']       = $format->getDateFormat('time');
 
-        /*
-        $this->data['dateFormat']     = new \Municipio\Helper\DateFormat('date');
-        $this->data['timeFormat']     = new \Municipio\Helper\DateFormat('time');
-        */
-
         //User is authenticated
         $this->data['isAuthenticated']      = is_user_logged_in();
 
