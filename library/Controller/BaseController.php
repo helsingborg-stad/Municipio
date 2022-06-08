@@ -133,10 +133,9 @@ class BaseController
         $this->data['showSidebars']         = true;
 
         // Get date & time formats   
-        $format = new \Municipio\Helper\DateFormat;
-        $this->data['dateTimeFormat']   = $format->getDateFormat('date-time');
-        $this->data['dateFormat']       = $format->getDateFormat('date');
-        $this->data['timeFormat']       = $format->getDateFormat('time');
+        $this->data['dateTimeFormat']   = \Municipio\Helper\DateFormat::getDateFormat('date-time');
+        $this->data['dateFormat']       = \Municipio\Helper\DateFormat::getDateFormat('date');
+        $this->data['timeFormat']       = \Municipio\Helper\DateFormat::getDateFormat('time');
 
         //User is authenticated
         $this->data['isAuthenticated']      = is_user_logged_in();

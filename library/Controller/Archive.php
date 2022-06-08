@@ -609,7 +609,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function getListItems(array $posts): array
     {
-        $format = \Municipio\Helper\DateFormat::getDateFormat('date');
+        $dateFormat = \Municipio\Helper\DateFormat::getDateFormat('date');
         $preparedPosts = [
             'items' => [],
             'headings' => ['Title', 'Published', 'Updated']
@@ -618,8 +618,8 @@ class Archive extends \Municipio\Controller\BaseController
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
                 $post           = \Municipio\Helper\Post::preparePostObject($post);
-                $postDate       = \date($format, strtotime($post->postDate));
-                $postModified   = \date($format, strtotime($post->postModified));
+                $postDate       = \date($dateFormat, strtotime($post->postDate));
+                $postModified   = \date($dateFormat, strtotime($post->postModified));
 
                 $preparedPosts['items'][] =
                     [
