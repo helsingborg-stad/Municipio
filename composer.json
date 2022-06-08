@@ -61,5 +61,10 @@
         "post-update-cmd": [
 
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }
