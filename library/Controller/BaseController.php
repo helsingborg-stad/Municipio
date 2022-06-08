@@ -132,6 +132,17 @@ class BaseController
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
 
+        // Get date & time formats   
+        $format = new \Municipio\Helper\DateFormat;
+        $this->data['dateTimeFormat']   = $format->getDateFormat('date-time');
+        $this->data['dateFormat']       = $format->getDateFormat('date');
+        $this->data['timeFormat']       = $format->getDateFormat('time');
+
+        /*
+        $this->data['dateFormat']     = new \Municipio\Helper\DateFormat('date');
+        $this->data['timeFormat']     = new \Municipio\Helper\DateFormat('time');
+        */
+
         //User is authenticated
         $this->data['isAuthenticated']      = is_user_logged_in();
 

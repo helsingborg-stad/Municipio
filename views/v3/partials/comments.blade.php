@@ -17,7 +17,7 @@
                         'icon' => 'face',
                         'bubble_color' => 'light',
                         'date_suffix' => __('ago', 'municipio'),
-                        'date' => date('Y-m-d H:i', strtotime($comment->comment_date)),
+                        'date' => date($dateTimeFormat, strtotime($comment->comment_date)),
                         'classList' => [
                             'comment-'.$comment->comment_ID, 
                             'c-comment--level-1',
@@ -88,7 +88,7 @@
                                 'icon' => 'face',
                                 'bubble_color' => 'light',
                                 'date_suffix' => __('ago', 'municipio'),
-                                'date' => date('Y-m-d H:i', strtotime($answer->comment_date)),
+                                'date' => date($dateTimeFormat, strtotime($answer->comment_date)),
                                 'is_reply' => true,
                                 'classList' => [
                                     'c-comment--level-2',
