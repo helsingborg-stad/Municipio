@@ -31,7 +31,7 @@
                                     var button =
                                         '<a href="' +
                                         btnLink +
-                                        '">' +
+                                        '" class="u-no-decoration">' +
                                         '<button class="' +
                                         btnClass +
                                         '">' +
