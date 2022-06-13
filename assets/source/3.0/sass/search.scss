@@ -1,109 +1,132 @@
 .search-modal.c-modal--is-panel {
-    background-color: transparent;
+  background-color: transparent;
 
-    .c-modal__close {
-        color: #fff;
-    }
+  .c-modal__close {
+    color: #fff;
+  }
 
-    .c-typography__variant--h1 {
-        color: #fff; 
-        margin: 0 0 map-get($spacers, "2") 0;
-    }
+  .c-typography__variant--h1 {
+    color: #fff;
+    margin: 0 0 map-get($spacers, "2") 0;
+  }
 
-    .c-modal__content {
-        margin: auto 0;
-    }
+  .c-modal__content {
+    margin: auto 0;
+  }
 
-    .c-form {
-        max-width: calc(#{$base} * 75);
-        width: 90%; 
-        margin: auto;
-    }
-} 
+  .c-form {
+    max-width: calc(#{$base} * 75);
+    width: 90%;
+    margin: auto;
+  }
+}
 
-#search-form--field, .search-modal, #hero-search-form {
-    .c-field__inner {
-        height: 100%;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-        border: none;
-    }
+#search-form--field,
+.search-modal,
+#hero-search-form {
+  .c-field__inner {
+    height: 100%;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border: none;
+  }
 }
 
 #sidebar-slider-area--container {
-    position: relative;
+  position: relative;
 
-    .c-slider,
-    .c-slider__container {
-        border-radius: 0;
+  .c-slider,
+  .c-slider__container {
+    border-radius: 0;
+  }
+
+  #hero-search-form {
+    color: rgb(61, 61, 61);
+    min-width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3000;
+    border: 1px solid #eee;
+    border-radius: $border-radius-sm;
+    background-color: #fff;
+
+    @include mq("xs") {
+      width: 200px;
+      #search-form--submit {
+        padding: 0 calc(var(--base, 8px) * 0.5);
+      }
+      .c-group {
+        max-width: 300px;
+        justify-content: center;
+      }
+      #search-form--field {
+        width: 228px;
+      }
     }
 
-    #hero-search-form {
-        color: rgb(61,61,61); 
-        min-width: 300px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 3000;
-        border: 1px solid #eee;
-        border-radius: $border-radius-sm; 
-        background-color: #fff; 
-
-        @include mq('xs') {
-            width: 80%;
-        }
-
-        @include mq('sm') {
-            width: 70%;
-        }
-
-        @include mq('md') {
-            width: 50%;
-        }
-
-        @include mq('lg') {
-            width: 30%;
-        }
+    @include mq("sm") {
+      width: unset;
+      #search-form--submit {
+        padding: 0 calc(var(--base, 8px) * 5);
+      }
+      .c-group {
+        max-width: unset;
+        justify-content: unset;
+      }
+      #search-form--field {
+        width: unset;
+      }
     }
 
-    #hero-search-form .c-button {
-        box-shadow: none; 
-        border-left: 1px solid #eee;
-        color: inherit;
-        border-radius: 0;
+    @include mq("md") {
+      width: 50%;
     }
 
-    #hero-search-form input[type="search"],
-    #hero-search-form .c-field__inner {
-        border-radius: inherit;
-        background-color: inherit;
-        border: none; 
-        color: inherit;
+    @include mq("lg") {
+      width: 30%;
     }
 
-    #hero-search-form .c-field__label {
-        display: none;
+    @include mq("xs") {
     }
+  }
 
-    #hero-search-form label {
-        color: inherit;
-        font-weight: bold;
-    }
+  #hero-search-form .c-button {
+    box-shadow: none;
+    border-left: 1px solid #eee;
+    color: inherit;
+    border-radius: 0;
+  }
+
+  #hero-search-form input[type="search"],
+  #hero-search-form .c-field__inner {
+    border-radius: inherit;
+    background-color: inherit;
+    border: none;
+    color: inherit;
+  }
+
+  #hero-search-form .c-field__label {
+    display: none;
+  }
+
+  #hero-search-form label {
+    color: inherit;
+    font-weight: bold;
+  }
 }
-
-
 
 #header-search-form input[type="search"],
 #header-search-form .c-field__inner,
-#mobile-search-form input[type="search"], 
+#mobile-search-form input[type="search"],
 #mobile-search-form .c-field__inner {
-    border-radius: inherit;
-    border: none; 
+  border-radius: inherit;
+  border: none;
 }
 
 @media print {
-    #sidebar-slider-area--container {
-        display:none;
-    }
+  #sidebar-slider-area--container {
+    display: none;
+  }
 }
