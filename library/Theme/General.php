@@ -23,7 +23,10 @@ class General
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
-
+        add_filter('Modularity\ModularityIconsLibrary', function() {
+            return MUNICIPIO_PATH . "assets/dist/data/ico.json";
+        }, 10, 0);
+        
         remove_filter('template_redirect', 'redirect_canonical');
 
         //Menu cache purging
