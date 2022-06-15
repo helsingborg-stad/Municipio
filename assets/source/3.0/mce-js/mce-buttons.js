@@ -1,6 +1,6 @@
-(function() {
+(function () {
     if (typeof tinymce !== 'undefined') {
-        tinymce.PluginManager.add('mce_hbg_buttons', function(editor, url) {
+        tinymce.PluginManager.add('mce_hbg_buttons', function (editor, url) {
             editor.addButton('mce_hbg_buttons', {
                 text: 'Button',
                 icon: '',
@@ -9,7 +9,7 @@
                 cmd: 'mce_hbg_buttons',
             });
 
-            editor.addCommand('mce_hbg_buttons', function() {
+            editor.addCommand('mce_hbg_buttons', function () {
                 editor.windowManager.open(
                     {
                         title: 'Add button',
@@ -21,7 +21,7 @@
                         buttons: [
                             {
                                 text: 'Insert',
-                                onclick: function(e) {
+                                onclick: function (e) {
                                     var $iframe = jQuery(
                                         '.mce-container-body.mce-window-body.mce-abs-layout iframe'
                                     ).contents();
@@ -31,7 +31,7 @@
                                     var button =
                                         '<a href="' +
                                         btnLink +
-                                        '">' +
+                                        '" class="u-no-decoration">' +
                                         '<button class="' +
                                         btnClass +
                                         '">' +
