@@ -107,12 +107,12 @@ class OnTheFlyImages
             }
 
             //Get attachmentmeta
-            if (!is_numeric($size[0]) ||!is_numeric($size[1])) {
+            if (!is_numeric($size[0]) || !is_numeric($size[1])) {
                 $attachmentMetaData = wp_get_attachment_metadata($id);
             }
 
             //Check that we have the needed data to make calculations
-            if (array_filter($size)) {
+            if (array_filter($size) && $attachmentMetaData) {
 
                 //Calc height (from width)
                 if (!is_numeric($size[0])) {
