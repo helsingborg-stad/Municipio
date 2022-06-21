@@ -8,7 +8,6 @@ namespace Municipio\Theme;
  */
 class Enqueue
 {
-    public $defaultPrimeName = 'hbg-prime';
 
     public function __construct()
     {
@@ -21,10 +20,6 @@ class Enqueue
 
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
-        
-        //Google scripts
-        add_action('wp_enqueue_scripts', array($this, 'googleTagManager'), 999);
-        add_action('wp_footer', array($this, 'addGoogleTranslate'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -67,8 +62,7 @@ class Enqueue
     {
         wp_enqueue_script('design-share-js', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('js/design-share.js'),
-            array( 'jquery', 'customize-controls' ), false, true
-    );
+            array( 'jquery', 'customize-controls' ), false, true);
     }
 
     /**
@@ -76,13 +70,13 @@ class Enqueue
      * @return void
      */
     public function adminStyle()
-    {        
+    {
         // Load material icons
         wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
         wp_enqueue_style('material-icons');
     }
 
-    public function gutenbergStyle() 
+    public function gutenbergStyle()
     {
         // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
@@ -122,7 +116,7 @@ class Enqueue
      */
     public function script()
     {
-        // Language & parameters 
+        //Language & parameters
         wp_localize_script('municipio', 'MunicipioLang', array(
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
@@ -162,7 +156,7 @@ class Enqueue
             ucFirst(__('We', 'municipio')),
             ucFirst(__('Th', 'municipio')),
             ucFirst(__('Fr', 'municipio')),
-            ucFirst(__('Sa', 'municipio')) 
+            ucFirst(__('Sa', 'municipio'))
         ));
 
         wp_enqueue_script('pre-styleguide-js');
@@ -194,55 +188,6 @@ class Enqueue
         $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
         $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
     }
-
-    /**
-     * Enqueues Google Tag Manager
-     *
-     * @return void
-     */
-    public function googleTagManager()
-    {
-        $user = get_field('google_tag_manager_id', 'option');
-
-        if (empty($user)) {
-            return;
-        }
-
-        add_action('wp_footer', function () use ($user) {
-            echo "<noscript><iframe src=\"//www.googletagmanager.com/ns.html?id={$user}\"
-                    height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>
-                <script>
-                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                    })(window,document,'script','dataLayer','{$user}');
-                </script>";
-        }, 999);
-    }
-
-    /**
-     * Print the google translate element
-     *
-     * @return void
-     */
-    public function addGoogleTranslate()
-    {
-        echo "<script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-                {
-                    pageLanguage: 'sv',
-                    autoDisplay: false,
-                    gaTrack: HbgPrimeArgs.googleTranslate.gaTrack,
-                    gaId: HbgPrimeArgs.googleTranslate.gaUA,
-                },
-                'google-translate-element'
-            );
-        }
-        </script>";
-    }
-
 
     /**
      * Removes querystring from any scripts/styles internally
