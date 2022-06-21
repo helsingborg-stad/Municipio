@@ -76,10 +76,13 @@ class Enqueue
      * @return void
      */
     public function adminStyle()
-    {
+    {        
+        // Load material icons
+        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+        wp_enqueue_style('material-icons');
     }
 
-    public function gutenbergStyle()
+    public function gutenbergStyle() 
     {
         // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
@@ -98,6 +101,10 @@ class Enqueue
      */
     public function style()
     {
+        // Load material icons
+        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+        wp_enqueue_style('material-icons');
+
         // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
