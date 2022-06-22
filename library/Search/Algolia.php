@@ -7,6 +7,11 @@ class Algolia
     public function __construct()
     {
 
+        //Define custom mountpoint for municipio
+        if (!defined('ALGOLIA_INDEX_MOUNT_POINT')) {
+            define('ALGOLIA_INDEX_MOUNT_POINT', 'custom_search_page');
+        }
+
         //Algolia search modifications
         add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2); //Determine what to index
         add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'), 10, 2);
