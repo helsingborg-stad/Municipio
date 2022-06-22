@@ -6,12 +6,14 @@ class Algolia
 {
     public function __construct()
     {
-
-        //Define custom mountpoint for municipio
-        if (!defined('ALGOLIA_INDEX_MOUNT_POINT')) {
+        
+      //Define search variable for Algolia search plugin
+        add_action('init', function() {
+            if (!defined('ALGOLIA_INDEX_MOUNT_POINT')) {
             define('ALGOLIA_INDEX_MOUNT_POINT', 'custom_search_page');
-        }
-
+        } 
+        }, 1);
+        
         //Algolia search modifications
         add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 10, 2); //Determine what to index
         add_filter('algolia_should_index_post', array($this, 'shouldIndexPost'), 10, 2);
@@ -21,12 +23,14 @@ class Algolia
 
         add_filter('algolia_should_filter_query', array($this, 'disableArchiveSearch'), 10, 2); // Turn off search on archives
 
+        
+
         // Enclosed in the init function as it has to run before get_field can be used
         add_action('init', function () {
             //Do not run if not enabled
             if (!get_field('use_algolia_search', 'option')) {
                 return false;
-            }
+            }      
 
             //Exclude from search UI
             add_action('post_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
@@ -35,6 +39,7 @@ class Algolia
             add_action('edit_attachment', array($this, 'saveExcludeFromSearch'));
         });
     }
+
 
     /**
      * Adds form field for exclude from search
