@@ -54,9 +54,8 @@ class Enqueue
      */
     public function adminStyle()
     {
-        // Load material icons
-        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-        wp_enqueue_style('material-icons');
+        //Download and use material icons
+        $this->getMaterialIcons(null); //Create self handle
     }
 
     public function gutenbergStyle()
@@ -70,6 +69,9 @@ class Enqueue
         wp_register_style('municipio-css', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/municipio.css'));
         wp_enqueue_style('municipio-css');
+
+        //Download and use material icons
+        $this->getMaterialIcons('municipio-css');
     }
 
     /**
@@ -78,10 +80,6 @@ class Enqueue
      */
     public function style()
     {
-        // Load material icons
-        wp_register_style('material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-        wp_enqueue_style('material-icons');
-
         // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
@@ -91,6 +89,9 @@ class Enqueue
         wp_register_style('municipio-css', get_template_directory_uri() . '/assets/dist/'
             . \Municipio\Helper\CacheBust::name('css/municipio.css'));
         wp_enqueue_style('municipio-css');
+
+        //Download and use material icons
+        $this->getMaterialIcons('municipio-css');
     }
 
     /**
@@ -230,5 +231,30 @@ class Enqueue
         }
 
         return str_replace(' src', ' defer="defer" src', $tag);
+    }
+
+    /**
+     * Download a local copy of material icons and enqueue it inline
+     *
+     * @param string $enqueueAfter  A exising css handle to enqueue the font to
+     * @return void
+     */
+    private function getMaterialIcons($enqueueAfter = 'municipio-css')
+    {
+        //Create fake handle if not set
+        if (is_null($enqueueAfter)) {
+            $enqueueAfter = 'material-icons-handle';
+            wp_register_style($enqueueAfter, false);
+            wp_enqueue_style($enqueueAfter);
+        }
+
+        //Download and use material icons
+        $webFontDownloader = new \Kirki\Module\Webfonts\Downloader();
+        wp_add_inline_style(
+            $enqueueAfter,
+            $webFontDownloader->get_styles(
+                'https://fonts.googleapis.com/icon?family=Material+Icons'
+            )
+        );
     }
 }
