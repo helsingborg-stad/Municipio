@@ -23,6 +23,24 @@
                             'c-comment--level-1',
                             'comment-reply-link',
                         ],
+                        'dateLabels' => [
+                            'year' => $lang->year,
+                            'month' => $lang->month,
+                            'week' => $lang->week,
+                            'day' => $lang->day,
+                            'hour' => $lang->hour,
+                            'minute' => $lang->minute,
+                            'second' => $lang->second
+                        ],
+                        'dateLabelsPlural' => [
+                            'year' => $lang->years,
+                            'month' => $lang->months,
+                            'week' => $lang->weeks,
+                            'day' => $lang->days,
+                            'hour' => $lang->hours,
+                            'minute' => $lang->minutes,
+                            'second' => $lang->seconds
+                        ]
                     ])
                         @slot('actions')
                             
@@ -92,6 +110,24 @@
                                 'is_reply' => true,
                                 'classList' => [
                                     'c-comment--level-2',
+                                ],
+                                'dateLabels' => [
+                                    'year' => $lang->year,
+                                    'month' => $lang->month,
+                                    'week' => $lang->week,
+                                    'day' => $lang->day,
+                                    'hour' => $lang->hour,
+                                    'minute' => $lang->minute,
+                                    'second' => $lang->second
+                                ],
+                                'dateLabelsPlural' => [
+                                    'year' => $lang->years,
+                                    'month' => $lang->months,
+                                    'week' => $lang->weeks,
+                                    'day' => $lang->days,
+                                    'hour' => $lang->hours,
+                                    'minute' => $lang->minutes,
+                                    'second' => $lang->seconds
                                 ]
                             ])
                                 @slot('actions')
