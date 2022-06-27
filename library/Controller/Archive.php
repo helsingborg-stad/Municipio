@@ -127,6 +127,10 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $stack = [];
 
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         if (!isset($args->numberOfColumns) || !is_numeric($args->numberOfColumns)) {
             $args->numberOfColumns = 4;
         }
