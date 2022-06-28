@@ -54,6 +54,27 @@
     "extra" : {
         "installer-paths" : {
             "vendor/{$name}/": ["type:wordpress-plugin"]
+        },
+        "builder": {
+            "commands": [
+                "npm ci --no-progress --no-audit",
+                "npm update @helsingborg-stad/styleguide",
+                "npx --yes browserslist@latest --update-db",
+                "npm run build",
+                "composer install --prefer-dist --no-progress"
+            ],
+            "removables": [
+                ".git",
+                ".gitignore",
+                ".github",
+                "build.php",
+                ".npmrc",
+                "composer.json",
+                "env-example",
+                "webpack.config.js",
+                "package-lock.json",
+                "package.json"
+            ]
         }
     },
 

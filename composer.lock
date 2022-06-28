@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4427e003817b5c425f732f952f70e68",
+    "content-hash": "e9899bbfdf9f167b6804f63e5f6d53dc",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -781,12 +781,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "efaa16991c2dab18a5cc8da3277b524b097ff134"
+                "reference": "88ac19cad69487d9345b65023f580920667d17de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/efaa16991c2dab18a5cc8da3277b524b097ff134",
-                "reference": "efaa16991c2dab18a5cc8da3277b524b097ff134",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/88ac19cad69487d9345b65023f580920667d17de",
+                "reference": "88ac19cad69487d9345b65023f580920667d17de",
                 "shasum": ""
             },
             "require": {
@@ -875,7 +875,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-14T14:58:31+00:00"
+            "time": "2022-06-10T16:30:58+00:00"
         },
         {
             "name": "ouun/kirki-module-fonts_upload",
@@ -1210,12 +1210,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "6637e62480b60817b9a6984154a533e8e64c6bd5"
+                "reference": "77603bad557b467fe086d2098225fa1e88debffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/6637e62480b60817b9a6984154a533e8e64c6bd5",
-                "reference": "6637e62480b60817b9a6984154a533e8e64c6bd5",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/77603bad557b467fe086d2098225fa1e88debffe",
+                "reference": "77603bad557b467fe086d2098225fa1e88debffe",
                 "shasum": ""
             },
             "require": {
@@ -1255,7 +1255,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.41"
+                "source": "https://github.com/symfony/debug/tree/4.4"
             },
             "funding": [
                 {
@@ -1272,7 +1272,7 @@
                 }
             ],
             "abandoned": "symfony/error-handler",
-            "time": "2022-04-12T15:19:55+00:00"
+            "time": "2022-06-27T13:16:42+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1660,12 +1660,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "af52239a330fafd192c773795520dc2dd62b5657"
+                "reference": "a09f9fcad8b7b59e2f94dd91d105a8b4a3eab459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/af52239a330fafd192c773795520dc2dd62b5657",
-                "reference": "af52239a330fafd192c773795520dc2dd62b5657",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/a09f9fcad8b7b59e2f94dd91d105a8b4a3eab459",
+                "reference": "a09f9fcad8b7b59e2f94dd91d105a8b4a3eab459",
                 "shasum": ""
             },
             "require": {
@@ -1689,7 +1689,6 @@
                 "ext-intl": "To show region name in time zone dump",
                 "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
             },
-            "default-branch": true,
             "bin": [
                 "Resources/bin/var-dump-server"
             ],
@@ -1726,7 +1725,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.4.9"
+                "source": "https://github.com/symfony/var-dumper/tree/5.4"
             },
             "funding": [
                 {
@@ -1742,7 +1741,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-21T10:24:18+00:00"
+            "time": "2022-06-27T16:58:25+00:00"
         },
         {
             "name": "tgmpa/tgm-plugin-activation",
