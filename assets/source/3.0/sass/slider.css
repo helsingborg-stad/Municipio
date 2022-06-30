@@ -1,0 +1,4 @@
+#sidebar-slider-area--container .c-slider::before, #sidebar-slider-area--container .c-slider::after {
+  content: none;
+}
+/*# sourceMappingURL=slider.css.map */

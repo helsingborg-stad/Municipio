@@ -1,0 +1,47 @@
+.archive-list {
+  list-style: none;
+}
+
+.archive-list li:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.archive-compressed__title-link, .archive-compressed__title-link:link, .archive-compressed__title-link:visited, .archive-compressed__title-link:visited:hover {
+  text-decoration: none;
+  color: var(--color-primary, #AE0B05);
+}
+
+.archive-compressed__article .c-typography {
+  overflow-wrap: anywhere;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+}
+
+.archive-compressed__article h1 {
+  color: var(--color-primary, #AE0B05);
+}
+
+.archive-compressed__article__date {
+  font-weight: 900;
+  color: #3D3D3D;
+}
+
+.arcive-news-items .c-segment {
+  padding: 18px 0 14px 0;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+}
+
+.arcive-news-items a h2 {
+  text-decoration: none;
+}
+
+.arcive-news-items .c-segment__top-date {
+  font-weight: 600;
+  color: #ae0b05;
+  position: relative;
+  clear: left;
+}
+/*# sourceMappingURL=archive.css.map */
