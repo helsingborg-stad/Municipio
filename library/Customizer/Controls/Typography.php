@@ -9,9 +9,24 @@ class Typography
         add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_dynamic_css', array($this, 'fixCssVariants'));
     }
 
-    public function fixCssVariants($css)
+    public function fixCssVariants($styles)
     {
-        return $css;
+        foreach ($this->getFontVariantCss() as $selector => $items) {
+            $cssParts = [];
+
+            foreach ($items as $css) {
+                $cssParts[] = $css['property'] . ':' . $css['value'] . ';';
+            }
+
+            $cssPartsJoined = implode(' ', $cssParts);
+            $styles .= "
+                {$selector}{
+                    {$cssPartsJoined}
+                }
+            ";
+        }
+
+        return $styles;
     }
 
     public function getFontVariantCss()
