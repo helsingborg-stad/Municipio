@@ -1,8 +1,6 @@
-// Kirki Control Typography Variant
-
 <?php
 
-namespace\Municipio\Customizer\Controls;
+namespace Municipio\Customizer\Controls;
 
 class Typography
 {
