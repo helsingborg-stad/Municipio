@@ -20,11 +20,11 @@ class Typography
             ':root' => [
                 [
                     'property' =>  '--font-weight-base',
-                    'value' => 400
+                    'value' => get_theme_mod('typography_base', [])['variant'] ?? 400
                 ],
                 [
                     'property' =>  '--font-weight-heading',
-                    'value' => 600
+                    'value' => get_theme_mod('typography_heading', [])['variant'] ?? get_theme_mod('typography_base', [])['variant'] ?? 400
                 ]
             ]
         ];
