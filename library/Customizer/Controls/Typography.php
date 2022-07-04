@@ -29,26 +29,41 @@ class Typography
         return $styles;
     }
 
-
-
     public function getFontVariantCss()
     {
-        // Populate with kirki_field_init (not working yet)
-        // add_action( 'kirki_field_init', [$this->typographyFields] = fieldObject );
-        $typographyFields = array_fill(0, 3, ":selector { property: value; }");
+        $selectors = [];
+        foreach (\Kirki\Compatibility\Kirki::$all_fields as $fieldKey => $field) {
+            if (!empty($field['output'])) {
+                foreach ($field['output'] as $output) {
+                    if (
+                        !empty($output['choice']) && $output['choice'] === 'variant'
+                        && !empty($output['property']) && self::isValidCssVar($output['property'])
+                        && !empty(get_theme_mod($fieldKey, [])['variant'])
+                    ) {
+                        $selectors[$output['element']] = $selectors[$output['element']] ?? [];
+                        $selectors[$output['element']][] = [
+                            'property' => $output['property'],
+                            'value' => self::replaceStringWeights(get_theme_mod($fieldKey, [])['variant']),
+                        ];
+                    }
+                }
+            }
+        }
 
+        return $selectors;
+    }
 
-        return [
-            ':root' => [
-                [
-                    'property' =>  '--font-weight-base',
-                    'value' => get_theme_mod('typography_base', [])['variant'] ?? 400
-                ],
-                [
-                    'property' =>  '--font-weight-heading',
-                    'value' => get_theme_mod('typography_heading', [])['variant'] ?? get_theme_mod('typography_base', [])['variant'] ?? 400
-                ]
-            ]
-        ];
+    private static function isValidCssVar($string)
+    {
+        return !empty(preg_match('/(--)[^\,\:\)]+/', $string));
+    }
+
+    private static function replaceStringWeights($value)
+    {
+        $weights = apply_filters('Municipio/Customizer/Controls/Typography:variant_weights', [
+            'regular' => 400,
+        ]);
+
+        return in_array($value, array_keys($weights)) ? $weights[$value] : $value;
     }
 }
