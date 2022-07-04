@@ -15,25 +15,21 @@ class Typography
             'priority'       => 160,
         ));
 
-        $elements = $this->getTypographyElements();
-
-        if (!empty($elements)) {
-            foreach ($elements as $key => $args) {
-                \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                    'type'      => 'typography',
-                    'settings'  => 'typography_' . $key,
-                    'label'     => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
-                    'section'   => self::SECTION_ID,
-                    'priority'  => 10,
-                    'choices'   => [
-                        'fonts' => [
-                            'google' => [ 'popularity', 200 ],
-                        ],
+        foreach ($this->getTypographyElements() as $key => $args) {
+            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                'type'      => 'typography',
+                'settings'  => 'typography_' . $key,
+                'label'     => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
+                'section'   => self::SECTION_ID,
+                'priority'  => 10,
+                'choices'   => [
+                    'fonts' => [
+                        'google' => [ 'popularity', 200 ],
                     ],
-                    'default'   => $args['default'] ?? [],
-                    'output' => $args['output'] ?? []
-                ]);
-            }
+                ],
+                'default'   => $args['default'] ?? [],
+                'output' => $args['output'] ?? []
+            ]);
         }
     }
 
