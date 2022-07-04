@@ -14,21 +14,18 @@ class Typography
     
     public function fixCssVariants($styles)
     {
-        foreach ($this->getFontVariantCss() as $selector => $items) {
-            $cssParts = [];
-            
-            foreach ($items as $css) {
-                $cssParts[] = $css['property'] . ':' . $css['value'] . ';';
-            }
-            
-            $cssPartsJoined = implode(' ', $cssParts);
+        foreach ($this->getFontVariantCss() as $selector => $outputs) {
+            $cssFromOutput = implode(' ', array_map(function ($output) {
+                return "{$output['property']} : {$output['value']};";
+            }, $outputs));
+
             $styles .= "
-            {$selector}{
-                {$cssPartsJoined}
-            }
+                {$selector}{
+                    {$cssFromOutput}
+                }
             ";
         }
-        
+
         return $styles;
     }
 
