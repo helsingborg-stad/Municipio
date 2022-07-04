@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,AAAA,wBAAwB,CAAC;EACrB,SAAS,EAAE,KAAK;EAChB,KAAK,EAAE,GAAG;CACb;;AAED,AAAA,gBAAgB,AAAA,SAAS,CAAC;EACtB,WAAW,EAAE,KAAK;CACrB;;AAED,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,MAAM;EAChC,AAAA,gBAAgB,AAAA,SAAS,CAAC;IACtB,WAAW,EAAE,GAAG;GACnB;;;AAGL,AAAA,gBAAgB,AAAA,UAAU,CAAC,wBAAwB,CAAC;EAChD,WAAW,EAAE,MAAM;CACtB;;AAGD,AAAA,kBAAkB,CAAC;EACf,OAAO,EAAE,gBAAgB;CAC5B",
+    "sources": [
+        "customizer.scss",
+        "customizer/_layout.scss"
+    ],
+    "names": [],
+    "file": "customizer.css"
+}
