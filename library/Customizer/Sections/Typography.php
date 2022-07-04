@@ -45,7 +45,7 @@ class Typography
                 'default' => [
                     'font-size'      => '16px',
                     'font-family'    => 'Roboto',
-                    'font-weight'    => '400',
+                    'variant'    => '400',
                     'line-height'    => '1.625',
                     'letter-spacing' => '0',
                     'text-transform' => 'none',
@@ -62,7 +62,7 @@ class Typography
                         'property'  => '--font-family-base',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--font-weight-base',
                     ],
@@ -88,7 +88,7 @@ class Typography
                 'label' => esc_html__('Headings', 'municipio'),
                 'default' => [
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '500',
+                    'variant'       => '500',
                     'text-transform'    => 'none',
                     'line-height'       => '1.33',
                     'letter-spacing'    => '.0125em',
@@ -100,7 +100,7 @@ class Typography
                         'property'  => '--font-family-heading',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--font-weight-heading',
                     ],
@@ -126,7 +126,7 @@ class Typography
                 'default' => [
                     'font-size'      => '32px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '1.25',
                 ],
                 'output' => [
@@ -141,7 +141,7 @@ class Typography
                         'property'  => '--h1-font-family',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--h1-font-weight',
                     ],
@@ -157,7 +157,7 @@ class Typography
                     'default' => [
                         'font-size'      => '21px',
                         'font-family'       => 'Roboto',
-                        'font-weight'       => '',
+                        'variant'       => '',
                         'line-height'    => '',
                     ],
                     'output' => [
@@ -172,7 +172,7 @@ class Typography
                             'property'  => '--h2-font-family',
                         ],
                         [
-                            'choice'    => 'font-weight',
+                            'choice'    => 'variant',
                             'element'   => ':root',
                             'property'  => '--h2-font-weight',
                         ],
@@ -187,7 +187,7 @@ class Typography
                 'default' => [
                     'font-size'      => '18px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '',
                 ],
                 'output' => [
@@ -202,7 +202,7 @@ class Typography
                         'property'  => '--h3-font-family',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--h3-font-weight',
                     ],
@@ -217,7 +217,7 @@ class Typography
                 'default' => [
                     'font-size'      => '16px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '',
                 ],
                 'output' => [
@@ -232,7 +232,7 @@ class Typography
                         'property'  => '--h4-font-family',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--h4-font-weight',
                     ],
@@ -247,7 +247,7 @@ class Typography
                 'default' => [
                     'font-size'      => '16px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '',
                 ],
                 'output' => [
@@ -262,7 +262,7 @@ class Typography
                         'property'  => '--h5-font-family',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--h5-font-weight',
                     ],
@@ -277,7 +277,7 @@ class Typography
                 'default' => [
                     'font-size'      => '16px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '',
                 ],
                 'output' => [
@@ -292,7 +292,7 @@ class Typography
                         'property'  => '--h6-font-family',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--h6-font-weight',
                     ],
@@ -307,7 +307,7 @@ class Typography
                 'default' => [
                     'font-size'      => '18px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '500',
+                    'variant'       => '500',
                     'line-height'    => '1.625',
                     'text-transform' => 'none',
                 ],
@@ -318,7 +318,7 @@ class Typography
                         'property'  => '--lead-font-size',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--lead-font-weight',
                     ],
@@ -338,7 +338,7 @@ class Typography
                 'default' => [
                     'font-size'      => '16px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '1.625',
                 ],
                 'output' => [
@@ -348,7 +348,7 @@ class Typography
                         'property'  => '--body-font-size',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--body-font-weight',
                     ],
@@ -364,7 +364,7 @@ class Typography
                 'default' => [
                     'font-size'      => '1em',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '1',
                     'text-transform' => 'none',
                 ],
@@ -375,7 +375,7 @@ class Typography
                         'property'  => '--button-font-size',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--button-font-weight',
                     ],
@@ -395,7 +395,7 @@ class Typography
                 'default' => [
                     'font-size'      => '14px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '1.25',
                 ],
                 'output' => [
@@ -405,7 +405,7 @@ class Typography
                         'property'  => '--caption-font-size',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--caption-font-weight',
                     ],
@@ -420,7 +420,7 @@ class Typography
                 'default' => [
                     'font-size'      => '12px',
                     'font-family'       => 'Roboto',
-                    'font-weight'       => '',
+                    'variant'       => '',
                     'line-height'    => '1.625',
                     'text-transform' => 'none',
                 ],
@@ -431,7 +431,7 @@ class Typography
                         'property'  => '--meta-font-size',
                     ],
                     [
-                        'choice'    => 'font-weight',
+                        'choice'    => 'variant',
                         'element'   => ':root',
                         'property'  => '--meta-font-weight',
                     ],
