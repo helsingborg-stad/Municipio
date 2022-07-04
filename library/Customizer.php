@@ -139,8 +139,5 @@ class Customizer
 
         //Define panels with logic
         new \Municipio\Customizer\Panels\DesignLibrary();
-
-        //Define Typography Customizer
-        new \Municipio\Customizer\Controls\Typography();
     }
 }

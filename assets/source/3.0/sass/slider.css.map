@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AACI,+BAD2B,CAAC,SAAS,AACpC,QAAQ,EADb,+BAA+B,CAAC,SAAS,AACzB,OAAO,CAAC;EAChB,OAAO,EAAE,IAAI;CAChB",
-    "sources": [
-        "slider.scss"
-    ],
-    "names": [],
-    "file": "slider.css"
-}
