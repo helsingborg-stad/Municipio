@@ -11,7 +11,7 @@ class Typography
 
     public function fixCssVarOutputForFontVariantFields($styles)
     {
-        foreach ($this->getCssVarOutputFromFontVariantFields() as $selector => $outputs) {
+        foreach (self::getCssVarOutputFromFontVariantFields() as $selector => $outputs) {
             $cssFromOutput = implode(' ', array_map(function ($output) {
                 return "{$output['property']} : {$output['value']};";
             }, $outputs));
@@ -26,7 +26,7 @@ class Typography
         return $styles;
     }
 
-    public function getCssVarOutputFromFontVariantFields()
+    private static function getCssVarOutputFromFontVariantFields()
     {
         $selectors = [];
         foreach (\Kirki\Compatibility\Kirki::$all_fields as $fieldKey => $field) {
