@@ -9,28 +9,38 @@ class Typography
         add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_dynamic_css', array($this, 'fixCssVariants'));
     }
 
+    // Define array
+    public $typographyFields = ([]);
+    
     public function fixCssVariants($styles)
     {
         foreach ($this->getFontVariantCss() as $selector => $items) {
             $cssParts = [];
-
+            
             foreach ($items as $css) {
                 $cssParts[] = $css['property'] . ':' . $css['value'] . ';';
             }
-
+            
             $cssPartsJoined = implode(' ', $cssParts);
             $styles .= "
-                {$selector}{
-                    {$cssPartsJoined}
-                }
+            {$selector}{
+                {$cssPartsJoined}
+            }
             ";
         }
-
+        
         return $styles;
     }
 
+
+
     public function getFontVariantCss()
     {
+        // Populate with kirki_field_init (not working yet)
+        // add_action( 'kirki_field_init', [$this->typographyFields] = fieldObject );
+        $typographyFields = array_fill(0, 3, ":selector { property: value; }");
+
+
         return [
             ':root' => [
                 [
