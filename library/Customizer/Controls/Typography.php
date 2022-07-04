@@ -6,7 +6,7 @@ class Typography
 {
     public function __construct()
     {
-        add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_dynamic_css', array($this, 'fixCssVariants'));
+        add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_dynamic_css', array($this, 'fixCssVariants'), 10, 1);
     }
 
     // Define array
