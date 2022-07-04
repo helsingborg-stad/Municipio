@@ -6,15 +6,12 @@ class Typography
 {
     public function __construct()
     {
-        add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_dynamic_css', array($this, 'fixCssVariants'), 10, 1);
+        add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_dynamic_css', array($this, 'fixCssVarOutputForFontVariantFields'), 10, 1);
     }
 
-    // Define array
-    public $typographyFields = ([]);
-    
-    public function fixCssVariants($styles)
+    public function fixCssVarOutputForFontVariantFields($styles)
     {
-        foreach ($this->getFontVariantCss() as $selector => $outputs) {
+        foreach ($this->getCssVarOutputFromFontVariantFields() as $selector => $outputs) {
             $cssFromOutput = implode(' ', array_map(function ($output) {
                 return "{$output['property']} : {$output['value']};";
             }, $outputs));
@@ -29,7 +26,7 @@ class Typography
         return $styles;
     }
 
-    public function getFontVariantCss()
+    public function getCssVarOutputFromFontVariantFields()
     {
         $selectors = [];
         foreach (\Kirki\Compatibility\Kirki::$all_fields as $fieldKey => $field) {
