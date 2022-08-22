@@ -14,7 +14,7 @@ class YouTube extends Oembed
         $this->playerWrapper = $playerWrapper;
     }
 
-    public function output() : string
+    public function output(): string
     {
         $this->getParams();
 
@@ -45,9 +45,9 @@ class YouTube extends Oembed
 
         if ($this->playerWrapper) {
             if (!empty($this->playlist)) {
-                $html .= '<div class="modularity-mod-player__wrapper is-playlist">';
+                $html .= '<div class="modularity-mod-player__wrapper is-playlist js-suppressed-iframe">';
             } else {
-                $html .= '<div class="modularity-mod-player__wrapper">';
+                $html .= '<div class="modularity-mod-player__wrapper js-suppressed-iframe">';
             }
         }
 
@@ -137,7 +137,7 @@ class YouTube extends Oembed
      * Gets the video thumbnail
      * @return bool
      */
-    public function getThumbnail() : bool
+    public function getThumbnail(): bool
     {
         if (!isset($this->params['v'])) {
             $this->params['thumbnail'] = '';
@@ -152,7 +152,7 @@ class YouTube extends Oembed
      * Get playlist items
      * @return array Playlist
      */
-    public function getPlaylist() : array
+    public function getPlaylist(): array
     {
         if (!defined('MUNICIPIO_GOOGLEAPIS_KEY') || !MUNICIPIO_GOOGLEAPIS_KEY || !isset($this->params['list'])) {
             return array();
