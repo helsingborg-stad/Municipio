@@ -17,7 +17,7 @@
           @if($hasQueryParameters)
             <div class="u-padding--2 u-margin__y--auto@md u-margin__y--auto@lg u-align-self--end u-width--100@xs u-width--100@sm">
               @button([
-                  'href'  => $archiveBaseUrl, 
+                  'href'  => $archiveResetUrl, 
                   'text'  => $lang->resetFacetting,
                   'size'  => 'sm',
                   'style' => 'filled',
