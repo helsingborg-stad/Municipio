@@ -47,7 +47,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
         $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
-        $this->data['archiveResetUrl']          = $this->getPostTypeArchiveLink($postType, false);
+        $this->data['archiveResetUrl']          = $this->getPostTypeArchiveLink($postType);
         $this->data['gridColumnClass']          = $this->getGridClass($this->data['archiveProps']);
 
         //Pagination
@@ -258,11 +258,16 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function getPostTypeArchiveLink($postType, $respectTaxonomy = true)
+    public function getPostTypeArchiveLink($postType)
     {
-        if ($respectTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
+        $realPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $postTypePath   = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
+        $mayBeTaxonomy  = (bool)   $realPath != $postTypePath;
+
+        if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
             return get_term_link(get_queried_object());
         }
+
         return get_post_type_archive_link($postType);
     }
 
@@ -274,8 +279,8 @@ class Archive extends \Municipio\Controller\BaseController
     public function showFilterReset($queryParams): bool
     {
         return !empty(array_filter(
-                (array) $queryParams
-            ));
+            (array) $queryParams
+        ));
     }
 
     /**
