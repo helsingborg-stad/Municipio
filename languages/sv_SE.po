@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-23 12:49+0200\n"
-"PO-Revision-Date: 2022-06-23 12:50+0200\n"
+"POT-Creation-Date: 2022-08-26 14:46+0200\n"
+"PO-Revision-Date: 2022-08-26 14:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -5718,7 +5718,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:92 library/Controller/BaseController.php:193
+#: library/Controller/Archive.php:93 library/Controller/BaseController.php:193
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:33
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:38
@@ -5898,48 +5898,48 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel."
 
-#: library/Controller/Archive.php:83 library/Controller/Singular.php:31
+#: library/Controller/Archive.php:84 library/Controller/Singular.php:31
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:84 library/Controller/Singular.php:30
+#: library/Controller/Archive.php:85 library/Controller/Singular.php:30
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: library/Controller/Archive.php:85
+#: library/Controller/Archive.php:86
 #: vendor/modularity/modules/source/php/Module/Slider/Slider.php:108
 #: vendor/modularity/modules/templates/module/modularity-mod-latest-news.php:61
 #: vendor/modularity/modules/templates/module/modularity-mod-mainnews.php:45
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/Archive.php:88
+#: library/Controller/Archive.php:89
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/Archive.php:89
+#: library/Controller/Archive.php:90
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: library/Controller/Archive.php:90
+#: library/Controller/Archive.php:91
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:93
+#: library/Controller/Archive.php:94
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/Archive.php:94
+#: library/Controller/Archive.php:95
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
-#: library/Controller/Archive.php:95
+#: library/Controller/Archive.php:96
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/Archive.php:464
+#: library/Controller/Archive.php:474
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:163
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:125
 #: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:14
@@ -6218,7 +6218,6 @@ msgstr "Nyheter"
 
 #: library/Customizer/Sections/Archive.php:60
 #: library/Customizer/Sections/Module/Contacts.php:42
-#: library/Customizer/Sections/Module/Inlay.php:23
 #: library/Customizer/Sections/Module/Map.php:23
 #: library/Customizer/Sections/Module/Posts.php:44
 #: library/Customizer/Sections/Module/Text.php:23
@@ -6589,7 +6588,7 @@ msgstr "Primära färger"
 #: library/Customizer/Sections/Colors.php:484
 #: library/Customizer/Sections/Example.php:25
 #: library/Customizer/Sections/Slider.php:329
-#: library/Customizer/Sections/Typography.php:44
+#: library/Customizer/Sections/Typography.php:40
 msgid "Base"
 msgstr "Bas"
 
@@ -7220,8 +7219,9 @@ msgid "Index"
 msgstr "Index"
 
 #: library/Customizer/Sections/Module/Inlay.php:12
-msgid "Inlay"
-msgstr "Inlägg"
+#: library/Customizer/Sections/Module/Inlay.php:23
+msgid "Inlay list"
+msgstr "Inläggslista"
 
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 #: library/Customizer/Sections/Module/LocalEvent.php:23
@@ -7454,7 +7454,7 @@ msgstr ""
 "font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i "
 "mediabiblioteket och väljer sedan typsnittet i listan nedan."
 
-#: library/Customizer/Sections/Typography.php:88
+#: library/Customizer/Sections/Typography.php:84
 msgid "Headings"
 msgstr "Rubriker"
 
@@ -10878,10 +10878,8 @@ msgid "Outputs title and content from any post or page"
 msgstr ""
 
 #: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:13
-#, fuzzy
-#| msgid "Inlay"
 msgid "Inlay List"
-msgstr "Inlägg"
+msgstr "Inläggslista"
 
 #: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:14
 #, fuzzy
@@ -12204,6 +12202,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid "Inlay"
+#~ msgstr "Inlägg"
 
 #~ msgid "Algolia Index"
 #~ msgstr "Algoliaindex"
