@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-26 14:46+0200\n"
-"PO-Revision-Date: 2022-08-26 14:47+0200\n"
+"PO-Revision-Date: 2022-08-26 14:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -7221,7 +7221,7 @@ msgstr "Index"
 #: library/Customizer/Sections/Module/Inlay.php:12
 #: library/Customizer/Sections/Module/Inlay.php:23
 msgid "Inlay list"
-msgstr "Inläggslista"
+msgstr "Lista"
 
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 #: library/Customizer/Sections/Module/LocalEvent.php:23
@@ -10879,13 +10879,11 @@ msgstr ""
 
 #: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:13
 msgid "Inlay List"
-msgstr "Inläggslista"
+msgstr "Lista"
 
 #: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:14
-#, fuzzy
-#| msgid "Inlay"
 msgid "Inlay Lists"
-msgstr "Inlägg"
+msgstr "Listor"
 
 #: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:15
 msgid "Outputs one or more posts from selected post-type."
