@@ -92,7 +92,7 @@ class LoadDesign
                 }
             }
         } else {
-            $choices['error'] = __("Error loading options", 'muncipio');
+            $choices['error'] = __("Error loading options", 'municipio');
         }
 
         return $choices;
