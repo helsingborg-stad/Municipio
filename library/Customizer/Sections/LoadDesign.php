@@ -57,7 +57,7 @@ class LoadDesign
         //Cron to update design periodically
         add_action('admin_init', function () {
             if (!wp_next_scheduled('municipio_store_theme_mod')) {
-                wp_schedule_event(time(), 'weekly', 'municipio_store_theme_mod');
+                wp_schedule_event(time(), 'daily', 'municipio_store_theme_mod');
             }
         });
     }
