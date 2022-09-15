@@ -12,19 +12,19 @@ class OembedFilters
     public static function oembed_result($data, $url)
     {
         if (str_contains($data, '<iframe')) {
-            $dom = new \DOMDocument();
-            $dom->loadHTML($data, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $xpath = new \DOMXPath($dom);
-            $iframe = $xpath->query("//iframe");
+            $doc = new \DOMDocument();
+            $doc->loadHTML($data);
 
-            if ((bool) $iframe) {
-                foreach ($iframe as $item) {
-                    $src         = $item->getAttribute('src');
-                    $item->setAttribute('src', 'about:blank');
-                    $item->setAttribute('data-src', $src);
-                }
-                $data = $dom->saveXML();
+            $iframes = $doc->getElementsByTagName('iframe');
+
+            foreach ($iframes as $iframe) {
+                $src = $iframe->getAttribute('src');
+
+                $iframe->setAttribute('src', 'about:blank');
+                $iframe->setAttribute('data-src', $src);
             }
+
+            $data = $doc->saveHTML();
         }
 
         return $data;
