@@ -157,6 +157,11 @@ class LoadDesign
 
         if (is_array($mods) && !empty($mods)) {
             foreach ($mods as $key => $mod) {
+                //Prohibited keys
+                if (in_array($key, ['load_design'])) {
+                    continue;
+                }
+
                 if (array_key_exists($key, \Kirki::$all_fields)) {
                     $stack[$key] = $mod;
                 }
