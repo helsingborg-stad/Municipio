@@ -51,6 +51,11 @@ class App
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Cache();
 
+		/**
+		 * Oembed
+		 */
+        new \Municipio\Oembed\OembedFilters();
+
         /**
          * Language
          */
