@@ -79,21 +79,5 @@ class Posts
               ]
           ],
         ]);
-
-           \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'checkbox',
-          'settings'    => 'mod_posts_flat_card',
-          'label'       => esc_html__('Flat card', 'municipio'),
-          'section'     => self::SECTION_ID,
-          'default'     => false,
-          'priority'    => 10,
-          'output' => [
-              [
-                'type' => 'modifier',
-                'context' => ['module.posts.index']
-              ]
-          ],
-        ]);
-
     }
 }
