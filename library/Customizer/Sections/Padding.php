@@ -68,7 +68,11 @@ class Padding
             'output' => [
                 [
                   'type' => 'modifier',
-                  'context' => ['module.posts.index']
+                  'context' => [
+                    'archive.list.card',
+                    'module.index',
+                    'module.posts.index'
+                  ]
                 ]
             ],
         ]);
