@@ -52,5 +52,25 @@ class Padding
                 ]
             ]
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'radio_buttonset',
+            'settings'    => 'flat_card_design',
+            'label'       => esc_html__('Air in cards', 'municipio'),
+            'description' => esc_html__('Enable to remove space between content and the edge of cards.'),
+            'section'     => self::SECTION_ID,
+            'default'     => '',
+            'priority'    => 10,
+            'choices'     => [
+                ''   => esc_html__('Enabled', 'municipio'),
+                'flat' => esc_html__('Disabled', 'municipio')
+            ],
+            'output' => [
+                [
+                  'type' => 'modifier',
+                  'context' => ['module.posts.index']
+                ]
+            ],
+        ]);
     }
 }
