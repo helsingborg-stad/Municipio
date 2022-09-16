@@ -19,7 +19,7 @@ class Padding
             'type'        => 'slider',
             'settings'    => 'main_content_padding',
             'label'       => esc_html__('Amount of padding around columns.', 'municipio'),
-            'description' => esc_html__('Padding will be applied in 8px increments.'),
+            'description' => esc_html__('Padding will be applied in 8px increments.', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 0,
             'choices'     => [
@@ -36,7 +36,7 @@ class Padding
             'type'        => 'slider',
             'settings'    => 'organism_grid_gap',
             'label'       => esc_html__('Amount of padding in grids.', 'municipio'),
-            'description' => esc_html__('Padding will be applied in 8px increments.'),
+            'description' => esc_html__('Padding will be applied in 8px increments.', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 4,
             'transport' => 'auto',
@@ -57,13 +57,13 @@ class Padding
             'type'        => 'radio_buttonset',
             'settings'    => 'flat_card_design',
             'label'       => esc_html__('Air in cards', 'municipio'),
-            'description' => esc_html__('Enable to remove space between content and the edge of cards.'),
+            'description' => esc_html__('Enable to remove space between content and the edge of cards.', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
-                ''   => esc_html__('Enabled', 'municipio'),
-                'flat' => esc_html__('Disabled', 'municipio')
+                ''   => esc_html__('Apply air', 'municipio'),
+                'flat' => esc_html__('Remove air', 'municipio')
             ],
             'output' => [
                 [

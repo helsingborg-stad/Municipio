@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 15:16+0200\n"
-"PO-Revision-Date: 2022-09-16 15:18+0200\n"
+"POT-Creation-Date: 2022-09-16 15:46+0200\n"
+"PO-Revision-Date: 2022-09-16 15:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -273,7 +273,6 @@ msgstr "Aktivera Gutenberg redigerare"
 #: library/Customizer/Sections/Menu.php:43
 #: library/Customizer/Sections/Menu.php:59
 #: library/Customizer/Sections/Menu.php:75
-#: library/Customizer/Sections/Padding.php:66
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:489
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:151
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:320
@@ -6780,7 +6779,6 @@ msgstr "Anpassa kontrastfärg"
 #: library/Customizer/Sections/Menu.php:42
 #: library/Customizer/Sections/Menu.php:58
 #: library/Customizer/Sections/Menu.php:74
-#: library/Customizer/Sections/Padding.php:65
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:150
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:319
 #: vendor/modularity/modules/templates/options/partials/modularity-modules.php:16
@@ -7296,6 +7294,14 @@ msgstr ""
 "Genom att aktivera alternativet tar du bort luft mellan innehåll i kort och "
 "kanten på kortet. Det här alternativet fungerar bra med designer som har "
 "kort utan särskiljande bakgrundsfärg eller kantlinje."
+
+#: library/Customizer/Sections/Padding.php:65
+msgid "Apply air"
+msgstr "Luft"
+
+#: library/Customizer/Sections/Padding.php:66
+msgid "Remove air"
+msgstr "Ingen luft"
 
 #: library/Customizer/Sections/Quicklinks.php:12
 msgid "Quicklinks"
