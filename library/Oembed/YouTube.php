@@ -75,7 +75,7 @@ class YouTube extends Oembed
             $html .= '</div>';
         }
 
-		return apply_filters( 'oembed_result', $html, $this->params );
+	return apply_filters( 'oembed_result', $html, $this->params );
 
 	}
 
