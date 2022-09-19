@@ -71,7 +71,9 @@ class Padding
                   'context' => [
                     'archive.list.card',
                     'module.index',
-                    'module.posts.index'
+                    'module.posts.index',
+                    'module.posts.list',
+                    'module.posts.expandablelist'
                   ]
                 ]
             ],
