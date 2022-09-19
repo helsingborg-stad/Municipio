@@ -19,8 +19,6 @@ class OembedFilters
 
             foreach ($iframes as $iframe) {
                 $src = $iframe->getAttribute('src');
-
-                $iframe->setAttribute('src', 'about:blank');
                 $iframe->setAttribute('data-src', $src);
             }
 
