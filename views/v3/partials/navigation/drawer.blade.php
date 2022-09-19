@@ -1,6 +1,7 @@
 @if (!empty($mobileMenuItems))
 @drawer([
-    'classList' => ['c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone')]
+    'classList' => ['c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone')],
+    'label' => $lang->close
 ])
 
     @slot('search')
