@@ -20,6 +20,7 @@ class OembedFilters
             foreach ($iframes as $iframe) {
                 $src = $iframe->getAttribute('src');
                 $iframe->setAttribute('data-src', $src);
+                $iframe->setAttribute('src', 'about:blank');
             }
 
             $data = $doc->saveHTML();
