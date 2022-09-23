@@ -8,7 +8,8 @@
  * will be generation at the FIRST visit of the page. 
  * 
  * This class also supports non-cropped images. 
- * Simply send false as the size argument, and the other value will be calculated. 
+ * Simply send false as the size argument, and the value will be calculated from metadata. 
+ * You may NOT omit the size argument since this will result in a unresized image. 
  * 
  * Example: wp_get_attachment_image_src($id, [100, false]);
  * 
@@ -107,8 +108,7 @@ class OnTheFlyImages
             }
 
             //Check that we have the needed data to make calculations
-            if (array_filter($size) && $attachmentMetaData = wp_get_attachment_metadata($id)) {
-
+            if (array_filter($size) == 1 && $attachmentMetaData = wp_get_attachment_metadata($id)) {
                 //Calc height (from width)
                 if (!is_numeric($size[0])) {
                     $scale = $size[1] / $attachmentMetaData['height'];
@@ -120,8 +120,6 @@ class OnTheFlyImages
                     $scale = $size[0] / $attachmentMetaData['width'];
                     $size[1] = floor($attachmentMetaData['height'] * $scale);
                 }
-            } else {
-                return false;
             }
 
             //Normalize size (do not create humungous images)
