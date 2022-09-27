@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-16 15:46+0200\n"
-"PO-Revision-Date: 2022-09-16 15:46+0200\n"
+"POT-Creation-Date: 2022-09-27 23:05+0200\n"
+"PO-Revision-Date: 2022-09-27 23:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -7400,11 +7400,19 @@ msgstr ""
 "Skuggans storlek beräknas automatiskt fram från inställt värde. Ett "
 "nollvärde stänger av skuggor helt och hållet."
 
+#: library/Customizer/Sections/Shadow.php:42
+msgid "Color of shadows"
+msgstr "Skuggornas färg"
+
+#: library/Customizer/Sections/Shadow.php:43
+msgid "What color to use for shadows."
+msgstr "Vilken färgton och opacitet som ska användas för skuggor."
+
 #: library/Customizer/Sections/Slider.php:19
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:6
 #: vendor/modularity/modules/source/php/Module/Slider/Slider.php:26
 msgid "Slider"
-msgstr ""
+msgstr "Slider"
 
 #: library/Customizer/Sections/Slider.php:20
 #: library/Customizer/Sections/Slider.php:26

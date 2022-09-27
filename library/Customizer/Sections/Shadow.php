@@ -35,5 +35,24 @@ class Shadow
                 ]
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'drop_shadow_color',
+            'label'       => esc_html__('Color of shadows', 'municipio'),
+            'description' => esc_html__('What color to use for shadows.', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'transport'   => 'auto',
+            'default'     => 'rgba(0,0,0,0.3)',
+            'choices'     => [
+                'alpha' => true,
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--drop-shadow-color',
+                ]
+            ],
+        ]);
     }
 }
