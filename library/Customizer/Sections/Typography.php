@@ -79,7 +79,24 @@ class Typography
                     ],
                 ]
             ],
-
+            'bold' => [
+                'default' => [
+                    'font-family'       => 'Roboto',
+                    'variant'       => '700',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--font-family-bold',
+                    ],
+                    [
+                        'choice'    => 'variant',
+                        'element'   => ':root',
+                        'property'  => '--font-weight-bold',
+                    ],
+                ]
+            ],
             'heading' => [
                 'label' => esc_html__('Headings', 'municipio'),
                 'default' => [
@@ -117,7 +134,24 @@ class Typography
                     ],
                 ]
             ],
-
+            'bold' => [
+                'default' => [
+                    'font-family'   => 'Roboto',
+                    'variant'       => '700',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--font-family-bold',
+                    ],
+                    [
+                        'choice'    => 'variant',
+                        'element'   => ':root',
+                        'property'  => '--font-weight-bold',
+                    ],
+                ]
+            ],
             'h1' => [
                 'default' => [
                     'font-size'      => '32px',
