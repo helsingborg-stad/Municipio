@@ -40,6 +40,11 @@
                 @endif
             @show
 
+            {{-- Hero area and top sidebar --}}
+            @hasSection('hero-top-sidebar')
+                @yield('hero-top-sidebar')
+            @endif
+
             {{-- Notices Notice::add() --}}
             @if($notice) 
                 @foreach ($notice as $noticeItem)
