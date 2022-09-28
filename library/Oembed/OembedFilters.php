@@ -6,31 +6,12 @@ class OembedFilters
 {
     public function __construct()
     {
-        add_filter('oembed_result', '\Municipio\Oembed\OembedFilters::oembed_result', 99, 2);
+        add_filter('oembed_dataparse', '\Municipio\Oembed\OembedFilters::oembed_dataparse', 99, 3);
     }
 
-    public static function oembed_result($html, $data)
+    public static function oembed_dataparse($output, $data, $url)
     {
-        $output = '';
-
-        if (str_contains($html, '<iframe')) {
-            $doc = new \DOMDocument();
-            $doc->loadHTML($html);
-
-            $iframes = $doc->getElementsByTagName('iframe');
-
-            foreach ($iframes as $iframe) {
-                $src = $iframe->getAttribute('src');
-                $iframe->setAttribute('src', 'about:blank');
-                $iframe->setAttribute('data-src', $src);
-
-                $classes = $iframe->getAttribute('class');
-                $classes .= ' js-suppressed-iframe';
-                $iframe->setAttribute('class', $classes);
-            }
-
-            $output = $doc->saveHTML();
-        }
+        $output = render_blade_view('partials.iframe', ['data' => $data, 'src' => $url]);
 
         return $output;
     }
