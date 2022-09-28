@@ -140,25 +140,7 @@ class Editor
      */
     public static function oembed($html, $url, $attr, $postId, $wrapper = true)
     {
-        $provider = false;
-
-        if (strpos(strtolower($url), 'youtube') !== false || strpos(strtolower($url), 'youtu.be') !== false) {
-            $provider = 'YouTube';
-        } elseif (strpos(strtolower($url), 'vimeo') !== false) {
-            $provider = 'Vimeo';
-        }
-
-        $shouldFilter = apply_filters('Municipio/oembed/should_filter_markup', true, $provider, $url, $postId);
-
-        // Check if there's a oembed class for the provider
-        if (!class_exists('\Municipio\Oembed\\' . $provider) || !$shouldFilter) {
-            return $html;
-        }
-
-        $class = '\Municipio\Oembed\\' . $provider;
-        $oembed = new $class($url, $html, $wrapper);
-
-        return $oembed->output();
+		apply_filters( 'embed_oembed_html', $html, $url, $attr, $postId, $wrapper );
     }
 
     /**
