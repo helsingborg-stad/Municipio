@@ -20,7 +20,6 @@ class Editor
         $this->pricons();
 
         // Filters
-        add_filter('embed_oembed_html', '\Municipio\Admin\UI\Editor::oembed', 10, 4); // Enables oembed features
         add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
     }
 
@@ -130,19 +129,6 @@ class Editor
         );
 
     }
-
-    /**
-     * Filters oembed output
-     * @param  string $data Markup
-     * @param  string $url  Embedded url
-     * @param  array $args  Args
-     * @return string       Markup
-     */
-    public static function oembed($html, $url, $attr, $postId, $wrapper = true)
-    {
-		apply_filters( 'embed_oembed_html', $html, $url, $attr, $postId, $wrapper );
-    }
-
     /**
      * Add style format options
      * @param  array $settings  Options array
