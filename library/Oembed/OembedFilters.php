@@ -6,25 +6,13 @@ class OembedFilters
 {
     public function __construct()
     {
-        add_filter('oembed_result', '\Municipio\Oembed\OembedFilters::oembed_result', 99, 2);
+        add_filter('oembed_dataparse', '\Municipio\Oembed\OembedFilters::oembed_dataparse', 99, 3);
     }
 
-    public static function oembed_result($data, $url)
+    public static function oembed_dataparse($output, $data, $url)
     {
-        if (str_contains($data, '<iframe')) {
-            $doc = new \DOMDocument();
-            $doc->loadHTML($data);
+        $output = render_blade_view('partials.iframe', ['data' => $data, 'src' => $url]);
 
-            $iframes = $doc->getElementsByTagName('iframe');
-
-            foreach ($iframes as $iframe) {
-                $src = $iframe->getAttribute('src');
-                $iframe->setAttribute('data-src', $src);
-            }
-
-            $data = $doc->saveHTML();
-        }
-
-        return $data;
+        return $output;
     }
 }

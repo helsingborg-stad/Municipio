@@ -9,7 +9,7 @@ class Vimeo extends Oembed
         parent::__construct($url);
     }
 
-    public function output() : string
+    public function output(): string
     {
         $this->getParams();
         $this->getThumbnail();
@@ -20,7 +20,7 @@ class Vimeo extends Oembed
             </div>
         ';
 
-	return apply_filters( 'oembed_result', $playerOutput, $this->getParams() );
+        return $playerOutput;
     }
 
     /**
