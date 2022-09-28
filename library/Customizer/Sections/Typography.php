@@ -137,7 +137,7 @@ class Typography
                 ]
             ],
              'italic' => [
-                'label' => esc_html__('Kursiv', 'municipio'),
+                'label' => esc_html__('Italic', 'municipio'),
                 'description' => esc_html__('Use the same font as base but preferably with an italic style', 'municipio'),
                 'default' => [
                     'font-family'   => 'Roboto',
