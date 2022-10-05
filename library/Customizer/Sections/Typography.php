@@ -79,7 +79,6 @@ class Typography
                     ],
                 ]
             ],
-
             'heading' => [
                 'label' => esc_html__('Headings', 'municipio'),
                 'default' => [
@@ -117,7 +116,46 @@ class Typography
                     ],
                 ]
             ],
-
+            'bold' => [
+                'label' => esc_html__('Bold', 'municipio'),
+                'description' => esc_html__('Use the same font as base but preferably with a higher font weight', 'municipio'),
+                'default' => [
+                    'font-family'   => 'Roboto',
+                    'variant'       => '700',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--font-family-bold',
+                    ],
+                    [
+                        'choice'    => 'variant',
+                        'element'   => ':root',
+                        'property'  => '--font-weight-bold',
+                    ],
+                ]
+            ],
+             'italic' => [
+                'label' => esc_html__('Italic', 'municipio'),
+                'description' => esc_html__('Use the same font as base but preferably with an italic style', 'municipio'),
+                'default' => [
+                    'font-family'   => 'Roboto',
+                    'variant'       => 'italic',
+                ],
+                'output' => [
+                    [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--font-family-italic',
+                    ],
+                    [
+                        'choice'    => 'font-weight',
+                        'element'   => ':root',
+                        'property'  => '--font-weight-italic',
+                    ],
+                ]
+            ],
             'h1' => [
                 'default' => [
                     'font-size'      => '32px',
