@@ -1,9 +1,11 @@
 @if( is_singular() && comments_open() && get_option('comment_registration') === 0 || is_singular() && comments_open())
 
     <div class="comment">
-
-        {{Municipio\Comment\Form::get()}}
-
+        @card([
+            'classList' => ['u-padding--3'],
+        ])
+            {{Municipio\Comment\Form::get()}}
+        @endcard 
         <div class="comment__conversation">
             @foreach($comments as $comment)
                 @if($comment->comment_parent == 0)

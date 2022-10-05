@@ -1,4 +1,10 @@
 @extends('templates.master')
+
+@section('hero-top-sidebar')
+    @includeIf('partials.hero')
+    @includeIf('partials.sidebar', ['id' => 'top-sidebar'])    
+@stop
+
 @section('layout')
     <div class="o-container">
 

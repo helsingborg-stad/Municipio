@@ -27,6 +27,3 @@
     @show
 
 @endheader
-
-@includeIf('partials.hero')
-@includeIf('partials.sidebar', ['id' => 'top-sidebar'])

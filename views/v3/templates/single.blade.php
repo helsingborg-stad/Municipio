@@ -7,6 +7,11 @@
     @includeIf('partials.navigation.helper')
 @stop
 
+@section('hero-top-sidebar')
+    @includeIf('partials.hero')
+    @includeIf('partials.sidebar', ['id' => 'top-sidebar'])    
+@stop
+
 @section('above')
     @include('partials.sidebar', ['id' => 'above-columns-sidebar', 'classes' => ['o-grid']])
 @stop
