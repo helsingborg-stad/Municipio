@@ -117,6 +117,8 @@ class Typography
                 ]
             ],
             'bold' => [
+                'label' => esc_html__('Bold', 'municipio'),
+                'description' => esc_html__('Use the same font as base but preferably with a higher font weight', 'municipio'),
                 'default' => [
                     'font-family'   => 'Roboto',
                     'variant'       => '700',
@@ -135,6 +137,8 @@ class Typography
                 ]
             ],
              'italic' => [
+                'label' => esc_html__('Kursiv', 'municipio'),
+                'description' => esc_html__('Use the same font as base but preferably with an italic style', 'municipio'),
                 'default' => [
                     'font-family'   => 'Roboto',
                     'variant'       => 'italic',
@@ -148,7 +152,7 @@ class Typography
                     [
                         'choice'    => 'font-weight',
                         'element'   => ':root',
-                        'property'  => '--font-style-italic',
+                        'property'  => '--font-weight-italic',
                     ],
                 ]
             ],
