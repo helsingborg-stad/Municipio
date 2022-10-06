@@ -46,7 +46,7 @@ class ElementAttribute
 
     public function addAttribute($attribute, $values = '')
     {
-        if (!is_string($attribute) && !is_array($attribute) || !is_string($values) && !is_array($values) && !is_array($attribute) || empty($attribute) || is_string($attributes) && empty($values)) {
+        if (!is_string($attribute) && !is_array($attribute) || !is_string($values) && !is_array($values) && !is_array($attribute) || empty($attribute) || is_string($attribute) && empty($values)) {
             return false;
         }
 
