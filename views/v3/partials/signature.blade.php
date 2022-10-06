@@ -1,6 +1,6 @@
 <!-- Signature -->
-@if (!empty($signature))
-    @if ($postTypeDetails->hierarchical)
+@if (!empty($signature) && !empty($postTypeDetails))
+    @if ($postTypeDetails->hierarchical && !empty($publishTranslations))
         @signature([
             'author' => $signature->name,
             'published' => $signature->published,
@@ -11,7 +11,7 @@
             'link' => $signature->link,
             'updatedLabel' => $publishTranslations->updated,
             'publishedLabel' => $publishTranslations->publish,
-            'classList' => $classList
+            'classList' => $classList ?? []
         ])
         @endsignature
     @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
