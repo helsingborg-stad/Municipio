@@ -1,7 +1,6 @@
-
 {!! $hook->innerLoopStart !!}
 
-@if($post)
+@if (!empty($post))
     @include('partials.article', (array) $post)
 @endif
 
