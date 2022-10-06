@@ -22,7 +22,7 @@
             </article>
 
             <!-- Dates -->
-            @if($post->archiveDate)
+            @if(!empty($post->archiveDate))
                 @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
                     {{$lang->publish}}: 
                     @date([
