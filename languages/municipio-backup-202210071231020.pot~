@@ -1,0 +1,5307 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Municipio\n"
+"POT-Creation-Date: 2018-07-04 10:02+0200\n"
+"PO-Revision-Date: 2016-02-24 09:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: algolia/autocomplete.php:79
+msgid "No results matched your query "
+msgstr ""
+
+#: bem-views/partials/404/default.blade.php:40
+#: views/partials/404/default.blade.php:44
+msgid "We made a search for you, maybe you were looking for..."
+msgstr ""
+
+#: bem-views/partials/archive/post-footer.blade.php:9
+#: views/partials/blog/post-footer.blade.php:9
+#: views/partials/page-footer.blade.php:11
+msgid "Share the page"
+msgstr ""
+
+#: bem-views/partials/archive/post-footer.blade.php:34
+#: views/partials/blog/post-footer.blade.php:34
+#: views/partials/timestamps.blade.php:4
+msgid "Published by"
+msgstr ""
+
+#: bem-views/partials/archive/post-info.blade.php:42
+#: library/AcfFields/php/options-theme-custom-post-type.php:242
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:101
+#: views/partials/blog/post-info.blade.php:42
+msgid "Comments"
+msgstr ""
+
+#: bem-views/templates/archive.blade.php:41 views/archive-event.blade.php:112
+#: views/archive-listing.blade.php:94 views/archive.blade.php:93
+#: views/author.blade.php:50
+msgid "No posts to show"
+msgstr ""
+
+#: library/AcfFields/php/brand-widget.php:6
+msgid "Brand / Logo Widget"
+msgstr ""
+
+#: library/AcfFields/php/brand-widget.php:10
+msgid "Upload logotype"
+msgstr ""
+
+#: library/AcfFields/php/brand-widget.php:34
+msgid "Max width"
+msgstr ""
+
+#: library/AcfFields/php/brand-widget.php:37
+msgid "Choose the max width of the logo."
+msgstr ""
+
+#: library/AcfFields/php/brand-widget.php:50
+msgid "px"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:6
+msgid "Navigation widget"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:10
+msgid "Navigation items"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:25
+msgid "Wordpress menu"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:60
+#: library/AcfFields/php/widget-media.php:63
+#: library/AcfFields/php/widget-media.php:100
+msgid "External link"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:139
+#: library/AcfFields/php/widget-media.php:34
+#: library/AcfFields/php/widget-media.php:99
+msgid "Internal link"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:223
+msgid "Search trigger"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:252
+msgid "Menu trigger"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:281
+msgid "Translate trigger"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:308
+msgid "Add navigation item"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:314
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:64
+msgid "Style"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:326
+msgid "Flat"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:327
+msgid "Fill"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:338
+#: vendor/advanced-custom-fields/core/fields/file.php:113
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:135
+msgid "Size"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:350
+#: library/AcfFields/php/widget-header-links.php:291
+#: library/AcfFields/php/widget-header-menu.php:48
+#: library/Customizer/Source/CustomizerSection.php:111
+#: library/Customizer/Source/CustomizerSection.php:229
+#: library/Customizer/Source/CustomizerSection.php:242
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:133
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:51
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:43
+msgid "Default"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:351
+#: library/AcfFields/php/options-theme-editor-formats.php:23
+#: library/AcfFields/php/widget-header-common.php:130
+#: library/AcfFields/php/widget-header-links.php:292
+#: library/AcfFields/php/widget-header-menu.php:49
+#: library/Customizer/Source/CustomizerSection.php:112
+#: library/Customizer/Source/CustomizerSection.php:230
+msgid "Small"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:352
+#: library/AcfFields/php/options-theme-editor-formats.php:24
+#: library/AcfFields/php/widget-header-common.php:131
+#: library/AcfFields/php/widget-header-links.php:293
+#: library/AcfFields/php/widget-header-menu.php:50
+#: library/Customizer/Source/CustomizerSection.php:113
+#: library/Customizer/Source/CustomizerSection.php:231
+#: vendor/advanced-custom-fields/acf.php:788
+msgid "Large"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-footer.php:6
+msgid "Customize Footer"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-footer.php:10
+msgid "Footer sections"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-footer.php:29
+#: library/AcfFields/php/options-customize-header.php:29
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:419
+#: vendor/advanced-custom-fields/core/fields/file.php:109
+msgid "Name"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-footer.php:48
+#: library/AcfFields/php/options-customize-header.php:48
+msgid "ID"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-footer.php:67
+msgid "Columns"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-footer.php:88
+#: library/AcfFields/php/options-customize-header.php:67
+msgid "CSS Class"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-header.php:6
+msgid "Customize Header"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-header.php:10
+msgid "Header sections"
+msgstr ""
+
+#: library/AcfFields/php/options-customize-header.php:25
+msgid "Add section"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:10
+msgid "Show featured image in single template"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:15
+#: library/AcfFields/php/options-theme-search-result.php:11
+msgid "Featured image"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:29
+msgid "Show social media share buttons"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:34
+msgid "Share"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:48
+#: library/AcfFields/php/options-theme-author.php:10
+msgid "Show author"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:53
+#: library/Admin/Options/Archives.php:40
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:104
+msgid "Author"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:67
+msgid "Show author's image"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:72
+msgid "Author image"
+msgstr ""
+
+#: library/AcfFields/php/options-page-navigation.php:10
+msgid "Hide"
+msgstr ""
+
+#: library/AcfFields/php/options-page-navigation.php:15
+msgid "Hide from sidebar menu"
+msgstr ""
+
+#: library/AcfFields/php/options-page-navigation.php:34
+msgid "Menu title"
+msgstr ""
+
+#: library/AcfFields/php/options-page-navigation.php:37
+msgid ""
+"If you want to use another title for this page in the sidebar navigation "
+"fill it in here. If you want to use the page title just leave this field "
+"empty."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:11
+#: library/AcfFields/php/options-theme-footer-logotype.php:11
+#: library/AcfFields/php/options-theme-header-logotype.php:11
+msgid "Standard"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:12
+#: library/AcfFields/php/options-theme-footer-logotype.php:12
+#: library/AcfFields/php/options-theme-header-logotype.php:12
+msgid "Negative"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:20
+msgid "Logotype"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:39
+msgid "Error message"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:42
+msgid "The message that will be displayed underneeth the 404-error code"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:60
+msgid "Error info"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:63
+msgid "Additional information about the error or other information"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:75
+msgid "Link to home"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:76
+msgid "Link to search"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:77
+msgid "Back button (previous page in browser history)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:86
+msgid "Display"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:105
+msgid "Home link text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:134
+msgid "Back button text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:163
+msgid "Search link text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-404.php:166
+#, php-format
+msgid "Use %s to output suggested search query"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-author.php:22
+#: library/AcfFields/php/options-theme-author.php:41
+#: library/AcfFields/php/options-theme-author.php:60
+#: library/AcfFields/php/options-theme-google-translate.php:96
+#: library/AcfFields/php/options-theme-scroll-elevator.php:32
+#: library/AcfFields/php/options-theme-search-algolia.php:10
+#: library/AcfFields/php/options-theme-search.php:10
+#: library/AcfFields/php/options-theme-share.php:10
+msgid "Enable"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-author.php:29
+msgid "Show author image"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-author.php:48
+msgid "Link name to author archive"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:6
+#: library/AcfFields/php/options-theme-color-scheme.php:29
+#: library/AcfFields/php/options-theme-color-scheme.php:67
+msgid "Color scheme"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:10
+msgid "Custom color scheme"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:21
+msgid "Use custom color scheme"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:49
+msgid "Gray"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:50
+#: vendor/advanced-custom-fields/core/fields/radio.php:150
+msgid "Red"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:51
+#: vendor/advanced-custom-fields/core/fields/radio.php:151
+msgid "Blue"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:52
+msgid "Green"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:53
+msgid "Purple"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:54
+msgid "Familjen helsingborg"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:55
+msgid "Åstorps kommun"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-color-scheme.php:56
+msgid "Hultsfreds kommun"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:10
+msgid "Show cookie consent to users if not already accepted"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:15
+#: vendor/aristath/kirki/example.php:559
+msgid "Active"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:31
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:34
+#: library/Theme/Share.php:50
+#: vendor/advanced-custom-fields/core/fields/message.php:19
+#: vendor/advanced-custom-fields/core/fields/message.php:70
+#: vendor/advanced-custom-fields/core/fields/true_false.php:79
+#: views/partials/share-email-form.blade.php:30
+#: views/partials/share-email-form.blade.php:31
+msgid "Message"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:61
+#: library/AcfFields/php/options-theme-editor-formats.php:37
+msgid "Button"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:86
+msgid "At the top of the page"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:87
+msgid "Fixed to bottom of window"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-cookie-consent.php:95
+msgid "Placement"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-css.php:15
+msgid "CSS input"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-css.php:18
+msgid ""
+"Enter your CSS-code here. It will be wrapped with \"style\" tags, and "
+"included on all pages."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-js.php:15
+msgid "JavaScript"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-js.php:18
+msgid ""
+"Enter your JS-code here. It will be wrapped with \"script\" tags and "
+"included on all pages."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:17
+msgid "Post type name"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:20
+msgid ""
+"<span style=\"color: #ff0000;\">Will generate the post type name, select a "
+"name with care! Cannot be changed! </span>"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:36
+msgid "Permalänk"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:39
+msgid "Public /url/ to show archive on."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Prefix slug with blog front"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:57
+msgid "Rewrite with front"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:60
+msgid "Check if you would like to prefix the slug with blogfront"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:81
+msgid "Menu icon"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:97
+msgid "Below Posts"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:98
+msgid "Below Media"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:99
+msgid "Below Links"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:100
+msgid "Below Pages"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:101
+msgid "Below comments"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:102
+msgid "Below first separator"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:103
+msgid "Below Plugins"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:104
+msgid "Below Users"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:105
+msgid "Below Tools"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:106
+msgid "Below Settings"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:107
+msgid "Below second separator"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:117
+msgid "Menu position"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:120
+msgid "Select where to place this custom post type admin section."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:133
+msgid "Controls how the type is visible to authors"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:138
+msgid "Public?"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:152
+msgid ""
+"Whether to exclude posts with this post type from front end search results."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:157
+msgid "Exclude from search?"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:171
+msgid "Make post type available for selection in navigation menus."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:176
+msgid "Avabile in nav menus?"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:190
+msgid ""
+"Whether the post type is hierarchical (e.g. page). Allows Parent to be "
+"specified."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:195
+msgid "Hierarchical"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:209
+msgid "Show posts in sidebar menu (only ofr automatically generated menus)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:214
+#: library/Admin/Options/Theme.php:39 library/Admin/Options/Theme.php:40
+msgid "Navigation"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:237
+#: library/Admin/Options/Theme.php:103 library/Admin/Options/Theme.php:104
+msgid "Content editor"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:238
+msgid "Author Select"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:239
+#: vendor/advanced-custom-fields/core/fields/relationship.php:653
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:106
+msgid "Featured Image"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:240
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:98
+msgid "Excerpt"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:241
+msgid "Trackbacks"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:243
+msgid "Page Attributes"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:244
+msgid "Post Formats"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:245
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:102
+msgid "Revisions"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:254
+msgid "Post type functions"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:270
+msgid "Add post type"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:273
+msgid "Available post types"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:6
+msgid "Editor formats"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:10
+msgid "Formats"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:14
+msgid "Check the formats you would like to enable"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:25
+#: library/Customizer/Source/CustomizerSection.php:114
+msgid "Extra large"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:26
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:182
+msgid "Uppercase"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:27
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:183
+msgid "Lowercase"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:28
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:181
+msgid "Capitalize"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:29
+msgid "Drak gray"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:30
+msgid "Highlight"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:31
+msgid "Mark"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:32
+msgid "Mark yellow"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:33
+msgid "Mark blue"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:34
+msgid "Mark green"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:35
+msgid "Mark red"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:36
+msgid "Mark purple"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:38
+msgid "Light button"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:39
+msgid "Button: First color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:40
+msgid "Button: Second color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:41
+msgid "Button: Third color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:42
+msgid "Button: Fourth color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:43
+msgid "Button: Fifth color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:44
+msgid "Primary button"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:45
+msgid "Heading 1"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:46
+msgid "Heading 2"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:47
+msgid "Heading 3"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:48
+msgid "Heading 4"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:49
+msgid "Heading 5"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:50
+msgid "Heading 6"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:51
+msgid "Light (300)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:52
+msgid "Regular (400)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:53
+msgid "Medium (500)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:54
+msgid "Bold (700)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:55
+msgid "Black (900)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:56
+msgid "Color 1"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:57
+msgid "Color 2"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:58
+msgid "Color 3"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:59
+msgid "Color 4"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:60
+msgid "Color 5"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:132
+msgid "Plugins"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-editor-formats.php:145
+msgid "MceButtons"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:25
+msgid "Type"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:51
+msgid "Icon 152x152"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:54
+msgid "Must be 152x152 pixels .png"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:83
+msgid "Icon 144x144"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:86
+msgid "Must be 144x144 pixels .png"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:110
+msgid "Favicon.ico"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:113
+msgid "Must be a .ico containing 16x16px, 32x32px and 48x48px"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:142
+#: library/AcfFields/php/options-theme-footer-icons.php:625
+#: library/AcfFields/php/options-theme-google-translate.php:73
+msgid "Icon"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:175
+msgid "Metro tile color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:199
+#: library/AcfFields/php/widget-contact.php:116
+msgid "Lägg till rad"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:202
+msgid "Favicons"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-favicon.php:205
+msgid ""
+"Add favicons in various sizes. If a size has multiple icons specified only "
+"the latest specified icon will be used."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:6
+msgid "Fixed action bar (FAB)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:10
+msgid "FAB settings"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:23
+#: vendor/aristath/kirki/example.php:828
+msgid "Disabled"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:24
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:35
+#: library/AcfFields/php/options-theme-primary-navigation.php:31
+#: library/AcfFields/php/options-theme-sub-navigation.php:32
+msgid "WP Menu"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:56
+msgid "huvudmeny"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:57
+#: library/AcfFields/php/widget-header-links.php:10
+msgid "Länkar"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:70
+msgid "Visabllity"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:91
+msgid "Hide on extra small devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:92
+msgid "Hide on small devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:93
+msgid "Hide on medium devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-fixed-action-bar.php:94
+msgid "Hide on large devices"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-icons.php:644
+msgid "Titel"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-icons.php:660
+msgid "Enter a    url with the format http://example.com"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-icons.php:662
+#: library/AcfFields/php/options-theme-search-result.php:14
+msgid "Url"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-icons.php:678
+msgid "Add icon"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-icons.php:681
+msgid "Footer icons repeater"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-icons.php:684
+msgid ""
+"Add icons to the footer of your site. Link to external resources link "
+"facebook, twitter and linkedin! <style>.acf-field-font-awesome .fa-live-"
+"preview {display:none;}</style>"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-layout.php:6
+msgid "Footer layout"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-layout.php:10
+msgid "Footer signature"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-layout.php:13
+msgid ""
+"If enabled a predefined footer signature logo will be appended to the footer."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-layout.php:22
+msgid "Enable footer signature"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:13
+msgid "Hide logotype in footer"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:21
+msgid "Logotype to use in footer"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:36
+msgid "Above footer content"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:37
+msgid "Below footer content"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-footer-logotype.php:45
+msgid "Vertical position"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-gdpr.php:6
+msgid "GDPR"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-gdpr.php:10
+msgid "Enable consent field for attachments"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:12
+msgid "Do not show"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:13
+msgid "Above header"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:14
+msgid "Below footer"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:15
+msgid "Fixed to right edge"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:25
+msgid "Where to show Google Translate"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:55
+msgid "Menu to show translate link in"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:72
+#: vendor/advanced-custom-fields/core/fields/text.php:19
+msgid "Text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:74
+msgid "Icon and text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:82
+msgid "Show as"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:101
+msgid "Track usage with Google Analytics"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:104
+msgid ""
+"If set to enabled, Google Translate usage will be tracked in Google "
+"Analytics (to the account specified under the Google Analytics settings)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-logotype.php:20
+msgid "Logotype to use in header"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-logotype.php:39
+msgid "Logotype tooltip"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-logotype.php:42
+msgid ""
+"Tooltip text when hovering over the logotype in the header. The logo links "
+"to the front page. Leave empty if you don't want to show anything."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-subtitle.php:9
+msgid "The sub site title can be used to complement a logotype"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-subtitle.php:32
+msgid "Sub-title"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-subtitle.php:35
+msgid "HTML allowed"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-tagline.php:10
+msgid "Yes, enable tagline in header"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-tagline.php:15
+msgid "Enable tagline"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-tagline.php:30
+msgid "Use site description"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-tagline.php:31
+msgid "Input custom"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-tagline.php:39
+msgid "Tagline"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header-tagline.php:66
+msgid "Tagline text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:6
+#: library/Admin/Options/Theme.php:47 library/Admin/Options/Theme.php:48
+msgid "Header"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:10
+#: library/AcfFields/php/options-theme-search-result.php:50
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:183
+#: vendor/advanced-custom-fields/core/fields/message.php:20
+#: vendor/advanced-custom-fields/core/fields/radio.php:212
+#: vendor/advanced-custom-fields/core/fields/tab.php:20
+msgid "Layout"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:24
+msgid "Business (default)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:25
+msgid "Casual"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:26
+msgid "Jumbo"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:27
+msgid "Contrasted navbar"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:37
+msgid "Sticky"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:50
+msgid "Header should stick to view (floats when scrolling)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:57
+msgid "Transparent"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:70
+msgid "Transparent header on front page"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:77
+msgid "Centered"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:90
+msgid "Center all contents of the header"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:97
+msgid "Header content color"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:119
+msgid "Light"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:120
+msgid "Dark"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-header.php:130
+msgid "Activate dropdown links"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:20
+msgid "Standard logotype"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:23
+msgid "Only .svg-files are supported."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:44
+msgid "Negative logotype"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-logotype.php:47
+msgid ""
+"Please upload a brand logo in the format .svg. The negative logo refers to a "
+"100% white logotype that can be used on dark backgrounds."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-mobile-navigation.php:10
+msgid "Enable separate mobile navigation"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-mobile-navigation.php:15
+msgid "Activate"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-timestamps.php:9
+msgid ""
+"Check boxes to enable timestamps for post types. Will be displayed after the "
+"content area, if applicable."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-timestamps.php:13
+msgid "Post footer timestamps"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-timestamps.php:40
+#: views/partials/archive-filters.blade.php:50
+msgid "Date published"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-timestamps.php:67
+msgid "Date updated"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-types.php:10
+msgid "Yes, disable posts."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-types.php:15
+msgid "Disable blog"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-types.php:29
+msgid "Yes, disable pages."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-post-types.php:34
+msgid "Disable pages"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:30
+#: library/AcfFields/php/options-theme-sub-navigation.php:31
+msgid "Automatically generated"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:39
+#: library/AcfFields/php/options-theme-sub-navigation.php:40
+msgid "Menu type"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:61
+msgid "Yes, display second menu level to active first level menu item"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:66
+msgid "Second level"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:87
+#: library/AcfFields/php/options-theme-sub-navigation.php:61
+msgid ""
+"The automatically generated menu type will include all published pages from "
+"top level pages and down to the below specified depth level. The "
+"automatically generated menu is a heavy procedure for the system to run. The "
+"deeper it should go the longer loading time."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:91
+#: library/AcfFields/php/options-theme-sub-navigation.php:65
+msgid "Automatically generated menu"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:120
+msgid "All levels"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:121
+msgid "Only sub levels of active top level item"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:131
+#: library/AcfFields/php/options-theme-sub-navigation.php:173
+msgid "Render"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:134
+#: library/AcfFields/php/options-theme-sub-navigation.php:176
+msgid "How to render the items"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:161
+#: library/AcfFields/php/options-theme-scroll-elevator.php:102
+#: library/AcfFields/php/widget-header-common.php:102
+#: library/Customizer/Source/CustomizerSection.php:140
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:132
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:149
+#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:35
+msgid "Left"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:162
+#: library/Customizer/Source/CustomizerSection.php:141
+#: vendor/advanced-custom-fields/core/fields/google-map.php:162
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:134
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:155
+msgid "Center"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:163
+#: library/AcfFields/php/options-theme-scroll-elevator.php:103
+#: library/AcfFields/php/widget-header-common.php:103
+#: library/Customizer/Source/CustomizerSection.php:142
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:133
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:161
+#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:36
+msgid "Right"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:164
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:167
+msgid "Justify"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-primary-navigation.php:172
+msgid "Menu items alignment"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:9
+msgid ""
+"Adds a button that scrolls the user to the very top of the page. Enables on "
+"the class \"scroll-elevator-toggle\". When the window scroll position is a "
+"the bottom of the \"scroll-elevator-toggle\" element the button will be "
+"displayed."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:27
+msgid "Enable scroll elevator"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:51
+msgid "Call to action text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:78
+msgid "Tooltip"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:104
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:130
+#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:33
+msgid "Top"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:105
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:131
+#: vendor/aristath/kirki/field/class-kirki-field-spacing.php:34
+msgid "Bottom"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-scroll-elevator.php:114
+msgid "Tooltip position"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:6
+msgid "Algolia Search"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:21
+msgid "Enable the Algolia Search (Requires Algolia WordPress plugin)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:29
+msgid "Display label for post types"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-algolia.php:32
+msgid ""
+"Displays a label for selected post types with their names in the search "
+"results."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-display.php:42
+msgid "Search field label"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-display.php:63
+msgid "Search field placeholder"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-display.php:84
+msgid "Search button text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:12
+msgid "Published date"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:13
+msgid "Lead"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:26
+#: library/AcfFields/php/widget-header-common.php:10
+msgid "Display options"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:41
+msgid "Default (list)"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:42
+msgid "Grid"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:66
+msgid "1"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:67
+msgid "2"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:68
+msgid "3"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:69
+msgid "4"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search-result.php:79
+msgid "Grid columns"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search.php:6
+msgid "Google Search"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search.php:22
+msgid "Use Google Site Search"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search.php:29
+msgid "Google API Key"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-search.php:58
+msgid "Google Api CX"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-share.php:15
+msgid "Show share icons"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-share.php:18
+msgid ""
+"This is a master control which will enable/disable the social share icons "
+"for each and all posts and pages."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:30
+msgid "Act as sub menu to the primary menu"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:92
+msgid "Include top level pages"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:97
+msgid "Top level pages"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:100
+msgid ""
+"Weather to include the top level pages. If unchecked the pages will be "
+"generated from depth 2."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:131
+msgid "Menu depth"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:134
+msgid "Set to 0 to show all levels"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:162
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:763
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:784
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:791
+#: vendor/advanced-custom-fields/core/fields/file.php:186
+#: vendor/advanced-custom-fields/core/fields/image.php:177
+#: vendor/advanced-custom-fields/core/fields/page_link.php:109
+#: vendor/advanced-custom-fields/core/fields/post_object.php:286
+#: vendor/advanced-custom-fields/core/fields/post_object.php:310
+#: vendor/advanced-custom-fields/core/fields/relationship.php:582
+#: vendor/advanced-custom-fields/core/fields/relationship.php:606
+#: vendor/advanced-custom-fields/core/fields/user.php:276
+msgid "All"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-sub-navigation.php:163
+msgid "Only active level's subitems"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:8
+msgid "2.0 Enabler"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:12
+msgid "Were moving to BEM(IT)"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:23
+msgid ""
+"In the upcoming months we are moving to a complete BEM style of our "
+"frontend. This is eased in and hidden by default (enable checkbox below to "
+"preview). Out main focus will be: 1. Enabling the use of the customizer 2. "
+"Introduce BEM in all views. Our amibition is that all functionality should "
+"be fully functional in this mode. But it may break existing modifications."
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:29
+msgid "Choose theme mode"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:41
+msgid "1.0"
+msgstr ""
+
+#: library/AcfFields/php/theme-version-preview.php:42
+msgid "2.0"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:10
+msgid "Profile picture"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:34
+msgid "Facebook profile url"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:50
+msgid "Linkedin profile url"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:66
+msgid "Instagram username"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:80
+#: library/AcfFields/php/user-author-image.php:99
+msgid "@"
+msgstr ""
+
+#: library/AcfFields/php/user-author-image.php:85
+msgid "Twitter username"
+msgstr ""
+
+#: library/AcfFields/php/widget-contact.php:17
+msgid "Contact person"
+msgstr ""
+
+#: library/AcfFields/php/widget-contact.php:38
+msgid "Company"
+msgstr ""
+
+#: library/AcfFields/php/widget-contact.php:59
+msgid "Phone numer"
+msgstr ""
+
+#: library/AcfFields/php/widget-contact.php:79
+#: vendor/advanced-custom-fields/core/fields/email.php:19
+msgid "Email"
+msgstr ""
+
+#: library/AcfFields/php/widget-contact.php:98
+msgid "Address"
+msgstr ""
+
+#: library/AcfFields/php/widget-contact.php:119
+msgid "Kontakter"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:6
+msgid "Widget - Common Utility fields"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:27
+msgid "Visibility"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:39
+msgid "Hide on extra small devices (XS)"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:40
+msgid "Hide on small devices (SM)"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:41
+msgid "Hide on medium devices (MD)"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:42
+msgid "Hide on large devices (LG)"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:54
+msgid "Margin options"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:71
+msgid "Margins"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:90
+msgid "Direction"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:104
+msgid "Left & Right"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:117
+msgid "Margin"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:129
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:106
+msgid "Auto"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:132
+#: library/Customizer/Source/CustomizerSection.php:139
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:374
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:383
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:180
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:196
+msgid "None"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:145
+msgid "Breakpoint"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:157
+msgid "SM and up"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:158
+msgid "MD and up"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:159
+msgid "LG and up"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:174
+msgid "CSS"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-common.php:191
+msgid "Custom CSS classes"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:6
+msgid "Widget header - Links"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:25
+msgid "Externa länkar"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:104
+msgid "Interna länkar"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:188
+msgid "Sök utlösare"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:217
+msgid "Meny utlösare"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:246
+msgid "Översättning utlösare"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:273
+msgid "Lägg till länk"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-links.php:279
+#: library/AcfFields/php/widget-header-menu.php:36
+msgid "Link size"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-menu.php:6
+msgid "Widget header - Menu"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-menu.php:10
+msgid "Select WP menu"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-menu.php:22
+msgid "Menu (Menu ID: 2)"
+msgstr ""
+
+#: library/AcfFields/php/widget-header-menu.php:23
+msgid "topmeny (Menu ID: 6)"
+msgstr ""
+
+#: library/AcfFields/php/widget-media.php:6
+msgid "Media widget"
+msgstr ""
+
+#: library/AcfFields/php/widget-media.php:10
+msgid "Upload image"
+msgstr ""
+
+#: library/AcfFields/php/widget-media.php:87
+msgid "Media link"
+msgstr ""
+
+#: library/Admin/Acf/Fields/Pricons.php:34
+msgid "Pricons"
+msgstr ""
+
+#: library/Admin/Acf/Fields/Pricons.php:59
+msgid "Error! Please enter a higher value"
+msgstr ""
+
+#: library/Admin/Acf/Fields/Pricons.php:108
+#: vendor/advanced-custom-fields/core/fields/relationship.php:556
+msgid "Return Format"
+msgstr ""
+
+#: library/Admin/Acf/Fields/Pricons.php:113
+msgid "Icon class"
+msgstr ""
+
+#: library/Admin/Acf/Fields/Pricons.php:114
+msgid "Icon name"
+msgstr ""
+
+#: library/Admin/Acf/Fields/Pricons.php:115
+msgid "Icon unicode"
+msgstr ""
+
+#: library/Admin/General.php:104
+msgid "Only for logged in users"
+msgstr ""
+
+#: library/Admin/General.php:158
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:733
+msgid "Private"
+msgstr ""
+
+#: library/Admin/Options/Archives.php:57
+msgid "Archive for"
+msgstr ""
+
+#: library/Admin/Options/Archives.php:103
+msgid "Leave empty to hide title"
+msgstr ""
+
+#: library/Admin/Options/Archives.php:210
+msgid "Number of posts in one page"
+msgstr ""
+
+#: library/Admin/Options/AttachmentConsent.php:24
+msgid "Consent ID"
+msgstr ""
+
+#: library/Admin/Options/AttachmentConsent.php:43
+msgid "Consent comment"
+msgstr ""
+
+#: library/Admin/Options/GoogleTranslate.php:15
+msgid "None (link to #translate to show)"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
+msgid "Theme Options"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:29 library/Admin/Options/Theme.php:30
+msgid "Customizer"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:55 library/Admin/Options/Theme.php:56
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:24
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:25
+#: vendor/advanced-custom-fields/core/fields/file.php:20
+#: vendor/advanced-custom-fields/core/fields/image.php:20
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:20
+msgid "Content"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:63 library/Admin/Options/Theme.php:64
+#: library/Theme/Sidebars.php:83
+msgid "Footer"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:71 library/Admin/Options/Theme.php:72
+#: library/Theme/Navigation.php:213 library/Widget/Navigation/Navigation.php:66
+#: vendor/advanced-custom-fields/core/fields/relationship.php:634
+#: views/partials/archive-filters.blade.php:40
+#: views/partials/archive-filters.blade.php:43
+#: views/partials/archive-filters.blade.php:79
+msgid "Search"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:79 library/Admin/Options/Theme.php:80
+msgid "Blog & Archives"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:111
+msgid "Custom Post Types"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:112
+msgid "Post Types"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:119
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:120
+msgid "Taxonomies"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:127
+msgid "Custom CSS/JS Editor"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:128
+msgid "Custom CSS/JS"
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:23
+msgid "Local"
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:27
+msgid "Test"
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:31
+msgid "Beta"
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:41 library/Admin/UI/BackEnd.php:46
+#: library/Admin/UI/BackEnd.php:51
+msgid "Notice"
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:41
+msgid "You're on a local server."
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:46
+msgid "This it the test-environment. Your content will not be published."
+msgstr ""
+
+#: library/Admin/UI/BackEnd.php:51
+msgid "This it the beta-environment. All functionality is not guaranteed."
+msgstr ""
+
+#: library/Comment/CommentsActions.php:67
+#: vendor/advanced-custom-fields/core/api.php:1171
+msgid "Update"
+msgstr ""
+
+#: library/Comment/CommentsActions.php:72
+msgid "Cancel"
+msgstr ""
+
+#: library/Comment/CommentsFilters.php:44
+msgid ""
+"Municipio: constant 'g_recaptcha_key' or 'g_recaptcha_secret' is not defined."
+msgstr ""
+
+#: library/Comment/CommentsFilters.php:62
+#: vendor/advanced-custom-fields/core/actions/export.php:26
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
+msgid "Error"
+msgstr ""
+
+#: library/Comment/CommentsFilters.php:62
+msgid "reCaptcha verification failed"
+msgstr ""
+
+#: library/Comment/HoneyPot.php:66
+msgid "Could not verify that you are human (image check)."
+msgstr ""
+
+#: library/Comment/HoneyPot.php:113
+msgid ""
+"Could not verify that you are human (some hidden form fields are "
+"manipulated)."
+msgstr ""
+
+#: library/Comment/HoneyPot.php:116
+msgid "Could not verify that you are human (some form fields are missing)."
+msgstr ""
+
+#: library/Content/CustomPostType.php:58
+msgid "Add new"
+msgstr ""
+
+#: library/Content/CustomPostType.php:59
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:87
+#, php-format
+msgid "Add new %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:60
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:61
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:62
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:63
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:64
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:65
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: library/Content/CustomPostType.php:66
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: library/Content/CustomPostType.php:67
+#, php-format
+msgid "No %s found in trash"
+msgstr ""
+
+#: library/Content/CustomPostType.php:77
+msgid "Auto generated cpt from user iterface."
+msgstr ""
+
+#: library/Controller/BaseController.php:34 views/templates/master.blade.php:54
+msgid "Jump to the main menu"
+msgstr ""
+
+#: library/Controller/BaseController.php:35 views/templates/master.blade.php:55
+msgid "Jump to the main content"
+msgstr ""
+
+#: library/Controller/BaseController.php:36
+msgid "ago"
+msgstr ""
+
+#: library/Controller/BaseController.php:37
+msgid "since"
+msgstr ""
+
+#: library/Controller/BaseController.php:38
+msgid "weeks"
+msgstr ""
+
+#: library/Controller/BaseController.php:39
+msgid "days"
+msgstr ""
+
+#: library/Controller/BaseController.php:40
+msgid "hours"
+msgstr ""
+
+#: library/Controller/BaseController.php:41
+msgid "minutes"
+msgstr ""
+
+#: library/Controller/BaseController.php:42
+msgid "seconds"
+msgstr ""
+
+#: library/Controller/Search.php:12
+msgid "Filter searchresults"
+msgstr ""
+
+#: library/Controller/Search.php:13
+msgid "All pages"
+msgstr ""
+
+#: library/Controller/Single.php:17
+msgid "Reply"
+msgstr ""
+
+#: library/Controller/Single.php:18
+msgid "Log in to Reply"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:51
+#: library/Customizer/Source/CustomizerSection.php:261
+msgid "Background color"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:62
+#: library/Customizer/Source/CustomizerSection.php:273
+msgid "Text color"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:73
+#: library/Customizer/Source/CustomizerSection.php:285
+msgid "Border color"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:84
+#: library/Customizer/Source/CustomizerSection.php:297
+msgid "Link color"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:95
+#: library/Customizer/Source/CustomizerSection.php:314
+msgid "Link hover color"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:106
+msgid "Footer size"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:128
+msgid "Hide at "
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:135
+msgid "Text alignment"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:148
+#: library/Customizer/Source/CustomizerSection.php:249
+msgid "Visibility settings"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:162
+msgid "/"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:178
+msgid " column size"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:217
+msgid "Header style"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:225
+msgid "Header size"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:237
+msgid "Header padding"
+msgstr ""
+
+#: library/Customizer/Source/CustomizerSection.php:243
+msgid "No padding"
+msgstr ""
+
+#: library/Helper/Event.php:17
+msgid "to"
+msgstr ""
+
+#: library/Helper/NavigationTree.php:488
+msgid "Show submenu"
+msgstr ""
+
+#: library/Oembed/Vimeo.php:19 library/Oembed/YouTube.php:57
+#: library/Oembed/YouTube.php:59
+msgid ""
+"Video playback unavailable, enable JavaScript in your browser to watch video."
+msgstr ""
+
+#: library/Search/Algolia.php:48
+msgid "Exclude from search"
+msgstr ""
+
+#: library/Template.php:51
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:85
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:86
+msgid "Page"
+msgstr ""
+
+#: library/Template.php:55
+msgid "Front page"
+msgstr ""
+
+#: library/Template.php:134
+msgid "Admin notice"
+msgstr ""
+
+#: library/Template.php:134
+#, php-format
+msgid "View [%s] was not found. Defaulting to [page.blade.php]."
+msgstr ""
+
+#: library/Theme/Archive.php:57
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr ""
+
+#: library/Theme/Archive.php:59
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr ""
+
+#: library/Theme/Archive.php:61
+msgctxt "daily archives date format"
+msgid "F j, Y"
+msgstr ""
+
+#: library/Theme/Archive.php:75
+msgid "Archive"
+msgstr ""
+
+#: library/Theme/CustomTemplates.php:10
+msgid "Full width"
+msgstr ""
+
+#: library/Theme/CustomTemplates.php:16
+msgid "One page (no article)"
+msgstr ""
+
+#: library/Theme/CustomTemplates.php:22
+msgid "Page (two columns)"
+msgstr ""
+
+#: library/Theme/Enqueue.php:138
+msgid "No matching content found…"
+msgstr ""
+
+#: library/Theme/Enqueue.php:146
+msgid "Insert Print Page Break tag"
+msgstr ""
+
+#: library/Theme/Enqueue.php:149
+msgid "Are you sure you want to delete the comment?"
+msgstr ""
+
+#: library/Theme/Enqueue.php:150
+msgid "Something went wrong, please try again later"
+msgstr ""
+
+#: library/Theme/General.php:198
+msgid "Print"
+msgstr ""
+
+#: library/Theme/Navigation.php:118
+msgid "Help menu"
+msgstr ""
+
+#: library/Theme/Navigation.php:119
+msgid "Header tabs menu"
+msgstr ""
+
+#: library/Theme/Navigation.php:123
+msgid "Main menu"
+msgstr ""
+
+#: library/Theme/Navigation.php:127
+msgid "Sidebar menu"
+msgstr ""
+
+#: library/Theme/Navigation.php:140
+msgid "Dropdown Links"
+msgstr ""
+
+#: library/Theme/Navigation.php:245 library/Theme/Navigation.php:246
+msgid "Home"
+msgstr ""
+
+#: library/Theme/Share.php:22 library/Theme/Share.php:32
+#: library/Theme/Share.php:82
+msgid "Something went wrong, please try again"
+msgstr ""
+
+#: library/Theme/Share.php:47
+msgid "has invited you to join"
+msgstr ""
+
+#: library/Theme/Share.php:47
+msgid "shared the post"
+msgstr ""
+
+#: library/Theme/Share.php:51
+msgid "This message was sent by"
+msgstr ""
+
+#: library/Theme/Share.php:69
+msgid "Invitation"
+msgstr ""
+
+#: library/Theme/Share.php:69
+msgid "shared a post via"
+msgstr ""
+
+#: library/Theme/Share.php:80
+msgid "The message was sent successfully"
+msgstr ""
+
+#: library/Theme/Sidebars.php:84
+msgid "The footer area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:96
+msgid "Hero"
+msgstr ""
+
+#: library/Theme/Sidebars.php:97
+msgid "The hero area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:109
+msgid "Content area (above article)"
+msgstr ""
+
+#: library/Theme/Sidebars.php:110
+msgid "The area above the content"
+msgstr ""
+
+#: library/Theme/Sidebars.php:120
+msgid "Content area (below article)"
+msgstr ""
+
+#: library/Theme/Sidebars.php:121
+msgid "The area below the content"
+msgstr ""
+
+#: library/Theme/Sidebars.php:131
+msgid "Main container bottom"
+msgstr ""
+
+#: library/Theme/Sidebars.php:132
+msgid "The area below the main container"
+msgstr ""
+
+#: library/Theme/Sidebars.php:142
+msgid "Left sidebar"
+msgstr ""
+
+#: library/Theme/Sidebars.php:143
+msgid "The left sidebar area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:155
+msgid "Left sidebar bottom"
+msgstr ""
+
+#: library/Theme/Sidebars.php:156
+msgid "The area below the left sidebar content"
+msgstr ""
+
+#: library/Theme/Sidebars.php:168
+msgid "Right sidebar"
+msgstr ""
+
+#: library/Theme/Sidebars.php:169
+msgid "The right sidebar area"
+msgstr ""
+
+#: library/Theme/Sidebars.php:181
+msgid "Top sidebar (full-width)"
+msgstr ""
+
+#: library/Theme/Sidebars.php:182
+#, php-format
+msgid "Sidebar that sits below the hero, takes up 100% of the widht."
+msgstr ""
+
+#: library/Theme/Sidebars.php:194
+msgid "Bottom sidebar (full-width)"
+msgstr ""
+
+#: library/Theme/Sidebars.php:195
+#, php-format
+msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
+msgstr ""
+
+#: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
+msgid "Go to homepage"
+msgstr ""
+
+#: library/Widget/Header/Links.php:68
+#: library/Widget/Navigation/Navigation.php:77
+#: views/partials/header/default.blade.php:40
+msgid "Menu"
+msgstr ""
+
+#: library/Widget/Navigation/Navigation.php:82
+msgid "Översätt"
+msgstr ""
+
+#: library/Widget/Source/BaseWidget.php:113
+#: library/Widget/Source/WidgetTemplate.php:249
+msgid "New title"
+msgstr ""
+
+#: library/Widget/Source/BaseWidget.php:117
+#: library/Widget/Source/WidgetTemplate.php:254
+msgid "Title:"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:23
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:24
+msgid "Font Awesome Icon"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:118
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:145
+msgid "Default Icon"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:130
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:247
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:236
+#: vendor/advanced-custom-fields/core/fields/select.php:18
+#: vendor/advanced-custom-fields/core/fields/select.php:109
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:480
+#: vendor/advanced-custom-fields/core/fields/user.php:313
+#: vendor/aristath/kirki/example.php:80
+#: views/partials/archive-filters/button-dropdown.blade.php:3
+#: views/partials/archive-filters/select.blade.php:9
+msgid "Select"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:139
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:154
+#: vendor/advanced-custom-fields/core/fields/file.php:153
+#: vendor/advanced-custom-fields/core/fields/image.php:125
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:523
+msgid "Return Value"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:140
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:155
+#: vendor/advanced-custom-fields/core/fields/image.php:126
+#: vendor/advanced-custom-fields/core/fields/relationship.php:557
+msgid "Specify the returned value on front end"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:149
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:159
+msgid "Icon Element"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:150
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:160
+msgid "Icon Class"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:151
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:161
+msgid "Icon Unicode"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:152
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:162
+msgid "Icon Object"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:162
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:167
+#: vendor/advanced-custom-fields/core/fields/page_link.php:127
+#: vendor/advanced-custom-fields/core/fields/post_object.php:329
+#: vendor/advanced-custom-fields/core/fields/select.php:214
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:489
+#: vendor/advanced-custom-fields/core/fields/user.php:322
+msgid "Allow Null?"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:171
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:192
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:172
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:183
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:463
+#: vendor/advanced-custom-fields/core/fields/page_link.php:137
+#: vendor/advanced-custom-fields/core/fields/page_link.php:158
+#: vendor/advanced-custom-fields/core/fields/post_object.php:339
+#: vendor/advanced-custom-fields/core/fields/post_object.php:360
+#: vendor/advanced-custom-fields/core/fields/select.php:223
+#: vendor/advanced-custom-fields/core/fields/select.php:242
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:498
+#: vendor/advanced-custom-fields/core/fields/user.php:331
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:344
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:194
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:217
+msgid "Yes"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:172
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:193
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:173
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:184
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:462
+#: vendor/advanced-custom-fields/core/fields/page_link.php:138
+#: vendor/advanced-custom-fields/core/fields/page_link.php:159
+#: vendor/advanced-custom-fields/core/fields/post_object.php:340
+#: vendor/advanced-custom-fields/core/fields/post_object.php:361
+#: vendor/advanced-custom-fields/core/fields/select.php:224
+#: vendor/advanced-custom-fields/core/fields/select.php:243
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:499
+#: vendor/advanced-custom-fields/core/fields/user.php:332
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:345
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:195
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:218
+msgid "No"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:182
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:178
+msgid "Enqueue FontAwesome?"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v4.php:183
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:179
+msgid "Set to 'Yes' to enqueue FA in the footer on any pages using this field."
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/acf-font-awesome-v5.php:137
+msgid "Live Preview"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:493
+msgid "The jsDelivr API servers appear to be temporarily unavailable."
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1042
+msgid "Insert Icon"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1062
+msgid "Better Font Awesome"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1068
+msgid "API Error"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1070
+#, php-format
+msgid ""
+"The attempt to reach the jsDelivr API server failed with the following "
+"error: %s"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1080
+msgid "Remote CSS Error"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1082
+#, php-format
+msgid ""
+"The attempt to fetch the remote Font Awesome stylesheet failed with the "
+"following error: %s %s The embedded fallback Font Awesome will be used "
+"instead (version: %s)."
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1092
+msgid ""
+"<b>Don't worry! Better Font Awesome will still render using the included "
+"fallback version:</b> "
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1096
+msgid "Solution"
+msgstr ""
+
+#: plugins/advanced-custom-fields-font-awesome/better-font-awesome-library/better-font-awesome-library.php:1098
+#, php-format
+msgid ""
+"This may be the result of a temporary server or connectivity issue which "
+"will resolve shortly. However if the problem persists please file a support "
+"ticket on the %splugin forum%s, citing the errors listed above. "
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:51
+#: vendor/advanced-custom-fields/acf.php:530
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:213
+msgid "Advanced Custom Fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:529
+msgid "Field&nbsp;Groups"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:531
+msgid "Add New"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:532
+msgid "Add New Field Group"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:533
+msgid "Edit Field Group"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:534
+msgid "New Field Group"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:535
+msgid "View Field Group"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:536
+msgid "Search Field Groups"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:537
+msgid "No Field Groups found"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:538
+msgid "No Field Groups found in Trash"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:623
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:99
+msgid "Custom Fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:641
+#: vendor/advanced-custom-fields/acf.php:644
+msgid "Field group updated."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:642
+msgid "Custom field updated."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:643
+msgid "Custom field deleted."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:646
+#, php-format
+msgid "Field group restored to revision from %s"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:647
+msgid "Field group published."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:648
+msgid "Field group saved."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:649
+msgid "Field group submitted."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:650
+msgid "Field group scheduled for."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:651
+msgid "Field group draft updated."
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:786
+msgid "Thumbnail"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:787
+msgid "Medium"
+msgstr ""
+
+#: vendor/advanced-custom-fields/acf.php:789
+msgid "Full"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/actions/export.php:33
+msgid "No ACF groups selected"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/api.php:1172
+msgid "Post updated"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:42
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:306
+msgid "Add-ons"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:130
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:428
+msgid "Repeater Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:131
+msgid "Create infinite rows of repeatable data with this versatile interface!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:137
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:436
+msgid "Gallery Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:138
+msgid "Create image galleries in a simple and intuitive interface!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:144
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:444
+msgid "Options Page"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:145
+msgid "Create global data to use throughout your website!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:151
+msgid "Flexible Content Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:152
+msgid "Create unique designs with a flexible content layout manager!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:161
+msgid "Gravity Forms Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:162
+msgid "Creates a select field populated with Gravity Forms!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:168
+msgid "Date & Time Picker"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:169
+msgid "jQuery date & time picker"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:175
+msgid "Google Map Extended"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:176
+msgid "Find addresses and coordinates of a desired location"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:182
+msgid "Contact Form 7 Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:183
+msgid "Assign one or more contact form 7 forms to a post"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:193
+msgid "Advanced Custom Fields Add-Ons"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:196
+msgid ""
+"The following Add-ons are available to increase the functionality of the "
+"Advanced Custom Fields plugin."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:197
+msgid ""
+"Each Add-on can be installed as a separate plugin (receives updates) or "
+"included in your theme (does not receive updates)."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:219
+#: vendor/advanced-custom-fields/core/controllers/addons.php:240
+msgid "Installed"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:221
+msgid "Purchase & Install"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/addons.php:242
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:421
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:430
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:438
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:446
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:454
+msgid "Download"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:50
+#: vendor/advanced-custom-fields/core/controllers/export.php:159
+msgid "Export"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:216
+msgid "Export Field Groups"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:221
+msgid "Field Groups"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:222
+msgid "Select the field groups to be exported"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:239
+#: vendor/advanced-custom-fields/core/controllers/export.php:252
+msgid "Export to XML"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:242
+#: vendor/advanced-custom-fields/core/controllers/export.php:267
+msgid "Export to PHP"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:253
+msgid ""
+"ACF will create a .xml export file which is compatible with the native WP "
+"import plugin."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:254
+msgid ""
+"Imported field groups <b>will</b> appear in the list of editable field "
+"groups. This is useful for migrating fields groups between Wp websites."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:256
+msgid "Select field group(s) from the list and click \"Export XML\""
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:257
+msgid "Save the .xml file when prompted"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:258
+msgid "Navigate to Tools &raquo; Import and select WordPress"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:259
+msgid "Install WP import plugin if prompted"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:260
+msgid "Upload and import your exported .xml file"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:261
+msgid "Select your user and ignore Import Attachments"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:262
+msgid "That's it! Happy WordPressing"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:268
+msgid "ACF will create the PHP code to include in your theme."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:269
+#: vendor/advanced-custom-fields/core/controllers/export.php:310
+msgid ""
+"Registered field groups <b>will not</b> appear in the list of editable field "
+"groups. This is useful for including fields in themes."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:270
+#: vendor/advanced-custom-fields/core/controllers/export.php:311
+msgid ""
+"Please note that if you export and register field groups within the same WP, "
+"you will see duplicate fields on your edit screens. To fix this, please move "
+"the original field group to the trash or remove the code from your functions."
+"php file."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:272
+msgid "Select field group(s) from the list and click \"Create PHP\""
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:273
+#: vendor/advanced-custom-fields/core/controllers/export.php:302
+msgid "Copy the PHP code generated"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:274
+#: vendor/advanced-custom-fields/core/controllers/export.php:303
+msgid "Paste into your functions.php file"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:275
+#: vendor/advanced-custom-fields/core/controllers/export.php:304
+msgid "To activate any Add-ons, edit and use the code in the first few lines."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:295
+msgid "Export Field Groups to PHP"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:300
+#: vendor/advanced-custom-fields/core/fields/tab.php:65
+msgid "Instructions"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:309
+msgid "Notes"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:316
+msgid "Include in theme"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:317
+msgid ""
+"The Advanced Custom Fields plugin can be included within a theme. To do so, "
+"move the ACF plugin inside your theme and add the following code to your "
+"functions.php file:"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:323
+msgid ""
+"To remove all visual interfaces from the ACF plugin, you can use a constant "
+"to enable lite mode. Add the following code to your functions.php file "
+"<b>before</b> the include_once code:"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:331
+msgid "Back to export"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/export.php:400
+msgid "No field groups were selected"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:359
+msgid "Move to trash. Are you sure?"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:360
+msgid "checked"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:361
+msgid "No toggle fields available"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:362
+msgid "Field group title is required"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:363
+msgid "copy"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:364
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:62
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:159
+msgid "or"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:365
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:397
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:459
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:148
+msgid "Fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:366
+msgid "Parent fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:367
+msgid "Sibling fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:368
+msgid "Hide / Show All"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:398
+msgid "Location"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:399
+msgid "Options"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:461
+msgid "Show Field Key:"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:635
+msgid "Front Page"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:636
+msgid "Posts Page"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:637
+msgid "Top Level Page (parent of 0)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:638
+msgid "Parent Page (has children)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:639
+msgid "Child Page (has parent)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:647
+msgid "Default Template"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:729
+#: views/partials/timestamps.blade.php:33
+#: views/partials/timestamps.blade.php:53
+msgid "Published"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:730
+msgid "Pending Review"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:731
+msgid "Draft"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:732
+msgid "Future"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:734
+msgid "Revision"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:735
+msgid "Trash"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_group.php:748
+msgid "Super Admin"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:147
+msgid "Title"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:215
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:252
+msgid "Changelog"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:216
+#, php-format
+msgid "See what's new in %1$sversion %2$s%3$s"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:218
+msgid "Resources"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:220
+msgid "Getting Started"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:221
+msgid "Field Types"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:222
+msgid "Functions"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:223
+msgid "Actions"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:224
+#: vendor/advanced-custom-fields/core/fields/relationship.php:625
+msgid "Filters"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:225
+msgid "'How to' guides"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:226
+msgid "Tutorials"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:231
+msgid "Created by"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:243
+msgid "Welcome to Advanced Custom Fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:244
+msgid "Thank you for updating to the latest version!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:244
+#, php-format
+msgid ""
+"ACF %s is more polished and enjoyable than ever before. We hope you like it."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:251
+msgid "What’s New"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:254
+msgid "Download Add-ons"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:308
+msgid "Activation codes have grown into plugins!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:309
+msgid ""
+"Add-ons are now activated by downloading and installing individual plugins. "
+"Although these plugins will not be hosted on the wordpress.org repository, "
+"each Add-on will continue to receive updates in the usual way."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:315
+msgid "All previous Add-ons have been successfully installed"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:319
+msgid "This website uses premium Add-ons which need to be downloaded"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:319
+msgid "Download your activated Add-ons"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:324
+msgid ""
+"This website does not use premium Add-ons and will not be affected by this "
+"change."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:334
+msgid "Easier Development"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:336
+msgid "New Field Types"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:338
+msgid "Taxonomy Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:339
+msgid "User Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:340
+msgid "Email Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:341
+msgid "Password Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:343
+msgid "Custom Field Types"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:344
+msgid ""
+"Creating your own field type has never been easier! Unfortunately, version 3 "
+"field types are not compatible with version 4."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:345
+#, php-format
+msgid ""
+"Migrating your field types is easy, please %sfollow this tutorial%s to learn "
+"more."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:347
+msgid "Actions &amp; Filters"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:348
+#, php-format
+msgid ""
+"All actions & filters have received a major facelift to make customizing ACF "
+"even easier! Please %sread this guide%s to find the updated naming "
+"convention."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:350
+msgid "Preview draft is now working!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:351
+msgid "This bug has been squashed along with many other little critters!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:351
+msgid "See the full changelog"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:355
+msgid "Important"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:357
+msgid "Database Changes"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:358
+msgid ""
+"Absolutely <strong>no</strong> changes have been made to the database "
+"between versions 3 and 4. This means you can roll back to version 3 without "
+"any issues."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:360
+msgid "Potential Issues"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:361
+#, php-format
+msgid ""
+"Due to the sizable changes surrounding Add-ons, field types and action/"
+"filters, your website may not operate correctly. It is important that you "
+"read the full %sMigrating from v3 to v4%s guide to view the full list of "
+"changes."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:364
+msgid "Really Important!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:364
+#, php-format
+msgid ""
+"If you updated the ACF plugin without prior knowledge of such changes, "
+"please roll back to the latest %sversion 3%s of this plugin."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:369
+msgid "Thank You"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:370
+msgid ""
+"A <strong>BIG</strong> thank you to everyone who has helped test the version "
+"4 beta and for all the support I have received."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:371
+msgid "Without you all, this release would not have been possible!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:375
+msgid "Changelog for"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:392
+msgid "Learn more"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:398
+msgid "Overview"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:400
+msgid ""
+"Previously, all Add-ons were unlocked via an activation code (purchased from "
+"the ACF Add-ons store). New to v4, all Add-ons act as separate plugins which "
+"need to be individually downloaded, installed and updated."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:402
+msgid ""
+"This page will assist you in downloading and installing each available Add-"
+"on."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:404
+msgid "Available Add-ons"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:406
+msgid "The following Add-ons have been detected as activated on this website."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:420
+msgid "Activation Code"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:452
+msgid "Flexible Content"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:462
+msgid "Installation"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:464
+msgid "For each Add-on available, please perform the following:"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:466
+msgid "Download the Add-on plugin (.zip file) to your desktop"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:467
+#, php-format
+msgid "Navigate to %sPlugins > Add New > Upload%s"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:468
+msgid "Use the uploader to browse, select and install your Add-on (.zip file)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:469
+msgid ""
+"Once the plugin has been uploaded and installed, click the 'Activate Plugin' "
+"link"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:470
+msgid "The Add-on is now installed and activated!"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/field_groups.php:484
+msgid "Awesome. Let's get to work"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/input.php:63
+msgid "Expand Details"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/input.php:64
+msgid "Collapse Details"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/input.php:67
+msgid "Validation Failed. One or more fields below are required."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/upgrade.php:77
+msgid "Upgrade"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/upgrade.php:599
+msgid "Modifying field group options 'show on page'"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/upgrade.php:653
+msgid "Modifying field option 'taxonomy'"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/controllers/upgrade.php:750
+msgid "Moving user custom fields from wp_options to wp_usermeta"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/early-access.php:340
+msgid "(Early access enabled)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/_base.php:124
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:74
+msgid "Basic"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:19
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:475
+#: vendor/aristath/kirki/example.php:59 vendor/aristath/kirki/example.php:715
+msgid "Checkbox"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:20
+#: vendor/advanced-custom-fields/core/fields/radio.php:19
+#: vendor/advanced-custom-fields/core/fields/select.php:19
+#: vendor/advanced-custom-fields/core/fields/true_false.php:20
+msgid "Choice"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:146
+#: vendor/advanced-custom-fields/core/fields/radio.php:147
+#: vendor/advanced-custom-fields/core/fields/select.php:177
+msgid "Choices"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:147
+#: vendor/advanced-custom-fields/core/fields/select.php:178
+msgid "Enter each choice on a new line."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:148
+#: vendor/advanced-custom-fields/core/fields/select.php:179
+msgid "For more control, you may specify both a value and label like this:"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:149
+#: vendor/advanced-custom-fields/core/fields/radio.php:153
+#: vendor/advanced-custom-fields/core/fields/select.php:180
+msgid "red : Red"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:149
+#: vendor/advanced-custom-fields/core/fields/radio.php:154
+#: vendor/advanced-custom-fields/core/fields/select.php:180
+msgid "blue : Blue"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:166
+#: vendor/advanced-custom-fields/core/fields/color_picker.php:89
+#: vendor/advanced-custom-fields/core/fields/email.php:106
+#: vendor/advanced-custom-fields/core/fields/number.php:116
+#: vendor/advanced-custom-fields/core/fields/radio.php:196
+#: vendor/advanced-custom-fields/core/fields/select.php:197
+#: vendor/advanced-custom-fields/core/fields/text.php:116
+#: vendor/advanced-custom-fields/core/fields/textarea.php:103
+#: vendor/advanced-custom-fields/core/fields/true_false.php:94
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:287
+msgid "Default Value"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:167
+#: vendor/advanced-custom-fields/core/fields/select.php:198
+msgid "Enter each default value on a new line"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:194
+#: vendor/advanced-custom-fields/core/fields/radio.php:223
+msgid "Vertical"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/checkbox.php:195
+#: vendor/advanced-custom-fields/core/fields/radio.php:224
+msgid "Horizontal"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/color_picker.php:19
+msgid "Color Picker"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/color_picker.php:20
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:20
+#: vendor/advanced-custom-fields/core/fields/google-map.php:19
+msgid "jQuery"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:19
+msgid "Date Picker"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:55
+msgid "Done"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:56
+msgid "Today"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:59
+msgid "Show a different month"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:126
+msgid "Save format"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:127
+msgid ""
+"This format will determine the value saved to the database and returned via "
+"the API"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:128
+msgid "\"yymmdd\" is the most versatile save format. Read more about"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:128
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:144
+msgid "jQuery date formats"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:142
+msgid "Display format"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:143
+msgid "This format will be seen by the user when entering a value"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:144
+msgid ""
+"\"dd/mm/yy\" or \"mm/dd/yy\" are the most used display formats. Read more "
+"about"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/date_picker/date_picker.php:158
+msgid "Week Starts On"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/dummy.php:19
+msgid "Dummy"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:107
+#: vendor/advanced-custom-fields/core/fields/number.php:117
+#: vendor/advanced-custom-fields/core/fields/text.php:117
+#: vendor/advanced-custom-fields/core/fields/textarea.php:104
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:288
+msgid "Appears when creating a new post"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:123
+#: vendor/advanced-custom-fields/core/fields/number.php:133
+#: vendor/advanced-custom-fields/core/fields/password.php:105
+#: vendor/advanced-custom-fields/core/fields/text.php:131
+#: vendor/advanced-custom-fields/core/fields/textarea.php:118
+msgid "Placeholder Text"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:124
+#: vendor/advanced-custom-fields/core/fields/number.php:134
+#: vendor/advanced-custom-fields/core/fields/password.php:106
+#: vendor/advanced-custom-fields/core/fields/text.php:132
+#: vendor/advanced-custom-fields/core/fields/textarea.php:119
+msgid "Appears within the input"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:138
+#: vendor/advanced-custom-fields/core/fields/number.php:148
+#: vendor/advanced-custom-fields/core/fields/password.php:120
+#: vendor/advanced-custom-fields/core/fields/text.php:146
+msgid "Prepend"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:139
+#: vendor/advanced-custom-fields/core/fields/number.php:149
+#: vendor/advanced-custom-fields/core/fields/password.php:121
+#: vendor/advanced-custom-fields/core/fields/text.php:147
+msgid "Appears before the input"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:153
+#: vendor/advanced-custom-fields/core/fields/number.php:163
+#: vendor/advanced-custom-fields/core/fields/password.php:135
+#: vendor/advanced-custom-fields/core/fields/text.php:161
+msgid "Append"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/email.php:154
+#: vendor/advanced-custom-fields/core/fields/number.php:164
+#: vendor/advanced-custom-fields/core/fields/password.php:136
+#: vendor/advanced-custom-fields/core/fields/text.php:162
+msgid "Appears after the input"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:19
+msgid "File"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:26
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:63
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:134
+msgid "Select File"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:27
+msgid "Edit File"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:28
+msgid "Update File"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:29
+#: vendor/advanced-custom-fields/core/fields/image.php:30
+msgid "Uploaded to this post"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:123
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:59
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:131
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:409
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:414
+msgid "No File Selected"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:123
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:420
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:424
+msgid "Add File"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:164
+msgid "File Object"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:165
+msgid "File URL"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:166
+msgid "File ID"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:175
+#: vendor/advanced-custom-fields/core/fields/image.php:165
+msgid "Library"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/file.php:187
+#: vendor/advanced-custom-fields/core/fields/image.php:178
+msgid "Uploaded to post"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:18
+msgid "Google Map"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:33
+msgid "Locating"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:34
+msgid "Sorry, this browser does not support geolocation"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:120
+msgid "Clear location"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:125
+msgid "Find current location"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:126
+msgid "Search for address..."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:163
+msgid "Center the initial map"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:199
+msgid "Zoom"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:200
+msgid "Set the initial zoom level"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:217
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:136
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:139
+msgid "Height"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/google-map.php:218
+msgid "Customise the map height"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:19
+#: vendor/aristath/kirki/example.php:70
+msgid "Image"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:27
+msgid "Select Image"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:28
+msgid "Edit Image"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:29
+msgid "Update Image"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:90
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:62
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:132
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:52
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:387
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:444
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:44
+#: views/partials/blog/comments.blade.php:62
+#: views/partials/blog/comments.blade.php:126
+msgid "Remove"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:91
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
+#: views/partials/blog/comments.blade.php:59
+#: views/partials/blog/comments.blade.php:123
+msgid "Edit"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:97
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:53
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:45
+msgid "No image selected"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:97
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:388
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:392
+msgid "Add Image"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:136
+msgid "Image Object"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:137
+msgid "Image URL"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:138
+msgid "Image ID"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:146
+msgid "Preview Size"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:147
+msgid "Shown when entering data"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/image.php:166
+msgid "Limit the media library choice"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/message.php:71
+msgid "Text &amp; HTML entered here will appear inline with the fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/message.php:72
+msgid "Please note that all text will first be passed through the wp function "
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/number.php:19
+#: vendor/aristath/kirki/example.php:73
+msgid "Number"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/number.php:178
+msgid "Minimum Value"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/number.php:194
+msgid "Maximum Value"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/number.php:210
+msgid "Step Size"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/page_link.php:18
+msgid "Page Link"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/page_link.php:19
+#: vendor/advanced-custom-fields/core/fields/post_object.php:19
+#: vendor/advanced-custom-fields/core/fields/relationship.php:19
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:19
+#: vendor/advanced-custom-fields/core/fields/user.php:19
+msgid "Relational"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/page_link.php:103
+#: vendor/advanced-custom-fields/core/fields/post_object.php:280
+#: vendor/advanced-custom-fields/core/fields/relationship.php:576
+#: vendor/advanced-custom-fields/core/fields/relationship.php:655
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:75
+msgid "Post Type"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/page_link.php:148
+#: vendor/advanced-custom-fields/core/fields/post_object.php:350
+#: vendor/advanced-custom-fields/core/fields/select.php:233
+msgid "Select multiple values?"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/password.php:19
+msgid "Password"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/post_object.php:18
+msgid "Post Object"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/post_object.php:194
+#: vendor/advanced-custom-fields/core/fields/relationship.php:164
+msgid "(no title)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/post_object.php:304
+#: vendor/advanced-custom-fields/core/fields/relationship.php:600
+msgid "Filter from Taxonomy"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/radio.php:18
+msgid "Radio Button"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/radio.php:105
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:91
+msgid "Other"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/radio.php:148
+msgid "Enter your choices one per line"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/radio.php:175
+msgid "Add 'other' choice to allow for custom values"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/radio.php:187
+msgid "Save 'other' values to the field's choices"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:18
+msgid "Relationship"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:29
+msgid "Maximum values reached ( {max} values )"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:451
+msgid "Search..."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:462
+msgid "Filter by post type"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:567
+msgid "Post Objects"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:568
+msgid "Post IDs"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:635
+msgid "Post Type Select"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:643
+msgid "Elements"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:644
+msgid "Selected elements will be displayed in each result"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:654
+msgid "Post Title"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/relationship.php:666
+msgid "Maximum posts"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/tab.php:19
+msgid "Tab"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/tab.php:68
+msgid ""
+"Use \"Tab Fields\" to better organize your edit screen by grouping your "
+"fields together under separate tab headings."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/tab.php:69
+msgid ""
+"All the fields following this \"tab field\" (or until another \"tab field\" "
+"is defined) will be grouped together."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/tab.php:70
+msgid "Use multiple tabs to divide your fields into sections."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:18
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:430
+msgid "Taxonomy"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:464
+#: vendor/advanced-custom-fields/core/fields/user.php:298
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:77
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:158
+msgid "Field Type"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:474
+#: vendor/advanced-custom-fields/core/fields/user.php:307
+msgid "Multiple Values"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:476
+#: vendor/advanced-custom-fields/core/fields/user.php:309
+msgid "Multi Select"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:478
+#: vendor/advanced-custom-fields/core/fields/user.php:311
+msgid "Single Value"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:479
+msgid "Radio Buttons"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:508
+msgid "Load & Save Terms to Post"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:516
+msgid ""
+"Load value based on the post's terms and update the post's terms on save"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:533
+msgid "Term Object"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/taxonomy.php:534
+msgid "Term ID"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/text.php:176
+#: vendor/advanced-custom-fields/core/fields/textarea.php:164
+msgid "Formatting"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/text.php:177
+#: vendor/advanced-custom-fields/core/fields/textarea.php:165
+msgid "Affects value on front end"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/text.php:186
+#: vendor/advanced-custom-fields/core/fields/textarea.php:174
+msgid "No formatting"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/text.php:187
+#: vendor/advanced-custom-fields/core/fields/textarea.php:176
+msgid "Convert HTML into tags"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/text.php:195
+#: vendor/advanced-custom-fields/core/fields/textarea.php:133
+msgid "Character Limit"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/text.php:196
+#: vendor/advanced-custom-fields/core/fields/textarea.php:134
+msgid "Leave blank for no limit"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/textarea.php:19
+msgid "Text Area"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/textarea.php:148
+msgid "Rows"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/textarea.php:149
+msgid "Sets the textarea height"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/textarea.php:175
+msgid "Convert new lines into &lt;br /&gt; tags"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/true_false.php:19
+msgid "True / False"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/true_false.php:80
+msgid "eg. Show extra content"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/user.php:18
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:94
+msgid "User"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/user.php:271
+msgid "Filter by role"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:19
+msgid "Wysiwyg Editor"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:302
+msgid "Toolbar"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/fields/wysiwyg.php:334
+msgid "Show Media Upload Buttons?"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:24
+msgid "New Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:58
+msgid "Field type does not exist"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:74
+msgid "Field Order"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:75
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:126
+msgid "Field Label"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:76
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:142
+msgid "Field Name"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:78
+msgid "Field Key"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:90
+msgid ""
+"No fields. Click the <strong>+ Add Field</strong> button to create your "
+"first field."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:105
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:108
+msgid "Edit this Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:109
+msgid "Duplicate this Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:109
+msgid "Duplicate"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:110
+msgid "Delete this Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:110
+msgid "Delete"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:127
+msgid "This is the name which will appear on the EDIT page"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:143
+msgid "Single word, no spaces. Underscores and dashes allowed"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:172
+msgid "Field Instructions"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:173
+msgid "Instructions for authors. Shown when submitting data"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:186
+msgid "Required?"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:209
+msgid "Conditional Logic"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:260
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:117
+msgid "is equal to"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:261
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:118
+msgid "is not equal to"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:279
+msgid "Show this field when"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:285
+msgid "all"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:286
+msgid "any"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:289
+msgid "these rules are met"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:303
+msgid "Close Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:316
+msgid "Drag and drop to reorder"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_fields.php:317
+msgid "+ Add Field"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:48
+msgid "Rules"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:49
+msgid ""
+"Create a set of rules to determine which edit screens will use these "
+"advanced custom fields"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:60
+msgid "Show this field group if"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:76
+msgid "Logged in User Type"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:78
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:79
+msgid "Post"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:80
+msgid "Post Category"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:81
+msgid "Post Format"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:82
+msgid "Post Status"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:83
+msgid "Post Taxonomy"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:87
+msgid "Page Type"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:88
+msgid "Page Parent"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:89
+msgid "Page Template"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:92
+msgid "Attachment"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:93
+msgid "Taxonomy Term"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:146
+msgid "and"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_location.php:161
+msgid "Add rule group"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:25
+msgid "Order No."
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:26
+msgid "Field groups are created in order <br />from lowest to highest"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:42
+msgid "Position"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:52
+msgid "High (after title)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:53
+msgid "Normal (after content)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:54
+msgid "Side"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:74
+msgid "Seamless (no metabox)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:75
+msgid "Standard (WP metabox)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:84
+msgid "Hide on screen"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:85
+msgid "<b>Select</b> items to <b>hide</b> them from the edit screen"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:86
+msgid ""
+"If multiple field groups appear on an edit screen, the first field group's "
+"options will be used. (the one with the lowest order number)"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:96
+msgid "Permalink"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:97
+msgid "Content Editor"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:100
+msgid "Discussion"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:103
+msgid "Slug"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:105
+msgid "Format"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:107
+#: views/partials/blog/post-categories.blade.php:2
+msgid "Categories"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:108
+#: views/partials/blog/post-tags.blade.php:2
+msgid "Tags"
+msgstr ""
+
+#: vendor/advanced-custom-fields/core/views/meta_box_options.php:109
+msgid "Send Trackbacks"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:48
+msgid "Background Color"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:54
+msgid "Background Image"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:70
+msgid "Background Repeat"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:72
+msgid "No Repeat"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:73
+msgid "Repeat All"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:74
+msgid "Repeat Horizontally"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:75
+msgid "Repeat Vertically"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:81
+msgid "Background Position"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:83
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:115
+msgid "Left Top"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:84
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:116
+msgid "Left Center"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:85
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:117
+msgid "Left Bottom"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:86
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:118
+msgid "Right Top"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:87
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:119
+msgid "Right Center"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:88
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:120
+msgid "Right Bottom"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:89
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:121
+msgid "Center Top"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:90
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:122
+msgid "Center Center"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:91
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:123
+msgid "Center Bottom"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:97
+msgid "Background Size"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:100
+msgid "Cover"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:103
+msgid "Contain"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:113
+msgid "Background Attachment"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:116
+msgid "Scroll"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-background.php:119
+msgid "Fixed"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:135
+msgid "Standard Fonts"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:136
+msgid "Google Fonts"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:137
+msgid "CSS Defaults"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-base.php:138
+msgid "Default Browser Font-Family"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-code.php:37
+msgid ""
+"Please update your WordPress installation to a version newer than 4.9 to "
+"access the code control."
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimension.php:39
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:140
+msgid "Invalid Value"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:124
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:106
+msgid "Font Size"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:125
+msgid "Font Weight"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:126
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:114
+msgid "Line Height"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:127
+msgid "Font Style"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:128
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:122
+msgid "Letter Spacing"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:129
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:130
+msgid "Word Spacing"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:137
+msgid "Spacing"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-dimensions.php:138
+msgid "Width"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:49
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:54
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:41
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:46
+msgid "Select image"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:50
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:42
+msgid "Change image"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-image.php:55
+#: vendor/aristath/kirki/field/class-kirki-field-image.php:47
+msgid "Choose image"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:78
+msgid "row"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:122
+msgid "Select a Page"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:228
+#, php-format
+msgid "Limit: %s rows"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:362
+msgid "Hex Value"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:377
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:382
+msgid "No Image Selected"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:388
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:390
+msgid "Change Image"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:420
+#: vendor/aristath/kirki/controls/php/class-kirki-control-repeater.php:422
+msgid "Change File"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-slider.php:65
+msgid "Reset"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-switch.php:52
+#: vendor/aristath/kirki/field/class-kirki-field-switch.php:42
+msgid "On"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-switch.php:56
+#: vendor/aristath/kirki/field/class-kirki-field-switch.php:43
+msgid "Off"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:80
+msgid "Font Family"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:81
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:86
+msgid "Select Font Family"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:85
+msgid "Backup Font"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:91
+msgid "Variant"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:98
+msgid "Download font-family to server instead of using the Google CDN."
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:138
+msgid "Text Align"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:143
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:185
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:201
+msgid "Inherit"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:177
+msgid "Text Transform"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:184
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:200
+msgid "Initial"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:193
+msgid "Text Decoration"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:197
+msgid "Underline"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:198
+msgid "Overline"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:199
+msgid "Line-Through"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:209
+msgid "Margin Top"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:217
+msgid "Margin Bottom"
+msgstr ""
+
+#: vendor/aristath/kirki/controls/php/class-kirki-control-typography.php:225
+#: vendor/aristath/kirki/example.php:60 vendor/aristath/kirki/example.php:557
+msgid "Color"
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki-field.php:248
+#, php-format
+msgid "Typo found in field %s - setting instead of settings."
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki-field.php:257
+#: vendor/aristath/kirki/core/class-kirki-field.php:267
+#, php-format
+msgid ""
+"Config not defined for field %1$s - See %2$s for details on how to properly "
+"add fields."
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki-field.php:407
+#, php-format
+msgid "Typo found in field %s - \"theme_mods\" vs \"theme_mod\""
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki-field.php:425
+#, php-format
+msgid "\"partial_refresh\" invalid entry in field %s"
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki-field.php:554
+#: vendor/aristath/kirki/core/class-kirki-field.php:564
+#, php-format
+msgid ""
+"\"output\" invalid format in field %s. The \"output\" argument should be "
+"defined as an array of arrays."
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki-init.php:282
+msgid ""
+"We detected you're using Kirki_Init::get_variables(). Please use Kirki_Util::"
+"get_variables() instead."
+msgstr ""
+
+#: vendor/aristath/kirki/core/class-kirki.php:228
+msgid ""
+"Kirki fields should not be added on customize_register. Please add them "
+"directly, or on init."
+msgstr ""
+
+#: vendor/aristath/kirki/deprecated/functions.php:19
+#, php-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:106
+msgid ""
+"Please install the Kirki plugin to take full advantage of this theme\\s "
+"customizer capabilities"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:108
+msgid "Install Kirki Toolkit now"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:109
+msgid "Install Now"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:123
+msgid ""
+"You have installed Kirki. Activate it to take advantage of this theme's "
+"features in the customizer."
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:125
+msgid "Activate Kirki Toolkit now"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:126
+msgid "Activate Now"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:145
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:146
+msgid "Don't show this again"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:145
+msgid "Dismiss"
+msgstr ""
+
+#: vendor/aristath/kirki/docs/files/class-kirki-installer-section.php:156
+msgid ""
+"Are you sure? Dismissing this message will hide the installation "
+"recommendation and you will have to manually install and activate the plugin "
+"in the future."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:43
+msgid "Kirki Demo Panel"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:44
+msgid "Contains sections for all kirki controls."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:57
+msgid "Background"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:58
+msgid "Code"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:61
+msgid "Color Palette"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:62
+msgid "Custom"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:63
+msgid "Dashicons"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:64
+msgid "Date"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:65
+msgid "Dimension"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:66
+msgid "Dimensions"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:67
+msgid "Editor"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:68
+msgid "Font-Awesome"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:69
+msgid "Generic"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:71
+msgid "Multicheck"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:72
+msgid "Multicolor"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:74
+msgid "Palette"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:75
+msgid "Preset"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:76
+msgid "Radio"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:76
+msgid "A plain Radio control."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:77
+msgid "Radio Buttonset"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:77
+msgid ""
+"Radio-Buttonset controls are essentially radio controls with some fancy "
+"styling to make them look cooler."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:78
+msgid "Radio Image"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:78
+msgid ""
+"Radio-Image controls are essentially radio controls with some fancy styles "
+"to use images"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:79
+msgid "Repeater"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:81
+msgid "Slider"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:82
+msgid "Sortable"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:83
+msgid "Switch"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:84
+msgid "Toggle"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:85
+msgid "Typography"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:117
+msgid "Background Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:118
+msgid "Background conrols are pretty complex! (but useful if properly used)"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:140
+msgid "Code Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:141 vendor/aristath/kirki/example.php:160
+#: vendor/aristath/kirki/example.php:449 vendor/aristath/kirki/example.php:460
+#: vendor/aristath/kirki/example.php:812 vendor/aristath/kirki/example.php:823
+#: vendor/aristath/kirki/example.php:848
+msgid "Description"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:159
+msgid "Checkbox Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:175
+msgid "Color Control (hex-only)"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:176
+msgid "This is a color control - without alpha channel."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:186
+msgid "Color Control (with alpha channel)"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:187
+msgid "This is a color control - with alpha channel."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:200
+msgid "Color Control - hue only."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:201
+msgid "This is a color control - hue only."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:215
+msgid "Date Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:216
+msgid "This is a date control."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:229
+msgid "First Editor Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:230
+msgid "This is an editor control."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:240
+msgid "Second Editor Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:241
+msgid ""
+"This is a 2nd editor control just to check that we do not have issues with "
+"multiple instances."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:243
+msgid "Default Text"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:256 vendor/aristath/kirki/example.php:271
+#: vendor/aristath/kirki/example.php:286 vendor/aristath/kirki/example.php:301
+#: vendor/aristath/kirki/example.php:316
+msgid "Color-Palette"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:257
+msgid "This is a color-palette control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:272
+msgid "Material Design Colors - all"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:287
+msgid "Material Design Colors - primary"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:302
+msgid "Material Design Colors - red"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:317
+msgid "Material Design Colors - A100"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:337
+msgid "Dashicons Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:338
+msgid "Using a custom array of dashicons"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:357
+msgid "All Dashicons"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:358
+msgid "Showing all dashicons"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:371 vendor/aristath/kirki/example.php:385
+#: vendor/aristath/kirki/example.php:399
+msgid "Dimension Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:372 vendor/aristath/kirki/example.php:386
+#: vendor/aristath/kirki/example.php:400 vendor/aristath/kirki/example.php:416
+#: vendor/aristath/kirki/example.php:435 vendor/aristath/kirki/example.php:491
+#: vendor/aristath/kirki/example.php:502 vendor/aristath/kirki/example.php:516
+msgid "Description Here."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:415
+msgid "Spacing Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:434
+msgid "Font Awesome Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:448
+msgid "Text Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:459
+msgid "Textarea Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:470
+msgid "Custom input Control."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:471
+msgid ""
+"The \"generic\" control allows you to add any input type you want. In this "
+"case we use type=\"password\" and define custom styles."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:490
+msgid "Image Control (URL)"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:501
+msgid "Image Control (ID)"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:515
+msgid "Image Control (array)"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:532
+msgid "Multickeck Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:537 vendor/aristath/kirki/example.php:619
+#: vendor/aristath/kirki/example.php:640 vendor/aristath/kirki/example.php:735
+#: vendor/aristath/kirki/example.php:754 vendor/aristath/kirki/example.php:794
+msgid "Option 1"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:538 vendor/aristath/kirki/example.php:620
+#: vendor/aristath/kirki/example.php:641 vendor/aristath/kirki/example.php:736
+#: vendor/aristath/kirki/example.php:755 vendor/aristath/kirki/example.php:795
+msgid "Option 2"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:539 vendor/aristath/kirki/example.php:621
+#: vendor/aristath/kirki/example.php:642 vendor/aristath/kirki/example.php:737
+#: vendor/aristath/kirki/example.php:756 vendor/aristath/kirki/example.php:796
+msgid "Option 3"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:540 vendor/aristath/kirki/example.php:622
+#: vendor/aristath/kirki/example.php:738 vendor/aristath/kirki/example.php:757
+#: vendor/aristath/kirki/example.php:797
+msgid "Option 4"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:541 vendor/aristath/kirki/example.php:623
+#: vendor/aristath/kirki/example.php:739 vendor/aristath/kirki/example.php:758
+#: vendor/aristath/kirki/example.php:798
+msgid "Option 5"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:553 vendor/aristath/kirki/example.php:577
+#: vendor/aristath/kirki/example.php:595
+msgid "Label"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:558
+msgid "Hover"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:614
+msgid "Radio Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:615 vendor/aristath/kirki/example.php:636
+#: vendor/aristath/kirki/example.php:655 vendor/aristath/kirki/example.php:674
+#: vendor/aristath/kirki/example.php:730 vendor/aristath/kirki/example.php:749
+#: vendor/aristath/kirki/example.php:771
+msgid "The description here."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:635
+msgid "Radio-Buttonset Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:654
+msgid "Radio-Image Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:673
+msgid "Repeater Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:678
+msgid "Kirki Site"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:684
+msgid "Kirki Repository"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:693
+msgid "Link Text"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:694
+msgid "This will be the label for your link"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:699
+msgid "Link URL"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:700
+msgid "This will be the link URL"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:705
+msgid "Link Target"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:706
+msgid "This will be the link target"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:709
+msgid "New Window"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:710
+msgid "Same Frame"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:729 vendor/aristath/kirki/example.php:748
+msgid "Select Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:733
+msgid "Select an option"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:770
+msgid "Slider Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:790
+msgid "This is a sortable control."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:799
+msgid "Option 6"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:811
+msgid "Switch Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:822
+msgid "Switch Control with custom labels"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:827
+msgid "Enabled"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:847
+msgid "Toggle Control"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:861 vendor/aristath/kirki/example.php:909
+msgid "Typography Control Label"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:862 vendor/aristath/kirki/example.php:910
+msgid "The full set of options."
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:940
+msgid "Sidebars Select"
+msgstr ""
+
+#: vendor/aristath/kirki/example.php:941
+msgid "An example of how to implement sidebars selection."
+msgstr ""
+
+#: vendor/aristath/kirki/field/class-kirki-field-color.php:55
+msgid ""
+"Do not use \"alpha\" as an argument in color controls. Use "
+"\"choices[alpha]\" instead."
+msgstr ""
+
+#: vendor/aristath/kirki/field/class-kirki-field-radio.php:37
+#, php-format
+msgid ""
+"Error in field %1$s. The \"mode\" argument has been deprecated since Kirki "
+"v0.8. Use the \"radio-%2$s\" type instead."
+msgstr ""
+
+#: vendor/aristath/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:59
+msgid "Customizing"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/custom-sections/sections/class-kirki-sections-nested-section.php:62
+#, php-format
+msgid "Customizing &#9656; %s"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:210
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:211
+msgid "Ultra-Light 100"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:212
+msgid "Ultra-Light 100 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:213
+msgid "Light 200"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:214
+msgid "Light 200 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:215
+msgid "Book 300"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:216
+msgid "Book 300 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:217
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:218
+msgid "Normal 400"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:219
+msgid "Normal 400 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:220
+msgid "Medium 500"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:221
+msgid "Medium 500 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:222
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:223
+msgid "Semi-Bold 600"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:224
+msgid "Semi-Bold 600 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:225
+msgid "Bold 700"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:226
+msgid "Bold 700 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:227
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:228
+msgid "Extra-Bold 800"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:229
+msgid "Extra-Bold 800 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:230
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:231
+msgid "Ultra-Bold 900"
+msgstr ""
+
+#: vendor/aristath/kirki/modules/webfonts/class-kirki-fonts.php:232
+msgid "Ultra-Bold 900 Italic"
+msgstr ""
+
+#: vendor/aristath/kirki/upgrade-notifications.php:30
+msgid "Important Upgrade Notice:"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
+msgid "Export with AcfExportManager"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
+#, php-format
+msgid "Exported %d fieldgroup(s)."
+msgstr ""
+
+#: views/archive-event.blade.php:69
+msgctxt "Event archive"
+msgid "Date"
+msgstr ""
+
+#: views/archive-event.blade.php:78
+msgctxt "Event archive"
+msgid "Location"
+msgstr ""
+
+#: views/archive-event.blade.php:85 views/single-event.blade.php:68
+msgid "Cancelled"
+msgstr ""
+
+#: views/archive-event.blade.php:90 views/single-event.blade.php:70
+msgid "Rescheduled"
+msgstr ""
+
+#: views/author.blade.php:34
+msgid "Posts by"
+msgstr ""
+
+#: views/partials/404/default.blade.php:18
+msgid "Error 404"
+msgstr ""
+
+#: views/partials/404/event.blade.php:5
+msgid "The event could not be found"
+msgstr ""
+
+#: views/partials/404/event.blade.php:6
+msgid "View all events"
+msgstr ""
+
+#: views/partials/404/ticket.blade.php:5
+msgid "The ticket could not be found"
+msgstr ""
+
+#: views/partials/404/ticket.blade.php:7
+msgid "View all tickets"
+msgstr ""
+
+#: views/partials/archive-filters.blade.php:52
+msgid "From"
+msgstr ""
+
+#: views/partials/archive-filters.blade.php:53
+msgid "From date"
+msgstr ""
+
+#: views/partials/archive-filters.blade.php:54
+msgid "To"
+msgstr ""
+
+#: views/partials/archive-filters.blade.php:55
+msgid "To date"
+msgstr ""
+
+#: views/partials/archive-filters.blade.php:75
+msgid "Clear filters"
+msgstr ""
+
+#: views/partials/author-box.blade.php:16
+#: views/partials/author-box.blade.php:20
+#: views/partials/author-box.blade.php:24
+#: views/partials/author-box.blade.php:28
+msgid "My profile on"
+msgstr ""
+
+#: views/partials/blog/post-categories.blade.php:6
+msgid "No categories"
+msgstr ""
+
+#: views/partials/blog/post-tags.blade.php:8
+msgid "No tags"
+msgstr ""
+
+#: views/partials/blog/taxonomy-filters.blade.php:10
+msgid "Show all"
+msgstr ""
+
+#: views/partials/header/jumbo.blade.php:30
+msgid "More"
+msgstr ""
+
+#: views/partials/mobile-menu.blade.php:5
+msgid "What are you looking for?"
+msgstr ""
+
+#: views/partials/search/algolia-customsearch.blade.php:37
+#: views/partials/search/algolia.blade.php:37
+#: views/partials/search/google.blade.php:24
+#: views/partials/search/wp.blade.php:24
+msgid "Found no matching results on your search…"
+msgstr ""
+
+#: views/partials/search/algolia-customsearch.blade.php:49
+msgid "Whoops, this search result page dosen't exist anymore…"
+msgstr ""
+
+#: views/partials/search/algolia-instantsearch.blade.php:85
+msgid ""
+"This post is not publicly avabile, you will be prompted to login to view "
+"this post."
+msgstr ""
+
+#: views/partials/search/algolia-instantsearch.blade.php:115
+msgid "Could not find any content matching your query."
+msgstr ""
+
+#: views/partials/search/algolia-instantsearch.blade.php:124
+msgid "hits on"
+msgstr ""
+
+#: views/partials/search/algolia-instantsearch.blade.php:126
+msgid "Query is empty, please type somehing."
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:6
+#: views/partials/social-share.blade.php:22
+msgid "Share as e-mail"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:16
+#: views/partials/share-email-form.blade.php:17
+msgid "Your name"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:20
+#: views/partials/share-email-form.blade.php:21
+msgid "Your email"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:25
+#: views/partials/share-email-form.blade.php:27
+msgid "Recipient email"
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:26
+msgid "Enter one or many e-mail addresses. Separate with comma."
+msgstr ""
+
+#: views/partials/share-email-form.blade.php:43
+msgid "Send"
+msgstr ""
+
+#: views/partials/social-share.blade.php:4
+#: views/partials/social-share.blade.php:6
+#: views/partials/social-share.blade.php:10
+#: views/partials/social-share.blade.php:12
+#: views/partials/social-share.blade.php:16
+#: views/partials/social-share.blade.php:18
+msgid "Share on"
+msgstr ""
+
+#: views/partials/social-share.blade.php:24
+msgid "Share with e-mail"
+msgstr ""
+
+#: views/partials/timestamps.blade.php:42
+msgid "Last updated"
+msgstr ""
+
+#: views/single-listing.blade.php:48
+msgid "Price"
+msgstr ""
+
+#: views/single-listing.blade.php:61
+msgid "Attached files"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Municipio"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/Municipio"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A bootstrap theme for creating municipality sites. Works veary webb with "
+"Modularity Plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid ""
+"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.helsingborg.se"
+msgstr ""
