@@ -169,22 +169,23 @@ class BlockManager {
 
         foreach ($fields as $key => $value) {
 
-            if (is_string($key) && is_string($value)) {
-                if (str_contains($key, 'field_')) {
-                    $field = $key;
-                } elseif (str_contains($value, 'field_')) {
-                    $field = $value;
-                }
+            //Must validate as a field_key
+            if (!str_contains($value, 'field_')) {
+                continue;
             }
 
-            $fieldObject = get_field_object($field);
+            // Get full field specification
+            if (!$fieldObject = get_field_object($value)) {
+                continue;
+            }
+
             //Skip validation of decendants
             if (isset($fieldObject['parent']) && str_contains($fieldObject['parent'], 'field_')) {
                 continue;
             }
 
             //Check if required field has a value
-            if($fieldObject['required'] && (!$fieldObject['value'] && $fieldObject['value'] !== "0")) {
+            if ($fieldObject['required'] && (!$fieldObject['value'] && $fieldObject['value'] !== "0")) {
                 $valid = false;
             }
         }
