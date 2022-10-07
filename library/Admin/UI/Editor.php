@@ -20,7 +20,6 @@ class Editor
         $this->pricons();
 
         // Filters
-        add_filter('embed_oembed_html', '\Municipio\Admin\UI\Editor::oembed', 10, 4); // Enables oembed features
         add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
     }
 
@@ -130,37 +129,6 @@ class Editor
         );
 
     }
-
-    /**
-     * Filters oembed output
-     * @param  string $data Markup
-     * @param  string $url  Embedded url
-     * @param  array $args  Args
-     * @return string       Markup
-     */
-    public static function oembed($html, $url, $attr, $postId, $wrapper = true)
-    {
-        $provider = false;
-
-        if (strpos(strtolower($url), 'youtube') !== false || strpos(strtolower($url), 'youtu.be') !== false) {
-            $provider = 'YouTube';
-        } elseif (strpos(strtolower($url), 'vimeo') !== false) {
-            $provider = 'Vimeo';
-        }
-
-        $shouldFilter = apply_filters('Municipio/oembed/should_filter_markup', true, $provider, $url, $postId);
-
-        // Check if there's a oembed class for the provider
-        if (!class_exists('\Municipio\Oembed\\' . $provider) || !$shouldFilter) {
-            return $html;
-        }
-
-        $class = '\Municipio\Oembed\\' . $provider;
-        $oembed = new $class($url, $html, $wrapper);
-
-        return $oembed->output();
-    }
-
     /**
      * Add style format options
      * @param  array $settings  Options array
