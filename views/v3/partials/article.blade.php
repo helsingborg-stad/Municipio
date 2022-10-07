@@ -46,7 +46,7 @@
 			'message' => [
 				'text' => $postAgeNotice,
 			],
-			'type' => 'danger',
+			'type' => 'info',
 			'icon' => [
 				'name' => 'lock_clock',
 				'size' => 'md',
