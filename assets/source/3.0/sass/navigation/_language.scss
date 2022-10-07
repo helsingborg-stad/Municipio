@@ -41,6 +41,11 @@
             color: white;
         }
     }
+    
+    .c-nav__link, .c-nav__text {
+        color: var(--color-darkest, #3d3d3d);
+    }
+
 }
 
 @include mq(map_get($breakpoints-map, "lg")) {
