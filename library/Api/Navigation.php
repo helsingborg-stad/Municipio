@@ -15,11 +15,13 @@ class Navigation
         register_rest_route('municipio/v1', '/navigation/children', array(
             'methods' => 'GET',
             'callback' => array($this, 'getPostChildren'),
+            'permission_callback' => '__return_true'
         ));
 
         register_rest_route('municipio/v1', '/navigation/children/render', array(
             'methods' => 'GET',
             'callback' => array($this, 'renderPostChildren'),
+            'permission_callback' => '__return_true'
         ));
     }
 
