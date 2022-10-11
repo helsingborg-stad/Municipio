@@ -80,6 +80,7 @@ class Sidebars
          * Create a total of 6 footer areas for use with the "columns" footer style
          */
         $footerStyle = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style') ?? 'basic';
+        $footerGridSize = $footerStyle === 'basic' ? 4 : 12;
         for ($i = 0; $i < 6; $i++) {
             $suffix = ($i !== 0 ? '-column-' . $i : '');
             register_sidebar(array(
@@ -88,7 +89,7 @@ class Sidebars
                 'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
-                'before_widget' => '<div class="o-grid-12@sm o-grid-6@md o-grid-4@lg"><div id="%1$s" class="%2$s">',
+                'before_widget' => '<div class="o-grid-'.$footerGridSize.' o-grid-12@xs"><div id="%1$s" class="%2$s">',
                 'after_widget'  => '</div></div>'
             ));
         }
