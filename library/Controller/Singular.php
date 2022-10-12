@@ -256,7 +256,7 @@ class Singular extends \Municipio\Controller\BaseController
         if (function_exists('get_field')) {
             $postTypes = (array) get_field('avabile_dynamic_post_types', 'option');
             foreach ($postTypes as $type) {
-                if ($type['slug'] !== $post->postType) {
+                if ($type['slug'] !== (get_post_type_object($post->postType)->rewrite['slug'] ?? '')) {
                     continue;
                 }
 
