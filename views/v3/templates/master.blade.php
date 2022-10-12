@@ -18,6 +18,12 @@
             var ajaxurl = '{!! $ajaxUrl !!}';
         </script>
 
+        @if($structuredData)
+            <script type="application/ld+json">
+                {!! $structuredData !!}
+            </script>
+        @endif
+
         {{-- Wordpress required call to wp_header() --}}
         {!! $wpHeader !!}
 

@@ -159,6 +159,12 @@ class BaseController
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
 
+        //Structured data
+        $this->data['structuredData']       = $this->getStructuredData(
+            $this->data['postType'],
+            $this->getPageID()
+        );
+
         //Notice storage
         $this->data['notice']               = [];
 
@@ -221,6 +227,39 @@ class BaseController
         $this->init();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $postType
+     * @return void
+     */
+    public function getStructuredData($postType, $postId) {
+
+        $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
+
+        if (is_null($schema)) {
+            return false;
+        }
+
+        if (empty($schema)) {
+            return false;
+        }
+
+        //Default common schema
+        $schema = array_merge(
+            ["@context" => "https://schema.org/"],
+            $schema
+        );
+
+        return json_encode($schema);
+    }
+
+    /**
+     * Get the emblem to use
+     *
+     * @param array $data
+     * @return array
+     */
     public function componentDataEmblemFilter($data)
     {
         if ($data['hasPlaceholder'] === true) {
