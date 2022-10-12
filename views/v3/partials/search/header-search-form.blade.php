@@ -9,7 +9,6 @@
         @field([
             'id'            => 'header-search-form--field',
             'type'          => 'text',
-            'placeholder'   => $lang->search,
             'size'          => 'sm',
             'radius'        => 'sm',
             'borderless'    => true,

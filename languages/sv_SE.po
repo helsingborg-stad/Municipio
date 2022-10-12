@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-07 15:53+0200\n"
-"PO-Revision-Date: 2022-10-07 16:12+0200\n"
+"POT-Creation-Date: 2022-10-12 10:16+0200\n"
+"PO-Revision-Date: 2022-10-12 16:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -7234,6 +7234,16 @@ msgstr "Mängden skugga"
 msgid "The shadow sizes will automatically be multiplied from the value below. A value of 0 will completly turn off shadows."
 msgstr "Skuggans storlek beräknas automatiskt fram från inställt värde. Ett nollvärde stänger av skuggor helt och hållet."
 
+#: library/Customizer/Sections/Shadow.php:42
+#, fuzzy
+#| msgid "Amount of shadows"
+msgid "Color of shadows"
+msgstr "Mängden skugga"
+
+#: library/Customizer/Sections/Shadow.php:43
+msgid "What color to use for shadows."
+msgstr ""
+
 #: library/Customizer/Sections/Slider.php:19
 msgid "Slider"
 msgstr ""
@@ -7312,8 +7322,10 @@ msgid "Use the same font as base but preferably with a higher font weight"
 msgstr "Använd samma typsnitt som bas men mer fetstilad"
 
 #: library/Customizer/Sections/Typography.php:140
-msgid "Kursiv"
-msgstr ""
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:116
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:135
+msgid "Italic"
+msgstr "Kursiv"
 
 #: library/Customizer/Sections/Typography.php:141
 msgid "Use the same font as base but preferably with an italic style"
@@ -7364,9 +7376,23 @@ msgstr ""
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
-#: library/Oembed/Vimeo.php:19
-msgid "Video playback unavailable, enable JavaScript in your browser to watch video."
-msgstr "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din webbläsare."
+#: library/Oembed/OembedFilters.php:18 library/Oembed/OembedFilters.php:24
+msgid "We need your consent to continue"
+msgstr "Vi behöver ditt godkännande för att ta dig vidare"
+
+#: library/Oembed/OembedFilters.php:19
+#, php-format
+msgid "This part of the website shows content from %s. By continuing, <a href=\"%s\"> you are accepting GDPR and privacy policy</a>."
+msgstr "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
+
+#: library/Oembed/OembedFilters.php:20 library/Oembed/OembedFilters.php:26
+msgid "I understand, continue."
+msgstr "Jag förstår, fortsätt."
+
+#: library/Oembed/OembedFilters.php:25
+#, php-format
+msgid "This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy."
+msgstr "Den här delen av hemsidan visar innehåll från en annan webbplats (%s). Genom att fortsätta godkänner du GDPR och Sekretesspolicyn."
 
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
@@ -8023,11 +8049,6 @@ msgstr "LjusHöjd"
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:131
 msgid "Regular"
 msgstr "Normal"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:116
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:135
-msgid "Italic"
-msgstr "Kursiv"
 
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:120
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:179
@@ -8861,7 +8882,7 @@ msgstr "Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Ko
 
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
-msgstr "http://www.helsingborg.se"
+msgstr "https://www.helsingborg.se"
 
 #~ msgid ""
 #~ "A bootstrap theme for creating municipality sites. Works veary webb with "
@@ -8873,6 +8894,11 @@ msgstr "http://www.helsingborg.se"
 
 #~ msgid "https://github.com/helsingborg-stad/Municipio"
 #~ msgstr "https://github.com/helsingborg-stad/Municipio"
+#~ "Video playback unavailable, enable JavaScript in your browser to watch "
+#~ "video."
+#~ msgstr ""
+#~ "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
+#~ "webbläsare."
 
 #, fuzzy
 #~| msgid "Post Types"
