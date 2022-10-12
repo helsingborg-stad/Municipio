@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-27 15:52+0200\n"
-"PO-Revision-Date: 2022-09-27 15:55+0200\n"
+"POT-Creation-Date: 2022-10-12 10:16+0200\n"
+"PO-Revision-Date: 2022-10-12 10:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: Swedish (Sweden)\n"
 "Language: sv\n"
@@ -7309,6 +7309,16 @@ msgstr ""
 "Skuggans storlek beräknas automatiskt fram från inställt värde. Ett "
 "nollvärde stänger av skuggor helt och hållet."
 
+#: library/Customizer/Sections/Shadow.php:42
+#, fuzzy
+#| msgid "Amount of shadows"
+msgid "Color of shadows"
+msgstr "Mängden skugga"
+
+#: library/Customizer/Sections/Shadow.php:43
+msgid "What color to use for shadows."
+msgstr ""
+
 #: library/Customizer/Sections/Slider.php:19
 msgid "Slider"
 msgstr ""
@@ -7393,8 +7403,10 @@ msgid "Use the same font as base but preferably with a higher font weight"
 msgstr "Använd samma typsnitt som bas men mer fetstilad"
 
 #: library/Customizer/Sections/Typography.php:140
-msgid "Kursiv"
-msgstr ""
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:116
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:135
+msgid "Italic"
+msgstr "Kursiv"
 
 #: library/Customizer/Sections/Typography.php:141
 msgid "Use the same font as base but preferably with an italic style"
@@ -7449,12 +7461,31 @@ msgstr "Hem"
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
-#: library/Oembed/Vimeo.php:19
+#: library/Oembed/OembedFilters.php:18 library/Oembed/OembedFilters.php:24
+msgid "We need your consent to continue"
+msgstr "Vi behöver ditt godkännande för att ta dig vidare"
+
+#: library/Oembed/OembedFilters.php:19
+#, php-format
 msgid ""
-"Video playback unavailable, enable JavaScript in your browser to watch video."
+"This part of the website shows content from %s. By continuing, <a href=\"%s"
+"\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
-"Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
-"webbläsare."
+"Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta "
+"godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
+
+#: library/Oembed/OembedFilters.php:20 library/Oembed/OembedFilters.php:26
+msgid "I understand, continue."
+msgstr "Jag förstår, fortsätt."
+
+#: library/Oembed/OembedFilters.php:25
+#, php-format
+msgid ""
+"This part of the website shows content from another website (%s). By "
+"continuing, you are accepting GDPR and privacy policy."
+msgstr ""
+"Den här delen av hemsidan visar innehåll från en annan webbplats (%s). Genom "
+"att fortsätta godkänner du GDPR och Sekretesspolicyn."
 
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
@@ -7468,91 +7499,91 @@ msgstr "Standard (Sida)"
 msgid "One Page"
 msgstr "One Page"
 
-#: library/Theme/Enqueue.php:106
+#: library/Theme/Enqueue.php:119
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:109
+#: library/Theme/Enqueue.php:122
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:110
+#: library/Theme/Enqueue.php:123
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:122
+#: library/Theme/Enqueue.php:135
 msgid "January"
 msgstr "Januari"
 
-#: library/Theme/Enqueue.php:123
+#: library/Theme/Enqueue.php:136
 msgid "February"
 msgstr "Februari"
 
-#: library/Theme/Enqueue.php:124
+#: library/Theme/Enqueue.php:137
 msgid "March"
 msgstr "Mars"
 
-#: library/Theme/Enqueue.php:125
+#: library/Theme/Enqueue.php:138
 msgid "April"
 msgstr "April"
 
-#: library/Theme/Enqueue.php:126
+#: library/Theme/Enqueue.php:139
 msgid "May"
 msgstr "Maj"
 
-#: library/Theme/Enqueue.php:127
+#: library/Theme/Enqueue.php:140
 msgid "June"
 msgstr "Juni"
 
-#: library/Theme/Enqueue.php:128
+#: library/Theme/Enqueue.php:141
 msgid "July"
 msgstr "Juli"
 
-#: library/Theme/Enqueue.php:129
+#: library/Theme/Enqueue.php:142
 msgid "August"
 msgstr "Augusti"
 
-#: library/Theme/Enqueue.php:130
+#: library/Theme/Enqueue.php:143
 msgid "September"
 msgstr "September"
 
-#: library/Theme/Enqueue.php:131
+#: library/Theme/Enqueue.php:144
 msgid "October"
 msgstr "Oktober"
 
-#: library/Theme/Enqueue.php:132
+#: library/Theme/Enqueue.php:145
 msgid "November"
 msgstr "November"
 
-#: library/Theme/Enqueue.php:133
+#: library/Theme/Enqueue.php:146
 msgid "December"
 msgstr "December"
 
-#: library/Theme/Enqueue.php:137
+#: library/Theme/Enqueue.php:150
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:138
+#: library/Theme/Enqueue.php:151
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:139
+#: library/Theme/Enqueue.php:152
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:140
+#: library/Theme/Enqueue.php:153
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:141
+#: library/Theme/Enqueue.php:154
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:142
+#: library/Theme/Enqueue.php:155
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:143
+#: library/Theme/Enqueue.php:156
 msgid "Sa"
 msgstr "Lö"
 
@@ -8111,11 +8142,6 @@ msgstr "Höjd"
 #, fuzzy
 msgid "Regular"
 msgstr "Normal (400)"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:116
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:135
-msgid "Italic"
-msgstr "Kursiv"
 
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:120
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:179
@@ -9000,6 +9026,13 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr "http://www.helsingborg.se"
+
+#~ msgid ""
+#~ "Video playback unavailable, enable JavaScript in your browser to watch "
+#~ "video."
+#~ msgstr ""
+#~ "Uppspelning av video är inte tillgänglig, aktivera JavaScript i din "
+#~ "webbläsare."
 
 #, fuzzy
 #~| msgid "Post Types"
