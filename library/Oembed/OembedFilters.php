@@ -12,8 +12,10 @@ class OembedFilters
 
      public static function oembed_result($html, $url, $args)
     {
-        $html = str_replace('{PLACEHOLDER_IMAGE}', $args['placeholder_image'], $html);
-
+            $html = str_replace('{PLACEHOLDER_IMAGE}', 
+            $args['placeholder_image'], 
+            $html);
+        
         return $html;
     }
 
