@@ -15,7 +15,7 @@ class Singular extends \Municipio\Controller\BaseController
     {
         parent::init();
 
-        //Get post data 
+        //Get post data
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));
 
         $this->data['isBlogStyle'] = $this->data['post']->postType === "post" || "nyheter" ? true : false;
@@ -24,7 +24,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id);
 
         //Signature options
-        $this->data['signature'] = $this->getSignature(); 
+        $this->data['signature'] = $this->getSignature();
 
         $this->data['publishTranslations'] = (object) array(
             'updated'   => __('Updated', 'municipio'),
@@ -34,7 +34,7 @@ class Singular extends \Municipio\Controller\BaseController
         );
 
         //Reading time
-        $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent); 
+        $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent);
         $this->data['lang']->readingTime    = __('Reading time', 'municipio');
 
         //Comments
@@ -62,13 +62,15 @@ class Singular extends \Municipio\Controller\BaseController
         );
 
         //Post settings
-        $this->data['settingItems'] = apply_filters_deprecated('Municipio/blog/post_settings', array($this->data['post']), '3.0', 'Municipio/blog/postSettings'); 
+        $this->data['settingItems'] = apply_filters_deprecated('Municipio/blog/post_settings', array($this->data['post']), '3.0', 'Municipio/blog/postSettings');
 
         //Should link author page
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
 
         //Main content padder
         $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
+
+        $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
         return $this->data;
     }
@@ -78,7 +80,6 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getMainContentPadding($customizer): array
     {
-
         //Name shorten
         $padding = $customizer->mainContentPadding;
 
@@ -88,7 +89,7 @@ class Singular extends \Municipio\Controller\BaseController
             return [
                 'md' => ($padding / 2),
                 'lg' => $padding
-            ];  
+            ];
         }
 
         //Return default values
@@ -104,11 +105,11 @@ class Singular extends \Municipio\Controller\BaseController
     public function getSignature(): object
     {
         $postId         = $this->data['post']->id;
-        $displayAuthor  = get_field('page_show_author', 'option'); 
-        $displayAvatar  = get_field('page_show_author_image', 'option'); 
+        $displayAuthor  = get_field('page_show_author', 'option');
+        $displayAvatar  = get_field('page_show_author_image', 'option');
         $linkAuthor     = get_field('page_link_to_author_archive', 'option');
 
-        $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option')); 
+        $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option'));
         $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option'));
 
         if ($displayPublish) {
@@ -149,7 +150,7 @@ class Singular extends \Municipio\Controller\BaseController
         $prohoboitedUserNames = [
             get_the_author_meta('user_login', $this->data['post']->postAuthor),
             get_the_author_meta('nickname', $this->data['post']->postAuthor)
-        ]; 
+        ];
 
         //Assign only if fancy variant of name
         if (!in_array($displayName, $prohoboitedUserNames)) {
@@ -157,7 +158,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         //Get avatar url
-        $avatar = get_avatar_url($id, ['default' => 'blank']); 
+        $avatar = get_avatar_url($id, ['default' => 'blank']);
         if (!preg_match('/d=blank/i', $avatar)) {
             $author['avatar'] = $avatar;
         }
@@ -172,7 +173,7 @@ class Singular extends \Municipio\Controller\BaseController
     private function getPostDates($id) : object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
-            'published' => get_the_date(), 
+            'published' => get_the_date(),
             'updated' => get_the_modified_date()
         ]);
     }
@@ -184,7 +185,6 @@ class Singular extends \Municipio\Controller\BaseController
      */
     private function getFeaturedImage($postId, $size = [1920,1080])
     {
-
         //Check option if it should be displayed
         if (get_field('post_single_show_featured_image', $postId) == false) {
             return false;
@@ -199,7 +199,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         $featuredImageObject = (object) [
-            'id'    => $featuredImageId, 
+            'id'    => $featuredImageId,
             'src'   => wp_get_attachment_image_src($featuredImageId, $size),
             'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
             'title' => get_the_title($featuredImageId)
@@ -215,7 +215,61 @@ class Singular extends \Municipio\Controller\BaseController
      * @param   integer     $factor         What factor to devide with, default 200 = normal reading speed
      * @return  integer                     Interger representing number of reading minutes
      */
-    public function getReadingTime($postContent, $factor = 200) {
+    public function getReadingTime($postContent, $factor = 200)
+    {
         return (int) ceil((str_word_count(strip_tags($postContent)) / $factor));
+    }
+
+    /**
+     * > This function takes a date string and returns the number of days since that date
+     *
+     * @param string postDate The date the post was created.
+     *
+     * @return The difference in days between the current date and the date the post was created.
+     */
+    public function getPostAge(string $postDate)
+    {
+        if (! $postDate) {
+            return;
+        }
+
+        $created = date_create($postDate);
+        $now     = date_create();
+        $diff    = date_diff($created, $now);
+
+        return $diff->days;
+    }
+    /**
+     * If the post type is set to display age notification, and the post is older than the set number
+     * of days, return a string with the number of days
+     *
+     * @param object post The post object
+     *
+     * @return A string
+     */
+    public function getPostAgeNotice(object $post)
+    {
+        if (! is_object($post)) {
+            return false;
+        }
+
+        if (function_exists('get_field')) {
+            $postTypes = (array) get_field('avabile_dynamic_post_types', 'option');
+            foreach ($postTypes as $type) {
+                if ($type['slug'] !== $post->postType) {
+                    continue;
+                }
+
+                $type = (object) \Municipio\Helper\FormatObject::camelCase($type);
+                if ($type->displayAgeNotificationOnPosts === (bool) true) {
+                    $postAge = $this->getPostAge($post->postDate);
+                    if ($postAge > $type->postAgeDays) {
+                        return sprintf(_n('This content was published more than %s day ago.', 'This content was published more than %s days ago.', $type->postAgeDays, 'municipio'), $type->postAgeDays);
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 }

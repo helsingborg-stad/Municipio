@@ -41,6 +41,20 @@
 
 	<!-- Content -->
     @section('article.content.before')@show
+	@if($postAgeNotice)
+		@notice([
+			'message' => [
+				'text' => $postAgeNotice,
+			],
+			'type' => 'info',
+			'icon' => [
+				'name' => 'lock_clock',
+				'size' => 'md',
+				'color' => 'white'
+			]
+		])
+		@endnotice
+	@endif
 	{!! $postContentFiltered !!}
     @section('article.content.after')@show
 
