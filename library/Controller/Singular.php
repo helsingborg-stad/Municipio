@@ -255,21 +255,24 @@ class Singular extends \Municipio\Controller\BaseController
 
         if (function_exists('get_field')) {
             $postTypes = (array) get_field('avabile_dynamic_post_types', 'option');
-            foreach ($postTypes as $type) {
-                if ($type['slug'] !== (get_post_type_object($post->postType)->rewrite['slug'] ?? '')) {
-                    continue;
-                }
 
-                $type = (object) \Municipio\Helper\FormatObject::camelCase($type);
-                if ($type->displayAgeNotificationOnPosts === (bool) true) {
-                    $postAge = $this->getPostAge($post->postDate);
-                    if ($postAge > $type->postAgeDays) {
-                        return sprintf(_n('This content was published more than %s day ago.', 'This content was published more than %s days ago.', $type->postAgeDays, 'municipio'), $type->postAgeDays);
+            if (is_array($postTypes) && !empty($postTypes)) {
+                foreach ($postTypes as $type) {
+                    if ($type['slug'] !== (get_post_type_object($post->postType)->rewrite['slug'] ?? '')) {
+                        continue;
+                    }
+
+                    $type = (object) \Municipio\Helper\FormatObject::camelCase($type);
+                    if ($type->displayAgeNotificationOnPosts === (bool) true) {
+                        $postAge = $this->getPostAge($post->postDate);
+                        if ($postAge > $type->postAgeDays) {
+                            return sprintf(_n('This content was published more than %s day ago.', 'This content was published more than %s days ago.', $type->postAgeDays, 'municipio'), $type->postAgeDays);
+                        }
                     }
                 }
             }
         }
-        
+
         return false;
     }
 }
