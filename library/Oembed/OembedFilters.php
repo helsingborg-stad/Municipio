@@ -6,17 +6,7 @@ class OembedFilters
 {
     public function __construct()
     {
-        add_filter('oembed_result', '\Municipio\Oembed\OembedFilters::oembed_result', 10, 3);
         add_filter('oembed_dataparse', '\Municipio\Oembed\OembedFilters::oembed_dataparse', 1, 3);
-    }
-
-     public static function oembed_result($html, $url, $args)
-    {
-            $html = str_replace('{PLACEHOLDER_IMAGE}', 
-            $args['placeholder_image'], 
-            $html);
-        
-        return $html;
     }
 
     public static function oembed_dataparse($output, $data, $url)

@@ -5,7 +5,6 @@
 	'title' =>  $data->title,
     'classList' => ['js-suppressed-iframe'],
 	'options' =>json_encode($data->lang),
-	'placeholderImage' => '{PLACEHOLDER_IMAGE}',
 	'embedVideo' => 'js-suppressed-video'
 ])
 @endiframe
