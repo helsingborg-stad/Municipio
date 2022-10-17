@@ -2,6 +2,7 @@
 	overflow: hidden;
 	position: relative;
 	height: 0;
+	background-size: cover;
 
 	&.embed__ratio--16-9 {
 		padding-bottom: 56.25%;
