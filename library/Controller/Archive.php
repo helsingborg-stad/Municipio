@@ -325,7 +325,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveLead',
-            $args->body
+            $args->body ?? ''
         );
     }
 
