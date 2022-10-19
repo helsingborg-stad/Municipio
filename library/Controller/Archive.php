@@ -312,7 +312,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveTitle',
-            $args->heading
+            $args->heading ?? ''
         );
     }
 
