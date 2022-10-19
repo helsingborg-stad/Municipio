@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html {!! $languageAttributes !!}>
     <head>
 
@@ -68,11 +69,7 @@
                     <div class="o-container">
 
                         @hasSection('helper-navigation')
-                            <div class="o-grid o-grid--no-margin u-print-display--none">
-                                <div class="o-grid-12">
-                                    @yield('helper-navigation')
-                                </div>
-                            </div>
+                            @yield('helper-navigation')
                         @endif
 
                         @hasSection('above')

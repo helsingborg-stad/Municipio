@@ -8,6 +8,8 @@
 @section('layout')
     <div class="o-container">
 
+      @includeIf('partials.navigation.helper')
+
       {!! $hook->innerLoopStart !!}
 
       @if($hasBlocks && $post)
