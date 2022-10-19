@@ -2,9 +2,14 @@
 	overflow: hidden;
 	position: relative;
 	height: 0;
+	background-size: cover;
 
 	&.embed__ratio--16-9 {
-		padding-bottom: 56.25%;
+		@include ratio(16, 9, false);
+	}
+
+	&.embed__ratio--1-1 {
+		@include ratio(1, 1, false);
 	}
 
 	iframe {
