@@ -151,7 +151,7 @@ class Post
 
         //Get filtered post title
         if (in_array('post_title_filtered', $appendFields)) {
-            $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title);
+            $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title, $postObject->ID);
         }
 
         //Get post tumbnail image
