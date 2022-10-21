@@ -51,6 +51,7 @@ class Icon
           'phone' => __("Phone", 'municipio'),
           'facebook' => __("Facebook emblem", 'municipio'),
           'chat_bubble' => __("Chat bubble", 'municipio'),
+          'close' => __("Close cross", 'municipio'),
         ];
     }
 

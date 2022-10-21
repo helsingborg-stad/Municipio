@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-21 12:11+0200\n"
-"PO-Revision-Date: 2022-10-21 12:14+0200\n"
+"POT-Creation-Date: 2022-10-21 13:52+0200\n"
+"PO-Revision-Date: 2022-10-21 13:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -7655,7 +7655,6 @@ msgid "April"
 msgstr "April"
 
 #: library/Theme/Enqueue.php:139
-#| msgid "day"
 msgid "May"
 msgstr "Maj"
 
@@ -7729,10 +7728,8 @@ msgstr "Jordglob"
 
 #: library/Theme/Icon.php:45
 #: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:153
-#, fuzzy
-#| msgid "Standard"
 msgid "Calendar"
-msgstr "Standard"
+msgstr "Kalender"
 
 #: library/Theme/Icon.php:46
 msgid "Magnifying glass"
@@ -7766,7 +7763,11 @@ msgstr "Facebookemblem"
 msgid "Chat bubble"
 msgstr "Chattbubbla"
 
-#: library/Theme/Icon.php:59
+#: library/Theme/Icon.php:54
+msgid "Close cross"
+msgstr "Kryss"
+
+#: library/Theme/Icon.php:60
 msgid "Undefined"
 msgstr "Ej beskriven"
 
