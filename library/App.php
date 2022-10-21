@@ -38,6 +38,7 @@ class App
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
         new \Municipio\Theme\Navigation();
+        new \Municipio\Theme\Icon();
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
