@@ -6,7 +6,7 @@
           'type' => 'email',
           'name' => 'email',
           'pattern' => '^[^@]+@[^@]+\.[^@]+$',
-          'autocomplete' => 'e-mail',
+          'autocomplete' => 'email',
           'data-invalid-message' => "You need to add a valid E-mail!"
       ],
       'label' => $lang->email,
