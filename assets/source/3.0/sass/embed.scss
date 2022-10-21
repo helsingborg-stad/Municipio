@@ -8,6 +8,17 @@
 		padding-bottom: 56.25%;
 	}
 
+	.embed__icon {
+		position:absolute;
+		top:50%;
+		left:50%;
+        transform: translate(-50%, -50%);
+		display: none;
+		font-size: 80px;
+        cursor: pointer;
+		z-index: 2;
+	}
+
 	iframe {
 		left: 0;
 		top: 0;
