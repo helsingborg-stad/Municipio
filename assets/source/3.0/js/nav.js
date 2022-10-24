@@ -101,7 +101,7 @@ function isCurrentlyBeingTranslated () {
 const init = (event) => {
 
     /* 
-    * Hide language menu if the site is loaded in an iframe 
+    * Hide language menu if the site is loaded with translate.goog as top level domain 
     * to prevent google translate from opening multiple sites within.
     */ 
    
