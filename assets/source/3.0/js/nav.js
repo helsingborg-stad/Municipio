@@ -97,7 +97,7 @@ const init = (event) => {
     * to prevent google translate from opening multiple sites within.
     */ 
     if(inIframe()) {
-        const languageMenu = document.getElementById('language'); 
+        const languageMenu = document.getElementById('site-language-menu-button'); 
 
         if(languageMenu) {
             languageMenu.remove()
