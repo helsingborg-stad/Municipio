@@ -1,4 +1,2 @@
-@if (count($breadcrumbItems) > 1)
-	@breadcrumb(['list' => $breadcrumbItems])
-	@endbreadcrumb
-@endif
+@breadcrumb(['list' => $breadcrumbItems])
+@endbreadcrumb

@@ -1,5 +1,4 @@
-@php $accessabilityItems = apply_filters('accessibility_items', array()); @endphp
-@if ((count($breadcrumbItems) > 1) || (!empty($accessabilityItems) && is_array($accessabilityItems)))
+@if(!$isFrontPage)
 	<div class="o-grid o-grid--no-margin u-print-display--none">
 	    <div class="o-grid-12">
 			<div class="nav-helper">
