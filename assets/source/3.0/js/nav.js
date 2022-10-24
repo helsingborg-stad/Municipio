@@ -92,12 +92,10 @@ function isCurrentlyBeingTranslated () {
 	const hostChunks = window.location.hostname.split('.');
 	const hostTop =  hostChunks[hostChunks.length - 1] + '.' + hostChunks[hostChunks.length - 2];
 
-	switch (hostTop) {
-		case 'translate.goog':
-			return true;
-		default:
-			return false;
+	if ( 'translate.goog' === hostTop ) {
+		return true;
 	}
+	return false;
 }
 
 const init = (event) => {
