@@ -69,7 +69,8 @@ class Padding
                 [
                   'type' => 'modifier',
                   'context' => [
-                    'component.card'
+                    'component.card',
+                    'component.paper'
                   ]
                 ]
             ],
