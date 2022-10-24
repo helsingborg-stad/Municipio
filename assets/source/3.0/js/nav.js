@@ -84,9 +84,9 @@ const subscribeOnClick = element => {
 
 function inIframe () {
     try {
-        return window.self !== window.top;
+        return window.location !== window.parent.location;
     } catch (e) {
-        return true;
+        return false;
     }
 }
 
@@ -96,11 +96,13 @@ const init = (event) => {
     * Hide language menu if the site is loaded in an iframe 
     * to prevent google translate from opening multiple sites within.
     */ 
+   
     if(inIframe()) {
-        const languageMenu = document.getElementById('site-language-menu-button'); 
-
-        if(languageMenu) {
-            languageMenu.remove()
+        const languageMenu = document.getElementsByClassName('site-language-menu'); 
+        if(languageMenu.length > 0) {
+            [...languageMenu].forEach(element => {
+				element.remove();
+			});
         }
     }
 
