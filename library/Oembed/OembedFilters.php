@@ -25,8 +25,15 @@ class OembedFilters
                     'button' => __('I understand, continue.', 'modularity'),
                 ],
             ];
-            
-            return render_blade_view('partials.iframe', ['data' => $data, 'src' => $url, 'placeholder_image' => $args ]);
+
+            return render_blade_view(
+                'partials.iframe',
+                [
+                    'settings' => $data,
+                    'src' => $url,
+                    'placeholder_image' => $args
+                ]
+            );
         }
         return $output;
     }
