@@ -82,25 +82,32 @@ const subscribeOnClick = element => {
     element.addEventListener('click', handleClick);
 }
 
-function inIframe () {
-    try {
-        return window.self !== window.top;
-    } catch (e) {
-        return true;
-    }
+/**
+ * If the top level domain of the current URL is `translate.goog`, then return `true`, otherwise return
+ * `false`
+ * @returns A boolean value.
+ */
+function isCurrentlyBeingTranslated () {
+
+	const hostChunks = window.location.hostname.split('.');
+	const hostTop =  hostChunks[hostChunks.length - 2] + '.' + hostChunks[hostChunks.length - 1];
+
+	return 'translate.goog' === hostTop;
 }
 
 const init = (event) => {
 
     /* 
-    * Hide language menu if the site is loaded in an iframe 
+    * Hide language menu if the site is loaded with translate.goog as top level domain 
     * to prevent google translate from opening multiple sites within.
     */ 
-    if(inIframe()) {
-        const languageMenu = document.getElementById('language'); 
-
-        if(languageMenu) {
-            languageMenu.remove()
+   
+    if(isCurrentlyBeingTranslated()) {
+        const languageMenu = document.getElementsByClassName('site-language-menu'); 
+        if(languageMenu.length > 0) {
+            [...languageMenu].forEach(element => {
+				element.remove();
+			});
         }
     }
 

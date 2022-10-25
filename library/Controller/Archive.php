@@ -312,7 +312,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveTitle',
-            $args->heading
+            $args->heading ?? ''
         );
     }
 
@@ -325,7 +325,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         return (string) \apply_filters(
             'Municipio/Controller/Archive/getArchiveLead',
-            $args->body
+            $args->body ?? ''
         );
     }
 
@@ -547,7 +547,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $preparedPosts = [];
 
-        if ($archiveProps->dateField === 'none' || is_null($archiveProps->dateField)) {
+        if (!isset($archiveProps->dateField) || is_null($archiveProps->dateField) || $archiveProps->dateField === 'none') {
             return $posts;
         }
 
