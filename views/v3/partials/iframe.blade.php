@@ -1,9 +1,9 @@
 @iframe([
 	'src' => $src,
-	'height' => $data->height,
-	'width' => $data->width,
-	'title' =>  $data->title,
-	'options' =>json_encode($data->lang),
+	'height' => $settings->height,
+	'width' => $settings->width,
+	'title' =>  $settings->title,
+	'options' =>json_encode($settings->lang),
 	'modifier' => '--video'
 ])
 @endiframe
