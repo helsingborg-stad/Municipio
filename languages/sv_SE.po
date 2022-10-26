@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-21 13:52+0200\n"
-"PO-Revision-Date: 2022-10-21 13:53+0200\n"
+"POT-Creation-Date: 2022-10-26 15:06+0200\n"
+"PO-Revision-Date: 2022-10-26 15:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -7767,7 +7767,11 @@ msgstr "Chattbubbla"
 msgid "Close cross"
 msgstr "Kryss"
 
-#: library/Theme/Icon.php:60
+#: library/Theme/Icon.php:55
+msgid "Information"
+msgstr "Information"
+
+#: library/Theme/Icon.php:61
 msgid "Undefined"
 msgstr "Ej beskriven"
 
