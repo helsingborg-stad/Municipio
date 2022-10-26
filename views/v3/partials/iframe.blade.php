@@ -1,10 +1,9 @@
 @iframe([
 	'src' => $src,
-	'height' => $settings->height,
-	'width' => $settings->width,
-	'title' =>  $settings->title,
-   'classList' => ['js-suppressed-iframe'],
-	'options' =>json_encode($settings->lang),
-	'embedVideo' => 'js-suppressed-video'
+	'height' => $data->height,
+	'width' => $data->width,
+	'title' =>  $data->title,
+	'options' =>json_encode($data->lang),
+	'modifier' => '--video'
 ])
 @endiframe
