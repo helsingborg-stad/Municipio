@@ -127,7 +127,7 @@ class Header
             'default'     => 6,
             'choices'     => [
                 'min'  => 3,
-                'max'  => 12,
+                'max'  => 20,
                 'step' => 1,
             ],
             'output' => [
