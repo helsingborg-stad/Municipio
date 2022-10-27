@@ -31,7 +31,7 @@ class OembedFilters
                 [
                     'settings' => $data,
                     'src' => $url,
-                    'placeholder_image' => $args
+                    'placeholder_image' => $args ?? '',
                 ]
             );
         }
