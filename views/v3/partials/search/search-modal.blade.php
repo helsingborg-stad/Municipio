@@ -3,7 +3,7 @@
     'id' => 'm-search-modal__trigger', 
     'classList' => ['search-modal'], 
     'size' => 'xl', 
-    'isPanel' => true
+    'isPanel' => true,
 ])
     @form([
         'method' => 'get',
@@ -22,6 +22,8 @@
             @field([
                 'type' => 'text',
                 'value' => $searchQuery,
+                'label' => $lang->searchQuestion,
+                'hideLabel' => true,
                 'attributeList' => [
                     'type' => 'search',
                     'name' => 's',
