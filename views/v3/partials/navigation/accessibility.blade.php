@@ -5,16 +5,18 @@
                 role="menubar">
 		@foreach ($accessabilityItems as $item) {{-- TODO: Move to controller. --}}
 			<li role="menuitem">
-				@icon([
-					'icon' => $item['icon'],
-					'size' => 'md'
-				])
-				@endicon
 				@link([
 					'href' => $item['href'] ?? null,
-					'attributeList' => ['onClick' => $item['script'] ?? '']
-
+					'attributeList' => [
+						'onClick' => $item['script'] ?? '',
+						'aria-label' => $item['label'] ?? '',
+					]
 				])
+					@icon([
+						'icon' => $item['icon'],
+						'size' => 'md'
+					])
+					@endicon
 					{{$item['text']}}
 				@endbutton
 			</li>

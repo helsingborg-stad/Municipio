@@ -254,13 +254,15 @@ class General
      */
     public function accessibilityItems($items)
     {
-        if (is_single() || is_page()) {
+        if (is_single() || is_page())
+        {
 
             $items[] =  array(
                 'icon' => 'print',
                 'href' => '#',
                 'script' => 'window.print();return false;',
-                'text' => __('Print', 'municipio')
+                'text' => __('Print', 'municipio'),
+                'label' => __('Print this page', 'municipio')
             );
 
             return $items;
