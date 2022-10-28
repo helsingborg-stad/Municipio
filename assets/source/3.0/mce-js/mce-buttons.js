@@ -31,14 +31,13 @@
                                     var button =
                                         '<a href="' +
                                         btnLink +
-                                        '" class="u-no-decoration">' +
-                                        '<button class="' +
-                                        btnClass +
+                                        '" class="' +
+                                        btnClass + "u-no-decoration" +
                                         '">' +
                                         '<span class="c-button__label">' +
                                         '<span class="c-button__label-text">' +
                                         btnText +
-                                        '</span></span></button></a>';
+                                        '</span></span></a>';
                                     editor.insertContent(button);
                                     editor.windowManager.close();
                                     return true;
