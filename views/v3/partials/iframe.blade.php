@@ -3,7 +3,7 @@
 	'height' => $settings->height,
 	'width' => $settings->width,
 	'title' =>  $settings->title,
-	'options' =>json_encode($settings->lang),
+	'labels' => $settings->lang,
 	'modifier' => 'video'
 ])
 @endiframe
