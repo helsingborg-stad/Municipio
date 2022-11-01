@@ -25,12 +25,9 @@
                         @group(['direction' => 'horizontal'])
                             @field([
                                 'id' => 'search-form--field',
-                                'type' => 'text',
-                                'attributeList' => [
-                                    'type' => 'search',
-                                    'name' => 's',
-                                    'required' => true,
-                                ],
+                                'type' => 'search',
+                                'name' => 's',
+                                'required' => true,
                                 'placeholder' => $lang->searchOn . " " . $siteName,
                                 'classList' => ['u-flex-grow--1'],
                                 'size' => 'lg',
