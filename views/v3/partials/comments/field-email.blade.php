@@ -1,12 +1,11 @@
 <div class="o-grid-12 o-grid-6@md u-order--3">
   @field([
-      'type' => 'text',
+      'type' => 'email',
+      'name' => 'email',
       'placeholder' => 'email@email.com',
+      'autocomplete' => 'email',
       'attributeList' => [
-          'type' => 'email',
-          'name' => 'email',
           'pattern' => '^[^@]+@[^@]+\.[^@]+$',
-          'autocomplete' => 'email',
           'data-invalid-message' => "You need to add a valid E-mail!"
       ],
       'label' => $lang->email,
