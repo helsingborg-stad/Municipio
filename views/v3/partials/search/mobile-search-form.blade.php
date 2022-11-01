@@ -6,21 +6,21 @@
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([
-                'id'            => 'mobile-search-form--field',
-                'type'          => 'search',
-                'name'          => 's',
-                'required'      => false,
-                'size'          => 'sm',
-                'radius'        => 'sm',
-                'borderless'    => true,
-                'label'         => $lang->searchQuestion,
-                'hideLabel'     => true,
-                'icon'          => ['icon' => 'search'],
-                'classList'     => [
-                    'u-flex-grow--1',
-                    'u-box-shadow--1',
-                    'u-rounded__left--8'
-                ]
+            'id'            => 'mobile-search-form--field',
+            'type'          => 'search',
+            'name'          => 's',
+            'required'      => false,
+            'size'          => 'sm',
+            'radius'        => 'sm',
+            'borderless'    => true,
+            'label'         => $lang->searchQuestion,
+            'hideLabel'     => true,
+            'icon'          => ['icon' => 'search'],
+            'classList'     => [
+                'u-flex-grow--1',
+                'u-box-shadow--1',
+                'u-rounded__left--8'
+            ]
         ])
         @endfield
 
