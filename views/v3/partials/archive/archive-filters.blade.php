@@ -28,14 +28,11 @@
                 <div class="o-grid">
                     <div class="o-grid-12">
                         @field([
-                            'type' => 'text',
+                            'type' => 'search',
+                            'name' => 's',
                             'value' => $queryParameters->search,
                             'label' => $lang->searchFor,
                             'classList' => ['u-width--100'],
-                            'attributeList' => [
-                                'type' => 'text',
-                                'name' => 's'
-                            ],
                             'required' => false,
                         ])
                         @endfield
@@ -47,14 +44,13 @@
                 <div class="o-grid">
                     <div class="o-grid-12@xs o-grid-auto@sm">
                         @field([
-                            'type' => 'datepicker',
+                            'type' => 'date',
+                            'name' => 'from',
                             'value' => $queryParameters->from,
                             'label' => $lang->fromDate,
                             'attributeList' => [
-                                'type' => 'text',
-                                'name' => 'from',
                                 'data-invalid-message' => $lang->dateInvalid,
-                                'js-archive-filter-from'
+                                'js-archive-filter-from' => ''
                             ],
                             'required' => false,
                             'datepicker' => [
@@ -74,12 +70,11 @@
 
                     <div class="o-grid-12@xs o-grid-auto@sm">
                         @field([
-                            'type' => 'datepicker',
+                            'type' => 'date',
+                            'name' => 'to',
                             'value' => $queryParameters->to,
                             'label' => $lang->toDate,
                             'attributeList' => [
-                                'type' => 'text',
-                                'name' => 'to',
                                 'data-invalid-message' => $lang->dateInvalid,
                                 'js-archive-filter-to' => ''
                             ],
