@@ -14,11 +14,8 @@
                 @group([])
                     @field([
                         'id' => 'hamburger-menu-search',
-                        'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'text',
-                            'name' => 's',
-                        ],
+                        'type' => 'search',
+                        'name' => 's',
                         'placeholder' => $lang->searchOn . " " . $siteName,
                         'required' => true,
                     ])
