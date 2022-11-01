@@ -14,16 +14,18 @@ class OembedFilters
         if (str_contains($output, '<iframe')) {
             $data->lang = (object) [
                 'knownLabels' => [
-                    'title' => __('We need your consent to continue', 'modularity'),
-                    'info' => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'modularity'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
-                    'button' => __('I understand, continue.', 'modularity'),
+                    'title' => __('We need your consent to continue', 'municipio'),
+                    'info' => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'municipio'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
+                    'button' => __('I understand, continue.', 'municipio'),
                 ],
 
                 'unknownLabels' => [
-                    'title' => __('We need your consent to continue', 'modularity'),
-                    'info' => sprintf(__('This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.', 'modularity'), '{SUPPLIER_WEBSITE}'),
-                    'button' => __('I understand, continue.', 'modularity'),
+                    'title' => __('We need your consent to continue', 'municipio'),
+                    'info' => sprintf(__('This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.', 'municipio'), '{SUPPLIER_WEBSITE}'),
+                    'button' => __('I understand, continue.', 'municipio'),
                 ],
+
+                'infoLabel' => __('Handling of personal data', 'municipio'),
             ];
 
             return render_blade_view(

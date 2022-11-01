@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 09:20+0200\n"
-"PO-Revision-Date: 2022-10-28 09:33+0200\n"
+"POT-Creation-Date: 2022-11-01 10:02+0100\n"
+"PO-Revision-Date: 2022-11-01 10:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -34,7 +34,6 @@ msgstr "Knapp"
 #: library/AcfFields/php/widget-header-links.php:135
 #: library/Customizer/Sections/Footer.php:516
 #: library/Customizer/Sections/Module/Text.php:12
-#: vendor/modularity/modules/source/php/Module/Text/Text.php:12
 msgid "Text"
 msgstr "Text"
 
@@ -45,10 +44,6 @@ msgstr "Etikett"
 #: library/AcfFields/php/block-button.php:29
 #: library/Customizer/Sections/Colors.php:274
 #: library/Customizer/Sections/Footer.php:521
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:202
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:107
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:164
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:72
 msgid "Link"
 msgstr "Länk"
 
@@ -140,7 +135,6 @@ msgstr "Ifylld"
 #: library/AcfFields/php/block-button.php:113
 #: library/AcfFields/php/navigation-widget.php:338
 #: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:70
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:83
 msgid "Size"
 msgstr "Storlek"
 
@@ -151,7 +145,6 @@ msgstr "Storlek"
 #: library/AcfFields/php/widget-header-links.php:361
 #: library/AcfFields/php/widget-header-menu.php:49
 #: library/Customizer/Sections/Radius.php:42
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:104
 msgid "Small"
 msgstr "Liten"
 
@@ -169,7 +162,6 @@ msgstr "Mellan"
 #: library/Customizer/Sections/Radius.php:84
 #: library/Customizer/Sections/Width.php:93
 #: library/Customizer/Sections/Width.php:109
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:106
 msgid "Large"
 msgstr "Stor"
 
@@ -202,7 +194,6 @@ msgid "Choose the max width of the logo."
 msgstr "Välj maxbredden på logotypen."
 
 #: library/AcfFields/php/brand-widget.php:50
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:61
 msgid "px"
 msgstr "px"
 
@@ -221,14 +212,12 @@ msgstr "Wordpress-menyn"
 #: library/AcfFields/php/navigation-widget.php:60
 #: library/AcfFields/php/widget-media.php:63
 #: library/AcfFields/php/widget-media.php:100
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:43
 msgid "External link"
 msgstr "Externa länkar"
 
 #: library/AcfFields/php/navigation-widget.php:139
 #: library/AcfFields/php/widget-media.php:34
 #: library/AcfFields/php/widget-media.php:99
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:42
 msgid "Internal link"
 msgstr "Interna länkar"
 
@@ -273,9 +262,6 @@ msgstr "Aktivera Gutenberg redigerare"
 #: library/Customizer/Sections/Menu.php:43
 #: library/Customizer/Sections/Menu.php:59
 #: library/Customizer/Sections/Menu.php:75
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:489
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:151
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:320
 msgid "Disabled"
 msgstr "Inaktiverad"
 
@@ -299,20 +285,16 @@ msgstr "Sidfotssektioner"
 
 #: library/AcfFields/php/options-customize-footer.php:29
 #: library/AcfFields/php/options-customize-header.php:29
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:53
 msgid "Name"
 msgstr "Namn"
 
 #: library/AcfFields/php/options-customize-footer.php:48
 #: library/AcfFields/php/options-customize-header.php:48
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:25
 msgid "ID"
 msgstr "ID"
 
 #: library/AcfFields/php/options-customize-footer.php:67
 #: library/Customizer/Sections/Footer.php:46
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:311
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:37
 msgid "Columns"
 msgstr "Kolumner"
 
@@ -2229,7 +2211,6 @@ msgid "https"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:486
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:152
 msgid "image"
 msgstr ""
 
@@ -2466,7 +2447,6 @@ msgid "linked_camera"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:545
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:30
 msgid "list"
 msgstr ""
 
@@ -2779,7 +2759,6 @@ msgid "mood_bad"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:623
-#: vendor/modularity/modules/source/php/ModuleManager.php:647
 msgid "more"
 msgstr ""
 
@@ -3108,7 +3087,6 @@ msgid "pets"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:705
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:211
 msgid "phone"
 msgstr ""
 
@@ -4213,7 +4191,6 @@ msgid "timer_off"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:981
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:151
 msgid "title"
 msgstr ""
 
@@ -4692,7 +4669,6 @@ msgstr ""
 #: library/AcfFields/php/options-theme-author.php:6
 #: library/Controller/Singular.php:125 library/Customizer/Panels/Archive.php:60
 #: library/Upgrade.php:493
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:84
 msgid "Author"
 msgstr "Författare"
 
@@ -5174,9 +5150,6 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-favicon.php:27
 #: library/AcfFields/php/widget-contact.php:116
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:24
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:25
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:242
 msgid "Lägg till rad"
 msgstr "Lägg till rad"
 
@@ -5341,7 +5314,6 @@ msgid "Post footer timestamps"
 msgstr "Tidstämplar under inlägg"
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:40
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:50
 #: views/v1/partials/archive-filters.blade.php:50
 #: views/v2/partials/archive-filters.blade.php:50
 msgid "Date published"
@@ -5448,12 +5420,10 @@ msgid "Email"
 msgstr "Epost"
 
 #: library/AcfFields/php/widget-contact.php:98
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:309
 msgid "Address"
 msgstr "Adress"
 
 #: library/AcfFields/php/widget-contact.php:119
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:38
 msgid "Kontakter"
 msgstr "Kontakter"
 
@@ -5569,7 +5539,6 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/Slider.php:312
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:362
 #: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:382
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:192
 msgid "None"
 msgstr "Ingen"
 
@@ -5619,7 +5588,6 @@ msgstr "Dölj text"
 
 #: library/AcfFields/php/widget-header-links.php:86
 #: library/AcfFields/php/widget-header-links.php:173
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:291
 msgid "URL"
 msgstr "URL"
 
@@ -5669,7 +5637,6 @@ msgid "Media widget"
 msgstr "Mediawidget"
 
 #: library/AcfFields/php/widget-media.php:10
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:141
 msgid "Upload image"
 msgstr "Ladda upp bild"
 
@@ -5707,7 +5674,6 @@ msgid "A margin block"
 msgstr "Ett marginalblock"
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:104
-#: vendor/modularity/modules/source/php/BlockManager.php:303
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
@@ -5738,16 +5704,12 @@ msgstr "Anpassning"
 #: library/Admin/Options/Theme.php:43 library/Admin/Options/Theme.php:44
 #: library/Customizer/Sections/Footer.php:505
 #: library/Customizer/Sections/Width.php:38
-#: vendor/modularity/modules/source/php/Editor.php:123
 msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
 #: library/Controller/Archive.php:93 library/Controller/BaseController.php:199
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:33
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:38
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:160
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
 #: views/v1/partials/archive-filters.blade.php:79
@@ -5796,8 +5758,6 @@ msgstr "Beta"
 
 #: library/Admin/UI/BackEnd.php:41 library/Admin/UI/BackEnd.php:46
 #: library/Admin/UI/BackEnd.php:51
-#: vendor/modularity/modules/source/php/Module/Notice/Notice.php:12
-#: vendor/modularity/modules/source/php/Module/Notice/Notice.php:13
 msgid "Notice"
 msgstr "Notis"
 
@@ -5868,26 +5828,21 @@ msgstr "Skapa ny"
 
 #: library/Content/CustomPostType.php:59
 #: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:104
-#: vendor/modularity/modules/source/php/ModuleManager.php:184
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
 #: library/Content/CustomPostType.php:60
-#: vendor/modularity/modules/source/php/ModuleManager.php:185
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
 #: library/Content/CustomPostType.php:61
-#: vendor/modularity/modules/source/php/ModuleManager.php:186
-#: vendor/modularity/modules/source/php/ModuleManager.php:188
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
 #: library/Content/CustomPostType.php:62
-#: vendor/modularity/modules/source/php/ModuleManager.php:187
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
@@ -5898,13 +5853,11 @@ msgid "All %s"
 msgstr "Alla %s"
 
 #: library/Content/CustomPostType.php:64
-#: vendor/modularity/modules/source/php/ModuleManager.php:189
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
 #: library/Content/CustomPostType.php:65
-#: vendor/modularity/modules/source/php/ModuleManager.php:190
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
@@ -5934,9 +5887,6 @@ msgid "Updated"
 msgstr "Uppdaterad"
 
 #: library/Controller/Archive.php:86
-#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:108
-#: vendor/modularity/modules/templates/module/modularity-mod-latest-news.php:61
-#: vendor/modularity/modules/templates/module/modularity-mod-mainnews.php:45
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -5965,10 +5915,6 @@ msgid "Reset"
 msgstr "Återställ"
 
 #: library/Controller/Archive.php:474
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:163
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:125
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:14
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:73
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
@@ -5990,7 +5936,6 @@ msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
 #: library/Controller/BaseController.php:183
-#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/HorizontalTemplate.php:50
 msgid "ago"
 msgstr "sedan"
 
@@ -6043,7 +5988,6 @@ msgid "minute"
 msgstr "minut"
 
 #: library/Controller/BaseController.php:197
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:78
 msgid "seconds"
 msgstr "sekunder"
 
@@ -6084,7 +6028,6 @@ msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
 #: library/Controller/BaseController.php:208
-#: vendor/modularity/modules/App.php:195 vendor/modularity/modules/App.php:235
 msgid "Close"
 msgstr "Stäng"
 
@@ -6251,8 +6194,6 @@ msgstr "Nyheter"
 #: library/Customizer/Sections/Module/Posts.php:44
 #: library/Customizer/Sections/Module/Text.php:23
 #: library/Customizer/Sections/Module/Video.php:23
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:6
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:22
 msgid "List"
 msgstr "Lista"
 
@@ -6306,7 +6247,6 @@ msgid "Date range"
 msgstr "Period"
 
 #: library/Customizer/Sections/Archive.php:165
-#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:291
 msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
 
@@ -6331,8 +6271,6 @@ msgid "Select decending or ascending order."
 msgstr "Välj om inläggen ska sorteras fallande eller stigande."
 
 #: library/Customizer/Sections/Archive.php:204
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:60
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:60
 msgid "Ascending"
 msgstr "Stigande"
 
@@ -6342,10 +6280,6 @@ msgstr "Fallande"
 
 #: library/Customizer/Sections/Archive.php:220
 #: library/Customizer/Sections/Archive.php:251
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:137
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:85
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:45
-#: vendor/modularity/modules/source/php/ModuleManager.php:606
 msgid "Date"
 msgstr "Datum"
 
@@ -6358,7 +6292,6 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:246
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:324
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -6485,9 +6418,6 @@ msgstr "Välj en typsnittsfärg för kort."
 #: library/Customizer/Sections/Collection.php:80
 #: library/Customizer/Sections/Field.php:29
 #: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:72
-#: vendor/modularity/modules/App.php:196 vendor/modularity/modules/App.php:236
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:140
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:169
 msgid "Width"
 msgstr "Bredd"
 
@@ -6744,7 +6674,6 @@ msgid "Complement colors"
 msgstr "Komplementfärger"
 
 #: library/Customizer/Sections/Colors.php:527
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:53
 msgid "Standard"
 msgstr "Standard"
 
@@ -6808,10 +6737,6 @@ msgstr "Anpassa kontrastfärg"
 #: library/Customizer/Sections/Menu.php:42
 #: library/Customizer/Sections/Menu.php:58
 #: library/Customizer/Sections/Menu.php:74
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:150
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:319
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:16
-#: vendor/modularity/modules/templates/options/partials/modularity-post-types.php:8
 msgid "Enabled"
 msgstr "Aktiverad"
 
@@ -7040,7 +6965,6 @@ msgid "Text separator"
 msgstr "Textavdelare"
 
 #: library/Customizer/Sections/Footer.php:376
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:53
 msgid "Custom"
 msgstr "Anpassad"
 
@@ -7061,8 +6985,6 @@ msgid "Content alignment"
 msgstr "Innehållsjustering"
 
 #: library/Customizer/Sections/Footer.php:511
-#: vendor/modularity/modules/source/php/BlockManager.php:356
-#: vendor/modularity/modules/source/php/ModuleManager.php:603
 msgid "Title"
 msgstr ""
 
@@ -7240,10 +7162,6 @@ msgstr "Panel"
 #: library/Customizer/Sections/Module/Index.php:13
 #: library/Customizer/Sections/Module/Index.php:24
 #: library/Customizer/Sections/Module/Posts.php:23
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:6
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:10
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:26
-#: vendor/modularity/modules/source/php/Module/Index/Index.php:16
 msgid "Index"
 msgstr "Index"
 
@@ -7258,26 +7176,20 @@ msgid "Local Event"
 msgstr "Lokala evenemang"
 
 #: library/Customizer/Sections/Module/Map.php:12
-#: vendor/modularity/modules/source/php/Module/Map/Map.php:13
 msgid "Maps"
 msgstr "Kartor"
 
 #: library/Customizer/Sections/Module/Posts.php:12
 #: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:108
-#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:21
-#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:22
 msgid "Posts"
 msgstr "Inlägg"
 
 #: library/Customizer/Sections/Module/Posts.php:65
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:23
 msgid "Expandable List"
 msgstr "Expanderbar lista"
 
 #: library/Customizer/Sections/Module/Script.php:12
 #: library/Customizer/Sections/Module/Script.php:23
-#: vendor/modularity/modules/source/php/Module/Script/Script.php:13
-#: vendor/modularity/modules/source/php/Module/Script/Script.php:14
 msgid "Script"
 msgstr "Skript"
 
@@ -7290,9 +7202,6 @@ msgid "Section Split"
 msgstr "Sektion: Tvådelad"
 
 #: library/Customizer/Sections/Module/Video.php:12
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:436
-#: vendor/modularity/modules/source/php/Module/Video/Video.php:12
-#: vendor/modularity/modules/source/php/Module/Video/Video.php:13
 msgid "Video"
 msgstr "Video"
 
@@ -7440,8 +7349,6 @@ msgid "What color to use for shadows."
 msgstr ""
 
 #: library/Customizer/Sections/Slider.php:19
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:6
-#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:26
 msgid "Slider"
 msgstr ""
 
@@ -7539,9 +7446,6 @@ msgid "Front Page"
 msgstr "Startsida"
 
 #: library/Customizer/Sections/Width.php:31
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:152
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:11
-#: vendor/modularity/modules/templates/options/modularity-archives.php:2
 msgid "Archives"
 msgstr "Arkiv"
 
@@ -7567,7 +7471,6 @@ msgstr ""
 
 #: library/Customizer/Sections/Width.php:92
 #: library/Customizer/Sections/Width.php:108
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:105
 msgid "Normal"
 msgstr "Normal"
 
@@ -7584,7 +7487,6 @@ msgid "Home"
 msgstr "Hem"
 
 #: library/Helper/Post.php:69
-#: vendor/modularity/modules/source/php/Helper/Post.php:197
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
@@ -7613,6 +7515,10 @@ msgid ""
 msgstr ""
 "Den här delen av hemsidan visar innehåll från en annan webbplats (%s). Genom "
 "att fortsätta godkänner du GDPR och Sekretesspolicyn."
+
+#: library/Oembed/OembedFilters.php:28
+msgid "Handling of personal data"
+msgstr "Hantering av personlig data"
 
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
@@ -7731,7 +7637,6 @@ msgid "Globe"
 msgstr "Jordglob"
 
 #: library/Theme/Icon.php:45
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:153
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -7840,8 +7745,6 @@ msgid "The bottom of footer area"
 msgstr "Nedersta delen av sidfoten."
 
 #: library/Theme/Sidebars.php:115
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:8
-#: vendor/modularity/modules/source/php/Module/Hero/Hero.php:12
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
@@ -7951,641 +7854,14 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:21
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:19
-#, fuzzy
-#| msgid "Post Types"
-msgid "Post Type Select"
-msgstr "Inläggstyper"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:22
-msgid "Choice"
-msgstr "Val"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:61
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:65
-#, fuzzy
-#| msgid "Default style"
-msgid "Default Value"
-msgstr "Standard"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:62
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:66
-msgid "Enter each default value on a new line"
-msgstr "Ange varje standardvärde på en ny rad"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:78
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:73
-msgid "Allow Null?"
-msgstr "Tillåt tomt värde"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:87
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:106
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:78
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:91
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:122
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:143
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:230
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:243
-#: vendor/jeradin/acf-website-field/website_url_v4.php:265
-#: vendor/jeradin/acf-website-field/website_url_v4.php:289
-#: vendor/jeradin/acf-website-field/website_url_v4.php:310
-#: vendor/jeradin/acf-website-field/website_url_v5.php:265
-#: vendor/jeradin/acf-website-field/website_url_v5.php:280
-#: vendor/jeradin/acf-website-field/website_url_v5.php:297
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:98
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:186
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:182
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:98
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:186
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:174
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:104
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:192
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:131
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:180
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:102
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:222
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:246
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:138
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:196
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:102
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:209
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:233
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:138
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:196
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:102
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:209
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:233
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:138
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:196
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:108
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:228
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:252
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:131
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:144
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:202
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:108
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:228
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:252
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:131
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:144
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:202
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:108
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:228
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:252
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:131
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:144
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:202
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:108
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:228
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:252
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:131
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:144
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:202
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:110
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:230
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:254
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:146
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:204
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:110
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:230
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:254
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:146
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:204
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:110
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:230
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:254
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:146
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:204
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:110
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:230
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:254
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:146
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:204
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:110
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:230
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:254
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:146
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:204
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:83
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:115
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:147
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:179
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:211
-msgid "Yes"
-msgstr "Ja"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:88
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:107
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:79
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:92
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:123
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:144
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:231
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:244
-#: vendor/jeradin/acf-website-field/website_url_v4.php:266
-#: vendor/jeradin/acf-website-field/website_url_v4.php:290
-#: vendor/jeradin/acf-website-field/website_url_v4.php:311
-#: vendor/jeradin/acf-website-field/website_url_v5.php:266
-#: vendor/jeradin/acf-website-field/website_url_v5.php:281
-#: vendor/jeradin/acf-website-field/website_url_v5.php:298
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:97
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:187
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:181
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:97
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:187
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:173
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:103
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:193
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:179
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:101
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:223
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:247
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:195
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:101
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:210
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:234
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:195
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:101
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:210
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:234
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:195
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:253
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:145
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:253
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:145
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:253
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:145
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:253
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:145
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:109
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:231
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:255
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:147
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:203
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:109
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:231
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:255
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:147
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:203
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:109
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:231
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:255
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:147
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:203
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:109
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:231
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:255
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:147
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:203
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:109
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:231
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:255
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:147
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:203
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:82
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:114
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:146
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:178
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:210
-msgid "No"
-msgstr "Nej"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:97
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:86
-msgid "Select multiple values?"
-msgstr "Välj flera värden?"
-
-#: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:30
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:60
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:60
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:60
-msgid "Error! Please enter a higher value"
-msgstr "Fel! Välj ett högre värde"
-
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:367
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
 msgid "Export with AcfExportManager"
 msgstr ""
 
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:411
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
 #, php-format
 msgid "Exported %d fieldgroup(s)."
 msgstr "Exporterade %d fältgrupper."
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:24
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:26
-#, fuzzy
-#| msgid "Disable"
-msgid "Dynamic Table"
-msgstr "Inaktivera"
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:79
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:208
-#, fuzzy
-#| msgid "CSS Class"
-msgid "Table Class"
-msgstr "Css klass"
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:80
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:209
-msgid "Custom Table Class for the Front End"
-msgstr ""
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:95
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:217
-msgid "Max Rows"
-msgstr ""
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:96
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:218
-#, fuzzy
-#| msgid "Set the maximum page withs of different page types."
-msgid "Sets the maximum rows for the table"
-msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:111
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:224
-#, fuzzy
-#| msgid "Disable script"
-msgid "Disable Sort"
-msgstr "Inaktivera skript"
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:112
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:225
-msgid "Disable Sort - this will disable drag and drop sorting of rows"
-msgstr ""
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:132
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:237
-#, fuzzy
-#| msgid "Columns"
-msgid "Fixed Columns"
-msgstr "Kolumner"
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:133
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:238
-msgid "Fixed columns - column count and set names"
-msgstr ""
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:153
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:250
-#, fuzzy
-#| msgid "Default style"
-msgid "Default Headers"
-msgstr "Standard"
-
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:154
-#: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:251
-#, fuzzy
-#| msgid "Enter each default value on a new line"
-msgid "Set default headers, one per line."
-msgstr "Ange varje standardvärde på en ny rad"
-
-#: vendor/jeradin/acf-website-field/website_url_v4.php:33
-#: vendor/jeradin/acf-website-field/website_url_v5.php:33
-msgid "Website"
-msgstr ""
-
-#: vendor/jeradin/acf-website-field/website_url_v4.php:253
-#: vendor/jeradin/acf-website-field/website_url_v5.php:259
-#, fuzzy
-#| msgid "Show on mobile"
-msgid "Show Title?"
-msgstr "Visa på mobil"
-
-#: vendor/jeradin/acf-website-field/website_url_v4.php:278
-#: vendor/jeradin/acf-website-field/website_url_v5.php:274
-msgid "Option to open in Current Window"
-msgstr ""
-
-#: vendor/jeradin/acf-website-field/website_url_v4.php:299
-#: vendor/jeradin/acf-website-field/website_url_v5.php:291
-msgid "Return array instead of Link"
-msgstr ""
-
-#: vendor/jeradin/acf-website-field/website_url_v5.php:330
-msgid "Value must be a valid URL"
-msgstr ""
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:38
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:24
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:38
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:88
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:90
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:12
-#, fuzzy
-#| msgid "Enable"
-msgid "Table"
-msgstr "Aktivera"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:25
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:25
-msgid "Layout"
-msgstr "Layout"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:95
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:179
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:95
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:171
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:101
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:177
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:99
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:193
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:99
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:193
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:99
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:193
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:105
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:199
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:105
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:199
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:105
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:199
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:105
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:199
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:201
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:107
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:201
-#, fuzzy
-#| msgid "Above header"
-msgid "use table header"
-msgstr "Ovanför sidhuvudet"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:175
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:119
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:175
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:119
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:181
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:211
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:119
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:198
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:119
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:198
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:119
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:217
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:217
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:217
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:217
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:125
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:219
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:127
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:219
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:127
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:219
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:127
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:219
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:127
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:219
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:127
-#, fuzzy
-#| msgid "Header"
-msgid "Table Header"
-msgstr "Sidhuvud"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v4.php:185
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:124
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v4.php:185
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:124
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v4.php:191
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:130
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:221
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:124
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:208
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:124
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:208
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:124
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:227
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:130
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:227
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:130
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:227
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:130
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:227
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:130
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:132
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:229
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:132
-#, fuzzy
-#| msgid "Theme Options"
-msgid "Optional"
-msgstr "Temainställningar"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.6/acf-table-v5.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.7/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:212
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:199
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:199
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:218
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:218
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:218
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:218
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:126
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:220
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:128
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:220
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:128
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:220
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:128
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:220
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:128
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:220
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:128
-#, fuzzy
-#| msgid "Above header"
-msgid "Presetting the usage of table header"
-msgstr "Ovanför sidhuvudet"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:114
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:208
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:114
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:208
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:114
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:208
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:214
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:214
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:214
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:120
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:214
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:122
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:216
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:122
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:216
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:122
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:216
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:122
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:216
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:122
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:216
-#, fuzzy
-#| msgid "Collection"
-msgid "table caption"
-msgstr "Samlingar"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:236
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:223
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:223
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:133
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:242
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:242
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:242
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:242
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:139
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:244
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:141
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:244
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:141
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:244
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:141
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:244
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:141
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:244
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:141
-#, fuzzy
-#| msgid "Theme Options"
-msgid "Table Caption"
-msgstr "Temainställningar"
-
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v4.php:237
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.0/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v4.php:224
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta2/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v4.php:224
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1-beta3/acf-table-v5.php:134
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v4.php:243
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.1/acf-table-v5.php:140
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v4.php:243
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.2/acf-table-v5.php:140
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v4.php:243
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.3/acf-table-v5.php:140
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v4.php:243
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.4/acf-table-v5.php:140
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v4.php:245
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.5/acf-table-v5.php:142
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v4.php:245
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.6/acf-table-v5.php:142
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v4.php:245
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.7/acf-table-v5.php:142
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v4.php:245
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.3.8/acf-table-v5.php:142
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v4.php:245
-#: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/trunk/acf-table-v5.php:142
-#, fuzzy
-#| msgid "Above header"
-msgid "Presetting the usage of table caption"
-msgstr "Ovanför sidhuvudet"
 
 #: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:261
 #, php-format
@@ -8664,7 +7940,6 @@ msgid "Welcome Screen"
 msgstr ""
 
 #: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:105
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:262
 msgid "Media"
 msgstr "Media"
 
@@ -8703,7 +7978,6 @@ msgstr ""
 
 #: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:82
 #: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:115
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:258
 msgid "No image selected"
 msgstr ""
 
@@ -8712,7 +7986,6 @@ msgstr ""
 #: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:453
 #: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:485
 #: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:510
-#: vendor/modularity/modules/App.php:191 vendor/modularity/modules/App.php:231
 #: views/v1/partials/blog/comments.blade.php:62
 #: views/v1/partials/blog/comments.blade.php:126
 msgid "Remove"
@@ -8761,7 +8034,6 @@ msgstr ""
 
 #: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:454
 #: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:458
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:258
 msgid "Add Image"
 msgstr "Lägg till bild"
 
@@ -8954,8 +8226,6 @@ msgid "Spacing"
 msgstr ""
 
 #: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:73
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:148
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:177
 msgid "Height"
 msgstr "LjusHöjd"
 
@@ -9195,2569 +8465,6 @@ msgstr ""
 #: vendor/kirki/upgrade-notifications.php:30
 msgid "Important Upgrade Notice:"
 msgstr "Viktigt uppgraderingsmeddelande:"
-
-#: vendor/modularity/modules/App.php:162 vendor/modularity/modules/App.php:189
-#: vendor/modularity/modules/App.php:229
-#: views/v1/partials/blog/comments.blade.php:59
-#: views/v1/partials/blog/comments.blade.php:123
-msgid "Edit"
-msgstr "Redigera"
-
-#: vendor/modularity/modules/App.php:162
-#: vendor/modularity/modules/source/php/BlockManager.php:103
-#: vendor/modularity/modules/source/php/Editor.php:124
-#: vendor/modularity/modules/source/php/Options/General.php:178
-#, fuzzy
-#| msgid "Edit %s"
-msgid "Modules"
-msgstr "Redigera %s"
-
-#: vendor/modularity/modules/App.php:190 vendor/modularity/modules/App.php:230
-msgid "Import"
-msgstr ""
-
-#: vendor/modularity/modules/App.php:192 vendor/modularity/modules/App.php:232
-#, fuzzy
-#| msgid "Hide date"
-msgid "Hide module"
-msgstr "Dölj datum"
-
-#: vendor/modularity/modules/App.php:193 vendor/modularity/modules/App.php:233
-#, fuzzy
-#| msgid "Are you sure you want to delete the comment?"
-msgid "Are you sure you want to remove this module?"
-msgstr "Är du säker på att du vill ta bort kommentaren?"
-
-#: vendor/modularity/modules/App.php:194 vendor/modularity/modules/App.php:234
-msgid "Saving…"
-msgstr ""
-
-#: vendor/modularity/modules/App.php:198 vendor/modularity/modules/App.php:238
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:27
-#, fuzzy
-#| msgid "Date updated"
-msgid "Deprecated"
-msgstr "Senast uppdaterad"
-
-#: vendor/modularity/modules/App.php:255
-#, fuzzy
-#| msgid "Edit %s"
-msgid "Edit Modules"
-msgstr "Redigera %s"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:13
-msgid "Datum"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:32
-msgid "Tid"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:35
-msgid "Ange tid"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:55
-msgid "Pris"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:58
-msgid "Ange pris"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:76
-msgid "Alternativ pris"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:79
-msgid ""
-"Om det finns ett ungdoms, eller ett rabatterat pris går det att ange här"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:97
-msgid "Rubrik köpknapp"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-booking.php:115
-msgid "Länk till webbshop"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:10
-msgid "Visningsläge"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:22
-msgid "Kort"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:23
-msgid "Horisontella kort"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:24
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:10
-#, fuzzy
-#| msgid "List"
-msgid "Lista"
-msgstr "Lista"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:27
-#, fuzzy
-#| msgid "Cards"
-msgid "cards"
-msgstr "Kort"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:58
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:242
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:125
-msgid "Bild"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:82
-msgid "First name or location"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:101
-#, fuzzy
-#| msgid "External link"
-msgid "Efternamn"
-msgstr "Externa länkar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:120
-msgid "Jobbtitel"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:139
-msgid "Förvaltning"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:158
-#, fuzzy
-#| msgid "Email"
-msgid "E-mail"
-msgstr "Epost"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:176
-msgid "Telefon"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:191
-#, fuzzy
-#| msgid "Lägg till rad"
-msgid "Lägg till nummer"
-msgstr "Lägg till rad"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:195
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:10
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:10
-#, fuzzy
-#| msgid "Type"
-msgid "Typ"
-msgstr "Typ"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:207
-msgid "Fasttelefon"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:208
-msgid "Mobil"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:222
-msgid "Telefonnummer"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:243
-#, fuzzy
-#| msgid "Social"
-msgid "Social Media"
-msgstr "Socialt"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:274
-msgid "Facebook"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:275
-#, fuzzy
-#| msgid "Link"
-msgid "LinkedIn"
-msgstr "Länk"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:276
-#, fuzzy
-#| msgid "Twitter username"
-msgid "Twitter"
-msgstr "Användarnamn på Twitter"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:277
-#, fuzzy
-#| msgid "Instagram username"
-msgid "Instagram"
-msgstr "Användarnamn på Instagram"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:280
-msgid "facebook"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:328
-msgid "Besöksadress"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:347
-msgid "Öppettider"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:366
-msgid "Annat"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:390
-msgid "Användare"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:395
-msgid "Välj användare"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:416
-#, fuzzy
-#| msgid "Add section"
-msgid "Add contact"
-msgstr "Lägg till sektion"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:422
-#, fuzzy
-#| msgid "Columns"
-msgid "Kolumner"
-msgstr "Kolumner"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:449
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:325
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:80
-msgid "1"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:450
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:326
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:81
-msgid "2"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:451
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:327
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:82
-msgid "3"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:452
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:328
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:83
-msgid "4"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:455
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:331
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:86
-msgid "grid-md-12"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:466
-msgid "Compact mode"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-contacts.php:488
-#, fuzzy
-#| msgid "Active"
-msgid "Aktiverad"
-msgstr "Aktivera"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:6
-#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:13
-#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:14
-#, fuzzy
-#| msgid "Social"
-msgid "Curator Social Media"
-msgstr "Socialt"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:10
-msgid "Embed Code"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:13
-msgid ""
-"Add your curator embed code here. Thios should be the full javascript. "
-"Appeance settings in the javascript configurator will not apply."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:29
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:128
-#, fuzzy
-#| msgid "Number of posts to display"
-msgid "Number of posts"
-msgstr "Antalet inlägg på en sida"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:32
-#, fuzzy
-#| msgid "No posts to show"
-msgid "Set the number items to show."
-msgstr "Inga inlägg att visa"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:50
-msgid "Usage of the curator social media integration"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-curator.php:61
-msgid ""
-"This is an integration module for https://curator.io. The module requires an "
-"account at the service. To integrate a feed, please head over to curator.io "
-"and follow the steps below. We assume that you already have an account, with "
-"a connected feed. \r\n"
-"\r\n"
-"1. Login to you account. \r\n"
-"2. Click on \"style\" in the sidebar navigation. \r\n"
-"3. Click on \"publish feed\" (style won't matter). \r\n"
-"4. Paste the embed code in the field above. \r\n"
-"5. Save. Your feed should no be displayed."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:10
-#, fuzzy
-#| msgid "Add File"
-msgid "Filer"
-msgstr "Lägg till fil"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:24
-#, fuzzy
-#| msgid "Lägg till länk"
-msgid "Lägg till fil"
-msgstr "Lägg till länk"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:29
-#, fuzzy
-#| msgid "Fill"
-msgid "Fil"
-msgstr "Fyll"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:50
-#, fuzzy
-#| msgid "Filters"
-msgid "Filter"
-msgstr "Filtrering"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-fileslist.php:62
-#, fuzzy
-#| msgid "Reset filter"
-msgid "Tillåt filtrering"
-msgstr "Återställ filter"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-gallery.php:21
-#: vendor/modularity/modules/source/php/Module/Image/Image.php:19
-#, fuzzy
-#| msgid "Pages"
-msgid "Images"
-msgstr "Sidor"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:12
-#, fuzzy
-#| msgid "Outline"
-msgid "Byline"
-msgstr "Ramlinje"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:15
-msgid "A clear byline, to say something else."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:36
-msgid "Body"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:39
-msgid ""
-"A short and concise text about this site. What's it about? Maximum 500 "
-"characters."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:59
-#, fuzzy
-#| msgid "Background Image"
-msgid "Background image"
-msgstr "Bakgrundsbild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:6
-#, fuzzy
-#| msgid "Header settings."
-msgid "Iframe settings"
-msgstr "Inställningar för sidhuvud."
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:10
-#, fuzzy
-#| msgid "Header settings."
-msgid "Iframe URL"
-msgstr "Inställningar för sidhuvud."
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:13
-msgid ""
-"<span style=\"color: #f00;\">Your iframe link must start with http<strong>s</"
-"strong>://. Links without this prefix will not display.</span>"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:22
-msgid "Enter your embed url"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:26
-#, fuzzy
-#| msgid "Header settings."
-msgid "Iframe height"
-msgstr "Inställningar för sidhuvud."
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:43
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:96
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:127
-msgid "pixels"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:49
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:26
-#: vendor/modularity/modules/source/php/ModuleManager.php:604
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:19
-#, fuzzy
-#| msgid "Direction"
-msgid "Description"
-msgstr "Riktning"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-iframe.php:52
-msgid "Describe the contents of this Iframe (not shown)."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:20
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:108
-#: vendor/modularity/modules/source/php/Module/Image/Image.php:18
-#, fuzzy
-#| msgid "Add Image"
-msgid "Image"
-msgstr "Lägg till bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:23
-msgid "Allowed file types: jpg, png, gif"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:39
-#, fuzzy
-#| msgid "Image Editing"
-msgid "Image caption"
-msgstr "Bildredigering"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:53
-#, fuzzy
-#| msgid "Choose image"
-msgid "Crop image"
-msgstr "Välj bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:58
-#, fuzzy
-#| msgid "Choose image"
-msgid "Cropping"
-msgstr "Välj bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:61
-msgid "Check if you wold like to crop your image to a specific size"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:72
-msgid "Yes, make this image responsive"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:77
-msgid "Responsive"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:80
-msgid ""
-"Make the image responsive if you would like it to automatically resize to "
-"fit inside its container."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:98
-#, fuzzy
-#| msgid "Max width"
-msgid "Crop width"
-msgstr "Maxbredd"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:129
-#, fuzzy
-#| msgid "Logotype height"
-msgid "Crop height"
-msgstr "Storlek på logotyp (höjd)"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:167
-#, fuzzy
-#| msgid "Margin size"
-msgid "Image size"
-msgstr "Marginalstorlek"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:193
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:41
-#, fuzzy
-#| msgid "Internal link"
-msgid "Internal"
-msgstr "Interna länkar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:194
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:42
-#, fuzzy
-#| msgid "External link"
-msgid "External"
-msgstr "Externa länkar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:218
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:84
-#, fuzzy
-#| msgid "Link"
-msgid "Link url"
-msgstr "Länk"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-image.php:247
-#, fuzzy
-#| msgid "Link size"
-msgid "Link page"
-msgstr "Länkstorlek"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:29
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:29
-#, fuzzy
-#| msgid "Link size"
-msgid "Link type"
-msgstr "Länkstorlek"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:43
-#, fuzzy
-#| msgid "Link"
-msgid "No Link"
-msgstr "Länk"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:54
-msgid "Page"
-msgstr "Sida"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:128
-#, fuzzy
-#| msgid "Featured image"
-msgid "Use featured image"
-msgstr "Utvald bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:129
-#, fuzzy
-#| msgid "Upload image"
-msgid "Upload custom image"
-msgstr "Ladda upp bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:130
-#, fuzzy
-#| msgid "Hide date"
-msgid "Hide image"
-msgstr "Dölj datum"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:134
-#, fuzzy
-#| msgid "Featured image"
-msgid "featured"
-msgstr "Utvald bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:187
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:214
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:53
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:80
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:27
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:186
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:243
-msgid "Titel"
-msgstr "Titel"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:190
-msgid ""
-"Om du inte vill använda den underliggande sidans titel kan du skriva in en "
-"annan titel här."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:248
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:275
-msgid "Lead"
-msgstr "Ingress"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-index.php:251
-msgid ""
-"Om du inte vill använda den underliggande sidans ingress kan du skriva in en "
-"annan ingress här."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inheritpost.php:10
-#, fuzzy
-#| msgid "Post Formats"
-msgid "Post or page"
-msgstr "Inläggsformat"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:45
-#, fuzzy
-#| msgid "Internal link"
-msgid "internal"
-msgstr "Interna länkar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:56
-msgid ""
-"If empty, title will default to the linked post's/page's title on internal "
-"links."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:140
-msgid ""
-"If checked, the publish/last modified date of the linked post will be "
-"displayed."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-inlaylist.php:157
-#, fuzzy
-#| msgid "Date published"
-msgid "Show publish date"
-msgstr "Publiceringsdatum"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:6
-#: vendor/modularity/modules/source/php/Module/Logogrid/Logogrid.php:12
-#, fuzzy
-#| msgid "Logotype"
-msgid "Logotype grid"
-msgstr "Logotyp"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:10
-msgid "Add some brands"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:25
-#, fuzzy
-#| msgid "Header logotype"
-msgid "Add new logotype"
-msgstr "Logotyp för sidhuvud"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-logogrid.php:29
-#, fuzzy
-#| msgid "Header logotype"
-msgid "Image/logotype"
-msgstr "Logotyp för sidhuvud"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:6
-#: vendor/modularity/modules/source/php/Module/Map/Map.php:12
-#, fuzzy
-#| msgid "Maps"
-msgid "Map"
-msgstr "Kartor"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:10
-msgid "Map URL"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:13
-msgid ""
-"<span style=\"color: #f00;\">Din länk måste starta med http<strong>s</"
-"strong>://</span>"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:29
-msgid "Describe the contents of this map (not shown)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:45
-#, fuzzy
-#| msgid "Line Height"
-msgid "Miniumum Height"
-msgstr "Linjehöjd"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:48
-#, fuzzy
-#| msgid "Line Height"
-msgid "Set a minumum height"
-msgstr "Linjehöjd"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:65
-#, fuzzy
-#| msgid "Show author"
-msgid "Show button"
-msgstr "Visa författare"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:84
-#, fuzzy
-#| msgid "Toggle button label"
-msgid "Button label"
-msgstr "Togglingsknappens etikett"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:111
-#, fuzzy
-#| msgid "Button"
-msgid "Button url"
-msgstr "Knapp"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:135
-#, fuzzy
-#| msgid "Editor formats"
-msgid "Extra info"
-msgstr "Format"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:138
-msgid ""
-"Do you want to add Extra info?\r\n"
-"The information will be placed in a card on the right side of the map."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:147
-msgid "The extra info card is disabled by default"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:155
-#, fuzzy
-#| msgid "Editor formats"
-msgid "Extra info title"
-msgstr "Format"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:182
-#, fuzzy
-#| msgid "Editor formats"
-msgid "Extra information"
-msgstr "Format"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-map.php:185
-msgid "Add extra information such as opening hours or map location."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:6
-#, fuzzy
-#| msgid "Footer settings."
-msgid "Notice settings"
-msgstr "Inställningar för sidfot."
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:22
-#, fuzzy
-#| msgid "Success colors"
-msgid "Success (green)"
-msgstr "Lyckades"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:23
-msgid "Info (black)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:24
-#, fuzzy
-#| msgid "Warning colors"
-msgid "Warning (gul)"
-msgstr "Varning"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:25
-#, fuzzy
-#| msgid "Danger colors"
-msgid "Danger (red)"
-msgstr "Fara"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:28
-msgid "success"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:39
-msgid "Storlek"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:54
-msgid "Stor"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:55
-msgid "Liten"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:58
-#, fuzzy
-#| msgid "Notice"
-msgid "notice-md"
-msgstr "Notis"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-notice.php:69
-#, fuzzy
-#| msgid "Notice"
-msgid "Notis"
-msgstr "Notis"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:6
-#, fuzzy
-#| msgid "Taxonomy display"
-msgid "Data display"
-msgstr "Visning av taxonomier"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:10
-#, fuzzy
-#| msgid "Display options"
-msgid "Display as"
-msgstr "Visningsinställningar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:24
-#, fuzzy
-#| msgid "Post Types"
-msgid "Post items"
-msgstr "Inläggstyper"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:25
-#, fuzzy
-#| msgid "Post Types"
-msgid "News items"
-msgstr "Inläggstyper"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:95
-msgid "Altering grid size"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:115
-msgid "Yes, alter grid size automatically"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:122
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:71
-#, fuzzy
-#| msgid "Field&nbsp;Groups"
-msgid "Fields"
-msgstr "Fältgrupper"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:142
-#, fuzzy
-#| msgid "Date published"
-msgid "Show date published"
-msgstr "Publiceringsdatum"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:143
-#, fuzzy
-#| msgid "Excerpt"
-msgid "Show excerpt"
-msgstr "Ingress"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:144
-#, fuzzy
-#| msgid "New title"
-msgid "Show title"
-msgstr "Ny titel"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:145
-#, fuzzy
-#| msgid "Featured image"
-msgid "Show featured image"
-msgstr "Utvald bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:149
-#, fuzzy
-#| msgid "Update"
-msgid "date"
-msgstr "Uppdatera"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:150
-#, fuzzy
-#| msgid "Excerpt"
-msgid "excerpt"
-msgstr "Ingress"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:161
-#, fuzzy
-#| msgid "How to align the text in the columns."
-msgid "Hide the title column"
-msgstr "Hur texten i kolumnerna ska justeras."
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:181
-#, fuzzy
-#| msgid "How to align the text in the columns."
-msgid "Yes, hide the title column"
-msgstr "Hur texten i kolumnerna ska justeras."
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:188
-#, fuzzy
-#| msgid "Toggle button label"
-msgid "Title column label"
-msgstr "Togglingsknappens etikett"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:220
-#, fuzzy
-#| msgid "Toggle button label"
-msgid "List column labels"
-msgstr "Togglingsknappens etikett"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:223
-msgid ""
-"A title field will always be added as the first column. You will need to go "
-"to each post in this list to give the values for each column."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:247
-#, fuzzy
-#| msgid "Above header"
-msgid "Column header"
-msgstr "Ovanför sidhuvudet"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:270
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:290
-#, fuzzy
-#| msgid "Reset filter"
-msgid "Allow freetext filtering"
-msgstr "Återställ filter"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:297
-#, fuzzy
-#| msgid "Highlight"
-msgid "Highlight post"
-msgstr "Markering"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:349
-#, fuzzy
-#| msgid "Defaults"
-msgid "Default timestamp"
-msgstr "Standard"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:350
-#, fuzzy
-#| msgid "Expandable List"
-msgid "Readable timestamp"
-msgstr "Expanderbar lista"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:353
-#, fuzzy
-#| msgid "Default"
-msgid "default"
-msgstr "Standard"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-displau.php:364
-#, fuzzy
-#| msgid "Upload image"
-msgid "Placeholder image"
-msgstr "Ladda upp bild"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-filtering.php:6
-#, fuzzy
-#| msgid "Reset filter"
-msgid "Data filtering"
-msgstr "Återställ filter"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:10
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:254
-msgid "Sort by"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:24
-#, fuzzy
-#| msgid "Do not show"
-msgid "Do not sort"
-msgstr "Visa inte"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:26
-msgid "Författare"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:28
-msgid "Publiceringsdatum"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:29
-#, fuzzy
-#| msgid "Date updated"
-msgid "Date modified"
-msgstr "Senast uppdaterad"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:30
-#, fuzzy
-#| msgid "Parent %s"
-msgid "Parent"
-msgstr "Förälder %s"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:31
-msgid "Random"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:32
-#, fuzzy
-#| msgid "Comment text"
-msgid "Comment count"
-msgstr "Kommentar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:33
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:244
-#, fuzzy
-#| msgid "Menu trigger"
-msgid "Menu order"
-msgstr "Meny utlösare"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:47
-#, fuzzy
-#| msgid "Order By"
-msgid "Order"
-msgstr "Ordna efter"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-sorting.php:61
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:59
-#, fuzzy
-#| msgid "Decending"
-msgid "Descending"
-msgstr "Fallande"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:10
-#, fuzzy
-#| msgid "External Source"
-msgid "Data source"
-msgstr "Extern källa"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:24
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:40
-#, fuzzy
-#| msgid "Post Types"
-msgid "Posttyper"
-msgstr "Inläggstyper"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:25
-msgid "Child posts"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:26
-#, fuzzy
-#| msgid "CSS input"
-msgid "Manually picked posts"
-msgstr "Css"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:27
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:22
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:23
-#, fuzzy
-#| msgid "CSS input"
-msgid "Manual input"
-msgstr "Css"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:68
-#, fuzzy
-#| msgid "Number of posts to display"
-msgid "Pick posts to display"
-msgstr "Antalet inlägg på en sida"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:98
-msgid "Childs of"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:131
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:29
-msgid "Set to -1 to show all"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:159
-#, fuzzy
-#| msgid "CSS input"
-msgid "Data input"
-msgstr "Css"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:181
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:280
-#, fuzzy
-#| msgid "Address"
-msgid "Add"
-msgstr "Adress"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:207
-msgid "Innehåll"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:226
-#, fuzzy
-#| msgid "Permalänk"
-msgid "Permalink"
-msgstr "Permalänk"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:266
-#, fuzzy
-#| msgid "Columns"
-msgid "Column values"
-msgstr "Kolumner"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:269
-msgid "Column values if expandable list is selected."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:285
-msgid "Value"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:310
-#, fuzzy
-#| msgid "Link name to author archive"
-msgid "Link to post type archive"
-msgstr "Länka namn till arkivet för författaren"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-posts-source.php:330
-#, fuzzy
-#| msgid "Link name to author archive"
-msgid "Yes, link to post type archive"
-msgstr "Länka namn till arkivet för författaren"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:10
-msgid "RSS feed URL"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:26
-#, fuzzy
-#| msgid "Number of Menu Items"
-msgid "Number of items"
-msgstr "Antal objekt"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:47
-#, fuzzy
-#| msgid "Border"
-msgid "Sort order"
-msgstr "Ramiljne"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:50
-msgid "Select order to sort the RSS feed"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:83
-#, fuzzy
-#| msgid "Show search"
-msgid "Summary"
-msgstr "Visa sök"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:6
-msgid "Embed"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:10
-msgid "Embed code"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:13
-msgid ""
-"Paste your script code here (with &lt;style&gt; &lt;script&gt; tags if "
-"needed)."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:29
-#, fuzzy
-#| msgid "Padding"
-msgid "Card Padding"
-msgstr "Luft"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-script.php:32
-msgid "Add padding to card (default: 0, no padding)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-sites.php:6
-#: vendor/modularity/modules/source/php/Module/Sites/Sites.php:14
-#: vendor/modularity/modules/source/php/Module/Sites/Sites.php:15
-msgid "Sites"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-sites.php:10
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-sites.php:15
-#, fuzzy
-#| msgid "Include script in footer"
-msgid "Include main site"
-msgstr "Inludera skript i sidfot"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:10
-#, fuzzy
-#| msgid "Slide overlay"
-msgid "Slider ratio"
-msgstr "Övertäckning slider"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:22
-msgid "Wider (36:7)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:23
-msgid "Wide (10:3)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:24
-msgid "Normal (16:9, video)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:25
-#, fuzzy
-#| msgid "Square"
-msgid "Square (4:3)"
-msgstr "Fyrkantig"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:37
-#, fuzzy
-#| msgid "Auto"
-msgid "Autoslide"
-msgstr "Automatisk"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:48
-msgid "Slide automatically between views"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:56
-#, fuzzy
-#| msgid "Slide overlay"
-msgid "Slide interval"
-msgstr "Övertäckning slider"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:85
-msgid "Wrap around"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:97
-msgid "Go to first slide when last item is reached"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:110
-#, fuzzy
-#| msgid "Slide overlay"
-msgid "Slides"
-msgstr "Övertäckning slider"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:739
-#, fuzzy
-#| msgid "Add File"
-msgid "Add slide"
-msgstr "Lägg till fil"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:745
-#, fuzzy
-#| msgid "Drop Shadows"
-msgid "Shadow"
-msgstr "Skuggor"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:756
-msgid "Add a shadow around the slider."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-spacer.php:6
-#, fuzzy
-#| msgid "White"
-msgid "Whitespace"
-msgstr "Vit"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-spacer.php:10
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Amount of whitespace"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-spacer.php:13
-msgid "All space will be multiplied by 8."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:6
-#, fuzzy
-#| msgid "Below Settings"
-msgid "Table - Block settings"
-msgstr "Under inställningar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:10
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:10
-msgid "Datatyp"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:23
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:24
-msgid "CSV Import"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:27
-#, fuzzy
-#| msgid "January"
-msgid "manual"
-msgstr "Januari"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:34
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:34
-msgid "CSV-fil"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:37
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:37
-msgid "CSV-formatterad fil"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:61
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:61
-msgid "CSV-avgränsare"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:64
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:64
-msgid ""
-"Tecken som används i CSV-filen som avgränsare. Brukar vara kommatecken eller "
-"semikolon."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:80
-msgid ";"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:112
-msgid "Sidbläddring"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:123
-msgid "Yes, use pagination on this table"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:131
-msgid "Antal inlägg/sidor"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:160
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:122
-#, fuzzy
-#| msgid "Active"
-msgid "Aktivera sök"
-msgstr "Aktivera"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:179
-msgid "Sökfras"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:198
-#, fuzzy
-#| msgid "Search %s"
-msgid "Search in list"
-msgstr "Sök %s"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:206
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:141
-msgid "Aktivera kolumnsortering"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table-block.php:217
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:153
-msgid "Yes, enable column sorting"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:6
-#, fuzzy
-#| msgid "Editor"
-msgid "Table Editor"
-msgstr "Redigerare"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:93
-msgid ""
-"Enter your table contents, and select appearance and functionality options "
-"below."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:134
-msgid "Yes, use search on this table"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:160
-msgid "Multidimensional"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:163
-msgid ""
-"Använd den första kolumnen som en andra dimension av tabellrubriker. Detta "
-"val låser också den första kolumnen vid scroll."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:179
-#, fuzzy
-#| msgid "Su"
-msgid "Sum"
-msgstr "Sö"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:182
-msgid ""
-"Lägger till en rad i slutet av tabellen som summerar varje kolumns celler."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:198
-msgid "Fullscreen"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-table.php:201
-msgid ""
-"Renderar en ikon i högra hörnet som möjliggör helskärmsläge för tabellen."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-text.php:6
-#, fuzzy
-#| msgid "Text Decoration"
-msgid "Text options"
-msgstr "Textdekoration"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-text.php:10
-msgid "Göm textbox"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-text.php:22
-msgid "Ja, göm textbox (visa text som artikel)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:23
-msgid "Bädda in (YouTube eller Vimeo-länk)"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:24
-msgid "Ladda upp video"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:34
-#, fuzzy
-#| msgid "Video"
-msgid "Video: mp4"
-msgstr "Video"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:37
-msgid "Upload or select file from library. The only valid file format is .mp4"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:61
-msgid "Inbäddningslänk"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:85
-msgid "Affischbild"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-video.php:88
-msgid "Affischbilden visas innan videon sätts igång."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:6
-#, fuzzy
-#| msgid "Wordpress menu"
-msgid "Wordpress Widget"
-msgstr "Wordpress-menyn"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:11
-msgid "Arkiv"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:12
-#, fuzzy
-#| msgid "Standard"
-msgid "Kalender"
-msgstr "Standard"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:13
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:507
-#, fuzzy
-#| msgid "Categories"
-msgid "Kategorier"
-msgstr "Kategorier"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:14
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:155
-msgid "Meta"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:15
-msgid "Sidor"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:16
-msgid "Senaste kommentarerna"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:17
-msgid "Senaste inläggen"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:18
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:13
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:14
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:159
-#, fuzzy
-#| msgid "CSS"
-msgid "RSS"
-msgstr "CSS"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:19
-msgid "Sök"
-msgstr "Sök"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:20
-msgid "Taggmoln"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:28
-#, fuzzy
-#| msgid "Widgets"
-msgid "Widget Type"
-msgstr "Widgetar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:41
-msgid ""
-"There are no options available for this widget type.<br> <style>.acf-"
-"field-57309aa0b176d {background-color: #FFDFDF;}</style>"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:45
-#, fuzzy
-#| msgid "Margin options"
-msgid "No options avabile"
-msgstr "Marginalinställningar"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:91
-#, fuzzy
-#| msgid "Number of Menu Items"
-msgid "Show number of items indicator"
-msgstr "Antal objekt"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:123
-#, fuzzy
-#| msgid "Show as"
-msgid "Show as dropdown list"
-msgstr "Visa som"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:155
-#, fuzzy
-#| msgid "Number of Menu Items"
-msgid "Show number of category items indicator"
-msgstr "Antal objekt"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:187
-#, fuzzy
-#| msgid "Show search"
-msgid "Show as hierarchial list"
-msgstr "Visa sök"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:219
-#, fuzzy
-#| msgid "Show as"
-msgid "Show as dropdown"
-msgstr "Visa som"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:245
-#, fuzzy
-#| msgid "Page"
-msgid "Page ID"
-msgstr "Sida"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:257
-msgid "Select how to sort the pages"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:283
-msgid "Exclude"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:286
-msgid "ID:s of pages to exclude. Separated by comma."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:314
-#, fuzzy
-#| msgid "Number of columns to display"
-msgid "Number of comments to show"
-msgstr "Antal kolumner i rutnät"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:345
-#, fuzzy
-#| msgid "No posts to show"
-msgid "Number of posts to show"
-msgstr "Inga inlägg att visa"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:371
-msgid "RSS Url"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:400
-#, fuzzy
-#| msgid "No posts to show"
-msgid "Items to show"
-msgstr "Inga inlägg att visa"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:424
-#, fuzzy
-#| msgid "Show search"
-msgid "Yes, show summary"
-msgstr "Visa sök"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:429
-#, fuzzy
-#| msgid "Show search"
-msgid "Show summary"
-msgstr "Visa sök"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:451
-#, fuzzy
-#| msgid "Show author"
-msgid "Yes, show author"
-msgstr "Visa författare"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:456
-msgid "Visa författare"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:478
-#, fuzzy
-#| msgid "Show author"
-msgid "Yes, show date"
-msgstr "Visa författare"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:483
-#, fuzzy
-#| msgid "Show as"
-msgid "Show date"
-msgstr "Visa som"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:508
-msgid "Taggar"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:509
-#, fuzzy
-#| msgid "Categories"
-msgid "Länkkategorier"
-msgstr "Kategorier"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:510
-#, fuzzy
-#| msgid "Categories"
-msgid "Kategori"
-msgstr "Kategorier"
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:511
-msgid "Plats"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:512
-msgid "Ämne"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:521
-#, fuzzy
-#| msgid "Taxonomies"
-msgid "Taxonomy"
-msgstr "Taxonomies"
-
-#: vendor/modularity/modules/source/php/BlockManager.php:351
-#, fuzzy
-#| msgid "Below Settings"
-msgid "Block settings"
-msgstr "Under inställningar"
-
-#: vendor/modularity/modules/source/php/Display.php:451
-#: vendor/modularity/modules/templates/widget/form.php:30
-#, fuzzy
-#| msgid "Edit %s"
-msgid "Edit module"
-msgstr "Redigera %s"
-
-#: vendor/modularity/modules/source/php/Editor.php:63
-#, fuzzy
-#| msgid "View page"
-msgid "View Page"
-msgstr "Visa sida"
-
-#: vendor/modularity/modules/source/php/Editor.php:152
-#, fuzzy
-#| msgid "Margin options"
-msgid "Modularity editor"
-msgstr "Marginalinställningar"
-
-#: vendor/modularity/modules/source/php/Editor.php:153
-msgid "Editor"
-msgstr "Redigerare"
-
-#: vendor/modularity/modules/source/php/Editor.php:171
-#, fuzzy
-#| msgid "Show on mobile"
-msgid "Save modules"
-msgstr "Visa på mobil"
-
-#: vendor/modularity/modules/source/php/Editor.php:182
-#, fuzzy
-#| msgid "Enabled"
-msgid "Enabled modules"
-msgstr "Aktiverad"
-
-#: vendor/modularity/modules/source/php/Editor.php:228
-#, fuzzy
-#| msgid "The left sidebar area"
-msgid "No active sidebar areas"
-msgstr "Sidebar till vänster"
-
-#: vendor/modularity/modules/source/php/Editor.php:230
-msgid ""
-"There's no active sidebars. Please activate sidebar areas in the Modularity "
-"Options to add modules."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Editor.php:547
-#, fuzzy
-#| msgid "Module Apperance"
-msgid "Modules saved"
-msgstr "Modulutseende"
-
-#: vendor/modularity/modules/source/php/Editor.php:632
-msgid "Inherit"
-msgstr "Ärv"
-
-#: vendor/modularity/modules/source/php/Editor.php:693
-msgid "Scope styling"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Editor.php:697
-msgid "Select an apperance for this instance of module"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Editor.php:700
-msgid ""
-"By selecting a scope for this class, they will appear in a different way "
-"than the standard layout."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Helper/Acf.php:31
-msgid ""
-"To get the full expirience of the <strong>Modularity</strong> plugin, please "
-"activate the <a href=\"http://www.advancedcustomfields.com/pro/\" target="
-"\"_blank\">Advanced Custom Fields Pro</a> plugin."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:13
-#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:14
-#, fuzzy
-#| msgid "Contacts"
-msgid "Contacts v2"
-msgstr "Kontakter"
-
-#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:15
-msgid "Outputs one or more contacts"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Contacts/Contacts.php:51
-msgid "Opening hours"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Contacts/views/components/adress.blade.php:12
-#: vendor/modularity/modules/templates/module/modularity-mod-contact/modularity-mod-contact-cards.php:94
-#, fuzzy
-#| msgid "Post Formats"
-msgid "Postal address"
-msgstr "Inläggsformat"
-
-#: vendor/modularity/modules/source/php/Module/Contacts/views/components/visiting.blade.php:12
-#: vendor/modularity/modules/templates/module/modularity-mod-contact/modularity-mod-contact-cards.php:103
-#, fuzzy
-#| msgid "Post Formats"
-msgid "Visiting address"
-msgstr "Inläggsformat"
-
-#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:15
-msgid "Output social media flow via curator."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:55
-msgid "A invalid embed code was provided, please try enter it again."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Curator/Curator.php:57
-#, fuzzy
-#| msgid "Something went wrong, please try again later"
-msgid ""
-"Could not get the instagram feed at this moment, please try again later."
-msgstr "Något gick fel, vänligen försök igen senare"
-
-#: vendor/modularity/modules/source/php/Module/FilesList/FilesList.php:12
-#: vendor/modularity/modules/source/php/Module/FilesList/FilesList.php:13
-#, fuzzy
-#| msgid "Add File"
-msgid "Files"
-msgstr "Lägg till fil"
-
-#: vendor/modularity/modules/source/php/Module/FilesList/FilesList.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a file archive."
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Gallery/Gallery.php:12
-#, fuzzy
-#| msgid "Categories"
-msgid "Gallery"
-msgstr "Kategorier"
-
-#: vendor/modularity/modules/source/php/Module/Gallery/Gallery.php:13
-#, fuzzy
-#| msgid "Categories"
-msgid "Galleries"
-msgstr "Kategorier"
-
-#: vendor/modularity/modules/source/php/Module/Gallery/Gallery.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a gallery with images"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Hero/Hero.php:13
-#, fuzzy
-#| msgid "Hero"
-msgid "Heros"
-msgstr "Under sidhuvud (Heroyta)"
-
-#: vendor/modularity/modules/source/php/Module/Hero/Hero.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a hero"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:12
-#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:13
-#, fuzzy
-#| msgid "Header settings."
-msgid "Iframe"
-msgstr "Inställningar för sidhuvud."
-
-#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs an embedded page."
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Iframe/Iframe.php:34
-msgid ""
-"Your iframe link must start with http<strong>s</strong>://. Links without "
-"this prefix will not display."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Image/Image.php:20
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs an image"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Index/Index.php:17
-#, fuzzy
-#| msgid "Index"
-msgid "Indexes"
-msgstr "Index"
-
-#: vendor/modularity/modules/source/php/Module/Index/Index.php:18
-msgid "Index card to use as an entry point for a \"content section\"."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/InheritPost/InheritPost.php:12
-#, fuzzy
-#| msgid "Post Formats"
-msgid "Post article"
-msgstr "Inläggsformat"
-
-#: vendor/modularity/modules/source/php/Module/InheritPost/InheritPost.php:13
-#, fuzzy
-#| msgid "Post Formats"
-msgid "Post articles"
-msgstr "Inläggsformat"
-
-#: vendor/modularity/modules/source/php/Module/InheritPost/InheritPost.php:14
-msgid "Outputs title and content from any post or page"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:13
-msgid "Inlay List"
-msgstr "Lista"
-
-#: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:14
-msgid "Inlay Lists"
-msgstr "Listor"
-
-#: vendor/modularity/modules/source/php/Module/InlayList/InlayList.php:15
-msgid "Outputs one or more posts from selected post-type."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Logogrid/Logogrid.php:13
-#, fuzzy
-#| msgid "Logotype"
-msgid "Logotype grids"
-msgstr "Logotyp"
-
-#: vendor/modularity/modules/source/php/Module/Logogrid/Logogrid.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a grid of logotypes"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Map/Map.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs an embedded map."
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Map/Map.php:51
-msgid ""
-"Your map link must start with http<strong>s</strong>://. Links without this "
-"prefix will not display."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Notice/Notice.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a notice"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:23
-msgid "Outputs selected posts in specified layout"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Posts/Posts.php:494
-msgid "Modularity expandable list column values"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/HorizontalTemplate.php:20
-#, fuzzy
-#| msgid "Read more"
-msgid "Load more"
-msgstr "Läs mer"
-
-#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/ListTemplate.php:47
-#, fuzzy
-#| msgid "No posts to show"
-msgid "No posts to show…"
-msgstr "Inga inlägg att visa"
-
-#: vendor/modularity/modules/source/php/Module/Posts/TemplateController/ListTemplate.php:78
-#: vendor/modularity/modules/templates/module/modularity-mod-latest-list.php:58
-#, fuzzy
-#| msgid "Show author"
-msgid "Show more"
-msgstr "Visa författare"
-
-#: vendor/modularity/modules/source/php/Module/Posts/views/horizontal.blade.php:112
-#, fuzzy
-#| msgid "Number of posts to display"
-msgid "Nothing to display…"
-msgstr "Antalet inlägg på en sida"
-
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:53
-#: views/v1/partials/archive-filters.blade.php:52
-#: views/v2/partials/archive-filters.blade.php:52
-msgid "From"
-msgstr "Från"
-
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:54
-#: views/v1/partials/archive-filters.blade.php:53
-#: views/v2/partials/archive-filters.blade.php:53
-msgid "From date"
-msgstr "Från datum"
-
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:58
-#: views/v1/partials/archive-filters.blade.php:54
-#: views/v2/partials/archive-filters.blade.php:54
-msgid "To"
-msgstr "Till"
-
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:59
-#: views/v1/partials/archive-filters.blade.php:55
-#: views/v2/partials/archive-filters.blade.php:55
-msgid "To date"
-msgstr "Till datum"
-
-#: vendor/modularity/modules/source/php/Module/Posts/views/partials/post-filters.blade.php:88
-#: views/v1/partials/archive-filters.blade.php:75
-#: views/v2/partials/archive-filters.blade.php:75
-msgid "Clear filters"
-msgstr "Återställ filter"
-
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:15
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a RSS feed"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:44
-msgid "RSS feed URL is missing"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:50
-#, fuzzy
-#| msgid "Error"
-msgid "RSS Error:"
-msgstr "Fel"
-
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:56
-msgid ""
-"An error has occurred, which probably means the feed is down. Try again "
-"later."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Rss/Rss.php:81
-#, fuzzy
-#| msgid "Untitled page"
-msgid "Untitled"
-msgstr "Namnlös sida"
-
-#: vendor/modularity/modules/source/php/Module/Script/Script.php:15
-msgid "Outputs unsanitized code to widget area."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Sites/Sites.php:16
-msgid "Outputs a grid list with att sites in the network."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:27
-#, fuzzy
-#| msgid "Slide overlay"
-msgid "Sliders"
-msgstr "Övertäckning slider"
-
-#: vendor/modularity/modules/source/php/Module/Slider/Slider.php:28
-msgid "Outputs multiple images or videos in a sliding apperance."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Spacer/Spacer.php:12
-#, fuzzy
-#| msgid "Spacing"
-msgid "Spacer"
-msgstr "Avstånd"
-
-#: vendor/modularity/modules/source/php/Module/Spacer/Spacer.php:13
-#, fuzzy
-#| msgid "Spacing"
-msgid "Spacers"
-msgstr "Avstånd"
-
-#: vendor/modularity/modules/source/php/Module/Spacer/Spacer.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs whitespace."
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:13
-#, fuzzy
-#| msgid "Enable"
-msgid "Tables"
-msgstr "Aktivera"
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a flexible table with options."
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:109
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:146
-msgid "There was an error opening the selected .csv-file."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:191
-msgid "No data available in table"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:192
-msgid "Showing _START_ to _END_ of _TOTAL_ entries"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:193
-msgid "Showing 0 to 0 of 0 entries"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:194
-msgid "filtered from _MAX_ total entries"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:195
-msgid "Show _MENU_ entries"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:196
-msgid "Loading..."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:197
-msgid "Processing..."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:198
-msgid "No matching records found"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:199
-msgid "First"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:200
-msgid "Last"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:201
-msgid "Next"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:202
-msgid "Previous"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:203
-msgid "activate to sort column ascending"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Table/Table.php:204
-msgid "activate to sort column descending"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/Text/Text.php:13
-#, fuzzy
-#| msgid "Text"
-msgid "Texts"
-msgstr "Text"
-
-#: vendor/modularity/modules/source/php/Module/Text/Text.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs text"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Video/Video.php:14
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs an embedded Video."
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/Video/Video.php:49
-#, php-format
-msgid ""
-"This video could not be embedded. <a href=\"%s\" target=\"_blank\">View the "
-"video by visiting embedded page.</a>"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:13
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:14
-#, fuzzy
-#| msgid "Wordpress menu"
-msgid "Wordpress Widgets"
-msgstr "Wordpress-menyn"
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:15
-#, fuzzy
-#| msgid "Amount of shadows"
-msgid "Outputs a default widget in WordPress"
-msgstr "Mängden skugga"
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:154
-#: views/v1/partials/blog/post-categories.blade.php:2
-msgid "Categories"
-msgstr "Kategorier"
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:156
-msgid "Pages"
-msgstr "Sidor"
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:157
-#, fuzzy
-#| msgid "Consent comment"
-msgid "Recent comments"
-msgstr "Samtyckes kommentar"
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:158
-#, fuzzy
-#| msgid "Consent comment"
-msgid "Recent posts"
-msgstr "Samtyckes kommentar"
-
-#: vendor/modularity/modules/source/php/Module/WpWidget/WpWidget.php:161
-msgid "Tag cloud"
-msgstr ""
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:183
-#, fuzzy
-#| msgid "Add new"
-msgctxt "add new button"
-msgid "Add New"
-msgstr "Skapa ny"
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:191
-#, fuzzy, php-format
-#| msgid "No %s found"
-msgid "No %s"
-msgstr "Inga %s hittades"
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:192
-#, fuzzy, php-format
-#| msgid "No %s found in trash"
-msgid "No %s in trash"
-msgstr "Inga %s hittades i papperskorgen"
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:372
-#, fuzzy
-#| msgid "Hide text"
-msgid "Hide title"
-msgstr "Dölj text"
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:411
-msgid "Copy and paste this shortcode to display the module inline."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:454
-msgid "This modules is not used yet."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:458
-#, fuzzy
-#| msgid "This theme recommends the following plugin: %1$s."
-#| msgid_plural "This theme recommends the following plugins: %1$s."
-msgid "This module is used on the following places:"
-msgstr "Detta tema rekommenderar följande tillägg: %1$s."
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:559
-#, fuzzy
-#| msgid "Order direction"
-msgid "Module description"
-msgstr "Riktning"
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:605
-#, fuzzy
-#| msgid "Message"
-msgid "Usage"
-msgstr "Meddelande"
-
-#: vendor/modularity/modules/source/php/ModuleManager.php:630
-#, fuzzy
-#| msgid "Not Installed"
-msgid "Not used"
-msgstr "Saknas"
-
-#: vendor/modularity/modules/source/php/Options.php:93
-#, fuzzy
-#| msgid "Plugin activated successfully."
-msgid "Options saved successfully"
-msgstr "Tillägg aktiverat utan problem."
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:6
-#, fuzzy
-#| msgid "Order direction"
-msgid "Sidebar & Module Restrictions"
-msgstr "Riktning"
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:29
-#, fuzzy
-#| msgid "Below Settings"
-msgid "Settings"
-msgstr "Under inställningar"
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:33
-#, fuzzy
-#| msgid "The footer area "
-msgid "Template Areas"
-msgstr "Sidfoten"
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:45
-msgid "Checking this will override the default module area settings."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:55
-#, fuzzy
-#| msgid "Order direction"
-msgid "Module Restrictions"
-msgstr "Riktning"
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:67
-msgid ""
-"Checking this will filter the default module settings for each template."
-msgstr ""
-
-#: vendor/modularity/modules/source/php/Options/AcfFields/acf-module-restrictions.php:161
-#, fuzzy
-#| msgid "Activate Gutenberg"
-msgid "Active Sidebars"
-msgstr "Aktivera Gutenberg"
-
-#: vendor/modularity/modules/source/php/Options/Archives.php:37
-#: vendor/modularity/modules/source/php/Options/Archives.php:38
-#, fuzzy
-#| msgid "Archives"
-msgid "Archive modules"
-msgstr "Arkiv"
-
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:10
-msgid "Archive"
-msgstr "Arkiv"
-
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:18
-#, fuzzy
-#| msgid "Number of columns to display"
-msgid "There's no archives to display"
-msgstr "Antal kolumner i rutnät"
-
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:24
-#, fuzzy
-#| msgid "Post Types"
-msgid "Post Type Archive"
-msgstr "Inläggstyper"
-
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:25
-#, fuzzy
-#| msgid "Hide date"
-msgid "Has modules"
-msgstr "Dölj datum"
-
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:60
-#, fuzzy
-#| msgid "View %s"
-msgid "View"
-msgstr "Visa %s"
-
-#: vendor/modularity/modules/source/php/Options/ArchivesList.php:61
-#, fuzzy
-#| msgid "Edit %s"
-msgid "Edit modules"
-msgstr "Redigera %s"
-
-#: vendor/modularity/modules/source/php/Options/General.php:10
-#, fuzzy
-#| msgid "Margin options"
-msgid "Modularity Options"
-msgstr "Marginalinställningar"
-
-#: vendor/modularity/modules/source/php/Options/General.php:11
-#, fuzzy
-#| msgid "Theme Options"
-msgid "Options"
-msgstr "Temainställningar"
-
-#: vendor/modularity/modules/source/php/Options/General.php:22
-#: vendor/modularity/modules/source/php/Options/General.php:23
-#, fuzzy
-#| msgid "Archives"
-msgid "Search page modules"
-msgstr "Arkiv"
-
-#: vendor/modularity/modules/source/php/Options/General.php:30
-#: vendor/modularity/modules/source/php/Options/General.php:31
-#, fuzzy
-#| msgid "Theme Options"
-msgid "Restrictive Options"
-msgstr "Temainställningar"
-
-#: vendor/modularity/modules/source/php/Options/General.php:124
-#, fuzzy
-#| msgid "Margin options"
-msgid "Save options"
-msgstr "Marginalinställningar"
-
-#: vendor/modularity/modules/source/php/Options/General.php:136
-#, fuzzy
-#| msgid "Margin options"
-msgid "Core options"
-msgstr "Marginalinställningar"
-
-#: vendor/modularity/modules/source/php/Options/General.php:148
-#, fuzzy
-#| msgid "Margin options"
-msgid "Module options"
-msgstr "Marginalinställningar"
-
-#: vendor/modularity/modules/source/php/Options/General.php:160
-#, fuzzy
-#| msgid "Post Types"
-msgid "Post types"
-msgstr "Inläggstyper"
-
-#: vendor/modularity/modules/source/php/Options/General.php:169
-#, fuzzy
-#| msgid "The footer area "
-msgid "Template areas"
-msgstr "Sidfoten"
-
-#: vendor/modularity/modules/templates/editor/modularity-module-description.php:2
-msgid ""
-"Only visible for administrators/editors. Please keep the description short "
-"and concisely."
-msgstr ""
-
-#: vendor/modularity/modules/templates/editor/modularity-publish.php:5
-msgid "Page:"
-msgstr "Sida:"
-
-#: vendor/modularity/modules/templates/editor/modularity-publish.php:14
-#, fuzzy
-#| msgid "The footer area "
-msgid "Using template:"
-msgstr "Sidfoten"
-
-#: vendor/modularity/modules/templates/editor/modularity-publish.php:23
-#: vendor/modularity/modules/templates/options/partials/modularity-publish.php:4
-msgid "Save"
-msgstr ""
-
-#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:3
-msgid "Drag your modules here…"
-msgstr ""
-
-#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:10
-#, fuzzy
-#| msgid "Show on mobile"
-msgid "Show modules"
-msgstr "Visa på mobil"
-
-#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:12
-msgid "before"
-msgstr ""
-
-#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:13
-msgid "after"
-msgstr ""
-
-#: vendor/modularity/modules/templates/editor/modularity-sidebar-drop-area.php:20
-msgid "Hide global widgets"
-msgstr ""
-
-#: vendor/modularity/modules/templates/options/partials/modularity-core-options.php:5
-msgid "Show module's post type in admin menu"
-msgstr ""
-
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:2
-#, fuzzy
-#| msgid "Enabled"
-msgid "Enable and/or disable modules."
-msgstr "Aktiverad"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:3
-msgid ""
-"Note: You will not lose any data from disabling a module. However the "
-"modules will not be displayed on your site."
-msgstr ""
-
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:8
-#, fuzzy
-#| msgid "Select File"
-msgid "Deprecated modules"
-msgstr "Välj fil"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:9
-msgid ""
-"Some of your modules is set as deprecated. That means that the modules "
-"already created will still be available to display and edit, but the option "
-"to create new modules is disabled."
-msgstr ""
-
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:17
-#: vendor/modularity/modules/templates/options/partials/modularity-modules.php:18
-#, fuzzy
-#| msgid "Module Apperance"
-msgid "Module"
-msgstr "Modulutseende"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-post-types.php:2
-#, fuzzy
-#| msgid "Check the formats you would like to enable"
-msgid "Select which post types you would like to enable Modularity on."
-msgstr "Välj de format som du vill aktivera"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-post-types.php:9
-#, fuzzy
-#| msgid "Post Types"
-msgid "Post type"
-msgstr "Inläggstyper"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:2
-#, fuzzy
-#| msgid "Enabled"
-msgid "Enable and/or disable areas in a specific template."
-msgstr "Aktiverad"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:3
-msgid "Pro tip:"
-msgstr ""
-
-#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:3
-msgid "Shift click on a checkbox to check/uncheck the area in all templates."
-msgstr ""
-
-#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:9
-#, fuzzy
-#| msgid "The footer area "
-msgid "Template"
-msgstr "Sidfoten"
-
-#: vendor/modularity/modules/templates/options/partials/modularity-template-areas.php:10
-msgid "Areas"
-msgstr ""
-
-#: vendor/modularity/modules/templates/widget/form.php:2
-#, fuzzy
-#| msgid "Select File"
-msgid "Selected module"
-msgstr "Välj fil"
-
-#: vendor/modularity/modules/templates/widget/form.php:4
-#: vendor/modularity/modules/templates/widget/form.php:7
-#, fuzzy
-#| msgid "No image selected"
-msgid "Not selected"
-msgstr "Ingen bild"
-
-#: vendor/modularity/modules/templates/widget/form.php:11
-msgid "Module type"
-msgstr "Modultyp"
-
-#: vendor/modularity/modules/templates/widget/form.php:19
-msgid "Module width"
-msgstr "Modulbredd"
-
-#: vendor/modularity/modules/templates/widget/form.php:28
-msgid "Browse modules"
-msgstr "Bläddra bland moduler"
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:40
-msgid "FocusPoint"
-msgstr "Fokuspunkt"
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:126
-msgid "Preview Size"
-msgstr "Förhandsgranskningsstorlek"
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:127
-msgid ""
-"Image used to create a FocusPoint. Should be around the same image ratio as "
-"Image Size"
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:136
-msgid "Minimum"
-msgstr "Minimum"
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:137
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:166
-msgid "Restrict which images can be uploaded. Note: this is not working yet!"
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:157
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:186
-msgid "File size"
-msgstr "Filstorlek"
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:165
-#, fuzzy
-#| msgid "Minimum"
-msgid "Maximum"
-msgstr "Minimum"
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:568
-#, php-format
-msgid "Image width must be at least %dpx."
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:571
-#, php-format
-msgid "Image height must be at least %dpx."
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:574
-#, php-format
-msgid "File size must be at least %d&nbsp;KB."
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:577
-#, php-format
-msgid "Image width must not exceed %dpx."
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:580
-#, php-format
-msgid "Image height must not exceed %dpx."
-msgstr ""
-
-#: vendor/ooksanen/acf-focuspoint/fields/class-acffp-acf-field-focuspoint-v5.php:583
-#, php-format
-msgid "File size must not exceed %d&nbsp;KB."
-msgstr ""
 
 #: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
 msgid "Install Required Plugins"
@@ -12230,12 +8937,46 @@ msgstr "Ärendet kunde inte hittas"
 msgid "View all tickets"
 msgstr "Visa alla ärenden"
 
+#: views/v1/partials/archive-filters.blade.php:52
+#: views/v2/partials/archive-filters.blade.php:52
+msgid "From"
+msgstr "Från"
+
+#: views/v1/partials/archive-filters.blade.php:53
+#: views/v2/partials/archive-filters.blade.php:53
+msgid "From date"
+msgstr "Från datum"
+
+#: views/v1/partials/archive-filters.blade.php:54
+#: views/v2/partials/archive-filters.blade.php:54
+msgid "To"
+msgstr "Till"
+
+#: views/v1/partials/archive-filters.blade.php:55
+#: views/v2/partials/archive-filters.blade.php:55
+msgid "To date"
+msgstr "Till datum"
+
+#: views/v1/partials/archive-filters.blade.php:75
+#: views/v2/partials/archive-filters.blade.php:75
+msgid "Clear filters"
+msgstr "Återställ filter"
+
 #: views/v1/partials/author-box.blade.php:16
 #: views/v1/partials/author-box.blade.php:20
 #: views/v1/partials/author-box.blade.php:24
 #: views/v1/partials/author-box.blade.php:28
 msgid "My profile on"
 msgstr "Min profil på"
+
+#: views/v1/partials/blog/comments.blade.php:59
+#: views/v1/partials/blog/comments.blade.php:123
+msgid "Edit"
+msgstr "Redigera"
+
+#: views/v1/partials/blog/post-categories.blade.php:2
+msgid "Categories"
+msgstr "Kategorier"
 
 #: views/v1/partials/blog/post-categories.blade.php:6
 msgid "No categories"
@@ -12363,6 +9104,1412 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "Post Type Select"
+#~ msgstr "Inläggstyper"
+
+#~ msgid "Choice"
+#~ msgstr "Val"
+
+#, fuzzy
+#~| msgid "Default style"
+#~ msgid "Default Value"
+#~ msgstr "Standard"
+
+#~ msgid "Enter each default value on a new line"
+#~ msgstr "Ange varje standardvärde på en ny rad"
+
+#~ msgid "Allow Null?"
+#~ msgstr "Tillåt tomt värde"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "No"
+#~ msgstr "Nej"
+
+#~ msgid "Select multiple values?"
+#~ msgstr "Välj flera värden?"
+
+#~ msgid "Error! Please enter a higher value"
+#~ msgstr "Fel! Välj ett högre värde"
+
+#, fuzzy
+#~| msgid "Disable"
+#~ msgid "Dynamic Table"
+#~ msgstr "Inaktivera"
+
+#, fuzzy
+#~| msgid "CSS Class"
+#~ msgid "Table Class"
+#~ msgstr "Css klass"
+
+#, fuzzy
+#~| msgid "Set the maximum page withs of different page types."
+#~ msgid "Sets the maximum rows for the table"
+#~ msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
+
+#, fuzzy
+#~| msgid "Disable script"
+#~ msgid "Disable Sort"
+#~ msgstr "Inaktivera skript"
+
+#, fuzzy
+#~| msgid "Columns"
+#~ msgid "Fixed Columns"
+#~ msgstr "Kolumner"
+
+#, fuzzy
+#~| msgid "Default style"
+#~ msgid "Default Headers"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Enter each default value on a new line"
+#~ msgid "Set default headers, one per line."
+#~ msgstr "Ange varje standardvärde på en ny rad"
+
+#, fuzzy
+#~| msgid "Show on mobile"
+#~ msgid "Show Title?"
+#~ msgstr "Visa på mobil"
+
+#, fuzzy
+#~| msgid "Enable"
+#~ msgid "Table"
+#~ msgstr "Aktivera"
+
+#~ msgid "Layout"
+#~ msgstr "Layout"
+
+#, fuzzy
+#~| msgid "Above header"
+#~ msgid "use table header"
+#~ msgstr "Ovanför sidhuvudet"
+
+#, fuzzy
+#~| msgid "Header"
+#~ msgid "Table Header"
+#~ msgstr "Sidhuvud"
+
+#, fuzzy
+#~| msgid "Theme Options"
+#~ msgid "Optional"
+#~ msgstr "Temainställningar"
+
+#, fuzzy
+#~| msgid "Above header"
+#~ msgid "Presetting the usage of table header"
+#~ msgstr "Ovanför sidhuvudet"
+
+#, fuzzy
+#~| msgid "Collection"
+#~ msgid "table caption"
+#~ msgstr "Samlingar"
+
+#, fuzzy
+#~| msgid "Theme Options"
+#~ msgid "Table Caption"
+#~ msgstr "Temainställningar"
+
+#, fuzzy
+#~| msgid "Above header"
+#~ msgid "Presetting the usage of table caption"
+#~ msgstr "Ovanför sidhuvudet"
+
+#, fuzzy
+#~| msgid "Edit %s"
+#~ msgid "Modules"
+#~ msgstr "Redigera %s"
+
+#, fuzzy
+#~| msgid "Hide date"
+#~ msgid "Hide module"
+#~ msgstr "Dölj datum"
+
+#, fuzzy
+#~| msgid "Are you sure you want to delete the comment?"
+#~ msgid "Are you sure you want to remove this module?"
+#~ msgstr "Är du säker på att du vill ta bort kommentaren?"
+
+#, fuzzy
+#~| msgid "Date updated"
+#~ msgid "Deprecated"
+#~ msgstr "Senast uppdaterad"
+
+#, fuzzy
+#~| msgid "Edit %s"
+#~ msgid "Edit Modules"
+#~ msgstr "Redigera %s"
+
+#, fuzzy
+#~| msgid "List"
+#~ msgid "Lista"
+#~ msgstr "Lista"
+
+#, fuzzy
+#~| msgid "Cards"
+#~ msgid "cards"
+#~ msgstr "Kort"
+
+#, fuzzy
+#~| msgid "External link"
+#~ msgid "Efternamn"
+#~ msgstr "Externa länkar"
+
+#, fuzzy
+#~| msgid "Email"
+#~ msgid "E-mail"
+#~ msgstr "Epost"
+
+#, fuzzy
+#~| msgid "Lägg till rad"
+#~ msgid "Lägg till nummer"
+#~ msgstr "Lägg till rad"
+
+#, fuzzy
+#~| msgid "Type"
+#~ msgid "Typ"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~| msgid "Social"
+#~ msgid "Social Media"
+#~ msgstr "Socialt"
+
+#, fuzzy
+#~| msgid "Link"
+#~ msgid "LinkedIn"
+#~ msgstr "Länk"
+
+#, fuzzy
+#~| msgid "Twitter username"
+#~ msgid "Twitter"
+#~ msgstr "Användarnamn på Twitter"
+
+#, fuzzy
+#~| msgid "Instagram username"
+#~ msgid "Instagram"
+#~ msgstr "Användarnamn på Instagram"
+
+#, fuzzy
+#~| msgid "Add section"
+#~ msgid "Add contact"
+#~ msgstr "Lägg till sektion"
+
+#, fuzzy
+#~| msgid "Columns"
+#~ msgid "Kolumner"
+#~ msgstr "Kolumner"
+
+#, fuzzy
+#~| msgid "Active"
+#~ msgid "Aktiverad"
+#~ msgstr "Aktivera"
+
+#, fuzzy
+#~| msgid "Social"
+#~ msgid "Curator Social Media"
+#~ msgstr "Socialt"
+
+#, fuzzy
+#~| msgid "Number of posts to display"
+#~ msgid "Number of posts"
+#~ msgstr "Antalet inlägg på en sida"
+
+#, fuzzy
+#~| msgid "No posts to show"
+#~ msgid "Set the number items to show."
+#~ msgstr "Inga inlägg att visa"
+
+#, fuzzy
+#~| msgid "Add File"
+#~ msgid "Filer"
+#~ msgstr "Lägg till fil"
+
+#, fuzzy
+#~| msgid "Lägg till länk"
+#~ msgid "Lägg till fil"
+#~ msgstr "Lägg till länk"
+
+#, fuzzy
+#~| msgid "Fill"
+#~ msgid "Fil"
+#~ msgstr "Fyll"
+
+#, fuzzy
+#~| msgid "Filters"
+#~ msgid "Filter"
+#~ msgstr "Filtrering"
+
+#, fuzzy
+#~| msgid "Reset filter"
+#~ msgid "Tillåt filtrering"
+#~ msgstr "Återställ filter"
+
+#, fuzzy
+#~| msgid "Pages"
+#~ msgid "Images"
+#~ msgstr "Sidor"
+
+#, fuzzy
+#~| msgid "Outline"
+#~ msgid "Byline"
+#~ msgstr "Ramlinje"
+
+#, fuzzy
+#~| msgid "Background Image"
+#~ msgid "Background image"
+#~ msgstr "Bakgrundsbild"
+
+#, fuzzy
+#~| msgid "Header settings."
+#~ msgid "Iframe settings"
+#~ msgstr "Inställningar för sidhuvud."
+
+#, fuzzy
+#~| msgid "Header settings."
+#~ msgid "Iframe URL"
+#~ msgstr "Inställningar för sidhuvud."
+
+#, fuzzy
+#~| msgid "Header settings."
+#~ msgid "Iframe height"
+#~ msgstr "Inställningar för sidhuvud."
+
+#, fuzzy
+#~| msgid "Direction"
+#~ msgid "Description"
+#~ msgstr "Riktning"
+
+#, fuzzy
+#~| msgid "Add Image"
+#~ msgid "Image"
+#~ msgstr "Lägg till bild"
+
+#, fuzzy
+#~| msgid "Image Editing"
+#~ msgid "Image caption"
+#~ msgstr "Bildredigering"
+
+#, fuzzy
+#~| msgid "Choose image"
+#~ msgid "Crop image"
+#~ msgstr "Välj bild"
+
+#, fuzzy
+#~| msgid "Choose image"
+#~ msgid "Cropping"
+#~ msgstr "Välj bild"
+
+#, fuzzy
+#~| msgid "Max width"
+#~ msgid "Crop width"
+#~ msgstr "Maxbredd"
+
+#, fuzzy
+#~| msgid "Logotype height"
+#~ msgid "Crop height"
+#~ msgstr "Storlek på logotyp (höjd)"
+
+#, fuzzy
+#~| msgid "Margin size"
+#~ msgid "Image size"
+#~ msgstr "Marginalstorlek"
+
+#, fuzzy
+#~| msgid "Internal link"
+#~ msgid "Internal"
+#~ msgstr "Interna länkar"
+
+#, fuzzy
+#~| msgid "External link"
+#~ msgid "External"
+#~ msgstr "Externa länkar"
+
+#, fuzzy
+#~| msgid "Link"
+#~ msgid "Link url"
+#~ msgstr "Länk"
+
+#, fuzzy
+#~| msgid "Link size"
+#~ msgid "Link page"
+#~ msgstr "Länkstorlek"
+
+#, fuzzy
+#~| msgid "Link size"
+#~ msgid "Link type"
+#~ msgstr "Länkstorlek"
+
+#, fuzzy
+#~| msgid "Link"
+#~ msgid "No Link"
+#~ msgstr "Länk"
+
+#~ msgid "Page"
+#~ msgstr "Sida"
+
+#, fuzzy
+#~| msgid "Featured image"
+#~ msgid "Use featured image"
+#~ msgstr "Utvald bild"
+
+#, fuzzy
+#~| msgid "Upload image"
+#~ msgid "Upload custom image"
+#~ msgstr "Ladda upp bild"
+
+#, fuzzy
+#~| msgid "Hide date"
+#~ msgid "Hide image"
+#~ msgstr "Dölj datum"
+
+#, fuzzy
+#~| msgid "Featured image"
+#~ msgid "featured"
+#~ msgstr "Utvald bild"
+
+#~ msgid "Titel"
+#~ msgstr "Titel"
+
+#~ msgid "Lead"
+#~ msgstr "Ingress"
+
+#, fuzzy
+#~| msgid "Post Formats"
+#~ msgid "Post or page"
+#~ msgstr "Inläggsformat"
+
+#, fuzzy
+#~| msgid "Internal link"
+#~ msgid "internal"
+#~ msgstr "Interna länkar"
+
+#, fuzzy
+#~| msgid "Date published"
+#~ msgid "Show publish date"
+#~ msgstr "Publiceringsdatum"
+
+#, fuzzy
+#~| msgid "Logotype"
+#~ msgid "Logotype grid"
+#~ msgstr "Logotyp"
+
+#, fuzzy
+#~| msgid "Header logotype"
+#~ msgid "Add new logotype"
+#~ msgstr "Logotyp för sidhuvud"
+
+#, fuzzy
+#~| msgid "Header logotype"
+#~ msgid "Image/logotype"
+#~ msgstr "Logotyp för sidhuvud"
+
+#, fuzzy
+#~| msgid "Maps"
+#~ msgid "Map"
+#~ msgstr "Kartor"
+
+#, fuzzy
+#~| msgid "Line Height"
+#~ msgid "Miniumum Height"
+#~ msgstr "Linjehöjd"
+
+#, fuzzy
+#~| msgid "Line Height"
+#~ msgid "Set a minumum height"
+#~ msgstr "Linjehöjd"
+
+#, fuzzy
+#~| msgid "Show author"
+#~ msgid "Show button"
+#~ msgstr "Visa författare"
+
+#, fuzzy
+#~| msgid "Toggle button label"
+#~ msgid "Button label"
+#~ msgstr "Togglingsknappens etikett"
+
+#, fuzzy
+#~| msgid "Button"
+#~ msgid "Button url"
+#~ msgstr "Knapp"
+
+#, fuzzy
+#~| msgid "Editor formats"
+#~ msgid "Extra info"
+#~ msgstr "Format"
+
+#, fuzzy
+#~| msgid "Editor formats"
+#~ msgid "Extra info title"
+#~ msgstr "Format"
+
+#, fuzzy
+#~| msgid "Editor formats"
+#~ msgid "Extra information"
+#~ msgstr "Format"
+
+#, fuzzy
+#~| msgid "Footer settings."
+#~ msgid "Notice settings"
+#~ msgstr "Inställningar för sidfot."
+
+#, fuzzy
+#~| msgid "Success colors"
+#~ msgid "Success (green)"
+#~ msgstr "Lyckades"
+
+#, fuzzy
+#~| msgid "Warning colors"
+#~ msgid "Warning (gul)"
+#~ msgstr "Varning"
+
+#, fuzzy
+#~| msgid "Danger colors"
+#~ msgid "Danger (red)"
+#~ msgstr "Fara"
+
+#, fuzzy
+#~| msgid "Notice"
+#~ msgid "notice-md"
+#~ msgstr "Notis"
+
+#, fuzzy
+#~| msgid "Notice"
+#~ msgid "Notis"
+#~ msgstr "Notis"
+
+#, fuzzy
+#~| msgid "Taxonomy display"
+#~ msgid "Data display"
+#~ msgstr "Visning av taxonomier"
+
+#, fuzzy
+#~| msgid "Display options"
+#~ msgid "Display as"
+#~ msgstr "Visningsinställningar"
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "Post items"
+#~ msgstr "Inläggstyper"
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "News items"
+#~ msgstr "Inläggstyper"
+
+#, fuzzy
+#~| msgid "Field&nbsp;Groups"
+#~ msgid "Fields"
+#~ msgstr "Fältgrupper"
+
+#, fuzzy
+#~| msgid "Date published"
+#~ msgid "Show date published"
+#~ msgstr "Publiceringsdatum"
+
+#, fuzzy
+#~| msgid "Excerpt"
+#~ msgid "Show excerpt"
+#~ msgstr "Ingress"
+
+#, fuzzy
+#~| msgid "New title"
+#~ msgid "Show title"
+#~ msgstr "Ny titel"
+
+#, fuzzy
+#~| msgid "Featured image"
+#~ msgid "Show featured image"
+#~ msgstr "Utvald bild"
+
+#, fuzzy
+#~| msgid "Update"
+#~ msgid "date"
+#~ msgstr "Uppdatera"
+
+#, fuzzy
+#~| msgid "Excerpt"
+#~ msgid "excerpt"
+#~ msgstr "Ingress"
+
+#, fuzzy
+#~| msgid "How to align the text in the columns."
+#~ msgid "Hide the title column"
+#~ msgstr "Hur texten i kolumnerna ska justeras."
+
+#, fuzzy
+#~| msgid "How to align the text in the columns."
+#~ msgid "Yes, hide the title column"
+#~ msgstr "Hur texten i kolumnerna ska justeras."
+
+#, fuzzy
+#~| msgid "Toggle button label"
+#~ msgid "Title column label"
+#~ msgstr "Togglingsknappens etikett"
+
+#, fuzzy
+#~| msgid "Toggle button label"
+#~ msgid "List column labels"
+#~ msgstr "Togglingsknappens etikett"
+
+#, fuzzy
+#~| msgid "Above header"
+#~ msgid "Column header"
+#~ msgstr "Ovanför sidhuvudet"
+
+#, fuzzy
+#~| msgid "Reset filter"
+#~ msgid "Allow freetext filtering"
+#~ msgstr "Återställ filter"
+
+#, fuzzy
+#~| msgid "Highlight"
+#~ msgid "Highlight post"
+#~ msgstr "Markering"
+
+#, fuzzy
+#~| msgid "Defaults"
+#~ msgid "Default timestamp"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Expandable List"
+#~ msgid "Readable timestamp"
+#~ msgstr "Expanderbar lista"
+
+#, fuzzy
+#~| msgid "Default"
+#~ msgid "default"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Upload image"
+#~ msgid "Placeholder image"
+#~ msgstr "Ladda upp bild"
+
+#, fuzzy
+#~| msgid "Reset filter"
+#~ msgid "Data filtering"
+#~ msgstr "Återställ filter"
+
+#, fuzzy
+#~| msgid "Do not show"
+#~ msgid "Do not sort"
+#~ msgstr "Visa inte"
+
+#, fuzzy
+#~| msgid "Date updated"
+#~ msgid "Date modified"
+#~ msgstr "Senast uppdaterad"
+
+#, fuzzy
+#~| msgid "Parent %s"
+#~ msgid "Parent"
+#~ msgstr "Förälder %s"
+
+#, fuzzy
+#~| msgid "Comment text"
+#~ msgid "Comment count"
+#~ msgstr "Kommentar"
+
+#, fuzzy
+#~| msgid "Menu trigger"
+#~ msgid "Menu order"
+#~ msgstr "Meny utlösare"
+
+#, fuzzy
+#~| msgid "Order By"
+#~ msgid "Order"
+#~ msgstr "Ordna efter"
+
+#, fuzzy
+#~| msgid "Decending"
+#~ msgid "Descending"
+#~ msgstr "Fallande"
+
+#, fuzzy
+#~| msgid "External Source"
+#~ msgid "Data source"
+#~ msgstr "Extern källa"
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "Posttyper"
+#~ msgstr "Inläggstyper"
+
+#, fuzzy
+#~| msgid "CSS input"
+#~ msgid "Manually picked posts"
+#~ msgstr "Css"
+
+#, fuzzy
+#~| msgid "CSS input"
+#~ msgid "Manual input"
+#~ msgstr "Css"
+
+#, fuzzy
+#~| msgid "Number of posts to display"
+#~ msgid "Pick posts to display"
+#~ msgstr "Antalet inlägg på en sida"
+
+#, fuzzy
+#~| msgid "CSS input"
+#~ msgid "Data input"
+#~ msgstr "Css"
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "Add"
+#~ msgstr "Adress"
+
+#, fuzzy
+#~| msgid "Permalänk"
+#~ msgid "Permalink"
+#~ msgstr "Permalänk"
+
+#, fuzzy
+#~| msgid "Columns"
+#~ msgid "Column values"
+#~ msgstr "Kolumner"
+
+#, fuzzy
+#~| msgid "Link name to author archive"
+#~ msgid "Link to post type archive"
+#~ msgstr "Länka namn till arkivet för författaren"
+
+#, fuzzy
+#~| msgid "Link name to author archive"
+#~ msgid "Yes, link to post type archive"
+#~ msgstr "Länka namn till arkivet för författaren"
+
+#, fuzzy
+#~| msgid "Number of Menu Items"
+#~ msgid "Number of items"
+#~ msgstr "Antal objekt"
+
+#, fuzzy
+#~| msgid "Border"
+#~ msgid "Sort order"
+#~ msgstr "Ramiljne"
+
+#, fuzzy
+#~| msgid "Show search"
+#~ msgid "Summary"
+#~ msgstr "Visa sök"
+
+#, fuzzy
+#~| msgid "Padding"
+#~ msgid "Card Padding"
+#~ msgstr "Luft"
+
+#, fuzzy
+#~| msgid "Include script in footer"
+#~ msgid "Include main site"
+#~ msgstr "Inludera skript i sidfot"
+
+#, fuzzy
+#~| msgid "Slide overlay"
+#~ msgid "Slider ratio"
+#~ msgstr "Övertäckning slider"
+
+#, fuzzy
+#~| msgid "Square"
+#~ msgid "Square (4:3)"
+#~ msgstr "Fyrkantig"
+
+#, fuzzy
+#~| msgid "Auto"
+#~ msgid "Autoslide"
+#~ msgstr "Automatisk"
+
+#, fuzzy
+#~| msgid "Slide overlay"
+#~ msgid "Slide interval"
+#~ msgstr "Övertäckning slider"
+
+#, fuzzy
+#~| msgid "Slide overlay"
+#~ msgid "Slides"
+#~ msgstr "Övertäckning slider"
+
+#, fuzzy
+#~| msgid "Add File"
+#~ msgid "Add slide"
+#~ msgstr "Lägg till fil"
+
+#, fuzzy
+#~| msgid "Drop Shadows"
+#~ msgid "Shadow"
+#~ msgstr "Skuggor"
+
+#, fuzzy
+#~| msgid "White"
+#~ msgid "Whitespace"
+#~ msgstr "Vit"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Amount of whitespace"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Below Settings"
+#~ msgid "Table - Block settings"
+#~ msgstr "Under inställningar"
+
+#, fuzzy
+#~| msgid "January"
+#~ msgid "manual"
+#~ msgstr "Januari"
+
+#, fuzzy
+#~| msgid "Active"
+#~ msgid "Aktivera sök"
+#~ msgstr "Aktivera"
+
+#, fuzzy
+#~| msgid "Search %s"
+#~ msgid "Search in list"
+#~ msgstr "Sök %s"
+
+#, fuzzy
+#~| msgid "Editor"
+#~ msgid "Table Editor"
+#~ msgstr "Redigerare"
+
+#, fuzzy
+#~| msgid "Su"
+#~ msgid "Sum"
+#~ msgstr "Sö"
+
+#, fuzzy
+#~| msgid "Text Decoration"
+#~ msgid "Text options"
+#~ msgstr "Textdekoration"
+
+#, fuzzy
+#~| msgid "Video"
+#~ msgid "Video: mp4"
+#~ msgstr "Video"
+
+#, fuzzy
+#~| msgid "Wordpress menu"
+#~ msgid "Wordpress Widget"
+#~ msgstr "Wordpress-menyn"
+
+#, fuzzy
+#~| msgid "Standard"
+#~ msgid "Kalender"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Categories"
+#~ msgid "Kategorier"
+#~ msgstr "Kategorier"
+
+#, fuzzy
+#~| msgid "CSS"
+#~ msgid "RSS"
+#~ msgstr "CSS"
+
+#~ msgid "Sök"
+#~ msgstr "Sök"
+
+#, fuzzy
+#~| msgid "Widgets"
+#~ msgid "Widget Type"
+#~ msgstr "Widgetar"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "No options avabile"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Number of Menu Items"
+#~ msgid "Show number of items indicator"
+#~ msgstr "Antal objekt"
+
+#, fuzzy
+#~| msgid "Show as"
+#~ msgid "Show as dropdown list"
+#~ msgstr "Visa som"
+
+#, fuzzy
+#~| msgid "Number of Menu Items"
+#~ msgid "Show number of category items indicator"
+#~ msgstr "Antal objekt"
+
+#, fuzzy
+#~| msgid "Show search"
+#~ msgid "Show as hierarchial list"
+#~ msgstr "Visa sök"
+
+#, fuzzy
+#~| msgid "Show as"
+#~ msgid "Show as dropdown"
+#~ msgstr "Visa som"
+
+#, fuzzy
+#~| msgid "Page"
+#~ msgid "Page ID"
+#~ msgstr "Sida"
+
+#, fuzzy
+#~| msgid "Number of columns to display"
+#~ msgid "Number of comments to show"
+#~ msgstr "Antal kolumner i rutnät"
+
+#, fuzzy
+#~| msgid "No posts to show"
+#~ msgid "Number of posts to show"
+#~ msgstr "Inga inlägg att visa"
+
+#, fuzzy
+#~| msgid "No posts to show"
+#~ msgid "Items to show"
+#~ msgstr "Inga inlägg att visa"
+
+#, fuzzy
+#~| msgid "Show search"
+#~ msgid "Yes, show summary"
+#~ msgstr "Visa sök"
+
+#, fuzzy
+#~| msgid "Show search"
+#~ msgid "Show summary"
+#~ msgstr "Visa sök"
+
+#, fuzzy
+#~| msgid "Show author"
+#~ msgid "Yes, show author"
+#~ msgstr "Visa författare"
+
+#, fuzzy
+#~| msgid "Show author"
+#~ msgid "Yes, show date"
+#~ msgstr "Visa författare"
+
+#, fuzzy
+#~| msgid "Show as"
+#~ msgid "Show date"
+#~ msgstr "Visa som"
+
+#, fuzzy
+#~| msgid "Categories"
+#~ msgid "Länkkategorier"
+#~ msgstr "Kategorier"
+
+#, fuzzy
+#~| msgid "Categories"
+#~ msgid "Kategori"
+#~ msgstr "Kategorier"
+
+#, fuzzy
+#~| msgid "Taxonomies"
+#~ msgid "Taxonomy"
+#~ msgstr "Taxonomies"
+
+#, fuzzy
+#~| msgid "Below Settings"
+#~ msgid "Block settings"
+#~ msgstr "Under inställningar"
+
+#, fuzzy
+#~| msgid "Edit %s"
+#~ msgid "Edit module"
+#~ msgstr "Redigera %s"
+
+#, fuzzy
+#~| msgid "View page"
+#~ msgid "View Page"
+#~ msgstr "Visa sida"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Modularity editor"
+#~ msgstr "Marginalinställningar"
+
+#~ msgid "Editor"
+#~ msgstr "Redigerare"
+
+#, fuzzy
+#~| msgid "Show on mobile"
+#~ msgid "Save modules"
+#~ msgstr "Visa på mobil"
+
+#, fuzzy
+#~| msgid "Enabled"
+#~ msgid "Enabled modules"
+#~ msgstr "Aktiverad"
+
+#, fuzzy
+#~| msgid "The left sidebar area"
+#~ msgid "No active sidebar areas"
+#~ msgstr "Sidebar till vänster"
+
+#, fuzzy
+#~| msgid "Module Apperance"
+#~ msgid "Modules saved"
+#~ msgstr "Modulutseende"
+
+#~ msgid "Inherit"
+#~ msgstr "Ärv"
+
+#, fuzzy
+#~| msgid "Contacts"
+#~ msgid "Contacts v2"
+#~ msgstr "Kontakter"
+
+#, fuzzy
+#~| msgid "Post Formats"
+#~ msgid "Postal address"
+#~ msgstr "Inläggsformat"
+
+#, fuzzy
+#~| msgid "Post Formats"
+#~ msgid "Visiting address"
+#~ msgstr "Inläggsformat"
+
+#, fuzzy
+#~| msgid "Something went wrong, please try again later"
+#~ msgid ""
+#~ "Could not get the instagram feed at this moment, please try again later."
+#~ msgstr "Något gick fel, vänligen försök igen senare"
+
+#, fuzzy
+#~| msgid "Add File"
+#~ msgid "Files"
+#~ msgstr "Lägg till fil"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a file archive."
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Categories"
+#~ msgid "Gallery"
+#~ msgstr "Kategorier"
+
+#, fuzzy
+#~| msgid "Categories"
+#~ msgid "Galleries"
+#~ msgstr "Kategorier"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a gallery with images"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Hero"
+#~ msgid "Heros"
+#~ msgstr "Under sidhuvud (Heroyta)"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a hero"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Header settings."
+#~ msgid "Iframe"
+#~ msgstr "Inställningar för sidhuvud."
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs an embedded page."
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs an image"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Index"
+#~ msgid "Indexes"
+#~ msgstr "Index"
+
+#, fuzzy
+#~| msgid "Post Formats"
+#~ msgid "Post article"
+#~ msgstr "Inläggsformat"
+
+#, fuzzy
+#~| msgid "Post Formats"
+#~ msgid "Post articles"
+#~ msgstr "Inläggsformat"
+
+#~ msgid "Inlay List"
+#~ msgstr "Lista"
+
+#~ msgid "Inlay Lists"
+#~ msgstr "Listor"
+
+#, fuzzy
+#~| msgid "Logotype"
+#~ msgid "Logotype grids"
+#~ msgstr "Logotyp"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a grid of logotypes"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs an embedded map."
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a notice"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Read more"
+#~ msgid "Load more"
+#~ msgstr "Läs mer"
+
+#, fuzzy
+#~| msgid "No posts to show"
+#~ msgid "No posts to show…"
+#~ msgstr "Inga inlägg att visa"
+
+#, fuzzy
+#~| msgid "Show author"
+#~ msgid "Show more"
+#~ msgstr "Visa författare"
+
+#, fuzzy
+#~| msgid "Number of posts to display"
+#~ msgid "Nothing to display…"
+#~ msgstr "Antalet inlägg på en sida"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a RSS feed"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Error"
+#~ msgid "RSS Error:"
+#~ msgstr "Fel"
+
+#, fuzzy
+#~| msgid "Untitled page"
+#~ msgid "Untitled"
+#~ msgstr "Namnlös sida"
+
+#, fuzzy
+#~| msgid "Slide overlay"
+#~ msgid "Sliders"
+#~ msgstr "Övertäckning slider"
+
+#, fuzzy
+#~| msgid "Spacing"
+#~ msgid "Spacer"
+#~ msgstr "Avstånd"
+
+#, fuzzy
+#~| msgid "Spacing"
+#~ msgid "Spacers"
+#~ msgstr "Avstånd"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs whitespace."
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Enable"
+#~ msgid "Tables"
+#~ msgstr "Aktivera"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a flexible table with options."
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Text"
+#~ msgid "Texts"
+#~ msgstr "Text"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs text"
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs an embedded Video."
+#~ msgstr "Mängden skugga"
+
+#, fuzzy
+#~| msgid "Wordpress menu"
+#~ msgid "Wordpress Widgets"
+#~ msgstr "Wordpress-menyn"
+
+#, fuzzy
+#~| msgid "Amount of shadows"
+#~ msgid "Outputs a default widget in WordPress"
+#~ msgstr "Mängden skugga"
+
+#~ msgid "Pages"
+#~ msgstr "Sidor"
+
+#, fuzzy
+#~| msgid "Consent comment"
+#~ msgid "Recent comments"
+#~ msgstr "Samtyckes kommentar"
+
+#, fuzzy
+#~| msgid "Consent comment"
+#~ msgid "Recent posts"
+#~ msgstr "Samtyckes kommentar"
+
+#, fuzzy
+#~| msgid "Add new"
+#~ msgctxt "add new button"
+#~ msgid "Add New"
+#~ msgstr "Skapa ny"
+
+#, fuzzy, php-format
+#~| msgid "No %s found"
+#~ msgid "No %s"
+#~ msgstr "Inga %s hittades"
+
+#, fuzzy, php-format
+#~| msgid "No %s found in trash"
+#~ msgid "No %s in trash"
+#~ msgstr "Inga %s hittades i papperskorgen"
+
+#, fuzzy
+#~| msgid "Hide text"
+#~ msgid "Hide title"
+#~ msgstr "Dölj text"
+
+#, fuzzy
+#~| msgid "This theme recommends the following plugin: %1$s."
+#~| msgid_plural "This theme recommends the following plugins: %1$s."
+#~ msgid "This module is used on the following places:"
+#~ msgstr "Detta tema rekommenderar följande tillägg: %1$s."
+
+#, fuzzy
+#~| msgid "Order direction"
+#~ msgid "Module description"
+#~ msgstr "Riktning"
+
+#, fuzzy
+#~| msgid "Message"
+#~ msgid "Usage"
+#~ msgstr "Meddelande"
+
+#, fuzzy
+#~| msgid "Not Installed"
+#~ msgid "Not used"
+#~ msgstr "Saknas"
+
+#, fuzzy
+#~| msgid "Plugin activated successfully."
+#~ msgid "Options saved successfully"
+#~ msgstr "Tillägg aktiverat utan problem."
+
+#, fuzzy
+#~| msgid "Order direction"
+#~ msgid "Sidebar & Module Restrictions"
+#~ msgstr "Riktning"
+
+#, fuzzy
+#~| msgid "Below Settings"
+#~ msgid "Settings"
+#~ msgstr "Under inställningar"
+
+#, fuzzy
+#~| msgid "The footer area "
+#~ msgid "Template Areas"
+#~ msgstr "Sidfoten"
+
+#, fuzzy
+#~| msgid "Order direction"
+#~ msgid "Module Restrictions"
+#~ msgstr "Riktning"
+
+#, fuzzy
+#~| msgid "Activate Gutenberg"
+#~ msgid "Active Sidebars"
+#~ msgstr "Aktivera Gutenberg"
+
+#, fuzzy
+#~| msgid "Archives"
+#~ msgid "Archive modules"
+#~ msgstr "Arkiv"
+
+#~ msgid "Archive"
+#~ msgstr "Arkiv"
+
+#, fuzzy
+#~| msgid "Number of columns to display"
+#~ msgid "There's no archives to display"
+#~ msgstr "Antal kolumner i rutnät"
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "Post Type Archive"
+#~ msgstr "Inläggstyper"
+
+#, fuzzy
+#~| msgid "Hide date"
+#~ msgid "Has modules"
+#~ msgstr "Dölj datum"
+
+#, fuzzy
+#~| msgid "View %s"
+#~ msgid "View"
+#~ msgstr "Visa %s"
+
+#, fuzzy
+#~| msgid "Edit %s"
+#~ msgid "Edit modules"
+#~ msgstr "Redigera %s"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Modularity Options"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Theme Options"
+#~ msgid "Options"
+#~ msgstr "Temainställningar"
+
+#, fuzzy
+#~| msgid "Archives"
+#~ msgid "Search page modules"
+#~ msgstr "Arkiv"
+
+#, fuzzy
+#~| msgid "Theme Options"
+#~ msgid "Restrictive Options"
+#~ msgstr "Temainställningar"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Save options"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Core options"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Module options"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "Post types"
+#~ msgstr "Inläggstyper"
+
+#, fuzzy
+#~| msgid "The footer area "
+#~ msgid "Template areas"
+#~ msgstr "Sidfoten"
+
+#~ msgid "Page:"
+#~ msgstr "Sida:"
+
+#, fuzzy
+#~| msgid "The footer area "
+#~ msgid "Using template:"
+#~ msgstr "Sidfoten"
+
+#, fuzzy
+#~| msgid "Show on mobile"
+#~ msgid "Show modules"
+#~ msgstr "Visa på mobil"
+
+#, fuzzy
+#~| msgid "Enabled"
+#~ msgid "Enable and/or disable modules."
+#~ msgstr "Aktiverad"
+
+#, fuzzy
+#~| msgid "Select File"
+#~ msgid "Deprecated modules"
+#~ msgstr "Välj fil"
+
+#, fuzzy
+#~| msgid "Module Apperance"
+#~ msgid "Module"
+#~ msgstr "Modulutseende"
+
+#, fuzzy
+#~| msgid "Check the formats you would like to enable"
+#~ msgid "Select which post types you would like to enable Modularity on."
+#~ msgstr "Välj de format som du vill aktivera"
+
+#, fuzzy
+#~| msgid "Post Types"
+#~ msgid "Post type"
+#~ msgstr "Inläggstyper"
+
+#, fuzzy
+#~| msgid "Enabled"
+#~ msgid "Enable and/or disable areas in a specific template."
+#~ msgstr "Aktiverad"
+
+#, fuzzy
+#~| msgid "The footer area "
+#~ msgid "Template"
+#~ msgstr "Sidfoten"
+
+#, fuzzy
+#~| msgid "Select File"
+#~ msgid "Selected module"
+#~ msgstr "Välj fil"
+
+#, fuzzy
+#~| msgid "No image selected"
+#~ msgid "Not selected"
+#~ msgstr "Ingen bild"
+
+#~ msgid "Module type"
+#~ msgstr "Modultyp"
+
+#~ msgid "Module width"
+#~ msgstr "Modulbredd"
+
+#~ msgid "Browse modules"
+#~ msgstr "Bläddra bland moduler"
+
+#~ msgid "FocusPoint"
+#~ msgstr "Fokuspunkt"
+
+#~ msgid "Preview Size"
+#~ msgstr "Förhandsgranskningsstorlek"
+
+#~ msgid "Minimum"
+#~ msgstr "Minimum"
+
+#~ msgid "File size"
+#~ msgstr "Filstorlek"
+
+#, fuzzy
+#~| msgid "Minimum"
+#~ msgid "Maximum"
+#~ msgstr "Minimum"
 
 #~ msgid ""
 #~ "Municipio: constant 'G_RECAPTCHA_KEY' or 'G_RECAPTCHA_SECRET' is not "
