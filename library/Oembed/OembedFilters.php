@@ -24,6 +24,8 @@ class OembedFilters
                     'info' => sprintf(__('This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.', 'modularity'), '{SUPPLIER_WEBSITE}'),
                     'button' => __('I understand, continue.', 'modularity'),
                 ],
+
+                'infoLabel' => __('Handling of personal data'),
             ];
 
             return render_blade_view(
