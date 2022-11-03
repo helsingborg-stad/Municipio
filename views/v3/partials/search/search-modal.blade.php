@@ -20,15 +20,12 @@
         @group(['direction' => 'horizontal'])
 
             @field([
-                'type' => 'text',
+                'type' => 'search',
+                'name' => 's',
+                'required' => false,
                 'value' => $searchQuery,
                 'label' => $lang->searchQuestion,
                 'hideLabel' => true,
-                'attributeList' => [
-                    'type' => 'search',
-                    'name' => 's',
-                    'required' => false,
-                ],
                 'placeholder' => $lang->searchOn . " " . $siteName,
                 'classList' => ['u-flex-grow--1'],
                 'size' => 'lg',

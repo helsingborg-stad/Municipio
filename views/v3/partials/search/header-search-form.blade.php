@@ -8,7 +8,9 @@
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([
             'id'            => 'header-search-form--field',
-            'type'          => 'text',
+            'type'          => 'search',
+            'name'          => 's',
+            'required'      => false,
             'size'          => 'sm',
             'radius'        => 'sm',
             'borderless'    => true,
@@ -19,11 +21,6 @@
                 'u-flex-grow--1',
                 'u-box-shadow--1',
                 'u-rounded__left--8'
-            ],
-            'attributeList' => [
-                'type'          => 'search',
-                'name'          => 's',
-                'required'      => false,
             ]
         ])
         @endfield

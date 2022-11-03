@@ -7,12 +7,9 @@
     @group(['direction' => 'horizontal'])
         @field([
             'id' => 'search-form--field',
-            'type' => 'text',
-            'attributeList' => [
-                'type' => 'search',
-                'name' => 's',
-                'required' => false,
-            ],
+            'type' => 'search',
+            'name' => 's',
+            'required' => false,
             'label' => $lang->searchOn . " " . $siteName,
             'placeholder' => $lang->searchOn . " " . $siteName,
             'classList' => ['u-flex-grow--1'],
