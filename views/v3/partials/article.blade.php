@@ -67,8 +67,3 @@
     @section('article.terms.after')@show
 
 </article>
-
-<!-- Comments -->
-@section('article.comments.before')@show
-@includeIf('partials.comments')
-@section('article.comments.after')@show

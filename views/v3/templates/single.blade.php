@@ -94,4 +94,10 @@
             ]
         ]
     )
+
+    <!-- Comments -->
+    @section('article.comments.before')@show
+    @includeIf('partials.comments')
+    @section('article.comments.after')@show
+
 @stop
