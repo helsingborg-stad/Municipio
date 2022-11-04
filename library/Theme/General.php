@@ -37,6 +37,15 @@ class General
             $class .= get_theme_mod('header_sticky') === 'sticky' ? ' sticky-header' : '';
             return $class;
         });
+
+        add_filter('Municipio/HeaderHTML', function($html) {
+            return str_replace(
+                ' />',
+                '>',
+                $html
+            );
+        });
+
     }
 
     /**
