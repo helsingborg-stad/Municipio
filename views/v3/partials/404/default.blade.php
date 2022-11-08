@@ -3,10 +3,6 @@
         {{ $heading }}
     @endtypography
 
-    @typography(["element" => "span", "id" => "content404", "classList" => ["c-typhography--404-subheading"]])
-        {{ $subheading }}
-    @endtypography
-
     <div class="t-404__buttons">
         @foreach($actionButtons as $button) 
             @button([

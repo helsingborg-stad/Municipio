@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-01 10:02+0100\n"
-"PO-Revision-Date: 2022-11-01 10:03+0100\n"
+"PO-Revision-Date: 2022-11-04 14:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -6046,7 +6046,7 @@ msgstr "Visa alla"
 
 #: library/Controller/E404.php:59
 msgid "Oops! The page you requested cannot be found."
-msgstr "Oj! Sidan som du begärde finns inte längre."
+msgstr "Oj! Sidan som du begärde finns inte."
 
 #: library/Controller/E404.php:68
 #, php-format
