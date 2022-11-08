@@ -48,7 +48,7 @@ class Form
             'comment_notes_after'   => render_blade_view('partials.comments.after', $data),
             'format'                => 'html5',
             'id_form'               => 'commentform',
-            'class_form'            => 'c-form o-grid o-grid--form',
+            'class_form'            => 'c-form o-grid o-grid--form js-form-validation',
             'submit_field'          => '%1$s %2$s',
 
             'id_submit'             => 'submit',
