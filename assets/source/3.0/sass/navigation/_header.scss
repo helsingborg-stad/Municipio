@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     align-content: center;
-    gap: calc((#{$base} * 2));
+    gap: calc((#{$base} * 4));
 
     //Remove auto space between buttons, rely on gap
     .c-button + .c-button {
