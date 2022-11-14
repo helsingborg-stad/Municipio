@@ -10,6 +10,7 @@
     {{-- Skip link --}}
     @button([
         'text' => $lang->jumpToMainContent,
+        'ariaLabel' => $lang->jumpToMainContent,
         'classList' => ['screen-reader-text'],
         'href' => '#main-content'
     ])
