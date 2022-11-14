@@ -38,14 +38,6 @@
         @endif
     >
         <div class="site-wrapper">
-
-            @button([
-                'text' => 'Skip to main content',
-                'color' => 'default',
-                'style' => 'basic',
-                'href' => '#main-content'
-            ])
-            @endbutton
             
             {{-- Site header --}}
             @section('site-header')

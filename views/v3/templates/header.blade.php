@@ -7,6 +7,14 @@
     'context' => 'site.header'
 ])
 
+    {{-- Skip link --}}
+    @button([
+        'text' => 'Skip to main content',
+        'classList' => ['screen-reader-text'],
+        'href' => '#main-content'
+    ])
+    @endbutton
+
     {{-- Search Form --}}
     @section('search-form')
         @includeWhen($showNavigationSearch, 'partials.search.search-modal')
