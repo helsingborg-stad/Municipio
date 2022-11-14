@@ -9,7 +9,7 @@
 
     {{-- Skip link --}}
     @button([
-        'text' => 'Skip to main content',
+        'text' => $lang->jumpToMainContent,
         'classList' => ['screen-reader-text'],
         'href' => '#main-content'
     ])
