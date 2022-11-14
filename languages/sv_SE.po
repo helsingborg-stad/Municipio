@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-01 10:02+0100\n"
-"PO-Revision-Date: 2022-11-04 14:54+0100\n"
+"POT-Creation-Date: 2022-11-14 13:02+0100\n"
+"PO-Revision-Date: 2022-11-14 13:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -1180,7 +1180,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:228
 msgid "comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: library/AcfFields/php/options-menu-icon.php:229
 msgid "commute"
@@ -3088,7 +3088,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:705
 msgid "phone"
-msgstr ""
+msgstr "Telefon"
 
 #: library/AcfFields/php/options-menu-icon.php:706
 msgid "phone_android"
@@ -3292,7 +3292,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:756
 msgid "print"
-msgstr ""
+msgstr "Skriv ut"
 
 #: library/AcfFields/php/options-menu-icon.php:757
 msgid "print_disabled"
@@ -5779,7 +5779,7 @@ msgstr ""
 "kommer webbsidans innehåll att återställas och synkroniseras med live sajten "
 "på måndag."
 
-#: library/Comment/Form.php:36
+#: library/Comment/Form.php:36 library/Theme/Icon.php:65
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -7620,11 +7620,11 @@ msgstr "Fr"
 msgid "Sa"
 msgstr "Lö"
 
-#: library/Theme/General.php:264
+#: library/Theme/General.php:273
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/General.php:265
+#: library/Theme/General.php:274
 msgid "Print this page"
 msgstr "Skriv ut den här sidan"
 
@@ -7636,7 +7636,8 @@ msgstr "Ikon: "
 msgid "Globe"
 msgstr "Jordglob"
 
-#: library/Theme/Icon.php:45
+#: library/Theme/Icon.php:45 library/Theme/Icon.php:126
+#: library/Theme/Icon.php:139
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -7648,39 +7649,247 @@ msgstr "Förstoringsglas"
 msgid "Printer"
 msgstr "Skrivare"
 
-#: library/Theme/Icon.php:48
+#: library/Theme/Icon.php:48 library/Theme/Icon.php:49
+#: library/Theme/Icon.php:52
 msgid "Thumb up"
 msgstr "Tumme upp"
 
-#: library/Theme/Icon.php:49
+#: library/Theme/Icon.php:50 library/Theme/Icon.php:51
+#: library/Theme/Icon.php:53
 msgid "Thumb down"
 msgstr "Tumme ner"
 
-#: library/Theme/Icon.php:50
+#: library/Theme/Icon.php:54
 msgid "Letter"
 msgstr "Brev"
 
-#: library/Theme/Icon.php:51
+#: library/Theme/Icon.php:55 library/Theme/Icon.php:56
+#: library/Theme/Icon.php:57
 msgid "Phone"
 msgstr "Telefon"
 
-#: library/Theme/Icon.php:52
+#: library/Theme/Icon.php:58
 msgid "Facebook emblem"
 msgstr "Facebookemblem"
 
-#: library/Theme/Icon.php:53
+#: library/Theme/Icon.php:59 library/Theme/Icon.php:60
+#: library/Theme/Icon.php:61
 msgid "Chat bubble"
 msgstr "Chattbubbla"
 
-#: library/Theme/Icon.php:54
+#: library/Theme/Icon.php:62 library/Theme/Icon.php:63
 msgid "Close cross"
 msgstr "Kryss"
 
-#: library/Theme/Icon.php:55
+#: library/Theme/Icon.php:64
 msgid "Information"
 msgstr "Information"
 
-#: library/Theme/Icon.php:61
+#: library/Theme/Icon.php:66 views/v1/partials/share-email-form.blade.php:30
+#: views/v1/partials/share-email-form.blade.php:31
+msgid "Message"
+msgstr "Meddelande"
+
+#: library/Theme/Icon.php:67
+msgid "File upload"
+msgstr "Filuppladdning"
+
+#: library/Theme/Icon.php:68
+msgid "Apps"
+msgstr "Appar"
+
+#: library/Theme/Icon.php:69 library/Theme/Icon.php:70
+#: library/Theme/Icon.php:71 library/Theme/Icon.php:72
+msgid "Play"
+msgstr "Spela"
+
+#: library/Theme/Icon.php:73
+msgid "Volume muted"
+msgstr "Ingen volym"
+
+#: library/Theme/Icon.php:74
+msgid "Volume up"
+msgstr "Högre volym"
+
+#: library/Theme/Icon.php:75
+msgid "Volume down"
+msgstr "Lägre volym"
+
+#: library/Theme/Icon.php:76
+msgid "Volume off"
+msgstr "Ingen volym"
+
+#: library/Theme/Icon.php:77
+msgid "People"
+msgstr "Personer"
+
+#: library/Theme/Icon.php:78
+msgid "Mail"
+msgstr "E-post"
+
+#: library/Theme/Icon.php:79 library/Theme/Icon.php:81
+msgid "Arrow forward"
+msgstr "Gå framåt"
+
+#: library/Theme/Icon.php:80 library/Theme/Icon.php:82
+msgid "Arrow back"
+msgstr "Gå bakåt"
+
+#: library/Theme/Icon.php:83 library/Theme/Icon.php:87
+#: library/Theme/Icon.php:92
+msgid "Arrow right"
+msgstr "Pil till höger"
+
+#: library/Theme/Icon.php:84 library/Theme/Icon.php:88
+#: library/Theme/Icon.php:93
+msgid "Arrow left"
+msgstr "Pil till vänster"
+
+#: library/Theme/Icon.php:85 library/Theme/Icon.php:90
+#: library/Theme/Icon.php:95
+msgid "Arrow down"
+msgstr "Pil neråt"
+
+#: library/Theme/Icon.php:86 library/Theme/Icon.php:89
+#: library/Theme/Icon.php:91 library/Theme/Icon.php:94
+msgid "Arrow up"
+msgstr "Pil upp"
+
+#: library/Theme/Icon.php:96
+msgid "Download file"
+msgstr "Ladda ner fil"
+
+#: library/Theme/Icon.php:97
+msgid "Lock"
+msgstr "Lås"
+
+#: library/Theme/Icon.php:98 library/Theme/Icon.php:99
+msgid "Open"
+msgstr "Öppna"
+
+#: library/Theme/Icon.php:100 library/Theme/Icon.php:101
+msgid "Location point"
+msgstr "Platspunkt"
+
+#: library/Theme/Icon.php:102
+msgid "Restore"
+msgstr "Återställ"
+
+#: library/Theme/Icon.php:103
+msgid "Cast"
+msgstr "Cast"
+
+#: library/Theme/Icon.php:104
+msgid "Device information"
+msgstr "Enhetsinformation"
+
+#: library/Theme/Icon.php:105
+msgid "Question answers"
+msgstr "Frågesvar"
+
+#: library/Theme/Icon.php:106
+msgid "Expand section"
+msgstr "Expandera sektion"
+
+#: library/Theme/Icon.php:107
+msgid "Shrink section"
+msgstr "Krymp sektion"
+
+#: library/Theme/Icon.php:108 library/Theme/Icon.php:109
+#: library/Theme/Icon.php:110
+#, fuzzy
+#| msgid "Warning colors"
+msgid "Warning"
+msgstr "Varning"
+
+#: library/Theme/Icon.php:111 library/Theme/Icon.php:112
+msgid "Checked"
+msgstr "Checkad"
+
+#: library/Theme/Icon.php:113 library/Theme/Icon.php:114
+msgid "Error"
+msgstr "Fel"
+
+#: library/Theme/Icon.php:115
+msgid "Check mark"
+msgstr "Bockad"
+
+#: library/Theme/Icon.php:116 library/Theme/Icon.php:117
+#: library/Theme/Icon.php:118
+msgid "Increase"
+msgstr "Öka"
+
+#: library/Theme/Icon.php:119
+msgid "Plus"
+msgstr "Plus"
+
+#: library/Theme/Icon.php:120 library/Theme/Icon.php:121
+msgid "Decrease"
+msgstr "Minska"
+
+#: library/Theme/Icon.php:122 library/Theme/Icon.php:123
+#: library/Theme/Icon.php:124
+msgid "Pause"
+msgstr "Pausa"
+
+#: library/Theme/Icon.php:125
+msgid "Open in external"
+msgstr "Öppna extern"
+
+#: library/Theme/Icon.php:127
+msgid "Minus"
+msgstr "Minus"
+
+#: library/Theme/Icon.php:128
+msgid "Announcement"
+msgstr "Meddelande"
+
+#: library/Theme/Icon.php:129
+msgid "File"
+msgstr "Fil"
+
+#: library/Theme/Icon.php:130
+msgid "Attachment"
+msgstr "Bifoga"
+
+#: library/Theme/Icon.php:131
+msgid "Bin"
+msgstr "Papperskorg"
+
+#: library/Theme/Icon.php:132
+msgid "Swap vertical direction"
+msgstr "Byt vertikal riktning"
+
+#: library/Theme/Icon.php:133
+msgid "Fullscreen"
+msgstr "Fullskärm"
+
+#: library/Theme/Icon.php:134
+msgid "Arrows right"
+msgstr "Pilar höger"
+
+#: library/Theme/Icon.php:135
+msgid "Arrows left"
+msgstr "Pilar vänster"
+
+#: library/Theme/Icon.php:136 library/Theme/Icon.php:137
+#: library/Theme/Icon.php:141
+msgid "Clock"
+msgstr "Klocka"
+
+#: library/Theme/Icon.php:138
+msgid "Money"
+msgstr "Pengar"
+
+#: library/Theme/Icon.php:140
+msgid "Map"
+msgstr "Karta"
+
+#: library/Theme/Icon.php:142
+msgid "Copy"
+msgstr "Kopiera"
+
+#: library/Theme/Icon.php:148
 msgid "Undefined"
 msgstr "Ej beskriven"
 
@@ -9048,11 +9257,6 @@ msgstr "Mottagarens e-postadress"
 msgid "Enter one or many e-mail addresses. Separate with comma."
 msgstr "Ange en eller flera e-postadresser. Separera med kommatecken."
 
-#: views/v1/partials/share-email-form.blade.php:30
-#: views/v1/partials/share-email-form.blade.php:31
-msgid "Message"
-msgstr "Meddelande"
-
 #: views/v1/partials/share-email-form.blade.php:43
 msgid "Send"
 msgstr "Skicka"
@@ -9325,11 +9529,6 @@ msgstr ""
 #~ msgstr "Inga inlägg att visa"
 
 #, fuzzy
-#~| msgid "Add File"
-#~ msgid "Filer"
-#~ msgstr "Lägg till fil"
-
-#, fuzzy
 #~| msgid "Lägg till länk"
 #~ msgid "Lägg till fil"
 #~ msgstr "Lägg till länk"
@@ -9353,11 +9552,6 @@ msgstr ""
 #~| msgid "Pages"
 #~ msgid "Images"
 #~ msgstr "Sidor"
-
-#, fuzzy
-#~| msgid "Outline"
-#~ msgid "Byline"
-#~ msgstr "Ramlinje"
 
 #, fuzzy
 #~| msgid "Background Image"
@@ -9408,11 +9602,6 @@ msgstr ""
 #~| msgid "Max width"
 #~ msgid "Crop width"
 #~ msgstr "Maxbredd"
-
-#, fuzzy
-#~| msgid "Logotype height"
-#~ msgid "Crop height"
-#~ msgstr "Storlek på logotyp (höjd)"
 
 #, fuzzy
 #~| msgid "Margin size"
@@ -9484,11 +9673,6 @@ msgstr ""
 #~ msgstr "Inläggsformat"
 
 #, fuzzy
-#~| msgid "Internal link"
-#~ msgid "internal"
-#~ msgstr "Interna länkar"
-
-#, fuzzy
 #~| msgid "Date published"
 #~ msgid "Show publish date"
 #~ msgstr "Publiceringsdatum"
@@ -9507,11 +9691,6 @@ msgstr ""
 #~| msgid "Header logotype"
 #~ msgid "Image/logotype"
 #~ msgstr "Logotyp för sidhuvud"
-
-#, fuzzy
-#~| msgid "Maps"
-#~ msgid "Map"
-#~ msgstr "Kartor"
 
 #, fuzzy
 #~| msgid "Line Height"
@@ -9562,11 +9741,6 @@ msgstr ""
 #~| msgid "Success colors"
 #~ msgid "Success (green)"
 #~ msgstr "Lyckades"
-
-#, fuzzy
-#~| msgid "Warning colors"
-#~ msgid "Warning (gul)"
-#~ msgstr "Varning"
 
 #, fuzzy
 #~| msgid "Danger colors"
@@ -10519,9 +10693,6 @@ msgstr ""
 #~ "inte definierade.\n"
 #~ "Dessa måste vara definierade om Googles reCAPTCHA ska fungera och skydda "
 #~ "kommentarsfält och formulär mot SPAM."
-
-#~ msgid "Error"
-#~ msgstr "Fel"
 
 #~ msgid "reCaptcha validation failed"
 #~ msgstr "Robottestet misslyckades."
