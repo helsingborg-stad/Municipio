@@ -17,13 +17,15 @@ class Navigation
     private $cache = [];
     private $masterPostType = 'page';
     private $identifier = '';
+    private $context = '';
 
     private $cacheGroup = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
 
-    public function __construct($identifier = '')
+    public function __construct($identifier = '', $context = 'municipio')
     {
         $this->identifier = $identifier;
+        $this->context = $context;
         $this->globalToLocal('wpdb', 'db');
     }
 
@@ -61,7 +63,6 @@ class Navigation
      */
     private function setCacheGroup($newCacheKey): bool
     {
-
         //Create new addition
         $cacheObject = [$newCacheKey];
 
@@ -82,7 +83,6 @@ class Navigation
      */
     private function getCache($key, $persistent = true)
     {
-
         //Get runtime cache
         if (array_key_exists($key, $this->cache)) {
             return $this->cache[$key];
@@ -105,7 +105,6 @@ class Navigation
      */
     public function getNested($postId): array
     {
-
         //Store current post id
         if (is_null($this->postId)) {
             $this->postId = $postId;
@@ -126,8 +125,7 @@ class Navigation
 
     public function getPostChildren($postId): array
     {
-
-    //Store current post id
+        //Store current post id
         if (is_null($this->postId)) {
             $this->postId = $postId;
         }
@@ -649,7 +647,6 @@ class Navigation
      */
     public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
-
         //Check for existing wp menu
         if (has_nav_menu($menu)) {
             $menuItems = wp_get_nav_menu_items(get_nav_menu_locations()[$menu]);
@@ -788,7 +785,7 @@ class Navigation
         if (parse_url($url, PHP_URL_PATH) !== null) {
             $checkUrl = $this->sanitizePath(parse_url($url, PHP_URL_PATH));
             if ($urlQuery = parse_url($url, PHP_URL_QUERY)) {
-                 $checkUrl .=  '?' . $urlQuery;
+                $checkUrl .=  '?' . $urlQuery;
             }
 
             if ($currentUrl == $checkUrl) {
@@ -905,7 +902,6 @@ class Navigation
                 //Add items
                 foreach ($ancestors as $id) {
                     if (!in_array($id, $pageForPostTypeIds)) {
-
                         $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id): __("Untitled page", 'municipio');
                         $pageData[$id]['href']    = get_permalink($id);
                         $pageData[$id]['current'] = false;
@@ -916,7 +912,7 @@ class Navigation
         }
 
         //Apply filters
-        return apply_filters('Municipio/Breadcrumbs/Items', $pageData, $queriedObj);
+        return apply_filters('Municipio/Breadcrumbs/Items', $pageData, $queriedObj, $this->context);
     }
 
     /**
@@ -926,7 +922,6 @@ class Navigation
      */
     public function getPageForPostTypeIds(): array
     {
-
         //Get cached result
         $cache = $this->getCache('pageForPostType');
         if (!is_null($cache) && is_array($cache)) {
