@@ -63,7 +63,7 @@
             @yield('before-layout')
 
             {{-- Page layout --}}
-            <main>
+            <main id="main-content">
                 @section('layout')
                     <div class="o-container">
 
