@@ -4,6 +4,7 @@
     'classList' => ['search-modal'], 
     'size' => 'xl', 
     'isPanel' => true,
+    'transparent' => true
 ])
     @form([
         'method' => 'get',
