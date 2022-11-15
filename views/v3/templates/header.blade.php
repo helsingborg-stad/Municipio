@@ -7,14 +7,7 @@
     'context' => 'site.header'
 ])
 
-    {{-- Skip link --}}
-    @button([
-        'text' => $lang->jumpToMainContent,
-        'ariaLabel' => $lang->jumpToMainContent,
-        'classList' => ['screen-reader-text'],
-        'href' => '#main-content'
-    ])
-    @endbutton
+    @include('partials.header.skip')
 
     {{-- Search Form --}}
     @section('search-form')
