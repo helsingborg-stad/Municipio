@@ -7,7 +7,7 @@
     'context' => 'site.header'
 ])
 
-    @include('partials.header.skip')
+    @include('partials.header.skip-to-main-content')
 
     {{-- Search Form --}}
     @section('search-form')
