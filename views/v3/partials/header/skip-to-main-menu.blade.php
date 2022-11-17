@@ -3,6 +3,6 @@
     'text' => $lang->skipToMainMenu,
     'ariaLabel' => $lang->skipToMainMenu,
     'classList' => ['screen-reader-text u-margin--1'],
-    'href' => ' '
+    'href' => '#main-menu'
 ])
 @endbutton
