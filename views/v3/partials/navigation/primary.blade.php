@@ -1,4 +1,4 @@
-<nav role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
+<nav role="navigation" aria-label="{{ $lang->primaryNavigation }}" class="u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none" id="main-menu">
     @nav([
         'items' => $primaryMenuItems,
         'allowStyle' => true,
