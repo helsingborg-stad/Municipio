@@ -165,7 +165,6 @@ class Post
         if (in_array('post_language', $appendFields)) {
             $siteLang   = strtolower(get_bloginfo('language'));
             $postLang = strtolower(get_field('lang', $postObject->ID));
-            echo '<pre>' . print_r($postLang, true) . '</pre>';
             if ($postLang && ($postLang !== $siteLang)) {
                 $postObject->post_language = $postLang;
             }
