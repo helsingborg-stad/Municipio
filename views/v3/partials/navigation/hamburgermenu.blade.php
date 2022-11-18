@@ -21,6 +21,9 @@
                             'name' => 's',
                             'placeholder' => $lang->searchOn . " " . $siteName,
                             'required' => true,
+                            'attributeList' => [
+                                'aria-label' => $lang->searchOn . " " . $siteName
+                            ],
                         ])
                         @endfield
                         @button([
