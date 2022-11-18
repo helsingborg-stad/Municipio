@@ -1,8 +1,4 @@
-<article id="article" class="c-article c-article--readable-width s-article u-clearfix" 
-@if($postLanguage)
-	lang="{{ $postLanguage }}"
-@endif
->
+<article id="article" class="c-article c-article--readable-width s-article u-clearfix" {!! ($postLanguage ? 'lang="'.$postLanguage.'"' : '') !!}> 
     
     <!-- Title -->
     @section('article.title.before')@show
