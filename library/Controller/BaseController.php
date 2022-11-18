@@ -159,6 +159,16 @@ class BaseController
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
 
+        // Create a skip link depending on template
+        $skipToMainContentLink = '#article'; // Default
+        if (get_page_template_slug()) {
+            $type = get_page_template_slug();
+            if ($type === 'one-page.blade.php') {
+                $skipToMainContentLink = '#main-content';
+            }
+        }
+        $this->data['skipToMainContentLink'] = $skipToMainContentLink;
+        
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(
             $this->data['postType'],
