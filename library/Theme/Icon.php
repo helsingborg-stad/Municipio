@@ -19,7 +19,7 @@ class Icon
 
         add_filter(
             'ComponentLibrary/Component/Icon/AltText',
-            $this,
+            array($this, 'altText'),
             10,
             1
         );
