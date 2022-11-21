@@ -66,7 +66,7 @@ class Icon
           'message' => __("Message", 'municipio'),
           'file_upload' => __('File upload', 'municipio'),
           'apps' => __('Apps', 'municipio'),
-          'play_circle'=> __('Play', 'municipio'),
+          'play_circle' => __('Play', 'municipio'),
           'play_arrow' => __('Play', 'municipio'),
           'play_circle_filled' => __('Play', 'municipio'),
           'play_circle_outline' => __('Play', 'municipio'),
