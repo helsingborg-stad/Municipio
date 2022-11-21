@@ -1,7 +1,7 @@
 @if (!empty($mobileMenuItems))
 @drawer([
     'id' => 'drawer',
-    'classList' => ['c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone')],
+    'classList' => ['c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'), ' u-display--none@lg'],
     'label' => $lang->close
 ])
 
