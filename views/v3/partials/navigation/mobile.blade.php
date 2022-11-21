@@ -1,5 +1,6 @@
 @if (!empty($menuItems)) 
     @nav([
+        'id' => 'menu-mobile',
         'items' => $menuItems,
         'direction' => 'vertical',
         'includeToggle' => true,

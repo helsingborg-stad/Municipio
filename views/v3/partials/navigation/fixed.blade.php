@@ -14,6 +14,7 @@
                 <div class="o-container">
                     <nav role="navigation" aria-label="{{ $lang->quicklinksNavigation }}">
                         @nav([
+                            'id' => 'menu-quicklinks',
                             'items' => $quicklinksMenuItems,
                             'direction' => 'horizontal',
                             'classList' => ['u-justify-content--space-evenly@md', 'u-justify-content--space-evenly@lg', 'u-flex-wrap@sm', 'u-flex-wrap@xs'],
