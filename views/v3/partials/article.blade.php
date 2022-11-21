@@ -1,4 +1,4 @@
-<article id="article" class="c-article c-article--readable-width s-article u-clearfix">
+<article id="article" class="c-article c-article--readable-width s-article u-clearfix" {!! ($postLanguage ? 'lang="'.$postLanguage.'"' : '') !!}> 
     
     <!-- Title -->
     @section('article.title.before')@show

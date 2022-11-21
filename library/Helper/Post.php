@@ -7,12 +7,13 @@ class Post
     /**
      * Prepare post object before sending to view
      * Appends useful variables for views (generic).
-     * 
+     *
      * @param   object   $post    WP_Post object
-     * 
+     *
      * @return  object   $post    Transformed WP_Post object
      */
-    public static function preparePostObject($post) {
+    public static function preparePostObject($post)
+    {
         $post = self::complementObject($post);
         $post = \Municipio\Helper\FormatObject::camelCase($post);
         return $post;
@@ -20,10 +21,10 @@ class Post
 
     /**
      * Add post data on post object
-     * 
+     *
      * @param   object   $postObject    The post object
      * @param   object   $appendFields  Data to append on object
-     * 
+     *
      * @return  object   $postObject    The post object, with appended data
      */
     public static function complementObject(
@@ -33,23 +34,22 @@ class Post
             'post_content_filtered',
             'post_title_filtered',
             'permalink',
-            'terms'
+            'terms',
+            'post_language'
         )
     ) {
-
         //Check that a post object is entered
         if (!is_a($postObject, 'WP_Post')) {
             return $postObject;
-            throw new WP_Error("Complement object must recive a WP_Post class"); 
+            throw new WP_Error("Complement object must recive a WP_Post class");
         }
 
-        //More? Less? 
+        //More? Less?
         $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
 
         //Generate excerpt
         if (in_array('excerpt', $appendFields)) {
             if (empty($postObject->post_excerpt)) {
-
                 //Create excerpt if not defined by editor
                 $postObject->excerpt = wp_trim_words(
                     $postObject->post_content,
@@ -87,8 +87,7 @@ class Post
             //Parse lead
             $parts = explode("<!--more-->", $postObject->post_content);
 
-            if(is_array($parts) && count($parts) > 1) {
-
+            if (is_array($parts) && count($parts) > 1) {
                 //Remove the now broken more block
                 foreach ($parts as &$part) {
                     $part = str_replace('<!-- wp:more -->', '', $part);
@@ -97,7 +96,6 @@ class Post
 
                 $excerpt = self::createLeadElement(array_shift($parts));
                 $content = self::removeEmptyPTag(implode(PHP_EOL, $parts));
-
             } else {
                 $excerpt = "";
                 $content = self::removeEmptyPTag($postObject->post_content);
@@ -129,8 +127,8 @@ class Post
                     'c-image',
                     'c-image__caption',
                     'c-image__image wp-image-',
-                    'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs', 
-                    'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs', 
+                    'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs',
+                    'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs',
                     '',
                     'u-margin__x--auto',
 
@@ -164,6 +162,13 @@ class Post
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
         }
 
+        if (in_array('post_language', $appendFields)) {
+            $siteLang   = strtolower(get_bloginfo('language'));
+            $postLang = strtolower(get_field('lang', $postObject->ID));
+            if ($postLang && ($postLang !== $siteLang)) {
+                $postObject->post_language = $postLang;
+            }
+        }
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
@@ -189,7 +194,6 @@ class Post
 
                 if (!empty($terms)) {
                     foreach ($terms as $term) {
-
                         $item = [];
 
                         $item['label'] = strtolower($term->name);
@@ -215,8 +219,8 @@ class Post
      * @param string $replace   What to replace with
      * @return string           The new lead string
      */
-    private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">') {
-
+    private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">')
+    {
         $pos = strpos($lead, $search);
 
         if ($pos !== false) {
@@ -234,14 +238,15 @@ class Post
      * @param string $string    A string that may contain empty ptags
      * @return string           A string that not contain empty ptags
      */
-    private static function removeEmptyPTag($string) {
+    private static function removeEmptyPTag($string)
+    {
         return preg_replace("/<p[^>]*>(?:\s|&nbsp;)*<\/p>/", '', $string);
     }
 
     /**
      * Get the post featured image
      *
-     * @param integer   $postId         
+     * @param integer   $postId
      * @return array    $featuredImage  The post thumbnail image, with alt and title
      */
     public static function getFeaturedImage($postId, $size = 'full')
