@@ -1,6 +1,7 @@
 @if (!empty($hamburgerMenuItems))
     <div class="o-container o-container--wide">
         @hamburgerMenu([
+            'id' => 'menu-hamburger',
             'menuItems' => $hamburgerMenuItems,
             'showSearch' => $showHamburgerMenuSearch,
             'parentStyle' => $customizer->hamburgerMenuParentStyle,

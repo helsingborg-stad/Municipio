@@ -2,6 +2,7 @@
 @if(count($floatingMenuItems) == 1)
     <!-- Single link item -->
     @button([
+        'id' => 'fab-item',
         'classList' => ['u-fixed--bottom-right', 'u-margin--2'],
         'icon' => !empty($floatingMenuItems[0]['icon']['icon']) ? $floatingMenuItems[0]['icon']['icon'] : $floatingMenuLabels->buttonIcon,
         'size' => 'md',
@@ -14,6 +15,7 @@
 @else
     <!-- Multiple link items -->
     @fab([
+        'id' => 'fab-item',
         'position' => 'bottom-right',
         'heading' => $floatingMenuLabels->heading,
         'button' => [
@@ -28,6 +30,7 @@
         'context' => ['site.navigation.floating']
     ])
         @nav([
+            'id' => 'menu-floating',
             'items' => $floatingMenuItems,
             'direction' => 'vertical',
             'includeToggle' => false,

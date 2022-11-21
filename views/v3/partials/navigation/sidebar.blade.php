@@ -1,5 +1,6 @@
 @if (!empty($menuItems))
     @nav([
+        'id' => 'menu-sidebar', 
         'classList' => [
             'c-nav--sidebar',            
             'c-nav--bordered',

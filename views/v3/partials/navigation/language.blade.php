@@ -7,6 +7,7 @@
     ]
 ])
     @nav([
+        'id' => 'menu-language',
         'items' => $languageMenuItems,
         'direction' => 'vertical',
         'includeToggle' => false,
