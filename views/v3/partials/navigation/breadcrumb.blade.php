@@ -1,2 +1,2 @@
-@breadcrumb(['list' => $breadcrumbItems])
+@breadcrumb(['id' => 'breadcrumb', 'list' => $breadcrumbItems])
 @endbreadcrumb

@@ -7,6 +7,10 @@
     'context' => 'site.header'
 ])
 
+    @include('partials.header.skip-to-main-content')
+    @include('partials.header.skip-to-main-menu')
+
+
     {{-- Search Form --}}
     @section('search-form')
         @includeWhen($showNavigationSearch, 'partials.search.search-modal')

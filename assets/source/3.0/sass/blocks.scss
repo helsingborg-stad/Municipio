@@ -4,9 +4,10 @@
         flex-wrap: wrap;
         gap: calc(#{$base}*2);
         margin: auto;
+        display: flex;
 
         .c-button + .c-button {
-            margin-left: initial;
+            margin-left: unset;
         }
     }
 

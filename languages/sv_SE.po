@@ -4952,7 +4952,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:191
+#: library/Controller/BaseController.php:194
 msgid "days"
 msgstr "dagar"
 
@@ -5372,7 +5372,7 @@ msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
 
 #: library/AcfFields/php/options-theme-search-display.php:32
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:206
 #: library/Customizer/Sections/HamburgerMenu.php:12
 #: library/Theme/Navigation.php:26
 msgid "Hamburger menu"
@@ -5708,7 +5708,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:93 library/Controller/BaseController.php:199
+#: library/Controller/Archive.php:93 library/Controller/BaseController.php:202
 #: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -5936,86 +5936,98 @@ msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
 #: library/Controller/BaseController.php:183
+msgid "Skip to the main content"
+msgstr "Gå till innehåll"
+
+#: library/Controller/BaseController.php:184
+msgid "Skip to the main menu"
+msgstr "Gå till huvudmeny"
+
+#: library/Controller/BaseController.php:185
+msgid "Skip to the side menu"
+msgstr "Gå till sidomeny"
+
+#: library/Controller/BaseController.php:186
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:184
+#: library/Controller/BaseController.php:187
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:185
+#: library/Controller/BaseController.php:188
 msgid "years"
 msgstr "år"
 
-#: library/Controller/BaseController.php:186
+#: library/Controller/BaseController.php:189
 msgid "year"
 msgstr "år"
 
-#: library/Controller/BaseController.php:187
+#: library/Controller/BaseController.php:190
 msgid "months"
 msgstr "månader"
 
-#: library/Controller/BaseController.php:188
+#: library/Controller/BaseController.php:191
 msgid "month"
 msgstr "månad"
 
-#: library/Controller/BaseController.php:189
+#: library/Controller/BaseController.php:192
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:190
+#: library/Controller/BaseController.php:193
 msgid "week"
 msgstr "vecka"
 
-#: library/Controller/BaseController.php:192
+#: library/Controller/BaseController.php:195
 msgid "day"
 msgstr "dag"
 
-#: library/Controller/BaseController.php:193
+#: library/Controller/BaseController.php:196
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:197
 msgid "hour"
 msgstr "timme"
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:198
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:199
 msgid "minute"
 msgstr "minut"
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:200
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:201
 msgid "second"
 msgstr "sekund"
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:203
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:204
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:205
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:207
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:208
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:206 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:209 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -6023,15 +6035,15 @@ msgstr "Relaterade länkar"
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:210
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:211
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:212
 msgid "More Languages"
 msgstr "Fler språk"
 
@@ -7478,11 +7490,11 @@ msgstr "Normal"
 msgid "Tailor"
 msgstr "Specialanpassa"
 
-#: library/Helper/Navigation.php:638 library/Helper/Navigation.php:909
+#: library/Helper/Navigation.php:636 library/Helper/Navigation.php:905
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
-#: library/Helper/Navigation.php:871
+#: library/Helper/Navigation.php:868
 msgid "Home"
 msgstr "Hem"
 
@@ -10457,12 +10469,12 @@ msgstr ""
 #~ msgid "Add New"
 #~ msgstr "Skapa ny"
 
-#, fuzzy, php-format
+#, fuzzy
 #~| msgid "No %s found"
 #~ msgid "No %s"
 #~ msgstr "Inga %s hittades"
 
-#, fuzzy, php-format
+#, fuzzy
 #~| msgid "No %s found in trash"
 #~ msgid "No %s in trash"
 #~ msgstr "Inga %s hittades i papperskorgen"
