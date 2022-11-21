@@ -9,7 +9,9 @@
 
     @include('partials.header.skip-to-main-content')
     @include('partials.header.skip-to-main-menu')
-
+    @if($hasSideMenu)
+        @include('partials.header.skip-to-side-menu')
+    @endif
 
     {{-- Search Form --}}
     @section('search-form')

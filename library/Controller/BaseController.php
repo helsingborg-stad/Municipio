@@ -159,16 +159,20 @@ class BaseController
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
 
-        // Create a skip link depending on template
+        // Create skip links depending on template
         $skipToMainContentLink = '#article'; // Default
+        $hasSideMenu = true; // Default
+
         if (get_page_template_slug()) {
             $type = get_page_template_slug();
             if ($type === 'one-page.blade.php') {
-                $skipToMainContentLink = '#main-content';
+                $skipToMainContentLink = '#main-content' &&
+                $hasSideMenu = false;
             }
         }
         $this->data['skipToMainContentLink'] = $skipToMainContentLink;
-        
+        $this->data['hasSideMenu'] = $hasSideMenu;
+
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(
             $this->data['postType'],
