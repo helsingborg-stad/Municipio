@@ -10,26 +10,26 @@ class Icon
 {
     public function __construct()
     {
-      add_filter(
-          'ComponentLibrary/Component/Icon/AltTextPrefix',
-          array($this, 'altTextPrefix'),
-          10,
-          1
-      );
+        add_filter(
+            'ComponentLibrary/Component/Icon/AltTextPrefix',
+            array($this, 'altTextPrefix'),
+            10,
+            1
+        );
 
-      add_filter(
-          'ComponentLibrary/Component/Icon/AltText',
-          $this,
-          10,
-          1
-      );
+        add_filter(
+            'ComponentLibrary/Component/Icon/AltText',
+            $this,
+            10,
+            1
+        );
 
-      add_filter(
-          'ComponentLibrary/Component/Icon/altTextUndefined',
-          array($this, 'altTextUndefined'),
-          10,
-          1
-      );
+        add_filter(
+            'ComponentLibrary/Component/Icon/altTextUndefined',
+            array($this, 'altTextUndefined'),
+            10,
+            1
+        );
     }
 
     public function altTextPrefix($altTextPrefix)
