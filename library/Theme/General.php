@@ -16,14 +16,18 @@ class General
         add_filter('protected_title_format', array($this, 'titleFormat'));
 
         add_filter('accessibility_items', array($this, 'accessibilityItems'), 10, 1);
+        
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
+        
+        add_filter('the_content', array($this, 'normalizeImage'), 10, 1);
+
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
-        add_filter('Modularity\ModularityIconsLibrary', function() {
+        add_filter('Modularity\ModularityIconsLibrary', function () {
             return MUNICIPIO_PATH . "assets/dist/data/ico.json";
         }, 10, 0);
         
@@ -32,20 +36,19 @@ class General
         //Menu cache purging
         add_action('updated_post_meta', array($this, 'purgeMenuCache'), 10, 4);
 
-        add_filter('Municipio/bodyClass', function($class) {
+        add_filter('Municipio/bodyClass', function ($class) {
             $class .= get_theme_mod('hamburger_menu_enabled') && get_theme_mod('hamburger_menu_mobile') ? ' hamburger-menu-mobile' : '';
             $class .= get_theme_mod('header_sticky') === 'sticky' ? ' sticky-header' : '';
             return $class;
         });
 
-        add_filter('Municipio/HeaderHTML', function($html) {
+        add_filter('Municipio/HeaderHTML', function ($html) {
             return str_replace(
                 ' />',
                 '>',
                 $html
             );
         });
-
     }
 
     /**
@@ -55,9 +58,9 @@ class General
      *
      * @return bool
      */
-    public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue) {
-
-        $bannableKeys = wp_cache_get('municipioNavMenu'); 
+    public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue)
+    {
+        $bannableKeys = wp_cache_get('municipioNavMenu');
         
         if (is_array($bannableKeys) && in_array($metaKey, $bannableKeys)) {
             return wp_cache_delete($metaKey);
@@ -72,7 +75,8 @@ class General
      * @param integer $size
      * @return integer $size - 10
      */
-    public function normalizeImageCaptionSize($size) {
+    public function normalizeImageCaptionSize($size)
+    {
         return false;
     }
 
@@ -216,6 +220,68 @@ class General
 
         return $content;
     }
+    // public static function createNodeFromString($doc, $str)
+    // {
+    //     $d = new \DOMDocument();
+    //     $d->loadHTML($str);
+    //     return $doc->importNode($d->documentElement, true);
+    // }
+    public function normalizeImage($content)
+    {
+        $html = render_blade_view(
+            'partials.image',
+            [
+                // 'heading'     => '',
+                // 'isPanel'     => false,
+                // 'overlay'     => 'dark',
+                // 'animation'   => 'scale-up',
+                // 'transparent' => true,
+                // 'openModal' => true,
+                // 'src' => $image->getAttribute('src'),
+                // 'alt' => $image->getAttribute('alt')
+            ]
+        );
+        
+        $dom = new \DOMDocument;
+        $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+        
+        // // Create the div wrapper
+        // $div = $dom->createElement('div');
+        // $div->setAttribute('class', 'u-border');
+        
+        // Find any element which is a link
+        $links = $dom->getElementsByTagName('a');
+            
+        // Loop the elements
+        foreach ($links as $link) {
+        
+            if ('img' === $link->firstChild->tagName) {
+                
+                $linkDir = pathinfo($link->firstChild->getAttribute('src'), PATHINFO_DIRNAME);
+                $imgDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
+                
+                if ($linkDir === $imgDir) {
+                    $html = render_blade_view(
+                        'partials.image',
+                        [
+                            'openModal' => true,
+                            'src' => $link->firstChild->getAttribute('src'),
+                            'srcset' => $link->firstChild->getAttribute('srcset'),
+                            'alt' => $link->firstChild->getAttribute('alt'),
+                            'width' => $link->firstChild->getAttribute('width'),
+                            'height' => $link->firstChild->getAttribute('height'),
+                            'imageClass' => $link->firstChild->getAttribute('class')
+                        ]
+                    );
+                    $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
+                    $link->parentNode->replaceChild($newNode, $link);
+                }
+                
+                $content = $dom->saveHTML();
+            }
+        }
+        return $content;
+    }
 
     /**
      * Append body theme class in BEMIT format
@@ -263,9 +329,7 @@ class General
      */
     public function accessibilityItems($items)
     {
-        if (is_single() || is_page())
-        {
-
+        if (is_single() || is_page()) {
             $items[] =  array(
                 'icon' => 'print',
                 'href' => '#',
