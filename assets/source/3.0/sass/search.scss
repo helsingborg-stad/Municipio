@@ -63,7 +63,7 @@
 
     @include mq("sm") {
       width: unset;
-      #search-form--submit {
+      #hero-search-form__submit {
         padding: 0 calc(var(--base, 8px) * 5);
       }
       .c-group {
@@ -87,7 +87,7 @@
     }
   }
 
-  #hero-search-form .c-button {
+  #hero-search-form #hero-search-form__submit {
     box-shadow: none;
     border-left: 1px solid #eee;
     color: inherit;
