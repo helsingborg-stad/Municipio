@@ -172,12 +172,14 @@ class BaseController
                 $skipToMainContentLink = '#main-content' &&
                 $hasSideMenu = false;
             }
-            if (count($this->data['secondaryMenuItems']) > 0 ) {
-                $skipToMainContentLink = '#main-content' &&
-                $hasSideMenu = false;
-                var_dump(empty($this->data['secondaryMenuItems']));
-            }
         }
+
+        if (count($this->data['secondaryMenuItems']) === 0 ) {
+            $skipToMainContentLink = '#main-content' &&
+            $hasSideMenu = false;
+            var_dump(empty($this->data['secondaryMenuItems']));
+        }
+
         $this->data['skipToMainContentLink'] = $skipToMainContentLink;
         $this->data['hasSideMenu'] = $hasSideMenu;
 
