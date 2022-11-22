@@ -7,7 +7,7 @@
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([
-            'id'            => 'header-search-form--field',
+            'id'            => 'header-search-form__field',
             'type'          => 'search',
             'name'          => 's',
             'required'      => false,
@@ -26,15 +26,15 @@
         @endfield
 
         @button([
-            'id'            => 'search-form--submit',
+            'id'            => 'header-search-form__submit',
             'text'          => $lang->search,
             'color'         => 'default',
             'type'          => 'submit',
             'size'          => 'sm',
+            'classList'     => ['u-rounded__right--8'],
             'attributeList' => [
-                'id'            => 'header-search-form--submit'
+                'aria-label' => $lang->search,
             ],
-            'classList'     => ['u-rounded__right--8']
         ])
         @endbutton
 

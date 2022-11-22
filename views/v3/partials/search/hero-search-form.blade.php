@@ -6,7 +6,7 @@
 ])
     @group(['direction' => 'horizontal'])
         @field([
-            'id' => 'search-form--field',
+            'id' => 'hero-search-form__field',
             'type' => 'search',
             'name' => 's',
             'required' => false,
@@ -19,13 +19,13 @@
         ])
         @endfield
         @button([
-            'id' => 'search-form--submit',
+            'id' => 'hero-search-form__submit',
             'text' => $lang->search,
             'color' => 'default',
             'type' => 'submit',
             'size' => 'lg',
             'attributeList' => [
-                'id' => 'search-form--submit'
+                'aria-label' => $lang->search,
             ]
         ])
         @endbutton

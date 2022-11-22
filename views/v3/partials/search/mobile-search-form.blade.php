@@ -6,7 +6,7 @@
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([
-            'id'            => 'mobile-search-form--field',
+            'id'            => 'mobile-search-form__field',
             'type'          => 'search',
             'name'          => 's',
             'required'      => false,
@@ -25,13 +25,13 @@
         @endfield
 
         @button([
-            'id'            => 'mobile-search-form--submit',
+            'id'            => 'mobile-search-form__submit',
             'text'          => $lang->search,
             'color'         => 'default',
             'type'          => 'submit',
             'size'          => 'sm',
             'attributeList' => [
-                'id'            => 'mobile-search-form--submit'
+                'aria-label' => $lang->search,
             ],
             'classList'     => ['u-rounded__right--8']
         ])
