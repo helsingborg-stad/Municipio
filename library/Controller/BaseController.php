@@ -177,6 +177,10 @@ class BaseController
             $hasSideMenu = false;
         }
 
+        if (empty($this->data['primaryMenuItems'])) {
+            $hasMainMenu = false;
+        }
+
         $this->data['skipToMainContentLink'] = $skipToMainContentLink;
         $this->data['hasSideMenu'] = $hasSideMenu;
         $this->data['hasMainMenu'] = $hasMainMenu;
