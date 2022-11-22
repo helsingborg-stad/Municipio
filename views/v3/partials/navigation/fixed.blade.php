@@ -12,7 +12,7 @@
         ])
             <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">
                 <div class="o-container">
-                    <nav role="navigation" aria-label="{{ $lang->quicklinksNavigation }}">
+                    <nav aria-label="{{ $lang->quicklinksNavigation }}">
                         @nav([
                             'id' => 'menu-quicklinks',
                             'items' => $quicklinksMenuItems,

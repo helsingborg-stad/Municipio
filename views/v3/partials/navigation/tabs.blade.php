@@ -1,5 +1,5 @@
 @if($tabMenuItems)
-    <nav role="navigation" aria-label="{{$lang->relatedLinks}}"
+    <nav aria-label="{{$lang->relatedLinks}}"
         class="u-display--flex@lg u-display--flex@lx u-display--none@xs
                 u-display--none@sm u-display--none@md u-print-display--none">
         @group([

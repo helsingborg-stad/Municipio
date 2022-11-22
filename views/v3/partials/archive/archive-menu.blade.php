@@ -4,7 +4,7 @@
     <div class="o-grid-12">
       @paper()
         <div class="u-display--flex u-flex--gridgap-col u-flex-direction--column@xs u-flex-direction--column@sm u-align-content--center u-justify-content--space-between">
-          <nav role="navigation" aria-label="{{$lang->archiveNav}}">
+          <nav aria-label="{{$lang->archiveNav}}">
             @nav([
                 'items' => $archiveMenuItems,
                 'direction' => 'horizontal',
