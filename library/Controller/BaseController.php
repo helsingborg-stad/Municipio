@@ -111,8 +111,6 @@ class BaseController
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, true);
         $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
 
-        // var_dump($this->data['secondaryMenuItems']);
-
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
         $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), \Kirki::get_option('hamburger_menu_pagetree_fallback'), true, false);
 
@@ -174,18 +172,13 @@ class BaseController
             }
         }
 
-        if (count($this->data['secondaryMenuItems']) === 0 ) {
+        if (empty($this->data['secondaryMenuItems'])) {
             $skipToMainContentLink = '#main-content' &&
             $hasSideMenu = false;
-            var_dump(empty($this->data['secondaryMenuItems']));
         }
 
         $this->data['skipToMainContentLink'] = $skipToMainContentLink;
         $this->data['hasSideMenu'] = $hasSideMenu;
-
-        var_dump(empty($this->data['secondaryMenuItems']));
-
-
 
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(
