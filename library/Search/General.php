@@ -8,9 +8,9 @@ class General
     {
         add_filter('Municipio/search_result/permalink_url', array($this, 'searchAttachmentPermalink'), 10, 2);
         add_filter('Municipio/search_result/permalink_text', array($this, 'searchAttachmentPermalink'), 10, 2);
-    
+
         //Adds search in the end of the meu
-        add_filter('Municipio/Navigation/Nested', array($this, 'addSearchMenuItem'), 10, 3);  
+        add_filter('Municipio/Navigation/Nested', array($this, 'addSearchMenuItem'), 10, 3);
     }
 
     /**
@@ -21,44 +21,43 @@ class General
      * 
      * @return array
      */
-    public function addSearchMenuItem($data, $identifier, $pageId) {
-                
-        if($identifier == "primary") {
+    public function addSearchMenuItem($data, $identifier, $pageId)
+    {
 
-            $enabledLocations = (array) get_field('search_display', 'option'); 
+        if ($identifier == "primary") {
+            $enabledLocations = (array) get_field('search_display', 'option');
 
-            if(is_search()) {
-                return $data; 
+            if (is_search()) {
+                return $data;
             }
 
             //Only add item if activated
-            if(!in_array('mainmenu', $enabledLocations)) {
-                return $data; 
-            }    
+            if (!in_array('mainmenu', $enabledLocations)) {
+                return $data;
+            }
 
             $data[] = [
-                "id" => "search-icon", 
+                "id" => "search-icon",
                 "post_parent" => null,
                 "post_type" => null,
-                "active" => false, 
+                "active" => false,
                 "ancestor" => false,
                 "children" => false,
                 "label" => "",
                 "href" => "#search",
-                "icon" => ['icon' => 'search', 'size' => 'md'],
+                "icon" => [
+                    'icon' => 'search',
+                    'size' => 'md'
+                ],
                 "attributeList" => [
                     'aria-label' => __("Search", 'municipio'),
                     'data-open' => 'm-search-modal__trigger'
                 ],
-            ]; 
+            ];
         }
 
-        return $data; 
-
+        return $data;
     }
-
-
-    
 
     /**
      * Get attachment permalink for search result
