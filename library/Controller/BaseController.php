@@ -163,6 +163,7 @@ class BaseController
         // Create skip links depending on template
         $skipToMainContentLink = '#article'; // Default
         $hasSideMenu = true; // Default
+        $hasMainMenu = true; // Default
 
         if (get_page_template_slug()) {
             $type = get_page_template_slug();
@@ -173,12 +174,12 @@ class BaseController
         }
 
         if (empty($this->data['secondaryMenuItems'])) {
-            $skipToMainContentLink = '#main-content' &&
             $hasSideMenu = false;
         }
 
         $this->data['skipToMainContentLink'] = $skipToMainContentLink;
         $this->data['hasSideMenu'] = $hasSideMenu;
+        $this->data['hasMainMenu'] = $hasMainMenu;
 
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(

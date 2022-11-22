@@ -8,7 +8,10 @@
 ])
 
     @include('partials.header.skip-to-main-content')
-    @include('partials.header.skip-to-main-menu')
+
+    @if($hasMainMenu)
+        @include('partials.header.skip-to-main-menu')
+    @endif
     @if($hasSideMenu)
         @include('partials.header.skip-to-side-menu')
     @endif
