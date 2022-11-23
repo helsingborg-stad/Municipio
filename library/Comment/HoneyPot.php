@@ -69,7 +69,7 @@ class HoneyPot
      */
     public function addHoneyPotFieldFilled()
     {
-        echo '<div class="fake-hide"><input name="' . $this->field_name . '_fi" type="text" value="' . $this->field_content . '" size="30" autocomplete="off" tabIndex="-1"></div>';
+        echo '<div class="fake-hide" aria-hidden="true"><input name="' . $this->field_name . '_fi" type="text" value="' . $this->field_content . '" size="30" autocomplete="off" tabIndex="-1" aria-label=""></div>';
     }
 
     /**
@@ -77,7 +77,7 @@ class HoneyPot
      */
     public function addHoneyPotFieldBlank()
     {
-        echo '<div class="fake-hide"><input class="hidden" name="' . $this->field_name . '_bl" type="text" value="" size="30" autocomplete="off" tabIndex="-1"></div>';
+        echo '<div class="fake-hide" aria-hidden="true"><input class="hidden" name="' . $this->field_name . '_bl" type="text" value="" size="30" autocomplete="off" tabIndex="-1" aria-label=""></div>';
     }
 
     /**
