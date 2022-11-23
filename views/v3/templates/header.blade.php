@@ -8,13 +8,8 @@
 ])
 
     @include('partials.header.skip-to-main-content')
-
-    @if($hasMainMenu)
-        @include('partials.header.skip-to-main-menu')
-    @endif
-    @if($hasSideMenu)
-        @include('partials.header.skip-to-side-menu')
-    @endif
+    @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
+    @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
 
     {{-- Search Form --}}
     @section('search-form')
