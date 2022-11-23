@@ -164,7 +164,7 @@ class BaseController
         $this->data['pageTemplate']         = $this->getPageTemplate();
 
         // Skip links
-        $this->data['skipToMainContentLink'] = $this->createSkipLinks();
+        $this->data['skipToMainContentLink'] = $this->setSkipLinkValue();
         $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
@@ -482,7 +482,7 @@ class BaseController
     /**
       * Create skip to main content link
       */
-    protected function createSkipLinks()
+    protected function setSkipLinkValue()
     {
         if ($this->data['pageTemplate'] === 'one-page.blade.php') {
             return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
