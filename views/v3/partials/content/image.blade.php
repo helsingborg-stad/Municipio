@@ -1,8 +1,9 @@
 @image([
     'src'=> $src,
     'alt' => $alt,
-    'caption' => $caption,
-    'openModal' => $openModal,
+    'heading' => $heading,
     'imgAttributeList' => $imgAttributeList,
+    'openModal' => $openModal,
+    'isPanel' => $isPanel,
 ])
 @endimage

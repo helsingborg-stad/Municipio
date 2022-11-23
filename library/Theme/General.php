@@ -235,38 +235,45 @@ class General
                     continue;
                 }
                 
+                $caption = (0 < $link->parentNode->getElementsByTagName('figcaption')->length) ? wp_strip_all_tags($link->parentNode->getElementsByTagName('figcaption')->item(0)->textContent, true) : false;
+                
                 $linkedImage = $link->firstChild;
                 $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
                 $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
                     
                 if ($linkDir === $imgDir) {
                     $html = render_blade_view(
-                        'partials.image',
+                        'partials.content.image',
                         [
-                            'openModal' => true,
-                            'src'       => $linkedImage->getAttribute('src'),
-                            'alt'       => $linkedImage->getAttribute('alt'),
+                            'openModal'        => true,
+                            'src'              => $linkedImage->getAttribute('src'),
+                            'srcFull'          => $linkedImage->getAttribute('src'),
+                            'alt'              => $linkedImage->getAttribute('alt'),
+                            'heading'          => $caption,
+                            'isPanel'          => true,
+                            'isTransparent'    => false,
                             'imgAttributeList' =>
                             [
-                                'srcset'    => $linkedImage->getAttribute('srcset'),
-                                'width'     => $linkedImage->getAttribute('width'),
-                                'height'    => $linkedImage->getAttribute('height'),
-                                'parsed' => true
+                                'srcset' => $linkedImage->getAttribute('srcset'),
+                                'width'  => $linkedImage->getAttribute('width'),
+                                'height' => $linkedImage->getAttribute('height'),
+                                'parsed' => true,
                             ],
                         ]
                     );
                     $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
                     $link->parentNode->replaceChild($newNode, $link);
                 }
+                $content = $dom->saveHTML();
             }
             foreach ($images as $image) {
                 // This image has already been processed as part of the links so we'll skip it.
                 if ($image->getAttribute('parsed')) {
                     continue;
                 }
-            
+                
                 $html = render_blade_view(
-                    'partials.image',
+                    'partials.content.image',
                     [
                         'openModal' => false,
                         'src'       => $image->getAttribute('src'),
