@@ -105,8 +105,7 @@ class HoneyPot
                     value="' . $fieldContent . '" 
                     size="30" 
                     autocomplete="off" 
-                    tabIndex="-1" 
-                    aria-label="' . $fieldName . '"
+                    tabIndex="-1"
                     aria-hidden="true"
                 >
             </div>
