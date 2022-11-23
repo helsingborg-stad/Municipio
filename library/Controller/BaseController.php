@@ -161,25 +161,31 @@ class BaseController
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
 
         // Create skip links depending on template
-        $skipToMainContentLink = '#article'; // Default
-        $hasSideMenu = true; // Default
-        $hasMainMenu = true; // Default
+        $skipToMainContentLink              = apply_filters('Municipio/Controller/SkipToMainContentLink', '#article');
 
-        if (get_page_template_slug()) {
-            $type = get_page_template_slug();
-            if ($type === 'one-page.blade.php') {
-                $skipToMainContentLink = '#main-content' &&
-                $hasSideMenu = false;
-            }
-        }
+        // $hasSideMenu = true; // Default
+        // $hasMainMenu = true; // Default
 
-        if (empty($this->data['secondaryMenuItems'])) {
-            $hasSideMenu = false;
-        }
+        // if (get_page_template_slug()) {
+        //     $type = get_page_template_slug();
+        //     if ($type === 'one-page.blade.php') {
+        //         $skipToMainContentLink = '#main-content' &&
+        //         $hasSideMenu = false;
+        //     }
+        // }
 
-        if (empty($this->data['primaryMenuItems'])) {
-            $hasMainMenu = false;
-        }
+        // if (empty($this->data['secondaryMenuItems'])) {
+        //     $hasSideMenu = false;
+        // }
+
+        // if (empty($this->data['primaryMenuItems'])) {
+        //     $hasMainMenu = false;
+        // }
+
+        // $this->data['skipToMainContentLink'] = $skipToMainContentLink;
+        // $this->data['hasSideMenu'] = $hasSideMenu;
+        // $this->data['hasMainMenu'] = $hasMainMenu;
+        // End Skip links 
 
         $this->data['skipToMainContentLink'] = $skipToMainContentLink;
         $this->data['hasSideMenu'] = $hasSideMenu;
@@ -483,6 +489,36 @@ class BaseController
 
         return false;
     }
+
+    /* Create skip links function */
+
+    protected function createSkipLinks()
+    {
+        $skipToMainContentLink = '#article'; 
+        $hasSideMenu = true; // Default
+        $hasMainMenu = true; // Default
+
+        if (get_page_template_slug()) {
+            $type = get_page_template_slug();
+            if ($type === 'one-page.blade.php') {
+                $skipToMainContentLink = '#main-content' &&
+                $hasSideMenu = false;
+            }
+        }
+
+        if (empty($this->data['secondaryMenuItems'])) {
+            $hasSideMenu = false;
+        }
+
+        if (empty($this->data['primaryMenuItems'])) {
+            $hasMainMenu = false;
+        }
+
+    }
+
+
+
+
 
     /**
      * Check if any posts in the given array has an image
