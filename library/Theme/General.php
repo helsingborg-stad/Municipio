@@ -20,7 +20,7 @@ class General
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
         
-        add_filter('the_content', array($this, 'normalizeImage'), 10, 1);
+        add_filter('the_content', array($this, 'normalizeImages'), 11, 1);
 
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
@@ -220,66 +220,71 @@ class General
 
         return $content;
     }
-    // public static function createNodeFromString($doc, $str)
-    // {
-    //     $d = new \DOMDocument();
-    //     $d->loadHTML($str);
-    //     return $doc->importNode($d->documentElement, true);
-    // }
-    public function normalizeImage($content)
+    public function normalizeImages($content)
     {
-        $html = render_blade_view(
-            'partials.image',
-            [
-                // 'heading'     => '',
-                // 'isPanel'     => false,
-                // 'overlay'     => 'dark',
-                // 'animation'   => 'scale-up',
-                // 'transparent' => true,
-                // 'openModal' => true,
-                // 'src' => $image->getAttribute('src'),
-                // 'alt' => $image->getAttribute('alt')
-            ]
-        );
-        
-        $dom = new \DOMDocument;
-        $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-        
-        // // Create the div wrapper
-        // $div = $dom->createElement('div');
-        // $div->setAttribute('class', 'u-border');
-        
-        // Find any element which is a link
-        $links = $dom->getElementsByTagName('a');
+        if (str_contains($content, '<img')) {
+            $dom = new \DOMDocument;
+            $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
             
-        // Loop the elements
-        foreach ($links as $link) {
-        
-            if ('img' === $link->firstChild->tagName) {
+            $images = $dom->getElementsByTagName('img');
+            $links = $dom->getElementsByTagName('a');
+            
+            foreach ($links as $link) {
+                // If the link doesn't contain an image move on to the next.
+                if ('img' !== $link->firstChild->tagName) {
+                    continue;
+                }
                 
-                $linkDir = pathinfo($link->firstChild->getAttribute('src'), PATHINFO_DIRNAME);
-                $imgDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
-                
+                $linkedImage = $link->firstChild;
+                $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
+                $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
+                    
                 if ($linkDir === $imgDir) {
                     $html = render_blade_view(
                         'partials.image',
                         [
                             'openModal' => true,
-                            'src' => $link->firstChild->getAttribute('src'),
-                            'srcset' => $link->firstChild->getAttribute('srcset'),
-                            'alt' => $link->firstChild->getAttribute('alt'),
-                            'width' => $link->firstChild->getAttribute('width'),
-                            'height' => $link->firstChild->getAttribute('height'),
-                            'imageClass' => $link->firstChild->getAttribute('class')
+                            'src'       => $linkedImage->getAttribute('src'),
+                            'alt'       => $linkedImage->getAttribute('alt'),
+                            'imgAttributeList' =>
+                            [
+                                'srcset'    => $linkedImage->getAttribute('srcset'),
+                                'width'     => $linkedImage->getAttribute('width'),
+                                'height'    => $linkedImage->getAttribute('height'),
+                                'parsed' => true
+                            ],
                         ]
                     );
                     $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
                     $link->parentNode->replaceChild($newNode, $link);
                 }
-                
-                $content = $dom->saveHTML();
             }
+            foreach ($images as $image) {
+                // This image has already been processed as part of the links so we'll skip it.
+                if ($image->getAttribute('parsed')) {
+                    continue;
+                }
+            
+                $html = render_blade_view(
+                    'partials.image',
+                    [
+                        'openModal' => false,
+                        'src'       => $image->getAttribute('src'),
+                        'alt'       => $image->getAttribute('alt'),
+                        'imgAttributeList' =>
+                        [
+                            'srcset'    => $image->getAttribute('srcset'),
+                            'width'     => $image->getAttribute('width'),
+                            'height'    => $image->getAttribute('height'),
+                        ],
+                    ]
+                );
+                $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
+                $image->parentNode->replaceChild($newNode, $image);
+            }
+            $content = $dom->saveHTML();
         }
+        
         return $content;
     }
 
