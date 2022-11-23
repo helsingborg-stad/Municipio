@@ -50,17 +50,21 @@ class HoneyPot
      */
     public function addHoneyPotFieldTimer()
     {
-        echo '<div class="fake-hide"><input class="hp-timer-field" name="' . $this->field_name . '_ti" type="text" value="' . $this->field_content . '" size="30" autocomplete="off" tabIndex="-1"></div>';
+        echo $this->createField(
+            $this->field_name . '_ti',
+            $this->field_content,
+            'hp-timer-field'
+        );
         echo '
-        <script type="text/javascript">
-            ["onload"].forEach(function(e){
-                [].forEach.call(document.querySelectorAll(".hp-timer-field"), function(item) {
-                    setTimeout(function() {
-                        item.value = "' . $this->field_min_time . '"; 
-                    }.bind(item), ' . $this->field_min_time . '); 
+            <script type="text/javascript">
+                ["onload"].forEach(function(e){
+                    [].forEach.call(document.querySelectorAll(".hp-timer-field"), function(item) {
+                        setTimeout(function() {
+                            item.value = "' . $this->field_min_time . '"; 
+                        }.bind(item), ' . $this->field_min_time . '); 
+                    });
                 });
-            });
-        </script>
+            </script>
         ';
     }
 
@@ -69,7 +73,10 @@ class HoneyPot
      */
     public function addHoneyPotFieldFilled()
     {
-        echo '<div class="fake-hide" aria-hidden="true"><input name="' . $this->field_name . '_fi" type="text" value="' . $this->field_content . '" size="30" autocomplete="off" tabIndex="-1" aria-label=""></div>';
+        echo $this->createField(
+            $this->field_name . '_fi',
+            $this->field_content
+        );
     }
 
     /**
@@ -77,7 +84,32 @@ class HoneyPot
      */
     public function addHoneyPotFieldBlank()
     {
-        echo '<div class="fake-hide" aria-hidden="true"><input class="hidden" name="' . $this->field_name . '_bl" type="text" value="" size="30" autocomplete="off" tabIndex="-1" aria-label=""></div>';
+        echo $this->createField($this->field_name . '_bl');
+    }
+
+    /**
+     * Outputs HTML for a input field
+     *
+     * @param srting    $fieldName     The name parameter of the field
+     * @param string    $fieldContent  The predefined value of the field
+     * @return string                  The field
+     */
+    private function createField($fieldName, $fieldContent = "", $class = ""): string
+    {
+        return '
+            <div class="fake-hide" aria-hidden="true">
+                <input 
+                    class="hidden ' . $class . '" 
+                    name="' . $fieldName . '_bl" 
+                    type="text" 
+                    value="' . $fieldContent . '" 
+                    size="30" 
+                    autocomplete="off" 
+                    tabIndex="-1" 
+                    aria-label=""
+                >
+            </div>
+        ';
     }
 
     /**
