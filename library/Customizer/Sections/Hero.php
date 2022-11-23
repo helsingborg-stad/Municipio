@@ -4,7 +4,7 @@ namespace Municipio\Customizer\Sections;
 
 class Hero
 {
-    public const SECTION_ID = "municipio_customizer_section_heroh";
+    public const SECTION_ID = "municipio_customizer_section_hero";
 
     public function __construct($panelID)
     {
@@ -32,15 +32,9 @@ class Hero
                     'type' => 'modifier',
                     'context' => [
                         [
-                            'context' => 'sidebar.slider-area.module.slider',
+                            'context' => 'sidebar.slider-area.module.hero-animation',
                             'operator' => '=='
-                        ],  
-                        [
-                            'context' => 'sidebar.slider',
-                            'operator' => '!='
-                        ],
-
-
+                        ],   
                     ],
                 ],
             ],
