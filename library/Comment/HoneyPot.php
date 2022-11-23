@@ -100,13 +100,14 @@ class HoneyPot
             <div class="fake-hide" aria-hidden="true">
                 <input 
                     class="hidden ' . $class . '" 
-                    name="' . $fieldName . '_bl" 
+                    name="' . $fieldName . '" 
                     type="text" 
                     value="' . $fieldContent . '" 
                     size="30" 
                     autocomplete="off" 
                     tabIndex="-1" 
-                    aria-label=""
+                    aria-label="' . $fieldName . '"
+                    aria-hidden="true"
                 >
             </div>
         ';
