@@ -156,32 +156,17 @@ class BaseController
         $this->data['showMobileSearchDrawer']   = $this->showSearchForm('mobile-drawer');
         $this->data['searchQuery']              = get_search_query(); 
 
-        //Current posttype
+        // Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
 
-        //Get page template
+        // Get page template
         $this->data['pageTemplate']         = $this->getPageTemplate();
 
-        // Create skip links depending on template
-        if (empty($this->data['primaryMenuItems'])) {
-            $hasMainMenu = false;
-        }
-
-        // $hasSideMenu = true; // Default
-        // $hasMainMenu = true; // Default
-
-        // if (empty($this->data['primaryMenuItems'])) {
-        //     $hasMainMenu = false;
-        // }
-
-        // $this->data['hasMainMenu'] = $hasMainMenu;
-
+        // Skip links
         $this->data['skipToMainContentLink'] = $this->createSkipLinks();
         $this->data['hasSideMenu'] = $this->hasSideMenu();
-        $this->data['hasMainMenu'] = $hasMainMenu;
-
-        // var_dump($this->data['hasSideMenu']);
+        $this->data['hasMainMenu'] = $this->hasMainMenu();
 
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(
@@ -482,12 +467,9 @@ class BaseController
         return false;
     }
 
-
-
-
-
-
-    /* Get page template */
+    /**
+      * Get page template
+      */
     public function getPageTemplate()
     {
         $type = get_page_template_slug();
@@ -497,7 +479,9 @@ class BaseController
         return $type;
     }
 
-    /* Create skip links function */
+    /**
+      * Create skip to main content link
+      */
     protected function createSkipLinks()
     {
         if ($this->data['pageTemplate'] === 'one-page.blade.php') {
@@ -506,7 +490,9 @@ class BaseController
         return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');
     }
 
-    /* Check if page has side menu  */
+    /**
+      * Check if page has side menu
+      */
     protected function hasSideMenu()
     {
         if (!empty($this->data['secondaryMenuItems']) && $this->data['pageTemplate'] !== 'one-page.blade.php' ) {
@@ -514,9 +500,17 @@ class BaseController
         }
         return false;
     }
-    
 
-
+    /**
+      * Check if page has main menu
+      */
+    protected function hasMainMenu()
+    {
+        if(!empty($this->data['primaryMenuItems'])){
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Check if any posts in the given array has an image
