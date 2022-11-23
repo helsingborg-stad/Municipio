@@ -160,36 +160,28 @@ class BaseController
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
 
+        //Get page template
+        $this->data['pageTemplate']         = $this->getPageTemplate();
+
         // Create skip links depending on template
-        $skipToMainContentLink              = apply_filters('Municipio/Controller/SkipToMainContentLink', '#article');
+        if (empty($this->data['primaryMenuItems'])) {
+            $hasMainMenu = false;
+        }
 
         // $hasSideMenu = true; // Default
         // $hasMainMenu = true; // Default
-
-        // if (get_page_template_slug()) {
-        //     $type = get_page_template_slug();
-        //     if ($type === 'one-page.blade.php') {
-        //         $skipToMainContentLink = '#main-content' &&
-        //         $hasSideMenu = false;
-        //     }
-        // }
-
-        // if (empty($this->data['secondaryMenuItems'])) {
-        //     $hasSideMenu = false;
-        // }
 
         // if (empty($this->data['primaryMenuItems'])) {
         //     $hasMainMenu = false;
         // }
 
-        // $this->data['skipToMainContentLink'] = $skipToMainContentLink;
-        // $this->data['hasSideMenu'] = $hasSideMenu;
         // $this->data['hasMainMenu'] = $hasMainMenu;
-        // End Skip links 
 
-        $this->data['skipToMainContentLink'] = $skipToMainContentLink;
-        $this->data['hasSideMenu'] = $hasSideMenu;
+        $this->data['skipToMainContentLink'] = $this->createSkipLinks();
+        $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $hasMainMenu;
+
+        // var_dump($this->data['hasSideMenu']);
 
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(
@@ -490,33 +482,39 @@ class BaseController
         return false;
     }
 
-    /* Create skip links function */
 
-    protected function createSkipLinks()
+
+
+
+
+    /* Get page template */
+    public function getPageTemplate()
     {
-        $skipToMainContentLink = '#article'; 
-        $hasSideMenu = true; // Default
-        $hasMainMenu = true; // Default
-
-        if (get_page_template_slug()) {
-            $type = get_page_template_slug();
-            if ($type === 'one-page.blade.php') {
-                $skipToMainContentLink = '#main-content' &&
-                $hasSideMenu = false;
-            }
+        $type = get_page_template_slug();
+        if($type === ''){
+            return false;
         }
-
-        if (empty($this->data['secondaryMenuItems'])) {
-            $hasSideMenu = false;
-        }
-
-        if (empty($this->data['primaryMenuItems'])) {
-            $hasMainMenu = false;
-        }
-
+        return $type;
     }
 
+    /* Create skip links function */
+    protected function createSkipLinks()
+    {
+        if ($this->data['pageTemplate'] === 'one-page.blade.php') {
+            return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
+        } 
+        return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');
+    }
 
+    /* Check if page has side menu  */
+    protected function hasSideMenu()
+    {
+        if (!empty($this->data['secondaryMenuItems']) && $this->data['pageTemplate'] !== 'one-page.blade.php' ) {
+            return true;
+        }
+        return false;
+    }
+    
 
 
 
