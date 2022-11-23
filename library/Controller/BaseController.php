@@ -110,6 +110,7 @@ class BaseController
         //Main Navigation 
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, true);
         $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
+
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
         $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), \Kirki::get_option('hamburger_menu_pagetree_fallback'), true, false);
 
@@ -155,9 +156,17 @@ class BaseController
         $this->data['showMobileSearchDrawer']   = $this->showSearchForm('mobile-drawer');
         $this->data['searchQuery']              = get_search_query(); 
 
-        //Current posttype
+        // Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType']             = $this->data['postTypeDetails']->name ?? '';
+
+        // Get page template
+        $this->data['pageTemplate']         = $this->getPageTemplate();
+
+        // Skip links
+        $this->data['skipToMainContentLink'] = $this->setSkipLinkValue();
+        $this->data['hasSideMenu'] = $this->hasSideMenu();
+        $this->data['hasMainMenu'] = $this->hasMainMenu();
 
         //Structured data
         $this->data['structuredData']       = $this->getStructuredData(
@@ -455,6 +464,51 @@ class BaseController
             }
         }
 
+        return false;
+    }
+
+    /**
+      * Get page template
+      */
+    public function getPageTemplate()
+    {
+        $type = get_page_template_slug();
+        if($type === ''){
+            return false;
+        }
+        return $type;
+    }
+
+    /**
+      * Create skip to main content link
+      */
+    protected function setSkipLinkValue()
+    {
+        if ($this->data['pageTemplate'] === 'one-page.blade.php') {
+            return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
+        } 
+        return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');
+    }
+
+    /**
+      * Check if page has side menu
+      */
+    protected function hasSideMenu()
+    {
+        if (!empty($this->data['secondaryMenuItems']) && $this->data['pageTemplate'] !== 'one-page.blade.php' ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+      * Check if page has main menu
+      */
+    protected function hasMainMenu()
+    {
+        if(!empty($this->data['primaryMenuItems'])){
+            return true;
+        }
         return false;
     }
 
