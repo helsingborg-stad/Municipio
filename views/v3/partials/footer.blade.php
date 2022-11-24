@@ -13,9 +13,13 @@
     'logotypeHref' => $homeUrl,
     'subfooterLogotype' => $subfooterLogotype,
     'context' => 'component.footer',
-    'classList' => [
-        apply_filters('Views/Partials/Header/FooterClass', 'site-footer s-footer')
-    ],
+    'classList' => apply_filters(
+        'Views/Partials/Header/FooterClass',
+        [
+            'site-footer',
+            's-footer'
+        ]
+    ),
 ])
 
 {{-- Before footer body --}}
