@@ -1,4 +1,4 @@
-@extends('templates.header', ['classList' => ['c-header c-header--business']])
+@extends('templates.header', ['classList' => ['c-header','c-header--business']])
 
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
