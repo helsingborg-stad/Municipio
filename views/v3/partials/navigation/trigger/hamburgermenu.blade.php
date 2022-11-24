@@ -5,10 +5,12 @@
         'style' => $customizer->hamburgerMenuTriggerStyle ?? 'basic',
         'icon' => 'menu',
         'text' => $lang->menu,
-        'classList' => [
-            'hamburger-menu-trigger',
-            !$customizer->hamburgerMenuMobile ? 'u-display--none@xs u-display--none@sm u-display--none@md' : '',
-        ],
+        'classList' => 
+            !$customizer->hamburgerMenuMobile ? 
+            ['hamburger-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] 
+            : 
+            ['hamburger-menu-trigger'] 
+        ,
         'classListText' => [
             'u-display--none@xs'
         ],
