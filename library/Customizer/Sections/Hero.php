@@ -25,14 +25,14 @@ class Hero
             'priority'    => 10,
             'choices'     => [
                 '' => esc_html__('No animation', 'municipio'),
-                'kenny' => esc_html__('Ken Burns', 'municipio'),
+                'animation-type-kenny' => esc_html__('Ken Burns', 'municipio'),
             ],
             'output' => [
                 [
                     'type' => 'modifier',
                     'context' => [
                         [
-                            'context' => 'sidebar.slider-area.module.hero-animation',
+                            'context' => 'sidebar.slider-area.animation-item',
                             'operator' => '=='
                         ],   
                     ],
