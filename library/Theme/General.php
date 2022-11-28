@@ -20,7 +20,7 @@ class General
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
         
-        add_filter('the_content', array($this, 'normalizeImages'), 11, 1);
+        add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
 
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
@@ -220,27 +220,37 @@ class General
 
         return $content;
     }
+    /**
+     * It takes a string of HTML, finds all images and links containing images, and replaces them with
+     * a blade template version of themselves.
+     *
+     * If an image is linked to itself, it will be replaced with a template version with the attribute `opendModal` set to `true`.
+     *
+     * @param content The content to be parsed.
+     *
+     * @return The content of the post.
+     */
     public function normalizeImages($content)
     {
         if (str_contains($content, '<img')) {
             $dom = new \DOMDocument;
             $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-            
+                   
             $images = $dom->getElementsByTagName('img');
             $links = $dom->getElementsByTagName('a');
             
             foreach ($links as $link) {
                 // If the link doesn't contain an image move on to the next.
                 if ('img' !== $link->firstChild->tagName) {
-                    continue;
+                    return;
                 }
-                
+    
                 $caption = (0 < $link->parentNode->getElementsByTagName('figcaption')->length) ? wp_strip_all_tags($link->parentNode->getElementsByTagName('figcaption')->item(0)->textContent, true) : false;
-                
+    
                 $linkedImage = $link->firstChild;
                 $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
                 $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
-                    
+        
                 if ($linkDir === $imgDir) {
                     $html = render_blade_view(
                         'partials.content.image',
@@ -257,17 +267,26 @@ class General
                                 'srcset' => $linkedImage->getAttribute('srcset'),
                                 'width'  => $linkedImage->getAttribute('width'),
                                 'height' => $linkedImage->getAttribute('height'),
-                                'parsed' => true,
+                                'parsed' => true
                             ],
                         ]
                     );
                     $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-                    $link->parentNode->replaceChild($newNode, $link);
+                    
+                    /* Appending the newly rendered blade template content to the current node */
+                    $link->parentNode->appendChild($newNode);
+                    
+                    /* Replacing the original link and image with a hidden link to prevent issues stemming from removing link elements from the DOM whilst accessing them. @see https://stackoverflow.com/questions/38372233/php-domdocument-skips-even-elements */
+                    $replacementLink = $dom->createElement('a', $linkedImage->getAttribute('src'));
+                    $replacementLink->setAttribute('href', $linkedImage->getAttribute('src'));
+                    $replacementLink->setAttribute('tabindex', '-1');
+                    $replacementLink->setAttribute('class', 'u-display--none');
+                    $link->parentNode->replaceChild($replacementLink, $link);
                 }
-                $content = $dom->saveHTML();
             }
+            
             foreach ($images as $image) {
-                // This image has already been processed as part of the links so we'll skip it.
+                /* This image has already been processed so we'll skip it. */
                 if ($image->getAttribute('parsed')) {
                     continue;
                 }
@@ -283,18 +302,22 @@ class General
                             'srcset'    => $image->getAttribute('srcset'),
                             'width'     => $image->getAttribute('width'),
                             'height'    => $image->getAttribute('height'),
+                            'parsed' => true
                         ],
                     ]
                 );
                 $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
                 $image->parentNode->replaceChild($newNode, $image);
             }
+            
             $content = $dom->saveHTML();
         }
         
+        
         return $content;
     }
-
+    
+   
     /**
      * Append body theme class in BEMIT format
      *
