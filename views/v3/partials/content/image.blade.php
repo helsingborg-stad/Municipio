@@ -5,5 +5,6 @@
     'imgAttributeList' => $imgAttributeList,
     'openModal' => $openModal,
     'isPanel' => $isPanel,
+    'caption'   => $caption,
 ])
 @endimage

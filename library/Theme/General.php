@@ -245,7 +245,14 @@ class General
                     return;
                 }
     
-                $caption = (0 < $link->parentNode->getElementsByTagName('figcaption')->length) ? wp_strip_all_tags($link->parentNode->getElementsByTagName('figcaption')->item(0)->textContent, true) : false;
+                $captionText = '';
+                if (0 < $link->parentNode->getElementsByTagName('figcaption')->length) {
+                    foreach ($link->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
+                        $captionText = wp_strip_all_tags($caption->textContent);
+                        $captionClone = $caption->cloneNode(true);
+                        $link->parentNode->removeChild($caption);
+                    }
+                }
     
                 $linkedImage = $link->firstChild;
                 $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
@@ -259,15 +266,15 @@ class General
                             'src'              => $linkedImage->getAttribute('src'),
                             'srcFull'          => $linkedImage->getAttribute('src'),
                             'alt'              => $linkedImage->getAttribute('alt'),
-                            'heading'          => $caption,
+                            'heading'          => $captionText,
                             'isPanel'          => true,
                             'isTransparent'    => false,
                             'imgAttributeList' =>
                             [
-                                'srcset' => $linkedImage->getAttribute('srcset'),
-                                'width'  => $linkedImage->getAttribute('width'),
-                                'height' => $linkedImage->getAttribute('height'),
-                                'parsed' => true
+                                'srcset'  => $linkedImage->getAttribute('srcset'),
+                                'width'   => $linkedImage->getAttribute('width'),
+                                'height'  => $linkedImage->getAttribute('height'),
+                                'parsed'  => true
                             ],
                         ]
                     );
@@ -275,12 +282,15 @@ class General
                     
                     /* Appending the newly rendered blade template content to the current node */
                     $link->parentNode->appendChild($newNode);
+                    /* Ensures the existing caption is displayed after the new node */
+                    $link->parentNode->appendChild($captionClone);
                     
                     /* Replacing the original link and image with a hidden link to prevent issues stemming from removing link elements from the DOM whilst accessing them. @see https://stackoverflow.com/questions/38372233/php-domdocument-skips-even-elements */
                     $replacementLink = $dom->createElement('a', $linkedImage->getAttribute('src'));
                     $replacementLink->setAttribute('href', $linkedImage->getAttribute('src'));
                     $replacementLink->setAttribute('tabindex', '-1');
                     $replacementLink->setAttribute('class', 'u-display--none');
+                    
                     $link->parentNode->replaceChild($replacementLink, $link);
                 }
             }
@@ -302,7 +312,8 @@ class General
                             'srcset'    => $image->getAttribute('srcset'),
                             'width'     => $image->getAttribute('width'),
                             'height'    => $image->getAttribute('height'),
-                            'parsed' => true
+                            'parsed' => true,
+                            'caption' => $captionText,
                         ],
                     ]
                 );
