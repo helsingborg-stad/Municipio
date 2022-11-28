@@ -16,14 +16,18 @@ class General
         add_filter('protected_title_format', array($this, 'titleFormat'));
 
         add_filter('accessibility_items', array($this, 'accessibilityItems'), 10, 1);
+        
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
+        
+        add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
+
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
-        add_filter('Modularity\ModularityIconsLibrary', function() {
+        add_filter('Modularity\ModularityIconsLibrary', function () {
             return MUNICIPIO_PATH . "assets/dist/data/ico.json";
         }, 10, 0);
         
@@ -32,20 +36,19 @@ class General
         //Menu cache purging
         add_action('updated_post_meta', array($this, 'purgeMenuCache'), 10, 4);
 
-        add_filter('Municipio/bodyClass', function($class) {
+        add_filter('Municipio/bodyClass', function ($class) {
             $class .= get_theme_mod('hamburger_menu_enabled') && get_theme_mod('hamburger_menu_mobile') ? ' hamburger-menu-mobile' : '';
             $class .= get_theme_mod('header_sticky') === 'sticky' ? ' sticky-header' : '';
             return $class;
         });
 
-        add_filter('Municipio/HeaderHTML', function($html) {
+        add_filter('Municipio/HeaderHTML', function ($html) {
             return str_replace(
                 ' />',
                 '>',
                 $html
             );
         });
-
     }
 
     /**
@@ -55,9 +58,9 @@ class General
      *
      * @return bool
      */
-    public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue) {
-
-        $bannableKeys = wp_cache_get('municipioNavMenu'); 
+    public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue)
+    {
+        $bannableKeys = wp_cache_get('municipioNavMenu');
         
         if (is_array($bannableKeys) && in_array($metaKey, $bannableKeys)) {
             return wp_cache_delete($metaKey);
@@ -72,7 +75,8 @@ class General
      * @param integer $size
      * @return integer $size - 10
      */
-    public function normalizeImageCaptionSize($size) {
+    public function normalizeImageCaptionSize($size)
+    {
         return false;
     }
 
@@ -216,7 +220,115 @@ class General
 
         return $content;
     }
-
+    /**
+     * It takes a string of HTML, finds all images and links containing images, and replaces them with
+     * a blade template version of themselves.
+     *
+     * If an image is linked to itself, it will be replaced with a template version with the attribute `opendModal` set to `true`.
+     *
+     * @param content The content to be parsed.
+     *
+     * @return The content of the post.
+     */
+    public function normalizeImages($content)
+    {
+        if (str_contains($content, '<img')) {
+            $dom = new \DOMDocument;
+            $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+                   
+            $images = $dom->getElementsByTagName('img');
+            $links = $dom->getElementsByTagName('a');
+            
+            foreach ($links as $link) {
+                // If the link doesn't contain an image move on to the next.
+                if ('img' !== $link->firstChild->tagName) {
+                    return;
+                }
+    
+                $captionText = '';
+                if (0 < $link->parentNode->getElementsByTagName('figcaption')->length) {
+                    foreach ($link->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
+                        $captionText = wp_strip_all_tags($caption->textContent);
+                        $captionClone = $caption->cloneNode(true);
+                        $link->parentNode->removeChild($caption);
+                    }
+                }
+    
+                $linkedImage = $link->firstChild;
+                $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
+                $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
+        
+                if ($linkDir === $imgDir) {
+                    $html = render_blade_view(
+                        'partials.content.image',
+                        [
+                            'openModal'        => true,
+                            'src'              => $linkedImage->getAttribute('src'),
+                            'srcFull'          => $linkedImage->getAttribute('src'),
+                            'alt'              => $linkedImage->getAttribute('alt'),
+                            'heading'          => $captionText,
+                            'isPanel'          => true,
+                            'isTransparent'    => false,
+                            'imgAttributeList' =>
+                            [
+                                'srcset'  => $linkedImage->getAttribute('srcset'),
+                                'width'   => $linkedImage->getAttribute('width'),
+                                'height'  => $linkedImage->getAttribute('height'),
+                                'parsed'  => true
+                            ],
+                        ]
+                    );
+                    $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
+                    
+                    /* Appending the newly rendered blade template content to the current node */
+                    $link->parentNode->appendChild($newNode);
+                    /* Ensures the existing caption is displayed after the new node */
+                    $link->parentNode->appendChild($captionClone);
+                    
+                    /* Replacing the original link and image with a hidden link to prevent issues stemming from removing link elements from the DOM whilst accessing them. @see https://stackoverflow.com/questions/38372233/php-domdocument-skips-even-elements */
+                    $replacementLink = $dom->createElement('a', $linkedImage->getAttribute('src'));
+                    $replacementLink->setAttribute('href', $linkedImage->getAttribute('src'));
+                    $replacementLink->setAttribute('tabindex', '-1');
+                    $replacementLink->setAttribute('class', 'u-display--none');
+                    
+                    $link->parentNode->replaceChild($replacementLink, $link);
+                }
+            }
+            
+            foreach ($images as $image) {
+                /* This image has already been processed so we'll skip it. */
+                if ($image->getAttribute('parsed')) {
+                    continue;
+                }
+                
+                $html = render_blade_view(
+                    'partials.content.image',
+                    [
+                        'openModal' => false,
+                        'src'       => $image->getAttribute('src'),
+                        'alt'       => $image->getAttribute('alt'),
+                        'imgAttributeList' =>
+                        [
+                            'srcset'    => $image->getAttribute('srcset'),
+                            'width'     => $image->getAttribute('width'),
+                            'height'    => $image->getAttribute('height'),
+                            'parsed' => true,
+                            'caption' => $captionText,
+                        ],
+                    ]
+                );
+                $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
+                $image->parentNode->replaceChild($newNode, $image);
+            }
+            
+            $content = $dom->saveHTML();
+        }
+        
+        
+        return $content;
+    }
+    
+   
     /**
      * Append body theme class in BEMIT format
      *
@@ -263,9 +375,7 @@ class General
      */
     public function accessibilityItems($items)
     {
-        if (is_single() || is_page())
-        {
-
+        if (is_single() || is_page()) {
             $items[] =  array(
                 'icon' => 'print',
                 'href' => '#',

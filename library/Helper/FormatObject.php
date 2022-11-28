@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper;
 
+use DOMDocument;
+
 class FormatObject
 {
 
@@ -67,5 +69,21 @@ class FormatObject
           $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
         }
         return $return;
+    }
+    
+    /**
+     * It takes a string of HTML, creates a new DOMDocument, loads the HTML into the DOMDocument, and
+     * then imports the root node of the DOMDocument into the DOMDocument that was passed in
+     * 
+     * @param DOMDocument doc The DOMDocument object that you want to add the node to.
+     * @param string str The string to be converted to a DOMNode
+     * 
+     * @return A DOMNode object.
+     */
+    public static function createNodeFromString( DOMDocument $doc, string $str)
+    {
+        $d = new \DOMDocument();
+        $d->loadHTML($str);
+        return $doc->importNode($d->documentElement, true);
     }
 }
