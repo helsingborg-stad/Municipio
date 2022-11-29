@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-14 13:02+0100\n"
-"PO-Revision-Date: 2022-11-14 13:18+0100\n"
+"POT-Creation-Date: 2022-11-29 15:45+0100\n"
+"PO-Revision-Date: 2022-11-29 15:48+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -4952,7 +4952,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:203
 msgid "days"
 msgstr "dagar"
 
@@ -5372,7 +5372,7 @@ msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
 
 #: library/AcfFields/php/options-theme-search-display.php:32
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:215
 #: library/Customizer/Sections/HamburgerMenu.php:12
 #: library/Theme/Navigation.php:26
 msgid "Hamburger menu"
@@ -5708,8 +5708,8 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:93 library/Controller/BaseController.php:202
-#: library/Search/General.php:50 library/Widget/Navigation/Navigation.php:66
+#: library/Controller/Archive.php:93 library/Controller/BaseController.php:211
+#: library/Search/General.php:53 library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
 #: views/v1/partials/archive-filters.blade.php:79
@@ -5805,12 +5805,12 @@ msgstr "Du behöver logga in för att kunna lämna en kommentar. "
 msgid "Cancel reply"
 msgstr "Avbryt"
 
-#: library/Comment/HoneyPot.php:100
+#: library/Comment/HoneyPot.php:132
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
-#: library/Comment/HoneyPot.php:106 library/Comment/HoneyPot.php:111
-#: library/Comment/HoneyPot.php:116
+#: library/Comment/HoneyPot.php:138 library/Comment/HoneyPot.php:143
+#: library/Comment/HoneyPot.php:148
 msgid "Could not verify that you are human."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
@@ -5920,114 +5920,114 @@ msgstr "Återställ"
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:180 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:189 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:181
+#: library/Controller/BaseController.php:190
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:182
+#: library/Controller/BaseController.php:191
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:183
+#: library/Controller/BaseController.php:192
 msgid "Skip to the main content"
 msgstr "Gå till innehåll"
 
-#: library/Controller/BaseController.php:184
+#: library/Controller/BaseController.php:193
 msgid "Skip to the main menu"
 msgstr "Gå till huvudmeny"
 
-#: library/Controller/BaseController.php:185
+#: library/Controller/BaseController.php:194
 msgid "Skip to the side menu"
 msgstr "Gå till sidomeny"
 
-#: library/Controller/BaseController.php:186
+#: library/Controller/BaseController.php:195
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:187
+#: library/Controller/BaseController.php:196
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:188
+#: library/Controller/BaseController.php:197
 msgid "years"
 msgstr "år"
 
-#: library/Controller/BaseController.php:189
+#: library/Controller/BaseController.php:198
 msgid "year"
 msgstr "år"
 
-#: library/Controller/BaseController.php:190
+#: library/Controller/BaseController.php:199
 msgid "months"
 msgstr "månader"
 
-#: library/Controller/BaseController.php:191
+#: library/Controller/BaseController.php:200
 msgid "month"
 msgstr "månad"
 
-#: library/Controller/BaseController.php:192
+#: library/Controller/BaseController.php:201
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:193
+#: library/Controller/BaseController.php:202
 msgid "week"
 msgstr "vecka"
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:204
 msgid "day"
 msgstr "dag"
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:205
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:206
 msgid "hour"
 msgstr "timme"
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:207
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:208
 msgid "minute"
 msgstr "minut"
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:209
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:210
 msgid "second"
 msgstr "sekund"
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:212
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:213
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:214
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:216
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:217
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:209 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:218 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -6035,15 +6035,15 @@ msgstr "Relaterade länkar"
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:219
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Controller/BaseController.php:211
+#: library/Controller/BaseController.php:220
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:221
 msgid "More Languages"
 msgstr "Fler språk"
 
@@ -7109,6 +7109,30 @@ msgstr "Välj en alternativ stul för rubriken."
 msgid "Accented"
 msgstr "Accentuerad"
 
+#: library/Customizer/Sections/Hero.php:12 library/Theme/Sidebars.php:115
+msgid "Hero"
+msgstr "Under sidhuvud (Heroyta)"
+
+#: library/Customizer/Sections/Hero.php:13
+msgid "Hero settings."
+msgstr "Inställningar för sidhuvud."
+
+#: library/Customizer/Sections/Hero.php:21
+msgid "Choose animation type"
+msgstr "Välj animationstyp"
+
+#: library/Customizer/Sections/Hero.php:22
+msgid "Choose an animation for your hero"
+msgstr "Välj en animation för Heroytan"
+
+#: library/Customizer/Sections/Hero.php:27
+msgid "No animation"
+msgstr "Ingen animation"
+
+#: library/Customizer/Sections/Hero.php:28
+msgid "Ken Burns"
+msgstr "Ken Burns"
+
 #: library/Customizer/Sections/LoadDesign.php:28
 msgid "Load a design"
 msgstr "Ladda in en design"
@@ -7632,11 +7656,11 @@ msgstr "Fr"
 msgid "Sa"
 msgstr "Lö"
 
-#: library/Theme/General.php:273
+#: library/Theme/General.php:383
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/General.php:274
+#: library/Theme/General.php:384
 msgid "Print this page"
 msgstr "Skriv ut den här sidan"
 
@@ -7964,10 +7988,6 @@ msgstr "Botten av sidfot"
 #: library/Theme/Sidebars.php:103
 msgid "The bottom of footer area"
 msgstr "Nedersta delen av sidfoten."
-
-#: library/Theme/Sidebars.php:115
-msgid "Hero"
-msgstr "Under sidhuvud (Heroyta)"
 
 #: library/Theme/Sidebars.php:116
 msgid "The hero area"
