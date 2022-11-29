@@ -29,7 +29,8 @@ class Hero
             ],
             'output' => [
                 [
-                    'type' => 'modifier',
+                    'type' => 'component_data',
+                    'dataKey' => 'animation',
                     'context' => [
                         [
                             'context' => 'sidebar.slider-area.animation-item',
