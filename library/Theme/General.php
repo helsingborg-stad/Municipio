@@ -279,6 +279,9 @@ class General
                         ]
                     );
                     $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
+                    if (empty($newNode)) {
+                        continue;
+                    }
                     
                     /* Appending the newly rendered blade template content to the current node */
                     $link->parentNode->appendChild($newNode);
