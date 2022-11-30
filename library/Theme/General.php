@@ -286,8 +286,9 @@ class General
                     /* Appending the newly rendered blade template content to the current node */
                     $link->parentNode->appendChild($newNode);
                     /* Ensures the existing caption is displayed after the new node */
-                    $link->parentNode->appendChild($captionClone);
-                    
+                    if ($captionClone) {
+                        $link->parentNode->appendChild($captionClone);
+                    }
                     /* Replacing the original link and image with a hidden link to prevent issues stemming from removing link elements from the DOM whilst accessing them. @see https://stackoverflow.com/questions/38372233/php-domdocument-skips-even-elements */
                     $replacementLink = $dom->createElement('a', $linkedImage->getAttribute('src'));
                     $replacementLink->setAttribute('href', $linkedImage->getAttribute('src'));
