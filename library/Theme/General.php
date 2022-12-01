@@ -234,7 +234,7 @@ class General
     {
         if (str_contains($content, '<img')) {
             $dom = new \DOMDocument;
-            $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+            $dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
                    
             $images = $dom->getElementsByTagName('img');
             $links = $dom->getElementsByTagName('a');
