@@ -1,5 +1,5 @@
 @if (!empty($hamburgerMenuItems))
-    <div class="o-container o-container--wide">
+    <div class="hamburgermenu-container u-display--none" js-toggle-item="hamburger-menu" js-toggle-class="u-display--none">
         @hamburgerMenu([
             'id' => 'menu-hamburger',
             'menuItems' => $hamburgerMenuItems,

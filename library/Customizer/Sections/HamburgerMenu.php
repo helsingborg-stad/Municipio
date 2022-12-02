@@ -65,5 +65,74 @@ class HamburgerMenu
                 ['type' => 'controller']
             ]
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_hambuger_menu_heading',
+            'label'       => esc_html__('Heading', 'municipio'),
+            'description' => esc_html__('Select a color for the headings', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport'   => 'auto',
+            'choices'     => [
+                'heading'    => esc_html__('Heading', 'municipio'),
+            ],
+            'default'     => [
+                'heading'    => '',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'heading',
+                    'element'   => ':root',
+                    'property'  => '--color-hamburger-menu-heading',
+                ],
+            ]
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_hambuger_menu_subitem',
+            'label'       => esc_html__('Subitem', 'municipio'),
+            'description' => esc_html__('Select a color for the subitems', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'subitem'   => esc_html__('Subitem', 'municipio'),
+            ],
+            'default'     => [
+                'subitem'   => '',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'subitem',
+                    'element'   => ':root',
+                    'property'  => '--color-hamburger-menu-subitem',
+                ],
+            ]
+        ]);
+
+          \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_hambuger_menu_background',
+            'label'       => esc_html__('Background', 'municipio'),
+            'description' => esc_html__('Select a color for the background', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'background'   => esc_html__('Background', 'municipio'),
+            ],
+            'default'     => [
+                'background'   => '',
+            ],
+            'output' => [
+                [
+                    'choice'    => 'background',
+                    'element'   => ':root',
+                    'property'  => '--color-hamburger-menu-background',
+                ],
+            ]
+        ]);
     }
 }
