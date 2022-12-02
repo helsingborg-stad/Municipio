@@ -259,13 +259,17 @@ class General
                 $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
         
                 if ($linkDir === $imgDir) {
+                    $altText = $captionText;
+                    if (!empty($linkedImage->getAttribute('alt'))) {
+                        $altText = $linkedImage->getAttribute('alt');
+                    }
                     $html = render_blade_view(
                         'partials.content.image',
                         [
                             'openModal'        => true,
                             'src'              => $linkedImage->getAttribute('src'),
                             'srcFull'          => $linkedImage->getAttribute('src'),
-                            'alt'              => $linkedImage->getAttribute('alt'),
+                            'alt'              => $altText,
                             'heading'          => $captionText,
                             'isPanel'          => true,
                             'isTransparent'    => false,
@@ -304,20 +308,32 @@ class General
                 if ($image->getAttribute('parsed')) {
                     continue;
                 }
+                $captionText = '';
+                if (0 < $image->parentNode->getElementsByTagName('figcaption')->length) {
+                    foreach ($image->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
+                        $captionText = wp_strip_all_tags($caption->textContent);
+                        $captionClone = $caption->cloneNode(true);
+                        $image->parentNode->removeChild($caption);
+                    }
+                }
+                $altText = $captionText;
+                if (!empty($image->getAttribute('alt'))) {
+                    $altText = $image->getAttribute('alt');
+                }
                 
                 $html = render_blade_view(
                     'partials.content.image',
                     [
                         'openModal' => false,
                         'src'       => $image->getAttribute('src'),
-                        'alt'       => $image->getAttribute('alt'),
+                        'alt'       => $altText,
+                        'caption' => $captionText,
                         'imgAttributeList' =>
                         [
-                            'srcset'    => $image->getAttribute('srcset'),
-                            'width'     => $image->getAttribute('width'),
-                            'height'    => $image->getAttribute('height'),
-                            'parsed' => true,
-                            'caption' => $captionText,
+                            'srcset'  => $image->getAttribute('srcset'),
+                            'width'   => $image->getAttribute('width'),
+                            'height'  => $image->getAttribute('height'),
+                            'parsed'  => true,
                         ],
                     ]
                 );
