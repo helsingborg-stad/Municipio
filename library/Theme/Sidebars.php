@@ -74,8 +74,6 @@ class Sidebars
             'after_title'    => '</h2>',
             'before_widget'  => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
             'after_widget'   => '</div></div>',
-            'before_sidebar' => '<footer id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</footer>',
         ));
 
         /**
@@ -93,8 +91,6 @@ class Sidebars
                 'after_title'   => '</h2>',
                 'before_widget' => '<div class="o-grid-'.$footerGridSize.'@md'.' o-grid-12"><div id="%1$s" class="%2$s">',
                 'after_widget'  => '</div></div>',
-                'before_sidebar' => '<footer id="%1$s" class="%2$s">',
-                'after_sidebar'  => '</footer>',
             ));
         }
 
@@ -109,8 +105,6 @@ class Sidebars
             'after_title'   => '</h2>',
             'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
             'after_widget'  => '</div></div>',
-            'before_sidebar' => '<footer id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</footer>',
         ));
 
         /**
@@ -124,8 +118,6 @@ class Sidebars
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<header id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</header>',
         ));
 
         /**
@@ -139,8 +131,6 @@ class Sidebars
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</aside>',
         ));
 
         /**
@@ -154,8 +144,6 @@ class Sidebars
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<article id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</article>',
         ));
 
         /**
@@ -169,8 +157,6 @@ class Sidebars
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<article id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</article>',
         ));
 
         /**
@@ -229,8 +215,6 @@ class Sidebars
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<header id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</header>',
         ));
 
         /**
@@ -244,8 +228,6 @@ class Sidebars
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<footer id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</footer>',
         ));
 
         /**
@@ -259,8 +241,6 @@ class Sidebars
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
             'after_widget'  => '</div>',
-            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
-            'after_sidebar'  => '</aside>',
         ));
     }
 
