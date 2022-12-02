@@ -75,6 +75,13 @@ body.hamburger-menu-open.hamburger-menu-mobile {
             width: 100%;
             overflow: auto;
             position: fixed;
+
+            .c-hamburgermenu {
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+                position: fixed;
+            }
         }
 
         &.sticky-header {
