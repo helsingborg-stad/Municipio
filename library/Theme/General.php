@@ -20,7 +20,8 @@ class General
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
         
-        add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
+        // Deactivating temporarily to prevent issues with Gutenberg blocks in production
+        // add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
 
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
