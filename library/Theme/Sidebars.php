@@ -23,7 +23,7 @@ class Sidebars
 
     public function filterAvailableSidebars($sidebars)
     {
-        return array_filter($sidebars, function($sidebar) {
+        return array_filter($sidebars, function ($sidebar) {
             return strpos($sidebar['id'], 'footer-') !== 0;
         });
     }
@@ -67,13 +67,15 @@ class Sidebars
          * Footer Area Top
          */
         register_sidebar(array(
-            'id'            => 'footer-area-top',
-            'name'          => __('Footer top', 'municipio'),
-            'description'   => __('The top of footer area', 'municipio'),
-            'before_title'  => '<h2 class="footer-top-title">',
-            'after_title'   => '</h2>',
-            'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div></div>'
+            'id'             => 'footer-area-top',
+            'name'           => __('Footer top', 'municipio'),
+            'description'    => __('The top of footer area', 'municipio'),
+            'before_title'   => '<h2 class="footer-top-title">',
+            'after_title'    => '</h2>',
+            'before_widget'  => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
+            'after_widget'   => '</div></div>',
+            'before_sidebar' => '<footer id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</footer>',
         ));
 
         /**
@@ -90,7 +92,9 @@ class Sidebars
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
                 'before_widget' => '<div class="o-grid-'.$footerGridSize.'@md'.' o-grid-12"><div id="%1$s" class="%2$s">',
-                'after_widget'  => '</div></div>'
+                'after_widget'  => '</div></div>',
+                'before_sidebar' => '<footer id="%1$s" class="%2$s">',
+                'after_sidebar'  => '</footer>',
             ));
         }
 
@@ -104,7 +108,9 @@ class Sidebars
             'before_title'  => '<h2 class="footer-bottom-title">',
             'after_title'   => '</h2>',
             'before_widget' => '<div class="o-grid-12"><div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div></div>'
+            'after_widget'  => '</div></div>',
+            'before_sidebar' => '<footer id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</footer>',
         ));
 
         /**
@@ -117,7 +123,9 @@ class Sidebars
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<header id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</header>',
         ));
 
         /**
@@ -130,7 +138,9 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</aside>',
         ));
 
         /**
@@ -143,7 +153,9 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<article id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</article>',
         ));
 
         /**
@@ -156,7 +168,9 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<article id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</article>',
         ));
 
         /**
@@ -169,7 +183,9 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</aside>',
         ));
 
         /**
@@ -182,7 +198,9 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</aside>',
         ));
 
         /**
@@ -195,7 +213,9 @@ class Sidebars
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</aside>',
         ));
 
         /**
@@ -204,11 +224,13 @@ class Sidebars
         register_sidebar(array(
             'id'            => 'top-sidebar',
             'name'          => __('Top sidebar (full-width)', 'municipio'),
-            'description'   => __('Sidebar that sits below the hero, takes up 100% of the widht.', 'municipio'),
+            'description'   => __('Sidebar that sits below the hero, takes up 100% of the width.', 'municipio'),
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<header id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</header>',
         ));
 
         /**
@@ -217,11 +239,13 @@ class Sidebars
         register_sidebar(array(
             'id'            => 'bottom-sidebar',
             'name'          => __('Bottom sidebar (full-width)', 'municipio'),
-            'description'   => __('Sidebar that sits just before the footer, takes up 100% of the widht.', 'municipio'),
+            'description'   => __('Sidebar that sits just before the footer, takes up 100% of the width.', 'municipio'),
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<footer id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</footer>',
         ));
 
         /**
@@ -234,7 +258,9 @@ class Sidebars
             'before_title'  => '<h3>',
             'after_title'   => '</h3>',
             'before_widget' => '<div id="%1$s" class="%2$s">',
-            'after_widget'  => '</div>'
+            'after_widget'  => '</div>',
+            'before_sidebar' => '<aside id="%1$s" class="%2$s">',
+            'after_sidebar'  => '</aside>',
         ));
     }
 
