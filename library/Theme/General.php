@@ -20,8 +20,7 @@ class General
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
         
-        // Deactivating temporarily to prevent issues with Gutenberg blocks in production
-        // add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
+        add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
 
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
@@ -227,13 +226,15 @@ class General
      *
      * If an image is linked to itself, it will be replaced with a template version with the attribute `opendModal` set to `true`.
      *
+     * If the content contains Gutenberg blocks we'll skip it since images are handled differently then and have their own block type.
+     *
      * @param content The content to be parsed.
      *
      * @return The content of the post.
      */
     public function normalizeImages($content)
     {
-        if (str_contains($content, '<img')) {
+        if (!has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument;
             $dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
                    
@@ -328,7 +329,6 @@ class General
             
             $content = $dom->saveHTML();
         }
-        
         
         return $content;
     }
