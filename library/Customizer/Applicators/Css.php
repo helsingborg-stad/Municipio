@@ -48,12 +48,15 @@ class Css
    */
   public function filterFontSize($styles): array 
   {
-    $baseSize = $this->getBaseFontSize($styles['global'][':root']); 
-    foreach($styles['global'][':root'] as $key => &$item) {
-      if($this->canTransformValue($key, $item)) {
-        $item = $this->makePxValueNumeric($item) / $baseSize . 'em';
+    if(is_iterable($styles['global'][':root'])) {
+      $baseSize = $this->getBaseFontSize($styles['global'][':root']); 
+      foreach($styles['global'][':root'] as $key => &$item) {
+        if($this->canTransformValue($key, $item)) {
+          $item = $this->makePxValueNumeric($item) / $baseSize . 'em';
+        }
       }
     }
+    
     return $styles;
   }
 
