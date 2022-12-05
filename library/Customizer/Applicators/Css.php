@@ -83,7 +83,7 @@ class Css
    */
   private function getBaseFontSize($styles): int
   {
-    if(is_array($styles) && !empty($styles)) {
+    if(is_iterable($styles)) {
       foreach($styles as $key => $style) {
         if($key == '--font-size-base') {
           return $this->makePxValueNumeric($style); 
