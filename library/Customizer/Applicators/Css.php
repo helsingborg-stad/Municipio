@@ -4,8 +4,11 @@ namespace Municipio\Customizer\Applicators;
 
 class Css
 {
+  private static $baseFontSize = '16px';
+
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterPageWidth'));
+    add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));   
   }
 
   /**
@@ -35,5 +38,72 @@ class Css
     }
  
     return $styles; 
+  }
+
+  /**
+   * Make font sizes in pixels, to rm.
+   *
+   * @param array $styles
+   * @return array $styles
+   */
+  public function filterFontSize($styles): array 
+  {
+    $baseSize = $this->getBaseFontSize($styles['global'][':root']); 
+
+    foreach($styles['global'][':root'] as $key => &$item) {
+      if($this->canTransformValue($key, $item)) {
+        $item = $this->makePxValueNumeric($item) / $baseSize . 'em';
+      }
+    }
+    return $styles;
+  }
+
+  /**
+   * Check if value should be transformed
+   *
+   * @param string $key
+   * @param string $value
+   * @return boolean
+   */
+  private function canTransformValue($key, $value): bool
+  {
+    if(!strpos($key, 'font')) {
+      return false;
+    }
+    if(!strpos($value, 'px')) {
+      return false; 
+    }
+    return true; 
+  } 
+
+  /**
+   * Get the base font size
+   *
+   * @param array $styles
+   * @return integer $baseFontSize
+   */
+  private function getBaseFontSize($styles): int
+  {
+    if(is_array($style) && !empty($style)) {
+      foreach($styles as $key => $style) {
+        if($key == '--font-size-base') {
+          $this->makePxValueNumeric($style); 
+        }
+      }
+    }
+    return $this->makePxValueNumeric(
+      $this->baseFontSize
+    );
+  }
+
+  /**
+   * Transform a px valiue to integer
+   *
+   * @param string $value Value with unit
+   * @return int $value Value without unit
+   */
+  private function makePxValueNumeric($value): int
+  {
+    return (int) str_replace('px', '', $value); 
   }
 }
