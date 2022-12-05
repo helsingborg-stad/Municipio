@@ -4,7 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 class Css
 {
-  private static $baseFontSize = '16px';
+  private $baseFontSize = '16px';
 
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterPageWidth'));
@@ -49,7 +49,6 @@ class Css
   public function filterFontSize($styles): array 
   {
     $baseSize = $this->getBaseFontSize($styles['global'][':root']); 
-
     foreach($styles['global'][':root'] as $key => &$item) {
       if($this->canTransformValue($key, $item)) {
         $item = $this->makePxValueNumeric($item) / $baseSize . 'em';
@@ -84,13 +83,14 @@ class Css
    */
   private function getBaseFontSize($styles): int
   {
-    if(is_array($style) && !empty($style)) {
+    if(is_array($styles) && !empty($styles)) {
       foreach($styles as $key => $style) {
         if($key == '--font-size-base') {
-          $this->makePxValueNumeric($style); 
+          return $this->makePxValueNumeric($style); 
         }
       }
     }
+
     return $this->makePxValueNumeric(
       $this->baseFontSize
     );
@@ -104,6 +104,11 @@ class Css
    */
   private function makePxValueNumeric($value): int
   {
-    return (int) str_replace('px', '', $value); 
+    $value = str_replace('px', '', $value); 
+
+    if(is_numeric($value) && !empty($value)) {
+      return (int) $value;
+    }
+    return (int) str_replace('px', '', $this->baseFontSize);
   }
 }
