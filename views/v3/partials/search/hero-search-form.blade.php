@@ -3,8 +3,9 @@
     'method'    => 'get',
     'action'    => $homeUrl,
     'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none']
-])
-    @group(['direction' => 'horizontal'])
+    ])
+    <div id="hero-search-form__wrapper">
+  {{--   @group(['direction' => 'horizontal']) --}}
         @field([
             'id' => 'hero-search-form__field',
             'type' => 'search',
@@ -12,13 +13,13 @@
             'required' => false,
             'label' => $lang->searchOn . " " . $siteName,
             'placeholder' => $lang->searchOn . " " . $siteName,
-            'classList' => ['u-flex-grow--1'],
+            /* 'classList' => ['u-flex-grow--1'], */
             'size' => 'lg',
             'radius' => 'xs',
             'icon' => ['icon' => 'search']
         ])
         @endfield
-        @button([
+          @button([
             'id' => 'hero-search-form__submit',
             'text' => $lang->search,
             'color' => 'default',
@@ -29,5 +30,6 @@
             ]
         ])
         @endbutton
-    @endgroup
+ {{--    @endgroup --}}
+</div>
 @endform
