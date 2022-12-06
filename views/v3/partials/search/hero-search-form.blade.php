@@ -5,7 +5,6 @@
     'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none']
     ])
     <div id="hero-search-form__wrapper">
-  {{--   @group(['direction' => 'horizontal']) --}}
         @field([
             'id' => 'hero-search-form__field',
             'type' => 'search',
@@ -13,7 +12,6 @@
             'required' => false,
             'label' => $lang->searchOn . " " . $siteName,
             'placeholder' => $lang->searchOn . " " . $siteName,
-            /* 'classList' => ['u-flex-grow--1'], */
             'size' => 'lg',
             'radius' => 'xs',
             'icon' => ['icon' => 'search']
@@ -30,6 +28,5 @@
             ]
         ])
         @endbutton
- {{--    @endgroup --}}
 </div>
 @endform
