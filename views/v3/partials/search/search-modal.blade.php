@@ -9,7 +9,8 @@
     @form([
         'method' => 'get',
         'action' => $homeUrl,
-        'classList' => ['c-form--hidden']
+        'classList' => ['c-form--hidden'],
+        'id' => 'modal-search-form'
     ])
 
         @if($lang->searchQuestion)
