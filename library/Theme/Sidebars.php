@@ -19,6 +19,9 @@ class Sidebars
         add_action('admin_enqueue_scripts', array($this, 'filterVisibleWigets'));
 
         add_filter('Modularity/Templates/Sidebars', array($this, 'filterAvailableSidebars'));
+        
+        add_action('dynamic_sidebar_before', array($this, 'outputBefore'), 1);
+        add_action('dynamic_sidebar_after', array($this, 'outputAfter'), 999);
     }
 
     public function filterAvailableSidebars($sidebars)
@@ -63,11 +66,10 @@ class Sidebars
 
     public function register()
     {
-    
         $beforeWidgetMarkup  = '<div id="%1$s" class="%2$s">';
         $afterWidgetMarkup   = '</div>';
-        $beforeSidebarMarkup = '<aside id="%1$s" class="%2$s">';
-        $afterSidebarMarkup  = '</aside>';
+        $beforeModulesMarkup = '<aside>';
+        $afterModulesMarkup  = '</aside>';
         
         /**
          * Footer Area Top
@@ -176,8 +178,8 @@ class Sidebars
             'after_title'    => '</h2>',
             'before_widget'  => $beforeWidgetMarkup,
             'after_widget'   => $afterWidgetMarkup,
-            'before_sidebar' => $beforeSidebarMarkup,
-            'after_sidebar'  => $afterSidebarMarkup,
+            'before_modules' => $beforeModulesMarkup,
+            'after_modules'  => $afterModulesMarkup,
         ));
 
         /**
@@ -191,8 +193,8 @@ class Sidebars
             'after_title'    => '</h2>',
             'before_widget'  => $beforeWidgetMarkup,
             'after_widget'   => $afterWidgetMarkup,
-            'before_sidebar' => $beforeSidebarMarkup,
-            'after_sidebar'  => $afterSidebarMarkup,
+            'before_modules' => $beforeModulesMarkup,
+            'after_modules'  => $afterModulesMarkup,
         ));
 
         /**
@@ -206,8 +208,8 @@ class Sidebars
             'after_title'    => '</h2>',
             'before_widget'  => $beforeWidgetMarkup,
             'after_widget'   => $afterWidgetMarkup,
-            'before_sidebar' => $beforeSidebarMarkup,
-            'after_sidebar'  => $afterSidebarMarkup,
+            'before_modules' => $beforeModulesMarkup,
+            'after_modules'  => $afterModulesMarkup,
         ));
 
         /**
@@ -219,8 +221,8 @@ class Sidebars
             'description'    => __('Sidebar that sits below the hero, takes up 100% of the width.', 'municipio'),
             'before_title'   => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'    => '</h2>',
-            'before_sidebar' => $beforeSidebarMarkup,
-            'after_sidebar'  => $afterSidebarMarkup,
+            'before_modules' => $beforeModulesMarkup,
+            'after_modules'  => $afterModulesMarkup,
         ));
 
         /**
@@ -250,6 +252,21 @@ class Sidebars
         ));
     }
 
+    public function outputBefore($sidebar)
+    {
+        global $wp_registered_sidebars;
+        if (!empty($wp_registered_sidebars[$sidebar]['before_modules'])) {
+            echo $wp_registered_sidebars[$sidebar]['before_modules'];
+        }
+    }
+    public function outputAfter($sidebar)
+    {
+        global $wp_registered_sidebars;
+        if (!empty($wp_registered_sidebars[$sidebar]['after_modules'])) {
+            echo $wp_registered_sidebars[$sidebar]['after_modules'];
+        }
+    }
+    
     /**
      * Appends compability support
      * @param  array $moduleSpecification Original module settings
