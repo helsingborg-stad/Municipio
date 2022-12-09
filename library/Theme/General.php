@@ -234,7 +234,7 @@ class General
      */
     public function normalizeImages($content)
     {
-        if (!has_blocks($content) && str_contains($content, '<img')) {
+        if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument;
             $dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
                    
