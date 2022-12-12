@@ -1,5 +1,4 @@
 @if (!empty($hamburgerMenuItems))
-    <div class="o-container o-container--wide">
         @hamburgerMenu([
             'id' => 'menu-hamburger',
             'menuItems' => $hamburgerMenuItems,
@@ -37,5 +36,4 @@
                 @endform
             </div>
         @endhamburgerMenu
-    </div>
 @endif
