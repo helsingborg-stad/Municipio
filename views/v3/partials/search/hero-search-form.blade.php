@@ -4,7 +4,9 @@
     'action'    => $homeUrl,
     'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none']
     ])
-    <div id="hero-search-form__wrapper">
+    @group([
+        'id' => 'hero-search-form__wrapper',
+    ])
         @field([
             'id' => 'hero-search-form__field',
             'type' => 'search',
@@ -28,5 +30,5 @@
             ]
         ])
         @endbutton
-</div>
+    @endgroup
 @endform

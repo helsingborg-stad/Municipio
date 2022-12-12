@@ -14,8 +14,6 @@ $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
     color: $color-darker;
 
     #hero-search-form__wrapper {
-      display: flex;
-      width: 100%;
       padding: 0 1.5rem;
 
       .c-field__inner {
