@@ -1,29 +1,17 @@
 $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
-
+  
 #sidebar-slider-area--container {
   position: relative;
 }
 
 #hero-search-form {
     position: absolute;
-    width:100%;
+    width:clamp(min(100%, 600px), 30%, max(30%, 600px));
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3000;
-    color: rgb(61, 61, 61);
-
-    @include mq("sm") {
-     width: 100%;
-    }
-
-    @include mq("md") {
-      width: 50%;
-    }
-
-    @include mq("lg") {
-      width: 30%;
-    }
+    color: $color-darker;
 
     #hero-search-form__wrapper {
       display: flex;
