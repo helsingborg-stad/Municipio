@@ -110,31 +110,32 @@ class VideoService
      */
     private function parseYoutubeId()
     {
+        $id       = false;
         $url      = $this->url;
         $urlParts = parse_url($url);
         $hostname = $urlParts['host'];
         
-        //https://youtu.be/ID
         if ($hostname == 'youtu.be') {
-            return trim(rtrim(parse_url($url, PHP_URL_PATH), "/"), "/");
+            //https://youtu.be/ID
+            $id = trim(rtrim(parse_url($url, PHP_URL_PATH), "/"), "/");
+            
+        } elseif (str_contains($urlParts['path'], 'embed')) {
+            //https://www.youtube.com/embed/ID
+            $id = trim(rtrim(str_replace('/embed/', '', $urlParts['path'])));
+            
+        } else {
+            //https://www.youtube.com/watch?v=ID
+            parse_str(
+                parse_url($url, PHP_URL_QUERY),
+                $queryParameters
+            );
+            if (isset($queryParameters['v']) && !empty($queryParameters['v'])) {
+                $id = $queryParameters['v'];
+            }
+            
         }
-        
-        //https://www.youtube.com/embed/ID
-        if (str_contains($urlParts['path'], 'embed')) {
-            return trim(rtrim(str_replace('/embed/', '', $urlParts['path'])));
-        }
-        
-        //https://www.youtube.com/watch?v=ID
-        parse_str(
-            parse_url($url, PHP_URL_QUERY),
-            $queryParameters
-        );
-        if (isset($queryParameters['v']) && !empty($queryParameters['v'])) {
-            return $queryParameters['v'];
-        }
-        
 
-        return false;
+        return $id;
     }
     /**
      * Get vimeo id from embed url
@@ -144,17 +145,18 @@ class VideoService
      */
     private function parseVimeoId()
     {
-        $url = $this->url;
+        $id    = false;
+        $url   = $this->url;
         $parts = explode('/', $url);
 
         if (is_array($parts) & !empty($parts)) {
             foreach ($parts as $part) {
                 if (is_numeric($part)) {
-                    return $part;
+                    $id = $part;
                 }
             }
         }
-        return false;
+        return $id;
     }
     /**
      * > Download the cover image from the remote server and store it locally
@@ -184,8 +186,8 @@ class VideoService
         
         $fileSystem = $this->initFileSystem();
         
-        if(!is_dir($this->uploadsSubDir)){
-            $fileSystem->mkdir($this->uploadsSubDir,FS_CHMOD_DIR);
+        if (!is_dir($this->uploadsSubDir)) {
+            $fileSystem->mkdir($this->uploadsSubDir, FS_CHMOD_DIR);
         }
         
         if (!file_exists($this->filePath)) {
