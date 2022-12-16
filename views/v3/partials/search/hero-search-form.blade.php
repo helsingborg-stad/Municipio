@@ -15,7 +15,10 @@
             'classList' => ['u-flex-grow--1'],
             'size' => 'lg',
             'radius' => 'xs',
-            'icon' => ['icon' => 'search']
+            'icon' => [
+                'icon' => 'search', 
+                'classList' => ['u-display--none@xs']
+            ]
         ])
         @endfield
         @button([
