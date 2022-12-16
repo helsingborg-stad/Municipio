@@ -1,34 +1,55 @@
 <?php
-namespace ComponentLibrary\Helper;
+namespace Municipio\Helper;
 
 class VideoService
 {
     protected $url;
     protected $videoId;
+    protected $uploadsDir;
+    protected $uploadsSubDir;
+    protected $videoServiceDirname;
     protected $fileName;
+    protected $filePath;
+    public $coverArt;
     
     private $imageLocations = [
         'youtube'   => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
         'vimeo'     => 'https://vumbnail.com/%s.jpg'
     ];
     
-    public function __construct(string $url, string $videoId = null)
+    public function __construct(string $url)
     {
         $this->url     = $url;
-        $this->videoId = $videoId || $this->getVideoId($this->url);
+        $this->videoId = $this->getVideoId($this->url);
         
-        $this->uploadsDir    = $this->getUploadsDir();
-        $this->uploadsSubDir = $this->uploadsDir . 'video-service-thumbnail';
+        $this->uploadsDir          = $this->getUploadsDir();
+        $this->videoServiceDirname = 'video-service-thumbnails';
+        $this->uploadsSubDir       = $this->uploadsDir . '/' . $this->videoServiceDirname;
+        $this->fileName            = $this->videoId . '.jpg';
         
-        $this->fileName      = $this->videoId . '.jpg';
         $this->filePath = implode("/", [
-            $this->uploadsDir,
             $this->uploadsSubDir,
             $this->fileName
         ]);
         
+        $this->coverArt = $this->getCoverArt();
     }
-    
+    public function getCoverArt(string $url = null)
+    {
+        if (empty($url)) {
+            $url = $this->url;
+        }
+        
+        return $this->maybeDownloadCoverArt($url);
+    }
+    private function maybeDownloadCoverArt()
+    {
+        if (!file_exists($this->filePath)) {
+            $this->downloadCoverImage();
+        }
+        
+        return $this->getLocalCoverUrl();
+    }
     /**
      * It checks if the url contains the string 'vimeo' or 'youtu' and returns the service name if it
      * does
@@ -39,8 +60,9 @@ class VideoService
      */
     public function detectVideoService(string $url = null)
     {
-        $url = $this->getUrl($url);
-        
+        if (empty($url)) {
+            $url = $this->url;
+        }
         if (str_contains($url, 'vimeo')) {
             return 'vimeo';
         }
@@ -61,9 +83,10 @@ class VideoService
     */
     public function getVideoId(string $url = null, string $videoService = null)
     {
-        if(empty($url)) {
-            $url = $this->getUrl($url);
+        if (empty($url)) {
+            $url = $this->url;
         }
+        
         if (empty($videoService)) {
             $videoService = $this->detectVideoService($url);
         }
@@ -83,16 +106,11 @@ class VideoService
      * Get youtube id from embed url
      *
      * @param  string $url    The embed link
-     * @return string $id           The id in embed link
+     * @return string $videoId           The id in embed link
      */
-    private function parseYoutubeId(string $url = null)
+    private function parseYoutubeId()
     {
-        $url = $this->getUrl($url);
-        
-        if (empty($url)) {
-            return;
-        }
-        
+        $url      = $this->url;
         $urlParts = parse_url($url);
         $hostname = $urlParts['host'];
         
@@ -118,19 +136,15 @@ class VideoService
 
         return false;
     }
-
     /**
      * Get vimeo id from embed url
      *
      * @param  string $url    The embed link
-     * @return string $id           The id in embed link
+     * @return string $videoId           The id in embed link
      */
-    private function parseVimeoId(string $url = null)
+    private function parseVimeoId()
     {
-        $url = $this->getUrl($url);
-        if (empty($url)) {
-            return;
-        }
+        $url = $this->url;
         $parts = explode('/', $url);
 
         if (is_array($parts) & !empty($parts)) {
@@ -142,63 +156,64 @@ class VideoService
         }
         return false;
     }
-    
-   /**
-    * > This function returns the url if it's not empty, otherwise it returns the url property
-    *
-    * @param string url The URL to the API.
-    *
-    * @return The url property of the object.
-    */
-    private function getUrl(string $url = null)
+    /**
+     * > Download the cover image from the remote server and store it locally
+     *
+     * @return The file content of the cover image.
+     */
+    private function downloadCoverImage()
     {
-        if (empty($url)) {
-            return $this->url;
-        }
-        return $url;
-    }
-   /**
-    * > Download the cover image from the remote server and store it locally
-    *
-    * @param string url The url of the image to download.
-    * @param string videoId The id of the video.
-    *
-    * @return The return value of the storeImage method.
-    */
-    private function downloadCoverImage(string $coverUrl = null, string $videoId = null)
-    {
-        if (empty($coverUrl)) {
-            $coverUrl = $this->getCoverUrl();
-        }
-        if (empty($videoId)) {
-            $videoId = $this->getVideoId($this->url);
-        }
+        $coverUrl    = $this->getRemoteCoverUrl();
+        $fileContent = $this->readRemoteFile($coverUrl);
         
-        if ($fileContents = $this->readRemoteFile($coverUrl)) {
-            return $this->storeImage($fileContents, $videoId);
+        if ($fileContent) {
+            return $this->storeImage($fileContent);
         }
         return false;
     }
-    
-    public function getLocalCoverUrl(string $id = null, string $coverUrl = null) {
-        
-        if(empty($coverUrl)) {
-            $url = $this->getCoverUrl();
-        }
-        if(empty($id)) {
-            $id = $this->getVideoId($this->url);
+    /**
+     * It takes a file content and stores it in the file system
+     *
+     * @param fileContent The image data
+     */
+    private function storeImage($fileContent = false)
+    {
+        if (empty($fileContent)) {
+            return false;
         }
         
         $fileSystem = $this->initFileSystem();
         
-        if($fileSystem->is_file($this->fullPath)) {
-            return wp_upload_dir( null, false )['url'] . '/' . $this->fileName;
-        } else {
-            if( $this->downloadCoverImage($coverUrl, $id) ) {
-                return wp_upload_dir( null, false )['url'] . '/' . $this->fileName;
-            }
+        if(!is_dir($this->uploadsSubDir)){
+            $fileSystem->mkdir($this->uploadsSubDir,FS_CHMOD_DIR);
         }
-    }    
+        
+        if (!file_exists($this->filePath)) {
+            return $fileSystem->put_contents(
+                $this->filePath,
+                $fileContent,
+                FS_CHMOD_FILE
+            );
+        }
+
+        return false;
+    }
+    /**
+     * It checks if the file exists in the local filesystem, and if it does, it returns the URL to the
+     * file
+     *
+     * @return The URL of the cover image.
+     */
+    public function getLocalCoverUrl()
+    {
+        $fileSystem = $this->initFileSystem();
+       
+        if ($fileSystem->is_file($this->filePath)) {
+            return wp_upload_dir(null, false)['baseurl'] . "/{$this->videoServiceDirname}/{$this->fileName}";
+        }
+        
+        return false;
+    }
     /**
     * It takes a video service and a video id, and returns the url of the video's cover image
     *
@@ -207,28 +222,34 @@ class VideoService
     *
     * @return The cover image url for the video.
     */
-    public function getCoverUrl(string $id = null, string $videoService = null)
+    public function getRemoteCoverUrl(string $videoId = null, string $videoService = null)
     {
-        if (empty($videoService) || empty($id)) {
-            $url = $this->getUrl();
+        if (empty($videoService) || empty($videoId)) {
+            $url = $this->url;
         }
         
         if (empty($videoService)) {
             $videoService = $this->detectVideoService($url);
         }
         
-        if (empty($id)) {
-            $id = $this->getVideoId($this->url);
+        if (empty($videoId)) {
+            $videoId = $this->getVideoId($url);
         }
         
         if (isset($this->imageLocations[$videoService])) {
-            return sprintf($this->imageLocations[$videoService], $id);
+            return sprintf($this->imageLocations[$videoService], $videoId);
         }
         return false;
     }
+   /**
+    * It reads a remote file and returns the body of the file.
+    *
+    * @param string url The URL of the remote file.
+    *
+    * @return the response body of the remote request.
+    */
     private function readRemoteFile(string $url = null)
     {
-    
         $responseHandle = wp_remote_get($url);
 
         if (!is_wp_error($responseHandle)) {
@@ -240,25 +261,6 @@ class VideoService
                 return $responseBody;
             }
         }
-        return false;
-    }
-    private function storeImage($fileContent = false)
-    {
-        if(empty($fileContent)) {
-            return false;
-        }
-        
-        $fileSystem = $this->initFileSystem(); 
-        $fullPath   = $this->fullPath;
-
-        if (!$fileSystem->exists($fullPath)) {
-            return $fileSystem->put_contents(
-                $fullPath,
-                $fileContent,
-                FS_CHMOD_FILE
-            );
-        }
-
         return false;
     }
     /**
@@ -282,21 +284,5 @@ class VideoService
     private function getUploadsDir()
     {
         return rtrim(wp_upload_dir()['basedir'], "/");
-    }
-
-    /**
-     * Get the sub dir where the uploaded files are placed
-     *
-     * @return string Uploads subdir
-     */
-    private function getUploadsSubdir()
-    {
-        return trim(
-            rtrim(
-                wp_upload_dir()['subdir'],
-                "/"
-            ),
-            "/"
-        );
     }
 }
