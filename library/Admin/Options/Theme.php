@@ -78,6 +78,13 @@ class Theme
                 'capability' => $themeOptionsCapability,
                 'menu_slug' => 'acf-options-post-types'
             ));
+            acf_add_options_sub_page(array(
+                'page_title' => __('Post Types Purpose', 'municipio'),
+                'menu_title' => __('Post Types Purpose', 'municipio'),
+                'parent_slug' => $themeOptionsParent,
+                'capability' => $themeOptionsCapability,
+                'menu_slug' => 'acf-options-purpose'
+            ));
 
             acf_add_options_sub_page(array(
                 'page_title' => __('Custom Taxonomies', 'municipio'),
@@ -93,13 +100,6 @@ class Theme
                 'parent_slug' => $themeOptionsParent,
                 'capability' => $themeOptionsCapability,
                 'menu_slug' => 'acf-options-css'
-            ));
-            acf_add_options_sub_page(array(
-                'page_title' => __('Post Type Templates', 'municipio'),
-                'menu_title' => __('Post Type Templates', 'municipio'),
-                'parent_slug' => $themeOptionsParent,
-                'capability' => $themeOptionsCapability,
-                'menu_slug' => 'acf-options-templates'
             ));
         }
     }

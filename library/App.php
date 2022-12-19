@@ -48,13 +48,14 @@ class App
          */
         new \Municipio\Content\CustomPostType();
         new \Municipio\Content\CustomTaxonomy();
+        new \Municipio\Content\PostTypePurpose();
         new \Municipio\Content\PostFilters();
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Cache();
 
-		/**
-		 * Oembed
-		 */
+        /**
+         * Oembed
+         */
         new \Municipio\Oembed\OembedFilters();
 
         /**
