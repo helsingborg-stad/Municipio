@@ -29,14 +29,14 @@ class OembedFilters
             ];
 
             $videoService = new \Municipio\Helper\VideoService($url);
-            $coverArt = $videoService->getCoverArt();
+            $poster = $videoService->getCoverArt();
             
             return render_blade_view(
                 'partials.iframe',
                 [
                     'settings' => $data,
                     'src'      => $url,
-                    'poster'   => $coverArt,
+                    'poster'   => $poster,
                 ]
             );
         }
