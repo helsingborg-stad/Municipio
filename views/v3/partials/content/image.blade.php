@@ -6,5 +6,6 @@
     'openModal' => $openModal,
     'isPanel' => $isPanel,
     'caption'   => $caption,
+    'classList' => $classList,
 ])
 @endimage
