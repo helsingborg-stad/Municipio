@@ -63,7 +63,7 @@ class PostTypePurpose
                     'placeholder' => '',
                     'search_placeholder' => '',
                     'allow_null' => 1,
-                    'ui' => 0,
+                    'ui' => 1,
                     'ajax' => 0,
                 ),
             ),
