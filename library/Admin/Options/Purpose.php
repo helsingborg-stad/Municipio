@@ -96,32 +96,4 @@ class Purpose
             'acfe_note' => '',
         );
     }
-    
-    /**
-     * If the current post type has a purpose, replace the controller with the purpose controller
-     *
-     * @param string controller The path to the controller file.
-     *
-     * @return string The controller file path.
-     */
-    // public function setController(string $controller) : string
-    // {
-    //     $purpose = false;
-    //     $currentObject = get_queried_object();
-    //     if (!empty($currentObject->post_type)) {
-    //         $purpose = self::getPurpose($currentObject->post_type);
-    //     }
-
-    //     if ((bool) $purpose) {
-    //         $formattedName = ucfirst(\Municipio\Helper\FormatObject::camelCase($purpose));
-           
-    //         $controllerFile = MUNICIPIO_PATH . 'library/Purpose' . DIRECTORY_SEPARATOR . $formattedName . DIRECTORY_SEPARATOR . $formattedName . '.php';
-    //         if (file_exists($controllerFile)) {
-    //             $controller = $controllerFile;
-    //         }
-    //     }
-    
-    //     return $controller;
-    // }
-    
 }
