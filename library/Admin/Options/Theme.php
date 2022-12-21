@@ -78,14 +78,7 @@ class Theme
                 'capability' => $themeOptionsCapability,
                 'menu_slug' => 'acf-options-post-types'
             ));
-            acf_add_options_sub_page(array(
-                'page_title' => __('Post Types Purpose', 'municipio'),
-                'menu_title' => __('Post Types Purpose', 'municipio'),
-                'parent_slug' => $themeOptionsParent,
-                'capability' => $themeOptionsCapability,
-                'menu_slug' => 'acf-options-purpose'
-            ));
-
+            
             acf_add_options_sub_page(array(
                 'page_title' => __('Custom Taxonomies', 'municipio'),
                 'menu_title' => __('Taxonomies', 'municipio'),

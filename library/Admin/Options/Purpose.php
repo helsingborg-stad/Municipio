@@ -13,7 +13,16 @@ class Purpose
     {
         if (function_exists('acf_get_field_group')) {
             $postTypes = get_post_types(['public' => true, '_builtin' => false], 'objects');
-            $this->renderFieldGroups($postTypes);
+            
+            if ($this->renderFieldGroups($postTypes)) {
+                acf_add_options_sub_page(array(
+                    'page_title' => __('Post Types Purpose', 'municipio'),
+                    'menu_title' => __('Post Types Purpose', 'municipio'),
+                    'parent_slug' => 'themes.php',
+                    'capability' => 'administrator',
+                    'menu_slug' => 'acf-options-purpose'
+                ));
+            }
         }
     }
     /**
@@ -30,7 +39,10 @@ class Purpose
                     acf_add_local_field_group($fieldGroupArgs);
                 }
             }
+            return true;
         }
+        
+        return false;
     }
     /**
      * It returns an array of arguments that can be used to create a field group in ACF
