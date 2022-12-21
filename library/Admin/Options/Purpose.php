@@ -1,13 +1,14 @@
 <?php
 
-namespace Municipio\Content;
+namespace Municipio\Admin\Options;
 
-class PostTypePurpose
+class Purpose
 {
     public function __construct()
     {
-        add_action('init', array( $this, 'init'));
+        add_action('init', array($this, 'init'));
     }
+    
     
     public function init()
     {
@@ -16,14 +17,11 @@ class PostTypePurpose
             $this->renderFieldGroups($postTypes);
         }
     }
-    public function getPurposes() : array
-    {
-        return [
-            'event' => __('Event', 'municipio'),
-            'joblisting' => __('Job Listing', 'municipio'),
-            'place' => __('Place', 'municipio'),
-        ];
-    }
+    /**
+     * Register an ACF field group for each post type.
+     *
+     * @param array postTypes An array of post type objects.
+     */
     public function renderFieldGroups(array $postTypes = null)
     {
         if (is_iterable($postTypes)) {
@@ -35,6 +33,13 @@ class PostTypePurpose
             }
         }
     }
+    /**
+     * It returns an array of arguments that can be used to create a field group in ACF
+     *
+     * @param object postTypeObject The post type object
+     *
+     * @return array An array of arguments.
+     */
     public function getFieldGroupArgs(object $postTypeObject) : array
     {
         return array(
@@ -55,7 +60,7 @@ class PostTypePurpose
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => $this->getPurposes(),
+                    'choices' => \Municipio\Helper\Purpose::getPurposes(),
                     'default_value' => false,
                     'return_format' => 'value',
                     'multiple' => 0,
@@ -92,4 +97,32 @@ class PostTypePurpose
             'acfe_note' => '',
         );
     }
+    
+    /**
+     * If the current post type has a purpose, replace the controller with the purpose controller
+     *
+     * @param string controller The path to the controller file.
+     *
+     * @return string The controller file path.
+     */
+    // public function setController(string $controller) : string
+    // {
+    //     $purpose = false;
+    //     $currentObject = get_queried_object();
+    //     if (!empty($currentObject->post_type)) {
+    //         $purpose = self::getPurpose($currentObject->post_type);
+    //     }
+
+    //     if ((bool) $purpose) {
+    //         $formattedName = ucfirst(\Municipio\Helper\FormatObject::camelCase($purpose));
+           
+    //         $controllerFile = MUNICIPIO_PATH . 'library/Purpose' . DIRECTORY_SEPARATOR . $formattedName . DIRECTORY_SEPARATOR . $formattedName . '.php';
+    //         if (file_exists($controllerFile)) {
+    //             $controller = $controllerFile;
+    //         }
+    //     }
+    
+    //     return $controller;
+    // }
+    
 }

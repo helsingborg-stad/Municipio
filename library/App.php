@@ -22,7 +22,7 @@ class App
          * Template
          */
         new \Municipio\Template();
-
+        
         /**
          * Theme
          */
@@ -40,6 +40,7 @@ class App
         new \Municipio\Theme\Navigation();
         new \Municipio\Theme\Icon();
 
+
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
 
@@ -48,10 +49,10 @@ class App
          */
         new \Municipio\Content\CustomPostType();
         new \Municipio\Content\CustomTaxonomy();
-        new \Municipio\Content\PostTypePurpose();
         new \Municipio\Content\PostFilters();
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Cache();
+        
 
         /**
          * Oembed
@@ -94,6 +95,7 @@ class App
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
+        new \Municipio\Admin\Options\Purpose();
 
         new \Municipio\Admin\Acf\PrefillIconChoice();
 
