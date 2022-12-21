@@ -28,7 +28,6 @@ class BaseController
      */
     public function __construct()
     {
-
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
@@ -50,12 +49,12 @@ class BaseController
         $this->data['siteName']             = $this->getSiteName();
 
         //View porperties
-        $this->data['isFrontPage']          = is_front_page() || is_home() ? true : false;  
+        $this->data['isFrontPage']          = is_front_page() || is_home() ? true : false;
         $this->data['isSingular']           = is_singular();
         $this->data['isSingle']             = is_single();
         $this->data['isSticky']             = is_sticky();
 
-        $this->data['hasBlocks']            = $this->hasBlocks(); 
+        $this->data['hasBlocks']            = $this->hasBlocks();
 
         //Post data
         $this->data['pageTitle']            = $this->getPageTitle();
@@ -64,7 +63,7 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
         
-        $this->data['postTypePurpose']      = $this->getPostTypePurpose();
+        $this->data['purpose']      = $this->getPurpose();
 
         //Customization data
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
@@ -102,14 +101,14 @@ class BaseController
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
     
         /* Navigation parameters
-        string $menu, 
-        int $pageId = null, 
-        bool $fallbackToPageTree = false, 
-        bool $includeTopLevel = true, 
-        bool $onlyKeepFirstLevel = false 
+        string $menu,
+        int $pageId = null,
+        bool $fallbackToPageTree = false,
+        bool $includeTopLevel = true,
+        bool $onlyKeepFirstLevel = false
         */
         
-        //Main Navigation 
+        //Main Navigation
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, true);
         $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
 
@@ -126,7 +125,7 @@ class BaseController
         $this->data['languageMenuItems']            = $languageMenu->getMenuItems('language-menu', $this->getPageID(), false, true, false);
 
         //Get labels for menu
-        $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels(); 
+        $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
 
         //Get language menu options
@@ -135,7 +134,7 @@ class BaseController
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
 
-        // Get date & time formats   
+        // Get date & time formats
         $this->data['dateTimeFormat']   = \Municipio\Helper\DateFormat::getDateFormat('date-time');
         $this->data['dateFormat']       = \Municipio\Helper\DateFormat::getDateFormat('date');
         $this->data['timeFormat']       = \Municipio\Helper\DateFormat::getDateFormat('time');
@@ -151,12 +150,12 @@ class BaseController
 
         //Search
         $this->data['showHeaderSearch']         = $this->showSearchForm('header');
-        $this->data['showNavigationSearch']     = $this->showSearchForm('navigation'); 
-        $this->data['showHamburgerMenuSearch']  = $this->showSearchForm('hamburger-menu'); 
-        $this->data['showHeroSearch']           = $this->showSearchForm('hero'); 
+        $this->data['showNavigationSearch']     = $this->showSearchForm('navigation');
+        $this->data['showHamburgerMenuSearch']  = $this->showSearchForm('hamburger-menu');
+        $this->data['showHeroSearch']           = $this->showSearchForm('hero');
         $this->data['showMobileSearch']         = $this->showSearchForm('mobile');
         $this->data['showMobileSearchDrawer']   = $this->showSearchForm('mobile-drawer');
-        $this->data['searchQuery']              = get_search_query(); 
+        $this->data['searchQuery']              = get_search_query();
 
         // Current posttype
         $this->data['postTypeDetails']      = \Municipio\Helper\PostType::postTypeDetails();
@@ -180,11 +179,11 @@ class BaseController
         $this->data['notice']               = [];
 
         //Column sizes
-        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customizer']); 
-        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customizer']); 
+        $this->data['leftColumnSize']  = $this->getColumnSize('left', $this->data['customizer']);
+        $this->data['rightColumnSize']  = $this->getColumnSize('right', $this->data['customizer']);
 
         //Main content padder
-        $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller. 
+        $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller.
 
         //Language
         $this->data['lang'] = (object) array(
@@ -247,8 +246,8 @@ class BaseController
      * @param [type] $postType
      * @return void
      */
-    public function getStructuredData($postType, $postId) {
-
+    public function getStructuredData($postType, $postId)
+    {
         $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
 
         if (is_null($schema)) {
@@ -335,7 +334,6 @@ class BaseController
      */
     public function getPageID() : int
     {
-
         //Page for posttype archive mapping result
         if (is_post_type_archive()) {
             if ($pageId = get_option('page_for_' . get_post_type())) {
@@ -388,11 +386,11 @@ class BaseController
     public function hasBlocks()
     {
         //Backwards compability with old versions of wp
-        if(!function_exists('has_blocks')) {
-            return false; 
+        if (!function_exists('has_blocks')) {
+            return false;
         }
 
-        return has_blocks($this->getPageID()); 
+        return has_blocks($this->getPageID());
     }
 
     /**
@@ -402,9 +400,10 @@ class BaseController
      */
     public function getFloatingMenuLabels() : object
     {
-        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? ''); 
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? '');
 
-        return (object) apply_filters('Municipio/FloatingMenuLabels', 
+        return (object) apply_filters(
+            'Municipio/FloatingMenuLabels',
             [
                 'heading' => get_field('floating_popup_heading', $menuObject),
                 'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
@@ -437,7 +436,7 @@ class BaseController
      */
     public function getQuicklinksOptions() : object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu'] ?? ''); 
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu'] ?? '');
 
         $options = [
             'backgroundColor'   => get_field('quicklinks_background_color', $options),
@@ -453,7 +452,6 @@ class BaseController
      */
     public function getUserRole()
     {
-
         //Check login
         if (!is_user_logged_in()) {
             return false;
@@ -475,7 +473,7 @@ class BaseController
     public function getPageTemplate()
     {
         $type = get_page_template_slug();
-        if($type === ''){
+        if ($type === '') {
             return false;
         }
         return $type;
@@ -488,7 +486,7 @@ class BaseController
     {
         if ($this->data['pageTemplate'] === 'one-page.blade.php') {
             return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
-        } 
+        }
         return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');
     }
 
@@ -497,7 +495,7 @@ class BaseController
       */
     protected function hasSideMenu()
     {
-        if (!empty($this->data['secondaryMenuItems']) && $this->data['pageTemplate'] !== 'one-page.blade.php' ) {
+        if (!empty($this->data['secondaryMenuItems']) && $this->data['pageTemplate'] !== 'one-page.blade.php') {
             return true;
         }
         return false;
@@ -508,7 +506,7 @@ class BaseController
       */
     protected function hasMainMenu()
     {
-        if(!empty($this->data['primaryMenuItems'])){
+        if (!empty($this->data['primaryMenuItems'])) {
             return true;
         }
         return false;
@@ -527,11 +525,12 @@ class BaseController
         return false;
     }
 
-    protected function getFooterSettings() {
+    protected function getFooterSettings()
+    {
         $footerStyle = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
         $footerAreas = ['footer-area'];
         $footerColumns = 1;
-        if($footerStyle === 'columns') {
+        if ($footerStyle === 'columns') {
             $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
             for ($i = 1; $i < $footerColumns; $i++) {
                 $footerAreas[] = 'footer-area-column-' . $i;
@@ -547,62 +546,59 @@ class BaseController
      * @param string $location
      * @return boolean
      */
-    protected function showSearchForm($location = null) {
+    protected function showSearchForm($location = null)
+    {
+        $enabledLocations = (array) get_field('search_display', 'option');
 
-        $enabledLocations = (array) get_field('search_display', 'option'); 
-
-        if($location == "hero" && is_front_page()) {
-            return in_array($location, $enabledLocations); 
+        if ($location == "hero" && is_front_page()) {
+            return in_array($location, $enabledLocations);
         }
 
-        if($location == "mobile") {
-
+        if ($location == "mobile") {
             //Do not show on frontpage, if hero search is active
-            if(!in_array("hero", $enabledLocations) && is_front_page()) {
-                return true; 
+            if (!in_array("hero", $enabledLocations) && is_front_page()) {
+                return true;
             }
 
-            //Show if not frontpage, not search and search is enabled anywhere else. 
-            if(!is_front_page() && !is_search() && !empty($enabledLocations)) {
-                return true; 
-            }
-        }
-
-        if($location == "mobile-drawer" && $this->data['customizer']->headerApperance !== 'business') {
-            if($this->showSearchForm('mobile')) {
+            //Show if not frontpage, not search and search is enabled anywhere else.
+            if (!is_front_page() && !is_search() && !empty($enabledLocations)) {
                 return true;
             }
         }
 
-        if($location == "header") {
+        if ($location == "mobile-drawer" && $this->data['customizer']->headerApperance !== 'business') {
+            if ($this->showSearchForm('mobile')) {
+                return true;
+            }
+        }
 
-            if(is_search()) {
-                return false; 
+        if ($location == "header") {
+            if (is_search()) {
+                return false;
             }
 
-            if(is_front_page()) {
+            if (is_front_page()) {
                 return in_array('header', $enabledLocations);
             }
 
-            if(!is_front_page()) {
+            if (!is_front_page()) {
                 return in_array('header_sub', $enabledLocations);
             }
         }
         
-        if($location == "navigation") {
-
-            if(is_search()) {
-                return false; 
+        if ($location == "navigation") {
+            if (is_search()) {
+                return false;
             }
 
-            return in_array('mainmenu', $enabledLocations); 
+            return in_array('mainmenu', $enabledLocations);
         }
 
-        if($location == "hamburger-menu") {
-            return in_array('hamburger_menu', $enabledLocations); 
+        if ($location == "hamburger-menu") {
+            return in_array('hamburger_menu', $enabledLocations);
         }
 
-        return false; 
+        return false;
     }
 
     /**
@@ -650,9 +646,8 @@ class BaseController
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
 
-    protected function getPostTypePurpose()
+    protected function getPurpose()
     {
-        
         return apply_filters('Municipio/postTypePurpose', \Municipio\Helper\Purpose::getPurpose(get_post_type()));
     }
     /**
@@ -723,17 +718,17 @@ class BaseController
      *
      * @return integer
      */
-    public function getColumnSize($location, $customizer) {
-
-        if($location == 'left' && $customizer->columnSizeLeft == 'large') {
-            return 4; 
+    public function getColumnSize($location, $customizer)
+    {
+        if ($location == 'left' && $customizer->columnSizeLeft == 'large') {
+            return 4;
         }
 
-        if($location == 'right' && $customizer->columnSizeRight == 'large') {
-            return 4; 
+        if ($location == 'right' && $customizer->columnSizeRight == 'large') {
+            return 4;
         }
 
-        return 3; 
+        return 3;
     }
 
     /**
@@ -741,8 +736,9 @@ class BaseController
      *
      * @return bool|string
      */
-    public function getEmblem() {
-        return get_field('logotype_emblem', 'option') ?? false; 
+    public function getEmblem()
+    {
+        return get_field('logotype_emblem', 'option') ?? false;
     }
 
     /**
@@ -766,12 +762,12 @@ class BaseController
             $variantKey = $variantKey . '_' . $variant;
         }
 
-        //Get the logo, enshure url is defined. 
+        //Get the logo, enshure url is defined.
         $logotype = array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
 
-        //Fallback to municipio logo, if undefined. 
-        if(empty(array_filter($logotype)) && $variantKey == "logotype") {
-            $logotype = ['url' => get_stylesheet_directory_uri() . '/assets/images/municipio.svg']; 
+        //Fallback to municipio logo, if undefined.
+        if (empty(array_filter($logotype)) && $variantKey == "logotype") {
+            $logotype = ['url' => get_stylesheet_directory_uri() . '/assets/images/municipio.svg'];
         }
 
         //Return
@@ -782,7 +778,7 @@ class BaseController
      * Get the subfooter logotype
      *
      * @param string $variant
-     * @return string|boolean 
+     * @return string|boolean
      */
     public function getSubfooterLogotype($variant = "standard")
     {
@@ -790,7 +786,7 @@ class BaseController
             return false;
         }
 
-        if($variant === 'custom') {
+        if ($variant === 'custom') {
             return $this->data['customizer']->footerSubfooterCustomLogotype;
         }
 
@@ -837,7 +833,7 @@ class BaseController
     {
         global $$global;
 
-        if(is_null($$global)) {
+        if (is_null($$global)) {
             return false;
         }
 
