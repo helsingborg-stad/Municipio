@@ -10,8 +10,10 @@ class PurposeSingular extends \Municipio\Controller\Singular
 {
     protected $purpose;
     
-    public function init()
+    public function __construct()
     {
         parent::init();
+
+        $this->purpose = \Municipio\Helper\Purpose::getPurpose($this->data['post']->postType);
     }
 }
