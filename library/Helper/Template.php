@@ -75,6 +75,11 @@ class Template
         foreach($versions as $versionKey => $version) {
             $viewPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
         }
+        
+        $baseDir = MUNICIPIO_PATH . 'templates/';
+        foreach (@glob($baseDir . "*/views", GLOB_ONLYDIR) as $dir) {
+            $viewPaths[] = $dir;
+        }
 
         $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
         $viewPaths = array_merge($viewPaths, $externalViewPaths);

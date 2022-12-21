@@ -48,16 +48,15 @@ class Controller
 
         foreach ($versions as $versionKey => $version) {
             $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
-            $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . "Purpose" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
-            
+           
             $controllerPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
-            $controllerPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . "Purpose" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
         }
+        
         $baseDir = MUNICIPIO_PATH . 'templates/';
-
         foreach (@glob($baseDir . "*", GLOB_ONLYDIR) as $dir) {
             $controllerPaths[] = $dir;
         }
+        
         return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths));
     }
 
