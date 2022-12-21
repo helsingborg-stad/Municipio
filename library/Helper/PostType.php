@@ -59,11 +59,13 @@ class PostType
 
      * @return object  Information about the current posttype
      */
-    public static function postTypeDetails() 
+    public static function postTypeDetails()
     {
-
-        $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(get_post_type_object(self::getPostType())); 
-        return apply_filters('Municipio/postTypeDetails',$postTypeDetails);  
+        $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(get_post_type_object(self::getPostType()));
+        
+        $postTypeDetails->purpose = \Municipio\Helper\Purpose::getPurpose(self::getPostType());
+        
+        return apply_filters('Municipio/postTypeDetails', $postTypeDetails);
     }
 
     /**
@@ -71,10 +73,10 @@ class PostType
 
      * @return object  Current post type id
      */
-    private static function getPostType() {
-
+    private static function getPostType()
+    {
         if ($postType = get_post_type()) {
-            return $postType; 
+            return $postType;
         }
 
         global $wp_query;
@@ -83,7 +85,7 @@ class PostType
         }
 
         if (isset($wp_query->queried_object) && isset($wp_query->queried_object->post_type) && !empty($wp_query->queried_object->post_type)) {
-            return $wp_query->queried_object->post_type; 
+            return $wp_query->queried_object->post_type;
         }
 
         return null;
