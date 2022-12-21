@@ -265,6 +265,7 @@ class General
                     if (!empty($linkedImage->getAttribute('alt'))) {
                         $altText = $linkedImage->getAttribute('alt');
                     }
+                    
                     $html = render_blade_view(
                         'partials.content.image',
                         [
@@ -275,12 +276,13 @@ class General
                             'heading'          => $captionText,
                             'isPanel'          => true,
                             'isTransparent'    => false,
+                            'classList' => explode(' ', $linkedImage->getAttribute('class')),
                             'imgAttributeList' =>
                             [
-                                'srcset'  => $linkedImage->getAttribute('srcset'),
-                                'width'   => $linkedImage->getAttribute('width'),
-                                'height'  => $linkedImage->getAttribute('height'),
-                                'parsed'  => true
+                                'srcset'    => $linkedImage->getAttribute('srcset'),
+                                'width'     => $linkedImage->getAttribute('width'),
+                                'height'    => $linkedImage->getAttribute('height'),
+                                'parsed'    => true
                             ],
                         ]
                     );
