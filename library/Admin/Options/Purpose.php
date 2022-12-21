@@ -9,7 +9,6 @@ class Purpose
         add_action('init', array($this, 'init'));
     }
     
-    
     public function init()
     {
         if (function_exists('acf_get_field_group')) {
