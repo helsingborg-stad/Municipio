@@ -36,13 +36,13 @@ class SingularProject extends \Municipio\Controller\Singular
             case 'project':
                 $description = '<project_what>';
                 $brands      = ['<project_organisation>'];
-                $sponsors     = ['<project_partner>'];
+                $sponsors    = ['<project_partner>'];
                 break;
             
             default:
                 $description = get_the_excerpt($postId);
                 $brands      = (array) get_post_meta($postId, 'brand');
-                $sponsors     = (array) get_post_meta($postId, 'sponsor');
+                $sponsors    = (array) get_post_meta($postId, 'sponsor');
                 break;
         }
         
