@@ -6,7 +6,7 @@ namespace Municipio\Controller;
  * Class SingularProject
  * @package Municipio\Controller
  */
-class SingularProject extends \Municipio\Controller\Singular implements \Municipio\Purpose
+class SingularProject extends \Municipio\Controller\Singular implements \Municipio\Controller\Purpose
 {
     public function __construct()
     {

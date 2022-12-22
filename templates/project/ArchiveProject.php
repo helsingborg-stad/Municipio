@@ -7,7 +7,7 @@ namespace Municipio\Controller;
  *
  * @package Municipio\Controller
  */
-class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio\Purpose
+class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio\Controller\Purpose
 {
     public function __construct()
     {
