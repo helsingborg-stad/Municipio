@@ -33,11 +33,11 @@ class SingularProject extends \Municipio\Controller\Singular
     {
         switch ($postType) {
             // case project WIP
-            case 'project':
-                $description = '<project_what>';
-                $brands      = ['<project_organisation>'];
-                $sponsors    = ['<project_partner>'];
-                break;
+            // case 'project':
+            //     $description = '<project_what>';
+            //     $brands      = ['<project_organisation>'];
+            //     $sponsors    = ['<project_partner>'];
+            //     break;
             
             default:
                 $description = get_the_excerpt($postId);
