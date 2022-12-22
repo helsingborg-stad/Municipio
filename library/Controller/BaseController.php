@@ -63,7 +63,7 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
         
-        $this->data['purpose']      = $this->getPurpose();
+        $this->data['purpose']              = $this->getPurpose();
 
         //Customization data
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
@@ -170,7 +170,7 @@ class BaseController
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
         //Structured data
-        $this->data['structuredData']       = $this->getStructuredData(
+        $this->data['structuredData']       = \Municipio\Helper\Data::getStructuredData(
             $this->data['postType'],
             $this->getPageID()
         );
@@ -246,26 +246,26 @@ class BaseController
      * @param [type] $postType
      * @return void
      */
-    public function getStructuredData($postType, $postId)
-    {
-        $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
+    // public function getStructuredData($postType, $postId)
+    // {
+    //     $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
+     
+    //     if (is_null($schema)) {
+    //         return false;
+    //     }
 
-        if (is_null($schema)) {
-            return false;
-        }
+    //     if (empty($schema)) {
+    //         return false;
+    //     }
 
-        if (empty($schema)) {
-            return false;
-        }
+    //     //Default common schema
+    //     $schema = array_merge(
+    //         ["@context" => "https://schema.org/"],
+    //         $schema
+    //     );
 
-        //Default common schema
-        $schema = array_merge(
-            ["@context" => "https://schema.org/"],
-            $schema
-        );
-
-        return json_encode($schema);
-    }
+    //     return json_encode($schema);
+    // }
 
     /**
      * Get the emblem to use
