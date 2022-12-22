@@ -24,7 +24,7 @@ class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio
      * @return An array with the structured data for the project post type.
      */
     
-     public function setStructuredData(array $structuredData = [], string $postType, int $postId = null) : array
+     public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null) : array
      {
          return [];
      }

@@ -4,6 +4,6 @@ namespace Municipio;
 
 interface Purpose  {
     
-    public function setStructuredData(array $structuredData = [], string $postType, int $postId = null) : array;
+    public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null) : array;
     
 }
