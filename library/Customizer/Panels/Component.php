@@ -18,6 +18,7 @@ class Component
         new \Municipio\Customizer\Sections\Quicklinks(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Button(self::PANEL_ID);
         new \Municipio\Customizer\Sections\HamburgerMenu(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\PrimaryMenu(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Slider(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Footer(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Divider(self::PANEL_ID);
