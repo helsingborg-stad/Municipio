@@ -31,9 +31,20 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
     
     public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null) : array
     {
-        $description = get_the_excerpt($postId);
-        $brands      = (array) get_post_meta($postId, 'brand');
-        $sponsors    = (array) get_post_meta($postId, 'sponsor');
+        // TODO: Setup correct data for project post type
+        switch ($postType) {
+            case 'project':
+                $description = get_the_excerpt($postId);
+                $brands      = (array) get_post_meta($postId, 'brands');
+                $sponsors    = (array) get_post_meta($postId, 'sponsors');
+                break;
+            
+            default:
+                $description = get_the_excerpt($postId);
+                $brands      = get_post_meta($postId, 'brands', true);
+                $sponsors    = get_post_meta($postId, 'sponsors', true);
+                break;
+        }
         
         $additionalData = [
             '@type'       => 'Project',
@@ -42,7 +53,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
             'description' => $description,
         ];
         
-        if (!empty($brands)) {
+        if (is_iterable($brands)) {
             foreach ($brands as $brand) {
                 $additionalData['brand'][] = [
                     '@type' => 'organization',
@@ -50,7 +61,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
                 ];
             }
         }
-        if (!empty($sponsors)) {
+        if (is_iterable($sponsors)) {
             foreach ($sponsors as $sponsor) {
                 $additionalData['sponsor'][] = [
                     '@type' => 'organization',
