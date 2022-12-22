@@ -6,7 +6,7 @@ namespace Municipio\Controller;
  * Class SingularProject
  * @package Municipio\Controller
  */
-class SingularProject extends \Municipio\Controller\Singular
+class SingularProject extends \Municipio\Controller\Singular implements \Municipio\Purpose
 {
     public function __construct()
     {
@@ -29,7 +29,7 @@ class SingularProject extends \Municipio\Controller\Singular
      * @return An array with the structured data for the project post type.
      */
     
-    public function setStructuredData($structuredData, $postType, $postId)
+    public function setStructuredData(array $structuredData = [], string $postType, int $postId = null) : array
     {
         switch ($postType) {
             // case project WIP
