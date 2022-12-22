@@ -1,6 +1,6 @@
 <?php 
 
-namespace Municipio;
+namespace Municipio\Controller;
 
 interface Purpose  {
     
