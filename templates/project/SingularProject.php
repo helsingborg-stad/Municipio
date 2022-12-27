@@ -28,21 +28,42 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
      *
      * @return An array with the structured data for the project post type.
      */
-    
+    public function termsToStructuredData(string $taxonomy, int $postId, string $type, string $schemaType)
+    {
+        $terms = wp_get_post_terms($postId, $taxonomy, 'names');
+        if (is_iterable($terms)) {
+            $additionalData = [];
+            foreach ($terms as $term) {
+                $additionalData[$type][] = [
+                    '@type' => $schemaType,
+                    'name'  => $term
+                ];
+            }
+            return $additionalData;
+        }
+        
+        return false;
+    }
     public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null) : array
     {
-        // TODO: Setup correct data for project post type
         switch ($postType) {
             case 'project':
-                $description = get_the_excerpt($postId);
-                $brands      = (array) get_post_meta($postId, 'brands');
-                $sponsors    = (array) get_post_meta($postId, 'sponsors');
+                $description = get_post_meta($postId, 'project_what', true);
+                $founder     = wp_get_post_terms($postId, 'organisation', 'names');
+                $brands      = wp_get_post_terms($postId, 'participants', 'names');
+                $department  = wp_get_post_terms($postId, 'operation', 'names');
+                $sponsors    = wp_get_post_terms($postId, 'partner', 'names');
+                $location    = (array) get_post_meta($postId, 'map', true);
+                
                 break;
             
             default:
                 $description = get_the_excerpt($postId);
-                $brands      = get_post_meta($postId, 'brands', true);
-                $sponsors    = get_post_meta($postId, 'sponsors', true);
+                $founder     = false;
+                $brands      = false;
+                $department  = false;
+                $sponsors    = false;
+                $location    = false;
                 break;
         }
         
@@ -53,21 +74,54 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
             'description' => $description,
         ];
         
+        if (is_iterable($founder)) {
+            foreach ($founder as $founder) {
+                $additionalData['founder'][] = [
+                    '@type' => 'Organization',
+                    'name'  => $founder
+                ];
+            }
+        }
         if (is_iterable($brands)) {
             foreach ($brands as $brand) {
                 $additionalData['brand'][] = [
-                    '@type' => 'organization',
-                    'name' => $brand
+                    '@type' => 'Organization',
+                    'name'  => $brand
                 ];
             }
         }
         if (is_iterable($sponsors)) {
             foreach ($sponsors as $sponsor) {
                 $additionalData['sponsor'][] = [
-                    '@type' => 'organization',
-                    'name' => $sponsor
+                    '@type' => 'Organization',
+                    'name'  => $sponsor
                 ];
             }
+        }
+        if ($department) {
+            $additionalData['department'][] = [
+                '@type' => 'Organization',
+                'name' => $department
+            ];
+        }
+        if (!empty($location['address'])) {
+            $additionalData['location'][] = [
+                '@type'   => 'Place',
+                'address' => $location['address'],
+            ];
+        }
+        if (!empty($location['lat']) && !empty($location['lng'])) {
+            $additionalData['location'][] = [
+                '@type'     => 'GeoCoordinates',
+                'latitude'  => $location['lat'],
+                'longitude' => $location['lng'],
+            ];
+        }
+        if (!empty($location['country'])) {
+            $additionalData['location'][] = [
+                '@type'     => 'PostalAddess',
+                'country'  => $location['country'],
+            ];
         }
         
         return array_merge($structuredData, $additionalData);
