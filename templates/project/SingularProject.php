@@ -47,7 +47,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
     public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null) : array
     {
         switch ($postType) {
-            case 'project':
+            case 'project': // Post type, not purpose!
                 $description = get_post_meta($postId, 'project_what', true);
                 $founder     = wp_get_post_terms($postId, 'organisation', 'names');
                 $brands      = wp_get_post_terms($postId, 'participants', 'names');
