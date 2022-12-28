@@ -320,20 +320,4 @@ class Post
 
         return $metaKeys;
     }
-    
-    public static function getStreetAddress($postId = null, $locationData = null) : string
-    {
-        if (empty($postId)) {
-            return false;
-        }
-        if (empty($locationData)) {
-            $locationData = get_post_meta($postId, 'map', true);
-        }
-        
-        $locationData = maybe_unserialize($locationData);
-        return $locationData;
-        $address = $locationData['address'];
-                
-        return $address;
-    }
 }
