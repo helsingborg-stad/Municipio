@@ -332,6 +332,7 @@ class General
                         'src'       => $image->getAttribute('src'),
                         'alt'       => $altText,
                         'caption' => $captionText,
+                        'classList' => explode(' ', $image->getAttribute('class')),
                         'imgAttributeList' =>
                         [
                             'srcset'  => $image->getAttribute('srcset'),
