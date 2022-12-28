@@ -241,33 +241,6 @@ class BaseController
     }
 
     /**
-     * Undocumented function
-     *
-     * @param [type] $postType
-     * @return void
-     */
-    // public function getStructuredData($postType, $postId)
-    // {
-    //     $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
-     
-    //     if (is_null($schema)) {
-    //         return false;
-    //     }
-
-    //     if (empty($schema)) {
-    //         return false;
-    //     }
-
-    //     //Default common schema
-    //     $schema = array_merge(
-    //         ["@context" => "https://schema.org/"],
-    //         $schema
-    //     );
-
-    //     return json_encode($schema);
-    // }
-
-    /**
      * Get the emblem to use
      *
      * @param array $data
