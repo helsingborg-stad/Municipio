@@ -20,8 +20,6 @@ class General
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
         
-        add_filter('the_content', array($this, 'normalizeImages'), 99, 1);
-
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
@@ -220,138 +218,7 @@ class General
 
         return $content;
     }
-    /**
-     * It takes a string of HTML, finds all images and links containing images, and replaces them with
-     * a blade template version of themselves.
-     *
-     * If an image is linked to itself, it will be replaced with a template version with the attribute `opendModal` set to `true`.
-     *
-     * If the content contains Gutenberg blocks we'll skip it since images are handled differently then and have their own block type.
-     *
-     * @param content The content to be parsed.
-     *
-     * @return The content of the post.
-     */
-    public function normalizeImages($content)
-    {
-        if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
-            $dom = new \DOMDocument;
-            $dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
-                   
-            $images = $dom->getElementsByTagName('img');
-            $links = $dom->getElementsByTagName('a');
-            
-            foreach ($links as $link) {
-                // If the link doesn't contain an image move on to the next.
-                if ('img' !== $link->firstChild->tagName) {
-                    continue;
-                }
     
-                $captionText = '';
-                if (0 < $link->parentNode->getElementsByTagName('figcaption')->length) {
-                    foreach ($link->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
-                        $captionText = wp_strip_all_tags($caption->textContent);
-                        $captionClone = $caption->cloneNode(true);
-                        $link->parentNode->removeChild($caption);
-                    }
-                }
-    
-                $linkedImage = $link->firstChild;
-                $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
-                $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
-        
-                if ($linkDir === $imgDir) {
-                    $altText = $captionText;
-                    if (!empty($linkedImage->getAttribute('alt'))) {
-                        $altText = $linkedImage->getAttribute('alt');
-                    }
-                    
-                    $html = render_blade_view(
-                        'partials.content.image',
-                        [
-                            'openModal'        => true,
-                            'src'              => $linkedImage->getAttribute('src'),
-                            'srcFull'          => $linkedImage->getAttribute('src'),
-                            'alt'              => $altText,
-                            'heading'          => $captionText,
-                            'isPanel'          => true,
-                            'isTransparent'    => false,
-                            'classList' => explode(' ', $linkedImage->getAttribute('class')),
-                            'imgAttributeList' =>
-                            [
-                                'srcset'    => $linkedImage->getAttribute('srcset'),
-                                'width'     => $linkedImage->getAttribute('width'),
-                                'height'    => $linkedImage->getAttribute('height'),
-                                'parsed'    => true
-                            ],
-                        ]
-                    );
-                    $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-                    if (empty($newNode)) {
-                        continue;
-                    }
-                    
-                    /* Appending the newly rendered blade template content to the current node */
-                    $link->parentNode->appendChild($newNode);
-                    /* Ensures the existing caption is displayed after the new node */
-                    if ($captionClone) {
-                        $link->parentNode->appendChild($captionClone);
-                    }
-                    /* Replacing the original link and image with a hidden link to prevent issues stemming from removing link elements from the DOM whilst accessing them. @see https://stackoverflow.com/questions/38372233/php-domdocument-skips-even-elements */
-                    $replacementLink = $dom->createElement('a', $linkedImage->getAttribute('src'));
-                    $replacementLink->setAttribute('href', $linkedImage->getAttribute('src'));
-                    $replacementLink->setAttribute('tabindex', '-1');
-                    $replacementLink->setAttribute('class', 'u-display--none');
-                    
-                    $link->parentNode->replaceChild($replacementLink, $link);
-                }
-            }
-            
-            foreach ($images as $image) {
-                /* This image has already been processed so we'll skip it. */
-                if ($image->getAttribute('parsed')) {
-                    continue;
-                }
-                $captionText = '';
-                if (0 < $image->parentNode->getElementsByTagName('figcaption')->length) {
-                    foreach ($image->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
-                        $captionText = wp_strip_all_tags($caption->textContent);
-                        $captionClone = $caption->cloneNode(true);
-                        $image->parentNode->removeChild($caption);
-                    }
-                }
-                $altText = $captionText;
-                if (!empty($image->getAttribute('alt'))) {
-                    $altText = $image->getAttribute('alt');
-                }
-                
-                $html = render_blade_view(
-                    'partials.content.image',
-                    [
-                        'openModal' => false,
-                        'src'       => $image->getAttribute('src'),
-                        'alt'       => $altText,
-                        'caption' => $captionText,
-                        'imgAttributeList' =>
-                        [
-                            'srcset'  => $image->getAttribute('srcset'),
-                            'width'   => $image->getAttribute('width'),
-                            'height'  => $image->getAttribute('height'),
-                            'parsed'  => true,
-                        ],
-                    ]
-                );
-                $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-                $image->parentNode->replaceChild($newNode, $image);
-            }
-            
-            $content = $dom->saveHTML();
-        }
-        
-        return $content;
-    }
-    
-   
     /**
      * Append body theme class in BEMIT format
      *
