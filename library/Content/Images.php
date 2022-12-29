@@ -20,7 +20,7 @@ class Images
      *
      * @return The content of the post.
      */
-    public function normalizeImages($content)
+    public static function normalizeImages($content)
     {
         if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument;
@@ -28,7 +28,7 @@ class Images
                    
             $images = $dom->getElementsByTagName('img');
             $links = $dom->getElementsByTagName('a');
-            
+                        
             foreach ($links as $link) {
                 // If the link doesn't contain an image move on to the next.
                 if ('img' !== $link->firstChild->tagName) {
@@ -85,12 +85,14 @@ class Images
                     if ($captionClone) {
                         $link->parentNode->appendChild($captionClone);
                     }
+                    
                     /* Replacing the original link and image with a hidden link to prevent issues stemming from removing link elements from the DOM whilst accessing them. @see https://stackoverflow.com/questions/38372233/php-domdocument-skips-even-elements */
                     $replacementLink = $dom->createElement('a', $linkedImage->getAttribute('src'));
                     $replacementLink->setAttribute('href', $linkedImage->getAttribute('src'));
                     $replacementLink->setAttribute('tabindex', '-1');
                     $replacementLink->setAttribute('class', 'u-display--none');
-                    
+                    $replacementLink->setAttribute('data-replacement', '1');
+                                        
                     $link->parentNode->replaceChild($replacementLink, $link);
                 }
             }
@@ -132,6 +134,14 @@ class Images
                 );
                 $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
                 $image->parentNode->replaceChild($newNode, $image);
+            }
+            
+            /* Removing the hidden links that were added earlier, now that the iteration of the elements is done */
+            foreach ($dom->getElementsByTagName('a') as $link) {
+                $isReplacement = (bool) $link->getAttribute('data-replacement');
+                if ($isReplacement) {
+                    $link->parentNode->removeChild($link);
+                }
             }
             
             $content = $dom->saveHTML();

@@ -95,12 +95,13 @@ class Post
                 }
 
                 $excerpt = self::createLeadElement(array_shift($parts));
+                
                 $content = self::removeEmptyPTag(implode(PHP_EOL, $parts));
             } else {
                 $excerpt = "";
                 $content = self::removeEmptyPTag($postObject->post_content);
             }
-
+            
             //Replace builtin css classes to our own
             $postObject->post_content_filtered  = $excerpt . str_replace(
                 [
@@ -221,6 +222,10 @@ class Post
      */
     private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">')
     {
+        if (str_contains($lead, '<img')) {
+            // $lead = \Municipio\Content\Images::normalizeLeadImages();
+            $lead = apply_filters('the_content', $lead);
+        }
         $pos = strpos($lead, $search);
 
         if ($pos !== false) {
@@ -228,6 +233,7 @@ class Post
         } elseif ($pos === false && $lead === strip_tags($lead)) {
             $lead = $replace . $lead . '</p>';
         }
+        
 
         return self::removeEmptyPTag($lead);
     }
