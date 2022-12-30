@@ -22,9 +22,11 @@ class Images
      */
     public static function normalizeImages($content)
     {
+        $encoding = '<?xml encoding="utf-8" ?>';
+
         if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument;
-            $dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $dom->loadHTML($encoding . $content);
                    
             $images = $dom->getElementsByTagName('img');
             $links = $dom->getElementsByTagName('a');
@@ -145,6 +147,7 @@ class Images
             }
             
             $content = $dom->saveHTML();
+            return str_replace([$encoding, '<html>', '</html>', '<body>', '</body>'], '', $content);
         }
         
         return $content;
