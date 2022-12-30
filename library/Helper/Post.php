@@ -43,12 +43,14 @@ class Post
             return $postObject;
             throw new WP_Error("Complement object must recive a WP_Post class");
         }
-
         //More? Less?
         $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
 
+        // Check if password is required for the post
+        $passwordRequired = post_password_required($postObject);
+        
         //Generate excerpt
-        if (in_array('excerpt', $appendFields)) {
+        if ( !$passwordRequired && in_array('excerpt', $appendFields)) {
             if (empty($postObject->post_excerpt)) {
                 //Create excerpt if not defined by editor
                 $postObject->excerpt = wp_trim_words(
@@ -76,14 +78,8 @@ class Post
                 );
             }
         }
-
-        //Get permalink
-        if (in_array('permalink', $appendFields)) {
-            $postObject->permalink              = get_permalink($postObject);
-        }
-
         //Get filtered content
-        if (in_array('post_content_filtered', $appendFields)) {
+        if (!$passwordRequired && in_array('post_content_filtered', $appendFields)) {
             //Parse lead
             $parts = explode("<!--more-->", $postObject->post_content);
 
@@ -147,6 +143,11 @@ class Post
             );
         }
 
+        //Get permalink
+        if (in_array('permalink', $appendFields)) {
+            $postObject->permalink              = get_permalink($postObject);
+        }
+
         //Get filtered post title
         if (in_array('post_title_filtered', $appendFields)) {
             $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title, $postObject->ID);
@@ -169,6 +170,14 @@ class Post
                 $postObject->post_language = $postLang;
             }
         }
+        if( $passwordRequired ) {
+            $postObject->post_content          = get_the_password_form($postObject);
+            $postObject->post_content_filtered = get_the_password_form($postObject);
+            $postObject->post_excerpt          = get_the_password_form($postObject);
+            $postObject->excerpt               = get_the_password_form($postObject);
+            $postObject->excerpt_short         = get_the_password_form($postObject);
+        }
+        
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 

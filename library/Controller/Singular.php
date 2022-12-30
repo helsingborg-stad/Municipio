@@ -14,9 +14,11 @@ class Singular extends \Municipio\Controller\BaseController
     public function init()
     {
         parent::init();
-
+        
         //Get post data
-        $this->data['post'] = \Municipio\Helper\Post::preparePostObject(get_post($this->getPageID()));
+        $originalPostData = get_post($this->getPageID());
+        
+        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
         $this->data['isBlogStyle'] = $this->data['post']->postType === "post" || "nyheter" ? true : false;
 
