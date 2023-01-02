@@ -43,7 +43,7 @@ class Post
             return $postObject;
             throw new WP_Error("Complement object must recive a WP_Post class");
         }
-        
+
         //More? Less?
         $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
 
