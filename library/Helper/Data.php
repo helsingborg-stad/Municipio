@@ -4,6 +4,27 @@ namespace Municipio\Helper;
 
 class Data
 {
+
+    public static function getStructuredData($postType, $postId)
+    {
+        $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
+     
+        if (is_null($schema)) {
+            return false;
+        }
+
+        if (empty($schema)) {
+            return false;
+        }
+
+        //Default common schema
+        $schema = array_merge(
+            ["@context" => "https://schema.org/"],
+            $schema
+        );
+
+        return json_encode($schema);
+    }
     public static function isJson($string)
     {
         return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-29 15:45+0100\n"
-"PO-Revision-Date: 2022-11-29 15:48+0100\n"
+"POT-Creation-Date: 2022-12-20 08:02+0100\n"
+"PO-Revision-Date: 2022-12-20 08:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -92,9 +92,6 @@ msgstr "Sekundär"
 #: library/Customizer/Sections/Quicklinks.php:88
 #: library/Customizer/Sections/Quicklinks.php:108
 #: library/Customizer/Sections/Width.php:17
-#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:87
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:113
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:852
 msgid "Default"
 msgstr "Standard"
 
@@ -134,7 +131,6 @@ msgstr "Ifylld"
 
 #: library/AcfFields/php/block-button.php:113
 #: library/AcfFields/php/navigation-widget.php:338
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:70
 msgid "Size"
 msgstr "Storlek"
 
@@ -364,819 +360,819 @@ msgstr "360"
 
 #: library/AcfFields/php/options-menu-icon.php:23
 msgid "3d_rotation"
-msgstr ""
+msgstr "3d_rotation"
 
 #: library/AcfFields/php/options-menu-icon.php:24
 msgid "4k"
-msgstr ""
+msgstr "4k"
 
 #: library/AcfFields/php/options-menu-icon.php:25
 msgid "ac_unit"
-msgstr ""
+msgstr "ac_unit"
 
 #: library/AcfFields/php/options-menu-icon.php:26
 msgid "access_alarm"
-msgstr ""
+msgstr "access_alarm"
 
 #: library/AcfFields/php/options-menu-icon.php:27
 msgid "access_alarms"
-msgstr ""
+msgstr "access_alarms"
 
 #: library/AcfFields/php/options-menu-icon.php:28
 msgid "access_time"
-msgstr ""
+msgstr "access_time"
 
 #: library/AcfFields/php/options-menu-icon.php:29
 msgid "accessibility"
-msgstr ""
+msgstr "accessibility"
 
 #: library/AcfFields/php/options-menu-icon.php:30
 msgid "accessibility_new"
-msgstr ""
+msgstr "accessibility_new"
 
 #: library/AcfFields/php/options-menu-icon.php:31
 msgid "accessible"
-msgstr ""
+msgstr "accessible"
 
 #: library/AcfFields/php/options-menu-icon.php:32
 msgid "accessible_forward"
-msgstr ""
+msgstr "accessible_forward"
 
 #: library/AcfFields/php/options-menu-icon.php:33
 msgid "account_balance"
-msgstr ""
+msgstr "account_balance"
 
 #: library/AcfFields/php/options-menu-icon.php:34
 msgid "account_balance_wallet"
-msgstr ""
+msgstr "account_balance_wallet"
 
 #: library/AcfFields/php/options-menu-icon.php:35
 msgid "account_box"
-msgstr ""
+msgstr "account_box"
 
 #: library/AcfFields/php/options-menu-icon.php:36
 msgid "account_circle"
-msgstr ""
+msgstr "account_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:37
 msgid "account_tree"
-msgstr ""
+msgstr "account_tree"
 
 #: library/AcfFields/php/options-menu-icon.php:38
 msgid "adb"
-msgstr ""
+msgstr "adb"
 
 #: library/AcfFields/php/options-menu-icon.php:39
 msgid "add"
-msgstr "lägg till"
+msgstr "add"
 
 #: library/AcfFields/php/options-menu-icon.php:40
 msgid "add_a_photo"
-msgstr ""
+msgstr "add_a_photo"
 
 #: library/AcfFields/php/options-menu-icon.php:41
 msgid "add_alarm"
-msgstr ""
+msgstr "add_alarm"
 
 #: library/AcfFields/php/options-menu-icon.php:42
 msgid "add_alert"
-msgstr ""
+msgstr "add_alert"
 
 #: library/AcfFields/php/options-menu-icon.php:43
 msgid "add_box"
-msgstr ""
+msgstr "add_box"
 
 #: library/AcfFields/php/options-menu-icon.php:44
 msgid "add_circle"
-msgstr ""
+msgstr "add_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:45
 msgid "add_circle_outline"
-msgstr ""
+msgstr "add_circle_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:46
 msgid "add_comment"
-msgstr ""
+msgstr "add_comment"
 
 #: library/AcfFields/php/options-menu-icon.php:47
 msgid "add_photo_alternate"
-msgstr ""
+msgstr "add_photo_alternate"
 
 #: library/AcfFields/php/options-menu-icon.php:48
 msgid "add_shopping_cart"
-msgstr ""
+msgstr "add_shopping_cart"
 
 #: library/AcfFields/php/options-menu-icon.php:49
 msgid "add_to_home_screen"
-msgstr ""
+msgstr "add_to_home_screen"
 
 #: library/AcfFields/php/options-menu-icon.php:50
 msgid "add_to_photos"
-msgstr ""
+msgstr "add_to_photos"
 
 #: library/AcfFields/php/options-menu-icon.php:51
 msgid "add_to_queue"
-msgstr ""
+msgstr "add_to_queue"
 
 #: library/AcfFields/php/options-menu-icon.php:52
 msgid "adjust"
-msgstr ""
+msgstr "adjust"
 
 #: library/AcfFields/php/options-menu-icon.php:53
 msgid "airline_seat_flat"
-msgstr ""
+msgstr "airline_seat_flat"
 
 #: library/AcfFields/php/options-menu-icon.php:54
 msgid "airline_seat_flat_angled"
-msgstr ""
+msgstr "airline_seat_flat_angled"
 
 #: library/AcfFields/php/options-menu-icon.php:55
 msgid "airline_seat_individual_suite"
-msgstr ""
+msgstr "airline_seat_individual_suite"
 
 #: library/AcfFields/php/options-menu-icon.php:56
 msgid "airline_seat_legroom_extra"
-msgstr ""
+msgstr "airline_seat_legroom_extra"
 
 #: library/AcfFields/php/options-menu-icon.php:57
 msgid "airline_seat_legroom_normal"
-msgstr ""
+msgstr "airline_seat_legroom_normal"
 
 #: library/AcfFields/php/options-menu-icon.php:58
 msgid "airline_seat_legroom_reduced"
-msgstr ""
+msgstr "airline_seat_legroom_reduced"
 
 #: library/AcfFields/php/options-menu-icon.php:59
 msgid "airline_seat_recline_extra"
-msgstr ""
+msgstr "airline_seat_recline_extra"
 
 #: library/AcfFields/php/options-menu-icon.php:60
 msgid "airline_seat_recline_normal"
-msgstr ""
+msgstr "airline_seat_recline_normal"
 
 #: library/AcfFields/php/options-menu-icon.php:61
 msgid "airplanemode_active"
-msgstr ""
+msgstr "airplanemode_active"
 
 #: library/AcfFields/php/options-menu-icon.php:62
 msgid "airplanemode_inactive"
-msgstr ""
+msgstr "airplanemode_inactive"
 
 #: library/AcfFields/php/options-menu-icon.php:63
 msgid "airplay"
-msgstr ""
+msgstr "airplay"
 
 #: library/AcfFields/php/options-menu-icon.php:64
 msgid "airport_shuttle"
-msgstr ""
+msgstr "airport_shuttle"
 
 #: library/AcfFields/php/options-menu-icon.php:65
 msgid "alarm"
-msgstr ""
+msgstr "alarm"
 
 #: library/AcfFields/php/options-menu-icon.php:66
 msgid "alarm_add"
-msgstr ""
+msgstr "alarm_add"
 
 #: library/AcfFields/php/options-menu-icon.php:67
 msgid "alarm_off"
-msgstr ""
+msgstr "alarm_off"
 
 #: library/AcfFields/php/options-menu-icon.php:68
 msgid "alarm_on"
-msgstr ""
+msgstr "alarm_on"
 
 #: library/AcfFields/php/options-menu-icon.php:69
 msgid "album"
-msgstr ""
+msgstr "album"
 
 #: library/AcfFields/php/options-menu-icon.php:70
 msgid "all_inbox"
-msgstr ""
+msgstr "all_inbox"
 
 #: library/AcfFields/php/options-menu-icon.php:71
 msgid "all_inclusive"
-msgstr ""
+msgstr "all_inclusive"
 
 #: library/AcfFields/php/options-menu-icon.php:72
 msgid "all_out"
-msgstr ""
+msgstr "all_out"
 
 #: library/AcfFields/php/options-menu-icon.php:73
 msgid "amp_stories"
-msgstr ""
+msgstr "amp_stories"
 
 #: library/AcfFields/php/options-menu-icon.php:74
 msgid "android"
-msgstr ""
+msgstr "android"
 
 #: library/AcfFields/php/options-menu-icon.php:75
 msgid "announcement"
-msgstr ""
+msgstr "announcement"
 
 #: library/AcfFields/php/options-menu-icon.php:76
 msgid "apartment"
-msgstr ""
+msgstr "apartment"
 
 #: library/AcfFields/php/options-menu-icon.php:78
 msgid "archive"
-msgstr ""
+msgstr "archive"
 
 #: library/AcfFields/php/options-menu-icon.php:79
 msgid "arrow_back"
-msgstr ""
+msgstr "arrow_back"
 
 #: library/AcfFields/php/options-menu-icon.php:80
 msgid "arrow_back_ios"
-msgstr ""
+msgstr "arrow_back_ios"
 
 #: library/AcfFields/php/options-menu-icon.php:81
 msgid "arrow_downward"
-msgstr ""
+msgstr "arrow_downward"
 
 #: library/AcfFields/php/options-menu-icon.php:82
 msgid "arrow_drop_down"
-msgstr ""
+msgstr "arrow_drop_down"
 
 #: library/AcfFields/php/options-menu-icon.php:83
 msgid "arrow_drop_down_circle"
-msgstr ""
+msgstr "arrow_drop_down_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:84
 msgid "arrow_drop_up"
-msgstr ""
+msgstr "arrow_drop_up"
 
 #: library/AcfFields/php/options-menu-icon.php:85
 msgid "arrow_forward"
-msgstr ""
+msgstr "arrow_forward"
 
 #: library/AcfFields/php/options-menu-icon.php:86
 msgid "arrow_forward_ios"
-msgstr ""
+msgstr "arrow_forward_ios"
 
 #: library/AcfFields/php/options-menu-icon.php:87
 msgid "arrow_left"
-msgstr ""
+msgstr "arrow_left"
 
 #: library/AcfFields/php/options-menu-icon.php:88
 msgid "arrow_right"
-msgstr ""
+msgstr "arrow_right"
 
 #: library/AcfFields/php/options-menu-icon.php:89
 msgid "arrow_right_alt"
-msgstr ""
+msgstr "arrow_right_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:90
 msgid "arrow_upward"
-msgstr ""
+msgstr "arrow_upward"
 
 #: library/AcfFields/php/options-menu-icon.php:91
 msgid "art_track"
-msgstr ""
+msgstr "art_track"
 
 #: library/AcfFields/php/options-menu-icon.php:92
 msgid "aspect_ratio"
-msgstr ""
+msgstr "aspect_ratio"
 
 #: library/AcfFields/php/options-menu-icon.php:93
 msgid "assessment"
-msgstr ""
+msgstr "assessment"
 
 #: library/AcfFields/php/options-menu-icon.php:94
 msgid "assignment"
-msgstr ""
+msgstr "assignment"
 
 #: library/AcfFields/php/options-menu-icon.php:95
 msgid "assignment_ind"
-msgstr ""
+msgstr "assignment_ind"
 
 #: library/AcfFields/php/options-menu-icon.php:96
 msgid "assignment_late"
-msgstr ""
+msgstr "assignment_late"
 
 #: library/AcfFields/php/options-menu-icon.php:97
 msgid "assignment_return"
-msgstr ""
+msgstr "assignment_return"
 
 #: library/AcfFields/php/options-menu-icon.php:98
 msgid "assignment_returned"
-msgstr ""
+msgstr "assignment_returned"
 
 #: library/AcfFields/php/options-menu-icon.php:99
 msgid "assignment_turned_in"
-msgstr ""
+msgstr "assignment_turned_in"
 
 #: library/AcfFields/php/options-menu-icon.php:100
 msgid "assistant"
-msgstr ""
+msgstr "assistant"
 
 #: library/AcfFields/php/options-menu-icon.php:101
 msgid "assistant_photo"
-msgstr ""
+msgstr "assistant_photo"
 
 #: library/AcfFields/php/options-menu-icon.php:102
 msgid "atm"
-msgstr ""
+msgstr "atm"
 
 #: library/AcfFields/php/options-menu-icon.php:103
 msgid "attach_file"
-msgstr ""
+msgstr "attach_file"
 
 #: library/AcfFields/php/options-menu-icon.php:104
 msgid "attach_money"
-msgstr ""
+msgstr "attach_money"
 
 #: library/AcfFields/php/options-menu-icon.php:105
 msgid "attachment"
-msgstr ""
+msgstr "attachment"
 
 #: library/AcfFields/php/options-menu-icon.php:106
 msgid "audiotrack"
-msgstr ""
+msgstr "audiotrack"
 
 #: library/AcfFields/php/options-menu-icon.php:107
 msgid "autorenew"
-msgstr ""
+msgstr "autorenew"
 
 #: library/AcfFields/php/options-menu-icon.php:108
 msgid "av_timer"
-msgstr ""
+msgstr "av_timer"
 
 #: library/AcfFields/php/options-menu-icon.php:109
 msgid "backspace"
-msgstr ""
+msgstr "backspace"
 
 #: library/AcfFields/php/options-menu-icon.php:110
 msgid "backup"
-msgstr ""
+msgstr "backup"
 
 #: library/AcfFields/php/options-menu-icon.php:111
 msgid "ballot"
-msgstr ""
+msgstr "ballot"
 
 #: library/AcfFields/php/options-menu-icon.php:112
 msgid "bar_chart"
-msgstr ""
+msgstr "bar_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:113
 msgid "bathtub"
-msgstr ""
+msgstr "bathtub"
 
 #: library/AcfFields/php/options-menu-icon.php:114
 msgid "battery_alert"
-msgstr ""
+msgstr "battery_alert"
 
 #: library/AcfFields/php/options-menu-icon.php:115
 msgid "battery_charging_full"
-msgstr ""
+msgstr "battery_charging_full"
 
 #: library/AcfFields/php/options-menu-icon.php:116
 msgid "battery_full"
-msgstr ""
+msgstr "battery_full"
 
 #: library/AcfFields/php/options-menu-icon.php:117
 msgid "battery_std"
-msgstr ""
+msgstr "battery_std"
 
 #: library/AcfFields/php/options-menu-icon.php:118
 msgid "battery_unknown"
-msgstr ""
+msgstr "battery_unknown"
 
 #: library/AcfFields/php/options-menu-icon.php:119
 msgid "beach_access"
-msgstr ""
+msgstr "beach_access"
 
 #: library/AcfFields/php/options-menu-icon.php:120
 msgid "beenhere"
-msgstr ""
+msgstr "beenhere"
 
 #: library/AcfFields/php/options-menu-icon.php:121
 msgid "block"
-msgstr ""
+msgstr "block"
 
 #: library/AcfFields/php/options-menu-icon.php:122
 msgid "bluetooth"
-msgstr ""
+msgstr "bluetooth"
 
 #: library/AcfFields/php/options-menu-icon.php:123
 msgid "bluetooth_audio"
-msgstr ""
+msgstr "bluetooth_audio"
 
 #: library/AcfFields/php/options-menu-icon.php:124
 msgid "bluetooth_connected"
-msgstr ""
+msgstr "bluetooth_connected"
 
 #: library/AcfFields/php/options-menu-icon.php:125
 msgid "bluetooth_disabled"
-msgstr ""
+msgstr "bluetooth_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:126
 msgid "bluetooth_searching"
-msgstr ""
+msgstr "bluetooth_searching"
 
 #: library/AcfFields/php/options-menu-icon.php:127
 msgid "blur_circular"
-msgstr ""
+msgstr "blur_circular"
 
 #: library/AcfFields/php/options-menu-icon.php:128
 msgid "blur_linear"
-msgstr ""
+msgstr "blur_linear"
 
 #: library/AcfFields/php/options-menu-icon.php:129
 msgid "blur_off"
-msgstr ""
+msgstr "blur_off"
 
 #: library/AcfFields/php/options-menu-icon.php:130
 msgid "blur_on"
-msgstr ""
+msgstr "blur_on"
 
 #: library/AcfFields/php/options-menu-icon.php:131
 msgid "book"
-msgstr ""
+msgstr "book"
 
 #: library/AcfFields/php/options-menu-icon.php:132
 msgid "bookmark"
-msgstr ""
+msgstr "bookmark"
 
 #: library/AcfFields/php/options-menu-icon.php:133
 msgid "bookmark_border"
-msgstr ""
+msgstr "bookmark_border"
 
 #: library/AcfFields/php/options-menu-icon.php:134
 msgid "bookmarks"
-msgstr ""
+msgstr "bookmarks"
 
 #: library/AcfFields/php/options-menu-icon.php:135
 msgid "border_all"
-msgstr ""
+msgstr "border_all"
 
 #: library/AcfFields/php/options-menu-icon.php:136
 msgid "border_bottom"
-msgstr ""
+msgstr "border_bottom"
 
 #: library/AcfFields/php/options-menu-icon.php:137
 msgid "border_clear"
-msgstr ""
+msgstr "border_clear"
 
 #: library/AcfFields/php/options-menu-icon.php:138
 msgid "border_horizontal"
-msgstr ""
+msgstr "border_horizontal"
 
 #: library/AcfFields/php/options-menu-icon.php:139
 msgid "border_inner"
-msgstr ""
+msgstr "border_inner"
 
 #: library/AcfFields/php/options-menu-icon.php:140
 msgid "border_left"
-msgstr ""
+msgstr "border_left"
 
 #: library/AcfFields/php/options-menu-icon.php:141
 msgid "border_outer"
-msgstr ""
+msgstr "border_outer"
 
 #: library/AcfFields/php/options-menu-icon.php:142
 msgid "border_right"
-msgstr ""
+msgstr "border_right"
 
 #: library/AcfFields/php/options-menu-icon.php:143
 msgid "border_style"
-msgstr ""
+msgstr "border_style"
 
 #: library/AcfFields/php/options-menu-icon.php:144
 msgid "border_top"
-msgstr ""
+msgstr "border_top"
 
 #: library/AcfFields/php/options-menu-icon.php:145
 msgid "border_vertical"
-msgstr ""
+msgstr "border_vertical"
 
 #: library/AcfFields/php/options-menu-icon.php:146
 msgid "branding_watermark"
-msgstr ""
+msgstr "branding_watermark"
 
 #: library/AcfFields/php/options-menu-icon.php:147
 msgid "brightness_1"
-msgstr ""
+msgstr "brightness_1"
 
 #: library/AcfFields/php/options-menu-icon.php:148
 msgid "brightness_2"
-msgstr ""
+msgstr "brightness_2"
 
 #: library/AcfFields/php/options-menu-icon.php:149
 msgid "brightness_3"
-msgstr ""
+msgstr "brightness_3"
 
 #: library/AcfFields/php/options-menu-icon.php:150
 msgid "brightness_4"
-msgstr ""
+msgstr "brightness_4"
 
 #: library/AcfFields/php/options-menu-icon.php:151
 msgid "brightness_5"
-msgstr ""
+msgstr "brightness_5"
 
 #: library/AcfFields/php/options-menu-icon.php:152
 msgid "brightness_6"
-msgstr ""
+msgstr "brightness_6"
 
 #: library/AcfFields/php/options-menu-icon.php:153
 msgid "brightness_7"
-msgstr ""
+msgstr "brightness_7"
 
 #: library/AcfFields/php/options-menu-icon.php:154
 msgid "brightness_auto"
-msgstr ""
+msgstr "brightness_auto"
 
 #: library/AcfFields/php/options-menu-icon.php:155
 msgid "brightness_high"
-msgstr ""
+msgstr "brightness_high"
 
 #: library/AcfFields/php/options-menu-icon.php:156
 msgid "brightness_low"
-msgstr ""
+msgstr "brightness_low"
 
 #: library/AcfFields/php/options-menu-icon.php:157
 msgid "brightness_medium"
-msgstr ""
+msgstr "brightness_medium"
 
 #: library/AcfFields/php/options-menu-icon.php:158
 msgid "broken_image"
-msgstr ""
+msgstr "broken_image"
 
 #: library/AcfFields/php/options-menu-icon.php:159
 msgid "brush"
-msgstr ""
+msgstr "brush"
 
 #: library/AcfFields/php/options-menu-icon.php:160
 msgid "bubble_chart"
-msgstr ""
+msgstr "bubble_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:161
 msgid "bug_report"
-msgstr ""
+msgstr "bug_report"
 
 #: library/AcfFields/php/options-menu-icon.php:162
 msgid "build"
-msgstr ""
+msgstr "build"
 
 #: library/AcfFields/php/options-menu-icon.php:163
 msgid "burst_mode"
-msgstr ""
+msgstr "burst_mode"
 
 #: library/AcfFields/php/options-menu-icon.php:164
 msgid "business"
-msgstr ""
+msgstr "business"
 
 #: library/AcfFields/php/options-menu-icon.php:165
 msgid "business_center"
-msgstr ""
+msgstr "business_center"
 
 #: library/AcfFields/php/options-menu-icon.php:166
 msgid "cached"
-msgstr ""
+msgstr "cached"
 
 #: library/AcfFields/php/options-menu-icon.php:167
 msgid "cake"
-msgstr ""
+msgstr "cake"
 
 #: library/AcfFields/php/options-menu-icon.php:168
 msgid "calendar_today"
-msgstr ""
+msgstr "calendar_today"
 
 #: library/AcfFields/php/options-menu-icon.php:169
 msgid "calendar_view_day"
-msgstr ""
+msgstr "calendar_view_day"
 
 #: library/AcfFields/php/options-menu-icon.php:170
 msgid "call"
-msgstr ""
+msgstr "call"
 
 #: library/AcfFields/php/options-menu-icon.php:171
 msgid "call_end"
-msgstr ""
+msgstr "call_end"
 
 #: library/AcfFields/php/options-menu-icon.php:172
 msgid "call_made"
-msgstr ""
+msgstr "call_made"
 
 #: library/AcfFields/php/options-menu-icon.php:173
 msgid "call_merge"
-msgstr ""
+msgstr "call_merge"
 
 #: library/AcfFields/php/options-menu-icon.php:174
 msgid "call_missed"
-msgstr ""
+msgstr "call_missed"
 
 #: library/AcfFields/php/options-menu-icon.php:175
 msgid "call_missed_outgoing"
-msgstr ""
+msgstr "call_missed_outgoing"
 
 #: library/AcfFields/php/options-menu-icon.php:176
 msgid "call_received"
-msgstr ""
+msgstr "call_received"
 
 #: library/AcfFields/php/options-menu-icon.php:177
 msgid "call_split"
-msgstr ""
+msgstr "call_split"
 
 #: library/AcfFields/php/options-menu-icon.php:178
 msgid "call_to_action"
-msgstr ""
+msgstr "call_to_action"
 
 #: library/AcfFields/php/options-menu-icon.php:179
 msgid "camera"
-msgstr ""
+msgstr "camera"
 
 #: library/AcfFields/php/options-menu-icon.php:180
 msgid "camera_alt"
-msgstr ""
+msgstr "camera_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:181
 msgid "camera_enhance"
-msgstr ""
+msgstr "camera_enhance"
 
 #: library/AcfFields/php/options-menu-icon.php:182
 msgid "camera_front"
-msgstr ""
+msgstr "camera_front"
 
 #: library/AcfFields/php/options-menu-icon.php:183
 msgid "camera_rear"
-msgstr ""
+msgstr "camera_rear"
 
 #: library/AcfFields/php/options-menu-icon.php:184
 msgid "camera_roll"
-msgstr ""
+msgstr "camera_roll"
 
 #: library/AcfFields/php/options-menu-icon.php:185
 msgid "cancel"
-msgstr ""
+msgstr "cancel"
 
 #: library/AcfFields/php/options-menu-icon.php:186
 msgid "cancel_presentation"
-msgstr ""
+msgstr "cancel_presentation"
 
 #: library/AcfFields/php/options-menu-icon.php:187
 msgid "cancel_schedule_send"
-msgstr ""
+msgstr "cancel_schedule_send"
 
 #: library/AcfFields/php/options-menu-icon.php:188
 msgid "card_giftcard"
-msgstr ""
+msgstr "card_giftcard"
 
 #: library/AcfFields/php/options-menu-icon.php:189
 msgid "card_membership"
-msgstr ""
+msgstr "card_membership"
 
 #: library/AcfFields/php/options-menu-icon.php:190
 msgid "card_travel"
-msgstr ""
+msgstr "card_travel"
 
 #: library/AcfFields/php/options-menu-icon.php:191
 msgid "casino"
-msgstr ""
+msgstr "casino"
 
 #: library/AcfFields/php/options-menu-icon.php:192
 msgid "cast"
-msgstr ""
+msgstr "cast"
 
 #: library/AcfFields/php/options-menu-icon.php:193
 msgid "cast_connected"
-msgstr ""
+msgstr "cast_connected"
 
 #: library/AcfFields/php/options-menu-icon.php:194
 msgid "category"
-msgstr ""
+msgstr "category"
 
 #: library/AcfFields/php/options-menu-icon.php:195
 msgid "center_focus_strong"
-msgstr ""
+msgstr "center_focus_strong"
 
 #: library/AcfFields/php/options-menu-icon.php:196
 msgid "center_focus_weak"
-msgstr ""
+msgstr "center_focus_weak"
 
 #: library/AcfFields/php/options-menu-icon.php:197
 msgid "change_history"
-msgstr ""
+msgstr "change_history"
 
 #: library/AcfFields/php/options-menu-icon.php:198
 msgid "chat"
-msgstr ""
+msgstr "chat"
 
 #: library/AcfFields/php/options-menu-icon.php:199
 msgid "chat_bubble"
-msgstr ""
+msgstr "chat_bubble"
 
 #: library/AcfFields/php/options-menu-icon.php:200
 msgid "chat_bubble_outline"
-msgstr ""
+msgstr "chat_bubble_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:201
 msgid "check"
-msgstr ""
+msgstr "check"
 
 #: library/AcfFields/php/options-menu-icon.php:202
 msgid "check_box"
-msgstr ""
+msgstr "check_box"
 
 #: library/AcfFields/php/options-menu-icon.php:203
 msgid "check_box_outline_blank"
-msgstr ""
+msgstr "check_box_outline_blank"
 
 #: library/AcfFields/php/options-menu-icon.php:204
 msgid "check_circle"
-msgstr ""
+msgstr "check_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:205
 msgid "check_circle_outline"
-msgstr ""
+msgstr "check_circle_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:206
 msgid "chevron_left"
-msgstr ""
+msgstr "chevron_left"
 
 #: library/AcfFields/php/options-menu-icon.php:207
 msgid "chevron_right"
-msgstr ""
+msgstr "chevron_right"
 
 #: library/AcfFields/php/options-menu-icon.php:208
 msgid "child_care"
-msgstr ""
+msgstr "child_care"
 
 #: library/AcfFields/php/options-menu-icon.php:209
 msgid "child_friendly"
-msgstr ""
+msgstr "child_friendly"
 
 #: library/AcfFields/php/options-menu-icon.php:210
 msgid "chrome_reader_mode"
-msgstr ""
+msgstr "chrome_reader_mode"
 
 #: library/AcfFields/php/options-menu-icon.php:211
 msgid "class"
-msgstr ""
+msgstr "class"
 
 #: library/AcfFields/php/options-menu-icon.php:212
 msgid "clear"
-msgstr ""
+msgstr "clear"
 
 #: library/AcfFields/php/options-menu-icon.php:213
 msgid "clear_all"
-msgstr ""
+msgstr "clear_all"
 
 #: library/AcfFields/php/options-menu-icon.php:214
 msgid "close"
-msgstr ""
+msgstr "close"
 
 #: library/AcfFields/php/options-menu-icon.php:215
 msgid "closed_caption"
-msgstr ""
+msgstr "closed_caption"
 
 #: library/AcfFields/php/options-menu-icon.php:216
 msgid "cloud"
-msgstr ""
+msgstr "cloud"
 
 #: library/AcfFields/php/options-menu-icon.php:217
 msgid "cloud_circle"
-msgstr ""
+msgstr "cloud_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:218
 msgid "cloud_done"
-msgstr ""
+msgstr "cloud_done"
 
 #: library/AcfFields/php/options-menu-icon.php:219
 msgid "cloud_download"
-msgstr ""
+msgstr "cloud_download"
 
 #: library/AcfFields/php/options-menu-icon.php:220
 msgid "cloud_off"
-msgstr ""
+msgstr "cloud_off"
 
 #: library/AcfFields/php/options-menu-icon.php:221
 msgid "cloud_queue"
-msgstr ""
+msgstr "cloud_queue"
 
 #: library/AcfFields/php/options-menu-icon.php:222
 msgid "cloud_upload"
-msgstr ""
+msgstr "cloud_upload"
 
 #: library/AcfFields/php/options-menu-icon.php:223
 msgid "code"
-msgstr ""
+msgstr "code"
 
 #: library/AcfFields/php/options-menu-icon.php:224
 msgid "collections"
-msgstr ""
+msgstr "collections"
 
 #: library/AcfFields/php/options-menu-icon.php:225
 msgid "collections_bookmark"
-msgstr ""
+msgstr "collections_bookmark"
 
 #: library/AcfFields/php/options-menu-icon.php:226
 msgid "color_lens"
-msgstr ""
+msgstr "color_lens"
 
 #: library/AcfFields/php/options-menu-icon.php:227
 msgid "colorize"
-msgstr ""
+msgstr "colorize"
 
 #: library/AcfFields/php/options-menu-icon.php:228
 msgid "comment"
@@ -1184,1907 +1180,1907 @@ msgstr "Kommentar"
 
 #: library/AcfFields/php/options-menu-icon.php:229
 msgid "commute"
-msgstr ""
+msgstr "commute"
 
 #: library/AcfFields/php/options-menu-icon.php:230
 msgid "compare"
-msgstr ""
+msgstr "compare"
 
 #: library/AcfFields/php/options-menu-icon.php:231
 msgid "compare_arrows"
-msgstr ""
+msgstr "compare_arrows"
 
 #: library/AcfFields/php/options-menu-icon.php:232
 msgid "compass_calibration"
-msgstr ""
+msgstr "compass_calibration"
 
 #: library/AcfFields/php/options-menu-icon.php:233
 msgid "computer"
-msgstr ""
+msgstr "computer"
 
 #: library/AcfFields/php/options-menu-icon.php:234
 msgid "confirmation_number"
-msgstr ""
+msgstr "confirmation_number"
 
 #: library/AcfFields/php/options-menu-icon.php:235
 msgid "contact_mail"
-msgstr ""
+msgstr "contact_mail"
 
 #: library/AcfFields/php/options-menu-icon.php:236
 msgid "contact_phone"
-msgstr ""
+msgstr "contact_phone"
 
 #: library/AcfFields/php/options-menu-icon.php:237
 msgid "contact_support"
-msgstr ""
+msgstr "contact_support"
 
 #: library/AcfFields/php/options-menu-icon.php:238
 msgid "contactless"
-msgstr ""
+msgstr "contactless"
 
 #: library/AcfFields/php/options-menu-icon.php:239
 msgid "contacts"
-msgstr ""
+msgstr "contacts"
 
 #: library/AcfFields/php/options-menu-icon.php:240
 msgid "control_camera"
-msgstr ""
+msgstr "control_camera"
 
 #: library/AcfFields/php/options-menu-icon.php:241
 msgid "control_point"
-msgstr ""
+msgstr "control_point"
 
 #: library/AcfFields/php/options-menu-icon.php:242
 msgid "control_point_duplicate"
-msgstr ""
+msgstr "control_point_duplicate"
 
 #: library/AcfFields/php/options-menu-icon.php:243
 msgid "copyright"
-msgstr ""
+msgstr "copyright"
 
 #: library/AcfFields/php/options-menu-icon.php:244
 msgid "create"
-msgstr ""
+msgstr "create"
 
 #: library/AcfFields/php/options-menu-icon.php:245
 msgid "create_new_folder"
-msgstr ""
+msgstr "create_new_folder"
 
 #: library/AcfFields/php/options-menu-icon.php:246
 msgid "credit_card"
-msgstr ""
+msgstr "credit_card"
 
 #: library/AcfFields/php/options-menu-icon.php:247
 msgid "crop"
-msgstr ""
+msgstr "crop"
 
 #: library/AcfFields/php/options-menu-icon.php:248
 msgid "crop_16_9"
-msgstr ""
+msgstr "crop_16_9"
 
 #: library/AcfFields/php/options-menu-icon.php:249
 msgid "crop_3_2"
-msgstr ""
+msgstr "crop_3_2"
 
 #: library/AcfFields/php/options-menu-icon.php:250
 msgid "crop_5_4"
-msgstr ""
+msgstr "crop_5_4"
 
 #: library/AcfFields/php/options-menu-icon.php:251
 msgid "crop_7_5"
-msgstr ""
+msgstr "crop_7_5"
 
 #: library/AcfFields/php/options-menu-icon.php:252
 msgid "crop_din"
-msgstr ""
+msgstr "crop_din"
 
 #: library/AcfFields/php/options-menu-icon.php:253
 msgid "crop_free"
-msgstr ""
+msgstr "crop_free"
 
 #: library/AcfFields/php/options-menu-icon.php:254
 msgid "crop_landscape"
-msgstr ""
+msgstr "crop_landscape"
 
 #: library/AcfFields/php/options-menu-icon.php:255
 msgid "crop_original"
-msgstr ""
+msgstr "crop_original"
 
 #: library/AcfFields/php/options-menu-icon.php:256
 msgid "crop_portrait"
-msgstr ""
+msgstr "crop_portrait"
 
 #: library/AcfFields/php/options-menu-icon.php:257
 msgid "crop_rotate"
-msgstr ""
+msgstr "crop_rotate"
 
 #: library/AcfFields/php/options-menu-icon.php:258
 msgid "crop_square"
-msgstr ""
+msgstr "crop_square"
 
 #: library/AcfFields/php/options-menu-icon.php:259
 msgid "dashboard"
-msgstr ""
+msgstr "dashboard"
 
 #: library/AcfFields/php/options-menu-icon.php:260
 msgid "data_usage"
-msgstr ""
+msgstr "data_usage"
 
 #: library/AcfFields/php/options-menu-icon.php:261
 msgid "date_range"
-msgstr ""
+msgstr "date_range"
 
 #: library/AcfFields/php/options-menu-icon.php:262
 msgid "deck"
-msgstr ""
+msgstr "deck"
 
 #: library/AcfFields/php/options-menu-icon.php:263
 msgid "dehaze"
-msgstr ""
+msgstr "dehaze"
 
 #: library/AcfFields/php/options-menu-icon.php:264
 msgid "delete"
-msgstr ""
+msgstr "delete"
 
 #: library/AcfFields/php/options-menu-icon.php:265
 msgid "delete_forever"
-msgstr ""
+msgstr "delete_forever"
 
 #: library/AcfFields/php/options-menu-icon.php:266
 msgid "delete_outline"
-msgstr ""
+msgstr "delete_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:267
 msgid "delete_sweep"
-msgstr ""
+msgstr "delete_sweep"
 
 #: library/AcfFields/php/options-menu-icon.php:268
 msgid "departure_board"
-msgstr ""
+msgstr "departure_board"
 
 #: library/AcfFields/php/options-menu-icon.php:269
 msgid "description"
-msgstr ""
+msgstr "description"
 
 #: library/AcfFields/php/options-menu-icon.php:270
 msgid "desktop_access_disabled"
-msgstr ""
+msgstr "desktop_access_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:271
 msgid "desktop_mac"
-msgstr ""
+msgstr "desktop_mac"
 
 #: library/AcfFields/php/options-menu-icon.php:272
 msgid "desktop_windows"
-msgstr ""
+msgstr "desktop_windows"
 
 #: library/AcfFields/php/options-menu-icon.php:273
 msgid "details"
-msgstr ""
+msgstr "details"
 
 #: library/AcfFields/php/options-menu-icon.php:274
 msgid "developer_board"
-msgstr ""
+msgstr "developer_board"
 
 #: library/AcfFields/php/options-menu-icon.php:275
 msgid "developer_mode"
-msgstr ""
+msgstr "developer_mode"
 
 #: library/AcfFields/php/options-menu-icon.php:276
 msgid "device_hub"
-msgstr ""
+msgstr "device_hub"
 
 #: library/AcfFields/php/options-menu-icon.php:277
 msgid "device_unknown"
-msgstr ""
+msgstr "device_unknown"
 
 #: library/AcfFields/php/options-menu-icon.php:278
 msgid "devices"
-msgstr ""
+msgstr "devices"
 
 #: library/AcfFields/php/options-menu-icon.php:279
 msgid "devices_other"
-msgstr ""
+msgstr "devices_other"
 
 #: library/AcfFields/php/options-menu-icon.php:280
 msgid "dialer_sip"
-msgstr ""
+msgstr "dialer_sip"
 
 #: library/AcfFields/php/options-menu-icon.php:281
 msgid "dialpad"
-msgstr ""
+msgstr "dialpad"
 
 #: library/AcfFields/php/options-menu-icon.php:282
 msgid "directions"
-msgstr ""
+msgstr "directions"
 
 #: library/AcfFields/php/options-menu-icon.php:283
 msgid "directions_bike"
-msgstr ""
+msgstr "directions_bike"
 
 #: library/AcfFields/php/options-menu-icon.php:284
 msgid "directions_boat"
-msgstr ""
+msgstr "directions_boat"
 
 #: library/AcfFields/php/options-menu-icon.php:285
 msgid "directions_bus"
-msgstr ""
+msgstr "directions_bus"
 
 #: library/AcfFields/php/options-menu-icon.php:286
 msgid "directions_car"
-msgstr ""
+msgstr "directions_car"
 
 #: library/AcfFields/php/options-menu-icon.php:287
 msgid "directions_railway"
-msgstr ""
+msgstr "directions_railway"
 
 #: library/AcfFields/php/options-menu-icon.php:288
 msgid "directions_run"
-msgstr ""
+msgstr "directions_run"
 
 #: library/AcfFields/php/options-menu-icon.php:289
 msgid "directions_subway"
-msgstr ""
+msgstr "directions_subway"
 
 #: library/AcfFields/php/options-menu-icon.php:290
 msgid "directions_transit"
-msgstr ""
+msgstr "directions_transit"
 
 #: library/AcfFields/php/options-menu-icon.php:291
 msgid "directions_walk"
-msgstr ""
+msgstr "directions_walk"
 
 #: library/AcfFields/php/options-menu-icon.php:292
 msgid "disc_full"
-msgstr ""
+msgstr "disc_full"
 
 #: library/AcfFields/php/options-menu-icon.php:293
 msgid "dns"
-msgstr ""
+msgstr "dns"
 
 #: library/AcfFields/php/options-menu-icon.php:294
 msgid "dock"
-msgstr ""
+msgstr "dock"
 
 #: library/AcfFields/php/options-menu-icon.php:295
 msgid "domain_disabled"
-msgstr ""
+msgstr "domain_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:296
 msgid "done"
-msgstr ""
+msgstr "done"
 
 #: library/AcfFields/php/options-menu-icon.php:297
 msgid "done_all"
-msgstr ""
+msgstr "done_all"
 
 #: library/AcfFields/php/options-menu-icon.php:298
 msgid "done_outline"
-msgstr ""
+msgstr "done_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:299
 msgid "donut_large"
-msgstr ""
+msgstr "donut_large"
 
 #: library/AcfFields/php/options-menu-icon.php:300
 msgid "donut_small"
-msgstr ""
+msgstr "donut_small"
 
 #: library/AcfFields/php/options-menu-icon.php:301
 msgid "double_arrow"
-msgstr ""
+msgstr "double_arrow"
 
 #: library/AcfFields/php/options-menu-icon.php:302
 msgid "drafts"
-msgstr ""
+msgstr "drafts"
 
 #: library/AcfFields/php/options-menu-icon.php:303
 msgid "drag_handle"
-msgstr ""
+msgstr "drag_handle"
 
 #: library/AcfFields/php/options-menu-icon.php:304
 msgid "drag_indicator"
-msgstr ""
+msgstr "drag_indicator"
 
 #: library/AcfFields/php/options-menu-icon.php:305
 msgid "drive_eta"
-msgstr ""
+msgstr "drive_eta"
 
 #: library/AcfFields/php/options-menu-icon.php:306
 msgid "duo"
-msgstr ""
+msgstr "duo"
 
 #: library/AcfFields/php/options-menu-icon.php:307
 msgid "dvr"
-msgstr ""
+msgstr "dvr"
 
 #: library/AcfFields/php/options-menu-icon.php:308
 msgid "dynamic_feed"
-msgstr ""
+msgstr "dynamic_feed"
 
 #: library/AcfFields/php/options-menu-icon.php:309
 msgid "eco"
-msgstr ""
+msgstr "eco"
 
 #: library/AcfFields/php/options-menu-icon.php:310
 msgid "edit"
-msgstr ""
+msgstr "edit"
 
 #: library/AcfFields/php/options-menu-icon.php:311
 msgid "edit_attributes"
-msgstr ""
+msgstr "edit_attributes"
 
 #: library/AcfFields/php/options-menu-icon.php:312
 msgid "eject"
-msgstr ""
+msgstr "eject"
 
 #: library/AcfFields/php/options-menu-icon.php:313
 msgid "email"
-msgstr ""
+msgstr "email"
 
 #: library/AcfFields/php/options-menu-icon.php:314
 msgid "emoji_emotions"
-msgstr ""
+msgstr "emoji_emotions"
 
 #: library/AcfFields/php/options-menu-icon.php:315
 msgid "emoji_events"
-msgstr ""
+msgstr "emoji_events"
 
 #: library/AcfFields/php/options-menu-icon.php:316
 msgid "emoji_flags"
-msgstr ""
+msgstr "emoji_flags"
 
 #: library/AcfFields/php/options-menu-icon.php:317
 msgid "emoji_food_beverage"
-msgstr ""
+msgstr "emoji_food_beverage"
 
 #: library/AcfFields/php/options-menu-icon.php:318
 msgid "emoji_nature"
-msgstr ""
+msgstr "emoji_nature"
 
 #: library/AcfFields/php/options-menu-icon.php:319
 msgid "emoji_objects"
-msgstr ""
+msgstr "emoji_objects"
 
 #: library/AcfFields/php/options-menu-icon.php:320
 msgid "emoji_people"
-msgstr ""
+msgstr "emoji_people"
 
 #: library/AcfFields/php/options-menu-icon.php:321
 msgid "emoji_symbols"
-msgstr ""
+msgstr "emoji_symbols"
 
 #: library/AcfFields/php/options-menu-icon.php:322
 msgid "emoji_transportation"
-msgstr ""
+msgstr "emoji_transportation"
 
 #: library/AcfFields/php/options-menu-icon.php:323
 msgid "enhanced_encryption"
-msgstr ""
+msgstr "enhanced_encryption"
 
 #: library/AcfFields/php/options-menu-icon.php:324
 msgid "equalizer"
-msgstr ""
+msgstr "equalizer"
 
 #: library/AcfFields/php/options-menu-icon.php:325
 msgid "error"
-msgstr ""
+msgstr "error"
 
 #: library/AcfFields/php/options-menu-icon.php:326
 msgid "error_outline"
-msgstr ""
+msgstr "error_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:327
 msgid "euro"
-msgstr ""
+msgstr "euro"
 
 #: library/AcfFields/php/options-menu-icon.php:328
 msgid "euro_symbol"
-msgstr ""
+msgstr "euro_symbol"
 
 #: library/AcfFields/php/options-menu-icon.php:329
 msgid "ev_station"
-msgstr ""
+msgstr "ev_station"
 
 #: library/AcfFields/php/options-menu-icon.php:330
 msgid "event"
-msgstr ""
+msgstr "event"
 
 #: library/AcfFields/php/options-menu-icon.php:331
 msgid "event_available"
-msgstr ""
+msgstr "event_available"
 
 #: library/AcfFields/php/options-menu-icon.php:332
 msgid "event_busy"
-msgstr ""
+msgstr "event_busy"
 
 #: library/AcfFields/php/options-menu-icon.php:333
 msgid "event_note"
-msgstr ""
+msgstr "event_note"
 
 #: library/AcfFields/php/options-menu-icon.php:334
 msgid "event_seat"
-msgstr ""
+msgstr "event_seat"
 
 #: library/AcfFields/php/options-menu-icon.php:335
 msgid "exit_to_app"
-msgstr ""
+msgstr "exit_to_app"
 
 #: library/AcfFields/php/options-menu-icon.php:336
 msgid "expand_less"
-msgstr ""
+msgstr "expand_less"
 
 #: library/AcfFields/php/options-menu-icon.php:337
 msgid "expand_more"
-msgstr ""
+msgstr "expand_more"
 
 #: library/AcfFields/php/options-menu-icon.php:338
 msgid "explicit"
-msgstr ""
+msgstr "explicit"
 
 #: library/AcfFields/php/options-menu-icon.php:339
 msgid "explore"
-msgstr ""
+msgstr "explore"
 
 #: library/AcfFields/php/options-menu-icon.php:340
 msgid "explore_off"
-msgstr ""
+msgstr "explore_off"
 
 #: library/AcfFields/php/options-menu-icon.php:341
 msgid "exposure"
-msgstr ""
+msgstr "exposure"
 
 #: library/AcfFields/php/options-menu-icon.php:342
 msgid "exposure_neg_1"
-msgstr ""
+msgstr "exposure_neg_1"
 
 #: library/AcfFields/php/options-menu-icon.php:343
 msgid "exposure_neg_2"
-msgstr ""
+msgstr "exposure_neg_2"
 
 #: library/AcfFields/php/options-menu-icon.php:344
 msgid "exposure_plus_1"
-msgstr ""
+msgstr "exposure_plus_1"
 
 #: library/AcfFields/php/options-menu-icon.php:345
 msgid "exposure_plus_2"
-msgstr ""
+msgstr "exposure_plus_2"
 
 #: library/AcfFields/php/options-menu-icon.php:346
 msgid "exposure_zero"
-msgstr ""
+msgstr "exposure_zero"
 
 #: library/AcfFields/php/options-menu-icon.php:347
 msgid "extension"
-msgstr ""
+msgstr "extension"
 
 #: library/AcfFields/php/options-menu-icon.php:348
 msgid "face"
-msgstr ""
+msgstr "face"
 
 #: library/AcfFields/php/options-menu-icon.php:349
 msgid "fast_forward"
-msgstr ""
+msgstr "fast_forward"
 
 #: library/AcfFields/php/options-menu-icon.php:350
 msgid "fast_rewind"
-msgstr ""
+msgstr "fast_rewind"
 
 #: library/AcfFields/php/options-menu-icon.php:351
 msgid "fastfood"
-msgstr ""
+msgstr "fastfood"
 
 #: library/AcfFields/php/options-menu-icon.php:352
 msgid "favorite"
-msgstr ""
+msgstr "favorite"
 
 #: library/AcfFields/php/options-menu-icon.php:353
 msgid "favorite_border"
-msgstr ""
+msgstr "favorite_border"
 
 #: library/AcfFields/php/options-menu-icon.php:354
 msgid "featured_play_list"
-msgstr ""
+msgstr "featured_play_list"
 
 #: library/AcfFields/php/options-menu-icon.php:355
 msgid "featured_video"
-msgstr ""
+msgstr "featured_video"
 
 #: library/AcfFields/php/options-menu-icon.php:356
 msgid "feedback"
-msgstr ""
+msgstr "feedback"
 
 #: library/AcfFields/php/options-menu-icon.php:357
 msgid "fiber_dvr"
-msgstr ""
+msgstr "fiber_dvr"
 
 #: library/AcfFields/php/options-menu-icon.php:358
 msgid "fiber_manual_record"
-msgstr ""
+msgstr "fiber_manual_record"
 
 #: library/AcfFields/php/options-menu-icon.php:359
 msgid "fiber_new"
-msgstr ""
+msgstr "fiber_new"
 
 #: library/AcfFields/php/options-menu-icon.php:360
 msgid "fiber_pin"
-msgstr ""
+msgstr "fiber_pin"
 
 #: library/AcfFields/php/options-menu-icon.php:361
 msgid "fiber_smart_record"
-msgstr ""
+msgstr "fiber_smart_record"
 
 #: library/AcfFields/php/options-menu-icon.php:362
 msgid "file_copy"
-msgstr ""
+msgstr "file_copy"
 
 #: library/AcfFields/php/options-menu-icon.php:363
 msgid "filter"
-msgstr ""
+msgstr "filter"
 
 #: library/AcfFields/php/options-menu-icon.php:364
 msgid "filter_1"
-msgstr ""
+msgstr "filter_1"
 
 #: library/AcfFields/php/options-menu-icon.php:365
 msgid "filter_2"
-msgstr ""
+msgstr "filter_2"
 
 #: library/AcfFields/php/options-menu-icon.php:366
 msgid "filter_3"
-msgstr ""
+msgstr "filter_3"
 
 #: library/AcfFields/php/options-menu-icon.php:367
 msgid "filter_4"
-msgstr ""
+msgstr "filter_4"
 
 #: library/AcfFields/php/options-menu-icon.php:368
 msgid "filter_5"
-msgstr ""
+msgstr "filter_5"
 
 #: library/AcfFields/php/options-menu-icon.php:369
 msgid "filter_6"
-msgstr ""
+msgstr "filter_6"
 
 #: library/AcfFields/php/options-menu-icon.php:370
 msgid "filter_7"
-msgstr ""
+msgstr "filter_7"
 
 #: library/AcfFields/php/options-menu-icon.php:371
 msgid "filter_8"
-msgstr ""
+msgstr "filter_8"
 
 #: library/AcfFields/php/options-menu-icon.php:372
 msgid "filter_9"
-msgstr ""
+msgstr "filter_9"
 
 #: library/AcfFields/php/options-menu-icon.php:373
 msgid "filter_9_plus"
-msgstr ""
+msgstr "filter_9_plus"
 
 #: library/AcfFields/php/options-menu-icon.php:374
 msgid "filter_b_and_w"
-msgstr ""
+msgstr "filter_b_and_w"
 
 #: library/AcfFields/php/options-menu-icon.php:375
 msgid "filter_center_focus"
-msgstr ""
+msgstr "filter_center_focus"
 
 #: library/AcfFields/php/options-menu-icon.php:376
 msgid "filter_drama"
-msgstr ""
+msgstr "filter_drama"
 
 #: library/AcfFields/php/options-menu-icon.php:377
 msgid "filter_frames"
-msgstr ""
+msgstr "filter_frames"
 
 #: library/AcfFields/php/options-menu-icon.php:378
 msgid "filter_hdr"
-msgstr ""
+msgstr "filter_hdr"
 
 #: library/AcfFields/php/options-menu-icon.php:379
 msgid "filter_list"
-msgstr ""
+msgstr "filter_list"
 
 #: library/AcfFields/php/options-menu-icon.php:380
 msgid "filter_none"
-msgstr ""
+msgstr "filter_none"
 
 #: library/AcfFields/php/options-menu-icon.php:381
 msgid "filter_tilt_shift"
-msgstr ""
+msgstr "filter_tilt_shift"
 
 #: library/AcfFields/php/options-menu-icon.php:382
 msgid "filter_vintage"
-msgstr ""
+msgstr "filter_vintage"
 
 #: library/AcfFields/php/options-menu-icon.php:383
 msgid "find_in_page"
-msgstr ""
+msgstr "find_in_page"
 
 #: library/AcfFields/php/options-menu-icon.php:384
 msgid "find_replace"
-msgstr ""
+msgstr "find_replace"
 
 #: library/AcfFields/php/options-menu-icon.php:385
 msgid "fingerprint"
-msgstr ""
+msgstr "fingerprint"
 
 #: library/AcfFields/php/options-menu-icon.php:386
 msgid "fireplace"
-msgstr ""
+msgstr "fireplace"
 
 #: library/AcfFields/php/options-menu-icon.php:387
 msgid "first_page"
-msgstr ""
+msgstr "first_page"
 
 #: library/AcfFields/php/options-menu-icon.php:388
 msgid "fitness_center"
-msgstr ""
+msgstr "fitness_center"
 
 #: library/AcfFields/php/options-menu-icon.php:389
 msgid "flag"
-msgstr ""
+msgstr "flag"
 
 #: library/AcfFields/php/options-menu-icon.php:390
 msgid "flare"
-msgstr ""
+msgstr "flare"
 
 #: library/AcfFields/php/options-menu-icon.php:391
 msgid "flash_auto"
-msgstr ""
+msgstr "flash_auto"
 
 #: library/AcfFields/php/options-menu-icon.php:392
 msgid "flash_off"
-msgstr ""
+msgstr "flash_off"
 
 #: library/AcfFields/php/options-menu-icon.php:393
 msgid "flash_on"
-msgstr ""
+msgstr "flash_on"
 
 #: library/AcfFields/php/options-menu-icon.php:394
 msgid "flight"
-msgstr ""
+msgstr "flight"
 
 #: library/AcfFields/php/options-menu-icon.php:395
 msgid "flight_land"
-msgstr ""
+msgstr "flight_land"
 
 #: library/AcfFields/php/options-menu-icon.php:396
 msgid "flight_takeoff"
-msgstr ""
+msgstr "flight_takeoff"
 
 #: library/AcfFields/php/options-menu-icon.php:397
 msgid "flip"
-msgstr ""
+msgstr "flip"
 
 #: library/AcfFields/php/options-menu-icon.php:398
 msgid "flip_camera_android"
-msgstr ""
+msgstr "flip_camera_android"
 
 #: library/AcfFields/php/options-menu-icon.php:399
 msgid "flip_camera_ios"
-msgstr ""
+msgstr "flip_camera_ios"
 
 #: library/AcfFields/php/options-menu-icon.php:400
 msgid "flip_to_back"
-msgstr ""
+msgstr "flip_to_back"
 
 #: library/AcfFields/php/options-menu-icon.php:401
 msgid "flip_to_front"
-msgstr ""
+msgstr "flip_to_front"
 
 #: library/AcfFields/php/options-menu-icon.php:402
 msgid "folder"
-msgstr ""
+msgstr "folder"
 
 #: library/AcfFields/php/options-menu-icon.php:403
 msgid "folder_open"
-msgstr ""
+msgstr "folder_open"
 
 #: library/AcfFields/php/options-menu-icon.php:404
 msgid "folder_shared"
-msgstr ""
+msgstr "folder_shared"
 
 #: library/AcfFields/php/options-menu-icon.php:405
 msgid "folder_special"
-msgstr ""
+msgstr "folder_special"
 
 #: library/AcfFields/php/options-menu-icon.php:406
 msgid "font_download"
-msgstr ""
+msgstr "font_download"
 
 #: library/AcfFields/php/options-menu-icon.php:407
 msgid "format_align_center"
-msgstr ""
+msgstr "format_align_center"
 
 #: library/AcfFields/php/options-menu-icon.php:408
 msgid "format_align_justify"
-msgstr ""
+msgstr "format_align_justify"
 
 #: library/AcfFields/php/options-menu-icon.php:409
 msgid "format_align_left"
-msgstr ""
+msgstr "format_align_left"
 
 #: library/AcfFields/php/options-menu-icon.php:410
 msgid "format_align_right"
-msgstr ""
+msgstr "format_align_right"
 
 #: library/AcfFields/php/options-menu-icon.php:411
 msgid "format_bold"
-msgstr ""
+msgstr "format_bold"
 
 #: library/AcfFields/php/options-menu-icon.php:412
 msgid "format_clear"
-msgstr ""
+msgstr "format_clear"
 
 #: library/AcfFields/php/options-menu-icon.php:413
 msgid "format_color_reset"
-msgstr ""
+msgstr "format_color_reset"
 
 #: library/AcfFields/php/options-menu-icon.php:414
 msgid "format_indent_decrease"
-msgstr ""
+msgstr "format_indent_decrease"
 
 #: library/AcfFields/php/options-menu-icon.php:415
 msgid "format_indent_increase"
-msgstr ""
+msgstr "format_indent_increase"
 
 #: library/AcfFields/php/options-menu-icon.php:416
 msgid "format_italic"
-msgstr ""
+msgstr "format_italic"
 
 #: library/AcfFields/php/options-menu-icon.php:417
 msgid "format_line_spacing"
-msgstr ""
+msgstr "format_line_spacing"
 
 #: library/AcfFields/php/options-menu-icon.php:418
 msgid "format_list_bulleted"
-msgstr ""
+msgstr "format_list_bulleted"
 
 #: library/AcfFields/php/options-menu-icon.php:419
 msgid "format_list_numbered"
-msgstr ""
+msgstr "format_list_numbered"
 
 #: library/AcfFields/php/options-menu-icon.php:420
 msgid "format_list_numbered_rtl"
-msgstr ""
+msgstr "format_list_numbered_rtl"
 
 #: library/AcfFields/php/options-menu-icon.php:421
 msgid "format_paint"
-msgstr ""
+msgstr "format_paint"
 
 #: library/AcfFields/php/options-menu-icon.php:422
 msgid "format_quote"
-msgstr ""
+msgstr "format_quote"
 
 #: library/AcfFields/php/options-menu-icon.php:423
 msgid "format_shapes"
-msgstr ""
+msgstr "format_shapes"
 
 #: library/AcfFields/php/options-menu-icon.php:424
 msgid "format_size"
-msgstr ""
+msgstr "format_size"
 
 #: library/AcfFields/php/options-menu-icon.php:425
 msgid "format_strikethrough"
-msgstr ""
+msgstr "format_strikethrough"
 
 #: library/AcfFields/php/options-menu-icon.php:426
 msgid "format_textdirection_l_to_r"
-msgstr ""
+msgstr "format_textdirection_l_to_r"
 
 #: library/AcfFields/php/options-menu-icon.php:427
 msgid "format_textdirection_r_to_l"
-msgstr ""
+msgstr "format_textdirection_r_to_l"
 
 #: library/AcfFields/php/options-menu-icon.php:428
 msgid "format_underlined"
-msgstr ""
+msgstr "format_underlined"
 
 #: library/AcfFields/php/options-menu-icon.php:429
 msgid "forum"
-msgstr ""
+msgstr "forum"
 
 #: library/AcfFields/php/options-menu-icon.php:430
 msgid "forward"
-msgstr ""
+msgstr "forward"
 
 #: library/AcfFields/php/options-menu-icon.php:431
 msgid "forward_10"
-msgstr ""
+msgstr "forward_10"
 
 #: library/AcfFields/php/options-menu-icon.php:432
 msgid "forward_30"
-msgstr ""
+msgstr "forward_30"
 
 #: library/AcfFields/php/options-menu-icon.php:433
 msgid "forward_5"
-msgstr ""
+msgstr "forward_5"
 
 #: library/AcfFields/php/options-menu-icon.php:434
 msgid "free_breakfast"
-msgstr ""
+msgstr "free_breakfast"
 
 #: library/AcfFields/php/options-menu-icon.php:435
 msgid "fullscreen"
-msgstr ""
+msgstr "fullscreen"
 
 #: library/AcfFields/php/options-menu-icon.php:436
 msgid "fullscreen_exit"
-msgstr ""
+msgstr "fullscreen_exit"
 
 #: library/AcfFields/php/options-menu-icon.php:437
 msgid "functions"
-msgstr ""
+msgstr "functions"
 
 #: library/AcfFields/php/options-menu-icon.php:438
 msgid "g_translate"
-msgstr ""
+msgstr "g_translate"
 
 #: library/AcfFields/php/options-menu-icon.php:439
 msgid "gamepad"
-msgstr ""
+msgstr "gamepad"
 
 #: library/AcfFields/php/options-menu-icon.php:440
 msgid "games"
-msgstr ""
+msgstr "games"
 
 #: library/AcfFields/php/options-menu-icon.php:441
 msgid "gavel"
-msgstr ""
+msgstr "gavel"
 
 #: library/AcfFields/php/options-menu-icon.php:442
 msgid "gesture"
-msgstr ""
+msgstr "gesture"
 
 #: library/AcfFields/php/options-menu-icon.php:443
 msgid "get_app"
-msgstr ""
+msgstr "get_app"
 
 #: library/AcfFields/php/options-menu-icon.php:444
 msgid "gif"
-msgstr ""
+msgstr "gif"
 
 #: library/AcfFields/php/options-menu-icon.php:445
 msgid "golf_course"
-msgstr ""
+msgstr "golf_course"
 
 #: library/AcfFields/php/options-menu-icon.php:446
 msgid "gps_fixed"
-msgstr ""
+msgstr "gps_fixed"
 
 #: library/AcfFields/php/options-menu-icon.php:447
 msgid "gps_not_fixed"
-msgstr ""
+msgstr "gps_not_fixed"
 
 #: library/AcfFields/php/options-menu-icon.php:448
 msgid "gps_off"
-msgstr ""
+msgstr "gps_off"
 
 #: library/AcfFields/php/options-menu-icon.php:449
 msgid "grade"
-msgstr ""
+msgstr "grade"
 
 #: library/AcfFields/php/options-menu-icon.php:450
 msgid "gradient"
-msgstr ""
+msgstr "gradient"
 
 #: library/AcfFields/php/options-menu-icon.php:451
 msgid "grain"
-msgstr ""
+msgstr "grain"
 
 #: library/AcfFields/php/options-menu-icon.php:452
 msgid "graphic_eq"
-msgstr ""
+msgstr "graphic_eq"
 
 #: library/AcfFields/php/options-menu-icon.php:453
 msgid "grid_off"
-msgstr ""
+msgstr "grid_off"
 
 #: library/AcfFields/php/options-menu-icon.php:454
 msgid "grid_on"
-msgstr ""
+msgstr "grid_on"
 
 #: library/AcfFields/php/options-menu-icon.php:455
 msgid "group"
-msgstr ""
+msgstr "group"
 
 #: library/AcfFields/php/options-menu-icon.php:456
 msgid "group_add"
-msgstr ""
+msgstr "group_add"
 
 #: library/AcfFields/php/options-menu-icon.php:457
 msgid "group_work"
-msgstr ""
+msgstr "group_work"
 
 #: library/AcfFields/php/options-menu-icon.php:458
 msgid "hd"
-msgstr ""
+msgstr "hd"
 
 #: library/AcfFields/php/options-menu-icon.php:459
 msgid "hdr_off"
-msgstr ""
+msgstr "hdr_off"
 
 #: library/AcfFields/php/options-menu-icon.php:460
 msgid "hdr_on"
-msgstr ""
+msgstr "hdr_on"
 
 #: library/AcfFields/php/options-menu-icon.php:461
 msgid "hdr_strong"
-msgstr ""
+msgstr "hdr_strong"
 
 #: library/AcfFields/php/options-menu-icon.php:462
 msgid "hdr_weak"
-msgstr ""
+msgstr "hdr_weak"
 
 #: library/AcfFields/php/options-menu-icon.php:463
 msgid "headset"
-msgstr ""
+msgstr "headset"
 
 #: library/AcfFields/php/options-menu-icon.php:464
 msgid "headset_mic"
-msgstr ""
+msgstr "headset_mic"
 
 #: library/AcfFields/php/options-menu-icon.php:465
 msgid "healing"
-msgstr ""
+msgstr "healing"
 
 #: library/AcfFields/php/options-menu-icon.php:466
 msgid "hearing"
-msgstr ""
+msgstr "hearing"
 
 #: library/AcfFields/php/options-menu-icon.php:467
 msgid "height"
-msgstr ""
+msgstr "height"
 
 #: library/AcfFields/php/options-menu-icon.php:468
 msgid "help"
-msgstr ""
+msgstr "help"
 
 #: library/AcfFields/php/options-menu-icon.php:469
 msgid "help_outline"
-msgstr ""
+msgstr "help_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:470
 msgid "high_quality"
-msgstr ""
+msgstr "high_quality"
 
 #: library/AcfFields/php/options-menu-icon.php:471
 msgid "highlight"
-msgstr ""
+msgstr "highlight"
 
 #: library/AcfFields/php/options-menu-icon.php:472
 msgid "highlight_off"
-msgstr ""
+msgstr "highlight_off"
 
 #: library/AcfFields/php/options-menu-icon.php:473
 msgid "history"
-msgstr ""
+msgstr "history"
 
 #: library/AcfFields/php/options-menu-icon.php:474
 msgid "home"
-msgstr ""
+msgstr "home"
 
 #: library/AcfFields/php/options-menu-icon.php:475
 msgid "home_work"
-msgstr ""
+msgstr "home_work"
 
 #: library/AcfFields/php/options-menu-icon.php:476
 msgid "horizontal_split"
-msgstr ""
+msgstr "horizontal_split"
 
 #: library/AcfFields/php/options-menu-icon.php:477
 msgid "hot_tub"
-msgstr ""
+msgstr "hot_tub"
 
 #: library/AcfFields/php/options-menu-icon.php:478
 msgid "hotel"
-msgstr ""
+msgstr "hotel"
 
 #: library/AcfFields/php/options-menu-icon.php:479
 msgid "hourglass_empty"
-msgstr ""
+msgstr "hourglass_empty"
 
 #: library/AcfFields/php/options-menu-icon.php:480
 msgid "hourglass_full"
-msgstr ""
+msgstr "hourglass_full"
 
 #: library/AcfFields/php/options-menu-icon.php:481
 msgid "house"
-msgstr ""
+msgstr "house"
 
 #: library/AcfFields/php/options-menu-icon.php:482
 msgid "how_to_reg"
-msgstr ""
+msgstr "how_to_reg"
 
 #: library/AcfFields/php/options-menu-icon.php:483
 msgid "how_to_vote"
-msgstr ""
+msgstr "how_to_vote"
 
 #: library/AcfFields/php/options-menu-icon.php:484
 msgid "http"
-msgstr ""
+msgstr "http"
 
 #: library/AcfFields/php/options-menu-icon.php:485
 msgid "https"
-msgstr ""
+msgstr "https"
 
 #: library/AcfFields/php/options-menu-icon.php:486
 msgid "image"
-msgstr ""
+msgstr "image"
 
 #: library/AcfFields/php/options-menu-icon.php:487
 msgid "image_aspect_ratio"
-msgstr ""
+msgstr "image_aspect_ratio"
 
 #: library/AcfFields/php/options-menu-icon.php:488
 msgid "image_search"
-msgstr ""
+msgstr "image_search"
 
 #: library/AcfFields/php/options-menu-icon.php:489
 msgid "import_contacts"
-msgstr ""
+msgstr "import_contacts"
 
 #: library/AcfFields/php/options-menu-icon.php:490
 msgid "import_export"
-msgstr ""
+msgstr "import_export"
 
 #: library/AcfFields/php/options-menu-icon.php:491
 msgid "important_devices"
-msgstr ""
+msgstr "important_devices"
 
 #: library/AcfFields/php/options-menu-icon.php:492
 msgid "inbox"
-msgstr ""
+msgstr "inbox"
 
 #: library/AcfFields/php/options-menu-icon.php:493
 msgid "indeterminate_check_box"
-msgstr ""
+msgstr "indeterminate_check_box"
 
 #: library/AcfFields/php/options-menu-icon.php:494
 msgid "info"
-msgstr ""
+msgstr "info"
 
 #: library/AcfFields/php/options-menu-icon.php:495
 msgid "input"
-msgstr ""
+msgstr "input"
 
 #: library/AcfFields/php/options-menu-icon.php:496
 msgid "insert_chart"
-msgstr ""
+msgstr "insert_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:497
 msgid "insert_chart_outlined"
-msgstr ""
+msgstr "insert_chart_outlined"
 
 #: library/AcfFields/php/options-menu-icon.php:498
 msgid "insert_comment"
-msgstr ""
+msgstr "insert_comment"
 
 #: library/AcfFields/php/options-menu-icon.php:499
 msgid "insert_drive_file"
-msgstr ""
+msgstr "insert_drive_file"
 
 #: library/AcfFields/php/options-menu-icon.php:500
 msgid "insert_emoticon"
-msgstr ""
+msgstr "insert_emoticon"
 
 #: library/AcfFields/php/options-menu-icon.php:501
 msgid "insert_invitation"
-msgstr ""
+msgstr "insert_invitation"
 
 #: library/AcfFields/php/options-menu-icon.php:502
 msgid "insert_link"
-msgstr ""
+msgstr "insert_link"
 
 #: library/AcfFields/php/options-menu-icon.php:503
 msgid "insert_photo"
-msgstr ""
+msgstr "insert_photo"
 
 #: library/AcfFields/php/options-menu-icon.php:504
 msgid "invert_colors"
-msgstr ""
+msgstr "invert_colors"
 
 #: library/AcfFields/php/options-menu-icon.php:505
 msgid "invert_colors_off"
-msgstr ""
+msgstr "invert_colors_off"
 
 #: library/AcfFields/php/options-menu-icon.php:506
 msgid "iso"
-msgstr ""
+msgstr "iso"
 
 #: library/AcfFields/php/options-menu-icon.php:507
 msgid "keyboard"
-msgstr ""
+msgstr "keyboard"
 
 #: library/AcfFields/php/options-menu-icon.php:508
 msgid "keyboard_arrow_down"
-msgstr ""
+msgstr "keyboard_arrow_down"
 
 #: library/AcfFields/php/options-menu-icon.php:509
 msgid "keyboard_arrow_left"
-msgstr ""
+msgstr "keyboard_arrow_left"
 
 #: library/AcfFields/php/options-menu-icon.php:510
 msgid "keyboard_arrow_right"
-msgstr ""
+msgstr "keyboard_arrow_right"
 
 #: library/AcfFields/php/options-menu-icon.php:511
 msgid "keyboard_arrow_up"
-msgstr ""
+msgstr "keyboard_arrow_up"
 
 #: library/AcfFields/php/options-menu-icon.php:512
 msgid "keyboard_backspace"
-msgstr ""
+msgstr "keyboard_backspace"
 
 #: library/AcfFields/php/options-menu-icon.php:513
 msgid "keyboard_capslock"
-msgstr ""
+msgstr "keyboard_capslock"
 
 #: library/AcfFields/php/options-menu-icon.php:514
 msgid "keyboard_hide"
-msgstr ""
+msgstr "keyboard_hide"
 
 #: library/AcfFields/php/options-menu-icon.php:515
 msgid "keyboard_return"
-msgstr ""
+msgstr "keyboard_return"
 
 #: library/AcfFields/php/options-menu-icon.php:516
 msgid "keyboard_tab"
-msgstr ""
+msgstr "keyboard_tab"
 
 #: library/AcfFields/php/options-menu-icon.php:517
 msgid "keyboard_voice"
-msgstr ""
+msgstr "keyboard_voice"
 
 #: library/AcfFields/php/options-menu-icon.php:518
 msgid "king_bed"
-msgstr ""
+msgstr "king_bed"
 
 #: library/AcfFields/php/options-menu-icon.php:519
 msgid "kitchen"
-msgstr ""
+msgstr "kitchen"
 
 #: library/AcfFields/php/options-menu-icon.php:520
 msgid "label"
-msgstr ""
+msgstr "label"
 
 #: library/AcfFields/php/options-menu-icon.php:521
 msgid "label_important"
-msgstr ""
+msgstr "label_important"
 
 #: library/AcfFields/php/options-menu-icon.php:522
 msgid "label_off"
-msgstr ""
+msgstr "label_off"
 
 #: library/AcfFields/php/options-menu-icon.php:523
 msgid "landscape"
-msgstr ""
+msgstr "landscape"
 
 #: library/AcfFields/php/options-menu-icon.php:524
 msgid "language"
-msgstr ""
+msgstr "language"
 
 #: library/AcfFields/php/options-menu-icon.php:525
 msgid "laptop"
-msgstr ""
+msgstr "laptop"
 
 #: library/AcfFields/php/options-menu-icon.php:526
 msgid "laptop_chromebook"
-msgstr ""
+msgstr "laptop_chromebook"
 
 #: library/AcfFields/php/options-menu-icon.php:527
 msgid "laptop_mac"
-msgstr ""
+msgstr "laptop_mac"
 
 #: library/AcfFields/php/options-menu-icon.php:528
 msgid "laptop_windows"
-msgstr ""
+msgstr "laptop_windows"
 
 #: library/AcfFields/php/options-menu-icon.php:529
 msgid "last_page"
-msgstr ""
+msgstr "last_page"
 
 #: library/AcfFields/php/options-menu-icon.php:530
 msgid "launch"
-msgstr ""
+msgstr "launch"
 
 #: library/AcfFields/php/options-menu-icon.php:531
 msgid "layers"
-msgstr ""
+msgstr "layers"
 
 #: library/AcfFields/php/options-menu-icon.php:532
 msgid "layers_clear"
-msgstr ""
+msgstr "layers_clear"
 
 #: library/AcfFields/php/options-menu-icon.php:533
 msgid "leak_add"
-msgstr ""
+msgstr "leak_add"
 
 #: library/AcfFields/php/options-menu-icon.php:534
 msgid "leak_remove"
-msgstr ""
+msgstr "leak_remove"
 
 #: library/AcfFields/php/options-menu-icon.php:535
 msgid "lens"
-msgstr ""
+msgstr "lens"
 
 #: library/AcfFields/php/options-menu-icon.php:536
 msgid "library_add"
-msgstr ""
+msgstr "library_add"
 
 #: library/AcfFields/php/options-menu-icon.php:537
 msgid "library_books"
-msgstr ""
+msgstr "library_books"
 
 #: library/AcfFields/php/options-menu-icon.php:538
 msgid "library_music"
-msgstr ""
+msgstr "library_music"
 
 #: library/AcfFields/php/options-menu-icon.php:539
 msgid "line_style"
-msgstr ""
+msgstr "line_style"
 
 #: library/AcfFields/php/options-menu-icon.php:540
 msgid "line_weight"
-msgstr ""
+msgstr "line_weight"
 
 #: library/AcfFields/php/options-menu-icon.php:541
 msgid "linear_scale"
-msgstr ""
+msgstr "linear_scale"
 
 #: library/AcfFields/php/options-menu-icon.php:542
 msgid "link"
-msgstr ""
+msgstr "link"
 
 #: library/AcfFields/php/options-menu-icon.php:543
 msgid "link_off"
-msgstr ""
+msgstr "link_off"
 
 #: library/AcfFields/php/options-menu-icon.php:544
 msgid "linked_camera"
-msgstr ""
+msgstr "linked_camera"
 
 #: library/AcfFields/php/options-menu-icon.php:545
 msgid "list"
-msgstr ""
+msgstr "list"
 
 #: library/AcfFields/php/options-menu-icon.php:546
 msgid "list_alt"
-msgstr ""
+msgstr "list_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:547
 msgid "live_help"
-msgstr ""
+msgstr "live_help"
 
 #: library/AcfFields/php/options-menu-icon.php:548
 msgid "live_tv"
-msgstr ""
+msgstr "live_tv"
 
 #: library/AcfFields/php/options-menu-icon.php:549
 msgid "local_activity"
-msgstr ""
+msgstr "local_activity"
 
 #: library/AcfFields/php/options-menu-icon.php:550
 msgid "local_airport"
-msgstr ""
+msgstr "local_airport"
 
 #: library/AcfFields/php/options-menu-icon.php:551
 msgid "local_atm"
-msgstr ""
+msgstr "local_atm"
 
 #: library/AcfFields/php/options-menu-icon.php:552
 msgid "local_bar"
-msgstr ""
+msgstr "local_bar"
 
 #: library/AcfFields/php/options-menu-icon.php:553
 msgid "local_cafe"
-msgstr ""
+msgstr "local_cafe"
 
 #: library/AcfFields/php/options-menu-icon.php:554
 msgid "local_car_wash"
-msgstr ""
+msgstr "local_car_wash"
 
 #: library/AcfFields/php/options-menu-icon.php:555
 msgid "local_convenience_store"
-msgstr ""
+msgstr "local_convenience_store"
 
 #: library/AcfFields/php/options-menu-icon.php:556
 msgid "local_dining"
-msgstr ""
+msgstr "local_dining"
 
 #: library/AcfFields/php/options-menu-icon.php:557
 msgid "local_drink"
-msgstr ""
+msgstr "local_drink"
 
 #: library/AcfFields/php/options-menu-icon.php:558
 msgid "local_florist"
-msgstr ""
+msgstr "local_florist"
 
 #: library/AcfFields/php/options-menu-icon.php:559
 msgid "local_gas_station"
-msgstr ""
+msgstr "local_gas_station"
 
 #: library/AcfFields/php/options-menu-icon.php:560
 msgid "local_grocery_store"
-msgstr ""
+msgstr "local_grocery_store"
 
 #: library/AcfFields/php/options-menu-icon.php:561
 msgid "local_hospital"
-msgstr ""
+msgstr "local_hospital"
 
 #: library/AcfFields/php/options-menu-icon.php:562
 msgid "local_hotel"
-msgstr ""
+msgstr "local_hotel"
 
 #: library/AcfFields/php/options-menu-icon.php:563
 msgid "local_laundry_service"
-msgstr ""
+msgstr "local_laundry_service"
 
 #: library/AcfFields/php/options-menu-icon.php:564
 msgid "local_library"
-msgstr ""
+msgstr "local_library"
 
 #: library/AcfFields/php/options-menu-icon.php:565
 msgid "local_mall"
-msgstr ""
+msgstr "local_mall"
 
 #: library/AcfFields/php/options-menu-icon.php:566
 msgid "local_movies"
-msgstr ""
+msgstr "local_movies"
 
 #: library/AcfFields/php/options-menu-icon.php:567
 msgid "local_offer"
-msgstr ""
+msgstr "local_offer"
 
 #: library/AcfFields/php/options-menu-icon.php:568
 msgid "local_parking"
-msgstr ""
+msgstr "local_parking"
 
 #: library/AcfFields/php/options-menu-icon.php:569
 msgid "local_pharmacy"
-msgstr ""
+msgstr "local_pharmacy"
 
 #: library/AcfFields/php/options-menu-icon.php:570
 msgid "local_phone"
-msgstr ""
+msgstr "local_phone"
 
 #: library/AcfFields/php/options-menu-icon.php:571
 msgid "local_pizza"
-msgstr ""
+msgstr "local_pizza"
 
 #: library/AcfFields/php/options-menu-icon.php:572
 msgid "local_play"
-msgstr ""
+msgstr "local_play"
 
 #: library/AcfFields/php/options-menu-icon.php:573
 msgid "local_post_office"
-msgstr ""
+msgstr "local_post_office"
 
 #: library/AcfFields/php/options-menu-icon.php:574
 msgid "local_printshop"
-msgstr ""
+msgstr "local_printshop"
 
 #: library/AcfFields/php/options-menu-icon.php:575
 msgid "local_see"
-msgstr ""
+msgstr "local_see"
 
 #: library/AcfFields/php/options-menu-icon.php:576
 msgid "local_shipping"
-msgstr ""
+msgstr "local_shipping"
 
 #: library/AcfFields/php/options-menu-icon.php:577
 msgid "local_taxi"
-msgstr ""
+msgstr "local_taxi"
 
 #: library/AcfFields/php/options-menu-icon.php:578
 msgid "location_city"
-msgstr ""
+msgstr "location_city"
 
 #: library/AcfFields/php/options-menu-icon.php:579
 msgid "location_disabled"
-msgstr ""
+msgstr "location_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:580
 msgid "location_searching"
-msgstr ""
+msgstr "location_searching"
 
 #: library/AcfFields/php/options-menu-icon.php:581
 msgid "lock"
-msgstr ""
+msgstr "lock"
 
 #: library/AcfFields/php/options-menu-icon.php:582
 msgid "lock_open"
-msgstr ""
+msgstr "lock_open"
 
 #: library/AcfFields/php/options-menu-icon.php:583
 msgid "looks"
-msgstr ""
+msgstr "looks"
 
 #: library/AcfFields/php/options-menu-icon.php:584
 msgid "looks_3"
-msgstr ""
+msgstr "looks_3"
 
 #: library/AcfFields/php/options-menu-icon.php:585
 msgid "looks_4"
-msgstr ""
+msgstr "looks_4"
 
 #: library/AcfFields/php/options-menu-icon.php:586
 msgid "looks_5"
-msgstr ""
+msgstr "looks_5"
 
 #: library/AcfFields/php/options-menu-icon.php:587
 msgid "looks_6"
-msgstr ""
+msgstr "looks_6"
 
 #: library/AcfFields/php/options-menu-icon.php:588
 msgid "looks_one"
-msgstr ""
+msgstr "looks_one"
 
 #: library/AcfFields/php/options-menu-icon.php:589
 msgid "looks_two"
-msgstr ""
+msgstr "looks_two"
 
 #: library/AcfFields/php/options-menu-icon.php:590
 msgid "loop"
-msgstr ""
+msgstr "loop"
 
 #: library/AcfFields/php/options-menu-icon.php:591
 msgid "loupe"
-msgstr ""
+msgstr "loupe"
 
 #: library/AcfFields/php/options-menu-icon.php:592
 msgid "low_priority"
-msgstr ""
+msgstr "low_priority"
 
 #: library/AcfFields/php/options-menu-icon.php:593
 msgid "loyalty"
-msgstr ""
+msgstr "loyalty"
 
 #: library/AcfFields/php/options-menu-icon.php:594
 msgid "mail"
-msgstr ""
+msgstr "mail"
 
 #: library/AcfFields/php/options-menu-icon.php:595
 msgid "mail_outline"
-msgstr ""
+msgstr "mail_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:596
 msgid "map"
-msgstr ""
+msgstr "map"
 
 #: library/AcfFields/php/options-menu-icon.php:597
 msgid "markunread"
-msgstr ""
+msgstr "markunread"
 
 #: library/AcfFields/php/options-menu-icon.php:598
 msgid "markunread_mailbox"
-msgstr ""
+msgstr "markunread_mailbox"
 
 #: library/AcfFields/php/options-menu-icon.php:599
 msgid "maximize"
-msgstr ""
+msgstr "maximize"
 
 #: library/AcfFields/php/options-menu-icon.php:600
 msgid "meeting_room"
-msgstr ""
+msgstr "meeting_room"
 
 #: library/AcfFields/php/options-menu-icon.php:601
 msgid "memory"
-msgstr ""
+msgstr "memory"
 
 #: library/AcfFields/php/options-menu-icon.php:602
 msgid "menu"
-msgstr ""
+msgstr "menu"
 
 #: library/AcfFields/php/options-menu-icon.php:603
 msgid "menu_book"
-msgstr ""
+msgstr "menu_book"
 
 #: library/AcfFields/php/options-menu-icon.php:604
 msgid "menu_open"
-msgstr ""
+msgstr "menu_open"
 
 #: library/AcfFields/php/options-menu-icon.php:605
 msgid "merge_type"
-msgstr ""
+msgstr "merge_type"
 
 #: library/AcfFields/php/options-menu-icon.php:606
 msgid "message"
-msgstr ""
+msgstr "message"
 
 #: library/AcfFields/php/options-menu-icon.php:607
 msgid "mic"
-msgstr ""
+msgstr "mic"
 
 #: library/AcfFields/php/options-menu-icon.php:608
 msgid "mic_none"
-msgstr ""
+msgstr "mic_none"
 
 #: library/AcfFields/php/options-menu-icon.php:609
 msgid "mic_off"
-msgstr ""
+msgstr "mic_off"
 
 #: library/AcfFields/php/options-menu-icon.php:610
 msgid "minimize"
-msgstr ""
+msgstr "minimize"
 
 #: library/AcfFields/php/options-menu-icon.php:611
 msgid "missed_video_call"
-msgstr ""
+msgstr "missed_video_call"
 
 #: library/AcfFields/php/options-menu-icon.php:612
 msgid "mms"
-msgstr ""
+msgstr "mms"
 
 #: library/AcfFields/php/options-menu-icon.php:613
 msgid "mobile_friendly"
-msgstr ""
+msgstr "mobile_friendly"
 
 #: library/AcfFields/php/options-menu-icon.php:614
 msgid "mobile_off"
-msgstr ""
+msgstr "mobile_off"
 
 #: library/AcfFields/php/options-menu-icon.php:615
 msgid "mobile_screen_share"
-msgstr ""
+msgstr "mobile_screen_share"
 
 #: library/AcfFields/php/options-menu-icon.php:616
 msgid "mode_comment"
-msgstr ""
+msgstr "mode_comment"
 
 #: library/AcfFields/php/options-menu-icon.php:617
 msgid "monetization_on"
-msgstr ""
+msgstr "monetization_on"
 
 #: library/AcfFields/php/options-menu-icon.php:618
 msgid "money"
-msgstr ""
+msgstr "money"
 
 #: library/AcfFields/php/options-menu-icon.php:619
 msgid "money_off"
-msgstr ""
+msgstr "money_off"
 
 #: library/AcfFields/php/options-menu-icon.php:620
 msgid "monochrome_photos"
-msgstr ""
+msgstr "monochrome_photos"
 
 #: library/AcfFields/php/options-menu-icon.php:621
 msgid "mood"
-msgstr ""
+msgstr "mood"
 
 #: library/AcfFields/php/options-menu-icon.php:622
 msgid "mood_bad"
-msgstr ""
+msgstr "mood_bad"
 
 #: library/AcfFields/php/options-menu-icon.php:623
 msgid "more"
-msgstr ""
+msgstr "more"
 
 #: library/AcfFields/php/options-menu-icon.php:624
 msgid "more_horiz"
-msgstr ""
+msgstr "more_horiz"
 
 #: library/AcfFields/php/options-menu-icon.php:625
 msgid "more_vert"
-msgstr ""
+msgstr "more_vert"
 
 #: library/AcfFields/php/options-menu-icon.php:626
 msgid "motorcycle"
-msgstr ""
+msgstr "motorcycle"
 
 #: library/AcfFields/php/options-menu-icon.php:627
 msgid "mouse"
-msgstr ""
+msgstr "mouse"
 
 #: library/AcfFields/php/options-menu-icon.php:628
 msgid "move_to_inbox"
-msgstr ""
+msgstr "move_to_inbox"
 
 #: library/AcfFields/php/options-menu-icon.php:629
 msgid "movie"
-msgstr ""
+msgstr "movie"
 
 #: library/AcfFields/php/options-menu-icon.php:630
 msgid "movie_creation"
-msgstr ""
+msgstr "movie_creation"
 
 #: library/AcfFields/php/options-menu-icon.php:631
 msgid "movie_filter"
-msgstr ""
+msgstr "movie_filter"
 
 #: library/AcfFields/php/options-menu-icon.php:632
 msgid "multiline_chart"
-msgstr ""
+msgstr "multiline_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:633
 msgid "museum"
-msgstr ""
+msgstr "museum"
 
 #: library/AcfFields/php/options-menu-icon.php:634
 msgid "music_note"
-msgstr ""
+msgstr "music_note"
 
 #: library/AcfFields/php/options-menu-icon.php:635
 msgid "music_off"
-msgstr ""
+msgstr "music_off"
 
 #: library/AcfFields/php/options-menu-icon.php:636
 msgid "music_video"
-msgstr ""
+msgstr "music_video"
 
 #: library/AcfFields/php/options-menu-icon.php:637
 msgid "my_location"
-msgstr ""
+msgstr "my_location"
 
 #: library/AcfFields/php/options-menu-icon.php:638
 msgid "nature"
-msgstr ""
+msgstr "nature"
 
 #: library/AcfFields/php/options-menu-icon.php:639
 msgid "nature_people"
-msgstr ""
+msgstr "nature_people"
 
 #: library/AcfFields/php/options-menu-icon.php:640
 msgid "navigate_before"
-msgstr ""
+msgstr "navigate_before"
 
 #: library/AcfFields/php/options-menu-icon.php:641
 msgid "navigate_next"
-msgstr ""
+msgstr "navigate_next"
 
 #: library/AcfFields/php/options-menu-icon.php:642
 msgid "navigation"
-msgstr ""
+msgstr "navigation"
 
 #: library/AcfFields/php/options-menu-icon.php:643
 msgid "near_me"
-msgstr ""
+msgstr "near_me"
 
 #: library/AcfFields/php/options-menu-icon.php:644
 msgid "network_check"
-msgstr ""
+msgstr "network_check"
 
 #: library/AcfFields/php/options-menu-icon.php:645
 msgid "network_locked"
-msgstr ""
+msgstr "network_locked"
 
 #: library/AcfFields/php/options-menu-icon.php:646
 msgid "new_releases"
-msgstr ""
+msgstr "new_releases"
 
 #: library/AcfFields/php/options-menu-icon.php:647
 msgid "next_week"
-msgstr ""
+msgstr "next_week"
 
 #: library/AcfFields/php/options-menu-icon.php:648
 msgid "nfc"
-msgstr ""
+msgstr "nfc"
 
 #: library/AcfFields/php/options-menu-icon.php:649
 msgid "nights_stay"
-msgstr ""
+msgstr "nights_stay"
 
 #: library/AcfFields/php/options-menu-icon.php:650
 msgid "no_encryption"
-msgstr ""
+msgstr "no_encryption"
 
 #: library/AcfFields/php/options-menu-icon.php:651
 msgid "no_meeting_room"
-msgstr ""
+msgstr "no_meeting_room"
 
 #: library/AcfFields/php/options-menu-icon.php:652
 msgid "no_sim"
-msgstr ""
+msgstr "no_sim"
 
 #: library/AcfFields/php/options-menu-icon.php:653
 msgid "not_interested"
-msgstr ""
+msgstr "not_interested"
 
 #: library/AcfFields/php/options-menu-icon.php:654
 msgid "note"
-msgstr ""
+msgstr "note"
 
 #: library/AcfFields/php/options-menu-icon.php:655
 msgid "note_add"
-msgstr ""
+msgstr "note_add"
 
 #: library/AcfFields/php/options-menu-icon.php:656
 msgid "notes"
-msgstr ""
+msgstr "notes"
 
 #: library/AcfFields/php/options-menu-icon.php:657
 msgid "notification_important"
-msgstr ""
+msgstr "notification_important"
 
 #: library/AcfFields/php/options-menu-icon.php:658
 msgid "notifications"
-msgstr ""
+msgstr "notifications"
 
 #: library/AcfFields/php/options-menu-icon.php:659
 msgid "notifications_active"
-msgstr ""
+msgstr "notifications_active"
 
 #: library/AcfFields/php/options-menu-icon.php:660
 msgid "notifications_none"
-msgstr ""
+msgstr "notifications_none"
 
 #: library/AcfFields/php/options-menu-icon.php:661
 msgid "notifications_off"
-msgstr ""
+msgstr "notifications_off"
 
 #: library/AcfFields/php/options-menu-icon.php:662
 msgid "notifications_paused"
-msgstr ""
+msgstr "notifications_paused"
 
 #: library/AcfFields/php/options-menu-icon.php:663
 msgid "offline_bolt"
-msgstr ""
+msgstr "offline_bolt"
 
 #: library/AcfFields/php/options-menu-icon.php:664
 msgid "offline_pin"
-msgstr ""
+msgstr "offline_pin"
 
 #: library/AcfFields/php/options-menu-icon.php:665
 msgid "ondemand_video"
-msgstr ""
+msgstr "ondemand_video"
 
 #: library/AcfFields/php/options-menu-icon.php:666
 msgid "opacity"
-msgstr ""
+msgstr "opacity"
 
 #: library/AcfFields/php/options-menu-icon.php:667
 msgid "open_in_browser"
-msgstr ""
+msgstr "open_in_browser"
 
 #: library/AcfFields/php/options-menu-icon.php:668
 msgid "open_in_new"
-msgstr ""
+msgstr "open_in_new"
 
 #: library/AcfFields/php/options-menu-icon.php:669
 msgid "open_with"
-msgstr ""
+msgstr "open_with"
 
 #: library/AcfFields/php/options-menu-icon.php:670
 msgid "outdoor_grill"
-msgstr ""
+msgstr "outdoor_grill"
 
 #: library/AcfFields/php/options-menu-icon.php:671
 msgid "outlined_flag"
-msgstr ""
+msgstr "outlined_flag"
 
 #: library/AcfFields/php/options-menu-icon.php:672
 msgid "pages"
-msgstr ""
+msgstr "pages"
 
 #: library/AcfFields/php/options-menu-icon.php:673
 msgid "pageview"
-msgstr ""
+msgstr "pageview"
 
 #: library/AcfFields/php/options-menu-icon.php:674
 msgid "palette"
-msgstr ""
+msgstr "palette"
 
 #: library/AcfFields/php/options-menu-icon.php:675
 msgid "pan_tool"
-msgstr ""
+msgstr "pan_tool"
 
 #: library/AcfFields/php/options-menu-icon.php:676
 msgid "panorama"
-msgstr ""
+msgstr "panorama"
 
 #: library/AcfFields/php/options-menu-icon.php:677
 msgid "panorama_fish_eye"
-msgstr ""
+msgstr "panorama_fish_eye"
 
 #: library/AcfFields/php/options-menu-icon.php:678
 msgid "panorama_horizontal"
-msgstr ""
+msgstr "panorama_horizontal"
 
 #: library/AcfFields/php/options-menu-icon.php:679
 msgid "panorama_vertical"
-msgstr ""
+msgstr "panorama_vertical"
 
 #: library/AcfFields/php/options-menu-icon.php:680
 msgid "panorama_wide_angle"
-msgstr ""
+msgstr "panorama_wide_angle"
 
 #: library/AcfFields/php/options-menu-icon.php:681
 msgid "party_mode"
-msgstr ""
+msgstr "party_mode"
 
 #: library/AcfFields/php/options-menu-icon.php:682
 msgid "pause"
-msgstr ""
+msgstr "pause"
 
 #: library/AcfFields/php/options-menu-icon.php:683
 msgid "pause_circle_filled"
-msgstr ""
+msgstr "pause_circle_filled"
 
 #: library/AcfFields/php/options-menu-icon.php:684
 msgid "pause_circle_outline"
-msgstr ""
+msgstr "pause_circle_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:685
 msgid "pause_presentation"
-msgstr ""
+msgstr "pause_presentation"
 
 #: library/AcfFields/php/options-menu-icon.php:686
 msgid "payment"
-msgstr ""
+msgstr "payment"
 
 #: library/AcfFields/php/options-menu-icon.php:687
 msgid "people"
-msgstr ""
+msgstr "people"
 
 #: library/AcfFields/php/options-menu-icon.php:688
 msgid "people_alt"
-msgstr ""
+msgstr "people_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:689
 msgid "people_outline"
-msgstr ""
+msgstr "people_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:690
 msgid "perm_camera_mic"
-msgstr ""
+msgstr "perm_camera_mic"
 
 #: library/AcfFields/php/options-menu-icon.php:691
 msgid "perm_contact_calendar"
-msgstr ""
+msgstr "perm_contact_calendar"
 
 #: library/AcfFields/php/options-menu-icon.php:692
 msgid "perm_data_setting"
-msgstr ""
+msgstr "perm_data_setting"
 
 #: library/AcfFields/php/options-menu-icon.php:693
 msgid "perm_device_information"
-msgstr ""
+msgstr "perm_device_information"
 
 #: library/AcfFields/php/options-menu-icon.php:694
 msgid "perm_identity"
-msgstr ""
+msgstr "perm_identity"
 
 #: library/AcfFields/php/options-menu-icon.php:695
 msgid "perm_media"
-msgstr ""
+msgstr "perm_media"
 
 #: library/AcfFields/php/options-menu-icon.php:696
 msgid "perm_phone_msg"
-msgstr ""
+msgstr "perm_phone_msg"
 
 #: library/AcfFields/php/options-menu-icon.php:697
 msgid "perm_scan_wifi"
-msgstr ""
+msgstr "perm_scan_wifi"
 
 #: library/AcfFields/php/options-menu-icon.php:698
 msgid "person"
-msgstr ""
+msgstr "person"
 
 #: library/AcfFields/php/options-menu-icon.php:699
 msgid "person_add"
-msgstr ""
+msgstr "person_add"
 
 #: library/AcfFields/php/options-menu-icon.php:700
 msgid "person_add_disabled"
-msgstr ""
+msgstr "person_add_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:701
 msgid "person_outline"
-msgstr ""
+msgstr "person_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:702
 msgid "person_pin"
-msgstr ""
+msgstr "person_pin"
 
 #: library/AcfFields/php/options-menu-icon.php:703
 msgid "personal_video"
-msgstr ""
+msgstr "personal_video"
 
 #: library/AcfFields/php/options-menu-icon.php:704
 msgid "pets"
-msgstr ""
+msgstr "pets"
 
 #: library/AcfFields/php/options-menu-icon.php:705
 msgid "phone"
@@ -3092,203 +3088,203 @@ msgstr "Telefon"
 
 #: library/AcfFields/php/options-menu-icon.php:706
 msgid "phone_android"
-msgstr ""
+msgstr "phone_android"
 
 #: library/AcfFields/php/options-menu-icon.php:707
 msgid "phone_bluetooth_speaker"
-msgstr ""
+msgstr "phone_bluetooth_speaker"
 
 #: library/AcfFields/php/options-menu-icon.php:708
 msgid "phone_callback"
-msgstr ""
+msgstr "phone_callback"
 
 #: library/AcfFields/php/options-menu-icon.php:709
 msgid "phone_disabled"
-msgstr ""
+msgstr "phone_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:710
 msgid "phone_enabled"
-msgstr ""
+msgstr "phone_enabled"
 
 #: library/AcfFields/php/options-menu-icon.php:711
 msgid "phone_forwarded"
-msgstr ""
+msgstr "phone_forwarded"
 
 #: library/AcfFields/php/options-menu-icon.php:712
 msgid "phone_in_talk"
-msgstr ""
+msgstr "phone_in_talk"
 
 #: library/AcfFields/php/options-menu-icon.php:713
 msgid "phone_iphone"
-msgstr ""
+msgstr "phone_iphone"
 
 #: library/AcfFields/php/options-menu-icon.php:714
 msgid "phone_locked"
-msgstr ""
+msgstr "phone_locked"
 
 #: library/AcfFields/php/options-menu-icon.php:715
 msgid "phone_missed"
-msgstr ""
+msgstr "phone_missed"
 
 #: library/AcfFields/php/options-menu-icon.php:716
 msgid "phone_paused"
-msgstr ""
+msgstr "phone_paused"
 
 #: library/AcfFields/php/options-menu-icon.php:717
 msgid "phonelink"
-msgstr ""
+msgstr "phonelink"
 
 #: library/AcfFields/php/options-menu-icon.php:718
 msgid "phonelink_erase"
-msgstr ""
+msgstr "phonelink_erase"
 
 #: library/AcfFields/php/options-menu-icon.php:719
 msgid "phonelink_lock"
-msgstr ""
+msgstr "phonelink_lock"
 
 #: library/AcfFields/php/options-menu-icon.php:720
 msgid "phonelink_off"
-msgstr ""
+msgstr "phonelink_off"
 
 #: library/AcfFields/php/options-menu-icon.php:721
 msgid "phonelink_ring"
-msgstr ""
+msgstr "phonelink_ring"
 
 #: library/AcfFields/php/options-menu-icon.php:722
 msgid "phonelink_setup"
-msgstr ""
+msgstr "phonelink_setup"
 
 #: library/AcfFields/php/options-menu-icon.php:723
 msgid "photo"
-msgstr ""
+msgstr "photo"
 
 #: library/AcfFields/php/options-menu-icon.php:724
 msgid "photo_album"
-msgstr ""
+msgstr "photo_album"
 
 #: library/AcfFields/php/options-menu-icon.php:725
 msgid "photo_camera"
-msgstr ""
+msgstr "photo_camera"
 
 #: library/AcfFields/php/options-menu-icon.php:726
 msgid "photo_filter"
-msgstr ""
+msgstr "photo_filter"
 
 #: library/AcfFields/php/options-menu-icon.php:727
 msgid "photo_library"
-msgstr ""
+msgstr "photo_library"
 
 #: library/AcfFields/php/options-menu-icon.php:728
 msgid "photo_size_select_actual"
-msgstr ""
+msgstr "photo_size_select_actual"
 
 #: library/AcfFields/php/options-menu-icon.php:729
 msgid "photo_size_select_large"
-msgstr ""
+msgstr "photo_size_select_large"
 
 #: library/AcfFields/php/options-menu-icon.php:730
 msgid "photo_size_select_small"
-msgstr ""
+msgstr "photo_size_select_small"
 
 #: library/AcfFields/php/options-menu-icon.php:731
 msgid "picture_as_pdf"
-msgstr ""
+msgstr "picture_as_pdf"
 
 #: library/AcfFields/php/options-menu-icon.php:732
 msgid "picture_in_picture"
-msgstr ""
+msgstr "picture_in_picture"
 
 #: library/AcfFields/php/options-menu-icon.php:733
 msgid "picture_in_picture_alt"
-msgstr ""
+msgstr "picture_in_picture_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:734
 msgid "pie_chart"
-msgstr ""
+msgstr "pie_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:735
 msgid "play_arrow"
-msgstr ""
+msgstr "play_arrow"
 
 #: library/AcfFields/php/options-menu-icon.php:736
 msgid "play_circle_filled"
-msgstr ""
+msgstr "play_circle_filled"
 
 #: library/AcfFields/php/options-menu-icon.php:737
 msgid "play_circle_outline"
-msgstr ""
+msgstr "play_circle_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:738
 msgid "play_for_work"
-msgstr ""
+msgstr "play_for_work"
 
 #: library/AcfFields/php/options-menu-icon.php:739
 msgid "playlist_add"
-msgstr ""
+msgstr "playlist_add"
 
 #: library/AcfFields/php/options-menu-icon.php:740
 msgid "playlist_add_check"
-msgstr ""
+msgstr "playlist_add_check"
 
 #: library/AcfFields/php/options-menu-icon.php:741
 msgid "playlist_play"
-msgstr ""
+msgstr "playlist_play"
 
 #: library/AcfFields/php/options-menu-icon.php:742
 msgid "plus_one"
-msgstr ""
+msgstr "plus_one"
 
 #: library/AcfFields/php/options-menu-icon.php:743
 msgid "policy"
-msgstr ""
+msgstr "policy"
 
 #: library/AcfFields/php/options-menu-icon.php:744
 msgid "poll"
-msgstr ""
+msgstr "poll"
 
 #: library/AcfFields/php/options-menu-icon.php:745
 msgid "polymer"
-msgstr ""
+msgstr "polymer"
 
 #: library/AcfFields/php/options-menu-icon.php:746
 msgid "pool"
-msgstr ""
+msgstr "pool"
 
 #: library/AcfFields/php/options-menu-icon.php:747
 msgid "portable_wifi_off"
-msgstr ""
+msgstr "portable_wifi_off"
 
 #: library/AcfFields/php/options-menu-icon.php:748
 msgid "portrait"
-msgstr ""
+msgstr "portrait"
 
 #: library/AcfFields/php/options-menu-icon.php:749
 msgid "post_add"
-msgstr ""
+msgstr "post_add"
 
 #: library/AcfFields/php/options-menu-icon.php:750
 msgid "power"
-msgstr ""
+msgstr "power"
 
 #: library/AcfFields/php/options-menu-icon.php:751
 msgid "power_input"
-msgstr ""
+msgstr "power_input"
 
 #: library/AcfFields/php/options-menu-icon.php:752
 msgid "power_off"
-msgstr ""
+msgstr "power_off"
 
 #: library/AcfFields/php/options-menu-icon.php:753
 msgid "power_settings_new"
-msgstr ""
+msgstr "power_settings_new"
 
 #: library/AcfFields/php/options-menu-icon.php:754
 msgid "pregnant_woman"
-msgstr ""
+msgstr "pregnant_woman"
 
 #: library/AcfFields/php/options-menu-icon.php:755
 msgid "present_to_all"
-msgstr ""
+msgstr "present_to_all"
 
 #: library/AcfFields/php/options-menu-icon.php:756
 msgid "print"
@@ -3296,1291 +3292,1291 @@ msgstr "Skriv ut"
 
 #: library/AcfFields/php/options-menu-icon.php:757
 msgid "print_disabled"
-msgstr ""
+msgstr "print_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:758
 msgid "priority_high"
-msgstr ""
+msgstr "priority_high"
 
 #: library/AcfFields/php/options-menu-icon.php:759
 msgid "public"
-msgstr ""
+msgstr "public"
 
 #: library/AcfFields/php/options-menu-icon.php:760
 msgid "publish"
-msgstr ""
+msgstr "publish"
 
 #: library/AcfFields/php/options-menu-icon.php:761
 msgid "query_builder"
-msgstr ""
+msgstr "query_builder"
 
 #: library/AcfFields/php/options-menu-icon.php:762
 msgid "question_answer"
-msgstr ""
+msgstr "question_answer"
 
 #: library/AcfFields/php/options-menu-icon.php:763
 msgid "queue"
-msgstr ""
+msgstr "queue"
 
 #: library/AcfFields/php/options-menu-icon.php:764
 msgid "queue_music"
-msgstr ""
+msgstr "queue_music"
 
 #: library/AcfFields/php/options-menu-icon.php:765
 msgid "queue_play_next"
-msgstr ""
+msgstr "queue_play_next"
 
 #: library/AcfFields/php/options-menu-icon.php:766
 msgid "radio"
-msgstr ""
+msgstr "radio"
 
 #: library/AcfFields/php/options-menu-icon.php:767
 msgid "radio_button_checked"
-msgstr ""
+msgstr "radio_button_checked"
 
 #: library/AcfFields/php/options-menu-icon.php:768
 msgid "radio_button_unchecked"
-msgstr ""
+msgstr "radio_button_unchecked"
 
 #: library/AcfFields/php/options-menu-icon.php:769
 msgid "rate_review"
-msgstr ""
+msgstr "rate_review"
 
 #: library/AcfFields/php/options-menu-icon.php:770
 msgid "receipt"
-msgstr ""
+msgstr "receipt"
 
 #: library/AcfFields/php/options-menu-icon.php:771
 msgid "recent_actors"
-msgstr ""
+msgstr "recent_actors"
 
 #: library/AcfFields/php/options-menu-icon.php:772
 msgid "record_voice_over"
-msgstr ""
+msgstr "record_voice_over"
 
 #: library/AcfFields/php/options-menu-icon.php:773
 msgid "redeem"
-msgstr ""
+msgstr "redeem"
 
 #: library/AcfFields/php/options-menu-icon.php:774
 msgid "redo"
-msgstr ""
+msgstr "redo"
 
 #: library/AcfFields/php/options-menu-icon.php:775
 msgid "refresh"
-msgstr ""
+msgstr "refresh"
 
 #: library/AcfFields/php/options-menu-icon.php:776
 msgid "remove"
-msgstr ""
+msgstr "remove"
 
 #: library/AcfFields/php/options-menu-icon.php:777
 msgid "remove_circle"
-msgstr ""
+msgstr "remove_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:778
 msgid "remove_circle_outline"
-msgstr ""
+msgstr "remove_circle_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:779
 msgid "remove_from_queue"
-msgstr ""
+msgstr "remove_from_queue"
 
 #: library/AcfFields/php/options-menu-icon.php:780
 msgid "remove_red_eye"
-msgstr ""
+msgstr "remove_red_eye"
 
 #: library/AcfFields/php/options-menu-icon.php:781
 msgid "remove_shopping_cart"
-msgstr ""
+msgstr "remove_shopping_cart"
 
 #: library/AcfFields/php/options-menu-icon.php:782
 msgid "reorder"
-msgstr ""
+msgstr "reorder"
 
 #: library/AcfFields/php/options-menu-icon.php:783
 msgid "repeat"
-msgstr ""
+msgstr "repeat"
 
 #: library/AcfFields/php/options-menu-icon.php:784
 msgid "repeat_one"
-msgstr ""
+msgstr "repeat_one"
 
 #: library/AcfFields/php/options-menu-icon.php:785
 msgid "replay"
-msgstr ""
+msgstr "replay"
 
 #: library/AcfFields/php/options-menu-icon.php:786
 msgid "replay_10"
-msgstr ""
+msgstr "replay_10"
 
 #: library/AcfFields/php/options-menu-icon.php:787
 msgid "replay_30"
-msgstr ""
+msgstr "replay_30"
 
 #: library/AcfFields/php/options-menu-icon.php:788
 msgid "replay_5"
-msgstr ""
+msgstr "replay_5"
 
 #: library/AcfFields/php/options-menu-icon.php:789
 msgid "reply"
-msgstr ""
+msgstr "reply"
 
 #: library/AcfFields/php/options-menu-icon.php:790
 msgid "reply_all"
-msgstr ""
+msgstr "reply_all"
 
 #: library/AcfFields/php/options-menu-icon.php:791
 msgid "report"
-msgstr ""
+msgstr "report"
 
 #: library/AcfFields/php/options-menu-icon.php:792
 msgid "report_off"
-msgstr ""
+msgstr "report_off"
 
 #: library/AcfFields/php/options-menu-icon.php:793
 msgid "report_problem"
-msgstr ""
+msgstr "report_problem"
 
 #: library/AcfFields/php/options-menu-icon.php:794
 msgid "restaurant"
-msgstr ""
+msgstr "restaurant"
 
 #: library/AcfFields/php/options-menu-icon.php:795
 msgid "restaurant_menu"
-msgstr ""
+msgstr "restaurant_menu"
 
 #: library/AcfFields/php/options-menu-icon.php:796
 msgid "restore"
-msgstr ""
+msgstr "restore"
 
 #: library/AcfFields/php/options-menu-icon.php:797
 msgid "restore_from_trash"
-msgstr ""
+msgstr "restore_from_trash"
 
 #: library/AcfFields/php/options-menu-icon.php:798
 msgid "restore_page"
-msgstr ""
+msgstr "restore_page"
 
 #: library/AcfFields/php/options-menu-icon.php:799
 msgid "ring_volume"
-msgstr ""
+msgstr "ring_volume"
 
 #: library/AcfFields/php/options-menu-icon.php:800
 msgid "room"
-msgstr ""
+msgstr "room"
 
 #: library/AcfFields/php/options-menu-icon.php:801
 msgid "room_service"
-msgstr ""
+msgstr "room_service"
 
 #: library/AcfFields/php/options-menu-icon.php:802
 msgid "rotate_90_degrees_ccw"
-msgstr ""
+msgstr "rotate_90_degrees_ccw"
 
 #: library/AcfFields/php/options-menu-icon.php:803
 msgid "rotate_left"
-msgstr ""
+msgstr "rotate_left"
 
 #: library/AcfFields/php/options-menu-icon.php:804
 msgid "rotate_right"
-msgstr ""
+msgstr "rotate_right"
 
 #: library/AcfFields/php/options-menu-icon.php:805
 msgid "rounded_corner"
-msgstr ""
+msgstr "rounded_corner"
 
 #: library/AcfFields/php/options-menu-icon.php:806
 msgid "router"
-msgstr ""
+msgstr "router"
 
 #: library/AcfFields/php/options-menu-icon.php:807
 msgid "rowing"
-msgstr ""
+msgstr "rowing"
 
 #: library/AcfFields/php/options-menu-icon.php:808
 msgid "rss_feed"
-msgstr ""
+msgstr "rss_feed"
 
 #: library/AcfFields/php/options-menu-icon.php:809
 msgid "rv_hookup"
-msgstr ""
+msgstr "rv_hookup"
 
 #: library/AcfFields/php/options-menu-icon.php:810
 msgid "satellite"
-msgstr ""
+msgstr "satellite"
 
 #: library/AcfFields/php/options-menu-icon.php:811
 msgid "save"
-msgstr ""
+msgstr "save"
 
 #: library/AcfFields/php/options-menu-icon.php:812
 msgid "save_alt"
-msgstr ""
+msgstr "save_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:813
 msgid "scanner"
-msgstr ""
+msgstr "scanner"
 
 #: library/AcfFields/php/options-menu-icon.php:814
 msgid "scatter_plot"
-msgstr ""
+msgstr "scatter_plot"
 
 #: library/AcfFields/php/options-menu-icon.php:815
 msgid "schedule"
-msgstr ""
+msgstr "schedule"
 
 #: library/AcfFields/php/options-menu-icon.php:816
 msgid "school"
-msgstr ""
+msgstr "school"
 
 #: library/AcfFields/php/options-menu-icon.php:817
 msgid "score"
-msgstr ""
+msgstr "score"
 
 #: library/AcfFields/php/options-menu-icon.php:818
 msgid "screen_lock_landscape"
-msgstr ""
+msgstr "screen_lock_landscape"
 
 #: library/AcfFields/php/options-menu-icon.php:819
 msgid "screen_lock_portrait"
-msgstr ""
+msgstr "screen_lock_portrait"
 
 #: library/AcfFields/php/options-menu-icon.php:820
 msgid "screen_lock_rotation"
-msgstr ""
+msgstr "screen_lock_rotation"
 
 #: library/AcfFields/php/options-menu-icon.php:821
 msgid "screen_rotation"
-msgstr ""
+msgstr "screen_rotation"
 
 #: library/AcfFields/php/options-menu-icon.php:822
 msgid "screen_share"
-msgstr ""
+msgstr "screen_share"
 
 #: library/AcfFields/php/options-menu-icon.php:823
 msgid "sd_card"
-msgstr ""
+msgstr "sd_card"
 
 #: library/AcfFields/php/options-menu-icon.php:824
 msgid "sd_storage"
-msgstr ""
+msgstr "sd_storage"
 
 #: library/AcfFields/php/options-menu-icon.php:825
 msgid "search"
-msgstr ""
+msgstr "search"
 
 #: library/AcfFields/php/options-menu-icon.php:826
 msgid "security"
-msgstr ""
+msgstr "security"
 
 #: library/AcfFields/php/options-menu-icon.php:827
 msgid "select_all"
-msgstr ""
+msgstr "select_all"
 
 #: library/AcfFields/php/options-menu-icon.php:828
 msgid "send"
-msgstr ""
+msgstr "send"
 
 #: library/AcfFields/php/options-menu-icon.php:829
 msgid "sentiment_dissatisfied"
-msgstr ""
+msgstr "sentiment_dissatisfied"
 
 #: library/AcfFields/php/options-menu-icon.php:830
 msgid "sentiment_satisfied"
-msgstr ""
+msgstr "sentiment_satisfied"
 
 #: library/AcfFields/php/options-menu-icon.php:831
 msgid "sentiment_satisfied_alt"
-msgstr ""
+msgstr "sentiment_satisfied_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:832
 msgid "sentiment_very_dissatisfied"
-msgstr ""
+msgstr "sentiment_very_dissatisfied"
 
 #: library/AcfFields/php/options-menu-icon.php:833
 msgid "sentiment_very_satisfied"
-msgstr ""
+msgstr "sentiment_very_satisfied"
 
 #: library/AcfFields/php/options-menu-icon.php:834
 msgid "settings_applications"
-msgstr ""
+msgstr "settings_applications"
 
 #: library/AcfFields/php/options-menu-icon.php:835
 msgid "settings_backup_restore"
-msgstr ""
+msgstr "settings_backup_restore"
 
 #: library/AcfFields/php/options-menu-icon.php:836
 msgid "settings_bluetooth"
-msgstr ""
+msgstr "settings_bluetooth"
 
 #: library/AcfFields/php/options-menu-icon.php:837
 msgid "settings_brightness"
-msgstr ""
+msgstr "settings_brightness"
 
 #: library/AcfFields/php/options-menu-icon.php:838
 msgid "settings_cell"
-msgstr ""
+msgstr "settings_cell"
 
 #: library/AcfFields/php/options-menu-icon.php:839
 msgid "settings_ethernet"
-msgstr ""
+msgstr "settings_ethernet"
 
 #: library/AcfFields/php/options-menu-icon.php:840
 msgid "settings_input_antenna"
-msgstr ""
+msgstr "settings_input_antenna"
 
 #: library/AcfFields/php/options-menu-icon.php:841
 msgid "settings_input_component"
-msgstr ""
+msgstr "settings_input_component"
 
 #: library/AcfFields/php/options-menu-icon.php:842
 msgid "settings_input_composite"
-msgstr ""
+msgstr "settings_input_composite"
 
 #: library/AcfFields/php/options-menu-icon.php:843
 msgid "settings_input_hdmi"
-msgstr ""
+msgstr "settings_input_hdmi"
 
 #: library/AcfFields/php/options-menu-icon.php:844
 msgid "settings_input_svideo"
-msgstr ""
+msgstr "settings_input_svideo"
 
 #: library/AcfFields/php/options-menu-icon.php:845
 msgid "settings_overscan"
-msgstr ""
+msgstr "settings_overscan"
 
 #: library/AcfFields/php/options-menu-icon.php:846
 msgid "settings_phone"
-msgstr ""
+msgstr "settings_phone"
 
 #: library/AcfFields/php/options-menu-icon.php:847
 msgid "settings_power"
-msgstr ""
+msgstr "settings_power"
 
 #: library/AcfFields/php/options-menu-icon.php:848
 msgid "settings_remote"
-msgstr ""
+msgstr "settings_remote"
 
 #: library/AcfFields/php/options-menu-icon.php:849
 msgid "settings_system_daydream"
-msgstr ""
+msgstr "settings_system_daydream"
 
 #: library/AcfFields/php/options-menu-icon.php:850
 msgid "settings_voice"
-msgstr ""
+msgstr "settings_voice"
 
 #: library/AcfFields/php/options-menu-icon.php:851
 msgid "share"
-msgstr ""
+msgstr "share"
 
 #: library/AcfFields/php/options-menu-icon.php:852
 msgid "shop"
-msgstr ""
+msgstr "shop"
 
 #: library/AcfFields/php/options-menu-icon.php:853
 msgid "shop_two"
-msgstr ""
+msgstr "shop_two"
 
 #: library/AcfFields/php/options-menu-icon.php:854
 msgid "shopping_basket"
-msgstr ""
+msgstr "shopping_basket"
 
 #: library/AcfFields/php/options-menu-icon.php:855
 msgid "shopping_cart"
-msgstr ""
+msgstr "shopping_cart"
 
 #: library/AcfFields/php/options-menu-icon.php:856
 msgid "short_text"
-msgstr ""
+msgstr "short_text"
 
 #: library/AcfFields/php/options-menu-icon.php:857
 msgid "show_chart"
-msgstr ""
+msgstr "show_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:858
 msgid "shuffle"
-msgstr ""
+msgstr "shuffle"
 
 #: library/AcfFields/php/options-menu-icon.php:859
 msgid "shutter_speed"
-msgstr ""
+msgstr "shutter_speed"
 
 #: library/AcfFields/php/options-menu-icon.php:860
 msgid "signal_cellular_4_bar"
-msgstr ""
+msgstr "signal_cellular_4_bar"
 
 #: library/AcfFields/php/options-menu-icon.php:861
 msgid "signal_cellular_alt"
-msgstr ""
+msgstr "signal_cellular_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:862
 msgid "signal_cellular_connected_no_internet_4_bar"
-msgstr ""
+msgstr "signal_cellular_connected_no_internet_4_bar"
 
 #: library/AcfFields/php/options-menu-icon.php:863
 msgid "signal_cellular_no_sim"
-msgstr ""
+msgstr "signal_cellular_no_sim"
 
 #: library/AcfFields/php/options-menu-icon.php:864
 msgid "signal_cellular_null"
-msgstr ""
+msgstr "signal_cellular_null"
 
 #: library/AcfFields/php/options-menu-icon.php:865
 msgid "signal_cellular_off"
-msgstr ""
+msgstr "signal_cellular_off"
 
 #: library/AcfFields/php/options-menu-icon.php:866
 msgid "signal_wifi_4_bar"
-msgstr ""
+msgstr "signal_wifi_4_bar"
 
 #: library/AcfFields/php/options-menu-icon.php:867
 msgid "signal_wifi_4_bar_lock"
-msgstr ""
+msgstr "signal_wifi_4_bar_lock"
 
 #: library/AcfFields/php/options-menu-icon.php:868
 msgid "signal_wifi_off"
-msgstr ""
+msgstr "signal_wifi_off"
 
 #: library/AcfFields/php/options-menu-icon.php:869
 msgid "sim_card"
-msgstr ""
+msgstr "sim_card"
 
 #: library/AcfFields/php/options-menu-icon.php:870
 msgid "single_bed"
-msgstr ""
+msgstr "single_bed"
 
 #: library/AcfFields/php/options-menu-icon.php:871
 msgid "skip_next"
-msgstr ""
+msgstr "skip_next"
 
 #: library/AcfFields/php/options-menu-icon.php:872
 msgid "skip_previous"
-msgstr ""
+msgstr "skip_previous"
 
 #: library/AcfFields/php/options-menu-icon.php:873
 msgid "slideshow"
-msgstr ""
+msgstr "slideshow"
 
 #: library/AcfFields/php/options-menu-icon.php:874
 msgid "slow_motion_video"
-msgstr ""
+msgstr "slow_motion_video"
 
 #: library/AcfFields/php/options-menu-icon.php:875
 msgid "smartphone"
-msgstr ""
+msgstr "smartphone"
 
 #: library/AcfFields/php/options-menu-icon.php:876
 msgid "smoke_free"
-msgstr ""
+msgstr "smoke_free"
 
 #: library/AcfFields/php/options-menu-icon.php:877
 msgid "smoking_rooms"
-msgstr ""
+msgstr "smoking_rooms"
 
 #: library/AcfFields/php/options-menu-icon.php:878
 msgid "sms"
-msgstr ""
+msgstr "sms"
 
 #: library/AcfFields/php/options-menu-icon.php:879
 msgid "sms_failed"
-msgstr ""
+msgstr "sms_failed"
 
 #: library/AcfFields/php/options-menu-icon.php:880
 msgid "snooze"
-msgstr ""
+msgstr "snooze"
 
 #: library/AcfFields/php/options-menu-icon.php:881
 msgid "sort"
-msgstr ""
+msgstr "sort"
 
 #: library/AcfFields/php/options-menu-icon.php:882
 msgid "sort_by_alpha"
-msgstr ""
+msgstr "sort_by_alpha"
 
 #: library/AcfFields/php/options-menu-icon.php:883
 msgid "spa"
-msgstr ""
+msgstr "spa"
 
 #: library/AcfFields/php/options-menu-icon.php:884
 msgid "space_bar"
-msgstr ""
+msgstr "space_bar"
 
 #: library/AcfFields/php/options-menu-icon.php:885
 msgid "speaker"
-msgstr ""
+msgstr "speaker"
 
 #: library/AcfFields/php/options-menu-icon.php:886
 msgid "speaker_group"
-msgstr ""
+msgstr "speaker_group"
 
 #: library/AcfFields/php/options-menu-icon.php:887
 msgid "speaker_notes"
-msgstr ""
+msgstr "speaker_notes"
 
 #: library/AcfFields/php/options-menu-icon.php:888
 msgid "speaker_notes_off"
-msgstr ""
+msgstr "speaker_notes_off"
 
 #: library/AcfFields/php/options-menu-icon.php:889
 msgid "speaker_phone"
-msgstr ""
+msgstr "speaker_phone"
 
 #: library/AcfFields/php/options-menu-icon.php:890
 msgid "speed"
-msgstr ""
+msgstr "speed"
 
 #: library/AcfFields/php/options-menu-icon.php:891
 msgid "spellcheck"
-msgstr ""
+msgstr "spellcheck"
 
 #: library/AcfFields/php/options-menu-icon.php:892
 msgid "sports"
-msgstr ""
+msgstr "sports"
 
 #: library/AcfFields/php/options-menu-icon.php:893
 msgid "sports_baseball"
-msgstr ""
+msgstr "sports_baseball"
 
 #: library/AcfFields/php/options-menu-icon.php:894
 msgid "sports_basketball"
-msgstr ""
+msgstr "sports_basketball"
 
 #: library/AcfFields/php/options-menu-icon.php:895
 msgid "sports_cricket"
-msgstr ""
+msgstr "sports_cricket"
 
 #: library/AcfFields/php/options-menu-icon.php:896
 msgid "sports_esports"
-msgstr ""
+msgstr "sports_esports"
 
 #: library/AcfFields/php/options-menu-icon.php:897
 msgid "sports_football"
-msgstr ""
+msgstr "sports_football"
 
 #: library/AcfFields/php/options-menu-icon.php:898
 msgid "sports_golf"
-msgstr ""
+msgstr "sports_golf"
 
 #: library/AcfFields/php/options-menu-icon.php:899
 msgid "sports_handball"
-msgstr ""
+msgstr "sports_handball"
 
 #: library/AcfFields/php/options-menu-icon.php:900
 msgid "sports_hockey"
-msgstr ""
+msgstr "sports_hockey"
 
 #: library/AcfFields/php/options-menu-icon.php:901
 msgid "sports_kabaddi"
-msgstr ""
+msgstr "sports_kabaddi"
 
 #: library/AcfFields/php/options-menu-icon.php:902
 msgid "sports_mma"
-msgstr ""
+msgstr "sports_mma"
 
 #: library/AcfFields/php/options-menu-icon.php:903
 msgid "sports_motorsports"
-msgstr ""
+msgstr "sports_motorsports"
 
 #: library/AcfFields/php/options-menu-icon.php:904
 msgid "sports_rugby"
-msgstr ""
+msgstr "sports_rugby"
 
 #: library/AcfFields/php/options-menu-icon.php:905
 msgid "sports_soccer"
-msgstr ""
+msgstr "sports_soccer"
 
 #: library/AcfFields/php/options-menu-icon.php:906
 msgid "sports_tennis"
-msgstr ""
+msgstr "sports_tennis"
 
 #: library/AcfFields/php/options-menu-icon.php:907
 msgid "sports_volleyball"
-msgstr ""
+msgstr "sports_volleyball"
 
 #: library/AcfFields/php/options-menu-icon.php:908
 msgid "square_foot"
-msgstr ""
+msgstr "square_foot"
 
 #: library/AcfFields/php/options-menu-icon.php:909
 msgid "star"
-msgstr ""
+msgstr "star"
 
 #: library/AcfFields/php/options-menu-icon.php:910
 msgid "star_border"
-msgstr ""
+msgstr "star_border"
 
 #: library/AcfFields/php/options-menu-icon.php:911
 msgid "star_half"
-msgstr ""
+msgstr "star_half"
 
 #: library/AcfFields/php/options-menu-icon.php:912
 msgid "stars"
-msgstr ""
+msgstr "stars"
 
 #: library/AcfFields/php/options-menu-icon.php:913
 msgid "stay_current_landscape"
-msgstr ""
+msgstr "stay_current_landscape"
 
 #: library/AcfFields/php/options-menu-icon.php:914
 msgid "stay_current_portrait"
-msgstr ""
+msgstr "stay_current_portrait"
 
 #: library/AcfFields/php/options-menu-icon.php:915
 msgid "stay_primary_landscape"
-msgstr ""
+msgstr "stay_primary_landscape"
 
 #: library/AcfFields/php/options-menu-icon.php:916
 msgid "stay_primary_portrait"
-msgstr ""
+msgstr "stay_primary_portrait"
 
 #: library/AcfFields/php/options-menu-icon.php:917
 msgid "stop"
-msgstr ""
+msgstr "stop"
 
 #: library/AcfFields/php/options-menu-icon.php:918
 msgid "stop_screen_share"
-msgstr ""
+msgstr "stop_screen_share"
 
 #: library/AcfFields/php/options-menu-icon.php:919
 msgid "storage"
-msgstr ""
+msgstr "storage"
 
 #: library/AcfFields/php/options-menu-icon.php:920
 msgid "store"
-msgstr ""
+msgstr "store"
 
 #: library/AcfFields/php/options-menu-icon.php:921
 msgid "store_mall_directory"
-msgstr ""
+msgstr "store_mall_directory"
 
 #: library/AcfFields/php/options-menu-icon.php:922
 msgid "storefront"
-msgstr ""
+msgstr "storefront"
 
 #: library/AcfFields/php/options-menu-icon.php:923
 msgid "straighten"
-msgstr ""
+msgstr "straighten"
 
 #: library/AcfFields/php/options-menu-icon.php:924
 msgid "streetview"
-msgstr ""
+msgstr "streetview"
 
 #: library/AcfFields/php/options-menu-icon.php:925
 msgid "strikethrough_s"
-msgstr ""
+msgstr "strikethrough_s"
 
 #: library/AcfFields/php/options-menu-icon.php:926
 msgid "style"
-msgstr ""
+msgstr "style"
 
 #: library/AcfFields/php/options-menu-icon.php:927
 msgid "subdirectory_arrow_left"
-msgstr ""
+msgstr "subdirectory_arrow_left"
 
 #: library/AcfFields/php/options-menu-icon.php:928
 msgid "subdirectory_arrow_right"
-msgstr ""
+msgstr "subdirectory_arrow_right"
 
 #: library/AcfFields/php/options-menu-icon.php:929
 msgid "subject"
-msgstr ""
+msgstr "subject"
 
 #: library/AcfFields/php/options-menu-icon.php:930
 msgid "subscriptions"
-msgstr ""
+msgstr "subscriptions"
 
 #: library/AcfFields/php/options-menu-icon.php:931
 msgid "subtitles"
-msgstr ""
+msgstr "subtitles"
 
 #: library/AcfFields/php/options-menu-icon.php:932
 msgid "subway"
-msgstr ""
+msgstr "subway"
 
 #: library/AcfFields/php/options-menu-icon.php:933
 msgid "supervised_user_circle"
-msgstr ""
+msgstr "supervised_user_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:934
 msgid "supervisor_account"
-msgstr ""
+msgstr "supervisor_account"
 
 #: library/AcfFields/php/options-menu-icon.php:935
 msgid "surround_sound"
-msgstr ""
+msgstr "surround_sound"
 
 #: library/AcfFields/php/options-menu-icon.php:936
 msgid "swap_calls"
-msgstr ""
+msgstr "swap_calls"
 
 #: library/AcfFields/php/options-menu-icon.php:937
 msgid "swap_horiz"
-msgstr ""
+msgstr "swap_horiz"
 
 #: library/AcfFields/php/options-menu-icon.php:938
 msgid "swap_horizontal_circle"
-msgstr ""
+msgstr "swap_horizontal_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:939
 msgid "swap_vert"
-msgstr ""
+msgstr "swap_vert"
 
 #: library/AcfFields/php/options-menu-icon.php:940
 msgid "swap_vertical_circle"
-msgstr ""
+msgstr "swap_vertical_circle"
 
 #: library/AcfFields/php/options-menu-icon.php:941
 msgid "switch_camera"
-msgstr ""
+msgstr "switch_camera"
 
 #: library/AcfFields/php/options-menu-icon.php:942
 msgid "switch_video"
-msgstr ""
+msgstr "switch_video"
 
 #: library/AcfFields/php/options-menu-icon.php:943
 msgid "sync"
-msgstr ""
+msgstr "sync"
 
 #: library/AcfFields/php/options-menu-icon.php:944
 msgid "sync_alt"
-msgstr ""
+msgstr "sync_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:945
 msgid "sync_disabled"
-msgstr ""
+msgstr "sync_disabled"
 
 #: library/AcfFields/php/options-menu-icon.php:946
 msgid "sync_problem"
-msgstr ""
+msgstr "sync_problem"
 
 #: library/AcfFields/php/options-menu-icon.php:947
 msgid "system_update"
-msgstr ""
+msgstr "system_update"
 
 #: library/AcfFields/php/options-menu-icon.php:948
 msgid "system_update_alt"
-msgstr ""
+msgstr "system_update_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:949
 msgid "tab"
-msgstr ""
+msgstr "tab"
 
 #: library/AcfFields/php/options-menu-icon.php:950
 msgid "tab_unselected"
-msgstr ""
+msgstr "tab_unselected"
 
 #: library/AcfFields/php/options-menu-icon.php:951
 msgid "table_chart"
-msgstr ""
+msgstr "table_chart"
 
 #: library/AcfFields/php/options-menu-icon.php:952
 msgid "tablet"
-msgstr ""
+msgstr "tablet"
 
 #: library/AcfFields/php/options-menu-icon.php:953
 msgid "tablet_android"
-msgstr ""
+msgstr "tablet_android"
 
 #: library/AcfFields/php/options-menu-icon.php:954
 msgid "tablet_mac"
-msgstr ""
+msgstr "tablet_mac"
 
 #: library/AcfFields/php/options-menu-icon.php:955
 msgid "tag_faces"
-msgstr ""
+msgstr "tag_faces"
 
 #: library/AcfFields/php/options-menu-icon.php:956
 msgid "tap_and_play"
-msgstr ""
+msgstr "tap_and_play"
 
 #: library/AcfFields/php/options-menu-icon.php:957
 msgid "terrain"
-msgstr ""
+msgstr "terrain"
 
 #: library/AcfFields/php/options-menu-icon.php:958
 msgid "text_fields"
-msgstr ""
+msgstr "text_fields"
 
 #: library/AcfFields/php/options-menu-icon.php:959
 msgid "text_format"
-msgstr ""
+msgstr "text_format"
 
 #: library/AcfFields/php/options-menu-icon.php:960
 msgid "text_rotate_up"
-msgstr ""
+msgstr "text_rotate_up"
 
 #: library/AcfFields/php/options-menu-icon.php:961
 msgid "text_rotate_vertical"
-msgstr ""
+msgstr "text_rotate_vertical"
 
 #: library/AcfFields/php/options-menu-icon.php:962
 msgid "text_rotation_angledown"
-msgstr ""
+msgstr "text_rotation_angledown"
 
 #: library/AcfFields/php/options-menu-icon.php:963
 msgid "text_rotation_angleup"
-msgstr ""
+msgstr "text_rotation_angleup"
 
 #: library/AcfFields/php/options-menu-icon.php:964
 msgid "text_rotation_down"
-msgstr ""
+msgstr "text_rotation_down"
 
 #: library/AcfFields/php/options-menu-icon.php:965
 msgid "text_rotation_none"
-msgstr ""
+msgstr "text_rotation_none"
 
 #: library/AcfFields/php/options-menu-icon.php:966
 msgid "textsms"
-msgstr ""
+msgstr "textsms"
 
 #: library/AcfFields/php/options-menu-icon.php:967
 msgid "texture"
-msgstr ""
+msgstr "texture"
 
 #: library/AcfFields/php/options-menu-icon.php:968
 msgid "theaters"
-msgstr ""
+msgstr "theaters"
 
 #: library/AcfFields/php/options-menu-icon.php:969
 msgid "thumb_down"
-msgstr ""
+msgstr "thumb_down"
 
 #: library/AcfFields/php/options-menu-icon.php:970
 msgid "thumb_down_alt"
-msgstr ""
+msgstr "thumb_down_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:971
 msgid "thumb_up"
-msgstr ""
+msgstr "thumb_up"
 
 #: library/AcfFields/php/options-menu-icon.php:972
 msgid "thumb_up_alt"
-msgstr ""
+msgstr "thumb_up_alt"
 
 #: library/AcfFields/php/options-menu-icon.php:973
 msgid "thumbs_up_down"
-msgstr ""
+msgstr "thumbs_up_down"
 
 #: library/AcfFields/php/options-menu-icon.php:974
 msgid "time_to_leave"
-msgstr ""
+msgstr "time_to_leave"
 
 #: library/AcfFields/php/options-menu-icon.php:975
 msgid "timelapse"
-msgstr ""
+msgstr "timelapse"
 
 #: library/AcfFields/php/options-menu-icon.php:976
 msgid "timeline"
-msgstr ""
+msgstr "timeline"
 
 #: library/AcfFields/php/options-menu-icon.php:977
 msgid "timer"
-msgstr ""
+msgstr "timer"
 
 #: library/AcfFields/php/options-menu-icon.php:978
 msgid "timer_10"
-msgstr ""
+msgstr "timer_10"
 
 #: library/AcfFields/php/options-menu-icon.php:979
 msgid "timer_3"
-msgstr ""
+msgstr "timer_3"
 
 #: library/AcfFields/php/options-menu-icon.php:980
 msgid "timer_off"
-msgstr ""
+msgstr "timer_off"
 
 #: library/AcfFields/php/options-menu-icon.php:981
 msgid "title"
-msgstr ""
+msgstr "title"
 
 #: library/AcfFields/php/options-menu-icon.php:982
 msgid "toc"
-msgstr ""
+msgstr "toc"
 
 #: library/AcfFields/php/options-menu-icon.php:983
 msgid "today"
-msgstr ""
+msgstr "today"
 
 #: library/AcfFields/php/options-menu-icon.php:984
 msgid "toggle_off"
-msgstr ""
+msgstr "toggle_off"
 
 #: library/AcfFields/php/options-menu-icon.php:985
 msgid "toggle_on"
-msgstr ""
+msgstr "toggle_on"
 
 #: library/AcfFields/php/options-menu-icon.php:986
 msgid "toll"
-msgstr ""
+msgstr "toll"
 
 #: library/AcfFields/php/options-menu-icon.php:987
 msgid "tonality"
-msgstr ""
+msgstr "tonality"
 
 #: library/AcfFields/php/options-menu-icon.php:988
 msgid "touch_app"
-msgstr ""
+msgstr "touch_app"
 
 #: library/AcfFields/php/options-menu-icon.php:989
 msgid "toys"
-msgstr ""
+msgstr "toys"
 
 #: library/AcfFields/php/options-menu-icon.php:990
 msgid "track_changes"
-msgstr ""
+msgstr "track_changes"
 
 #: library/AcfFields/php/options-menu-icon.php:991
 msgid "traffic"
-msgstr ""
+msgstr "traffic"
 
 #: library/AcfFields/php/options-menu-icon.php:992
 msgid "train"
-msgstr ""
+msgstr "train"
 
 #: library/AcfFields/php/options-menu-icon.php:993
 msgid "tram"
-msgstr ""
+msgstr "tram"
 
 #: library/AcfFields/php/options-menu-icon.php:994
 msgid "transfer_within_a_station"
-msgstr ""
+msgstr "transfer_within_a_station"
 
 #: library/AcfFields/php/options-menu-icon.php:995
 msgid "transform"
-msgstr ""
+msgstr "transform"
 
 #: library/AcfFields/php/options-menu-icon.php:996
 msgid "transit_enterexit"
-msgstr ""
+msgstr "transit_enterexit"
 
 #: library/AcfFields/php/options-menu-icon.php:997
 msgid "translate"
-msgstr ""
+msgstr "translate"
 
 #: library/AcfFields/php/options-menu-icon.php:998
 msgid "trending_down"
-msgstr ""
+msgstr "trending_down"
 
 #: library/AcfFields/php/options-menu-icon.php:999
 msgid "trending_flat"
-msgstr ""
+msgstr "trending_flat"
 
 #: library/AcfFields/php/options-menu-icon.php:1000
 msgid "trending_up"
-msgstr ""
+msgstr "trending_up"
 
 #: library/AcfFields/php/options-menu-icon.php:1001
 msgid "trip_origin"
-msgstr ""
+msgstr "trip_origin"
 
 #: library/AcfFields/php/options-menu-icon.php:1002
 msgid "tune"
-msgstr ""
+msgstr "tune"
 
 #: library/AcfFields/php/options-menu-icon.php:1003
 msgid "turned_in"
-msgstr ""
+msgstr "turned_in"
 
 #: library/AcfFields/php/options-menu-icon.php:1004
 msgid "turned_in_not"
-msgstr ""
+msgstr "turned_in_not"
 
 #: library/AcfFields/php/options-menu-icon.php:1005
 msgid "tv"
-msgstr ""
+msgstr "tv"
 
 #: library/AcfFields/php/options-menu-icon.php:1006
 msgid "tv_off"
-msgstr ""
+msgstr "tv_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1007
 msgid "unarchive"
-msgstr ""
+msgstr "unarchive"
 
 #: library/AcfFields/php/options-menu-icon.php:1008
 msgid "undo"
-msgstr ""
+msgstr "undo"
 
 #: library/AcfFields/php/options-menu-icon.php:1009
 msgid "unfold_less"
-msgstr ""
+msgstr "unfold_less"
 
 #: library/AcfFields/php/options-menu-icon.php:1010
 msgid "unfold_more"
-msgstr ""
+msgstr "unfold_more"
 
 #: library/AcfFields/php/options-menu-icon.php:1011
 msgid "unsubscribe"
-msgstr ""
+msgstr "unsubscribe"
 
 #: library/AcfFields/php/options-menu-icon.php:1012
 msgid "update"
-msgstr ""
+msgstr "update"
 
 #: library/AcfFields/php/options-menu-icon.php:1013
 msgid "usb"
-msgstr ""
+msgstr "usb"
 
 #: library/AcfFields/php/options-menu-icon.php:1014
 msgid "verified_user"
-msgstr ""
+msgstr "verified_user"
 
 #: library/AcfFields/php/options-menu-icon.php:1015
 msgid "vertical_align_bottom"
-msgstr ""
+msgstr "vertical_align_bottom"
 
 #: library/AcfFields/php/options-menu-icon.php:1016
 msgid "vertical_align_center"
-msgstr ""
+msgstr "vertical_align_center"
 
 #: library/AcfFields/php/options-menu-icon.php:1017
 msgid "vertical_align_top"
-msgstr ""
+msgstr "vertical_align_top"
 
 #: library/AcfFields/php/options-menu-icon.php:1018
 msgid "vertical_split"
-msgstr ""
+msgstr "vertical_split"
 
 #: library/AcfFields/php/options-menu-icon.php:1019
 msgid "vibration"
-msgstr ""
+msgstr "vibration"
 
 #: library/AcfFields/php/options-menu-icon.php:1020
 msgid "video_call"
-msgstr ""
+msgstr "video_call"
 
 #: library/AcfFields/php/options-menu-icon.php:1021
 msgid "video_label"
-msgstr ""
+msgstr "video_label"
 
 #: library/AcfFields/php/options-menu-icon.php:1022
 msgid "video_library"
-msgstr ""
+msgstr "video_library"
 
 #: library/AcfFields/php/options-menu-icon.php:1023
 msgid "videocam"
-msgstr ""
+msgstr "videocam"
 
 #: library/AcfFields/php/options-menu-icon.php:1024
 msgid "videocam_off"
-msgstr ""
+msgstr "videocam_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1025
 msgid "videogame_asset"
-msgstr ""
+msgstr "videogame_asset"
 
 #: library/AcfFields/php/options-menu-icon.php:1026
 msgid "view_agenda"
-msgstr ""
+msgstr "view_agenda"
 
 #: library/AcfFields/php/options-menu-icon.php:1027
 msgid "view_array"
-msgstr ""
+msgstr "view_array"
 
 #: library/AcfFields/php/options-menu-icon.php:1028
 msgid "view_carousel"
-msgstr ""
+msgstr "view_carousel"
 
 #: library/AcfFields/php/options-menu-icon.php:1029
 msgid "view_column"
-msgstr ""
+msgstr "view_column"
 
 #: library/AcfFields/php/options-menu-icon.php:1030
 msgid "view_comfy"
-msgstr ""
+msgstr "view_comfy"
 
 #: library/AcfFields/php/options-menu-icon.php:1031
 msgid "view_compact"
-msgstr ""
+msgstr "view_compact"
 
 #: library/AcfFields/php/options-menu-icon.php:1032
 msgid "view_day"
-msgstr ""
+msgstr "view_day"
 
 #: library/AcfFields/php/options-menu-icon.php:1033
 msgid "view_headline"
-msgstr ""
+msgstr "view_headline"
 
 #: library/AcfFields/php/options-menu-icon.php:1034
 msgid "view_list"
-msgstr ""
+msgstr "view_list"
 
 #: library/AcfFields/php/options-menu-icon.php:1035
 msgid "view_module"
-msgstr ""
+msgstr "view_module"
 
 #: library/AcfFields/php/options-menu-icon.php:1036
 msgid "view_quilt"
-msgstr ""
+msgstr "view_quilt"
 
 #: library/AcfFields/php/options-menu-icon.php:1037
 msgid "view_stream"
-msgstr ""
+msgstr "view_stream"
 
 #: library/AcfFields/php/options-menu-icon.php:1038
 msgid "view_week"
-msgstr ""
+msgstr "view_week"
 
 #: library/AcfFields/php/options-menu-icon.php:1039
 msgid "vignette"
-msgstr ""
+msgstr "vignette"
 
 #: library/AcfFields/php/options-menu-icon.php:1040
 msgid "visibility"
-msgstr ""
+msgstr "visibility"
 
 #: library/AcfFields/php/options-menu-icon.php:1041
 msgid "visibility_off"
-msgstr ""
+msgstr "visibility_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1042
 msgid "voice_chat"
-msgstr ""
+msgstr "voice_chat"
 
 #: library/AcfFields/php/options-menu-icon.php:1043
 msgid "voice_over_off"
-msgstr ""
+msgstr "voice_over_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1044
 msgid "voicemail"
-msgstr ""
+msgstr "voicemail"
 
 #: library/AcfFields/php/options-menu-icon.php:1045
 msgid "volume_down"
-msgstr ""
+msgstr "volume_down"
 
 #: library/AcfFields/php/options-menu-icon.php:1046
 msgid "volume_mute"
-msgstr ""
+msgstr "volume_mute"
 
 #: library/AcfFields/php/options-menu-icon.php:1047
 msgid "volume_off"
-msgstr ""
+msgstr "volume_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1048
 msgid "volume_up"
-msgstr ""
+msgstr "volume_up"
 
 #: library/AcfFields/php/options-menu-icon.php:1049
 msgid "vpn_key"
-msgstr ""
+msgstr "vpn_key"
 
 #: library/AcfFields/php/options-menu-icon.php:1050
 msgid "vpn_lock"
-msgstr ""
+msgstr "vpn_lock"
 
 #: library/AcfFields/php/options-menu-icon.php:1051
 msgid "wallpaper"
-msgstr ""
+msgstr "wallpaper"
 
 #: library/AcfFields/php/options-menu-icon.php:1052
 msgid "warning"
-msgstr ""
+msgstr "warning"
 
 #: library/AcfFields/php/options-menu-icon.php:1053
 msgid "watch"
-msgstr ""
+msgstr "watch"
 
 #: library/AcfFields/php/options-menu-icon.php:1054
 msgid "watch_later"
-msgstr ""
+msgstr "watch_later"
 
 #: library/AcfFields/php/options-menu-icon.php:1055
 msgid "waves"
-msgstr ""
+msgstr "waves"
 
 #: library/AcfFields/php/options-menu-icon.php:1056
 msgid "wb_auto"
-msgstr ""
+msgstr "wb_auto"
 
 #: library/AcfFields/php/options-menu-icon.php:1057
 msgid "wb_cloudy"
-msgstr ""
+msgstr "wb_cloudy"
 
 #: library/AcfFields/php/options-menu-icon.php:1058
 msgid "wb_incandescent"
-msgstr ""
+msgstr "wb_incandescent"
 
 #: library/AcfFields/php/options-menu-icon.php:1059
 msgid "wb_iridescent"
-msgstr ""
+msgstr "wb_iridescent"
 
 #: library/AcfFields/php/options-menu-icon.php:1060
 msgid "wb_sunny"
-msgstr ""
+msgstr "wb_sunny"
 
 #: library/AcfFields/php/options-menu-icon.php:1061
 msgid "wc"
-msgstr ""
+msgstr "wc"
 
 #: library/AcfFields/php/options-menu-icon.php:1062
 msgid "web"
-msgstr ""
+msgstr "web"
 
 #: library/AcfFields/php/options-menu-icon.php:1063
 msgid "web_asset"
-msgstr ""
+msgstr "web_asset"
 
 #: library/AcfFields/php/options-menu-icon.php:1064
 msgid "whatshot"
-msgstr ""
+msgstr "whatshot"
 
 #: library/AcfFields/php/options-menu-icon.php:1065
 msgid "where_to_vote"
-msgstr ""
+msgstr "where_to_vote"
 
 #: library/AcfFields/php/options-menu-icon.php:1066
 msgid "widgets"
-msgstr ""
+msgstr "widgets"
 
 #: library/AcfFields/php/options-menu-icon.php:1067
 msgid "wifi"
-msgstr ""
+msgstr "wifi"
 
 #: library/AcfFields/php/options-menu-icon.php:1068
 msgid "wifi_lock"
-msgstr ""
+msgstr "wifi_lock"
 
 #: library/AcfFields/php/options-menu-icon.php:1069
 msgid "wifi_off"
-msgstr ""
+msgstr "wifi_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1070
 msgid "wifi_tethering"
-msgstr ""
+msgstr "wifi_tethering"
 
 #: library/AcfFields/php/options-menu-icon.php:1071
 msgid "work"
-msgstr ""
+msgstr "work"
 
 #: library/AcfFields/php/options-menu-icon.php:1072
 msgid "work_off"
-msgstr ""
+msgstr "work_off"
 
 #: library/AcfFields/php/options-menu-icon.php:1073
 msgid "work_outline"
-msgstr ""
+msgstr "work_outline"
 
 #: library/AcfFields/php/options-menu-icon.php:1074
 msgid "wrap_text"
-msgstr ""
+msgstr "wrap_text"
 
 #: library/AcfFields/php/options-menu-icon.php:1075
 msgid "youtube_searched_for"
-msgstr ""
+msgstr "youtube_searched_for"
 
 #: library/AcfFields/php/options-menu-icon.php:1076
 msgid "zoom_in"
-msgstr ""
+msgstr "zoom_in"
 
 #: library/AcfFields/php/options-menu-icon.php:1077
 msgid "zoom_out"
-msgstr ""
+msgstr "zoom_out"
 
 #: library/AcfFields/php/options-menu-icon.php:1078
 msgid "zoom_out_map"
-msgstr ""
+msgstr "zoom_out_map"
 
 #: library/AcfFields/php/options-menu-language.php:6
 msgid "Language Menu"
@@ -4756,7 +4752,7 @@ msgstr "Inaktivera skript"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:6
 msgid "Manage post types"
-msgstr ""
+msgstr "Hantera posttyper"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:10
 msgid "Available post types"
@@ -4931,7 +4927,6 @@ msgid "Page Attributes"
 msgstr "Sidattribut"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:287
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:104
 msgid "Post Formats"
 msgstr "Inläggsformat"
 
@@ -4941,15 +4936,17 @@ msgstr "Versioner"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:300
 msgid "Display age notification on posts"
-msgstr ""
+msgstr "Visa notis om innehållets ålder"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:311
 msgid "Wether to display an information notice on posts after X amount of days"
 msgstr ""
+"Om en notis ska visas på respektive inlägg med information om hur länge sen "
+"innehållet publicerades ska visas efter X antal dagar."
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:320
 msgid "Display the notice after this many days"
-msgstr ""
+msgstr "Visa notisen på inlägg äldre än så här många dagar"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
 #: library/Controller/BaseController.php:203
@@ -4973,17 +4970,14 @@ msgid "Extra large"
 msgstr "Extra stor"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:26
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:364
 msgid "Uppercase"
 msgstr "Versaler"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:365
 msgid "Lowercase"
 msgstr "Gemener"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:28
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:363
 msgid "Capitalize"
 msgstr "Stora bokstäver"
 
@@ -5154,21 +5148,20 @@ msgid "Lägg till rad"
 msgstr "Lägg till rad"
 
 #: library/AcfFields/php/options-theme-favicon.php:31
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
 msgid "Type"
 msgstr "Typ"
 
 #: library/AcfFields/php/options-theme-favicon.php:43
 msgid "favicon.ico (16x16px, 32x32px, 48x48px)"
-msgstr ""
+msgstr "favicon.ico (16x16px, 32x32px, 48x48px)"
 
 #: library/AcfFields/php/options-theme-favicon.php:44
 msgid "iOS, Android (152x152px)"
-msgstr ""
+msgstr "iOS, Android (152x152px)"
 
 #: library/AcfFields/php/options-theme-favicon.php:45
 msgid "IE10, Windows Metro (144x144px)"
-msgstr ""
+msgstr "IE10, Windows Metro (144x144px)"
 
 #: library/AcfFields/php/options-theme-favicon.php:57
 msgid "Icon 152x152"
@@ -5200,7 +5193,7 @@ msgstr "Bakgrundsfärg"
 
 #: library/AcfFields/php/options-theme-favicon.php:216
 msgid "#FFFFFF"
-msgstr ""
+msgstr "#FFFFFF"
 
 #: library/AcfFields/php/options-theme-gdpr.php:6
 msgid "GDPR"
@@ -5325,7 +5318,7 @@ msgstr "Senast uppdaterad"
 
 #: library/AcfFields/php/options-theme-post-types.php:6
 msgid "Default post types"
-msgstr ""
+msgstr "Standard-posttyper"
 
 #: library/AcfFields/php/options-theme-post-types.php:10
 msgid "Disable blog"
@@ -5478,8 +5471,6 @@ msgstr "Riktning"
 #: library/Customizer/Sections/Slider.php:118
 #: library/Customizer/Sections/Slider.php:290
 #: library/Customizer/Sections/Width.php:87
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:67
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:351
 msgid "Left"
 msgstr "Vänster"
 
@@ -5493,8 +5484,6 @@ msgstr "Vänster"
 #: library/Customizer/Sections/Slider.php:120
 #: library/Customizer/Sections/Slider.php:292
 #: library/Customizer/Sections/Width.php:103
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:68
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:353
 msgid "Right"
 msgstr "Höger"
 
@@ -5508,7 +5497,6 @@ msgid "Margin"
 msgstr "Marginal"
 
 #: library/AcfFields/php/widget-header-common.php:129
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:196
 msgid "Auto"
 msgstr "Automatisk"
 
@@ -5537,8 +5525,6 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/Slider.php:149
 #: library/Customizer/Sections/Slider.php:268
 #: library/Customizer/Sections/Slider.php:312
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:362
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:382
 msgid "None"
 msgstr "Ingen"
 
@@ -5650,7 +5636,7 @@ msgstr "Endast för inloggade användare"
 
 #: library/Admin/General.php:160
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:29
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:45
@@ -5727,20 +5713,23 @@ msgstr "Egna inläggstyper"
 msgid "Post Types"
 msgstr "Inläggstyper"
 
-#: library/Admin/Options/Theme.php:83
+#: library/Admin/Options/Theme.php:82 library/Admin/Options/Theme.php:83
+msgid "Post Types Purpose"
+msgstr "Innehållstyper"
+
+#: library/Admin/Options/Theme.php:90
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:84
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:113
+#: library/Admin/Options/Theme.php:91
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:91
+#: library/Admin/Options/Theme.php:98
 msgid "Custom CSS/JS Editor"
 msgstr "Egen CSS/JS"
 
-#: library/Admin/Options/Theme.php:92
+#: library/Admin/Options/Theme.php:99
 msgid "Custom CSS/JS"
 msgstr "Egen CSS/JS"
 
@@ -5827,7 +5816,6 @@ msgid "Add new"
 msgstr "Skapa ny"
 
 #: library/Content/CustomPostType.php:59
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:104
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
@@ -5875,6 +5863,22 @@ msgstr "Inga %s hittades i papperskorgen"
 #: library/Content/CustomPostType.php:77
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel."
+
+#: library/Content/PostTypePurpose.php:22
+msgid "Event"
+msgstr "Evenemang"
+
+#: library/Content/PostTypePurpose.php:23
+msgid "Job Listing"
+msgstr "Jobbannons"
+
+#: library/Content/PostTypePurpose.php:24
+msgid "Place"
+msgstr "Plats"
+
+#: library/Content/PostTypePurpose.php:42
+msgid "Post Type Purpose"
+msgstr "Innehållstyp"
 
 #: library/Controller/Archive.php:84 library/Controller/Singular.php:31
 #: views/v1/partials/timestamps.blade.php:33
@@ -6068,7 +6072,7 @@ msgstr ""
 
 #: library/Controller/E404.php:84
 msgid "post"
-msgstr ""
+msgstr "post"
 
 #: library/Controller/Search.php:14
 msgid "The searchquery did not match any content."
@@ -6107,11 +6111,11 @@ msgstr "Lästid"
 
 #: library/Controller/Singular.php:56
 msgid "Reply"
-msgstr ""
+msgstr "Svara"
 
 #: library/Controller/Singular.php:57
 msgid "Log in to Reply"
-msgstr ""
+msgstr "Logga in för att svara"
 
 #: library/Controller/Singular.php:269
 #, php-format
@@ -6122,7 +6126,7 @@ msgstr[1] "Detta innehåll är äldre än %s dagar."
 
 #: library/Customizer.php:23
 msgid "Kirki Customizer framework is required"
-msgstr ""
+msgstr "Kirki Customizer-ramverket krävs"
 
 #: library/Customizer.php:24
 msgid "Plugin install required"
@@ -6429,7 +6433,6 @@ msgstr "Välj en typsnittsfärg för kort."
 #: library/Customizer/Sections/Card.php:80
 #: library/Customizer/Sections/Collection.php:80
 #: library/Customizer/Sections/Field.php:29
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:72
 msgid "Width"
 msgstr "Bredd"
 
@@ -6451,7 +6454,6 @@ msgstr "Streckad"
 #: library/Customizer/Sections/Collection.php:118
 #: library/Customizer/Sections/Divider.php:47
 #: library/Customizer/Sections/Field.php:67
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:386
 msgid "Solid"
 msgstr "Solid"
 
@@ -6607,6 +6609,8 @@ msgstr "Bakgrundsfärger"
 #: library/Customizer/Sections/Colors.php:117
 #: library/Customizer/Sections/Colors.php:149
 #: library/Customizer/Sections/Footer.php:337
+#: library/Customizer/Sections/HamburgerMenu.php:118
+#: library/Customizer/Sections/HamburgerMenu.php:124
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -6644,7 +6648,6 @@ msgid "Hover"
 msgstr "Hovra"
 
 #: library/Customizer/Sections/Colors.php:276
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
 msgid "Active"
 msgstr "Aktivera"
 
@@ -6773,8 +6776,6 @@ msgstr "Textjustering"
 #: library/Customizer/Sections/Footer.php:481
 #: library/Customizer/Sections/Slider.php:119
 #: library/Customizer/Sections/Slider.php:291
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:69
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:352
 msgid "Center"
 msgstr "Centrerad"
 
@@ -6998,7 +6999,7 @@ msgstr "Innehållsjustering"
 
 #: library/Customizer/Sections/Footer.php:511
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: library/Customizer/Sections/General.php:12
 msgid "General"
@@ -7046,6 +7047,29 @@ msgstr "Inramad knapp"
 #: library/Customizer/Sections/HamburgerMenu.php:54
 msgid "Select menu parent style"
 msgstr "Välj stil för menyföräldrar"
+
+#: library/Customizer/Sections/HamburgerMenu.php:72
+#: library/Customizer/Sections/HamburgerMenu.php:78
+#: library/Customizer/Sections/Slider.php:354
+msgid "Heading"
+msgstr "Rubrik"
+
+#: library/Customizer/Sections/HamburgerMenu.php:73
+msgid "Select a color for the headings"
+msgstr "Välj färg för rubrikerna"
+
+#: library/Customizer/Sections/HamburgerMenu.php:95
+#: library/Customizer/Sections/HamburgerMenu.php:101
+msgid "Subitem"
+msgstr "Underobjekt"
+
+#: library/Customizer/Sections/HamburgerMenu.php:96
+msgid "Select a color for the subitems"
+msgstr "Välj färg för underobjekten"
+
+#: library/Customizer/Sections/HamburgerMenu.php:119
+msgid "Select a color for the background"
+msgstr "Välj färg för bakgrunden"
 
 #: library/Customizer/Sections/Header.php:12
 msgid "Header"
@@ -7216,7 +7240,6 @@ msgid "Maps"
 msgstr "Kartor"
 
 #: library/Customizer/Sections/Module/Posts.php:12
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:108
 msgid "Posts"
 msgstr "Inlägg"
 
@@ -7375,14 +7398,12 @@ msgstr ""
 "nollvärde stänger av skuggor helt och hållet."
 
 #: library/Customizer/Sections/Shadow.php:42
-#, fuzzy
-#| msgid "Amount of shadows"
 msgid "Color of shadows"
-msgstr "Mängden skugga"
+msgstr "Färg på skugga"
 
 #: library/Customizer/Sections/Shadow.php:43
 msgid "What color to use for shadows."
-msgstr ""
+msgstr "Välj färg för skuggor."
 
 #: library/Customizer/Sections/Slider.php:19
 msgid "Slider"
@@ -7437,10 +7458,6 @@ msgstr "Slider (Hero)"
 msgid "Settings for the slider in the hero area."
 msgstr "Inställningar för slider i heroytan."
 
-#: library/Customizer/Sections/Slider.php:354
-msgid "Heading"
-msgstr "Rubrik"
-
 #: library/Customizer/Sections/Typography.php:12
 msgid "Typography"
 msgstr "Typografi"
@@ -7468,8 +7485,6 @@ msgid "Use the same font as base but preferably with a higher font weight"
 msgstr "Använd samma typsnitt som bas men mer fetstilad"
 
 #: library/Customizer/Sections/Typography.php:140
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:116
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:135
 msgid "Italic"
 msgstr "Kursiv"
 
@@ -7533,8 +7548,8 @@ msgstr "Vi behöver ditt godkännande för att ta dig vidare"
 #: library/Oembed/OembedFilters.php:18
 #, php-format
 msgid ""
-"This part of the website shows content from %s. By continuing, <a href=\"%s"
-"\"> you are accepting GDPR and privacy policy</a>."
+"This part of the website shows content from %s. By continuing, <a "
+"href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta "
 "godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
@@ -7656,11 +7671,11 @@ msgstr "Fr"
 msgid "Sa"
 msgstr "Lö"
 
-#: library/Theme/General.php:383
+#: library/Theme/General.php:404
 msgid "Print"
 msgstr "Skriv ut"
 
-#: library/Theme/General.php:384
+#: library/Theme/General.php:405
 msgid "Print this page"
 msgstr "Skriv ut den här sidan"
 
@@ -7833,8 +7848,6 @@ msgstr "Krymp sektion"
 
 #: library/Theme/Icon.php:108 library/Theme/Icon.php:109
 #: library/Theme/Icon.php:110
-#, fuzzy
-#| msgid "Warning colors"
 msgid "Warning"
 msgstr "Varning"
 
@@ -8095,1036 +8108,6 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
-msgid "Export with AcfExportManager"
-msgstr ""
-
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
-#, php-format
-msgid "Exported %d fieldgroup(s)."
-msgstr "Exporterade %d fältgrupper."
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:261
-#, php-format
-msgid "Typo found in field %s - setting instead of settings."
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:272
-#, php-format
-msgid ""
-"Config not defined for field %1$s - See %2$s for details on how to properly "
-"add fields."
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:388
-#, php-format
-msgid "\"partial_refresh\" invalid entry in field %s"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:514
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:525
-#: vendor/kirki/packages/kirki-framework/module-css/src/CSS.php:133
-#: vendor/kirki/packages/kirki-framework/module-css/src/CSS.php:144
-#: vendor/kirki/packages/kirki-framework/module-postmessage/src/Postmessage.php:69
-#, php-format
-msgid ""
-"\"output\" invalid format in field %s. The \"output\" argument should be "
-"defined as an array of arrays."
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:206
-msgid ""
-"We detected you're using Kirki\\Compatibility\\Init::get_variables(). Please "
-"use \\Kirki\\Util\\Util::get_variables() instead."
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:257
-msgid ""
-"Your theme uses a Font Awesome field for icons. To avoid issues with missing "
-"icons on your frontend we recommend you install the official Font Awesome "
-"plugin."
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:260
-msgid "Install Plugin"
-msgstr "Installera tillägg"
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:261
-msgid "Don't show this again"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/Kirki.php:191
-msgid ""
-"Kirki fields should not be added on customize_register. Please add them "
-"directly, or on init."
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/compatibility/src/deprecated/functions.php:20
-#, php-format
-msgid "%1$s or %2$s"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-checkbox/src/Control/Checkbox_Switch.php:79
-msgid "On"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-checkbox/src/Control/Checkbox_Switch.php:80
-msgid "Off"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:102
-msgid "Admin Menu"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:103
-msgid "Welcome Screen"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:105
-msgid "Media"
-msgstr "Media"
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:106
-msgid "Image Editing"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:109
-msgid "Sorting"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:110
-msgid "Social"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:112
-msgid "Products"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:114
-msgid "Widgets"
-msgstr "Widgets"
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:115
-msgid "Notifications"
-msgstr "Notiser"
-
-#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:116
-msgid "Miscelaneous"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-dimension/src/Control/Dimension.php:67
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:74
-msgid "Invalid Value"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:82
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:115
-msgid "No image selected"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:85
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:114
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:453
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:485
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:510
-#: views/v1/partials/blog/comments.blade.php:62
-#: views/v1/partials/blog/comments.blade.php:126
-msgid "Remove"
-msgstr "Ta bort"
-
-#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:89
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:111
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:116
-msgid "Select image"
-msgstr "Välj bild"
-
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:112
-msgid "Change image"
-msgstr "Byt ut bild"
-
-#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:117
-msgid "Choose image"
-msgstr "Välj bild"
-
-#: vendor/kirki/packages/kirki-framework/control-react-select/src/Control/ReactSelect.php:162
-msgid "Select..."
-msgstr "Välj..."
-
-#: vendor/kirki/packages/kirki-framework/control-react-select/src/Control/ReactSelect.php:169
-#, php-format
-msgid "You can only select %s items"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:95
-msgid "row"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:139
-msgid "Select a Page"
-msgstr "Välj en sida"
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:275
-#, php-format
-msgid "Limit: %s rows"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:443
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:448
-msgid "No Image Selected"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:454
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:458
-msgid "Add Image"
-msgstr "Lägg till bild"
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:454
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:456
-msgid "Change Image"
-msgstr "Byt ut bild"
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:475
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:480
-msgid "No File Selected"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:486
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:490
-msgid "Add File"
-msgstr "Lägg till fil"
-
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:486
-#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:488
-msgid "Change File"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:84
-#, fuzzy
-#| msgid "Background color"
-msgid "Background Color"
-msgstr "Bakgrundsfärg"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:103
-#, fuzzy
-#| msgid "Background"
-msgid "Background Image"
-msgstr "Bakgrund"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:119
-#, fuzzy
-#| msgid "Background"
-msgid "Background Repeat"
-msgstr "Bakgrund"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:123
-msgid "No Repeat"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:124
-msgid "Repeat All"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:125
-#, fuzzy
-#| msgid "Horizontal"
-msgid "Repeat Horizontally"
-msgstr "Horisontell"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:126
-msgid "Repeat Vertically"
-msgstr "Upprepa vertikalt"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:152
-#, fuzzy
-#| msgid "Background color"
-msgid "Background Position"
-msgstr "Bakgrundsfärg"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:156
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:50
-msgid "Left Top"
-msgstr "Vänster topp"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:157
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:51
-#, fuzzy
-#| msgid "Center"
-msgid "Left Center"
-msgstr "Centrerad"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:158
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:52
-msgid "Left Bottom"
-msgstr "Vänster botten"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:159
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:56
-#, fuzzy
-#| msgid "Center"
-msgid "Center Top"
-msgstr "Centrerad"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:160
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:57
-#, fuzzy
-#| msgid "Center"
-msgid "Center Center"
-msgstr "Centrerad"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:161
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:58
-#, fuzzy
-#| msgid "Footer bottom"
-msgid "Center Bottom"
-msgstr "Botten av sidfot"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:162
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:53
-#, fuzzy
-#| msgid "Right"
-msgid "Right Top"
-msgstr "Höger"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:163
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:54
-#, fuzzy
-#| msgid "Center"
-msgid "Right Center"
-msgstr "Centrerad"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:164
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:55
-msgid "Right Bottom"
-msgstr "Höger botten"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:190
-#, fuzzy
-#| msgid "Background"
-msgid "Background Size"
-msgstr "Bakgrund"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:194
-#, fuzzy
-#| msgid "Hover"
-msgid "Cover"
-msgstr "Hovra"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:195
-msgid "Contain"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:222
-#, fuzzy
-#| msgid "Background color"
-msgid "Background Attachment"
-msgstr "Bakgrundsfärg"
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:227
-msgid "Scroll"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:228
-msgid "Fixed"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:59
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:323
-msgid "Font Size"
-msgstr "Typsnittstorlek"
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:60
-msgid "Font Weight"
-msgstr "Vikt på typsnitt"
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:61
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:402
-msgid "Line Height"
-msgstr "Radhöjd"
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:62
-msgid "Font Style"
-msgstr "Stil för typsnitt"
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:63
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:407
-msgid "Letter Spacing"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:64
-msgid "Word Spacing"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:65
-msgid "Top"
-msgstr "Topp"
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:66
-msgid "Bottom"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:71
-msgid "Spacing"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:73
-msgid "Height"
-msgstr "LjusHöjd"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:112
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:131
-msgid "Regular"
-msgstr "Normal"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:120
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:179
-msgid "700"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:124
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:183
-msgid "700 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:139
-msgid "100"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:143
-msgid "100 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:147
-msgid "200"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:151
-msgid "200 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:155
-msgid "300"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:159
-msgid "300 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:163
-msgid "500"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:167
-msgid "500 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:171
-msgid "600"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:175
-msgid "600 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:187
-msgid "800"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:191
-msgid "800 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:195
-msgid "900"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:199
-msgid "900 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:274
-msgid "Font Family"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:301
-msgid "Font Variant"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:328
-msgid "Font Color"
-msgstr "Textfärg"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:347
-msgid "Text Align"
-msgstr "Textjustering"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:350
-msgid "Initial"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:354
-msgid "Justify"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:359
-msgid "Text Transform"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:379
-msgid "Text Decoration"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:383
-msgid "Underline"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:384
-msgid "Line Through"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:385
-msgid "Overline"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:387
-msgid "Wavy"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:422
-msgid "Margin Top"
-msgstr "Marginal topp"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:427
-msgid "Margin Bottom"
-msgstr "Marginal botten"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:850
-msgid "Defaults"
-msgstr "Standard"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:877
-msgid "Standard Fonts"
-msgstr "Standardtypsnitt"
-
-#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:882
-msgid "Google Fonts"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-sections/src/Section_Types/Nested.php:62
-#, fuzzy
-#| msgid "Customizer"
-msgid "Customizing"
-msgstr "Anpassning"
-
-#: vendor/kirki/packages/kirki-framework/module-sections/src/Section_Types/Nested.php:65
-#, php-format
-msgid "Customizing &#9656; %s"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:162
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:163
-msgid "Ultra-Light 100"
-msgstr "Extra Lätt (100)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:164
-msgid "Ultra-Light 100 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:165
-msgid "Light 200"
-msgstr "Lätt (300)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:166
-msgid "Light 200 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:167
-msgid "Book 300"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:168
-msgid "Book 300 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:169
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:170
-msgid "Normal 400"
-msgstr "Normal 400"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:171
-msgid "Normal 400 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:172
-msgid "Medium 500"
-msgstr "Medel (500)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:173
-msgid "Medium 500 Italic"
-msgstr "Medel Kursiv (500)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:174
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:175
-#, fuzzy
-#| msgid "Bold (700)"
-msgid "Semi-Bold 600"
-msgstr "Fet (700)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:176
-msgid "Semi-Bold 600 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:177
-#, fuzzy
-#| msgid "Bold (700)"
-msgid "Bold 700"
-msgstr "Fet (700)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:178
-#, fuzzy
-#| msgid "Bold (700)"
-msgid "Bold 700 Italic"
-msgstr "Fet (700)"
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:179
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:180
-msgid "Extra-Bold 800"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:181
-msgid "Extra-Bold 800 Italic"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:182
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:183
-msgid "Ultra-Bold 900"
-msgstr ""
-
-#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:184
-msgid "Ultra-Bold 900 Italic"
-msgstr ""
-
-#: vendor/kirki/upgrade-notifications.php:30
-msgid "Important Upgrade Notice:"
-msgstr "Viktigt uppgraderingsmeddelande:"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
-msgid "Install Required Plugins"
-msgstr "Installera obligatoriska tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:341
-msgid "Install Plugins"
-msgstr "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:343
-#, php-format
-msgid "Installing Plugin: %s"
-msgstr "Installerar tillägg: %s"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:345
-#, php-format
-msgid "Updating Plugin: %s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:346
-msgid "Something went wrong with the plugin API."
-msgstr "Något gick fel med tilläggets API."
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:349
-#, php-format
-msgid "This theme requires the following plugin: %1$s."
-msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:355
-#, php-format
-msgid "This theme recommends the following plugin: %1$s."
-msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:361
-#, php-format
-msgid ""
-"The following plugin needs to be updated to its latest version to ensure "
-"maximum compatibility with this theme: %1$s."
-msgid_plural ""
-"The following plugins need to be updated to their latest version to ensure "
-"maximum compatibility with this theme: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:367
-#, php-format
-msgid "There is an update available for: %1$s."
-msgid_plural "There are updates available for the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:373
-#, php-format
-msgid "The following required plugin is currently inactive: %1$s."
-msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:379
-#, php-format
-msgid "The following recommended plugin is currently inactive: %1$s."
-msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:384
-msgid "Begin installing plugin"
-msgid_plural "Begin installing plugins"
-msgstr[0] "Börja installera tillägg"
-msgstr[1] "Börja installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:389
-msgid "Begin updating plugin"
-msgid_plural "Begin updating plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:394
-msgid "Begin activating plugin"
-msgid_plural "Begin activating plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:398
-msgid "Return to Required Plugins Installer"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:399
-msgid "Return to the Dashboard"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:400
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3311
-msgid "Plugin activated successfully."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:401
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3103
-msgid "The following plugin was activated successfully:"
-msgid_plural "The following plugins were activated successfully:"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:403
-#, php-format
-msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:405
-#, php-format
-msgid ""
-"Plugin not activated. A higher version of %s is needed for this theme. "
-"Please update the plugin."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:407
-#, php-format
-msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:408
-msgid "Dismiss this notice"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:409
-msgid ""
-"There are one or more required or recommended plugins to install, update or "
-"activate."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:410
-msgid "Please contact the administrator of this site for help."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:616
-msgid "This plugin needs to be updated to be compatible with your theme."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:617
-msgid "Update Required"
-msgstr "Uppdatering krävs"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:735
-msgid "Set the parent_slug config variable instead."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
-msgid ""
-"The remote plugin package does not contain a folder with the desired slug "
-"and renaming did not work."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
-msgid ""
-"Please contact the plugin provider and ask them to package their plugin "
-"according to the WordPress guidelines."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
-msgid ""
-"The remote plugin package consists of more than one file, but the files are "
-"not packaged in a folder."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1243
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3099
-msgctxt "plugin A *and* plugin B"
-msgid "and"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2112
-#, php-format
-msgid "TGMPA v%s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2421
-msgid "Required"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2424
-msgid "Recommended"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2440
-msgid "WordPress Repository"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2443
-#, fuzzy
-#| msgid "External link"
-msgid "External Source"
-msgstr "Externa länkar"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2446
-msgid "Pre-Packaged"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2463
-msgid "Not Installed"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2467
-msgid "Installed But Not Activated"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2475
-msgid "Required Update not Available"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2478
-msgid "Requires Update"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2481
-msgid "Update recommended"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2490
-#, php-format
-msgctxt "Install/Update Status"
-msgid "%1$s, %2$s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2536
-#, php-format
-msgctxt "plugins"
-msgid "All <span class=\"count\">(%s)</span>"
-msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2540
-#, php-format
-msgid "To Install <span class=\"count\">(%s)</span>"
-msgid_plural "To Install <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2544
-#, php-format
-msgid "Update Available <span class=\"count\">(%s)</span>"
-msgid_plural "Update Available <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2548
-#, php-format
-msgid "To Activate <span class=\"count\">(%s)</span>"
-msgid_plural "To Activate <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2630
-msgctxt "as in: \"version nr unknown\""
-msgid "unknown"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2638
-msgid "Installed version:"
-msgstr "Installerad version:"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2646
-msgid "Minimum required version:"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2658
-msgid "Available version:"
-msgstr "Tillgänglig version:"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2681
-msgid "No plugins to install, update or activate."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2695
-msgid "Plugin"
-msgstr "Tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2696
-msgid "Source"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
-msgid "Version"
-msgstr "Version"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2702
-msgid "Status"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2751
-#, php-format
-msgid "Install %2$s"
-msgstr "Installera %2$s"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2756
-#, php-format
-msgid "Update %2$s"
-msgstr "Uppdatera %2$s"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2762
-#, fuzzy, php-format
-#| msgid "Active"
-msgid "Activate %2$s"
-msgstr "Aktivera"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2834
-msgid "Upgrade message from the plugin author:"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2867
-msgid "Install"
-msgstr "Installera"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2873
-msgid "Update"
-msgstr "Uppdatera"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2876
-#, fuzzy
-#| msgid "Active"
-msgid "Activate"
-msgstr "Aktivera"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2907
-msgid "No plugins were selected to be installed. No action taken."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2909
-msgid "No plugins were selected to be updated. No action taken."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2950
-msgid "No plugins are available to be installed at this time."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2952
-msgid "No plugins are available to be updated at this time."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3059
-msgid "No plugins were selected to be activated. No action taken."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3085
-msgid "No plugins are available to be activated at this time."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3310
-msgid "Plugin activation failed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3655
-#, php-format
-msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3658
-#, php-format
-msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3660
-#, php-format
-msgid "The installation of %1$s failed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3664
-msgid ""
-"The installation and activation process is starting. This process may take a "
-"while on some hosts, so please be patient."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3666
-#, php-format
-msgid "%1$s installed and activated successfully."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3667
-msgid "All installations and activations have been completed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3669
-#, php-format
-msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3672
-msgid ""
-"The installation process is starting. This process may take a while on some "
-"hosts, so please be patient."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3674
-#, php-format
-msgid "%1$s installed successfully."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3675
-msgid "All installations have been completed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3677
-#, php-format
-msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
-msgid "Show Details"
-msgstr "Visa detaljer"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
-msgid "Hide Details"
-msgstr "Dölj detaljer"
-
 #: views/v1/archive-event.blade.php:70
 msgctxt "Event archive"
 msgid "Date"
@@ -9214,6 +8197,11 @@ msgstr "Min profil på"
 #: views/v1/partials/blog/comments.blade.php:123
 msgid "Edit"
 msgstr "Redigera"
+
+#: views/v1/partials/blog/comments.blade.php:62
+#: views/v1/partials/blog/comments.blade.php:126
+msgid "Remove"
+msgstr "Ta bort"
 
 #: views/v1/partials/blog/post-categories.blade.php:2
 msgid "Categories"
@@ -9318,1504 +8306,188 @@ msgstr "Pris"
 msgid "Attached files"
 msgstr "Bifogade filer"
 
-#. Theme Name of the plugin/theme
-msgid "Municipio"
-msgstr ""
+#, php-format
+#~ msgid "Exported %d fieldgroup(s)."
+#~ msgstr "Exporterade %d fältgrupper."
 
-#. Theme URI of the plugin/theme
-msgid "https://github.com/helsingborg-stad/Municipio"
-msgstr ""
+#~ msgid "Install Plugin"
+#~ msgstr "Installera tillägg"
 
-#. Description of the plugin/theme
-msgid ""
-"A bootstrap theme for creating municipality sites. Works veary webb with "
-"Modularity Plugin."
-msgstr ""
+#~ msgid "Media"
+#~ msgstr "Media"
 
-#. Author of the plugin/theme
-msgid ""
-"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
-msgstr ""
+#~ msgid "Widgets"
+#~ msgstr "Widgets"
 
-#. Author URI of the plugin/theme
-msgid "http://www.helsingborg.se"
-msgstr ""
+#~ msgid "Notifications"
+#~ msgstr "Notiser"
 
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "Post Type Select"
-#~ msgstr "Inläggstyper"
+#~ msgid "Select image"
+#~ msgstr "Välj bild"
 
-#~ msgid "Choice"
-#~ msgstr "Val"
+#~ msgid "Change image"
+#~ msgstr "Byt ut bild"
 
-#, fuzzy
-#~| msgid "Default style"
-#~ msgid "Default Value"
-#~ msgstr "Standard"
+#~ msgid "Choose image"
+#~ msgstr "Välj bild"
 
-#~ msgid "Enter each default value on a new line"
-#~ msgstr "Ange varje standardvärde på en ny rad"
+#~ msgid "Select..."
+#~ msgstr "Välj..."
 
-#~ msgid "Allow Null?"
-#~ msgstr "Tillåt tomt värde"
+#~ msgid "Select a Page"
+#~ msgstr "Välj en sida"
 
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nej"
-
-#~ msgid "Select multiple values?"
-#~ msgstr "Välj flera värden?"
-
-#~ msgid "Error! Please enter a higher value"
-#~ msgstr "Fel! Välj ett högre värde"
-
-#, fuzzy
-#~| msgid "Disable"
-#~ msgid "Dynamic Table"
-#~ msgstr "Inaktivera"
-
-#, fuzzy
-#~| msgid "CSS Class"
-#~ msgid "Table Class"
-#~ msgstr "Css klass"
-
-#, fuzzy
-#~| msgid "Set the maximum page withs of different page types."
-#~ msgid "Sets the maximum rows for the table"
-#~ msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
-
-#, fuzzy
-#~| msgid "Disable script"
-#~ msgid "Disable Sort"
-#~ msgstr "Inaktivera skript"
-
-#, fuzzy
-#~| msgid "Columns"
-#~ msgid "Fixed Columns"
-#~ msgstr "Kolumner"
-
-#, fuzzy
-#~| msgid "Default style"
-#~ msgid "Default Headers"
-#~ msgstr "Standard"
-
-#, fuzzy
-#~| msgid "Enter each default value on a new line"
-#~ msgid "Set default headers, one per line."
-#~ msgstr "Ange varje standardvärde på en ny rad"
-
-#, fuzzy
-#~| msgid "Show on mobile"
-#~ msgid "Show Title?"
-#~ msgstr "Visa på mobil"
-
-#, fuzzy
-#~| msgid "Enable"
-#~ msgid "Table"
-#~ msgstr "Aktivera"
-
-#~ msgid "Layout"
-#~ msgstr "Layout"
-
-#, fuzzy
-#~| msgid "Above header"
-#~ msgid "use table header"
-#~ msgstr "Ovanför sidhuvudet"
-
-#, fuzzy
-#~| msgid "Header"
-#~ msgid "Table Header"
-#~ msgstr "Sidhuvud"
-
-#, fuzzy
-#~| msgid "Theme Options"
-#~ msgid "Optional"
-#~ msgstr "Temainställningar"
-
-#, fuzzy
-#~| msgid "Above header"
-#~ msgid "Presetting the usage of table header"
-#~ msgstr "Ovanför sidhuvudet"
-
-#, fuzzy
-#~| msgid "Collection"
-#~ msgid "table caption"
-#~ msgstr "Samlingar"
-
-#, fuzzy
-#~| msgid "Theme Options"
-#~ msgid "Table Caption"
-#~ msgstr "Temainställningar"
-
-#, fuzzy
-#~| msgid "Above header"
-#~ msgid "Presetting the usage of table caption"
-#~ msgstr "Ovanför sidhuvudet"
-
-#, fuzzy
-#~| msgid "Edit %s"
-#~ msgid "Modules"
-#~ msgstr "Redigera %s"
-
-#, fuzzy
-#~| msgid "Hide date"
-#~ msgid "Hide module"
-#~ msgstr "Dölj datum"
-
-#, fuzzy
-#~| msgid "Are you sure you want to delete the comment?"
-#~ msgid "Are you sure you want to remove this module?"
-#~ msgstr "Är du säker på att du vill ta bort kommentaren?"
-
-#, fuzzy
-#~| msgid "Date updated"
-#~ msgid "Deprecated"
-#~ msgstr "Senast uppdaterad"
-
-#, fuzzy
-#~| msgid "Edit %s"
-#~ msgid "Edit Modules"
-#~ msgstr "Redigera %s"
-
-#, fuzzy
-#~| msgid "List"
-#~ msgid "Lista"
-#~ msgstr "Lista"
-
-#, fuzzy
-#~| msgid "Cards"
-#~ msgid "cards"
-#~ msgstr "Kort"
-
-#, fuzzy
-#~| msgid "External link"
-#~ msgid "Efternamn"
-#~ msgstr "Externa länkar"
-
-#, fuzzy
-#~| msgid "Email"
-#~ msgid "E-mail"
-#~ msgstr "Epost"
-
-#, fuzzy
-#~| msgid "Lägg till rad"
-#~ msgid "Lägg till nummer"
-#~ msgstr "Lägg till rad"
-
-#, fuzzy
-#~| msgid "Type"
-#~ msgid "Typ"
-#~ msgstr "Typ"
-
-#, fuzzy
-#~| msgid "Social"
-#~ msgid "Social Media"
-#~ msgstr "Socialt"
-
-#, fuzzy
-#~| msgid "Link"
-#~ msgid "LinkedIn"
-#~ msgstr "Länk"
-
-#, fuzzy
-#~| msgid "Twitter username"
-#~ msgid "Twitter"
-#~ msgstr "Användarnamn på Twitter"
-
-#, fuzzy
-#~| msgid "Instagram username"
-#~ msgid "Instagram"
-#~ msgstr "Användarnamn på Instagram"
-
-#, fuzzy
-#~| msgid "Add section"
-#~ msgid "Add contact"
-#~ msgstr "Lägg till sektion"
-
-#, fuzzy
-#~| msgid "Columns"
-#~ msgid "Kolumner"
-#~ msgstr "Kolumner"
-
-#, fuzzy
-#~| msgid "Active"
-#~ msgid "Aktiverad"
-#~ msgstr "Aktivera"
-
-#, fuzzy
-#~| msgid "Social"
-#~ msgid "Curator Social Media"
-#~ msgstr "Socialt"
-
-#, fuzzy
-#~| msgid "Number of posts to display"
-#~ msgid "Number of posts"
-#~ msgstr "Antalet inlägg på en sida"
-
-#, fuzzy
-#~| msgid "No posts to show"
-#~ msgid "Set the number items to show."
-#~ msgstr "Inga inlägg att visa"
-
-#, fuzzy
-#~| msgid "Lägg till länk"
-#~ msgid "Lägg till fil"
-#~ msgstr "Lägg till länk"
-
-#, fuzzy
-#~| msgid "Fill"
-#~ msgid "Fil"
-#~ msgstr "Fyll"
-
-#, fuzzy
-#~| msgid "Filters"
-#~ msgid "Filter"
-#~ msgstr "Filtrering"
-
-#, fuzzy
-#~| msgid "Reset filter"
-#~ msgid "Tillåt filtrering"
-#~ msgstr "Återställ filter"
-
-#, fuzzy
-#~| msgid "Pages"
-#~ msgid "Images"
-#~ msgstr "Sidor"
-
-#, fuzzy
-#~| msgid "Background Image"
-#~ msgid "Background image"
-#~ msgstr "Bakgrundsbild"
-
-#, fuzzy
-#~| msgid "Header settings."
-#~ msgid "Iframe settings"
-#~ msgstr "Inställningar för sidhuvud."
-
-#, fuzzy
-#~| msgid "Header settings."
-#~ msgid "Iframe URL"
-#~ msgstr "Inställningar för sidhuvud."
-
-#, fuzzy
-#~| msgid "Header settings."
-#~ msgid "Iframe height"
-#~ msgstr "Inställningar för sidhuvud."
-
-#, fuzzy
-#~| msgid "Direction"
-#~ msgid "Description"
-#~ msgstr "Riktning"
-
-#, fuzzy
-#~| msgid "Add Image"
-#~ msgid "Image"
+#~ msgid "Add Image"
 #~ msgstr "Lägg till bild"
 
-#, fuzzy
-#~| msgid "Image Editing"
-#~ msgid "Image caption"
-#~ msgstr "Bildredigering"
+#~ msgid "Change Image"
+#~ msgstr "Byt ut bild"
 
-#, fuzzy
-#~| msgid "Choose image"
-#~ msgid "Crop image"
-#~ msgstr "Välj bild"
+#~ msgid "Add File"
+#~ msgstr "Lägg till fil"
 
-#, fuzzy
-#~| msgid "Choose image"
-#~ msgid "Cropping"
-#~ msgstr "Välj bild"
+#~ msgid "Background Color"
+#~ msgstr "Bakgrundsfärg"
 
-#, fuzzy
-#~| msgid "Max width"
-#~ msgid "Crop width"
-#~ msgstr "Maxbredd"
+#~ msgid "Background Image"
+#~ msgstr "Bakgrundsbild"
 
-#, fuzzy
-#~| msgid "Margin size"
-#~ msgid "Image size"
-#~ msgstr "Marginalstorlek"
+#~ msgid "Background Repeat"
+#~ msgstr "Repetera bakgrund"
 
-#, fuzzy
-#~| msgid "Internal link"
-#~ msgid "Internal"
-#~ msgstr "Interna länkar"
+#~ msgid "Repeat Horizontally"
+#~ msgstr "Horisontellt"
 
-#, fuzzy
-#~| msgid "External link"
-#~ msgid "External"
-#~ msgstr "Externa länkar"
+#~ msgid "Repeat Vertically"
+#~ msgstr "Upprepa vertikalt"
 
-#, fuzzy
-#~| msgid "Link"
-#~ msgid "Link url"
-#~ msgstr "Länk"
+#~ msgid "Background Position"
+#~ msgstr "Bakgrundsplacering"
 
-#, fuzzy
-#~| msgid "Link size"
-#~ msgid "Link page"
-#~ msgstr "Länkstorlek"
+#~ msgid "Left Top"
+#~ msgstr "Vänster topp"
 
-#, fuzzy
-#~| msgid "Link size"
-#~ msgid "Link type"
-#~ msgstr "Länkstorlek"
+#~ msgid "Left Bottom"
+#~ msgstr "Vänster botten"
 
-#, fuzzy
-#~| msgid "Link"
-#~ msgid "No Link"
-#~ msgstr "Länk"
+#~ msgid "Right Bottom"
+#~ msgstr "Höger botten"
 
-#~ msgid "Page"
-#~ msgstr "Sida"
+#~ msgid "Font Size"
+#~ msgstr "Typsnittstorlek"
 
-#, fuzzy
-#~| msgid "Featured image"
-#~ msgid "Use featured image"
-#~ msgstr "Utvald bild"
+#~ msgid "Font Weight"
+#~ msgstr "Vikt på typsnitt"
 
-#, fuzzy
-#~| msgid "Upload image"
-#~ msgid "Upload custom image"
-#~ msgstr "Ladda upp bild"
+#~ msgid "Line Height"
+#~ msgstr "Radhöjd"
 
-#, fuzzy
-#~| msgid "Hide date"
-#~ msgid "Hide image"
-#~ msgstr "Dölj datum"
+#~ msgid "Font Style"
+#~ msgstr "Stil för typsnitt"
 
-#, fuzzy
-#~| msgid "Featured image"
-#~ msgid "featured"
-#~ msgstr "Utvald bild"
+#~ msgid "Top"
+#~ msgstr "Topp"
 
-#~ msgid "Titel"
-#~ msgstr "Titel"
+#~ msgid "Height"
+#~ msgstr "LjusHöjd"
 
-#~ msgid "Lead"
-#~ msgstr "Ingress"
+#~ msgid "Regular"
+#~ msgstr "Normal"
 
-#, fuzzy
-#~| msgid "Post Formats"
-#~ msgid "Post or page"
-#~ msgstr "Inläggsformat"
+#~ msgid "Font Color"
+#~ msgstr "Textfärg"
 
-#, fuzzy
-#~| msgid "Date published"
-#~ msgid "Show publish date"
-#~ msgstr "Publiceringsdatum"
+#~ msgid "Text Align"
+#~ msgstr "Textjustering"
 
-#, fuzzy
-#~| msgid "Logotype"
-#~ msgid "Logotype grid"
-#~ msgstr "Logotyp"
+#~ msgid "Margin Top"
+#~ msgstr "Marginal topp"
 
-#, fuzzy
-#~| msgid "Header logotype"
-#~ msgid "Add new logotype"
-#~ msgstr "Logotyp för sidhuvud"
+#~ msgid "Margin Bottom"
+#~ msgstr "Marginal botten"
 
-#, fuzzy
-#~| msgid "Header logotype"
-#~ msgid "Image/logotype"
-#~ msgstr "Logotyp för sidhuvud"
+#~ msgid "Defaults"
+#~ msgstr "Standard"
 
-#, fuzzy
-#~| msgid "Line Height"
-#~ msgid "Miniumum Height"
-#~ msgstr "Linjehöjd"
+#~ msgid "Standard Fonts"
+#~ msgstr "Standardtypsnitt"
 
-#, fuzzy
-#~| msgid "Line Height"
-#~ msgid "Set a minumum height"
-#~ msgstr "Linjehöjd"
+#~ msgid "Ultra-Light 100"
+#~ msgstr "Extra Lätt (100)"
 
-#, fuzzy
-#~| msgid "Show author"
-#~ msgid "Show button"
-#~ msgstr "Visa författare"
+#~ msgid "Light 200"
+#~ msgstr "Lätt (300)"
 
-#, fuzzy
-#~| msgid "Toggle button label"
-#~ msgid "Button label"
-#~ msgstr "Togglingsknappens etikett"
+#~ msgid "Normal 400"
+#~ msgstr "Normal 400"
 
-#, fuzzy
-#~| msgid "Button"
-#~ msgid "Button url"
-#~ msgstr "Knapp"
+#~ msgid "Medium 500"
+#~ msgstr "Medel (500)"
 
-#, fuzzy
-#~| msgid "Editor formats"
-#~ msgid "Extra info"
-#~ msgstr "Format"
+#~ msgid "Medium 500 Italic"
+#~ msgstr "Medel Kursiv (500)"
 
-#, fuzzy
-#~| msgid "Editor formats"
-#~ msgid "Extra info title"
-#~ msgstr "Format"
+#~ msgid "Important Upgrade Notice:"
+#~ msgstr "Viktigt uppgraderingsmeddelande:"
 
-#, fuzzy
-#~| msgid "Editor formats"
-#~ msgid "Extra information"
-#~ msgstr "Format"
+#~ msgid "Install Required Plugins"
+#~ msgstr "Installera obligatoriska tillägg"
 
-#, fuzzy
-#~| msgid "Footer settings."
-#~ msgid "Notice settings"
-#~ msgstr "Inställningar för sidfot."
+#~ msgid "Install Plugins"
+#~ msgstr "Installera tillägg"
 
-#, fuzzy
-#~| msgid "Success colors"
-#~ msgid "Success (green)"
-#~ msgstr "Lyckades"
+#, php-format
+#~ msgid "Installing Plugin: %s"
+#~ msgstr "Installerar tillägg: %s"
 
-#, fuzzy
-#~| msgid "Danger colors"
-#~ msgid "Danger (red)"
-#~ msgstr "Fara"
+#~ msgid "Something went wrong with the plugin API."
+#~ msgstr "Något gick fel med tilläggets API."
 
-#, fuzzy
-#~| msgid "Notice"
-#~ msgid "notice-md"
-#~ msgstr "Notis"
+#~ msgid "Begin installing plugin"
+#~ msgid_plural "Begin installing plugins"
+#~ msgstr[0] "Börja installera tillägg"
+#~ msgstr[1] "Börja installera tillägg"
 
-#, fuzzy
-#~| msgid "Notice"
-#~ msgid "Notis"
-#~ msgstr "Notis"
+#~ msgid "Update Required"
+#~ msgstr "Uppdatering krävs"
 
-#, fuzzy
-#~| msgid "Taxonomy display"
-#~ msgid "Data display"
-#~ msgstr "Visning av taxonomier"
+#~ msgid "Installed version:"
+#~ msgstr "Installerad version:"
 
-#, fuzzy
-#~| msgid "Display options"
-#~ msgid "Display as"
-#~ msgstr "Visningsinställningar"
+#~ msgid "Available version:"
+#~ msgstr "Tillgänglig version:"
 
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "Post items"
-#~ msgstr "Inläggstyper"
+#~ msgid "Plugin"
+#~ msgstr "Tillägg"
 
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "News items"
-#~ msgstr "Inläggstyper"
+#~ msgid "Version"
+#~ msgstr "Version"
 
-#, fuzzy
-#~| msgid "Field&nbsp;Groups"
-#~ msgid "Fields"
-#~ msgstr "Fältgrupper"
+#, php-format
+#~ msgid "Install %2$s"
+#~ msgstr "Installera %2$s"
 
-#, fuzzy
-#~| msgid "Date published"
-#~ msgid "Show date published"
-#~ msgstr "Publiceringsdatum"
+#, php-format
+#~ msgid "Update %2$s"
+#~ msgstr "Uppdatera %2$s"
 
-#, fuzzy
-#~| msgid "Excerpt"
-#~ msgid "Show excerpt"
-#~ msgstr "Ingress"
+#, php-format
+#~| msgid "Active"
+#~ msgid "Activate %2$s"
+#~ msgstr "Aktivera %2$s"
 
-#, fuzzy
-#~| msgid "New title"
-#~ msgid "Show title"
-#~ msgstr "Ny titel"
+#~ msgid "Install"
+#~ msgstr "Installera"
 
-#, fuzzy
-#~| msgid "Featured image"
-#~ msgid "Show featured image"
-#~ msgstr "Utvald bild"
-
-#, fuzzy
-#~| msgid "Update"
-#~ msgid "date"
+#~ msgid "Update"
 #~ msgstr "Uppdatera"
 
-#, fuzzy
-#~| msgid "Excerpt"
-#~ msgid "excerpt"
-#~ msgstr "Ingress"
-
-#, fuzzy
-#~| msgid "How to align the text in the columns."
-#~ msgid "Hide the title column"
-#~ msgstr "Hur texten i kolumnerna ska justeras."
-
-#, fuzzy
-#~| msgid "How to align the text in the columns."
-#~ msgid "Yes, hide the title column"
-#~ msgstr "Hur texten i kolumnerna ska justeras."
-
-#, fuzzy
-#~| msgid "Toggle button label"
-#~ msgid "Title column label"
-#~ msgstr "Togglingsknappens etikett"
-
-#, fuzzy
-#~| msgid "Toggle button label"
-#~ msgid "List column labels"
-#~ msgstr "Togglingsknappens etikett"
-
-#, fuzzy
-#~| msgid "Above header"
-#~ msgid "Column header"
-#~ msgstr "Ovanför sidhuvudet"
-
-#, fuzzy
-#~| msgid "Reset filter"
-#~ msgid "Allow freetext filtering"
-#~ msgstr "Återställ filter"
-
-#, fuzzy
-#~| msgid "Highlight"
-#~ msgid "Highlight post"
-#~ msgstr "Markering"
-
-#, fuzzy
-#~| msgid "Defaults"
-#~ msgid "Default timestamp"
-#~ msgstr "Standard"
-
-#, fuzzy
-#~| msgid "Expandable List"
-#~ msgid "Readable timestamp"
-#~ msgstr "Expanderbar lista"
-
-#, fuzzy
-#~| msgid "Default"
-#~ msgid "default"
-#~ msgstr "Standard"
-
-#, fuzzy
-#~| msgid "Upload image"
-#~ msgid "Placeholder image"
-#~ msgstr "Ladda upp bild"
-
-#, fuzzy
-#~| msgid "Reset filter"
-#~ msgid "Data filtering"
-#~ msgstr "Återställ filter"
-
-#, fuzzy
-#~| msgid "Do not show"
-#~ msgid "Do not sort"
-#~ msgstr "Visa inte"
-
-#, fuzzy
-#~| msgid "Date updated"
-#~ msgid "Date modified"
-#~ msgstr "Senast uppdaterad"
-
-#, fuzzy
-#~| msgid "Parent %s"
-#~ msgid "Parent"
-#~ msgstr "Förälder %s"
-
-#, fuzzy
-#~| msgid "Comment text"
-#~ msgid "Comment count"
-#~ msgstr "Kommentar"
-
-#, fuzzy
-#~| msgid "Menu trigger"
-#~ msgid "Menu order"
-#~ msgstr "Meny utlösare"
-
-#, fuzzy
-#~| msgid "Order By"
-#~ msgid "Order"
-#~ msgstr "Ordna efter"
-
-#, fuzzy
-#~| msgid "Decending"
-#~ msgid "Descending"
-#~ msgstr "Fallande"
-
-#, fuzzy
-#~| msgid "External Source"
-#~ msgid "Data source"
-#~ msgstr "Extern källa"
-
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "Posttyper"
-#~ msgstr "Inläggstyper"
-
-#, fuzzy
-#~| msgid "CSS input"
-#~ msgid "Manually picked posts"
-#~ msgstr "Css"
-
-#, fuzzy
-#~| msgid "CSS input"
-#~ msgid "Manual input"
-#~ msgstr "Css"
-
-#, fuzzy
-#~| msgid "Number of posts to display"
-#~ msgid "Pick posts to display"
-#~ msgstr "Antalet inlägg på en sida"
-
-#, fuzzy
-#~| msgid "CSS input"
-#~ msgid "Data input"
-#~ msgstr "Css"
-
-#, fuzzy
-#~| msgid "Address"
-#~ msgid "Add"
-#~ msgstr "Adress"
-
-#, fuzzy
-#~| msgid "Permalänk"
-#~ msgid "Permalink"
-#~ msgstr "Permalänk"
-
-#, fuzzy
-#~| msgid "Columns"
-#~ msgid "Column values"
-#~ msgstr "Kolumner"
-
-#, fuzzy
-#~| msgid "Link name to author archive"
-#~ msgid "Link to post type archive"
-#~ msgstr "Länka namn till arkivet för författaren"
-
-#, fuzzy
-#~| msgid "Link name to author archive"
-#~ msgid "Yes, link to post type archive"
-#~ msgstr "Länka namn till arkivet för författaren"
-
-#, fuzzy
-#~| msgid "Number of Menu Items"
-#~ msgid "Number of items"
-#~ msgstr "Antal objekt"
-
-#, fuzzy
-#~| msgid "Border"
-#~ msgid "Sort order"
-#~ msgstr "Ramiljne"
-
-#, fuzzy
-#~| msgid "Show search"
-#~ msgid "Summary"
-#~ msgstr "Visa sök"
-
-#, fuzzy
-#~| msgid "Padding"
-#~ msgid "Card Padding"
-#~ msgstr "Luft"
-
-#, fuzzy
-#~| msgid "Include script in footer"
-#~ msgid "Include main site"
-#~ msgstr "Inludera skript i sidfot"
-
-#, fuzzy
-#~| msgid "Slide overlay"
-#~ msgid "Slider ratio"
-#~ msgstr "Övertäckning slider"
-
-#, fuzzy
-#~| msgid "Square"
-#~ msgid "Square (4:3)"
-#~ msgstr "Fyrkantig"
-
-#, fuzzy
-#~| msgid "Auto"
-#~ msgid "Autoslide"
-#~ msgstr "Automatisk"
-
-#, fuzzy
-#~| msgid "Slide overlay"
-#~ msgid "Slide interval"
-#~ msgstr "Övertäckning slider"
-
-#, fuzzy
-#~| msgid "Slide overlay"
-#~ msgid "Slides"
-#~ msgstr "Övertäckning slider"
-
-#, fuzzy
-#~| msgid "Add File"
-#~ msgid "Add slide"
-#~ msgstr "Lägg till fil"
-
-#, fuzzy
-#~| msgid "Drop Shadows"
-#~ msgid "Shadow"
-#~ msgstr "Skuggor"
-
-#, fuzzy
-#~| msgid "White"
-#~ msgid "Whitespace"
-#~ msgstr "Vit"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Amount of whitespace"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Below Settings"
-#~ msgid "Table - Block settings"
-#~ msgstr "Under inställningar"
-
-#, fuzzy
-#~| msgid "January"
-#~ msgid "manual"
-#~ msgstr "Januari"
-
-#, fuzzy
 #~| msgid "Active"
-#~ msgid "Aktivera sök"
+#~ msgid "Activate"
 #~ msgstr "Aktivera"
 
-#, fuzzy
-#~| msgid "Search %s"
-#~ msgid "Search in list"
-#~ msgstr "Sök %s"
-
-#, fuzzy
-#~| msgid "Editor"
-#~ msgid "Table Editor"
-#~ msgstr "Redigerare"
-
-#, fuzzy
-#~| msgid "Su"
-#~ msgid "Sum"
-#~ msgstr "Sö"
-
-#, fuzzy
-#~| msgid "Text Decoration"
-#~ msgid "Text options"
-#~ msgstr "Textdekoration"
-
-#, fuzzy
-#~| msgid "Video"
-#~ msgid "Video: mp4"
-#~ msgstr "Video"
-
-#, fuzzy
-#~| msgid "Wordpress menu"
-#~ msgid "Wordpress Widget"
-#~ msgstr "Wordpress-menyn"
-
-#, fuzzy
-#~| msgid "Standard"
-#~ msgid "Kalender"
-#~ msgstr "Standard"
-
-#, fuzzy
-#~| msgid "Categories"
-#~ msgid "Kategorier"
-#~ msgstr "Kategorier"
-
-#, fuzzy
-#~| msgid "CSS"
-#~ msgid "RSS"
-#~ msgstr "CSS"
-
-#~ msgid "Sök"
-#~ msgstr "Sök"
-
-#, fuzzy
-#~| msgid "Widgets"
-#~ msgid "Widget Type"
-#~ msgstr "Widgetar"
-
-#, fuzzy
-#~| msgid "Margin options"
-#~ msgid "No options avabile"
-#~ msgstr "Marginalinställningar"
-
-#, fuzzy
-#~| msgid "Number of Menu Items"
-#~ msgid "Show number of items indicator"
-#~ msgstr "Antal objekt"
-
-#, fuzzy
-#~| msgid "Show as"
-#~ msgid "Show as dropdown list"
-#~ msgstr "Visa som"
-
-#, fuzzy
-#~| msgid "Number of Menu Items"
-#~ msgid "Show number of category items indicator"
-#~ msgstr "Antal objekt"
-
-#, fuzzy
-#~| msgid "Show search"
-#~ msgid "Show as hierarchial list"
-#~ msgstr "Visa sök"
-
-#, fuzzy
-#~| msgid "Show as"
-#~ msgid "Show as dropdown"
-#~ msgstr "Visa som"
-
-#, fuzzy
-#~| msgid "Page"
-#~ msgid "Page ID"
-#~ msgstr "Sida"
-
-#, fuzzy
-#~| msgid "Number of columns to display"
-#~ msgid "Number of comments to show"
-#~ msgstr "Antal kolumner i rutnät"
-
-#, fuzzy
-#~| msgid "No posts to show"
-#~ msgid "Number of posts to show"
-#~ msgstr "Inga inlägg att visa"
-
-#, fuzzy
-#~| msgid "No posts to show"
-#~ msgid "Items to show"
-#~ msgstr "Inga inlägg att visa"
-
-#, fuzzy
-#~| msgid "Show search"
-#~ msgid "Yes, show summary"
-#~ msgstr "Visa sök"
-
-#, fuzzy
-#~| msgid "Show search"
-#~ msgid "Show summary"
-#~ msgstr "Visa sök"
-
-#, fuzzy
-#~| msgid "Show author"
-#~ msgid "Yes, show author"
-#~ msgstr "Visa författare"
-
-#, fuzzy
-#~| msgid "Show author"
-#~ msgid "Yes, show date"
-#~ msgstr "Visa författare"
-
-#, fuzzy
-#~| msgid "Show as"
-#~ msgid "Show date"
-#~ msgstr "Visa som"
-
-#, fuzzy
-#~| msgid "Categories"
-#~ msgid "Länkkategorier"
-#~ msgstr "Kategorier"
-
-#, fuzzy
-#~| msgid "Categories"
-#~ msgid "Kategori"
-#~ msgstr "Kategorier"
-
-#, fuzzy
-#~| msgid "Taxonomies"
-#~ msgid "Taxonomy"
-#~ msgstr "Taxonomies"
-
-#, fuzzy
-#~| msgid "Below Settings"
-#~ msgid "Block settings"
-#~ msgstr "Under inställningar"
-
-#, fuzzy
-#~| msgid "Edit %s"
-#~ msgid "Edit module"
-#~ msgstr "Redigera %s"
-
-#, fuzzy
-#~| msgid "View page"
-#~ msgid "View Page"
-#~ msgstr "Visa sida"
-
-#, fuzzy
-#~| msgid "Margin options"
-#~ msgid "Modularity editor"
-#~ msgstr "Marginalinställningar"
-
-#~ msgid "Editor"
-#~ msgstr "Redigerare"
-
-#, fuzzy
-#~| msgid "Show on mobile"
-#~ msgid "Save modules"
-#~ msgstr "Visa på mobil"
-
-#, fuzzy
-#~| msgid "Enabled"
-#~ msgid "Enabled modules"
-#~ msgstr "Aktiverad"
-
-#, fuzzy
-#~| msgid "The left sidebar area"
-#~ msgid "No active sidebar areas"
-#~ msgstr "Sidebar till vänster"
-
-#, fuzzy
-#~| msgid "Module Apperance"
-#~ msgid "Modules saved"
-#~ msgstr "Modulutseende"
-
-#~ msgid "Inherit"
-#~ msgstr "Ärv"
-
-#, fuzzy
-#~| msgid "Contacts"
-#~ msgid "Contacts v2"
-#~ msgstr "Kontakter"
-
-#, fuzzy
-#~| msgid "Post Formats"
-#~ msgid "Postal address"
-#~ msgstr "Inläggsformat"
-
-#, fuzzy
-#~| msgid "Post Formats"
-#~ msgid "Visiting address"
-#~ msgstr "Inläggsformat"
-
-#, fuzzy
-#~| msgid "Something went wrong, please try again later"
-#~ msgid ""
-#~ "Could not get the instagram feed at this moment, please try again later."
-#~ msgstr "Något gick fel, vänligen försök igen senare"
-
-#, fuzzy
-#~| msgid "Add File"
-#~ msgid "Files"
-#~ msgstr "Lägg till fil"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a file archive."
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Categories"
-#~ msgid "Gallery"
-#~ msgstr "Kategorier"
-
-#, fuzzy
-#~| msgid "Categories"
-#~ msgid "Galleries"
-#~ msgstr "Kategorier"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a gallery with images"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Hero"
-#~ msgid "Heros"
-#~ msgstr "Under sidhuvud (Heroyta)"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a hero"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Header settings."
-#~ msgid "Iframe"
-#~ msgstr "Inställningar för sidhuvud."
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs an embedded page."
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs an image"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Index"
-#~ msgid "Indexes"
-#~ msgstr "Index"
-
-#, fuzzy
-#~| msgid "Post Formats"
-#~ msgid "Post article"
-#~ msgstr "Inläggsformat"
-
-#, fuzzy
-#~| msgid "Post Formats"
-#~ msgid "Post articles"
-#~ msgstr "Inläggsformat"
-
-#~ msgid "Inlay List"
-#~ msgstr "Lista"
-
-#~ msgid "Inlay Lists"
-#~ msgstr "Listor"
-
-#, fuzzy
-#~| msgid "Logotype"
-#~ msgid "Logotype grids"
-#~ msgstr "Logotyp"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a grid of logotypes"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs an embedded map."
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a notice"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Read more"
-#~ msgid "Load more"
-#~ msgstr "Läs mer"
-
-#, fuzzy
-#~| msgid "No posts to show"
-#~ msgid "No posts to show…"
-#~ msgstr "Inga inlägg att visa"
-
-#, fuzzy
-#~| msgid "Show author"
-#~ msgid "Show more"
-#~ msgstr "Visa författare"
-
-#, fuzzy
-#~| msgid "Number of posts to display"
-#~ msgid "Nothing to display…"
-#~ msgstr "Antalet inlägg på en sida"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a RSS feed"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Error"
-#~ msgid "RSS Error:"
-#~ msgstr "Fel"
-
-#, fuzzy
-#~| msgid "Untitled page"
-#~ msgid "Untitled"
-#~ msgstr "Namnlös sida"
-
-#, fuzzy
-#~| msgid "Slide overlay"
-#~ msgid "Sliders"
-#~ msgstr "Övertäckning slider"
-
-#, fuzzy
-#~| msgid "Spacing"
-#~ msgid "Spacer"
-#~ msgstr "Avstånd"
-
-#, fuzzy
-#~| msgid "Spacing"
-#~ msgid "Spacers"
-#~ msgstr "Avstånd"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs whitespace."
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Enable"
-#~ msgid "Tables"
-#~ msgstr "Aktivera"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a flexible table with options."
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Text"
-#~ msgid "Texts"
-#~ msgstr "Text"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs text"
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs an embedded Video."
-#~ msgstr "Mängden skugga"
-
-#, fuzzy
-#~| msgid "Wordpress menu"
-#~ msgid "Wordpress Widgets"
-#~ msgstr "Wordpress-menyn"
-
-#, fuzzy
-#~| msgid "Amount of shadows"
-#~ msgid "Outputs a default widget in WordPress"
-#~ msgstr "Mängden skugga"
-
-#~ msgid "Pages"
-#~ msgstr "Sidor"
-
-#, fuzzy
-#~| msgid "Consent comment"
-#~ msgid "Recent comments"
-#~ msgstr "Samtyckes kommentar"
-
-#, fuzzy
-#~| msgid "Consent comment"
-#~ msgid "Recent posts"
-#~ msgstr "Samtyckes kommentar"
-
-#, fuzzy
-#~| msgid "Add new"
-#~ msgctxt "add new button"
-#~ msgid "Add New"
-#~ msgstr "Skapa ny"
-
-#, fuzzy
-#~| msgid "No %s found"
-#~ msgid "No %s"
-#~ msgstr "Inga %s hittades"
-
-#, fuzzy
-#~| msgid "No %s found in trash"
-#~ msgid "No %s in trash"
-#~ msgstr "Inga %s hittades i papperskorgen"
-
-#, fuzzy
-#~| msgid "Hide text"
-#~ msgid "Hide title"
-#~ msgstr "Dölj text"
-
-#, fuzzy
-#~| msgid "This theme recommends the following plugin: %1$s."
-#~| msgid_plural "This theme recommends the following plugins: %1$s."
-#~ msgid "This module is used on the following places:"
-#~ msgstr "Detta tema rekommenderar följande tillägg: %1$s."
-
-#, fuzzy
-#~| msgid "Order direction"
-#~ msgid "Module description"
-#~ msgstr "Riktning"
-
-#, fuzzy
-#~| msgid "Message"
-#~ msgid "Usage"
-#~ msgstr "Meddelande"
-
-#, fuzzy
-#~| msgid "Not Installed"
-#~ msgid "Not used"
-#~ msgstr "Saknas"
-
-#, fuzzy
-#~| msgid "Plugin activated successfully."
-#~ msgid "Options saved successfully"
-#~ msgstr "Tillägg aktiverat utan problem."
-
-#, fuzzy
-#~| msgid "Order direction"
-#~ msgid "Sidebar & Module Restrictions"
-#~ msgstr "Riktning"
-
-#, fuzzy
-#~| msgid "Below Settings"
-#~ msgid "Settings"
-#~ msgstr "Under inställningar"
-
-#, fuzzy
-#~| msgid "The footer area "
-#~ msgid "Template Areas"
-#~ msgstr "Sidfoten"
-
-#, fuzzy
-#~| msgid "Order direction"
-#~ msgid "Module Restrictions"
-#~ msgstr "Riktning"
-
-#, fuzzy
-#~| msgid "Activate Gutenberg"
-#~ msgid "Active Sidebars"
-#~ msgstr "Aktivera Gutenberg"
-
-#, fuzzy
-#~| msgid "Archives"
-#~ msgid "Archive modules"
-#~ msgstr "Arkiv"
-
-#~ msgid "Archive"
-#~ msgstr "Arkiv"
-
-#, fuzzy
-#~| msgid "Number of columns to display"
-#~ msgid "There's no archives to display"
-#~ msgstr "Antal kolumner i rutnät"
-
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "Post Type Archive"
-#~ msgstr "Inläggstyper"
-
-#, fuzzy
-#~| msgid "Hide date"
-#~ msgid "Has modules"
-#~ msgstr "Dölj datum"
-
-#, fuzzy
-#~| msgid "View %s"
-#~ msgid "View"
-#~ msgstr "Visa %s"
-
-#, fuzzy
-#~| msgid "Edit %s"
-#~ msgid "Edit modules"
-#~ msgstr "Redigera %s"
-
-#, fuzzy
-#~| msgid "Margin options"
-#~ msgid "Modularity Options"
-#~ msgstr "Marginalinställningar"
-
-#, fuzzy
-#~| msgid "Theme Options"
-#~ msgid "Options"
-#~ msgstr "Temainställningar"
-
-#, fuzzy
-#~| msgid "Archives"
-#~ msgid "Search page modules"
-#~ msgstr "Arkiv"
-
-#, fuzzy
-#~| msgid "Theme Options"
-#~ msgid "Restrictive Options"
-#~ msgstr "Temainställningar"
-
-#, fuzzy
-#~| msgid "Margin options"
-#~ msgid "Save options"
-#~ msgstr "Marginalinställningar"
-
-#, fuzzy
-#~| msgid "Margin options"
-#~ msgid "Core options"
-#~ msgstr "Marginalinställningar"
-
-#, fuzzy
-#~| msgid "Margin options"
-#~ msgid "Module options"
-#~ msgstr "Marginalinställningar"
-
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "Post types"
-#~ msgstr "Inläggstyper"
-
-#, fuzzy
-#~| msgid "The footer area "
-#~ msgid "Template areas"
-#~ msgstr "Sidfoten"
-
-#~ msgid "Page:"
-#~ msgstr "Sida:"
-
-#, fuzzy
-#~| msgid "The footer area "
-#~ msgid "Using template:"
-#~ msgstr "Sidfoten"
-
-#, fuzzy
-#~| msgid "Show on mobile"
-#~ msgid "Show modules"
-#~ msgstr "Visa på mobil"
-
-#, fuzzy
-#~| msgid "Enabled"
-#~ msgid "Enable and/or disable modules."
-#~ msgstr "Aktiverad"
-
-#, fuzzy
-#~| msgid "Select File"
-#~ msgid "Deprecated modules"
-#~ msgstr "Välj fil"
-
-#, fuzzy
-#~| msgid "Module Apperance"
-#~ msgid "Module"
-#~ msgstr "Modulutseende"
-
-#, fuzzy
-#~| msgid "Check the formats you would like to enable"
-#~ msgid "Select which post types you would like to enable Modularity on."
-#~ msgstr "Välj de format som du vill aktivera"
-
-#, fuzzy
-#~| msgid "Post Types"
-#~ msgid "Post type"
-#~ msgstr "Inläggstyper"
-
-#, fuzzy
-#~| msgid "Enabled"
-#~ msgid "Enable and/or disable areas in a specific template."
-#~ msgstr "Aktiverad"
-
-#, fuzzy
-#~| msgid "The footer area "
-#~ msgid "Template"
-#~ msgstr "Sidfoten"
-
-#, fuzzy
-#~| msgid "Select File"
-#~ msgid "Selected module"
-#~ msgstr "Välj fil"
-
-#, fuzzy
-#~| msgid "No image selected"
-#~ msgid "Not selected"
-#~ msgstr "Ingen bild"
-
-#~ msgid "Module type"
-#~ msgstr "Modultyp"
-
-#~ msgid "Module width"
-#~ msgstr "Modulbredd"
-
-#~ msgid "Browse modules"
-#~ msgstr "Bläddra bland moduler"
-
-#~ msgid "FocusPoint"
-#~ msgstr "Fokuspunkt"
-
-#~ msgid "Preview Size"
-#~ msgstr "Förhandsgranskningsstorlek"
-
-#~ msgid "Minimum"
-#~ msgstr "Minimum"
-
-#~ msgid "File size"
-#~ msgstr "Filstorlek"
-
-#, fuzzy
-#~| msgid "Minimum"
-#~ msgid "Maximum"
-#~ msgstr "Minimum"
-
-#~ msgid ""
-#~ "Municipio: constant 'G_RECAPTCHA_KEY' or 'G_RECAPTCHA_SECRET' is not "
-#~ "defined."
-#~ msgstr ""
-#~ "Municipio: Konstanterna 'G_RECAPTCHA_KEY' eller 'G_RECAPTCHA_SECRET' är "
-#~ "inte definierade.\n"
-#~ "Dessa måste vara definierade om Googles reCAPTCHA ska fungera och skydda "
-#~ "kommentarsfält och formulär mot SPAM."
-
-#~ msgid "reCaptcha validation failed"
-#~ msgstr "Robottestet misslyckades."
-
-#~ msgid "Flat card"
-#~ msgstr "Platt kort"
-
-#~ msgid "Inlay"
-#~ msgstr "Inlägg"
-
-#~ msgid "Algolia Index"
-#~ msgstr "Algoliaindex"
-
-#~ msgid "Settings for indexing to algolia."
-#~ msgstr "Inställningar för indexering till Algolia."
-
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
-
-#~ msgid ""
-#~ "This site is protected by reCAPTCHA and the Google <a href=\"https://"
-#~ "policies.google.com/privacy\">Privacy Policy</a> and <a href=\"https://"
-#~ "policies.google.com/terms\">Terms of Service</a> apply."
-#~ msgstr ""
-#~ "Denna webbplats är skyddad av reCAPTCHA och Googles <a href=\"https://"
-#~ "policies.google.com/privacy\">Integritetspolicy</a> och <a href=\"https://"
-#~ "policies.google.com/terms\">Användarvillkor</a> tillämpas."
-
-#~ msgid "Comment text"
-#~ msgstr "Kommentar"
-
-#~ msgid ""
-#~ "Could not verify that you are human (some hidden form fields are "
-#~ "manipulated)."
-#~ msgstr ""
-#~ "Kunde inte verifiera att du är mänsklig (ett dolt fält är manipulerat)"
-
-#~ msgid "Länkar"
-#~ msgstr "Länkar"
-
-#, fuzzy
-#~| msgid "How to align the text in the columns."
-#~ msgid "How to align the text in the ."
-#~ msgstr "Hur texten i kolumnerna ska justeras."
-
-#~ msgid "Kontrastfärg"
-#~ msgstr "Kontrastfärg"
-
-#~ msgid "Menu fallbacks"
-#~ msgstr "Menyreserver"
-
-#~ msgid "Dölj logotyp i sidfoten"
-#~ msgstr "Dölj logotyp i sidfoten"
-
-#~ msgid "Options for various Typography elements"
-#~ msgstr "Inställningar för typsnitt"
-
-#~ msgid "Archive for"
-#~ msgstr "Arkiv för"
-
-#~ msgid "Leave empty to hide title"
-#~ msgstr "Lämna tomt för att dölja titel"
-
-#~ msgid "Blog & Archives"
-#~ msgstr "Bloggar & Arkiv"
-
-#~ msgid "CSS Defaults"
-#~ msgstr "Css standard"
-
-#~ msgid "Default Browser Font-Family"
-#~ msgstr "Standardtypfamilj för webbläsare"
-
-#~ msgid "Select Font Family"
-#~ msgstr "Välj typsnitt"
-
-#~ msgid "Backup Font"
-#~ msgstr "Backup typsnitt"
-
-#~ msgid "Typo found in field %s - \"theme_mods\" vs \"theme_mod\""
-#~ msgstr "Typfel hittades i fältet %s - \"theme_mods\" kontra \"theme_mod\""
-
-#~ msgid ""
-#~ "Do not use \"alpha\" as an argument in color controls. Use "
-#~ "\"choices[alpha]\" instead."
-#~ msgstr ""
-#~ "Använd inte \"alfa\" som ett argument i färgkontroller. Använd istället "
-#~ "\"val [alfa]\"."
-
-#~ msgid ""
-#~ "Error in field %1$s. The \"mode\" argument has been deprecated since "
-#~ "Kirki v0.8. Use the \"radio-%2$s\" type instead."
-#~ msgstr ""
-#~ "Fel i fältet %1$s. Argumentet \"läge\" har föråldrats sedan Kirki v0.8. "
-#~ "Använd typen \"radio-%2$s\" istället."
+#~ msgid "Show Details"
+#~ msgstr "Visa detaljer"
+
+#~ msgid "Hide Details"
+#~ msgstr "Dölj detaljer"

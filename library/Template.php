@@ -20,6 +20,7 @@ class Template
 
         //Loads custom controllers and views
         add_action('template_redirect', array($this, 'addTemplateFilters'), 10);
+        
         add_filter('template_include', array($this, 'switchTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
@@ -41,15 +42,16 @@ class Template
      * Re-check if there is an custom template applied to the page.
      * This switches incorrect view data to a real template if exists.
      *
-     * TODO: Investigate why we are getting faulty templates from 
-     * WordPress core functionality. 
+     * TODO: Investigate why we are getting faulty templates from
+     * WordPress core functionality.
      *
      * @param string $view
      * @return string
      */
-    public function switchTemplate($view) {
-
-        $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true ); 
+    public function switchTemplate($view)
+    {
+    
+        $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
 
         if ($customTemplate) {
             //Check if file exsists, before use
@@ -61,6 +63,18 @@ class Template
                 }
             }
         }
+        
+        $purpose = \Municipio\Helper\Purpose::getPurpose();
+        if($purpose) {
+            if (is_singular()) {
+                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/singular.blade.php';
+            } 
+            
+            if (is_post_type_archive()) {
+                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/archive.blade.php';
+            }
+        }
+        
 
         return $view;
     }
@@ -87,7 +101,6 @@ class Template
      */
     public function initCustomTemplates(): void
     {
-
         $directory = MUNICIPIO_PATH . 'library/Controller/';
 
         foreach (@glob($directory . "*.php") as $file) {
@@ -104,6 +117,7 @@ class Template
             $class::registerTemplate();
             unset($class);
         }
+        
     }
 
     /**
@@ -121,13 +135,13 @@ class Template
     public function loadViewData($view, $data = array())
     {
         //Get controller data
+
         $viewData = $this->accessProtected(
             $this->loadController(
                 $this->getControllerNameFromView($view)
             ),
             'data'
         );
-
         $externalViewData = apply_filters('Municipio/viewData', []);
 
         if (!empty($externalViewData)) {
@@ -158,6 +172,16 @@ class Template
 
         //Locate default controller
         $controller = \Municipio\Helper\Controller::locateController($template);
+        
+        // Locate purpose controller
+        if (is_a(get_queried_object(), 'WP_Post_Type')) {
+            $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object());
+            $controller = \Municipio\Helper\Controller::locateController('Archive' . ucfirst($purpose));   
+           
+        } elseif (is_a(get_queried_object(), 'WP_Post')) {
+            $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object()->post_type);
+            $controller = \Municipio\Helper\Controller::locateController('Singular' . ucfirst($purpose));    
+        }
 
         //Locate fallback controller
         if (!$controller && is_numeric(get_queried_object_id())) {
@@ -165,7 +189,7 @@ class Template
         } elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
-
+        
         //Filter
         $controller = apply_filters('Municipio/blade/controller', $controller);
 
@@ -173,7 +197,7 @@ class Template
         require_once $controller;
         $namespace = \Municipio\Helper\Controller::getNamespace($controller);
         $class = '\\' . $namespace . '\\' . basename($controller, '.php');
-
+        
         //Do something after controller creation
         do_action_deprecated('Municipio/blade/after_load_controller', $template, '3.0', 'Municipio/blade/afterLoadController');
 
@@ -232,7 +256,6 @@ class Template
      */
     private function getViewNameFromPath($view)
     {
-
         //Remove all paths
         $view = str_replace(
             \Municipio\Helper\Template::getViewPaths(),
@@ -286,7 +309,6 @@ class Template
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
                 add_filter($key . '_template', function ($original) use ($key, $type, $types) {
-
                     // Front page
                     if (empty($original) && is_front_page()) {
                         $type = $types['front-page'];
