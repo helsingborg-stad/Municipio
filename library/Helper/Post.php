@@ -48,9 +48,9 @@ class Post
 
         // Check if password is required for the post
         $passwordRequired = post_password_required($postObject);
-        
+
         //Generate excerpt
-        if ( !$passwordRequired && in_array('excerpt', $appendFields)) {
+        if (!$passwordRequired && in_array('excerpt', $appendFields)) {
             if (empty($postObject->post_excerpt)) {
                 //Create excerpt if not defined by editor
                 $postObject->excerpt = wp_trim_words(
@@ -170,14 +170,14 @@ class Post
                 $postObject->post_language = $postLang;
             }
         }
-        if( $passwordRequired ) {
+        if ($passwordRequired) {
             $postObject->post_content          = get_the_password_form($postObject);
             $postObject->post_content_filtered = get_the_password_form($postObject);
             $postObject->post_excerpt          = get_the_password_form($postObject);
             $postObject->excerpt               = get_the_password_form($postObject);
             $postObject->excerpt_short         = get_the_password_form($postObject);
         }
-        
+
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
@@ -328,5 +328,22 @@ class Post
         ");
 
         return $metaKeys;
+    }
+    /**
+     * > If the post is a WP_Post object, return the ID, otherwise return original $post as an integer
+     *
+     * @param post The post object or ID.
+     *
+     * @return The ID of the post.
+     */
+    public static function getPostId($post)
+    {
+        if (!$post || 0 === $post) {
+            return false;
+        }
+        if (is_a($post, 'WP_Post')) {
+            return (int) $post->ID;
+        }
+        return (int) $post;
     }
 }
