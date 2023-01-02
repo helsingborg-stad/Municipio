@@ -43,7 +43,7 @@ class Post
             return $postObject;
             throw new WP_Error("Complement object must recive a WP_Post class");
         }
-
+        
         //More? Less?
         $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
 
@@ -94,57 +94,15 @@ class Post
                     $part = str_replace('<!-- /wp:more -->', '', $part);
                 }
 
-                $excerpt = self::createLeadElement(array_shift($parts));
-                $content = self::removeEmptyPTag(implode(PHP_EOL, $parts));
+                $excerpt = self::replaceBuiltinClasses(self::createLeadElement(array_shift($parts)));
+                $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
             } else {
                 $excerpt = "";
-                $content = self::removeEmptyPTag($postObject->post_content);
+                $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
             }
-
+                       
             //Replace builtin css classes to our own
-            $postObject->post_content_filtered  = $excerpt . str_replace(
-                [
-                    'wp-caption',
-                    'c-image-text',
-                    'wp-image-',
-                    'alignleft',
-                    'alignright',
-                    'alignnone',
-                    'aligncenter',
-
-                    //Old inline transition button
-                    'btn-theme-first',
-                    'btn-theme-second',
-                    'btn-theme-third',
-                    'btn-theme-fourth',
-                    'btn-theme-fifth',
-
-                    //Gutenberg block image
-                    'wp-block-image',
-                    '<figcaption>'
-                ],
-                [
-                    'c-image',
-                    'c-image__caption',
-                    'c-image__image wp-image-',
-                    'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs',
-                    'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs',
-                    '',
-                    'u-margin__x--auto',
-
-                    //Old inline transition button
-                    'c-button c-button__filled c-button__filled--primary c-button--md',
-                    'c-button c-button__filled c-button__filled--secondary c-button--md',
-                    'c-button c-button__filled c-button__filled--secondary c-button--md',
-                    'c-button c-button__filled c-button__filled--secondary c-button--md',
-                    'c-button c-button__filled c-button__filled--secondary c-button--md',
-
-                    //Gutenberg block image
-                    'c-image',
-                    '<figcaption class="c-image__caption">'
-                ],
-                apply_filters('the_content', $content)
-            );
+            $postObject->post_content_filtered = $excerpt . apply_filters('the_content', $content);
         }
 
         //Get filtered post title
@@ -169,9 +127,10 @@ class Post
                 $postObject->post_language = $postLang;
             }
         }
+        
+        
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
-
     /**
      * Get a list of terms to display on each inlay
      *
@@ -221,13 +180,17 @@ class Post
      */
     private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">')
     {
+        if (str_contains($lead, '<img')) {
+            $lead = \Municipio\Content\Images::normalizeImages($lead);
+        }
         $pos = strpos($lead, $search);
-
+    
         if ($pos !== false) {
             $lead = substr_replace($lead, $replace, $pos, strlen($search));
         } elseif ($pos === false && $lead === strip_tags($lead)) {
             $lead = $replace . $lead . '</p>';
         }
+        
 
         return self::removeEmptyPTag($lead);
     }
@@ -319,5 +282,54 @@ class Post
         ");
 
         return $metaKeys;
+    }
+    
+    
+
+    public static function replaceBuiltinClasses($content)
+    {
+        return str_replace(
+            [
+                'wp-caption',
+                'c-image-text',
+                'wp-image-',
+                'alignleft',
+                'alignright',
+                'alignnone',
+                'aligncenter',
+    
+                //Old inline transition button
+                'btn-theme-first',
+                'btn-theme-second',
+                'btn-theme-third',
+                'btn-theme-fourth',
+                'btn-theme-fifth',
+    
+                //Gutenberg block image
+                'wp-block-image',
+                '<figcaption>'
+            ],
+            [
+                'c-image',
+                'c-image__caption',
+                'c-image__image wp-image-',
+                'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs',
+                'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs',
+                '',
+                'u-margin__x--auto u-text-align--center',
+    
+                //Old inline transition button
+                'c-button c-button__filled c-button__filled--primary c-button--md',
+                'c-button c-button__filled c-button__filled--secondary c-button--md',
+                'c-button c-button__filled c-button__filled--secondary c-button--md',
+                'c-button c-button__filled c-button__filled--secondary c-button--md',
+                'c-button c-button__filled c-button__filled--secondary c-button--md',
+    
+                //Gutenberg block image
+                'c-image',
+                '<figcaption class="c-image__caption">'
+            ],
+            $content
+        );
     }
 }

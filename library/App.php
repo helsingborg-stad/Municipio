@@ -51,6 +51,7 @@ class App
         new \Municipio\Content\CustomTaxonomy();
         new \Municipio\Content\PostFilters();
         new \Municipio\Content\ShortCode();
+        new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
         
 
