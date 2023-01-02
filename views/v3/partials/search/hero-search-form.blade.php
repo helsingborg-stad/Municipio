@@ -3,8 +3,10 @@
     'method'    => 'get',
     'action'    => $homeUrl,
     'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none']
-])
-    @group(['direction' => 'horizontal'])
+    ])
+    @group([
+        'id' => 'hero-search-form__wrapper',
+    ])
         @field([
             'id' => 'hero-search-form__field',
             'type' => 'search',
@@ -12,13 +14,15 @@
             'required' => false,
             'label' => $lang->searchOn . " " . $siteName,
             'placeholder' => $lang->searchOn . " " . $siteName,
-            'classList' => ['u-flex-grow--1'],
             'size' => 'lg',
             'radius' => 'xs',
-            'icon' => ['icon' => 'search']
+            'icon' => [
+                'icon' => 'search', 
+                'classList' => ['u-display--none@xs']
+            ]
         ])
         @endfield
-        @button([
+          @button([
             'id' => 'hero-search-form__submit',
             'text' => $lang->search,
             'color' => 'default',

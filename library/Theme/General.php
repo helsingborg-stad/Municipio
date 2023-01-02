@@ -244,7 +244,7 @@ class General
             foreach ($links as $link) {
                 // If the link doesn't contain an image move on to the next.
                 if ('img' !== $link->firstChild->tagName) {
-                    return;
+                    continue;
                 }
     
                 $captionText = '';
@@ -265,6 +265,7 @@ class General
                     if (!empty($linkedImage->getAttribute('alt'))) {
                         $altText = $linkedImage->getAttribute('alt');
                     }
+                    
                     $html = render_blade_view(
                         'partials.content.image',
                         [
@@ -275,12 +276,13 @@ class General
                             'heading'          => $captionText,
                             'isPanel'          => true,
                             'isTransparent'    => false,
+                            'classList' => explode(' ', $linkedImage->getAttribute('class')),
                             'imgAttributeList' =>
                             [
-                                'srcset'  => $linkedImage->getAttribute('srcset'),
-                                'width'   => $linkedImage->getAttribute('width'),
-                                'height'  => $linkedImage->getAttribute('height'),
-                                'parsed'  => true
+                                'srcset'    => $linkedImage->getAttribute('srcset'),
+                                'width'     => $linkedImage->getAttribute('width'),
+                                'height'    => $linkedImage->getAttribute('height'),
+                                'parsed'    => true
                             ],
                         ]
                     );

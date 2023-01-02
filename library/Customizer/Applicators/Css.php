@@ -66,6 +66,9 @@ class Css
    */
   private function canTransformValue($key, $value): bool
   {
+    if(strpos($key, 'font-size-base')) {
+      return false; //Base should be in PX
+    }
     if(!strpos($key, 'font')) {
       return false;
     }
