@@ -329,21 +329,4 @@ class Post
 
         return $metaKeys;
     }
-    /**
-     * > If the post is a WP_Post object, return the ID, otherwise return original $post as an integer
-     *
-     * @param post The post object or ID.
-     *
-     * @return The ID of the post.
-     */
-    public static function getPostId($post)
-    {
-        if (!$post || 0 === $post) {
-            return false;
-        }
-        if (is_a($post, 'WP_Post')) {
-            return (int) $post->ID;
-        }
-        return (int) $post;
-    }
 }
