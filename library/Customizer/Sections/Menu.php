@@ -78,5 +78,21 @@ class Menu
                 ['type' => 'controller']
             ]
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'primary_menu_dropdown',
+            'label'       => esc_html__('Show subitems as dropdown in main menu', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => false,
+            'priority'    => 10,
+            'choices' => [
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
+            ],
+            'output' => [
+                ['type' => 'controller']
+            ]
+        ]);
     }
 }
