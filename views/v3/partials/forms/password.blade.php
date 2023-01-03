@@ -5,16 +5,20 @@
     ]
 ])
     @if($messageBefore)
-        @typography([
-        'classList'     => ['u-margin__bottom', 'u-margin__top'],
+        @notice([
+            'type' => 'info',
+            'message' => [
+            'text' => $messageBefore,
+            'size' => 'md'
+            ],
+            'icon' => [
+                'name' => 'lock',
+            ],
+            'classList' => ['u-margin__bottom--3']
         ])
-        @icon([
-            'icon' => 'lock',
-        ])
-        @endicon
-        {{ $messageBefore }}
-        @endtypography
+        @endnotice
     @endif
+    
     @field([
         'type'          => 'password',
         'name'          => 'post_password',

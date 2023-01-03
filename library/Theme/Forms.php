@@ -6,7 +6,8 @@ class Forms
 {
     public function __construct()
     {
-        add_filter('the_password_form', array($this, 'thePasswordForm'), 0, 2);
+        add_filter('the_password_form', array($this, 'thePasswordForm'), 5, 2);
+        add_filter('the_password_form', array($this, 'thePasswordFormError'), 10, 2);
     }
 
     public function thePasswordForm(string $output, $post): string
@@ -20,5 +21,23 @@ class Forms
                 'submitBtnValue'  => esc_attr_x('Enter', 'post password form'),
             ]
         );
+    }
+
+    public function thePasswordFormError(string $output, $post): string
+    {
+        if (!isset($_COOKIE['wp-postpass_' . COOKIEHASH])) {
+            return $output;
+        }
+
+        if (!wp_get_raw_referer() == get_permalink()) {
+            return $output;
+        }
+
+        return render_blade_view(
+            'partials.forms.password-error',
+            [
+                'message' => __("The password entered is not correct.", 'municipio')
+            ]
+        ) . $output;
     }
 }
