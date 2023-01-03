@@ -20,9 +20,9 @@
         'name'          => 'post_password',
         'label'         => $passwordFieldLabel,
         'required'      => true,
-        'size'          => 'sm',
+        'size'          => 'md',
         'classList'     => ['u-margin__bottom', 'u-margin__top'],
-        'attributeList' => [ 'size' => 20 ],
+        'attributeList' => ['size' => 20],
     ])
     @endfield
     @button([
