@@ -221,8 +221,8 @@ class Sidebars
             'description'    => __('Sidebar that sits below the hero, takes up 100% of the width.', 'municipio'),
             'before_title'   => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'    => '</h2>',
-            'before_modules' => $beforeModulesMarkup,
-            'after_modules'  => $afterModulesMarkup,
+            'before_widget' => $beforeWidgetMarkup,
+            'after_widget'  => $afterWidgetMarkup,
         ));
 
         /**
