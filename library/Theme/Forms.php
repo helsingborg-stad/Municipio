@@ -29,6 +29,10 @@ class Forms
             return $output;
         }
 
+        if (!is_singular()) {
+            return $output;
+        }
+
         if (!wp_get_raw_referer() == get_permalink()) {
             return $output;
         }
