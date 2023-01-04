@@ -1,9 +1,12 @@
 @header([
     'id' => 'site-header',
-    'classList' => [
-        'site-header', isset($classList) ? is_array($classList) ? implode(' ', $classList) : $classList : '',
-        $customizer->hamburgerMenuMobile ? 'hamburger-menu-mobile' : '',
-    ],
+    'classList' => array_merge(
+        [
+            'site-header', 
+            $customizer->hamburgerMenuMobile ? 'hamburger-menu-mobile' : '',
+        ],
+        (array) isset($classList) ? $classList : []
+    ),
     'context' => 'site.header'
 ])
 
