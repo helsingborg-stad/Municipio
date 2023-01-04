@@ -32,6 +32,7 @@
     @button([
         'text' => $submitBtnValue,
         'color' => 'secondary',
+        'type' => 'submit',
     ])
     @endbutton
 
