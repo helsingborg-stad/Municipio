@@ -78,7 +78,7 @@ class Theme
                 'capability' => $themeOptionsCapability,
                 'menu_slug' => 'acf-options-post-types'
             ));
-
+            
             acf_add_options_sub_page(array(
                 'page_title' => __('Custom Taxonomies', 'municipio'),
                 'menu_title' => __('Taxonomies', 'municipio'),
