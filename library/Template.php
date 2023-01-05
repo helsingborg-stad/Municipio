@@ -174,13 +174,18 @@ class Template
         $controller = \Municipio\Helper\Controller::locateController($template);
         
         // Locate purpose controller
+        // TODO Also check that the controller actually exists before returning it
         if (is_a(get_queried_object(), 'WP_Post_Type')) {
             $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object());
-            $controller = \Municipio\Helper\Controller::locateController('Archive' . ucfirst($purpose));   
-           
-        } elseif (is_a(get_queried_object(), 'WP_Post')) {
+            if($purpose) {
+                $controller = \Municipio\Helper\Controller::locateController('Archive' . ucfirst($purpose));  
+            }           
+        } 
+        elseif (is_a(get_queried_object(), 'WP_Post')) {
             $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object()->post_type);
-            $controller = \Municipio\Helper\Controller::locateController('Singular' . ucfirst($purpose));    
+            if($purpose) {
+                $controller = \Municipio\Helper\Controller::locateController('Singular' . ucfirst($purpose));    
+            }
         }
 
         //Locate fallback controller
@@ -193,6 +198,7 @@ class Template
         //Filter
         $controller = apply_filters('Municipio/blade/controller', $controller);
 
+        echo '<pre>' . print_r( $controller, true ) . '</pre>';
         //Require controller
         require_once $controller;
         $namespace = \Municipio\Helper\Controller::getNamespace($controller);
