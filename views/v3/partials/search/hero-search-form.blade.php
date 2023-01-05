@@ -18,11 +18,11 @@
             'radius' => 'xs',
             'icon' => [
                 'icon' => 'search', 
-                'classList' => ['u-display--none@xs']
+                'classList' => ['u-display--none@xs', 'c-field__icon']
             ]
         ])
         @endfield
-          @button([
+        @button([
             'id' => 'hero-search-form__submit',
             'text' => $lang->search,
             'color' => 'default',
