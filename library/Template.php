@@ -173,6 +173,7 @@ class Template
         $controller = \Municipio\Helper\Controller::locateController($template);
 
         // Locate purpose controller
+        // TODO Make sure pageForPosttype also is handled correctly here
         // TODO Also check that the controller actually exists before returning it
         if (is_a(get_queried_object(), 'WP_Post_Type')) {
             $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object());
