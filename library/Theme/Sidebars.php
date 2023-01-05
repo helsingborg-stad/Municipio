@@ -68,7 +68,7 @@ class Sidebars
     {
         $beforeWidgetMarkup  = '<div id="%1$s" class="%2$s">';
         $afterWidgetMarkup   = '</div>';
-        $beforeModulesMarkup = '<aside>';
+        $beforeModulesMarkup = '<aside class="o-grid">';
         $afterModulesMarkup  = '</aside>';
         
         /**
