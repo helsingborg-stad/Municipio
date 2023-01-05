@@ -147,7 +147,8 @@ class Images
             }
             
             $content = $dom->saveHTML();
-            return str_replace([$encoding, '<html>', '</html>', '<body>', '</body>'], '', $content);
+            
+            return str_replace([$encoding, '<html>', '</html>', '<body>', '</body>'], '', \Municipio\Helper\Post::replaceBuiltinClasses($content));
         }
         
         return $content;
