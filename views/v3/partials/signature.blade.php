@@ -16,7 +16,7 @@
         @endsignature
     @elseif(!$postTypeDetails->hierarchical && $postType == 'post')
         @signature([
-            'published' => $signature->publish,
+            'published' => $signature->published,
             'updated' => $signature->updated,
             'updatedLabel' => $publishTranslations->updated,
             'publishedLabel' => $publishTranslations->publish
