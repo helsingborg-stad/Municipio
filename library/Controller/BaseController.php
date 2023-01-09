@@ -248,7 +248,7 @@ class BaseController
      */
     public function componentDataEmblemFilter($data)
     {
-        if ($data['hasPlaceholder'] === true) {
+        if (!empty($data['hasPlaceholder']) && $data['hasPlaceholder'] === true) {
             $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
         }
         return $data;
