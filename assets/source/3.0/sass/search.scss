@@ -36,8 +36,7 @@ $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 
       #hero-search-form__submit {
         flex: 0 1 20%;
-        min-width: 0;
-        padding:unset;
+        padding: unset;
         border-radius: 0 $search-border-radius $search-border-radius 0;
       }
     }
