@@ -94,14 +94,6 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->resetBtn         = __('Reset filter', 'municipio');
         $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
         $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
-
-        //Filter
-        $this->data = apply_filters(
-            'Municipio/Controller/Archive/Data',
-            $this->data,
-            $postType,
-            $template
-        );
     }
 
     /**
