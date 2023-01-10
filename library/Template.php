@@ -133,7 +133,6 @@ class Template
      */
     public function loadViewData($view, $data = array())
     {
-        //Get controller data
 
         $viewData = $this->accessProtected(
             $this->loadController(
@@ -141,16 +140,65 @@ class Template
             ),
             'data'
         );
-        $externalViewData = apply_filters('Municipio/viewData', []);
 
-        if (!empty($externalViewData)) {
-            $viewData = array_merge($viewData, $externalViewData);
-        }
+        $isArchive = fn() => is_archive() || is_home();
+        $postType = get_post_type();
+        $template = $viewData['template'] ?? '';
 
-        //Render the view
+        $filters = [
+            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
+            ['Municipio/Template/viewData', [], true, false],
+            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
+            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
+            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
+            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
+            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
+        ];
+
+        $deprecated = [
+            [
+                'Municipio/controller/base/view_data', [], true, true,
+                '2.0', 'Municipio/Template/viewData'
+            ],
+            [
+                'Municipio/blade/data', [], true, true,
+                '3.0', 'Municipio/Template/viewData'
+            ],
+
+            // To be deprecated next
+            [
+                'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
+                '3.0', 'Municipio/Template/archive/viewData'
+            ],
+            [
+                'Municipio/viewData', [], true, false,
+                '3.0', 'Municipio/Template/viewData'
+            ],
+        ];
+
+        $tryApplyFilters = fn (array $viewData, array $maybeFilters): array => array_reduce(
+            $maybeFilters,
+            function ($viewData, $params) {
+                [$filterTag, $filterParams, $useFilter, $isDeprecated, $version, $message] = [...$params, ...['', '']];
+
+                $applyFilters =
+                    fn (string $tag, array $value, array $params, bool $useDeprecated, string $v = '', string $m = '')
+                    => $useDeprecated
+                        ? apply_filters_deprecated($tag, array_merge([$value], $params), $v, $m)
+                        : apply_filters($tag, ...array_merge([$value], $params));
+
+                return $useFilter
+                    ? $applyFilters($filterTag, $viewData, $filterParams, $isDeprecated, $version, $message)
+                    : $viewData;
+            },
+            $viewData
+        );
+
+        $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
+
         return $this->renderView(
             (string) $view,
-            (array)  apply_filters('Municipio/blade/data', $viewData)
+            (array)  $viewData
         );
     }
 

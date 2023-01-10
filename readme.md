@@ -47,35 +47,35 @@ $ composer install
 
 ## Constants
 
-#### Block author pages
+### Block author pages
 Author pages is blocked by default. To "unblock" add the following constant to wp-config (or other suitable place).
 
 ```
 define('MUNICIPIO_BLOCK_AUTHOR_PAGES', false);
 ```
 
-#### Load styleguide from a different host
+### Load styleguide from a different host
 Constants for setting the base URI to the styleguide. Useful for third-party sites.
 
 ```
 define('MUNICIPIO_STYLEGUIDE_URI', '//example.com/style/guide');
 ```
 
-#### Load specific version of styleguide
+### Load specific version of styleguide
 Constants that lock version of the styleguide. Comes in handy when you want to enshure maximum stability of a site. 
 
 ```
 define('STYLEGUIDE_VERSION', 1.0.32);
 ```
 
-#### Load specific developement version of styleguide
+### Load specific developement version of styleguide
 Constant that load local verrsion of the styleguide. 
 
 ```
 define('DEV_MODE', true);
 ```
 
-#### CSS class in BEMIT style for theme name
+### CSS class in BEMIT style for theme name
 Constant that contains the current theme name in BEM format. Usable when you wnat to connect component styling directly to the theme.You cannot change this. 
 
 ```
@@ -84,7 +84,7 @@ MUNICIPIO_BEM_THEME_NAME
 
 ## Actions
 
-#### Municipio/blog/post_info
+### Municipio/blog/post_info
 
 Blog post info header (single)
 
@@ -94,7 +94,7 @@ Blog post info header (single)
 do_action('Municipio/author_display/name', $post);
 ```
 
-#### Municipio/share_post/recipients
+### Municipio/share_post/recipients
 
 Do action on sharing post by email, e.g. send a notification
 
@@ -105,7 +105,7 @@ Do action on sharing post by email, e.g. send a notification
 do_action('Municipio/share_post/recipients', $user, $recipients);
 ```
 
-#### Municipio/comment/save_like
+### Municipio/comment/save_like
 
 Do action on comment like
 
@@ -119,7 +119,33 @@ do_action('Municipio/comment/save_like', $comment, $userId, $create);
 
 ## Filters
 
-#### Municipio/theme/key
+### Municipio/Template/viewData
+- ```@param array $viewData``` - The view data that is passed to filter.
+```php
+apply_filters('Municipio/Template/viewData', $viewData);
+```
+**Modifiers**
+
+- ```@param array $viewData``` - The view data that is passed to filter.
+- ```@param string $postType``` - The post type slug.
+- ```@param string $template``` - The archive template name.
+
+```php
+apply_filters('Municipio/Template/single/viewData', $viewData, $postType);
+apply_filters('Municipio/Template/archive/viewData', $viewData, $postType, $template);
+apply_filters("Municipio/Template/{$postType}/viewData", $viewData);
+apply_filters("Municipio/Template/{$postType}/single/viewData", $viewData);
+apply_filters("Municipio/Template/{$postType}/archive/viewData", $viewData, $template);
+```
+
+**Deprecated:**
+
+- `Municipio/controller/base/view_data`
+- `Municipio/blade/data`
+- `Municipio/Controller/Archive/Data`
+- `Municipio/viewData`
+
+### Municipio/theme/key
 Filters the theme/styleguide asset key. 
 
 - ```@param string $key``` - The key of the styleguide theme
@@ -128,7 +154,7 @@ Filters the theme/styleguide asset key.
 apply_filters('Municipio/theme/key', $key);
 ```
 
-#### Municipio/author_display/name
+### Municipio/author_display/name
 Set the name of the author display
 
 - ```@param string $name``` - Default name
@@ -138,7 +164,7 @@ Set the name of the author display
 apply_filters('Municipio/author_display/name', $name, $userId);
 ```
 
-#### Municipio/author_display/title
+### Municipio/author_display/title
 Set the title label for the author name display
 
 - ```@param string $title``` - Default title
@@ -147,7 +173,7 @@ Set the title label for the author name display
 apply_filters('Municipio/author_display/title', $title);
 ```
 
-#### Municipio/ajax_url_in_head
+### Municipio/ajax_url_in_head
 Set the ajax_url in the <head>
 
 - ```@param string $ajax_url``` - Default ajax url
@@ -156,7 +182,7 @@ Set the ajax_url in the <head>
 apply_filters('Municipio/ajax_url_in_head', $ajax_url);
 ```
 
-#### Municipio/favicon_sizes
+### Municipio/favicon_sizes
 Add sizes to theme options for favicon
 
 - ```@param array $sizes``` - Default favicon sizes
@@ -165,7 +191,7 @@ Add sizes to theme options for favicon
 apply_filters('Municipio/favicon_sizes', $sizes);
 ```
 
-#### Municipio/favicon_tag
+### Municipio/favicon_tag
 Add sizes to theme options for favicon
 
 - ```@param string $tag``` - The HTML tag(s)
@@ -175,7 +201,7 @@ Add sizes to theme options for favicon
 apply_filters('Municipio/favicon_tag', $tag, $icon);
 ```
 
-#### Municipio/header_grid_size
+### Municipio/header_grid_size
 Applied to classes string for header sizes.
 
 - ```@param string $classes``` - 
@@ -185,7 +211,7 @@ apply_filters('Municipio/header_grid_size', $classes);
 ```
 
 
-#### Municipio/mobile_menu_breakpoint
+### Municipio/mobile_menu_breakpoint
 Applied to classes string for mobile hamburger menu breakpoint. 
 
 - ```@param string $classes``` - The default site name
@@ -195,7 +221,7 @@ apply_filters('Municipio/mobile_menu_breakpoint', $classes);
 ```
 
 
-#### Municipio/logotype_text
+### Municipio/logotype_text
 Applied to the text that displays as the logo when now logotype image is uploaded in theme options.
 
 - ```@param string $title``` - The default site name
@@ -204,7 +230,7 @@ Applied to the text that displays as the logo when now logotype image is uploade
 apply_filters('Municipio/logotype_text', $title);
 ```
 
-#### Municipio/logotype_class
+### Municipio/logotype_class
 Applied to the logotype class attirbute
 
 - ```@param array $classes``` - Default class(es)
@@ -213,7 +239,7 @@ Applied to the logotype class attirbute
 apply_filters('Municipio/logotype_class', $classes);
 ```
 
-#### Municipio/logotype_tooltip
+### Municipio/logotype_tooltip
 Applied to the logotype class attirbute
 
 - ```@param string $tooltip``` - Default tooltip text
@@ -222,16 +248,7 @@ Applied to the logotype class attirbute
 apply_filters('Municipio/logotype_tooltip', $tooltip);
 ```
 
-#### Municipio/blade/data
-Applied to the blade template data. Can be used to send data to a Blade view.
-
-- ```@param array $data``` - Dafault data
-
-```php
-apply_filters('Municipio/blade/data', $data);
-```
-
-#### Municipio/blade/template_types
+### Municipio/blade/template_types
 Applied to the list of Blade template types.
 
 - ```@param array $types``` - Dafault Blade template types
@@ -240,7 +257,7 @@ Applied to the list of Blade template types.
 apply_filters('Municipio/blade/template_types', $types);
 ```
 
-#### Municipio/search_result/…
+### Municipio/search_result/…
 Multiple filters applied to the contents of a search result
 
 - ```@param string $var``` - The content of the variable
@@ -254,7 +271,7 @@ apply_filters('Municipio/search_result/permalink_url', $permalink_url, $post);
 apply_filters('Municipio/search_result/permalink_text', $permalink_text, $post);
 ```
 
-#### Municipio/search_form/…
+### Municipio/search_form/…
 Filters applied to the search form
 
 - ```@param string $var``` - The content of the variable
@@ -263,7 +280,7 @@ Filters applied to the search form
 apply_filters('Municipio/search_form/action', $url);
 ```
 
-#### Municipio/archive/sort_keys
+### Municipio/archive/sort_keys
 Modify the avaiable sorting keys for archives
 
 - ```@param array $keys``` - The keys
@@ -273,7 +290,7 @@ Modify the avaiable sorting keys for archives
 apply_filters('Municipio/archive/sort_keys', $keys, $postType);
 ```
 
-#### Municipio/archive/date_filter
+### Municipio/archive/date_filter
 Modify the date filter WHERE clause
 
 - ```@param string $where``` - The sql WHERE clause
@@ -284,7 +301,7 @@ Modify the date filter WHERE clause
 apply_filters('Municipio/archive/date_filter', $where, $from, $to);
 ```
 
-#### Municipio/Breadcrumbs
+### Municipio/Breadcrumbs
 Show/hide (true/false) breadcrumbs
 
 - ```@param boolean $bool```- True or false (show or hide)
@@ -293,7 +310,7 @@ Show/hide (true/false) breadcrumbs
 apply_filters('Municipio/Breadcrumbs', $bool, get_queried_object())
 ```
 
-#### Municipio/Breadcrumbs/Items
+### Municipio/Breadcrumbs/Items
 Filter the items/links in the breadcrumb
 
 - ```@param array $items``` - The breadcrumb items
@@ -302,7 +319,7 @@ Filter the items/links in the breadcrumb
 apply_filters('Municipio/Breadcrumbs/Items', $items, get_queried_object());
 ```
 
-#### Municipio/admin/editor_stylesheet
+### Municipio/admin/editor_stylesheet
 Change custom editor stylesheet
 
 - ```@param string $url``` - The stylesheet url
@@ -311,7 +328,7 @@ Change custom editor stylesheet
 apply_filters('Municipio/admin/editor_stylesheet', $url);
 ```
 
-#### Municipio/oembed/should_filter_markup
+### Municipio/oembed/should_filter_markup
 Decide if oembed markup should be filtered to HbgPrime video player (youtube and vimeo) or not.
 
 - ```@param string $url``` - The resource url
@@ -322,7 +339,7 @@ apply_filters('Municipio/oembed/should_filter_markup', true, $url, $postId);
 ```
 
 
-#### Municipio/Menu/Vertical/EnabledSidebars
+### Municipio/Menu/Vertical/EnabledSidebars
 Dictates what sidebars that sould be active on the current page to show the vertical menu. Simple array containing the sidebar id's. 
 
 - ```@param array $sidebars``` - An flat array with sidebar id's. 
@@ -331,7 +348,7 @@ Dictates what sidebars that sould be active on the current page to show the vert
 apply_filters('Municipio/Menu/Vertical/EnabledSidebars', $sidebars);
 ```
 
-#### Municipio/archive/tax_query
+### Municipio/archive/tax_query
 Additional taxonomy queries. 
 
 - ```@param array $taxQuery``` - Holds the taxonomy query.
@@ -341,7 +358,7 @@ Additional taxonomy queries.
 apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
 ```
 
-#### Municipio/taxonomy/tag_style
+### Municipio/taxonomy/tag_style
 Adds custom style to taxonomy labels. 
 
 - ```@param string $style``` - Custom CSS.
@@ -352,7 +369,7 @@ Adds custom style to taxonomy labels.
 apply_filters('Municipio/taxonomy/tag_style', $style, $term, $taxonomy);
 ```
 
-#### Municipio/Menu/Vertical/Items
+### Municipio/Menu/Vertical/Items
 Items that should be visible in the vertical navigation menus. Represented as dots with hover-labels. 
 
 - ```@param array $items``` - An array with items representing links. 

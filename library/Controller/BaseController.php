@@ -230,9 +230,6 @@ class BaseController
             'loopEnd' => $this->hook('loop_end')
         );
 
-        //Structural
-        $this->getFilterData();
-
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
@@ -675,15 +672,6 @@ class BaseController
     protected function getBreadcrumb() : array
     {
         return apply_filters('Municipio/breadcrumbArray', breadcrumb());
-    }
-
-    public function getFilterData()
-    {
-        $this->data = array_merge(
-            $this->data,
-            apply_filters_deprecated('Municipio/controller/base/view_data', array($this->data), "2.0", 'Municipio/viewData'),
-            apply_filters('Municipio/viewData', $this->data)
-        );
     }
 
     /**
