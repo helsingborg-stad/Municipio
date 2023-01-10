@@ -167,7 +167,7 @@ class Template
 
             // To be deprecated next
             [
-                'Municipio/Controller/Archive/Data', [$template], is_archive(), false,
+                'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
                 '3.0', 'Municipio/Template/archive/viewData'
             ],
             [
