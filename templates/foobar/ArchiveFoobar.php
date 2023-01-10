@@ -3,11 +3,11 @@
 namespace Municipio\Controller;
 
 /**
- * Class ArchiveProject
+ * Class ArchiveFoobar
  *
  * @package Municipio\Controller
  */
-class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio\Controller\Purpose
+class ArchiveFoobar extends \Municipio\Controller\Archive implements \Municipio\Controller\Purpose
 {
     public function __construct()
     {
@@ -32,6 +32,7 @@ class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio
     {
         return strtolower(last(explode('\\', get_parent_class())));
     }
+
     /**
      * It takes the structured data array, adds a new key/value pair to it, and returns the new array
      *

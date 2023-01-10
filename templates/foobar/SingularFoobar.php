@@ -3,10 +3,10 @@
 namespace Municipio\Controller;
 
 /**
- * Class SingularProject
+ * Class SingularFoobar
  * @package Municipio\Controller
  */
-class SingularProject extends \Municipio\Controller\Singular implements \Municipio\Controller\Purpose, \Municipio\Controller\SingularPurpose
+class SingularFoobar extends \Municipio\Controller\Singular implements \Municipio\Controller\Purpose, \Municipio\Controller\SingularPurpose
 {
     public function __construct()
     {
@@ -19,6 +19,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
             $this->getPageID()
         );
     }
+
     /**
      * The localized, singular label used to describe this class in dropdowns and similar circumstances.
      *
@@ -26,8 +27,9 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
      */
     public static function getLabel(): string
     {
-        return __('Project', 'municipio');
+        return __('Foobar');
     }
+
     /**
      * Returns the last part of the class name, in lowercase.
      *
@@ -46,6 +48,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
     {
         return strtolower(last(explode('\\', get_parent_class())));
     }
+
     /**
      * It takes the structured data array, adds a new key/value pair to it, and returns the new array
      *
@@ -95,7 +98,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
         }
 
         $additionalData = [
-            '@type'       => 'Project',
+            '@type'       => 'Foobar',
             'name'        => get_the_title($postId),
             'url'         => get_permalink($postId),
             'description' => $description,
