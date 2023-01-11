@@ -55,7 +55,7 @@ class Purpose
         } elseif (is_a($postType, 'WP_Post')) {
             $postType = $postType->post_type;
         } else {
-            $postType = "";
+            return false;
         }
 
         $purpose = get_option('options_purpose_' . $postType, '');
