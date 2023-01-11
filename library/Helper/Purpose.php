@@ -59,9 +59,11 @@ class Purpose
             $postType = $postType->name;
         } elseif (is_a($postType, 'WP_Post')) {
             $postType = $postType->post_type;
+        } else {
+            return false;
         }
 
-        $purpose = get_option('options_purpose_' . $postType);
+        $purpose = get_option('options_purpose_' . $postType, '');
         if ('' === $purpose) {
             return false;
         }
