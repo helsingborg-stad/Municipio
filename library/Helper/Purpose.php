@@ -46,6 +46,11 @@ class Purpose
      */
     public static function getPurpose($postType = null)
     {
+
+        if (!is_string($postType) || !is_a($postType, 'WP_Post') || !is_a($postType, 'WP_Post_Type')) {
+            return;
+        }
+
         if (empty($postType)) {
             $postType = get_queried_object();
         }
