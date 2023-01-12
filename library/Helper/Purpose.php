@@ -37,36 +37,31 @@ class Purpose
         return $purposes;
     }
     /**
-     * `getPurpose()` returns the value of the `options_purpose_X` option, where X is the post
-     * type name
+     * `getPurpose()` returns the value of the `options_purpose_X` option, where X is the type (most commonly a post type)
      *
-     * @param string|WP_Post_Type postType The post type you want to get the purpose for.
+     * @param string|WP_Post_Type type The type you want to get the purpose for.
      *
      * @return string|bool The value of the option with the key 'options_purpose_X'. Returns false if option is missing.
      */
-    public static function getPurpose($postType = null)
+    public static function getPurpose($type = null)
     {
-
-        if (!is_string($postType) || !is_a($postType, 'WP_Post') || !is_a($postType, 'WP_Post_Type')) {
-            return;
+        if (empty($type)) {
+            $type = get_queried_object();
         }
 
-        if (empty($postType)) {
-            $postType = get_queried_object();
-        }
-
-        if (is_a($postType, 'WP_Post_Type')) {
-            $postType = $postType->name;
-        } elseif (is_a($postType, 'WP_Post')) {
-            $postType = $postType->post_type;
-        } else {
+        if (!is_string($type) || !is_a($type, 'WP_Post') || !is_a($type, 'WP_Post_Type')) {
             return false;
         }
 
-        $purpose = get_option('options_purpose_' . $postType, '');
-        if ('' === $purpose) {
-            return false;
+        if (!is_string($type)) {
+            if (is_a($type, 'WP_Post_Type')) {
+                $type = $type->name;
+            } elseif (is_a($type, 'WP_Post')) {
+                $type = $type->post_type;
+            }
         }
+
+        $purpose = get_option('options_purpose_' . $type, false);
 
         return $purpose;
     }
