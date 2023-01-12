@@ -292,8 +292,6 @@ class Post
         return $metaKeys;
     }
 
-
-
     public static function replaceBuiltinClasses($content)
     {
         return str_replace(
