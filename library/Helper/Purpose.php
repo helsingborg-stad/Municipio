@@ -49,7 +49,6 @@ class Purpose
             $type = get_queried_object();
         }
 
-
         if (!is_string($type) && !is_a($type, 'WP_Post') && !is_a($type, 'WP_Post_Type')) {
             return false;
         }

@@ -39,36 +39,22 @@ class Template
     }
 
     /**
-     * Re-check if there is an custom template applied to the page.
-     * This switches incorrect view data to a real template if exists.
+     * @param string $view The view that is being rendered.
      *
-     * TODO: Investigate why we are getting faulty templates from
-     * WordPress core functionality.
-     *
-     * @param string $view
-     * @return string
+     * @return string The view file that is being used.
      */
-    /**
-     *
-     * A) Re-check if there is an custom template applied to the page.
-     * This switches incorrect view data to a real template if exists.
-     * TODO: Investigate why we are getting faulty templates from WordPress core functionality.
-     *
-     * B) If the current post is a singular post or a post type archive, check if it has a
-     * purpose set and if the purpose has a template for the current page type (singular
-     * or archive). If it has, use that purpose template.
-     *
-     * @param view The view that is being rendered.
-     *
-     * @return The view file that is being used.
-     */
-    public function switchTemplate($view)
+    public function switchTemplate(string $view): string
     {
-
+        /**
+         * CUSTOM PAGE TEMPLATES
+         * Check if there is an custom template applied to the page.
+         * This switches incorrect view data to a real template if exists.
+         * TODO: Investigate why we are getting faulty templates from WordPress core functionality.
+         */
         $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
 
         if ($customTemplate) {
-            //Check if file exsists, before use
+            //Check if file exists before use
             if (is_array($this->viewPaths) && !empty($this->viewPaths)) {
                 foreach ($this->viewPaths as $path) {
                     if (file_exists(rtrim($path, "/") . '/' . $customTemplate)) {
@@ -77,7 +63,13 @@ class Template
                 }
             }
         }
-
+        /**
+         * PURPOSE TEMPLATES
+         * If the current post is a singular post or a post type archive, check if it has a
+         * purpose set and if the purpose has a template for the current page type (singular
+         * or archive). If it has, use that purpose template.
+         *
+         */
         if (is_singular() || is_post_type_archive()) {
             $purpose = \Municipio\Helper\Purpose::getPurpose();
             if ($purpose) {
