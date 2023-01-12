@@ -48,6 +48,20 @@ class Template
      * @param string $view
      * @return string
      */
+    /**
+     *
+     * A) Re-check if there is an custom template applied to the page.
+     * This switches incorrect view data to a real template if exists.
+     * TODO: Investigate why we are getting faulty templates from WordPress core functionality.
+     *
+     * B) If the current post is a singular post or a post type archive, check if it has a
+     * purpose set and if the purpose has a template for the current page type (singular
+     * or archive). If it has, use that purpose template.
+     *
+     * @param view The view that is being rendered.
+     *
+     * @return The view file that is being used.
+     */
     public function switchTemplate($view)
     {
 
@@ -64,17 +78,22 @@ class Template
             }
         }
 
-        $purpose = \Municipio\Helper\Purpose::getPurpose();
-        if ($purpose) {
-            if (is_singular()) {
-                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/singular.blade.php';
-            }
+        if (is_singular() || is_post_type_archive()) {
+            $purpose = \Municipio\Helper\Purpose::getPurpose();
+            if ($purpose) {
+                $purposeView = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/';
 
-            if (is_post_type_archive()) {
-                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/archive.blade.php';
+                if (is_singular()) {
+                    $purposeView .= 'singular.blade.php';
+                } elseif (is_post_type_archive()) {
+                    $purposeView .= 'archive.blade.php';
+                }
+
+                if (is_file($purposeView)) {
+                    return $purposeView;
+                }
             }
         }
-
 
         return $view;
     }
@@ -141,7 +160,7 @@ class Template
             'data'
         );
 
-        $isArchive = fn() => is_archive() || is_home();
+        $isArchive = fn () => is_archive() || is_home();
         $postType = get_post_type();
         $template = $viewData['template'] ?? '';
 
