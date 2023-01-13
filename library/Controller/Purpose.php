@@ -28,4 +28,6 @@ interface Purpose
      * @return string The name of the parent class without the namespace
      */
     public static function getType(): string;
+
+    public static function prepareContentSection(array $data): array;
 }
