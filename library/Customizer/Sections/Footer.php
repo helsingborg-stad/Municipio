@@ -62,7 +62,7 @@ class Footer
             'default'     => 3,
             'choices'     => [
                 'min'  => 1,
-                'max'  => 12,
+                'max'  => 24,
                 'step' => 1,
             ],
             'output' => [
@@ -409,7 +409,7 @@ class Footer
             'default'     => 6,
             'choices'     => [
                 'min'  => 3,
-                'max'  => 12,
+                'max'  => 24,
                 'step' => 1,
             ],
             'output' => [
@@ -429,7 +429,7 @@ class Footer
             'default'     => 3,
             'choices'     => [
                 'min'  => 1,
-                'max'  => 12,
+                'max'  => 24,
                 'step' => 1,
             ],
             'output' => [
