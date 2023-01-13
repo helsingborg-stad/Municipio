@@ -15,12 +15,14 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
         parent::__construct();
 
         // Dummy data:
-        $this->data['content']['article.content.before'] =
-            Purpose::prepareContentSection([
-                'elementType' => 'pre',
-                'content' => 'Some example content before the article',
-                'attributeList' => ['foo' => 'bar']
-            ]);
+        if (isset($_GET['dummy'])) {
+            $this->data['content']['article.content.before'] =
+                Purpose::prepareContentSection([
+                    'elementType' => 'pre',
+                    'content' => 'Some example content before the post content!',
+                    'attributeList' => ['foo' => 'bar']
+                ]);
+        }
 
         add_filter('Municipio/StructuredData', array($this, 'setStructuredData'), 10, 3);
 
