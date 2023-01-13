@@ -38,7 +38,12 @@ class FormatObject
     public static function camelCaseObject($object)
     {
         return (object) self::mapArrayKeys(function ($string) {
-            return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string))))));
+            $isNotCamelCase = !preg_match('/^[a-z]+([A-Z][a-z]*)*$/m', $string);
+            return lcfirst(
+                $isNotCamelCase
+                    ? implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string)))))
+                    : $string
+            );
         }, (array) $object);
     }
 
