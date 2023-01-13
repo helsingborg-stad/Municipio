@@ -2,6 +2,9 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Purpose;
+use Municipio\Helper\Data;
+
 /**
  * Class SingularProject
  * @package Municipio\Controller
@@ -12,13 +15,25 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
     {
         parent::__construct();
 
-        add_filter('Municipio/StructuredData', array($this, 'setStructuredData'), 10, 3);
+        // // Example:
+        // $challenges = wp_get_post_terms(get_queried_object_id(), 'challenge_category');
+        // if (!empty($challenges)) {
+        //     $this->data['content']['sidebar.right-sidebar.before'] = [
+        //         'elementType'   => 'aside',
+        //         'content'       => print_r($challenges, true),
+        //     ];
+        //     // Prepare for view
+        //     Purpose::prepareViewData($this->data);
+        // }
 
-        $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData(
+        //Setup schema.org data
+        add_filter('Municipio/StructuredData', array($this, 'setStructuredData'), 10, 3);
+        $this->data['structuredData'] = Data::getStructuredData(
             $this->data['postType'],
             $this->getPageID()
         );
     }
+
     /**
      * The localized, singular label used to describe this class in dropdowns and similar circumstances.
      *
@@ -45,31 +60,6 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
     public static function getType(): string
     {
         return strtolower(last(explode('\\', get_parent_class())));
-    }
-    /**
-     * It takes the structured data array, adds a new key/value pair to it, and returns the new array
-     *
-     * @param structuredData The structured data that's already been set.
-     * @param postType The post type of the post you're adding structured data to.
-     * @param postId The ID of the post you're adding structured data to.
-     *
-     * @return An array with the structured data for the project post type.
-     */
-    public function termsToStructuredData(string $taxonomy, int $postId, string $type, string $schemaType)
-    {
-        $terms = wp_get_post_terms($postId, $taxonomy, 'names');
-        if (is_iterable($terms)) {
-            $additionalData = [];
-            foreach ($terms as $term) {
-                $additionalData[$type][] = [
-                    '@type' => $schemaType,
-                    'name'  => $term
-                ];
-            }
-            return $additionalData;
-        }
-
-        return false;
     }
     public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null): array
     {
