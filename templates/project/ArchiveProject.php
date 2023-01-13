@@ -13,7 +13,25 @@ class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio
     {
         parent::__construct();
     }
-    
+
+    /**
+     * Returns the last part of the class name, in lowercase.
+     *
+     * @return string The name of the class without the namespace and without the word "Archive"
+     */
+    public static function getKey(): string
+    {
+        return strtolower(last(explode('\\', str_replace('Archive', '', get_class()))));
+    }
+    /**
+     * Returns the the parent class name, in lowercase.
+     *
+     * @return string The name of the parent class without the namespace
+     */
+    public static function getType(): string
+    {
+        return strtolower(last(explode('\\', get_parent_class())));
+    }
     /**
      * It takes the structured data array, adds a new key/value pair to it, and returns the new array
      *
@@ -23,9 +41,9 @@ class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio
      *
      * @return An array with the structured data for the project post type.
      */
-    
-     public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null) : array
-     {
-         return [];
-     }
+
+    public function setStructuredData(array $structuredData = [], string $postType = null, int $postId = null): array
+    {
+        return [];
+    }
 }

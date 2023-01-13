@@ -8,12 +8,12 @@ class Purpose
     {
         add_action('init', array($this, 'init'), 999);
     }
-    
+
     public function init()
     {
         if (function_exists('acf_get_field_group')) {
             $postTypes = get_post_types(['public' => true, '_builtin' => false], 'objects');
-            
+
             if ($this->renderFieldGroups($postTypes)) {
                 acf_add_options_sub_page(array(
                     'page_title' => __('Post Types Purpose', 'municipio'),
@@ -41,7 +41,7 @@ class Purpose
             }
             return true;
         }
-        
+
         return false;
     }
     /**
@@ -51,8 +51,9 @@ class Purpose
      *
      * @return array An array of arguments.
      */
-    public function getFieldGroupArgs(object $postTypeObject) : array
+    public function getFieldGroupArgs(object $postTypeObject): array
     {
+
         return array(
             'key' => 'group_purpose_' . $postTypeObject->name,
             'title' => __('Post Type Purpose', 'municipio'),

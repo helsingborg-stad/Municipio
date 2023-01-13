@@ -8,22 +8,24 @@ class Archive
 
     public function __construct()
     {
-        \Kirki::add_panel(self::PANEL_ID, array(
-            'priority'    => 120,
-            'title'       => esc_html__('Archive Apperance', 'municipio'),
-            'description' => esc_html__('Manage apperance options on archives.', 'municipio'),
-        ));
+        add_action('init', function (): void {
+            \Kirki::add_panel(self::PANEL_ID, array(
+                'priority'    => 120,
+                'title'       => esc_html__('Archive Apperance', 'municipio'),
+                'description' => esc_html__('Manage apperance options on archives.', 'municipio'),
+            ));
 
-        //Register panel for each archive
-        $archives = $this->getArchives();
-        if (is_array($archives) && !empty($archives)) {
-            foreach ($archives as $archive) {
-                new \Municipio\Customizer\Sections\Archive(
-                    self::PANEL_ID,
-                    $archive
-                );
+            //Register panel for each archive
+            $archives = $this->getArchives();
+            if (is_array($archives) && !empty($archives)) {
+                foreach ($archives as $archive) {
+                    new \Municipio\Customizer\Sections\Archive(
+                        self::PANEL_ID,
+                        $archive
+                    );
+                }
             }
-        }
+        }, 20);
     }
 
     /**
