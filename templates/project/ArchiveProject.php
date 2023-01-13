@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Purpose;
+
 /**
  * Class ArchiveProject
  *
@@ -13,7 +15,6 @@ class ArchiveProject extends \Municipio\Controller\Archive implements \Municipio
     {
         parent::__construct();
     }
-
     /**
      * Returns the last part of the class name, in lowercase.
      *

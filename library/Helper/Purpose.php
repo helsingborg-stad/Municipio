@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Helper\ElementAttribute as Element;
+
 class Purpose
 {
     /**
@@ -64,5 +66,35 @@ class Purpose
         $purpose = get_option('options_purpose_' . $type, false);
 
         return $purpose;
+    }
+
+    /**
+     * If the elementType is not set, it will default to div. If the content is not set, it will
+     * default to an empty string. Makes sure that the attributes are always set to a string, even if
+     * they're empty/not set.
+     * 
+     * @param array $data This is an array of data that will be used to create the element.
+     * 
+     * @return array $data The data array is being returned.
+     */
+    public static function prepareContentSection(array $data): array
+    {
+        /* If the elementType is not set, it will default to div. */
+        if (empty($data['elementType'])) {
+            $data['elementType'] = 'div';
+        }
+        /* If the content is not set, it will default to an empty string. */
+        if (empty($data['content'])) {
+            $data['content'] = '';
+        }
+
+        /* Make sure that the attributes are always set to a string, even if they're empty. */
+        if (!empty($data['attributeList']) && is_array($data['attributeList'])) {
+            $data['attributes'] = Element::attributesToString($data['attributeList']);
+        } else {
+            $data['attributes'] = '';
+        }
+
+        return $data;
     }
 }

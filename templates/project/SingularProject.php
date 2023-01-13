@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\ElementAttribute;
+use Municipio\Helper\Purpose;
 
 /**
  * Class SingularProject
@@ -16,7 +16,7 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
 
         // Dummy data:
         $this->data['content']['article.content.before'] =
-            self::prepareContentSection([
+            Purpose::prepareContentSection([
                 'elementType' => 'pre',
                 'content' => 'Some example content before the article',
                 'attributeList' => ['foo' => 'bar']
@@ -30,26 +30,6 @@ class SingularProject extends \Municipio\Controller\Singular implements \Municip
         );
     }
 
-    public static function prepareContentSection(array $data): array
-    {
-        /* If the elementType is not set, it will default to div. */
-        if (empty($data['elementType'])) {
-            $data['elementType'] = 'div';
-        }
-        /* If the content is not set, it will default to an empty string. */
-        if (empty($data['content'])) {
-            $data['content'] = '';
-        }
-
-        /* Make sure that the attributes are always set to a string, even if they're empty. */
-        if (!empty($data['attributeList'])) {
-            $data['attributes'] = ElementAttribute::attributesToString($data['attributeList']);
-        } else {
-            $data['attributes'] = '';
-        }
-
-        return $data;
-    }
     /**
      * The localized, singular label used to describe this class in dropdowns and similar circumstances.
      *
