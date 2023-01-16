@@ -65,6 +65,9 @@ class Editor
         $role->add_cap('edit_theme_options');
         $role->add_cap('manage_options');
         $role->add_cap('gform_full_access');
+
+        $role = get_role('administrator');
+        $role->add_cap('unfiltered_html');
     }
 
     public function redirectToDashboard()
