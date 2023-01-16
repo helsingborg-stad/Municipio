@@ -699,7 +699,7 @@ class BaseController
      */
     public function getEmblem()
     {
-        return get_field('logotype_emblem', 'option') ?? false;
+        return get_theme_mod('logotype_emblem', false);
     }
 
     /**
@@ -724,7 +724,7 @@ class BaseController
         }
 
         //Get the logo, enshure url is defined.
-        $logotype = array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
+        $logotype = array_merge(['url' => ""], (array) get_theme_mod( $variantKey, '' ));
 
         //Fallback to municipio logo, if undefined.
         if (empty(array_filter($logotype)) && $variantKey == "logotype") {
