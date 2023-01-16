@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 21; //The db version we want to achive
+    private $dbVersion = 22; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -470,6 +470,20 @@ class Upgrade
         return true;
     }
 
+
+
+    /**
+     * Move logos from theme options to Customizer
+     */
+    private function v_22($db): bool
+    {
+        $this->migrateACFOptionToThemeMod('logotype', 'logotype');
+        $this->migrateACFOptionToThemeMod('logotype_negative', 'logotype_negative');
+        $this->migrateACFOptionToThemeMod('logotype_emblem', 'logotype_emblem');
+
+        return true;
+    }
+
     /**
      * Get all post types
      *
@@ -515,6 +529,49 @@ class Upgrade
             }
         }
         return false;
+    }
+
+    /**
+     * Logs error message
+     *
+     * @param string $message Error message
+     *
+     */
+    private function logError(string $message)
+    {
+        var_dump($message);
+        error_log(print_r($message, true));
+    }
+
+    /**
+     * Migrates an ACF option to a theme mod.
+     * 
+     * @param string $option The option key which is being migrated.
+     * @param string $themeMod [Optional] The theme mod key to which the option is being migrated. If not provided, it will take the value of $option.
+     *
+     * @return bool True if the option is successfully migrated to the theme mod, False otherwise.
+     */
+    private function migrateACFOptionToThemeMod(string $option, string $themeMod): bool
+    {
+        $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
+
+        if (!function_exists('get_field')) {
+            $this->logError($errorMessage);
+            return false;
+        }
+        
+        if (empty($value = get_field($option, 'option'))) {
+            $this->logError($errorMessage);
+            return false;
+        }
+        
+        if (!set_theme_mod($themeMod, $value)) {
+            $this->logError($errorMessage);
+            return false;
+        }
+
+        delete_field($option, 'option');
+        return true;
     }
 
     /**

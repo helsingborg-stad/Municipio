@@ -31,7 +31,7 @@ class Logo
     }
 
     private function getImageField(string $sectionID, string $setting, string $label, string $description, string $saveAs = 'array'):ImageField {
-      $sanitizedSaveAs = $saveAs === 'url' ?? 'array';
+      $sanitizedSaveAs = $saveAs === 'url' ? 'url' : 'array';
       return new ImageField([
           'settings'      => $setting,
           'label'         => $label,
