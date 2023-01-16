@@ -16,10 +16,12 @@ class General
         add_filter('protected_title_format', array($this, 'titleFormat'));
 
         add_filter('accessibility_items', array($this, 'accessibilityItems'), 10, 1);
-        
+
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
-        
+
+        add_filter('the_title', array($this, 'htmlEntityDecodeTitle'), 999);
+
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
@@ -28,7 +30,7 @@ class General
         add_filter('Modularity\ModularityIconsLibrary', function () {
             return MUNICIPIO_PATH . "assets/dist/data/ico.json";
         }, 10, 0);
-        
+
         remove_filter('template_redirect', 'redirect_canonical');
 
         //Menu cache purging
@@ -59,7 +61,7 @@ class General
     public function purgeMenuCache($metaId, $objectId, $metaKey, $metaValue)
     {
         $bannableKeys = wp_cache_get('municipioNavMenu');
-        
+
         if (is_array($bannableKeys) && in_array($metaKey, $bannableKeys)) {
             return wp_cache_delete($metaKey);
         }
@@ -218,7 +220,7 @@ class General
 
         return $content;
     }
-    
+
     /**
      * Append body theme class in BEMIT format
      *
@@ -276,5 +278,10 @@ class General
 
             return $items;
         }
+    }
+
+    public static function htmlEntityDecodeTitle($title): string
+    {
+        return html_entity_decode($title);
     }
 }
