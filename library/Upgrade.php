@@ -480,6 +480,7 @@ class Upgrade
         $this->migrateACFOptionToThemeMod('logotype', 'logotype');
         $this->migrateACFOptionToThemeMod('logotype_negative', 'logotype_negative');
         $this->migrateACFOptionToThemeMod('logotype_emblem', 'logotype_emblem');
+        $this->migrateACFOptionToThemeMod('header_logotype', 'header_logotype');
 
         return true;
     }

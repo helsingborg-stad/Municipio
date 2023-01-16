@@ -69,7 +69,7 @@ class BaseController
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
         
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
+        $this->data['logotype']             = $this->getLogotype(get_theme_mod('header_logotype') ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
