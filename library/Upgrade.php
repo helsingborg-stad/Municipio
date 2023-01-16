@@ -539,8 +539,7 @@ class Upgrade
      */
     private function logError(string $message)
     {
-        var_dump($message);
-        error_log(print_r($message, true));
+        error_log($message);
     }
 
     /**
@@ -601,8 +600,7 @@ class Upgrade
 
             if (!is_array($associativeArr)) {
                 $errorMessage = "Failed to migrate setting (" . $key . "." . $property . "). The specified setting already exists and is not an associative array.";
-                var_dump($errorMessage);
-                error_log(print_r($errorMessage, true));
+                $this->logError($errorMessage);
                 return false;
             }
 
@@ -686,11 +684,11 @@ class Upgrade
             }
 
             if (!is_numeric($currentDbVersion)) {
-                error_log(__('Current database version must be a number.', 'municipio'));
+                $this->logError(__('Current database version must be a number.', 'municipio'));
             }
 
             if ($currentDbVersion > $this->dbVersion) {
-                error_log(__('Database cannot be lower than currently installed (cannot downgrade).', 'municipio'));
+                $this->logError(__('Database cannot be lower than currently installed (cannot downgrade).', 'municipio'));
             }
 
             //Fetch global wpdb object, save to $db
