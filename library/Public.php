@@ -106,8 +106,8 @@ if (!function_exists('municipio_get_logotype')) {
 
         $siteName = apply_filters('Municipio/logotype_text', get_bloginfo('name'));
         $logotype = array(
-            'standard' => get_theme_mod( 'logotype', '' ),
-            'negative' => get_theme_mod( 'logotype_negative', '' )
+            'standard' => get_theme_mod('logotype', ''),
+            'negative' => get_theme_mod('logotype_negative', '')
         );
 
         // Get the symbol to use (blog name or image)

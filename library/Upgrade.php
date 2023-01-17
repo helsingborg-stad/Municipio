@@ -545,78 +545,60 @@ class Upgrade
 
     /**
      * Migrates an ACF option to a theme mod.
-     * 
-     * @param string $option The option key which is being migrated.
-     * @param string $themeMod [Optional] The theme mod key to which the option is being migrated. If not provided, it will take the value of $option.
      *
-     * @return bool True if the option is successfully migrated to the theme mod, False otherwise.
+     * @param string $option The option key which is being migrated.
+     * @param string $themeMod [Optional] The theme mod key to which the
+     * option is being migrated. If not provided, it will take the value of $option.
+     *
      */
-    private function migrateACFOptionToThemeMod(string $option, string $themeMod): bool
+    private function migrateACFOptionToThemeMod(string $option, string $themeMod)
     {
         $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
 
-        if (!function_exists('get_field')) {
+        if (
+            !function_exists('get_field') ||
+            empty($value = get_field($option, 'option', false)) ||
+            !set_theme_mod($themeMod, $value)
+        ) {
             $this->logError($errorMessage);
-            return false;
+            return;
         }
         
-        if (empty($value = get_field($option, 'option', false))) {
-            $this->logError($errorMessage);
-            return false;
-        }
-        
-        if (!set_theme_mod($themeMod, $value)) {
-            $this->logError($errorMessage);
-            return false;
-        }
-
         delete_field($option, 'option');
-        return true;
     }
     
     /**
      * Migrates an ACF option image id to a theme mod url.
-     * 
-     * @param string $option The option key which is being migrated.
-     * @param string $themeMod [Optional] The theme mod key to which the option is being migrated. If not provided, it will take the value of $option.
      *
-     * @return bool True if the option is successfully migrated to the theme mod, False otherwise.
+     * @param string $option The option key which is being migrated.
+     * @param string $themeMod [Optional] The theme mod key to which the option is
+     * being migrated. If not provided, it will take the value of $option.
+     *
      */
-    private function migrateACFOptionImageIdToThemeModUrl(string $option, string $themeMod): bool
+    private function migrateACFOptionImageIdToThemeModUrl(string $option, string $themeMod)
     {
         $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
 
         if (!function_exists('get_field')) {
             $this->logError($errorMessage);
-            return false;
+            return;
         }
 
         $value = get_field($option, 'option', false);
         
-        if (empty($value = get_field($option, 'option', false))) {
+        if (empty($value = get_field($option, 'option', false)) || !is_int(absint($value))) {
             $this->logError($errorMessage);
-            return false;
+            return;
         }
         
-        if (!is_int(absint($value))) {
-            $this->logError($errorMessage);
-            return false;
-        }
-
         $attachmentUrl = wp_get_attachment_url($value);
 
-        if ($attachmentUrl === false) {
+        if ($attachmentUrl === false || !set_theme_mod($themeMod, $attachmentUrl)) {
             $this->logError($errorMessage);
-            return false;
+            return;
         }
         
-        if (!set_theme_mod($themeMod, $attachmentUrl)) {
-            $this->logError($errorMessage);
-            return false;
-        }
-
         delete_field($option, 'option');
-        return true;
     }
 
     /**
@@ -734,7 +716,9 @@ class Upgrade
             }
 
             if ($currentDbVersion > $this->dbVersion) {
-                $this->logError(__('Database cannot be lower than currently installed (cannot downgrade).', 'municipio'));
+                $this->logError(__('
+                    Database cannot be lower than currently
+                    installed (cannot downgrade).', 'municipio'));
             }
 
             //Fetch global wpdb object, save to $db
