@@ -137,11 +137,12 @@ class LoadDesign
     private function getSiteData()
     {
         return [
-            'uuid' => md5(ABSPATH . get_home_url()),
-            'website' => get_home_url(),
-            'name' => get_bloginfo('name'),
+            'uuid'      => md5(ABSPATH . get_home_url()),
+            'website'   => get_home_url(),
+            'name'      => get_bloginfo('name'),
             'dbVersion' => get_option('municipio_db_version'),
-            'mods' => $this->getSharedAttributes(),
+            'mods'      => $this->getSharedAttributes(),
+            'css'       => wp_get_custom_css()
         ];
     }
 
@@ -156,7 +157,6 @@ class LoadDesign
         $mods = get_theme_mods();
 
         if (is_array($mods) && !empty($mods)) {
-
             foreach ($mods as $key => $mod) {
                 //Prohibited keys
                 if (in_array($key, ['load_design'])) {
@@ -168,15 +168,6 @@ class LoadDesign
                 }
             }
         }
-        /* Getting the custom css from the customizer and adding it to the stack. If no custom css, remove any existing css from the stack. */
-        $customCss = wp_get_custom_css();
-        if (!empty($customCss)) {
-            $stack['custom_css'] = $customCss;
-        } else {
-            $stack['custom_css'] = '';
-        }
-
-
 
         return $stack;
     }
