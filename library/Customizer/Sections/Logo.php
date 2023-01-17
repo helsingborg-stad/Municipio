@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 use Kirki\Compatibility\Kirki;
-use Kirki\Field\Image as ImageField;
+use Kirki\Field\Upload as UploadField;
 
 class Logo
 {
@@ -13,7 +13,7 @@ class Logo
 
         $primaryLogoField = $this->getImageField(self::SECTION_ID, 'logotype', esc_html__('Primary logo', 'municipio'), esc_html__('Only accepts .svg-files (Scalable Vector Graphics).', 'municipio'));
         $secondaryLogoField = $this->getImageField(self::SECTION_ID, 'logotype_negative', esc_html__('Secondary logo', 'municipio'), esc_html__('Upload your secondary logotype in .svg format (Scalable Vector Graphics). The secondary logotype is usually 100% white and can be used on dark or colored backgrounds.', 'municipio'));
-        $emblemField = $this->getImageField(self::SECTION_ID, 'logotype_emblem', esc_html__('Emblem', 'municipio'), esc_html__('Upload an emblem in .svg format (Scalable Vector Graphics). The emblem will be used to strengthen the website brand, when a sub brand is used.', 'municipio'), 'url');
+        $emblemField = $this->getImageField(self::SECTION_ID, 'logotype_emblem', esc_html__('Emblem', 'municipio'), esc_html__('Upload an emblem in .svg format (Scalable Vector Graphics). The emblem will be used to strengthen the website brand, when a sub brand is used.', 'municipio'));
       
         $this->addSection($panelID);
         Kirki::add_field($primaryLogoField);
@@ -30,16 +30,13 @@ class Logo
       ));
     }
 
-    private function getImageField(string $sectionID, string $setting, string $label, string $description, string $saveAs = 'array'):ImageField {
-      $sanitizedSaveAs = $saveAs === 'url' ? 'url' : 'array';
-      return new ImageField([
-          'settings'      => $setting,
-          'label'         => $label,
-          'description'   => $description,
-          'section'       => $sectionID,
-          'choices'       => [
-            'save_as' => $sanitizedSaveAs,
-          ],
+    private function getImageField(string $sectionID, string $setting, string $label, string $description):UploadField {
+      return new UploadField([
+          'mime_type' => 'image/svg+xml',
+          'settings'          => $setting,
+          'label'             => $label,
+          'description'       => $description,
+          'section'           => $sectionID,
       ]);
     }
 }

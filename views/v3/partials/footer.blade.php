@@ -9,7 +9,7 @@
 @footer([
     'id' => 'site-footer',
     'slotOnly' => true,
-    'logotype' => $footerLogotype->url ?? false,
+    'logotype' => $footerLogotype ?? false,
     'logotypeHref' => $homeUrl,
     'subfooterLogotype' => $subfooterLogotype,
     'context' => 'component.footer',

@@ -703,12 +703,12 @@ class BaseController
     }
 
     /**
-     * Get the logotype
+     * Get the logotype url.
      *
      * @param string $variant
-     * @return object
+     * @return string Logotype file url, defaults to the theme logo if not found.
      */
-    public function getLogotype($variant = "standard")
+    public function getLogotype($variant = "standard"): string
     {
         //Cache, early bailout
         if (isset($this->data['logotype']) && empty($this->data['logotype'])) {
@@ -723,16 +723,15 @@ class BaseController
             $variantKey = $variantKey . '_' . $variant;
         }
 
-        //Get the logo, enshure url is defined.
-        $logotype = array_merge(['url' => ""], (array) get_theme_mod( $variantKey, '' ));
+        //Get the logo, ensure url is defined.
+        $logotypeUrl = get_theme_mod($variantKey);
 
-        //Fallback to municipio logo, if undefined.
-        if (empty(array_filter($logotype)) && $variantKey == "logotype") {
-            $logotype = ['url' => get_stylesheet_directory_uri() . '/assets/images/municipio.svg'];
+        if (empty($logotypeUrl)) {
+            $logotypeUrl = get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
         }
 
         //Return
-        return (object) $logotype;
+        return $logotypeUrl;
     }
 
     /**
@@ -751,7 +750,7 @@ class BaseController
             return $this->data['customizer']->footerSubfooterCustomLogotype;
         }
 
-        return $this->getLogotype($variant)->url ?? false;
+        return $this->getLogotype($variant) ?? false;
     }
 
     /**
