@@ -19,10 +19,7 @@ class Purpose
         $recurse->setMaxDepth(1);
 
         foreach ($recurse as $item) {
-            if (1 !== $recurse->getDepth() || $recurse->isDot()) {
-                continue;
-            }
-            if (!$item->isFile()) {
+            if (1 !== $recurse->getDepth() || $recurse->isDot() || !$item->isFile()) {
                 continue;
             }
 
