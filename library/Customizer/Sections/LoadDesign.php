@@ -168,9 +168,12 @@ class LoadDesign
                 }
             }
         }
+        /* Getting the custom css from the customizer and adding it to the stack. If no custom css, remove any existing css from the stack. */
         $customCss = wp_get_custom_css();
         if (!empty($customCss)) {
             $stack['custom_css'] = $customCss;
+        } elseif (isset($stack['custom_css'])) {
+            unset($stack['custom_css']);
         }
 
 
