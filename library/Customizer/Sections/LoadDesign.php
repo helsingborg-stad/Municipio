@@ -108,8 +108,8 @@ class LoadDesign
     {
         $response = wp_remote_post(
             self::API_URL .
-            $this->apiActions['post'] .
-            '?cacheBust=' . $this->uniqid,
+                $this->apiActions['post'] .
+                '?cacheBust=' . $this->uniqid,
             [
                 'method' => 'POST',
                 'timeout' => 5,
@@ -156,6 +156,7 @@ class LoadDesign
         $mods = get_theme_mods();
 
         if (is_array($mods) && !empty($mods)) {
+
             foreach ($mods as $key => $mod) {
                 //Prohibited keys
                 if (in_array($key, ['load_design'])) {
@@ -167,6 +168,12 @@ class LoadDesign
                 }
             }
         }
+        $customCss = wp_get_custom_css();
+        if (!empty($customCss)) {
+            $stack['custom_css'] = $customCss;
+        }
+
+
 
         return $stack;
     }
