@@ -726,7 +726,7 @@ class BaseController
         //Get the logo, ensure url is defined.
         $logotypeUrl = get_theme_mod($variantKey);
 
-        if (empty($logotypeUrl)) {
+        if (empty($logotypeUrl) && $variantKey == "logotype") {
             $logotypeUrl = get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
         }
 

@@ -477,9 +477,9 @@ class Upgrade
      */
     private function v_22($db): bool
     {
-        $this->migrateACFOptionToThemeMod('logotype', 'logotype');
-        $this->migrateACFOptionToThemeMod('logotype_negative', 'logotype_negative');
-        $this->migrateACFOptionToThemeMod('logotype_emblem', 'logotype_emblem');
+        $this->migrateACFOptionImageIdToThemeModUrl('logotype', 'logotype');
+        $this->migrateACFOptionImageIdToThemeModUrl('logotype_negative', 'logotype_negative');
+        $this->migrateACFOptionImageIdToThemeModUrl('logotype_emblem', 'logotype_emblem');
         $this->migrateACFOptionToThemeMod('header_logotype', 'header_logotype');
 
         return true;
@@ -560,12 +560,57 @@ class Upgrade
             return false;
         }
         
-        if (empty($value = get_field($option, 'option'))) {
+        if (empty($value = get_field($option, 'option', false))) {
             $this->logError($errorMessage);
             return false;
         }
         
         if (!set_theme_mod($themeMod, $value)) {
+            $this->logError($errorMessage);
+            return false;
+        }
+
+        delete_field($option, 'option');
+        return true;
+    }
+    
+    /**
+     * Migrates an ACF option image id to a theme mod url.
+     * 
+     * @param string $option The option key which is being migrated.
+     * @param string $themeMod [Optional] The theme mod key to which the option is being migrated. If not provided, it will take the value of $option.
+     *
+     * @return bool True if the option is successfully migrated to the theme mod, False otherwise.
+     */
+    private function migrateACFOptionImageIdToThemeModUrl(string $option, string $themeMod): bool
+    {
+        $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
+
+        if (!function_exists('get_field')) {
+            $this->logError($errorMessage);
+            return false;
+        }
+
+        $value = get_field($option, 'option', false);
+        
+        if (empty($value = get_field($option, 'option', false))) {
+            $this->logError($errorMessage);
+            return false;
+        }
+        
+        if (!is_int(absint($value))) {
+            $this->logError($errorMessage);
+            return false;
+        }
+
+        $attachmentUrl = wp_get_attachment_url($value);
+
+        if ($attachmentUrl === false) {
+            $this->logError($errorMessage);
+            return false;
+        }
+        
+        if (!set_theme_mod($themeMod, $attachmentUrl)) {
             $this->logError($errorMessage);
             return false;
         }
