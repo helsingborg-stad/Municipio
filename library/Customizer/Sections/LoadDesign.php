@@ -142,7 +142,7 @@ class LoadDesign
             'name'      => get_bloginfo('name'),
             'dbVersion' => get_option('municipio_db_version'),
             'mods'      => $this->getSharedAttributes(),
-            'css'       => wp_get_custom_css()
+            'css'       => wp_get_custom_css() ?? false,
         ];
     }
 
