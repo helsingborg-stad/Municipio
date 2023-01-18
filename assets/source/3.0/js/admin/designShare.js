@@ -38,7 +38,9 @@ export default (() => {
                     const scrubbedValue = scrubHexValue(value);
                     control.setting.set(scrubbedValue);
                   } else {
-                    incompatibleKeyStack.push(key);
+                    if(!key.startsWith('archive_')) {
+                      incompatibleKeyStack.push(key);
+                    }
                   }
                 }
 
