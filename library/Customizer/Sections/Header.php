@@ -2,20 +2,23 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Kirki\Compatibility\Kirki;
+use Kirki\Field\Radio as RadioField;
+
 class Header
 {
     public const SECTION_ID = "municipio_customizer_section_header";
 
     public function __construct($panelID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
+        Kirki::add_section(self::SECTION_ID, array(
             'title'       => esc_html__('Header', 'municipio'),
             'description' => esc_html__('Header settings.', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_apperance',
             'label'       => esc_html__('Apperance', 'municipio'),
@@ -31,7 +34,7 @@ class Header
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_sticky',
             'label'       => esc_html__('Sticky', 'municipio'),
@@ -54,7 +57,7 @@ class Header
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_background',
             'label'       => esc_html__('Background color', 'municipio'),
@@ -75,7 +78,7 @@ class Header
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_color',
             'label'       => esc_html__('Text color', 'municipio'),
@@ -98,7 +101,7 @@ class Header
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_modifier',
             'label'       => esc_html__('Style', 'municipio'),
@@ -118,7 +121,7 @@ class Header
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'header_logotype_height',
             'label'       => esc_html__('Logotype height', 'municipio'),
@@ -137,5 +140,17 @@ class Header
                 ]
             ],
         ]);
+
+        Kirki::add_field(new RadioField([
+            'settings'    => 'header_logotype',
+            'label'       => esc_html__('Header logotype', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'standard',
+            'priority'    => 10,
+            'choices'     => array(
+                'standard'  => esc_html__('Primary', 'municipio'),
+                'negative'  => esc_html__('Secondary', 'municipio'),
+            ),
+        ]));
     }
 }

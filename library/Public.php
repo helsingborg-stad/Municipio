@@ -105,32 +105,15 @@ if (!function_exists('municipio_get_logotype')) {
         }
 
         $siteName = apply_filters('Municipio/logotype_text', get_bloginfo('name'));
-
         $logotype = array(
-            'standard' => get_field('logotype', 'option'),
-            'negative' => get_field('logotype_negative', 'option')
+            'standard' => get_theme_mod('logotype', ''),
+            'negative' => get_theme_mod('logotype_negative', '')
         );
-
-        foreach ($logotype as &$logo) {
-            if (!is_int($logo)) {
-                continue;
-            }
-
-            $logoinfo = array();
-            $logoinfo['id'] = $logo;
-            $logoinfo['url'] = wp_get_attachment_url($logoinfo['id']);
-            $logo = $logoinfo;
-        }
 
         // Get the symbol to use (blog name or image)
         if ($use_text_replacement) {
             $logoText = $siteName;
         }
-
-        // Get the symbol to use (by file include)
-        //if (isset($logotype[$type]['id']) && $logo_include === true) {
-        $logoSvg = \Municipio\Helper\Svg::extract(get_attached_file($logotype[$type]['id']));
-        //}
 
         $classes = apply_filters('Municipio/logotype_class', array('logotype'));
         $tooltip = apply_filters('Municipio/logotype_tooltip', $tooltip);
@@ -149,7 +132,7 @@ if (!function_exists('municipio_get_logotype')) {
         // Build the markup
         $logoData = [
             'url'               => home_url(),
-            'src'               => $logotype[$type]['url'],
+            'src'               => $logotype,
             'text'              => $logoText,
             'classList'         => implode(' ', $classes),
             'attributeList'     => ($tooltip !== false && !empty($tooltip)) ?
