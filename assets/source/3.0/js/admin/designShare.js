@@ -40,6 +40,7 @@ export default (() => {
                 .filter(setting => setting !== undefined)
                 .filter(setting => setting.hasOwnProperty("params"))
                 .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
+                .filter(setting => setting.params.type !== "kirki-custom")
                 .filter(setting => setting.params.id !== "load_design");
 
                 arrayOb.forEach(setting => {
