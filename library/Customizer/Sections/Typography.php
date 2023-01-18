@@ -347,6 +347,11 @@ class Typography
                 ],
                 'output' => [
                     [
+                        'choice'    => 'font-family',
+                        'element'   => ':root',
+                        'property'  => '--lead-font-family',
+                    ],
+                    [
                         'choice'    => 'font-size',
                         'element'   => ':root',
                         'property'  => '--lead-font-size',
