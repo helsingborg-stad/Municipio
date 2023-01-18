@@ -22,5 +22,6 @@ class Design
         new \Municipio\Customizer\Sections\Radius(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Padding(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Shadow(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Search(self::PANEL_ID);
     }
 }
