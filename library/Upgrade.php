@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 21; //The db version we want to achive
+    private $dbVersion = 23; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -191,7 +191,7 @@ class Upgrade
             set_theme_mod('hero_overlay_enable', 0);
         }
 
-         
+
 
         $this->deleteThemeMod('hero');
 
@@ -205,7 +205,7 @@ class Upgrade
         if ($overlays) {
             $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0'];
             $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6'];
-            $overlay = $this->hex2rgba($color, "0.".(int)$opacity);
+            $overlay = $this->hex2rgba($color, "0." . (int)$opacity);
             set_theme_mod('overlay', $overlay);
         }
 
@@ -298,7 +298,7 @@ class Upgrade
 
         return true;
     }
-  
+
     //Migrate colors stuff.
     private function v_14($db): bool
     {
@@ -471,6 +471,15 @@ class Upgrade
     }
 
     /**
+     * Move search settings to customizer.
+     */
+    private function v_23($db): bool
+    {
+        $this->migrateACFOptionToThemeMod('search_display', 'search_display');
+        return true;
+    }
+
+    /**
      * Get all post types
      *
      * @return array
@@ -496,6 +505,41 @@ class Upgrade
         );
 
         return $postTypes;
+    }
+
+        /**
+     * Logs error message
+     *
+     * @param string $message Error message
+     *
+     */
+    private function logError(string $message)
+    {
+        error_log($message);
+    }
+
+    /**
+     * Migrates an ACF option to a theme mod.
+     *
+     * @param string $option The option key which is being migrated.
+     * @param string $themeMod [Optional] The theme mod key to which the
+     * option is being migrated. If not provided, it will take the value of $option.
+     *
+     */
+    private function migrateACFOptionToThemeMod(string $option, string $themeMod)
+    {
+        $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
+
+        if (
+            !function_exists('get_field') ||
+            empty($value = get_field($option, 'option', false)) ||
+            !set_theme_mod($themeMod, $value)
+        ) {
+            $this->logError($errorMessage);
+            return;
+        }
+
+        delete_field($option, 'option');
     }
 
     /**
@@ -534,7 +578,7 @@ class Upgrade
         $key = $parsedString[0] ?? '';
         $property = $parsedString[1] ?? '';
 
-        if (empty($parsedString) ||empty($key)) {
+        if (empty($parsedString) || empty($key)) {
             return false;
         }
 
