@@ -98,8 +98,8 @@ class WP
                 fn ($p) => (object) $p,
                 fn ($p) => !isset($p->postType) ? FormatObject::camelCase((object) $p) : $p,
                 fn ($p) => $mapGeneralPostData($p),
-                fn ($p) => apply_filters('ProjectManagerIntegration/Helper/Municipio/mapPost', $p, $p->postType),
-                fn ($p) => apply_filters("ProjectManagerIntegration/Helper/Municipio/{$p->postType}/mapPost", $p),
+                fn ($p) => apply_filters('Municipio/Helper/Municipio/mapPost', $p, $p->postType),
+                fn ($p) => apply_filters("Municipio/Helper/Municipio/{$p->postType}/mapPost", $p),
             ]),
             $posts
         );
