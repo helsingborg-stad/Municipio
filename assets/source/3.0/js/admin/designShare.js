@@ -44,7 +44,7 @@ export default (() => {
                 .filter(setting => setting.params.id !== "load_design");
 
                 arrayOb.forEach(setting => {
-                  customize.control("primary_menu_dropdown").setting.set_value(setting.params.default);
+                  customize.control("primary_menu_dropdown").setting.set(setting.params.default);
                 });
 
                 for (const [key, value] of Object.entries(data.mods)) {
