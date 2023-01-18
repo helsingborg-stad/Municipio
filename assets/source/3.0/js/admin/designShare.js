@@ -18,42 +18,9 @@ const scrubHexValue = value => {
   return value;
 };
 
-
-/*  */
 export default (() => {
   wp.customize.bind('ready', function() {
     let customize = this;
-
-    const arrayOb = Object.entries(customize.settings.settings).map(([key]) => customize.control(key)).filter(setting => setting !== undefined).filter(setting => setting.hasOwnProperty("params")).filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value")).filter(setting => setting.params.id !== "load_design");
-
-    console.log(arrayOb);
-
-    let test = [];
-
-    /*                 Object.keys(wp.customize.settings.settings).forEach(function (settingId) {
-                      if (typeof wp.customize.instance(settingId) === 'undefined') {
-                        console.log('Invalid setting: ' + settingId);
-                      }
-                    }); */
-/*                     let i = 0;
-    arrayOb.forEach(setting => {
-      if(!setting.id.startsWith('color_') && !setting.id.startsWith('typography_')) {
-        if(!setting.hasOwnProperty("propertyElements")) {
-          if (customize.control(setting.id) && customize.control(setting.id).hasOwnProperty("setting")) {
-            if(i = 40) {
-              test.push(setting);
-            customize.control(setting.id).setting.set(setting.params.default);
-              console.log(i);
-          }
-          i++;
-          }
-        }
-
-      }
-    }); */
-    
-
-    console.log(test);
 
     customize('load_design', function(selectedValue) {
 
@@ -67,61 +34,18 @@ export default (() => {
             .then(data => {
 
               if (Object.keys(data.mods).length > 0) {
-              
 
-               /*  let i = 0;
-                customize.control.each(function (setting) {
-                  if (setting !== undefined) {
-                    if (setting && setting.id && setting.params) {
-                      if (setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value")) {
-                        if (setting.id !== "load_design") {
-                          if (typeof setting.params.value === typeof setting.params.default) {
-                            if (setting.params.default !== "" && setting.params.default !== null && setting.params.default !== undefined) {
-                                if (customize.instance()) {
-                                if (i !== 119) {
-                                  customize.control(setting.id).setting.set(setting.params.default);
-                                }
-                                i++;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                });
-               */
-
-                /* let i = 0;
-                customize.control.each(function (setting) {
-                  if (setting !== undefined) {
-                    if (setting && setting.id && setting.params) {
-                      if (setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value")) {
-                        if (setting.id !== "load_design") {
-                          if (typeof setting.params.value === typeof setting.params.default) {
-                            if (setting.params.default !== "" && setting.params.default !== null && setting.params.default !== undefined) {
-                              if (customize.instance()) {
-                                  customize.control(setting.id).setting.set_value(setting.params.default);
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                });
- */
-
-
-
-              
+                const arrayOb = Object.entries(customize.settings.settings)
+                .map(([key]) => customize.control(key))
+                .filter(setting => setting !== undefined)
+                .filter(setting => setting.hasOwnProperty("params"))
+                .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
+                .filter(setting => setting.params.id !== "load_design");
 
                 arrayOb.forEach(setting => {
                   customize.control("primary_menu_dropdown").setting.set_value(setting.params.default);
                 });
 
-                //console.log(customize.control("primary_menu_dropdown"));
-                // customize.control("primary_menu_dropdown").setting.set(false);
                 for (const [key, value] of Object.entries(data.mods)) {
                   const control = customize.control(key);
                   if (typeof control !== 'undefined') {
