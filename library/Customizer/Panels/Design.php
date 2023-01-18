@@ -14,6 +14,7 @@ class Design
             'description' => esc_html__('Manage site general design options.', 'municipio'),
         ));
 
+        new \Municipio\Customizer\Sections\Logo(self::PANEL_ID);
         new \Municipio\Customizer\Sections\General(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Colors(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Typography(self::PANEL_ID);
