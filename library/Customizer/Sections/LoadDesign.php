@@ -108,8 +108,8 @@ class LoadDesign
     {
         $response = wp_remote_post(
             self::API_URL .
-            $this->apiActions['post'] .
-            '?cacheBust=' . $this->uniqid,
+                $this->apiActions['post'] .
+                '?cacheBust=' . $this->uniqid,
             [
                 'method' => 'POST',
                 'timeout' => 5,
@@ -137,11 +137,12 @@ class LoadDesign
     private function getSiteData()
     {
         return [
-            'uuid' => md5(ABSPATH . get_home_url()),
-            'website' => get_home_url(),
-            'name' => get_bloginfo('name'),
+            'uuid'      => md5(ABSPATH . get_home_url()),
+            'website'   => get_home_url(),
+            'name'      => get_bloginfo('name'),
             'dbVersion' => get_option('municipio_db_version'),
-            'mods' => $this->getSharedAttributes(),
+            'mods'      => $this->getSharedAttributes(),
+            'css'       => wp_get_custom_css() ?? false,
         ];
     }
 
