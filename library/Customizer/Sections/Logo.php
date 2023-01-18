@@ -11,12 +11,17 @@ class Logo
 
     public function __construct($panelID)
     {
-
         $primaryDescription = esc_html__('Only accepts .svg-files (Scalable Vector Graphics).', 'municipio');
-        $secondaryDescription = esc_html__('Upload your secondary logotype in .svg format (Scalable Vector Graphics).
-        The secondary logotype is usually 100% white and can be used on dark or colored backgrounds.', 'municipio');
-        $emblemDescription = esc_html__('Upload an emblem in .svg format (Scalable Vector Graphics).
-        The emblem will be used to strengthen the website brand, when a sub brand is used.', 'municipio');
+        $secondaryDescription = esc_html__(
+            'Upload your secondary logotype in .svg format (Scalable Vector Graphics).
+            The secondary logotype is usually 100% white and can be used on dark or colored backgrounds.',
+            'municipio'
+        );
+        $emblemDescription = esc_html__(
+            'Upload an emblem in .svg format (Scalable Vector Graphics).
+            The emblem will be used to strengthen the website brand, when a sub brand is used.',
+            'municipio'
+        );
 
         $primaryLogoField = $this->getImageField(
             self::SECTION_ID,
