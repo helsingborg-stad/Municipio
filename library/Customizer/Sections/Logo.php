@@ -69,6 +69,11 @@ class Logo
         'label'             => $label,
         'description'       => $description,
         'section'           => $sectionID,
-        ]);
+        'output'            => [
+            [
+                'type' => 'controller',
+                'as_object' => false,
+            ]
+        ]]);
     }
 }
