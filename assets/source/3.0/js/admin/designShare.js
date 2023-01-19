@@ -67,6 +67,7 @@ export default (() => {
                 throw 'This theme seems to be empty, please select another one.';
               }
             })
+            .then(customize.preview.send('refresh'))
             .catch(error => {
               alert(error);
             });
