@@ -52,9 +52,9 @@ export default (() => {
                                 }
 
                                 if (incompatibleKeyStack.length > 0) {
-                                    // throw 'The selected theme may be incompatible with this version of the theme customizer. Some settings (' +
-                                    // incompatibleKeyStack.join(', ') +
-                                    // ') may be missing.';
+                                    throw 'The selected theme may be incompatible with this version of the theme customizer. Some settings (' +
+                                    incompatibleKeyStack.join(', ') +
+                                    ') may be missing.';
                                 }
                             } else {
                                 throw 'This theme seems to be empty, please select another one.';
