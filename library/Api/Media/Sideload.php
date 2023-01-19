@@ -32,7 +32,7 @@ class Sideload extends RestApiEndpoint
                     'type' => 'string',
                     'enum' => ['html', 'src', 'id'],
                     'required' => false,
-                    // TODO: Set default value.
+                    'default' => 'html'
                 ]
             ]
         ));
@@ -50,19 +50,21 @@ class Sideload extends RestApiEndpoint
                 $sideloadedImageUrl->get_error_message(),
                 array('status' => WP_Http::BAD_REQUEST)
             );
-
             return rest_ensure_response($error);
         }
 
-        return $sideloadedImageUrl;
+        return rest_ensure_response($sideloadedImageUrl);
     }
 
-    private function handleSideload(string $url, string $return = 'html')
+    public function handleSideload(string $url, string $return)
     {
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
         return media_sideload_image($url, null, null, $return);
     }
 
-    private function permissionCallback(): bool
+    public function permissionCallback(): bool
     {
         return current_user_can('customize');
     }
