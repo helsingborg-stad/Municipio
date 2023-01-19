@@ -14,6 +14,11 @@ class Sideload extends RestApiEndpoint
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'media/sideload';
 
+    /**
+     * Registers a REST route for image sideloading
+     *
+     * @return bool Whether the route was registered successfully
+     */
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
@@ -38,6 +43,14 @@ class Sideload extends RestApiEndpoint
         ));
     }
 
+
+    /**
+     * Handles a REST request and sideloads an image
+     *
+     * @param WP_REST_Request $request The REST request object
+     *
+     * @return WP_REST_Response|WP_Error The sideloaded image URL or an error object if the sideload fails
+     */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $url = $request->get_param('url');
@@ -56,7 +69,15 @@ class Sideload extends RestApiEndpoint
         return rest_ensure_response($sideloadedImageUrl);
     }
 
-    public function handleSideload(string $url, string $return)
+    /**
+     * Handles sideloading of images
+     *
+     * @param string $url The URL of the image to sideload
+     * @param string $return The return value for the sideloaded image, default is 'html'
+     *
+     * @return mixed The sideloaded image
+     */
+    public function handleSideload(string $url, string $return = 'html')
     {
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/file.php');
@@ -64,6 +85,11 @@ class Sideload extends RestApiEndpoint
         return media_sideload_image($url, null, null, $return);
     }
 
+    /**
+     * Callback function for checking if the current user has permission to sideload image
+     *
+     * @return bool Whether the current user has permission to sideload image
+     */
     public function permissionCallback(): bool
     {
         return current_user_can('customize');
