@@ -520,7 +520,11 @@ class BaseController
      */
     protected function showSearchForm($location = null)
     {
-        $enabledLocations = (array) get_field('search_display', 'option');
+        if (!isset($this->data['customizer']->searchDisplay)) {
+            return true;
+        }
+
+        $enabledLocations = $this->data['customizer']->searchDisplay;
 
         if ($location == "hero" && is_front_page()) {
             return in_array($location, $enabledLocations);
