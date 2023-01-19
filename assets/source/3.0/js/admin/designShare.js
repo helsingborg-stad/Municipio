@@ -32,10 +32,8 @@ export default (() => {
                         .then(response => response.json())
                         .then(data => {
 
-                            const css_control = customize.control('custom_css');
                             const css = data.css ? data.css : '';
-
-                            css_control.setting.set(css);
+                            customize.control('custom_css').setting.set(css);
 
                             if (Object.keys(data.mods).length > 0) {
                                 for (const [key, value] of Object.entries(data.mods)) {
