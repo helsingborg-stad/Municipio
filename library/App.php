@@ -2,6 +2,8 @@
 
 namespace Municipio;
 
+use Municipio\Api\RestApiEndpointsRegistry;
+
 /**
  * Class App
  * @package Municipio
@@ -22,7 +24,7 @@ class App
          * Template
          */
         new \Municipio\Template();
-        
+
         /**
          * Theme
          */
@@ -54,7 +56,7 @@ class App
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
-        
+
 
         /**
          * Oembed
@@ -113,7 +115,7 @@ class App
         /**
          * Api
          */
-        new \Municipio\Api\Navigation();
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
 
         /**
          * Customizer
