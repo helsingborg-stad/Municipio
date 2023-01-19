@@ -522,41 +522,6 @@ class Upgrade
         return $postTypes;
     }
 
-        /**
-     * Logs error message
-     *
-     * @param string $message Error message
-     *
-     */
-    private function logError(string $message)
-    {
-        error_log($message);
-    }
-
-    /**
-     * Migrates an ACF option to a theme mod.
-     *
-     * @param string $option The option key which is being migrated.
-     * @param string $themeMod [Optional] The theme mod key to which the
-     * option is being migrated. If not provided, it will take the value of $option.
-     *
-     */
-    private function migrateACFOptionToThemeMod(string $option, string $themeMod)
-    {
-        $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
-
-        if (
-            !function_exists('get_field') ||
-            empty($value = get_field($option, 'option', false)) ||
-            !set_theme_mod($themeMod, $value)
-        ) {
-            $this->logError($errorMessage);
-            return;
-        }
-
-        delete_field($option, 'option');
-    }
-
     /**
      * Move and clean out the old theme mod
      *
