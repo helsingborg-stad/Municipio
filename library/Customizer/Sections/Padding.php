@@ -70,7 +70,8 @@ class Padding
                   'type' => 'modifier',
                   'context' => [
                     'component.card',
-                    'component.paper'
+                    'component.paper',
+                    'component.slider'
                   ]
                 ]
             ],
