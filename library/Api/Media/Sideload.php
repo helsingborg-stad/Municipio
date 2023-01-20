@@ -53,9 +53,8 @@ class Sideload extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
-        $url = $request->get_param('url');
-        $return = $request->get_param('return');
-        $sideloadedImageUrl = $this->handleSideload($url, $return);
+        $params = $request->get_json_params();
+        $sideloadedImageUrl = $this->handleSideload($params['url'], $params['return']);
 
         if (is_wp_error($sideloadedImageUrl)) {
             $error = new WP_Error(
