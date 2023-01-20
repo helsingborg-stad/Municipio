@@ -40,7 +40,7 @@ class LoadDesign
             'default'     => false,
             'priority'    => 10,
             'choices'     => $this->loadOptions(),
-            'trasport'    => 'postMessage'
+            'transport'    => 'postMessage'
         ]);
 
         //Always reset option of theme
