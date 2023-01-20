@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\FormatObject;
+
 class BaseController
 {
     /**
@@ -34,7 +36,7 @@ class BaseController
 
         //Send globals to view
         $this->data['wpQuery']              = $this->wpQuery;
- 
+
         //Header & Footer
         $this->data['wpHeader']             = $this->getWpHeader();
         $this->data['wpFooter']             = $this->getWpFooter();
@@ -62,14 +64,14 @@ class BaseController
         $this->data['pageModified']         = $this->getPageModified();
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
-        
+
         $this->data['purpose']              = $this->getPurpose();
 
         //Customization data
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
-        
+
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype(get_field('header_logotype', 'option') ?? 'standard');
+        $this->data['logotype']             = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard');
         $this->data['footerLogotype']       = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
@@ -99,7 +101,7 @@ class BaseController
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
-    
+
         /* Navigation parameters
         string $menu,
         int $pageId = null,
@@ -107,8 +109,8 @@ class BaseController
         bool $includeTopLevel = true,
         bool $onlyKeepFirstLevel = false
         */
-        
-        //Main Navigation 
+
+        //Main Navigation
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
         $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
 
@@ -258,7 +260,7 @@ class BaseController
      *
      * @return mixed Returns the output of the hook, mixed values.
      */
-    public function hook($hookKey) : string
+    public function hook($hookKey): string
     {
         ob_start();
         do_action($hookKey);
@@ -270,7 +272,7 @@ class BaseController
      *
      * @return string
      */
-    public function getSiteName() : string
+    public function getSiteName(): string
     {
         return apply_filters('Municipio/SiteName', get_bloginfo('name'));
     }
@@ -280,7 +282,7 @@ class BaseController
      *
      * @return string
      */
-    public function getWpHeader() : string
+    public function getWpHeader(): string
     {
         ob_start();
         wp_head();
@@ -292,7 +294,7 @@ class BaseController
      *
      * @return string
      */
-    public function getWpFooter() :  string
+    public function getWpFooter(): string
     {
         ob_start();
         wp_footer();
@@ -302,7 +304,7 @@ class BaseController
     /**
      * Get current page ID
      */
-    public function getPageID() : int
+    public function getPageID(): int
     {
         //Page for posttype archive mapping result
         if (is_post_type_archive()) {
@@ -334,7 +336,7 @@ class BaseController
      *
      * @return integer
      */
-    public function getPageParentID() : int
+    public function getPageParentID(): int
     {
         return wp_get_post_parent_id($this->getPageID());
     }
@@ -368,7 +370,7 @@ class BaseController
      *
      * @return object
      */
-    public function getFloatingMenuLabels() : object
+    public function getFloatingMenuLabels(): object
     {
         $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? '');
 
@@ -387,10 +389,10 @@ class BaseController
      *
      * @return object
      */
-    public function getLanguageMenuOptions() : object
+    public function getLanguageMenuOptions(): object
     {
         $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
-        
+
         $options = [
             'disclaimer'        => get_field('language_menu_disclaimer', $options),
             'moreLanguageLink'  => get_field('language_menu_more_languages', $options)
@@ -404,7 +406,7 @@ class BaseController
      *
      * @return object
      */
-    public function getQuicklinksOptions() : object
+    public function getQuicklinksOptions(): object
     {
         $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu'] ?? '');
 
@@ -518,7 +520,11 @@ class BaseController
      */
     protected function showSearchForm($location = null)
     {
-        $enabledLocations = (array) get_field('search_display', 'option');
+        if (!isset($this->data['customizer']->searchDisplay)) {
+            return true;
+        }
+
+        $enabledLocations = $this->data['customizer']->searchDisplay;
 
         if ($location == "hero" && is_front_page()) {
             return in_array($location, $enabledLocations);
@@ -555,7 +561,7 @@ class BaseController
                 return in_array('header_sub', $enabledLocations);
             }
         }
-        
+
         if ($location == "navigation") {
             if (is_search()) {
                 return false;
@@ -575,7 +581,7 @@ class BaseController
      * Get getPostTypeDetails
      * @return string
      */
-    protected function getPostTypeDetails() : object
+    protected function getPostTypeDetails(): object
     {
         return apply_filters('Municipio/postTypeDetails', (object) get_post_type_object(get_post_type()));
     }
@@ -584,7 +590,7 @@ class BaseController
      * Get home url
      * @return string
      */
-    protected function getHomeUrl() : string
+    protected function getHomeUrl(): string
     {
         return apply_filters('Municipio/homeUrl', esc_url(get_home_url()));
     }
@@ -593,7 +599,7 @@ class BaseController
      * Get admin url
      * @return string
      */
-    protected function getAdminUrl() : string
+    protected function getAdminUrl(): string
     {
         return apply_filters('Municipio/adminUrl', get_admin_url());
     }
@@ -602,7 +608,7 @@ class BaseController
      * Get post published
      * @return string
      */
-    protected function getPagePublished() : string
+    protected function getPagePublished(): string
     {
         return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
     }
@@ -611,7 +617,7 @@ class BaseController
      * Get post modified
      * @return string
      */
-    protected function getPageModified() : string
+    protected function getPageModified(): string
     {
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
@@ -624,16 +630,16 @@ class BaseController
      * Get language attributes
      * @return string
      */
-    protected function getBlogDescription() : string
+    protected function getBlogDescription(): string
     {
         return apply_filters('Municipio/blogDescription', get_bloginfo('description'));
     }
-    
+
     /**
      * Get post title
      * @return string
      */
-    protected function getPageTitle() : string
+    protected function getPageTitle(): string
     {
         return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
     }
@@ -642,7 +648,7 @@ class BaseController
      * Get language attributes
      * @return string
      */
-    protected function getLanguageAttrs() : string
+    protected function getLanguageAttrs(): string
     {
         return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
     }
@@ -651,7 +657,7 @@ class BaseController
      * Creates a ajax url
      * @return string
      */
-    protected function getAjaxUrl() : string
+    protected function getAjaxUrl(): string
     {
         return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "3.0", "Municpio/ajaxUrl");
     }
@@ -660,7 +666,7 @@ class BaseController
      * Get body class
      * @return string
      */
-    protected function getBodyClass() : string
+    protected function getBodyClass(): string
     {
         return apply_filters('Municipio/bodyClass', join(' ', get_body_class('no-js')));
     }
@@ -669,7 +675,7 @@ class BaseController
      * Get breadcrumb array
      * @return array
      */
-    protected function getBreadcrumb() : array
+    protected function getBreadcrumb(): array
     {
         return apply_filters('Municipio/breadcrumbArray', breadcrumb());
     }
@@ -699,20 +705,24 @@ class BaseController
      */
     public function getEmblem()
     {
-        return get_field('logotype_emblem', 'option') ?? false;
+        if (empty($logotypeEmblem = $this->data['customizer']->logotypeEmblem)) {
+            return false;
+        }
+
+        return $logotypeEmblem;
     }
 
     /**
-     * Get the logotype
+     * Get the logotype url.
      *
      * @param string $variant
-     * @return object
+     * @return string Logotype file url, defaults to the theme logo if not found.
      */
-    public function getLogotype($variant = "standard")
+    public function getLogotype($variant = "standard"): string
     {
         //Cache, early bailout
-        if (isset($this->data['logotype']) && empty($this->data['logotype'])) {
-            return $this->data['logotype'];
+        if (isset($this->data['customizer']->logotype) && empty($this->data['customizer']->logotype)) {
+            return $this->data['customizer']->logotype;
         }
 
         //Get fresh logotypes
@@ -720,19 +730,20 @@ class BaseController
 
         //Builds acf-field name
         if ($variant !== "standard" && !is_null($variant)) {
-            $variantKey = $variantKey . '_' . $variant;
+            $variantKey = FormatObject::camelCaseString("${variantKey}_${variant}");
         }
 
-        //Get the logo, enshure url is defined.
-        $logotype = array_merge(['url' => ""], (array) get_field($variantKey, 'option'));
+        //Get the logo, ensure url is defined.
+        $logotypeUrl = isset($this->data['customizer']->$variantKey)
+            ? $this->data['customizer']->{$variantKey}
+            : '';
 
-        //Fallback to municipio logo, if undefined.
-        if (empty(array_filter($logotype)) && $variantKey == "logotype") {
-            $logotype = ['url' => get_stylesheet_directory_uri() . '/assets/images/municipio.svg'];
+        if (empty($logotypeUrl) && $variantKey == "logotype") {
+            $logotypeUrl = get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
         }
 
         //Return
-        return (object) $logotype;
+        return $logotypeUrl;
     }
 
     /**
@@ -751,7 +762,7 @@ class BaseController
             return $this->data['customizer']->footerSubfooterCustomLogotype;
         }
 
-        return $this->getLogotype($variant)->url ?? false;
+        return $this->getLogotype($variant) ?? false;
     }
 
     /**

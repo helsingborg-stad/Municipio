@@ -8,7 +8,7 @@
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
                 @logotype([
-                    'src'=> $logotype->url,
+                    'src'=> $logotype,
                     'alt' => $lang->goToHomepage,
                     'classList' => ['c-nav__logo', 'c-header__logotype'],
                     'context' => ['site.header.logo', 'site.header.casual.logo']

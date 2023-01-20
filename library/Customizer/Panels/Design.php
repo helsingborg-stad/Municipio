@@ -14,6 +14,7 @@ class Design
             'description' => esc_html__('Manage site general design options.', 'municipio'),
         ));
 
+        new \Municipio\Customizer\Sections\Logo(self::PANEL_ID);
         new \Municipio\Customizer\Sections\General(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Colors(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Typography(self::PANEL_ID);
@@ -22,5 +23,6 @@ class Design
         new \Municipio\Customizer\Sections\Radius(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Padding(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Shadow(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Search(self::PANEL_ID);
     }
 }
