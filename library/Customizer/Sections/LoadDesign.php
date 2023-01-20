@@ -18,13 +18,6 @@ class LoadDesign
     public function __construct($panelID)
     {
 
-        $fonts = array_diff_key(\Kirki\Module\Webfonts\Fonts::get_standard_fonts(), array_flip(["serif", "sans-serif", "monospace"]));
-        $stored     = get_option('kirki_downloaded_font_files', array());
-
-        $mods = $this->getSharedAttributes();
-
-        echo '<pre>' . print_r($mods, true) . '</pre>';
-        die;
         if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
             return;
         }
