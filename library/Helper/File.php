@@ -16,8 +16,8 @@ class File
         global $wpdb;
         $meta = $wpdb->get_col(
             $wpdb->prepare(
-                "SELECT post_id FROM `$wpdb->postmeta` 
-                WHERE `meta_key` LIKE '_wp_attached_file' 
+                "SELECT post_id FROM `$wpdb->postmeta`
+                WHERE `meta_key` LIKE '_wp_attached_file'
                 AND `meta_value` LIKE '%$filename%'
                 LIMIT 1"
             )
