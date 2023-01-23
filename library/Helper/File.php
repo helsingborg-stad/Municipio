@@ -13,9 +13,7 @@ class File
      */
     public static function getFileUrl(string $filename): ?string
     {
-
         global $wpdb;
-
         $meta = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT post_id FROM `$wpdb->postmeta` 
@@ -23,11 +21,9 @@ class File
                 AND `meta_value` LIKE '%$filename%'"
             )
         );
-
         if (!empty($meta->post_id)) {
             return \wp_get_attachment_url($meta->post_id);
         }
-
         return false;
     }
 }
