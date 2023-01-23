@@ -1,22 +1,4 @@
-const valueIsHexString = value => {
-  return typeof value === 'string' && value.indexOf('#') === 0;
-};
-
-const scrubHexValue = value => {
-  if (value) {
-    if (typeof value === 'object') {
-      for (const [valueKey, valueValue] of Object.entries(value)) {
-        if (valueIsHexString(valueValue)) {
-          value[valueKey] = valueValue.toLowerCase();
-        }
-      }
-    } else if (valueIsHexString(value)) {
-      value = value.toLowerCase();
-    }
-  }
-
-  return value;
-};
+import { scrubHexValue } from "../utils/scrubHexValue";
 
 export default (() => {
   wp.customize.bind('ready', function() {
