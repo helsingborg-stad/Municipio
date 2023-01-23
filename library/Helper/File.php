@@ -14,16 +14,17 @@ class File
     public static function getFileUrl(string $filename): ?string
     {
         global $wpdb;
-        $meta = $wpdb->get_row(
+        $meta = $wpdb->get_col(
             $wpdb->prepare(
                 "SELECT post_id FROM `$wpdb->postmeta` 
                 WHERE `meta_key` LIKE '_wp_attached_file' 
-                AND `meta_value` LIKE '%$filename%'"
+                AND `meta_value` LIKE '%$filename%'
+                LIMIT 1"
             )
         );
-        if (!empty($meta->post_id)) {
-            return \wp_get_attachment_url($meta->post_id);
+        if (!empty($meta)) {
+            return \wp_get_attachment_url($meta[0]);
         }
-        return false;
+        return null;
     }
 }

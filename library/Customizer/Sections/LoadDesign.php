@@ -18,6 +18,8 @@ class LoadDesign
     public function __construct($panelID)
     {
 
+        $this->getSharedAttributes();
+
         if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
             return;
         }
@@ -165,20 +167,30 @@ class LoadDesign
 
                 if (array_key_exists($key, \Kirki::$all_fields)) {
                     $stack[$key] = $mod;
-                }
 
-                // If $mod contains font-family, add it to the stack under custom_fonts
-                if (!empty($mod['font-family'])) {
-                    $fontFamily = $mod['font-family'];
-                    $uploadedFonts = array_diff_key(\Kirki\Module\Webfonts\Fonts::get_standard_fonts(), array_flip(["serif", "sans-serif", "monospace"]));
-                    // If the $mod['font-family'] is in $uploadedFonts, check for the file url and add it to the stack
-                    if (!empty($uploadedFonts[$fontFamily])) {
-                        $stack['custom_fonts'][$fontFamily] = \Municipio\Helper\File::getFileUrl($fontFamily);
+                    if (!empty($mod['font-family'])) {
+                        $fontFileUrl = $this->getUploadedFontUrl($mod['font-family']);
+                        if ($fontFileUrl) {
+                            $stack['custom_fonts'][$mod['font-family']] = $fontFileUrl;
+                        }
                     }
                 }
             }
         }
 
         return $stack;
+    }
+
+    private function getUploadedFontUrl(string $fontFamily = ''): ?string
+    {
+        $uploadedFonts = array_diff_key(
+            \Kirki\Module\Webfonts\Fonts::get_standard_fonts(),
+            array_flip(["serif", "sans-serif", "monospace"])
+        );
+        if (!empty($uploadedFonts[$fontFamily])) {
+            return \Municipio\Helper\File::getFileUrl($fontFamily);
+        }
+
+        return null;
     }
 }
