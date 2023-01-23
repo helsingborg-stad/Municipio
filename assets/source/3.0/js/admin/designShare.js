@@ -21,22 +21,38 @@ const scrubHexValue = value => {
 export default (() => {
   wp.customize.bind('ready', function() {
     let customize = this;
+
     customize('load_design', function(selectedValue) {
+
       selectedValue.bind(function(value) {
         let incompatibleKeyStack = [];
-
         if (value.length != 32) {
           throw 'The selected theme id is not valid';
         } else {
           fetch('https://customizer.helsingborg.io/id/' + value)
             .then(response => response.json())
             .then(data => {
+
               if (Object.keys(data.mods).length > 0) {
+
+                const arrayOb = Object.entries(customize.settings.settings)
+                .map(([key]) => customize.control(key))
+                .filter(setting => setting !== undefined)
+                .filter(setting => setting.hasOwnProperty("params"))
+                .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
+                .filter(setting => setting.params.type !== "kirki-custom")
+                .filter(setting => setting.params.id !== "load_design");
+
+                arrayOb.forEach(setting => {
+                  customize.control(setting.id).setting.set(setting.params.default);
+                });
+
                 for (const [key, value] of Object.entries(data.mods)) {
                   const control = customize.control(key);
                   if (typeof control !== 'undefined') {
                     const scrubbedValue = scrubHexValue(value);
                     control.setting.set(scrubbedValue);
+                    
                   } else {
                     if(!key.startsWith('archive_')) {
                       incompatibleKeyStack.push(key);
@@ -53,6 +69,7 @@ export default (() => {
                 throw 'This theme seems to be empty, please select another one.';
               }
             })
+            .then(customize.preview.send('refresh'))
             .catch(error => {
               alert(error);
             });
