@@ -16,19 +16,6 @@ class Likes extends \Municipio\Helper\Ajax
         //Hook method to ajax
         $this->hook('ajaxLikeMethod', true);
     }
-    public function ajaxSaveFontFile()
-    {
-        if (!defined('DOING_AJAX') && !DOING_AJAX) {
-            return false;
-        }
-
-        if (!wp_verify_nonce($_POST['nonce'], 'designShareNonce')) {
-            die('Couldn\'t verify nonce.');
-        }
-
-        \wp_send_json_success(print_r($_REQUEST, true));
-        wp_die();
-    }
     /**
      * Ajax method to add comment likes
      * @return boolean
