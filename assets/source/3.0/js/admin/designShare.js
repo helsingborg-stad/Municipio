@@ -25,8 +25,6 @@ export default (() => {
 
         customize('load_design', function (selectedValue) {
 
-            console.log(designShare);
-
             selectedValue.bind(function (value) {
                 let incompatibleKeyStack = [];
                 if (value.length != 32) {
@@ -70,11 +68,9 @@ export default (() => {
                                             fetch(designShare.ajax_url, {
                                                 method: 'POST',
                                                 body: requestData,
-                                            }) // wrapped
+                                            })
                                                 .then(res => res.text())
-                                                .then(data => {
-                                                    console.log(data);
-                                                })
+                                                .then(response => console.log(response))
                                                 .catch(err => console.error(err));
                                         });
 

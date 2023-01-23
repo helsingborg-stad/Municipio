@@ -9,15 +9,12 @@ class Likes extends \Municipio\Helper\Ajax
         //Data
         $this->data['ajax_url'] = admin_url('admin-ajax.php');
         $this->data['nonce'] = wp_create_nonce('likeNonce');
-        // $this->data['nonce2'] = wp_create_nonce('designShareNonce');
 
         //Localize
         $this->localize('likeButtonData', 'municipio-js');
-        // $this->localize('designShare', 'design-share-js');
 
         //Hook method to ajax
         $this->hook('ajaxLikeMethod', true);
-        // $this->hook('ajaxSaveFontFile', false);
     }
     public function ajaxSaveFontFile()
     {

@@ -15,7 +15,5 @@ class DesignLibrary
         ));
 
         new \Municipio\Customizer\Sections\LoadDesign(self::PANEL_ID);
-        // TODO Move LoadDesignAjax:s content into LoadDesign 
-        new \Municipio\Customizer\Sections\LoadDesignAjax(self::PANEL_ID);
     }
 }
