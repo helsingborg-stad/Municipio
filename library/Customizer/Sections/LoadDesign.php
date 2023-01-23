@@ -167,12 +167,12 @@ class LoadDesign
 
                 if (array_key_exists($key, \Kirki::$all_fields)) {
                     $stack[$key] = $mod;
+                }
 
-                    if (!empty($mod['font-family'])) {
-                        $fontFileUrl = $this->getUploadedFontUrl($mod['font-family']);
-                        if ($fontFileUrl) {
-                            $stack['custom_fonts'][$mod['font-family']] = $fontFileUrl;
-                        }
+                if (!empty($mod['font-family'])) {
+                    $fontFileUrl = $this->getUploadedFontUrl($mod['font-family']);
+                    if ($fontFileUrl) {
+                        $stack['custom_fonts'][$mod['font-family']] = $fontFileUrl;
                     }
                 }
             }
