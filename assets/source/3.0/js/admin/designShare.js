@@ -33,6 +33,10 @@ export default (() => {
             .then(response => response.json())
             .then(data => {
 
+              customize.control('custom_css').setting.set(
+                data.css ? data.css : ''
+              );
+
               if (Object.keys(data.mods).length > 0) {
 
                 const arrayOb = Object.entries(customize.settings.settings)
