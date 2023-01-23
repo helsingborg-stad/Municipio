@@ -2,7 +2,7 @@ import { scrubHexValue } from "../utils/scrubHexValue";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
 import { mediaSideload } from '../restApi/endpoints/mediaSideload';
 
-const handleMediaSideload = (url) => mediaSideload
+const handleMediaSideload = (url:string) => mediaSideload
   .call({url, return: 'src'})
   .catch(error => {
     console.warn(error)
@@ -10,13 +10,17 @@ const handleMediaSideload = (url) => mediaSideload
 })
 
 export default (() => {
-  wp.customize.bind('ready', function() {
-    let customize = this;
 
-    customize('load_design', function(selectedValue) {
+  if(!wp.customize) return
 
-      selectedValue.bind(function(value) {
-        let incompatibleKeyStack = [];
+  const {customize} = wp
+
+  customize.bind('ready', function() {
+
+    customize('load_design', function(selectedValue:any) {
+
+      selectedValue.bind(function(value:any) {
+        let incompatibleKeyStack:string[] = [];
         if (value.length != 32) {
           throw 'The selected theme id is not valid';
         } else {
@@ -46,7 +50,7 @@ export default (() => {
                   const control = customize.control(key);
                   if (typeof control !== 'undefined') {
 
-                    if( isRemoteMediaFile(value) ) {
+                    if( typeof value === 'string' && isRemoteMediaFile(value) ) {
                       
                       const sideloadedMedia = await handleMediaSideload(value)
 

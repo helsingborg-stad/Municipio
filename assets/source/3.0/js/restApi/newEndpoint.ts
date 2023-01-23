@@ -1,5 +1,3 @@
-declare const wpApiSettings: {nonce: string}
-
 export enum NameSpace {
     MUNICIPIO_V1 = 'municipio/v1'
 }
@@ -21,7 +19,7 @@ export const newEndpoint = <T, A>(options:EndpointOptions) => ({
                 body: JSON.stringify(callArgs),
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-WP-Nonce': wpApiSettings.nonce
+                    'X-WP-Nonce': wpApiSettings.nonce ?? ''
                 },
             }
             ).then(response => {
