@@ -18,6 +18,8 @@ class LoadDesign
     public function __construct($panelID)
     {
 
+        $this->getSharedAttributes();
+
         if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
             return;
         }
@@ -40,7 +42,7 @@ class LoadDesign
             'default'     => false,
             'priority'    => 10,
             'choices'     => $this->loadOptions(),
-            'trasport'    => 'postMessage'
+            'transport'    => 'postMessage'
         ]);
 
         //Always reset option of theme
@@ -156,7 +158,7 @@ class LoadDesign
     {
         $mods = get_theme_mods();
 
-        if (is_array($mods) && !empty($mods)) {
+        if (!empty($mods)) {
             foreach ($mods as $key => $mod) {
                 //Prohibited keys
                 if (in_array($key, ['load_design'])) {
@@ -166,9 +168,29 @@ class LoadDesign
                 if (array_key_exists($key, \Kirki::$all_fields)) {
                     $stack[$key] = $mod;
                 }
+
+                if (!empty($mod['font-family'])) {
+                    $fontFileUrl = $this->getUploadedFontUrl($mod['font-family']);
+                    if ($fontFileUrl) {
+                        $stack['custom_fonts'][$mod['font-family']] = $fontFileUrl;
+                    }
+                }
             }
         }
 
         return $stack;
+    }
+
+    private function getUploadedFontUrl(string $fontFamily = ''): ?string
+    {
+        $uploadedFonts = array_diff_key(
+            \Kirki\Module\Webfonts\Fonts::get_standard_fonts(),
+            array_flip(["serif", "sans-serif", "monospace"])
+        );
+        if (!empty($uploadedFonts[$fontFamily])) {
+            return \Municipio\Helper\File::getFileUrl($fontFamily);
+        }
+
+        return null;
     }
 }
