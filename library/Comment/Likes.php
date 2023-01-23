@@ -9,25 +9,40 @@ class Likes extends \Municipio\Helper\Ajax
         //Data
         $this->data['ajax_url'] = admin_url('admin-ajax.php');
         $this->data['nonce'] = wp_create_nonce('likeNonce');
+        // $this->data['nonce2'] = wp_create_nonce('designShareNonce');
 
         //Localize
         $this->localize('likeButtonData', 'municipio-js');
+        // $this->localize('designShare', 'design-share-js');
 
         //Hook method to ajax
         $this->hook('ajaxLikeMethod', true);
+        // $this->hook('ajaxSaveFontFile', false);
     }
+    public function ajaxSaveFontFile()
+    {
+        if (!defined('DOING_AJAX') && !DOING_AJAX) {
+            return false;
+        }
 
+        if (!wp_verify_nonce($_POST['nonce'], 'designShareNonce')) {
+            die('Couldn\'t verify nonce.');
+        }
+
+        \wp_send_json_success(print_r($_REQUEST, true));
+        wp_die();
+    }
     /**
      * Ajax method to add comment likes
      * @return boolean
      */
     public function ajaxLikeMethod()
     {
-        if (! defined('DOING_AJAX') && ! DOING_AJAX) {
+        if (!defined('DOING_AJAX') && !DOING_AJAX) {
             return false;
         }
 
-        if (! wp_verify_nonce($_POST['nonce'], 'likeNonce')) {
+        if (!wp_verify_nonce($_POST['nonce'], 'likeNonce')) {
             die('Busted!');
         }
 
@@ -63,7 +78,7 @@ class Likes extends \Municipio\Helper\Ajax
      */
     public static function likeButton($id)
     {
-        if (! is_user_logged_in()) {
+        if (!is_user_logged_in()) {
             return;
         }
 
@@ -83,7 +98,7 @@ class Likes extends \Municipio\Helper\Ajax
         $output['classList'] = implode(' ', $classes);
         $output['icon'] = (strpos($output['classList'], 'active')) ? 'thumb_down'
             : 'thumb_up';
-        $output['text'] =  (strpos($output['classList'], 'active')) ? __('Dislike ','municipio')
+        $output['text'] =  (strpos($output['classList'], 'active')) ? __('Dislike ', 'municipio')
             : __('Like ', 'municipio');
         $output['count'] = $count;
 

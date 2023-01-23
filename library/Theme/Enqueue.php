@@ -56,9 +56,18 @@ class Enqueue
      */
     public function customizeScript()
     {
-        wp_enqueue_script('design-share-js', get_template_directory_uri() . '/assets/dist/'
-            . \Municipio\Helper\CacheBust::name('js/design-share.js'),
-            array( 'jquery', 'customize-controls' ), false, true);
+        wp_register_script(
+            'design-share-js',
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/design-share.js'),
+            array('jquery', 'customize-controls'),
+            false,
+            true
+        );
+        wp_localize_script('design-share-js', 'designShare', [
+            'nonce' => wp_create_nonce('designShareNonce'),
+            'ajax_url' => admin_url('admin-ajax.php'),
+        ]);
+        wp_enqueue_script('design-share-js');
     }
 
     /**
@@ -75,7 +84,7 @@ class Enqueue
     {
         // Load styleguide css
         wp_register_style('styleguide-css', get_template_directory_uri() . '/assets/dist/'
-        . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
+            . \Municipio\Helper\CacheBust::name('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         // Load local municipio css
@@ -199,10 +208,12 @@ class Enqueue
         $urlComponents = parse_url($src);
 
         // Check if the URL is internal or external
-        if (!empty($siteUrlComponents['host'])
+        if (
+            !empty($siteUrlComponents['host'])
             && !empty($urlComponents['host'])
             && strcasecmp($urlComponents['host'], $siteUrlComponents['host']) === 0
-            && !is_admin_bar_showing()) {
+            && !is_admin_bar_showing()
+        ) {
             $src = !empty($urlComponents['query']) ? str_replace('?' . $urlComponents['query'], '', $src) : $src;
             return $src;
         } else {
