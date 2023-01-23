@@ -30,8 +30,8 @@ class ChildrenRender extends Children
             $depth = !empty($params['depth']) ? $params['depth'] : '0';
 
             if (!empty($parentId)) {
-                $NavigationInstance = new \Municipio\Helper\Navigation($identifier);
-                $items = $NavigationInstance->getPostChildren($parentId);
+                $navigationInstance = new \Municipio\Helper\Navigation($identifier);
+                $items = $navigationInstance->getPostChildren($parentId);
 
                 return array(
                     'parentId' => $parentId,

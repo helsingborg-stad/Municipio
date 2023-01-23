@@ -29,8 +29,8 @@ class Children extends RestApiEndpoint
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
             if (isset($parentId)) {
-                $NavigationInstance = new \Municipio\Helper\Navigation($identifier);
-                return $NavigationInstance->getPostChildren($parentId);
+                $navigationInstance = new \Municipio\Helper\Navigation($identifier);
+                return $navigationInstance->getPostChildren($parentId);
             }
         }
 
