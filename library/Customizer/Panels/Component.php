@@ -22,6 +22,7 @@ class Component
         new \Municipio\Customizer\Sections\Footer(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Divider(self::PANEL_ID);
         new \Municipio\Customizer\Sections\Hero(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\ProgressBar(self::PANEL_ID);
         
         //new \Municipio\Customizer\Sections\Card(self::PANEL_ID);
         //new \Municipio\Customizer\Sections\Collection(self::PANEL_ID);
