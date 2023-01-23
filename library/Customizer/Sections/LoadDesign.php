@@ -156,7 +156,7 @@ class LoadDesign
     {
         $mods = get_theme_mods();
 
-        if (is_array($mods) && !empty($mods)) {
+        if (!empty($mods)) {
             foreach ($mods as $key => $mod) {
                 //Prohibited keys
                 if (in_array($key, ['load_design'])) {
@@ -164,16 +164,15 @@ class LoadDesign
                 }
 
                 if (array_key_exists($key, \Kirki::$all_fields)) {
-
                     $stack[$key] = $mod;
+                }
 
-                    // If $mod contains font-family, add it to the stack under custom_fonts
-                    if (!empty($mod['font-family'])) {
-                        $uploadedFonts = array_diff_key(\Kirki\Module\Webfonts\Fonts::get_standard_fonts(), array_flip(["serif", "sans-serif", "monospace"]));
-                        // If the $mod['font-family'] is in $uploadedFonts, check for the file url and add it to the stack
-                        if (!empty($uploadedFonts[$mod['font-family']])) {
-                            $stack['custom_fonts'][$mod['font-family']] = \Municipio\Helper\File::getFileUrl($mod['font-family']);
-                        }
+                // If $mod contains font-family, add it to the stack under custom_fonts
+                if (!empty($mod['font-family'])) {
+                    $uploadedFonts = array_diff_key(\Kirki\Module\Webfonts\Fonts::get_standard_fonts(), array_flip(["serif", "sans-serif", "monospace"]));
+                    // If the $mod['font-family'] is in $uploadedFonts, check for the file url and add it to the stack
+                    if (!empty($uploadedFonts[$mod['font-family']])) {
+                        $stack['custom_fonts'][$mod['font-family']] = \Municipio\Helper\File::getFileUrl($mod['font-family']);
                     }
                 }
             }
