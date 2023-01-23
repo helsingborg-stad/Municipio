@@ -32,7 +32,8 @@ class Field
                   'type' => 'modifier',
                   'context' => [
                     'component.field',
-                    'component.select'
+                    'component.select',
+                    'component.form'
                   ]
                 ]
             ],
