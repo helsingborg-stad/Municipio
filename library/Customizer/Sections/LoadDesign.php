@@ -168,10 +168,11 @@ class LoadDesign
 
                     // If $mod contains font-family, add it to the stack under custom_fonts
                     if (!empty($mod['font-family'])) {
+                        // Add all standard fonts except serif, sans-serif and monospace to $uploadedFonts
                         $uploadedFonts = array_diff_key(\Kirki\Module\Webfonts\Fonts::get_standard_fonts(), array_flip(["serif", "sans-serif", "monospace"]));
-
+                        // If the $mod['font-family'] is in $uploadedFonts, check for the file url and add it to the stack
                         if (!empty($uploadedFonts[$mod['font-family']])) {
-                            $stack['custom_fonts'][$mod['font-family']] = '<url to font>'; // TODO Get url to font file in uploads
+                            $stack['custom_fonts'][$mod['font-family']] = \Municipio\Helper\File::getFileUrl($mod['font-family']);
                         }
                     }
                 }
