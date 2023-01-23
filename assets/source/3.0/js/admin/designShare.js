@@ -1,4 +1,13 @@
 import { scrubHexValue } from "../utils/scrubHexValue";
+import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
+import { mediaSideload } from '../restApi/endpoints/mediaSideload';
+
+const handleMediaSideload = (url) => mediaSideload
+  .call({url, return: 'src'})
+  .catch(error => {
+    console.warn(error)
+    return null
+})
 
 export default (() => {
   wp.customize.bind('ready', function() {
@@ -12,13 +21,25 @@ export default (() => {
         } else {
           fetch('https://customizer.helsingborg.io/id/' + value)
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
               if (Object.keys(data.mods).length > 0) {
                 for (const [key, value] of Object.entries(data.mods)) {
                   const control = customize.control(key);
                   if (typeof control !== 'undefined') {
-                    const scrubbedValue = scrubHexValue(value);
-                    control.setting.set(scrubbedValue);
+
+                    if( isRemoteMediaFile(value) ) {
+                      
+                      const sideloadedMedia = await handleMediaSideload(value)
+
+                      if(sideloadedMedia !== null) {
+                        control.setting.set(sideloadedMedia);
+                      }
+
+                    } else {
+                      const scrubbedValue = scrubHexValue(value);
+                      control.setting.set(scrubbedValue);
+                    }
+                    
                   } else {
                     if(!key.startsWith('archive_')) {
                       incompatibleKeyStack.push(key);
