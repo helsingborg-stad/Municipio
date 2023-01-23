@@ -164,11 +164,11 @@ class LoadDesign
                 }
 
                 if (array_key_exists($key, \Kirki::$all_fields)) {
+
                     $stack[$key] = $mod;
 
                     // If $mod contains font-family, add it to the stack under custom_fonts
                     if (!empty($mod['font-family'])) {
-                        // Add all standard fonts except serif, sans-serif and monospace to $uploadedFonts
                         $uploadedFonts = array_diff_key(\Kirki\Module\Webfonts\Fonts::get_standard_fonts(), array_flip(["serif", "sans-serif", "monospace"]));
                         // If the $mod['font-family'] is in $uploadedFonts, check for the file url and add it to the stack
                         if (!empty($uploadedFonts[$mod['font-family']])) {
