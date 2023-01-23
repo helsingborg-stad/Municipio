@@ -60,7 +60,7 @@ export default (() => {
 
                                         fonts.forEach(item => {
 
-                                            var requestData = new FormData();
+                                            let requestData = new FormData();
                                             requestData.append('action', 'ajaxSaveFontFile');
                                             requestData.append('fontLabel', item[0]);
                                             requestData.append('fontUrl', item[1]);
