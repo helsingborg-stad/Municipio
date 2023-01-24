@@ -47,21 +47,43 @@ export default (() => {
                 });
 
                 for (const [key, value] of Object.entries(data.mods)) {
-                  const control = customize.control(key);
-                  if (typeof control !== 'undefined') {
 
-                    if( typeof value === 'string' && isRemoteMediaFile(value) ) {
-                      
-                      const sideloadedMedia = await handleMediaSideload(value)
+                    const control = customize.control(key);
 
-                      if(sideloadedMedia !== null) {
-                        control.setting.set(sideloadedMedia);
+                    if ('custom_fonts' === key) {
+
+                      const fonts = Object.entries(value);
+
+                      fonts.forEach(item => {
+
+                          let requestData = new FormData();
+                          requestData.append('action', 'ajaxSaveFontFile');
+                          requestData.append('fontLabel', item[0]);
+                          requestData.append('fontUrl', item[1]);
+                          requestData.append('nonce', designShare.nonce);
+                          fetch(designShare.ajax_url, {
+                              method: 'POST',
+                              body: requestData,
+                          })
+                              .then(res => res.text())
+                              .catch(err => console.error(err));
+                      });
+
+
+                    } else if (typeof control !== 'undefined') {
+
+                      if( typeof value === 'string' && isRemoteMediaFile(value) ) {
+                        
+                        const sideloadedMedia = await handleMediaSideload(value)
+
+                        if(sideloadedMedia !== null) {
+                          control.setting.set(sideloadedMedia);
+                        }
+
+                      } else {
+                        const scrubbedValue = scrubHexValue(value);
+                        control.setting.set(scrubbedValue);
                       }
-
-                    } else {
-                      const scrubbedValue = scrubHexValue(value);
-                      control.setting.set(scrubbedValue);
-                    }
                     
                   } else {
                     if(!key.startsWith('archive_')) {
