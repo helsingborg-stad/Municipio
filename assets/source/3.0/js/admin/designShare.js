@@ -70,7 +70,6 @@ export default (() => {
                                                 body: requestData,
                                             })
                                                 .then(res => res.text())
-                                                .then(response => console.log(response))
                                                 .catch(err => console.error(err));
                                         });
 
