@@ -3,6 +3,7 @@
 namespace Municipio\Api\Media;
 
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Helper\Image;
 use WP_Error;
 use WP_Http;
 use WP_REST_Request;
@@ -54,6 +55,12 @@ class Sideload extends RestApiEndpoint
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $params = $request->get_json_params();
+        $alreadyUploaded = $this->getIdenticalMediaAlreadyUploaded($params['url'], $params['return']);
+
+        if ($alreadyUploaded !== null) {
+            return rest_ensure_response($alreadyUploaded);
+        }
+
         $sideloadedImageUrl = $this->handleSideload($params['url'], $params['return']);
 
         if (is_wp_error($sideloadedImageUrl)) {
@@ -69,6 +76,41 @@ class Sideload extends RestApiEndpoint
     }
 
     /**
+     * Retrieve identical media that has already been uploaded.
+     *
+     * @param string $url The remote URL of the media to retrieve.
+     * @param string $return The format in which to return the media. Acceptable values are 'html', 'id', or 'src'.
+     * @return mixed|null Returns the media in the specified format, or null if the media is not found.
+    */
+    private function getIdenticalMediaAlreadyUploaded(string $url, string $return = 'html')
+    {
+        $attachment = Image::getAttachmentByRemoteUrl($url);
+
+        if ($attachment === null) {
+            return null;
+        }
+
+        if ('id' === $return) {
+            return $attachment->ID;
+        }
+
+        $src = wp_get_attachment_url($attachment->ID);
+
+
+        if ($src === false) {
+            return null;
+        }
+
+        if ('html' === $return) {
+            $alt  = isset($attachment->post_excerpt) ? esc_attr($attachment->post_excerpt) : '';
+            $html = "<img src='$src' alt='$alt' />";
+            return $html;
+        }
+
+        return $src;
+    }
+
+    /**
      * Handles sideloading of images
      *
      * @param string $url The URL of the image to sideload
@@ -81,7 +123,19 @@ class Sideload extends RestApiEndpoint
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
-        return media_sideload_image($url, null, null, $return);
+
+        add_action('add_attachment', array($this, 'applySideloadedIdentifier'));
+
+        $sideloadResult = media_sideload_image($url, null, null, $return);
+
+        remove_action('add_attachment', array($this, 'applySideloadedIdentifier'));
+
+        return $sideloadResult;
+    }
+
+    public function applySideloadedIdentifier(int $attachmentId)
+    {
+        Image::addSideloadedIdentifierToAttachment($attachmentId);
     }
 
     /**
