@@ -8,7 +8,6 @@ namespace Municipio\Theme;
  */
 class Enqueue
 {
-
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
@@ -59,18 +58,13 @@ class Enqueue
      */
     public function customizeScript()
     {
-        wp_register_script(
+        wp_enqueue_script(
             'design-share-js',
             get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name('js/design-share.js'),
             array('jquery', 'customize-controls'),
             false,
             true
         );
-        wp_localize_script('design-share-js', 'designShare', [
-            'nonce' => wp_create_nonce('designShareNonce'),
-            'ajax_url' => admin_url('admin-ajax.php'),
-        ]);
-        wp_enqueue_script('design-share-js');
     }
 
     /**

@@ -1,9 +1,9 @@
 import { scrubHexValue } from "../utils/scrubHexValue";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
-import { mediaSideload } from '../restApi/endpoints/mediaSideload';
+import { mediaSideload, MediaSideloadArgs } from '../restApi/endpoints/mediaSideload';
 
-const handleMediaSideload = (url:string) => mediaSideload
-  .call({url, return: 'src'})
+const handleMediaSideload = (args:MediaSideloadArgs) => mediaSideload
+  .call(args)
   .catch(error => {
     console.warn(error)
     return null
@@ -42,6 +42,7 @@ export default (() => {
                 .filter(setting => setting.params.type !== "kirki-custom")
                 .filter(setting => setting.params.id !== "load_design");
 
+                
                 arrayOb.forEach(setting => {
                   customize.control(setting.id).setting.set(setting.params.default);
                 });
@@ -52,29 +53,17 @@ export default (() => {
 
                     if ('custom_fonts' === key) {
 
-                      const fonts = Object.entries(value);
+                      const fonts = Object.entries(value as {[key:string]: string});
 
-                      fonts.forEach(item => {
-
-                          let requestData = new FormData();
-                          requestData.append('action', 'ajaxSaveFontFile');
-                          requestData.append('fontLabel', item[0]);
-                          requestData.append('fontUrl', item[1]);
-                          requestData.append('nonce', designShare.nonce);
-                          fetch(designShare.ajax_url, {
-                              method: 'POST',
-                              body: requestData,
-                          })
-                              .then(res => res.text())
-                              .catch(err => console.error(err));
-                      });
-
+                      for (let i = 0; i < fonts.length; i++) {
+                        await handleMediaSideload({url: fonts[i][1], description: fonts[i][0], return: 'id'})
+                      }
 
                     } else if (typeof control !== 'undefined') {
 
                       if( typeof value === 'string' && isRemoteMediaFile(value) ) {
                         
-                        const sideloadedMedia = await handleMediaSideload(value)
+                        const sideloadedMedia = await handleMediaSideload({url: value, return: 'src'})
 
                         if(sideloadedMedia !== null) {
                           control.setting.set(sideloadedMedia);
@@ -101,7 +90,7 @@ export default (() => {
                 throw 'This theme seems to be empty, please select another one.';
               }
             })
-            .then(customize.preview.send('refresh'))
+            .then(customize.previewer.send('refresh'))
             .catch(error => {
               alert(error);
             });

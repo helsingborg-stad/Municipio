@@ -33,6 +33,12 @@ class Sideload extends RestApiEndpoint
                     'format' => 'uri',
                     'required' => true
                 ],
+                'description' => [
+                    'description' => __('Description.', 'municipio'),
+                    'type' => 'string',
+                    'required' => false,
+                    'default' => null
+                ],
                 'return' => [
                     'description' => __('Return type from sideloaded image.', 'municipio'),
                     'type' => 'string',
@@ -61,7 +67,7 @@ class Sideload extends RestApiEndpoint
             return rest_ensure_response($alreadyUploaded);
         }
 
-        $sideloadedImageUrl = $this->handleSideload($params['url'], $params['return']);
+        $sideloadedImageUrl = $this->handleSideload($params['url'], $params['description'], $params['return'], );
 
         if (is_wp_error($sideloadedImageUrl)) {
             $error = new WP_Error(
@@ -118,19 +124,26 @@ class Sideload extends RestApiEndpoint
      *
      * @return mixed The sideloaded image
      */
-    public function handleSideload(string $url, string $return = 'html')
+    public function handleSideload(string $url, $description = null, string $return = 'html')
     {
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
 
         add_action('add_attachment', array($this, 'applySideloadedIdentifier'));
+        add_filter('image_sideload_extensions', array($this, 'allowedFileExtensions'));
 
-        $sideloadResult = media_sideload_image($url, null, null, $return);
+        $sideloadResult = media_sideload_image($url, null, $description, $return);
 
         remove_action('add_attachment', array($this, 'applySideloadedIdentifier'));
+        remove_filter('image_sideload_extensions', array($this, 'allowedFileExtensions'));
 
         return $sideloadResult;
+    }
+
+    public function allowedFileExtensions(array $allowed)
+    {
+        return array_merge($allowed, ['woff', 'woff2', 'ttf', 'otf', 'svg']);
     }
 
     public function applySideloadedIdentifier(int $attachmentId)

@@ -16,7 +16,6 @@ class Support
         add_action('init', array($this, 'removePostPostType'), 11);
 
         add_filter('upload_mimes', array($this, 'mimes'));
-        add_filter('image_sideload_extensions', array($this, 'extensions'));
 
         // Remove rest api links from head
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
@@ -47,17 +46,6 @@ class Support
     {
         $mimes['svg'] = 'image/svg+xml';
         return $mimes;
-    }
-
-    /**
-     * Append to list of supported extensions
-     * @param  array $mimes Original extensions
-     * @return array
-     */
-    public function extensions($extensions)
-    {
-        $extensions[] = 'svg';
-        return $extensions;
     }
 
     /**
