@@ -16,18 +16,17 @@ class Likes extends \Municipio\Helper\Ajax
         //Hook method to ajax
         $this->hook('ajaxLikeMethod', true);
     }
-
     /**
      * Ajax method to add comment likes
      * @return boolean
      */
     public function ajaxLikeMethod()
     {
-        if (! defined('DOING_AJAX') && ! DOING_AJAX) {
+        if (!defined('DOING_AJAX') && !DOING_AJAX) {
             return false;
         }
 
-        if (! wp_verify_nonce($_POST['nonce'], 'likeNonce')) {
+        if (!wp_verify_nonce($_POST['nonce'], 'likeNonce')) {
             die('Busted!');
         }
 
@@ -63,7 +62,7 @@ class Likes extends \Municipio\Helper\Ajax
      */
     public static function likeButton($id)
     {
-        if (! is_user_logged_in()) {
+        if (!is_user_logged_in()) {
             return;
         }
 
@@ -83,7 +82,7 @@ class Likes extends \Municipio\Helper\Ajax
         $output['classList'] = implode(' ', $classes);
         $output['icon'] = (strpos($output['classList'], 'active')) ? 'thumb_down'
             : 'thumb_up';
-        $output['text'] =  (strpos($output['classList'], 'active')) ? __('Dislike ','municipio')
+        $output['text'] =  (strpos($output['classList'], 'active')) ? __('Dislike ', 'municipio')
             : __('Like ', 'municipio');
         $output['count'] = $count;
 
