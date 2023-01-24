@@ -69,7 +69,7 @@ class BlockManager {
                 'view'              => 'classic'
             ));
 
-            // register a button block.
+            // register a margin block.
             acf_register_block_type(array(
                 'name'              => 'margin',
                 'title'             => __('Margin', 'municipio'),
@@ -83,6 +83,22 @@ class BlockManager {
                     'jsx' => true
                 ],
                 'view' => 'margin'
+            ));
+
+            // register a container block.
+            acf_register_block_type(array(
+                'name'              => 'container',
+                'title'             => __('Container', 'municipio'),
+                'description'       => __('A container block', 'municipio'),
+                'render_callback'   => array($this, 'renderCallback'),
+                'category'          => 'design',
+                'icon'              => 'archive',
+                'keywords'          => array('container', 'wrapper', 'background'),
+                'supports'          => [
+                    'align' => true,
+                    'jsx' => true
+                ],
+                'view' => 'container'
             ));
         }
     }

@@ -1,0 +1,67 @@
+[{
+    "key": "group_63cfdba21f7fc",
+    "title": "Container Block",
+    "fields": [
+        {
+            "key": "field_63cfdba39a6d2",
+            "label": "Amount of padding",
+            "name": "amount",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 4,
+            "min": 0,
+            "max": 12,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_63cfdc219a6d3",
+            "label": "Background color",
+            "name": "color",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "rgba(238, 238, 238, 1)",
+            "enable_opacity": 1,
+            "return_format": "string"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/container"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
