@@ -110,8 +110,8 @@
                     @button([
                         'text' => $lang->searchBtn,
                         'color' => 'primary',
-                        'type' => 'basic',
-                        'classList' => ['u-display--block@xs', 'u-width--100@xs']
+                        'type' => 'submit',
+                        'classList' => ['u-display--block@xs', 'u-width--100@xs'],
                     ])
                     @endbutton
                 </div>
