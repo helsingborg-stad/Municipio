@@ -20,7 +20,7 @@
             ),
             'default_value' => 4,
             'min' => 0,
-            'max' => 12,
+            'max' => 24,
             'step' => '',
             'prepend' => '',
             'append' => '',
