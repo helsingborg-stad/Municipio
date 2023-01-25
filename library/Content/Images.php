@@ -33,7 +33,7 @@ class Images
                         
             foreach ($links as $link) {
                 // If the link doesn't contain an image move on to the next.
-                if ('img' !== $link->firstChild->tagName) {
+                if ('img' !== $link->firstChild->nodeName) {
                     continue;
                 }
     
