@@ -47,12 +47,14 @@ export async function migrateCustomFonts(value: { [key: string]: string; }) {
     }
 }
 
-export async function migrateRemoteMediaFile(value: string, control: any) {
+export async function migrateRemoteMediaFile(value: string, control: any = null) {
     const sideloadedMedia = await handleMediaSideload({ url: value, return: 'src' });
 
-    if (sideloadedMedia !== null) {
+    if (control && sideloadedMedia !== null) {
         control.setting.set(sideloadedMedia);
     }
+
+    return sideloadedMedia
 }
 
 export function updateKirkiImageControl(control: any, value: string) {

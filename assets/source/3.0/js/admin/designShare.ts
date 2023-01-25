@@ -1,6 +1,7 @@
 import { scrubHexValue } from "../utils/scrubHexValue";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
 import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateCustomFonts, migrateRemoteMediaFile, updateKirkiImageControl, showErrorNotification } from "./designShareUtils";
+import { replaceRemoteFilesWithLocalInString } from "../utils/replaceRemoteFilesWithLocalInString";
 
 async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     
@@ -13,7 +14,13 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     
     const apiResponse = await getRemoteSiteDesignData(id);
     
-    wp.customize.control('custom_css').setting.set(apiResponse.css ? apiResponse.css : '');
+    try {
+        const dataUrl = new URL(apiResponse.website)
+        const sanitizedCss = await replaceRemoteFilesWithLocalInString(apiResponse.css ?? '', dataUrl.origin)
+        wp.customize.control('custom_css').setting.set(sanitizedCss);
+    } catch (error) {
+        showErrorNotification(loadDesignSetting, 'loadDesignError', 'Failes migrating css from source.')
+    }
     
     if( Object.keys(apiResponse.mods).length < 1 ) {
         showErrorNotification(loadDesignSetting, 'loadDesignError', 'This theme seems to be empty, please select another one.')
@@ -30,7 +37,7 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
         if ('custom_fonts' === key) {
             
             await migrateCustomFonts(value as {[key:string]: string})
-            
+
         } else if (typeof control !== 'undefined') {
             
             if (isRemoteMediaFile(value)) {
