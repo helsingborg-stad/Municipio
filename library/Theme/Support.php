@@ -30,7 +30,7 @@ class Support
 
     public function attachmentPageRedirect()
     {
-        if (!defined('ATTACHMENT_PAGE') || defined('ATTACHMENT_PAGE') && ATTACHMENT_PAGE === false) {
+        if (!defined('ATTACHMENT_PAGE') ||  defined('ATTACHMENT_PAGE') && ATTACHMENT_PAGE === false) {
             if (is_attachment() && !is_search() && !is_archive()) {
                 wp_redirect(wp_get_attachment_url($post->ID));
             }
@@ -110,7 +110,7 @@ class Support
     public static function themeSupport()
     {
         add_theme_support('align-wide');
-        add_theme_support('wp-block-styles' );
+        add_theme_support('wp-block-styles');
         add_theme_support('editor-styles');
         add_theme_support('menus');
         add_theme_support('post-thumbnails');
@@ -146,7 +146,9 @@ class Support
      */
     public static function removeTheGenerator()
     {
-        add_filter('the_generator', function($a, $b) {return '';}, 9, 2);
+        add_filter('the_generator', function ($a, $b) {
+            return '';
+        }, 9, 2);
         remove_filter('update_footer', 'core_update_footer');
     }
 
@@ -192,9 +194,11 @@ class Support
     {
         global $wp_query;
 
-        if ((defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
+        if (
+            (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
             ||
-            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))) {
+            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))
+        ) {
             return;
         }
 

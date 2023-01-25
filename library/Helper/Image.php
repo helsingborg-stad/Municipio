@@ -2,8 +2,14 @@
 
 namespace Municipio\Helper;
 
+use WP_Error;
+use WP_Post;
+use WP_Query;
+
 class Image
 {
+    public const SIDELOADED_IDENTIFIER_KEY = "sideloaded_identifier";
+
     /**
      * Resizes an image to a specified size
      * @param  integer|string  $originalImage Attachment id, path or url
@@ -89,5 +95,66 @@ class Image
     {
         $url = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path);
         return '//' . $_SERVER['HTTP_HOST'] . $url;
+    }
+
+    /**
+     * Add a sideloaded identifier to an attachment.
+     * This identifier is used to avoid sideloading the same attachment multiple times.
+     *
+     * @param int $attachmentId The ID of the attachment to add the sideloaded identifier to.
+     * @return bool|WP_Error Returns true on success, a WP_Error object on failure.
+    */
+    public static function addSideloadedIdentifierToAttachment(int $attachmentId)
+    {
+        $file = get_attached_file($attachmentId);
+
+        if ($file === false) {
+            return new WP_Error('file-not-found', __('File not found when setting sideloaded identifier.'));
+        }
+
+        $fileHash = md5_file($file);
+
+        if ($fileHash === false) {
+            return new WP_Error('identifier-not-generated', __('Could not generate sideloaded identifier for file.'));
+        }
+
+        update_post_meta($attachmentId, self::SIDELOADED_IDENTIFIER_KEY, $fileHash);
+    }
+
+    /**
+     * Get previously added attachment by remote URL.
+     * Mainly used to avoid sideloading the same attachment multiple times.
+     *
+     * @param string $remoteUrl The URL of the remote file.
+     * @return mixed Returns the attachment post object on success,
+     * WP_Error on failure, or null if the attachment is not found.
+    */
+    public static function getAttachmentByRemoteUrl(string $remoteUrl)
+    {
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        $file = download_url($remoteUrl);
+
+        if (is_wp_error($file)) {
+            return $file;
+        }
+
+        $fileHash = md5_file($file);
+
+        if ($fileHash === false) {
+            return null;
+        }
+
+        $foundPosts = get_posts(array(
+            'post_type' => 'attachment',
+            'meta_key'   => self::SIDELOADED_IDENTIFIER_KEY,
+            'meta_value' => $fileHash,
+            'posts_per_page' => 1
+        ));
+
+        if (empty($foundPosts)) {
+            return null;
+        }
+
+        return $foundPosts[0];
     }
 }

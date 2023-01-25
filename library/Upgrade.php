@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 23; //The db version we want to achive
+    private $dbVersion = 24; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -491,6 +491,15 @@ class Upgrade
     private function v_23($db): bool
     {
         $this->migrateACFOptionToThemeMod('search_display', 'search_display');
+        return true;
+    }
+
+    /**
+     * Publish migrated logotypes (v_22) to the design API.
+     */
+    private function v_24($db): bool
+    {
+        do_action('municipio_store_theme_mod');
         return true;
     }
 

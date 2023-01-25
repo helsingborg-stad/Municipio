@@ -79,7 +79,14 @@ module.exports = {
                     }
                 }
             },
-
+            /**
+             * TypeScript
+             */
+            {
+                test: /\.ts?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
             /**
              * Styles
              */
@@ -145,6 +152,9 @@ module.exports = {
                 ],
             }
         ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: removeEmpty([
 

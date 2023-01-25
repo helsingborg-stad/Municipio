@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-class LoadDesign extends \Municipio\Helper\Ajax
+class LoadDesign
 {
     public const SECTION_ID         = "municipio_customizer_section_designlib";
     private const API_URL           = 'https://customizer.helsingborg.io/';
@@ -60,17 +60,6 @@ class LoadDesign extends \Municipio\Helper\Ajax
                 wp_schedule_event(time(), 'daily', 'municipio_store_theme_mod');
             }
         });
-
-        // Allow font file types to be sideloaded
-        add_filter('image_sideload_extensions', function ($allowedExtensions) {
-            return \array_merge($allowedExtensions, ['woff', 'woff2', 'ttf', 'otf']);
-        });
-
-        //Localize script
-        $this->localize('designShare', 'design-share-js');
-
-        //Hook method to ajax
-        $this->hook('ajaxSaveFontFile', false);
     }
 
     /**
@@ -201,29 +190,5 @@ class LoadDesign extends \Municipio\Helper\Ajax
         }
 
         return null;
-    }
-    public function ajaxSaveFontFile()
-    {
-        if (!defined('DOING_AJAX') && !DOING_AJAX) {
-            return false;
-        }
-
-        if (!wp_verify_nonce($_POST['nonce'], 'designShareNonce')) {
-            die('Couldn\'t verify nonce.');
-        }
-
-        $fontUrl = $_REQUEST['fontUrl'];
-        $localFontFileExists = (bool) \Municipio\Helper\File::getFileUrl(basename($fontUrl));
-        if (!$localFontFileExists) {
-            $attachment = media_sideload_image($fontUrl, 0, $_REQUEST['fontLabel'], 'id');
-            if (is_wp_error($attachment)) {
-                \wp_send_json_error($attachment->get_error_message());
-            } else {
-                \wp_send_json_success($attachment);
-            }
-        }
-
-        \wp_send_json_success($_REQUEST['fontLabel'] . " is already available in the media library!");
-        \wp_die();
     }
 }
