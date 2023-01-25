@@ -33,7 +33,7 @@ module.exports = {
 
         /* Admin js */
         'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
-        'js/design-share': './assets/source/3.0/js/admin/designShare.js',
+        'js/design-share': './assets/source/3.0/js/admin/designShare.ts',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
 
