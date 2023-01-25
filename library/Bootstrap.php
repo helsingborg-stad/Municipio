@@ -40,6 +40,7 @@ add_action('init', function () {
         'block-classic-editpr'                      => 'group_61556c32b3697',
         'block-button'                              => 'group_60acdac5158f2',
         'block-margin'                              => 'group_61bc6134601a0',
+        'block-container'                           => 'group_63cfdba21f7fc',
         'options-activate-gutenberg'                => 'group_60b496c06687c',
 
         // Options
@@ -88,7 +89,6 @@ add_action('init', function () {
         'options-customize-header'                  => 'group_5afa93c0a25e1',
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
-
     ));
 
     $acfExportManager->import();
