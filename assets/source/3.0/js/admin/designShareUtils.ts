@@ -38,14 +38,6 @@ export async function getRemoteSiteDesignData(id: string) {
         });
 }
 
-export async function migrateCustomFonts(value: { [key: string]: string; }) {
-    const fonts = Object.entries(value as { [key: string]: string; });
-
-    for (let i = 0; i < fonts.length; i++) {
-        await handleMediaSideload({ url: fonts[i][1], description: fonts[i][0], return: 'id' });
-    }
-}
-
 export async function migrateRemoteMediaFile(value: string, control: any = null) {
     const sideloadedMedia = await handleMediaSideload({ url: value, return: 'src' });
 
@@ -63,7 +55,14 @@ export function updateKirkiImageControl(control: any, value: string) {
     }
 }
 
-export function showErrorNotification(setting:any, code:string, message: string, type: 'error'|'warning'|'notice' = 'notice') {
-    const notification = new wp.customize.Notification( code, {message, type, dismissible: true} );
-    setting.notifications.add( code, notification );
+interface CustomizerNotificationProps {
+    setting:any,
+    code:string,
+    message: string,
+    type?: 'error'|'warning'|'notice'
+}
+
+export function showNotification(args: CustomizerNotificationProps) {
+    const notification = new wp.customize.Notification( args.code, {message: args.message, type:args.type ?? 'notice', dismissible: true} );
+    args.setting.notifications.add( args.code, notification );
 }

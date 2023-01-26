@@ -1,14 +1,17 @@
 import { scrubHexValue } from "../utils/scrubHexValue";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
-import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateCustomFonts, migrateRemoteMediaFile, updateKirkiImageControl, showErrorNotification } from "./designShareUtils";
+import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateRemoteMediaFile, updateKirkiImageControl, showNotification, handleMediaSideload } from "./designShareUtils";
 import { replaceRemoteFilesWithLocalInString } from "../utils/replaceRemoteFilesWithLocalInString";
 
 async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     
-    const incompatibleKeyStack: string[] = [];
-    
     if( !themeIdIsValid(id) ) {
-        showErrorNotification(loadDesignSetting, 'loadDesignError', 'The selected theme id is not valid')
+        showNotification({
+            setting: loadDesignSetting,
+            code: "loadDesignError",
+            message: "The selected theme id is not valid",
+            type: 'error'
+        })
         return
     }
     
@@ -19,28 +22,27 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
         const sanitizedCss = await replaceRemoteFilesWithLocalInString(apiResponse.css ?? '', dataUrl.origin)
         wp.customize.control('custom_css').setting.set(sanitizedCss);
     } catch (error) {
-        showErrorNotification(loadDesignSetting, 'loadDesignError', 'Failes migrating css from source.')
+        throw new Error("Failed migrating css from source.")
     }
     
     if( Object.keys(apiResponse.mods).length < 1 ) {
-        showErrorNotification(loadDesignSetting, 'loadDesignError', 'This theme seems to be empty, please select another one.')
-        return
+        throw new Error("The selected theme seems to be empty, please select another one.")
     }
     
     const settings = getSettings()
     resetSettingsToDefault(settings)
-
-
+    
+    
     let formattedMods:Record<string,any> = {}
-
+    
     for (const [key, value] of Object.entries(apiResponse.mods)) {
         
         if( value !== null && typeof value === 'object' && !Array.isArray(value) ) {
-
+            
             for (const [subKey, subValue] of Object.entries(value)) {
                 formattedMods[`${key}[${subKey}]`] = subValue
             }
-
+            
         } else {
             formattedMods[key] = value
         }
@@ -49,17 +51,23 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     for (const [key, rawValue] of Object.entries(formattedMods)) {
         
         const control = wp.customize.control(key);
-
-        if( rawValue === null ) {
+        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
+        
+        if( value === null ) {
             continue;
         }
-
-        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
-
-        if ('custom_fonts' === key) {
-            
-            await migrateCustomFonts(value as {[key:string]: string})
-
+        
+        if( typeof control === 'undefined' && !key.startsWith('archive_') ) {
+            const message = `
+            The selected theme may be incompatible with this version of the theme customizer.
+            Setting: "(${key})" may be missing.`
+            console.warn(message)
+        }
+        
+        if (key.startsWith('custom_fonts')) {
+            const fontName = key.match(/\[(.+)\]$/)
+            if( fontName === null ) continue;
+            await handleMediaSideload({ url: value, description: fontName[1], return: 'id' })
         } else if (typeof control !== 'undefined') {
             
             if (isRemoteMediaFile(value)) {
@@ -72,20 +80,8 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
                 control.setting.set(scrubbedValue)
             }
             
-        } else {
-            if (!key.startsWith('archive_')) {
-                incompatibleKeyStack.push(key);
-            }
         }
     }
-    
-    if (incompatibleKeyStack.length > 0) {
-        const message = `
-        The selected theme may be incompatible with this version 
-        of the theme customizer. Some settings (${incompatibleKeyStack.join(', ')}) may be missing.`
-        console.warn(message)
-    }
-    
 }
 
 export default (() => {
@@ -93,7 +89,16 @@ export default (() => {
     
     wp.customize.bind('ready', () => {
         wp.customize('load_design', (loadDesignSetting:any) => {
-            loadDesignSetting.bind((id:any) => handleLoadSettingChange(loadDesignSetting, id))
+            loadDesignSetting.bind((id:any) => {
+                handleLoadSettingChange(loadDesignSetting, id).catch(error => {
+                    showNotification({
+                        setting: loadDesignSetting,
+                        code: "loadDesignError",
+                        message: error.message,
+                        type: 'error'
+                    })
+                })
+            })
         });
     });
 })();
