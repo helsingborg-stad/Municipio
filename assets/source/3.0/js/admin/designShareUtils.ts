@@ -38,14 +38,6 @@ export async function getRemoteSiteDesignData(id: string) {
         });
 }
 
-export async function migrateCustomFonts(value: { [key: string]: string; }) {
-    const fonts = Object.entries(value as { [key: string]: string; });
-
-    for (let i = 0; i < fonts.length; i++) {
-        await handleMediaSideload({ url: fonts[i][1], description: fonts[i][0], return: 'id' });
-    }
-}
-
 export async function migrateRemoteMediaFile(value: string, control: any = null) {
     const sideloadedMedia = await handleMediaSideload({ url: value, return: 'src' });
 

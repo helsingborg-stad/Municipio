@@ -1,11 +1,9 @@
 import { scrubHexValue } from "../utils/scrubHexValue";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
-import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateCustomFonts, migrateRemoteMediaFile, updateKirkiImageControl, showNotification } from "./designShareUtils";
+import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateRemoteMediaFile, updateKirkiImageControl, showNotification, handleMediaSideload } from "./designShareUtils";
 import { replaceRemoteFilesWithLocalInString } from "../utils/replaceRemoteFilesWithLocalInString";
 
 async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
-    
-    const incompatibleKeyStack: string[] = [];
     
     if( !themeIdIsValid(id) ) {
         showNotification({
@@ -65,10 +63,11 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
             Setting: "(${key})" may be missing.`
             console.warn(message)
         }
-        if ('custom_fonts' === key) {
-            
-            await migrateCustomFonts(value as {[key:string]: string})
-
+        
+        if (key.startsWith('custom_fonts')) {
+            const fontName = key.match(/\[(.+)\]$/)
+            if( fontName === null ) continue;
+            await handleMediaSideload({ url: value, description: fontName[1], return: 'id' })
         } else if (typeof control !== 'undefined') {
             
             if (isRemoteMediaFile(value)) {
@@ -81,20 +80,8 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
                 control.setting.set(scrubbedValue)
             }
             
-        } else {
-            if (!key.startsWith('archive_')) {
-                incompatibleKeyStack.push(key);
-            }
         }
     }
-    
-    if (incompatibleKeyStack.length > 0) {
-        const message = `
-        The selected theme may be incompatible with this version 
-        of the theme customizer. Some settings (${incompatibleKeyStack.join(', ')}) may be missing.`
-        console.warn(message)
-    }
-    
 }
 
 export default (() => {
