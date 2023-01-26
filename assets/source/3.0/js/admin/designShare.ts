@@ -24,37 +24,27 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
         const sanitizedCss = await replaceRemoteFilesWithLocalInString(apiResponse.css ?? '', dataUrl.origin)
         wp.customize.control('custom_css').setting.set(sanitizedCss);
     } catch (error) {
-        showNotification({
-            setting: loadDesignSetting,
-            code: "loadDesignError",
-            message: "Failes migrating css from source."
-        })
+        throw new Error("Failed migrating css from source.")
     }
     
     if( Object.keys(apiResponse.mods).length < 1 ) {
-        showNotification({
-            setting: loadDesignSetting,
-            code: "loadDesignError",
-            message: "This theme seems to be empty, please select another one.",
-            type: 'error'
-        })
-        return
+        throw new Error("The selected theme seems to be empty, please select another one.")
     }
     
     const settings = getSettings()
     resetSettingsToDefault(settings)
-
-
+    
+    
     let formattedMods:Record<string,any> = {}
-
+    
     for (const [key, value] of Object.entries(apiResponse.mods)) {
         
         if( value !== null && typeof value === 'object' && !Array.isArray(value) ) {
-
+            
             for (const [subKey, subValue] of Object.entries(value)) {
                 formattedMods[`${key}[${subKey}]`] = subValue
             }
-
+            
         } else {
             formattedMods[key] = value
         }
@@ -63,13 +53,18 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     for (const [key, rawValue] of Object.entries(formattedMods)) {
         
         const control = wp.customize.control(key);
-
-        if( rawValue === null ) {
+        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
+        
+        if( value === null ) {
             continue;
         }
-
-        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
-
+        
+        if( typeof control === 'undefined' && !key.startsWith('archive_') ) {
+            const message = `
+            The selected theme may be incompatible with this version of the theme customizer.
+            Setting: "(${key})" may be missing.`
+            console.warn(message)
+        }
         if ('custom_fonts' === key) {
             
             await migrateCustomFonts(value as {[key:string]: string})
@@ -107,7 +102,16 @@ export default (() => {
     
     wp.customize.bind('ready', () => {
         wp.customize('load_design', (loadDesignSetting:any) => {
-            loadDesignSetting.bind((id:any) => handleLoadSettingChange(loadDesignSetting, id))
+            loadDesignSetting.bind((id:any) => {
+                handleLoadSettingChange(loadDesignSetting, id).catch(error => {
+                    showNotification({
+                        setting: loadDesignSetting,
+                        code: "loadDesignError",
+                        message: error.message,
+                        type: 'error'
+                    })
+                })
+            })
         });
     });
 })();
