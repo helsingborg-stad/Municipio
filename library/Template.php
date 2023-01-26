@@ -260,21 +260,6 @@ class Template
             }
         }
 
-
-        $isArchive = fn() => is_archive() || is_home();
-        $postType = get_post_type();
-        $template = $viewData['template'] ?? '';
-
-        $filters = [
-            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
-            ['Municipio/Template/viewData', [], true, false],
-            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
-            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
-            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
-            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
-            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
-        ];
-
         //Locate fallback controller
         if (!$controller && is_numeric(get_queried_object_id())) {
             $controller = \Municipio\Helper\Controller::locateController('Singular');
