@@ -64,18 +64,6 @@ class Template
             }
         }
 
-        $purpose = \Municipio\Helper\Purpose::getPurpose();
-        if ($purpose) {
-            if (is_singular()) {
-                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/singular.blade.php';
-            }
-
-            if (is_post_type_archive()) {
-                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/archive.blade.php';
-            }
-        }
-
-
         return $view;
     }
 
