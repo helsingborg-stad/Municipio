@@ -21,7 +21,7 @@ class Template
         //Loads custom controllers and views
         add_action('template_redirect', array($this, 'addTemplateFilters'), 10);
 
-        add_filter('template_include', array($this, 'switchTemplate'), 5);
+        add_filter('template_include', array($this, 'switchPageTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
     }
@@ -48,7 +48,7 @@ class Template
      * @param string $view
      * @return string
      */
-    public function switchTemplate($view)
+    public function switchPageTemplate($view)
     {
 
         $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
@@ -68,7 +68,7 @@ class Template
     }
 
     /**
-     * Register paths containing views
+     * Register paths where views may be added
      * @return void
      */
     public function registerViewPaths(): array
