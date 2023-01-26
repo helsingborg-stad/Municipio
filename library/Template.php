@@ -48,7 +48,7 @@ class Template
      * @param string $view
      * @return string
      */
-    public function switchPageTemplate($view)
+    public function switchPageTemplate(string $view): string
     {
 
         $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
