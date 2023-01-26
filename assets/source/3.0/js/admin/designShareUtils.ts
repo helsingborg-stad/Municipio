@@ -17,7 +17,6 @@ export function getSettings() {
         .filter(setting => setting.hasOwnProperty("params"))
         .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
         .filter(setting => setting.params.type !== "kirki-custom")
-        .filter(setting => setting.params.choices.parent_type !== "kirki-multicolor")
         .filter(setting => setting.params.id !== "load_design");
 }
 
@@ -64,7 +63,7 @@ export function updateKirkiImageControl(control: any, value: string) {
     }
 }
 
-export function showErrorNotification(setting:any, code:string, message: string) {
-    const notification = new wp.customize.Notification( code, {message} );
+export function showErrorNotification(setting:any, code:string, message: string, type: 'error'|'warning'|'notice' = 'notice') {
+    const notification = new wp.customize.Notification( code, {message, type, dismissible: true} );
     setting.notifications.add( code, notification );
 }
