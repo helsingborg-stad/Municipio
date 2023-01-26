@@ -29,11 +29,33 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     
     const settings = getSettings()
     resetSettingsToDefault(settings)
-    
+
+
+    let formattedMods:Record<string,any> = {}
+
     for (const [key, value] of Object.entries(apiResponse.mods)) {
         
-        const control = wp.customize.control(key);
+        if( value !== null && typeof value === 'object' && !Array.isArray(value) ) {
+
+            for (const [subKey, subValue] of Object.entries(value)) {
+                formattedMods[`${key}[${subKey}]`] = subValue
+            }
+
+        } else {
+            formattedMods[key] = value
+        }
+    }
+    
+    for (const [key, rawValue] of Object.entries(formattedMods)) {
         
+        const control = wp.customize.control(key);
+
+        if( rawValue === null ) {
+            continue;
+        }
+
+        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
+
         if ('custom_fonts' === key) {
             
             await migrateCustomFonts(value as {[key:string]: string})
@@ -47,7 +69,7 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
                 
             } else {
                 const scrubbedValue = scrubHexValue(value);
-                control.setting.set(scrubbedValue);
+                control.setting.set(scrubbedValue)
             }
             
         } else {
@@ -58,11 +80,10 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     }
     
     if (incompatibleKeyStack.length > 0) {
-        const errorMessage = `
+        const message = `
         The selected theme may be incompatible with this version 
         of the theme customizer. Some settings (${incompatibleKeyStack.join(', ')}) may be missing.`
-        showErrorNotification(loadDesignSetting, 'loadDesignError', errorMessage)
-        return
+        console.warn(message)
     }
     
 }
