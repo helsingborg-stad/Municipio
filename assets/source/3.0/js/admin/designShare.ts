@@ -1,6 +1,6 @@
 import { scrubHexValue } from "../utils/scrubHexValue";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
-import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateCustomFonts, migrateRemoteMediaFile, updateKirkiImageControl, showErrorNotification } from "./designShareUtils";
+import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateCustomFonts, migrateRemoteMediaFile, updateKirkiImageControl, showNotification } from "./designShareUtils";
 import { replaceRemoteFilesWithLocalInString } from "../utils/replaceRemoteFilesWithLocalInString";
 
 async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
@@ -8,7 +8,12 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     const incompatibleKeyStack: string[] = [];
     
     if( !themeIdIsValid(id) ) {
-        showErrorNotification(loadDesignSetting, 'loadDesignError', 'The selected theme id is not valid')
+        showNotification({
+            setting: loadDesignSetting,
+            code: "loadDesignError",
+            message: "The selected theme id is not valid",
+            type: 'error'
+        })
         return
     }
     
@@ -19,11 +24,20 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
         const sanitizedCss = await replaceRemoteFilesWithLocalInString(apiResponse.css ?? '', dataUrl.origin)
         wp.customize.control('custom_css').setting.set(sanitizedCss);
     } catch (error) {
-        showErrorNotification(loadDesignSetting, 'loadDesignError', 'Failes migrating css from source.')
+        showNotification({
+            setting: loadDesignSetting,
+            code: "loadDesignError",
+            message: "Failes migrating css from source."
+        })
     }
     
     if( Object.keys(apiResponse.mods).length < 1 ) {
-        showErrorNotification(loadDesignSetting, 'loadDesignError', 'This theme seems to be empty, please select another one.')
+        showNotification({
+            setting: loadDesignSetting,
+            code: "loadDesignError",
+            message: "This theme seems to be empty, please select another one.",
+            type: 'error'
+        })
         return
     }
     

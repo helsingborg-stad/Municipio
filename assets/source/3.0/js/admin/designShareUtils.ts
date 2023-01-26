@@ -63,7 +63,14 @@ export function updateKirkiImageControl(control: any, value: string) {
     }
 }
 
-export function showErrorNotification(setting:any, code:string, message: string, type: 'error'|'warning'|'notice' = 'notice') {
-    const notification = new wp.customize.Notification( code, {message, type, dismissible: true} );
-    setting.notifications.add( code, notification );
+interface CustomizerNotificationProps {
+    setting:any,
+    code:string,
+    message: string,
+    type?: 'error'|'warning'|'notice'
+}
+
+export function showNotification(args: CustomizerNotificationProps) {
+    const notification = new wp.customize.Notification( args.code, {message: args.message, type:args.type ?? 'notice', dismissible: true} );
+    args.setting.notifications.add( args.code, notification );
 }
