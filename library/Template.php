@@ -128,6 +128,26 @@ class Template
     }
 
     /**
+     * Get a view clean view path
+     * @param string $view The view path
+     * @return void
+     */
+    private function getViewNameFromPath($view)
+    {
+        //Remove all paths
+        $view = str_replace(
+            \Municipio\Helper\Template::getViewPaths(),
+            "",
+            $view
+        ); // Remove view path
+
+        //Remove suffix
+        $view = trim(str_replace(".blade.php", "", $view), "/");
+
+        return str_replace("/", ".", $view);
+    }
+
+    /**
      * @param $view
      * @param array $data
      */
@@ -210,7 +230,12 @@ class Template
     public function loadController($template)
     {
         //Do something before controller creation
-        do_action_deprecated('Municipio/blade/before_load_controller', $template, '3.0', 'Municipio/blade/beforeLoadController');
+        do_action_deprecated(
+            'Municipio/blade/before_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/beforeLoadController'
+        );
 
         //Handle 404 renaming
         if ($template == '404') {
@@ -235,23 +260,41 @@ class Template
             }
         }
 
+
+        $isArchive = fn() => is_archive() || is_home();
+        $postType = get_post_type();
+        $template = $viewData['template'] ?? '';
+
+        $filters = [
+            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
+            ['Municipio/Template/viewData', [], true, false],
+            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
+            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
+            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
+            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
+            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
+        ];
+
         //Locate fallback controller
         if (!$controller && is_numeric(get_queried_object_id())) {
             $controller = \Municipio\Helper\Controller::locateController('Singular');
         } elseif (!$controller) {
             $controller = \Municipio\Helper\Controller::locateController('BaseController');
         }
-
         //Filter
         $controller = apply_filters('Municipio/blade/controller', $controller);
-
-        //Require controller
+        //Require controller php-file
         require_once $controller;
         $namespace = \Municipio\Helper\Controller::getNamespace($controller);
         $class = '\\' . $namespace . '\\' . basename($controller, '.php');
 
         //Do something after controller creation
-        do_action_deprecated('Municipio/blade/after_load_controller', $template, '3.0', 'Municipio/blade/afterLoadController');
+        do_action_deprecated(
+            'Municipio/blade/after_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/afterLoadController'
+        );
 
         return new $class();
     }
@@ -276,7 +319,7 @@ class Template
             // use. But cannot be implemented due to some html
             // issues.
             if (class_exists('tidy') && isset($_GET['tidy'])) {
-                $tidy = new \tidy;
+                $tidy = new \tidy();
 
                 $tidy->parseString($markup, [
                     'indent'         => true,
@@ -302,26 +345,6 @@ class Template
     }
 
     /**
-     * Get a view clean view path
-     * @param string $view The view path
-     * @return void
-     */
-    private function getViewNameFromPath($view)
-    {
-        //Remove all paths
-        $view = str_replace(
-            \Municipio\Helper\Template::getViewPaths(),
-            "",
-            $view
-        ); // Remove view path
-
-        //Remove suffix
-        $view = trim(str_replace(".blade.php", "", $view), "/");
-
-        return str_replace("/", ".", $view);
-    }
-
-    /**
      * Get a controller name
      * @param string $view The view path
      * @return void
@@ -338,25 +361,30 @@ class Template
     public function addTemplateFilters()
     {
         $types = array(
-            'index' => 'index.blade.php',
-            'home' => 'archive.blade.php',
-            'single' => 'single.blade.php',
-            'page' => 'page.blade.php',
-            '404' => '404.blade.php',
-            'archive' => 'archive.blade.php',
-            'author' => 'author.blade.php',
-            'category' => 'category.blade.php',
-            'tag' => 'tag.blade.php',
-            'taxonomy' => 'taxonomy.blade.php',
-            'date' => 'date.blade.php',
+            'index'      => 'index.blade.php',
+            'home'       => 'archive.blade.php',
+            'single'     => 'single.blade.php',
+            'page'       => 'page.blade.php',
+            '404'        => '404.blade.php',
+            'archive'    => 'archive.blade.php',
+            'author'     => 'author.blade.php',
+            'category'   => 'category.blade.php',
+            'tag'        => 'tag.blade.php',
+            'taxonomy'   => 'taxonomy.blade.php',
+            'date'       => 'date.blade.php',
             'front-page' => 'front-page.blade.php',
-            'paged' => 'paged.blade.php',
-            'search' => 'search.blade.php',
-            'singular' => 'singular.blade.php',
+            'paged'      => 'paged.blade.php',
+            'search'     => 'search.blade.php',
+            'singular'   => 'singular.blade.php',
             'attachment' => 'attachment.blade.php',
         );
 
-        $types = apply_filters_deprecated('Municipio/blade/template_types', [$types], '3.0', 'Municipio/blade/templateTypes');
+        $types = apply_filters_deprecated(
+            'Municipio/blade/template_types',
+            [$types],
+            '3.0',
+            'Municipio/blade/templateTypes'
+        );
 
         if (isset($types) && !empty($types) && is_array($types)) {
             foreach ($types as $key => $type) {
