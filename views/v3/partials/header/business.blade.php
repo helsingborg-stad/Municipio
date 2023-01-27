@@ -70,7 +70,6 @@
                         ],
                         'classList' => [
                             'u-flex-wrap--no-wrap', 
-                            'u-justify-content--space-between'
                         ]
                     ]
                 )
