@@ -37,7 +37,7 @@ class Header
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_alignment',
-            'label'       => esc_html__('Apperance', 'municipio'),
+            'label'       => esc_html__('Menu alignment', 'municipio'),
             'section'     => self::SECTION_ID,
             'default'     => 'gap',
             'priority'    => 10,
