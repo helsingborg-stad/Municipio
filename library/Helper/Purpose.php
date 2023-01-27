@@ -40,27 +40,31 @@ class Purpose
      *
      * @return string|bool The value of the option with the key 'options_purpose_X'. Returns false if option is missing.
      */
-    public static function getPurpose($type = null)
+    public static function getPurpose(string $type = ''): string
     {
-        if (empty($type)) {
+        if ('' === $type) {
             $type = get_queried_object();
         }
 
-
         if (!is_string($type) && !is_a($type, 'WP_Post') && !is_a($type, 'WP_Post_Type')) {
-            return false;
+            return '';
         }
 
-        if (!is_string($type)) {
-            if (is_a($type, 'WP_Post_Type')) {
-                $type = $type->name;
-            } elseif (is_a($type, 'WP_Post')) {
-                $type = $type->post_type;
-            }
+        if (is_a($type, 'WP_Post')) {
+            $type = $type->post_type;
+        } elseif (is_a($type, 'WP_Post_Type')) {
+            $type = $type->name;
         }
 
-        $purpose = get_option('options_purpose_' . $type, false);
-
-        return $purpose;
+        return is_string($type) ? get_option('options_purpose_' . $type, '') : '';
+    }
+    /**
+     * If the purpose is not empty, return true, otherwise return false.
+     *
+     * @return bool A boolean value.
+     */
+    public static function hasPurpose(string $type = ''): bool
+    {
+        return (bool) self::getPurpose($type);
     }
 }

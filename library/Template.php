@@ -3,6 +3,7 @@
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
+use Municipio\Helper\Purpose as Purpose;
 
 class Template
 {
@@ -215,7 +216,7 @@ class Template
      * @param string $template Path to template
      * @return object           The controller
      */
-    public function loadController($template)
+    public function loadController(string $template = ''): ?object
     {
         //Do something before controller creation
         do_action_deprecated(
@@ -226,50 +227,47 @@ class Template
         );
 
         //Handle 404 renaming
-        if ($template == '404') {
+        if ($template === '404') {
             $template = 'E404';
         }
 
-        //Locate default controller
-        $controller = \Municipio\Helper\Controller::locateController($template);
+        $templateControllerPath = \Municipio\Helper\Controller::locateController($template);
 
-        // Locate purpose controller
-        // TODO Make sure pageForPosttype also is handled correctly here
-        // TODO Also check that the controller actually exists before returning it
-        if (is_a(get_queried_object(), 'WP_Post_Type')) {
-            $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object());
-            if ($purpose) {
-                $controller = \Municipio\Helper\Controller::locateController('Archive' . ucfirst($purpose));
-            }
-        } elseif (is_a(get_queried_object(), 'WP_Post')) {
-            $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object()->post_type);
-            if ($purpose) {
-                $controller = \Municipio\Helper\Controller::locateController('Singular' . ucfirst($purpose));
+        $hasPurpose = Purpose::hasPurpose();
+        $isSingular = is_singular() || is_front_page();
+        $isArchive  = is_archive() || is_home();
+
+        // TODO Rename PurposeController to just Purpose (currently in use)
+        $controllers = [
+            // <string> controller name, <bool> return, <string> file path
+            ['PurposeController', $hasPurpose],
+            [basename($templateControllerPath, '.php'), is_file($templateControllerPath), $templateControllerPath],
+            ['Singular', $isSingular],
+            ['Archive', $isArchive],
+            ['BaseController'],
+        ];
+
+        foreach ($controllers as $controller) {
+            if ((bool) $controller[1] || !isset($controller[1])) {
+                $controllerFile = $controller[2] ?? \Municipio\Helper\Controller::locateController($controller[0]);
+
+                if (is_file($controllerFile)) {
+                    require_once apply_filters('Municipio/blade/controller', $controllerFile);
+
+                    $namespace = \Municipio\Helper\Controller::getNamespace($controllerFile);
+                    $class = $namespace . '\\' . $controller[0];
+
+                    do_action_deprecated(
+                        'Municipio/blade/after_load_controller',
+                        $template,
+                        '3.0',
+                        'Municipio/blade/afterLoadController'
+                    );
+                    // Exiting loadController, goodbye!
+                    return new $class();
+                }
             }
         }
-
-        //Locate fallback controller
-        if (!$controller && is_numeric(get_queried_object_id())) {
-            $controller = \Municipio\Helper\Controller::locateController('Singular');
-        } elseif (!$controller) {
-            $controller = \Municipio\Helper\Controller::locateController('BaseController');
-        }
-        //Filter
-        $controller = apply_filters('Municipio/blade/controller', $controller);
-        //Require controller php-file
-        require_once $controller;
-        $namespace = \Municipio\Helper\Controller::getNamespace($controller);
-        $class = '\\' . $namespace . '\\' . basename($controller, '.php');
-
-        //Do something after controller creation
-        do_action_deprecated(
-            'Municipio/blade/after_load_controller',
-            $template,
-            '3.0',
-            'Municipio/blade/afterLoadController'
-        );
-
-        return new $class();
     }
 
     /**
