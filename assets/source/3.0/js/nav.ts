@@ -1,7 +1,8 @@
 const SELECTOR_TOGGLE_BUTTON = '.js-toggle-children';
+// class="u-preloader"
 const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
 
-const fetchMarkup = async (url) => {
+const fetchMarkup = async (url:string) => {
     const response = await fetch(url , {
         method: 'GET',
         headers: {
@@ -15,10 +16,15 @@ const fetchMarkup = async (url) => {
     return markup;
 }
 
-const subscribeOnClick = element => {
-    const handleClick = (e) => {
+const subscribeOnClick = (element:Element) => {
+    const handleClick = () => {
         // Parent of toggle has all states
-        const parentElement = element.parentNode;
+        const parentElement = element.parentElement;
+
+        if( parentElement === null ) {
+            return
+        }
+
         const parentClassNames = [...parentElement.classList];
         
         // States
@@ -95,7 +101,7 @@ function isCurrentlyBeingTranslated () {
 	return 'translate.goog' === hostTop;
 }
 
-const init = (event) => {
+const init = (event:Event) => {
 
     /* 
     * Hide language menu if the site is loaded with translate.goog as top level domain 
