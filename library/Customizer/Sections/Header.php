@@ -39,7 +39,7 @@ class Header
             'settings'    => 'header_alignment',
             'label'       => esc_html__('Apperance', 'municipio'),
             'section'     => self::SECTION_ID,
-            'default'     => 'center',
+            'default'     => 'gap',
             'priority'    => 10,
             'choices'     => [
                 'gap' => esc_html__('Gap between', 'municipio'),
