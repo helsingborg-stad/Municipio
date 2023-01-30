@@ -140,7 +140,7 @@ class Template
          *TODO Rename PurposeController to just Purpose (currently in use as an interface)
          *------------------------------------------------------------------------**/
         // Controller condtitions
-        $isSingular = is_singular();
+        $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
         $templateControllerPath = ControllerHelper::locateController($template);
 
@@ -153,10 +153,10 @@ class Template
                 'controller'     => ControllerHelper::camelCase($template),
                 'controllerPath' => $templateControllerPath
             ],[
-                'condition'      => $isSingular,
+                'condition'      => $isSingular(),
                 'controller'     => 'Singular'
             ],[
-                'condition'      => $isArchive,
+                'condition'      => $isArchive(),
                 'controller'     => 'Archive'
             ],
         ];
