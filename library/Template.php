@@ -7,6 +7,8 @@
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
+use Municipio\Helper\Controller as ControllerHelper;
+use Municipio\Helper\Purpose as PurposeHelper;
 
 class Template
 {
@@ -132,19 +134,23 @@ class Template
          * This means that a controller that has a priority of 0 will be applied first.
          * Only one controller can be applied at a time and the method will exit once it's been applied.
          */
-        // TODO Rename PurposeController to just Purpose (currently in use)
-        // Controller terms
+
+        /**------------------------------------------------------------------------
+         *TODO Propose using multiple controllers
+         *TODO Rename PurposeController to just Purpose (currently in use as an interface)
+         *------------------------------------------------------------------------**/
+        // Controller condtitions
         $isSingular = is_singular();
         $isArchive = fn() => is_archive() || is_home();
-        $templateControllerPath = \Municipio\Helper\Controller::locateController($template);
+        $templateControllerPath = ControllerHelper::locateController($template);
 
         $controllers = [
             [
-                'condition'      => \Municipio\Helper\Purpose::hasPurpose(),
+                'condition'      => PurposeHelper::hasPurpose(),
                 'controller'     => 'PurposeController'
             ],[
                 'condition'      => is_file($templateControllerPath),
-                'controller'     => \Municipio\Helper\Controller::camelCase($template),
+                'controller'     => ControllerHelper::camelCase($template),
                 'controllerPath' => $templateControllerPath
             ],[
                 'condition'      => $isSingular,
@@ -158,25 +164,31 @@ class Template
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
                 /* If the controller file path is not set try to locate it. */
-                $controllerFile = $controller['controllerPath'] ??
-                \Municipio\Helper\Controller::locateController($controller['controller']);
+                $controller['controllerPath'] = $controller['controllerPath'] ??
+                ControllerHelper::locateController($controller['controller']);
 
-                if (is_file($controllerFile)) {
-                    return self::returnController($controller['controller'], $controllerFile, $template);
+                if (is_file($controller['controllerPath'])) {
+                    return self::returnController($controller, $template);
                 }
             }
         }
-        // If no controller is found we'll return the base controller
+        /**
+         *If no controller is found we'll return the base controller
+         */
         return self::returnController(
-            'BaseController',
-            \Municipio\Helper\Controller::locateController('BaseController'),
+            [
+                'controller' => 'BaseController',
+                'controllerPath' => ControllerHelper::locateController('BaseController')
+            ],
             $template
         );
     }
-    private static function returnController(string $controllerName, string $controllerFile, string $template = ''): object
+    private static function returnController(array $controller, string $template = ''): object
     {
-        require_once apply_filters('Municipio/blade/controller', $controllerFile);
-        $class = \Municipio\Helper\Controller::getNamespace($controllerFile) . '\\' . $controllerName;
+        require_once apply_filters('Municipio/blade/controller', $controller['controllerPath']);
+
+        $class = ControllerHelper::getNamespace($controller['controllerPath']) . '\\' . $controller['controller'];
+
         do_action_deprecated(
             'Municipio/blade/after_load_controller',
             $template,
