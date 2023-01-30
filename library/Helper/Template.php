@@ -37,12 +37,34 @@ class Template
     }
 
     /**
+     * It returns the path to the template file. Alias for locateTemplate.
+     *
+     * @param template The name of the template you want to locate.
+     * @param additionalPaths An array of additional paths to look for the template in.
+     *
+     * @return ?string The path to the template file.
+     */
+    public static function locateView($template, $additionalPaths = array()): ?string
+    {
+        return self::locateTemplate($template, $additionalPaths);
+    }
+
+    /**
      * Check if and where template exists
      * @param  string $template        Template file name
      * @param  array  $additionalPaths Additional search paths
      * @return bool                    False if not found else path to template file
      */
-    public static function locateTemplate($template, $additionalPaths = array())
+    /**
+     * Check if and where template (view) exists
+     * It takes a template name and returns the full path to the template file
+     *
+     * @param template The name of the template file to locate.
+     * @param additionalPaths An array of additional paths to search for the template.
+     *
+     * @return ?string The path to the template file.
+     */
+    public static function locateTemplate(string $template = '', $additionalPaths = array()): ?string
     {
         $searchPaths = array_merge(self::getViewPaths(), $additionalPaths);
 
@@ -64,18 +86,19 @@ class Template
     }
 
     /**
-     * Creates view paths dynamicly 
+     * Creates view paths dynamicly
      * @param  array    $viewPaths   All view paths that are statically entered.
-     * @return array    $viewPaths  Contains all view paths avabile. 
+     * @return array    $viewPaths  Contains all view paths avabile.
      */
-    public static function getViewPaths($viewPaths = array()) {
+    public static function getViewPaths($viewPaths = array())
+    {
 
         $versions = apply_filters('Municipio/blade/viewVersions', array_reverse(array("v3")));
 
-        foreach($versions as $versionKey => $version) {
+        foreach ($versions as $versionKey => $version) {
             $viewPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "views" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
         }
-        
+
         $baseDir = MUNICIPIO_PATH . 'templates/';
         foreach (@glob($baseDir . "*/views", GLOB_ONLYDIR) as $dir) {
             $viewPaths[] = $dir;
@@ -83,8 +106,8 @@ class Template
 
         $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
         $viewPaths = array_merge($viewPaths, $externalViewPaths);
-        
-        return apply_filters('Municipio/viewPaths', array_unique($viewPaths)); 
+
+        return apply_filters('Municipio/viewPaths', array_unique($viewPaths));
     }
 
     /**
