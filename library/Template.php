@@ -1,9 +1,14 @@
 <?php
 
+/**
+ * TODO Controller is currently loaded after view
+ */
+
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
 use Municipio\Helper\Purpose as Purpose;
+use Municipio\Helper\FormatObject as FormatObject;
 
 class Template
 {
@@ -12,7 +17,7 @@ class Template
 
     public function __construct()
     {
-        //Init custom tempaltes & views
+        //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
         add_action('template_redirect', array($this, 'initCustomTemplates'), 10);
 
@@ -24,8 +29,325 @@ class Template
 
         add_filter('template_include', array($this, 'switchPageTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
+
         add_filter('template_include', array($this, 'loadViewData'), 15);
     }
+
+    /**
+     * @param $view
+     * @param array $data
+     */
+    public function loadViewData($view, $data = array())
+    {
+
+        $viewData = $this->accessProtected(
+            $this->loadController(
+                $this->getControllerNameFromView($view)
+            ),
+            'data'
+        );
+
+        $isArchive = fn() => is_archive() || is_home();
+        $postType = get_post_type();
+        $template = $viewData['template'] ?? '';
+
+        $filters = [
+            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
+            ['Municipio/Template/viewData', [], true, false],
+            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
+            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
+            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
+            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
+            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
+        ];
+
+        $deprecated = [
+            [
+                'Municipio/controller/base/view_data', [], true, true,
+                '2.0', 'Municipio/Template/viewData'
+            ],
+            [
+                'Municipio/blade/data', [], true, true,
+                '3.0', 'Municipio/Template/viewData'
+            ],
+
+            // To be deprecated next
+            [
+                'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
+                '3.0', 'Municipio/Template/archive/viewData'
+            ],
+            [
+                'Municipio/viewData', [], true, false,
+                '3.0', 'Municipio/Template/viewData'
+            ],
+        ];
+
+        $tryApplyFilters = fn (array $viewData, array $maybeFilters): array => array_reduce(
+            $maybeFilters,
+            function ($viewData, $params) {
+                [$filterTag, $filterParams, $useFilter, $isDeprecated, $version, $message] = [...$params, ...['', '']];
+
+                $applyFilters =
+                    fn (string $tag, array $value, array $params, bool $useDeprecated, string $v = '', string $m = '')
+                    => $useDeprecated
+                        ? apply_filters_deprecated($tag, array_merge([$value], $params), $v, $m)
+                        : apply_filters($tag, ...array_merge([$value], $params));
+
+                return $useFilter
+                    ? $applyFilters($filterTag, $viewData, $filterParams, $isDeprecated, $version, $message)
+                    : $viewData;
+            },
+            $viewData
+        );
+
+        $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
+
+        return $this->renderView(
+            (string) $view,
+            (array)  $viewData
+        );
+    }
+   /**
+    * Loads a controller
+    *
+    * @param string template The template name, e.g. page, archive, 404, etc.
+    *
+    * @return ?object A new instance of the controller class.
+    */
+    public function loadController(string $template = ''): object
+    {
+        //Do something before controller creation
+        do_action_deprecated(
+            'Municipio/blade/before_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/beforeLoadController'
+        );
+
+        //Handle 404 renaming
+        if ($template === '404') {
+            $template = 'E404';
+        }
+
+        /**
+         * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
+         * This means that a controller that has a priority of 0 will be applied first.
+         * Only one controller can be applied at a time and the method will exit once it's been applied.
+         */
+        // TODO Rename PurposeController to just Purpose (currently in use)
+        // Controller terms
+        $isSingular = is_singular();
+        $isArchive = fn() => is_archive() || is_home();
+        $templateControllerPath = \Municipio\Helper\Controller::locateController($template);
+
+        $controllers = [
+            [
+                'condition'      => Purpose::hasPurpose(),
+                'view'           => 'purpose.blade.php',
+                'controller'     => 'PurposeController'
+            ],[
+                'condition'      => is_file($templateControllerPath),
+                'view'           => $this->sanitizeViewName($template) . ".blade.php",
+                'controller'     => ucfirst(FormatObject::camelCaseString($template)),
+                'controllerPath' => $templateControllerPath
+            ],[
+                'condition'      => $isSingular,
+                'view'           => 'singular.blade.php',
+                'controller'     => 'Singular'
+            ],[
+                'condition'      => $isArchive,
+                'view'           => 'archive.blade.php',
+                'controller'     => 'Archive'
+            ],
+        ];
+
+        foreach ($controllers as $controller) {
+            if ((bool) $controller['condition']) {
+                /* If the controller file path is not included try to locate it. */
+                $controllerFile = $controller['controllerPath'] ?? \Municipio\Helper\Controller::locateController($controller[0]);
+
+                if (is_file($controllerFile)) {
+                    return self::returnController($controller[0], $controllerFile, $template);
+                }
+            }
+        }
+        // If no controller is found we'll return the base controller
+        return self::returnController(
+            'BaseController',
+            \Municipio\Helper\Controller::locateController('BaseController'),
+            $template
+        );
+    }
+
+    private static function returnController(string $controllerName, string $controllerFile, string $template = ''): object
+    {
+        require_once apply_filters('Municipio/blade/controller', $controllerFile);
+
+        $class = \Municipio\Helper\Controller::getNamespace($controllerFile) . '\\' . $controllerName;
+
+        do_action_deprecated(
+            'Municipio/blade/after_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/afterLoadController'
+        );
+        return new $class();
+    }
+    /**
+     * @param $view
+     * @param array $data
+     */
+    public function renderView($view, $data = array())
+    {
+        try {
+            $markup = $this->bladeEngine->make(
+                $view,
+                array_merge(
+                    $data,
+                    array('errorMessage' => false)
+                )
+            )->render();
+
+            // Adds the option to make html more readable.
+            // This is a option that is intended for permanent
+            // use. But cannot be implemented due to some html
+            // issues.
+            if (class_exists('tidy') && isset($_GET['tidy'])) {
+                $tidy = new \tidy();
+
+                $tidy->parseString($markup, [
+                    'indent'         => true,
+                    'output-xhtml'   => false,
+                    'wrap'           => PHP_INT_MAX
+                ], 'utf8');
+
+                $tidy->cleanRepair();
+
+                echo $tidy;
+            } else {
+                echo $markup;
+            }
+        } catch (\Throwable $e) {
+            echo '<pre style="border: 3px solid #f00; padding: 10px;">';
+            echo '<strong>' . $e->getMessage() . '</strong>';
+            echo '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
+            echo $e->getTraceAsString();
+            echo '</pre>';
+        }
+
+        return false;
+    }
+
+    /**
+     * Get a controller name
+     * @param string $view The view path
+     * @return void
+     */
+    private function getControllerNameFromView(string $view = ''): string
+    {
+        return str_replace(".", "", ucwords($view));
+    }
+
+    /**
+     * Filter template name (what to look for)
+     * @return string
+     */
+    public function addTemplateFilters()
+    {
+        $types = array(
+            'index'      => 'index.blade.php',
+            'home'       => 'archive.blade.php',
+            'single'     => 'single.blade.php',
+            'page'       => 'page.blade.php',
+            '404'        => '404.blade.php',
+            'archive'    => 'archive.blade.php',
+            'author'     => 'author.blade.php',
+            'category'   => 'category.blade.php',
+            'tag'        => 'tag.blade.php',
+            'taxonomy'   => 'taxonomy.blade.php',
+            'date'       => 'date.blade.php',
+            'front-page' => 'front-page.blade.php',
+            'paged'      => 'paged.blade.php',
+            'search'     => 'search.blade.php',
+            'singular'   => 'singular.blade.php',
+            'attachment' => 'attachment.blade.php',
+        );
+
+        $types = apply_filters_deprecated(
+            'Municipio/blade/template_types',
+            [$types],
+            '3.0',
+            'Municipio/blade/templateTypes'
+        );
+
+        if (isset($types) && !empty($types) && is_array($types)) {
+            foreach ($types as $key => $type) {
+                add_filter($key . '_template', function ($original) use ($key, $type, $types) {
+                    // Front page
+                    if (empty($original) && is_front_page()) {
+                        $type = $types['front-page'];
+                    }
+
+                    // Template slug
+                    if (get_page_template_slug()) {
+                        $type = get_page_template_slug();
+                    }
+
+                    $templatePath = \Municipio\Helper\Template::locateTemplate($type);
+
+                    // Look for post type archive
+                    global $wp_query;
+                    if (is_post_type_archive() && isset($wp_query->query['post_type'])) {
+                        $search = 'archive-' . $wp_query->query['post_type'] . '.blade.php';
+
+                        if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
+                            $templatePath = $found;
+                        }
+                    }
+
+                    // Look for post type single page
+                    if (is_single() && isset($wp_query->query['post_type'])) {
+                        $search = 'single-' . $wp_query->query['post_type'] . '.blade.php';
+                        if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
+                            $templatePath = $found;
+                        }
+                    }
+
+                    // Transformation made
+                    if ($templatePath) {
+                        return $templatePath;
+                    }
+
+                    // No changes needed
+                    return $original;
+                });
+            }
+        }
+    }
+
+    /**
+     * Proxy for accessing provate props
+     * @return mixed Array of values
+     */
+    public function accessProtected($obj, $prop)
+    {
+        $reflection = new \ReflectionClass($obj);
+        $property = $reflection->getProperty($prop);
+        $property->setAccessible(true);
+        return $property->getValue($obj);
+    }
+
+    public function cleanViewPath($view)
+    {
+        $viewPaths = \Municipio\Helper\Template::getViewPaths();
+        foreach ($viewPaths as $path) {
+            $view = str_replace($path . '/', '', $view);
+        }
+
+        $view = str_replace('.blade.php', '', $view);
+        return $view;
+    }
+
 
     /**
      * Get Viewpaths and Blade engine runtime.
@@ -131,309 +453,8 @@ class Template
         ); // Remove view path
 
         //Remove suffix
-        $view = trim(str_replace(".blade.php", "", $view), "/");
+        $view = strtolower(trim(str_replace(".blade.php", "", $view), "/"));
 
         return str_replace("/", ".", $view);
-    }
-
-    /**
-     * @param $view
-     * @param array $data
-     */
-    public function loadViewData($view, $data = array())
-    {
-
-        $viewData = $this->accessProtected(
-            $this->loadController(
-                $this->getControllerNameFromView($view)
-            ),
-            'data'
-        );
-
-        $isArchive = fn() => is_archive() || is_home();
-        $postType = get_post_type();
-        $template = $viewData['template'] ?? '';
-
-        $filters = [
-            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
-            ['Municipio/Template/viewData', [], true, false],
-            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
-            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
-            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
-            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
-            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
-        ];
-
-        $deprecated = [
-            [
-                'Municipio/controller/base/view_data', [], true, true,
-                '2.0', 'Municipio/Template/viewData'
-            ],
-            [
-                'Municipio/blade/data', [], true, true,
-                '3.0', 'Municipio/Template/viewData'
-            ],
-
-            // To be deprecated next
-            [
-                'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
-                '3.0', 'Municipio/Template/archive/viewData'
-            ],
-            [
-                'Municipio/viewData', [], true, false,
-                '3.0', 'Municipio/Template/viewData'
-            ],
-        ];
-
-        $tryApplyFilters = fn (array $viewData, array $maybeFilters): array => array_reduce(
-            $maybeFilters,
-            function ($viewData, $params) {
-                [$filterTag, $filterParams, $useFilter, $isDeprecated, $version, $message] = [...$params, ...['', '']];
-
-                $applyFilters =
-                    fn (string $tag, array $value, array $params, bool $useDeprecated, string $v = '', string $m = '')
-                    => $useDeprecated
-                        ? apply_filters_deprecated($tag, array_merge([$value], $params), $v, $m)
-                        : apply_filters($tag, ...array_merge([$value], $params));
-
-                return $useFilter
-                    ? $applyFilters($filterTag, $viewData, $filterParams, $isDeprecated, $version, $message)
-                    : $viewData;
-            },
-            $viewData
-        );
-
-        $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
-
-        return $this->renderView(
-            (string) $view,
-            (array)  $viewData
-        );
-    }
-
-   /**
-    * Loads a controller
-    *
-    * @param string template The template name, e.g. page, archive, 404, etc.
-    *
-    * @return ?object A new instance of the controller class.
-    */
-    public function loadController(string $template = ''): ?object
-    {
-        //Do something before controller creation
-        do_action_deprecated(
-            'Municipio/blade/before_load_controller',
-            $template,
-            '3.0',
-            'Municipio/blade/beforeLoadController'
-        );
-
-        //Handle 404 renaming
-        if ($template === '404') {
-            $template = 'E404';
-        }
-
-        /**
-         * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
-         * This means that a controller that has a priority of 0 will be applied first.
-         * Only one controller can be applied at a time and the method will exit once it's been applied.
-         */
-        // TODO Rename PurposeController to just Purpose (currently in use)
-        // Controller terms
-        $isArchive = fn() => is_archive() || is_home();
-        $templateControllerPath = \Municipio\Helper\Controller::locateController($template);
-
-        $controllers = [
-            // <string> controller, <bool> return method when true, <string> file path to controller
-            ['PurposeController', Purpose::hasPurpose()],
-            [basename($templateControllerPath, '.php'), is_file($templateControllerPath), $templateControllerPath],
-            ['Singular', is_singular()],
-            ['Archive', $isArchive],
-        ];
-
-        foreach ($controllers as $controller) {
-            if ((bool) $controller[1]) {
-                /* If the controller file path is not included try to locate it. */
-                $controllerFile = $controller[2] ?? \Municipio\Helper\Controller::locateController($controller[0]);
-
-                if (is_file($controllerFile)) {
-                    return self::returnController($controller[0], $controllerFile, $template);
-                }
-            }
-        }
-        // If no controller is found we'll return the base controller
-        return self::returnController(
-            'BaseController',
-            \Municipio\Helper\Controller::locateController('BaseController'),
-            $template
-        );
-    }
-    private static function returnController(string $controllerName, string $controllerFile, string $template = ''): object
-    {
-            require_once apply_filters('Municipio/blade/controller', $controllerFile);
-
-            $class = \Municipio\Helper\Controller::getNamespace($controllerFile) . '\\' . $controllerName;
-
-            do_action_deprecated(
-                'Municipio/blade/after_load_controller',
-                $template,
-                '3.0',
-                'Municipio/blade/afterLoadController'
-            );
-            return new $class();
-    }
-    /**
-     * @param $view
-     * @param array $data
-     */
-    public function renderView($view, $data = array())
-    {
-        try {
-            $markup = $this->bladeEngine->make(
-                $view,
-                array_merge(
-                    $data,
-                    array('errorMessage' => false)
-                )
-            )->render();
-
-            // Adds the option to make html more readable.
-            // This is a option that is intended for permanent
-            // use. But cannot be implemented due to some html
-            // issues.
-            if (class_exists('tidy') && isset($_GET['tidy'])) {
-                $tidy = new \tidy();
-
-                $tidy->parseString($markup, [
-                    'indent'         => true,
-                    'output-xhtml'   => false,
-                    'wrap'           => PHP_INT_MAX
-                ], 'utf8');
-
-                $tidy->cleanRepair();
-
-                echo $tidy;
-            } else {
-                echo $markup;
-            }
-        } catch (\Throwable $e) {
-            echo '<pre style="border: 3px solid #f00; padding: 10px;">';
-            echo '<strong>' . $e->getMessage() . '</strong>';
-            echo '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
-            echo $e->getTraceAsString();
-            echo '</pre>';
-        }
-
-        return false;
-    }
-
-    /**
-     * Get a controller name
-     * @param string $view The view path
-     * @return void
-     */
-    private function getControllerNameFromView($view)
-    {
-        return str_replace(".", "", ucwords($view));
-    }
-
-    /**
-     * Filter template name (what to look for)
-     * @return string
-     */
-    public function addTemplateFilters()
-    {
-        $types = array(
-            'index'      => 'index.blade.php',
-            'home'       => 'archive.blade.php',
-            'single'     => 'single.blade.php',
-            'page'       => 'page.blade.php',
-            '404'        => '404.blade.php',
-            'archive'    => 'archive.blade.php',
-            'author'     => 'author.blade.php',
-            'category'   => 'category.blade.php',
-            'tag'        => 'tag.blade.php',
-            'taxonomy'   => 'taxonomy.blade.php',
-            'date'       => 'date.blade.php',
-            'front-page' => 'front-page.blade.php',
-            'paged'      => 'paged.blade.php',
-            'search'     => 'search.blade.php',
-            'singular'   => 'singular.blade.php',
-            'attachment' => 'attachment.blade.php',
-        );
-
-        $types = apply_filters_deprecated(
-            'Municipio/blade/template_types',
-            [$types],
-            '3.0',
-            'Municipio/blade/templateTypes'
-        );
-
-        if (isset($types) && !empty($types) && is_array($types)) {
-            foreach ($types as $key => $type) {
-                add_filter($key . '_template', function ($original) use ($key, $type, $types) {
-                    // Front page
-                    if (empty($original) && is_front_page()) {
-                        $type = $types['front-page'];
-                    }
-
-                    // Template slug
-                    if (get_page_template_slug()) {
-                        $type = get_page_template_slug();
-                    }
-
-                    $templatePath = \Municipio\Helper\Template::locateTemplate($type);
-
-                    // Look for post type archive
-                    global $wp_query;
-                    if (is_post_type_archive() && isset($wp_query->query['post_type'])) {
-                        $search = 'archive-' . $wp_query->query['post_type'] . '.blade.php';
-
-                        if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
-                            $templatePath = $found;
-                        }
-                    }
-
-                    // Look for post type single page
-                    if (is_single() && isset($wp_query->query['post_type'])) {
-                        $search = 'single-' . $wp_query->query['post_type'] . '.blade.php';
-                        if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
-                            $templatePath = $found;
-                        }
-                    }
-
-                    // Transformation made
-                    if ($templatePath) {
-                        return $templatePath;
-                    }
-
-                    // No changes needed
-                    return $original;
-                });
-            }
-        }
-    }
-
-    /**
-     * Proxy for accessing provate props
-     * @return mixed Array of values
-     */
-    public function accessProtected($obj, $prop)
-    {
-        $reflection = new \ReflectionClass($obj);
-        $property = $reflection->getProperty($prop);
-        $property->setAccessible(true);
-        return $property->getValue($obj);
-    }
-
-    public function cleanViewPath($view)
-    {
-        $viewPaths = \Municipio\Helper\Template::getViewPaths();
-        foreach ($viewPaths as $path) {
-            $view = str_replace($path . '/', '', $view);
-        }
-
-        $view = str_replace('.blade.php', '', $view);
-        return $view;
     }
 }
