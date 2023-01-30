@@ -44,7 +44,7 @@ class Template
      *
      * @return ?string The path to the template file.
      */
-    public static function locateView($template, $additionalPaths = array()): ?string
+    public static function locateView(string $template = '', $additionalPaths = array()): ?string
     {
         return self::locateTemplate($template, $additionalPaths);
     }

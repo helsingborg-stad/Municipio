@@ -7,8 +7,6 @@
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
-use Municipio\Helper\Purpose as Purpose;
-use Municipio\Helper\FormatObject as FormatObject;
 
 class Template
 {
@@ -52,34 +50,34 @@ class Template
         $template = $viewData['template'] ?? '';
 
         $filters = [
-            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
-            ['Municipio/Template/viewData', [], true, false],
-            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
-            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
-            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
-            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
-            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
+        // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
+        ['Municipio/Template/viewData', [], true, false],
+        ['Municipio/Template/single/viewData', [$postType], is_single(), false],
+        ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
+        ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
+        ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
+        ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
         ];
 
         $deprecated = [
-            [
-                'Municipio/controller/base/view_data', [], true, true,
-                '2.0', 'Municipio/Template/viewData'
-            ],
-            [
-                'Municipio/blade/data', [], true, true,
-                '3.0', 'Municipio/Template/viewData'
-            ],
+        [
+            'Municipio/controller/base/view_data', [], true, true,
+            '2.0', 'Municipio/Template/viewData'
+        ],
+        [
+            'Municipio/blade/data', [], true, true,
+            '3.0', 'Municipio/Template/viewData'
+        ],
 
-            // To be deprecated next
-            [
-                'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
-                '3.0', 'Municipio/Template/archive/viewData'
-            ],
-            [
-                'Municipio/viewData', [], true, false,
-                '3.0', 'Municipio/Template/viewData'
-            ],
+        // To be deprecated next
+        [
+            'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
+            '3.0', 'Municipio/Template/archive/viewData'
+        ],
+        [
+            'Municipio/viewData', [], true, false,
+            '3.0', 'Municipio/Template/viewData'
+        ],
         ];
 
         $tryApplyFilters = fn (array $viewData, array $maybeFilters): array => array_reduce(
@@ -134,6 +132,7 @@ class Template
          * This means that a controller that has a priority of 0 will be applied first.
          * Only one controller can be applied at a time and the method will exit once it's been applied.
          */
+        // TODO Find or add method to locate view the same way locateController does
         // TODO Rename PurposeController to just Purpose (currently in use)
         // Controller terms
         $isSingular = is_singular();
@@ -142,13 +141,13 @@ class Template
 
         $controllers = [
             [
-                'condition'      => Purpose::hasPurpose(),
+                'condition'      => \Municipio\Helper\Purpose::hasPurpose(),
                 'view'           => 'purpose.blade.php',
                 'controller'     => 'PurposeController'
             ],[
                 'condition'      => is_file($templateControllerPath),
                 'view'           => $this->sanitizeViewName($template) . ".blade.php",
-                'controller'     => ucfirst(FormatObject::camelCaseString($template)),
+                'controller'     => \Municipio\Helper\Controller::camelCase($template),
                 'controllerPath' => $templateControllerPath
             ],[
                 'condition'      => $isSingular,
@@ -163,11 +162,16 @@ class Template
 
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
-                /* If the controller file path is not included try to locate it. */
-                $controllerFile = $controller['controllerPath'] ?? \Municipio\Helper\Controller::locateController($controller[0]);
+                /* If the controller file path is not set try to locate it. */
+                $controllerFile = $controller['controllerPath'] ??
+                \Municipio\Helper\Controller::locateController($controller['controller']);
 
+                /**
+                 * ! WIP: This view is not currently being used anywhere
+                 */
+                $viewFile = \Municipio\Helper\Template::locateView($controller['view']);
                 if (is_file($controllerFile)) {
-                    return self::returnController($controller[0], $controllerFile, $template);
+                    return self::returnController($controller['controller'], $controllerFile, $template);
                 }
             }
         }
@@ -178,13 +182,10 @@ class Template
             $template
         );
     }
-
     private static function returnController(string $controllerName, string $controllerFile, string $template = ''): object
     {
         require_once apply_filters('Municipio/blade/controller', $controllerFile);
-
         $class = \Municipio\Helper\Controller::getNamespace($controllerFile) . '\\' . $controllerName;
-
         do_action_deprecated(
             'Municipio/blade/after_load_controller',
             $template,
@@ -193,10 +194,10 @@ class Template
         );
         return new $class();
     }
-    /**
-     * @param $view
-     * @param array $data
-     */
+/**
+ * @param $view
+ * @param array $data
+ */
     public function renderView($view, $data = array())
     {
         try {
