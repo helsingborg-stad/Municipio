@@ -132,7 +132,6 @@ class Template
          * This means that a controller that has a priority of 0 will be applied first.
          * Only one controller can be applied at a time and the method will exit once it's been applied.
          */
-        // TODO Find or add method to locate view the same way locateController does
         // TODO Rename PurposeController to just Purpose (currently in use)
         // Controller terms
         $isSingular = is_singular();
@@ -142,20 +141,16 @@ class Template
         $controllers = [
             [
                 'condition'      => \Municipio\Helper\Purpose::hasPurpose(),
-                'view'           => 'purpose.blade.php',
                 'controller'     => 'PurposeController'
             ],[
                 'condition'      => is_file($templateControllerPath),
-                'view'           => $this->sanitizeViewName($template) . ".blade.php",
                 'controller'     => \Municipio\Helper\Controller::camelCase($template),
                 'controllerPath' => $templateControllerPath
             ],[
                 'condition'      => $isSingular,
-                'view'           => 'singular.blade.php',
                 'controller'     => 'Singular'
             ],[
                 'condition'      => $isArchive,
-                'view'           => 'archive.blade.php',
                 'controller'     => 'Archive'
             ],
         ];
@@ -166,10 +161,6 @@ class Template
                 $controllerFile = $controller['controllerPath'] ??
                 \Municipio\Helper\Controller::locateController($controller['controller']);
 
-                /**
-                 * ! WIP: This view is not currently being used anywhere
-                 */
-                $viewFile = \Municipio\Helper\Template::locateView($controller['view']);
                 if (is_file($controllerFile)) {
                     return self::returnController($controller['controller'], $controllerFile, $template);
                 }
