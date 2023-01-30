@@ -211,11 +211,13 @@ class Template
         );
     }
 
-    /**
-     * Loads controller for view template
-     * @param string $template Path to template
-     * @return object           The controller
-     */
+   /**
+    * Loads a controller
+    *
+    * @param string template The template name, e.g. page, archive, 404, etc.
+    *
+    * @return ?object A new instance of the controller class.
+    */
     public function loadController(string $template = ''): ?object
     {
         //Do something before controller creation
@@ -231,45 +233,55 @@ class Template
             $template = 'E404';
         }
 
+        /**
+         * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
+         * This means that a controller that has a priority of 0 will be applied first.
+         * Only one controller can be applied at a time and the method will exit once it's been applied.
+         */
+        // TODO Rename PurposeController to just Purpose (currently in use)
+        // Controller terms
+        $isArchive = fn() => is_archive() || is_home();
         $templateControllerPath = \Municipio\Helper\Controller::locateController($template);
 
-        $hasPurpose = Purpose::hasPurpose();
-        $isSingular = is_singular() || is_front_page();
-        $isArchive  = is_archive() || is_home();
-
-        // TODO Rename PurposeController to just Purpose (currently in use)
         $controllers = [
-            // <string> controller name, <bool> return, <string> file path
-            ['PurposeController', $hasPurpose],
+            // <string> controller, <bool> return method when true, <string> file path to controller
+            ['PurposeController', Purpose::hasPurpose()],
             [basename($templateControllerPath, '.php'), is_file($templateControllerPath), $templateControllerPath],
-            ['Singular', $isSingular],
+            ['Singular', is_singular()],
             ['Archive', $isArchive],
-            ['BaseController'],
         ];
 
         foreach ($controllers as $controller) {
-            if ((bool) $controller[1] || !isset($controller[1])) {
+            if ((bool) $controller[1]) {
+                /* If the controller file path is not included try to locate it. */
                 $controllerFile = $controller[2] ?? \Municipio\Helper\Controller::locateController($controller[0]);
 
                 if (is_file($controllerFile)) {
-                    require_once apply_filters('Municipio/blade/controller', $controllerFile);
-
-                    $namespace = \Municipio\Helper\Controller::getNamespace($controllerFile);
-                    $class = $namespace . '\\' . $controller[0];
-
-                    do_action_deprecated(
-                        'Municipio/blade/after_load_controller',
-                        $template,
-                        '3.0',
-                        'Municipio/blade/afterLoadController'
-                    );
-                    // Exiting loadController, goodbye!
-                    return new $class();
+                    return self::returnController($controller[0], $controllerFile, $template);
                 }
             }
         }
+        // If no controller is found we'll return the base controller
+        return self::returnController(
+            'BaseController',
+            \Municipio\Helper\Controller::locateController('BaseController'),
+            $template
+        );
     }
+    private static function returnController(string $controllerName, string $controllerFile, string $template = ''): object
+    {
+            require_once apply_filters('Municipio/blade/controller', $controllerFile);
 
+            $class = \Municipio\Helper\Controller::getNamespace($controllerFile) . '\\' . $controllerName;
+
+            do_action_deprecated(
+                'Municipio/blade/after_load_controller',
+                $template,
+                '3.0',
+                'Municipio/blade/afterLoadController'
+            );
+            return new $class();
+    }
     /**
      * @param $view
      * @param array $data
