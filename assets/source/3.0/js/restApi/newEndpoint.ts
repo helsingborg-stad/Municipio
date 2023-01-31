@@ -10,17 +10,36 @@ interface EndpointOptions {
     method:RequestMethod
 }
 
-export const newEndpoint = <T, A>(options:EndpointOptions) => ({
+export interface ApiCallArgs extends Record<string,any> {
+    routeParams?: string
+}
+
+export const newEndpoint = <T, A extends ApiCallArgs>(options:EndpointOptions) => ({
     call: (callArgs?:A):Promise<T> => {
+
+        const {routeParams, ...data} = callArgs ?? {}
+        
+        let url = `/wp-json/${options.nameSpace}/${options.route}`
+        url += routeParams ? `/${routeParams}` : ''
+        url += options.method === 'GET' ? '?' + new URLSearchParams(data) : ''
+
+        const nonce = typeof wpApiSettings !== 'undefined' && wpApiSettings.nonce ? wpApiSettings.nonce : null
+        
+        const headers:HeadersInit = {
+            'Content-Type': 'application/json',
+        }
+
+        if( nonce ) {
+            headers['X-WP-Nonce'] = nonce
+        }
+
+
         return fetch(
-            `/wp-json/${options.nameSpace}/${options.route}`,
+            url,
             {
                 method: options.method,
-                body: JSON.stringify(callArgs),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce': wpApiSettings.nonce ?? ''
-                },
+                body: options.method !== 'GET' ? JSON.stringify(callArgs) : undefined,
+                headers
             }
             ).then(response => {
                 const contentType = response.headers.get("content-type");

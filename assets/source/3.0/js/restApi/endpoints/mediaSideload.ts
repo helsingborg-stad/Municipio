@@ -1,6 +1,6 @@
-import {newEndpoint, NameSpace } from "../newEndpoint";
+import {newEndpoint, NameSpace, ApiCallArgs } from "../newEndpoint";
 
-export interface MediaSideloadArgs {
+export interface MediaSideloadArgs extends ApiCallArgs {
     url: string,
     return?: 'html'|'src'|'id',
     description?: string
