@@ -20,9 +20,7 @@ export const newEndpoint = <T, A>(options: EndpointOptions) => ({
                 'X-WP-Nonce': wpApiSettings.nonce ?? '',
             },
         }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else if (200 == response.status) {
+            if (200 == response.status) {
                 const contentType = response.headers.get('content-type');
                 const contentTypeIsJson = contentType && contentType.indexOf('application/json') !== -1;
 
