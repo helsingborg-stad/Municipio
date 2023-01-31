@@ -53,7 +53,7 @@ class PostFilters
 
         $grouped = array();
         $ungrouped = array();
-        $taxonomies = get_field('archive_' . sanitize_title($postType) . '_post_filters_sidebar', 'option');
+        $taxonomies = get_theme_mod('archive_' . sanitize_title($postType) . '_enabled_filters');
 
         if (!$taxonomies) {
             return array();
