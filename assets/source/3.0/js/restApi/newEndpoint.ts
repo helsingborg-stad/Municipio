@@ -14,16 +14,28 @@ export interface ApiCallArgs extends Record<string,any> {
     routeParams?: string
 }
 
+const getNonce = ():string|null => {
+    if( typeof wpApiSettings === 'undefined' || !wpApiSettings.nonce ) {
+        return null
+    }
+    
+    return wpApiSettings.nonce
+}
+
+const buildUrl = (nameSpace:string, route:string, routeParams?:string, params?:{}):string => {
+    let url = `/wp-json/${nameSpace}/${route}`
+    url += routeParams ? `/${routeParams}` : ''
+    url += params ? '?' + new URLSearchParams(params) : ''
+    
+    return url
+}
+
 export const newEndpoint = <T, A extends ApiCallArgs>(options:EndpointOptions) => ({
     call: (callArgs?:A):Promise<T> => {
         
         const {routeParams, ...data} = callArgs ?? {}
-        
-        let url = `/wp-json/${options.nameSpace}/${options.route}`
-        url += routeParams ? `/${routeParams}` : ''
-        url += options.method === 'GET' ? '?' + new URLSearchParams(data) : ''
-        
-        const nonce = typeof wpApiSettings !== 'undefined' && wpApiSettings.nonce ? wpApiSettings.nonce : null
+        const url = buildUrl(options.nameSpace,options.route,routeParams,options.method === 'GET' && data)
+        const nonce = getNonce()
         
         const headers:HeadersInit = {
             'Content-Type': 'application/json',
@@ -32,7 +44,15 @@ export const newEndpoint = <T, A extends ApiCallArgs>(options:EndpointOptions) =
         if( nonce ) {
             headers['X-WP-Nonce'] = nonce
         }
-        
+
+        const fetchOptions:RequestInit = {
+            method: options.method,
+            headers
+        }
+
+        if( options.method !== 'GET' ) {
+            fetchOptions.body = JSON.stringify(callArgs)
+        }
         
         return fetch(
             url,
