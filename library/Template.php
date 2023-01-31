@@ -158,6 +158,9 @@ class Template
             ],[
                 'condition'      => $isArchive(),
                 'controller'     => \Municipio\Controller\Archive::class,
+            ],[
+                'condition'      => true,
+                'controller'     => \Municipio\Controller\BaseController::class,
             ],
         ];
 
@@ -172,16 +175,6 @@ class Template
                 }
             }
         }
-        /**
-         *If no controller is found we'll return the base controller
-         */
-        return self::returnController(
-            [
-                'controller' => 'BaseController',
-                'controllerPath' => ControllerHelper::locateController('BaseController')
-            ],
-            $template
-        );
     }
     private static function returnController(array $controller, string $template = ''): object
     {
