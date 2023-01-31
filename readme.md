@@ -1,6 +1,6 @@
 # Municipio 1.0 (for Helsingborg stad)
 
-## Download plugin.
+## Download theme.
 To download a complete out of the box working plugin without the need to compile or fetch dependencies.  
 Go [here](https://github.com/helsingborg-stad/Municipio/releases) and download the `full-release.zip` from the latest version.  
 
@@ -378,6 +378,19 @@ Items that should be visible in the vertical navigation menus. Represented as do
 apply_filters('Municipio/Menu/Vertical/EnabledSidebars', array(array('title' => 'Page section title', 'link' => '#anchorlink'));
 ```
 
+## REST routes
+The following REST API routes are available from the theme.
+
+### ```[GET] municipio/v1/view/render/{view}```
+Returns html for the 
+* ```@param string $view``` - Path to the blade view to be rendered. Appended to the route.
+* ```@param object $data``` - Data to be passed to the view.
+
+Example usage
+```typescript
+fetch('/wp-json/municipio/v1/view/render/partials/preloader')
+    .then((response) => console.log(response))
+```
 
 ## Dev mode
 To load assets from local styleguide. Set contant DEV_MODE to "true"

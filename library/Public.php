@@ -1,8 +1,9 @@
 <?php
+
 use ComponentLibrary\Init as ComponentLibraryInit;
 
 if (!function_exists('render_blade_view')) {
-    function render_blade_view($view, $data = [], $overrideViewPaths = false)
+    function render_blade_view($view, $data = [], $overrideViewPaths = false, $formatError = true)
     {
         $viewPaths = \Municipio\Helper\Template::getViewPaths();
 
@@ -29,11 +30,15 @@ if (!function_exists('render_blade_view')) {
                 )
             )->render();
         } catch (\Throwable $e) {
-            $markup .= '<pre style="border: 3px solid #f00; padding: 10px;">';
-            $markup .= '<strong>' . $e->getMessage() . '</strong>';
-            $markup .= '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
-            $markup .= $e->getTraceAsString();
-            $markup .= '</pre>';
+            if ($formatError === true) {
+                $markup .= '<pre style="border: 3px solid #f00; padding: 10px;">';
+                $markup .= '<strong>' . $e->getMessage() . '</strong>';
+                $markup .= '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
+                $markup .= $e->getTraceAsString();
+                $markup .= '</pre>';
+            } else {
+                throw $e;
+            }
         }
 
         return $markup;
@@ -223,8 +228,10 @@ if (!function_exists('municipio_post_taxonomies_to_display')) {
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
                 $stack[$taxonomy] = apply_filters(
-                    'Municipio/taxonomies_to_display/terms', 
-                    wp_get_post_terms($postId, $taxonomy), $postId, $taxonomy
+                    'Municipio/taxonomies_to_display/terms',
+                    wp_get_post_terms($postId, $taxonomy),
+                    $postId,
+                    $taxonomy
                 );
             }
         }
