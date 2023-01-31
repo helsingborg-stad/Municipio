@@ -110,11 +110,15 @@ class Template
    /**
     * Loads a controller
     *
-    * @param string template The template name, e.g. page, archive, 404, etc.
+    * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
+    * This means that a controller that has a priority of 0 will be applied first.
+    * Only one controller can be applied at a time and the method will exit once it's been applied.
     *
-    * @return ?object A new instance of the controller class.
+    * @param string template The WordPress template name, e.g. page, archive, 404, etc.
+    *
+    * @return object A new instance of the controller class.
     */
-    public function loadController(string $template = ''): object
+    public function loadController(string $template = ''): ?object
     {
         //Do something before controller creation
         do_action_deprecated(
@@ -129,58 +133,65 @@ class Template
             $template = 'E404';
         }
 
-        /**
-         * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
-         * This means that a controller that has a priority of 0 will be applied first.
-         * Only one controller can be applied at a time and the method will exit once it's been applied.
-         */
-
         /**------------------------------------------------------------------------
-         *TODO Move all conditions to the $controllers array
          *TODO Rename PurposeController to just Purpose (currently in use as an interface)
          *------------------------------------------------------------------------**/
         // Controller condtitions
+        $isSingularPost = fn() => is_singular('page');
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
-        $templateControllerPath = ControllerHelper::locateController($template);
 
-        $controllers = [
+        $templateControllerPath = fn() => ControllerHelper::locateController($template);
+        $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
+
+        $controllers  = [
             [
-                'condition'      => PurposeHelper::hasPurpose(),
-                'controller'     => \Municipio\Controller\PurposeController::class,
+                'condition'       => PurposeHelper::hasPurpose(),
+                'controllerClass' => \Municipio\Controller\PurposeController::class,
+                'controllerPath'  => ControllerHelper::locateController('PurposeTemplate')
             ],[
-                'condition'      => is_file($templateControllerPath),
-                'controller'     => ControllerHelper::camelCase($template),
-                'controllerPath' => $templateControllerPath
+                // If a controller for this specific WordPress template exists, use it
+                'condition'       => (bool) $templateControllerPath(),
+                'controllerClass' => $templateControllerNamespace() . ControllerHelper::camelCase($template),
+                'controllerPath'  => $templateControllerPath(),
             ],[
-                'condition'      => $isSingular(),
-                'controller'     => \Municipio\Controller\Singular::class,
+                'condition'       => $isSingularPost(),
+                'controllerClass' => \Municipio\Controller\SingularPost::class,
+                'controllerPath'  => ControllerHelper::locateController('SingularPost')
             ],[
-                'condition'      => $isArchive(),
-                'controller'     => \Municipio\Controller\Archive::class,
+                'condition'       => $isSingular(),
+                'controllerClass' => \Municipio\Controller\Singular::class,
+                'controllerPath'  => ControllerHelper::locateController('Singular')
             ],[
-                'condition'      => true,
-                'controller'     => \Municipio\Controller\BaseController::class,
-            ],
+                'condition'       => $isArchive(),
+                'controllerClass' => \Municipio\Controller\Archive::class,
+                'controllerPath'  => ControllerHelper::locateController('Archive')
+            ],[
+                'condition'       => true,
+                'controllerClass' => \Municipio\Controller\BaseController::class,
+                'controllerPath'  => ControllerHelper::locateController('BaseController')
+            ]
         ];
 
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
-                /* If the controller file path is not set try to locate it. */
-                $controller['controllerPath'] = $controller['controllerPath'] ??
-                ControllerHelper::locateController($controller['controller']);
-
-                if (is_file($controller['controllerPath'])) {
-                    return self::returnController($controller, $template);
-                }
+                return self::createController($controller, $template);
             }
         }
-    }
-    private static function returnController(array $controller, string $template = ''): object
-    {
-        require_once apply_filters('Municipio/blade/controller', $controller['controllerPath']);
 
-        $class = ControllerHelper::getNamespace($controller['controllerPath']) . '\\' . $controller['controller'];
+        return null;
+    }
+    /**
+     * It loads a controller class and returns an instance of it
+     *
+     * @param array c An array containing the controller class and path.
+     * @param string template The template name
+     *
+     * @return object An object of the controller class.
+     */
+    private static function createController(array $c, string $template = ''): object
+    {
+        require_once apply_filters('Municipio/blade/controller', $c['controllerPath']);
 
         do_action_deprecated(
             'Municipio/blade/after_load_controller',
@@ -188,7 +199,7 @@ class Template
             '3.0',
             'Municipio/blade/afterLoadController'
         );
-        return new $class();
+        return new $c['controllerClass']();
     }
 /**
  * @param $view

@@ -46,7 +46,10 @@ class Controller
         $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("", "v3")));
 
         foreach ($versions as $versionKey => $version) {
-            $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+            $controllerPaths[] = rtrim(
+                get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version,
+                DIRECTORY_SEPARATOR
+            );
         }
 
         $baseDir = MUNICIPIO_PATH . 'templates/';
