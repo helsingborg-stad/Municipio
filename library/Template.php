@@ -136,7 +136,7 @@ class Template
          */
 
         /**------------------------------------------------------------------------
-         *TODO Propose using multiple controllers
+         *TODO Move all conditions to the $controllers array
          *TODO Rename PurposeController to just Purpose (currently in use as an interface)
          *------------------------------------------------------------------------**/
         // Controller condtitions
@@ -147,17 +147,17 @@ class Template
         $controllers = [
             [
                 'condition'      => PurposeHelper::hasPurpose(),
-                'controller'     => 'PurposeController'
+                'controller'     => \Municipio\Controller\PurposeController::class,
             ],[
                 'condition'      => is_file($templateControllerPath),
                 'controller'     => ControllerHelper::camelCase($template),
                 'controllerPath' => $templateControllerPath
             ],[
                 'condition'      => $isSingular(),
-                'controller'     => 'Singular'
+                'controller'     => \Municipio\Controller\Singular::class,
             ],[
                 'condition'      => $isArchive(),
-                'controller'     => 'Archive'
+                'controller'     => \Municipio\Controller\Archive::class,
             ],
         ];
 
