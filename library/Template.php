@@ -137,7 +137,7 @@ class Template
          *TODO Rename PurposeController to just Purpose (currently in use as an interface)
          *------------------------------------------------------------------------**/
         // Controller condtitions
-        $isSingularPost = fn() => is_singular('page');
+        $hasPurpose = fn() => PurposeHelper::hasPurpose();
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
 
@@ -146,18 +146,18 @@ class Template
 
         $controllers  = [
             [
-                'condition'       => PurposeHelper::hasPurpose(),
-                'controllerClass' => \Municipio\Controller\PurposeController::class,
-                'controllerPath'  => ControllerHelper::locateController('PurposeTemplate')
+                'condition'       => $hasPurpose() && $isSingular(),
+                'controllerClass' => \Municipio\Controller\SingularPurpose::class,
+                'controllerPath'  => ControllerHelper::locateController('SingularPurpose')
+            ],[
+                'condition'       => $hasPurpose() && $isArchive(),
+                'controllerClass' => \Municipio\Controller\ArchivePurpose::class,
+                'controllerPath'  => ControllerHelper::locateController('ArchivePurpose')
             ],[
                 // If a controller for this specific WordPress template exists, use it
                 'condition'       => (bool) $templateControllerPath(),
                 'controllerClass' => $templateControllerNamespace() . ControllerHelper::camelCase($template),
                 'controllerPath'  => $templateControllerPath(),
-            ],[
-                'condition'       => $isSingularPost(),
-                'controllerClass' => \Municipio\Controller\SingularPost::class,
-                'controllerPath'  => ControllerHelper::locateController('SingularPost')
             ],[
                 'condition'       => $isSingular(),
                 'controllerClass' => \Municipio\Controller\Singular::class,
