@@ -15,7 +15,7 @@ class Purpose
     {
         $purposes    = [];
         foreach (\Municipio\Helper\Controller::getControllerPaths() as $path) {
-            if (is_dir($purposePath = $path . DIRECTORY_SEPARATOR . 'purpose')) {
+            if (is_dir($purposePath = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
                 $recurse = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($purposePath));
                 $recurse->setMaxDepth(1);
 
@@ -24,13 +24,12 @@ class Purpose
                         continue;
                     }
 
-                    $className = '\Municipio\Controller\\' . pathinfo($item->getFilename(), PATHINFO_FILENAME);
-                    if (!class_exists($className)) {
-                        require_once $item->getPathname();
-                    }
-                    if ('singular' === $className::getType()) {
-                        $purposes[$className::getKey()] = $className::getLabel();
-                    }
+                    require_once $item->getPathname();
+
+                    $purpose = \Municipio\Helper\Controller::getNamespace($item->getPathname()) . \Municipio\Helper\Controller::camelCase(pathinfo($item->getFilename(), PATHINFO_FILENAME));
+
+                    new $purpose();
+                    $purposes[$purpose::getKey()] = $purpose::getLabel();
                 }
             }
         }

@@ -149,24 +149,29 @@ class Template
                 'condition'       => $hasPurpose() && $isSingular(),
                 'controllerClass' => \Municipio\Controller\SingularPurpose::class,
                 'controllerPath'  => ControllerHelper::locateController('SingularPurpose')
-            ],[
+            ],
+            [
                 'condition'       => $hasPurpose() && $isArchive(),
                 'controllerClass' => \Municipio\Controller\ArchivePurpose::class,
                 'controllerPath'  => ControllerHelper::locateController('ArchivePurpose')
-            ],[
+            ],
+            [
                 // If a controller for this specific WordPress template exists, use it
                 'condition'       => (bool) $templateControllerPath(),
                 'controllerClass' => $templateControllerNamespace() . ControllerHelper::camelCase($template),
                 'controllerPath'  => $templateControllerPath(),
-            ],[
+            ],
+            [
                 'condition'       => $isSingular(),
                 'controllerClass' => \Municipio\Controller\Singular::class,
                 'controllerPath'  => ControllerHelper::locateController('Singular')
-            ],[
+            ],
+            [
                 'condition'       => $isArchive(),
                 'controllerClass' => \Municipio\Controller\Archive::class,
                 'controllerPath'  => ControllerHelper::locateController('Archive')
-            ],[
+            ],
+            [
                 'condition'       => true,
                 'controllerClass' => \Municipio\Controller\BaseController::class,
                 'controllerPath'  => ControllerHelper::locateController('BaseController')
