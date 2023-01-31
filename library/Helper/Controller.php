@@ -52,11 +52,6 @@ class Controller
             );
         }
 
-        $baseDir = MUNICIPIO_PATH . 'templates/';
-        foreach (@glob($baseDir . "*", GLOB_ONLYDIR) as $dir) {
-            $controllerPaths[] = $dir;
-        }
-
         return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths));
     }
 
