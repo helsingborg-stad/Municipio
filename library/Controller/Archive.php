@@ -185,6 +185,7 @@ class Archive extends \Municipio\Controller\BaseController
         if (isset($args->enabledFilters) && !empty($args->enabledFilters)) {
             return $args->enabledFilters;
         }
+        return false;
     }
 
     /**
@@ -424,10 +425,14 @@ class Archive extends \Municipio\Controller\BaseController
         $taxonomyObjects = [];
 
         //Get active taxonomy filters
-        $taxonomies = $args->enabledFilters;
+        $taxonomies = array_diff(
+            $args->enabledFilters,
+            [$this->currentTaxonomy()]
+        );
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
+
                 //Fetch full object
                 $taxonomy = get_taxonomy($taxonomy);
 
@@ -482,6 +487,18 @@ class Archive extends \Municipio\Controller\BaseController
 
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
+
+    /**
+     * Get the current taxonomy page
+     */
+    private function currentTaxonomy() {
+        $queriedObject = get_queried_object();
+
+        if(!empty($queriedObject->taxonomy)) {
+            return $queriedObject->taxonomy; 
+        }
+        return false; 
+    } 
 
     /**
      * Get posts in expected format for each component.
