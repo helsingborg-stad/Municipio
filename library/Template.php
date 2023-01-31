@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TODO Controller is currently loaded after view
- */
-
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
@@ -34,10 +30,12 @@ class Template
     }
 
     /**
-     * @param $view
-     * @param array $data
+     * @param string $view The template currently loaded.
+     * @param array $data void
+     *
+     * @return the rendered view.
      */
-    public function loadViewData($view, $data = array())
+    public function loadViewData(string $view = '', $data = array())
     {
 
         $viewData = $this->accessProtected(
@@ -133,9 +131,6 @@ class Template
             $template = 'E404';
         }
 
-        /**------------------------------------------------------------------------
-         *TODO Rename PurposeController to just Purpose (currently in use as an interface)
-         *------------------------------------------------------------------------**/
         // Controller condtitions
         $hasPurpose = fn() => PurposeHelper::hasPurpose();
         $isSingular = fn() => is_singular();
@@ -156,13 +151,15 @@ class Template
                 'controllerPath'  => ControllerHelper::locateController('ArchivePurpose')
             ],
             [
-                // If a controller for this specific WordPress template exists, use it
+                // If a controller for this specific WordPress template exists, use it.
+                // @see https://developer.wordpress.org/themes/basics/template-hierarchy/
                 'condition'       => (bool) $templateControllerPath(),
                 'controllerClass' => $templateControllerNamespace() . ControllerHelper::camelCase($template),
                 'controllerPath'  => $templateControllerPath(),
             ],
             [
                 'condition'       => $isSingular(),
+                'controllerClass' => \Municipio\Controller\Singular::class,
                 'controllerClass' => \Municipio\Controller\Singular::class,
                 'controllerPath'  => ControllerHelper::locateController('Singular')
             ],
