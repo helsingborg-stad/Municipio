@@ -59,8 +59,9 @@ class Navigation
         $publicPostTypes = \Municipio\Helper\PostType::getPublic();
 
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
-            foreach ($publicPostTypes as $postType) {
-                if ($postType->has_archive !== true) {
+            foreach ($publicPostTypes as $postTypeSlug => $postType) {
+
+                if ($postType->has_archive !== true && ($postTypeSlug != 'post' && !get_post_type_archive_link($postTypeSlug))) {
                     continue;
                 }
 
