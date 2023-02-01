@@ -131,30 +131,20 @@ class Template
             $template = 'E404';
         }
 
-        // Controller condtitions
-        $hasPurpose = fn() => PurposeHelper::hasPurpose();
+        // Controller conditions
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
 
-        $templateControllerPath = fn() => ControllerHelper::locateController($template);
+        $templateController = fn() => ControllerHelper::camelCase($template);
+        $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
         $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
 
         $controllers  = [
             [
-                'condition'       => $hasPurpose() && $isSingular(),
-                'controllerClass' => \Municipio\Controller\SingularPurpose::class,
-                'controllerPath'  => ControllerHelper::locateController('SingularPurpose')
-            ],
-            [
-                'condition'       => $hasPurpose() && $isArchive(),
-                'controllerClass' => \Municipio\Controller\ArchivePurpose::class,
-                'controllerPath'  => ControllerHelper::locateController('ArchivePurpose')
-            ],
-            [
                 // If a controller for this specific WordPress template exists, use it.
-                // @see https://developer.wordpress.org/themes/basics/template-hierarchy/
+                // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions
                 'condition'       => (bool) $templateControllerPath(),
-                'controllerClass' => $templateControllerNamespace() . ControllerHelper::camelCase($template),
+                'controllerClass' => $templateControllerNamespace() . $templateController(),
                 'controllerPath'  => $templateControllerPath(),
             ],
             [
@@ -192,6 +182,7 @@ class Template
      */
     private static function createController(array $c, string $template = ''): object
     {
+        echo '<pre>' . print_r($c, true) . '</pre>';
         require_once apply_filters('Municipio/blade/controller', $c['controllerPath']);
 
         do_action_deprecated(
