@@ -160,7 +160,6 @@ class Template
             [
                 'condition'       => $isSingular(),
                 'controllerClass' => \Municipio\Controller\Singular::class,
-                'controllerClass' => \Municipio\Controller\Singular::class,
                 'controllerPath'  => ControllerHelper::locateController('Singular')
             ],
             [
