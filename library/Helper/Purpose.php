@@ -28,7 +28,6 @@ class Purpose
 
                     $purpose = \Municipio\Helper\Controller::getNamespace($item->getPathname()) . \Municipio\Helper\Controller::camelCase(pathinfo($item->getFilename(), PATHINFO_FILENAME));
 
-                    new $purpose();
                     $purposes[$purpose::getKey()] = $purpose::getLabel();
                 }
             }
