@@ -18,7 +18,7 @@ class HoneyPot
         //Verification values
         $this->field_content = substr(md5(NONCE_SALT . NONCE_KEY), 5, 15);
         $this->field_name = substr(md5(AUTH_KEY), 5, 15);
-        $this->field_min_time = rand(4000, 6000);
+        $this->field_min_time = 4513;
 
         //Print frontend fields
         add_filter('comment_form_logged_in_after', array($this, 'addHoneyPotFieldFilled'));
@@ -144,6 +144,10 @@ class HoneyPot
         }
 
         //Validate timer
+
+        var_dump($_POST[$this->field_name . '_ti']);
+        var_dump($this->field_min_time); 
+
         if ($_POST[$this->field_name . '_ti'] != $this->field_min_time) {
             wp_die(__("Could not verify that you are human.", 'municipio') . " (ti)");
         }
