@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - CHANGELOG.md from [@nramstedt](https://github.com/nramstedt).
+- Example release in CHANGELOG.md (0.0.0)
 
-## [X.X.X] - 20XX-XX-XX
+## [0.0.0] - 1970-12-01
 
 ### Added
 
@@ -29,4 +30,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Another lorem ipsu fix
 
 [unreleased]: https://github.com/helsingborg-stad/municipio/compare/d14521595606482634fb3568dc2ea8f07a36286e...HEAD
-[X.X.X]: https://github.com/helsingborg-stad/municipio/compare/1.33.4...HEAD
+[0.0.0]: https://github.com/helsingborg-stad/municipio/compare/1.33.4...HEAD
