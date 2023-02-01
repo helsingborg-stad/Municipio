@@ -72,7 +72,7 @@ class Purpose
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => \Municipio\Helper\Purpose::getPurposes(),
+                    'choices' => \Municipio\Helper\Purpose::getAvailablePurposes(),
                     'default_value' => false,
                     'return_format' => 'value',
                     'multiple' => 0,

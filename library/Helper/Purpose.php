@@ -13,7 +13,7 @@ class Purpose
      *
      * @return array An array of all the classes .
      */
-    public static function getPurposes(): array
+    public static function getAvailablePurposes(): array
     {
         $purposes    = [];
         foreach (ControllerHelper::getControllerPaths() as $path) {
