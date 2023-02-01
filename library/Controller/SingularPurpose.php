@@ -20,33 +20,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
         );
     }
     /**
-     * The localized, singular label used to describe this class in dropdowns and similar circumstances.
-     *
-     * @return string The label
-     */
-    public static function getLabel(): string
-    {
-        return __('Project', 'municipio');
-    }
-    /**
-     * Returns the last part of the class name, in lowercase.
-     *
-     * @return string The name of the class without the namespace and without the word "Singular"
-     */
-    public static function getKey(): string
-    {
-        return strtolower(last(explode('\\', str_replace('Singular', '', get_class()))));
-    }
-    /**
-     * Returns the the parent class name, in lowercase.
-     *
-     * @return string The name of the parent class without the namespace
-     */
-    public static function getType(): string
-    {
-        return strtolower(last(explode('\\', get_parent_class())));
-    }
-    /**
      * It takes the structured data array, adds a new key/value pair to it, and returns the new array
      *
      * @param structuredData The structured data that's already been set.
