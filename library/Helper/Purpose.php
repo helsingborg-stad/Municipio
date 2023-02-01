@@ -2,19 +2,21 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Helper\Controller as ControllerHelper;
+
 class Purpose
 {
     /**
      * ! WIP
      * ! This method will need to be rebuilt when purposes are moved to library/Controller/Purpose
-     * Return an array containing key and label of all the purpose classes available in the registered controller directories.
+     * Return an array containing key and label of all the purposes available in the registered controller directories.
      *
      * @return array An array of all the classes .
      */
     public static function getPurposes(): array
     {
         $purposes    = [];
-        foreach (\Municipio\Helper\Controller::getControllerPaths() as $path) {
+        foreach (ControllerHelper::getControllerPaths() as $path) {
             if (is_dir($purposePath = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
                 $recurse = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($purposePath));
                 $recurse->setMaxDepth(1);
@@ -26,7 +28,7 @@ class Purpose
 
                     require_once $item->getPathname();
 
-                    $purpose = \Municipio\Helper\Controller::getNamespace($item->getPathname()) . \Municipio\Helper\Controller::camelCase(pathinfo($item->getFilename(), PATHINFO_FILENAME));
+                    $purpose = ControllerHelper::getNamespace($item->getPathname()) . ControllerHelper::camelCase(pathinfo($item->getFilename(), PATHINFO_FILENAME));
 
                     $purposes[$purpose::getKey()] = $purpose::getLabel();
                 }
@@ -35,13 +37,12 @@ class Purpose
         return $purposes;
     }
     /**
-     * `getPurpose()` returns the value of the `options_purpose_X` option, where X is the type (most commonly a post type)
+     * `getPurpose(X)` returns the value of the `options_purpose_X` option
      *
-     * @param string|WP_Post_Type type The type you want to get the purpose for.
-     *
-     * @return string|bool The value of the option with the key 'options_purpose_X'. Returns false if option is missing.
+     * @param string|WP_Post|WP_Post_Type type The type you want to get the purpose for.
+     * @return string The value of the option with the key 'options_purpose_X'.
      */
-    public static function getPurpose(string $type = ''): string
+    public static function getPurpose($type = ''): string
     {
         if ('' === $type) {
             $type = get_queried_object();
