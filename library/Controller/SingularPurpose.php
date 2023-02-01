@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Purpose as PurposeHelper;
+
 /**
  * Class SingularPurpose
  * @package Municipio\Controller
@@ -11,6 +13,8 @@ class SingularPurpose extends \Municipio\Controller\Singular
     public function __construct()
     {
         parent::__construct();
+
+        $this->data['purpose'] = PurposeHelper::getPurpose($this->data['postType']);
 
         add_filter('Municipio/StructuredData', array($this, 'setStructuredData'), 10, 3);
 
