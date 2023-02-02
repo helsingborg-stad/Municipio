@@ -53,17 +53,6 @@
     @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
     {!! $hook->loopEnd !!}
-
-    @include(
-        'partials.signature',
-        [
-            'classList' => [
-                'u-display--none@xs',
-                'u-display--none@sm'
-            ]
-        ]
-    )
-
 @stop
 
 @section('sidebar-right')
@@ -83,8 +72,7 @@
 
 @section('below')
     @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
-
-    @include(
+    @includeWhen(!$isBlogStyle,
         'partials.signature', 
         [
             'classList' => [
