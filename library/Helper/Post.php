@@ -146,7 +146,7 @@ class Post
      * @param boolean $includeLink      If a link should be included or not
      * @return array                    A array of terms to display
      */
-    protected static function getPostTerms($postId, $includeLink = false)
+    protected static function getPostTerms($postId, $includeLink = true)
     {
         $taxonomies = get_theme_mod(
             'archive_' . get_post_type($postId) . '_taxonomies_to_display',

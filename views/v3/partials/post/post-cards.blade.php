@@ -9,7 +9,7 @@
                     'heading' => $post->postTitle,
                     'classList' => ['t-archive-card', 'u-height--100', 'u-display--flex'],
                     'content' => $post->excerptShort,
-                    'tags' => $post->termsunlinked,
+                    'tags' => $post->termsUnlinked,
                     'date' => $post->archiveDate,
                     'dateBadge' => ($post->archiveDateFormat == 'date-badge'),
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
