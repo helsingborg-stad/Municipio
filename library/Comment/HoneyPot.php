@@ -144,10 +144,6 @@ class HoneyPot
         }
 
         //Validate timer
-
-        var_dump($_POST[$this->field_name . '_ti']);
-        var_dump($this->field_min_time); 
-
         if ($_POST[$this->field_name . '_ti'] != $this->field_min_time) {
             wp_die(__("Could not verify that you are human.", 'municipio') . " (ti)");
         }
