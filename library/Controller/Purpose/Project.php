@@ -110,7 +110,6 @@ class Project extends PurposeFactory
                 'country'  => $location['country'],
             ];
         }
-
         return array_merge($structuredData, $additionalData);
     }
 }
