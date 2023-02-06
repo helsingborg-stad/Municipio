@@ -3,6 +3,7 @@
 namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
+use Municipio\Helper\Controller as ControllerHelper;
 
 class Template
 {
@@ -63,18 +64,6 @@ class Template
                 }
             }
         }
-
-        $purpose = \Municipio\Helper\Purpose::getPurpose();
-        if ($purpose) {
-            if (is_singular()) {
-                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/singular.blade.php';
-            }
-
-            if (is_post_type_archive()) {
-                $view = MUNICIPIO_PATH . 'templates/' . $purpose . '/views/archive.blade.php';
-            }
-        }
-
 
         return $view;
     }
@@ -201,61 +190,93 @@ class Template
             (array)  $viewData
         );
     }
-
-    /**
-     * Loads controller for view template
-     * @param string $template Path to template
-     * @return object           The controller
-     */
-    public function loadController($template)
+/**
+    * Loads a controller
+    *
+    * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
+    * This means that a controller that has a priority of 0 will be applied first.
+    * Only one controller can be applied at a time and the method will exit once it's been applied.
+    *
+    * @param string template The WordPress template name, e.g. page, archive, 404, etc.
+    *
+    * @return object A new instance of the controller class.
+    */
+    public function loadController(string $template = ''): ?object
     {
         //Do something before controller creation
-        do_action_deprecated('Municipio/blade/before_load_controller', $template, '3.0', 'Municipio/blade/beforeLoadController');
+        do_action_deprecated(
+            'Municipio/blade/before_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/beforeLoadController'
+        );
 
         //Handle 404 renaming
-        if ($template == '404') {
+        if ($template === '404') {
             $template = 'E404';
         }
 
-        //Locate default controller
-        $controller = \Municipio\Helper\Controller::locateController($template);
+        // Controller conditions
+        $isSingular = fn() => is_singular();
+        $isArchive = fn() => is_archive() || is_home();
 
-        // Locate purpose controller
-        // TODO Make sure pageForPosttype also is handled correctly here
-        // TODO Also check that the controller actually exists before returning it
-        if (is_a(get_queried_object(), 'WP_Post_Type')) {
-            $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object());
-            if ($purpose) {
-                $controller = \Municipio\Helper\Controller::locateController('Archive' . ucfirst($purpose));
-            }
-        } elseif (is_a(get_queried_object(), 'WP_Post')) {
-            $purpose = \Municipio\Helper\Purpose::getPurpose(get_queried_object()->post_type);
-            if ($purpose) {
-                $controller = \Municipio\Helper\Controller::locateController('Singular' . ucfirst($purpose));
+        $templateController = fn() => ControllerHelper::camelCase($template);
+        $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
+        $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
+
+        $controllers  = [
+            [
+                // If a controller for this specific WordPress template exists, use it.
+                // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions
+                'condition'       => (bool) $templateControllerPath(),
+                'controllerClass' => $templateControllerNamespace() . $templateController(),
+                'controllerPath'  => $templateControllerPath(),
+            ],
+            [
+                'condition'       => $isSingular(),
+                'controllerClass' => \Municipio\Controller\Singular::class,
+                'controllerPath'  => ControllerHelper::locateController('Singular')
+            ],
+            [
+                'condition'       => $isArchive(),
+                'controllerClass' => \Municipio\Controller\Archive::class,
+                'controllerPath'  => ControllerHelper::locateController('Archive')
+            ],
+            [
+                'condition'       => true,
+                'controllerClass' => \Municipio\Controller\BaseController::class,
+                'controllerPath'  => ControllerHelper::locateController('BaseController')
+            ]
+        ];
+
+        foreach ($controllers as $controller) {
+            if ((bool) $controller['condition']) {
+                return self::createController($controller, $template);
             }
         }
 
-        //Locate fallback controller
-        if (!$controller && is_numeric(get_queried_object_id())) {
-            $controller = \Municipio\Helper\Controller::locateController('Singular');
-        } elseif (!$controller) {
-            $controller = \Municipio\Helper\Controller::locateController('BaseController');
-        }
-
-        //Filter
-        $controller = apply_filters('Municipio/blade/controller', $controller);
-
-        //Require controller
-        require_once $controller;
-        $namespace = \Municipio\Helper\Controller::getNamespace($controller);
-        $class = '\\' . $namespace . '\\' . basename($controller, '.php');
-
-        //Do something after controller creation
-        do_action_deprecated('Municipio/blade/after_load_controller', $template, '3.0', 'Municipio/blade/afterLoadController');
-
-        return new $class();
+        return null;
     }
+    /**
+     * It loads a controller class and returns an instance of it
+     *
+     * @param array c An array containing the controller class and path.
+     * @param string template The template name
+     *
+     * @return object An object of the controller class.
+     */
+    private static function createController(array $c, string $template = ''): object
+    {
+        require_once apply_filters('Municipio/blade/controller', $c['controllerPath']);
 
+        do_action_deprecated(
+            'Municipio/blade/after_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/afterLoadController'
+        );
+        return new $c['controllerClass']();
+    }
     /**
      * @param $view
      * @param array $data
@@ -276,7 +297,7 @@ class Template
             // use. But cannot be implemented due to some html
             // issues.
             if (class_exists('tidy') && isset($_GET['tidy'])) {
-                $tidy = new \tidy;
+                $tidy = new \tidy();
 
                 $tidy->parseString($markup, [
                     'indent'         => true,
@@ -338,22 +359,22 @@ class Template
     public function addTemplateFilters()
     {
         $types = array(
-            'index' => 'index.blade.php',
-            'home' => 'archive.blade.php',
-            'single' => 'single.blade.php',
-            'page' => 'page.blade.php',
-            '404' => '404.blade.php',
-            'archive' => 'archive.blade.php',
-            'author' => 'author.blade.php',
-            'category' => 'category.blade.php',
-            'tag' => 'tag.blade.php',
-            'taxonomy' => 'taxonomy.blade.php',
-            'date' => 'date.blade.php',
-            'front-page' => 'front-page.blade.php',
-            'paged' => 'paged.blade.php',
-            'search' => 'search.blade.php',
-            'singular' => 'singular.blade.php',
-            'attachment' => 'attachment.blade.php',
+        'index' => 'index.blade.php',
+        'home' => 'archive.blade.php',
+        'single' => 'single.blade.php',
+        'page' => 'page.blade.php',
+        '404' => '404.blade.php',
+        'archive' => 'archive.blade.php',
+        'author' => 'author.blade.php',
+        'category' => 'category.blade.php',
+        'tag' => 'tag.blade.php',
+        'taxonomy' => 'taxonomy.blade.php',
+        'date' => 'date.blade.php',
+        'front-page' => 'front-page.blade.php',
+        'paged' => 'paged.blade.php',
+        'search' => 'search.blade.php',
+        'singular' => 'singular.blade.php',
+        'attachment' => 'attachment.blade.php',
         );
 
         $types = apply_filters_deprecated('Municipio/blade/template_types', [$types], '3.0', 'Municipio/blade/templateTypes');
