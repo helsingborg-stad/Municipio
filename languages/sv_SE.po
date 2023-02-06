@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-06 11:42+0100\n"
-"PO-Revision-Date: 2023-02-06 13:05+0100\n"
+"POT-Creation-Date: 2023-02-06 13:31+0100\n"
+"PO-Revision-Date: 2023-02-06 13:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -5902,6 +5902,10 @@ msgstr "Automatiskt genererade posttyper från inställningspanel."
 msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr "Mer"
+
+#: library/Controller/Archive.php:84
+msgid "No items found at this query."
+msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
 #: library/Controller/Archive.php:85 library/Controller/Singular.php:33
 #: views/v1/partials/timestamps.blade.php:33

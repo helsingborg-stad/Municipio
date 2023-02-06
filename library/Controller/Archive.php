@@ -81,7 +81,7 @@ class Archive extends \Municipio\Controller\BaseController
             true
         );
 
-        $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found;
+        $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio');
         $this->data['lang']->publish          = __('Published', 'municipio');
         $this->data['lang']->updated          = __('Updated', 'municipio');
         $this->data['lang']->readMore         = __('Read more', 'municipio');
