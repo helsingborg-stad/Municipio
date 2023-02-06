@@ -158,6 +158,25 @@ class Archive
             ],
         ]);
 
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'archive_' . $archive->name . '_filter_type',
+            'label'       => esc_html__( 'Facetting type', 'kirki' ),
+            'description' => esc_html__( 'Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'kirki' ),
+            'section'     => $this->sectionId,
+            'default'     => 'or',
+            'choices'     => [
+                'or' => esc_html__( 'OR', 'kirki' ),
+                'and'  => esc_html__( 'AND', 'kirki' ),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ]
+        ]);
+
         if (!empty($archive->taxonomies)) {
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'select',

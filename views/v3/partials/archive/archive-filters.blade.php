@@ -108,7 +108,7 @@
 
                 <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                     @button([
-                        'text' => $lang->searchBtn,
+                        'text' => !$facettingType ? $lang->searchBtn : $lang->filterBtn,
                         'color' => 'primary',
                         'type' => 'submit',
                         'classList' => ['u-display--block@xs', 'u-width--100@xs'],
@@ -120,7 +120,7 @@
                     <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                         @button([
                             'href' => $archiveResetUrl,
-                            'text' => $lang->resetBtn,
+                            'text' => !$facettingType ? $lang->resetSearchBtn : $lang->resetFilterBtn,
                             'type' => 'basic',
                             'classList' => ['u-display--block@xs', 'u-width--100@xs']
                         ])

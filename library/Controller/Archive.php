@@ -42,6 +42,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
+        $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
 
         //Archive data
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
@@ -91,7 +92,9 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->dateInvalid      = __('Select a valid date', 'municipio');
 
         $this->data['lang']->searchBtn        = __('Search', 'municipio');
-        $this->data['lang']->resetBtn         = __('Reset filter', 'municipio');
+        $this->data['lang']->filterBtn        = __('Filter', 'municipio');
+        $this->data['lang']->resetSearchBtn   = __('Reset search', 'municipio');
+        $this->data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
         $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
         $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
     }
@@ -407,6 +410,17 @@ class Archive extends \Municipio\Controller\BaseController
             'Municipio/Controller/Archive/setQueryParameters',
             (object) $queryParameters
         );
+    }
+
+    /**
+     * Boolean function to determine if text search should be enabled
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
+    public function getFacettingType($args)
+    {
+        return (bool) $args->filterType; 
     }
 
     /**
