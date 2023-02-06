@@ -161,13 +161,13 @@ class Archive
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
             'settings'    => 'archive_' . $archive->name . '_filter_type',
-            'label'       => esc_html__( 'Facetting type', 'kirki' ),
-            'description' => esc_html__( 'Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'kirki' ),
+            'label'       => esc_html__( 'Facetting type', 'municipio'),
+            'description' => esc_html__( 'Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'municipio'),
             'section'     => $this->sectionId,
             'default'     => 'or',
             'choices'     => [
-                'or' => esc_html__( 'OR', 'kirki' ),
-                'and'  => esc_html__( 'AND', 'kirki' ),
+                'or' => esc_html__('OR', 'municipio'),
+                'and'  => esc_html__('AND', 'municipio'),
             ],
             'output' => [
                 [
