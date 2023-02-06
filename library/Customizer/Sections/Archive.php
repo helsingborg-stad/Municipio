@@ -143,6 +143,8 @@ class Archive
             'description' => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
             'multiple'    => 6,
             'section'     => $this->sectionId,
+            // Below prevents Kirki bugg from using faulty default sanitize_callback.
+            'sanitize_callback' => fn($values) => $values,
             'choices'     => array_merge(
                 [
                     'text_search' => esc_html__('Text search', 'municipio'),
@@ -167,6 +169,8 @@ class Archive
                 'multiple'    => 4,
                 'section'     => $this->sectionId,
                 'choices'     => $archive->taxonomies,
+                // Below prevents Kirki bugg from using faulty default sanitize_callback.
+                'sanitize_callback' => fn($values) => $values,
                 'output' => [
                     [
                         'type' => 'controller',
