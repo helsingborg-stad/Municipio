@@ -8,24 +8,18 @@ namespace Municipio\Controller\Purpose;
  */
 class Project extends PurposeFactory
 {
-    private $label;
-    private $key;
-
     public function __construct()
     {
-        $this->label = __('Project', 'municipio');
-        $this->key = 'project';
-
         // Append structured data
         add_filter('Municipio/StructuredData', array($this, 'appendStructuredData'), 10, 3);
     }
-    public function getLabel(): string
+    public static function getLabel(): string
     {
-        return $this->label;
+        return __('Project', 'municipio');
     }
-    public function getKey(): string
+    public static function getKey(): string
     {
-        return $this->key;
+        return 'project';
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data

@@ -4,21 +4,14 @@ namespace Municipio\Controller\Purpose;
 
 abstract class PurposeFactory
 {
-    private $key;
-    private $label;
-
-    public function __construct($key, $label)
+    public function __construct()
     {
-        $this->key = $key;
-        $this->label = $label;
     }
-    public function getLabel()
+    public static function getLabel()
     {
-        return $this->label;
     }
 
-    public function getKey()
+    public static function getKey()
     {
-        return $this->key;
     }
 }

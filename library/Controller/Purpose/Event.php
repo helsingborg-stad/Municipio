@@ -8,20 +8,15 @@ namespace Municipio\Controller\Purpose;
  */
 class Event extends PurposeFactory
 {
-    private $label;
-    private $key;
-
     public function __construct()
     {
-        $this->label = __('Event', 'municipio');
-        $this->key = 'event';
     }
-    public function getLabel(): string
+    public static function getLabel(): string
     {
-        return $this->label;
+        return __('Event', 'municipio');
     }
-    public function getKey(): string
+    public static function getKey(): string
     {
-        return $this->key;
+        return 'event';
     }
 }
