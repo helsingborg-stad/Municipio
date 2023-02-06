@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-06 11:42+0100\n"
-"PO-Revision-Date: 2023-02-06 11:46+0100\n"
+"PO-Revision-Date: 2023-02-06 13:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -6313,10 +6313,8 @@ msgid "Date range"
 msgstr "Period"
 
 #: library/Customizer/Sections/Archive.php:164
-#, fuzzy
-#| msgid "Link size"
 msgid "Facetting type"
-msgstr "Länkstorlek"
+msgstr "Filtreringsbeteende"
 
 #: library/Customizer/Sections/Archive.php:165
 msgid ""
