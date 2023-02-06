@@ -53,7 +53,7 @@ class PostFilters
 
         $grouped = array();
         $ungrouped = array();
-        $taxonomies = get_field('archive_' . sanitize_title($postType) . '_post_filters_sidebar', 'option');
+        $taxonomies = get_theme_mod('archive_' . sanitize_title($postType) . '_enabled_filters');
 
         if (!$taxonomies) {
             return array();
@@ -157,7 +157,11 @@ class PostFilters
             return $query;
         }
 
-        $taxQuery = array('relation' => 'OR');
+        if(get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false) == true) {
+            $taxQuery = array('relation' => 'AND');
+        } else {
+            $taxQuery = array('relation' => 'OR');
+        }
 
         foreach ($filterable as $key => $value) {
             if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {

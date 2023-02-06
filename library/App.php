@@ -117,6 +117,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
 
         /**
          * Customizer

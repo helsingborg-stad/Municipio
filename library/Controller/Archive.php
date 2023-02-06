@@ -42,6 +42,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
+        $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
 
         //Archive data
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
@@ -80,7 +81,7 @@ class Archive extends \Municipio\Controller\BaseController
             true
         );
 
-        $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found;
+        $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio');
         $this->data['lang']->publish          = __('Published', 'municipio');
         $this->data['lang']->updated          = __('Updated', 'municipio');
         $this->data['lang']->readMore         = __('Read more', 'municipio');
@@ -91,7 +92,9 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->dateInvalid      = __('Select a valid date', 'municipio');
 
         $this->data['lang']->searchBtn        = __('Search', 'municipio');
-        $this->data['lang']->resetBtn         = __('Reset filter', 'municipio');
+        $this->data['lang']->filterBtn        = __('Filter', 'municipio');
+        $this->data['lang']->resetSearchBtn   = __('Reset search', 'municipio');
+        $this->data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
         $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
         $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
     }
@@ -185,6 +188,7 @@ class Archive extends \Municipio\Controller\BaseController
         if (isset($args->enabledFilters) && !empty($args->enabledFilters)) {
             return $args->enabledFilters;
         }
+        return false;
     }
 
     /**
@@ -409,6 +413,17 @@ class Archive extends \Municipio\Controller\BaseController
     }
 
     /**
+     * Boolean function to determine if text search should be enabled
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
+    public function getFacettingType($args)
+    {
+        return (bool) $args->filterType; 
+    }
+
+    /**
      * Get taxonomy filters to show
      *
      * @param   string  $postType           The current post type
@@ -424,10 +439,14 @@ class Archive extends \Municipio\Controller\BaseController
         $taxonomyObjects = [];
 
         //Get active taxonomy filters
-        $taxonomies = $args->enabledFilters;
+        $taxonomies = array_diff(
+            $args->enabledFilters,
+            [$this->currentTaxonomy()]
+        );
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
+
                 //Fetch full object
                 $taxonomy = get_taxonomy($taxonomy);
 
@@ -482,6 +501,18 @@ class Archive extends \Municipio\Controller\BaseController
 
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
+
+    /**
+     * Get the current taxonomy page
+     */
+    private function currentTaxonomy() {
+        $queriedObject = get_queried_object();
+
+        if(!empty($queriedObject->taxonomy)) {
+            return $queriedObject->taxonomy; 
+        }
+        return false; 
+    } 
 
     /**
      * Get posts in expected format for each component.

@@ -10,6 +10,9 @@ class Editor
             add_action('admin_init', array($this, 'adminRedirects'), 1);
             add_action('admin_menu', array($this, 'adminMenus'), 9000);
         }
+
+        //Force unfiltered HTML. This feature is handled by laravel blade.
+        add_filter('acf/allow_unfiltered_html', '__return_true');
     }
 
     public function adminRedirects()
@@ -61,8 +64,8 @@ class Editor
 
     public function addCapabilities()
     {
-        $administrator = get_role('administrator');
-        $editor = get_role('editor');
+        $administrator  = get_role('administrator');
+        $editor         = get_role('editor');
 
         // Site admins
         $administrator->add_cap('unfiltered_html');

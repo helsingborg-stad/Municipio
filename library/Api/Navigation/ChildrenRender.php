@@ -2,10 +2,11 @@
 
 namespace Municipio\Api\Navigation;
 
+use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 
-class ChildrenRender extends Children
+class ChildrenRender extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = '/navigation/children/render';
@@ -33,7 +34,7 @@ class ChildrenRender extends Children
                 $navigationInstance = new \Municipio\Helper\Navigation($identifier);
                 $items = $navigationInstance->getPostChildren($parentId);
 
-                return array(
+                return rest_ensure_response(array(
                     'parentId' => $parentId,
                     'viewPath' => $viewPath ?: 'partials.navigation.mobile',
                     'markup' => render_blade_view($viewPath ?: 'partials.navigation.mobile', [
@@ -41,7 +42,7 @@ class ChildrenRender extends Children
                         'homeUrl' => esc_url(get_home_url()),
                         'depth' => $depth,
                     ])
-                );
+                ));
             }
         }
 

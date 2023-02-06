@@ -104,7 +104,7 @@ class Template
             (array)  $viewData
         );
     }
-   /**
+/**
     * Loads a controller
     *
     * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
@@ -170,6 +170,26 @@ class Template
         }
 
         return null;
+    }
+    /**
+     * It loads a controller class and returns an instance of it
+     *
+     * @param array c An array containing the controller class and path.
+     * @param string template The template name
+     *
+     * @return object An object of the controller class.
+     */
+    private static function createController(array $c, string $template = ''): object
+    {
+        require_once apply_filters('Municipio/blade/controller', $c['controllerPath']);
+
+        do_action_deprecated(
+            'Municipio/blade/after_load_controller',
+            $template,
+            '3.0',
+            'Municipio/blade/afterLoadController'
+        );
+        return new $c['controllerClass']();
     }
     /**
      * It loads a controller class and returns an instance of it
