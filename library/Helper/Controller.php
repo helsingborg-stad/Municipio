@@ -51,6 +51,12 @@ class Controller
                 DIRECTORY_SEPARATOR
             );
         }
+        // Check all registered controller paths for subdirectory "Purpose"
+        foreach ($controllerPaths as $controllerPath) {
+            if (is_dir($controllerPath . DIRECTORY_SEPARATOR . "Purpose")) {
+                $controllerPaths[] = $controllerPath . DIRECTORY_SEPARATOR . "Purpose";
+            }
+        }
 
         return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths));
     }
