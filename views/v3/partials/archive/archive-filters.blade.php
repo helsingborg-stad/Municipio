@@ -112,6 +112,7 @@
                         'color' => 'primary',
                         'type' => 'submit',
                         'classList' => ['u-display--block@xs', 'u-width--100@xs'],
+                        'icon' => !$facettingType ? 'search' : 'filter_list'
                     ])
                     @endbutton
                 </div>
