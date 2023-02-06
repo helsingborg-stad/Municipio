@@ -37,7 +37,6 @@ class Template
      */
     public function loadViewData(string $view = '', $data = array())
     {
-
         $viewData = $this->accessProtected(
             $this->loadController(
                 $this->getControllerNameFromView($view)
@@ -182,7 +181,6 @@ class Template
      */
     private static function createController(array $c, string $template = ''): object
     {
-        echo '<pre>' . print_r($c, true) . '</pre>';
         require_once apply_filters('Municipio/blade/controller', $c['controllerPath']);
 
         do_action_deprecated(
