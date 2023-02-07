@@ -44,13 +44,11 @@ class Project extends PurposeFactory
             $brands      = get_the_terms($postId, 'participants');
             $departments = get_the_terms($postId, 'operation');
             $sponsors    = get_the_terms($postId, 'partner');
-            $location    = (array) get_post_meta($postId, 'map', true);
         } else {
             $founder     = (array) get_post_meta($postId, 'founder');
             $brands      = (array) get_post_meta($postId, 'brands');
             $departments = (array) get_post_meta($postId, 'departments');
             $sponsors    = (array) get_post_meta($postId, 'sponsors');
-            $location    = (array) get_post_meta($postId, 'map', true);
         }
 
         if (is_iterable($founder) && !is_wp_error($founder)) {
@@ -84,25 +82,6 @@ class Project extends PurposeFactory
                     'name' => $department
                 ];
             }
-        }
-        if (!empty($location['address'])) {
-            $additionalData['location'][] = [
-                '@type'   => 'Place',
-                'address' => $location['address'],
-            ];
-        }
-        if (!empty($location['lat']) && !empty($location['lng'])) {
-            $additionalData['location'][] = [
-                '@type'     => 'GeoCoordinates',
-                'latitude'  => $location['lat'],
-                'longitude' => $location['lng'],
-            ];
-        }
-        if (!empty($location['country'])) {
-            $additionalData['location'][] = [
-                '@type'     => 'PostalAddess',
-                'country'  => $location['country'],
-            ];
         }
         return array_merge($structuredData, $additionalData);
     }
