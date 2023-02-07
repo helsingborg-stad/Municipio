@@ -14,10 +14,10 @@ class Singular extends \Municipio\Controller\BaseController
     public function init()
     {
         parent::init();
-        
+
         //Get post data
         $originalPostData = get_post($this->getPageID());
-        
+
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
         $this->data['isBlogStyle'] = $this->data['post']->postType === "post" || "nyheter" ? true : false;
@@ -172,7 +172,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $id
      * @return mixed
      */
-    private function getPostDates($id) : object
+    private function getPostDates($id): object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
             'published' => get_the_date(),

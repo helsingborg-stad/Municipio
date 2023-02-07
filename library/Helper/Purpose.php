@@ -9,7 +9,7 @@ class Purpose
     /**
      * @return array An array of all the purposes that are registered in the system.
      */
-    public static function getRegisteredPurposes(): array
+    public static function getRegisteredPurposes(bool $includeExtras = false): array
     {
         $purposes = [];
 
@@ -21,7 +21,15 @@ class Purpose
                     }
                     $class = ControllerHelper::getNamespace($filename) . '\\' . basename($filename, '.php');
                     if (method_exists($class, 'getKey') && method_exists($class, 'getLabel')) {
-                        $purposes[$class::getKey()] = $class::getLabel();
+                        if ($includeExtras) {
+                            $purposes[$class::getKey()] = [
+                                'label' => $class::getLabel(),
+                                'class' => $class,
+                                'path' => $filename
+                            ];
+                        } else {
+                            $purposes[$class::getKey()] = $class::getLabel();
+                        }
                     }
                 }
             }

@@ -134,11 +134,18 @@ class Template
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
 
+        $hasPurpose = fn() => PurposeHelper::hasPurpose();
+
         $templateController = fn() => ControllerHelper::camelCase($template);
         $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
         $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
 
         $controllers  = [
+            [
+                'condition'       => $hasPurpose() && $isSingular(),
+                'controllerClass' => \Municipio\Controller\SingularPurpose::class,
+                'controllerPath'  => ControllerHelper::locateController('SingularPurpose')
+            ],
             [
                 // If a controller for this specific WordPress template exists, use it.
                 // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions

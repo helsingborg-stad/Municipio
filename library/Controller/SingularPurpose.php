@@ -15,25 +15,24 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::__construct();
 
-        // ! TODO Remove this when done
-        require_once MUNICIPIO_PATH . 'library/Controller/Purpose/Project.php';
-        $project = new \Municipio\Controller\Purpose\Project();
-        // ! TODO
-        // ! 1) Get purposes for the currently loaded type of content (post type or taxonomy)
-        // ! 2) Iterate those and load each controller
-
-        if (!empty($purposes = PurposeHelper::getRegisteredPurposes())) {
-            foreach ($purposes as $purpose) {
-                echo '<pre>' . print_r($purpose, true) . '</pre>';
+        /**
+         * Load and instantiate the purposes registered in the system.
+         *
+         * @return void
+         */
+        $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
+        if (!empty($currentPurposes = PurposeHelper::getPurposes())) {
+            foreach ($currentPurposes as $purpose) {
+                if (is_file($availablePurposes[$purpose]['path'])) {
+                    require_once $availablePurposes[$purpose]['path'];
+                    new $availablePurposes[$purpose]['class']();
+                }
             }
         }
-
         // STRUCTURED DATA (SCHEMA.ORG)
         $this->data['structuredData'] = DataHelper::getStructuredData(
             $this->data['postType'],
             $this->getPageID()
         );
-
-        echo '<pre>' . print_r($this->data['structuredData'], true) . '</pre>';
     }
 }

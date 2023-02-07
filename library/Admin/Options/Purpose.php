@@ -7,7 +7,6 @@ class Purpose
     public function __construct()
     {
         add_action('init', array($this, 'init'), 999);
-        \Municipio\Helper\Purpose::getPurposes('project');
     }
 
     public function init()
