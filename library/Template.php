@@ -265,8 +265,11 @@ class Template
      *
      * @return object An object of the controller class.
      */
-    private static function createController(array $c, string $template = ''): object
+    private static function createController(array $c, string $template = ''): ?object
     {
+        if (!isset($c['controllerPath']) || !is_file($c['controllerPath'])) {
+            return null;
+        }
         require_once apply_filters('Municipio/blade/controller', $c['controllerPath']);
 
         do_action_deprecated(
