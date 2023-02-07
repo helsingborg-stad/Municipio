@@ -6,6 +6,9 @@ use Municipio\Helper\Controller as ControllerHelper;
 
 class Purpose
 {
+    /**
+     * @return array An array of all the purposes that are registered in the system.
+     */
     public static function getRegisteredPurposes(): array
     {
         $purposes = [];
@@ -26,7 +29,58 @@ class Purpose
         return $purposes;
     }
 
-    public static function getPurposes()
+   /**
+    * It returns an array of purposes for a given type.
+    *
+    * @param string $type The type of data to get the purposes for. This can be a post type or taxonomy.
+    *
+    * @return array An array of purposes.
+    */
+    public static function getPurposes(string $type = ''): array
     {
+        if ('' === $type) {
+            if ($current = get_queried_object()) {
+                if (is_a($current, 'WP_Post_Type')) {
+                    $type = $current->name;
+                } elseif (is_a($current, 'WP_Post')) {
+                    $type = $current->post_type;
+                } elseif (is_a($current, 'WP_Term')) {
+                    $type = $current->taxonomy;
+                } else {
+                    return [];
+                }
+            } else {
+                return [];
+            }
+        }
+
+        $purposes = get_option("options_purposes_{$type}", []);
+        return $purposes;
+    }
+    /**
+     * > If the current page is a post type, post or term, return true if the post type, post, or term taxonomy
+     * has a purpose
+     *
+     * @param string type The type of object you want to check.
+     * @return bool
+     */
+    public static function hasPurpose(string $type = ''): bool
+    {
+        if ('' === $type) {
+            if ($current = get_queried_object()) {
+                if (is_a($current, 'WP_Post_Type')) {
+                    $type = $current->name;
+                } elseif (is_a($current, 'WP_Post')) {
+                    $type = $current->post_type;
+                } elseif (is_a($current, 'WP_Term')) {
+                    $type = $current->taxonomy;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return (bool) count(self::getPurposes($type));
     }
 }
