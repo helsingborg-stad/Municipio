@@ -17,7 +17,9 @@ class Purpose
                         continue;
                     }
                     $class = ControllerHelper::getNamespace($filename) . '\\' . basename($filename, '.php');
-                    $purposes[$class::getKey()] = $class::getLabel();
+                    if (method_exists($class, 'getKey') && method_exists($class, 'getLabel')) {
+                        $purposes[$class::getKey()] = $class::getLabel();
+                    }
                 }
             }
         }
