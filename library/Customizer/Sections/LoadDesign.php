@@ -2,11 +2,15 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Kirki\Compatibility\Kirki;
+use Municipio\Customizer;
+
 class LoadDesign
 {
-    public const SECTION_ID         = "municipio_customizer_section_designlib";
-    private const API_URL           = 'https://customizer.helsingborg.io/';
-    private const LOAD_DESIGN_KEY   = 'load_design';
+    public const SECTION_ID                 = "municipio_customizer_section_designlib";
+    private const API_URL                   = 'https://customizer.helsingborg.io/';
+    private const LOAD_DESIGN_KEY           = 'load_design';
+    private const EXCLUDE_LOAD_DESIGN_KEY   = 'exclude_load_design';
 
     private $uniqueId               = null;
 
@@ -22,17 +26,14 @@ class LoadDesign
             return;
         }
 
-        $this->uniqueId = uniqid();
-
-        \Kirki::add_section(self::SECTION_ID, array(
+        Kirki::add_section(self::SECTION_ID, array(
             'title'       => esc_html__('Load a design', 'municipio'),
             'description' => esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
 
-        //Example controller variable
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => self::LOAD_DESIGN_KEY,
             'label'       => esc_html__('Select a design', 'municipio'),
@@ -40,6 +41,19 @@ class LoadDesign
             'default'     => false,
             'priority'    => 10,
             'choices'     => $this->loadOptions(),
+            'transport'    => 'postMessage'
+        ]);
+
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'multiple'    => true,
+            'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
+            'label'       => esc_html__('Keep local values', 'municipio'),
+            'description' => esc_html__('Select theme options not to be overwritten on import.', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => [],
+            'priority'    => 10,
+            'choices'     => $this->getSharedAttributesAsOptions(),
             'transport'    => 'postMessage'
         ]);
 
@@ -60,6 +74,22 @@ class LoadDesign
                 wp_schedule_event(time(), 'daily', 'municipio_store_theme_mod');
             }
         });
+    }
+
+    private function getSharedAttributesAsOptions()
+    {
+        $options = [];
+        $keys = array_keys($this->getSharedAttributes());
+
+        foreach ($keys as $key) {
+            if (isset(Kirki::$all_fields[$key]) && !empty(Kirki::$all_fields[$key]['label'])) {
+                $options[$key] = Kirki::$all_fields[$key]['label'];
+            } else {
+                $options[$key] = $key;
+            }
+        }
+
+        return $options;
     }
 
     /**
@@ -159,7 +189,11 @@ class LoadDesign
         if (!empty($mods)) {
             foreach ($mods as $key => $mod) {
                 //Prohibited keys
-                if (in_array($key, ['load_design'])) {
+                if (in_array($key, [self::LOAD_DESIGN_KEY])) {
+                    continue;
+                }
+
+                if (in_array($key, [self::EXCLUDE_LOAD_DESIGN_KEY])) {
                     continue;
                 }
 
