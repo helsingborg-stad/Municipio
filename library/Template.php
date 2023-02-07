@@ -37,12 +37,10 @@ class Template
      */
     public function loadViewData(string $view = '', $data = array())
     {
-        $viewData = $this->accessProtected(
-            $this->loadController(
-                $this->getControllerNameFromView($view)
-            ),
-            'data'
-        );
+
+        $controller = $this->loadController($this->getControllerNameFromView($view));
+        $viewData   = $this->accessProtected($controller['data'], 'data');
+        $view       = $controller['view'];
 
         $isArchive = fn() => is_archive() || is_home();
         $postType = get_post_type();
@@ -115,7 +113,7 @@ class Template
     *
     * @return object A new instance of the controller class.
     */
-    public function loadController(string $template = ''): ?object
+    public function loadController(string $template = ''): array
     {
         //Do something before controller creation
         do_action_deprecated(
@@ -144,7 +142,8 @@ class Template
             [
                 'condition'       => $hasPurpose() && $isSingular(),
                 'controllerClass' => \Municipio\Controller\SingularPurpose::class,
-                'controllerPath'  => ControllerHelper::locateController('SingularPurpose')
+                'controllerPath'  => ControllerHelper::locateController('SingularPurpose'),
+                'view'            => 'singular-purpose',
             ],
             [
                 // If a controller for this specific WordPress template exists, use it.
@@ -172,11 +171,17 @@ class Template
 
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
-                return self::createController($controller, $template);
+                if (!empty($controller['view'])) {
+                    $template = $controller['view'];
+                }
+                return [
+                    'data' => self::createController($controller, $template),
+                    'view' => $template
+                ];
             }
         }
 
-        return null;
+        return [];
     }
     /**
      * It loads a controller class and returns an instance of it
