@@ -4,7 +4,7 @@ namespace Municipio\Controller\Purpose;
 
 abstract class PurposeFactory
 {
-    public function __construct()
+    public function init()
     {
     }
     public static function getLabel()

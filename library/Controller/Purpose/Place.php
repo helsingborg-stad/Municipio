@@ -8,7 +8,7 @@ namespace Municipio\Controller\Purpose;
  */
 class Place extends PurposeFactory
 {
-    public function __construct()
+    public function init()
     {
         // Append structured data
         add_filter('Municipio/StructuredData', array($this, 'appendStructuredData'), 10, 3);

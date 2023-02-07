@@ -25,7 +25,9 @@ class SingularPurpose extends \Municipio\Controller\Singular
             foreach ($currentPurposes as $purpose) {
                 if (is_file($availablePurposes[$purpose]['path'])) {
                     require_once $availablePurposes[$purpose]['path'];
-                    new $availablePurposes[$purpose]['class']();
+
+                    $purposeObject = new $availablePurposes[$purpose]['class']();
+                    $purposeObject->init();
                 }
             }
         }

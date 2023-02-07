@@ -8,7 +8,7 @@ namespace Municipio\Controller\Purpose;
  */
 class Event extends PurposeFactory
 {
-    public function __construct()
+    public function init()
     {
     }
     public static function getLabel(): string
