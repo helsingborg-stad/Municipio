@@ -16,7 +16,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::__construct();
 
         /**
-         * Load and instantiate the purposes registered in the system.
+         * Load and instantiate the purposes.
          *
          * @return void
          */
