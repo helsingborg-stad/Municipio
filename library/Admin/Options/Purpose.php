@@ -7,6 +7,7 @@ class Purpose
     public function __construct()
     {
         add_action('init', array($this, 'init'), 999);
+        \Municipio\Helper\Purpose::getPurposes('project');
     }
 
     public function init()
@@ -16,8 +17,8 @@ class Purpose
 
             if ($this->renderFieldGroups($postTypes)) {
                 acf_add_options_sub_page(array(
-                    'page_title' => __('Post Types Purpose', 'municipio'),
-                    'menu_title' => __('Post Types Purpose', 'municipio'),
+                    'page_title' => __('Purpose templates', 'municipio'),
+                    'menu_title' => __('Purposes', 'municipio'),
                     'parent_slug' => 'themes.php',
                     'capability' => 'administrator',
                     'menu_slug' => 'acf-options-purpose'
@@ -61,13 +62,13 @@ class Purpose
         }
 
         return array(
-            'key' => 'group_purpose_' . $postTypeObject->name,
-            'title' => __('Post Type Purpose', 'municipio'),
+            'key' => 'group_purposes_' . $postTypeObject->name,
+            'title' => __('Purpose templates', 'municipio'),
             'fields' => array(
                 0 => array(
-                    'key' => 'field_purpose_' . $postTypeObject->name,
+                    'key' => 'field_purposes_' . $postTypeObject->name,
                     'label' => $postTypeObject->label,
-                    'name' => 'purpose_' . $postTypeObject->name,
+                    'name' => 'purposes_' . $postTypeObject->name,
                     'aria-label' => '',
                     'type' => 'select',
                     'instructions' => '',
@@ -81,7 +82,7 @@ class Purpose
                     'choices' => $choices,
                     'default_value' => false,
                     'return_format' => 'value',
-                    'multiple' => 0,
+                    'multiple' => 1,
                     'allow_custom' => 0,
                     'placeholder' => '',
                     'search_placeholder' => '',
