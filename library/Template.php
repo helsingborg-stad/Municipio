@@ -36,17 +36,17 @@ class Template
      *
      * @return the rendered view.
      */
-    public function loadViewData(string $view = '', $data = array())
+    public function loadViewData(string $originalTemplate = '', $data = array())
     {
-
-        $controller = $this->loadController($view);
+        $controller = $this->loadController($originalTemplate);
         $viewData   = $this->accessProtected($controller['data'], 'data');
 
-        // Set view based on controller instructions, if any
-        if ((bool) TemplateHelper::locateView($controller['data']->view)) {
-            $view = $controller['data']->view;
-        } elseif ((bool) TemplateHelper::locateView($controller['view'])) {
-            $view = $controller['view'];
+        // Set view based on controller instructions, if any.
+        // First checks $controller['data']->view, then $controller['view']
+        $view = $controller['data']->view ?? $controller['view'] ?? null;
+        if (empty(TemplateHelper::locateView($view))) {
+            // If set view doesn't exist, fall back to original template.
+            $view = $originalTemplate;
         }
 
         $isArchive = fn() => is_archive() || is_home();
