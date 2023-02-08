@@ -7,6 +7,28 @@ class Purpose
     public function __construct()
     {
         add_action('init', array($this, 'init'), 999);
+        add_action('acf/load_field/name=purposes', array($this, 'loadPurposeFieldChoices'));
+    }
+
+    /**
+     * Loads all registered purposes and adds them to the field choices
+     *
+     * @param field The field object
+     *
+     * @return The field with the choices.
+     */
+    public function loadPurposeFieldChoices($field)
+    {
+        $choices = [];
+        if (!empty($purposes = \Municipio\Helper\Purpose::getRegisteredPurposes())) {
+            foreach ($purposes as $key => $label) {
+                $choices[$key] = $label;
+            }
+        }
+        if (!empty($field['choices'])) {
+            $field['choices'] = $choices;
+        }
+        return $field;
     }
 
     public function init()
