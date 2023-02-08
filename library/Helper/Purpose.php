@@ -34,7 +34,7 @@ class Purpose
                 }
             }
         }
-        return $purposes;
+        return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
     }
 
    /**
@@ -63,7 +63,7 @@ class Purpose
         }
 
         $purposes = get_option("options_purposes_{$type}", []);
-        return $purposes;
+        return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
     /**
      * > If the current page is a post type, post or term, return true if the post type, post, or term taxonomy
