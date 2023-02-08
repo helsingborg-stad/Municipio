@@ -140,6 +140,11 @@ class Template
                 'controllerPath'  => ControllerHelper::locateController('E404'),
             ],
             [
+                'condition'       => $hasPurpose() && $isSingular(),
+                'controllerClass' => \Municipio\Controller\SingularPurpose::class,
+                'controllerPath'  => ControllerHelper::locateController('SingularPurpose'),
+            ],
+            [
                 // If a controller for this specific WordPress template exists, use it.
                 // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions
                 'condition'       => (bool) $templateControllerPath(),

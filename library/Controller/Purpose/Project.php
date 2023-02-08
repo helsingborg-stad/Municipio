@@ -2,12 +2,21 @@
 
 namespace Municipio\Controller\Purpose;
 
+use Municipio\Controller\Purpose\Place;
+
 /**
  * Class Project
  * @package Municipio\Controller\Purpose
  */
 class Project extends PurposeFactory
 {
+    public function __construct()
+    {
+        // Always include Place in Project:
+        $place = new Place();
+        $place->init();
+    }
+
     public function init()
     {
         // Append structured data
