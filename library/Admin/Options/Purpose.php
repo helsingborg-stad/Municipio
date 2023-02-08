@@ -7,7 +7,7 @@ class Purpose
     public function __construct()
     {
         add_action('init', array($this, 'init'), 999);
-        add_action('acf/load_field/name=purposes', array($this, 'loadPurposeFieldChoices'));
+        add_action('acf/load_field/key=field_63e3852d5d07b', array($this, 'loadPurposeFieldChoices'));
     }
 
     /**
