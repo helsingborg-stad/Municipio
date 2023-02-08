@@ -38,7 +38,7 @@ class Template
     public function loadViewData(string $view = '', $data = array())
     {
 
-        $controller = $this->loadController();
+        $controller = $this->loadController($view);
         $viewData   = $this->accessProtected($controller['data'], 'data');
         $view       = $controller['view'];
 
