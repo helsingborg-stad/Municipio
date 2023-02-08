@@ -211,11 +211,6 @@ class Template
             'Municipio/blade/beforeLoadController'
         );
 
-        //Handle 404 renaming
-        if ($template === '404') {
-            $template = 'E404';
-        }
-
         // Controller conditions
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
@@ -225,6 +220,11 @@ class Template
         $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
 
         $controllers  = [
+            [
+                'condition'       => ('404' === $template),
+                'controllerClass' => \Municipio\Controller\E404::class,
+                'controllerPath'  => ControllerHelper::locateController('E404'),
+            ],
             [
                 // If a controller for this specific WordPress template exists, use it.
                 // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions
