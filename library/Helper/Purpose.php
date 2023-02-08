@@ -62,7 +62,7 @@ class Purpose
             }
         }
 
-        $purposes = get_option("options_purposes_{$type}", []);
+        $purposes = (array) get_option("options_purposes_{$type}", []);
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
     /**

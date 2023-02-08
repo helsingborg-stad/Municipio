@@ -11,14 +11,13 @@ use Municipio\Helper\Purpose as PurposeHelper;
  */
 class SingularPurpose extends \Municipio\Controller\Singular
 {
+    public $view;
     public function __construct()
     {
         parent::__construct();
 
         /**
          * Load and instantiate the purposes.
-         *
-         * @return void
          */
         $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
         if (!empty($currentPurposes = PurposeHelper::getPurposes())) {

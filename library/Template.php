@@ -5,6 +5,7 @@ namespace Municipio;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Purpose as PurposeHelper;
+use Municipio\Helper\Template as TemplateHelper;
 
 class Template
 {
@@ -40,7 +41,13 @@ class Template
 
         $controller = $this->loadController($view);
         $viewData   = $this->accessProtected($controller['data'], 'data');
-        $view       = $controller['view'];
+
+        // Set view based on controller instructions, if any
+        if ((bool) TemplateHelper::locateView($controller['data']->view)) {
+            $view = $controller['data']->view;
+        } elseif ((bool) TemplateHelper::locateView($controller['view'])) {
+            $view = $controller['view'];
+        }
 
         $isArchive = fn() => is_archive() || is_home();
         $postType = get_post_type();
