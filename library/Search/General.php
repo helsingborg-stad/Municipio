@@ -25,7 +25,7 @@ class General
     {
 
         if ($identifier == "primary") {
-            $enabledLocations = (array) get_field('search_display', 'option');
+            $enabledLocations = (array) get_theme_mod('search_display');
 
             if (is_search()) {
                 return $data;
