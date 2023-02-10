@@ -185,9 +185,14 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function showFilter($args)
     {
-        if (isset($args->enabledFilters) && !empty($args->enabledFilters)) {
+        $arrayWithoutEmptyValues = isset($args->enabledFilters)
+            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
+            : [];
+        
+        if (empty($arrayWithoutEmptyValues)) {
             return $args->enabledFilters;
         }
+
         return false;
     }
 
