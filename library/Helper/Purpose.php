@@ -91,4 +91,16 @@ class Purpose
         }
         return (bool) count(self::getPurposes($type));
     }
+
+    /**
+     * If the user has opted to skip the purpose template, return true. Otherwise, return false.
+     *
+     * @param string type The type of template to check.
+     *
+     * @return bool A boolean value.
+     */
+    public function skipPurposeTemplate(string $type = ''): bool
+    {
+        return (bool) get_option("skip_purpose_template_{$type}", false);
+    }
 }
