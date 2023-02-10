@@ -36,6 +36,32 @@ class Header
 
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
+            'settings'    => 'header_alignment',
+            'label'       => esc_html__('Menu alignment', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'gap',
+            'priority'    => 10,
+            'choices'     => [
+                'gap' => esc_html__('Gap between', 'municipio'),
+                'left' => esc_html__('Left', 'municipio'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'header_apperance',
+                    'operator' => '==',
+                    'value'    => 'business',
+                ]
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header.nav'],
+                ]
+            ],
+        ]);
+
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
             'settings'    => 'header_sticky',
             'label'       => esc_html__('Sticky', 'municipio'),
             'description' => esc_html__('Adjust how the header section should behave when the user scrolls trough the page.', 'municipio'),

@@ -6,7 +6,7 @@ class Images
 {
     public function __construct()
     {
-        add_filter('the_content', array($this, 'normalizeImages'));
+        add_filter('the_content', array($this, 'normalizeImages'), 11);
     }
     /**
      * It takes a string of HTML, finds all images and links containing images, and replaces them with
