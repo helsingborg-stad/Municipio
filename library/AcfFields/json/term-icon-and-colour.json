@@ -18,7 +18,7 @@
             },
             "uploader": "",
             "acfe_thumbnail": 0,
-            "return_format": "array",
+            "return_format": "id",
             "min_width": "",
             "min_height": "",
             "min_size": "",
