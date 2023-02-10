@@ -188,8 +188,8 @@ class Archive extends \Municipio\Controller\BaseController
         $arrayWithoutEmptyValues = isset($args->enabledFilters)
             ? array_filter($args->enabledFilters, fn($element) => !empty($element))
             : [];
-        
-        if (empty($arrayWithoutEmptyValues)) {
+
+        if (!empty($arrayWithoutEmptyValues)) {
             return $args->enabledFilters;
         }
 
@@ -425,6 +425,9 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function getFacettingType($args)
     {
+        if(!isset($args->filterType) || is_null($args->filterType)) {
+            $args->filterType = false;
+        }
         return (bool) $args->filterType; 
     }
 
