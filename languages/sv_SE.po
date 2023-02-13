@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-10 10:20+0100\n"
-"PO-Revision-Date: 2023-02-10 10:21+0100\n"
+"POT-Creation-Date: 2023-02-13 18:24+0100\n"
+"PO-Revision-Date: 2023-02-13 18:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -1193,7 +1193,7 @@ msgstr "colorize"
 
 #: library/AcfFields/php/options-menu-icon.php:228
 msgid "comment"
-msgstr "Kommentar"
+msgstr "kommentar"
 
 #: library/AcfFields/php/options-menu-icon.php:229
 msgid "commute"
@@ -4966,7 +4966,7 @@ msgid "Display the notice after this many days"
 msgstr "Visa notisen på inlägg äldre än så här många dagar"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:204
 msgid "days"
 msgstr "dagar"
 
@@ -5574,6 +5574,11 @@ msgstr "Ladda upp bild"
 msgid "Media link"
 msgstr "Medialänk"
 
+#: library/Admin/Acf/LocationRulesPurpose.php:8
+#: library/Admin/Options/Purpose.php:67
+msgid "Purpose"
+msgstr "Syfte"
+
 #: library/Admin/General.php:106
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
@@ -5631,13 +5636,51 @@ msgstr "Samtyckes kommentar"
 msgid "None (link to #translate to show)"
 msgstr "Ingen, länka till #translate för att visa"
 
-#: library/Admin/Options/Purpose.php:19 library/Admin/Options/Purpose.php:20
-msgid "Post Types Purpose"
-msgstr "Innehållstyper"
+#: library/Admin/Options/Purpose.php:19
+msgid "Purpose templates"
+msgstr ""
 
-#: library/Admin/Options/Purpose.php:59
-msgid "Post Type Purpose"
-msgstr "Innehållstyp"
+#: library/Admin/Options/Purpose.php:20
+msgid "Purposes"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:86
+msgid "Select purpose"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
+#: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:98
+#: library/Controller/BaseController.php:212
+#: library/Customizer/Sections/Search.php:15 library/Search/General.php:53
+#: library/Widget/Navigation/Navigation.php:66
+#: views/v1/partials/archive-filters.blade.php:40
+#: views/v1/partials/archive-filters.blade.php:43
+#: views/v1/partials/archive-filters.blade.php:79
+#: views/v2/partials/archive-filters.blade.php:40
+#: views/v2/partials/archive-filters.blade.php:43
+#: views/v2/partials/archive-filters.blade.php:79
+msgid "Search"
+msgstr "Sök"
+
+#: library/Admin/Options/Purpose.php:92
+msgid "Template"
+msgstr "Mall"
+
+#: library/Admin/Options/Purpose.php:96
+msgid "Check to <u>not</u> use the custom template for this post type."
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:104
+msgid "Do not use purpose template"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:107
+msgid "Use"
+msgstr "Använd"
+
+#: library/Admin/Options/Purpose.php:108
+msgid "Do not use"
+msgstr ""
 
 #: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
@@ -5652,19 +5695,6 @@ msgstr "Anpassning"
 #: library/Customizer/Sections/Width.php:38
 msgid "Content"
 msgstr "Innehåll"
-
-#: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:94 library/Controller/BaseController.php:214
-#: library/Customizer/Sections/Search.php:15 library/Search/General.php:53
-#: library/Widget/Navigation/Navigation.php:66
-#: views/v1/partials/archive-filters.blade.php:40
-#: views/v1/partials/archive-filters.blade.php:43
-#: views/v1/partials/archive-filters.blade.php:79
-#: views/v2/partials/archive-filters.blade.php:40
-#: views/v2/partials/archive-filters.blade.php:43
-#: views/v2/partials/archive-filters.blade.php:79
-msgid "Search"
-msgstr "Sök"
 
 #: library/Admin/Options/Theme.php:75
 msgid "Custom Post Types"
@@ -5761,7 +5791,7 @@ msgstr "Lämna en kommentar"
 
 #: library/Comment/Form.php:40
 msgid "You need to login before leaving a comment."
-msgstr "Du behöver logga in för att kunna lämna en kommentar. "
+msgstr "Du behöver logga in för att kunna lämna en kommentar."
 
 #: library/Comment/Form.php:59
 msgid "Cancel reply"
@@ -5843,176 +5873,176 @@ msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr "Fler %s"
 
-#: library/Controller/Archive.php:84
+#: library/Controller/Archive.php:88
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/Archive.php:85 library/Controller/Singular.php:34
+#: library/Controller/Archive.php:89 library/Controller/Singular.php:34
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:86 library/Controller/Singular.php:33
+#: library/Controller/Archive.php:90 library/Controller/Singular.php:33
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: library/Controller/Archive.php:87
+#: library/Controller/Archive.php:91
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/Archive.php:90
+#: library/Controller/Archive.php:94
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/Archive.php:91
+#: library/Controller/Archive.php:95
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: library/Controller/Archive.php:92
+#: library/Controller/Archive.php:96
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:95
+#: library/Controller/Archive.php:99
 msgid "Filter"
 msgstr "Filtrera"
 
-#: library/Controller/Archive.php:96
+#: library/Controller/Archive.php:100
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: library/Controller/Archive.php:97
+#: library/Controller/Archive.php:101
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/Archive.php:98
+#: library/Controller/Archive.php:102
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
-#: library/Controller/Archive.php:99
+#: library/Controller/Archive.php:103
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/Archive.php:485
+#: library/Controller/Archive.php:514
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:192 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:190 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:193
+#: library/Controller/BaseController.php:191
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:192
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:193
 msgid "Skip to the main content"
 msgstr "Gå till innehåll"
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:194
 msgid "Skip to the main menu"
 msgstr "Gå till huvudmeny"
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:195
 msgid "Skip to the side menu"
 msgstr "Gå till sidomeny"
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:196
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:197
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:198
 msgid "years"
 msgstr "år"
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:199
 msgid "year"
 msgstr "år"
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:200
 msgid "months"
 msgstr "månader"
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:201
 msgid "month"
 msgstr "månad"
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:202
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:203
 msgid "week"
 msgstr "vecka"
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:205
 msgid "day"
 msgstr "dag"
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:206
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:207
 msgid "hour"
 msgstr "timme"
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:208
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:211
+#: library/Controller/BaseController.php:209
 msgid "minute"
 msgstr "minut"
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:210
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:211
 msgid "second"
 msgstr "sekund"
 
-#: library/Controller/BaseController.php:215
+#: library/Controller/BaseController.php:213
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:216
+#: library/Controller/BaseController.php:214
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
-#: library/Controller/BaseController.php:217
+#: library/Controller/BaseController.php:215
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:218
+#: library/Controller/BaseController.php:216
 #: library/Customizer/Sections/HamburgerMenu.php:12
 #: library/Customizer/Sections/Search.php:30 library/Theme/Navigation.php:27
 msgid "Hamburger menu"
 msgstr "Hamburgermeny"
 
-#: library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:217
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:218
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:221 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:219 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -6020,15 +6050,15 @@ msgstr "Relaterade länkar"
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:222
+#: library/Controller/BaseController.php:220
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Controller/BaseController.php:223
+#: library/Controller/BaseController.php:221
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:224
+#: library/Controller/BaseController.php:222
 msgid "More Languages"
 msgstr "Fler språk"
 
@@ -6054,6 +6084,18 @@ msgstr ""
 #: library/Controller/E404.php:84
 msgid "post"
 msgstr "post"
+
+#: library/Controller/Purpose/Event.php:24
+msgid "Event"
+msgstr "Evenemang"
+
+#: library/Controller/Purpose/Place.php:18
+msgid "Place"
+msgstr "Plats"
+
+#: library/Controller/Purpose/Project.php:27
+msgid "Project"
+msgstr "Projekt"
 
 #: library/Controller/Search.php:14
 msgid "The searchquery did not match any content."
@@ -8193,10 +8235,6 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
-#: templates/project/SingularProject.php:29
-msgid "Project"
-msgstr "Projekt"
-
 #: views/v1/archive-event.blade.php:70
 msgctxt "Event archive"
 msgid "Date"
@@ -8394,6 +8432,12 @@ msgstr "Pris"
 #: views/v1/single-listing.blade.php:61
 msgid "Attached files"
 msgstr "Bifogade filer"
+
+#~ msgid "Post Types Purpose"
+#~ msgstr "Innehållstyper"
+
+#~ msgid "Post Type Purpose"
+#~ msgstr "Innehållstyp"
 
 #~ msgid "Term icon & colour"
 #~ msgstr "Ikon & färg"
@@ -10153,11 +10197,6 @@ msgstr "Bifogade filer"
 #~ msgstr "Inläggstyper"
 
 #, fuzzy
-#~| msgid "The footer area "
-#~ msgid "Template"
-#~ msgstr "Sidfotsyta"
-
-#, fuzzy
 #~| msgid "Increase"
 #~ msgid "Areas"
 #~ msgstr "Öka"
@@ -10223,11 +10262,5 @@ msgstr "Bifogade filer"
 #~ msgid "Primary menu settings"
 #~ msgstr "Primär menu"
 
-#~ msgid "Event"
-#~ msgstr "Evenemang"
-
 #~ msgid "Job Listing"
 #~ msgstr "Jobbannons"
-
-#~ msgid "Place"
-#~ msgstr "Plats"
