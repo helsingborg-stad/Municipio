@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-13 18:24+0100\n"
-"PO-Revision-Date: 2023-02-13 18:29+0100\n"
+"PO-Revision-Date: 2023-02-13 18:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -5638,15 +5638,15 @@ msgstr "Ingen, länka till #translate för att visa"
 
 #: library/Admin/Options/Purpose.php:19
 msgid "Purpose templates"
-msgstr ""
+msgstr "Innehållssyfte"
 
 #: library/Admin/Options/Purpose.php:20
 msgid "Purposes"
-msgstr ""
+msgstr "Innehållssyften"
 
 #: library/Admin/Options/Purpose.php:86
 msgid "Select purpose"
-msgstr ""
+msgstr "Välj syfte"
 
 #: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:98
@@ -5669,10 +5669,12 @@ msgstr "Mall"
 #: library/Admin/Options/Purpose.php:96
 msgid "Check to <u>not</u> use the custom template for this post type."
 msgstr ""
+"Markera för att <u>inte</u> använda den anpassade mallen för den här "
+"inläggstypen."
 
 #: library/Admin/Options/Purpose.php:104
 msgid "Do not use purpose template"
-msgstr ""
+msgstr "Använd inte anpassad mall"
 
 #: library/Admin/Options/Purpose.php:107
 msgid "Use"
@@ -5680,7 +5682,7 @@ msgstr "Använd"
 
 #: library/Admin/Options/Purpose.php:108
 msgid "Do not use"
-msgstr ""
+msgstr "Använd inte"
 
 #: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
