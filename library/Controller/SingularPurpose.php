@@ -27,6 +27,10 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
                     $purposeObject = new $availablePurposes[$purpose]['class']();
                     $purposeObject->init();
+
+                    if (!empty($purposeObject->view)) {
+                        $this->view = $purposeObject->view;
+                    }
                 }
             }
         }

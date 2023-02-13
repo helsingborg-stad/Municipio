@@ -2,16 +2,18 @@
 
 namespace Municipio\Controller\Purpose;
 
-use Municipio\Controller\Purpose\Place;
-
 /**
  * Class Project
  * @package Municipio\Controller\Purpose
  */
 class Project extends PurposeFactory
 {
+    public $view;
+
     public function __construct()
     {
+        $this->view = 'purpose-project';
+
         // Always include Place in Project:
         $place = new Place();
         $place->init();

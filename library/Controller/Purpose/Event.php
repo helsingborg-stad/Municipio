@@ -2,16 +2,18 @@
 
 namespace Municipio\Controller\Purpose;
 
-use Municipio\Controller\Purpose\Place;
-
 /**
  * Class Event
  * @package Municipio\Controller\Purpose
  */
 class Event extends PurposeFactory
 {
+    public $view;
+
     public function __construct()
     {
+        $this->view = 'purpose-event';
+
         // Always include Place in Event:
         $place = new Place();
         $place->init();

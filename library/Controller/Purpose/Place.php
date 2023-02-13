@@ -8,6 +8,12 @@ namespace Municipio\Controller\Purpose;
  */
 class Place extends PurposeFactory
 {
+    public $view;
+
+    public function __construct()
+    {
+        $this->view = 'purpose-place';
+    }
     public function init()
     {
         // Append structured data

@@ -177,11 +177,15 @@ class Template
 
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
+                $instance = self::createController($controller, $template);
                 if (!empty($controller['view'])) {
                     $template = $controller['view'];
+                } elseif (!empty($instance->view)) {
+                    $template = $instance->view;
                 }
+
                 return [
-                    'data' => self::createController($controller, $template),
+                    'data' => $instance,
                     'view' => $template
                 ];
             }
