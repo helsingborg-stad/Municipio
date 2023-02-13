@@ -43,7 +43,8 @@ add_action('init', function () {
         'block-margin'                              => 'group_61bc6134601a0',
         'block-container'                           => 'group_63cfdba21f7fc',
         'options-activate-gutenberg'                => 'group_60b496c06687c',
-
+        // Terms
+        'term-icon-and-colour'                      => 'group_63e6002cc129c',
         // Options
         'options-page-display'                      => 'group_56c33cf1470dc',
         'options-page-navigation'                   => 'group_56d83cff12bb3',

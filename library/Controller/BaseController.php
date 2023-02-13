@@ -758,7 +758,6 @@ class BaseController
 
         return $this->getLogotype($variant) ?? false;
     }
-
     /**
      * Runs after construct
      * @return void

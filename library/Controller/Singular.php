@@ -20,7 +20,8 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
-        $this->data['isBlogStyle'] = $this->data['post']->postType === "post" || "nyheter" ? true : false;
+
+        $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         //Get feature image data
         $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id);
