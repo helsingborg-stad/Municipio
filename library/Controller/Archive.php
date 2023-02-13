@@ -263,7 +263,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $realPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $postTypePath   = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
-        $mayBeTaxonomy  = (bool)   $realPath != $postTypePath;
+        $mayBeTaxonomy  = (bool)   ($realPath != $postTypePath);
 
         if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
             return get_term_link(get_queried_object());
