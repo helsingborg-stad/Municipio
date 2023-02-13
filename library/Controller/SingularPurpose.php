@@ -17,7 +17,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::__construct();
 
         /**
-         * Load and instantiate the purposes.
+         * Load and instantiate the current purpose
          */
         $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
         if (!empty($currentPurposes = PurposeHelper::getPurposes())) {
@@ -28,6 +28,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
                     $purposeObject = new $availablePurposes[$purpose]['class']();
                     $purposeObject->init();
 
+                    // This will need to be refactored if we decide to allow multiple purposes on a single type
                     if (!empty($purposeObject->view)) {
                         $this->view = $purposeObject->view;
                     }
