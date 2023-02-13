@@ -99,9 +99,11 @@ class App
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
+        // TODO Move Purpose settings to the customizer?
         new \Municipio\Admin\Options\Purpose();
 
         new \Municipio\Admin\Acf\PrefillIconChoice();
+        new \Municipio\Admin\Acf\LocationRules();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();

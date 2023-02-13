@@ -2,12 +2,38 @@
 
 namespace Municipio\Controller;
 
-interface SingularPurpose
+use Municipio\Helper\Data as DataHelper;
+use Municipio\Helper\Purpose as PurposeHelper;
+
+/**
+ * Class SingularPurpose
+ * @package Municipio\Controller
+ */
+class SingularPurpose extends \Municipio\Controller\Singular
 {
-    /**
-     * The localized label used to describe this class in dropdowns and similar circumstances.
-     *
-     * @return string The label
-     */
-    public static function getLabel(): string;
+    public $view;
+    public function __construct()
+    {
+        parent::__construct();
+
+        /**
+         * Load and instantiate the purposes.
+         */
+        $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
+        if (!empty($currentPurposes = PurposeHelper::getPurposes())) {
+            foreach ($currentPurposes as $purpose) {
+                if (is_file($availablePurposes[$purpose]['path'])) {
+                    require_once $availablePurposes[$purpose]['path'];
+
+                    $purposeObject = new $availablePurposes[$purpose]['class']();
+                    $purposeObject->init();
+                }
+            }
+        }
+        // STRUCTURED DATA (SCHEMA.ORG)
+        $this->data['structuredData'] = DataHelper::getStructuredData(
+            $this->data['postType'],
+            $this->getPageID()
+        );
+    }
 }
