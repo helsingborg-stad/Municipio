@@ -2,7 +2,7 @@
 
 @section('hero-top-sidebar')
     @includeIf('partials.hero')
-    @includeIf('partials.sidebar', ['id' => 'top-sidebar'])    
+    @includeIf('partials.sidebar', ['id' => 'top-sidebar'])
 @stop
 
 @section('helper-navigation')
@@ -12,8 +12,7 @@
 @section('layout')
 
     <div class="o-container">
-
-        @if(!$isFrontPage)
+        @if (!$isFrontPage)
             @hasSection('helper-navigation')
                 <div class="o-grid o-grid--no-margin u-print-display--none">
                     <div class="o-grid-12">
@@ -25,7 +24,7 @@
 
         {!! $hook->innerLoopStart !!}
 
-        @if($hasBlocks && $post)
+        @if ($hasBlocks && $post)
             {!! $post->postContentFiltered !!}
         @endif
 
