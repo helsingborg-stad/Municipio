@@ -103,6 +103,7 @@ class App
         new \Municipio\Admin\Options\Purpose();
 
         new \Municipio\Admin\Acf\PrefillIconChoice();
+        new \Municipio\Admin\Acf\LocationRules();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
