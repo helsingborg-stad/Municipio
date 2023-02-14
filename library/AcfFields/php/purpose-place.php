@@ -11,7 +11,7 @@
             'name' => 'location',
             'aria-label' => '',
             'type' => 'google_map',
-            'instructions' => __('Område eller gatuadress till platsen.', 'municipio'),
+            'instructions' => __('Area or street address of the location.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(

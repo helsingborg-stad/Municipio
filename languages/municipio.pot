@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2023-02-10 10:20+0100\n"
+"POT-Creation-Date: 2023-02-14 14:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -4736,6 +4736,8 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-js.php:69
+#: library/AcfFields/php/purpose-place.php:6
+#: library/AcfFields/php/purpose-place.php:10
 #: library/Customizer/Sections/Quicklinks.php:125
 msgid "Location"
 msgstr ""
@@ -4945,7 +4947,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:204
 msgid "days"
 msgstr ""
 
@@ -5279,6 +5281,10 @@ msgstr ""
 msgid "Yes, disable pages."
 msgstr ""
 
+#: library/AcfFields/php/purpose-place.php:14
+msgid "Area or street address of the location."
+msgstr ""
+
 #: library/AcfFields/php/term-icon-and-colour.php:6
 msgid "Advanced term settings"
 msgstr ""
@@ -5546,6 +5552,11 @@ msgstr ""
 msgid "Media link"
 msgstr ""
 
+#: library/Admin/Acf/LocationRulesPurpose.php:8
+#: library/Admin/Options/Purpose.php:67
+msgid "Purpose"
+msgstr ""
+
 #: library/Admin/General.php:106
 msgid "Only for logged in users"
 msgstr ""
@@ -5603,12 +5614,50 @@ msgstr ""
 msgid "None (link to #translate to show)"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:19 library/Admin/Options/Purpose.php:20
-msgid "Post Types Purpose"
+#: library/Admin/Options/Purpose.php:19
+msgid "Purpose templates"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:59
-msgid "Post Type Purpose"
+#: library/Admin/Options/Purpose.php:20
+msgid "Purposes"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:86
+msgid "Select purpose"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
+#: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:98
+#: library/Controller/BaseController.php:212
+#: library/Customizer/Sections/Search.php:15 library/Search/General.php:53
+#: library/Widget/Navigation/Navigation.php:66
+#: views/v1/partials/archive-filters.blade.php:40
+#: views/v1/partials/archive-filters.blade.php:43
+#: views/v1/partials/archive-filters.blade.php:79
+#: views/v2/partials/archive-filters.blade.php:40
+#: views/v2/partials/archive-filters.blade.php:43
+#: views/v2/partials/archive-filters.blade.php:79
+msgid "Search"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:92
+msgid "Template"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:96
+msgid "Check to <u>not</u> use the custom template for this post type."
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:104
+msgid "Do not use purpose template"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:107
+msgid "Use"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:108
+msgid "Do not use"
 msgstr ""
 
 #: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
@@ -5623,19 +5672,6 @@ msgstr ""
 #: library/Customizer/Sections/Footer.php:505
 #: library/Customizer/Sections/Width.php:38
 msgid "Content"
-msgstr ""
-
-#: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:94 library/Controller/BaseController.php:214
-#: library/Customizer/Sections/Search.php:15 library/Search/General.php:53
-#: library/Widget/Navigation/Navigation.php:66
-#: views/v1/partials/archive-filters.blade.php:40
-#: views/v1/partials/archive-filters.blade.php:43
-#: views/v1/partials/archive-filters.blade.php:79
-#: views/v2/partials/archive-filters.blade.php:40
-#: views/v2/partials/archive-filters.blade.php:43
-#: views/v2/partials/archive-filters.blade.php:79
-msgid "Search"
 msgstr ""
 
 #: library/Admin/Options/Theme.php:75
@@ -5812,176 +5848,176 @@ msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr ""
 
-#: library/Controller/Archive.php:84
+#: library/Controller/Archive.php:88
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/Archive.php:85 library/Controller/Singular.php:34
+#: library/Controller/Archive.php:89 library/Controller/Singular.php:34
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr ""
 
-#: library/Controller/Archive.php:86 library/Controller/Singular.php:33
+#: library/Controller/Archive.php:90 library/Controller/Singular.php:33
 msgid "Updated"
 msgstr ""
 
-#: library/Controller/Archive.php:87
+#: library/Controller/Archive.php:91
 msgid "Read more"
 msgstr ""
 
-#: library/Controller/Archive.php:90
+#: library/Controller/Archive.php:94
 msgid "Choose a from date"
 msgstr ""
 
-#: library/Controller/Archive.php:91
+#: library/Controller/Archive.php:95
 msgid "Choose a to date"
 msgstr ""
 
-#: library/Controller/Archive.php:92
+#: library/Controller/Archive.php:96
 msgid "Select a valid date"
 msgstr ""
 
-#: library/Controller/Archive.php:95
+#: library/Controller/Archive.php:99
 msgid "Filter"
 msgstr ""
 
-#: library/Controller/Archive.php:96
+#: library/Controller/Archive.php:100
 msgid "Reset search"
 msgstr ""
 
-#: library/Controller/Archive.php:97
+#: library/Controller/Archive.php:101
 msgid "Reset filter"
 msgstr ""
 
-#: library/Controller/Archive.php:98
+#: library/Controller/Archive.php:102
 msgid "Archive navigation"
 msgstr ""
 
-#: library/Controller/Archive.php:99
+#: library/Controller/Archive.php:103
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/Archive.php:485
+#: library/Controller/Archive.php:514
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
 msgstr ""
 
-#: library/Controller/BaseController.php:192 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:190 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr ""
 
-#: library/Controller/BaseController.php:193
+#: library/Controller/BaseController.php:191
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:192
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:193
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:194
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:195
 msgid "Skip to the side menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:196
 msgid "ago"
 msgstr ""
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:197
 msgid "since"
 msgstr ""
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:198
 msgid "years"
 msgstr ""
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:199
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:200
 msgid "months"
 msgstr ""
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:201
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:202
 msgid "weeks"
 msgstr ""
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:203
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:205
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:206
 msgid "hours"
 msgstr ""
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:207
 msgid "hour"
 msgstr ""
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:208
 msgid "minutes"
 msgstr ""
 
-#: library/Controller/BaseController.php:211
+#: library/Controller/BaseController.php:209
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:210
 msgid "seconds"
 msgstr ""
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:211
 msgid "second"
 msgstr ""
 
-#: library/Controller/BaseController.php:215
+#: library/Controller/BaseController.php:213
 msgid "Search on"
 msgstr ""
 
-#: library/Controller/BaseController.php:216
+#: library/Controller/BaseController.php:214
 msgid "What are you searching for?"
 msgstr ""
 
-#: library/Controller/BaseController.php:217
+#: library/Controller/BaseController.php:215
 msgid "Primary navigation"
 msgstr ""
 
-#: library/Controller/BaseController.php:218
+#: library/Controller/BaseController.php:216
 #: library/Customizer/Sections/HamburgerMenu.php:12
 #: library/Customizer/Sections/Search.php:30 library/Theme/Navigation.php:27
 msgid "Hamburger menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:217
 msgid "Useful links"
 msgstr ""
 
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:218
 msgid "Related links"
 msgstr ""
 
-#: library/Controller/BaseController.php:221 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:219 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -5989,15 +6025,15 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:222
+#: library/Controller/BaseController.php:220
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:223
+#: library/Controller/BaseController.php:221
 msgid "Close"
 msgstr ""
 
-#: library/Controller/BaseController.php:224
+#: library/Controller/BaseController.php:222
 msgid "More Languages"
 msgstr ""
 
@@ -6021,6 +6057,18 @@ msgstr ""
 
 #: library/Controller/E404.php:84
 msgid "post"
+msgstr ""
+
+#: library/Controller/Purpose/Event.php:26
+msgid "Event"
+msgstr ""
+
+#: library/Controller/Purpose/Place.php:24
+msgid "Place"
+msgstr ""
+
+#: library/Controller/Purpose/Project.php:29
+msgid "Project"
 msgstr ""
 
 #: library/Controller/Search.php:14
@@ -8082,8 +8130,7 @@ msgid "Top sidebar (full-width)"
 msgstr ""
 
 #: library/Theme/Sidebars.php:221
-#, php-format
-msgid "Sidebar that sits below the hero, takes up 100% of the width."
+msgid "Sidebar that sits below the hero."
 msgstr ""
 
 #: library/Theme/Sidebars.php:233
@@ -8091,8 +8138,7 @@ msgid "Bottom sidebar (full-width)"
 msgstr ""
 
 #: library/Theme/Sidebars.php:234
-#, php-format
-msgid "Sidebar that sits just before the footer, takes up 100% of the width."
+msgid "Sidebar that sits just before the footer."
 msgstr ""
 
 #: library/Theme/Sidebars.php:246
@@ -8127,10 +8173,6 @@ msgstr ""
 #: library/Widget/Source/BaseWidget.php:117
 #: library/Widget/Source/WidgetTemplate.php:254
 msgid "Title:"
-msgstr ""
-
-#: templates/project/SingularProject.php:29
-msgid "Project"
 msgstr ""
 
 #: views/v1/archive-event.blade.php:70

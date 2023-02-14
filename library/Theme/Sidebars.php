@@ -19,7 +19,7 @@ class Sidebars
         add_action('admin_enqueue_scripts', array($this, 'filterVisibleWigets'));
 
         add_filter('Modularity/Templates/Sidebars', array($this, 'filterAvailableSidebars'));
-        
+
         add_action('dynamic_sidebar_before', array($this, 'outputBefore'), 1);
         add_action('dynamic_sidebar_after', array($this, 'outputAfter'), 999);
     }
@@ -70,7 +70,7 @@ class Sidebars
         $afterWidgetMarkup   = '</div>';
         $beforeModulesMarkup = '<aside class="o-grid">';
         $afterModulesMarkup  = '</aside>';
-        
+
         /**
          * Footer Area Top
          */
@@ -97,7 +97,7 @@ class Sidebars
                 'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
-                'before_widget' => '<div class="o-grid-'.$footerGridSize.'@md'.' o-grid-12">' . $beforeWidgetMarkup,
+                'before_widget' => '<div class="o-grid-' . $footerGridSize . '@md' . ' o-grid-12">' . $beforeWidgetMarkup,
                 'after_widget'  => $afterWidgetMarkup . '</div>',
             ));
         }
@@ -218,7 +218,7 @@ class Sidebars
         register_sidebar(array(
             'id'             => 'top-sidebar',
             'name'           => __('Top sidebar (full-width)', 'municipio'),
-            'description'    => __('Sidebar that sits below the hero, takes up 100% of the width.', 'municipio'),
+            'description'    => __('Sidebar that sits below the hero.', 'municipio'),
             'before_title'   => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'    => '</h2>',
             'before_widget' => $beforeWidgetMarkup,
@@ -231,7 +231,7 @@ class Sidebars
         register_sidebar(array(
             'id'            => 'bottom-sidebar',
             'name'          => __('Bottom sidebar (full-width)', 'municipio'),
-            'description'   => __('Sidebar that sits just before the footer, takes up 100% of the width.', 'municipio'),
+            'description'   => __('Sidebar that sits just before the footer.', 'municipio'),
             'before_title'  => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
             'before_widget' => $beforeWidgetMarkup,
@@ -266,7 +266,7 @@ class Sidebars
             echo $wp_registered_sidebars[$sidebar]['after_modules'];
         }
     }
-    
+
     /**
      * Appends compability support
      * @param  array $moduleSpecification Original module settings

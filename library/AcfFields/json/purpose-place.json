@@ -8,7 +8,7 @@
             "name": "location",
             "aria-label": "",
             "type": "google_map",
-            "instructions": "Omr\u00e5de eller gatuadress till platsen.",
+            "instructions": "Area or street address of the location.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
