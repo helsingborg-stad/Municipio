@@ -8,24 +8,16 @@ namespace Municipio\Controller\Purpose;
  */
 class Place extends PurposeFactory
 {
-    public $view;
-
     public function __construct()
     {
-        $this->view = 'purpose-place';
+        $this->view  = 'purpose-place';
+        $this->key   = 'place';
+        $this->label = __('Place', 'municipio');
     }
     public function init()
     {
-        // Append structured data
-        add_filter('Municipio/StructuredData', array($this, 'appendStructuredData'), 10, 3);
-    }
-    public static function getLabel(): string
-    {
-        return __('Place', 'municipio');
-    }
-    public static function getKey(): string
-    {
-        return 'place';
+        // Append structured data for schema.org markup
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
     * Appends the structured data array (used for schema.org markup) with additional data

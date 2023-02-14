@@ -8,29 +8,24 @@ namespace Municipio\Controller\Purpose;
  */
 class Project extends PurposeFactory
 {
-    public $view;
-
     public function __construct()
     {
-        $this->view = 'purpose-project';
+        $this->view  = 'purpose-project';
+        $this->key   = 'project';
+        $this->label = __('Project', 'municipio');
 
-        // Always include Place in Project:
-        $place = new Place();
-        $place->init();
+        $this->secondaryPurpose = [
+            'place' => Place::class
+        ];
     }
 
     public function init()
     {
-        // Append structured data
-        add_filter('Municipio/StructuredData', array($this, 'appendStructuredData'), 10, 3);
-    }
-    public static function getLabel(): string
-    {
-        return __('Project', 'municipio');
-    }
-    public static function getKey(): string
-    {
-        return 'project';
+        // Initate secondary purposes
+        parent::initSecondaryPurpose();
+
+        // Append structured data for schema.org markup
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data

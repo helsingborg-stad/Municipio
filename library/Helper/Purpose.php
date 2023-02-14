@@ -16,24 +16,27 @@ class Purpose
         foreach (ControllerHelper::getControllerPaths() as $path) {
             if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
                 foreach (glob("$dir/*.php") as $filename) {
-                    if (str_contains($filename, 'Factory')) {
+                    // Skip files with Factory or Interface in the filename
+                    if (preg_match('[Factory|Interface]', $filename)) {
                         continue;
                     }
-                    $class = ControllerHelper::getNamespace($filename) . '\\' . basename($filename, '.php');
-                    if (method_exists($class, 'getKey') && method_exists($class, 'getLabel')) {
-                        if ($includeExtras) {
-                            $purposes[$class::getKey()] = [
-                                'label' => $class::getLabel(),
-                                'class' => $class,
-                                'path' => $filename
-                            ];
-                        } else {
-                            $purposes[$class::getKey()] = $class::getLabel();
-                        }
+
+                    $className = ControllerHelper::getNamespace($filename) . '\\' . basename($filename, '.php');
+                    $class = new $className();
+
+                    if ($includeExtras) {
+                        $purposes[$class->getKey()] = [
+                            'label' => $class->getLabel(),
+                            'class' => $className,
+                            'path' => $filename
+                        ];
+                    } else {
+                        $purposes[$class->getKey()] = $class->getLabel();
                     }
                 }
             }
         }
+
         return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
     }
 

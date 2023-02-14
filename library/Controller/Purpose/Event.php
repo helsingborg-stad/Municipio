@@ -8,25 +8,18 @@ namespace Municipio\Controller\Purpose;
  */
 class Event extends PurposeFactory
 {
-    public $view;
-
     public function __construct()
     {
-        $this->view = 'purpose-event';
+        $this->key   = 'event';
+        $this->label = __('Event', 'municipio');
 
-        // Always include Place in Event:
-        $place = new Place();
-        $place->init();
+        $this->secondaryPurpose = [
+            'place' => Place::class
+        ];
     }
     public function init()
     {
-    }
-    public static function getLabel(): string
-    {
-        return __('Event', 'municipio');
-    }
-    public static function getKey(): string
-    {
-        return 'event';
+        // Initate secondary purposes
+        parent::initSecondaryPurpose();
     }
 }
