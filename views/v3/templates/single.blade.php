@@ -13,6 +13,9 @@
 @stop
 
 @section('above')
+    @if($likeIsActive && get_post_type() == 'post')
+        @include('partials.icon')
+    @endif
     @include('partials.sidebar', ['id' => 'above-columns-sidebar', 'classes' => ['o-grid']])
 @stop
 

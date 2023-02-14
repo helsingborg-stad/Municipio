@@ -136,6 +136,10 @@ class BaseController
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars']         = true;
 
+        if (class_exists('ModularityLikePosts\App')) {
+            $this->data['likeIsActive'] = true;
+        } 
+
         // Get date & time formats
         $this->data['dateTimeFormat']   = \Municipio\Helper\DateFormat::getDateFormat('date-time');
         $this->data['dateFormat']       = \Municipio\Helper\DateFormat::getDateFormat('date');
