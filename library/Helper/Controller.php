@@ -90,8 +90,11 @@ class Controller
      * @param  string $classPath Path to the class php file
      * @return string            Namespace or null
      */
-    public static function getNamespace($classPath)
+    public static function getNamespace(string $classPath = ''): ?string
     {
+        if ('' === $classPath) {
+            return null;
+        }
         $src = file_get_contents($classPath);
 
         if (preg_match('/namespace\s+(.+?);/', $src, $m)) {

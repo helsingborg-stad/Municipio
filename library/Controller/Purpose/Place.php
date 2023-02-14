@@ -30,7 +30,6 @@ class Place extends PurposeFactory
     */
     public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
-
         if (empty($postId)) {
             return $structuredData;
         }

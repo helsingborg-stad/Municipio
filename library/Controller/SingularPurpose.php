@@ -21,21 +21,15 @@ class SingularPurpose extends \Municipio\Controller\Singular
         /**
          * Load and instantiate the current purpose
          */
+        if (!empty($currentPurpose = PurposeHelper::getPurposes($type))) {
+            if (!empty($currentPurpose['main'])) {
+                $purpose = $currentPurpose['main'];
+                $purpose->init();
 
-        $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
-        if (!empty($currentPurposes = PurposeHelper::getPurposes($type))) {
-            foreach ($currentPurposes as $purpose) {
-                if (is_file($availablePurposes[$purpose]['path'])) {
-                    require_once $availablePurposes[$purpose]['path'];
-
-                    $purposeObject = new $availablePurposes[$purpose]['class']();
-                    $purposeObject->init();
-
-                    $skipTemplate = PurposeHelper::skipPurposeTemplate($type);
-                    // This will need to be refactored if we decide to allow multiple purposes on a single type
-                    if (!$skipTemplate && !empty($purposeObject->view)) {
-                        $this->view = $purposeObject->view;
-                    }
+                $skipTemplate = PurposeHelper::skipPurposeTemplate($type);
+                // This will need to be refactored if we decide to allow multiple purposes on a single type
+                if (!$skipTemplate && !empty($purpose->view)) {
+                    $this->view = $purpose->view;
                 }
             }
         }

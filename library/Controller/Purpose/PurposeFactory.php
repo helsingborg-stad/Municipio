@@ -16,13 +16,11 @@ class PurposeFactory
     public function init()
     {
     }
+
     protected function initSecondaryPurpose()
     {
         if (!empty($this->secondaryPurpose)) {
             foreach ($this->secondaryPurpose as $className) {
-                if (class_exists($className)) {
-                    continue;
-                }
                 $instance = new $className();
                 $instance->init();
             }
@@ -32,7 +30,6 @@ class PurposeFactory
     {
         return $this->label;
     }
-
     public function getKey(): string
     {
         return $this->key;
@@ -40,5 +37,9 @@ class PurposeFactory
     public function getView(): string
     {
         return $this->view;
+    }
+    public function getSecondaryPurpose(): array
+    {
+        return $this->secondaryPurpose;
     }
 }

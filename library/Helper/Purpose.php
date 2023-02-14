@@ -47,7 +47,7 @@ class Purpose
     *
     * @return array An array of purposes.
     */
-    public static function getPurposes(string $type = ''): array
+    public static function getPurposes(string $type = ''): array|bool
     {
         if ('' === $type) {
             if ($current = get_queried_object()) {
@@ -58,14 +58,28 @@ class Purpose
                 } elseif (is_a($current, 'WP_Term')) {
                     $type = $current->taxonomy;
                 } else {
-                    return [];
+                    return false;
                 }
             } else {
-                return [];
+                return false;
             }
         }
 
-        $purposes = (array) get_option("options_purposes_{$type}", []);
+        $mainPurpose = get_option("options_purposes_{$type}", false);
+        if (!$mainPurpose) {
+            return false;
+        }
+
+        $registeredPurposes = self::getRegisteredPurposes(true);
+
+        $instance = new $registeredPurposes[$mainPurpose]['class']();
+        $purposes = ['main' => $instance];
+        if (!empty($secondary = $instance->getSecondaryPurpose())) {
+            foreach ($secondary as $key => $value) {
+                $purposes['secondary'][$key] = $value;
+            }
+        }
+
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
     /**
