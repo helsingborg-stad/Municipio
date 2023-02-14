@@ -16,11 +16,14 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::__construct();
 
+        $type = $this->data['post']->postType;
+
         /**
          * Load and instantiate the current purpose
          */
+
         $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
-        if (!empty($currentPurposes = PurposeHelper::getPurposes())) {
+        if (!empty($currentPurposes = PurposeHelper::getPurposes($type))) {
             foreach ($currentPurposes as $purpose) {
                 if (is_file($availablePurposes[$purpose]['path'])) {
                     require_once $availablePurposes[$purpose]['path'];
@@ -28,8 +31,9 @@ class SingularPurpose extends \Municipio\Controller\Singular
                     $purposeObject = new $availablePurposes[$purpose]['class']();
                     $purposeObject->init();
 
+                    $skipTemplate = PurposeHelper::skipPurposeTemplate($type);
                     // This will need to be refactored if we decide to allow multiple purposes on a single type
-                    if (!empty($purposeObject->view)) {
+                    if (!$skipTemplate && !empty($purposeObject->view)) {
                         $this->view = $purposeObject->view;
                     }
                 }

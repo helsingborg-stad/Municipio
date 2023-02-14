@@ -99,7 +99,7 @@ class Purpose
      *
      * @return bool A boolean value.
      */
-    public function skipPurposeTemplate(string $type = ''): bool
+    public static function skipPurposeTemplate(string $type = ''): bool
     {
         return (bool) get_option("skip_purpose_template_{$type}", false);
     }
