@@ -66,8 +66,8 @@ class Sidebars
 
     public function register()
     {
-        $beforeWidgetMarkup  = '<div id="%1$s" class="%2$s">';
-        $afterWidgetMarkup   = '</div>';
+        $beforeWidget  = '<div id="%1$s" class="%2$s">';
+        $afterWidget   = '</div>';
         $beforeModulesMarkup = '<aside class="o-grid">';
         $afterModulesMarkup  = '</aside>';
 
@@ -80,8 +80,8 @@ class Sidebars
             'description'    => __('The top of footer area', 'municipio'),
             'before_title'   => '<h2 class="footer-top-title">',
             'after_title'    => '</h2>',
-            'before_widget'  => '<div class="o-grid-12">' . $beforeWidgetMarkup,
-            'after_widget'   => $afterWidgetMarkup . '</div>',
+            'before_widget'  => '<div class="o-grid-12">' . $beforeWidget,
+            'after_widget'   => $afterWidget . '</div>',
         ));
 
         /**
@@ -97,8 +97,8 @@ class Sidebars
                 'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
-                'before_widget' => '<div class="o-grid-' . $footerGridSize . '@md' . ' o-grid-12">' . $beforeWidgetMarkup,
-                'after_widget'  => $afterWidgetMarkup . '</div>',
+                'before_widget' => '<div class="o-grid-' . $footerGridSize . '@md' . ' o-grid-12">' . $beforeWidget,
+                'after_widget'  => $afterWidget . '</div>',
             ));
         }
 
@@ -111,8 +111,8 @@ class Sidebars
             'description'   => __('The bottom of footer area', 'municipio'),
             'before_title'  => '<h2 class="footer-bottom-title">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="o-grid-12">' . $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup . '</div>',
+            'before_widget' => '<div class="o-grid-12">' . $beforeWidget,
+            'after_widget'  => $afterWidget . '</div>',
         ));
 
         /**
@@ -124,8 +124,8 @@ class Sidebars
             'description'   => __('The hero area', 'municipio'),
             'before_title'  => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
 
         /**
@@ -137,8 +137,8 @@ class Sidebars
             'description'   => __('The area above the content', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
 
         /**
@@ -150,8 +150,8 @@ class Sidebars
             'description'   => __('The area below the content', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
 
         /**
@@ -163,8 +163,8 @@ class Sidebars
             'description'   => __('The area below the main container', 'municipio'),
             'before_title'  => '<h2>',
             'after_title'   => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
 
         /**
@@ -176,8 +176,8 @@ class Sidebars
             'description'    => __('The right sidebar area', 'municipio'),
             'before_title'   => '<h2>',
             'after_title'    => '</h2>',
-            'before_widget'  => $beforeWidgetMarkup,
-            'after_widget'   => $afterWidgetMarkup,
+            'before_widget'  => $beforeWidget,
+            'after_widget'   => $afterWidget,
             'before_modules' => $beforeModulesMarkup,
             'after_modules'  => $afterModulesMarkup,
         ));
@@ -191,8 +191,8 @@ class Sidebars
             'description'    => __('The left sidebar area', 'municipio'),
             'before_title'   => '<h2>',
             'after_title'    => '</h2>',
-            'before_widget'  => $beforeWidgetMarkup,
-            'after_widget'   => $afterWidgetMarkup,
+            'before_widget'  => $beforeWidget,
+            'after_widget'   => $afterWidget,
             'before_modules' => $beforeModulesMarkup,
             'after_modules'  => $afterModulesMarkup,
         ));
@@ -206,8 +206,8 @@ class Sidebars
             'description'    => __('The area below the left sidebar content', 'municipio'),
             'before_title'   => '<h2>',
             'after_title'    => '</h2>',
-            'before_widget'  => $beforeWidgetMarkup,
-            'after_widget'   => $afterWidgetMarkup,
+            'before_widget'  => $beforeWidget,
+            'after_widget'   => $afterWidget,
             'before_modules' => $beforeModulesMarkup,
             'after_modules'  => $afterModulesMarkup,
         ));
@@ -221,8 +221,8 @@ class Sidebars
             'description'    => __('Sidebar that sits below the hero.', 'municipio'),
             'before_title'   => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'    => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
 
         /**
@@ -234,8 +234,8 @@ class Sidebars
             'description'   => __('Sidebar that sits just before the footer.', 'municipio'),
             'before_title'  => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
 
         /**
@@ -247,8 +247,8 @@ class Sidebars
             'description'   => __('Sidebar that sits just before the columns grid.', 'municipio'),
             'before_title'  => '<h2 class="c-typography c-typography__variant--h3">',
             'after_title'   => '</h2>',
-            'before_widget' => $beforeWidgetMarkup,
-            'after_widget'  => $afterWidgetMarkup,
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
         ));
     }
 
