@@ -59,13 +59,13 @@ class Purpose
     public function getFieldGroupArgs(array $type): array
     {
         return array(
-            'key'    => 'group_purposes_' . $type['key'],
+            'key'    => 'group_purpose_' . $type['key'],
             'title'  => $type['label'],
             'fields' => array(
                 0 => array(
-                    'key'               => 'field_purposes_' . $type['key'],
+                    'key'               => 'field_purpose_' . $type['key'],
                     'label'             => __('Purpose', 'municipio'),
-                    'name'              => 'purposes_' . $type['key'],
+                    'name'              => 'purpose_' . $type['key'],
                     'aria-label'        => '',
                     'type'              => 'select',
                     'instructions'      => '',
