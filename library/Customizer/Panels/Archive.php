@@ -4,23 +4,16 @@ namespace Municipio\Customizer\Panels;
 
 class Archive
 {
-    public const PANEL_ID = "municipio_customizer_panel_archive";
-
-    public function __construct()
+    public function __construct(string $panelID)
     {
-        add_action('init', function (): void {
-            \Kirki::add_panel(self::PANEL_ID, array(
-                'priority'    => 120,
-                'title'       => esc_html__('Archive Apperance', 'municipio'),
-                'description' => esc_html__('Manage apperance options on archives.', 'municipio'),
-            ));
-
+        
+        add_action('init', function () use ($panelID) : void {
             //Register panel for each archive
             $archives = $this->getArchives();
             if (is_array($archives) && !empty($archives)) {
                 foreach ($archives as $archive) {
                     new \Municipio\Customizer\Sections\Archive(
-                        self::PANEL_ID,
+                        $panelID,
                         $archive
                     );
                 }

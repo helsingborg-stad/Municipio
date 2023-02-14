@@ -2,6 +2,11 @@
 
 namespace Municipio;
 
+use Kirki\Compatibility\Kirki;
+use Kirki\Panel;
+use Municipio\Customizer\KirkiPanel;
+use Municipio\Customizer\PanelArgs;
+
 class Customizer
 {
     public const KIRKI_CONFIG = "municipio_config";
@@ -115,7 +120,7 @@ class Customizer
             define("WEB_FONT_DISABLE_INLINE", true);
         }
 
-        \Kirki::add_config(self::KIRKI_CONFIG, array(
+        Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
             'option_type'       => 'theme_mod',
             'gutenberg_support' => false
@@ -130,15 +135,45 @@ class Customizer
         new \Municipio\Customizer\Applicators\ControllerVariables();
         new \Municipio\Customizer\Applicators\Css();
 
-        //Define panels
-        new \Municipio\Customizer\Panels\Design();
-        new \Municipio\Customizer\Panels\Component();
-        new \Municipio\Customizer\Panels\Module();
-        new \Municipio\Customizer\Panels\Archive();
-        new \Municipio\Customizer\Panels\Menu();
+        // Menus
+        $menuPanel = new KirkiPanel('nav_menus');
 
-        //Define panels with logic
-        new \Municipio\Customizer\Panels\DesignLibrary();
+        $designPanel = new KirkiPanel('municipio_customizer_panel_design', array(
+            'title'       => esc_html__('General Apperance', 'municipio'),
+            'description' => esc_html__('Manage site general design options.', 'municipio'),
+            'priority'    => 120,
+        ));
+        
+        $componentPanel = new KirkiPanel('municipio_customizer_panel_design_component', array(
+            'title'       => esc_html__('Component Apperance', 'municipio'),
+            'description' => esc_html__('Manage design options on component level.', 'municipio'),
+            'priority'    => 120,
+        ));
+        
+        $modulePanel = new KirkiPanel('municipio_customizer_panel_design_module', array(
+            'title' =>  esc_html__('Module Apperance', 'municipio'),
+            'description' =>  esc_html__('Module Apperance', 'municipio'),
+            'priority' =>  120,
+        ));
+        
+        $archivePanel = new KirkiPanel('municipio_customizer_panel_archive', array(
+            'title' =>  esc_html__('Archive Apperance', 'municipio'),
+            'description' =>  esc_html__('Manage apperance options on archives.', 'municipio'),
+            'priority' =>  120,
+        ));
+        
+        $designLibraryPanel = new KirkiPanel('municipio_customizer_panel_designlib', array(
+            'title' =>  esc_html__('Design Library', 'municipio'),
+            'description' =>  esc_html__('Select a design made by other municipio users.', 'municipio'),
+            'priority' =>  1000,
+        ));
+        
+        new \Municipio\Customizer\Panels\Design($designPanel->getID());
+        new \Municipio\Customizer\Panels\Component($componentPanel->getID());
+        new \Municipio\Customizer\Panels\Module($modulePanel->getID());
+        new \Municipio\Customizer\Panels\Archive($archivePanel->getID());
+        new \Municipio\Customizer\Sections\Menu($menuPanel->getID());
+        new \Municipio\Customizer\Sections\LoadDesign($designLibraryPanel->getID());
 
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();

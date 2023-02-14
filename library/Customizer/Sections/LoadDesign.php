@@ -21,18 +21,17 @@ class LoadDesign
 
     public function __construct($panelID)
     {
-
         if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
             return;
         }
-
+        
         Kirki::add_section(self::SECTION_ID, array(
             'title'       => esc_html__('Load a design', 'municipio'),
             'description' => esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'),
             'panel'          => $panelID,
             'priority'       => 160,
         ));
-
+        
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => self::LOAD_DESIGN_KEY,
@@ -43,7 +42,7 @@ class LoadDesign
             'choices'     => $this->loadOptions(),
             'transport'    => 'postMessage'
         ]);
-
+        
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'multiple'    => true,
@@ -56,7 +55,7 @@ class LoadDesign
             'choices'     => $this->getSharedAttributesAsOptions(),
             'transport'    => 'postMessage'
         ]);
-
+        
         //Always reset option of theme
         add_filter('theme_mod_' . self::LOAD_DESIGN_KEY, function ($value) {
             return null;

@@ -4,25 +4,17 @@ namespace Municipio\Customizer\Panels;
 
 class Design
 {
-    public const PANEL_ID = "municipio_customizer_panel_design";
-
-    public function __construct()
+    public function __construct(string $panelID)
     {
-        \Kirki::add_panel(self::PANEL_ID, array(
-            'priority'    => 120,
-            'title'       => esc_html__('General Apperance', 'municipio'),
-            'description' => esc_html__('Manage site general design options.', 'municipio'),
-        ));
-
-        new \Municipio\Customizer\Sections\Logo(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\General(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Colors(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Typography(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Width(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Borders(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Radius(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Padding(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Shadow(self::PANEL_ID);
-        new \Municipio\Customizer\Sections\Search(self::PANEL_ID);
+        new \Municipio\Customizer\Sections\Logo($panelID);
+        new \Municipio\Customizer\Sections\General($panelID);
+        new \Municipio\Customizer\Sections\Colors($panelID);
+        new \Municipio\Customizer\Sections\Typography($panelID);
+        new \Municipio\Customizer\Sections\Width($panelID);
+        new \Municipio\Customizer\Sections\Borders($panelID);
+        new \Municipio\Customizer\Sections\Radius($panelID);
+        new \Municipio\Customizer\Sections\Padding($panelID);
+        new \Municipio\Customizer\Sections\Shadow($panelID);
+        new \Municipio\Customizer\Sections\Search($panelID);
     }
 }
