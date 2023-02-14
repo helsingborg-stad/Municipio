@@ -7,22 +7,14 @@ use Kirki as Kirki;
 
 class Colors
 {
-    public const SECTION_ID = "municipio_customizer_section_colors";
-
-    public function __construct($panelID)
+    public function __construct($sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Colors', 'municipio'),
-            'description' => esc_html__('Colors used across the theme.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_palette_primary',
             'label'       => esc_html__('Primary colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -65,7 +57,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_secondary',
             'label'       => esc_html__('Secondary colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -110,7 +102,7 @@ class Colors
                 'type'        => 'multicolor',
                 'settings'    => 'color_background',
                 'label'       => esc_html__('Background colors', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'priority'    => 10,
                     'transport' => 'auto',
                 'choices'     => [
@@ -142,7 +134,7 @@ class Colors
                 'type'        => 'multicolor',
                 'settings'    => 'color_card',
                 'label'       => esc_html__('Card & Paper colors', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'priority'    => 10,
                     'transport' => 'auto',
                 'choices'     => [
@@ -172,7 +164,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_text',
             'label'       => esc_html__('Text colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -210,7 +202,7 @@ class Colors
                 'type'        => 'multicolor',
                 'settings'    => 'color_border',
                 'label'       => esc_html__('Border colors', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'priority'    => 10,
                     'transport' => 'auto',
                 'choices'     => [
@@ -242,7 +234,7 @@ class Colors
                 'type'        => 'multicolor',
                 'settings'    => 'color_input',
                 'label'       => esc_html__('Input colors', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'priority'    => 10,
                     'transport' => 'auto',
                 'choices'     => [
@@ -267,7 +259,7 @@ class Colors
                 'type'        => 'multicolor',
                 'settings'    => 'color_link',
                 'label'       => esc_html__('Link colors', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'priority'    => 10,
                 'transport' => 'auto',
                 'choices'     => [
@@ -318,7 +310,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_alpha',
             'label'       => esc_html__('Alpha colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'alpha'       => true,
             'transport'   => 'auto',
@@ -348,7 +340,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_success',
             'label'       => esc_html__('Success colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -391,7 +383,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_danger',
             'label'       => esc_html__('Danger colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -434,7 +426,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_warning',
             'label'       => esc_html__('Warning colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -477,7 +469,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_state_info',
             'label'       => esc_html__('Info colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -520,7 +512,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_complement',
             'label'       => esc_html__('Complement colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -563,7 +555,7 @@ class Colors
             'type'        => 'multicolor',
             'settings'    => 'color_palette_monotone',
             'label'       => esc_html__('Monotone colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [

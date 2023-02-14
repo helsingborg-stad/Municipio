@@ -22,6 +22,7 @@ abstract class Panel {
     *     @type string          $title           Title of the panel to show in UI.
     *     @type string          $description     Description to show in the UI.
     *     @type string          $type            Type of the panel.
+    *     @type string          $panel           Parent panel.
     *     @type callable        $active_callback Active callback.
     * }
     */
@@ -62,8 +63,12 @@ abstract class Panel {
     public function getCapability():string {
         return $this->args['capability'] ?? '';
     }
+
+    public function getPanel():string {
+        return $this->args['panel'] ?? '';
+    }
     
-    public function getPanelArgs():array {
+    public function getArgs():array {
         return $this->args;
     }
     

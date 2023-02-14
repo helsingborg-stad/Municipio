@@ -4,24 +4,13 @@ namespace Municipio\Customizer\Sections\Module;
 
 class Posts
 {
-    public const SECTION_ID = "municipio_customizer_section_mod_posts";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Posts', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-            'active_callback' => function() {
-              return post_type_exists('mod-posts');
-            }
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'mod_posts_index_modifier',
           'label'       => esc_html__('Index', 'municipio'),
-          'section'     => self::SECTION_ID,
+          'section'     => $sectionID,
           'default'     => 'none',
           'priority'    => 10,
           'choices'     => [
@@ -42,7 +31,7 @@ class Posts
           'type'        => 'select',
           'settings'    => 'mod_posts_list_modifier',
           'label'       => esc_html__('List', 'municipio'),
-          'section'     => self::SECTION_ID,
+          'section'     => $sectionID,
           'default'     => 'none',
           'priority'    => 10,
           'choices'     => [
@@ -63,7 +52,7 @@ class Posts
           'type'        => 'select',
           'settings'    => 'mod_posts_expandablelist_modifier',
           'label'       => esc_html__('Expandable List', 'municipio'),
-          'section'     => self::SECTION_ID,
+          'section'     => $sectionID,
           'default'     => 'none',
           'priority'    => 10,
           'choices'     => [
