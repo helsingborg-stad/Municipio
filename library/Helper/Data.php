@@ -4,11 +4,10 @@ namespace Municipio\Helper;
 
 class Data
 {
-
     public static function getStructuredData($postType, $postId)
     {
         $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
-     
+
         if (is_null($schema)) {
             return false;
         }
@@ -23,7 +22,8 @@ class Data
             $schema
         );
 
-        return json_encode($schema);
+
+        return json_encode($schema, JSON_UNESCAPED_UNICODE);
     }
     public static function isJson($string)
     {

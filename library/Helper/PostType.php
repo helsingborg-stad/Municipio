@@ -62,9 +62,7 @@ class PostType
     public static function postTypeDetails()
     {
         $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(get_post_type_object(self::getPostType()));
-        
-        $postTypeDetails->purpose = \Municipio\Helper\Purpose::getPurpose(self::getPostType());
-        
+
         return apply_filters('Municipio/postTypeDetails', $postTypeDetails);
     }
 

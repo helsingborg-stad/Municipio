@@ -16,7 +16,6 @@ class Controller
         $controllers = array(
             str_replace('.blade.php', '', self::camelCase(basename($controller, '.php')))
         );
-        
 
         if (isset($matches[1][0])) {
             $controllers[] = self::camelCase($matches[1][0]);
@@ -25,11 +24,11 @@ class Controller
         foreach (self::getControllerPaths() as $path) {
             foreach ($controllers as $controller) {
                 $file = $path . '/' . $controller . '.php';
-                
+
                 if (!file_exists($file)) {
                     continue;
                 }
-                
+
                 return $file;
             }
         }
@@ -47,16 +46,18 @@ class Controller
         $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("", "v3")));
 
         foreach ($versions as $versionKey => $version) {
-            $controllerPaths[] = rtrim(get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
-           
-            $controllerPaths[] = rtrim(get_template_directory()    . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version, DIRECTORY_SEPARATOR);
+            $controllerPaths[] = rtrim(
+                get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version,
+                DIRECTORY_SEPARATOR
+            );
         }
-        
-        $baseDir = MUNICIPIO_PATH . 'templates/';
-        foreach (@glob($baseDir . "*", GLOB_ONLYDIR) as $dir) {
-            $controllerPaths[] = $dir;
+        // Check all registered controller paths for subdirectory "Purpose"
+        foreach ($controllerPaths as $controllerPath) {
+            if (is_dir($controllerPath . DIRECTORY_SEPARATOR . "Purpose")) {
+                $controllerPaths[] = $controllerPath . DIRECTORY_SEPARATOR . "Purpose";
+            }
         }
-        
+
         return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths));
     }
 

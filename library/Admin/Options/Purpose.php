@@ -16,8 +16,8 @@ class Purpose
 
             if ($this->renderFieldGroups($postTypes)) {
                 acf_add_options_sub_page(array(
-                    'page_title' => __('Post Types Purpose', 'municipio'),
-                    'menu_title' => __('Post Types Purpose', 'municipio'),
+                    'page_title' => __('Purpose templates', 'municipio'),
+                    'menu_title' => __('Purposes', 'municipio'),
                     'parent_slug' => 'themes.php',
                     'capability' => 'administrator',
                     'menu_slug' => 'acf-options-purpose'
@@ -30,11 +30,16 @@ class Purpose
      *
      * @param array postTypes An array of post type objects.
      */
-    public function renderFieldGroups(array $postTypes = null)
+    public function renderFieldGroups(array $types = null)
     {
-        if (is_iterable($postTypes)) {
-            foreach ($postTypes as $postType) {
-                $fieldGroupArgs = $this->getFieldGroupArgs($postType);
+        if (is_iterable($types)) {
+            foreach ($types as $type) {
+                $fieldGroupArgs = $this->getFieldGroupArgs(
+                    [
+                        'key' => $type->name,
+                        'label' => $type->labels->singular_name
+                    ]
+                );
                 if ($fieldGroupArgs) {
                     acf_add_local_field_group($fieldGroupArgs);
                 }
@@ -51,62 +56,81 @@ class Purpose
      *
      * @return array An array of arguments.
      */
-    public function getFieldGroupArgs(object $postTypeObject): array
+    public function getFieldGroupArgs(array $type): array
     {
-
         return array(
-            'key' => 'group_purpose_' . $postTypeObject->name,
-            'title' => __('Post Type Purpose', 'municipio'),
+            'key'    => 'group_purposes_' . $type['key'],
+            'title'  => $type['label'],
             'fields' => array(
                 0 => array(
-                    'key' => 'field_purpose_' . $postTypeObject->name,
-                    'label' => $postTypeObject->label,
-                    'name' => 'purpose_' . $postTypeObject->name,
-                    'aria-label' => '',
-                    'type' => 'select',
-                    'instructions' => '',
-                    'required' => 0,
+                    'key'               => 'field_purposes_' . $type['key'],
+                    'label'             => __('Purpose', 'municipio'),
+                    'name'              => 'purposes_' . $type['key'],
+                    'aria-label'        => '',
+                    'type'              => 'select',
+                    'instructions'      => '',
+                    'required'          => 0,
+                    'conditional_logic' => 0,
+                    'wrapper'           => array(
+                        'width'         => '',
+                        'class'         => '',
+                        'id'            => '',
+                    ),
+                    'choices'            => \Municipio\Helper\Purpose::getRegisteredPurposes(),
+                    'default_value'      => false,
+                    'return_format'      => 'value',
+                    'multiple'           => 0,
+                    'allow_null'         => 1,
+                    'ui'                 => 1,
+                    'ajax'               => 0,
+                    'placeholder'        => __('Select purpose', 'municipio'),
+                    'allow_custom'       => 0,
+                    'search_placeholder' => __('Search', 'municipio') . '...',
+                ),
+                1 => array(
+                    'key'               => 'field_skip_purpose_template_' . $type['key'],
+                    'label'             => __('Template', 'municipio'),
+                    'name'              => 'skip_purpose_template_' . $type['key'],
+                    'aria-label'        => '',
+                    'type'              => 'true_false',
+                    'instructions'      => __('Check to <u>not</u> use the custom template for this post type.', 'municipio'),
+                    'required'          => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
-                        'width' => '',
+                        'width' => '100',
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => \Municipio\Helper\Purpose::getPurposes(),
+                    'message'       => __('Do not use purpose template', 'municipio'),
                     'default_value' => false,
-                    'return_format' => 'value',
-                    'multiple' => 0,
-                    'allow_custom' => 0,
-                    'placeholder' => '',
-                    'search_placeholder' => '',
-                    'allow_null' => 1,
-                    'ui' => 1,
-                    'ajax' => 0,
+                    'ui'            => 0,
+                    'ui_on_text'    => __('Use', 'municipio'),
+                    'ui_off_text'   => __('Do not use', 'municipio'),
                 ),
             ),
-            'location' => array(
-                0 => array(
+                'location' => array(
                     0 => array(
-                        'param' => 'options_page',
-                        'operator' => '==',
-                        'value' => 'acf-options-purpose',
+                        0 => array(
+                            'param' => 'options_page',
+                            'operator' => '==',
+                            'value' => 'acf-options-purpose',
+                        ),
                     ),
                 ),
-            ),
-            'menu_order' => 0,
-            'position' => 'normal',
-            'style' => 'seamless',
-            'label_placement' => 'top',
-            'instruction_placement' => 'label',
-            'hide_on_screen' => '',
-            'active' => true,
-            'description' => '',
-            'show_in_rest' => 0,
-            'acfe_display_title' => '',
-            'acfe_autosync' => '',
-            'acfe_form' => 0,
-            'acfe_meta' => '',
-            'acfe_note' => '',
+                'menu_order'            => 1,
+                'position'              => 'normal',
+                'style'                 => 'default',
+                'label_placement'       => 'left',
+                'instruction_placement' => 'label',
+                'hide_on_screen'        => '',
+                'active'                => true,
+                'description'           => '',
+                'show_in_rest'          => 0,
+                'acfe_display_title'    => '',
+                'acfe_autosync'         => '',
+                'acfe_form'             => 0,
+                'acfe_meta'             => '',
+                'acfe_note'             => '',
         );
     }
 }

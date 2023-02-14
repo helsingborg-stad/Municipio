@@ -65,8 +65,6 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
 
-        $this->data['purpose']              = $this->getPurpose();
-
         //Customization data
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
 
@@ -622,10 +620,6 @@ class BaseController
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
 
-    protected function getPurpose()
-    {
-        return apply_filters('Municipio/postTypePurpose', \Municipio\Helper\Purpose::getPurpose(get_post_type()));
-    }
     /**
      * Get language attributes
      * @return string
@@ -764,7 +758,6 @@ class BaseController
 
         return $this->getLogotype($variant) ?? false;
     }
-
     /**
      * Runs after construct
      * @return void

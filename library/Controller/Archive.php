@@ -44,6 +44,10 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
 
+        // Current term meta
+        $this->data['currentTermColour']        = $this->getCurrentTermColour();
+        $this->data['currentTermIcon']          = $this->getCurrentTermIcon();
+
         //Archive data
         $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
         $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
@@ -97,6 +101,24 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
         $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
         $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
+    }
+
+
+    public function getCurrentTermColour()
+    {
+        if (!is_tax()) {
+            return false;
+        }
+        $term = get_queried_object();
+        return \Municipio\Helper\Term::getTermColour($term->term_id, $term->taxonomy);
+    }
+    public function getCurrentTermIcon()
+    {
+        if (!is_tax()) {
+            return false;
+        }
+        $term = get_queried_object();
+        return \Municipio\Helper\Term::getTermIcon($term->term_id, $term->taxonomy);
     }
 
     /**
@@ -188,8 +210,8 @@ class Archive extends \Municipio\Controller\BaseController
         $arrayWithoutEmptyValues = isset($args->enabledFilters)
             ? array_filter($args->enabledFilters, fn($element) => !empty($element))
             : [];
-        
-        if (empty($arrayWithoutEmptyValues)) {
+
+        if (!empty($arrayWithoutEmptyValues)) {
             return $args->enabledFilters;
         }
 
@@ -263,7 +285,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $realPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $postTypePath   = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
-        $mayBeTaxonomy  = (bool)   $realPath != $postTypePath;
+        $mayBeTaxonomy  = (bool)   ($realPath != $postTypePath);
 
         if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
             return get_term_link(get_queried_object());
@@ -425,7 +447,10 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function getFacettingType($args)
     {
-        return (bool) $args->filterType; 
+        if (!isset($args->filterType) || is_null($args->filterType)) {
+            $args->filterType = false;
+        }
+        return (bool) $args->filterType;
     }
 
     /**
@@ -451,7 +476,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
-
                 //Fetch full object
                 $taxonomy = get_taxonomy($taxonomy);
 
@@ -510,14 +534,15 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Get the current taxonomy page
      */
-    private function currentTaxonomy() {
+    private function currentTaxonomy()
+    {
         $queriedObject = get_queried_object();
 
-        if(!empty($queriedObject->taxonomy)) {
-            return $queriedObject->taxonomy; 
+        if (!empty($queriedObject->taxonomy)) {
+            return $queriedObject->taxonomy;
         }
-        return false; 
-    } 
+        return false;
+    }
 
     /**
      * Get posts in expected format for each component.
@@ -530,7 +555,6 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $items = null;
         if (is_array($this->posts) && !empty($this->posts)) {
-
             if ($template == 'list') {
                 $items = $this->getListItems($this->posts);
             } else {
