@@ -31,14 +31,14 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
         } else {
             return false;
         }
-    // Compare the post attribute to rule value.
+        // Compare the post attribute to rule value.
         $purposes = \Municipio\Helper\Purpose::getPurposes($type);
         if (empty($purposes['main'])) {
             return false;
         }
-        $result = ( $purposes['main'] == $rule['value'] );
+        $result = ($purposes['main'] == $rule['value']);
 
-    // Return result taking into account the operator type.
+        // Return result taking into account the operator type.
         if ($rule['operator'] == '!=') {
             return !$result;
         }
