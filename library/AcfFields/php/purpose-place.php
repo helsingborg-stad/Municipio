@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_63eb4a0aa476e',
     'title' => __('Location', 'municipio'),
     'fields' => array(
@@ -48,5 +48,5 @@
     'acfe_form' => 0,
     'acfe_meta' => '',
     'acfe_note' => '',
-));
-}
+    ));
+}
