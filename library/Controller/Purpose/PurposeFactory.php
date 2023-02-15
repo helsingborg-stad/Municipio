@@ -31,7 +31,6 @@ class PurposeFactory
                 $instance = new $className();
                 $instance->init();
             }
-            wp_die('secondary purpose registration finished');
         }
     }
     public function getLabel(): string

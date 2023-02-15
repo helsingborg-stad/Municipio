@@ -96,31 +96,41 @@ class Purpose
         // Filter the purposes and return the result
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
-    /**
-     * > If the current page is a post type, post or term, return true if the post type, post, or term taxonomy
-     * has a purpose
-     *
-     * @param string type The type of object you want to check.
-     * @return bool
-     */
     public static function hasPurpose(string $type = ''): bool
     {
+        $current = get_queried_object();
+
         if ('' === $type) {
-            if ($current = get_queried_object()) {
-                if (is_a($current, 'WP_Post_Type')) {
-                    $type = $current->name;
-                } elseif (is_a($current, 'WP_Post')) {
-                    $type = $current->post_type;
-                } elseif (is_a($current, 'WP_Term')) {
-                    $type = $current->taxonomy;
-                } else {
-                    return false;
-                }
-            } else {
+            $type = self::getCurrentType($current);
+            if (!$type) {
                 return false;
             }
         }
-        return (bool) self::getPurposes($type);
+
+        return self::hasPurposes($type);
+    }
+
+    private static function getCurrentType($current)
+    {
+        if (!$current) {
+            return null;
+        }
+
+        if (is_a($current, 'WP_Post_Type')) {
+            return $current->name;
+        } elseif (is_a($current, 'WP_Post')) {
+            return $current->post_type;
+        } elseif (is_a($current, 'WP_Term')) {
+            return $current->taxonomy;
+        }
+
+        return null;
+    }
+
+    private static function hasPurposes(string $type): bool
+    {
+        $purposes = self::getPurposes($type);
+        return (bool) $purposes;
     }
 
     /**
