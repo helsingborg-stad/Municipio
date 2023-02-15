@@ -24,8 +24,8 @@ class SingularPurpose extends \Municipio\Controller\Singular
         if (!empty($currentPurpose = PurposeHelper::getPurposes($type))) {
             if (!empty($currentPurpose['main'])) {
                 $skipTemplate = PurposeHelper::skipPurposeTemplate($type);
-                if (!$skipTemplate && !empty($currentPurpose['main']->view)) {
-                    $this->view = $currentPurpose['main']->view;
+                if (!$skipTemplate) {
+                    $this->view = $currentPurpose['main']->getView();
                 }
             }
         }
