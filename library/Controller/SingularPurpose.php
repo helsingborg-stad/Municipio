@@ -21,14 +21,12 @@ class SingularPurpose extends \Municipio\Controller\Singular
         /**
          * Setup current purpose
          */
-        if (!empty($currentPurpose = PurposeHelper::getPurposes($type))) {
-            if (!empty($currentPurpose['main'])) {
-                $skipTemplate = PurposeHelper::skipPurposeTemplate($type);
-                if (!$skipTemplate) {
-                    $this->view = $currentPurpose['main']->getView();
-                }
+        if ($currentPurpose = PurposeHelper::getPurposes($type)) {
+            if (isset($currentPurpose['main']) && !PurposeHelper::skipPurposeTemplate($type)) {
+                $this->view = $currentPurpose['main']->getView();
             }
         }
+
         // STRUCTURED DATA (SCHEMA.ORG)
         $this->data['structuredData'] = DataHelper::getStructuredData(
             $this->data['postType'],
