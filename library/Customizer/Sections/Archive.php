@@ -6,7 +6,7 @@ class Archive
 {
     public $sectionId;
 
-    public function __construct(string $sectionID, string $archive)
+    public function __construct(string $sectionID, object $archive)
     {
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'text',

@@ -6,7 +6,9 @@ use Kirki\Compatibility\Kirki;
 use Municipio\Customizer\KirkiPanel;
 use Municipio\Customizer\KirkiPanelSection;
 use Municipio\Customizer\Panel;
+use Municipio\Customizer\Panels;
 use Municipio\Customizer\PanelsConfiguration;
+use Municipio\Customizer\PanelsRegistry;
 
 class Customizer
 {
@@ -136,44 +138,9 @@ class Customizer
         new \Municipio\Customizer\Applicators\ControllerVariables();
         new \Municipio\Customizer\Applicators\Css();
 
-        $this->registerPanels(KirkiPanel::class, KirkiPanelSection::class);
-
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
-    }
 
-    private function registerPanels() {
-
-        $panelsConfig = PanelsConfiguration::getPanelsConfiguration();
-
-        foreach ($panelsConfig as $config) {
-            $this->registerPanel($config);
-        }
-    }
-
-    private function registerPanel(array $panelConfig) {
-
-        new KirkiPanel($panelConfig['id'], $panelConfig['args'] ?? []);
-
-        if( isset($panelConfig['sections']) ) {
-            foreach ($panelConfig['sections'] as $sectionConfig) {
-                $sectionConfig['args']['panel'] = $panelConfig['id'];
-                $this->registerSection( $sectionConfig );
-            }
-        }
-    }
-
-    private function registerSection(array $sectionConfig) {
-
-        if( isset($sectionConfig['sections']) ) {
-            $this->registerPanel($sectionConfig);
-            return;
-        }
-
-        new KirkiPanelSection($sectionConfig['id'], $sectionConfig['args'] );
-
-        if( isset($sectionConfig['initFields'])) {
-            $sectionConfig['initFields']();
-        }
+        PanelsRegistry::registerAllPanels();
     }
 }

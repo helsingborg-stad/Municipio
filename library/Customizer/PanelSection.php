@@ -4,90 +4,144 @@ namespace Municipio\Customizer;
 
 abstract class PanelSection {
     
-    public string $id;
-    public array $args;
-    
-    /**
-     * Constructor.
-     *
-     * @param string               $id      A specific ID for the panel.
-     * @param array                $args    {
-     *     Optional. Array of properties for the new Panel object. Default empty array.
-     *
-     *     @type int             $priority           Priority of the section, defining the display order
-     *                                               of panels and sections. Default 160.
-     *     @type string          $panel              The panel this section belongs to (if any).
-     *                                               Default empty.
-     *     @type string          $capability         Capability required for the section.
-     *                                               Default 'edit_theme_options'
-     *     @type string|string[] $theme_supports     Theme features required to support the section.
-     *     @type string          $title              Title of the section to show in UI.
-     *     @type string          $description        Description to show in the UI.
-     *     @type string          $type               Type of the section.
-     *     @type string          $preview_url        Preview Url.
-     *     @type callable        $active_callback    Active callback.
-     *     @type bool            $description_hidden Hide the description behind a help icon,
-     *                                               instead of inline above the first control.
-     *                                               Default false.
-     * }
-     */
-    public function __construct(string $id, array $args = []) {
+    public string $id = '';
+    public int $priority = 160;
+    public string $panel = '';
+    public string $capability = '';
+    public array $themeSupports = [];
+    public string $title = '';
+    public string $description = '';
+    public string $type = '';
+    public string $previewUrl = '';
+    public bool $descriptionHidden = false;
+    public array $sections = [];
+    public $activeCallback = null;
+    public $fieldsCallback = null;
+
+    public static function create() {
+        $class = get_called_class();
+        return new $class();
+    }
+
+    public function setID(string $id) {
         $this->id = $id;
-        $this->args = $args;
-        $this->register();
+        return $this;
     }
     
     public function getID():string {
         return $this->id;
     }
+
+    public function setFieldsCallback(callable $fieldsCallback) {
+        $this->fieldsCallback = $fieldsCallback;
+        return $this;
+    }
+
+    public function invokeFieldsCallback() {
+        call_user_func($this->fieldsCallback);
+        return $this;
+    }
+
+    public function setPriority(int $priority):PanelSection {
+        $this->priority = $priority;
+        return $this;
+    }
     
     public function getPriority():string {
-        return $this->args['priority'] ?? 160;
+        return $this->priority;
+    }
+
+    public function setThemeSupports(array $themeSupports):PanelSection {
+        $this->themeSupports = $themeSupports;
+        return $this;
     }
     
     public function getThemeSupports():array {
-        return $this->args['theme_supports'] ?? [];
+        return $this->themeSupports ?? [];
+    }
+
+    public function setTitle(string $title):PanelSection {
+        $this->title = $title;
+        return $this;
     }
     
     public function getTitle():string {
-        return $this->args['title'] ?? '';
+        return $this->title;
+    }
+
+    public function setDescription(string $description):PanelSection {
+        $this->description = $description;
+        return $this;
     }
     
     public function getDescription():string {
-        return $this->args['description'] ?? '';
+        return $this->description;
+    }
+
+    public function setType(string $type):PanelSection {
+        $this->type = $type;
+        return $this;
     }
     
     public function getType():string {
-        return $this->args['type'] ?? 'default';
+        return $this->type;
+    }
+
+    public function setActiveCallback(callable $activeCallback):PanelSection {
+        $this->activeCallback = $activeCallback;
+        return $this;
     }
     
     public function getActiveCallback():callable {
-        return $this->args['type'] ?? fn() => true;
+        return $this->activeCallback ?? fn() => true;
+    }
+
+    public function setCapability(string $capability):PanelSection {
+        $this->capability = $capability;
+        return $this;
     }
     
     public function getCapability():string {
-        return $this->args['capability'] ?? '';
+        return $this->capability;
+    }
+
+    public function setDescriptionHidden(bool $descriptionHidden):PanelSection {
+        $this->descriptionHidden = $descriptionHidden;
+        return $this;
     }
 
     public function getDescriptionHidden():bool {
-        return $this->args['description_hidden'] ?? false;
+        return $this->descriptionHidden;
+    }
+
+    public function setPreviewUrl(string $previewUrl):PanelSection {
+        $this->previewUrl = $previewUrl;
+        return $this;
     }
     
     public function getPreviewUrl():bool {
-        return $this->args['preview_url'] ?? false;
+        return $this->previewUrl;
+    }
+
+    public function setPanel(string $panel):PanelSection {
+        $this->panel = $panel;
+        return $this;
     }
     
     public function getPanel():string {
-        return $this->args['panel'] ?? '';
+        return $this->panel;
+    }
+
+    public function addSection(PanelSection $section):PanelSection {
+        $this->sections[] = $section;
+        return $this;
     }
     
-    public function getArgs():array {
-        return $this->args;
-    }
-    
-    protected function register() {
+    public function register():PanelSection {
         $this->handleRegistration();
-        do_action('municipio_customizer_section_registered', $this->id, $this->args);
+        $this->fieldsCallback && $this->invokeFieldsCallback();
+        do_action('municipio_customizer_section_registered', $this);
+        return $this;
     }
     
     abstract function handleRegistration():PanelSection;
