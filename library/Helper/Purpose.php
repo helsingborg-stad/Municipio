@@ -50,6 +50,7 @@ class Purpose
     public static function getPurposes(string $type = ''): array|bool
     {
         $current = get_queried_object();
+
         if ('' === $type && !$current) {
             return false;
         }
@@ -62,6 +63,16 @@ class Purpose
             $type = $current->taxonomy;
         }
 
+        $purposes = self::getPurposesArray($type);
+        if (!$purposes) {
+            return false;
+        }
+
+        return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
+    }
+
+    private static function getPurposesArray(string $type): array|bool
+    {
         $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
         if (!$mainPurpose) {
             return false;
@@ -90,8 +101,7 @@ class Purpose
             }
         }
 
-        // Filter the purposes and return the result
-        return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
+        return $purposes;
     }
 
     public static function hasPurpose(string $type = ''): bool
