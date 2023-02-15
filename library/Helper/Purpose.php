@@ -118,21 +118,21 @@ class Purpose
         return self::hasPurposes($type);
     }
 
-    private static function getCurrentType($current)
+    private static function getCurrentType($current): ?string
     {
         if (!$current) {
             return null;
         }
 
         if (is_a($current, 'WP_Post_Type')) {
-            return $current->name;
+            $type = $current->name;
         } elseif (is_a($current, 'WP_Post')) {
-            return $current->post_type;
+            $type = $current->post_type;
         } elseif (is_a($current, 'WP_Term')) {
-            return $current->taxonomy;
+            $type = $current->taxonomy;
         }
 
-        return null;
+        return $type;
     }
 
     private static function hasPurposes(string $type): bool
