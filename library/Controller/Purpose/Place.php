@@ -10,11 +10,9 @@ class Place extends PurposeFactory
 {
     public function __construct()
     {
-        $this->view  = 'purpose-place';
-        $this->key   = 'place';
-        $this->label = __('Place', 'municipio');
+        parent::__construct('place', __('Place', 'municipio'));
     }
-    public function init()
+    public function init(): void
     {
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);

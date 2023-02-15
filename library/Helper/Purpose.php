@@ -21,17 +21,17 @@ class Purpose
                         continue;
                     }
 
-                    $className = ControllerHelper::getNamespace($filename) . '\\' . basename($filename, '.php');
-                    $class = new $className();
+                    $namespace = ControllerHelper::getNamespace($filename);
+                    $className = basename($filename, '.php');
+                    $classNameWithNamespace = $namespace . '\\' . $className;
 
                     if ($includeExtras) {
-                        $purposes[$class->getKey()] = [
-                            'label' => $class->getLabel(),
-                            'class' => $className,
+                        $purposes[$className] = [
+                            'class' => $classNameWithNamespace,
                             'path' => $filename
                         ];
                     } else {
-                        $purposes[$class->getKey()] = $class->getLabel();
+                        $purposes[$className] = $classNameWithNamespace;
                     }
                 }
             }
@@ -65,20 +65,20 @@ class Purpose
             }
         }
 
-        $mainPurpose = get_option("options_purposes_{$type}", false);
+        $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
         if (!$mainPurpose) {
             return false;
         }
 
+        $purposes = [];
         $registeredPurposes = self::getRegisteredPurposes(true);
 
-        $instance = new $registeredPurposes[$mainPurpose]['class']();
-        $purposes = ['main' => $instance];
-        if (!empty($secondary = $instance->getSecondaryPurpose())) {
-            foreach ($secondary as $key => $value) {
-                $purposes['secondary'][$key] = $value;
-            }
+        if (class_exists($registeredPurposes[$mainPurpose]['class'])) {
+            $instance = new $registeredPurposes[$mainPurpose]['class']();
+            $purposes['main'] = $instance;
+            $purposes['secondary'] = $instance->getSecondaryPurpose();
         }
+
 
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
@@ -106,7 +106,7 @@ class Purpose
                 return false;
             }
         }
-        return (bool) count(self::getPurposes($type));
+        return (bool) self::getPurposes($type);
     }
 
     /**

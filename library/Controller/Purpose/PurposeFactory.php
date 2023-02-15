@@ -4,26 +4,34 @@ namespace Municipio\Controller\Purpose;
 
 class PurposeFactory
 {
-    protected string $view = '';
-    protected string $key = '';
-    protected string $label = '';
+    protected string $key;
+    protected string $label;
+    protected array $secondaryPurpose;
+    protected string $view;
 
-    protected array $secondaryPurpose = [];
+    public function __construct(string $key, string $label, array $secondaryPurpose = [])
+    {
+        $this->key              = $key;
+        $this->label            = $label;
+        $this->secondaryPurpose = $secondaryPurpose;
+        $this->view             = "purpose-{$key}";
 
-    public function __construct()
+        $this->init();
+
+        self::registerSecondaryPurposes();
+    }
+    public function init(): void
     {
     }
-    public function init()
-    {
-    }
 
-    protected function initSecondaryPurpose()
+    protected function registerSecondaryPurposes()
     {
-        if (!empty($this->secondaryPurpose)) {
-            foreach ($this->secondaryPurpose as $className) {
+        if (!empty($this->getSecondaryPurpose())) {
+            foreach ($this->getSecondaryPurpose() as $className) {
                 $instance = new $className();
                 $instance->init();
             }
+            wp_die('secondary purpose registration finished');
         }
     }
     public function getLabel(): string

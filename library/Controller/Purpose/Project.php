@@ -10,20 +10,11 @@ class Project extends PurposeFactory
 {
     public function __construct()
     {
-        $this->view  = 'purpose-project';
-        $this->key   = 'project';
-        $this->label = __('Project', 'municipio');
-
-        $this->secondaryPurpose = [
-            'place' => Place::class
-        ];
+        parent::__construct('project', __('Project', 'municipio'), ['place' => Place::class]);
     }
 
-    public function init()
+    public function init(): void
     {
-        // Initate secondary purposes
-        parent::initSecondaryPurpose();
-
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
