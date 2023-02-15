@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 14:21+0100\n"
-"PO-Revision-Date: 2023-02-14 14:55+0100\n"
+"POT-Creation-Date: 2023-02-13 18:24+0100\n"
+"PO-Revision-Date: 2023-02-15 11:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -1193,7 +1193,7 @@ msgstr "colorize"
 
 #: library/AcfFields/php/options-menu-icon.php:228
 msgid "comment"
-msgstr "Kommentar"
+msgstr "kommentar"
 
 #: library/AcfFields/php/options-menu-icon.php:229
 msgid "commute"
@@ -5583,7 +5583,7 @@ msgstr "Medialänk"
 #: library/Admin/Acf/LocationRulesPurpose.php:8
 #: library/Admin/Options/Purpose.php:67
 msgid "Purpose"
-msgstr "Innehållssyfte"
+msgstr "Syfte"
 
 #: library/Admin/General.php:106
 msgid "Only for logged in users"
@@ -5648,11 +5648,11 @@ msgstr "Innehållssyfte"
 
 #: library/Admin/Options/Purpose.php:20
 msgid "Purposes"
-msgstr "Syften"
+msgstr "Innehållssyften"
 
 #: library/Admin/Options/Purpose.php:86
 msgid "Select purpose"
-msgstr "Välj innehållssyfte"
+msgstr "Välj syfte"
 
 #: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:98
@@ -5799,7 +5799,7 @@ msgstr "Lämna en kommentar"
 
 #: library/Comment/Form.php:40
 msgid "You need to login before leaving a comment."
-msgstr "Du behöver logga in för att kunna lämna en kommentar. "
+msgstr "Du behöver logga in för att kunna lämna en kommentar."
 
 #: library/Comment/Form.php:59
 msgid "Cancel reply"
@@ -6093,15 +6093,15 @@ msgstr ""
 msgid "post"
 msgstr "post"
 
-#: library/Controller/Purpose/Event.php:26
+#: library/Controller/Purpose/Event.php:24
 msgid "Event"
 msgstr "Evenemang"
 
-#: library/Controller/Purpose/Place.php:24
+#: library/Controller/Purpose/Place.php:18
 msgid "Place"
 msgstr "Plats"
 
-#: library/Controller/Purpose/Project.php:29
+#: library/Controller/Purpose/Project.php:27
 msgid "Project"
 msgstr "Projekt"
 
@@ -8438,15 +8438,6 @@ msgstr "Pris"
 #: views/v1/single-listing.blade.php:61
 msgid "Attached files"
 msgstr "Bifogade filer"
-
-#, php-format
-#~ msgid "Sidebar that sits below the hero, takes up 100% of the width."
-#~ msgstr "Sidofält som ligger under hero och tar upp 100% av bredden."
-
-#, php-format
-#~ msgid ""
-#~ "Sidebar that sits just before the footer, takes up 100% of the width."
-#~ msgstr "Fältet som ligger före sidfoten tar upp 100% av bredden."
 
 #~ msgid "Post Types Purpose"
 #~ msgstr "Innehållstyper"
