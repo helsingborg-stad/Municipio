@@ -4,7 +4,8 @@
 @stop
 
 @section('helper-navigation')
-    @includeIf('partials.navigation.helper')
+@includeIf('partials.navigation.helper')
+hallå!
 @stop
 
 @section('hero-top-sidebar')
@@ -13,9 +14,6 @@
 @stop
 
 @section('above')
-    @if($likeIsActive && get_post_type() == 'post')
-        @include('partials.icon')
-    @endif
     @include('partials.sidebar', ['id' => 'above-columns-sidebar', 'classes' => ['o-grid']])
 @stop
 

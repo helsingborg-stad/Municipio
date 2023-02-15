@@ -14,7 +14,9 @@
 				])
 					@icon([
 						'icon' => $item['icon'],
-						'size' => 'md'
+						'size' => $item['icon__size'] ?? 'md',
+						'filled' => $item['icon__filled'] ?? true,
+						'attributeList' => $item['icon__attributeList'] ?? []
 					])
 					@endicon
 					{{$item['text']}}
