@@ -4,22 +4,13 @@ namespace Municipio\Customizer\Sections;
 
 class Divider
 {
-    public const SECTION_ID = "municipio_customizer_section_divider";
-
-    public function __construct($panelID)
+    public function __construct($sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Divider', 'municipio'),
-            'description' => esc_html__('Divider settings.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'divider_thickness',
             'label'       => esc_html__('Divider thickness', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport' => 'auto',
             'default'     => 1,
             'choices'     => [
@@ -40,7 +31,7 @@ class Divider
             'type'        => 'select',
             'settings'    => 'divider_border_style',
             'label'       => esc_html__('Border style', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport'   => 'refresh',
             'default'     => 'solid',
             'choices'     => [
@@ -66,7 +57,7 @@ class Divider
             'type'        => 'multicolor',
             'settings'    => 'divider_colors',
             'label'       => esc_html__('Colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport'   => 'auto',
             'alpha'       => true,
@@ -89,7 +80,7 @@ class Divider
             'type'        => 'switch',
             'settings'    => 'divider_custom_font',
             'label'       => esc_html__('Customize text color', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport'   => 'refresh',
             'default'     => false,
             'choices'     => [
@@ -114,7 +105,7 @@ class Divider
             'type'        => 'color',
             'settings'    => 'divider_color_text',
             'label'       => esc_html__('Text color', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport'   => 'auto',
             'alpha'       => true,
@@ -139,7 +130,7 @@ class Divider
             'type'        => 'select',
             'settings'    => 'divider_title_alignment',
             'label'       => esc_html__('Text alignment', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport'   => 'refresh',
             'default'     => 'center',
             'choices'     => [
@@ -165,7 +156,7 @@ class Divider
             'type'        => 'switch',
             'settings'    => 'divider_title_frame',
             'label'       => esc_html__('Wrap title in frame', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport'   => 'refresh',
             'default'     => true,
             'choices'     => [
@@ -190,7 +181,7 @@ class Divider
             'type'        => 'multicolor',
             'settings'    => 'divider_frame_colors',
             'label'       => esc_html__('Frame colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport'   => 'auto',
             'alpha'       => true,
@@ -227,7 +218,7 @@ class Divider
             'type'        => 'slider',
             'settings'    => 'divider_title_border_radius',
             'label'       => esc_html__('Frame border radius', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport' => 'auto',
             'default'     => 0,
             'active_callback' => [
@@ -255,7 +246,7 @@ class Divider
             'type'        => 'slider',
             'settings'    => 'divider_title_border_width',
             'label'       => esc_html__('Frame border width', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport' => 'auto',
             'default'     => 1,
             'active_callback' => [

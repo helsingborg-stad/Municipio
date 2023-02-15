@@ -24,6 +24,7 @@ abstract class PanelSection {
      *     @type string          $title              Title of the section to show in UI.
      *     @type string          $description        Description to show in the UI.
      *     @type string          $type               Type of the section.
+     *     @type string          $preview_url        Preview Url.
      *     @type callable        $active_callback    Active callback.
      *     @type bool            $description_hidden Hide the description behind a help icon,
      *                                               instead of inline above the first control.
@@ -70,6 +71,10 @@ abstract class PanelSection {
 
     public function getDescriptionHidden():bool {
         return $this->args['description_hidden'] ?? false;
+    }
+    
+    public function getPreviewUrl():bool {
+        return $this->args['preview_url'] ?? false;
     }
     
     public function getPanel():string {

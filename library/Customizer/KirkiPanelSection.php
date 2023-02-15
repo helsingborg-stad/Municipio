@@ -17,7 +17,8 @@ class KirkiPanelSection extends PanelSection {
             'theme_supports' => $this->getThemeSupports(),
             'type' => $this->getType(),
             'capability' => $this->getCapability(),
-            'description_hidden' => $this->getDescriptionHidden()
+            'description_hidden' => $this->getDescriptionHidden(),
+            'preview_url' => $this->getPreviewUrl()
         ));
 
         return $this;
