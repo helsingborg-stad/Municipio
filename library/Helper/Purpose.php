@@ -49,20 +49,17 @@ class Purpose
     */
     public static function getPurposes(string $type = ''): array|bool
     {
-        if ('' === $type) {
-            if ($current = get_queried_object()) {
-                if (is_a($current, 'WP_Post_Type')) {
-                    $type = $current->name;
-                } elseif (is_a($current, 'WP_Post')) {
-                    $type = $current->post_type;
-                } elseif (is_a($current, 'WP_Term')) {
-                    $type = $current->taxonomy;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
+        $current = get_queried_object();
+        if ('' === $type && !$current) {
+            return false;
+        }
+
+        if ('' === $type && is_a($current, 'WP_Post_Type')) {
+            $type = $current->name;
+        } elseif ('' === $type && is_a($current, 'WP_Post')) {
+            $type = $current->post_type;
+        } elseif ('' === $type && is_a($current, 'WP_Term')) {
+            $type = $current->taxonomy;
         }
 
         $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
@@ -72,23 +69,23 @@ class Purpose
 
         $purposes = [];
         $registeredPurposes = self::getRegisteredPurposes(true);
+        $mainPurposeClass = $registeredPurposes[$mainPurpose]['class'] ?? null;
 
-        if (empty($registeredPurposes[$mainPurpose])) {
+        if (!$mainPurposeClass || !class_exists($mainPurposeClass)) {
             return false;
         }
 
-        if (isset($registeredPurposes[$mainPurpose]['class']) && class_exists($registeredPurposes[$mainPurpose]['class'])) {
-            // Instantiate the main purpose
-            $instance = new $registeredPurposes[$mainPurpose]['class']();
-            $purposes['main'] = $instance;
+        // Instantiate the main purpose
+        $instance = new $mainPurposeClass();
+        $purposes['main'] = $instance;
 
-            // Instantiate secondary purposes
-            $secondaryPurpose = $instance->getSecondaryPurpose();
-            if (!empty($secondaryPurpose)) {
-                foreach ($secondaryPurpose as $key => $value) {
-                    if (isset($registeredPurposes[$key]['class']) && class_exists($registeredPurposes[$key]['class'])) {
-                        $purposes['secondary'][] = new $registeredPurposes[$key]['class']();
-                    }
+        // Instantiate secondary purposes
+        $secondaryPurpose = $instance->getSecondaryPurpose();
+        if (!empty($secondaryPurpose)) {
+            foreach ($secondaryPurpose as $key => $value) {
+                $class = $registeredPurposes[$key]['class'] ?? null;
+                if ($class && class_exists($class)) {
+                    $purposes['secondary'][] = new $class();
                 }
             }
         }
@@ -96,6 +93,7 @@ class Purpose
         // Filter the purposes and return the result
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
+
     public static function hasPurpose(string $type = ''): bool
     {
         $current = get_queried_object();
