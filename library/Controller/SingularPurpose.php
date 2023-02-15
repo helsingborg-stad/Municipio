@@ -19,17 +19,13 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $type = $this->data['post']->postType;
 
         /**
-         * Load and instantiate the current purpose
+         * Setup current purpose
          */
         if (!empty($currentPurpose = PurposeHelper::getPurposes($type))) {
             if (!empty($currentPurpose['main'])) {
-                $purpose = $currentPurpose['main'];
-                $purpose->init();
-
                 $skipTemplate = PurposeHelper::skipPurposeTemplate($type);
-                // This will need to be refactored if we decide to allow multiple purposes on a single type
-                if (!$skipTemplate && !empty($purpose->view)) {
-                    $this->view = $purpose->view;
+                if (!$skipTemplate && !empty($currentPurpose['main']->view)) {
+                    $this->view = $currentPurpose['main']->view;
                 }
             }
         }

@@ -73,13 +73,27 @@ class Purpose
         $purposes = [];
         $registeredPurposes = self::getRegisteredPurposes(true);
 
-        if (class_exists($registeredPurposes[$mainPurpose]['class'])) {
-            $instance = new $registeredPurposes[$mainPurpose]['class']();
-            $purposes['main'] = $instance;
-            $purposes['secondary'] = $instance->getSecondaryPurpose();
+        if (empty($registeredPurposes[$mainPurpose])) {
+            return false;
         }
 
+        if (isset($registeredPurposes[$mainPurpose]['class']) && class_exists($registeredPurposes[$mainPurpose]['class'])) {
+            // Instantiate the main purpose
+            $instance = new $registeredPurposes[$mainPurpose]['class']();
+            $purposes['main'] = $instance;
 
+            // Instantiate secondary purposes
+            $secondaryPurpose = $instance->getSecondaryPurpose();
+            if (!empty($secondaryPurpose)) {
+                foreach ($secondaryPurpose as $key => $value) {
+                    if (isset($registeredPurposes[$key]['class']) && class_exists($registeredPurposes[$key]['class'])) {
+                        $purposes['secondary'][] = new $registeredPurposes[$key]['class']();
+                    }
+                }
+            }
+        }
+
+        // Filter the purposes and return the result
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
     /**
