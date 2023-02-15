@@ -20,6 +20,9 @@ class PurposeFactory
 
         self::registerSecondaryPurposes();
     }
+    /**
+     * This method is empty by default and can be overridden by subclasses to add their own initialization logic.
+     */
     public function init(): void
     {
     }
