@@ -2,7 +2,8 @@
 
 namespace Municipio\Customizer;
 
-class PanelsRegistry {
+class PanelsRegistry
+{
 
     private static $instance = null;
     private static bool $registerInvoked = false;
@@ -15,39 +16,45 @@ class PanelsRegistry {
         add_action('municipio_customizer_section_registered', array($this, 'addSectionToRegistry'));
     }
 
-    public function addPanelToRegistry(Panel $panel) {
+    public function addPanelToRegistry(Panel $panel)
+    {
         $this->panels[$panel->getID()] = $panel;
     }
 
-    public function addSectionToRegistry(PanelSection $section) {
+    public function addSectionToRegistry(PanelSection $section)
+    {
         $this->sections[$section->getID()] = $section;
     }
 
     /**
      * @return Panel[]
      */
-    public function getRegisteredPanels():array {
+    public function getRegisteredPanels():array
+    {
         return $this->panels;
     }
 
     /**
      * @return PanelSection[]
      */
-    public function getRegisteredSections():array {
+    public function getRegisteredSections():array
+    {
         return $this->sections;
     }
 
-    public static function getInstance():PanelsRegistry {
-        if( self::$instance === null ) {
+    public static function getInstance():PanelsRegistry
+    {
+        if (self::$instance === null) {
             self::$instance = new PanelsRegistry();
         }
 
         return self::$instance;
     }
 
-    public function build():void {
+    public function build():void
+    {
 
-        if( self::$registerInvoked ) {
+        if (self::$registerInvoked) {
             $method = __METHOD__;
             var_dump("{$method} can only be invoked once.");
             trigger_error("{$method} can only be invoked once.", E_USER_NOTICE);
@@ -63,7 +70,8 @@ class PanelsRegistry {
         self::registerDesignLibraryPanel();
     }
 
-    public static function registerDesignLibraryPanel() {
+    public static function registerDesignLibraryPanel()
+    {
         KirkiPanel::create()
             ->setID('municipio_customizer_panel_designlib')
             ->setTitle(esc_html__('Design Library', 'municipio'))
@@ -78,7 +86,8 @@ class PanelsRegistry {
             )->register();
     }
 
-    public static function registerArchivePanel() {
+    public static function registerArchivePanel()
+    {
         $panelID = 'municipio_customizer_panel_archive';
         $archives = self::getArchives();
         $sections = array_map(function($archive) use ($panelID) {
@@ -100,7 +109,8 @@ class PanelsRegistry {
             ->register();
     }
 
-    public static function registerModulePanel() {
+    public static function registerModulePanel()
+    {
         KirkiPanel::create()
             ->setID('municipio_customizer_panel_design_module')
             ->setTitle(esc_html__('Module Apperance', 'municipio'))
@@ -161,7 +171,8 @@ class PanelsRegistry {
             )->register();
     }
     
-    public static function registerGeneralAppearancePanel() {
+    public static function registerGeneralAppearancePanel()
+    {
         KirkiPanel::create()
             ->setID('municipio_customizer_panel_design')
             ->setTitle(esc_html__('General Apperance', 'municipio'))
@@ -224,7 +235,8 @@ class PanelsRegistry {
             )->register();
     }
     
-    public static function registerComponentAppearancePanel() {
+    public static function registerComponentAppearancePanel()
+    {
         KirkiPanel::create()
             ->setID('municipio_customizer_panel_design_component')
             ->setTitle(esc_html__('Component Apperance', 'municipio'))
@@ -301,7 +313,8 @@ class PanelsRegistry {
             )->register();
     }
 
-    public static function registerNavMenusPanel() {
+    public static function registerNavMenusPanel()
+    {
         KirkiPanel::create()
             ->setID('nav_menus')
             ->addSection(
@@ -313,7 +326,8 @@ class PanelsRegistry {
             )->register();
     }
 
-    public static function getArchivePanelSectionsConfiguaration(string $parentPanelID):array {
+    public static function getArchivePanelSectionsConfiguaration(string $parentPanelID):array
+    {
         $archives = self::getArchives();
         $archiveSections = [];
         

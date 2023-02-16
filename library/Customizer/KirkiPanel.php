@@ -5,9 +5,11 @@ namespace Municipio\Customizer;
 use Kirki\Compatibility\Kirki;
 use Throwable;
 
-class KirkiPanel extends Panel {
+class KirkiPanel extends Panel
+{
     
-    public function handleRegistration():bool {
+    public function handleRegistration():bool
+    {
 
         try {
             Kirki::add_panel($this->getID(), array(
@@ -20,7 +22,7 @@ class KirkiPanel extends Panel {
                 'capability' => $this->getCapability(),
                 'panel' => $this->getPanel()
             ));
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             return false;
         }
 

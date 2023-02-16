@@ -4,9 +4,11 @@ namespace Municipio\Customizer;
 
 use Kirki\Compatibility\Kirki;
 
-class KirkiPanelSection extends PanelSection {
+class KirkiPanelSection extends PanelSection
+{
     
-    public function handleRegistration():PanelSection {
+    public function handleRegistration():PanelSection
+    {
 
         Kirki::add_section($this->getID(), array(
             'panel' => $this->getPanel(),

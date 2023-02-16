@@ -2,7 +2,8 @@
 
 namespace Municipio\Customizer;
 
-abstract class Panel {
+abstract class Panel
+{
 
     public string $id = '';
     public int $priority = 160;
@@ -16,94 +17,114 @@ abstract class Panel {
     public string $panel = '';
     public array $subPanels = [];
     
-    public static function create() {
+    public static function create()
+    {
         $class = get_called_class();
         return new $class();
     }
 
-    public function setID(string $id) {
+    public function setID(string $id)
+    {
         $this->id = $id;
         return $this;
     }
     
-    public function getID():string {
+    public function getID():string
+    {
         return $this->id;
     }
 
 
-    public function setPriority(int $priority):Panel {
+    public function setPriority(int $priority):Panel
+    {
         $this->priority = $priority;
         return $this;
     }
     
-    public function getPriority():string {
+    public function getPriority():string
+    {
         return $this->priority;
     }
 
-    public function setThemeSupports(array $themeSupports):Panel {
+    public function setThemeSupports(array $themeSupports):Panel
+    {
         $this->themeSupports = $themeSupports;
         return $this;
     }
 
-    public function getThemeSupports():array {
+    public function getThemeSupports():array
+    {
         return $this->themeSupports ?? [];
     }
 
-    public function setTitle(string $title):Panel {
+    public function setTitle(string $title):Panel
+    {
         $this->title = $title;
         return $this;
     }
     
-    public function getTitle():string {
+    public function getTitle():string
+    {
         return $this->title;
     }
 
-    public function setDescription(string $description):Panel {
+    public function setDescription(string $description):Panel
+    {
         $this->description = $description;
         return $this;
     }
     
-    public function getDescription():string {
+    public function getDescription():string
+    {
         return $this->description;
     }
 
-    public function setType(string $type):Panel {
+    public function setType(string $type):Panel
+    {
         $this->type = $type;
         return $this;
     }
     
-    public function getType():string {
+    public function getType():string
+    {
         return $this->type;
     }
 
-    public function setActiveCallback(callable $activeCallback):Panel {
+    public function setActiveCallback(callable $activeCallback):Panel
+    {
         $this->activeCallback = $activeCallback;
         return $this;
     }
     
-    public function getActiveCallback():callable {
+    public function getActiveCallback():callable
+    {
         return $this->activeCallback ?? fn() => true;
     }
 
-    public function setCapability(string $capability):Panel {
+    public function setCapability(string $capability):Panel
+    {
         $this->capability = $capability;
         return $this;
     }
     
-    public function getCapability():string {
+    public function getCapability():string
+    {
         return $this->capability;
     }
 
-    public function setPanel(string $panel):Panel {
+    public function setPanel(string $panel):Panel
+    {
         $this->panel = $panel;
         return $this;
     }
 
-    public function getPanel():string {
+    public function getPanel():string
+    {
         return $this->panel;
     }
 
-    public function addSubPanels(Panel $subPanels):Panel {
+    public function addSubPanels(Panel $subPanels):Panel
+    {
         
         foreach ($subPanels as $subPanel) {
             $this->addSubPanel($subPanel);
@@ -112,7 +133,8 @@ abstract class Panel {
         return $this;
     }
 
-    public function addSubPanel(Panel $subPanel):Panel {
+    public function addSubPanel(Panel $subPanel):Panel
+    {
         $subPanel->setPanel($this->getID())->register();
         $this->subPanels[] = $subPanel;
         return $this;
@@ -121,22 +143,25 @@ abstract class Panel {
     /**
      * @return Panel[]
      */
-    public function getSubPanels():array {
+    public function getSubPanels():array
+    {
         return $this->subPanels;
     }
 
-    public function addSections(array $sections):Panel {
+    public function addSections(array $sections):Panel
+    {
         
-        foreach($sections as $section) {
+        foreach ($sections as $section) {
             $this->addSection($section);
         }
         
         return $this;
     }
     
-    public function addSection(PanelSection $section):Panel {
+    public function addSection(PanelSection $section):Panel
+    {
         
-        if( empty($section->getPanel()) ) {
+        if (empty($section->getPanel())) {
             $section->setPanel($this->getID());
         }
         
@@ -148,11 +173,13 @@ abstract class Panel {
     /**
      * @return PanelSection[]
      */
-    public function getSections():array {
+    public function getSections():array
+    {
         return $this->sections;
     }
     
-    public function register():Panel {
+    public function register():Panel
+    {
         $this->handleRegistration();
         do_action('municipio_customizer_panel_registered', $this);
         return $this;
