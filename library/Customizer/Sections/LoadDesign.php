@@ -3,7 +3,6 @@
 namespace Municipio\Customizer\Sections;
 
 use Kirki\Compatibility\Kirki;
-use Municipio\Customizer;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
 

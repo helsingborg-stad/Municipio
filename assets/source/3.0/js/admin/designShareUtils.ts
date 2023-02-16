@@ -4,12 +4,31 @@ export async function handleMediaSideload(args: MediaSideloadArgs) {
     return mediaSideload
         .call(args)
         .catch(error => {
-            console.warn(error);
+            console.error(error);
             return null;
         });
 }
 
+function getExcludedSections():string[] {
+    const defaultSections = ['municipio_customizer_panel_design_module']
+    const excludedSections = wp.customize.control('exclude_load_design').setting.get() as string[]
+    return [...defaultSections, ...excludedSections]
+}
+
+export function getExcludedSettingIds():string[] {
+    const excludedSections = getExcludedSections()
+    return Object.keys(wp.customize.settings.settings)
+        .map(id => wp.customize.control(id))
+        .filter(setting => setting !== undefined)
+        .filter(setting => setting.hasOwnProperty("params"))
+        .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
+        .filter(setting => setting.params.type !== "kirki-custom")
+        .filter(control => excludedSections.includes(control.section()))
+        .map(control => control.params.id)
+}
+
 export function getSettings() {
+    const excludedSettingsIds = getExcludedSettingIds();
     return Object
         .entries(wp.customize.settings.settings)
         .map(([key]) => wp.customize.control(key))
@@ -17,7 +36,7 @@ export function getSettings() {
         .filter(setting => setting.hasOwnProperty("params"))
         .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
         .filter(setting => setting.params.type !== "kirki-custom")
-        .filter(setting => setting.params.id !== "load_design");
+        .filter(setting => !excludedSettingsIds.includes(setting.params.id))
 }
 
 export function resetSettingsToDefault(settings: any[]) {

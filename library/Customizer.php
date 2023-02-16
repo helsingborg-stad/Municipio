@@ -3,11 +3,6 @@
 namespace Municipio;
 
 use Kirki\Compatibility\Kirki;
-use Municipio\Customizer\KirkiPanel;
-use Municipio\Customizer\KirkiPanelSection;
-use Municipio\Customizer\Panel;
-use Municipio\Customizer\Panels;
-use Municipio\Customizer\PanelsConfiguration;
 use Municipio\Customizer\PanelsRegistry;
 
 class Customizer
