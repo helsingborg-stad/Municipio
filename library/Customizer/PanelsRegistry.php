@@ -4,9 +4,51 @@ namespace Municipio\Customizer;
 
 class PanelsRegistry {
 
-    public static $panels = [];
+    private static $instance = null;
+    private static bool $registerInvoked = false;
+    private array $panels = [];
+    private array $sections = [];
 
-    public static function registerAllPanels() {
+    private function __construct()
+    {
+        add_action('municipio_customizer_panel_registered', array($this, 'addPanelToRegistry'));
+        add_action('municipio_customizer_section_registered', array($this, 'addSectionToRegistry'));
+    }
+
+    public function addPanelToRegistry(Panel $panel) {
+        $this->panels[] = $panel;
+    }
+
+    public function addSectionToRegistry(PanelSection $section) {
+        $this->sections[] = $section;
+    }
+
+    public function getRegisteredPanels():array {
+        return $this->panels;
+    }
+
+    public function getRegisteredSections():array {
+        return $this->sections;
+    }
+
+    public static function getInstance() {
+        if( self::$instance === null ) {
+            self::$instance = new PanelsRegistry();
+        }
+
+        return self::$instance;
+    }
+
+    public function build() {
+
+        if( self::$registerInvoked ) {
+            $method = __METHOD__;
+            var_dump("{$method} can only be invoked once.");
+            trigger_error("{$method} can only be invoked once.", E_USER_NOTICE);
+            return;
+        }
+
+        self::$registerInvoked = true;
         self::registerDesignLibraryPanel();
         self::registerArchivePanel();
         self::registerModulePanel();
