@@ -1,4 +1,6 @@
 import { mediaSideload, MediaSideloadArgs } from "../restApi/endpoints/mediaSideload";
+import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
+import { scrubHexValue } from "../utils/scrubHexValue";
 
 export async function handleMediaSideload(args: MediaSideloadArgs) {
     return mediaSideload
@@ -84,4 +86,57 @@ interface CustomizerNotificationProps {
 export function showNotification(args: CustomizerNotificationProps) {
     const notification = new wp.customize.Notification( args.code, {message: args.message, type:args.type ?? 'notice', dismissible: true} );
     args.setting.notifications.add( args.code, notification );
+}
+
+export async function getFormattedMods(mods:any) {
+    let formattedMods:Record<string,any> = {}
+
+    for (const [key, value] of Object.entries(mods)) {
+        
+        if( value !== null && typeof value === 'object' && !Array.isArray(value) ) {
+            
+            for (const [subKey, subValue] of Object.entries(value)) {
+                formattedMods[`${key}[${subKey}]`] = subValue
+            }
+            
+        } else {
+            formattedMods[key] = value
+        }
+    }
+
+    return formattedMods
+}
+
+export async function importSettings(formattedMods:Record<string,any>, excludedSettings:string[]) {
+    for (const [key, rawValue] of Object.entries(formattedMods)) {
+        
+        const control = wp.customize.control(key);
+        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
+
+        if( excludedSettings.includes(key) ) {
+            continue;
+        }
+        
+        if( value === null ) {
+            continue;
+        }
+        
+        if (key.startsWith('custom_fonts')) {
+            const fontName = key.match(/\[(.+)\]$/)
+            if( fontName === null ) continue;
+            await handleMediaSideload({ url: value, description: fontName[1], return: 'id' })
+        } else if (typeof control !== 'undefined') {
+            
+            if (isRemoteMediaFile(value)) {
+                
+                await migrateRemoteMediaFile(value, control)
+                updateKirkiImageControl(control, value);
+                
+            } else {
+                const scrubbedValue = scrubHexValue(value);
+                control.setting.set(scrubbedValue)
+            }
+            
+        }
+    }
 }
