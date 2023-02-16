@@ -144,5 +144,5 @@ abstract class PanelSection {
         return $this;
     }
     
-    abstract function handleRegistration():PanelSection;
+    public abstract function handleRegistration():PanelSection;
 }

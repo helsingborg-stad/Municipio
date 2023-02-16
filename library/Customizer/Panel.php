@@ -158,5 +158,5 @@ abstract class Panel {
         return $this;
     }
     
-    abstract function handleRegistration():bool;
+    public abstract function handleRegistration():bool;
 }
