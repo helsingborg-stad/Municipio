@@ -17,7 +17,8 @@ class KirkiPanel extends Panel {
                 'active_callback' => $this->getActiveCallback(),
                 'theme_supports' => $this->getThemeSupports(),
                 'type' => $this->getType(),
-                'capability' => $this->getCapability()
+                'capability' => $this->getCapability(),
+                'panel' => $this->getPanel()
             ));
         } catch(Throwable $e) {
             return false;

@@ -13,6 +13,8 @@ abstract class Panel {
     public string $type = '';
     public array $sections = [];
     public $activeCallback = null;
+    public string $panel = '';
+    public array $subPanels = [];
     
     public static function create() {
         $class = get_called_class();
@@ -92,6 +94,15 @@ abstract class Panel {
         return $this->capability;
     }
 
+    public function setPanel(string $panel):Panel {
+        $this->panel = $panel;
+        return $this;
+    }
+
+    public function getPanel():string {
+        return $this->panel;
+    }
+
     public function addSections(array $sections):Panel {
         
         foreach($sections as $section) {
@@ -101,6 +112,21 @@ abstract class Panel {
         return $this;
     }
 
+    public function addSubPanels(Panel $subPanels):Panel {
+        
+        foreach ($subPanels as $subPanel) {
+            $this->addSubPanel($subPanel);
+        }
+
+        return $this;
+    }
+
+    public function addSubPanel(Panel $subPanel):Panel {
+        $subPanel->setPanel($this->getID())->register();
+        $this->subPanels[] = $subPanel;
+        return $this;
+    }
+    
     public function addSection(PanelSection $section):Panel {
         
         if( empty($section->getPanel()) ) {
