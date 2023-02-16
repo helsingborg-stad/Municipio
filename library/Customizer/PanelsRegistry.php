@@ -16,22 +16,28 @@ class PanelsRegistry {
     }
 
     public function addPanelToRegistry(Panel $panel) {
-        $this->panels[] = $panel;
+        $this->panels[$panel->getID()] = $panel;
     }
 
     public function addSectionToRegistry(PanelSection $section) {
-        $this->sections[] = $section;
+        $this->sections[$section->getID()] = $section;
     }
 
+    /**
+     * @return Panel[]
+     */
     public function getRegisteredPanels():array {
         return $this->panels;
     }
 
+    /**
+     * @return PanelSection[]
+     */
     public function getRegisteredSections():array {
         return $this->sections;
     }
 
-    public static function getInstance() {
+    public static function getInstance():PanelsRegistry {
         if( self::$instance === null ) {
             self::$instance = new PanelsRegistry();
         }
@@ -39,7 +45,7 @@ class PanelsRegistry {
         return self::$instance;
     }
 
-    public function build() {
+    public function build():void {
 
         if( self::$registerInvoked ) {
             $method = __METHOD__;
@@ -49,12 +55,12 @@ class PanelsRegistry {
         }
 
         self::$registerInvoked = true;
-        self::registerDesignLibraryPanel();
         self::registerArchivePanel();
         self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
+        self::registerDesignLibraryPanel();
     }
 
     public static function registerDesignLibraryPanel() {

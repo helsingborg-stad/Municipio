@@ -4,6 +4,8 @@ namespace Municipio\Customizer\Sections;
 
 use Kirki\Compatibility\Kirki;
 use Municipio\Customizer;
+use Municipio\Customizer\Panel;
+use Municipio\Customizer\PanelsRegistry;
 
 class LoadDesign
 {
@@ -31,21 +33,18 @@ class LoadDesign
             'default'     => false,
             'priority'    => 10,
             'choices'     => $this->loadOptions(),
-            'transport'    => 'postMessage'
+            'transport'   => 'postMessage'
         ]);
-        
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+
+        Kirki::add_field( \Municipio\Customizer::KIRKI_CONFIG, array(
+            'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
+            'section'     => $sectionID,
             'type'        => 'select',
             'multiple'    => true,
-            'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
-            'label'       => esc_html__('Keep local values', 'municipio'),
-            'description' => esc_html__('Select theme options not to be overwritten on import.', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => [],
-            'priority'    => 10,
-            'choices'     => $this->getSharedAttributesAsOptions(),
-            'transport'    => 'postMessage'
-        ]);
+            'label'       => esc_html__('Exclude from import', 'municipio'),
+            'description' => esc_html__('Selected local settings will not be overriden on import.', 'municipio'),
+            'choices'     => $this->getCustomizerSectionsAsOptions()
+        ));
         
         //Always reset option of theme
         add_filter('theme_mod_' . self::LOAD_DESIGN_KEY, function ($value) {
@@ -66,20 +65,35 @@ class LoadDesign
         });
     }
 
-    private function getSharedAttributesAsOptions()
+    private function getCustomizerSectionsAsOptions(): array
     {
         $options = [];
-        $keys = array_keys($this->getSharedAttributes());
-
-        foreach ($keys as $key) {
-            if (isset(Kirki::$all_fields[$key]) && !empty(Kirki::$all_fields[$key]['label'])) {
-                $options[$key] = Kirki::$all_fields[$key]['label'];
-            } else {
-                $options[$key] = $key;
-            }
+        $panels = PanelsRegistry::getInstance()->getRegisteredPanels();
+        
+        foreach ($panels as $panel) {
+            $this->generateOptionsFromPanel($panel, $options);
         }
 
         return $options;
+    }
+
+    private function generateOptionsFromPanel(Panel $panel, array &$options) {
+
+        if( !empty($sections = $panel->getSections()) ) {
+            $optionGroupPanelPrefix = '';
+            $optionGroupLabel = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
+
+            if( !empty($parentPanelID = $panel->getPanel()) ) {
+                $parentPanelTitle = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
+                $optionGroupPanelPrefix = "{$parentPanelTitle} / ";
+            }
+
+            $options[$panel->getID()] = array("{$optionGroupPanelPrefix}{$optionGroupLabel}", []);
+
+            foreach($sections as $section) {
+                $options[$panel->getID()][1][$section->getID()] = $section->getTitle();
+            }
+        }
     }
 
     /**

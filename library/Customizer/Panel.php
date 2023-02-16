@@ -103,15 +103,6 @@ abstract class Panel {
         return $this->panel;
     }
 
-    public function addSections(array $sections):Panel {
-        
-        foreach($sections as $section) {
-            $this->addSection($section);
-        }
-        
-        return $this;
-    }
-
     public function addSubPanels(Panel $subPanels):Panel {
         
         foreach ($subPanels as $subPanel) {
@@ -126,6 +117,22 @@ abstract class Panel {
         $this->subPanels[] = $subPanel;
         return $this;
     }
+
+    /**
+     * @return Panel[]
+     */
+    public function getSubPanels():array {
+        return $this->subPanels;
+    }
+
+    public function addSections(array $sections):Panel {
+        
+        foreach($sections as $section) {
+            $this->addSection($section);
+        }
+        
+        return $this;
+    }
     
     public function addSection(PanelSection $section):Panel {
         
@@ -136,6 +143,13 @@ abstract class Panel {
         $this->sections[] = $section;
         $section->register();
         return $this;
+    }
+
+    /**
+     * @return PanelSection[]
+     */
+    public function getSections():array {
+        return $this->sections;
     }
     
     public function register():Panel {
