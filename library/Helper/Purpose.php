@@ -49,7 +49,13 @@ class Purpose
     */
     public static function getPurposes(string $type = '')
     {
-        $current = get_queried_object();
+        $current = array();
+
+        if (function_exists('get_queried_object')) {
+            $current = get_queried_object();
+        } else {
+            return false;
+        }
 
         if ('' === $type && !$current) {
             return false;

@@ -92,7 +92,7 @@ class Controller
      */
     public static function getNamespace(string $classPath = ''): ?string
     {
-        if ('' === $classPath) {
+        if ('' === $classPath || empty($classPath)) {
             return null;
         }
         $src = file_get_contents($classPath);
