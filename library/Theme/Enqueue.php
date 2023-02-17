@@ -53,6 +53,14 @@ class Enqueue
     }
 
     /**
+     * Get cache-busted asset file url.
+     */
+    private static function getAssetWithCacheBust(string $file): string
+    {
+        return get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name($file);
+    }
+
+    /**
      * Enqueue customizer scripts
      * @return void
      */
@@ -60,7 +68,7 @@ class Enqueue
     {
         wp_enqueue_script(
             'design-share-js',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name('js/design-share.js'),
+            self::getAssetWithCacheBust('js/design-share.js'),
             array('jquery', 'customize-controls'),
             false,
             true
@@ -80,21 +88,11 @@ class Enqueue
     public function gutenbergStyle()
     {
         // Load styleguide css
-        wp_register_style(
-            'styleguide-css',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'css/styleguide.css'
-            )
-        );
+        wp_register_style('styleguide-css', self::getAssetWithCacheBust('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         // Load local municipio css
-        wp_register_style(
-            'municipio-css',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'css/municipio.css'
-            )
-        );
+        wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
 
         //Download and use material icons
@@ -108,21 +106,11 @@ class Enqueue
     public function style()
     {
         // Load styleguide css
-        wp_register_style(
-            'styleguide-css',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'css/styleguide.css'
-            )
-        );
+        wp_register_style('styleguide-css', self::getAssetWithCacheBust('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         // Load local municipio css
-        wp_register_style(
-            'municipio-css',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'css/municipio.css'
-            )
-        );
+        wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
 
         //Download and use material icons
@@ -181,30 +169,15 @@ class Enqueue
         wp_enqueue_script('pre-styleguide-js');
 
         //Load local styleguide js
-        wp_register_script(
-            'styleguide-js',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'js/styleguide.js'
-            )
-        );
+        wp_register_script('styleguide-js', self::getAssetWithCacheBust('js/styleguide.js'));
         wp_enqueue_script('styleguide-js');
 
         //Load local municipio js
-        wp_register_script(
-            'municipio-js',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'js/municipio.js'
-            )
-        );
+        wp_register_script('municipio-js', self::getAssetWithCacheBust('js/municipio.js'), array('wp-api-request'));
         wp_enqueue_script('municipio-js');
 
         //Load instant page
-        wp_register_script(
-            'instantpage-js',
-            get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-                'js/instantpage.js'
-            )
-        );
+        wp_register_script('instantpage-js', self::getAssetWithCacheBust('js/instantpage.js'));
         wp_enqueue_script('instantpage-js');
     }
 
