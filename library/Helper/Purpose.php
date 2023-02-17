@@ -51,7 +51,7 @@ class Purpose
     {
         $current = array();
 
-        if (function_exists('get_queried_object')) {
+        if (function_exists('get_queried_object') && !empty(get_queried_object())) {
             $current = get_queried_object();
         } else {
             return false;
