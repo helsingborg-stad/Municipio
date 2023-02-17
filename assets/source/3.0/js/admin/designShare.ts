@@ -1,19 +1,7 @@
-import { scrubHexValue } from "../utils/scrubHexValue";
-import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
-import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, migrateRemoteMediaFile, updateKirkiImageControl, showNotification, handleMediaSideload } from "./designShareUtils";
+import { themeIdIsValid, getRemoteSiteDesignData, getSettings, resetSettingsToDefault, showNotification, getExcludedSettingIds, getFormattedMods, importSettings } from "./designShareUtils";
 import { replaceRemoteFilesWithLocalInString } from "../utils/replaceRemoteFilesWithLocalInString";
 
-async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
-    
-    if( !themeIdIsValid(id) ) {
-        showNotification({
-            setting: loadDesignSetting,
-            code: "loadDesignError",
-            message: "The selected theme id is not valid",
-            type: 'error'
-        })
-        return
-    }
+async function handleLoadSettingChange(id:any) {
     
     const apiResponse = await getRemoteSiteDesignData(id);
     
@@ -30,58 +18,10 @@ async function handleLoadSettingChange(loadDesignSetting:any, id:any) {
     }
     
     const settings = getSettings()
+    const excludedSettings = getExcludedSettingIds();
+    const formattedMods = getFormattedMods(apiResponse.mods)
     resetSettingsToDefault(settings)
-    
-    
-    let formattedMods:Record<string,any> = {}
-    
-    for (const [key, value] of Object.entries(apiResponse.mods)) {
-        
-        if( value !== null && typeof value === 'object' && !Array.isArray(value) ) {
-            
-            for (const [subKey, subValue] of Object.entries(value)) {
-                formattedMods[`${key}[${subKey}]`] = subValue
-            }
-            
-        } else {
-            formattedMods[key] = value
-        }
-    }
-    
-    for (const [key, rawValue] of Object.entries(formattedMods)) {
-        
-        const control = wp.customize.control(key);
-        const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
-        
-        if( value === null ) {
-            continue;
-        }
-        
-        if( typeof control === 'undefined' && !key.startsWith('archive_') ) {
-            const message = `
-            The selected theme may be incompatible with this version of the theme customizer.
-            Setting: "(${key})" may be missing.`
-            console.warn(message)
-        }
-        
-        if (key.startsWith('custom_fonts')) {
-            const fontName = key.match(/\[(.+)\]$/)
-            if( fontName === null ) continue;
-            await handleMediaSideload({ url: value, description: fontName[1], return: 'id' })
-        } else if (typeof control !== 'undefined') {
-            
-            if (isRemoteMediaFile(value)) {
-                
-                await migrateRemoteMediaFile(value, control)
-                updateKirkiImageControl(control, value);
-                
-            } else {
-                const scrubbedValue = scrubHexValue(value);
-                control.setting.set(scrubbedValue)
-            }
-            
-        }
-    }
+    importSettings(formattedMods, excludedSettings)
 }
 
 export default (() => {
@@ -90,13 +30,20 @@ export default (() => {
     wp.customize.bind('ready', () => {
         wp.customize('load_design', (loadDesignSetting:any) => {
             loadDesignSetting.bind((id:any) => {
-                handleLoadSettingChange(loadDesignSetting, id).catch(error => {
+                
+                if( !themeIdIsValid(id) ) {
+                    return
+                }
+
+                handleLoadSettingChange(id)
+                .catch(error => {
                     showNotification({
                         setting: loadDesignSetting,
                         code: "loadDesignError",
                         message: error.message,
                         type: 'error'
                     })
+                    console.error(error.message)
                 })
             })
         });

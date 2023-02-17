@@ -2,6 +2,9 @@
 
 namespace Municipio;
 
+use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\PanelsRegistry;
+
 class Customizer
 {
     public const KIRKI_CONFIG = "municipio_config";
@@ -115,7 +118,7 @@ class Customizer
             define("WEB_FONT_DISABLE_INLINE", true);
         }
 
-        \Kirki::add_config(self::KIRKI_CONFIG, array(
+        Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
             'option_type'       => 'theme_mod',
             'gutenberg_support' => false
@@ -130,17 +133,9 @@ class Customizer
         new \Municipio\Customizer\Applicators\ControllerVariables();
         new \Municipio\Customizer\Applicators\Css();
 
-        //Define panels
-        new \Municipio\Customizer\Panels\Design();
-        new \Municipio\Customizer\Panels\Component();
-        new \Municipio\Customizer\Panels\Module();
-        new \Municipio\Customizer\Panels\Archive();
-        new \Municipio\Customizer\Panels\Menu();
-
-        //Define panels with logic
-        new \Municipio\Customizer\Panels\DesignLibrary();
-
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
+
+        PanelsRegistry::getInstance()->build();
     }
 }
