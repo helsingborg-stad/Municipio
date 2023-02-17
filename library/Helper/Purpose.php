@@ -47,7 +47,7 @@ class Purpose
     *
     * @return array An array of purposes.
     */
-    public static function getPurposes(string $type = ''): array|bool
+    public static function getPurposes(string $type = '')
     {
         $current = get_queried_object();
 
@@ -71,7 +71,7 @@ class Purpose
         return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
     }
 
-    private static function getPurposesArray(string $type): array|bool
+    private static function getPurposesArray(string $type)
     {
         $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
         if (!$mainPurpose) {
