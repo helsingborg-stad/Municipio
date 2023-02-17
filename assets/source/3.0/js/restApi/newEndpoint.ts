@@ -22,8 +22,23 @@ const getNonce = ():string|null => {
     return wpApiSettings.nonce
 }
 
+const getApiRoot = ():string|null => {
+    if( typeof wpApiSettings === 'undefined' || !wpApiSettings.root ) {
+        return null
+    }
+    
+    return wpApiSettings.root
+}
+
 const buildUrl = (nameSpace:string, route:string, routeParams?:string, params?:{}):string => {
-    let url = `/wp-json/${nameSpace}/${route}`
+    
+    const apiRoot = getApiRoot()
+
+    if( !apiRoot ) {
+        return ''
+    }
+
+    let url = `${apiRoot}${nameSpace}/${route}`
     url += routeParams ? `/${routeParams}` : ''
     url += params ? '?' + new URLSearchParams(params) : ''
     

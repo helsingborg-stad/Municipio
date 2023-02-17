@@ -194,7 +194,8 @@ class Enqueue
             'municipio-js',
             get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
                 'js/municipio.js'
-            )
+            ),
+            array('wp-api-request')
         );
         wp_enqueue_script('municipio-js');
 
