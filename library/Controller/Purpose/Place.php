@@ -8,18 +8,14 @@ namespace Municipio\Controller\Purpose;
  */
 class Place extends PurposeFactory
 {
-    public function init()
+    public function __construct()
     {
-        // Append structured data
-        add_filter('Municipio/StructuredData', array($this, 'appendStructuredData'), 10, 3);
+        parent::__construct('place', __('Place', 'municipio'));
     }
-    public static function getLabel(): string
+    public function init(): void
     {
-        return __('Place', 'municipio');
-    }
-    public static function getKey(): string
-    {
-        return 'place';
+        // Append structured data for schema.org markup
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
     * Appends the structured data array (used for schema.org markup) with additional data
@@ -32,7 +28,6 @@ class Place extends PurposeFactory
     */
     public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
-
         if (empty($postId)) {
             return $structuredData;
         }

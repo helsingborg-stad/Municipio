@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-13 18:24+0100\n"
-"PO-Revision-Date: 2023-02-13 18:34+0100\n"
+"PO-Revision-Date: 2023-02-15 11:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -4751,6 +4751,8 @@ msgstr ""
 "</script>"
 
 #: library/AcfFields/php/options-theme-custom-js.php:69
+#: library/AcfFields/php/purpose-place.php:6
+#: library/AcfFields/php/purpose-place.php:10
 #: library/Customizer/Sections/Quicklinks.php:125
 msgid "Location"
 msgstr "Plats"
@@ -5306,6 +5308,10 @@ msgstr "Inaktivera sidor"
 #: library/AcfFields/php/options-theme-post-types.php:41
 msgid "Yes, disable pages."
 msgstr "Ja, inaktivera sidor."
+
+#: library/AcfFields/php/purpose-place.php:14
+msgid "Area or street address of the location."
+msgstr "Område eller gatuadress till platsen."
 
 #: library/AcfFields/php/term-icon-and-colour.php:6
 msgid "Advanced term settings"
@@ -8188,18 +8194,16 @@ msgid "Top sidebar (full-width)"
 msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
 #: library/Theme/Sidebars.php:221
-#, php-format
-msgid "Sidebar that sits below the hero, takes up 100% of the width."
-msgstr "Sidofält som ligger under hero och tar upp 100% av bredden."
+msgid "Sidebar that sits below the hero."
+msgstr "Sidofält som ligger precis under heron."
 
 #: library/Theme/Sidebars.php:233
 msgid "Bottom sidebar (full-width)"
 msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
 #: library/Theme/Sidebars.php:234
-#, php-format
-msgid "Sidebar that sits just before the footer, takes up 100% of the width."
-msgstr "Fältet som ligger före sidfoten tar upp 100% av bredden."
+msgid "Sidebar that sits just before the footer."
+msgstr "Sidofält som ligger precis innan sidfoten."
 
 #: library/Theme/Sidebars.php:246
 msgid "Above columns sidebar"

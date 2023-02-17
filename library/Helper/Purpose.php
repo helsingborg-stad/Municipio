@@ -16,24 +16,27 @@ class Purpose
         foreach (ControllerHelper::getControllerPaths() as $path) {
             if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
                 foreach (glob("$dir/*.php") as $filename) {
-                    if (str_contains($filename, 'Factory')) {
+                    // Skip files with Factory or Interface in the filename
+                    if (preg_match('[Factory|Interface]', $filename)) {
                         continue;
                     }
-                    $class = ControllerHelper::getNamespace($filename) . '\\' . basename($filename, '.php');
-                    if (method_exists($class, 'getKey') && method_exists($class, 'getLabel')) {
-                        if ($includeExtras) {
-                            $purposes[$class::getKey()] = [
-                                'label' => $class::getLabel(),
-                                'class' => $class,
-                                'path' => $filename
-                            ];
-                        } else {
-                            $purposes[$class::getKey()] = $class::getLabel();
-                        }
+
+                    $namespace = ControllerHelper::getNamespace($filename);
+                    $className = basename($filename, '.php');
+                    $classNameWithNamespace = $namespace . '\\' . $className;
+
+                    if ($includeExtras) {
+                        $purposes[$className] = [
+                            'class' => $classNameWithNamespace,
+                            'path' => $filename
+                        ];
+                    } else {
+                        $purposes[$className] = $classNameWithNamespace;
                     }
                 }
             }
         }
+
         return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
     }
 
@@ -44,52 +47,98 @@ class Purpose
     *
     * @return array An array of purposes.
     */
-    public static function getPurposes(string $type = ''): array
+    public static function getPurposes(string $type = ''): array|bool
     {
-        if ('' === $type) {
-            if ($current = get_queried_object()) {
-                if (is_a($current, 'WP_Post_Type')) {
-                    $type = $current->name;
-                } elseif (is_a($current, 'WP_Post')) {
-                    $type = $current->post_type;
-                } elseif (is_a($current, 'WP_Term')) {
-                    $type = $current->taxonomy;
-                } else {
-                    return [];
+        $current = get_queried_object();
+
+        if ('' === $type && !$current) {
+            return false;
+        }
+
+        if ('' === $type && is_a($current, 'WP_Post_Type')) {
+            $type = $current->name;
+        } elseif ('' === $type && is_a($current, 'WP_Post')) {
+            $type = $current->post_type;
+        } elseif ('' === $type && is_a($current, 'WP_Term')) {
+            $type = $current->taxonomy;
+        }
+
+        $purposes = self::getPurposesArray($type);
+        if (!$purposes) {
+            return false;
+        }
+
+        return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
+    }
+
+    private static function getPurposesArray(string $type): array|bool
+    {
+        $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
+        if (!$mainPurpose) {
+            return false;
+        }
+
+        $purposes = [];
+        $registeredPurposes = self::getRegisteredPurposes(true);
+        $mainPurposeClass = $registeredPurposes[$mainPurpose]['class'] ?? null;
+
+        if (!$mainPurposeClass || !class_exists($mainPurposeClass)) {
+            return false;
+        }
+
+        // Instantiate the main purpose
+        $instance = new $mainPurposeClass();
+        $purposes['main'] = $instance;
+
+        // Instantiate secondary purposes
+        $secondaryPurpose = $instance->getSecondaryPurpose();
+        if (!empty($secondaryPurpose)) {
+            foreach ($secondaryPurpose as $key => $value) {
+                $class = $registeredPurposes[$key]['class'] ?? null;
+                if ($class && class_exists($class)) {
+                    $purposes['secondary'][] = new $class();
                 }
-            } else {
-                return [];
             }
         }
 
-        $purposes = (array) get_option("options_purposes_{$type}", []);
-        return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
+        return $purposes;
     }
-    /**
-     * > If the current page is a post type, post or term, return true if the post type, post, or term taxonomy
-     * has a purpose
-     *
-     * @param string type The type of object you want to check.
-     * @return bool
-     */
+
     public static function hasPurpose(string $type = ''): bool
     {
+        $current = get_queried_object();
+
         if ('' === $type) {
-            if ($current = get_queried_object()) {
-                if (is_a($current, 'WP_Post_Type')) {
-                    $type = $current->name;
-                } elseif (is_a($current, 'WP_Post')) {
-                    $type = $current->post_type;
-                } elseif (is_a($current, 'WP_Term')) {
-                    $type = $current->taxonomy;
-                } else {
-                    return false;
-                }
-            } else {
+            $type = self::getCurrentType($current);
+            if (!$type) {
                 return false;
             }
         }
-        return (bool) count(self::getPurposes($type));
+
+        return self::hasPurposes($type);
+    }
+
+    private static function getCurrentType($current): ?string
+    {
+        if (!$current) {
+            return null;
+        }
+
+        if (is_a($current, 'WP_Post_Type')) {
+            $type = $current->name;
+        } elseif (is_a($current, 'WP_Post')) {
+            $type = $current->post_type;
+        } elseif (is_a($current, 'WP_Term')) {
+            $type = $current->taxonomy;
+        }
+
+        return $type;
+    }
+
+    private static function hasPurposes(string $type): bool
+    {
+        $purposes = self::getPurposes($type);
+        return (bool) $purposes;
     }
 
     /**
@@ -99,7 +148,7 @@ class Purpose
      *
      * @return bool A boolean value.
      */
-    public function skipPurposeTemplate(string $type = ''): bool
+    public static function skipPurposeTemplate(string $type = ''): bool
     {
         return (bool) get_option("skip_purpose_template_{$type}", false);
     }

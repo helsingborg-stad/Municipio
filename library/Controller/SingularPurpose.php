@@ -16,20 +16,17 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::__construct();
 
-        /**
-         * Load and instantiate the purposes.
-         */
-        $availablePurposes = PurposeHelper::getRegisteredPurposes(true);
-        if (!empty($currentPurposes = PurposeHelper::getPurposes())) {
-            foreach ($currentPurposes as $purpose) {
-                if (is_file($availablePurposes[$purpose]['path'])) {
-                    require_once $availablePurposes[$purpose]['path'];
+        $type = $this->data['post']->postType;
 
-                    $purposeObject = new $availablePurposes[$purpose]['class']();
-                    $purposeObject->init();
-                }
-            }
+        /**
+         * Setup current purpose
+         */
+        $currentPurpose = PurposeHelper::getPurposes($type);
+        if (isset($currentPurpose['main']) && !PurposeHelper::skipPurposeTemplate($type)) {
+            $this->view = $currentPurpose['main']->getView();
         }
+
+
         // STRUCTURED DATA (SCHEMA.ORG)
         $this->data['structuredData'] = DataHelper::getStructuredData(
             $this->data['postType'],

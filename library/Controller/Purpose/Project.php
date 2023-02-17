@@ -2,8 +2,6 @@
 
 namespace Municipio\Controller\Purpose;
 
-use Municipio\Controller\Purpose\Place;
-
 /**
  * Class Project
  * @package Municipio\Controller\Purpose
@@ -12,23 +10,13 @@ class Project extends PurposeFactory
 {
     public function __construct()
     {
-        // Always include Place in Project:
-        $place = new Place();
-        $place->init();
+        parent::__construct('project', __('Project', 'municipio'), ['place' => Place::class]);
     }
 
-    public function init()
+    public function init(): void
     {
-        // Append structured data
-        add_filter('Municipio/StructuredData', array($this, 'appendStructuredData'), 10, 3);
-    }
-    public static function getLabel(): string
-    {
-        return __('Project', 'municipio');
-    }
-    public static function getKey(): string
-    {
-        return 'project';
+        // Append structured data for schema.org markup
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data
@@ -41,7 +29,6 @@ class Project extends PurposeFactory
      */
     public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
-
         if (empty($postId)) {
             return $structuredData;
         }

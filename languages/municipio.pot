@@ -4736,6 +4736,8 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-js.php:69
+#: library/AcfFields/php/purpose-place.php:6
+#: library/AcfFields/php/purpose-place.php:10
 #: library/Customizer/Sections/Quicklinks.php:125
 msgid "Location"
 msgstr ""
@@ -5277,6 +5279,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-post-types.php:41
 msgid "Yes, disable pages."
+msgstr ""
+
+#: library/AcfFields/php/purpose-place.php:14
+msgid "Area or street address of the location."
 msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:6
@@ -8124,8 +8130,7 @@ msgid "Top sidebar (full-width)"
 msgstr ""
 
 #: library/Theme/Sidebars.php:221
-#, php-format
-msgid "Sidebar that sits below the hero, takes up 100% of the width."
+msgid "Sidebar that sits below the hero."
 msgstr ""
 
 #: library/Theme/Sidebars.php:233
@@ -8133,8 +8138,7 @@ msgid "Bottom sidebar (full-width)"
 msgstr ""
 
 #: library/Theme/Sidebars.php:234
-#, php-format
-msgid "Sidebar that sits just before the footer, takes up 100% of the width."
+msgid "Sidebar that sits just before the footer."
 msgstr ""
 
 #: library/Theme/Sidebars.php:246
