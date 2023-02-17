@@ -19,7 +19,7 @@ async function handleLoadSettingChange(id:any) {
     
     const settings = getSettings()
     const excludedSettings = getExcludedSettingIds();
-    const formattedMods = getFormattedMods(apiResponse.mods)
+    const formattedMods = await getFormattedMods(apiResponse.mods)
     resetSettingsToDefault(settings)
     importSettings(formattedMods, excludedSettings)
 }
