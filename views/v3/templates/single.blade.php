@@ -72,7 +72,7 @@
 
 @section('below')
     @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
-    @includeWhen(!empty($isBlogStyle),
+    @includeWhen(empty($isBlogStyle),
         'partials.signature', 
         [
             'classList' => [
