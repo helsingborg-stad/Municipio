@@ -76,9 +76,7 @@
         'partials.signature', 
         [
             'classList' => [
-                'u-margin__y--2',
-                'u-display--none@md',
-                'u-display--none@lg'
+                'u-margin__y--2'
             ]
         ]
     )
