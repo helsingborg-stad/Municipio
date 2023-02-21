@@ -28,5 +28,33 @@ class Search
             ]
             ]
         )));
+
+        
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hero_search_position',
+            'label'       => esc_html__('Hero search position', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'centered',
+            'priority'    => 10,
+            'choices'     => [
+                'centered' => esc_html__('Centered', 'municipio'),
+                'bottom' => esc_html__('Bottom', 'municipio'),
+                'top' => esc_html__('Top', 'municipio'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'search_display',
+                    'operator' => 'in',
+                    'value'    => 'hero',
+                ]
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['hero.search.form'],
+                ]
+            ],
+        ]);
     }
 }
