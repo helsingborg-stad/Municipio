@@ -5,7 +5,6 @@
 
 @section('helper-navigation')
 @includeIf('partials.navigation.helper')
-hallå!
 @stop
 
 @section('hero-top-sidebar')
