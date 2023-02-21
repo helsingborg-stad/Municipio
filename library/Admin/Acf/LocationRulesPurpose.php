@@ -17,29 +17,31 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
 
     public function match($rule, $screen, $field_group)
     {
-
-        if (!empty($screen['taxonomy_list'])) {
+        if (isset($screen['taxonomy_list'])) {
             $type = $screen['taxonomy_list'];
-        } elseif (!empty($screen['post_id'])) {
-            $post_id = $screen['taxonomy_list'];
+        } elseif (isset($screen['post_id'])) {
+            $post_id = $screen['post_id'];
             $post = get_post($post_id);
             if (!$post) {
                 return $rule;
-            } else {
-                $type = $post->post_type;
             }
+            $type = $post->post_type;
         } else {
             return false;
         }
+
         // Compare the post attribute to rule value.
         $purposes = \Municipio\Helper\Purpose::getPurposes($type);
-        if (empty($purposes['main'])) {
+        $mainPurpose = $purposes['main'] ?? null;
+
+        if (!$mainPurpose) {
             return false;
         }
-        $result = ($purposes['main'] == $rule['value']);
+
+        $result = ($mainPurpose === $rule['value']);
 
         // Return result taking into account the operator type.
-        if ($rule['operator'] == '!=') {
+        if ($rule['operator'] === '!=') {
             return !$result;
         }
         return $result;
