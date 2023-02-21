@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="Municipio Coding Standards">
+	<description>Apply Municipio coding standards to all source files</description>
+
+    <!-- Use PSR12. -->
+    <rule ref="PSR12"/>
+    
+
+	<!-- Only scan PHP files. -->
+	<arg name="extensions" value="php"/>
+	
+	<!-- Directories and third party library exclusions. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+</ruleset>

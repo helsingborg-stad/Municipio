@@ -1,0 +1,10 @@
+{
+    "phpsab.executablePathCS": "${workspaceFolder}/vendor/bin/phpcs",
+    "phpsab.snifferEnable": true,
+    "phpsab.fixerEnable": true,
+    "[php]": {
+        "editor.defaultFormatter": "valeryanm.vscode-phpsab",
+        "editor.formatOnSaveMode": "modificationsIfAvailable",
+        "editor.formatOnSave": true
+    }
+}

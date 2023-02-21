@@ -58,6 +58,8 @@
     },
 
     "scripts": {
+        "lint": "./vendor/bin/phpcs --standard=./phpcs.xml .",
+        "lint:file": "./vendor/bin/phpcs --standard=./phpcs.xml --",
         "post-update-cmd": [
 
         ]
@@ -66,5 +68,9 @@
         "allow-plugins": {
             "composer/installers": true
         }
+    },
+    "require-dev": {
+        "symplify/easy-coding-standard": "^11.2",
+        "squizlabs/php_codesniffer": "4.0.x-dev"
     }
 }
