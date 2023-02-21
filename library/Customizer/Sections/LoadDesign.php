@@ -23,7 +23,7 @@ class LoadDesign
         if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
             return;
         }
-        
+
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => self::LOAD_DESIGN_KEY,
@@ -35,7 +35,7 @@ class LoadDesign
             'transport'   => 'postMessage'
         ]);
 
-        Kirki::add_field( \Municipio\Customizer::KIRKI_CONFIG, array(
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, array(
             'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
             'section'     => $sectionID,
             'type'        => 'select',
@@ -44,7 +44,7 @@ class LoadDesign
             'description' => esc_html__('Selected local settings will not be overriden on import.', 'municipio'),
             'choices'     => $this->getCustomizerSectionsAsOptions()
         ));
-        
+
         //Always reset option of theme
         add_filter('theme_mod_' . self::LOAD_DESIGN_KEY, function ($value) {
             return null;
@@ -66,9 +66,10 @@ class LoadDesign
 
     private function getCustomizerSectionsAsOptions(): array
     {
-        $options = [];
+        // Add core section due to unavalability through PanelsRegistry.
+        $options = ['custom_css' => __('Additional CSS')];
         $panels = PanelsRegistry::getInstance()->getRegisteredPanels();
-        
+
         foreach ($panels as $panel) {
             $this->generateOptionsFromPanel($panel, $options);
         }
@@ -76,20 +77,21 @@ class LoadDesign
         return $options;
     }
 
-    private function generateOptionsFromPanel(Panel $panel, array &$options) {
+    private function generateOptionsFromPanel(Panel $panel, array &$options)
+    {
 
-        if( !empty($sections = $panel->getSections()) ) {
+        if (!empty($sections = $panel->getSections())) {
             $optionGroupPanelPrefix = '';
             $optionGroupLabel = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
 
-            if( !empty($parentPanelID = $panel->getPanel()) ) {
+            if (!empty($parentPanelID = $panel->getPanel())) {
                 $parentPanelTitle = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
                 $optionGroupPanelPrefix = "{$parentPanelTitle} / ";
             }
 
             $options[$panel->getID()] = array("{$optionGroupPanelPrefix}{$optionGroupLabel}", []);
 
-            foreach($sections as $section) {
+            foreach ($sections as $section) {
                 $options[$panel->getID()][1][$section->getID()] = $section->getTitle();
             }
         }
