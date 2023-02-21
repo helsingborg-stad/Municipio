@@ -42,13 +42,14 @@ class Event extends PurposeFactory
         // Event dates
         $startDate = '';
         $endDate = '';
+
         if (isset($eventMeta['occasions_complete']) && is_array($eventMeta['occasions_complete'])) {
             $occasions = maybe_unserialize($eventMeta['occasions_complete'][0]);
-            if (isset($occasions['start_date'])) {
-                $startDate = $occasions['start_date'];
+            if (isset($occasions[0]['start_date'])) {
+                $startDate = $occasions[0]['start_date'];
             }
-            if (isset($occasions['end_date'])) {
-                $endDate = $occasions['end_date'];
+            if (isset($occasions[0]['end_date'])) {
+                $endDate = $occasions[0]['end_date'];
             }
         }
 
@@ -68,29 +69,35 @@ class Event extends PurposeFactory
 
         // Event tickets
         if (isset($eventMeta['booking_link']) && isset($eventMeta['booking_link'][0])) {
-            $eventData['offers'] = [
-            '@type' => 'Offer',
-            'name'  => 'ticket',
-            'url'   => $eventMeta['booking_link'][0],
-            ];
+            array_push($eventData['offers'], [
+                '@type' => 'Offer',
+                'name'  => 'ticket',
+                'url'   => $eventMeta['booking_link'][0],
+            ]);
+        }
+        if (isset($eventMeta['price_adult']) && isset($eventMeta['price_adult'][0])) {
+            array_push($eventData['offers'], [
+                '@type' => 'Offer',
+                'name'  => 'ticket',
+                'price'   => $eventMeta['price_adult'][0],
+                'priceCurrency' => 'SEK',
+            ]);
         }
 
+        // TODO Add any other structures for tickets that may be available on events
         if (isset($eventMeta['additional_ticket_types']) && is_array($eventMeta['additional_ticket_types']) && isset($eventMeta['additional_ticket_types'][0])) {
-            $additionalTypes = [];
             $ticketTypes = maybe_unserialize($eventMeta['additional_ticket_types'][0]);
             foreach ($ticketTypes as $type) {
                 if (isset($type['ticket_name']) && isset($type['maximum_price'])) {
-                    $additionalTypes[] = [
-                    '@type'         => 'Offer',
-                    'name'          => $type['ticket_name'],
-                    'price'         => $type['maximum_price'],
-                    'priceCurrency' => 'SEK',
-                    ];
+                    array_push($eventData['offers'], [
+                        '@type'         => 'Offer',
+                        'name'          => $type['ticket_name'],
+                        'price'         => $type['maximum_price'],
+                        'priceCurrency' => 'SEK',
+                    ]);
                 }
             }
-            $eventData['offers'] = array_merge($eventData['offers'], $additionalTypes);
         }
-
         // Append the event data to the structured data
         return array_merge($eventData, $structuredData);
     }
