@@ -23,20 +23,13 @@ class Place extends PurposeFactory
     /**
     * Appends the structured data array (used for schema.org markup) with additional data
     *
-    * @param array structuredData The structured data array that we're going to append to.
-    * @param string postType The post type of the current page.
-    * @param int postId The ID of the post you want to add structured data to.
+    * @param array $structuredData The structured data to append location data to.
+    * @param string $postType The post type of the post.
+    * @param int $postId The ID of the post to retrieve location data for.
     *
-    * @return array The modified structured data array.
+    * @return array The updated structured data.
+    *
     */
-   /**
- * Appends location data to structured data.
- *
- * @param array $structuredData The structured data to append location data to.
- * @param string $postType The post type of the post.
- * @param int $postId The ID of the post to retrieve location data for.
- * @return array The updated structured data.
- */
     public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
         if (empty($postId)) {
