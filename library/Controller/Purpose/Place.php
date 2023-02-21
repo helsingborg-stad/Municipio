@@ -43,31 +43,42 @@ class Place extends PurposeFactory
             return $structuredData;
         }
 
-        $locationMetaKeys = ['map', 'location'];
+        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
         $additionalData = ['location' => []];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);
+            if (empty($location)) {
+                continue;
+            }
 
-            if (!empty($location['address'])) {
+            // General address
+            if (!empty($location['formatted_address'])) {
                 $additionalData['location'][] = [
-                '@type'   => 'Place',
-                'address' => $location['address'],
+                    '@type'   => 'Place',
+                    'address' => $location['formatted_address'],
+                ];
+            } elseif (!empty($location['address'])) {
+                $additionalData['location'][] = [
+                    '@type'   => 'Place',
+                    'address' => $location['address'],
                 ];
             }
 
+            // Coordinates
             if (!empty($location['lat']) && !empty($location['lng'])) {
                 $additionalData['location'][] = [
-                '@type'     => 'GeoCoordinates',
-                'latitude'  => $location['lat'],
-                'longitude' => $location['lng'],
+                    '@type'     => 'GeoCoordinates',
+                    'latitude'  => $location['lat'],
+                    'longitude' => $location['lng'],
                 ];
             }
 
+            // Country
             if (!empty($location['country'])) {
                 $additionalData['location'][] = [
-                '@type'          => 'PostalAddress',
-                'addressCountry' => $location['country'],
+                    '@type'          => 'PostalAddress',
+                    'addressCountry' => $location['country'],
                 ];
             }
         }
