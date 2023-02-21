@@ -63,7 +63,7 @@ class Event extends PurposeFactory
             'startDate'   => $startDate,
             'endDate'     => $endDate,
             'description' => get_the_excerpt($postId),
-            'image'       => $imageUrl,
+            'image'       => [$imageUrl],
             'offers'      => [],
         ];
 
