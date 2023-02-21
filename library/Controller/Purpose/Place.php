@@ -10,7 +10,10 @@ class Place extends PurposeFactory
 {
     public function __construct()
     {
-        parent::__construct('place', __('Place', 'municipio'));
+        $this->key = 'place';
+        $this->label = __('Place', 'municipio');
+
+        parent::__construct($this->key, $this->label);
     }
     public function init(): void
     {

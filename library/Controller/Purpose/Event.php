@@ -10,6 +10,9 @@ class Event extends PurposeFactory
 {
     public function __construct()
     {
-        parent::__construct('event', __('Event', 'municipio'), ['place' => Place::class]);
+        $this->key = 'event';
+        $this->label = __('Event', 'municipio');
+
+        parent::__construct($this->key, $this->label, ['place' => Place::class]);
     }
 }

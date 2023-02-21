@@ -4,9 +4,9 @@ namespace Municipio\Controller\Purpose;
 
 class PurposeFactory
 {
-    protected string $key;
-    protected string $label;
-    protected array $secondaryPurpose;
+    public string $key;
+    public string $label;
+    public array $secondaryPurpose;
     protected string $view;
 
     public function __construct(string $key, string $label, array $secondaryPurpose = [])

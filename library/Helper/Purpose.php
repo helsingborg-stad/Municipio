@@ -31,7 +31,7 @@ class Purpose
                             'path' => $filename
                         ];
                     } else {
-                        $purposes[$className] = $classNameWithNamespace;
+                        $purposes[strtolower($className)] = $className;
                     }
                 }
             }
