@@ -29,35 +29,49 @@ class Place extends PurposeFactory
     *
     * @return array The modified structured data array.
     */
+   /**
+ * Appends location data to structured data.
+ *
+ * @param array $structuredData The structured data to append location data to.
+ * @param string $postType The post type of the post.
+ * @param int $postId The ID of the post to retrieve location data for.
+ * @return array The updated structured data.
+ */
     public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
         if (empty($postId)) {
             return $structuredData;
         }
 
-        $additionalData = [];
+        $locationMetaKeys = ['map', 'location'];
+        $additionalData = ['location' => []];
 
-        $location = (array) get_post_meta($postId, 'map', true);
+        foreach ($locationMetaKeys as $key) {
+            $location = get_post_meta($postId, $key, true);
 
-        if (!empty($location['address'])) {
-            $additionalData['location'][] = [
-               '@type'   => 'Place',
-               'address' => $location['address'],
-            ];
+            if (!empty($location['address'])) {
+                $additionalData['location'][] = [
+                '@type'   => 'Place',
+                'address' => $location['address'],
+                ];
+            }
+
+            if (!empty($location['lat']) && !empty($location['lng'])) {
+                $additionalData['location'][] = [
+                '@type'     => 'GeoCoordinates',
+                'latitude'  => $location['lat'],
+                'longitude' => $location['lng'],
+                ];
+            }
+
+            if (!empty($location['country'])) {
+                $additionalData['location'][] = [
+                '@type'          => 'PostalAddress',
+                'addressCountry' => $location['country'],
+                ];
+            }
         }
-        if (!empty($location['lat']) && !empty($location['lng'])) {
-            $additionalData['location'][] = [
-               '@type'     => 'GeoCoordinates',
-               'latitude'  => $location['lat'],
-               'longitude' => $location['lng'],
-            ];
-        }
-        if (!empty($location['country'])) {
-            $additionalData['location'][] = [
-               '@type'     => 'PostalAddess',
-               'country'  => $location['country'],
-            ];
-        }
+
         return array_merge($structuredData, $additionalData);
     }
 }
