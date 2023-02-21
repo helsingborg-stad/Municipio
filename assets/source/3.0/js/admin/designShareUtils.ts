@@ -11,25 +11,24 @@ export async function handleMediaSideload(args: MediaSideloadArgs) {
         });
 }
 
-function getExcludedSections():string[] {
+function getExcludedSections(): string[] {
     const defaultSections = ['municipio_customizer_panel_design_module']
     const excludedSections = wp.customize.control('exclude_load_design').setting.get() as string[]
     return [...defaultSections, ...excludedSections]
 }
 
-export function getExcludedSettingIds():string[] {
+export function getExcludedSettingIds(): string[] {
     const excludedSections = getExcludedSections()
-    return Object.keys(wp.customize.settings.settings)
-        .map(id => wp.customize.control(id))
-        .filter(setting => setting !== undefined)
-        .filter(setting => setting.hasOwnProperty("params"))
-        .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
-        .filter(setting => setting.params.type !== "kirki-custom")
-        .filter(control => excludedSections.includes(control.section()))
-        .map(control => control.params.id)
+    return Object
+    .entries(wp.customize.settings.controls)
+    .map(([key]) => wp.customize.control(key))
+    .filter(setting => setting !== undefined)
+    .filter(setting => setting.hasOwnProperty("params"))
+    .filter(setting => excludedSections.includes(setting.params.section))
+    .map(setting => setting.id)
 }
 
-export function getSettings() {
+export function getSettingsWithDefaultSetting() {
     const excludedSettingsIds = getExcludedSettingIds();
     return Object
         .entries(wp.customize.settings.settings)
@@ -77,28 +76,33 @@ export function updateKirkiImageControl(control: any, value: string) {
 }
 
 interface CustomizerNotificationProps {
-    setting:any,
-    code:string,
+    setting: any,
+    code: string,
     message: string,
-    type?: 'error'|'warning'|'notice'
+    type?: 'error' | 'warning' | 'notice'
 }
 
 export function showNotification(args: CustomizerNotificationProps) {
-    const notification = new wp.customize.Notification( args.code, {message: args.message, type:args.type ?? 'notice', dismissible: true} );
-    args.setting.notifications.add( args.code, notification );
+    const notification = new wp.customize.Notification(args.code, { message: args.message, type: args.type ?? 'notice', dismissible: true });
+    args.setting.notifications.add(args.code, notification);
 }
 
-export async function getFormattedMods(mods:any) {
-    let formattedMods:Record<string,any> = {}
+export async function getFormattedMods(mods: any, excludedSettings:string[]) {
+    let formattedMods: Record<string, any> = {}
+
 
     for (const [key, value] of Object.entries(mods)) {
-        
-        if( value !== null && typeof value === 'object' && !Array.isArray(value) ) {
-            
+
+        if( excludedSettings.includes(key) ) {
+            continue
+        }
+
+        if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+
             for (const [subKey, subValue] of Object.entries(value)) {
                 formattedMods[`${key}[${subKey}]`] = subValue
             }
-            
+
         } else {
             formattedMods[key] = value
         }
@@ -107,36 +111,35 @@ export async function getFormattedMods(mods:any) {
     return formattedMods
 }
 
-export async function importSettings(formattedMods:Record<string,any>, excludedSettings:string[]) {
+export async function importSettings(formattedMods: Record<string, any>, excludedSettings: string[]) {
     for (const [key, rawValue] of Object.entries(formattedMods)) {
-        
+
         const control = wp.customize.control(key);
         const value = Array.isArray(rawValue) ? rawValue.filter(el => el !== null) : rawValue
 
-        if( excludedSettings.includes(key) ) {
+        if (excludedSettings.includes(key)) {
             continue;
         }
-        
-        if( value === null ) {
+
+        if (value === null) {
             continue;
         }
-        
+
         if (key.startsWith('custom_fonts')) {
             const fontName = key.match(/\[(.+)\]$/)
-            if( fontName === null ) continue;
+            if (fontName === null) continue;
             await handleMediaSideload({ url: value, description: fontName[1], return: 'id' })
         } else if (typeof control !== 'undefined') {
-            
+
             if (isRemoteMediaFile(value)) {
-                
+
                 await migrateRemoteMediaFile(value, control)
                 updateKirkiImageControl(control, value);
-                
+
             } else {
                 const scrubbedValue = scrubHexValue(value);
                 control.setting.set(scrubbedValue)
             }
-            
         }
     }
 }
