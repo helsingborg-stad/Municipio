@@ -12,7 +12,7 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
 
     public function get_values($rule) // @codingStandardsIgnoreLine
     {
-        return \Municipio\Helper\Purpose::getRegisteredPurposes(false);
+        return \Municipio\Helper\Purpose::getRegisteredPurposes();
     }
 
     public function match($rule, $screen, $field_group)

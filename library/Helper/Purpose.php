@@ -25,13 +25,16 @@ class Purpose
                     $className = basename($filename, '.php');
                     $classNameWithNamespace = $namespace . '\\' . $className;
 
+                    $instance = new $classNameWithNamespace();
+
                     if ($includeExtras) {
-                        $purposes[$className] = [
-                            'class' => $classNameWithNamespace,
-                            'path' => $filename
+                        $purposes[$instance->getKey()] = [
+                            'class'     => $instance,
+                            'className' => $classNameWithNamespace,
+                            'path'      => $filename
                         ];
                     } else {
-                        $purposes[strtolower($className)] = $className;
+                        $purposes[$instance->getKey()] = $instance->getLabel();
                     }
                 }
             }
@@ -73,25 +76,18 @@ class Purpose
 
     private static function getPurposesArray(string $type)
     {
-        $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
-        if (!$mainPurpose) {
+        $mainPurposeKey = get_option("options_purposes_{$type}", false);
+        if (!$mainPurposeKey) {
             return false;
         }
 
         $purposes = [];
         $registeredPurposes = self::getRegisteredPurposes(true);
-        $mainPurposeClass = $registeredPurposes[$mainPurpose]['class'] ?? null;
-
-        if (!$mainPurposeClass || !class_exists($mainPurposeClass)) {
-            return false;
-        }
-
-        // Instantiate the main purpose
-        $instance = new $mainPurposeClass();
-        $purposes['main'] = $instance;
+        $mainPurpose = $registeredPurposes[$mainPurposeKey]['class'] ?? null;
+        $purposes['main'] = $mainPurpose;
 
         // Instantiate secondary purposes
-        $secondaryPurpose = $instance->getSecondaryPurpose();
+        $secondaryPurpose = $mainPurpose->getSecondaryPurpose();
         if (!empty($secondaryPurpose)) {
             foreach ($secondaryPurpose as $key => $value) {
                 $class = $registeredPurposes[$key]['class'] ?? null;
