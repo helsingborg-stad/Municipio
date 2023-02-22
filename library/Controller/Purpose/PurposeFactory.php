@@ -18,7 +18,7 @@ class PurposeFactory
 
         $this->init();
 
-        self::registerSecondaryPurposes();
+        self::initSecondaryPurposes();
     }
     /**
      * This method is empty by default and can be overridden by subclasses to add their own initialization logic.
@@ -27,7 +27,7 @@ class PurposeFactory
     {
     }
 
-    protected function registerSecondaryPurposes()
+    protected function initSecondaryPurposes()
     {
         if (!empty($this->getSecondaryPurpose())) {
             foreach ($this->getSecondaryPurpose() as $className) {
