@@ -66,18 +66,8 @@ class Purpose
  */
     public static function getPurpose(string $type = '')
     {
-        $current = get_queried_object();
-
-        if ('' === $type && !$current) {
-            return false;
-        }
-
-        if ('' === $type && is_a($current, 'WP_Post_Type')) {
-            $type = $current->name;
-        } elseif ('' === $type && is_a($current, 'WP_Post')) {
-            $type = $current->post_type;
-        } elseif ('' === $type && is_a($current, 'WP_Term')) {
-            $type = $current->taxonomy;
+        if ('' === $type) {
+            $type = self::getCurrentType();
         }
 
         $purpose = self::getPurposeString($type);
@@ -87,6 +77,11 @@ class Purpose
 
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type, $current);
     }
+    public static function hasPurpose(): string
+    {
+        return self::getPurpose();
+    }
+
 
     private static function getPurposeString(string $type)
     {
@@ -101,25 +96,10 @@ class Purpose
         return $mainPurpose;
     }
 
-    public static function hasPurpose(string $type = ''): string
+    private static function getCurrentType(string $current = ''): string
     {
-        if ('' === $type) {
+        if ('' === $current) {
             $current = get_queried_object();
-            $type = self::getCurrentType($current);
-            if (!$type) {
-                return '';
-            }
-        }
-
-        $purpose = self::getPurpose($type);
-
-        return $purpose ?: '';
-    }
-
-    private static function getCurrentType($current): ?string
-    {
-        if (!$current) {
-            return null;
         }
 
         if (is_a($current, 'WP_Post_Type')) {
@@ -128,6 +108,8 @@ class Purpose
             $type = $current->post_type;
         } elseif (is_a($current, 'WP_Term')) {
             $type = $current->taxonomy;
+        } else {
+            return '';
         }
 
         return $type;
