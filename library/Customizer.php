@@ -30,7 +30,7 @@ class Customizer
                     'link_text' => __("Install plugin", 'municipio')
                 ]
             );
-        }, 10);
+        }, 11);
 
         /**
          * Fixes issue when using :root selector in
