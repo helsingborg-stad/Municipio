@@ -9,6 +9,7 @@ class General
         add_action('init', array($this, 'bemItClassDefinition'));
 
         add_filter('body_class', array($this, 'appendBEMITCssClass'));
+        add_filter('body_class', array($this, 'appendPurposeCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));
 
@@ -232,6 +233,20 @@ class General
     {
         if (defined('MUNICIPIO_BEM_THEME_NAME')) {
             $classes[] = MUNICIPIO_BEM_THEME_NAME;
+        }
+        return $classes;
+    }
+    /**
+     * If the current page has a purpose, add a class to the body tag
+     *
+     * @param classes The array of classes to be appended to.
+     *
+     * @return the  array with the new class added.
+     */
+    public function appendPurposeCssClass($classes)
+    {
+        if ($purpose = \Municipio\Helper\Purpose::hasPurpose()) {
+            $classes[] = "purpose-$purpose";
         }
         return $classes;
     }
