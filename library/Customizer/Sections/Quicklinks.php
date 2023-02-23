@@ -76,6 +76,40 @@ class Quicklinks
           ],
         ]);
 
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_transparent_sticky_color',
+          'label'       => esc_html__('Background color sticky scroll', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '',
+          'choices'     => [
+              '' => esc_html__('None', 'municipio'),
+              'primary-scroll-background' => esc_html__('Primary', 'municipio'),
+              'secondary-scroll-background' => esc_html__('Secondary', 'municipio'),
+              'white-scroll-background' => esc_html__('White', 'municipio'),
+              'black-scroll-background' => esc_html__('Black', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
+          ],
+          'active_callback'  => [
+            [
+              'setting'  => 'quicklinks_sticky',
+              'operator' => '===',
+              'value'    => 'sticky',
+            ],
+            [
+              'setting'  => 'quicklinks_background',
+              'operator' => '===',
+              'value'    => 'transparent',
+            ]
+          ],
+        ]);
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'quicklinks_sticky',

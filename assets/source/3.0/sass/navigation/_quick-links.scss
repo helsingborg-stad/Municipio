@@ -28,17 +28,12 @@ $icon-colors: (
         transform: translateY(0px);
 
          &.c-header--sticky {
-            top: calc($base * 6.5);
+            top: 0;
         }
         
         @include mq('md') {
              transform: translateY(-50%);
-
-            &.c-header--sticky {
-                top: 0;
-            }
         }
-
     }
 
     @each $class, $color in $icon-colors {
@@ -59,6 +54,10 @@ $icon-colors: (
             .c-icon {
                 color: $color;
             }
+        }
+        
+        &.c-header--sticky.c-header--transparent.c-header--#{$class}-scroll-background.is-stuck {
+            background-color: $color;
         }
     }
 }
