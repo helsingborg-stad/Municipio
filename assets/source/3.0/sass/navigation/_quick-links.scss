@@ -28,7 +28,7 @@ $icon-colors: (
         transform: translateY(0px);
 
          &.c-header--sticky {
-            top: 0;
+            top: -1px;
         }
         
         @include mq('md') {
