@@ -18,40 +18,33 @@ class Purpose
      */
     public static function getRegisteredPurposes(bool $includeExtras = false): array
     {
-        $cache_key = 'registered_purposes';
-        $purposes = get_transient($cache_key);
+        $purposes = [];
 
-        if (false === $purposes) {
-            $purposes = [];
+        foreach (ControllerHelper::getControllerPaths() as $path) {
+            if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
+                foreach (glob("$dir/*.php") as $filename) {
+                    // Skip files with Factory or Interface in the filename
+                    if (preg_match('[Factory|Interface]', $filename)) {
+                        continue;
+                    }
 
-            foreach (ControllerHelper::getControllerPaths() as $path) {
-                if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
-                    foreach (glob("$dir/*.php") as $filename) {
-                        // Skip files with Factory or Interface in the filename
-                        if (preg_match('[Factory|Interface]', $filename)) {
-                            continue;
-                        }
+                    $namespace = ControllerHelper::getNamespace($filename);
+                    $className = basename($filename, '.php');
+                    $classNameWithNamespace = $namespace . '\\' . $className;
 
-                        $namespace = ControllerHelper::getNamespace($filename);
-                        $className = basename($filename, '.php');
-                        $classNameWithNamespace = $namespace . '\\' . $className;
+                    $instance = new $classNameWithNamespace();
 
-                        $instance = new $classNameWithNamespace();
-
-                        if ($includeExtras) {
-                            $purposes[$instance->getKey()] = [
-                            'class'     => $instance,
-                            'className' => $classNameWithNamespace,
-                            'path'      => $filename
-                            ];
-                        } else {
-                            $purposes[$instance->getKey()] = $instance->getLabel();
-                        }
+                    if ($includeExtras) {
+                        $purposes[$instance->getKey()] = [
+                        'class'     => $instance,
+                        'className' => $classNameWithNamespace,
+                        'path'      => $filename
+                        ];
+                    } else {
+                        $purposes[$instance->getKey()] = $instance->getLabel();
                     }
                 }
             }
-
-            set_transient($cache_key, $purposes, 0); // No expiration time
         }
 
         return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
