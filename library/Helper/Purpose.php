@@ -36,9 +36,9 @@ class Purpose
 
                     if ($includeExtras) {
                         $purposes[$instance->getKey()] = [
-                        'class'     => $instance,
-                        'className' => $classNameWithNamespace,
-                        'path'      => $filename
+                            'class'     => $instance,
+                            'className' => $classNameWithNamespace,
+                            'path'      => $filename
                         ];
                     } else {
                         $purposes[$instance->getKey()] = $instance->getLabel();
@@ -66,6 +66,19 @@ class Purpose
         $purpose = get_option("options_purpose_{$type}", '');
 
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
+    }
+    public static function getPurposeInstance(string $purpose, bool $init = false)
+    {
+        $registeredPurposes = self::getRegisteredPurposes(true);
+        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['class'])) {
+            $instance = $registeredPurposes[$purpose]['class'];
+            if (true === $init) {
+                $instance->init();
+            }
+            return $instance;
+        }
+
+        return false;
     }
     /**
      * Alias for getPurpose

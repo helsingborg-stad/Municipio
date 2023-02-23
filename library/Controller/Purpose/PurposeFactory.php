@@ -16,8 +16,6 @@ class PurposeFactory
         $this->secondaryPurpose = $secondaryPurpose;
         $this->view             = "purpose-{$key}";
 
-        $this->init();
-
         self::initSecondaryPurposes();
     }
     /**
