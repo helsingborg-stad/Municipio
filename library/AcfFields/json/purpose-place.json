@@ -29,6 +29,13 @@
                 "operator": "==",
                 "value": "place"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "place"
+            }
         ]
     ],
     "menu_order": 0,

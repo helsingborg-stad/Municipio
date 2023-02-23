@@ -55,38 +55,21 @@ class Purpose
  *
  * @param string $type The type of data to get the purpose for. This can be a post type or taxonomy.
  *
- * @return string|false The purpose as a string or false if the purpose does not exist.
+ * @return string The purpose as a string. Retruns an empty string if no purpose is found.
  */
-    public static function getPurpose(string $type = '')
+    public static function getPurpose(string $type = ''): string
     {
         if ('' === $type) {
             $type = self::getCurrentType();
         }
 
-        $purpose = self::getPurposeString($type);
-        if (!$purpose) {
-            return false;
-        }
+        $purpose = get_option("options_purpose_{$type}", '');
 
-        return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type, $current);
+        return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
     public static function hasPurpose(): string
     {
         return self::getPurpose();
-    }
-
-
-    private static function getPurposeString(string $type)
-    {
-        $mainPurposeKey = get_option("options_purposes_{$type}", false);
-        if (!$mainPurposeKey) {
-            return false;
-        }
-
-        $registeredPurposes = self::getRegisteredPurposes(true);
-        $mainPurpose = $registeredPurposes[$mainPurposeKey]['class'] ?? null;
-
-        return $mainPurpose;
     }
 
     private static function getCurrentType(string $current = ''): string
