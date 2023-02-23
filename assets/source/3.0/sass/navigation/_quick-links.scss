@@ -33,6 +33,10 @@ $icon-colors: (
         
         @include mq('md') {
              transform: translateY(-50%);
+
+            &.c-header--sticky {
+                top: calc($base * 6.5); 
+            }
         }
     }
 
@@ -55,7 +59,6 @@ $icon-colors: (
                 color: $color;
             }
         }
-        
         &.c-header--sticky.c-header--transparent.c-header--#{$class}-scroll-background.is-stuck {
             background-color: $color;
         }
