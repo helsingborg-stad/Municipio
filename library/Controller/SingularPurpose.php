@@ -21,7 +21,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         /**
          * Setup current purpose
          */
-        $currentPurpose = PurposeHelper::getPurposes($type);
+        $currentPurpose = PurposeHelper::getPurpose($type);
         if (isset($currentPurpose['main']) && !PurposeHelper::skipPurposeTemplate($type)) {
             $this->view = $currentPurpose['main']->getView();
         }

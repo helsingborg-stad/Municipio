@@ -12,36 +12,35 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
 
     public function get_values($rule) // @codingStandardsIgnoreLine
     {
-        return \Municipio\Helper\Purpose::getRegisteredPurposes();
+        return \Municipio\Helper\Purpose::getRegisteredPurposes(false);
     }
 
     public function match($rule, $screen, $field_group)
     {
-        if (isset($screen['taxonomy_list'])) {
+
+        if (!empty($screen['taxonomy_list'])) {
             $type = $screen['taxonomy_list'];
-        } elseif (isset($screen['post_id'])) {
+        } elseif (!empty($screen['post_id'])) {
             $post_id = $screen['post_id'];
             $post = get_post($post_id);
             if (!$post) {
                 return $rule;
+            } else {
+                $type = $post->post_type;
             }
-            $type = $post->post_type;
         } else {
             return false;
         }
-
         // Compare the post attribute to rule value.
-        $purposes = \Municipio\Helper\Purpose::getPurpose($type);
-        $purpose = $purposes['main'] ?? null;
-
-        if (!$purpose) {
+        $purpose = \Municipio\Helper\Purpose::getPurpose($type);
+        if ('' === $purpose) {
             return false;
         }
 
         $result = ($purpose === $rule['value']);
 
         // Return result taking into account the operator type.
-        if ($rule['operator'] === '!=') {
+        if ($rule['operator'] == '!=') {
             return !$result;
         }
         return $result;

@@ -67,11 +67,22 @@ class Purpose
 
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
+    /**
+     * Alias for getPurpose
+     *
+     * @return string The return value of the function getPurpose()
+     */
     public static function hasPurpose(): string
     {
         return self::getPurpose();
     }
-
+    /**
+     * Get the current type.
+     *
+     * @param string $current The current type.
+     *
+     * @return string The current type.
+     */
     private static function getCurrentType(string $current = ''): string
     {
         if ('' === $current) {
