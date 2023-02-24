@@ -237,16 +237,22 @@ class General
         return $classes;
     }
     /**
-     * If the current page has a purpose, add a class to the body tag
+     * It adds a CSS class to the body tag for each purpose that is set in the admin
      *
      * @param classes The array of classes to be appended to.
      *
-     * @return the  array with the new class added.
+     * @return An array of classes.
      */
+
     public function appendPurposeCssClass($classes)
     {
-        if ($purpose = \Municipio\Helper\Purpose::hasPurpose()) {
-            $classes[] = "purpose-$purpose";
+        if ($purposes = \Municipio\Helper\Purpose::getPurpose()) {
+            foreach ($purposes as $key => $purpose) {
+                $classes[] = "purpose-$purpose";
+                if (0 === $key) {
+                    $classes[] = "primary-purpose-{$purpose}";
+                }
+            }
         }
         return $classes;
     }

@@ -19,15 +19,17 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $type = $this->data['post']->postType;
 
         /**
-         * Setup current purpose
+         * Instantiate the current main purpose
          */
         $purpose = PurposeHelper::getPurpose($type);
-        $instance = PurposeHelper::getPurposeInstance($purpose, true);
-
-        if (!PurposeHelper::skipPurposeTemplate($type)) {
-            $this->view = $instance->getView();
+        if (!empty($purpose)) {
+            // Run initialisation on the main purpose
+            $instance = PurposeHelper::getPurposeInstance($purpose[0], true);
+            // Set view if allowed
+            if (!PurposeHelper::skipPurposeTemplate($type)) {
+                $this->view = $instance->getView();
+            }
         }
-
 
         // STRUCTURED DATA (SCHEMA.ORG)
         $this->data['structuredData'] = DataHelper::getStructuredData(

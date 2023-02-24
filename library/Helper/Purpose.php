@@ -57,16 +57,37 @@ class Purpose
  *
  * @return string The purpose as a string. Retruns an empty string if no purpose is found.
  */
-    public static function getPurpose(string $type = ''): string
+    public static function getPurpose(string $type = '', bool $includeSecondary = false): array
     {
         if ('' === $type) {
             $type = self::getCurrentType();
         }
 
-        $purpose = get_option("options_purpose_{$type}", '');
+        $purpose = [];
+        $purposeStr = get_option("options_purpose_{$type}", '');
+
+        if ('' !== $purposeStr) {
+            $instance = self::getPurposeInstance($purposeStr);
+            $purpose[] = $instance;
+
+            if ($includeSecondary && !empty($instance->secondaryPurpose)) {
+                foreach ($instance->secondaryPurpose as $key => $className) {
+                    $secondaryInstance = self::getPurposeInstance($key, false);
+                    $purpose[] = $secondaryInstance;
+                }
+            }
+        }
 
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
+    /**
+     * > Get the instance of a registered purpose
+     *
+     * @param string purpose The purpose you want to get the instance of.
+     * @param bool init If true, the purpose will be initialized via it's init() method.
+     *
+     * @return The class instance of the purpose.
+     */
     public static function getPurposeInstance(string $purpose, bool $init = false)
     {
         $registeredPurposes = self::getRegisteredPurposes(true);
@@ -80,14 +101,19 @@ class Purpose
 
         return false;
     }
+
     /**
-     * Alias for getPurpose
+     * It checks if the purpose is empty or not.
      *
-     * @return string The return value of the function getPurpose()
+     * @param string type The type of the purpose.
      */
-    public static function hasPurpose(): string
+    public static function hasPurpose(string $type = ''): bool
     {
-        return self::getPurpose();
+        $purpose = self::getPurpose();
+        if (!empty($purpose)) {
+            return true;
+        }
+        return false;
     }
     /**
      * Get the current type.
