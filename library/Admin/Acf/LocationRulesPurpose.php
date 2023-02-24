@@ -20,8 +20,8 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
         if (!empty($screen['taxonomy_list'])) {
             $type = $screen['taxonomy_list'];
         } elseif (!empty($screen['post_id'])) {
-            $post_id = $screen['post_id'];
-            $post = get_post($post_id);
+            $postId = $screen['post_id'];
+            $post = get_post($postId);
             if (!$post) {
                 return $rule;
             } else {
