@@ -36,69 +36,74 @@ class Event extends PurposeFactory
             return $structuredData;
         }
 
-        // Retrieve the event post meta data
+       // Retrieve the event post meta data
         $eventMeta = get_post_meta($postId);
 
-        // Event dates
-        $startDate = '';
-        $endDate = '';
-
-        if (isset($eventMeta['occasions_complete']) && is_array($eventMeta['occasions_complete'])) {
-            $occasions = maybe_unserialize($eventMeta['occasions_complete'][0]);
-            if (isset($occasions[0]['start_date'])) {
-                $startDate = $occasions[0]['start_date'];
-            }
-            if (isset($occasions[0]['end_date'])) {
-                $endDate = $occasions[0]['end_date'];
-            }
-        }
-
-        $thumbId = isset($eventMeta['_thumbnail_id'][0]) ? $eventMeta['_thumbnail_id'][0] : false;
-        $imageUrl = $thumbId ? wp_get_attachment_url($thumbId) : '';
-
-        // Build the schema.org event data
+       // Build the schema.org event data
         $eventData = [
-            '@type'       => 'Event',
-            'name'        => get_the_title($postId),
-            'startDate'   => $startDate,
-            'endDate'     => $endDate,
-            'description' => get_the_excerpt($postId),
-            'image'       => [$imageUrl],
-            'offers'      => [],
+        '@type'       => 'Event',
+        'name'        => get_the_title($postId),
+        'description' => get_the_excerpt($postId),
+        'offers'      => [],
         ];
 
-        // Event tickets
-        if (isset($eventMeta['booking_link']) && isset($eventMeta['booking_link'][0])) {
-            array_push($eventData['offers'], [
-                '@type' => 'Offer',
-                'name'  => 'ticket',
-                'url'   => $eventMeta['booking_link'][0],
-            ]);
+       // Event dates
+        $occasions = $eventMeta['occasions_complete'][0] ?? null;
+        $startDate = $occasions ? $occasions[0]['start_date'] ?? '' : '';
+        $endDate = $occasions ? $occasions[0]['end_date'] ?? '' : '';
+
+        if ($startDate) {
+            $eventData['startDate'] = $startDate;
         }
-        if (isset($eventMeta['price_adult']) && isset($eventMeta['price_adult'][0])) {
-            array_push($eventData['offers'], [
-                '@type' => 'Offer',
-                'name'  => 'ticket',
-                'price'   => $eventMeta['price_adult'][0],
-                'priceCurrency' => 'SEK',
-            ]);
+        if ($endDate) {
+            $eventData['endDate'] = $endDate;
         }
 
-        // TODO Add any other structures for tickets that may be available on events
-        if (isset($eventMeta['additional_ticket_types']) && is_array($eventMeta['additional_ticket_types']) && isset($eventMeta['additional_ticket_types'][0])) {
-            $ticketTypes = maybe_unserialize($eventMeta['additional_ticket_types'][0]);
+       // Event image
+        $imageUrl = wp_get_attachment_url($eventMeta['_thumbnail_id'][0] ?? null);
+        if ($imageUrl) {
+            $eventData['image'] = [$imageUrl];
+        }
+
+       // Event tickets
+        $bookingLink = $eventMeta['booking_link'][0] ?? null;
+        if ($bookingLink) {
+            $eventData['offers'][] = [
+            '@type' => 'Offer',
+            'name'  => 'ticket',
+            'url'   => $bookingLink,
+            ];
+        }
+
+        $adultPrice = $eventMeta['price_adult'][0] ?? null;
+        if ($adultPrice) {
+            $eventData['offers'][] = [
+            '@type'         => 'Offer',
+            'name'          => 'ticket',
+            'price'         => $adultPrice,
+            'priceCurrency' => 'SEK',
+            ];
+        }
+
+       // Additional ticket types
+        $additionalTypes = $eventMeta['additional_ticket_types'][0] ?? null;
+        if ($additionalTypes) {
+            $ticketTypes = maybe_unserialize($additionalTypes);
             foreach ($ticketTypes as $type) {
-                if (isset($type['ticket_name']) && isset($type['maximum_price'])) {
-                    array_push($eventData['offers'], [
-                        '@type'         => 'Offer',
-                        'name'          => $type['ticket_name'],
-                        'price'         => $type['maximum_price'],
-                        'priceCurrency' => 'SEK',
-                    ]);
+                $ticketName = $type['ticket_name'] ?? null;
+                $maximumPrice = $type['maximum_price'] ?? null;
+                if ($ticketName && $maximumPrice) {
+                    $eventData['offers'][] = [
+                    '@type'         => 'Offer',
+                    'name'          => $ticketName,
+                    'price'         => $maximumPrice,
+                    'priceCurrency' => 'SEK',
+                    ];
                 }
             }
         }
-        // Append the event data to the structured data
+
+       // Append the event data to the structured data
         return array_merge($eventData, $structuredData);
     }
 }
