@@ -5,7 +5,7 @@
     'icon' => 'menu',
     'classList' => [
         'mobile-menu-trigger',
-        'u-display--none@lg'
+        !$showMobileMenuOnAllScreens ? 'u-display--none@lg' : ''
     ],
     'attributeList' => [
         'aria-label' => $lang->menu,

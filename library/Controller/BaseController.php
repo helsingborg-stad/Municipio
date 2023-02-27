@@ -114,6 +114,7 @@ class BaseController
 
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
         $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), \Kirki::get_option('hamburger_menu_pagetree_fallback'), true, false);
+        $this->data['showMobileMenuOnAllScreens']   = \Kirki::get_option('show_mobile_menu_on_all_screens');
 
         //Complementary navigations
         $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
