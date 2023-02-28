@@ -313,6 +313,7 @@ class Post
 
                 //Gutenberg block image
                 'wp-block-image',
+                'wp-element-caption',
                 '<figcaption>'
             ],
             [
@@ -333,6 +334,7 @@ class Post
 
                 //Gutenberg block image
                 'c-image',
+                'c-image__caption',
                 '<figcaption class="c-image__caption">'
             ],
             $content
