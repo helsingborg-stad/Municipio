@@ -20,7 +20,14 @@ class Tags
             ],
             'output' => [
                 [
-                  'type' => 'controller',
+                    'type' => 'component_data',
+                    'dataKey' => 'tagsStyle',
+                    'context' => [
+                        [
+                            'context' => 'component.tags',
+                            'operator' => '==',
+                        ],
+                    ]
                 ]
             ],
         ]);
@@ -39,7 +46,14 @@ class Tags
             ],
             'output' => [
                 [
-                  'type' => 'controller',
+                    'type' => 'component_data',
+                    'dataKey' => 'tagsMarker',
+                    'context' => [
+                        [
+                            'context' => 'component.tags',
+                            'operator' => '==',
+                        ],
+                    ]
                 ]
             ],
         ]);
