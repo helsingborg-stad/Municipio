@@ -220,7 +220,7 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getReadingTime($postContent, $factor = 200)
     {
-        return (int) ceil((str_word_count(strip_tags($postContent)) / $factor));
+        return \Municipio\Helper\Post::getReadingTime($postContent, $factor);
     }
 
     /**
