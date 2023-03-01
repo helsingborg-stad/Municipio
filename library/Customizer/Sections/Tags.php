@@ -37,6 +37,11 @@ class Tags
                 ''   => esc_html__("Default", 'municipio'),
                 'taxonomy-colors' => esc_html__('Taxonomy colors', 'municipio')
             ],
+            'output' => [
+                [
+                  'type' => 'controller',
+                ]
+            ],
         ]);
     }
 }
