@@ -220,7 +220,7 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getReadingTime($postContent, $factor = 200)
     {
-        return \Municipio\Helper\Post::getReadingTime($postContent, $factor);
+        return \Municipio\Helper\ReadingTime::getReadingTime($postContent, $factor);
     }
 
     /**
