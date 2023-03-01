@@ -313,6 +313,11 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_field')
                     ->setTitle(esc_html__('Field', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Field('municipio_customizer_section_field'))
+            )->register()->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_tags')
+                    ->setTitle(esc_html__('Tags', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Tags('municipio_customizer_section_tags'))
             )->register();
     }
 
