@@ -109,6 +109,7 @@ class PanelsRegistry
             ->register();
     }
 
+    /* Module panel */
     public static function registerModulePanel()
     {
         KirkiPanel::create()
@@ -171,6 +172,7 @@ class PanelsRegistry
             )->register();
     }
     
+    /* General panel */
     public static function registerGeneralAppearancePanel()
     {
         KirkiPanel::create()
@@ -235,6 +237,7 @@ class PanelsRegistry
             )->register();
     }
     
+    /* Component panel */
     public static function registerComponentAppearancePanel()
     {
         KirkiPanel::create()
@@ -313,6 +316,7 @@ class PanelsRegistry
             )->register();
     }
 
+    /* Menu panel */
     public static function registerNavMenusPanel()
     {
         KirkiPanel::create()
