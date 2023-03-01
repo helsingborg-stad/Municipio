@@ -38,9 +38,10 @@ class Search
             'default'     => 'centered',
             'priority'    => 10,
             'choices'     => [
+                'top' => esc_html__('Top', 'municipio'),
                 'centered' => esc_html__('Centered', 'municipio'),
                 'bottom' => esc_html__('Bottom', 'municipio'),
-                'top' => esc_html__('Top', 'municipio'),
+
             ],
             'active_callback' => [
                 [
