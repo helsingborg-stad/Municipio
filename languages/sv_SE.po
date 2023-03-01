@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-13 18:24+0100\n"
-"PO-Revision-Date: 2023-02-15 11:17+0100\n"
+"POT-Creation-Date: 2023-03-01 14:33+0100\n"
+"PO-Revision-Date: 2023-03-01 14:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -32,8 +32,8 @@ msgstr "Knapp"
 #: library/AcfFields/php/options-theme-google-translate.php:72
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
-#: library/Customizer/Sections/Footer.php:516
-#: library/Customizer/Sections/Module/Text.php:12
+#: library/Customizer/PanelsRegistry.php:169
+#: library/Customizer/Sections/FooterSub.php:197
 msgid "Text"
 msgstr "Text"
 
@@ -42,8 +42,8 @@ msgid "Label"
 msgstr "Etikett"
 
 #: library/AcfFields/php/block-button.php:29
-#: library/Customizer/Sections/Colors.php:274
-#: library/Customizer/Sections/Footer.php:521
+#: library/Customizer/Sections/Colors.php:266
+#: library/Customizer/Sections/FooterSub.php:202
 msgid "Link"
 msgstr "Länk"
 
@@ -54,28 +54,34 @@ msgid "Color"
 msgstr "Färg"
 
 #: library/AcfFields/php/block-button.php:63
-#: library/Customizer/Sections/Button.php:73
-#: library/Customizer/Sections/Footer.php:85
-#: library/Customizer/Sections/Footer.php:374
-#: library/Customizer/Sections/Header.php:96
-#: library/Customizer/Sections/Header.php:119
-#: library/Customizer/Sections/Header.php:177
-#: library/Customizer/Sections/Quicklinks.php:61
-#: library/Customizer/Sections/Quicklinks.php:111
-#: library/Customizer/Sections/Slider.php:207
+#: library/Customizer/Sections/Button.php:64
+#: library/Customizer/Sections/FooterMain.php:60
+#: library/Customizer/Sections/FooterSub.php:55
+#: library/Customizer/Sections/Header.php:87
+#: library/Customizer/Sections/Header.php:110
+#: library/Customizer/Sections/Header.php:168
+#: library/Customizer/Sections/Quicklinks.php:59
+#: library/Customizer/Sections/Quicklinks.php:88
+#: library/Customizer/Sections/Quicklinks.php:145
+#: library/Customizer/Sections/Quicklinks.php:199
+#: library/Customizer/Sections/Quicklinks.php:220
+#: library/Customizer/Sections/SliderDefault.php:189
 msgid "Primary"
 msgstr "Primär"
 
 #: library/AcfFields/php/block-button.php:64
-#: library/Customizer/Sections/Colors.php:180
-#: library/Customizer/Sections/Footer.php:86
-#: library/Customizer/Sections/Footer.php:375
-#: library/Customizer/Sections/Header.php:97
-#: library/Customizer/Sections/Header.php:120
-#: library/Customizer/Sections/Header.php:178
-#: library/Customizer/Sections/Quicklinks.php:62
-#: library/Customizer/Sections/Quicklinks.php:112
-#: library/Customizer/Sections/Slider.php:208
+#: library/Customizer/Sections/Colors.php:172
+#: library/Customizer/Sections/FooterMain.php:61
+#: library/Customizer/Sections/FooterSub.php:56
+#: library/Customizer/Sections/Header.php:88
+#: library/Customizer/Sections/Header.php:111
+#: library/Customizer/Sections/Header.php:169
+#: library/Customizer/Sections/Quicklinks.php:60
+#: library/Customizer/Sections/Quicklinks.php:89
+#: library/Customizer/Sections/Quicklinks.php:146
+#: library/Customizer/Sections/Quicklinks.php:200
+#: library/Customizer/Sections/Quicklinks.php:221
+#: library/Customizer/Sections/SliderDefault.php:190
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -84,14 +90,19 @@ msgstr "Sekundär"
 #: library/AcfFields/php/options-menu-style.php:22
 #: library/AcfFields/php/widget-header-links.php:360
 #: library/AcfFields/php/widget-header-menu.php:48
-#: library/Customizer/Sections/Field.php:27
-#: library/Customizer/Sections/Header.php:72
-#: library/Customizer/Sections/Header.php:95
-#: library/Customizer/Sections/Header.php:116
-#: library/Customizer/Sections/Quicklinks.php:60
-#: library/Customizer/Sections/Quicklinks.php:88
-#: library/Customizer/Sections/Quicklinks.php:108
-#: library/Customizer/Sections/Width.php:17
+#: library/Customizer/Sections/Field.php:18
+#: library/Customizer/Sections/Header.php:63
+#: library/Customizer/Sections/Header.php:86
+#: library/Customizer/Sections/Header.php:107
+#: library/Customizer/Sections/Quicklinks.php:58
+#: library/Customizer/Sections/Quicklinks.php:122
+#: library/Customizer/Sections/Quicklinks.php:142
+#: library/Customizer/Sections/Quicklinks.php:198
+#: library/Customizer/Sections/Quicklinks.php:241
+#: library/Customizer/Sections/Width.php:15
+#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:87
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:113
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:852
 msgid "Default"
 msgstr "Standard"
 
@@ -102,16 +113,16 @@ msgstr "Specialanpassad textfärg för kort"
 #: library/AcfFields/php/block-button.php:82
 #: library/AcfFields/php/navigation-widget.php:314
 #: library/AcfFields/php/options-menu-style.php:10
-#: library/Customizer/Sections/Archive.php:53
+#: library/Customizer/Sections/Archive.php:42
 #: library/Customizer/Sections/Card.php:112
 #: library/Customizer/Sections/Collection.php:112
-#: library/Customizer/Sections/Header.php:133
+#: library/Customizer/Sections/Header.php:124
 msgid "Style"
 msgstr "Stil"
 
 #: library/AcfFields/php/block-button.php:94
-#: library/Customizer/Sections/Footer.php:45
-#: library/Customizer/Sections/Slider.php:181
+#: library/Customizer/Sections/FooterMain.php:20
+#: library/Customizer/Sections/SliderDefault.php:163
 msgid "Basic"
 msgstr "Standard"
 
@@ -120,7 +131,7 @@ msgid "Outlined"
 msgstr "Endast ram"
 
 #: library/AcfFields/php/block-button.php:96
-#: library/Customizer/Sections/Slider.php:180
+#: library/Customizer/Sections/SliderDefault.php:162
 msgid "Filled"
 msgstr "Ifylld"
 
@@ -130,6 +141,7 @@ msgstr "Ifylld"
 
 #: library/AcfFields/php/block-button.php:113
 #: library/AcfFields/php/navigation-widget.php:338
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:70
 msgid "Size"
 msgstr "Storlek"
 
@@ -139,12 +151,12 @@ msgstr "Storlek"
 #: library/AcfFields/php/widget-header-common.php:130
 #: library/AcfFields/php/widget-header-links.php:361
 #: library/AcfFields/php/widget-header-menu.php:49
-#: library/Customizer/Sections/Radius.php:42
+#: library/Customizer/Sections/Radius.php:33
 msgid "Small"
 msgstr "Liten"
 
 #: library/AcfFields/php/block-button.php:126
-#: library/Customizer/Sections/Radius.php:63
+#: library/Customizer/Sections/Radius.php:54
 msgid "Medium"
 msgstr "Mellan"
 
@@ -154,9 +166,9 @@ msgstr "Mellan"
 #: library/AcfFields/php/widget-header-common.php:131
 #: library/AcfFields/php/widget-header-links.php:362
 #: library/AcfFields/php/widget-header-menu.php:50
-#: library/Customizer/Sections/Radius.php:84
-#: library/Customizer/Sections/Width.php:93
-#: library/Customizer/Sections/Width.php:109
+#: library/Customizer/Sections/Radius.php:75
+#: library/Customizer/Sections/Width.php:84
+#: library/Customizer/Sections/Width.php:100
 msgid "Large"
 msgstr "Stor"
 
@@ -175,8 +187,8 @@ msgstr "Storlek på marginal"
 #: library/AcfFields/php/block-container.php:30
 #: library/Customizer/Sections/Card.php:29
 #: library/Customizer/Sections/Collection.php:29
-#: library/Customizer/Sections/Divider.php:205
-#: library/Customizer/Sections/Header.php:89
+#: library/Customizer/Sections/Divider.php:196
+#: library/Customizer/Sections/Header.php:80
 msgid "Background color"
 msgstr "Bakgrundsfärg"
 
@@ -265,21 +277,21 @@ msgid "Activate gutenberg editor"
 msgstr "Aktivera Gutenberg redigerare"
 
 #: library/AcfFields/php/options-activate-gutenberg.php:22
-#: library/Customizer/Sections/Colors.php:181
-#: library/Customizer/Sections/Divider.php:97
-#: library/Customizer/Sections/Divider.php:173
-#: library/Customizer/Sections/HamburgerMenu.php:27
-#: library/Customizer/Sections/Menu.php:27
-#: library/Customizer/Sections/Menu.php:43
-#: library/Customizer/Sections/Menu.php:59
-#: library/Customizer/Sections/Menu.php:75
-#: library/Customizer/Sections/Menu.php:91
+#: library/Customizer/Sections/Colors.php:173
+#: library/Customizer/Sections/Divider.php:88
+#: library/Customizer/Sections/Divider.php:164
+#: library/Customizer/Sections/HamburgerMenu.php:20
+#: library/Customizer/Sections/Menu.php:18
+#: library/Customizer/Sections/Menu.php:34
+#: library/Customizer/Sections/Menu.php:50
+#: library/Customizer/Sections/Menu.php:66
+#: library/Customizer/Sections/Menu.php:82
 msgid "Disabled"
 msgstr "Inaktiverad"
 
 #: library/AcfFields/php/options-activate-gutenberg.php:23
 #: library/Controller/Search.php:13
-#: library/Customizer/Sections/Quicklinks.php:132
+#: library/Customizer/Sections/Quicklinks.php:166
 msgid "All pages"
 msgstr "Alla sidor"
 
@@ -306,7 +318,7 @@ msgid "ID"
 msgstr "ID"
 
 #: library/AcfFields/php/options-customize-footer.php:67
-#: library/Customizer/Sections/Footer.php:46
+#: library/Customizer/Sections/FooterMain.php:21
 msgid "Columns"
 msgstr "Kolumner"
 
@@ -4642,7 +4654,7 @@ msgstr ""
 #: library/AcfFields/php/options-menu-style.php:23
 #: library/AcfFields/php/options-theme-editor-formats.php:37
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:28
-#: library/Customizer/Sections/Borders.php:106
+#: library/Customizer/Sections/Borders.php:99
 msgid "Button"
 msgstr "Knapp"
 
@@ -4680,8 +4692,8 @@ msgstr ""
 "titel här. Lämna fältet tomt om du vill använda originaltiteln."
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:128 library/Customizer/Panels/Archive.php:62
-#: library/Upgrade.php:526
+#: library/Controller/Singular.php:128
+#: library/Customizer/PanelsRegistry.php:387 library/Upgrade.php:526
 msgid "Author"
 msgstr "Författare"
 
@@ -4693,7 +4705,7 @@ msgstr "Visa författare"
 #: library/AcfFields/php/options-theme-author.php:41
 #: library/AcfFields/php/options-theme-author.php:60
 #: library/AcfFields/php/options-theme-google-translate.php:96
-#: library/Customizer/Sections/Footer.php:194
+#: library/Customizer/Sections/FooterMain.php:169
 #: library/Helper/KirkiCondidional.php:48
 msgid "Enable"
 msgstr "Aktivera"
@@ -4753,7 +4765,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-custom-js.php:69
 #: library/AcfFields/php/purpose-place.php:6
 #: library/AcfFields/php/purpose-place.php:10
-#: library/Customizer/Sections/Quicklinks.php:125
+#: library/Customizer/Sections/Quicklinks.php:159
 msgid "Location"
 msgstr "Plats"
 
@@ -4946,6 +4958,7 @@ msgid "Page Attributes"
 msgstr "Sidattribut"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:287
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:104
 msgid "Post Formats"
 msgstr "Inläggsformat"
 
@@ -4989,14 +5002,17 @@ msgid "Extra large"
 msgstr "Extra stor"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:26
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:364
 msgid "Uppercase"
 msgstr "Versaler"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:365
 msgid "Lowercase"
 msgstr "Gemener"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:28
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:363
 msgid "Capitalize"
 msgstr "Stora bokstäver"
 
@@ -5005,19 +5021,19 @@ msgid "Drak gray"
 msgstr "Mörkgrå"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:30
-#: library/Customizer/Sections/Borders.php:42
-#: library/Customizer/Sections/Module/Contacts.php:29
-#: library/Customizer/Sections/Module/Contacts.php:50
-#: library/Customizer/Sections/Module/Index.php:30
-#: library/Customizer/Sections/Module/Inlay.php:31
-#: library/Customizer/Sections/Module/Map.php:31
-#: library/Customizer/Sections/Module/Posts.php:31
-#: library/Customizer/Sections/Module/Posts.php:52
-#: library/Customizer/Sections/Module/Posts.php:73
-#: library/Customizer/Sections/Module/Script.php:31
-#: library/Customizer/Sections/Module/SectionsSplit.php:29
-#: library/Customizer/Sections/Module/Text.php:31
-#: library/Customizer/Sections/Module/Video.php:31
+#: library/Customizer/Sections/Borders.php:35
+#: library/Customizer/Sections/Module/Contacts.php:18
+#: library/Customizer/Sections/Module/Contacts.php:39
+#: library/Customizer/Sections/Module/Index.php:18
+#: library/Customizer/Sections/Module/Inlay.php:20
+#: library/Customizer/Sections/Module/Map.php:22
+#: library/Customizer/Sections/Module/Posts.php:20
+#: library/Customizer/Sections/Module/Posts.php:41
+#: library/Customizer/Sections/Module/Posts.php:62
+#: library/Customizer/Sections/Module/Script.php:22
+#: library/Customizer/Sections/Module/SectionsSplit.php:18
+#: library/Customizer/Sections/Module/Text.php:20
+#: library/Customizer/Sections/Module/Video.php:22
 msgid "Highlight"
 msgstr "Markering"
 
@@ -5167,6 +5183,7 @@ msgid "Lägg till rad"
 msgstr "Lägg till rad"
 
 #: library/AcfFields/php/options-theme-favicon.php:31
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
 msgid "Type"
 msgstr "Typ"
 
@@ -5407,34 +5424,38 @@ msgid "Margins"
 msgstr "Marginaler"
 
 #: library/AcfFields/php/widget-header-common.php:90
-#: library/Customizer/Sections/Footer.php:446
+#: library/Customizer/Sections/FooterSub.php:127
 msgid "Direction"
 msgstr "Riktning"
 
 #: library/AcfFields/php/widget-header-common.php:102
-#: library/Customizer/Sections/Divider.php:146
-#: library/Customizer/Sections/Footer.php:121
-#: library/Customizer/Sections/Footer.php:141
-#: library/Customizer/Sections/Footer.php:168
-#: library/Customizer/Sections/Footer.php:480
-#: library/Customizer/Sections/General.php:26
-#: library/Customizer/Sections/Header.php:46
-#: library/Customizer/Sections/Slider.php:118
-#: library/Customizer/Sections/Slider.php:290
-#: library/Customizer/Sections/Width.php:87
+#: library/Customizer/Sections/Divider.php:137
+#: library/Customizer/Sections/FooterMain.php:96
+#: library/Customizer/Sections/FooterMain.php:116
+#: library/Customizer/Sections/FooterMain.php:143
+#: library/Customizer/Sections/FooterSub.php:161
+#: library/Customizer/Sections/General.php:17
+#: library/Customizer/Sections/Header.php:37
+#: library/Customizer/Sections/SliderDefault.php:100
+#: library/Customizer/Sections/SliderHero.php:69
+#: library/Customizer/Sections/Width.php:78
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:67
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:351
 msgid "Left"
 msgstr "Vänster"
 
 #: library/AcfFields/php/widget-header-common.php:103
-#: library/Customizer/Sections/Divider.php:148
-#: library/Customizer/Sections/Footer.php:123
-#: library/Customizer/Sections/Footer.php:143
-#: library/Customizer/Sections/Footer.php:170
-#: library/Customizer/Sections/Footer.php:482
-#: library/Customizer/Sections/General.php:27
-#: library/Customizer/Sections/Slider.php:120
-#: library/Customizer/Sections/Slider.php:292
-#: library/Customizer/Sections/Width.php:103
+#: library/Customizer/Sections/Divider.php:139
+#: library/Customizer/Sections/FooterMain.php:98
+#: library/Customizer/Sections/FooterMain.php:118
+#: library/Customizer/Sections/FooterMain.php:145
+#: library/Customizer/Sections/FooterSub.php:163
+#: library/Customizer/Sections/General.php:18
+#: library/Customizer/Sections/SliderDefault.php:102
+#: library/Customizer/Sections/SliderHero.php:71
+#: library/Customizer/Sections/Width.php:94
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:68
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:353
 msgid "Right"
 msgstr "Höger"
 
@@ -5448,33 +5469,38 @@ msgid "Margin"
 msgstr "Marginal"
 
 #: library/AcfFields/php/widget-header-common.php:129
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:196
 msgid "Auto"
 msgstr "Automatisk"
 
 #: library/AcfFields/php/widget-header-common.php:132
 #: library/Customizer/Sections/Card.php:124
 #: library/Customizer/Sections/Collection.php:124
-#: library/Customizer/Sections/Footer.php:84
-#: library/Customizer/Sections/Footer.php:373
-#: library/Customizer/Sections/HamburgerMenu.php:59
-#: library/Customizer/Sections/Header.php:139
-#: library/Customizer/Sections/Module/Contacts.php:28
-#: library/Customizer/Sections/Module/Contacts.php:47
-#: library/Customizer/Sections/Module/Index.php:29
-#: library/Customizer/Sections/Module/Inlay.php:28
-#: library/Customizer/Sections/Module/LocalEvent.php:28
-#: library/Customizer/Sections/Module/Map.php:28
-#: library/Customizer/Sections/Module/Posts.php:28
-#: library/Customizer/Sections/Module/Posts.php:49
-#: library/Customizer/Sections/Module/Posts.php:70
-#: library/Customizer/Sections/Module/Script.php:28
-#: library/Customizer/Sections/Module/SectionsSplit.php:28
-#: library/Customizer/Sections/Module/Text.php:28
-#: library/Customizer/Sections/Module/Video.php:28
-#: library/Customizer/Sections/Slider.php:87
-#: library/Customizer/Sections/Slider.php:149
-#: library/Customizer/Sections/Slider.php:268
-#: library/Customizer/Sections/Slider.php:312
+#: library/Customizer/Sections/FooterMain.php:59
+#: library/Customizer/Sections/FooterSub.php:54
+#: library/Customizer/Sections/HamburgerMenu.php:52
+#: library/Customizer/Sections/Header.php:130
+#: library/Customizer/Sections/Module/Contacts.php:17
+#: library/Customizer/Sections/Module/Contacts.php:36
+#: library/Customizer/Sections/Module/Index.php:17
+#: library/Customizer/Sections/Module/Inlay.php:17
+#: library/Customizer/Sections/Module/LocalEvent.php:17
+#: library/Customizer/Sections/Module/Map.php:19
+#: library/Customizer/Sections/Module/Posts.php:17
+#: library/Customizer/Sections/Module/Posts.php:38
+#: library/Customizer/Sections/Module/Posts.php:59
+#: library/Customizer/Sections/Module/Script.php:19
+#: library/Customizer/Sections/Module/SectionsSplit.php:17
+#: library/Customizer/Sections/Module/Text.php:17
+#: library/Customizer/Sections/Module/Video.php:19
+#: library/Customizer/Sections/Quicklinks.php:87
+#: library/Customizer/Sections/Quicklinks.php:219
+#: library/Customizer/Sections/SliderDefault.php:69
+#: library/Customizer/Sections/SliderDefault.php:131
+#: library/Customizer/Sections/SliderHero.php:47
+#: library/Customizer/Sections/SliderHero.php:91
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:362
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:382
 msgid "None"
 msgstr "Ingen"
 
@@ -5657,7 +5683,7 @@ msgstr "Välj syfte"
 #: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:98
 #: library/Controller/BaseController.php:212
-#: library/Customizer/Sections/Search.php:15 library/Search/General.php:53
+#: library/Customizer/PanelsRegistry.php:235 library/Search/General.php:53
 #: library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -5699,8 +5725,8 @@ msgid "Customizer"
 msgstr "Anpassning"
 
 #: library/Admin/Options/Theme.php:43 library/Admin/Options/Theme.php:44
-#: library/Customizer/Sections/Footer.php:505
-#: library/Customizer/Sections/Width.php:38
+#: library/Customizer/Sections/FooterSub.php:186
+#: library/Customizer/Sections/Width.php:36
 msgid "Content"
 msgstr "Innehåll"
 
@@ -5717,6 +5743,7 @@ msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
 #: library/Admin/Options/Theme.php:84
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:113
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
@@ -5827,6 +5854,7 @@ msgid "Add new"
 msgstr "Skapa ny"
 
 #: library/Content/CustomPostType.php:59
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:104
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
@@ -6037,8 +6065,8 @@ msgid "Primary navigation"
 msgstr "Huvudmeny"
 
 #: library/Controller/BaseController.php:216
-#: library/Customizer/Sections/HamburgerMenu.php:12
-#: library/Customizer/Sections/Search.php:30 library/Theme/Navigation.php:27
+#: library/Customizer/PanelsRegistry.php:266
+#: library/Customizer/Sections/Search.php:23 library/Theme/Navigation.php:27
 msgid "Hamburger menu"
 msgstr "Hamburgermeny"
 
@@ -6093,15 +6121,15 @@ msgstr ""
 msgid "post"
 msgstr "post"
 
-#: library/Controller/Purpose/Event.php:24
+#: library/Controller/Purpose/Event.php:13
 msgid "Event"
 msgstr "Evenemang"
 
-#: library/Controller/Purpose/Place.php:18
+#: library/Controller/Purpose/Place.php:13
 msgid "Place"
 msgstr "Plats"
 
-#: library/Controller/Purpose/Project.php:27
+#: library/Controller/Purpose/Project.php:13
 msgid "Project"
 msgstr "Projekt"
 
@@ -6148,156 +6176,328 @@ msgstr "Svara"
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Controller/Singular.php:272
+#: library/Controller/Singular.php:278
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] "Detta innehåll är äldre än %s dag."
 msgstr[1] "Detta innehåll är äldre än %s dagar."
 
-#: library/Customizer.php:23
+#: library/Customizer.php:26
 msgid "Kirki Customizer framework is required"
 msgstr "Kirki Customizer-ramverket krävs"
 
-#: library/Customizer.php:24
+#: library/Customizer.php:27
 msgid "Plugin install required"
 msgstr "Installation av tillägg krävs"
 
-#: library/Customizer.php:27
+#: library/Customizer.php:30
 msgid "Install plugin"
 msgstr "Installera tillägg"
 
-#: library/Customizer/Panels/Archive.php:14
-msgid "Archive Apperance"
-msgstr "Arkiv"
-
-#: library/Customizer/Panels/Archive.php:15
-msgid "Manage apperance options on archives."
-msgstr "Hantera design på komponentnivå."
-
-#: library/Customizer/Panels/Component.php:13
-msgid "Component Apperance"
-msgstr "Komponentutseende"
-
-#: library/Customizer/Panels/Component.php:14
-msgid "Manage design options on component level."
-msgstr "Hantera design på komponentnivå."
-
-#: library/Customizer/Panels/Design.php:13
-msgid "General Apperance"
-msgstr "Generellt utseende"
-
-#: library/Customizer/Panels/Design.php:14
-msgid "Manage site general design options."
-msgstr "Hantera generella inställningar för design."
-
 #: library/Customizer/Panels/DesignLibrary.php:13
+#: library/Customizer/PanelsRegistry.php:77
 msgid "Design Library"
 msgstr "Designbibliotek"
 
 #: library/Customizer/Panels/DesignLibrary.php:14
+#: library/Customizer/PanelsRegistry.php:78
 msgid "Select a design made by other municipio users."
 msgstr "Välj mellan olika designer skapade av andra municipioanvändare."
 
-#: library/Customizer/Panels/Example.php:13
-msgid "Example panel"
-msgstr "Exempelpanel"
+#: library/Customizer/PanelsRegistry.php:83
+msgid "Load a design"
+msgstr "Ladda in en design"
 
-#: library/Customizer/Panels/Example.php:14
-msgid "A example panel"
-msgstr "En exempelpanel"
+#: library/Customizer/PanelsRegistry.php:84
+msgid ""
+"Want a new fresh design to your site? Use one of the options below to serve "
+"as a boilerplate!"
+msgstr ""
+"Sugen på en ny och fräsch design för din webbplats? Ladda in och använd ett "
+"tema att utgå ifrån. Justera efter hand!"
 
-#: library/Customizer/Panels/Module.php:13
+#: library/Customizer/PanelsRegistry.php:105
+msgid "Archive Apperance"
+msgstr "Arkiv"
+
+#: library/Customizer/PanelsRegistry.php:106
+msgid "Manage apperance options on archives."
+msgstr "Hantera design på komponentnivå."
+
+#: library/Customizer/PanelsRegistry.php:117
 msgid "Module Apperance"
 msgstr "Modulutseende"
 
-#: library/Customizer/Panels/Module.php:14
-msgid "Manage design options on module level."
-msgstr "Hantera inställningar för modulers gestaltning."
+#: library/Customizer/PanelsRegistry.php:121
+msgid "Contacts"
+msgstr "Kontakter"
 
-#: library/Customizer/Sections/Archive.php:25
+#: library/Customizer/PanelsRegistry.php:127
+#: library/Customizer/Sections/Module/Index.php:12
+#: library/Customizer/Sections/Module/Posts.php:12
+msgid "Index"
+msgstr "Index"
+
+#: library/Customizer/PanelsRegistry.php:133
+#: library/Customizer/Sections/Module/Inlay.php:12
+msgid "Inlay list"
+msgstr "Lista"
+
+#: library/Customizer/PanelsRegistry.php:139
+#: library/Customizer/Sections/Module/LocalEvent.php:12
+msgid "Local Event"
+msgstr "Lokala evenemang"
+
+#: library/Customizer/PanelsRegistry.php:145
+msgid "Maps"
+msgstr "Kartor"
+
+#: library/Customizer/PanelsRegistry.php:151
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:108
+msgid "Posts"
+msgstr "Inlägg"
+
+#: library/Customizer/PanelsRegistry.php:157
+#: library/Customizer/Sections/Module/Script.php:14
+msgid "Script"
+msgstr "Skript"
+
+#: library/Customizer/PanelsRegistry.php:163
+msgid "Sections Split"
+msgstr "Sektioner: Tvådelad"
+
+#: library/Customizer/PanelsRegistry.php:180
+msgid "General Apperance"
+msgstr "Generellt utseende"
+
+#: library/Customizer/PanelsRegistry.php:181
+msgid "Manage site general design options."
+msgstr "Hantera generella inställningar för design."
+
+#: library/Customizer/PanelsRegistry.php:186
+#, fuzzy
+#| msgid "Logotype"
+msgid "Logotypes"
+msgstr "Logotyp"
+
+#: library/Customizer/PanelsRegistry.php:191
+#, fuzzy
+#| msgid "General settings."
+msgid "General settings"
+msgstr "Generella inställningar."
+
+#: library/Customizer/PanelsRegistry.php:197
+#: library/Customizer/Sections/Divider.php:59
+#: library/Customizer/Sections/FooterSub.php:12
+msgid "Colors"
+msgstr "Färger"
+
+#: library/Customizer/PanelsRegistry.php:202
+msgid "Typography"
+msgstr "Typografi"
+
+#: library/Customizer/PanelsRegistry.php:203
+msgid ""
+"Options for various Typography elements. This support BOF (Bring your own "
+"font). Simply upload your font in the media library, and it will be "
+"selectable."
+msgstr ""
+"Inställningar för typografi: Den här sektionen stödjer ”Bring your own "
+"font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i "
+"mediabiblioteket och väljer sedan typsnittet i listan nedan."
+
+#: library/Customizer/PanelsRegistry.php:208
+msgid "Page Widths"
+msgstr "Sidans bredd"
+
+#: library/Customizer/PanelsRegistry.php:209
+msgid "Set the maximum page withs of different page types."
+msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
+
+#: library/Customizer/PanelsRegistry.php:214
+msgid "Borders"
+msgstr "Kantlinjer"
+
+#: library/Customizer/PanelsRegistry.php:219
+msgid "Rounded corners"
+msgstr "Rundade hörn"
+
+#: library/Customizer/PanelsRegistry.php:220
+msgid ""
+"Adjust the roundness of corners on the site overall. The sizes are applied "
+"where they are suitable, additional component adjustments can be made under "
+"the components tab."
+msgstr ""
+"Ställer in storleken på rundade hörn. Storlekarna appliceras där de är "
+"lämpliga i grunddesignen. Mer detaljerade justeringar av rundade hörn hittar "
+"du under komponentfliken."
+
+#: library/Customizer/PanelsRegistry.php:225
+#: library/Customizer/Sections/FooterMain.php:34
+#: library/Customizer/Sections/FooterSub.php:107
+#: library/Customizer/Sections/SliderDefault.php:42
+msgid "Padding"
+msgstr "Luft"
+
+#: library/Customizer/PanelsRegistry.php:230
+msgid "Drop Shadows"
+msgstr "Skuggor"
+
+#: library/Customizer/PanelsRegistry.php:245
+msgid "Component Apperance"
+msgstr "Komponentutseende"
+
+#: library/Customizer/PanelsRegistry.php:246
+msgid "Manage design options on component level."
+msgstr "Hantera design på komponentnivå."
+
+#: library/Customizer/PanelsRegistry.php:251
+msgid "Header"
+msgstr "Sidhuvud"
+
+#: library/Customizer/PanelsRegistry.php:256
+msgid "Quicklinks"
+msgstr "Snabblänkar"
+
+#: library/Customizer/PanelsRegistry.php:261
+msgid "Buttons"
+msgstr "Knappar"
+
+#: library/Customizer/PanelsRegistry.php:271
+msgid "Slider"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:275
+msgid "Regular Slider"
+msgstr "Vanlig slider"
+
+#: library/Customizer/PanelsRegistry.php:281
+msgid "Hero slider"
+msgstr "Slider (Hero)"
+
+#: library/Customizer/PanelsRegistry.php:282
+msgid "Settings for the slider in the hero area."
+msgstr "Inställningar för slider i heroytan."
+
+#: library/Customizer/PanelsRegistry.php:288
+msgid "Footer"
+msgstr "Sidfot"
+
+#: library/Customizer/PanelsRegistry.php:292
+msgid "Main footer"
+msgstr "Primär sidfot"
+
+#: library/Customizer/PanelsRegistry.php:298
+msgid "Sub footer"
+msgstr "Sekundär sidfot"
+
+#: library/Customizer/PanelsRegistry.php:304
+#: library/Customizer/Sections/Borders.php:14
+#: library/Customizer/Sections/Colors.php:209
+#: library/Customizer/Sections/Divider.php:65
+msgid "Divider"
+msgstr "Avdelare"
+
+#: library/Customizer/PanelsRegistry.php:309 library/Theme/Sidebars.php:123
+msgid "Hero"
+msgstr "Under sidhuvud (Heroyta)"
+
+#: library/Customizer/PanelsRegistry.php:314
+msgid "Field"
+msgstr "Formulär & Fält"
+
+#: library/Customizer/PanelsRegistry.php:327
+msgid "Menu behaviour"
+msgstr "Menybeteende"
+
+#: library/Customizer/PanelsRegistry.php:328
+msgid "Menu behaviour settings."
+msgstr "Inställningar för menybeteende."
+
+#: library/Customizer/Sections/Archive.php:14
 msgid "Archive heading"
 msgstr "Rubrik"
 
-#: library/Customizer/Sections/Archive.php:39
+#: library/Customizer/Sections/Archive.php:28
 msgid "Archive lead text"
 msgstr "Brödtext"
 
-#: library/Customizer/Sections/Archive.php:57
+#: library/Customizer/Sections/Archive.php:46
 msgid "Compressed"
 msgstr "Komprimerad"
 
-#: library/Customizer/Sections/Archive.php:58
+#: library/Customizer/Sections/Archive.php:47
 msgid "Cards"
 msgstr "Kort"
 
-#: library/Customizer/Sections/Archive.php:59
+#: library/Customizer/Sections/Archive.php:48
 msgid "News"
 msgstr "Nyheter"
 
-#: library/Customizer/Sections/Archive.php:60
-#: library/Customizer/Sections/Module/Contacts.php:42
-#: library/Customizer/Sections/Module/Map.php:23
-#: library/Customizer/Sections/Module/Posts.php:44
-#: library/Customizer/Sections/Module/Text.php:23
-#: library/Customizer/Sections/Module/Video.php:23
+#: library/Customizer/Sections/Archive.php:49
+#: library/Customizer/Sections/Module/Contacts.php:31
+#: library/Customizer/Sections/Module/Map.php:14
+#: library/Customizer/Sections/Module/Posts.php:33
+#: library/Customizer/Sections/Module/Text.php:12
+#: library/Customizer/Sections/Module/Video.php:14
 msgid "List"
 msgstr "Lista"
 
-#: library/Customizer/Sections/Archive.php:61
+#: library/Customizer/Sections/Archive.php:50
 msgid "Blocks"
 msgstr "Block"
 
-#: library/Customizer/Sections/Archive.php:74
+#: library/Customizer/Sections/Archive.php:63
 msgid "Format"
 msgstr "Format"
 
-#: library/Customizer/Sections/Archive.php:78
+#: library/Customizer/Sections/Archive.php:67
 msgid "Tall"
 msgstr "Stående"
 
-#: library/Customizer/Sections/Archive.php:79
+#: library/Customizer/Sections/Archive.php:68
 msgid "Square"
 msgstr "Fyrkantig"
 
-#: library/Customizer/Sections/Archive.php:99
+#: library/Customizer/Sections/Archive.php:88
 msgid "Number of posts to display"
 msgstr "Antalet inlägg på en sida"
 
-#: library/Customizer/Sections/Archive.php:100
+#: library/Customizer/Sections/Archive.php:89
 msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
-#: library/Customizer/Sections/Archive.php:114
-#: library/Customizer/Sections/Footer.php:263
+#: library/Customizer/Sections/Archive.php:103
+#: library/Customizer/Sections/FooterMain.php:238
 msgid "Number of columns to display"
 msgstr "Antal kolumner i rutnät"
 
-#: library/Customizer/Sections/Archive.php:115
+#: library/Customizer/Sections/Archive.php:104
 msgid "How many columns that the posts should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: library/Customizer/Sections/Archive.php:142
+#: library/Customizer/Sections/Archive.php:131
 msgid "Filters"
 msgstr "Filtrering"
 
-#: library/Customizer/Sections/Archive.php:143
+#: library/Customizer/Sections/Archive.php:132
 msgid "Add filters to let the user browse partial content."
 msgstr "Visa filtreringsmöjligheter för slutanvändaren."
 
-#: library/Customizer/Sections/Archive.php:150
+#: library/Customizer/Sections/Archive.php:139
 msgid "Text search"
 msgstr "Fritextsök"
 
-#: library/Customizer/Sections/Archive.php:151
+#: library/Customizer/Sections/Archive.php:140
 msgid "Date range"
 msgstr "Period"
 
-#: library/Customizer/Sections/Archive.php:166
+#: library/Customizer/Sections/Archive.php:155
 msgid "Facetting type"
 msgstr "Filtreringsbeteende"
 
-#: library/Customizer/Sections/Archive.php:167
+#: library/Customizer/Sections/Archive.php:156
 msgid ""
 "Wheter to broaden/search (or/off) OR taper/filter (and/on) search result "
 "when adding multiple selections for facetting."
@@ -6305,137 +6505,114 @@ msgstr ""
 "Om sökresultatet ska breddas (av) eller om sökresultatet ska smalnas av (på) "
 "när flera kategorier väljs."
 
-#: library/Customizer/Sections/Archive.php:171
+#: library/Customizer/Sections/Archive.php:160
 msgid "OR"
 msgstr "ELLER"
 
-#: library/Customizer/Sections/Archive.php:172
+#: library/Customizer/Sections/Archive.php:161
 msgid "AND"
 msgstr "OCH"
 
-#: library/Customizer/Sections/Archive.php:186
+#: library/Customizer/Sections/Archive.php:175
 msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
 
-#: library/Customizer/Sections/Archive.php:187
+#: library/Customizer/Sections/Archive.php:176
 msgid "What taxonomies should be displayed?"
 msgstr "Vilka taxonomier ska visas?"
 
-#: library/Customizer/Sections/Archive.php:206
+#: library/Customizer/Sections/Archive.php:195
 msgid "Order By"
 msgstr "Ordna efter"
 
-#: library/Customizer/Sections/Archive.php:207
+#: library/Customizer/Sections/Archive.php:196
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: library/Customizer/Sections/Archive.php:222
+#: library/Customizer/Sections/Archive.php:211
 msgid "Order direction"
 msgstr "Riktning"
 
-#: library/Customizer/Sections/Archive.php:223
+#: library/Customizer/Sections/Archive.php:212
 msgid "Select decending or ascending order."
 msgstr "Välj om inläggen ska sorteras fallande eller stigande."
 
-#: library/Customizer/Sections/Archive.php:227
+#: library/Customizer/Sections/Archive.php:216
 msgid "Ascending"
 msgstr "Stigande"
 
-#: library/Customizer/Sections/Archive.php:228
+#: library/Customizer/Sections/Archive.php:217
 msgid "Decending"
 msgstr "Fallande"
 
-#: library/Customizer/Sections/Archive.php:243
-#: library/Customizer/Sections/Archive.php:274
+#: library/Customizer/Sections/Archive.php:232
+#: library/Customizer/Sections/Archive.php:263
 msgid "Date"
 msgstr "Datum"
 
-#: library/Customizer/Sections/Archive.php:244
+#: library/Customizer/Sections/Archive.php:233
 msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
-#: library/Customizer/Sections/Archive.php:248
+#: library/Customizer/Sections/Archive.php:237
 msgid "Hide date"
 msgstr "Dölj datum"
 
-#: library/Customizer/Sections/Archive.php:269
+#: library/Customizer/Sections/Archive.php:258
 msgid "Date format"
 msgstr "Datumformat"
 
-#: library/Customizer/Sections/Archive.php:270
+#: library/Customizer/Sections/Archive.php:259
 msgid "In what format to display date"
 msgstr "Format för datum"
 
-#: library/Customizer/Sections/Archive.php:275
+#: library/Customizer/Sections/Archive.php:264
 msgid "Date, Time"
 msgstr "Datum, Tid"
 
-#: library/Customizer/Sections/Archive.php:276
+#: library/Customizer/Sections/Archive.php:265
 msgid "Date badge"
 msgstr "Datummärke"
 
-#: library/Customizer/Sections/Borders.php:12
-msgid "Borders"
-msgstr "Kantlinjer"
-
-#: library/Customizer/Sections/Borders.php:13
-msgid "Adjust general borders"
-msgstr "Justera generella kantlinjer"
-
-#: library/Customizer/Sections/Borders.php:21
-#: library/Customizer/Sections/Colors.php:217
-#: library/Customizer/Sections/Divider.php:12
-#: library/Customizer/Sections/Divider.php:74
-msgid "Divider"
-msgstr "Avdelare"
-
-#: library/Customizer/Sections/Borders.php:63
-#: library/Customizer/Sections/Module/Contacts.php:23
+#: library/Customizer/Sections/Borders.php:56
+#: library/Customizer/Sections/Module/Contacts.php:12
 msgid "Card"
 msgstr "Kort"
 
-#: library/Customizer/Sections/Borders.php:84
-#: library/Customizer/Sections/Colors.php:218
+#: library/Customizer/Sections/Borders.php:77
+#: library/Customizer/Sections/Colors.php:210
 msgid "Outline"
 msgstr "Ramlinje"
 
-#: library/Customizer/Sections/Borders.php:128
+#: library/Customizer/Sections/Borders.php:121
 msgid "Input"
 msgstr "Inmatning"
 
-#: library/Customizer/Sections/Button.php:16
-msgid "Buttons"
-msgstr "Knappar"
-
-#: library/Customizer/Sections/Button.php:17
-msgid "Settings for buttons."
-msgstr "Inställningar för knappar."
-
-#: library/Customizer/Sections/Button.php:68
+#: library/Customizer/Sections/Button.php:59
 msgid "Primary button colors"
 msgstr "Färg på primärknappar"
 
-#: library/Customizer/Sections/Button.php:74
+#: library/Customizer/Sections/Button.php:65
 msgid "Primary Contrasting"
 msgstr "Primär kontrast"
 
-#: library/Customizer/Sections/Button.php:92
+#: library/Customizer/Sections/Button.php:83
 msgid "Tailor Color: Primary"
 msgstr "Specialanpassa primärfärg"
 
-#: library/Customizer/Sections/Button.php:100
+#: library/Customizer/Sections/Button.php:91
 msgid "Secondary button colors"
 msgstr "Färg på sekundärknappar"
 
-#: library/Customizer/Sections/Button.php:105
+#: library/Customizer/Sections/Button.php:96
 msgid "Secondary "
 msgstr "Sekundär "
 
-#: library/Customizer/Sections/Button.php:106
+#: library/Customizer/Sections/Button.php:97
 msgid "Secondary Contrasting"
 msgstr "Sekundär kontrast"
 
-#: library/Customizer/Sections/Button.php:124
+#: library/Customizer/Sections/Button.php:115
 msgid "Tailor Color: Secondary"
 msgstr "Specialanpassa sekundärfärg"
 
@@ -6475,24 +6652,26 @@ msgstr "Välj en typsnittsfärg för kort."
 
 #: library/Customizer/Sections/Card.php:80
 #: library/Customizer/Sections/Collection.php:80
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:72
 msgid "Width"
 msgstr "Bredd"
 
 #: library/Customizer/Sections/Card.php:116
 #: library/Customizer/Sections/Collection.php:116
-#: library/Customizer/Sections/Divider.php:48
+#: library/Customizer/Sections/Divider.php:39
 msgid "Dotted"
 msgstr "Prickad"
 
 #: library/Customizer/Sections/Card.php:117
 #: library/Customizer/Sections/Collection.php:117
-#: library/Customizer/Sections/Divider.php:49
+#: library/Customizer/Sections/Divider.php:40
 msgid "Dashed"
 msgstr "Streckad"
 
 #: library/Customizer/Sections/Card.php:118
 #: library/Customizer/Sections/Collection.php:118
-#: library/Customizer/Sections/Divider.php:47
+#: library/Customizer/Sections/Divider.php:38
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:386
 msgid "Solid"
 msgstr "Solid"
 
@@ -6523,7 +6702,7 @@ msgstr "Utfälld"
 
 #: library/Customizer/Sections/Card.php:125
 #: library/Customizer/Sections/Collection.php:125
-#: library/Customizer/Sections/General.php:28
+#: library/Customizer/Sections/General.php:19
 msgid "Hidden"
 msgstr "Dold"
 
@@ -6568,860 +6747,689 @@ msgstr ""
 "Rundade hörn på samlingskomponenter som ligger omslutet av andra "
 "komponenter, tas bort vid behov automatiskt."
 
-#: library/Customizer/Sections/Colors.php:15
-#: library/Customizer/Sections/Divider.php:68
-#: library/Customizer/Sections/Footer.php:331
-msgid "Colors"
-msgstr "Färger"
-
 #: library/Customizer/Sections/Colors.php:16
-msgid "Colors used across the theme."
-msgstr "Färger som används i grunddesignen."
-
-#: library/Customizer/Sections/Colors.php:24
 msgid "Primary colors"
 msgstr "Primära färger"
 
-#: library/Customizer/Sections/Colors.php:29
-#: library/Customizer/Sections/Colors.php:72
-#: library/Customizer/Sections/Colors.php:179
-#: library/Customizer/Sections/Colors.php:326
-#: library/Customizer/Sections/Colors.php:355
-#: library/Customizer/Sections/Colors.php:398
-#: library/Customizer/Sections/Colors.php:441
-#: library/Customizer/Sections/Colors.php:484
-#: library/Customizer/Sections/Example.php:25
-#: library/Customizer/Sections/Slider.php:329
-#: library/Customizer/Sections/Typography.php:40
+#: library/Customizer/Sections/Colors.php:21
+#: library/Customizer/Sections/Colors.php:64
+#: library/Customizer/Sections/Colors.php:171
+#: library/Customizer/Sections/Colors.php:318
+#: library/Customizer/Sections/Colors.php:347
+#: library/Customizer/Sections/Colors.php:390
+#: library/Customizer/Sections/Colors.php:433
+#: library/Customizer/Sections/Colors.php:476
+#: library/Customizer/Sections/SliderHero.php:108
+#: library/Customizer/Sections/Typography.php:31
 msgid "Base"
 msgstr "Bas"
 
-#: library/Customizer/Sections/Colors.php:30
-#: library/Customizer/Sections/Colors.php:73
-#: library/Customizer/Sections/Colors.php:356
-#: library/Customizer/Sections/Colors.php:399
-#: library/Customizer/Sections/Colors.php:442
-#: library/Customizer/Sections/Colors.php:485
-#: library/Customizer/Sections/Colors.php:573
-#: library/Customizer/Sections/Example.php:26
-#: library/Customizer/Sections/Slider.php:150
-#: library/Customizer/Sections/Slider.php:313
+#: library/Customizer/Sections/Colors.php:22
+#: library/Customizer/Sections/Colors.php:65
+#: library/Customizer/Sections/Colors.php:348
+#: library/Customizer/Sections/Colors.php:391
+#: library/Customizer/Sections/Colors.php:434
+#: library/Customizer/Sections/Colors.php:477
+#: library/Customizer/Sections/Colors.php:565
+#: library/Customizer/Sections/SliderDefault.php:132
+#: library/Customizer/Sections/SliderHero.php:92
 msgid "Dark"
 msgstr "Mörk"
 
-#: library/Customizer/Sections/Colors.php:31
-#: library/Customizer/Sections/Colors.php:74
-#: library/Customizer/Sections/Colors.php:357
-#: library/Customizer/Sections/Colors.php:400
-#: library/Customizer/Sections/Colors.php:443
-#: library/Customizer/Sections/Colors.php:486
-#: library/Customizer/Sections/Colors.php:528
-#: library/Customizer/Sections/Colors.php:574
+#: library/Customizer/Sections/Colors.php:23
+#: library/Customizer/Sections/Colors.php:66
+#: library/Customizer/Sections/Colors.php:349
+#: library/Customizer/Sections/Colors.php:392
+#: library/Customizer/Sections/Colors.php:435
+#: library/Customizer/Sections/Colors.php:478
+#: library/Customizer/Sections/Colors.php:520
+#: library/Customizer/Sections/Colors.php:566
 msgid "Light"
 msgstr "Ljus"
 
-#: library/Customizer/Sections/Colors.php:32
-#: library/Customizer/Sections/Colors.php:75
-#: library/Customizer/Sections/Colors.php:358
-#: library/Customizer/Sections/Colors.php:401
-#: library/Customizer/Sections/Colors.php:444
-#: library/Customizer/Sections/Colors.php:487
+#: library/Customizer/Sections/Colors.php:24
+#: library/Customizer/Sections/Colors.php:67
+#: library/Customizer/Sections/Colors.php:350
+#: library/Customizer/Sections/Colors.php:393
+#: library/Customizer/Sections/Colors.php:436
+#: library/Customizer/Sections/Colors.php:479
 msgid "Contrastring"
 msgstr "Kontrasterande"
 
-#: library/Customizer/Sections/Colors.php:67
+#: library/Customizer/Sections/Colors.php:59
 msgid "Secondary colors"
 msgstr "Sekundära färger"
 
-#: library/Customizer/Sections/Colors.php:112
+#: library/Customizer/Sections/Colors.php:104
 msgid "Background colors"
 msgstr "Bakgrundsfärger"
 
-#: library/Customizer/Sections/Colors.php:117
-#: library/Customizer/Sections/Colors.php:149
-#: library/Customizer/Sections/Footer.php:337
-#: library/Customizer/Sections/HamburgerMenu.php:118
-#: library/Customizer/Sections/HamburgerMenu.php:124
+#: library/Customizer/Sections/Colors.php:109
+#: library/Customizer/Sections/Colors.php:141
+#: library/Customizer/Sections/FooterSub.php:18
+#: library/Customizer/Sections/HamburgerMenu.php:111
+#: library/Customizer/Sections/HamburgerMenu.php:117
 msgid "Background"
 msgstr "Bakgrund"
 
-#: library/Customizer/Sections/Colors.php:118
+#: library/Customizer/Sections/Colors.php:110
 msgid "Complementary"
 msgstr "Komplementär"
 
-#: library/Customizer/Sections/Colors.php:144
+#: library/Customizer/Sections/Colors.php:136
 msgid "Card & Paper colors"
 msgstr "Kortfärg"
 
-#: library/Customizer/Sections/Colors.php:150
-#: library/Customizer/Sections/Colors.php:249
+#: library/Customizer/Sections/Colors.php:142
+#: library/Customizer/Sections/Colors.php:241
 msgid "Border"
 msgstr "Ramiljne"
 
-#: library/Customizer/Sections/Colors.php:174
+#: library/Customizer/Sections/Colors.php:166
 msgid "Text colors"
 msgstr "Textfärger"
 
-#: library/Customizer/Sections/Colors.php:212
+#: library/Customizer/Sections/Colors.php:204
 msgid "Border colors"
 msgstr "Färg på ramilje"
 
-#: library/Customizer/Sections/Colors.php:244
+#: library/Customizer/Sections/Colors.php:236
 msgid "Input colors"
 msgstr "Färg på inmatningsfält"
 
-#: library/Customizer/Sections/Colors.php:269
+#: library/Customizer/Sections/Colors.php:261
 msgid "Link colors"
 msgstr "Länkfärger"
 
-#: library/Customizer/Sections/Colors.php:275
+#: library/Customizer/Sections/Colors.php:267
 msgid "Hover"
 msgstr "Hovra"
 
-#: library/Customizer/Sections/Colors.php:276
+#: library/Customizer/Sections/Colors.php:268
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
 msgid "Active"
 msgstr "Aktivera"
 
-#: library/Customizer/Sections/Colors.php:277
+#: library/Customizer/Sections/Colors.php:269
 msgid "Visited"
 msgstr "Besökt"
 
-#: library/Customizer/Sections/Colors.php:278
+#: library/Customizer/Sections/Colors.php:270
 msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
-#: library/Customizer/Sections/Colors.php:320
+#: library/Customizer/Sections/Colors.php:312
 msgid "Alpha colors"
 msgstr "Alfa färger"
 
-#: library/Customizer/Sections/Colors.php:327
-#: library/Customizer/Sections/Footer.php:338
+#: library/Customizer/Sections/Colors.php:319
+#: library/Customizer/Sections/FooterSub.php:19
 msgid "Base Contrasting"
 msgstr "Kontrastfärg"
 
-#: library/Customizer/Sections/Colors.php:350
+#: library/Customizer/Sections/Colors.php:342
 msgid "Success colors"
 msgstr "Lyckades"
 
-#: library/Customizer/Sections/Colors.php:393
+#: library/Customizer/Sections/Colors.php:385
 msgid "Danger colors"
 msgstr "Fara"
 
-#: library/Customizer/Sections/Colors.php:436
+#: library/Customizer/Sections/Colors.php:428
 msgid "Warning colors"
 msgstr "Varning"
 
-#: library/Customizer/Sections/Colors.php:479
+#: library/Customizer/Sections/Colors.php:471
 msgid "Info colors"
 msgstr "Information"
 
-#: library/Customizer/Sections/Colors.php:522
+#: library/Customizer/Sections/Colors.php:514
 msgid "Complement colors"
 msgstr "Komplementfärger"
 
-#: library/Customizer/Sections/Colors.php:527
+#: library/Customizer/Sections/Colors.php:519
 msgid "Standard"
 msgstr "Standard"
 
-#: library/Customizer/Sections/Colors.php:529
+#: library/Customizer/Sections/Colors.php:521
 msgid "Lighter"
 msgstr "Ljusare"
 
-#: library/Customizer/Sections/Colors.php:530
-#: library/Customizer/Sections/Colors.php:576
+#: library/Customizer/Sections/Colors.php:522
+#: library/Customizer/Sections/Colors.php:568
 msgid "Lightest"
 msgstr "Ljusast"
 
-#: library/Customizer/Sections/Colors.php:565
+#: library/Customizer/Sections/Colors.php:557
 msgid "Monotone colors"
 msgstr "Monotona färger"
 
-#: library/Customizer/Sections/Colors.php:570
-#: library/Customizer/Sections/Header.php:118
-#: library/Customizer/Sections/Quicklinks.php:110
+#: library/Customizer/Sections/Colors.php:562
+#: library/Customizer/Sections/Header.php:109
+#: library/Customizer/Sections/Quicklinks.php:91
+#: library/Customizer/Sections/Quicklinks.php:144
+#: library/Customizer/Sections/Quicklinks.php:202
+#: library/Customizer/Sections/Quicklinks.php:223
 msgid "Black"
 msgstr "Svart"
 
-#: library/Customizer/Sections/Colors.php:571
+#: library/Customizer/Sections/Colors.php:563
 msgid "Darkest"
 msgstr "Mörkast"
 
-#: library/Customizer/Sections/Colors.php:572
+#: library/Customizer/Sections/Colors.php:564
 msgid "Darker"
 msgstr "Mörkare"
 
-#: library/Customizer/Sections/Colors.php:575
+#: library/Customizer/Sections/Colors.php:567
 msgid "Lighther"
 msgstr "Ljusare"
 
-#: library/Customizer/Sections/Colors.php:577
-#: library/Customizer/Sections/Header.php:117
-#: library/Customizer/Sections/Quicklinks.php:109
+#: library/Customizer/Sections/Colors.php:569
+#: library/Customizer/Sections/Header.php:108
+#: library/Customizer/Sections/Quicklinks.php:90
+#: library/Customizer/Sections/Quicklinks.php:143
+#: library/Customizer/Sections/Quicklinks.php:201
+#: library/Customizer/Sections/Quicklinks.php:222
 msgid "White"
 msgstr "Vit"
 
-#: library/Customizer/Sections/Divider.php:13
-msgid "Divider settings."
-msgstr "Inställningar för avdelare."
-
-#: library/Customizer/Sections/Divider.php:21
+#: library/Customizer/Sections/Divider.php:12
 msgid "Divider thickness"
 msgstr "Avdelarens tjocklek"
 
-#: library/Customizer/Sections/Divider.php:42
+#: library/Customizer/Sections/Divider.php:33
 msgid "Border style"
 msgstr "Kantstil"
 
-#: library/Customizer/Sections/Divider.php:91
+#: library/Customizer/Sections/Divider.php:82
 msgid "Customize text color"
 msgstr "Anpassa kontrastfärg"
 
-#: library/Customizer/Sections/Divider.php:96
-#: library/Customizer/Sections/Divider.php:172
-#: library/Customizer/Sections/HamburgerMenu.php:26
-#: library/Customizer/Sections/Menu.php:26
-#: library/Customizer/Sections/Menu.php:42
-#: library/Customizer/Sections/Menu.php:58
-#: library/Customizer/Sections/Menu.php:74
-#: library/Customizer/Sections/Menu.php:90
+#: library/Customizer/Sections/Divider.php:87
+#: library/Customizer/Sections/Divider.php:163
+#: library/Customizer/Sections/HamburgerMenu.php:19
+#: library/Customizer/Sections/Menu.php:17
+#: library/Customizer/Sections/Menu.php:33
+#: library/Customizer/Sections/Menu.php:49
+#: library/Customizer/Sections/Menu.php:65
+#: library/Customizer/Sections/Menu.php:81
 msgid "Enabled"
 msgstr "Aktiverad"
 
-#: library/Customizer/Sections/Divider.php:116
-#: library/Customizer/Sections/Footer.php:290
-#: library/Customizer/Sections/Header.php:110
-#: library/Customizer/Sections/Quicklinks.php:102
+#: library/Customizer/Sections/Divider.php:107
+#: library/Customizer/Sections/FooterMain.php:265
+#: library/Customizer/Sections/Header.php:101
+#: library/Customizer/Sections/Quicklinks.php:136
 msgid "Text color"
 msgstr "Textfärg"
 
-#: library/Customizer/Sections/Divider.php:141
-#: library/Customizer/Sections/Footer.php:136
-#: library/Customizer/Sections/Slider.php:114
-#: library/Customizer/Sections/Slider.php:286
+#: library/Customizer/Sections/Divider.php:132
+#: library/Customizer/Sections/FooterMain.php:111
+#: library/Customizer/Sections/SliderDefault.php:96
+#: library/Customizer/Sections/SliderHero.php:65
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: library/Customizer/Sections/Divider.php:147
-#: library/Customizer/Sections/Footer.php:122
-#: library/Customizer/Sections/Footer.php:142
-#: library/Customizer/Sections/Footer.php:169
-#: library/Customizer/Sections/Footer.php:481
-#: library/Customizer/Sections/Slider.php:119
-#: library/Customizer/Sections/Slider.php:291
+#: library/Customizer/Sections/Divider.php:138
+#: library/Customizer/Sections/FooterMain.php:97
+#: library/Customizer/Sections/FooterMain.php:117
+#: library/Customizer/Sections/FooterMain.php:144
+#: library/Customizer/Sections/FooterSub.php:162
+#: library/Customizer/Sections/SliderDefault.php:101
+#: library/Customizer/Sections/SliderHero.php:70
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:69
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:352
 msgid "Center"
 msgstr "Centrerad"
 
-#: library/Customizer/Sections/Divider.php:167
+#: library/Customizer/Sections/Divider.php:158
 msgid "Wrap title in frame"
 msgstr "Ram runt titel"
 
-#: library/Customizer/Sections/Divider.php:192
+#: library/Customizer/Sections/Divider.php:183
 msgid "Frame colors"
 msgstr "Ramfärger"
 
-#: library/Customizer/Sections/Divider.php:206
+#: library/Customizer/Sections/Divider.php:197
 msgid "Border color"
 msgstr "Färg på kantlinje"
 
-#: library/Customizer/Sections/Divider.php:229
+#: library/Customizer/Sections/Divider.php:220
 msgid "Frame border radius"
 msgstr "Rundning av hörn"
 
-#: library/Customizer/Sections/Divider.php:257
+#: library/Customizer/Sections/Divider.php:248
 msgid "Frame border width"
 msgstr "Storlek på kantlinje"
 
-#: library/Customizer/Sections/Example.php:12
-msgid "Example"
-msgstr "Exempel"
-
-#: library/Customizer/Sections/Example.php:13
-msgid "A simple example panel demonstrating different setups."
-msgstr "En enkel exempelpanel som demonstrerar olika typer av setuper."
-
-#: library/Customizer/Sections/Example.php:21
-msgid "Example css variable setting"
-msgstr "Ett exempel på en css variabel konfiguration."
-
-#: library/Customizer/Sections/Example.php:50
-msgid "Example modifier toggle"
-msgstr "En exempelkonfigraution för toggling av modifierare."
-
-#: library/Customizer/Sections/Example.php:55
-#: library/Customizer/Sections/Example.php:78
-msgid "Option 1"
-msgstr "Val 1"
-
-#: library/Customizer/Sections/Example.php:56
-#: library/Customizer/Sections/Example.php:79
-msgid "Option 2"
-msgstr "Val 2"
-
-#: library/Customizer/Sections/Example.php:57
-#: library/Customizer/Sections/Example.php:80
-msgid "Option 3"
-msgstr "Val 3"
-
-#: library/Customizer/Sections/Example.php:58
-#: library/Customizer/Sections/Example.php:81
-msgid "Option 4"
-msgstr "Val 4"
-
-#: library/Customizer/Sections/Example.php:73
-msgid "Example controller variable"
-msgstr "En exempelkonfigraution för variabel i kontroller"
-
 #: library/Customizer/Sections/Field.php:12
-msgid "Field"
-msgstr "Formulär & Fält"
-
-#: library/Customizer/Sections/Field.php:13
-msgid "Field settings."
-msgstr ""
-
-#: library/Customizer/Sections/Field.php:21
 msgid "Field style"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:22
+#: library/Customizer/Sections/Field.php:13
 msgid "Which styling the input field use."
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:28
+#: library/Customizer/Sections/Field.php:19
 msgid "Rounded"
 msgstr "Rundad"
 
-#: library/Customizer/Sections/Footer.php:15
-msgid "Footer"
-msgstr "Sidfot"
-
-#: library/Customizer/Sections/Footer.php:16
-msgid "Footer settings."
-msgstr "Inställningar för sidfot."
-
-#: library/Customizer/Sections/Footer.php:21
-msgid "Main footer"
-msgstr "Primär sidfot"
-
-#: library/Customizer/Sections/Footer.php:22
-msgid "Main footer settings."
-msgstr "Inställningar för primär sidfot."
-
-#: library/Customizer/Sections/Footer.php:28
-msgid "Sub footer"
-msgstr "Sekundär sidfot"
-
-#: library/Customizer/Sections/Footer.php:29
-msgid "Sub footer settings."
-msgstr "Inställningar för sekundär sidfot"
-
-#: library/Customizer/Sections/Footer.php:40
+#: library/Customizer/Sections/FooterMain.php:15
 msgid "Footer style"
 msgstr "Stil för sidfot"
 
-#: library/Customizer/Sections/Footer.php:41
+#: library/Customizer/Sections/FooterMain.php:16
 msgid "Which style of footer to use."
 msgstr "Vilken stil på sidfoten som ska användas."
 
-#: library/Customizer/Sections/Footer.php:59
-#: library/Customizer/Sections/Footer.php:426
-#: library/Customizer/Sections/Padding.php:12
-#: library/Customizer/Sections/Slider.php:60
-msgid "Padding"
-msgstr "Luft"
-
-#: library/Customizer/Sections/Footer.php:79
-#: library/Customizer/Sections/Footer.php:368
+#: library/Customizer/Sections/FooterMain.php:54
+#: library/Customizer/Sections/FooterSub.php:49
 msgid "Logotype"
 msgstr "Logotyp"
 
-#: library/Customizer/Sections/Footer.php:96
-#: library/Customizer/Sections/Footer.php:406
-#: library/Customizer/Sections/Header.php:153
+#: library/Customizer/Sections/FooterMain.php:71
+#: library/Customizer/Sections/FooterSub.php:87
+#: library/Customizer/Sections/Header.php:144
 msgid "Logotype height"
 msgstr "Storlek på logotyp (höjd)"
 
-#: library/Customizer/Sections/Footer.php:116
+#: library/Customizer/Sections/FooterMain.php:91
 msgid "Logotype alignment"
 msgstr "Justering för logotyp"
 
-#: library/Customizer/Sections/Footer.php:117
+#: library/Customizer/Sections/FooterMain.php:92
 msgid "How to align the logo in the footer."
 msgstr "Hur logotypen i sidfoten ska justeras."
 
-#: library/Customizer/Sections/Footer.php:137
+#: library/Customizer/Sections/FooterMain.php:112
 msgid "How to align the text in the columns."
 msgstr "Hur texten i kolumnerna ska justeras."
 
-#: library/Customizer/Sections/Footer.php:163
+#: library/Customizer/Sections/FooterMain.php:138
 msgid "Pre-footer Text alignment"
 msgstr "Textjustering före sidfot"
 
-#: library/Customizer/Sections/Footer.php:164
+#: library/Customizer/Sections/FooterMain.php:139
 msgid "How to align the text in the pre-footer."
 msgstr "Hur texten före sidfoten ska justeras."
 
-#: library/Customizer/Sections/Footer.php:189
+#: library/Customizer/Sections/FooterMain.php:164
 msgid "Footer header border"
 msgstr "Sidfots huvud ram"
 
-#: library/Customizer/Sections/Footer.php:190
+#: library/Customizer/Sections/FooterMain.php:165
 msgid "Add a bottom border for the footer header"
 msgstr "Lägg till en nedre ram till sidfots huvudet"
 
-#: library/Customizer/Sections/Footer.php:195
+#: library/Customizer/Sections/FooterMain.php:170
 #: library/Helper/KirkiCondidional.php:49
 msgid "Disable"
 msgstr "Inaktivera"
 
-#: library/Customizer/Sections/Footer.php:211
+#: library/Customizer/Sections/FooterMain.php:186
 msgid "Footer header border size"
 msgstr "Sidfothuvud kantstorlek"
 
-#: library/Customizer/Sections/Footer.php:212
+#: library/Customizer/Sections/FooterMain.php:187
 msgid "The size of the footer header's bottom border"
 msgstr "Storlek på sidfothuvudets nedre kantlinje"
 
-#: library/Customizer/Sections/Footer.php:240
+#: library/Customizer/Sections/FooterMain.php:215
 msgid "Footer header border color"
 msgstr "Kantlinjefärg"
 
-#: library/Customizer/Sections/Footer.php:241
+#: library/Customizer/Sections/FooterMain.php:216
 msgid "The color of the footer header's bottom border"
 msgstr "Färg på sidfothuvudets nedre kantlinje"
 
-#: library/Customizer/Sections/Footer.php:264
+#: library/Customizer/Sections/FooterMain.php:239
 msgid "How many columns that the footer should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: library/Customizer/Sections/Footer.php:306
+#: library/Customizer/Sections/FooterMain.php:281
 msgid "Footer background"
 msgstr "Bakgrund för sidfot"
 
-#: library/Customizer/Sections/Footer.php:307
+#: library/Customizer/Sections/FooterMain.php:282
 msgid "Background settings for the footer."
 msgstr "Bakgrundsinställningar för sidfoten."
 
-#: library/Customizer/Sections/Footer.php:339
+#: library/Customizer/Sections/FooterSub.php:20
 msgid "Text separator"
 msgstr "Textavdelare"
 
-#: library/Customizer/Sections/Footer.php:376
+#: library/Customizer/Sections/FooterSub.php:57
 msgid "Custom"
 msgstr "Anpassad"
 
-#: library/Customizer/Sections/Footer.php:386
+#: library/Customizer/Sections/FooterSub.php:67
 msgid "Upload SVG logo"
 msgstr "Ladda upp SVG-logotyp"
 
-#: library/Customizer/Sections/Footer.php:451
+#: library/Customizer/Sections/FooterSub.php:132
 msgid "Horizontal"
 msgstr "Horisontell"
 
-#: library/Customizer/Sections/Footer.php:452
+#: library/Customizer/Sections/FooterSub.php:133
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: library/Customizer/Sections/Footer.php:475
+#: library/Customizer/Sections/FooterSub.php:156
 msgid "Content alignment"
 msgstr "Innehållsjustering"
 
-#: library/Customizer/Sections/Footer.php:511
+#: library/Customizer/Sections/FooterSub.php:192
 msgid "Title"
 msgstr "Titel"
 
 #: library/Customizer/Sections/General.php:12
-msgid "General"
-msgstr "Generellt"
-
-#: library/Customizer/Sections/General.php:13
-msgid "General settings."
-msgstr "Generella inställningar."
-
-#: library/Customizer/Sections/General.php:21
 msgid "Secondary navigation position"
 msgstr "Positionering av sekundärmeny"
 
-#: library/Customizer/Sections/General.php:38
+#: library/Customizer/Sections/General.php:29
 msgid "Show emblem in hero"
 msgstr "Visa emblem i heroytan"
 
-#: library/Customizer/Sections/HamburgerMenu.php:13
-msgid "Hamburger menu settings."
-msgstr "Inställningar för hamburgermeny."
-
-#: library/Customizer/Sections/HamburgerMenu.php:21
+#: library/Customizer/Sections/HamburgerMenu.php:14
 msgid "Show on mobile"
 msgstr "Visa på mobil"
 
-#: library/Customizer/Sections/HamburgerMenu.php:37
+#: library/Customizer/Sections/HamburgerMenu.php:30
 msgid "Select menu trigger style"
 msgstr "Välj stil för menyöppnare"
 
-#: library/Customizer/Sections/HamburgerMenu.php:42
-#: library/Customizer/Sections/HamburgerMenu.php:60
+#: library/Customizer/Sections/HamburgerMenu.php:35
+#: library/Customizer/Sections/HamburgerMenu.php:53
 msgid "Basic button"
 msgstr "Vanlig knapp"
 
-#: library/Customizer/Sections/HamburgerMenu.php:43
-#: library/Customizer/Sections/HamburgerMenu.php:61
+#: library/Customizer/Sections/HamburgerMenu.php:36
+#: library/Customizer/Sections/HamburgerMenu.php:54
 msgid "Filled button"
 msgstr "Ifylld knapp"
 
-#: library/Customizer/Sections/HamburgerMenu.php:44
-#: library/Customizer/Sections/HamburgerMenu.php:62
+#: library/Customizer/Sections/HamburgerMenu.php:37
+#: library/Customizer/Sections/HamburgerMenu.php:55
 msgid "Outlined button"
 msgstr "Inramad knapp"
 
-#: library/Customizer/Sections/HamburgerMenu.php:54
+#: library/Customizer/Sections/HamburgerMenu.php:47
 msgid "Select menu parent style"
 msgstr "Välj stil för menyföräldrar"
 
-#: library/Customizer/Sections/HamburgerMenu.php:72
-#: library/Customizer/Sections/HamburgerMenu.php:78
-#: library/Customizer/Sections/Slider.php:354
+#: library/Customizer/Sections/HamburgerMenu.php:65
+#: library/Customizer/Sections/HamburgerMenu.php:71
+#: library/Customizer/Sections/SliderHero.php:133
 msgid "Heading"
 msgstr "Rubrik"
 
-#: library/Customizer/Sections/HamburgerMenu.php:73
+#: library/Customizer/Sections/HamburgerMenu.php:66
 msgid "Select a color for the headings"
 msgstr "Välj färg för rubrikerna"
 
-#: library/Customizer/Sections/HamburgerMenu.php:95
-#: library/Customizer/Sections/HamburgerMenu.php:101
+#: library/Customizer/Sections/HamburgerMenu.php:88
+#: library/Customizer/Sections/HamburgerMenu.php:94
 msgid "Subitem"
 msgstr "Underobjekt"
 
-#: library/Customizer/Sections/HamburgerMenu.php:96
+#: library/Customizer/Sections/HamburgerMenu.php:89
 msgid "Select a color for the subitems"
 msgstr "Välj färg för underobjekten"
 
-#: library/Customizer/Sections/HamburgerMenu.php:119
+#: library/Customizer/Sections/HamburgerMenu.php:112
 msgid "Select a color for the background"
 msgstr "Välj färg för bakgrunden"
 
 #: library/Customizer/Sections/Header.php:15
-msgid "Header"
-msgstr "Sidhuvud"
-
-#: library/Customizer/Sections/Header.php:16
-msgid "Header settings."
-msgstr "Inställningar för sidhuvud."
-
-#: library/Customizer/Sections/Header.php:24
 msgid "Apperance"
 msgstr "Utseende"
 
-#: library/Customizer/Sections/Header.php:29
+#: library/Customizer/Sections/Header.php:20
 msgid "Casual (Small sites)"
 msgstr "Casual (Små hemsidor)"
 
-#: library/Customizer/Sections/Header.php:30
+#: library/Customizer/Sections/Header.php:21
 msgid "Business (large sites)"
 msgstr "Business (Stora hemsidor)"
 
-#: library/Customizer/Sections/Header.php:40
+#: library/Customizer/Sections/Header.php:31
 msgid "Menu alignment"
 msgstr "Meny justering"
 
-#: library/Customizer/Sections/Header.php:45
+#: library/Customizer/Sections/Header.php:36
 msgid "Gap between"
 msgstr "Luft mellan"
 
-#: library/Customizer/Sections/Header.php:66
-#: library/Customizer/Sections/Quicklinks.php:82
+#: library/Customizer/Sections/Header.php:57
+#: library/Customizer/Sections/Quicklinks.php:116
 msgid "Sticky"
 msgstr "Klibbig"
 
-#: library/Customizer/Sections/Header.php:67
+#: library/Customizer/Sections/Header.php:58
 msgid ""
 "Adjust how the header section should behave when the user scrolls trough the "
 "page."
 msgstr "Justera hur sidhuvudet ska bete sig när användaren scrollar på sidan."
 
-#: library/Customizer/Sections/Header.php:73
-#: library/Customizer/Sections/Quicklinks.php:89
+#: library/Customizer/Sections/Header.php:64
+#: library/Customizer/Sections/Quicklinks.php:123
 msgid "Stick to top"
 msgstr "Klibba fast i toppen"
 
-#: library/Customizer/Sections/Header.php:90
+#: library/Customizer/Sections/Header.php:81
 msgid "Choose a background color for the header section of the page."
 msgstr "Välj en bakgrundfärg för sidhuvudet."
 
-#: library/Customizer/Sections/Header.php:111
+#: library/Customizer/Sections/Header.php:102
 msgid "Select a font/text color to use in the header."
 msgstr "Välj en färg att använda för text i sidhuvudet."
 
-#: library/Customizer/Sections/Header.php:134
+#: library/Customizer/Sections/Header.php:125
 msgid "Select a alternative style of this header."
 msgstr "Välj en alternativ stul för rubriken."
 
-#: library/Customizer/Sections/Header.php:140
-#: library/Customizer/Sections/Module/Contacts.php:49
-#: library/Customizer/Sections/Module/Inlay.php:30
-#: library/Customizer/Sections/Module/LocalEvent.php:30
-#: library/Customizer/Sections/Module/Map.php:30
-#: library/Customizer/Sections/Module/Posts.php:30
-#: library/Customizer/Sections/Module/Posts.php:51
-#: library/Customizer/Sections/Module/Posts.php:72
-#: library/Customizer/Sections/Module/Script.php:30
-#: library/Customizer/Sections/Module/Text.php:30
-#: library/Customizer/Sections/Module/Video.php:30
+#: library/Customizer/Sections/Header.php:131
+#: library/Customizer/Sections/Module/Contacts.php:38
+#: library/Customizer/Sections/Module/Inlay.php:19
+#: library/Customizer/Sections/Module/LocalEvent.php:19
+#: library/Customizer/Sections/Module/Map.php:21
+#: library/Customizer/Sections/Module/Posts.php:19
+#: library/Customizer/Sections/Module/Posts.php:40
+#: library/Customizer/Sections/Module/Posts.php:61
+#: library/Customizer/Sections/Module/Script.php:21
+#: library/Customizer/Sections/Module/Text.php:19
+#: library/Customizer/Sections/Module/Video.php:21
 msgid "Accented"
 msgstr "Accentuerad"
 
-#: library/Customizer/Sections/Header.php:172
+#: library/Customizer/Sections/Header.php:163
 msgid "Header logotype"
 msgstr "Logotyp för sidhuvud"
 
-#: library/Customizer/Sections/Hero.php:12 library/Theme/Sidebars.php:123
-msgid "Hero"
-msgstr "Under sidhuvud (Heroyta)"
-
-#: library/Customizer/Sections/Hero.php:13
-msgid "Hero settings."
-msgstr "Inställningar för sidhuvud."
-
-#: library/Customizer/Sections/Hero.php:21
+#: library/Customizer/Sections/Hero.php:12
 msgid "Choose animation type"
 msgstr "Välj animationstyp"
 
-#: library/Customizer/Sections/Hero.php:22
+#: library/Customizer/Sections/Hero.php:13
 msgid "Choose an animation for your hero"
 msgstr "Välj en animation för Heroytan"
 
-#: library/Customizer/Sections/Hero.php:27
+#: library/Customizer/Sections/Hero.php:18
 msgid "No animation"
 msgstr "Ingen animation"
 
-#: library/Customizer/Sections/Hero.php:28
+#: library/Customizer/Sections/Hero.php:19
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: library/Customizer/Sections/LoadDesign.php:28
-msgid "Load a design"
-msgstr "Ladda in en design"
-
-#: library/Customizer/Sections/LoadDesign.php:29
-msgid ""
-"Want a new fresh design to your site? Use one of the options below to serve "
-"as a boilerplate!"
-msgstr ""
-"Sugen på en ny och fräsch design för din webbplats? Ladda in och använd ett "
-"tema att utgå ifrån. Justera efter hand!"
-
-#: library/Customizer/Sections/LoadDesign.php:38
-#: library/Customizer/Sections/LoadDesign.php:86
+#: library/Customizer/Sections/LoadDesign.php:30
+#: library/Customizer/Sections/LoadDesign.php:121
 msgid "Select a design"
 msgstr "Välj en design"
 
-#: library/Customizer/Sections/LoadDesign.php:95
+#: library/Customizer/Sections/LoadDesign.php:43
+#, fuzzy
+#| msgid "Exclude from search"
+msgid "Exclude from import"
+msgstr "Exkludera från sökresultat"
+
+#: library/Customizer/Sections/LoadDesign.php:44
+msgid "Selected local settings will not be overriden on import."
+msgstr ""
+
+#: library/Customizer/Sections/LoadDesign.php:70
+msgid "Additional CSS"
+msgstr ""
+
+#: library/Customizer/Sections/LoadDesign.php:130
 msgid "Error loading options"
 msgstr "Kunde inte ladda in alternativen"
 
-#: library/Customizer/Sections/Logo.php:14
+#: library/Customizer/Sections/Logo.php:12
 msgid "Only accepts .svg-files (Scalable Vector Graphics)."
 msgstr "Endast .svg-filer accepteras (Scalable Vector Graphics)."
 
-#: library/Customizer/Sections/Logo.php:16
+#: library/Customizer/Sections/Logo.php:14
 msgid ""
 "Upload your secondary logotype in .svg format (Scalable Vector Graphics).\n"
 "            The secondary logotype is usually 100% white and can be used on "
 "dark or colored backgrounds."
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:21
+#: library/Customizer/Sections/Logo.php:19
 msgid ""
 "Upload an emblem in .svg format (Scalable Vector Graphics).\n"
 "            The emblem will be used to strengthen the website brand, when a "
 "sub brand is used."
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:29
+#: library/Customizer/Sections/Logo.php:27
 msgid "Primary logo"
 msgstr "Primär logotyp"
 
-#: library/Customizer/Sections/Logo.php:36
+#: library/Customizer/Sections/Logo.php:34
 msgid "Secondary logo"
 msgstr "Sekundär logotyp"
 
-#: library/Customizer/Sections/Logo.php:43
+#: library/Customizer/Sections/Logo.php:41
 msgid "Emblem"
 msgstr "Emblem"
 
-#: library/Customizer/Sections/Logo.php:57
-msgid "Logo"
-msgstr "Logotyp"
-
-#: library/Customizer/Sections/Logo.php:58
-msgid "Logo settings."
-msgstr "Logotyp inställningar"
-
 #: library/Customizer/Sections/Menu.php:12
-msgid "Menu behaviour"
-msgstr "Menybeteende"
-
-#: library/Customizer/Sections/Menu.php:13
-msgid "Menu behaviour settings."
-msgstr "Inställningar för menybeteende."
-
-#: library/Customizer/Sections/Menu.php:21
 msgid "Use page tree as fallback for primary menu"
 msgstr "Använd sidträd som reserv för primärmeny"
 
-#: library/Customizer/Sections/Menu.php:37
+#: library/Customizer/Sections/Menu.php:28
 msgid "Use page tree as fallback for secondary menu"
 msgstr "Använd sidträd som reserv för sekundärmeny"
 
-#: library/Customizer/Sections/Menu.php:53
+#: library/Customizer/Sections/Menu.php:44
 msgid "Use page tree as fallback for mobile menu"
 msgstr "Använd sidträd som reserv för mobilmeny"
 
-#: library/Customizer/Sections/Menu.php:69
+#: library/Customizer/Sections/Menu.php:60
 msgid "Use page tree as fallback for hamburger menu"
 msgstr "Använd sidträd som reserv för hamburgarmeny"
 
-#: library/Customizer/Sections/Menu.php:85
+#: library/Customizer/Sections/Menu.php:76
 msgid "Show subitems as dropdown in main menu"
 msgstr "Visa undermenyalternativ i en dropdown"
 
-#: library/Customizer/Sections/Module/Contacts.php:12
-msgid "Contacts"
-msgstr "Kontakter"
-
-#: library/Customizer/Sections/Module/Contacts.php:48
-#: library/Customizer/Sections/Module/Inlay.php:29
-#: library/Customizer/Sections/Module/LocalEvent.php:29
-#: library/Customizer/Sections/Module/Map.php:29
-#: library/Customizer/Sections/Module/Posts.php:29
-#: library/Customizer/Sections/Module/Posts.php:50
-#: library/Customizer/Sections/Module/Posts.php:71
-#: library/Customizer/Sections/Module/Script.php:29
-#: library/Customizer/Sections/Module/Text.php:29
-#: library/Customizer/Sections/Module/Video.php:29
+#: library/Customizer/Sections/Module/Contacts.php:37
+#: library/Customizer/Sections/Module/Inlay.php:18
+#: library/Customizer/Sections/Module/LocalEvent.php:18
+#: library/Customizer/Sections/Module/Map.php:20
+#: library/Customizer/Sections/Module/Posts.php:18
+#: library/Customizer/Sections/Module/Posts.php:39
+#: library/Customizer/Sections/Module/Posts.php:60
+#: library/Customizer/Sections/Module/Script.php:20
+#: library/Customizer/Sections/Module/Text.php:18
+#: library/Customizer/Sections/Module/Video.php:20
 msgid "Panel"
 msgstr "Panel"
 
-#: library/Customizer/Sections/Module/Index.php:13
-#: library/Customizer/Sections/Module/Index.php:24
-#: library/Customizer/Sections/Module/Posts.php:23
-msgid "Index"
-msgstr "Index"
-
-#: library/Customizer/Sections/Module/Inlay.php:12
-#: library/Customizer/Sections/Module/Inlay.php:23
-msgid "Inlay list"
-msgstr "Lista"
-
-#: library/Customizer/Sections/Module/LocalEvent.php:12
-#: library/Customizer/Sections/Module/LocalEvent.php:23
-msgid "Local Event"
-msgstr "Lokala evenemang"
-
-#: library/Customizer/Sections/Module/Map.php:12
-msgid "Maps"
-msgstr "Kartor"
-
-#: library/Customizer/Sections/Module/Posts.php:12
-msgid "Posts"
-msgstr "Inlägg"
-
-#: library/Customizer/Sections/Module/Posts.php:65
+#: library/Customizer/Sections/Module/Posts.php:54
 msgid "Expandable List"
 msgstr "Expanderbar lista"
 
-#: library/Customizer/Sections/Module/Script.php:12
-#: library/Customizer/Sections/Module/Script.php:23
-msgid "Script"
-msgstr "Skript"
-
 #: library/Customizer/Sections/Module/SectionsSplit.php:12
-msgid "Sections Split"
-msgstr "Sektioner: Tvådelad"
-
-#: library/Customizer/Sections/Module/SectionsSplit.php:23
 msgid "Section Split"
 msgstr "Sektion: Tvådelad"
 
-#: library/Customizer/Sections/Module/Video.php:12
-msgid "Video"
-msgstr "Video"
-
-#: library/Customizer/Sections/Padding.php:13
-msgid "Padding settings."
-msgstr "Inställningar för luft."
-
-#: library/Customizer/Sections/Padding.php:21
+#: library/Customizer/Sections/Padding.php:12
 msgid "Amount of padding around columns."
 msgstr "Mängden luft kring kolumner (huvudinnehåll)"
 
-#: library/Customizer/Sections/Padding.php:22
-#: library/Customizer/Sections/Padding.php:39
+#: library/Customizer/Sections/Padding.php:13
+#: library/Customizer/Sections/Padding.php:30
 msgid "Padding will be applied in 8px increments."
 msgstr "Luft sätts i steg om 8 pixlar."
 
-#: library/Customizer/Sections/Padding.php:38
+#: library/Customizer/Sections/Padding.php:29
 msgid "Amount of padding in grids."
 msgstr "Mängden luft i rutnät."
 
-#: library/Customizer/Sections/Padding.php:59
+#: library/Customizer/Sections/Padding.php:50
 msgid "Air in cards"
 msgstr "Luft i kort"
 
-#: library/Customizer/Sections/Padding.php:60
+#: library/Customizer/Sections/Padding.php:51
 msgid "Enable to remove space between content and the edge of cards."
 msgstr ""
 "Genom att aktivera alternativet tar du bort luft mellan innehåll i kort och "
 "kanten på kortet. Det här alternativet fungerar bra med designer som har "
 "kort utan särskiljande bakgrundsfärg eller kantlinje."
 
-#: library/Customizer/Sections/Padding.php:65
+#: library/Customizer/Sections/Padding.php:56
 msgid "Apply air"
 msgstr "Luft"
 
-#: library/Customizer/Sections/Padding.php:66
+#: library/Customizer/Sections/Padding.php:57
 msgid "Remove air"
 msgstr "Ingen luft"
 
 #: library/Customizer/Sections/Quicklinks.php:12
-msgid "Quicklinks"
-msgstr "Snabblänkar"
-
-#: library/Customizer/Sections/Quicklinks.php:13
-msgid "Quicklinks settings."
-msgstr "Inställningar för snabblänkar."
-
-#: library/Customizer/Sections/Quicklinks.php:21
 msgid "Select background type"
 msgstr "Välj typ av bakgrund"
 
-#: library/Customizer/Sections/Quicklinks.php:22
+#: library/Customizer/Sections/Quicklinks.php:13
 msgid ""
 "Select if you want to use one of the predefined colors, or select one freely."
 msgstr "Välj mellan fördefinierade färger, eller välj en helt fritt."
 
-#: library/Customizer/Sections/Quicklinks.php:27
+#: library/Customizer/Sections/Quicklinks.php:18
 msgid "Predefined colors"
 msgstr "Fördefinierade färger"
 
-#: library/Customizer/Sections/Quicklinks.php:28
+#: library/Customizer/Sections/Quicklinks.php:19
 msgid "Custom color"
 msgstr "Anpassad färg"
 
-#: library/Customizer/Sections/Quicklinks.php:35
+#: library/Customizer/Sections/Quicklinks.php:33
 msgid "Custom background color"
 msgstr "Anpassad färg"
 
-#: library/Customizer/Sections/Quicklinks.php:36
-#: library/Customizer/Sections/Quicklinks.php:55
+#: library/Customizer/Sections/Quicklinks.php:34
+#: library/Customizer/Sections/Quicklinks.php:53
 msgid "Choose a background color for the quicklinks section of the page."
 msgstr "Välj en bakgrunds färg för sektionen snabblänkar, på sidan."
 
-#: library/Customizer/Sections/Quicklinks.php:54
+#: library/Customizer/Sections/Quicklinks.php:52
 msgid "Predefined background color"
 msgstr "Fördefinierad färg"
 
+#: library/Customizer/Sections/Quicklinks.php:61
+#: library/Customizer/Sections/SliderDefault.php:70
+#: library/Customizer/Sections/SliderHero.php:48
+msgid "Transparent"
+msgstr "Genomskinlig"
+
 #: library/Customizer/Sections/Quicklinks.php:83
+msgid "Background color sticky scroll"
+msgstr "Bakgrundsfärg vid klibbig scroll"
+
+#: library/Customizer/Sections/Quicklinks.php:117
 msgid ""
 "Adjust how the quicklinks menu should behave when the user scrolls trough "
 "the page. This option should not be used in combination with a sticky header."
@@ -7430,73 +7438,98 @@ msgstr ""
 "Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt "
 "sidhuvud."
 
-#: library/Customizer/Sections/Quicklinks.php:103
+#: library/Customizer/Sections/Quicklinks.php:137
 msgid "Select a font/text color to use."
 msgstr "Välj en typsnittsfärg."
 
-#: library/Customizer/Sections/Quicklinks.php:126
+#: library/Customizer/Sections/Quicklinks.php:160
 msgid "Quicklinks location."
 msgstr "Position för snabblänkar."
 
-#: library/Customizer/Sections/Quicklinks.php:131
+#: library/Customizer/Sections/Quicklinks.php:165
 msgid "Front page"
 msgstr "Startsidan"
 
+#: library/Customizer/Sections/Quicklinks.php:176
+msgid "Quicklinks item direction"
+msgstr "Snabblänkar länk riktning"
+
+#: library/Customizer/Sections/Quicklinks.php:180
+msgid "Row"
+msgstr "Rad"
+
+#: library/Customizer/Sections/Quicklinks.php:181
+msgid "Column"
+msgstr "Kolumn"
+
+#: library/Customizer/Sections/Quicklinks.php:194
+msgid "Icon color"
+msgstr "Ikonfärg"
+
+#: library/Customizer/Sections/Quicklinks.php:215
+msgid "Icon background color"
+msgstr "Bakgrundsfärg för ikon"
+
+#: library/Customizer/Sections/Quicklinks.php:237
+#: library/Customizer/Sections/Quicklinks.php:242
+msgid "Overflow top"
+msgstr "Svämma över uppåt"
+
 #: library/Customizer/Sections/Radius.php:12
-msgid "Rounded corners"
-msgstr "Rundade hörn"
-
-#: library/Customizer/Sections/Radius.php:13
-msgid ""
-"Adjust the roundness of corners on the site overall. The sizes are applied "
-"where they are suitable, additional component adjustments can be made under "
-"the components tab."
-msgstr ""
-"Ställer in storleken på rundade hörn. Storlekarna appliceras där de är "
-"lämpliga i grunddesignen. Mer detaljerade justeringar av rundade hörn hittar "
-"du under komponentfliken."
-
-#: library/Customizer/Sections/Radius.php:21
 msgid "Extra small"
 msgstr "Extra liten"
 
-#: library/Customizer/Sections/Search.php:22
+#: library/Customizer/Sections/Search.php:15
 msgid "Show search"
 msgstr "Visa sök"
 
-#: library/Customizer/Sections/Search.php:25
+#: library/Customizer/Sections/Search.php:18
 msgid "Hero on frontpage"
 msgstr "Hero på startsidan"
 
-#: library/Customizer/Sections/Search.php:26
+#: library/Customizer/Sections/Search.php:19
 msgid "Header on sub pages"
 msgstr "Sidhuvud på undersidor"
 
-#: library/Customizer/Sections/Search.php:27
+#: library/Customizer/Sections/Search.php:20
 msgid "Header on frontpage"
 msgstr "Sidhuvud på startsidan"
 
-#: library/Customizer/Sections/Search.php:28
+#: library/Customizer/Sections/Search.php:21
 msgid "Option in main menu"
 msgstr "Inställning i huvudmeny"
 
-#: library/Customizer/Sections/Search.php:29
+#: library/Customizer/Sections/Search.php:22
 msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
 
+#: library/Customizer/Sections/Search.php:36
+msgid "Hero search position"
+msgstr "Hero sökposition"
+
+#: library/Customizer/Sections/Search.php:41
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:65
+msgid "Top"
+msgstr "Topp"
+
+#: library/Customizer/Sections/Search.php:42
+#, fuzzy
+#| msgid "Center"
+msgid "Centered"
+msgstr "Centrerad"
+
+#: library/Customizer/Sections/Search.php:43
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:66
+#, fuzzy
+#| msgid "Left Bottom"
+msgid "Bottom"
+msgstr "Vänster botten"
+
 #: library/Customizer/Sections/Shadow.php:12
-msgid "Drop Shadows"
-msgstr "Skuggor"
-
-#: library/Customizer/Sections/Shadow.php:13
-msgid "Adjust general drop shadows. "
-msgstr "Justera hur mycket skuggning som ska appliceras på webbplatsen. "
-
-#: library/Customizer/Sections/Shadow.php:21
 msgid "Amount of shadows"
 msgstr "Mängden skugga"
 
-#: library/Customizer/Sections/Shadow.php:22
+#: library/Customizer/Sections/Shadow.php:13
 msgid ""
 "The shadow sizes will automatically be multiplied from the value below. A "
 "value of 0 will completly turn off shadows."
@@ -7504,122 +7537,76 @@ msgstr ""
 "Skuggans storlek beräknas automatiskt fram från inställt värde. Ett "
 "nollvärde stänger av skuggor helt och hållet."
 
-#: library/Customizer/Sections/Shadow.php:42
+#: library/Customizer/Sections/Shadow.php:33
 msgid "Color of shadows"
 msgstr "Färg på skugga"
 
-#: library/Customizer/Sections/Shadow.php:43
+#: library/Customizer/Sections/Shadow.php:34
 msgid "What color to use for shadows."
 msgstr "Välj färg för skuggor."
 
-#: library/Customizer/Sections/Slider.php:19
-msgid "Slider"
-msgstr ""
-
-#: library/Customizer/Sections/Slider.php:20
-#: library/Customizer/Sections/Slider.php:26
-msgid "Settings for sliders."
-msgstr "Inställningar för sliders."
-
-#: library/Customizer/Sections/Slider.php:25
-msgid "Regular Slider"
-msgstr "Vanlig slider"
-
-#: library/Customizer/Sections/Slider.php:37
+#: library/Customizer/Sections/SliderDefault.php:19
 msgid "Gap between slides"
 msgstr "Luft mellan slides"
 
-#: library/Customizer/Sections/Slider.php:83
-#: library/Customizer/Sections/Slider.php:264
+#: library/Customizer/Sections/SliderDefault.php:65
+#: library/Customizer/Sections/SliderHero.php:43
 msgid "Container colour"
 msgstr "Färg för behållare"
 
-#: library/Customizer/Sections/Slider.php:88
-#: library/Customizer/Sections/Slider.php:269
-msgid "Transparent"
-msgstr "Genomskinlig"
-
-#: library/Customizer/Sections/Slider.php:89
-#: library/Customizer/Sections/Slider.php:270
+#: library/Customizer/Sections/SliderDefault.php:71
+#: library/Customizer/Sections/SliderHero.php:49
 msgid "Theme"
 msgstr "Tema"
 
-#: library/Customizer/Sections/Slider.php:145
-#: library/Customizer/Sections/Slider.php:308
+#: library/Customizer/Sections/SliderDefault.php:127
+#: library/Customizer/Sections/SliderHero.php:87
 msgid "Slide overlay"
 msgstr "Övertäckning slider"
 
-#: library/Customizer/Sections/Slider.php:176
+#: library/Customizer/Sections/SliderDefault.php:158
 msgid "Arrow button style"
 msgstr "Stil för navigeringsknapp"
 
-#: library/Customizer/Sections/Slider.php:203
+#: library/Customizer/Sections/SliderDefault.php:185
 msgid "Arrow button color"
 msgstr "Färg för navigeringsknapp"
 
-#: library/Customizer/Sections/Slider.php:228
-msgid "Hero slider"
-msgstr "Slider (Hero)"
-
-#: library/Customizer/Sections/Slider.php:229
-msgid "Settings for the slider in the hero area."
-msgstr "Inställningar för slider i heroytan."
-
-#: library/Customizer/Sections/Typography.php:12
-msgid "Typography"
-msgstr "Typografi"
-
-#: library/Customizer/Sections/Typography.php:13
-msgid ""
-"Options for various Typography elements. This support BOF (Bring your own "
-"font). Simply upload your font in the media library, and it will be "
-"selectable."
-msgstr ""
-"Inställningar för typografi: Den här sektionen stödjer ”Bring your own "
-"font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i "
-"mediabiblioteket och väljer sedan typsnittet i listan nedan."
-
-#: library/Customizer/Sections/Typography.php:83
+#: library/Customizer/Sections/Typography.php:74
 msgid "Headings"
 msgstr "Rubriker"
 
-#: library/Customizer/Sections/Typography.php:120
+#: library/Customizer/Sections/Typography.php:111
 msgid "Bold"
 msgstr "Fetstil"
 
-#: library/Customizer/Sections/Typography.php:121
+#: library/Customizer/Sections/Typography.php:112
 msgid "Use the same font as base but preferably with a higher font weight"
 msgstr "Använd samma typsnitt som bas men mer fetstilad"
 
-#: library/Customizer/Sections/Typography.php:140
+#: library/Customizer/Sections/Typography.php:131
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:116
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:135
 msgid "Italic"
 msgstr "Kursiv"
 
-#: library/Customizer/Sections/Typography.php:141
+#: library/Customizer/Sections/Typography.php:132
 msgid "Use the same font as base but preferably with an italic style"
 msgstr "Använd samma typsnitt som bas men välj en kursiv stil"
 
-#: library/Customizer/Sections/Width.php:24
+#: library/Customizer/Sections/Width.php:22
 msgid "Front Page"
 msgstr "Startsida"
 
-#: library/Customizer/Sections/Width.php:31
+#: library/Customizer/Sections/Width.php:29
 msgid "Archives"
 msgstr "Arkiv"
 
-#: library/Customizer/Sections/Width.php:46
-msgid "Page Widths"
-msgstr "Sidans bredd"
-
-#: library/Customizer/Sections/Width.php:47
-msgid "Set the maximum page withs of different page types."
-msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
-
-#: library/Customizer/Sections/Width.php:79
+#: library/Customizer/Sections/Width.php:70
 msgid "Width of page columns"
 msgstr "Bredd på sidans kolumner"
 
-#: library/Customizer/Sections/Width.php:80
+#: library/Customizer/Sections/Width.php:71
 msgid ""
 "Set the width of left & right columns. The middle (content) column will use "
 "whatever space left."
@@ -7627,8 +7614,8 @@ msgstr ""
 "Ställ in önskad bredd på höger och vänster kolumn. Innehållsytan anpassar "
 "sig och använder kvarstående yta automatiskt."
 
-#: library/Customizer/Sections/Width.php:92
-#: library/Customizer/Sections/Width.php:108
+#: library/Customizer/Sections/Width.php:83
+#: library/Customizer/Sections/Width.php:99
 msgid "Normal"
 msgstr "Normal"
 
@@ -7663,8 +7650,8 @@ msgstr "Vi behöver ditt godkännande för att ta dig vidare"
 #: library/Oembed/OembedFilters.php:18
 #, php-format
 msgid ""
-"This part of the website shows content from %s. By continuing, <a "
-"href=\"%s\"> you are accepting GDPR and privacy policy</a>."
+"This part of the website shows content from %s. By continuing, <a href=\"%s"
+"\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta "
 "godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
@@ -7698,91 +7685,91 @@ msgstr "Standard (Sida)"
 msgid "One Page"
 msgstr "One Page"
 
-#: library/Theme/Enqueue.php:141
+#: library/Theme/Enqueue.php:129
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:144
+#: library/Theme/Enqueue.php:132
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:145
+#: library/Theme/Enqueue.php:133
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:157
+#: library/Theme/Enqueue.php:145
 msgid "January"
 msgstr "Januari"
 
-#: library/Theme/Enqueue.php:158
+#: library/Theme/Enqueue.php:146
 msgid "February"
 msgstr "Februari"
 
-#: library/Theme/Enqueue.php:159
+#: library/Theme/Enqueue.php:147
 msgid "March"
 msgstr "Mars"
 
-#: library/Theme/Enqueue.php:160
+#: library/Theme/Enqueue.php:148
 msgid "April"
 msgstr "April"
 
-#: library/Theme/Enqueue.php:161
+#: library/Theme/Enqueue.php:149
 msgid "May"
 msgstr "Maj"
 
-#: library/Theme/Enqueue.php:162
+#: library/Theme/Enqueue.php:150
 msgid "June"
 msgstr "Juni"
 
-#: library/Theme/Enqueue.php:163
+#: library/Theme/Enqueue.php:151
 msgid "July"
 msgstr "Juli"
 
-#: library/Theme/Enqueue.php:164
+#: library/Theme/Enqueue.php:152
 msgid "August"
 msgstr "Augusti"
 
-#: library/Theme/Enqueue.php:165
+#: library/Theme/Enqueue.php:153
 msgid "September"
 msgstr "September"
 
-#: library/Theme/Enqueue.php:166
+#: library/Theme/Enqueue.php:154
 msgid "October"
 msgstr "Oktober"
 
-#: library/Theme/Enqueue.php:167
+#: library/Theme/Enqueue.php:155
 msgid "November"
 msgstr "November"
 
-#: library/Theme/Enqueue.php:168
+#: library/Theme/Enqueue.php:156
 msgid "December"
 msgstr "December"
 
-#: library/Theme/Enqueue.php:172
+#: library/Theme/Enqueue.php:160
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:173
+#: library/Theme/Enqueue.php:161
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:174
+#: library/Theme/Enqueue.php:162
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:175
+#: library/Theme/Enqueue.php:163
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:176
+#: library/Theme/Enqueue.php:164
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:177
+#: library/Theme/Enqueue.php:165
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:178
+#: library/Theme/Enqueue.php:166
 msgid "Sa"
 msgstr "Lö"
 
@@ -8241,6 +8228,1143 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
+msgid "Export with AcfExportManager"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
+#, php-format
+msgid "Exported %d fieldgroup(s)."
+msgstr "Exporterade %d fältgrupper."
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:261
+#, php-format
+msgid "Typo found in field %s - setting instead of settings."
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:272
+#, php-format
+msgid ""
+"Config not defined for field %1$s - See %2$s for details on how to properly "
+"add fields."
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:388
+#, php-format
+msgid "\"partial_refresh\" invalid entry in field %s"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:514
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Field.php:525
+#: vendor/kirki/packages/kirki-framework/module-css/src/CSS.php:133
+#: vendor/kirki/packages/kirki-framework/module-css/src/CSS.php:144
+#: vendor/kirki/packages/kirki-framework/module-postmessage/src/Postmessage.php:69
+#, php-format
+msgid ""
+"\"output\" invalid format in field %s. The \"output\" argument should be "
+"defined as an array of arrays."
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:206
+msgid ""
+"We detected you're using Kirki\\Compatibility\\Init::get_variables(). Please "
+"use \\Kirki\\Util\\Util::get_variables() instead."
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:257
+msgid ""
+"Your theme uses a Font Awesome field for icons. To avoid issues with missing "
+"icons on your frontend we recommend you install the official Font Awesome "
+"plugin."
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:260
+msgid "Install Plugin"
+msgstr "Installera tillägg"
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Init.php:261
+msgid "Don't show this again"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/Kirki.php:191
+msgid ""
+"Kirki fields should not be added on customize_register. Please add them "
+"directly, or on init."
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/compatibility/src/deprecated/functions.php:20
+#, php-format
+msgid "%1$s or %2$s"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-checkbox/src/Control/Checkbox_Switch.php:79
+msgid "On"
+msgstr "På"
+
+#: vendor/kirki/packages/kirki-framework/control-checkbox/src/Control/Checkbox_Switch.php:80
+msgid "Off"
+msgstr "Av"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:102
+msgid "Admin Menu"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:103
+msgid "Welcome Screen"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:105
+msgid "Media"
+msgstr "Media"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:106
+#, fuzzy
+#| msgid "Theme Options"
+msgid "Image Editing"
+msgstr "Temainställningar"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:109
+#, fuzzy
+#| msgid "Below Settings"
+msgid "Sorting"
+msgstr "Under inställningar"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:110
+#, fuzzy
+#| msgid "Below Media"
+msgid "Social"
+msgstr "Under media"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:112
+msgid "Products"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:114
+msgid "Widgets"
+msgstr "Widgets"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:115
+msgid "Notifications"
+msgstr "Notiser"
+
+#: vendor/kirki/packages/kirki-framework/control-dashicons/src/Control/Dashicons.php:116
+msgid "Miscelaneous"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-dimension/src/Control/Dimension.php:67
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:74
+#, fuzzy
+#| msgid "Default"
+msgid "Invalid Value"
+msgstr "Standard"
+
+#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:82
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:115
+#, fuzzy
+#| msgid "tab_unselected"
+msgid "No image selected"
+msgstr "tab_unselected"
+
+#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:85
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:114
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:453
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:485
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:510
+#: views/v1/partials/blog/comments.blade.php:62
+#: views/v1/partials/blog/comments.blade.php:126
+msgid "Remove"
+msgstr "Ta bort"
+
+#: vendor/kirki/packages/kirki-framework/control-image/src/Control/Image.php:89
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:111
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:116
+msgid "Select image"
+msgstr "Välj bild"
+
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:112
+msgid "Change image"
+msgstr "Byt ut bild"
+
+#: vendor/kirki/packages/kirki-framework/control-image/src/Field/Image.php:117
+msgid "Choose image"
+msgstr "Välj bild"
+
+#: vendor/kirki/packages/kirki-framework/control-react-select/src/Control/ReactSelect.php:162
+msgid "Select..."
+msgstr "Välj..."
+
+#: vendor/kirki/packages/kirki-framework/control-react-select/src/Control/ReactSelect.php:169
+#, php-format
+msgid "You can only select %s items"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:95
+#, fuzzy
+#| msgid "rowing"
+msgid "row"
+msgstr "rowing"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:139
+msgid "Select a Page"
+msgstr "Välj en sida"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:275
+#, php-format
+msgid "Limit: %s rows"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:443
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:448
+#, fuzzy
+#| msgid "tab_unselected"
+msgid "No Image Selected"
+msgstr "tab_unselected"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:454
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:458
+msgid "Add Image"
+msgstr "Lägg till bild"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:454
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:456
+msgid "Change Image"
+msgstr "Byt ut bild"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:475
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:480
+#, fuzzy
+#| msgid "tab_unselected"
+msgid "No File Selected"
+msgstr "tab_unselected"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:486
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:490
+msgid "Add File"
+msgstr "Lägg till fil"
+
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:486
+#: vendor/kirki/packages/kirki-framework/control-repeater/src/Control/Repeater.php:488
+#, fuzzy
+#| msgid "Change image"
+msgid "Change File"
+msgstr "Byt ut bild"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:84
+msgid "Background Color"
+msgstr "Bakgrundsfärg"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:103
+msgid "Background Image"
+msgstr "Bakgrundsbild"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:119
+msgid "Background Repeat"
+msgstr "Repetera bakgrund"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:123
+#, fuzzy
+#| msgid "repeat"
+msgid "No Repeat"
+msgstr "repeat"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:124
+#, fuzzy
+#| msgid "Repeat Vertically"
+msgid "Repeat All"
+msgstr "Upprepa vertikalt"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:125
+msgid "Repeat Horizontally"
+msgstr "Horisontellt"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:126
+msgid "Repeat Vertically"
+msgstr "Upprepa vertikalt"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:152
+msgid "Background Position"
+msgstr "Bakgrundsplacering"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:156
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:50
+msgid "Left Top"
+msgstr "Vänster topp"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:157
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:51
+#, fuzzy
+#| msgid "Center"
+msgid "Left Center"
+msgstr "Centrerad"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:158
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:52
+msgid "Left Bottom"
+msgstr "Vänster botten"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:159
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:56
+#, fuzzy
+#| msgid "Center"
+msgid "Center Top"
+msgstr "Centrerad"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:160
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:57
+#, fuzzy
+#| msgid "Center"
+msgid "Center Center"
+msgstr "Centrerad"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:161
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:58
+#, fuzzy
+#| msgid "Left Bottom"
+msgid "Center Bottom"
+msgstr "Vänster botten"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:162
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:53
+#, fuzzy
+#| msgid "Right"
+msgid "Right Top"
+msgstr "Höger"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:163
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:54
+#, fuzzy
+#| msgid "Center"
+msgid "Right Center"
+msgstr "Centrerad"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:164
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:55
+msgid "Right Bottom"
+msgstr "Höger botten"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:190
+#, fuzzy
+#| msgid "Background"
+msgid "Background Size"
+msgstr "Bakgrund"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:194
+#, fuzzy
+#| msgid "Hover"
+msgid "Cover"
+msgstr "Hovra"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:195
+#, fuzzy
+#| msgid "Contrastring"
+msgid "Contain"
+msgstr "Kontrasterande"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:222
+#, fuzzy
+#| msgid "Background Image"
+msgid "Background Attachment"
+msgstr "Bakgrundsbild"
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:227
+msgid "Scroll"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/field-background/src/Background.php:228
+msgid "Fixed"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:59
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:323
+msgid "Font Size"
+msgstr "Typsnittstorlek"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:60
+msgid "Font Weight"
+msgstr "Vikt på typsnitt"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:61
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:402
+msgid "Line Height"
+msgstr "Radhöjd"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:62
+msgid "Font Style"
+msgstr "Stil för typsnitt"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:63
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:407
+#, fuzzy
+#| msgid "Letter"
+msgid "Letter Spacing"
+msgstr "Brev"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:64
+#, fuzzy
+#| msgid "Letter"
+msgid "Word Spacing"
+msgstr "Brev"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:71
+#, fuzzy
+#| msgid "Letter"
+msgid "Spacing"
+msgstr "Brev"
+
+#: vendor/kirki/packages/kirki-framework/field-dimensions/src/Dimensions.php:73
+msgid "Height"
+msgstr "LjusHöjd"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:112
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:131
+msgid "Regular"
+msgstr "Normal"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:120
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:179
+#, fuzzy
+#| msgid "360"
+msgid "700"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:124
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:183
+#, fuzzy
+#| msgid "Italic"
+msgid "700 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:139
+#, fuzzy
+#| msgid "360"
+msgid "100"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:143
+#, fuzzy
+#| msgid "Italic"
+msgid "100 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:147
+#, fuzzy
+#| msgid "360"
+msgid "200"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:151
+#, fuzzy
+#| msgid "Italic"
+msgid "200 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:155
+#, fuzzy
+#| msgid "360"
+msgid "300"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:159
+#, fuzzy
+#| msgid "Italic"
+msgid "300 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:163
+#, fuzzy
+#| msgid "360"
+msgid "500"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:167
+#, fuzzy
+#| msgid "Italic"
+msgid "500 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:171
+#, fuzzy
+#| msgid "360"
+msgid "600"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:175
+#, fuzzy
+#| msgid "Italic"
+msgid "600 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:187
+#, fuzzy
+#| msgid "360"
+msgid "800"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:191
+#, fuzzy
+#| msgid "Italic"
+msgid "800 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:195
+#, fuzzy
+#| msgid "360"
+msgid "900"
+msgstr "360"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:199
+#, fuzzy
+#| msgid "Italic"
+msgid "900 Italic"
+msgstr "Kursiv"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:274
+#, fuzzy
+#| msgid "Font Size"
+msgid "Font Family"
+msgstr "Typsnittstorlek"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:301
+#, fuzzy
+#| msgid "Font Weight"
+msgid "Font Variant"
+msgstr "Vikt på typsnitt"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:328
+msgid "Font Color"
+msgstr "Textfärg"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:347
+msgid "Text Align"
+msgstr "Textjustering"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:350
+msgid "Initial"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:354
+msgid "Justify"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:359
+#, fuzzy
+#| msgid "transform"
+msgid "Text Transform"
+msgstr "transform"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:379
+#, fuzzy
+#| msgid "Text separator"
+msgid "Text Decoration"
+msgstr "Textavdelare"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:383
+#, fuzzy
+#| msgid "Undefined"
+msgid "Underline"
+msgstr "Ej beskriven"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:384
+#, fuzzy
+#| msgid "Line Height"
+msgid "Line Through"
+msgstr "Radhöjd"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:385
+#, fuzzy
+#| msgid "Outline"
+msgid "Overline"
+msgstr "Ramlinje"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:387
+msgid "Wavy"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:422
+msgid "Margin Top"
+msgstr "Marginal topp"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:427
+msgid "Margin Bottom"
+msgstr "Marginal botten"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:850
+msgid "Defaults"
+msgstr "Standard"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:877
+msgid "Standard Fonts"
+msgstr "Standardtypsnitt"
+
+#: vendor/kirki/packages/kirki-framework/field-typography/src/Field/Typography.php:882
+msgid "Google Fonts"
+msgstr ""
+
+#: vendor/kirki/packages/kirki-framework/module-sections/src/Section_Types/Nested.php:62
+#, fuzzy
+#| msgid "Customizer"
+msgid "Customizing"
+msgstr "Anpassning"
+
+#: vendor/kirki/packages/kirki-framework/module-sections/src/Section_Types/Nested.php:65
+#, fuzzy, php-format
+#| msgid "Customizer"
+msgid "Customizing &#9656; %s"
+msgstr "Anpassning"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:162
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:163
+msgid "Ultra-Light 100"
+msgstr "Extra Lätt (100)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:164
+#, fuzzy
+#| msgid "Ultra-Light 100"
+msgid "Ultra-Light 100 Italic"
+msgstr "Extra Lätt (100)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:165
+msgid "Light 200"
+msgstr "Lätt (300)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:166
+#, fuzzy
+#| msgid "Light 200"
+msgid "Light 200 Italic"
+msgstr "Lätt (300)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:167
+#, fuzzy
+#| msgid "Medium 500 Italic"
+msgid "Book 300"
+msgstr "Medel Kursiv (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:168
+#, fuzzy
+#| msgid "Medium 500 Italic"
+msgid "Book 300 Italic"
+msgstr "Medel Kursiv (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:169
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:170
+msgid "Normal 400"
+msgstr "Normal 400"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:171
+#, fuzzy
+#| msgid "Normal 400"
+msgid "Normal 400 Italic"
+msgstr "Normal 400"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:172
+msgid "Medium 500"
+msgstr "Medel (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:173
+msgid "Medium 500 Italic"
+msgstr "Medel Kursiv (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:174
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:175
+#, fuzzy
+#| msgid "Bold (700)"
+msgid "Semi-Bold 600"
+msgstr "Fet (700)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:176
+#, fuzzy
+#| msgid "Medium 500 Italic"
+msgid "Semi-Bold 600 Italic"
+msgstr "Medel Kursiv (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:177
+#, fuzzy
+#| msgid "Bold (700)"
+msgid "Bold 700"
+msgstr "Fet (700)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:178
+#, fuzzy
+#| msgid "Medium 500 Italic"
+msgid "Bold 700 Italic"
+msgstr "Medel Kursiv (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:179
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:180
+#, fuzzy
+#| msgid "Ultra-Light 100"
+msgid "Extra-Bold 800"
+msgstr "Extra Lätt (100)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:181
+#, fuzzy
+#| msgid "Medium 500 Italic"
+msgid "Extra-Bold 800 Italic"
+msgstr "Medel Kursiv (500)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:182
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:183
+#, fuzzy
+#| msgid "Ultra-Light 100"
+msgid "Ultra-Bold 900"
+msgstr "Extra Lätt (100)"
+
+#: vendor/kirki/packages/kirki-framework/module-webfonts/src/Webfonts/Fonts.php:184
+#, fuzzy
+#| msgid "Ultra-Light 100"
+msgid "Ultra-Bold 900 Italic"
+msgstr "Extra Lätt (100)"
+
+#: vendor/kirki/upgrade-notifications.php:30
+msgid "Important Upgrade Notice:"
+msgstr "Viktigt uppgraderingsmeddelande:"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
+msgid "Install Required Plugins"
+msgstr "Installera obligatoriska tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:341
+msgid "Install Plugins"
+msgstr "Installera tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:343
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr "Installerar tillägg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:345
+#, fuzzy, php-format
+#| msgid "Installing Plugin: %s"
+msgid "Updating Plugin: %s"
+msgstr "Installerar tillägg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:346
+msgid "Something went wrong with the plugin API."
+msgstr "Något gick fel med tilläggets API."
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:349
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:355
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:361
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:367
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:373
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:379
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:384
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] "Börja installera tillägg"
+msgstr[1] "Börja installera tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:389
+#, fuzzy
+#| msgid "Begin installing plugin"
+#| msgid_plural "Begin installing plugins"
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] "Börja installera tillägg"
+msgstr[1] "Börja installera tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:394
+#, fuzzy
+#| msgid "Begin installing plugin"
+#| msgid_plural "Begin installing plugins"
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] "Börja installera tillägg"
+msgstr[1] "Börja installera tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:398
+#, fuzzy
+#| msgid "Install Required Plugins"
+msgid "Return to Required Plugins Installer"
+msgstr "Installera obligatoriska tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:399
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:400
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3311
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:401
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3103
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:403
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:405
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:407
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:408
+msgid "Dismiss this notice"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:409
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:410
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:616
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:617
+msgid "Update Required"
+msgstr "Uppdatering krävs"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:735
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1243
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3099
+#, fuzzy
+#| msgid "adb"
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr "adb"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2112
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2421
+#, fuzzy
+#| msgid "Update Required"
+msgid "Required"
+msgstr "Uppdatering krävs"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2424
+#, fuzzy
+#| msgid "comment"
+msgid "Recommended"
+msgstr "Kommentar"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2440
+#, fuzzy
+#| msgid "Wordpress menu"
+msgid "WordPress Repository"
+msgstr "Wordpress-menyn"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2443
+#, fuzzy
+#| msgid "External link"
+msgid "External Source"
+msgstr "Externa länkar"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2446
+msgid "Pre-Packaged"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2463
+#, fuzzy
+#| msgid "Install"
+msgid "Not Installed"
+msgstr "Installera"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2467
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2475
+msgid "Required Update not Available"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2478
+#, fuzzy
+#| msgid "Update Required"
+msgid "Requires Update"
+msgstr "Uppdatering krävs"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2481
+#, fuzzy
+#| msgid "Update Required"
+msgid "Update recommended"
+msgstr "Uppdatering krävs"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2490
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2536
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2540
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2544
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2548
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2630
+#, fuzzy
+#| msgid "device_unknown"
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr "device_unknown"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2638
+msgid "Installed version:"
+msgstr "Installerad version:"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2646
+msgid "Minimum required version:"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2658
+msgid "Available version:"
+msgstr "Tillgänglig version:"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2681
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2695
+msgid "Plugin"
+msgstr "Tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2696
+msgid "Source"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
+msgid "Version"
+msgstr "Version"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2702
+msgid "Status"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2751
+#, php-format
+msgid "Install %2$s"
+msgstr "Installera %2$s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2756
+#, php-format
+msgid "Update %2$s"
+msgstr "Uppdatera %2$s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2762
+#, php-format
+msgid "Activate %2$s"
+msgstr "Aktivera %2$s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2834
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2867
+msgid "Install"
+msgstr "Installera"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2873
+msgid "Update"
+msgstr "Uppdatera"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2876
+msgid "Activate"
+msgstr "Aktivera"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2907
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2909
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2950
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2952
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3059
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3085
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3310
+#, fuzzy
+#| msgid "Begin installing plugin"
+#| msgid_plural "Begin installing plugins"
+msgid "Plugin activation failed."
+msgstr "Börja installera tillägg"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3655
+#, fuzzy, php-format
+#| msgid "Installing Plugin: %s"
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr "Installerar tillägg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3658
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3660
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3664
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3666
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3667
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3669
+#, fuzzy, php-format
+#| msgid "Installing Plugin: %s"
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr "Installerar tillägg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3672
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3674
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3675
+msgid "All installations have been completed."
+msgstr ""
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3677
+#, fuzzy, php-format
+#| msgid "Installing Plugin: %s"
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr "Installerar tillägg: %s"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
+msgid "Show Details"
+msgstr "Visa detaljer"
+
+#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
+msgid "Hide Details"
+msgstr "Dölj detaljer"
+
 #: views/v1/archive-event.blade.php:70
 msgctxt "Event archive"
 msgid "Date"
@@ -8330,11 +9454,6 @@ msgstr "Min profil på"
 #: views/v1/partials/blog/comments.blade.php:123
 msgid "Edit"
 msgstr "Redigera"
-
-#: views/v1/partials/blog/comments.blade.php:62
-#: views/v1/partials/blog/comments.blade.php:126
-msgid "Remove"
-msgstr "Ta bort"
 
 #: views/v1/partials/blog/post-categories.blade.php:2
 msgid "Categories"
@@ -8439,6 +9558,119 @@ msgstr "Pris"
 msgid "Attached files"
 msgstr "Bifogade filer"
 
+#. Theme Name of the plugin/theme
+msgid "Municipio"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/Municipio"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A bootstrap theme for creating municipality sites. Works veary webb with "
+"Modularity Plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid ""
+"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.helsingborg.se"
+msgstr ""
+
+#~ msgid "Example panel"
+#~ msgstr "Exempelpanel"
+
+#~ msgid "A example panel"
+#~ msgstr "En exempelpanel"
+
+#~ msgid "Manage design options on module level."
+#~ msgstr "Hantera inställningar för modulers gestaltning."
+
+#~ msgid "Adjust general borders"
+#~ msgstr "Justera generella kantlinjer"
+
+#~ msgid "Settings for buttons."
+#~ msgstr "Inställningar för knappar."
+
+#~ msgid "Colors used across the theme."
+#~ msgstr "Färger som används i grunddesignen."
+
+#~ msgid "Divider settings."
+#~ msgstr "Inställningar för avdelare."
+
+#~ msgid "Example"
+#~ msgstr "Exempel"
+
+#~ msgid "A simple example panel demonstrating different setups."
+#~ msgstr "En enkel exempelpanel som demonstrerar olika typer av setuper."
+
+#~ msgid "Example css variable setting"
+#~ msgstr "Ett exempel på en css variabel konfiguration."
+
+#~ msgid "Example modifier toggle"
+#~ msgstr "En exempelkonfigraution för toggling av modifierare."
+
+#~ msgid "Option 1"
+#~ msgstr "Val 1"
+
+#~ msgid "Option 2"
+#~ msgstr "Val 2"
+
+#~ msgid "Option 3"
+#~ msgstr "Val 3"
+
+#~ msgid "Option 4"
+#~ msgstr "Val 4"
+
+#~ msgid "Example controller variable"
+#~ msgstr "En exempelkonfigraution för variabel i kontroller"
+
+#~ msgid "Footer settings."
+#~ msgstr "Inställningar för sidfot."
+
+#~ msgid "Main footer settings."
+#~ msgstr "Inställningar för primär sidfot."
+
+#~ msgid "Sub footer settings."
+#~ msgstr "Inställningar för sekundär sidfot"
+
+#~ msgid "General"
+#~ msgstr "Generellt"
+
+#~ msgid "Hamburger menu settings."
+#~ msgstr "Inställningar för hamburgermeny."
+
+#~ msgid "Header settings."
+#~ msgstr "Inställningar för sidhuvud."
+
+#~ msgid "Hero settings."
+#~ msgstr "Inställningar för sidhuvud."
+
+#~ msgid "Logo"
+#~ msgstr "Logotyp"
+
+#~ msgid "Logo settings."
+#~ msgstr "Logotyp inställningar"
+
+#~ msgid "Video"
+#~ msgstr "Video"
+
+#~ msgid "Padding settings."
+#~ msgstr "Inställningar för luft."
+
+#~ msgid "Quicklinks settings."
+#~ msgstr "Inställningar för snabblänkar."
+
+#~ msgid "Adjust general drop shadows. "
+#~ msgstr "Justera hur mycket skuggning som ska appliceras på webbplatsen. "
+
+#~ msgid "Settings for sliders."
+#~ msgstr "Inställningar för sliders."
+
 #~ msgid "Post Types Purpose"
 #~ msgstr "Innehållstyper"
 
@@ -8448,487 +9680,10 @@ msgstr "Bifogade filer"
 #~ msgid "Term icon & colour"
 #~ msgstr "Ikon & färg"
 
-#, php-format
-#~ msgid "Exported %d fieldgroup(s)."
-#~ msgstr "Exporterade %d fältgrupper."
-
-#~ msgid "Install Plugin"
-#~ msgstr "Installera tillägg"
-
-#, fuzzy
-#~| msgid "Open"
-#~ msgid "On"
-#~ msgstr "Öppna"
-
-#~ msgid "Media"
-#~ msgstr "Media"
-
-#~ msgid "Widgets"
-#~ msgstr "Widgets"
-
-#~ msgid "Notifications"
-#~ msgstr "Notiser"
-
-#~ msgid "Select image"
-#~ msgstr "Välj bild"
-
-#~ msgid "Change image"
-#~ msgstr "Byt ut bild"
-
-#~ msgid "Choose image"
-#~ msgstr "Välj bild"
-
-#~ msgid "Select..."
-#~ msgstr "Välj..."
-
-#, fuzzy
-#~| msgid "rowing"
-#~ msgid "row"
-#~ msgstr "rowing"
-
-#~ msgid "Select a Page"
-#~ msgstr "Välj en sida"
-
-#~ msgid "Add Image"
-#~ msgstr "Lägg till bild"
-
-#~ msgid "Change Image"
-#~ msgstr "Byt ut bild"
-
-#~ msgid "Add File"
-#~ msgstr "Lägg till fil"
-
-#, fuzzy
-#~| msgid "Change image"
-#~ msgid "Change File"
-#~ msgstr "Byt ut bild"
-
-#~ msgid "Background Color"
-#~ msgstr "Bakgrundsfärg"
-
-#~ msgid "Background Image"
-#~ msgstr "Bakgrundsbild"
-
-#~ msgid "Background Repeat"
-#~ msgstr "Repetera bakgrund"
-
-#, fuzzy
-#~| msgid "repeat"
-#~ msgid "No Repeat"
-#~ msgstr "repeat"
-
-#, fuzzy
-#~| msgid "Repeat Vertically"
-#~ msgid "Repeat All"
-#~ msgstr "Upprepa vertikalt"
-
-#~ msgid "Repeat Horizontally"
-#~ msgstr "Horisontellt"
-
-#~ msgid "Repeat Vertically"
-#~ msgstr "Upprepa vertikalt"
-
-#~ msgid "Background Position"
-#~ msgstr "Bakgrundsplacering"
-
-#~ msgid "Left Top"
-#~ msgstr "Vänster topp"
-
-#, fuzzy
-#~| msgid "Center"
-#~ msgid "Left Center"
-#~ msgstr "Centrerad"
-
-#~ msgid "Left Bottom"
-#~ msgstr "Vänster botten"
-
-#, fuzzy
-#~| msgid "Center"
-#~ msgid "Center Top"
-#~ msgstr "Centrerad"
-
-#, fuzzy
-#~| msgid "Center"
-#~ msgid "Center Center"
-#~ msgstr "Centrerad"
-
-#, fuzzy
-#~| msgid "Left Bottom"
-#~ msgid "Center Bottom"
-#~ msgstr "Vänster botten"
-
-#, fuzzy
-#~| msgid "Right"
-#~ msgid "Right Top"
-#~ msgstr "Höger"
-
-#, fuzzy
-#~| msgid "Center"
-#~ msgid "Right Center"
-#~ msgstr "Centrerad"
-
-#~ msgid "Right Bottom"
-#~ msgstr "Höger botten"
-
-#, fuzzy
-#~| msgid "Background"
-#~ msgid "Background Size"
-#~ msgstr "Bakgrund"
-
-#, fuzzy
-#~| msgid "Hover"
-#~ msgid "Cover"
-#~ msgstr "Hovra"
-
-#, fuzzy
-#~| msgid "Contrastring"
-#~ msgid "Contain"
-#~ msgstr "Kontrasterande"
-
-#, fuzzy
-#~| msgid "Background Image"
-#~ msgid "Background Attachment"
-#~ msgstr "Bakgrundsbild"
-
-#~ msgid "Font Size"
-#~ msgstr "Typsnittstorlek"
-
-#~ msgid "Font Weight"
-#~ msgstr "Vikt på typsnitt"
-
-#~ msgid "Line Height"
-#~ msgstr "Radhöjd"
-
-#~ msgid "Font Style"
-#~ msgstr "Stil för typsnitt"
-
-#, fuzzy
-#~| msgid "Letter"
-#~ msgid "Letter Spacing"
-#~ msgstr "Brev"
-
-#~ msgid "Top"
-#~ msgstr "Topp"
-
-#, fuzzy
-#~| msgid "Left Bottom"
-#~ msgid "Bottom"
-#~ msgstr "Vänster botten"
-
-#~ msgid "Height"
-#~ msgstr "LjusHöjd"
-
-#~ msgid "Regular"
-#~ msgstr "Normal"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "700 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "100 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "200 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "360"
-#~ msgid "300"
-#~ msgstr "360"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "300 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "500 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "360"
-#~ msgid "600"
-#~ msgstr "360"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "600 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "800 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "Italic"
-#~ msgid "900 Italic"
-#~ msgstr "Kursiv"
-
-#, fuzzy
-#~| msgid "Font Size"
-#~ msgid "Font Family"
-#~ msgstr "Typsnittstorlek"
-
-#, fuzzy
-#~| msgid "Font Weight"
-#~ msgid "Font Variant"
-#~ msgstr "Vikt på typsnitt"
-
-#~ msgid "Font Color"
-#~ msgstr "Textfärg"
-
-#~ msgid "Text Align"
-#~ msgstr "Textjustering"
-
-#, fuzzy
-#~| msgid "transform"
-#~ msgid "Text Transform"
-#~ msgstr "transform"
-
-#, fuzzy
-#~| msgid "Text separator"
-#~ msgid "Text Decoration"
-#~ msgstr "Textavdelare"
-
-#, fuzzy
-#~| msgid "Undefined"
-#~ msgid "Underline"
-#~ msgstr "Ej beskriven"
-
-#, fuzzy
-#~| msgid "Line Height"
-#~ msgid "Line Through"
-#~ msgstr "Radhöjd"
-
-#, fuzzy
-#~| msgid "Outline"
-#~ msgid "Overline"
-#~ msgstr "Ramlinje"
-
-#~ msgid "Margin Top"
-#~ msgstr "Marginal topp"
-
-#~ msgid "Margin Bottom"
-#~ msgstr "Marginal botten"
-
-#~ msgid "Defaults"
-#~ msgstr "Standard"
-
-#~ msgid "Standard Fonts"
-#~ msgstr "Standardtypsnitt"
-
-#, fuzzy
-#~| msgid "Customizer"
-#~ msgid "Customizing"
-#~ msgstr "Anpassning"
-
-#~ msgid "Ultra-Light 100"
-#~ msgstr "Extra Lätt (100)"
-
-#, fuzzy
-#~| msgid "Ultra-Light 100"
-#~ msgid "Ultra-Light 100 Italic"
-#~ msgstr "Extra Lätt (100)"
-
-#~ msgid "Light 200"
-#~ msgstr "Lätt (300)"
-
-#, fuzzy
-#~| msgid "Light 200"
-#~ msgid "Light 200 Italic"
-#~ msgstr "Lätt (300)"
-
-#, fuzzy
-#~| msgid "Medium 500 Italic"
-#~ msgid "Book 300 Italic"
-#~ msgstr "Medel Kursiv (500)"
-
-#~ msgid "Normal 400"
-#~ msgstr "Normal 400"
-
-#, fuzzy
-#~| msgid "Normal 400"
-#~ msgid "Normal 400 Italic"
-#~ msgstr "Normal 400"
-
-#~ msgid "Medium 500"
-#~ msgstr "Medel (500)"
-
-#~ msgid "Medium 500 Italic"
-#~ msgstr "Medel Kursiv (500)"
-
-#, fuzzy
-#~| msgid "Bold (700)"
-#~ msgid "Semi-Bold 600"
-#~ msgstr "Fet (700)"
-
-#, fuzzy
-#~| msgid "Medium 500 Italic"
-#~ msgid "Semi-Bold 600 Italic"
-#~ msgstr "Medel Kursiv (500)"
-
-#, fuzzy
-#~| msgid "Bold (700)"
-#~ msgid "Bold 700"
-#~ msgstr "Fet (700)"
-
-#, fuzzy
-#~| msgid "Medium 500 Italic"
-#~ msgid "Bold 700 Italic"
-#~ msgstr "Medel Kursiv (500)"
-
-#, fuzzy
-#~| msgid "Ultra-Light 100"
-#~ msgid "Ultra-Bold 900"
-#~ msgstr "Extra Lätt (100)"
-
-#~ msgid "Important Upgrade Notice:"
-#~ msgstr "Viktigt uppgraderingsmeddelande:"
-
-#~ msgid "Install Required Plugins"
-#~ msgstr "Installera obligatoriska tillägg"
-
-#~ msgid "Install Plugins"
-#~ msgstr "Installera tillägg"
-
-#, php-format
-#~ msgid "Installing Plugin: %s"
-#~ msgstr "Installerar tillägg: %s"
-
-#, fuzzy, php-format
-#~| msgid "Installing Plugin: %s"
-#~ msgid "Updating Plugin: %s"
-#~ msgstr "Installerar tillägg: %s"
-
-#~ msgid "Something went wrong with the plugin API."
-#~ msgstr "Något gick fel med tilläggets API."
-
-#~ msgid "Begin installing plugin"
-#~ msgid_plural "Begin installing plugins"
-#~ msgstr[0] "Börja installera tillägg"
-#~ msgstr[1] "Börja installera tillägg"
-
-#, fuzzy
-#~| msgid "Begin installing plugin"
-#~| msgid_plural "Begin installing plugins"
-#~ msgid "Begin updating plugin"
-#~ msgid_plural "Begin updating plugins"
-#~ msgstr[0] "Börja installera tillägg"
-#~ msgstr[1] "Börja installera tillägg"
-
-#, fuzzy
-#~| msgid "Begin installing plugin"
-#~| msgid_plural "Begin installing plugins"
-#~ msgid "Begin activating plugin"
-#~ msgid_plural "Begin activating plugins"
-#~ msgstr[0] "Börja installera tillägg"
-#~ msgstr[1] "Börja installera tillägg"
-
-#, fuzzy
-#~| msgid "Install Required Plugins"
-#~ msgid "Return to Required Plugins Installer"
-#~ msgstr "Installera obligatoriska tillägg"
-
-#~ msgid "Update Required"
-#~ msgstr "Uppdatering krävs"
-
-#, fuzzy
-#~| msgid "adb"
-#~ msgctxt "plugin A *and* plugin B"
-#~ msgid "and"
-#~ msgstr "adb"
-
-#, fuzzy
-#~| msgid "Update Required"
-#~ msgid "Required"
-#~ msgstr "Uppdatering krävs"
-
-#, fuzzy
-#~| msgid "comment"
-#~ msgid "Recommended"
-#~ msgstr "Kommentar"
-
-#, fuzzy
-#~| msgid "External link"
-#~ msgid "External Source"
-#~ msgstr "Externa länkar"
-
-#, fuzzy
-#~| msgid "Install"
-#~ msgid "Not Installed"
-#~ msgstr "Installera"
-
-#, fuzzy
-#~| msgid "Update Required"
-#~ msgid "Update recommended"
-#~ msgstr "Uppdatering krävs"
-
-#, fuzzy
-#~| msgid "device_unknown"
-#~ msgctxt "as in: \"version nr unknown\""
-#~ msgid "unknown"
-#~ msgstr "device_unknown"
-
-#~ msgid "Installed version:"
-#~ msgstr "Installerad version:"
-
-#~ msgid "Available version:"
-#~ msgstr "Tillgänglig version:"
-
-#~ msgid "Plugin"
-#~ msgstr "Tillägg"
-
-#~ msgid "Version"
-#~ msgstr "Version"
-
-#, php-format
-#~ msgid "Install %2$s"
-#~ msgstr "Installera %2$s"
-
-#, php-format
-#~ msgid "Update %2$s"
-#~ msgstr "Uppdatera %2$s"
-
-#, php-format
-#~ msgid "Activate %2$s"
-#~ msgstr "Aktivera %2$s"
-
-#~ msgid "Install"
-#~ msgstr "Installera"
-
-#~ msgid "Update"
-#~ msgstr "Uppdatera"
-
-#~ msgid "Activate"
-#~ msgstr "Aktivera"
-
-#, fuzzy, php-format
-#~| msgid "Installing Plugin: %s"
-#~ msgid "Installing Plugin %1$s (%2$d/%3$d)"
-#~ msgstr "Installerar tillägg: %s"
-
-#~ msgid "Show Details"
-#~ msgstr "Visa detaljer"
-
-#~ msgid "Hide Details"
-#~ msgstr "Dölj detaljer"
-
 #, fuzzy
 #~| msgid "Post Types"
 #~ msgid "Post Type Select"
 #~ msgstr "Inläggstyper"
-
-#, fuzzy
-#~| msgid "Default"
-#~ msgid "Default Value"
-#~ msgstr "Standard"
 
 #, fuzzy
 #~| msgid "None"
@@ -9071,11 +9826,6 @@ msgstr "Bifogade filer"
 #~ msgstr "Typ"
 
 #, fuzzy
-#~| msgid "Below Media"
-#~ msgid "Social Media"
-#~ msgstr "Under media"
-
-#, fuzzy
 #~| msgid "Facebook emblem"
 #~ msgid "Facebook"
 #~ msgstr "Facebookemblem"
@@ -9199,11 +9949,6 @@ msgstr "Bifogade filer"
 #~| msgid "image"
 #~ msgid "Image"
 #~ msgstr "image"
-
-#, fuzzy
-#~| msgid "Theme Options"
-#~ msgid "Image caption"
-#~ msgstr "Temainställningar"
 
 #, fuzzy
 #~| msgid "Choose image"
@@ -9701,11 +10446,6 @@ msgstr "Bifogade filer"
 #~ msgstr "Video"
 
 #, fuzzy
-#~| msgid "Wordpress menu"
-#~ msgid "Wordpress Widget"
-#~ msgstr "Wordpress-menyn"
-
-#, fuzzy
 #~| msgid "Calendar"
 #~ msgid "Kalender"
 #~ msgstr "Kalender"
@@ -10063,11 +10803,6 @@ msgstr "Bifogade filer"
 #~ msgstr "collections"
 
 #, fuzzy
-#~| msgid "Below Settings"
-#~ msgid "Settings"
-#~ msgstr "Under inställningar"
-
-#, fuzzy
 #~| msgid "The footer area "
 #~ msgid "Template Areas"
 #~ msgstr "Sidfotsyta"
@@ -10211,11 +10946,6 @@ msgstr "Bifogade filer"
 #~| msgid "Select image"
 #~ msgid "Selected module"
 #~ msgstr "Välj bild"
-
-#, fuzzy
-#~| msgid "tab_unselected"
-#~ msgid "Not selected"
-#~ msgstr "tab_unselected"
 
 #, fuzzy
 #~| msgid "Module Apperance"
