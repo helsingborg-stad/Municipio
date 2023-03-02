@@ -247,10 +247,12 @@ class General
     public function appendPurposeCssClass($classes)
     {
         if ($purposes = \Municipio\Helper\Purpose::getPurpose()) {
-            foreach ($purposes as $key => $purpose) {
-                $classes[] = "purpose-$purpose";
-                if (0 === $key) {
-                    $classes[] = "primary-purpose-{$purpose}";
+            foreach ($purposes as $purpose) {
+                $classes[] = "purpose-{$purpose->key} purpose-primary-{$purpose->key}";
+                if (!empty($purpose->secondaryPurpose)) {
+                    foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
+                        $classes[] = "purpose-secondary-{$secondaryPurpose->key}";
+                    }
                 }
             }
         }
