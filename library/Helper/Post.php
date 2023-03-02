@@ -35,7 +35,8 @@ class Post
             'post_title_filtered',
             'permalink',
             'terms',
-            'post_language'
+            'post_language',
+            'reading_time'
         )
     ) {
         //Check that a post object is entered
@@ -105,6 +106,11 @@ class Post
         //Get permalink
         if (in_array('permalink', $appendFields)) {
             $postObject->permalink              = get_permalink($postObject);
+        }
+
+        //Get reading time
+        if (in_array('reading_time', $appendFields)) {
+            $postObject->reading_time = \Municipio\Helper\ReadingTime::getReadingTime($postObject->post_content, 0, true);
         }
 
         //Get filtered post title

@@ -43,6 +43,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
+        $this->data['displayReadingTime']       = $this->displayReadingTime($this->data['archiveProps']);
 
         // Current term meta
         $this->data['currentTermColour']        = $this->getCurrentTermColour();
@@ -451,6 +452,16 @@ class Archive extends \Municipio\Controller\BaseController
             $args->filterType = false;
         }
         return (bool) $args->filterType;
+    }
+
+
+    public function displayReadingTime($args)
+    {
+        if (!isset($args->readingTime)) {
+            return false;
+        }
+
+        return (bool) $args->readingTime;
     }
 
     /**
