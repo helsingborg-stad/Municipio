@@ -17,12 +17,11 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
 
     public function match($rule, $screen, $field_group)
     {
-
         if (!empty($screen['taxonomy_list'])) {
             $type = $screen['taxonomy_list'];
         } elseif (!empty($screen['post_id'])) {
-            $post_id = $screen['taxonomy_list'];
-            $post = get_post($post_id);
+            $postId = $screen['post_id'];
+            $post = get_post($postId);
             if (!$post) {
                 return $rule;
             } else {
@@ -32,16 +31,20 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
             return false;
         }
         // Compare the post attribute to rule value.
-        $purposes = \Municipio\Helper\Purpose::getPurposes($type);
-        if (empty($purposes['main'])) {
-            return false;
+        $purposes = \Municipio\Helper\Purpose::getPurpose($type, true);
+        if (!empty($purposes)) {
+            foreach ($purposes as $purpose) {
+                $result = ($purpose->key === $rule['value']);
+                $returnResult = $result;
+                // Return result taking into account the operator type.
+                if ($rule['operator'] == '!=') {
+                    $returnResult = !$result;
+                }
+            }
+        } else {
+            $returnResult = false;
         }
-        $result = ($purposes['main'] == $rule['value']);
 
-        // Return result taking into account the operator type.
-        if ($rule['operator'] == '!=') {
-            return !$result;
-        }
-        return $result;
+        return $returnResult;
     }
 }

@@ -7,7 +7,14 @@ use Municipio\Helper\Controller as ControllerHelper;
 class Purpose
 {
     /**
-     * @return array An array of all the purposes that are registered in the system.
+     * Returns an array of all the purposes that are registered in the system.
+     *
+     * @param bool $includeExtras Include additional information about the registered purposes in the returned array.
+     *
+     * @return array Array of registered purposes.
+     * If $includeExtras is true, each item in the array will be an array containing
+     * the purpose class instance, the class name with namespace and the file path of the purpose class.
+     * If $includeExtras is false, each item in the array will be the label of the purpose instance.
      */
     public static function getRegisteredPurposes(bool $includeExtras = false): array
     {
@@ -25,13 +32,16 @@ class Purpose
                     $className = basename($filename, '.php');
                     $classNameWithNamespace = $namespace . '\\' . $className;
 
+                    $instance = new $classNameWithNamespace();
+
                     if ($includeExtras) {
-                        $purposes[$className] = [
-                            'class' => $classNameWithNamespace,
-                            'path' => $filename
+                        $purposes[$instance->getKey()] = [
+                            'class'     => $instance,
+                            'className' => $classNameWithNamespace,
+                            'path'      => $filename
                         ];
                     } else {
-                        $purposes[$className] = $classNameWithNamespace;
+                        $purposes[$instance->getKey()] = $instance->getLabel();
                     }
                 }
             }
@@ -40,88 +50,82 @@ class Purpose
         return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
     }
 
-   /**
-    * It returns an array of purposes for a given type.
-    *
-    * @param string $type The type of data to get the purposes for. This can be a post type or taxonomy.
-    *
-    * @return array An array of purposes.
-    */
-    public static function getPurposes(string $type = '')
+/**
+ * It returns the purpose for a given type.
+ *
+ * @param string $type The type of data to get the purpose for. This can be a post type or taxonomy.
+ *
+ * @return string The purpose as a string. Retruns an empty string if no purpose is found.
+ */
+    public static function getPurpose(string $type = '', bool $includeSecondary = false): array
     {
-        $current = get_queried_object();
-
-        if ('' === $type && !$current) {
-            return false;
+        if ('' === $type) {
+            $type = self::getCurrentType();
         }
 
-        if ('' === $type && is_a($current, 'WP_Post_Type')) {
-            $type = $current->name;
-        } elseif ('' === $type && is_a($current, 'WP_Post')) {
-            $type = $current->post_type;
-        } elseif ('' === $type && is_a($current, 'WP_Term')) {
-            $type = $current->taxonomy;
-        }
+        $purpose = [];
+        $purposeStr = get_option("options_purpose_{$type}", '');
 
-        $purposes = self::getPurposesArray($type);
-        if (!$purposes) {
-            return false;
-        }
+        if ('' !== $purposeStr) {
+            $instance = self::getPurposeInstance($purposeStr);
+            $purpose[] = $instance;
 
-        return apply_filters('Municipio/Purpose/getPurposes', $purposes, $type, $current);
-    }
-
-    private static function getPurposesArray(string $type)
-    {
-        $mainPurpose = ucfirst(get_option("options_purposes_{$type}", false));
-        if (!$mainPurpose) {
-            return false;
-        }
-
-        $purposes = [];
-        $registeredPurposes = self::getRegisteredPurposes(true);
-        $mainPurposeClass = $registeredPurposes[$mainPurpose]['class'] ?? null;
-
-        if (!$mainPurposeClass || !class_exists($mainPurposeClass)) {
-            return false;
-        }
-
-        // Instantiate the main purpose
-        $instance = new $mainPurposeClass();
-        $purposes['main'] = $instance;
-
-        // Instantiate secondary purposes
-        $secondaryPurpose = $instance->getSecondaryPurpose();
-        if (!empty($secondaryPurpose)) {
-            foreach ($secondaryPurpose as $key => $value) {
-                $class = $registeredPurposes[$key]['class'] ?? null;
-                if ($class && class_exists($class)) {
-                    $purposes['secondary'][] = new $class();
+            if ($includeSecondary && !empty($instance->secondaryPurpose)) {
+                foreach ($instance->secondaryPurpose as $key => $className) {
+                    $secondaryInstance = self::getPurposeInstance($key, false);
+                    $purpose[] = $secondaryInstance;
                 }
             }
         }
 
-        return $purposes;
+        return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
-
-    public static function hasPurpose(string $type = ''): bool
+    /**
+     * > Get the instance of a registered purpose
+     *
+     * @param string purpose The purpose you want to get the instance of.
+     * @param bool init If true, the purpose will be initialized via it's init() method.
+     *
+     * @return The class instance of the purpose.
+     */
+    public static function getPurposeInstance(string $purpose, bool $init = false)
     {
-        $current = get_queried_object();
-
-        if ('' === $type) {
-            $type = self::getCurrentType($current);
-            if (!$type) {
-                return false;
+        $registeredPurposes = self::getRegisteredPurposes(true);
+        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['class'])) {
+            $instance = $registeredPurposes[$purpose]['class'];
+            if (true === $init) {
+                $instance->init();
             }
+            return $instance;
         }
 
-        return self::hasPurposes($type);
+        return false;
     }
 
-    private static function getCurrentType($current): ?string
+    /**
+     * It checks if the purpose is empty or not.
+     *
+     * @param string type The type of the purpose.
+     */
+    public static function hasPurpose(string $type = ''): bool
     {
-        if (!$current) {
-            return null;
+        $purpose = self::getPurpose();
+        if (!empty($purpose)) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Get the current type.
+     *
+     * @param string $current The current type.
+     *
+     * @return string The current type.
+     */
+    private static function getCurrentType(string $current = ''): string
+    {
+        if ('' === $current) {
+            $current = get_queried_object();
         }
 
         if (is_a($current, 'WP_Post_Type')) {
@@ -130,16 +134,13 @@ class Purpose
             $type = $current->post_type;
         } elseif (is_a($current, 'WP_Term')) {
             $type = $current->taxonomy;
+        } else {
+            return '';
         }
 
         return $type;
     }
 
-    private static function hasPurposes(string $type): bool
-    {
-        $purposes = self::getPurposes($type);
-        return (bool) $purposes;
-    }
 
     /**
      * If the user has opted to skip the purpose template, return true. Otherwise, return false.

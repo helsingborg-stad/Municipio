@@ -9,6 +9,7 @@ class General
         add_action('init', array($this, 'bemItClassDefinition'));
 
         add_filter('body_class', array($this, 'appendBEMITCssClass'));
+        add_filter('body_class', array($this, 'appendPurposeCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));
 
@@ -232,6 +233,26 @@ class General
     {
         if (defined('MUNICIPIO_BEM_THEME_NAME')) {
             $classes[] = MUNICIPIO_BEM_THEME_NAME;
+        }
+        return $classes;
+    }
+    /**
+     * It adds a CSS class to the body tag for each purpose that is set in the admin
+     *
+     * @param classes The array of classes to be appended to.
+     *
+     * @return An array of classes.
+     */
+
+    public function appendPurposeCssClass($classes)
+    {
+        if ($purposes = \Municipio\Helper\Purpose::getPurpose()) {
+            foreach ($purposes as $key => $purpose) {
+                $classes[] = "purpose-$purpose";
+                if (0 === $key) {
+                    $classes[] = "primary-purpose-{$purpose}";
+                }
+            }
         }
         return $classes;
     }

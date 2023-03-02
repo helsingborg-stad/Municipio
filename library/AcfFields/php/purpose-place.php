@@ -1,7 +1,7 @@
-<?php
+<?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_63eb4a0aa476e',
     'title' => __('Location', 'municipio'),
     'fields' => array(
@@ -33,6 +33,13 @@ if (function_exists('acf_add_local_field_group')) {
                 'value' => 'place',
             ),
         ),
+        1 => array(
+            0 => array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'place',
+            ),
+        ),
     ),
     'menu_order' => 0,
     'position' => 'normal',
@@ -48,5 +55,5 @@ if (function_exists('acf_add_local_field_group')) {
     'acfe_form' => 0,
     'acfe_meta' => '',
     'acfe_note' => '',
-    ));
-}
+));
+}
