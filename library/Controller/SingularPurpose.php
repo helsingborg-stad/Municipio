@@ -24,7 +24,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $purpose = PurposeHelper::getPurpose($type);
         if (!empty($purpose)) {
             // Run initialisation on the main purpose
-            $instance = PurposeHelper::getPurposeInstance($purpose[0], true);
+            $instance = PurposeHelper::getPurposeInstance($purpose[0]->key, true);
             // Set view if allowed
             if (!PurposeHelper::skipPurposeTemplate($type)) {
                 $this->view = $instance->getView();

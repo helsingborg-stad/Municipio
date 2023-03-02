@@ -50,13 +50,14 @@ class Purpose
         return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
     }
 
-/**
- * It returns the purpose for a given type.
- *
- * @param string $type The type of data to get the purpose for. This can be a post type or taxonomy.
- *
- * @return string The purpose as a string. Retruns an empty string if no purpose is found.
- */
+    /**
+     * It returns an array of objects that represent the purpose of the current page
+     *
+     * @param string type The type of purpose to get. Defaults to the current type.
+     * @param bool includeSecondary If you want to include secondary purposes.
+     *
+     * @return array An array of objects.
+     */
     public static function getPurpose(string $type = '', bool $includeSecondary = false): array
     {
         if ('' === $type) {
