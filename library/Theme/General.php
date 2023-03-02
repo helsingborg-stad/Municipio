@@ -248,10 +248,10 @@ class General
     {
         if ($purposes = \Municipio\Helper\Purpose::getPurpose()) {
             foreach ($purposes as $purpose) {
-                $classes[] = "purpose__{$purpose->key} purpose__{$purpose->key}--primary";
+                $classes[] = "purpose-{$purpose->key} purpose-primary-{$purpose->key}";
                 if (!empty($purpose->secondaryPurpose)) {
                     foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
-                        $classes[] = "purpose__{$secondaryPurpose->key}--secondary";
+                        $classes[] = "purpose-secondary-{$secondaryPurpose->key}";
                     }
                 }
             }
