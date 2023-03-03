@@ -3,7 +3,7 @@
     'id' => 'drawer',
     'classList' => [
         'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
-        !$showMobileMenuOnAllScreens ? ' u-display--none@lg' : ''
+        !$customizer->showMobileMenuOnAllScreens ? ' u-display--none@lg' : ''
     ],
     'label' => $lang->close
 ])
