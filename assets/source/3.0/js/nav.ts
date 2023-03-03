@@ -1,6 +1,6 @@
 import { viewRender } from "./restApi/endpoints/viewRender";
 
-const SELECTOR_TOGGLE_BUTTON = '.js-toggle-children';
+const SELECTOR_TOGGLE_BUTTON = '.js-async-children';
 const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
 let placeholderMarkup:HTMLElement|null = null
 
@@ -53,8 +53,8 @@ const removePlaceholder = (parentElement:Element) => {
 const subscribeOnClick = (element:Element) => {
     const handleClick = () => {
         // Parent of toggle has all states
-        const parentElement = element.parentElement;
-        
+        const parentElement = element.closest(".js-async-children-data");
+
         if( parentElement === null ) {
             return
         }
