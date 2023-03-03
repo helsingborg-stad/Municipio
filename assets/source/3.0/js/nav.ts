@@ -82,7 +82,7 @@ const subscribeOnClick = (element:Element) => {
         appendPlaceholder(parentElement)
         parentElement.classList.add('is-fetching');
         parentElement.classList.add('is-loading');
-        
+
         fetchMarkup(fetchUrl)
         .then(markup => {
             // Remove placeholder
@@ -90,7 +90,7 @@ const subscribeOnClick = (element:Element) => {
             
             // Render sub-menu
             parentElement.insertAdjacentHTML('beforeend', markup);
-            
+
             // Set states
             parentElement.classList.remove('is-fetching');
             parentElement.classList.remove('is-loading');
@@ -108,8 +108,8 @@ const subscribeOnClick = (element:Element) => {
         .catch(e => {
             console.error(e);
             // Reset states
-            parentElement.classList.toggle('is-fetching');
-            parentElement.classList.toggle('is-loading');
+            parentElement.classList.remove('is-fetching');
+            parentElement.classList.remove('is-loading');
         });
     }
     
