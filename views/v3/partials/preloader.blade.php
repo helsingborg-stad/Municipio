@@ -1,5 +1,5 @@
 @nav([
-    'classList' => 'preloader',
+    'classList' => ['preloader'],
     'items' => [
         [
             'href' => '#',
