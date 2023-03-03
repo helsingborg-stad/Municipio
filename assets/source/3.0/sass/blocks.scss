@@ -57,3 +57,9 @@
         text-align: center;
     }
 }
+
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+    .o-grid-column-block {
+        flex-basis: 100% !important; // Override inline style.
+    }
+}
