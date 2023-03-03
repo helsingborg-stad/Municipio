@@ -673,8 +673,7 @@ class Navigation
                         'children' => false,
                         'icon' => [
                           'icon' => get_field('menu_item_icon', $item->ID),
-                          'size' => 'md',
-                          'classList' => ['u-margin__right--1'],
+                          'size' => 'md'
                         ],
                         'style' => get_field('menu_item_style', $item->ID) ?? 'default'
                     ], $this->identifier, true);

@@ -35,7 +35,8 @@
             'direction' => 'vertical',
             'includeToggle' => false,
             'classList' => ['c-nav--tiles'],
-            'context' => ['site.navigation.floating.nav']
+            'context' => ['site.navigation.floating.nav'],
+            'height' => 'md'
         ])
         @endnav
     @endfab

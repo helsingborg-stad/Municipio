@@ -38,7 +38,8 @@
                     ],
                     'items' => $mobileMenuSecondaryItems,
                     'direction' => 'vertical',
-                    'includeToggle' => true
+                    'includeToggle' => true,
+                    'height' => 'sm'
                 ])
             @endnav  
     @endslot

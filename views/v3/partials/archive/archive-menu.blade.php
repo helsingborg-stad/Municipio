@@ -10,7 +10,8 @@
                 'direction' => 'horizontal',
                 'allowStyle' => false,
                 'classList' => ['u-flex-wrap'],
-                'context' => ['site.archive.nav']
+                'context' => ['site.archive.nav'],
+                'height' => 'md'
             ])
             @endnav
           </nav>
