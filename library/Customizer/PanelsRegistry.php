@@ -109,6 +109,7 @@ class PanelsRegistry
             ->register();
     }
 
+    /* Module panel */
     public static function registerModulePanel()
     {
         KirkiPanel::create()
@@ -171,6 +172,7 @@ class PanelsRegistry
             )->register();
     }
     
+    /* General panel */
     public static function registerGeneralAppearancePanel()
     {
         KirkiPanel::create()
@@ -235,6 +237,7 @@ class PanelsRegistry
             )->register();
     }
     
+    /* Component panel */
     public static function registerComponentAppearancePanel()
     {
         KirkiPanel::create()
@@ -310,9 +313,15 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_field')
                     ->setTitle(esc_html__('Field', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Field('municipio_customizer_section_field'))
+            )->register()->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_tags')
+                    ->setTitle(esc_html__('Tags', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Tags('municipio_customizer_section_tags'))
             )->register();
     }
 
+    /* Menu panel */
     public static function registerNavMenusPanel()
     {
         KirkiPanel::create()

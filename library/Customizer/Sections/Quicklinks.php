@@ -17,7 +17,14 @@ class Quicklinks
           'choices'     => [
             'default' => esc_html__( 'Predefined colors', 'municipio'),
             'hex' => esc_html__('Custom color', 'municipio'),
-          ]
+          ],
+          'active_callback'  => [
+            [
+              'setting'  => 'quicklinks_appearance',
+              'operator' => '===',
+              'value'    => '',
+            ]
+          ],
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -50,7 +57,9 @@ class Quicklinks
           'choices'     => [
               '' => esc_html__('Default', 'municipio'),
               'primary' => esc_html__('Primary', 'municipio'),
-              'secondary' => esc_html__('Secondary', 'municipio')
+              'secondary' => esc_html__('Secondary', 'municipio'),
+              'transparent' => esc_html__('Transparent', 'municipio')
+
           ],
           'output' => [
               [
@@ -63,6 +72,40 @@ class Quicklinks
               'setting'  => 'quicklinks_background_type',
               'operator' => '===',
               'value'    => 'default',
+            ]
+          ],
+        ]);
+
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_transparent_sticky_color',
+          'label'       => esc_html__('Background color sticky scroll', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '',
+          'choices'     => [
+              '' => esc_html__('None', 'municipio'),
+              'primary-scroll-background' => esc_html__('Primary', 'municipio'),
+              'secondary-scroll-background' => esc_html__('Secondary', 'municipio'),
+              'white-scroll-background' => esc_html__('White', 'municipio'),
+              'black-scroll-background' => esc_html__('Black', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
+          ],
+          'active_callback'  => [
+            [
+              'setting'  => 'quicklinks_sticky',
+              'operator' => '===',
+              'value'    => 'sticky',
+            ],
+            [
+              'setting'  => 'quicklinks_background',
+              'operator' => '===',
+              'value'    => 'transparent',
             ]
           ],
         ]);
@@ -124,6 +167,85 @@ class Quicklinks
           ],
           'output' => [
             ['type' => 'controller']
+          ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_direction',
+          'label'       => esc_html__('Quicklinks item direction', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '',
+          'choices'     => [
+              '' => esc_html__('Row', 'municipio'),
+              'column' => esc_html__('Column', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
+          ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_icon_color',
+          'label'       => esc_html__('Icon color', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '',
+          'choices'     => [
+              '' => esc_html__('Default', 'municipio'),
+              'primary-icon' => esc_html__('Primary', 'municipio'),
+              'secondary-icon' => esc_html__('Secondary', 'municipio'),
+              'white-icon' => esc_html__('White', 'municipio'),
+              'black-icon' => esc_html__('Black', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
+          ],
+        ]);
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_icon_background_color',
+          'label'       => esc_html__('Icon background color', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '',
+          'choices'     => [
+              '' => esc_html__('None', 'municipio'),
+              'primary-icon-background' => esc_html__('Primary', 'municipio'),
+              'secondary-icon-background' => esc_html__('Secondary', 'municipio'),
+              'white-icon-background' => esc_html__('White', 'municipio'),
+              'black-icon-background' => esc_html__('Black', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
+          ],
+        ]);
+
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_overflow',
+          'label'       => esc_html__('Overflow top', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '',
+          'choices'     => [
+              '' => esc_html__('Default', 'municipio'),
+              'overflow-top' => esc_html__('Overflow top', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'modifier',
+                'context' => ['site.quicklinks']
+              ]
           ],
         ]);
 
