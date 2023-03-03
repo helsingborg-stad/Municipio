@@ -10,6 +10,7 @@
         'direction' => 'vertical',
         'includeToggle' => true,
         'depth' => $depth ?? 1,
+        'context' => ['sidebar', 'municipio.sidebar']
     ])
     @endnav
 @else
