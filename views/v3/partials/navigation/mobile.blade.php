@@ -5,7 +5,7 @@
         'direction' => 'vertical',
         'includeToggle' => true,
         'classList' => ($classList ? $classList : null),
-        'depth' => $depth ?? 0,
+        'depth' => $depth ?? 1,
     ])
     @endnav
 @else

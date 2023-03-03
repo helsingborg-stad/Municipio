@@ -4,9 +4,9 @@ namespace Municipio\Controller\Purpose;
 
 class PurposeFactory
 {
-    protected string $key;
-    protected string $label;
-    protected array $secondaryPurpose;
+    public string $key;
+    public string $label;
+    public array $secondaryPurpose;
     protected string $view;
 
     public function __construct(string $key, string $label, array $secondaryPurpose = [])
@@ -16,9 +16,7 @@ class PurposeFactory
         $this->secondaryPurpose = $secondaryPurpose;
         $this->view             = "purpose-{$key}";
 
-        $this->init();
-
-        self::registerSecondaryPurposes();
+        self::initSecondaryPurposes();
     }
     /**
      * This method is empty by default and can be overridden by subclasses to add their own initialization logic.
@@ -27,7 +25,7 @@ class PurposeFactory
     {
     }
 
-    protected function registerSecondaryPurposes()
+    protected function initSecondaryPurposes()
     {
         if (!empty($this->getSecondaryPurpose())) {
             foreach ($this->getSecondaryPurpose() as $className) {
