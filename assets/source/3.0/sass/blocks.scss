@@ -58,8 +58,19 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
-    .o-grid-column-block {
+
+
+.o-grid-column-block {
+
+    &.is-vertically-aligned-center {
+        align-self: center;
+    }
+    
+    &.is-vertically-aligned-bottom {
+        align-self: flex-end;
+    }
+
+    @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
         flex-basis: 100% !important; // Override inline style.
     }
 }
