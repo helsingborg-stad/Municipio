@@ -11,7 +11,8 @@
                 'allowStyle' => false,
                 'classList' => ['u-flex-wrap'],
                 'context' => ['site.archive.nav'],
-                'height' => 'md'
+                'height' => 'md',
+                'expandLabel' => $lang->expand
             ])
             @endnav
           </nav>

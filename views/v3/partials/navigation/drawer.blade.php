@@ -39,7 +39,8 @@
                     'items' => $mobileMenuSecondaryItems,
                     'direction' => 'vertical',
                     'includeToggle' => true,
-                    'height' => 'sm'
+                    'height' => 'sm',
+                    'expandLabel' => $lang->expand
                 ])
             @endnav  
     @endslot

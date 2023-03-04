@@ -220,6 +220,7 @@ class BaseController
             'emblem'                => __("Site emblem", 'municipio'),
             'close'                 => __("Close", 'municipio'),
             'moreLanguages'         => __("More Languages", 'municipio'),
+            'expand'                => __("Expand", 'municipio'),
         );
 
         //Wordpress hooks

@@ -6,7 +6,8 @@
         'direction' => 'horizontal',
         'classList' => $classList,
         'context' => ['site.header.nav', 'site.header.casual.nav'],
-        'height' => 'lg'
+        'height' => 'lg',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 </nav>

@@ -11,7 +11,8 @@
         'includeToggle' => true,
         'depth' => $depth ?? 1,
         'context' => ['sidebar', 'municipio.sidebar'],
-        'height' => 'sm'
+        'height' => 'sm',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 @else

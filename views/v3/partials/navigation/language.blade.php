@@ -12,7 +12,8 @@
         'direction' => 'vertical',
         'includeToggle' => false,
         'classList' => ['c-nav--tiles'],
-        'height' => 'sm'
+        'height' => 'sm',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 
