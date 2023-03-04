@@ -1,5 +1,5 @@
 @breadcrumb([
-  'breadcumbPrefix' => $lang->breadcrumbPrefix,
+  'prefixLabel' => $lang->breadcrumbPrefix,
   'id' => 'breadcrumb', 
   'list' => $breadcrumbItems
 ])
