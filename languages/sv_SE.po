@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-04 23:11+0100\n"
-"PO-Revision-Date: 2023-03-04 23:12+0100\n"
+"POT-Creation-Date: 2023-03-04 23:24+0100\n"
+"PO-Revision-Date: 2023-03-04 23:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -21078,6 +21078,10 @@ msgstr "Fler språk"
 #: library/Controller/BaseController.php:223
 msgid "Expand"
 msgstr "Expandera"
+
+#: library/Controller/BaseController.php:224
+msgid "You are here: "
+msgstr "Du är här: "
 
 #: library/Controller/E404.php:30
 msgid "Go back"
