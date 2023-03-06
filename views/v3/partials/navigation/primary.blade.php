@@ -4,7 +4,10 @@
         'items' => $primaryMenuItems,
         'allowStyle' => true,
         'direction' => 'horizontal',
-        'classList' => $classList,
+        'classList' => array_merge(
+            (array) $classList,
+            ['s-nav-primary']
+        ),
         'context' => ['site.header.nav', 'site.header.casual.nav'],
         'height' => 'lg',
         'expandLabel' => $lang->expand

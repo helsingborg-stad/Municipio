@@ -24,8 +24,9 @@
                     'menuItems' => $mobileMenuItems, 
                     'classList' => [
                         'c-nav--drawer',
-                        'c-nav--dark',
                         'site-nav-mobile__primary',
+                        's-nav-drawer',
+                        's-nav-drawer-prmary'
                     ]
                 ]
             )  
@@ -36,8 +37,9 @@
                     'id' => 'drawer-menu',
                     'classList' => [
                         'c-nav--drawer',
-                        'c-nav--dark',
-                        'site-nav-mobile__secondary'
+                        'site-nav-mobile__secondary',
+                        's-nav-drawer',
+                        's-nav-drawer-secondary'
                     ],
                     'items' => $mobileMenuSecondaryItems,
                     'direction' => 'vertical',
@@ -46,7 +48,7 @@
                     'expandLabel' => $lang->expand
                 ])
             @endnav  
-    @endslot
+        @endslot
       @else
       {{-- No menu items found --}}
       @endif

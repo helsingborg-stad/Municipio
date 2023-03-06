@@ -34,7 +34,7 @@
             'items' => $floatingMenuItems,
             'direction' => 'vertical',
             'includeToggle' => false,
-            'classList' => ['c-nav--tiles'],
+            'classList' => ['c-nav--tiles', 's-nav-floating'],
             'context' => ['site.navigation.floating.nav'],
             'height' => 'md',
             'expandLabel' => $lang->expand
