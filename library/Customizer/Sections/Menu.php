@@ -85,5 +85,24 @@ class Menu
                 ['type' => 'controller']
             ]
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'show_mobile_menu_on_all_screens',
+            'label'       => esc_html__('Show mobile menu on all screens', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => false,
+            'priority'    => 10,
+            'choices' => [
+                true  => esc_html__('Enabled', 'kirki'),
+                false => esc_html__('Disabled', 'kirki'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => false
+                ]
+            ]
+        ]);
     }
 }
