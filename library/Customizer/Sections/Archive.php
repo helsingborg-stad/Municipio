@@ -152,8 +152,8 @@ class Archive
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
             'settings'    => 'archive_' . $archive->name . '_filter_type',
-            'label'       => esc_html__( 'Facetting type', 'municipio'),
-            'description' => esc_html__( 'Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'municipio'),
+            'label'       => esc_html__('Facetting type', 'municipio'),
+            'description' => esc_html__('Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'municipio'),
             'section'     => $sectionID,
             'default'     => 'or',
             'choices'     => [
@@ -284,5 +284,23 @@ class Archive
                 ],
             ]);
         }
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'archive_' . $archive->name . '_reading_time',
+            'label'       => esc_html__('Display reading time', 'municipio'),
+            'description' => esc_html__('Wether to display the estimated reading time for each post', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ]
+        ]);
     }
 }
