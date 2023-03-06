@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Helper;
+    namespace Municipio\Helper;
 
 class Term
 {
@@ -40,17 +40,16 @@ class Term
         return self::getTermColour($term, $taxonomy);
     }
 
-
     /**
-     * It returns the URL of the icon associated with a given term
+     * Returns the icon for a given term and taxonomy.
      *
-     * @param string|int|object term The term to get the icon for. Can be a WP_Term object, term ID or term slug.
+     * @param mixed $term The term to retrieve the icon for. Can be a WP_Term object, ID, or slug.
+     * @param string $taxonomy The taxonomy of the term. (not needed if $term is a WP_Term object)
      *
-     * @return bool|string The URL of the icon image for the term.
+     * @return mixed|array|false The icon of the term and the icon type or false if it can't be found.
      */
     public static function getTermIcon($term, string $taxonomy = '')
     {
-
         if ('' === $taxonomy && !is_a($term, 'WP_Term')) {
             return false;
         }
@@ -63,8 +62,26 @@ class Term
             return false;
         }
 
-        $attachmentId = get_field('icon', $term);
+        $termIcon = get_field('icon', $term);
+        $type = $termIcon['type'];
 
-        return apply_filters('Municipio/getTermIcon', wp_get_attachment_image_url($attachmentId), $term, $taxonomy);
+        if ($type === 'svg') {
+            $attachment = wp_get_attachment_image_url($termIcon['svg']['ID'], 'full');
+            $result = apply_filters(
+                'Municipio/getTermIconSvg',
+                ['src' => $attachment, 'type' => $type, 'description' => $termIcon['svg']['description']],
+                $term
+            );
+        } elseif ($type === 'icon') {
+            $result = apply_filters(
+                'Municipio/getTermIcon',
+                ['src' => $termIcon['material_icon'], 'type' => $type],
+                $term
+            );
+        } else {
+            $result = false;
+        }
+
+        return $result;
     }
 }

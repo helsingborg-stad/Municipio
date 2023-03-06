@@ -11,7 +11,9 @@
         'items' => $languageMenuItems,
         'direction' => 'vertical',
         'includeToggle' => false,
-        'classList' => ['c-nav--tiles']
+        'classList' => ['c-nav--tiles'],
+        'height' => 'sm',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 

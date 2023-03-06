@@ -10,7 +10,9 @@
         'direction' => 'vertical',
         'includeToggle' => true,
         'depth' => $depth ?? 1,
-        'context' => ['sidebar', 'municipio.sidebar']
+        'context' => ['sidebar', 'municipio.sidebar'],
+        'height' => 'sm',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 @else
