@@ -47,7 +47,7 @@
         2 => array(
             'key' => 'field_6405fea65cc8f',
             'label' => __('Background image', 'municipio'),
-            'name' => 'background-image',
+            'name' => 'backgroundImage',
             'aria-label' => '',
             'type' => 'image',
             'instructions' => '',
@@ -60,7 +60,7 @@
             ),
             'uploader' => '',
             'acfe_thumbnail' => 0,
-            'return_format' => 'array',
+            'return_format' => 'id',
             'min_width' => '',
             'min_height' => '',
             'min_size' => '',

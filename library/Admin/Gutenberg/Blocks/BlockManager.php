@@ -93,7 +93,7 @@ class BlockManager
                 'name'              => 'container',
                 'title'             => __('Container', 'municipio'),
                 'description'       => __('A container block', 'municipio'),
-                'render_callback'   => array($this, 'renderCallback'),
+                'render_callback'   => array($this, 'renderContainerCallback'),
                 'category'          => 'design',
                 'icon'              => 'archive',
                 'keywords'          => array('container', 'wrapper', 'background'),
@@ -124,6 +124,48 @@ class BlockManager
             echo render_blade_view('default', ['blockTitle' => $block['title'], 'message' => __('Please fill in all required fields.', 'municipio')]);
         }
     }
+    public function renderContainerCallback($block)
+    {
+        $data = $this->buildData($block['data']);
+        $data['blockType'] = $block['name'];
+        $data['classList'] = $this->buildBlockClassList($block);
+
+        if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
+            $data['style'] = [];
+
+            if (!empty($data['color'])) {
+                $data['style'][] = "background-color:{$data['color']}";
+            }
+            if (!empty($data['backgroundImage'])) {
+                $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');
+                if ($image) {
+                    $data['style'] = [
+                        "background-image:url($image)",
+                        "background-size:cover",
+                        "background-position:center center"
+                    ];
+                }
+            }
+
+            if (!empty($data['style'])) {
+                $data['style'] = 'style=' . implode(';', $data['style']) . ';';
+            } else {
+                $data['style'] = '';
+            }
+            echo render_blade_view(
+                $block['view'],
+                $data
+            );
+        } else {
+            echo render_blade_view(
+                'default',
+                [
+                    'blockTitle' => $block['title'],
+                    'message' => __('Please fill in all required fields.', 'municipio')
+                ]
+            );
+        }
+    }
 
     /**
      * Return the general view path
@@ -148,7 +190,6 @@ class BlockManager
         $newData = [];
         foreach ($data as $key => $value) {
             $key = ltrim($key, '_');
-            $newValue = get_field($value);
 
             if (str_contains($value, 'field_')) {
                 $newData[$key] = get_field($value);
