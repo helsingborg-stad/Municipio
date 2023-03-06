@@ -4,7 +4,7 @@
         'items' => $menuItems,
         'direction' => 'vertical',
         'includeToggle' => true,
-        'classList' => 'classList' => array_merge(
+        'classList' => array_merge(
             (array) $classList,
             ['s-nav-primary']
         ),
