@@ -6,7 +6,10 @@
             'label' => '',
             'children' => false,
             'ID' => PHP_INT_MAX,
-            'classList' => ['u-preloader']
+            'classList' => [
+                'u-preloader',
+                'u-preloader__opacity--9'
+            ]
         ]
     ]
 ])
