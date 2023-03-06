@@ -41,11 +41,11 @@ class Navigation
             foreach($scopes as $key => $scope) {
 
                 if(in_array('vertical', $scope->types)) {
-                    $this->addVerticalColorConfiguration($scope, $sectionID); 
+                    $this->addVerticalColorConfiguration($key, $scope, $sectionID); 
                 }
 
                 if(in_array('horizontal', $scope->types)) {
-                    $this->addHorizontalColorConfiguration($scope, $sectionID); 
+                    $this->addHorizontalColorConfiguration($key, $scope, $sectionID); 
                 }
 
             }
@@ -53,7 +53,7 @@ class Navigation
     }
 
 
-    private function addVerticalColorConfiguration($scope, $sectionID) {
+    private function addVerticalColorConfiguration($key, $scope, $sectionID) {
         \Kirki::add_field(
             \Municipio\Customizer::KIRKI_CONFIG,
             [
@@ -87,7 +87,7 @@ class Navigation
         );
     }
 
-    private function addHorizontalColorConfiguration($scope, $sectionID) {
+    private function addHorizontalColorConfiguration($key, $scope, $sectionID) {
 
     }
 }
