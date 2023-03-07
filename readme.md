@@ -38,6 +38,14 @@ or just for a single build:
 $ npm run build
 ```
 
+## NPM scripts
+
+* **watch**: Run webpack in watch mode. To be used when working on client side code like scss,js,ts...
+* **build:dev**: Build assets with the development flag.
+* **build**: Build assets for production.
+* **i18n:update**: Updates languages/municipio.pot and languages/sv_SE.po from source files. Run this when translatable strings have been added/updated. **Requires wp-cli**.
+* **i18n:build**: Updates languages/municipio.mo .po file. Run this when changes have been made to the corresponding .po file. **Requires wp-cli**.
+
 ## Composer
 You can install composer dependencies with.
 ```
