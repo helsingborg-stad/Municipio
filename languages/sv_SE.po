@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-06 13:49+0100\n"
-"PO-Revision-Date: 2023-03-06 15:11+0100\n"
+"POT-Creation-Date: 2023-03-07 13:28+0100\n"
+"PO-Revision-Date: 2023-03-07 13:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -4721,7 +4721,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
 #: library/Controller/Singular.php:128
-#: library/Customizer/PanelsRegistry.php:392 library/Upgrade.php:526
+#: library/Customizer/PanelsRegistry.php:397 library/Upgrade.php:526
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-rss.php:84
 msgid "Author"
 msgstr "Författare"
@@ -21038,11 +21038,12 @@ msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
 #: library/Controller/BaseController.php:215
+#: library/Customizer/Sections/Navigation.php:28
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
 #: library/Controller/BaseController.php:216
-#: library/Customizer/PanelsRegistry.php:266
+#: library/Customizer/PanelsRegistry.php:271
 #: library/Customizer/Sections/Search.php:23 library/Theme/Navigation.php:27
 msgid "Hamburger menu"
 msgstr "Hamburgermeny"
@@ -21359,63 +21360,71 @@ msgstr "Snabblänkar"
 msgid "Buttons"
 msgstr "Knappar"
 
-#: library/Customizer/PanelsRegistry.php:271
+#: library/Customizer/PanelsRegistry.php:266
+#, fuzzy
+#| msgid "Navigation"
+msgid "Navigations"
+msgstr "Navigering"
+
+#: library/Customizer/PanelsRegistry.php:276
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-slider.php:6
 #: vendor/modularity/modules/source/php/Module/Slider/Slider.php:26
 msgid "Slider"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:275
+#: library/Customizer/PanelsRegistry.php:280
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
-#: library/Customizer/PanelsRegistry.php:281
+#: library/Customizer/PanelsRegistry.php:286
 msgid "Hero slider"
 msgstr "Slider (Hero)"
 
-#: library/Customizer/PanelsRegistry.php:282
+#: library/Customizer/PanelsRegistry.php:287
 msgid "Settings for the slider in the hero area."
 msgstr "Inställningar för slider i heroytan."
 
-#: library/Customizer/PanelsRegistry.php:288
+#: library/Customizer/PanelsRegistry.php:293
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Customizer/PanelsRegistry.php:292
+#: library/Customizer/PanelsRegistry.php:297
 msgid "Main footer"
 msgstr "Primär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:298
+#: library/Customizer/PanelsRegistry.php:303
 msgid "Sub footer"
 msgstr "Sekundär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:304
+#: library/Customizer/PanelsRegistry.php:309
 #: library/Customizer/Sections/Borders.php:14
 #: library/Customizer/Sections/Colors.php:209
 #: library/Customizer/Sections/Divider.php:65
+#: library/Customizer/Sections/Navigation.php:110
+#: library/Customizer/Sections/Navigation.php:175
 msgid "Divider"
 msgstr "Avdelare"
 
-#: library/Customizer/PanelsRegistry.php:309 library/Theme/Sidebars.php:123
+#: library/Customizer/PanelsRegistry.php:314 library/Theme/Sidebars.php:123
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-hero.php:8
 #: vendor/modularity/modules/source/php/Module/Hero/Hero.php:12
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
-#: library/Customizer/PanelsRegistry.php:314
+#: library/Customizer/PanelsRegistry.php:319
 msgid "Field"
 msgstr "Formulär & Fält"
 
-#: library/Customizer/PanelsRegistry.php:319
+#: library/Customizer/PanelsRegistry.php:324
 #: views/v1/partials/blog/post-tags.blade.php:2
 msgid "Tags"
 msgstr "Taggar"
 
-#: library/Customizer/PanelsRegistry.php:332
+#: library/Customizer/PanelsRegistry.php:337
 msgid "Menu behaviour"
 msgstr "Menybeteende"
 
-#: library/Customizer/PanelsRegistry.php:333
+#: library/Customizer/PanelsRegistry.php:338
 msgid "Menu behaviour settings."
 msgstr "Inställningar för menybeteende."
 
@@ -22132,10 +22141,12 @@ msgid "Upload SVG logo"
 msgstr "Ladda upp SVG-logotyp"
 
 #: library/Customizer/Sections/FooterSub.php:132
+#: library/Customizer/Sections/Navigation.php:41
 msgid "Horizontal"
 msgstr "Horisontell"
 
 #: library/Customizer/Sections/FooterSub.php:133
+#: library/Customizer/Sections/Navigation.php:45
 msgid "Vertical"
 msgstr "Vertikal"
 
@@ -22387,6 +22398,55 @@ msgstr "Expanderbar lista"
 #: library/Customizer/Sections/Module/SectionsSplit.php:12
 msgid "Section Split"
 msgstr "Sektion: Tvådelad"
+
+#: library/Customizer/Sections/Navigation.php:14
+msgid "Sidebar navigation"
+msgstr "Sidomeny"
+
+#: library/Customizer/Sections/Navigation.php:21
+msgid "Drawer navigation"
+msgstr "Drawer navigation"
+
+#: library/Customizer/Sections/Navigation.php:49
+msgid "Dropdown"
+msgstr "Dropdown navigation"
+
+#: library/Customizer/Sections/Navigation.php:100
+#: library/Customizer/Sections/Navigation.php:154
+#: library/Customizer/Sections/Navigation.php:165
+#: library/Customizer/Sections/Navigation.php:204
+msgid "colors"
+msgstr "Färger"
+
+#: library/Customizer/Sections/Navigation.php:106
+#: library/Customizer/Sections/Navigation.php:171
+msgid "Default Contrast"
+msgstr "Standard kontrasterande"
+
+#: library/Customizer/Sections/Navigation.php:107
+#: library/Customizer/Sections/Navigation.php:172
+msgid "Background (Active)"
+msgstr "Bakgrund (akriv)"
+
+#: library/Customizer/Sections/Navigation.php:108
+#: library/Customizer/Sections/Navigation.php:173
+msgid "Contrasting (Active)"
+msgstr "Kontrasterande (Aktiv)"
+
+#: library/Customizer/Sections/Navigation.php:109
+#: library/Customizer/Sections/Navigation.php:174
+msgid "Background (Expanded)"
+msgstr "Bakgrund (Expanderad)"
+
+#: library/Customizer/Sections/Navigation.php:111
+#: library/Customizer/Sections/Navigation.php:176
+msgid "Font size"
+msgstr "Typsnittstorlek"
+
+#: library/Customizer/Sections/Navigation.php:154
+#: library/Customizer/Sections/Navigation.php:204
+msgid "Tailor:"
+msgstr "Specialanpassa:"
 
 #: library/Customizer/Sections/Padding.php:12
 msgid "Amount of padding around columns."

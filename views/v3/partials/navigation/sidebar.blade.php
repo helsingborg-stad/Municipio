@@ -4,7 +4,8 @@
         'classList' => [
             'c-nav--sidebar',            
             'c-nav--bordered',
-            'u-print-display--none'
+            'u-print-display--none',
+            's-nav-sidebar'
         ],
         'items' => $menuItems,
         'direction' => 'vertical',

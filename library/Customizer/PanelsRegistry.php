@@ -262,6 +262,11 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Button('municipio_customizer_section_component_button'))
             )->addSection(
                 KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_navigation')
+                    ->setTitle(esc_html__('Navigations', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Navigation('municipio_customizer_section_navigation'))
+            )->addSection(
+                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_hamburger_menu')
                     ->setTitle(esc_html__('Hamburger menu', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\HamburgerMenu('municipio_customizer_section_hamburger_menu'))

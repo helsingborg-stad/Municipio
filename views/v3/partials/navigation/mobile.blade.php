@@ -4,9 +4,12 @@
         'items' => $menuItems,
         'direction' => 'vertical',
         'includeToggle' => true,
-        'classList' => ($classList ? $classList : null),
+        'classList' => array_merge(
+            (array) $classList,
+            ['s-nav-primary']
+        ),
         'depth' => $depth ?? 1,
-        'expandLabel' => $lang->expand,
+        'expandLabel' => $lang->expand
     ])
     @endnav
 @else

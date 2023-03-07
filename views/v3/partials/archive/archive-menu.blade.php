@@ -9,7 +9,7 @@
                 'items' => $archiveMenuItems,
                 'direction' => 'horizontal',
                 'allowStyle' => false,
-                'classList' => ['u-flex-wrap'],
+                'classList' => ['u-flex-wrap', 's-nav-archive'],
                 'context' => ['site.archive.nav'],
                 'height' => 'md',
                 'expandLabel' => $lang->expand
