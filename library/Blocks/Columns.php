@@ -56,11 +56,11 @@ class Columns
                         ' ',
                         [
                             $gridClass,
-                            str_replace('wp-block-column', '', $class)
+                            'o-grid-column-block',
+                            str_replace('wp-block-column', '', $class),
                         ]
                     )
                 );
-                $child->setAttribute('style', false);
 
                 $result[] = $child->c14n();
             }

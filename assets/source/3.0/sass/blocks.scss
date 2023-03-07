@@ -41,3 +41,36 @@
         }
     }
 }
+
+.alignfull {
+    margin-left: calc( -100vw / 2 + 100% / 2 );
+    margin-right: calc( -100vw / 2 + 100% / 2 );
+    max-width: 100vw;
+    width: 100vw;
+
+    img {
+        height: auto;
+        width: 100%;
+    }
+
+    .c-image__caption {
+        text-align: center;
+    }
+}
+
+
+
+.o-grid-column-block {
+
+    &.is-vertically-aligned-center {
+        align-self: center;
+    }
+    
+    &.is-vertically-aligned-bottom {
+        align-self: flex-end;
+    }
+
+    @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+        flex-basis: 100% !important; // Override inline style.
+    }
+}
