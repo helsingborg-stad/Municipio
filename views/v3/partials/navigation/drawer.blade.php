@@ -26,7 +26,7 @@
                         'c-nav--drawer',
                         'site-nav-mobile__primary',
                         's-nav-drawer',
-                        's-nav-drawer-prmary'
+                        's-nav-drawer-primary'
                     ]
                 ]
             )  
