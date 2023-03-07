@@ -37,6 +37,7 @@ class Quicklinks
           'output' => [
             ['type' => 'controller']
           ],
+          'alpha' => 1,
           'active_callback'  => [
             [
               'setting'  => 'quicklinks_background_type',
