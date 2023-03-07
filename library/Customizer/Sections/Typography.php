@@ -4,23 +4,14 @@ namespace Municipio\Customizer\Sections;
 
 class Typography
 {
-    public const SECTION_ID = "municipio_customizer_section_typography";
-
-    public function __construct($panelID)
+    public function __construct($sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Typography', 'municipio'),
-            'description' => esc_html__('Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         foreach ($this->getTypographyElements() as $key => $args) {
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'      => 'typography',
                 'settings'  => 'typography_' . $key,
                 'label'     => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
-                'section'   => self::SECTION_ID,
+                'section'   => $sectionID,
                 'priority'  => 10,
                 'choices'   => [
                     'fonts' => [

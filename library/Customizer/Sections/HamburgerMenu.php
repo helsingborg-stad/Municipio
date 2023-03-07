@@ -6,20 +6,13 @@ class HamburgerMenu
 {
     public const SECTION_ID = "municipio_customizer_section_hamburger_menu";
 
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Hamburger menu', 'municipio'),
-            'description' => esc_html__('Hamburger menu settings.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
             'settings'    => 'hamburger_menu_mobile',
             'label'       => esc_html__('Show on mobile', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => false,
             'priority'    => 10,
             'choices' => [
@@ -35,7 +28,7 @@ class HamburgerMenu
             'type'        => 'select',
             'settings'    => 'hamburger_menu_trigger_style',
             'label'       => esc_html__('Select menu trigger style', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 'basic',
             'priority'    => 10,
             'choices' => [
@@ -52,7 +45,7 @@ class HamburgerMenu
             'type'        => 'select',
             'settings'    => 'hamburger_menu_parent_style',
             'label'       => esc_html__('Select menu parent style', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => false,
             'priority'    => 10,
             'choices' => [
@@ -71,7 +64,7 @@ class HamburgerMenu
             'settings'    => 'color_palette_hambuger_menu_heading',
             'label'       => esc_html__('Heading', 'municipio'),
             'description' => esc_html__('Select a color for the headings', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport'   => 'auto',
             'choices'     => [
@@ -94,7 +87,7 @@ class HamburgerMenu
             'settings'    => 'color_palette_hambuger_menu_subitem',
             'label'       => esc_html__('Subitem', 'municipio'),
             'description' => esc_html__('Select a color for the subitems', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -117,7 +110,7 @@ class HamburgerMenu
             'settings'    => 'color_palette_hambuger_menu_background',
             'label'       => esc_html__('Background', 'municipio'),
             'description' => esc_html__('Select a color for the background', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [

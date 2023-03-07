@@ -4,12 +4,10 @@ namespace Municipio\Customizer\Sections;
 
 class Width
 {
-    public const SECTION_ID = "municipio_customizer_section_width";
-
     private $variations = []; 
     private $base = 8; 
 
-    public function __construct($panelID)
+    public function __construct($sectionID)
     {
         $this->variations = [
             [
@@ -42,19 +40,12 @@ class Width
             ]
         ]; 
 
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Page Widths', 'municipio'),
-            'description' => esc_html__('Set the maximum page withs of different page types.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         foreach ($this->variations as $key => $args) {
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'slider',
                 'settings'    => 'container' . $args['key'],
                 'label'       => $args['label'],
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'default'     => $args['default'],
                 'choices'     => [
                     'min'  => $args['minWidth'],
@@ -74,7 +65,7 @@ class Width
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'custom',
             'settings'    => 'heading_width',
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '
                                 <h2>' . esc_html__('Width of page columns', 'municipio') .' </h2> 
                                 <p class="description customize-section-description">' . esc_html__('Set the width of left & right columns. The middle (content) column will use whatever space left.', 'municipio') . '</p>
@@ -85,7 +76,7 @@ class Width
             'type'        => 'select',
             'settings'    => 'column_size_left',
             'label'       => esc_html__('Left', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 'normal',
             'priority'    => 15,
             'choices'     => [
@@ -101,7 +92,7 @@ class Width
             'type'        => 'select',
             'settings'    => 'column_size_right',
             'label'       => esc_html__('Right', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 'normal',
             'priority'    => 20,
             'choices'     => [

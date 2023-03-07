@@ -5,7 +5,9 @@
         'allowStyle' => true,
         'direction' => 'horizontal',
         'classList' => $classList,
-        'context' => ['site.header.nav', 'site.header.casual.nav']
+        'context' => ['site.header.nav', 'site.header.casual.nav'],
+        'height' => 'lg',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 </nav>

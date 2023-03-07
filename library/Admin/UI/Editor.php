@@ -2,7 +2,7 @@
 
 namespace Municipio\Admin\UI;
 
-use \Municipio\Helper\Styleguide;
+use Municipio\Helper\Styleguide;
 
 class Editor
 {
@@ -14,6 +14,10 @@ class Editor
         add_action('after_setup_theme', array($this, 'editorStyle'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
+
+        add_action('admin_head', function () {
+            echo '<style type="text/css">.acf-postbox table thead th { background-color: #FFF; }</style>';
+        });
 
         // Custom plugins
         $this->metaData();
@@ -100,7 +104,6 @@ class Editor
                     \Municipio\Helper\CacheBust::name('css/municipio.css')
             )
         );
-
     }
 
     /**
@@ -127,7 +130,6 @@ class Editor
                     \Municipio\Helper\CacheBust::name('css/mce.css')
             )
         );
-
     }
     /**
      * Add style format options
@@ -165,7 +167,6 @@ class Editor
         $enabled = get_field('content_editor_formats', 'options');
 
         if (is_array($enabled) && !empty($enabled) && is_array($formats) && !empty($formats)) {
-
             foreach ($formats as $key => &$format) {
                 $format = array_filter($format, function ($key) use ($enabled) {
                     return in_array($key, $enabled);

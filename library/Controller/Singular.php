@@ -14,10 +14,10 @@ class Singular extends \Municipio\Controller\BaseController
     public function init()
     {
         parent::init();
-        
+
         //Get post data
         $originalPostData = get_post($this->getPageID());
-        
+
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
 
@@ -173,7 +173,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $id
      * @return mixed
      */
-    private function getPostDates($id) : object
+    private function getPostDates($id): object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
             'published' => get_the_date(),
@@ -220,7 +220,7 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getReadingTime($postContent, $factor = 200)
     {
-        return (int) ceil((str_word_count(strip_tags($postContent)) / $factor));
+        return \Municipio\Helper\ReadingTime::getReadingTime($postContent, $factor);
     }
 
     /**
@@ -261,15 +261,27 @@ class Singular extends \Municipio\Controller\BaseController
 
             if (is_array($postTypes) && !empty($postTypes)) {
                 foreach ($postTypes as $type) {
-                    if ($type['slug'] !== (get_post_type_object($post->postType)->rewrite['slug'] ?? '')) {
+                    $thisType = get_post_type_object($post->postType)->rewrite['slug'] ?? '';
+                    if (isset($type['slug']) && $type['slug'] !== $thisType) {
                         continue;
                     }
 
                     $type = (object) \Municipio\Helper\FormatObject::camelCase($type);
-                    if ($type->displayAgeNotificationOnPosts === (bool) true) {
+                    if (
+                        isset($type->displayAgeNotificationOnPosts)
+                        && $type->displayAgeNotificationOnPosts === (bool) true
+                    ) {
                         $postAge = $this->getPostAge($post->postDate);
                         if ($postAge > $type->postAgeDays) {
-                            return sprintf(_n('This content was published more than %s day ago.', 'This content was published more than %s days ago.', $type->postAgeDays, 'municipio'), $type->postAgeDays);
+                            return sprintf(
+                                _n(
+                                    'This content was published more than %s day ago.',
+                                    'This content was published more than %s days ago.',
+                                    $type->postAgeDays,
+                                    'municipio'
+                                ),
+                                $type->postAgeDays
+                            );
                         }
                     }
                 }

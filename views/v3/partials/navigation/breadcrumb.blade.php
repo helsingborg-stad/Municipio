@@ -1,2 +1,6 @@
-@breadcrumb(['id' => 'breadcrumb', 'list' => $breadcrumbItems])
+@breadcrumb([
+  'prefixLabel' => $lang->breadcrumbPrefix,
+  'id' => 'breadcrumb', 
+  'list' => $breadcrumbItems
+])
 @endbreadcrumb

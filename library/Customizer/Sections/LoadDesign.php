@@ -2,12 +2,15 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\Panel;
+use Municipio\Customizer\PanelsRegistry;
+
 class LoadDesign
 {
-    public const SECTION_ID         = "municipio_customizer_section_designlib";
-    private const API_URL           = 'https://customizer.helsingborg.io/';
-    private const LOAD_DESIGN_KEY   = 'load_design';
-
+    private const API_URL                   = 'https://customizer.helsingborg.io/';
+    private const LOAD_DESIGN_KEY           = 'load_design';
+    private const EXCLUDE_LOAD_DESIGN_KEY   = 'exclude_load_design';
     private $uniqueId               = null;
 
     private $apiActions = [
@@ -15,33 +18,32 @@ class LoadDesign
         'single' => 'id' . DIRECTORY_SEPARATOR
     ];
 
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-
         if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
             return;
         }
 
-        $this->uniqueId = uniqid();
-
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Load a design', 'municipio'),
-            'description' => esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
-        //Example controller variable
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => self::LOAD_DESIGN_KEY,
             'label'       => esc_html__('Select a design', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => false,
             'priority'    => 10,
             'choices'     => $this->loadOptions(),
-            'transport'    => 'postMessage'
+            'transport'   => 'postMessage'
         ]);
+
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, array(
+            'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
+            'section'     => $sectionID,
+            'type'        => 'select',
+            'multiple'    => true,
+            'label'       => esc_html__('Exclude from import', 'municipio'),
+            'description' => esc_html__('Selected local settings will not be overriden on import.', 'municipio'),
+            'choices'     => $this->getCustomizerSectionsAsOptions()
+        ));
 
         //Always reset option of theme
         add_filter('theme_mod_' . self::LOAD_DESIGN_KEY, function ($value) {
@@ -60,6 +62,39 @@ class LoadDesign
                 wp_schedule_event(time(), 'daily', 'municipio_store_theme_mod');
             }
         });
+    }
+
+    private function getCustomizerSectionsAsOptions(): array
+    {
+        // Add core section due to unavalability through PanelsRegistry.
+        $options = ['custom_css' => __('Additional CSS')];
+        $panels = PanelsRegistry::getInstance()->getRegisteredPanels();
+
+        foreach ($panels as $panel) {
+            $this->generateOptionsFromPanel($panel, $options);
+        }
+
+        return $options;
+    }
+
+    private function generateOptionsFromPanel(Panel $panel, array &$options)
+    {
+
+        if (!empty($sections = $panel->getSections())) {
+            $optionGroupPanelPrefix = '';
+            $optionGroupLabel = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
+
+            if (!empty($parentPanelID = $panel->getPanel())) {
+                $parentPanelTitle = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
+                $optionGroupPanelPrefix = "{$parentPanelTitle} / ";
+            }
+
+            $options[$panel->getID()] = array("{$optionGroupPanelPrefix}{$optionGroupLabel}", []);
+
+            foreach ($sections as $section) {
+                $options[$panel->getID()][1][$section->getID()] = $section->getTitle();
+            }
+        }
     }
 
     /**
@@ -159,7 +194,11 @@ class LoadDesign
         if (!empty($mods)) {
             foreach ($mods as $key => $mod) {
                 //Prohibited keys
-                if (in_array($key, ['load_design'])) {
+                if (in_array($key, [self::LOAD_DESIGN_KEY])) {
+                    continue;
+                }
+
+                if (in_array($key, [self::EXCLUDE_LOAD_DESIGN_KEY])) {
                     continue;
                 }
 

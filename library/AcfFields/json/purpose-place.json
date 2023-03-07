@@ -1,0 +1,56 @@
+[{
+    "key": "group_63eb4a0aa476e",
+    "title": "Location",
+    "fields": [
+        {
+            "key": "field_63eb4a0b11678",
+            "label": "Location",
+            "name": "location",
+            "aria-label": "",
+            "type": "google_map",
+            "instructions": "Area or street address of the location.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "center_lat": "56.042834",
+            "center_lng": "12.7009283,17",
+            "zoom": 11,
+            "height": 300
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "purpose",
+                "operator": "==",
+                "value": "place"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "place"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+

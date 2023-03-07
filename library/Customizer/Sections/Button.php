@@ -8,17 +8,8 @@ use Kirki as Kirki;
 
 class Button
 {
-    public const SECTION_ID = "municipio_customizer_section_component_button";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Buttons', 'municipio'),
-            'description' => esc_html__('Settings for buttons.', 'municipio'),
-            'panel'       => $panelID,
-            'priority'    => 160,
-        ));
-
         /**
          * Radius
          */
@@ -27,7 +18,7 @@ class Button
                 'type'        => 'slider',
                 'settings'    => 'button_border_radius_sm',
                 'label'       => esc_html__('Radius small', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'default'     => 4,
                 'choices'     => [
                     'min'  => 0,
@@ -44,7 +35,7 @@ class Button
                 'type'        => 'slider',
                 'settings'    => 'button_border_radius_md',
                 'label'       => esc_html__('Radius medium', 'municipio'),
-                'section'     => self::SECTION_ID,
+                'section'     => $sectionID,
                 'default'     => 8,
                 'choices'     => [
                     'min'  => 0,
@@ -66,7 +57,7 @@ class Button
             'type'        => 'multicolor',
             'settings'    => 'color_button_primary',
             'label'       => esc_html__('Primary button colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
@@ -98,7 +89,7 @@ class Button
             'type'        => 'multicolor',
             'settings'    => 'color_button_secondary',
             'label'       => esc_html__('Secondary button colors', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'priority'    => 10,
             'transport' => 'auto',
             'choices'     => [
