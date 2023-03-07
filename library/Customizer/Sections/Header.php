@@ -56,7 +56,7 @@ class Header
             'type'        => 'select',
             'settings'    => 'business_header_alignment',
             'label'       => esc_html__('Menu alignment', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 'business-gap',
             'priority'    => 10,
             'choices'     => [
