@@ -152,7 +152,6 @@ class Navigation
             ], 
             [
                 'label' => esc_html__('Tailor:', 'municipio') . $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel, 
-                'description' => esc_html__('Enable to customize this navigation location. If disabled, a general colorscheme will be inherited.', 'municipio'),
                 'settings' => 'nav_v_color_' . $key . '_customized'
             ]
         );
@@ -164,7 +163,6 @@ class Navigation
                 'type'        => 'multicolor',
                 'settings'    => 'nav_h_color_' . $key,
                 'label'       => $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel,
-                'description' => esc_html__('Enable to customize this navigation location. If disabled, a general colorscheme will be inherited.', 'municipio'),
                 'section'     => $sectionID,
                 'priority'    => 10,
                 'transport'   => 'auto',
