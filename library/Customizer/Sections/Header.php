@@ -27,14 +27,42 @@ class Header
 
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'header_alignment',
+            'settings'    => 'casual_header_alignment',
             'label'       => esc_html__('Menu alignment', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 'gap',
+            'default'     => 'casual-right',
             'priority'    => 10,
             'choices'     => [
-                'gap' => esc_html__('Gap between', 'municipio'),
-                'left' => esc_html__('Left', 'municipio'),
+                'casual-left' => esc_html__('Left', 'municipio'),
+                'casual-center' => esc_html__('Center', 'municipio'),
+                'casual-right' => esc_html__('Right', 'municipio'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'header_apperance',
+                    'operator' => '==',
+                    'value'    => 'casual',
+                ]
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header.nav'],
+                ]
+            ],
+        ]);
+
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'business_header_alignment',
+            'label'       => esc_html__('Menu alignment', 'municipio'),
+            'section'     => self::SECTION_ID,
+            'default'     => 'business-gap',
+            'priority'    => 10,
+            'choices'     => [
+                'business-gap' => esc_html__('Gap between', 'municipio'),
+                'business-left' => esc_html__('Left', 'municipio'),
+                'business-right' => esc_html__('Right', 'municipio'),
             ],
             'active_callback' => [
                 [

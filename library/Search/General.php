@@ -49,6 +49,7 @@ class General
                     'icon' => 'search',
                     'size' => 'md'
                 ],
+                "isSearch" => true,
                 "attributeList" => [
                     'aria-label' => __("Search", 'municipio'),
                     'data-open' => 'm-search-modal__trigger'
