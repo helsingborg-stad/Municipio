@@ -108,7 +108,6 @@ class Navigation
                     'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio'),
                     'background_expanded' => esc_html__('Background (Expanded)', 'municipio'),
                     'divider_color' => esc_html__('Divider', 'municipio'),
-                    'font_size' => esc_html__('Font size', 'municipio'),
                 ],
                 'default'     => [
                     'contrasting'           => '#000',
@@ -142,11 +141,6 @@ class Navigation
                         'choice'    => 'divider_color',
                         'element'   => $scope->scopeClass,
                         'property'  => '--c-nav-v-divider-color',
-                    ],
-                    [
-                        'choice'    => 'font_size',
-                        'element'   => $scope->scopeClass,
-                        'property'  => '--c-nav-v-font-size',
                     ]
                 ]
             ], 
