@@ -24,6 +24,13 @@ class Navigation
                     'vertical'
                 ]
             ],
+            'drawer-secondary' => (object) [
+                'label' => esc_html__('Drawer navigation, secondary', 'municipio'),
+                'scopeClass' => '.s-nav-drawer-secondary',
+                'types' => [
+                    'vertical'
+                ]
+            ],
             'primary' => (object) [
                 'label' => esc_html__('Primary navigation', 'municipio'),
                 'scopeClass' => '.s-nav-primary',
@@ -66,7 +73,7 @@ class Navigation
                         $scope,
                         $sectionID,
                         $this->getOrientationLabel('vertical')
-                    ); 
+                    );
                 }
 
                 if(in_array('dropdown', $scope->types)) {
@@ -75,16 +82,16 @@ class Navigation
                         $scope,
                         $sectionID,
                         $this->getOrientationLabel('dropdown')
-                    ); 
+                    );
                 }
 
                 if(in_array('horizontal', $scope->types)) {
                     $this->addHorizontalColorConfiguration(
-                        $key, 
-                        $scope, 
+                        $key,
+                        $scope,
                         $sectionID,
                         $this->getOrientationLabel('horizontal')
-                    ); 
+                    );
                 }
 
             }
@@ -165,16 +172,11 @@ class Navigation
                     'contrasting' => esc_html__('Default Contrast', 'municipio'),
                     'background_active' => esc_html__('Background (Active)', 'municipio'),
                     'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio'),
-                    'background_expanded' => esc_html__('Background (Expanded)', 'municipio'),
-                    'divider_color' => esc_html__('Divider', 'municipio'),
-                    'font_size' => esc_html__('Font size', 'municipio'),
                 ],
                 'default'     => [
                     'contrasting'           => '#000',
                     'background_active'     => '#fff',
                     'contrasting_active'    => '#000',
-                    'background_expanded'   => 'rgba(0,0,0,.04)',
-                    'divider_color'         => '#eee',
                 ],
                 'output' => [
                     [
