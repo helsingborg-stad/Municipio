@@ -107,6 +107,11 @@ class Quicklinks
               'setting'  => 'quicklinks_background',
               'operator' => '===',
               'value'    => 'transparent',
+            ],
+            [
+              'setting'  => 'quicklinks_background_type',
+              'operator' => '===',
+              'value'    => 'default',
             ]
           ],
         ]);
