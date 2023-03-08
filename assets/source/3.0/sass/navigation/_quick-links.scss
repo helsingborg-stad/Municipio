@@ -10,6 +10,10 @@ $icon-colors: (
 
     &.c-header--transparent {
         background-color: transparent;
+
+        &.c-header--sticky {
+            top: -1px;
+        }
     }
 
     &.c-header--column {
@@ -26,10 +30,6 @@ $icon-colors: (
 
     &.c-header--overflow-top {
         transform: translateY(0px);
-
-         &.c-header--sticky {
-            top: -1px;
-        }
         
         @include mq('md') {
              transform: translateY(-50%);
