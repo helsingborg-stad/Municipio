@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiCondidional as KirkiCondidional;
+use Municipio\Helper\KirkiConditional as KirkiConditional;
 use Municipio\Customizer as Customizer;
 
 class Navigation
@@ -100,7 +100,7 @@ class Navigation
 
 
     private function addVerticalColorConfiguration($key, $scope, $sectionID, $orientationLabel) {
-        KirkiCondidional::add_field(
+        KirkiConditional::add_field(
             Customizer::KIRKI_CONFIG, [
                 'type'        => 'multicolor',
                 'settings'    => 'nav_v_color_' . $key,
@@ -159,7 +159,7 @@ class Navigation
     }
 
     private function addHorizontalColorConfiguration($key, $scope, $sectionID, $orientationLabel) {
-        KirkiCondidional::add_field(
+        KirkiConditional::add_field(
             Customizer::KIRKI_CONFIG, [
                 'type'        => 'multicolor',
                 'settings'    => 'nav_h_color_' . $key,
