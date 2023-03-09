@@ -17,6 +17,9 @@
 
             {{-- Tab menu items --}}
             @includeWhen($tabMenuItems, 'partials.navigation.tabs')
+
+            {{-- Siteselector menu items --}}
+            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')

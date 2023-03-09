@@ -30,7 +30,7 @@ class Navigation
             'language-menu' => __('Language menu', 'municipio'),
             'quicklinks-menu' => __('Quicklinks menu', 'municipio'),
             'mobile-drawer' => __('Drawer (bottom)', 'municipio'),
-            'siteselector' => __('Siteselector', 'municipio'),
+            'siteselector-menu' => __('Siteselector', 'municipio'),
         );
     }
 

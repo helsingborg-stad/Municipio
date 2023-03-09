@@ -3,6 +3,10 @@
 @section('primary-navigation')
 
     <div class="c-header__menu c-header__menu--primary">
+
+        {{-- Siteselector menu items --}}
+        @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector'); 
+
         <div class="c-header__flex-content o-container o-container--wide">
             
             {{-- Header logo --}}
