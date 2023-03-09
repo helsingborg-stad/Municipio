@@ -22,60 +22,45 @@ class Siteselector
           ]
         ]);
 
-        \Kirki::add_field(
-          \Municipio\Customizer::KIRKI_CONFIG,
-          [
-              'type'        => 'multicolor',
-              'settings'    => 'color_border',
-              'label'       => esc_html__('Custom colors', 'municipio'),
-              'section'     => $sectionID,
-              'priority'    => 10,
-              'transport' => 'auto',
-              'choices'     => [
-                  'background'    => esc_html__('Background', 'municipio'),
-                  'contrasting'    => esc_html__('Contrasting', 'municipio'),
-                  'background_active'    => esc_html__('Background (active)', 'municipio'),
-                  'contrasting_active'    => esc_html__('Contrasting (active)', 'municipio'),
-              ],
-              'default'     => [
-                  'background'    => '#eee',
-                  'contrasting'    => '#000',
-                  'background_active' => '#eee',
-                  'contrasting_active' => '#eee'
-              ],
-              'output' => [
-                  [
-                      'choice'    => 'background',
-                      'element'   => ':root',
-                      'property'  => '--color-border-divider',
-                  ],
-                  [
-                      'choice'    => 'contrasting',
-                      'element'   => ':root',
-                      'property'  => '--color-border-outline',
-                  ],
-                  [
-                    'choice'    => 'background_active',
-                    'element'   => ':root',
-                    'property'  => '--color-border-outline',
-                  ],
-                  [
-                    'choice'    => 'contrasting_active',
-                    'element'   => ':root',
-                    'property'  => '--color-border-outline',
-                  ],
-              ],
-              'active_callback'  => [
-                [
-                  'setting'  => 'siteselector_color_source',
-                  'operator' => '===',
-                  'value'    => 'custom',
-                ]
-              ],
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
+          'type'        => 'multicolor',
+          'settings'    => 'color_border',
+          'label'       => esc_html__('Custom colors', 'municipio'),
+          'section'     => $sectionID,
+          'priority'    => 10,
+          'transport' => 'auto',
+          'choices'     => [
+            'background'    => esc_html__('Background', 'municipio'),
+            'contrasting'    => esc_html__('Contrasting', 'municipio'),
+            'background_active'    => esc_html__('Background (active)', 'municipio'),
+            'contrasting_active'    => esc_html__('Contrasting (active)', 'municipio'),
+          ],
+          'default'     => [
+            'background'    => '#eee',
+            'contrasting'    => '#000'
+          ],
+          'output' => [
+            [
+                'choice'    => 'background',
+                'element'   => ':root',
+                'property'  => '--c-siteselector-background'
+            ],
+            [
+                'choice'    => 'contrasting',
+                'element'   => ':root',
+                'property'  => '--c-siteselector-contrast'
+            ]
+          ],
+          'active_callback'  => [
+            [
+              'setting'  => 'siteselector_color_source',
+              'operator' => '===',
+              'value'    => 'custom',
+            ]
           ]
-      );
+      ]);
 
-      Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+      Kirki::add_field(Customizer::KIRKI_CONFIG, [
         'type'        => 'select',
         'settings'    => 'siteselector_color_scheme',
         'label'       => esc_html__('Color scheme', 'municipio'),
@@ -88,9 +73,13 @@ class Siteselector
           'secondary' => esc_html__('Secondary', 'municipio')
         ],
         'output' => [
-          [
-            'type' => 'modifier',
-            'context' => ['site.quicklinks']
+          'type' => 'component_data',
+          'dataKey' => 'color',
+          'context' => [
+            [
+                'context' => 'component.siteselector',
+                'operator' => '==',
+            ],
           ]
         ],
         'active_callback'  => [
@@ -105,8 +94,8 @@ class Siteselector
       Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
         'type'        => 'select',
         'settings'    => 'siteselector_border_radius',
-        'label'       => esc_html__('Text color', 'municipio'),
-        'description' => esc_html__('Select a font/text color to use.', 'municipio'),
+        'label'       => esc_html__('Rounded corners', 'municipio'),
+        'description' => esc_html__('Select amount of border radius', 'municipio'),
         'section'     => $sectionID,
         'default'     => 'pill',
         'priority'    => 10,
@@ -118,11 +107,15 @@ class Siteselector
           'pill' => esc_html__('Pill', 'municipio')
         ],
         'output' => [
-          [
-            'type' => 'modifier',
-            'context' => ['site.quicklinks']
+          'type' => 'component_data',
+          'dataKey' => 'radius',
+          'context' => [
+            [
+                'context' => 'component.siteselector',
+                'operator' => '==',
+            ],
           ]
-        ]
+        ],
       ]);
 
     }
