@@ -1,5 +1,5 @@
 @siteselector([
   'items' => $siteselectorMenuItems,
-  'maxItems' => 2
+  'maxItems' => $customizer->siteSelectorMaxItems ?? 3
 ])
 @endsiteselector
