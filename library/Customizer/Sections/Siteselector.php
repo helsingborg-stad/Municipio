@@ -19,7 +19,17 @@ class Siteselector
           'choices'     => [
             'default' => esc_html__('Predefined colors', 'municipio'),
             'custom'  => esc_html__('Custom color', 'municipio'),
-          ]
+          ],
+          'output' => [
+            'type' => 'component_data',
+            'dataKey' => 'colorMode',
+            'context' => [
+              [
+                  'context' => 'component.siteselector',
+                  'operator' => '==',
+              ],
+            ]
+          ],
         ]);
 
         Kirki::add_field(Customizer::KIRKI_CONFIG, [
@@ -105,6 +115,30 @@ class Siteselector
           'md' => esc_html__('Medium', 'municipio'),
           'lg' => esc_html__('Large', 'municipio'),
           'pill' => esc_html__('Pill', 'municipio')
+        ],
+        'output' => [
+          'type' => 'component_data',
+          'dataKey' => 'radius',
+          'context' => [
+            [
+                'context' => 'component.siteselector',
+                'operator' => '==',
+            ],
+          ]
+        ],
+      ]);
+
+      Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'slider',
+        'settings'    => 'siteselector_max_items',
+        'label'       => esc_html__('Number of items', 'municipio'),
+        'description' => esc_html__('The maximum number of items to display, before folding to a dropdown.', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => 3,
+        'choices'     => [
+            'min'  => 2,
+            'max'  => 7,
+            'step' => 1,
         ],
         'output' => [
           'type' => 'component_data',
