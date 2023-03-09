@@ -99,7 +99,7 @@ class BlockManager
                 'keywords'          => array('container', 'wrapper', 'background'),
                 'supports'          => [
                     'align' => true,
-                    'jsx' => true
+                    'jsx' => true,
                 ],
                 'view' => 'container'
             ));
@@ -139,19 +139,18 @@ class BlockManager
             if (!empty($data['backgroundImage'])) {
                 $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');
                 if ($image) {
-                    $data['style'] = [
-                        "background-image:url($image)",
-                        "background-size:cover",
-                        "background-position:center center"
-                    ];
+                    $data['style'][] = "background-image:url($image)";
+                    $data['style'][] = "background-size:cover";
+                    $data['style'][] = "background-position:center center";
                 }
             }
 
             if (!empty($data['style'])) {
-                $data['style'] = 'style=' . implode(';', $data['style']) . ';';
+                $data['style'] = implode(';', $data['style']);
             } else {
                 $data['style'] = '';
             }
+
             echo render_blade_view(
                 $block['view'],
                 $data
