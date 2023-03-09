@@ -28,6 +28,27 @@ class Shadow
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'slider',
+            'settings'    => 'detail_shadow_amount',
+            'label'       => esc_html__('Amount of detail shadow', 'municipio'),
+            'description' => esc_html__('The detail shadow size will affect smaller components. A value of 0 will turn of the shadow completely.', 'municipio'),
+            'section'     => $sectionID,
+            'transport' => 'auto',
+            'default'     => 0.5,
+            'choices'     => [
+                'min'  => 0,
+                'max'  => 1,
+                'step' => 0.1,
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--detail-shadow-amount',
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'color',
             'settings'    => 'drop_shadow_color',
             'label'       => esc_html__('Color of shadows', 'municipio'),
