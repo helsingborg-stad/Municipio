@@ -23,13 +23,14 @@ class Navigation
             'help-menu' => __('Help menu', 'municipio'),
             'header-tabs-menu' => __('Header tabs menu', 'municipio'),
             'main-menu' => __('Primary menu', 'municipio'),
-            'secondary-menu' => __('Secondary menu & mobile menu', 'municipio'),
+            'secondary-menu' => __('Secondary menu & drawer menu', 'municipio'),
             'hamburger-menu' => __('Hamburger menu', 'municipio'),
             'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
             'floating-menu' => __('Floating menu', 'municipio'),
             'language-menu' => __('Language menu', 'municipio'),
             'quicklinks-menu' => __('Quicklinks menu', 'municipio'),
-            'mobile-drawer' => __('Mobile drawer (bottom)', 'municipio'),
+            'mobile-drawer' => __('Drawer (bottom)', 'municipio'),
+            'siteselector' => __('Siteselector', 'municipio'),
         );
     }
 
