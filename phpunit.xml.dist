@@ -13,4 +13,10 @@
 			<!-- <exclude>./tests/test-sample.php</exclude> -->
 		</testsuite>
 	</testsuites>
+
+	<coverage>
+        <include>
+            <directory suffix=".php">./library</directory>
+        </include>
+    </coverage>
 </phpunit>

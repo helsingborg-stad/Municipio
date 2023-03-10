@@ -58,6 +58,8 @@
     },
 
     "scripts": {
+        "test": "phpunit",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-html .coverage",
         "post-update-cmd": [
 
         ]
