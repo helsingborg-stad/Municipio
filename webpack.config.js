@@ -85,10 +85,7 @@ module.exports = {
             {
                 test: /\.ts?$/,
                 use: 'ts-loader',
-                include: [
-                    path.resolve(__dirname, "assets/source"),
-                    path.resolve(__dirname, "node_modules/@helsingborg-stad")
-                  ]
+                exclude: /node_modules\/(?!(@helsingborg-stad\/styleguide\/source)\/).*/,
             },
             /**
              * Styles
