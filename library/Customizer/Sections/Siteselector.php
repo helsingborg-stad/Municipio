@@ -21,20 +21,22 @@ class Siteselector
             'custom'  => esc_html__('Custom color', 'municipio'),
           ],
           'output' => [
-            'type' => 'component_data',
-            'dataKey' => 'colorMode',
-            'context' => [
-              [
-                  'context' => 'component.siteselector',
-                  'operator' => '==',
-              ],
+            [
+              'type' => 'component_data',
+              'dataKey' => 'colorMode',
+              'context' => [
+                [
+                    'context' => 'component.siteselector',
+                    'operator' => '==',
+                ],
+              ]
             ]
           ],
         ]);
 
         Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'multicolor',
-          'settings'    => 'color_border',
+          'settings'    => 'custom_colors',
           'label'       => esc_html__('Custom colors', 'municipio'),
           'section'     => $sectionID,
           'priority'    => 10,
@@ -81,13 +83,15 @@ class Siteselector
           'secondary' => esc_html__('Secondary', 'municipio')
         ],
         'output' => [
-          'type' => 'component_data',
-          'dataKey' => 'color',
-          'context' => [
-            [
-                'context' => 'component.siteselector',
-                'operator' => '==',
-            ],
+          [
+            'type' => 'component_data',
+            'dataKey' => 'color',
+            'context' => [
+              [
+                  'context' => 'component.siteselector',
+                  'operator' => '==',
+              ],
+            ]
           ]
         ],
         'active_callback'  => [
@@ -115,13 +119,15 @@ class Siteselector
           'pill' => esc_html__('Pill', 'municipio')
         ],
         'output' => [
-          'type' => 'component_data',
-          'dataKey' => 'radius',
-          'context' => [
-            [
-                'context' => 'component.siteselector',
-                'operator' => '==',
-            ],
+          [
+            'type' => 'component_data',
+            'dataKey' => 'radius',
+            'context' => [
+              [
+                  'context' => 'component.siteselector',
+                  'operator' => '==',
+              ],
+            ]
           ]
         ],
       ]);
@@ -139,13 +145,15 @@ class Siteselector
             'step' => 1,
         ],
         'output' => [
-          'type' => 'component_data',
-          'dataKey' => 'radius',
-          'context' => [
-            [
-                'context' => 'component.siteselector',
-                'operator' => '==',
-            ],
+          [
+            'type' => 'component_data',
+            'dataKey' => 'maxItems',
+            'context' => [
+              [
+                  'context' => 'component.siteselector',
+                  'operator' => '==',
+              ],
+            ]
           ]
         ],
       ]);
