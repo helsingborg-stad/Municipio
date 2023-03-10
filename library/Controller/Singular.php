@@ -20,6 +20,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
+        $this->data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
 
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
@@ -76,6 +77,17 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
         return $this->data;
+    }
+
+    public function prepareQuery($query)
+    {
+        if (is_string($query) || !$query->have_posts()) {
+            return false;
+        }
+        foreach ($query->posts as &$postData) {
+            $postData = \Municipio\Helper\Post::preparePostObject($postData);
+        }
+        return $query->posts;
     }
 
     /**
