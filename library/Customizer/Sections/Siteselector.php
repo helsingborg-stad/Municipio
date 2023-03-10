@@ -41,9 +41,7 @@ class Siteselector
           'transport' => 'auto',
           'choices'     => [
             'background'    => esc_html__('Background', 'municipio'),
-            'contrasting'    => esc_html__('Contrasting', 'municipio'),
-            'background_active'    => esc_html__('Background (active)', 'municipio'),
-            'contrasting_active'    => esc_html__('Contrasting (active)', 'municipio'),
+            'contrasting'    => esc_html__('Contrasting', 'municipio')
           ],
           'default'     => [
             'background'    => '#eee',
