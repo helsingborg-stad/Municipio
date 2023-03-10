@@ -58,8 +58,10 @@
     },
 
     "scripts": {
-        "test": "phpunit",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-html .coverage",
+        "test:integration": "phpunit --bootstrap tests/bootstrap.integration.php",
+        "test:integration:coverage": "XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.integration.php --coverage-html .coverage",
+        "test:integration:watch": "phpunit-watcher watch --bootstrap tests/bootstrap.integration.php",
+        "test:integration:coverage:watch": "XDEBUG_MODE=coverage phpunit-watcher watch --bootstrap tests/bootstrap.integration.php --coverage-html .coverage",
         "post-update-cmd": [
 
         ]
@@ -71,6 +73,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "9.6.x-dev",
-        "yoast/phpunit-polyfills": "1.x-dev"
+        "yoast/phpunit-polyfills": "1.x-dev",
+        "spatie/phpunit-watcher": "*"
     }
 }
