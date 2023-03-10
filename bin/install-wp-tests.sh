@@ -176,6 +176,16 @@ install_db() {
 	fi
 }
 
+install_acf() {
+	REPO_NAME="wp-paid-plugins"
+
+	rm -rf $TMPDIR/$REPO_NAME
+	rm -rf "${LOCALTMPDIR}/advanced-custom-fields-pro"
+	git clone git@github.com:helsingborg-stad/$REPO_NAME.git $TMPDIR/$REPO_NAME
+	unzip $TMPDIR/$REPO_NAME/acf.zip -d $TMPDIR
+}
+
+install_acf
 install_wp
 install_test_suite
 install_db
