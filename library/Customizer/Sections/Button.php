@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiCondidional as KirkiCondidional;
+use Municipio\Helper\KirkiConditional as KirkiConditional;
 use Municipio\Customizer as Customizer;
 use Kirki as Kirki;
 
@@ -13,7 +13,7 @@ class Button
         /**
          * Color - Primary
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_button_primary',
             'label'       => esc_html__('Primary button colors', 'municipio'),
@@ -45,7 +45,7 @@ class Button
         /**
          * Color - Secondary
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_button_secondary',
             'label'       => esc_html__('Secondary button colors', 'municipio'),
@@ -77,7 +77,7 @@ class Button
          /**
          * Color - Default
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_button_default',
             'label'       => esc_html__('Default button colors', 'municipio'),

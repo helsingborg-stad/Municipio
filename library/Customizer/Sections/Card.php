@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiCondidional as KirkiCondidional;
+use Municipio\Helper\KirkiConditional as KirkiConditional;
 use Municipio\Customizer as Customizer;
 use Kirki as Kirki;
 
@@ -22,7 +22,7 @@ class Card
         /**
          * Background
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'color',
                 'settings'    => 'card_background',
@@ -55,7 +55,7 @@ class Card
         /**
          * Font color
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'color',
             'settings'    => 'card_color',
             'label'       => esc_html__('Custom card font color', 'municipio'),
@@ -73,7 +73,7 @@ class Card
         /**
          * Border
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'slider',
                 'settings'    => 'card_border_width',
@@ -136,7 +136,7 @@ class Card
         /**
          * Radius
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'slider',
                 'settings'    => 'card_border_radius',
