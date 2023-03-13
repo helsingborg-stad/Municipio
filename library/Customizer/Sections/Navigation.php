@@ -223,9 +223,9 @@ class Navigation
     }
 
     private function addFixedConfiguration($key, $scope, $sectionID, $orientationLabel) {
-        KirkiCondidional::add_field(
+        KirkiConditional::add_field(
             Customizer::KIRKI_CONFIG, [
-              /*   [
+                                [
                     'type'        => 'multicolor',
                     'settings'    => 'nav_f_color_' . $key,
                     'label'       => $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel,
@@ -243,9 +243,9 @@ class Navigation
                     'default' => [
                         'background_color'          => '#fff',
                         'scroll_background_color'   => '#fff',
-                        'text_color'                => '#000',
-                        'icon_color'                => '#000',
-                        'icon_background_color'     => '#fff',
+                        'text_color'                => get_theme_mod('color_palette_primary')['base'] ?? '#ae0b05',
+                        'icon_color'                => '#fff',
+                        'icon_background_color'     => get_theme_mod('color_palette_primary')['base'] ?? '#ae0b05',
                     ],
                     'output' => [
                         [
@@ -274,7 +274,7 @@ class Navigation
                             'property'  => '--c-nav-f-icon-background-color',
                         ],
                     ]
-                ], */
+                ],
                 [
                     'type'        => 'select',
                     'settings'    => 'nav_h_alignment',
