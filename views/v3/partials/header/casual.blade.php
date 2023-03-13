@@ -3,6 +3,7 @@
 @section('primary-navigation')
 
     <div class="c-header__menu c-header__menu--primary">
+
         <div class="c-header__flex-content o-container o-container--wide">
             
             {{-- Header logo --}}
@@ -30,6 +31,9 @@
                     ]
                 ]
             )
+
+            {{-- Siteselector menu items --}}
+            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
 
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')

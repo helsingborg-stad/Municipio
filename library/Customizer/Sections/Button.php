@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiCondidional as KirkiCondidional;
+use Municipio\Helper\KirkiConditional as KirkiConditional;
 use Municipio\Customizer as Customizer;
 use Kirki as Kirki;
 
@@ -11,49 +11,9 @@ class Button
     public function __construct(string $sectionID)
     {
         /**
-         * Radius
-         */
-        /*KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
-            [
-                'type'        => 'slider',
-                'settings'    => 'button_border_radius_sm',
-                'label'       => esc_html__('Radius small', 'municipio'),
-                'section'     => $sectionID,
-                'default'     => 4,
-                'choices'     => [
-                    'min'  => 0,
-                    'max'  => 12,
-                    'step' => 2,
-                ],
-                'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-button-border-radius-sm',
-                    'unit'      => 'px'
-                ],
-            ],
-            [
-                'type'        => 'slider',
-                'settings'    => 'button_border_radius_md',
-                'label'       => esc_html__('Radius medium', 'municipio'),
-                'section'     => $sectionID,
-                'default'     => 8,
-                'choices'     => [
-                    'min'  => 0,
-                    'max'  => 12,
-                    'step' => 2,
-                ],
-                'output'      => [
-                    'element'   => ':root',
-                    'property'  => '--c-button-border-radius-md',
-                    'unit'      => 'px'
-                ],
-            ]
-        ], ['label' => esc_html__('Tailor radius', 'municipio'), 'settings' => 'button_radius']);*/
-
-        /**
          * Color - Primary
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_button_primary',
             'label'       => esc_html__('Primary button colors', 'municipio'),
@@ -85,7 +45,7 @@ class Button
         /**
          * Color - Secondary
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
             'settings'    => 'color_button_secondary',
             'label'       => esc_html__('Secondary button colors', 'municipio'),
@@ -113,5 +73,37 @@ class Button
                 ]
             ],
         ], ['label' => esc_html__('Tailor Color: Secondary', 'municipio'), 'settings' => 'button_secondary_color_active']);
+
+         /**
+         * Color - Default
+         */
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
+            'type'        => 'multicolor',
+            'settings'    => 'color_button_default',
+            'label'       => esc_html__('Default button colors', 'municipio'),
+            'section'     => $sectionID,
+            'priority'    => 10,
+            'transport' => 'auto',
+            'choices'     => [
+                'base'             => esc_html__('Default ', 'municipio'),
+                'contrasting' => esc_html__('Default Contrasting', 'municipio')
+            ],
+            'default'     => [
+                'base'  => Kirki::get_option('color_palette_default')['base'] ?? '#eee',
+                'contrasting'  => Kirki::get_option('color_palette_default')['contrasting'] ?? '#000'
+            ],
+            'output' => [
+                [
+                    'choice'    => 'base',
+                    'element'   => ':root',
+                    'property'  => '--c-button-color',
+                ],
+                [
+                    'choice'    => 'contrasting',
+                    'element'   => ':root',
+                    'property'  => '--c-button-color-contrasting',
+                ]
+            ],
+        ], ['label' => esc_html__('Tailor Color: Default', 'municipio'), 'settings' => 'button_default_color_active']);
     }
 }

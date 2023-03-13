@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiCondidional as KirkiCondidional;
+use Municipio\Helper\KirkiConditional as KirkiConditional;
 use Municipio\Customizer as Customizer;
 use Kirki as Kirki;
 
@@ -22,7 +22,7 @@ class Collection
         /**
          * Background
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'color',
                 'settings'    => 'collection_background',
@@ -55,7 +55,7 @@ class Collection
         /**
          * Font color
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             'type'        => 'color',
             'settings'    => 'collection_color',
             'label'       => esc_html__('Custom collection font color', 'municipio'),
@@ -73,7 +73,7 @@ class Collection
         /**
          * Border
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'slider',
                 'settings'    => 'collection_border_width',
@@ -136,7 +136,7 @@ class Collection
         /**
          * Radius
          */
-        KirkiCondidional::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, [
             [
                 'type'        => 'slider',
                 'settings'    => 'collection_border_radius',
