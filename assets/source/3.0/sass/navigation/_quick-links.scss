@@ -1,3 +1,6 @@
+$c-nav-h-gap: var(--c-nav-h-gap) !default;
+$c-nav-h-alignment: var(--c-nav-h-alignment) !default;
+
 $icon-colors: (
   primary: $color-primary,
   secondary: $color-secondary,
@@ -16,6 +19,11 @@ $icon-colors: (
         &.c-header--sticky {
             top: -1px;
         }
+    }
+
+    .c-nav {
+        justify-content: $c-nav-h-alignment;
+        gap: calc($base * $c-nav-h-gap);
     }
 
     &.c-header--column {

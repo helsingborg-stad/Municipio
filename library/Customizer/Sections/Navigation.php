@@ -206,12 +206,12 @@ class Navigation
                 ],
                 [
                     'type'        => 'select',
-                    'settings'    => 'quicklinks_test',
-                    'label'       => esc_html__('Alignment', 'municipio'),
+                    'settings'    => 'nav_h_alignment',
+                    'label'       => $scope->label . " " . esc_html__('Alignment', 'municipio'),
                     'section'     => $sectionID,
-                    'default'     => 'gap',
+                    'default'     => 'space-evenly',
                     'choices'     => [
-                        'gap' => esc_html__('Gap between', 'municipio'),
+                        'space-evenly' => esc_html__('Gap between', 'municipio'),
                         'center' => esc_html__('Center', 'municipio'),
                     ],
                     'output' => [
@@ -223,13 +223,13 @@ class Navigation
                 ],
                 [
                     'type'        => 'slider',
-                    'settings'    => 'quicklinks_alignment',
-                    'label'       => esc_html__('Amount of gap between', 'municipio'),
+                    'settings'    => 'nav_h_gap',
+                    'label'       => $scope->label . " " . esc_html__('Amount of gap between', 'municipio'),
                     'section'     => $sectionID,
                     'transport' => 'auto',
-                    'default'     => 1,
+                    'default'     => 2,
                     'choices'     => [
-                        'min'  => 0,
+                        'min'  => 1,
                         'max'  => 10,
                         'step' => 1,
                     ],
