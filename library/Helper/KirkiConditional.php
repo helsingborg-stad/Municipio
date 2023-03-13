@@ -2,7 +2,7 @@
 
 namespace Municipio\Helper;
 
-class KirkiCondidional
+class KirkiConditional
 {
   /**
    * Adds a kirki field, with a on/off button for toggling the field.

@@ -2,8 +2,6 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiCondidional as KirkiCondidional;
-use Municipio\Customizer as Customizer;
 use Kirki as Kirki;
 
 class SliderDefault
@@ -13,7 +11,7 @@ class SliderDefault
         /**
          * Slider gap
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'slider_gap',
             'label'       => esc_html__('Gap between slides', 'municipio'),
@@ -36,7 +34,7 @@ class SliderDefault
         /**
          * Slider padding
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'slider_padding',
             'label'       => esc_html__('Padding', 'municipio'),
@@ -59,7 +57,7 @@ class SliderDefault
         /**
          * Slider container colour
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'slider_container_color',
             'label'       => esc_html__('Container colour', 'municipio'),
@@ -90,7 +88,7 @@ class SliderDefault
         /**
          * Slider text alignment
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'slider_text_alignment',
             'label'       => esc_html__('Text alignment', 'municipio'),
@@ -121,7 +119,7 @@ class SliderDefault
         /**
          * Slider overlay
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'slider_coverlay',
             'label'       => esc_html__('Slide overlay', 'municipio'),
@@ -152,7 +150,7 @@ class SliderDefault
         /**
          * Slider button style
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'slider_arrow_button_style',
             'label'       => esc_html__('Arrow button style', 'municipio'),
@@ -179,7 +177,7 @@ class SliderDefault
         /**
          * Slider button color
          */
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'slider_arrow_button_color',
             'label'       => esc_html__('Arrow button color', 'municipio'),
