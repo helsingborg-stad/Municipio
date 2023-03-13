@@ -38,6 +38,13 @@ class Navigation
                     'horizontal',
                     'dropdown'
                 ]
+            ],
+            'fixed' => (object) [
+                'label' => esc_html__('Quick links navigation', 'municipio'),
+                'scopeClass' => '.s-nav-fixed',
+                'types' => [
+                    'horizontal',
+                ]
             ]
         ];
     }
@@ -161,46 +168,83 @@ class Navigation
     private function addHorizontalColorConfiguration($key, $scope, $sectionID, $orientationLabel) {
         KirkiCondidional::add_field(
             Customizer::KIRKI_CONFIG, [
-                'type'        => 'multicolor',
-                'settings'    => 'nav_h_color_' . $key,
-                'label'       => $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel,
-                'section'     => $sectionID,
-                'priority'    => 10,
-                'transport'   => 'auto',
-                'alpha'       => true,
-                'choices'     => [
-                    'contrasting' => esc_html__('Default Contrast', 'municipio'),
-                    'background_active' => esc_html__('Background (Active)', 'municipio'),
-                    'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio'),
-                ],
-                'default'     => [
-                    'contrasting'           => '#000',
-                    'background_active'     => '#fff',
-                    'contrasting_active'    => '#000',
-                ],
-                'output' => [
-                    [
-                        'choice'    => 'contrasting',
-                        'element'   => $scope->scopeClass,
-                        'property'  => '--c-nav-h-color-contrasting',
+                [
+                    'type'        => 'multicolor',
+                    'settings'    => 'nav_h_color_' . $key,
+                    'label'       => $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel,
+                    'section'     => $sectionID,
+                    'priority'    => 10,
+                    'transport'   => 'auto',
+                    'alpha'       => true,
+                    'choices'     => [
+                        'contrasting' => esc_html__('Default Contrast', 'municipio'),
+                        'background_active' => esc_html__('Background (Active)', 'municipio'),
+                        'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio'),
                     ],
-                    [
-                        'choice'    => 'background_active',
-                        'element'   => $scope->scopeClass,
-                        'property'  => '--c-nav-h-background-active',
+                    'default'     => [
+                        'contrasting'           => '#000',
+                        'background_active'     => '#fff',
+                        'contrasting_active'    => '#000',
                     ],
-                    [
-                        'choice'    => 'contrasting_active',
-                        'element'   => $scope->scopeClass,
-                        'property'  => '--c-nav-h-color-contrasting-active',
+                    'output' => [
+                        [
+                            'choice'    => 'contrasting',
+                            'element'   => $scope->scopeClass,
+                            'property'  => '--c-nav-h-color-contrasting',
+                        ],
+                        [
+                            'choice'    => 'background_active',
+                            'element'   => $scope->scopeClass,
+                            'property'  => '--c-nav-h-background-active',
+                        ],
+                        [
+                            'choice'    => 'contrasting_active',
+                            'element'   => $scope->scopeClass,
+                            'property'  => '--c-nav-h-color-contrasting-active',
+                        ]
                     ]
-                ]
-            ], 
+                ],
+                [
+                    'type'        => 'select',
+                    'settings'    => 'quicklinks_test',
+                    'label'       => esc_html__('Alignment', 'municipio'),
+                    'section'     => $sectionID,
+                    'default'     => 'gap',
+                    'choices'     => [
+                        'gap' => esc_html__('Gap between', 'municipio'),
+                        'center' => esc_html__('Center', 'municipio'),
+                    ],
+                    'output' => [
+                        [
+                            'property' => '--c-nav-h-alignment',
+                            'element' => $scope->scopeClass
+                        ],
+                    ],
+                ],
+                [
+                    'type'        => 'slider',
+                    'settings'    => 'quicklinks_alignment',
+                    'label'       => esc_html__('Amount of gap between', 'municipio'),
+                    'section'     => $sectionID,
+                    'transport' => 'auto',
+                    'default'     => 1,
+                    'choices'     => [
+                        'min'  => 0,
+                        'max'  => 10,
+                        'step' => 1,
+                    ],
+                    'output' => [
+                        [
+                            'property' => '--c-nav-h-gap',
+                            'element' => $scope->scopeClass
+                        ]
+                    ],
+                ],
+            ],
             [
                 'label' => esc_html__('Tailor:', 'municipio') . $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel, 
                 'settings' => 'nav_h_color_' . $key . '_customized'
             ],
-            
         );
     }
 }
