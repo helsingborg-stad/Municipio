@@ -49,9 +49,7 @@ class ComponentData extends AbstractApplicator
                 add_filter('ComponentLibrary/Component/Data', function ($data) use ($filter) {
                     $contexts = is_string($data['context']) ? [$data['context']] : $data['context'];
 
-                    if(!in_array('component.siteselector', $contexts)) {
-                        return $data;
-                    }
+                    
 
 
                     if (is_array($contexts) && !empty($contexts)) {
