@@ -1,5 +1,5 @@
-$c-nav-h-gap: var(--c-nav-h-gap) !default;
-$c-nav-h-alignment: var(--c-nav-h-alignment) !default;
+$c-nav-h-gap: var(--c-nav-f-gap, 2) !default;
+$c-nav-h-alignment: var(--c-nav-f-alignment, space-evenly) !default;
 
 $icon-colors: (
   primary: $color-primary,
