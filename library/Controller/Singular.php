@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Archive;
+
 /**
  * Class Singular
  * @package Municipio\Controller
@@ -21,6 +23,25 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
         $this->data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+        if (!empty($this->data['secondaryQuery'])) {
+            $secondaryPostType = $this->data['secondaryQuery']->posts[0]->postType;
+            $archiveProps      = Archive::getArchiveProperties($secondaryPostType, $this->data['customizer']);
+            $currentPath        = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+            $this->data['secondaryPostType'] = $secondaryPostType;
+            $this->data['secondaryTemplate'] = Archive::getTemplate($archiveProps);
+
+            //Pagination
+            $this->data['currentPage'] = get_query_var('paged') ?? 1;
+            $this->data['secondaryPaginationList'] = Archive::getPagination(
+                $currentPath,
+                $this->data['secondaryQuery']
+            );
+            $this->data['showSecondaryPagination'] = Archive::showPagination(
+                $currentPath,
+                $this->data['secondaryQuery']
+            );
+        }
 
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
@@ -84,10 +105,12 @@ class Singular extends \Municipio\Controller\BaseController
         if (is_string($query) || !$query->have_posts()) {
             return false;
         }
+
         foreach ($query->posts as &$post) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
         }
-        return $query->posts;
+
+        return $query;
     }
 
     /**

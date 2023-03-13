@@ -127,14 +127,26 @@ class Archive extends \Municipio\Controller\BaseController
      * @param  string $postType
      * @param  array $customizer
      * @return array|bool
+     *
+     * @deprecated since 3.0.0 In favour of \Municipio\Helper\Archive::getArchiveProperties()
+     *
      */
     private function getArchiveProperties($postType, $customize)
     {
-        $customizationKey = "archive" . $this->camelCasePostTypeName($postType);
-        if (isset($customize->{$customizationKey})) {
-            return (object) $customize->{$customizationKey};
-        }
-        return false;
+        return \Municipio\Helper\Archive::getArchiveProperties($postType, $customize);
+    }
+    /**
+     * Camel case post type name
+     *
+     * @param string $postType
+     * @return string
+     *
+     * @deprecated since 3.0.0 In favour of \Municipio\Helper\Archive::camelCasePostTypeName()
+     *
+     */
+    private function camelCasePostTypeName($postType)
+    {
+        return \Municipio\Helper\Archive::camelCasePostTypeName($postType);
     }
 
     /**
@@ -175,16 +187,6 @@ class Archive extends \Municipio\Controller\BaseController
         return implode(' ', $stack);
     }
 
-    /**
-     * Camel calse post type name
-     *
-     * @param string $postType
-     * @return string
-     */
-    private function camelCasePostTypeName($postType)
-    {
-        return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
-    }
 
     /**
      * Determines if view for filter should be rendered.
@@ -265,14 +267,13 @@ class Archive extends \Municipio\Controller\BaseController
      * @param string $default   The default value, if not found.
      *
      * @return string
+     *
+     * @deprecated since 3.0.0 In favour of \Municipio\Helper\Archive::getTemplate()
+     *
      */
     public function getTemplate($args, string $default = 'cards'): string
     {
-        if (is_object($args) && isset($args->style) && !empty($args->style)) {
-            return $args->style;
-        }
-
-        return $default;
+        return \Municipio\Helper\Archive::getTemplate($args, $default);
     }
 
     /**
@@ -360,41 +361,17 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function getPagination($postType, $archiveBaseUrl, $wpQuery)
     {
-        $numberOfPages = (int) ceil($wpQuery->max_num_pages) + 1;
-
-        if ($numberOfPages > 1) {
-            for ($i = 1; $i < $numberOfPages; $i++) {
-                $href = $archiveBaseUrl . '?' . $this->setQueryString($i);
-
-                $pagination[] = array(
-                    'href' => $href,
-                    'label' => (string) $i
-                );
-            }
-        }
-
-        return \apply_filters('Municipio/Controller/Archive/getPagination', $pagination);
+        return \Municipio\Helper\Archive::getPagination($archiveBaseUrl, $wpQuery);
     }
 
     /**
-     * Of the pagination should show or no
+     * If the pagination should show or no
      *
      * @return bool
      */
     protected function showPagination($postType, $archiveBaseUrl, $wpQuery)
     {
-
-        $pagesArray = $this->getPagination($postType, $archiveBaseUrl, $wpQuery);
-
-        if (is_null($pagesArray)) {
-            return false;
-        }
-
-        if (count($pagesArray) > 1) {
-            return true;
-        }
-
-        return false;
+        return \Municipio\Helper\Archive::showPagination($archiveBaseUrl, $wpQuery);
     }
 
     /**
@@ -405,11 +382,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function setQueryString($number)
     {
-        parse_str($_SERVER['QUERY_STRING'], $queryArgList);
-        $queryArgList['paged'] = $number;
-        $queryString = http_build_query($queryArgList) . "\n";
-
-        return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString);
+        return \Municipio\Helper\Archive::setQueryString($number);
     }
 
     /**
