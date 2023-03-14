@@ -1,5 +1,5 @@
-$c-nav-h-gap: var(--c-nav-f-gap, 2) !default;
-$c-nav-h-alignment: var(--c-nav-f-alignment, space-evenly) !default;
+$c-nav-f-gap: var(--c-nav-f-gap, 2) !default;
+$c-nav-f-alignment: var(--c-nav-f-alignment, space-evenly) !default;
 
 /* colors */
 $c-nav-f-background-color: var(--c-nav-f-background-color, $color-white) !default;
@@ -22,8 +22,8 @@ $c-nav-f-icon-background-color: var(--c-nav-f-icon-background-color, $color-prim
         }
 
     .c-nav {
-        justify-content: $c-nav-h-alignment;
-        gap: calc($base * $c-nav-h-gap);
+        justify-content: $c-nav-f-alignment;
+        gap: calc($base * $c-nav-f-gap);
     }
 
     &.c-header--column {
