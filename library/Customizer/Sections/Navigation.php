@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Helper\KirkiConditional as KirkiConditional;
+use Kirki as Kirki;
 use Municipio\Customizer as Customizer;
 
 class Navigation
@@ -15,6 +15,13 @@ class Navigation
                 'scopeClass' => '.s-nav-sidebar',
                 'types' => [
                     'vertical'
+                ],
+                'default' => [
+                    'contrasting'           => '#000000',
+                    'background_active'     => '#000000',
+                    'contrasting_active'    => '#000000',
+                    'background_expanded'   => 'rgba(0,0,0,.04)',
+                    'divider_color'         => '#eeeeee'
                 ]
             ],
             'drawer' => (object) [
@@ -22,6 +29,13 @@ class Navigation
                 'scopeClass' => '.s-nav-drawer',
                 'types' => [
                     'vertical'
+                ],
+                'default' => [
+                    'contrasting'           => '#ffffff',
+                    'background_active'     => 'rgba(255, 255, 255, 0.05)',
+                    'contrasting_active'    => '#ffffff',
+                    'background_expanded'   => 'rgba(0,0,0,.04)',
+                    'divider_color'         => 'rgba(255, 255, 255, 0.3)'
                 ]
             ],
             'drawer_secondary' => (object) [
@@ -29,6 +43,13 @@ class Navigation
                 'scopeClass' => '.s-nav-drawer-secondary',
                 'types' => [
                     'vertical'
+                ],
+                'default' => [
+                    'contrasting'           => '#000000',
+                    'background_active'     => 'rgba(0,0,0, 0.05)',
+                    'contrasting_active'    => '#000000',
+                    'background_expanded'   => 'rgba(255,255,255,.04)',
+                    'divider_color'         => 'rgba(0,0,0, 0.3)'
                 ]
             ],
             'primary' => (object) [
@@ -37,6 +58,11 @@ class Navigation
                 'types' => [
                     'horizontal',
                     'dropdown'
+                ],
+                'default' => [
+                    'contrasting'           => '#000000',
+                    'background_active'     => 'rgba(255, 255, 255, 0)',
+                    'contrasting_active'    => '#090909'
                 ]
             ]
         ];
@@ -98,9 +124,8 @@ class Navigation
         }
     }
 
-
     private function addVerticalColorConfiguration($key, $scope, $sectionID, $orientationLabel) {
-        KirkiConditional::add_field(
+        Kirki::add_field(
             Customizer::KIRKI_CONFIG, [
                 'type'        => 'multicolor',
                 'settings'    => 'nav_v_color_' . $key,
@@ -116,13 +141,7 @@ class Navigation
                     'background_expanded' => esc_html__('Background (Expanded)', 'municipio'),
                     'divider_color' => esc_html__('Divider', 'municipio'),
                 ],
-                'default'     => [
-                    'contrasting'           => '#000',
-                    'background_active'     => '#fff',
-                    'contrasting_active'    => '#000',
-                    'background_expanded'   => 'rgba(0,0,0,.04)',
-                    'divider_color'         => '#eee',
-                ],
+                'default'     => (array) $scope->default,
                 'output' => [
                     [
                         'choice'    => 'contrasting',
@@ -150,16 +169,12 @@ class Navigation
                         'property'  => '--c-nav-v-divider-color',
                     ]
                 ]
-            ], 
-            [
-                'label' => esc_html__('Tailor:', 'municipio') . $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel, 
-                'settings' => 'nav_v_color_' . $key . '_customized'
             ]
         );
     }
 
     private function addHorizontalColorConfiguration($key, $scope, $sectionID, $orientationLabel) {
-        KirkiConditional::add_field(
+        Kirki::add_field(
             Customizer::KIRKI_CONFIG, [
                 'type'        => 'multicolor',
                 'settings'    => 'nav_h_color_' . $key,
@@ -173,11 +188,7 @@ class Navigation
                     'background_active' => esc_html__('Background (Active)', 'municipio'),
                     'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio'),
                 ],
-                'default'     => [
-                    'contrasting'           => '#000',
-                    'background_active'     => '#fff',
-                    'contrasting_active'    => '#000',
-                ],
+                'default'     => (array) $scope->default,
                 'output' => [
                     [
                         'choice'    => 'contrasting',
@@ -195,12 +206,7 @@ class Navigation
                         'property'  => '--c-nav-h-color-contrasting-active',
                     ]
                 ]
-            ], 
-            [
-                'label' => esc_html__('Tailor:', 'municipio') . $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel, 
-                'settings' => 'nav_h_color_' . $key . '_customized'
-            ],
-            
+            ]
         );
     }
 }
