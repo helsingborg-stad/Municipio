@@ -39,7 +39,7 @@ jobs:
         with: 
           repository: ${{ secrets.PAID_PLUGINS_REPO }}
           token: ${{ secrets.HBG_GH_TOKEN }}
-          path: /tmp/wp-paid-plugins
+          path: ${{ runner.temp }}/wp-paid-plugins
 
       - name: Place ACF plugin in /tmp folder
         run: unzip tmp/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
