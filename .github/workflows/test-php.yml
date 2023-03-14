@@ -20,6 +20,8 @@ jobs:
 
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         php-version: '7.4'
         tools: composer:v2
