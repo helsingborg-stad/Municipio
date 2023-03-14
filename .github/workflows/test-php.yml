@@ -13,7 +13,7 @@ jobs:
       mariadb:
         image: mariadb:10.4
         ports:
-          - 3306
+          - '3306:3306'
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test
