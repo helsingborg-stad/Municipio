@@ -18,7 +18,7 @@ class Navigation
                 ],
                 'default' => [
                     'contrasting'           => '#000000',
-                    'background_active'     => '#000000',
+                    'background_active'     => 'rgba(0,0,0,.04)',
                     'contrasting_active'    => '#000000',
                     'background_expanded'   => 'rgba(0,0,0,.04)',
                     'divider_color'         => '#eeeeee'
@@ -32,7 +32,7 @@ class Navigation
                 ],
                 'default' => [
                     'contrasting'           => '#ffffff',
-                    'background_active'     => 'rgba(255, 255, 255, 0.05)',
+                    'background_active'     => 'rgba(255, 255, 255, 0.04)',
                     'contrasting_active'    => '#ffffff',
                     'background_expanded'   => 'rgba(0,0,0,.04)',
                     'divider_color'         => 'rgba(255, 255, 255, 0.3)'
