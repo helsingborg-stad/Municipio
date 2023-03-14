@@ -281,7 +281,7 @@ class Navigation
                 ],
                 [
                     'type'        => 'select',
-                    'settings'    => 'nav_h_alignment',
+                    'settings'    => 'nav_f_alignment',
                     'label'       => $scope->label . " " . esc_html__('Alignment', 'municipio'),
                     'section'     => $sectionID,
                     'default'     => 'space-evenly',
