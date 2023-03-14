@@ -136,6 +136,7 @@ class Navigation
                     'background_expanded' => esc_html__('Background (Expanded)', 'municipio'),
                     'divider_color' => esc_html__('Divider', 'municipio'),
                 ],
+                'palettes' => KirkiSwatches::get_colors(),
                 'default'     => [
                     'contrasting'           => '#000',
                     'background_active'     => '#fff',
@@ -193,6 +194,7 @@ class Navigation
                     'background_active' => esc_html__('Background (Active)', 'municipio'),
                     'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio'),
                 ],
+                'palettes' => KirkiSwatches::get_colors(),
                 'default'     => [
                     'contrasting'           => '#000',
                     'background_active'     => '#fff',
