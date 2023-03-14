@@ -13,14 +13,34 @@ abstract class AbstractApplicator
      */
     protected function isFieldType($field, $lookForType)
     {
-        if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
-            foreach ($field['output'] as $output) {
-                if (isset($output['type']) && $output['type'] === $lookForType) {
-                    return true;
-                }
+        if( !$this->fieldHasOutput($field) ) {
+            return false;
+        }
+
+        foreach ($field['output'] as $output) {
+            if ($this->fieldOutputHasMatchingType($output, $lookForType)) {
+                return true;
             }
         }
+        
         return false;
+    }
+
+    private function fieldHasOutput(array $field): bool
+    {
+        if (!isset($field['output'])) return false;
+        if (!is_array($field['output'])) return false;
+        if (empty($field['output'])) return false;
+        
+        return true;
+    }
+    
+    private function fieldOutputHasMatchingType(array $output, string $type): bool
+    {
+        if (!isset($output['type'])) return false;
+        if ($output['type'] !== $type) return false;
+        
+        return true;
     }
 
     /**

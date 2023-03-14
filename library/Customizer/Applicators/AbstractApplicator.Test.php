@@ -1,7 +1,6 @@
 <?php
 
 use Municipio\Customizer\Applicators\AbstractApplicator as AbstractApplicator;
-use PHPUnit\Framework\Error\Error;
 
 class AbstractApplicatorTest extends WP_UnitTestCase
 {
