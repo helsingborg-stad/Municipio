@@ -40,7 +40,7 @@ jobs:
           path: wp-paid-plugins
 
       - name: Place ACF plugin in /tmp folder
-        run: unzip wp-paid-plugins/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
+        run: unzip wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
         shell: bash
 
       - name: Set up test environment
