@@ -34,6 +34,8 @@ jobs:
 
       - name: Download ACF Prop plugin
         uses: actions/checkout@v3
+        env:
+          TMPDIR: ${{ runner.temp }}
         with: 
           repository: ${{ secrets.PAID_PLUGINS_REPO }}
           token: ${{ secrets.HBG_GH_TOKEN }}
