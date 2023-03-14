@@ -181,7 +181,13 @@ install_acf() {
 
 	rm -rf $TMPDIR/$REPO_NAME
 	rm -rf "${LOCALTMPDIR}/advanced-custom-fields-pro"
-	git clone git@github.com:helsingborg-stad/$REPO_NAME.git $TMPDIR/$REPO_NAME
+
+	if [[ -z "${GITHUB_TOKEN}" ]]; then
+		git clone https://$GITHUB_TOKEN@github.com/helsingborg-stad/$REPO_NAME.git $TMPDIR/$REPO_NAME
+	else
+		git clone git@github.com:helsingborg-stad/$REPO_NAME.git $TMPDIR/$REPO_NAME
+	fi
+	
 	unzip $TMPDIR/$REPO_NAME/acf.zip -d $TMPDIR
 }
 
