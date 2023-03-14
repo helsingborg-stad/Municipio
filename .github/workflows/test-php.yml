@@ -56,7 +56,7 @@ jobs:
           done
 
       - name: Set up test environment
-        run: composer run test:setup test root root mariadb latest true
+        run: composer run test:setup test root root 127.0.0.1 latest true
 
       - name: Run tests
         run: composer run test
