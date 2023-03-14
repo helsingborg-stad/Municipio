@@ -34,15 +34,13 @@ jobs:
 
       - name: Download ACF Prop plugin
         uses: actions/checkout@v3
-        env:
-          TMPDIR: ${{ runner.temp }}
         with: 
           repository: ${{ secrets.PAID_PLUGINS_REPO }}
           token: ${{ secrets.HBG_GH_TOKEN }}
-          path: ${{ runner.temp }}/wp-paid-plugins
+          path: wp-paid-plugins
 
       - name: Place ACF plugin in /tmp folder
-        run: unzip tmp/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
+        run: unzip wp-paid-plugins/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
         shell: bash
 
       - name: Set up test environment
