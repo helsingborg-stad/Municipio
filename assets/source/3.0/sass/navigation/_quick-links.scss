@@ -8,13 +8,6 @@ $c-nav-f-text-color: var(--c-nav-f-text-color, $color-primary) !default;
 $c-nav-f-icon-color: var(--c-nav-f-icon-color, $color-white) !default;
 $c-nav-f-icon-background-color: var(--c-nav-f-icon-background-color, $color-primary) !default;
 
-$icon-colors: (
-  primary: $color-primary,
-  secondary: $color-secondary,
-  white: $color-white,
-  black: $color-black,
-);
-
 #quicklinks-header {
     background-color: $c-nav-f-background-color;
     z-index: $level-5;
