@@ -14,8 +14,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test
-
-    steps:
+      
     - uses: actions/checkout@v3
 
     - name: Setup PHP with composer v2
@@ -29,8 +28,18 @@ jobs:
     - name: Install dependencies
       run: composer i
 
+    - uses: actions/checkout@v3
+      with: 
+        repository: ${{ secrets.PAID_PLUGINS_REPO }}
+        token: ${{ secrets.HBG_GH_TOKEN }}
+        path: /tmp/wp-paid-plugins
+
+    - name: Place ACF plugin in /tmp folder
+      run: unzip tmp/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
+      shell: bash
+
     - name: Set up test environment
-      run: composer run test:setup test root root db latest
+      run: composer run test:setup test root root db latest false
 
     - name: Run tests
       run: composer run test
