@@ -3,6 +3,7 @@
 namespace Municipio\Customizer\Sections;
 
 use Municipio\Helper\KirkiConditional as KirkiConditional;
+use Municipio\Helper\KirkiSwatches as KirkiSwatches;
 use Municipio\Customizer as Customizer;
 
 class Navigation
@@ -223,6 +224,7 @@ class Navigation
     }
 
     private function addFixedConfiguration($key, $scope, $sectionID, $orientationLabel) {
+        var_dump(KirkiSwatches::get_colors());
         KirkiConditional::add_field(
             Customizer::KIRKI_CONFIG, [
                                 [
@@ -240,6 +242,7 @@ class Navigation
                         'icon_color' => esc_html__('Icon color', 'municipio'),
                         'icon_background_color' => esc_html__('Icon background color', 'municipio'),
                     ],
+                    'palettes' => KirkiSwatches::get_colors(),
                     'default' => [
                         'background_color'          => '#fff',
                         'scroll_background_color'   => '#fff',
