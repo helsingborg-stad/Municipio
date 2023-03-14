@@ -10,11 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      db:
+      mariadb:
         image: mariadb:10.4
+        ports:
+          - 3306
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+          
 
     steps: 
       
@@ -43,8 +47,16 @@ jobs:
         run: unzip wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
         shell: bash
 
+      - name: Verify MariaDB connection
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done
+
       - name: Set up test environment
-        run: composer run test:setup test root root db latest true
+        run: composer run test:setup test root root mariadb latest true
 
       - name: Run tests
         run: composer run test
