@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $# -lt 3 ]; then
-	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-plugin-download] [skip-database-creation]"
+	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation] [skip-plugin-download]"
 	exit 1
 fi
 
@@ -10,8 +10,8 @@ DB_USER=$2
 DB_PASS=$3
 DB_HOST=${4-localhost}
 WP_VERSION=${5-latest}
-SKIP_PLUGIN_DOWNLOAD=${6-false}
-SKIP_DB_CREATE=${7-false}
+SKIP_DB_CREATE=${6-false}
+SKIP_PLUGIN_DOWNLOAD=${7-false}
 
 TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")

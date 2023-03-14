@@ -59,7 +59,7 @@
 
     "scripts": {
         "test": "phpunit --bootstrap tests/bootstrap.php",
-        "test:setup": "bin/install-wp-tests.sh",
+        "test:setup": "tests/install-wp-tests.sh",
         "test:coverage": "rm -rf .coverage && XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml",
         "test:watch": "phpunit-watcher watch --bootstrap tests/bootstrap.php",
         "test:coverage:watch": "XDEBUG_MODE=coverage phpunit-watcher watch --bootstrap tests/bootstrap.php --coverage-html .coverage",
