@@ -24,7 +24,7 @@ class Navigation
                     'vertical'
                 ]
             ],
-            'drawer-secondary' => (object) [
+            'drawer_secondary' => (object) [
                 'label' => esc_html__('Drawer navigation, secondary', 'municipio'),
                 'scopeClass' => '.s-nav-drawer-secondary',
                 'types' => [
