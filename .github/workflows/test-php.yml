@@ -4,6 +4,7 @@ on:
   pull_request:
 
 jobs:
+  
   test:
 
     runs-on: ubuntu-latest
@@ -15,7 +16,8 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test
       
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
 
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
@@ -28,7 +30,8 @@ jobs:
     - name: Install dependencies
       run: composer i
 
-    - uses: actions/checkout@v3
+    - name: Download ACF Prop plugin
+      uses: actions/checkout@v3
       with: 
         repository: ${{ secrets.PAID_PLUGINS_REPO }}
         token: ${{ secrets.HBG_GH_TOKEN }}
