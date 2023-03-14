@@ -35,7 +35,7 @@ class Navigation
                     'background_active'     => 'rgba(255, 255, 255, 0.04)',
                     'contrasting_active'    => '#ffffff',
                     'background_expanded'   => 'rgba(0,0,0,.04)',
-                    'divider_color'         => 'rgba(255, 255, 255, 0.3)'
+                    'divider_color'         => 'rgba(255, 255, 255, 0.05)'
                 ]
             ],
             'drawer_secondary' => (object) [
