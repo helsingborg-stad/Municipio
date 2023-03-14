@@ -4,29 +4,29 @@ use Municipio\Customizer\Applicators\ComponentData;
 
 class ComponentDataTest extends WP_UnitTestCase
 {
-	public function testGetAllFieldsReturnsArray()
-	{
+    public function testGetAllFieldsReturnsArray()
+    {
         // Given
         $sut = new ComponentData();
-        
+
         // When
         $fields = $sut->getAllFields();
 
-		// Then
-		$this->assertIsArray($fields);
-	}
+        // Then
+        $this->assertIsArray($fields);
+    }
 
     public function testGetAllFieldsReturnsNonEmptyArray()
-	{
+    {
         // Given
         $sut = new ComponentData();
-        
+
         // When
         $fields = $sut->getAllFields();
 
-		// Then
-		$this->assertNotEmpty($fields);
-	}
+        // Then
+        $this->assertNotEmpty($fields);
+    }
 
     public function testBuildFilterDataReturnsMultidimensionalArray()
     {

@@ -11,11 +11,13 @@ class ComponentData extends AbstractApplicator
         add_action('wp', array($this, 'applyComponentData'));
     }
 
-    public function getAllFields() {
+    public function getAllFields()
+    {
         return Kirki::$all_fields;
     }
 
-    public function applyComponentData() {
+    public function applyComponentData()
+    {
         //Get field definition
         $fields = $this->getAllFields();
 
@@ -36,17 +38,17 @@ class ComponentData extends AbstractApplicator
                     continue;
                 }
 
-        
+
                 if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output'])) {
                     foreach ($field['output'] as $output) {
-                        
+
                         if (isset($output['context'])) {
                             $filterData = $this->buildFilterData(
-                                $output['dataKey'], 
+                                $output['dataKey'],
                                 \Kirki::get_option($key)
                             );
 
-                            
+
                             $filter = [
                                 'contexts'  => $output['context'],
                                 'data'      => $filterData
@@ -58,13 +60,8 @@ class ComponentData extends AbstractApplicator
                 add_filter('ComponentLibrary/Component/Data', function ($data) use ($filter) {
                     $contexts = is_string($data['context']) ? [$data['context']] : $data['context'];
 
-                    
-
-
                     if (is_array($contexts) && !empty($contexts)) {
                         foreach ($contexts as $context) {
-
-
                             if (in_array($context, $filter['contexts'])) {
                                 $data = array_replace_recursive($data, $filter['data']);
                                 break;

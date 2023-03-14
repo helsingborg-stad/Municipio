@@ -52,7 +52,7 @@ class AbstractApplicatorTest extends WP_UnitTestCase
         // Then
         $this->assertTrue($result);
     }
-    
+
     public function testIsFieldTypeReturnsFalseWhenOutputTypeNotMatchingLookForType()
     {
         // Given
@@ -65,7 +65,7 @@ class AbstractApplicatorTest extends WP_UnitTestCase
         // Then
         $this->assertFalse($result);
     }
-    
+
     public function testIsFieldTypeReturnsFalseWhenOutputTypeMissing()
     {
         // Given
@@ -147,12 +147,12 @@ class AbstractApplicatorTest extends WP_UnitTestCase
         // When
         try {
             $this->invokeMethod($this->sut, 'hasFilterContexts', [$contexts, $filterContexts]);
-        } catch(Throwable $th) {
+        } catch (Throwable $th) {
             // Then
             $this->assertEquals($errorMessage, $th->getMessage());
         }
     }
-    
+
     public function testHasFilterContextsTriggersErrorWhenContextIsNotString()
     {
         // Given
@@ -163,7 +163,7 @@ class AbstractApplicatorTest extends WP_UnitTestCase
         // When
         try {
             $this->invokeMethod($this->sut, 'hasFilterContexts', [$contexts, $filterContexts]);
-        } catch(Throwable $th) {
+        } catch (Throwable $th) {
             // Then
             $this->assertEquals($errorMessage, $th->getMessage());
         }
