@@ -11,9 +11,9 @@ abstract class AbstractApplicator
      * @param string $lookForType
      * @return boolean
      */
-    protected function isFieldType($field, $lookForType)
+    protected function isFieldType($field, $lookForType): bool
     {
-        if( !$this->fieldHasOutput($field) ) {
+        if (!$this->fieldHasOutput($field)) {
             return false;
         }
 
@@ -22,25 +22,26 @@ abstract class AbstractApplicator
                 return true;
             }
         }
-        
+
         return false;
     }
 
     private function fieldHasOutput(array $field): bool
     {
-        if (!isset($field['output'])) return false;
-        if (!is_array($field['output'])) return false;
-        if (empty($field['output'])) return false;
-        
-        return true;
+        if (!isset($field['output']) || !is_array($field['output'])) {
+            return false;
+        }
+
+        return !empty($field['output']);
     }
-    
+
     private function fieldOutputHasMatchingType(array $output, string $type): bool
     {
-        if (!isset($output['type'])) return false;
-        if ($output['type'] !== $type) return false;
-        
-        return true;
+        if (!isset($output['type'])) {
+            return false;
+        }
+
+        return $output['type'] === $type;
     }
 
     /**
@@ -51,10 +52,8 @@ abstract class AbstractApplicator
      */
     protected function isValidOperator($operator): bool
     {
-        if (in_array((string) $operator, ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
-            return true;
-        }
-        return false;
+        $validOperators = ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'];
+        return in_array((string) $operator, $validOperators);
     }
 
     protected function hasFilterContexts(array $contexts, array $filterContexts): bool

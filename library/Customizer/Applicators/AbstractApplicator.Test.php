@@ -65,6 +65,19 @@ class AbstractApplicatorTest extends WP_UnitTestCase
         // Then
         $this->assertFalse($result);
     }
+    
+    public function testIsFieldTypeReturnsFalseWhenOutputTypeMissing()
+    {
+        // Given
+        $field = array('output' => [['foo' => 'bar']]);
+        $lookForType = 'bar';
+
+        // When
+        $result = $this->invokeMethod($this->sut, 'isFieldType', [$field, $lookForType]);
+
+        // Then
+        $this->assertFalse($result);
+    }
 
     /**
      * @dataProvider provideValidOperators
