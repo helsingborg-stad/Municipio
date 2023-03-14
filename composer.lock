@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07bce6a3fc2c3dc3571f2c6992d6670f",
+    "content-hash": "45960d0b50fb2d33e99746672de6ae84",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -4917,12 +4917,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/PHPUnit-Polyfills.git",
-                "reference": "b5d4d6c67e58f548b0f577dcfbc710a563946c17"
+                "reference": "bb27ca08609ece113f88225648b3cd02f7aecd04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/b5d4d6c67e58f548b0f577dcfbc710a563946c17",
-                "reference": "b5d4d6c67e58f548b0f577dcfbc710a563946c17",
+                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/bb27ca08609ece113f88225648b3cd02f7aecd04",
+                "reference": "bb27ca08609ece113f88225648b3cd02f7aecd04",
                 "shasum": ""
             },
             "require": {
@@ -4971,7 +4971,7 @@
                 "issues": "https://github.com/Yoast/PHPUnit-Polyfills/issues",
                 "source": "https://github.com/Yoast/PHPUnit-Polyfills"
             },
-            "time": "2023-03-10T01:15:55+00:00"
+            "time": "2023-03-13T18:24:33+00:00"
         },
         {
             "name": "yosymfony/resource-watcher",
@@ -5037,8 +5037,7 @@
         "helsingborg-stad/blade-engine-wrapper": 20,
         "tgmpa/tgm-plugin-activation": 20,
         "ouun/kirki-module-fonts_upload": 20,
-        "phpunit/phpunit": 20,
-        "yoast/phpunit-polyfills": 20
+        "phpunit/phpunit": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
