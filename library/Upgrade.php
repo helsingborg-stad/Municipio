@@ -499,6 +499,7 @@ class Upgrade
      */
     private function v_24($db): bool
     {
+        die("HELLO"); 
         do_action('municipio_store_theme_mod');
         return true;
     }
