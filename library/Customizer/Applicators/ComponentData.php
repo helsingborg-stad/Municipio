@@ -2,6 +2,8 @@
 
 namespace Municipio\Customizer\Applicators;
 
+use Kirki\Compatibility\Kirki;
+
 class ComponentData extends AbstractApplicator
 {
     public function __construct()
@@ -9,16 +11,24 @@ class ComponentData extends AbstractApplicator
         add_action('wp', array($this, 'applyComponentData'));
     }
 
+    public function getAllFields() {
+        return Kirki::$all_fields;
+    }
+
+    public function applyComponentData() {
+        //Get field definition
+        $fields = $this->getAllFields();
+
+        $this->handleFields($fields);
+    }
+
     /**
      * Apply component data
      *
      * @return void
      */
-    public function applyComponentData()
+    public function handleFields($fields)
     {
-        //Get field definition
-        $fields = \Kirki::$all_fields;
-
         //Determine what's a component var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
@@ -26,8 +36,7 @@ class ComponentData extends AbstractApplicator
                     continue;
                 }
 
-                
-
+        
                 if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output'])) {
                     foreach ($field['output'] as $output) {
                         
@@ -81,7 +90,7 @@ class ComponentData extends AbstractApplicator
      * 
      * @return array Component data array
      */
-    private function buildFilterData(string $dataKey, $value): array
+    public function buildFilterData(string $dataKey, $value): array
     {
         $filterData = [];
         $previousArr = &$filterData;
