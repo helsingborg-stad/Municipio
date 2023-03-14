@@ -15,34 +15,36 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test
+
+    steps: 
       
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup PHP with composer v2
-      uses: shivammathur/setup-php@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        php-version: '7.4'
-        tools: composer:v2
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          php-version: '7.4'
+          tools: composer:v2
 
-    - name: Install dependencies
-      run: composer i
+      - name: Install dependencies
+        run: composer i
 
-    - name: Download ACF Prop plugin
-      uses: actions/checkout@v3
-      with: 
-        repository: ${{ secrets.PAID_PLUGINS_REPO }}
-        token: ${{ secrets.HBG_GH_TOKEN }}
-        path: /tmp/wp-paid-plugins
+      - name: Download ACF Prop plugin
+        uses: actions/checkout@v3
+        with: 
+          repository: ${{ secrets.PAID_PLUGINS_REPO }}
+          token: ${{ secrets.HBG_GH_TOKEN }}
+          path: /tmp/wp-paid-plugins
 
-    - name: Place ACF plugin in /tmp folder
-      run: unzip tmp/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
-      shell: bash
+      - name: Place ACF plugin in /tmp folder
+        run: unzip tmp/wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
+        shell: bash
 
-    - name: Set up test environment
-      run: composer run test:setup test root root db latest false
+      - name: Set up test environment
+        run: composer run test:setup test root root db latest false
 
-    - name: Run tests
-      run: composer run test
+      - name: Run tests
+        run: composer run test
