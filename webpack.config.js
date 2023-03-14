@@ -274,5 +274,5 @@ module.exports = {
         }))
     ]).filter(Boolean),
     devtool: 'source-map',
-    stats: { children: false }
+    stats: { children: false, loggingDebug: ifNotProduction(['sass-loader'], []), }
 };
