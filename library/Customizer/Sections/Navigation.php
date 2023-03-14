@@ -226,7 +226,6 @@ class Navigation
     }
 
     private function addFixedConfiguration($key, $scope, $sectionID, $orientationLabel) {
-        var_dump(KirkiSwatches::get_colors());
         KirkiConditional::add_field(
             Customizer::KIRKI_CONFIG, [
                                 [
