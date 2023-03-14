@@ -40,7 +40,7 @@ class AbstractApplicatorTest extends WP_UnitTestCase
         $this->assertEquals($result, false);
     }
 
-    public function testIsFieldTypeReturnsTrueWhenOutputTypeMatchesLookForType()
+    public function testIsFieldTypeReturnsTrueWhenOutputTypeMatchingLookForType()
     {
         // Given
         $field = array('output' => [['type' => 'foo']]);
@@ -51,6 +51,19 @@ class AbstractApplicatorTest extends WP_UnitTestCase
 
         // Then
         $this->assertTrue($result);
+    }
+    
+    public function testIsFieldTypeReturnsFalseWhenOutputTypeNotMatchingLookForType()
+    {
+        // Given
+        $field = array('output' => [['type' => 'foo']]);
+        $lookForType = 'bar';
+
+        // When
+        $result = $this->invokeMethod($this->sut, 'isFieldType', [$field, $lookForType]);
+
+        // Then
+        $this->assertFalse($result);
     }
 
     /**
