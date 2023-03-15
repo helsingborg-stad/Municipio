@@ -93,4 +93,104 @@ class Archive
 
         return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString);
     }
+
+    /**
+     * Boolean function to determine if navigation should be shown
+     *
+     * @param string $postType
+     * @return boolean
+     */
+    public static function showFilter($args)
+    {
+        $arrayWithoutEmptyValues = isset($args->enabledFilters)
+            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
+            : [];
+
+        if (!empty($arrayWithoutEmptyValues)) {
+            return $args->enabledFilters;
+        }
+
+        return false;
+    }
+
+    /**
+     * Boolean function to determine if text search should be enabled
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
+    public static function enableTextSearch($args)
+    {
+        return (bool) in_array(
+            'text_search',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
+    }
+    /**
+     * Boolean function to determine if date filter should be enabled
+     *
+     * @param   string      $postType   The current post type
+     * @return  boolean                 True or false val.
+     */
+    public static function enableDateFilter($args)
+    {
+        return (bool) in_array(
+            'date_range',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
+    }
+    public static function getFacettingType($args)
+    {
+        if (!isset($args->filterType) || is_null($args->filterType)) {
+            $args->filterType = false;
+        }
+        return (bool) $args->filterType;
+    }
+
+
+    public static function displayReadingTime($args)
+    {
+        if (!isset($args->readingTime)) {
+            return false;
+        }
+
+        return (bool) $args->readingTime;
+    }
+    /**
+     * Create a grid column size
+     * @param  array $archiveProps
+     * @return string
+     */
+    public static function getGridClass($args): string
+    {
+        $stack = [];
+
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
+        if (!isset($args->numberOfColumns) || !is_numeric($args->numberOfColumns)) {
+            $args->numberOfColumns = 4;
+        }
+
+        $stack[] = \Municipio\Helper\Html::createGridClass(1);
+
+        if ($args->numberOfColumns == 2) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'lg');
+        }
+
+        if ($args->numberOfColumns == 3) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'lg');
+        }
+
+        if ($args->numberOfColumns == 4) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'sm');
+            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(4, 'lg');
+        }
+
+        return implode(' ', $stack);
+    }
 }

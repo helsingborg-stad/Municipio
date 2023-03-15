@@ -156,35 +156,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getGridClass($args): string
     {
-        $stack = [];
-
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        if (!isset($args->numberOfColumns) || !is_numeric($args->numberOfColumns)) {
-            $args->numberOfColumns = 4;
-        }
-
-        $stack[] = \Municipio\Helper\Html::createGridClass(1);
-
-        if ($args->numberOfColumns == 2) {
-            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
-            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'lg');
-        }
-
-        if ($args->numberOfColumns == 3) {
-            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
-            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'lg');
-        }
-
-        if ($args->numberOfColumns == 4) {
-            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'sm');
-            $stack[] = \Municipio\Helper\Html::createGridClass(3, 'md');
-            $stack[] = \Municipio\Helper\Html::createGridClass(4, 'lg');
-        }
-
-        return implode(' ', $stack);
+        return \Municipio\Helper\Archive::getGridClass($args);
     }
 
 
@@ -210,15 +182,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function showFilter($args)
     {
-        $arrayWithoutEmptyValues = isset($args->enabledFilters)
-            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
-            : [];
-
-        if (!empty($arrayWithoutEmptyValues)) {
-            return $args->enabledFilters;
-        }
-
-        return false;
+        return \Municipio\Helper\Archive::showFilter($args);
     }
 
     /**
@@ -229,10 +193,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function enableTextSearch($args)
     {
-        return (bool) in_array(
-            'text_search',
-            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
-        );
+        return \Municipio\Helper\Archive::enableTextSearch($args);
     }
 
     /**
@@ -243,10 +204,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function enableDateFilter($args)
     {
-        return (bool) in_array(
-            'date_range',
-            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
-        );
+        return \Municipio\Helper\Archive::enableDateFilter($args);
     }
 
     /**
@@ -421,20 +379,13 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function getFacettingType($args)
     {
-        if (!isset($args->filterType) || is_null($args->filterType)) {
-            $args->filterType = false;
-        }
-        return (bool) $args->filterType;
+        return \Municipio\Helper\Archive::getFacettingType($args);
     }
 
 
     public function displayReadingTime($args)
     {
-        if (!isset($args->readingTime)) {
-            return false;
-        }
-
-        return (bool) $args->readingTime;
+        return \Municipio\Helper\Archive::displayReadingTime($args);
     }
 
     /**
