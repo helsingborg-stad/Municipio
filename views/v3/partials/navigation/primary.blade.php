@@ -10,7 +10,8 @@
         ),
         'context' => ['site.header.nav', 'site.header.casual.nav'],
         'height' => 'lg',
-        'expandLabel' => $lang->expand
+        'expandLabel' => $lang->expand,
+        'includeToggle' => $customizer->primaryMenuDropdown ?? false
     ])
     @endnav
 </nav>
