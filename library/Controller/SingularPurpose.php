@@ -113,6 +113,9 @@ class SingularPurpose extends \Municipio\Controller\Singular
             $result = get_posts($args);
             
             if (!empty($result)) {
+                foreach ($result as &$post) {
+                    $post = \Municipio\Helper\Post::preparePostObject($post);
+                }
                 $posts[$postType] = $result;
             }
         }
