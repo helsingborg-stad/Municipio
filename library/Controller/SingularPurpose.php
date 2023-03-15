@@ -37,4 +37,64 @@ class SingularPurpose extends \Municipio\Controller\Singular
             $this->getPageID()
         );
     }
+
+      /**
+     * @return array|void
+     */
+    public function init()
+    {
+         parent::init();
+        $fields = get_fields($this->getPageID());
+
+        $this->data['phone'] = $fields['phone'];
+        $this->data['website'] = $fields['website'];
+        $this->data['location'] = $fields['location'];
+        $this->data['cuisine'] = $this->getTermNames($fields['cuisine']);
+        $this->data['other'] = $this->getTermNames($fields['other']);
+        $this->data['activities'] = $this->getTermNames($fields['activities']);
+        
+        $this->data['guides'] = $this->getPosts('guide');
+
+        $this->data['labels'] = [
+            'relatedGuides' => __('Related guides & articles', 'municipio'),
+            'similarPlaces' => __('Similar places', 'municipio'),
+            'upcomingEvents' => __('Upcoming events', 'municipio'),
+            'showAll' => __('Show all', 'municipio'),
+        ];
+
+        // var_dump($this->data['guides']);
+
+        return $this->data;
+    }
+
+    private function getPosts($customPostType) {
+        $args = [
+            'post_type' => $customPostType,
+        ];
+
+        $posts = get_posts($args);
+
+        if (empty($posts)) {
+            return false;
+        }
+
+        foreach ($posts as &$post) {
+            $post = \Municipio\Helper\Post::preparePostObject($post);
+            $post->readingTime = \Municipio\Helper\ReadingTime::getReadingTime($post->postContent, 0, true);
+        }
+        var_dump($posts);
+        return $posts;
+    }
+
+    private function getTermNames ($termIds) {
+        if (empty($termIds)) {
+            return false;
+        }
+
+        $terms = array();
+        foreach ($termIds as $termId) {
+            $terms[] = get_term($termId);
+        }
+        return $terms;
+    }
 }
