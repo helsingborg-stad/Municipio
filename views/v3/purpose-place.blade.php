@@ -39,58 +39,35 @@
 
 @section('below')
     @foreach($relatedPosts as $postType => $posts) 
-    <div class="o-grid">
-        @group([
-                'justifyContent' => 'space-between',
-            ])
-            @typography([
-                'element' => 'h2',
-            ])
-                Related blabla
-            @endtypography
-            @link([
-                'href' => get_post_type_archive_link($postType),
-            ])
-            {{$labels['showAll']}}
-            @endlink
-        @endgroup
-    @foreach($posts as $post) 
-        <div class="o-grid-4@md u-margin__bottom--8">
-            @php var_dump($post) @endphp
-         </div>
-    @endforeach
+        <div class="o-grid">
+            @group([
+                    'justifyContent' => 'space-between',
+                ])
+                @typography([
+                    'element' => 'h2',
+                ])
+                    Related blabla
+                @endtypography
+                @link([
+                    'href' => get_post_type_archive_link($postType),
+                ])
+                {{$labels['showAll']}}
+                @endlink
+            @endgroup
+            @foreach($posts as $post) 
+                <div class="o-grid-4@md u-margin__bottom--8">
+                    @segment([
+                        'layout' => 'card',
+                        'title' => $post->postTitle,
+                        'content' => $post->excerpt,
+                        'image' => $post->thumbnail['src'],
+                        'buttons' => [['text' => 'Read more', 'href' => $post->permalink]],
+                        'tags' => $post->terms,
+                        'meta' => $post->readingTime,
+                    ])
+                    @endsegment
+                </div>
+            @endforeach
         </div>
     @endforeach
-    @if(!empty($guides))
-    <div class="o-grid">
-        @group([
-            'justifyContent' => 'space-between',
-        ])
-        @typography([
-            'element' => 'h2',
-        ])
-            {{$labels['relatedGuides']}}
-        @endtypography
-        @link([
-            'href' => get_post_type_archive_link('guide'),
-        ])
-        {{$labels['showAll']}}
-        @endlink
-        @endgroup
-        @foreach($guides as $guide)
-         <div class="o-grid-4@md u-margin__bottom--8">
-            @segment([
-                'layout' => 'card',
-                'title' => $guide->postTitle,
-                'content' => $guide->excerpt,
-                'image' => $guide->thumbnail['src'],
-                'buttons' => [['text' => 'Read more', 'href' => $guide->permalink]],
-                'tags' => $guide->terms,
-                'meta' => $guide->readingTime,
-            ])
-            @endsegment
-         </div>
-        @endforeach
-    </div>
-    @endif
 @stop

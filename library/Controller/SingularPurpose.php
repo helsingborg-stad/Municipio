@@ -116,6 +116,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
                 foreach ($result as &$post) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                 }
+                
                 $posts[$postType] = $result;
             }
         }
