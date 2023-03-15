@@ -22,7 +22,7 @@ class Navigation
     private $cacheGroup = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
 
-    public function __construct($identifier = '', $context = 'municipio')
+    public function __construct(string $identifier = '', string $context = 'municipio')
     {
         $this->identifier = $identifier;
         $this->context = $context;
