@@ -43,7 +43,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
      */
     public function init()
     {
-         parent::init();
+        parent::init();
         $fields = get_fields($this->getPageID());
 
         $this->data['phone'] = $fields['phone'];
@@ -52,7 +52,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $this->data['cuisine'] = $this->getTermNames($fields['cuisine']);
         $this->data['other'] = $this->getTermNames($fields['other']);
         $this->data['activities'] = $this->getTermNames($fields['activities']);
-        
+
         $this->data['guides'] = $this->getPosts('guide');
 
         $this->data['labels'] = [
@@ -62,13 +62,64 @@ class SingularPurpose extends \Municipio\Controller\Singular
             'showAll' => __('Show all', 'municipio'),
         ];
 
-        // var_dump($this->data['guides']);
+
+        $postId = $this->data['post']->id;
+        $this->data['relatedPosts'] = $this->getPosts($postId); 
+
+        // var_dump($this->data['relatedPosts']);
 
         return $this->data;
     }
 
-    private function getPosts($customPostType) {
-        $args = [
+    private function getPosts($postId) {
+        $taxonomies = get_post_taxonomies($postId);
+        $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'names');
+
+        $arr = [];
+        foreach ($taxonomies as $taxonomy) {
+            $terms = get_the_terms($postId, $taxonomy);
+            if (!empty($terms)) {
+                foreach ($terms as $term) {
+                    $arr[$taxonomy][] = $term->term_id;                 
+                }
+            }
+        }
+
+
+        if (empty($arr)) {
+            return false;
+        }
+        
+        $posts = [];
+        foreach ($postTypes as $postType) {
+            foreach ($arr as $tax => $ids) {
+                $args = array(
+                    'numberposts' => 3,
+                    'post_type' => $postType,
+                    'post__not_in' => array($postId),
+                    'tax_query' => array(
+                        'relation' => 'OR',
+                        array(
+                            'taxonomy' => $tax,
+                            'field' => 'term_id',
+                            'terms' => $ids,
+                            'operator' => 'IN'
+                        )
+                    )
+                );
+                $result = get_posts($args);
+
+                if (!empty($result)) {
+                    $posts[$postType][] = $result;
+                }
+            }
+        }
+
+
+
+        return $posts;
+
+       /*  $args = [
             'post_type' => $customPostType,
         ];
 
@@ -82,8 +133,8 @@ class SingularPurpose extends \Municipio\Controller\Singular
             $post = \Municipio\Helper\Post::preparePostObject($post);
             $post->readingTime = \Municipio\Helper\ReadingTime::getReadingTime($post->postContent, 0, true);
         }
-        var_dump($posts);
-        return $posts;
+        // var_dump($posts);
+        return $posts; */
     }
 
     private function getTermNames ($termIds) {
