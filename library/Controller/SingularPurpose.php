@@ -66,7 +66,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $postId = $this->data['post']->id;
         $this->data['relatedPosts'] = $this->getPosts($postId); 
 
-        // var_dump($this->data['relatedPosts']);
+        var_dump($this->data['relatedPosts']);
 
         return $this->data;
     }
@@ -92,49 +92,34 @@ class SingularPurpose extends \Municipio\Controller\Singular
         
         $posts = [];
         foreach ($postTypes as $postType) {
-            foreach ($arr as $tax => $ids) {
-                $args = array(
-                    'numberposts' => 3,
-                    'post_type' => $postType,
-                    'post__not_in' => array($postId),
-                    'tax_query' => array(
-                        'relation' => 'OR',
-                        array(
-                            'taxonomy' => $tax,
-                            'field' => 'term_id',
-                            'terms' => $ids,
-                            'operator' => 'IN'
-                        )
-                    )
-                );
-                $result = get_posts($args);
+            $args = array(
+                'numberposts' => 3,
+                'post_type' => $postType,
+                'post__not_in' => array($postId),
+                'tax_query' => array(
+                    'relation' => 'OR',
+                ),
+            );
 
-                if (!empty($result)) {
-                    $posts[$postType][] = $result;
-                }
+            foreach ($arr as $tax => $ids) {
+                $args['tax_query'][] = array(
+                    'taxonomy' => $tax,
+                    'field' => 'term_id',
+                    'terms' => $ids,
+                    'operator' => 'IN',
+                );
+            }
+
+            $result = get_posts($args);
+            
+            if (!empty($result)) {
+                $posts[$postType] = $result;
             }
         }
 
 
-
+        var_dump($posts);
         return $posts;
-
-       /*  $args = [
-            'post_type' => $customPostType,
-        ];
-
-        $posts = get_posts($args);
-
-        if (empty($posts)) {
-            return false;
-        }
-
-        foreach ($posts as &$post) {
-            $post = \Municipio\Helper\Post::preparePostObject($post);
-            $post->readingTime = \Municipio\Helper\ReadingTime::getReadingTime($post->postContent, 0, true);
-        }
-        // var_dump($posts);
-        return $posts; */
     }
 
     private function getTermNames ($termIds) {
