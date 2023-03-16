@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Archive;
+
 /**
  * Class Singular
  * @package Municipio\Controller
@@ -19,8 +21,6 @@ class Singular extends \Municipio\Controller\BaseController
         $originalPostData = get_post($this->getPageID());
 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
-
-        $this->data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
 
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
@@ -76,18 +76,57 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
+        //Secondary Query
+        $this->data = $this->setupSecondaryQueryData($this->data);
+
         return $this->data;
     }
 
+    protected function setupSecondaryQueryData($data)
+    {
+        $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+
+        if (empty($data['secondaryQuery'])) {
+            $data['secondaryQuery'] = false;
+            return $data;
+        }
+
+        $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
+
+        $data['secondaryPostType']       = $secondaryPostType;
+        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
+        $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
+            $secondaryPostType,
+            $data['customizer']
+        );
+        $data['secondaryPaginationList'] = Archive::getPagination(
+            $currentPath,
+            $data['secondaryQuery']
+        );
+        $data['showSecondaryPagination'] = Archive::showPagination(
+            $currentPath,
+            $data['secondaryQuery']
+        );
+
+        $data['anyPostHasImage']    = $this->anyPostHasImage($data['secondaryQuery']->posts);
+        $data['currentPage']        = get_query_var('paged') ?? 1;
+        $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
+        $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
+
+        return $data;
+    }
     public function prepareQuery($query)
     {
         if (is_string($query) || !$query->have_posts()) {
             return false;
         }
+
         foreach ($query->posts as &$post) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
         }
-        return $query->posts;
+
+        return $query;
     }
 
     /**
