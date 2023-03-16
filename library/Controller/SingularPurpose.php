@@ -53,8 +53,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $this->data['other'] = $this->getTermNames($fields['other']);
         $this->data['activities'] = $this->getTermNames($fields['activities']);
 
-        $this->data['guides'] = $this->getPosts('guide');
-
         $this->data['labels'] = [
             'related' => __('Related', 'municipio'),
             'showAll' => __('Show all', 'municipio'),
@@ -80,7 +78,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
                 }
             }
         }
-
 
         if (empty($arr)) {
             return false;
@@ -113,7 +110,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                     $posts[$postType->label] = $result;
                 }
-
             }
         }
 
