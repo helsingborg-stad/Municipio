@@ -71,7 +71,11 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
     private function getPosts($postId) {
         $taxonomies = get_post_taxonomies($postId);
-        $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'names');
+        $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
+
+        foreach($tests as $test) {
+            var_dump($test->label);
+        }
 
         $arr = [];
         foreach ($taxonomies as $taxonomy) {
@@ -92,7 +96,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         foreach ($postTypes as $postType) {
             $args = array(
                 'numberposts' => 3,
-                'post_type' => $postType,
+                'post_type' => $postType->name,
                 'post__not_in' => array($postId),
                 'tax_query' => array(
                     'relation' => 'OR',
@@ -113,12 +117,11 @@ class SingularPurpose extends \Municipio\Controller\Singular
             if (!empty($result)) {
                 foreach ($result as &$post) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
+                    $posts[$postType->label] = $result;
                 }
 
-                $posts[$postType] = $result;
             }
         }
-
 
         return $posts;
     }
