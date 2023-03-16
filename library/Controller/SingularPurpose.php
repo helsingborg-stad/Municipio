@@ -66,8 +66,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $postId = $this->data['post']->id;
         $this->data['relatedPosts'] = $this->getPosts($postId); 
 
-        var_dump($this->data['relatedPosts']);
-
         return $this->data;
     }
 
@@ -116,13 +114,12 @@ class SingularPurpose extends \Municipio\Controller\Singular
                 foreach ($result as &$post) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                 }
-                
+
                 $posts[$postType] = $result;
             }
         }
 
 
-        var_dump($posts);
         return $posts;
     }
 
