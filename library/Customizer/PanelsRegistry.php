@@ -265,11 +265,40 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_component_button')
                     ->setTitle(esc_html__('Buttons', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Button('municipio_customizer_section_component_button'))
-            )->addSection(
-                KirkiPanelSection::create()
+            )->addSubPanel(
+                KirkiPanel::create()
                     ->setID('municipio_customizer_section_navigation')
                     ->setTitle(esc_html__('Navigations', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Navigation('municipio_customizer_section_navigation'))
+                    ->addSection(
+                        KirkiPanelSection::create()
+                        ->setID('municipio_customizer_section_navigation_primary')
+                        ->setTitle(esc_html__('Primary', 'municipio'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Primary('municipio_customizer_section_navigation_primary'))
+                    )
+                    ->addSection(
+                        KirkiPanelSection::create()
+                        ->setID('municipio_customizer_section_navigation_quicklinks')
+                        ->setTitle(esc_html__('Quicklinks', 'municipio'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Quicklinks('municipio_customizer_section_navigation_quicklinks'))
+                    )
+                    ->addSection(
+                        KirkiPanelSection::create()
+                        ->setID('municipio_customizer_section_navigation_floating')
+                        ->setTitle(esc_html__('Floating', 'municipio'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Floating('municipio_customizer_section_navigation_floating'))
+                    )
+                    ->addSection(
+                        KirkiPanelSection::create()
+                        ->setID('municipio_customizer_section_navigation_language')
+                        ->setTitle(esc_html__('Language', 'municipio'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Language('municipio_customizer_section_navigation_language'))
+                    )
+                    ->addSection(
+                        KirkiPanelSection::create()
+                        ->setID('municipio_customizer_section_navigation_siteselector')
+                        ->setTitle(esc_html__('Site selector', 'municipio'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\SiteSelector('municipio_customizer_section_navigation_siteselector'))
+                    )
             )->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_hamburger_menu')
