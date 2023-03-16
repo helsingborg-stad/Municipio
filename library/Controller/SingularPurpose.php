@@ -56,9 +56,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $this->data['guides'] = $this->getPosts('guide');
 
         $this->data['labels'] = [
-            'relatedGuides' => __('Related guides & articles', 'municipio'),
-            'similarPlaces' => __('Similar places', 'municipio'),
-            'upcomingEvents' => __('Upcoming events', 'municipio'),
+            'related' => __('Related', 'municipio'),
             'showAll' => __('Show all', 'municipio'),
         ];
 
@@ -72,10 +70,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
     private function getPosts($postId) {
         $taxonomies = get_post_taxonomies($postId);
         $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
-
-        foreach($tests as $test) {
-            var_dump($test->label);
-        }
 
         $arr = [];
         foreach ($taxonomies as $taxonomy) {

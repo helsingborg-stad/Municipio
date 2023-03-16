@@ -46,7 +46,7 @@
                 @typography([
                     'element' => 'h2',
                 ])
-                    Related {{$postType}}
+                    {{$labels['related']}} {{$postType}}
                 @endtypography
                 @link([
                     'href' => get_post_type_archive_link($postType),
