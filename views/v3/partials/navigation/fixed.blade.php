@@ -4,7 +4,8 @@
         @header([
             'id'                => 'quicklinks-header',
             'classList' => [
-                'site-header'
+                'site-header',
+                's-nav-fixed'
             ],
             'context' => ['site.quicklinks'],
             'attributeList' => [
@@ -23,7 +24,6 @@
                                 'u-justify-content--space-evenly@lg',
                                 'u-flex-wrap@sm',
                                 'u-flex-wrap@xs',
-                                's-nav-fixed'
                             ],
                             'context' => ['site.quicklinks.nav'],
                             'height' => 'md',

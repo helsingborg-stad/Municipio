@@ -247,19 +247,9 @@ class PanelsRegistry
             ->setPriority(120)
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_header')
-                    ->setTitle(esc_html__('Header', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header('municipio_customizer_section_header'))
-            )->addSection(
-                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_siteselector')
                     ->setTitle(esc_html__('Siteselector', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Siteselector('municipio_customizer_section_siteselector'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_quicklinks')
-                    ->setTitle(esc_html__('Quicklinks', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Quicklinks('municipio_customizer_section_quicklinks'))
             )->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_component_button')
