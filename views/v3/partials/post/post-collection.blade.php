@@ -4,6 +4,9 @@
         'classList' => ['o-grid']
     ])
         @foreach ($posts as $post)
+            @php
+                echo '<pre>' . print_r($post, true) . '</pre>';
+            @endphp
             @collection__item([
                 'link' => $post->permalink,
                 'classList' => [$gridColumnClass]
