@@ -5,7 +5,7 @@
     ])
         @foreach ($posts as $post)
             @collection__item([
-                'link' => $post->href,
+                'link' => $post->permalink,
                 'classList' => [$gridColumnClass]
             ])
                 @group(['direction' => 'horizontal', 'classList' => ['o-grid', 'u-padding--0']])
